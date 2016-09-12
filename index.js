@@ -1,6 +1,6 @@
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
-// var S3Adapter = require('parse-server').S3Adapter;
+ var S3Adapter = require('parse-server').S3Adapter;
 var path = require('path');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
@@ -32,6 +32,7 @@ var api = new ParseServer({
 	/* The public URL of your app */
 	// This will appear in the link that is used to verify email addresses and reset passwords.
 	/* Set the mount path as it is in serverURL */
+	//TODO add append parse if necessary
 	 publicServerURL: process.env.SERVER_URL || 'http://localhost:1337/parse',
 	/* This will appear in the subject and body of the emails that are sent */
 	 appName: process.env.APP_NAME || "CodeCraft",
@@ -46,11 +47,14 @@ var api = new ParseServer({
 	 },
 	
 	//**** File Storage ****//
-	// filesAdapter: new S3Adapter(
-	// 	{
-	// 		directAccess: true
-	// 	}
-	// )
+	 filesAdapter: new S3Adapter(
+         "AKIAIK4H65MXJJMO7Q6A",
+         "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
+         "cyfa",
+	 	{
+	 		directAccess: true
+	 	}
+	 )
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
 // If you wish you require them, you can set them as options in the initialization above:
