@@ -22,9 +22,9 @@ var api = new ParseServer({
 	masterKey: process.env.MASTER_KEY || 'myMasterKey', //Add your master key here. Keep it secret!	
 	
 	//**** Live Query ****//
-	// liveQuery: {
-	// 	classNames: ["TestObject", "Place", "Team", "Player", "ChatMessage"] // List of classes to support for query subscriptions
-	// },
+	 liveQuery: {
+	 	classNames: ["TestObject", "Place", "Team", "Player", "ChatMessage"] // List of classes to support for query subscriptions
+	 },
 
 	//**** Email Verification ****//
 	/* Enable email verification */
@@ -54,6 +54,11 @@ var api = new ParseServer({
 	 	{
 	 		directAccess: true
 	 	}
+         /*
+         S3_BUCKET
+         S3_ACCESS_KEY
+         S3_SECRET_KEY
+         * */
 	 )
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
