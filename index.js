@@ -38,11 +38,11 @@ var api = new ParseServer({
 	 appName: process.env.APP_NAME || "CodeCraft",
 
 	 emailAdapter: {
-	 	module: 'parse-server-simple-mailgun-adapter',
+	 	module: 'parse-server-sendgrid-adapter',
 	 	options: {
 	 		fromAddress: process.env.EMAIL_FROM || "test@example.com",
-	 		domain: process.env.MAILGUN_DOMAIN || "example.com",
-	 		apiKey: process.env.MAILGUN_API_KEY  || "apikey"
+	 		//domain: process.env.SENDGRID_DOMAIN || "example.com",
+	 		apiKey: process.env.SENDGRID_API_KEY  || "apikey"
 	 	}
 	 },
 	
