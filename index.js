@@ -48,7 +48,7 @@ var api = new ParseServer({
 	 },*/
 
     emailAdapter: SimpleSendGridAdapter({
-        apiKey: process.env.SENDGRID_API_KEY  || "apikey"
+        apiKey: process.env.SENDGRID_API_KEY  || "apikey",
         fromAddress: process.env.EMAIL_FROM || "test@example.com",
     }),
 	
