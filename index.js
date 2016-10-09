@@ -36,7 +36,7 @@ var api = new ParseServer({
 	//TODO add append parse if necessary
 	 publicServerURL: process.env.SERVER_URL || 'http://localhost:1337/parse',
 	/* This will appear in the subject and body of the emails that are sent */
-	 appName: process.env.APP_NAME || "CodeCraft",
+	 appName: process.env.APP_NAME || "Effective Email Marketing",
 
 	/* emailAdapter: {
 	 	module: 'parse-server-sendgrid-adapter',
