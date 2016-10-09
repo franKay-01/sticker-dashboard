@@ -1,6 +1,7 @@
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
  var S3Adapter = require('parse-server').S3Adapter;
+var SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
 var path = require('path');
 //var cors = require('cors'); // import the module
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
@@ -37,14 +38,19 @@ var api = new ParseServer({
 	/* This will appear in the subject and body of the emails that are sent */
 	 appName: process.env.APP_NAME || "CodeCraft",
 
-	 emailAdapter: {
+	/* emailAdapter: {
 	 	module: 'parse-server-sendgrid-adapter',
 	 	options: {
 	 		fromAddress: process.env.EMAIL_FROM || "test@example.com",
 	 		//domain: process.env.SENDGRID_DOMAIN || "example.com",
 	 		apiKey: process.env.SENDGRID_API_KEY  || "apikey"
 	 	}
-	 },
+	 },*/
+
+    emailAdapter: SimpleSendGridAdapter({
+        apiKey: process.env.SENDGRID_API_KEY  || "apikey"
+        fromAddress: process.env.EMAIL_FROM || "test@example.com",
+    }),
 	
 	//**** File Storage ****//
 	 filesAdapter: new S3Adapter(
