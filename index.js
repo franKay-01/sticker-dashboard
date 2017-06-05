@@ -3,7 +3,7 @@ var ParseServer = require('parse-server').ParseServer;
  var S3Adapter = require('parse-server').S3Adapter;
 var SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
 var path = require('path');
-var cors = require('cors'); // import the module
+// var cors = require('cors'); // import the module
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
 if (!databaseUri) {
@@ -72,7 +72,7 @@ var api = new ParseServer({
 // javascriptKey, restAPIKey, dotNetKey, clientKey
 
 var app = express();
-app.use(cors());
+// app.use(cors());
 
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
