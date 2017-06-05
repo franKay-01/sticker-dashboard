@@ -102,15 +102,32 @@ app.get('/', function (req, res) {
     res.render("pages/index");
 });
 
-app.get('/about', function (req, res) {
-	res.sendFile(path.join(__dirname, '/public/about.html'));
+// Add Stickers
+app.get('/stickers', function (req, res) {
+    // res.sendFile(path.join(__dirname, '/public/stickers.ejs'));
+    res.render("pages/stickers", {});
 });
 
-// There will be a test page available on the /test path of your server url
-// Remove this before launching your app
-app.get('/test', function (req, res) {
-	res.sendFile(path.join(__dirname, '/public/test.html'));
+// Dashboard
+app.get('/dashboard', function (req, res) {
+    // res.sendFile(path.join(__dirname, '/public/dashboard.ejs'));
+    res.render("pages/dashboard", {});
 });
+
+//Sign up page
+app.get('/signup', function (req, res) {
+    res.render("pages/signup", {});
+});
+
+// app.get('/about', function (req, res) {
+// 	res.sendFile(path.join(__dirname, '/public/about.html'));
+// });
+//
+// // There will be a test page available on the /test path of your server url
+// // Remove this before launching your app
+// app.get('/test', function (req, res) {
+// 	res.sendFile(path.join(__dirname, '/public/test.html'));
+// });
 
 
 
