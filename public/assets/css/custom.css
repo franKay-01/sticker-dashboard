@@ -1,0 +1,153 @@
+body {
+    background-image: url(../images/imgHeader.png);
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: 70%;
+    font-family: 'Open Sans', sans-serif;
+    color: white !important;
+}
+
+
+a {
+    color: white;
+    font-size: large;
+}
+
+a.sign-in {
+    font-weight: 600;
+}
+
+a:hover, a:visited, a:active {
+    color: white !important;
+}
+
+.logo {
+    width: 67px;
+    height: 62px;
+}
+
+.header-top-spacing {
+    margin-top: 50px;
+}
+
+.primary-color {
+    color: #464B9C;
+}
+
+.secondary-color {
+    color: #373C85;
+}
+
+.primary-background-color {
+    background-color: #464B9C;
+}
+
+.secondary-background-color {
+    background-color: #373C85;
+}
+
+.primary-font {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.font-weight-400 {
+    font-weight: 400;
+}
+
+.font-weight-500 {
+    font-weight: 500;
+}
+
+.font-weight-600 {
+    font-weight: 600;
+}
+
+.font-weight-700 {
+    font-weight: 700;
+}
+
+.logo-text {
+    color: white;
+    margin: 0;
+    padding: 0;
+    font-weight: 300;
+}
+
+.beta-text {
+    color: white;
+    font-weight: 600;
+}
+
+.margin-top-60 {
+    margin-top: 60px;
+}
+
+input:not([type]), input[type=text], input[type=password], input[type=email],
+input[type=url], input[type=time], input[type=date], input[type=datetime],
+input[type=datetime-local], input[type=tel], input[type=number],
+input[type=search], textarea.materialize-textarea {
+    border-bottom: 2px solid white;
+}
+
+#signlink {
+    font-weight: bold;
+}
+
+#signlink:hover {
+text-decoration: underline;
+}
+
+#contact {
+    background: #F9F9F9;
+    color: black;
+    height: 350px;
+    padding: 15px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+#uname,
+#pwd{
+    width: 100%;
+    background: ghostwhite;
+    /*margin: 10;*/
+    border: 1px solid darkgrey;
+}
+
+.container {
+    max-width: 400px;
+    width: 100%;
+    margin-top: 40px;
+    position: relative;
+    background: whitesmoke;
+}
+
+#loginSubmit {
+    cursor: pointer;
+    width: 100%;
+    background: #464B9C;
+    color: #FFF;
+    margin: 7px;
+    padding: 10px;
+    font-size: 20px;
+    transition: 0.5s;
+}
+
+#sp {
+    text-align: center;
+}
+
+#loginSubmit:hover {
+    background: white;
+    color: #464B9C;
+    transition: 0.5s;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+#signup {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+fieldset {
+    border: none;
+}
