@@ -15,6 +15,7 @@ $(document).ready(function () {
         Parse.initialize("cryptic-waters12");
         Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
+        var user = new Parse.User();
         console.log(Parse.User.current());
 
         //input fields
@@ -38,6 +39,12 @@ $(document).ready(function () {
                         console.error(error);
                     });
             }
+        });
+
+        $("#signout").click(function()
+        {
+            user.logOut();
+            window.location("https://cryptic-waters-41617.herokuapp.com/");
         });
 
 }

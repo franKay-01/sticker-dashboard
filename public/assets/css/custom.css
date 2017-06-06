@@ -89,11 +89,11 @@ input[type=search], textarea.materialize-textarea {
     border-bottom: 2px solid white;
 }
 
-#signlink {
+.signlink {
     font-weight: bold;
 }
 
-#signlink:hover {
+.signlink:hover {
 text-decoration: underline;
 }
 
