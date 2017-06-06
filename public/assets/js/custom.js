@@ -14,15 +14,18 @@ $(document).ready(function () {
         Parse.initialize("cryptic-waters12");
         Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
-
-        $("#signout").click(function()
+    //log user out
+        function logOut()
         {
             Parse.User.logOut().then(function()
             {
                 alert("Logged out");
-                window.location("https://cryptic-waters-41617.herokuapp.com/");
+                window.location ="https://cryptic-waters-41617.herokuapp.com/";
             });
-        });
+        }
+
+        //call logOut function when button is clicked
+        $("#signout").click(logOut());
         console.log(Parse.User.current());
 
 
@@ -36,7 +39,7 @@ $(document).ready(function () {
             {
                 Parse.User.logIn($("#uname").val(), $("#pwd").val()).then(function success()
                     {
-                        window.location("https://cryptic-waters-41617.herokuapp.com/dashboard");
+                        window.location ="https://cryptic-waters-41617.herokuapp.com/dashboard";
                     },
                     function err(error)
                     {
