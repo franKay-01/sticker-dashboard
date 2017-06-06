@@ -3,7 +3,8 @@ var ParseServer = require('parse-server').ParseServer;
  var S3Adapter = require('parse-server').S3Adapter;
 var SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
 var path = require('path');
-var cors = require('cors'); // import the module
+var cors = require('cors');
+var Parse = require("parse"); // import the module
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
 if (!databaseUri) {
@@ -128,6 +129,9 @@ app.get('/signup', function (req, res) {
 // app.get('/test', function (req, res) {
 // 	res.sendFile(path.join(__dirname, '/public/test.html'));
 // });
+Parse.initialize("cryptic-waters12");
+Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
+console.log(Parse.User.current());
 
 
 
