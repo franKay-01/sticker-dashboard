@@ -25,19 +25,16 @@ $(document).ready(function () {
         });
         console.log(Parse.User.current());
 
-        //input fields
-    var uname = $("#uname").val();
-    var passwd = $("#pwd").val();
 
         $('#loginSubmit').click(function()
         {
-            if(!uname || !passwd)
+            if(!($("#uname").val()) || !($("#pwd").val()))
             {
                 window.alert("Fill fields first");
             }
             else
             {
-                Parse.User.logIn(uname, passwd).then(function success()
+                Parse.User.logIn($("#uname").val(), $("#pwd").val()).then(function success()
                     {
                         window.location("https://cryptic-waters-41617.herokuapp.com/dashboard");
                     },
