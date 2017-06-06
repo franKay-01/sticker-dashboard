@@ -26,7 +26,7 @@ $(document).ready(function () {
 
         $('#loginSubmit').click(function()
         {
-            if(uname == "" || passwd == "")
+            if(uname == '' || passwd == '')
             {
                 window.alert("Fill fields first");
             }
