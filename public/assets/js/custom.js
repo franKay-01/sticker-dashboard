@@ -19,7 +19,7 @@ $(document).ready(function () {
         {
             Parse.User.logOut().then(function()
             {
-                alert("Logged out");
+                console.log("Logged out");
                 window.location ="https://cryptic-waters-41617.herokuapp.com/";
             });
         }
