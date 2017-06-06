@@ -43,7 +43,9 @@ $(document).ready(function () {
                         console.error(error);
                     });
             }
-        });
+            console.log($("#uname").val() + $("#pwd").val());
+        }
+        );
 }
 );
 
