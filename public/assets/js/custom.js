@@ -16,7 +16,7 @@ $(document).ready(function () {
         Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
         var user = new Parse.User();
-        console.log(Parse.User.current());
+
         $("#signout").click(function()
         {
             user.logOut().then(function()
@@ -25,6 +25,7 @@ $(document).ready(function () {
                 window.location("https://cryptic-waters-41617.herokuapp.com/");
             });
         });
+        console.log(Parse.User.current());
 
         //input fields
     var uname = $("#uname").val();
@@ -32,11 +33,7 @@ $(document).ready(function () {
 
         $('#loginSubmit').click(function()
         {
-            if(!uname || !passwd)
-            {
-                window.alert("Fill fields first");
-            }
-            else
+            if(uname && passwd)
             {
                 user.logIn(uname, passwd).then(function success()
                     {
@@ -46,6 +43,10 @@ $(document).ready(function () {
                     {
                         console.error(error);
                     });
+            }
+            else
+            {
+                window.alert("Fill fields first");
             }
         });
 }
