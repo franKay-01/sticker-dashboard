@@ -130,12 +130,12 @@ app.get('/signup', function (req, res) {
 // 	res.sendFile(path.join(__dirname, '/public/test.html'));
 // });
 
-$(document).ready(function ()
-{
-    Parse.initialize("cryptic-waters12");
-    Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
-    console.log(Parse.User.current());
-});
+// $(document).ready(function ()
+// {
+//     Parse.initialize("cryptic-waters12");
+//     Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
+//     console.log(Parse.User.current());
+// });
 
 
 var port = process.env.PORT || 1337;
