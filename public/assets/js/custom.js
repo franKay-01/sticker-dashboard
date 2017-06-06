@@ -12,12 +12,12 @@ $(document).ready(function () {
     );
 
         // Create User in Parse
-        Parse.initialize("cryptic-waters12");
-        Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
-
-        var user = Parse.User;
-        user.set("username", "cyfa12");
-        user.set("password", "hash$1");
+        // Parse.initialize("cryptic-waters12");
+        // Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
+        //
+        // var user = Parse.User;
+        // user.set("username", "cyfa12");
+        // user.set("password", "hash$1");
 
         // $('#loginSubmit').click(function()
         // {
