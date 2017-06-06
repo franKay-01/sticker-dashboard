@@ -21,12 +21,12 @@ $(document).ready(function () {
         console.log(Parse.User.current());
 
         //input fields
-    var uname = $('#uname').val();
-    var passwd = $("#pwd").val();
+    // var uname = $("#uname").val();
+    // var passwd = $("#pwd").val();
 
         $('#loginSubmit').click(function()
         {
-            if(uname == '' || passwd == '')
+            if(!($("#uname").val()) || !($("#pwd").val()))
             {
                 window.alert("Fill fields first");
             }
