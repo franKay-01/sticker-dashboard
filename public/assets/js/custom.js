@@ -43,8 +43,11 @@ $(document).ready(function () {
 
         $("#signout").click(function()
         {
-            user.logOut();
-            window.location("https://cryptic-waters-41617.herokuapp.com/");
+            user.logOut().then(function()
+            {
+                alert("Logged out");
+                window.location("https://cryptic-waters-41617.herokuapp.com/");
+            });
         });
 
 }
