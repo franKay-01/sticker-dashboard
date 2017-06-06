@@ -17,6 +17,14 @@ $(document).ready(function () {
 
         var user = new Parse.User();
         console.log(Parse.User.current());
+        $("#signout").click(function()
+        {
+            user.logOut().then(function()
+            {
+                alert("Logged out");
+                window.location("https://cryptic-waters-41617.herokuapp.com/");
+            });
+        });
 
         //input fields
     var uname = $("#uname").val();
@@ -40,16 +48,6 @@ $(document).ready(function () {
                     });
             }
         });
-
-        $("#signout").click(function()
-        {
-            user.logOut().then(function()
-            {
-                alert("Logged out");
-                window.location("https://cryptic-waters-41617.herokuapp.com/");
-            });
-        });
-
 }
 );
 
