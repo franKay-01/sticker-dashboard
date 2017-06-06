@@ -32,9 +32,11 @@ $(document).ready(function () {
             }
             else
             {
+                var uname = $("#uname").val();
+                var passwd = $("#pwd").val();
                 user.logIn(uname, passwd).then(function success()
                     {
-                        window.alert("success login");
+                        window.location("https://www.memecenter.com/");
                     },
                     function err(error)
                     {
