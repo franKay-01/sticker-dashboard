@@ -15,25 +15,20 @@ $(document).ready(function () {
         Parse.initialize("cryptic-waters12");
         Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
-        var user = new Parse.User();
-        user.set("username", "engmann");
-        user.set("password", "12elve");
         console.log(Parse.User.current());
 
         //input fields
-    // var uname = $("#uname").val();
-    // var passwd = $("#pwd").val();
+    var uname = $("#uname").val();
+    var passwd = $("#pwd").val();
 
         $('#loginSubmit').click(function()
         {
-            if(!($("#uname").val()) || !($("#pwd").val()))
+            if(!name || !passwd)
             {
                 window.alert("Fill fields first");
             }
             else
             {
-                var uname = $("#uname").val();
-                var passwd = $("#pwd").val();
                 user.logIn(uname, passwd).then(function success()
                     {
                         window.location("https://www.memecenter.com/");
