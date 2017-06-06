@@ -15,16 +15,16 @@ $(document).ready(function () {
         Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
     //log user out
-        function logOut()
+
+
+        //call logOut function when button is clicked
+        $("#signout").click(function logOut()
         {
             Parse.User.logOut().then(function()
             {
                 console.log("Logged out");
             });
-        }
-
-        //call logOut function when button is clicked
-        $("#signout").click(logOut());
+        });
             // window.location ="https://cryptic-waters-41617.herokuapp.com/");
         console.log(Parse.User.current());
 
