@@ -20,13 +20,12 @@ $(document).ready(function () {
             Parse.User.logOut().then(function()
             {
                 console.log("Logged out");
-
             });
         }
 
         //call logOut function when button is clicked
-        $("#signout").click(logOut(),
-            window.location ="https://cryptic-waters-41617.herokuapp.com/");
+        $("#signout").click(logOut());
+            // window.location ="https://cryptic-waters-41617.herokuapp.com/");
         console.log(Parse.User.current());
 
 
