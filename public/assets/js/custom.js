@@ -23,7 +23,7 @@ $(document).ready(function () {
 
         $('#loginSubmit').click(function()
         {
-            if(!name || !passwd)
+            if(!uname || !passwd)
             {
                 window.alert("Fill fields first");
             }
