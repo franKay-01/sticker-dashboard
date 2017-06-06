@@ -20,16 +20,27 @@ $(document).ready(function () {
         user.set("password", "12elve");
         console.log(Parse.User.current());
 
+        //input fields
+    var uname = $('#uname').val();
+    var passwd = $("#pwd").val();
+
         $('#loginSubmit').click(function()
         {
-            user.logIn("engmann", "12elve").then(function()
+            if(uname == "" || passwd == "")
             {
-                alert("success login");
-            },
-            function err(error)
+                window.alert("Fill fields first");
+            }
+            else
             {
-                console.error(error);
-            });
+                user.logIn(uname, passwd).then(function success()
+                    {
+                        window.alert("success login");
+                    },
+                    function err(error)
+                    {
+                        console.error(error);
+                    });
+            }
         });
 
 }
