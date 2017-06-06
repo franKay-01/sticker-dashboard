@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
 
 </head>
 
@@ -37,24 +39,11 @@
             <div class="columns large-8 small-12">
                 <h3 class="logo-text primary-font">Cyfa</h3>
                 <h4 class="primary-font beta-text">Beta Program</h4>
+                <!--link to dashboard and stickers-->
+                <%- include('../partials/links') %>
             </div>
-
-            <!-- Links -->
-            <div class="columns large-3 small-12">
-                <div class="row">
-                    <div class="columns large-3 small-12">
-                        <a href="/stickers">Stickers</a>
-                    </div>
-                    <div class="columns large-5 small-12">
-                        <a class="sign-in" href="/dashboard">Dashboard</a>
-                    </div>
-                    <div class="columns large-4 small-12">
-                        <br>
-                    </div>
-                </div>
-            </div>
-            <!-- Links -->
-
+            <!--Link to sign up page-->
+            <a id="signlink" href="/signup">SIGN UP HERE</a>
         </div>
 
     </div>

@@ -31,7 +31,7 @@ $(document).ready(function () {
             {
                 user.logIn(uname, passwd).then(function success()
                     {
-                        window.location("https://www.memecenter.com/");
+                        window.location("https://cryptic-waters-41617.herokuapp.com/dashboard");
                     },
                     function err(error)
                     {
