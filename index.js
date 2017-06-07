@@ -118,7 +118,7 @@ app.post('/login', function (req, res) {
 	},function(error){
 
     	//error goes here
-        res.render("pages/dashboard", {
+        res.render("pages/signup", {
             error:error.message
         });
 
