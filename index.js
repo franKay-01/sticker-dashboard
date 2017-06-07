@@ -4,7 +4,7 @@ var ParseServer = require('parse-server').ParseServer;
 var SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
 var path = require('path');
 var cors = require('cors');
-var Parse = require("parse"); // import the module
+var Parse = require("parse/node"); // import the module
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
 if (!databaseUri) {
@@ -99,6 +99,31 @@ app.use(mountPath, api);
 
 // Home Page
 app.get('/', function (req, res) {
+    //res.sendFile(path.join(__dirname, '/public/index.ejs'));
+    res.render("pages/index");
+});
+
+
+app.post('/login', function (req, res) {
+
+	var username = req.params.username;
+	var password = req.params.password;
+    Parse.logIn(username,password).then(function(user){
+
+    	//success goes here
+        res.render("pages/dashboard", {
+        	sessionToken:user.getSessionToken()
+		});
+
+	},function(error){
+
+    	//error goes here
+        res.render("pages/dashboard", {
+            error:error.message
+        });
+
+	});
+
     //res.sendFile(path.join(__dirname, '/public/index.ejs'));
     res.render("pages/index");
 });
