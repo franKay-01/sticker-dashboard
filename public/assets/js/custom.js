@@ -14,10 +14,7 @@ $(document).ready(function () {
         Parse.initialize("cryptic-waters12");
         Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
-    //log user out
-
-
-        //call logOut function when button is clicked
+        //logOut  when button is clicked
         $("#signout").click(function logOut()
         {
             Parse.User.logOut().then(function()
@@ -46,7 +43,7 @@ $(document).ready(function () {
                         console.error(error);
                     });
             }
-            console.log($("#uname").val() + $("#pwd").val());
+            // console.log($("#uname").val() + $("#pwd").val());
         }
         );
 }
