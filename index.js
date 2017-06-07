@@ -110,9 +110,9 @@ app.get('/', function (req, res) {
 //login the user in using Parse
 app.post('/login', function (req, res) {
 
-    var username = req.param.username;
-    var password = req.param.password;
-    console.log("params: " + JSON.stringify(req.param));
+    var username = req.body.username;
+    var password = req.body.password;
+    console.log("params: " + JSON.stringify(req.body));
     Parse.User.logIn(username, password).then(function (user) {
 
         //success goes here
