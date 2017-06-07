@@ -112,7 +112,7 @@ app.post('/login', function (req, res) {
 
     var username = req.params.username;
     var password = req.params.password;
-    console.log(JSON.stringify(req.params));
+    console.log("params: " + JSON.stringify(req.params));
     Parse.User.logIn(username, password).then(function (user) {
 
         //success goes here
