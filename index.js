@@ -5,6 +5,9 @@ var SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
 var path = require('path');
 var cors = require('cors');
 var Parse = require("parse/node"); // import the module
+var bodyParser  = require('body-parser');
+var cookieParser = require('cookie-parser');
+
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
 Parse.initialize("cryptic-waters12");
@@ -77,7 +80,20 @@ var api = new ParseServer({
 // javascriptKey, restAPIKey, dotNetKey, clientKey
 
 var app = express();
+
 app.use(cors());
+app.use(bodyParser.json());   // Middleware for reading request body
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(cookieParser('A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK'));
+
+//app.use(parseExpressHttpsRedirect());
+
+//TODO use to pass basic functionality to template
+//app.locals.filters = filters;
+
+
 app.all('*', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
