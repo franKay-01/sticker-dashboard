@@ -109,24 +109,24 @@ app.get('/', function (req, res) {
 //login the user in using Parse
 app.post('/login', function (req, res) {
 
-	var username = req.params.username;
-	var password = req.params.password;
-    Parse.User.logIn(username,password).then(function(user){
+    var username = req.params.username;
+    var password = req.params.password;
+    Parse.User.logIn(username, password).then(function (user) {
 
-    	//success goes here
+        //success goes here
         res.cookie('token', user.getSessionToken());
         res.render("pages/dashboard");
     }, function (error) {
-
-    	//error goes here
+        console.log(error);
+        //error goes here
         res.render("pages/signup", {
-            error:error.message
+            error: error.message
         });
 
     });
 
     //res.sendFile(path.join(__dirname, '/public/index.ejs'));
-   // res.render("pages/index");
+    // res.render("pages/index");
 });
 
 app.post('/logout', function (req, res) {
