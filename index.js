@@ -148,7 +148,6 @@ app.post('/login', function (req, res) {
 });
 
 app.get('/logout', function (req, res) {
-
     Parse.User.logOut();
     res.cookie('token', "");
     res.render("pages/signup");

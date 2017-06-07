@@ -164,3 +164,9 @@ input[type=search], textarea.materialize-textarea {
 fieldset {
     border: none;
 }
+
+#sticker {
+    background-color: white;
+    border: 2px solid black;
+    height: 400px;
+}
