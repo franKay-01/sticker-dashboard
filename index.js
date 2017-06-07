@@ -125,7 +125,7 @@ app.post('/login', function (req, res) {
 	});
 
     //res.sendFile(path.join(__dirname, '/public/index.ejs'));
-    res.render("pages/index");
+   // res.render("pages/index");
 });
 
 // Add Stickers
