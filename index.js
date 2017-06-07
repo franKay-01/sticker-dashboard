@@ -25,11 +25,12 @@ var api = new ParseServer({
     // allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
     appId: process.env.APP_ID || 'myAppId',
     masterKey: process.env.MASTER_KEY || 'myMasterKey', //Add your master key here. Keep it secret!
+    verbose: process.env.VERBOSE || true,
 
     //**** Live Query ****//
-    liveQuery: {
-        classNames: ["TestObject", "Place", "Team", "Player", "ChatMessage"] // List of classes to support for query subscriptions
-    },
+    // liveQuery: {
+    //     classNames: ["TestObject", "Place", "Team", "Player", "ChatMessage"] // List of classes to support for query subscriptions
+    // },
 
     //**** Email Verification ****//
     /* Enable email verification */
@@ -175,4 +176,4 @@ httpServer.listen(port, function () {
 
 
 // This will enable the Live Query real-time server
-ParseServer.createLiveQueryServer(httpServer);
+// ParseServer.createLiveQueryServer(httpServer);
