@@ -5,6 +5,9 @@ var SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
 var path = require('path');
 var cors = require('cors');
 var Parse = require("parse/node"); // import the module
+var bodyParser  = require('body-parser');
+var cookieParser = require('cookie-parser');
+
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
 Parse.initialize("cryptic-waters12");
@@ -79,28 +82,16 @@ var api = new ParseServer({
 var app = express();
 
 app.use(cors());
-app.use(express.bodyParser());    // Middleware for reading request body
-app.use(express.methodOverride()); //Middleware that allows you to receive an HTTP delete or put
-app.use(express.cookieParser('SECRET_SIGNING_KEY'));
-app.use(parseExpressHttpsRedirect());
-app.use(express.cookieSession({
-    secret: 'current.user'
+app.use(bodyParser.json());   // Middleware for reading request body
+app.use(bodyParser.urlencoded({
+    extended: true
 }));
-app.use(express.csrf());
-app.use(function (req, res, next) {
-    // Custom middleware for making csrf token available in EJS templates
-    res.locals.csrf_field = req.session._csrf;
-    next();
-});
-app.use(parseExpressCookieSession({
-    fetchUser: true,
-    key: 'bm.char',
-    cookie: {
-        maxAge: 3600000 * 24 * 30
-    }
-}));
-//parse filters module so it can be used in templates
-app.locals.filters = filters;
+app.use(cookieParser('A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK'));
+
+//app.use(parseExpressHttpsRedirect());
+
+//TODO use to pass basic functionality to template
+//app.locals.filters = filters;
 
 
 app.all('*', function (req, res, next) {
