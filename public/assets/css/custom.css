@@ -168,5 +168,10 @@ fieldset {
 #sticker {
     background-color: white;
     border: 2px solid black;
-    height: 400px;
+    height: 350px;
+}
+
+#abi {
+    height: 350px;
+    width:  250px;
 }
