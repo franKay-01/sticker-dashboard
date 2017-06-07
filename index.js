@@ -77,7 +77,32 @@ var api = new ParseServer({
 // javascriptKey, restAPIKey, dotNetKey, clientKey
 
 var app = express();
+
 app.use(cors());
+app.use(express.bodyParser());    // Middleware for reading request body
+app.use(express.methodOverride()); //Middleware that allows you to receive an HTTP delete or put
+app.use(express.cookieParser('SECRET_SIGNING_KEY'));
+app.use(parseExpressHttpsRedirect());
+app.use(express.cookieSession({
+    secret: 'current.user'
+}));
+app.use(express.csrf());
+app.use(function (req, res, next) {
+    // Custom middleware for making csrf token available in EJS templates
+    res.locals.csrf_field = req.session._csrf;
+    next();
+});
+app.use(parseExpressCookieSession({
+    fetchUser: true,
+    key: 'bm.char',
+    cookie: {
+        maxAge: 3600000 * 24 * 30
+    }
+}));
+//parse filters module so it can be used in templates
+app.locals.filters = filters;
+
+
 app.all('*', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');

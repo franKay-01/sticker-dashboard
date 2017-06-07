@@ -49,6 +49,7 @@
         <form id="contact" action="/login" method="post">
             <span id="sp">Enter Username and Password</span>
             <fieldset>
+                <input type='hidden' name='_csrf' value='<%= locals.csrf_field %>'/>
                 <input id="uname" placeholder="Username or email" type="email" tabindex="1" name="username"
                        autofocus><br>
                 <input id="pwd" placeholder="Password" type="password" name="password" tabindex="2"><br>
