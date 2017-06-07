@@ -108,7 +108,7 @@ app.post('/login', function (req, res) {
 
 	var username = req.params.username;
 	var password = req.params.password;
-    Parse.logIn(username,password).then(function(user){
+    Parse.User.logIn(username,password).then(function(user){
 
     	//success goes here
         res.render("pages/dashboard", {
