@@ -1,6 +1,6 @@
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
- var S3Adapter = require('parse-server').S3Adapter;
+var S3Adapter = require('parse-server').S3Adapter;
 var SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
 var path = require('path');
 var cors = require('cors');
@@ -8,65 +8,65 @@ var Parse = require("parse/node"); // import the module
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
 if (!databaseUri) {
-	console.log('DATABASE_URI not specified, falling back to localhost.');
+    console.log('DATABASE_URI not specified, falling back to localhost.');
 }
 
 var api = new ParseServer({
-	//**** General Settings ****//
+    //**** General Settings ****//
 
-	databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
-	cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
-	serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
-	
-	//**** Security Settings ****//
-	// allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false, 
-	appId: process.env.APP_ID || 'myAppId',
-	masterKey: process.env.MASTER_KEY || 'myMasterKey', //Add your master key here. Keep it secret!	
-	
-	//**** Live Query ****//
-	 liveQuery: {
-	 	classNames: ["TestObject", "Place", "Team", "Player", "ChatMessage"] // List of classes to support for query subscriptions
-	 },
+    databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
+    cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
+    serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
 
-	//**** Email Verification ****//
-	/* Enable email verification */
-	 verifyUserEmails: true,
-	/* The public URL of your app */
-	// This will appear in the link that is used to verify email addresses and reset passwords.
-	/* Set the mount path as it is in serverURL */
-	//TODO add append parse if necessary
-	 publicServerURL: process.env.SERVER_URL || 'http://localhost:1337/parse',
-	/* This will appear in the subject and body of the emails that are sent */
-	 appName: process.env.APP_NAME || "Effective Email Marketing",
+    //**** Security Settings ****//
+    // allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
+    appId: process.env.APP_ID || 'myAppId',
+    masterKey: process.env.MASTER_KEY || 'myMasterKey', //Add your master key here. Keep it secret!
 
-	/* emailAdapter: {
-	 	module: 'parse-server-sendgrid-adapter',
-	 	options: {
-	 		fromAddress: process.env.EMAIL_FROM || "test@example.com",
-	 		//domain: process.env.SENDGRID_DOMAIN || "example.com",
-	 		apiKey: process.env.SENDGRID_API_KEY  || "apikey"
-	 	}
-	 },*/
+    //**** Live Query ****//
+    liveQuery: {
+        classNames: ["TestObject", "Place", "Team", "Player", "ChatMessage"] // List of classes to support for query subscriptions
+    },
+
+    //**** Email Verification ****//
+    /* Enable email verification */
+    verifyUserEmails: true,
+    /* The public URL of your app */
+    // This will appear in the link that is used to verify email addresses and reset passwords.
+    /* Set the mount path as it is in serverURL */
+    //TODO add append parse if necessary
+    publicServerURL: process.env.SERVER_URL || 'http://localhost:1337/parse',
+    /* This will appear in the subject and body of the emails that are sent */
+    appName: process.env.APP_NAME || "Effective Email Marketing",
+
+    /* emailAdapter: {
+     module: 'parse-server-sendgrid-adapter',
+     options: {
+     fromAddress: process.env.EMAIL_FROM || "test@example.com",
+     //domain: process.env.SENDGRID_DOMAIN || "example.com",
+     apiKey: process.env.SENDGRID_API_KEY  || "apikey"
+     }
+     },*/
 
     emailAdapter: SimpleSendGridAdapter({
-        apiKey: process.env.SENDGRID_API_KEY  || "apikey",
+        apiKey: process.env.SENDGRID_API_KEY || "apikey",
         fromAddress: process.env.EMAIL_FROM || "test@example.com",
     }),
-	
-	//**** File Storage ****//
-	 filesAdapter: new S3Adapter(
-         "AKIAIK4H65MXJJMO7Q6A",
-         "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
-         "cyfa",
-	 	{
-	 		directAccess: true
-	 	}
-         /*
+
+    //**** File Storage ****//
+    filesAdapter: new S3Adapter(
+        "AKIAIK4H65MXJJMO7Q6A",
+        "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
+        "cyfa",
+        {
+            directAccess: true
+        }
+        /*
          S3_BUCKET
          S3_ACCESS_KEY
          S3_SECRET_KEY
          * */
-	 )
+    )
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
 // If you wish you require them, you can set them as options in the initialization above:
@@ -81,7 +81,7 @@ app.all('*', function (req, res, next) {
     next();
 });
 
-app.all('/', function(req, res, next) {
+app.all('/', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     next();
@@ -90,7 +90,6 @@ app.all('/', function(req, res, next) {
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
 app.set('view engine', 'ejs');
-
 
 
 // Serve the Parse API on the /parse URL prefix
@@ -106,23 +105,23 @@ app.get('/', function (req, res) {
 
 app.post('/login', function (req, res) {
 
-	var username = req.params.username;
-	var password = req.params.password;
-    Parse.logIn(username,password).then(function(user){
+    var username = req.params.username;
+    var password = req.params.password;
+    Parse.logIn(username, password).then(function (user) {
 
-    	//success goes here
+        //success goes here
         res.render("pages/dashboard", {
-        	sessionToken:user.getSessionToken()
-		});
-
-	},function(error){
-
-    	//error goes here
-        res.render("pages/dashboard", {
-            error:error.message
+            sessionToken: user.getSessionToken()
         });
 
-	});
+    }, function (error) {
+
+        //error goes here
+        res.render("pages/dashboard", {
+            error: error.message
+        });
+
+    });
 
     //res.sendFile(path.join(__dirname, '/public/index.ejs'));
     res.render("pages/index");
@@ -166,7 +165,7 @@ app.get('/signup', function (req, res) {
 var port = process.env.PORT || 1337;
 var httpServer = require('http').createServer(app);
 httpServer.listen(port, function () {
-	console.log('parse-server-example running on port ' + port + '.');
+    console.log('parse-server-example running on port ' + port + '.');
 });
 
 
