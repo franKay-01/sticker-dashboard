@@ -24,23 +24,24 @@
 
 <!-- Logo -->
 <div class="row header-top-spacing">
-        <div class="row">
-            <div class="columns large-1 small-12">
-                <a href="https://cryptic-waters-41617.herokuapp.com">
-                    <img class="logo" src="/public/assets/images/logo.png" alt="Cyfa Logo"/></a>
-            </div>
-            <div class="columns large-8 small-12">
-                <h3 class="logo-text primary-font">Cyfa - Sign in</h3>
+    <div class="row">
+        <div class="columns large-1 small-12">
+            <a href="https://cryptic-waters-41617.herokuapp.com">
+                <img class="logo" src="/public/assets/images/logo.png" alt="Cyfa Logo"/></a>
+        </div>
+        <div class="columns large-8 small-12">
+            <h3 class="logo-text primary-font">Cyfa - Sign in</h3>
         </div>
 
+    </div>
 </div>
 <!-- Logo -->
 
-    <% if (locals.error) { %>
-    <h6 class="subheader text-center">
-        <%= locals.error %>
-    </h6>
-    <% } %>
+<% if (locals.error) { %>
+<h6 class="subheader text-center">
+    <%= locals.error %>
+</h6>
+<% } %>
 
 <!-- Body -->
 <div class="row">
@@ -48,11 +49,12 @@
         <form id="contact" action="/login" method="post">
             <span id="sp">Enter Username and Password</span>
             <fieldset>
-                <input id="uname" placeholder="Username or email" type="email" tabindex="1" name="username" autofocus><br>
-                <input id="pwd" placeholder="Password" type="password" name="password" tabindex="2" ><br>
+                <input id="uname" placeholder="Username or email" type="email" tabindex="1" name="username"
+                       autofocus><br>
+                <input id="pwd" placeholder="Password" type="password" name="password" tabindex="2"><br>
                 <button name="login" type="submit" id="loginSubmit" data-submit="...Sending">Sign In</button>
             </fieldset>
-                <!--<a id="signup" href="#">SIGN UP</a>-->
+            <!--<a id="signup" href="#">SIGN UP</a>-->
             <!--</FIELDSET>-->
 
         </form>

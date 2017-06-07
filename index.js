@@ -7,6 +7,9 @@ var cors = require('cors');
 var Parse = require("parse/node"); // import the module
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
+Parse.initialize("cryptic-waters12");
+Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
+
 if (!databaseUri) {
 	console.log('DATABASE_URI not specified, falling back to localhost.');
 }
@@ -100,10 +103,11 @@ app.use(mountPath, api);
 // Home Page
 app.get('/', function (req, res) {
     //res.sendFile(path.join(__dirname, '/public/index.ejs'));
-    res.render("pages/index");
+    res.render("pages/signup");
 });
 
 
+//login the user in using Parse
 app.post('/login', function (req, res) {
 
 	var username = req.params.username;
@@ -111,9 +115,8 @@ app.post('/login', function (req, res) {
     Parse.User.logIn(username,password).then(function(user){
 
     	//success goes here
-        res.render("pages/dashboard", {
-        	sessionToken:user.getSessionToken()
-		});
+        res.cookie('token', user.getSessionToken());
+        res.render("pages/dashboard");
 
 	},function(error){
 
@@ -128,6 +131,13 @@ app.post('/login', function (req, res) {
    // res.render("pages/index");
 });
 
+app.post('/logout', function (req, res) {
+
+    Parse.User.logOut();
+    res.cookie('token', "");
+    res.render("pages/signup");
+});
+
 // Add Stickers
 app.get('/stickers', function (req, res) {
     // res.sendFile(path.join(__dirname, '/public/stickers.ejs'));
@@ -140,10 +150,6 @@ app.get('/dashboard', function (req, res) {
     res.render("pages/dashboard", {});
 });
 
-//Sign up page
-app.get('/signup', function (req, res) {
-    res.render("pages/signup", {});
-});
 
 // app.get('/about', function (req, res) {
 // 	res.sendFile(path.join(__dirname, '/public/about.html'));
