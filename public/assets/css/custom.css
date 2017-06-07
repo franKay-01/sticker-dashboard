@@ -7,15 +7,11 @@ body {
     color: white !important;
 }
 
-
 a {
     color: white;
     font-size: large;
 }
 
-a.sign-in {
-    font-weight: 600;
-}
 
 a:hover, a:visited, a:active {
     color: white !important;
@@ -89,12 +85,29 @@ input[type=search], textarea.materialize-textarea {
     border-bottom: 2px solid white;
 }
 
-.signlink {
+.uplink {
+    font-weight: 600;
+    font-size: 18px;
+    transition: 5s;
+}
+.uplink:hover {
+    transition: 5s;
+    text-decoration: underline;
+}
+
+#signlink {
+     font-weight: bold;
+ }
+
+#signlink:hover {
+    text-decoration: underline;
+}
+#signout {
     font-weight: bold;
 }
 
-.signlink:hover {
-text-decoration: underline;
+#signout:hover {
+    text-decoration: underline;
 }
 
 #contact {
