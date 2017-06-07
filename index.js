@@ -131,7 +131,7 @@ app.post('/login', function (req, res) {
     // res.render("pages/index");
 });
 
-app.post('/logout', function (req, res) {
+app.get('/logout', function (req, res) {
 
     Parse.User.logOut();
     res.cookie('token', "");
