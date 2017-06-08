@@ -135,7 +135,7 @@ app.post('/login', function (req, res) {
         //success goes here
         res.cookie('token', user.getSessionToken());
         res.redirect("/dashboard");
-        console.log("cookies: ", req.cookies.name);
+        // console.log("cookies: ", req.cookies.name);
     }, function (error) {
         console.log(error);
         //error goes here
@@ -171,12 +171,13 @@ app.get('/stickers', function (req, res) {
 // Dashboard
 app.get('/dashboard', function (req, res) {
     // res.sendFile(path.join(__dirname, '/public/dashboard.ejs'));
-    Parse.Cloud.run("getStickers",req, res).then(function(response)
-    {
-        console.log(response);
-    });
+    // Parse.Cloud.run("getStickers",req, res).then(function(response)
+    // {
+    //     console.log(response);
+    // });
+    // console.log("cookies: ");
     res.render("pages/dashboard", {});
-    console.log("cookies: " + req.cookies);
+
 });
 
 
