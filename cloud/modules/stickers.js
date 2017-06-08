@@ -1,7 +1,7 @@
 var helpers = require("./helpers");
 var util = require("./util");
 var _ = require("underscore");
-var Stickers = "Stickers";
+var Stickers = "Sticker";
 
 getQuery = function (key, value) {
     var query = new Parse.Query(Stickers);

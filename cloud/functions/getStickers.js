@@ -8,9 +8,9 @@ Parse.Cloud.define("getStickers", function (req, res) {
     var user = req.user;
     var token = user.getSessionToken();
 
-    stickers.getAll(token).then(function(badges){
+    stickers.getAll(token).then(function(stickers){
 
-        res.success(util.setResponseOk(badges));
+        res.success(util.setResponseOk(stickers));
 
     },function(error){
 

@@ -173,6 +173,11 @@ app.get('/stickers', function (req, res) {
 // Dashboard
 app.get('/dashboard', function (req, res) {
     // res.sendFile(path.join(__dirname, '/public/dashboard.ejs'));
+    // Parse.Cloud.run("getStickers",{token:req.}).then(function(response)
+    // {
+    //     console.log(response);
+    // });
+    console.log("cookies: " + req.cookies);
     res.render("pages/dashboard", {});
 });
 
