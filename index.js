@@ -131,10 +131,10 @@ app.post('/login', function (req, res) {
     var password = req.body.password;
     console.log("params: " + JSON.stringify(req.body));
     Parse.User.logIn(username, password).then(function (user) {
-
+    console.log(JSON.stringify(user));
         //success goes here
         res.cookie('token', user.getSessionToken());
-        res.redirect("/stickers");
+        res.redirect("/dashboard");
         console.log("user token: ", user.getSessionToken());
     }, function (error) {
         console.log(error);
