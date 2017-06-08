@@ -134,7 +134,7 @@ app.post('/login', function (req, res) {
 
         //success goes here
         res.cookie('token', user.getSessionToken());
-        res.redirect("/index");
+        res.redirect("/stickers");
         console.log("user token: ", user.getSessionToken());
     }, function (error) {
         console.log(error);
