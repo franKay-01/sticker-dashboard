@@ -177,8 +177,8 @@ app.get('/dashboard', function (req, res) {
     // {
     //     console.log(response);
     // });
-    console.log("cookies: " + req.cookies);
     res.render("pages/dashboard", {});
+    console.log("cookies: " + req.cookies);
 });
 
 
