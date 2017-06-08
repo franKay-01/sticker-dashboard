@@ -20,9 +20,10 @@ if (token !== "") {
             console.log("value------"+val);
             },
 
-            function () {
+            function (error) {
 
-                window.location = "https://cryptic-waters-41617.herokuapp.com/login";
+            alert(JSON.stringify(error));
+               // window.location = "https://cryptic-waters-41617.herokuapp.com/";
 
          });
     }
