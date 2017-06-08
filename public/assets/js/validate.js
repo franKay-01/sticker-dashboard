@@ -10,9 +10,10 @@ getCookie = function (cname) {
     return undefined;
 };
 
+var token = getCookie("token");
 if (token !== "") {
     if (Parse.User.current() === null) {
-        Parse.User.become(getCookie("token")).then(function(){},
+        Parse.User.become(token).then(function(){},
 
             function () {
 
