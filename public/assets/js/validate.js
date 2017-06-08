@@ -14,10 +14,10 @@ getCookie = function (cname) {
 };
 
 var token = getCookie("token");
-console.log("token------"+token);
+//console.log("token------"+token);
 if (token !== "") {
     if (Parse.User.current() === null) {
-        Parse.User.become(token).then(function(val){
+        Parse.User.become("r:d9fd28d685da4ce50943887525887951").then(function(val){
             console.log("value------"+val);
             },
 

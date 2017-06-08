@@ -137,11 +137,11 @@ app.post('/login', function (req, res) {
 
         //success goes here
         res.cookie('token', user.getSessionToken());
-        res.render("pages/dashboard");
+        res.redirect("/dashboard");
     }, function (error) {
         console.log(error);
         //error goes here
-        res.render("pages/signup", {
+        res.redirect("/", {
             error: error.message
         });
 
@@ -154,7 +154,7 @@ app.post('/login', function (req, res) {
 app.get('/logout', function (req, res) {
     Parse.User.logOut();
     res.cookie('token', "");
-    res.render("pages/signup");
+    res.redirect("/");
 });
 
 // Add Stickers
