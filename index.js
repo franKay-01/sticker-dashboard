@@ -152,9 +152,16 @@ app.post('/login', function (req, res) {
 });
 
 app.get('/logout', function (req, res) {
-    Parse.User.logOut();
-    res.cookie('token', "");
-    res.redirect("/");
+    Parse.User.logOut().then(function()
+    {
+        res.cookie('token', "");
+        res.redirect("/");
+    },
+    function(error)
+    {
+        console.log(JSON.stringify(error));
+    });
+
 });
 
 // Add Stickers
