@@ -138,7 +138,6 @@ app.post('/login', function (req, res) {
         //success goes here
         res.cookie('token', user.getSessionToken());
         res.redirect("/dashboard");
-        console.log("cookies: " + req.body.cookies);
     }, function (error) {
         console.log(error);
         //error goes here
