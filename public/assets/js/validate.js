@@ -28,4 +28,8 @@ if (token !== "") {
 
          });
     }
+    else
+    {
+        console.log("current user: " + Parse.User.current());
+    }
 }
