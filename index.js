@@ -157,8 +157,8 @@ app.post('/login', function (req, res) {
 app.get('/logout', function (req, res) {
     Parse.User.logOut().then(function()
     {
+        res.redirect("/signup");
         res.cookie('token', "");
-        res.redirect("/signnup  ");
     },
     function(error)
     {
