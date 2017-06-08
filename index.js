@@ -133,9 +133,14 @@ app.post('/login', function (req, res) {
     Parse.User.logIn(username, password).then(function (user) {
     console.log(JSON.stringify(user));
         //success goes here
+        //set cookie to current user sessiontoken
         res.cookie('token', user.getSessionToken());
         res.redirect("/dashboard");
-        console.log("user token: ", user.getSessionToken());
+        //print out cookie
+        alert(res.cookie);
+
+        //document cookie
+        console.log(document.cookie);
     }, function (error) {
         console.log(error);
         //error goes here
