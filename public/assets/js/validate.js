@@ -30,6 +30,6 @@ if (token !== "") {
     }
     else
     {
-        console.log("current user: " + Parse.User.current());
+        console.log("current user: " + JSON.stringify(Parse.User.current()));
     }
 }
