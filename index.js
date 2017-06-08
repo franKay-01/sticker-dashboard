@@ -86,7 +86,11 @@ app.use(bodyParser.json());   // Middleware for reading request body
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-app.use(cookieParser('A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK'));
+app.use(cookieParser());
+app.get('/', function(req, res){
+    res.cookie('name', 'express').send('cookie set'); //Sets name=express
+});
+//app.use(cookieParser('A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK'));
 
 //app.use(parseExpressHttpsRedirect());
 
