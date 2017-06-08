@@ -87,10 +87,6 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(cookieParser());
-app.get('/', function(req, res){
-    // res.cookie('name', 'express').send('cookie set'); //Sets name=express
-    console.log("cookies: ", req.cookies);
-});
 //app.use(cookieParser('A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK'));
 
 //app.use(parseExpressHttpsRedirect());
@@ -139,6 +135,7 @@ app.post('/login', function (req, res) {
         //success goes here
         res.cookie('token', user.getSessionToken());
         res.redirect("/dashboard");
+        console.log("cookies: ", req.cookies);
     }, function (error) {
         console.log(error);
         //error goes here
