@@ -1,3 +1,6 @@
+Parse.initialize("cryptic-waters12");
+Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
+
 
 getCookie = function (cname) {
     var name = cname + "=";
