@@ -31,5 +31,7 @@ if (token !== "") {
     else
     {
         console.log("current user: " + JSON.stringify(Parse.User.current()));
+
+        console.log("cookies: " + req.cookies);
     }
 }
