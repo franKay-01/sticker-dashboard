@@ -33,7 +33,6 @@ if (token !== "") {
     {
         function getUserToken()
         {
-            Parse.User.become()
             console.log("cookies: " + req.body.cookies);
         }
         console.log("no token gotted");
