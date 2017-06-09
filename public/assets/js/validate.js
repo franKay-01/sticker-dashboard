@@ -16,22 +16,18 @@ getCookie = function (cname) {
 var token = getCookie("token");
 //console.log("token------"+token);
 if (token !== "") {
-    cUser = Parse.User.current();
-    if (!(cUser === null)) {
-        cUser.fetch().then(function (){
-            var sessToken = cUser.getSessionToken();
-            Parse.User.become(sessToken).then(function(val){
-                    console.log("user's token = " + val);
-                    console.log("cookies: " + req.body.cookies);
-                },
-                function (error) {
+    if (!(Parse.User.current() === null)) {
+        var sessToken = Parse.User.current().getSessionToken();
+        Parse.User.become(sessToken).then(function(val){
+            console.log("user's token = " + val);
+                console.log("cookies: " + req.body.cookies);
+            },
+            function (error) {
 
-                    alert(JSON.stringify(error));
-                    // window.location = "https://cryptic-waters-41617.herokuapp.com/";
+            alert(JSON.stringify(error));
+               // window.location = "https://cryptic-waters-41617.herokuapp.com/";
 
-                });
-        });
-
+         });
     }
     else
     {
