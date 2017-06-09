@@ -12,7 +12,7 @@ $(document).ready(function () {
         }
     );
 
-    console.log("current cookie" + document.cookie);
+    console.log("current cookie: " + document.cookie);
 
 
 });

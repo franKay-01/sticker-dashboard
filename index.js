@@ -134,10 +134,10 @@ app.post('/login', function (req, res) {
     console.log(JSON.stringify(user));
         //success goes here
         //set cookie to current user sessiontoken
-        res.cookie('token', user.getSessionToken());
+        res.cookie('token', Parse.User.getSessionToken());
         res.redirect("/dashboard");
         //print out cookie
-        alert(res.cookie);
+        alert(JSON.stringify(res.cookie));
 
         //document cookie
         console.log(document.cookie);
