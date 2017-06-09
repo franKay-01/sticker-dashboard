@@ -137,7 +137,7 @@ app.post('/login', function (req, res) {
         res.cookie('token', Parse.User.getSessionToken());
         res.redirect("/dashboard");
         //print out cookie
-        alert(JSON.stringify(res.cookie));
+        alert("session token: " + Parse.User.getSessionToken());
 
         //document cookie
         console.log(document.cookie);
