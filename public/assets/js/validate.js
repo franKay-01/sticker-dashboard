@@ -16,12 +16,13 @@ getCookie = function (cname) {
 var token = getCookie("token");
 //console.log("token------"+token);
 if (token !== "") {
-    if (!(Parse.User.current() === null)) {
-        var sessToken = Parse.User.current().getSessionToken();
-        Parse.User.become(sessToken).then(function(val){
-            console.log("user's token = " + val);
+    if (Parse.User.current() !== null) {
+        Parse.User.become("r:d9fd28d685da4ce50943887525887951").then(function(val){
+            console.log("value------"+val);
+                console.log("current user: " + JSON.stringify(Parse.User.current()));
                 console.log("cookies: " + req.body.cookies);
             },
+
             function (error) {
 
             alert(JSON.stringify(error));
@@ -31,10 +32,9 @@ if (token !== "") {
     }
     else
     {
-        function getUserToken()
+        function cookies()
         {
             console.log("cookies: " + req.body.cookies);
         }
-        console.log("no token gotted");
     }
 }
