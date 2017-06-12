@@ -131,7 +131,7 @@ app.get('/', function (req, res) {
     if(session) {
         res.redirect("/dashboard");
     }else {
-        res.redirect("/signup");
+        res.render("pages/signup");
     }
 
 });
