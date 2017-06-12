@@ -188,7 +188,7 @@ app.get('/dashboard', function (req, res) {
         res.render("pages/dashboard", {});
 
     }else {
-        res.redirect("/signup");
+        res.redirect("/");
     }
 
 
