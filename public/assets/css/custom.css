@@ -175,3 +175,9 @@ fieldset {
     height: 320px;
     width:  260px;
 }
+
+#ima {
+    height: 300px;
+    width:  260px;
+    border: 2px solid black;
+}
