@@ -34,8 +34,9 @@ var token = getCookie("token");
 if (token !== "") {
     if (Parse.User.current() !== null) {
         var user = Parse.User.current();
-        console.log("User's token: " + user.getSessionToken());
-        Parse.User.become("r:d9fd28d685da4ce50943887525887951").then(function(val){
+        var sessionToken = user.getSessionToken();
+        console.log("User's token: " + sessionToken);
+        Parse.User.become(sessionToken).then(function(val){
             console.log("value------"+val);
                 console.log("current user: " + JSON.stringify(user));
                 console.log("cookies: " + req.body.cookies);
