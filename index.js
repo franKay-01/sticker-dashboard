@@ -167,7 +167,7 @@ app.get('/logout', function (req, res) {
 
     Parse.User.logOut().then(function () {
 
-            res.redirect("/signup");
+            res.redirect("/");
             res.cookie('token', "");
 
         },
@@ -186,9 +186,17 @@ app.get('/dashboard', function (req, res) {
 
     if (session && token) {
 
-        console.log("token=====" + JSON.stringify(req.cookies.token));
-        //console.log("signed cookie====="+res.signedCookie.token);
-        res.render("pages/dashboard", {});
+
+        new Parse.Query("Sticker")
+            .find({sessionToken: token}).then(function (stickers) {
+
+            res.render("pages/dashboard", {stickers:stickers});
+
+        }, function (error) {
+
+            console.log("stickers error" + error);
+
+        });
 
     } else {
 
@@ -205,19 +213,6 @@ app.get('/stickers', function (req, res) {
     var token = req.cookies.token;
 
     if (session && token) {
-
-        new Parse.Query("Sticker")
-            .find({sessionToken: token}).then(function (stickers) {
-
-            console.log("sticker length" + stickers.length);
-
-            res.render("pages/stickers", {});
-
-        }, function (error) {
-
-            console.log("stickers error" + error);
-
-        });
 
 
     } else {
