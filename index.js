@@ -126,7 +126,14 @@ app.use(mountPath, api);
 // Home Page
 app.get('/', function (req, res) {
     //res.sendFile(path.join(__dirname, '/public/index.ejs'));
-    res.render("pages/signup");
+
+    var session = req.session.token;
+    if(session) {
+        res.redirect("/dashboard");
+    }else {
+        res.redirect("pages/signup");
+    }
+
 });
 
 
@@ -171,18 +178,14 @@ app.get('/logout', function (req, res) {
 
 });
 
-// Add Stickers
-app.get('/stickers', function (req, res) {
-    // res.sendFile(path.join(__dirname, '/public/stickers.ejs'));
-    res.render("pages/stickers", {});
-});
-
 // Dashboard
 app.get('/dashboard', function (req, res) {
 
     var session = req.session.token;
     if(session) {
 
+        console.log("token====="+res.cookie.token);
+        console.log("signed cookie====="+res.signedCookie.token);
         res.render("pages/dashboard", {});
 
     }else {
@@ -192,23 +195,12 @@ app.get('/dashboard', function (req, res) {
 
 });
 
+// Add Stickers
+app.get('/stickers', function (req, res) {
+    // res.sendFile(path.join(__dirname, '/public/stickers.ejs'));
+    res.render("pages/stickers", {});
+});
 
-// app.get('/about', function (req, res) {
-// 	res.sendFile(path.join(__dirname, '/public/about.html'));
-// });
-//
-// // There will be a test page available on the /test path of your server url
-// // Remove this before launching your app
-// app.get('/test', function (req, res) {
-// 	res.sendFile(path.join(__dirname, '/public/test.html'));
-// });
-
-// $(document).ready(function ()
-// {
-//     Parse.initialize("cryptic-waters12");
-//     Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
-//     console.log(Parse.User.current());
-// });
 
 
 var port = process.env.PORT || 1337;
