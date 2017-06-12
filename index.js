@@ -58,7 +58,7 @@ var api = new ParseServer({
 
     emailAdapter: SimpleSendGridAdapter({
         apiKey: process.env.SENDGRID_API_KEY || "apikey",
-        fromAddress: process.env.EMAIL_FROM || "test@example.com",
+        fromAddress: process.env.EMAIL_FROM || "test@example.com"
     }),
 
     //**** File Storage ****//
@@ -89,7 +89,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(cookieSession({
-    name: "token",
+    name: "session",
     secret: "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
     maxAge: 15724800000
 }));
