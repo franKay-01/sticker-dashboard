@@ -17,9 +17,11 @@ var token = getCookie("token");
 //console.log("token------"+token);
 if (token !== "") {
     if (Parse.User.current() !== null) {
+        var user = Parse.User.current();
+        console.log("User's token: " + user.getSessionToken());
         Parse.User.become("r:d9fd28d685da4ce50943887525887951").then(function(val){
             console.log("value------"+val);
-                console.log("current user: " + JSON.stringify(Parse.User.current()));
+                console.log("current user: " + JSON.stringify(user));
                 console.log("cookies: " + req.body.cookies);
             },
 
