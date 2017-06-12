@@ -45,7 +45,9 @@ if (token !== "") {
          });
     } else {
 
-        alert("already a parse user"+Parse.User.current().getSessionToken());
+        console.log("already logged in")
+
+      //  alert("already a parse user"+Parse.User.current().getSessionToken());
 
     }
 }
