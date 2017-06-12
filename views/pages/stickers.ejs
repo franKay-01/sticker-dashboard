@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Stickers</title>
+    <title>Add Sticker</title>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
     </style>
@@ -33,21 +33,20 @@
 
             <div class="columns large-1 small-12">
                 <a href="https://cryptic-waters-41617.herokuapp.com">
-                    <img  class="logo" src="/public/assets/images/logo.png" alt="Cyfa Logo"/>
+                    <img class="logo" src="/public/assets/images/logo.png" alt="Cyfa Logo"/>
                 </a>
             </div>
 
             <div class="columns large-8 small-12">
                 <h3 class="logo-text primary-font">Cyfa</h3>
                 <h4 class="primary-font beta-text">Beta Program</h4>
-                <!--link to dashboard and stickers-->
-                <%- include('../partials/links') %>
             </div>
-            <!--Link to sign up page-->
-            <a id="signlink" href="/signup">SIGN UP HERE</a>
-            <a id="signout" href="https://cryptic-waters-41617.herokuapp.com/">SIGN OUT</a>
+            <!--link to dashboard and stickers-->
+            <%- include('../partials/links') %>
         </div>
-
+        <!--Link to sign up page-->
+        <a id="signlink" href="/signup">SIGN IN</a><br><br>
+        <a id="signout" href="/stickers">SIGN OUT</a>
     </div>
 </div>
 <!-- Logo -->
@@ -56,12 +55,12 @@
     <div class="columns large-12 hide-for-small-only margin-top-60"></div>
 </div>
 
-<!-- Body -->
+<!--form goes here-->
 <div class="row">
-
-    Sticker Page Yay!
-
+    <div class="large-4 columns" id="ima"><img src="/public/assets/images/DXD.jpg"></div>
+    <div class="large-8 columns" id="tform"><!--form--></div>
 </div>
+
 <!-- Body -->
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
