@@ -7,6 +7,7 @@ var cors = require('cors');
 var Parse = require("parse/node"); // import the module
 var bodyParser  = require('body-parser');
 var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
