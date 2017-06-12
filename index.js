@@ -184,7 +184,7 @@ app.get('/dashboard', function (req, res) {
     var session = req.session.token;
     if(session) {
 
-        console.log("token====="+req.cookies);
+        console.log("token====="+JSON.stringify(req.cookies));
         //console.log("signed cookie====="+res.signedCookie.token);
         res.render("pages/dashboard", {});
 
