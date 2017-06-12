@@ -189,7 +189,9 @@ fieldset {
 /*ADD STICKER FORM*/
 #tform {
     border: 2px solid black;
-    height: 500px;
+    height: 400px;
+    width: 400px;
+    margin: 0 auto;
 }
 
 #left-col {
