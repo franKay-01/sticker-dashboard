@@ -209,7 +209,7 @@ app.get('/stickers', function (req, res) {
     var token = req.cookies.token;
 
     if (session && token) {
-        res.render("/stickers");
+        res.render("pages/stickers");
     } else {
         res.redirect("/");
     }
