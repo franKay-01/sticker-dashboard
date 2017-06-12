@@ -186,6 +186,31 @@ fieldset {
     border: 2px solid black;
 }
 
+/*ADD STICKER FORM*/
 #tform {
     border: 2px solid black;
+    height: 500px;
 }
+
+#left-col {
+    position: absolute;
+    overflow: auto;
+    right: 50%;
+    background-color: pink;
+}
+
+#right-col {
+    position: absolute;
+    overflow: auto;
+    left: 50%;
+    width: 50%;
+    background-color: pink;
+}
+
+
+
+
+
+
+
+
