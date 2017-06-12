@@ -7,7 +7,7 @@ var cors = require('cors');
 var Parse = require("parse/node"); // import the module
 var bodyParser  = require('body-parser');
 var cookieParser = require('cookie-parser');
-var parseExpressCookieSession = require('parse-express-cookie-session');
+//var parseExpressCookieSession = require('parse-express-cookie-session');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
@@ -88,6 +88,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(cookieParser());
+/*
 app.use(parseExpressCookieSession({
     fetchUser: true,
     key: 'prive.char',
@@ -95,6 +96,7 @@ app.use(parseExpressCookieSession({
         maxAge: 3600000 * 24 * 30
     }
 }));
+*/
 
 //app.use(parseExpressHttpsRedirect());
 
