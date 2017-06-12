@@ -5,8 +5,9 @@ var SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
 var path = require('path');
 var cors = require('cors');
 var Parse = require("parse/node"); // import the module
-var bodyParser  = require('body-parser');
+var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
@@ -57,7 +58,7 @@ var api = new ParseServer({
 
     emailAdapter: SimpleSendGridAdapter({
         apiKey: process.env.SENDGRID_API_KEY || "apikey",
-        fromAddress: process.env.EMAIL_FROM || "test@example.com",
+        fromAddress: process.env.EMAIL_FROM || "test@example.com"
     }),
 
     //**** File Storage ****//
@@ -84,10 +85,15 @@ var app = express();
 app.use(cors());
 app.use(bodyParser.json());   // Middleware for reading request body
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }));
-app.use(cookieParser());
-//app.use(cookieParser('A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK'));
+
+app.use(cookieSession({
+    name: "session",
+    secret: "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
+    maxAge: 15724800000
+}));
+app.use(cookieParser("A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK"));
 
 //app.use(parseExpressHttpsRedirect());
 
@@ -120,7 +126,14 @@ app.use(mountPath, api);
 // Home Page
 app.get('/', function (req, res) {
     //res.sendFile(path.join(__dirname, '/public/index.ejs'));
-    res.render("pages/signup");
+
+    var session = req.session.token;
+    if (session) {
+        res.redirect("/dashboard");
+    } else {
+        res.render("pages/signup");
+    }
+
 });
 
 
@@ -129,19 +142,15 @@ app.post('/login', function (req, res) {
 
     var username = req.body.username;
     var password = req.body.password;
-    console.log("params: " + JSON.stringify(req.body));
-    Parse.User.logIn(username, password).then(function (user) {
-    console.log(JSON.stringify(user));
-        //success goes here
-        //set cookie to current user sessiontoken
-        res.cookie('token', user.getSessionToken());
-        res.redirect("/dashboard");
-        //print out cookie
-        alert(res.cookie);
 
-        //document cookie
-        console.log(document.cookie);
+    Parse.User.logIn(username, password).then(function (user) {
+
+        res.cookie('token', user.getSessionToken());
+        req.session.token = user.getSessionToken();
+        res.redirect("/dashboard");
+
     }, function (error) {
+
         console.log(error);
         //error goes here
         res.redirect("/", {
@@ -155,53 +164,64 @@ app.post('/login', function (req, res) {
 });
 
 app.get('/logout', function (req, res) {
-    Parse.User.logOut().then(function()
-    {
-        res.redirect("/signup");
-        res.cookie('token', "");
-    },
-    function(error)
-    {
-        console.log(JSON.stringify(error));
-    });
+
+    Parse.User.logOut().then(function () {
+
+            res.redirect("/");
+            res.cookie('token', "");
+
+        },
+        function (error) {
+
+            console.log(JSON.stringify(error));
+        });
+
+});
+
+// Dashboard
+app.get('/dashboard', function (req, res) {
+
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+    if (session && token) {
+
+
+        new Parse.Query("Sticker")
+            .find({sessionToken: token}).then(function (stickers) {
+
+            res.render("pages/dashboard", {stickers:stickers});
+
+        }, function (error) {
+
+            console.log("stickers error" + error);
+
+        });
+
+    } else {
+
+        res.redirect("/");
+    }
 
 });
 
 // Add Stickers
 app.get('/stickers', function (req, res) {
     // res.sendFile(path.join(__dirname, '/public/stickers.ejs'));
-    res.render("pages/stickers", {});
+
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+    if (session && token) {
+
+
+    } else {
+
+        res.redirect("/");
+    }
+
+
 });
-
-// Dashboard
-app.get('/dashboard', function (req, res) {
-    // res.sendFile(path.join(__dirname, '/public/dashboard.ejs'));
-    // Parse.Cloud.run("getStickers",req, res).then(function(response)
-    // {
-    //     console.log(response);
-    // });
-    // console.log("cookies: ");
-    res.render("pages/dashboard", {});
-
-});
-
-
-// app.get('/about', function (req, res) {
-// 	res.sendFile(path.join(__dirname, '/public/about.html'));
-// });
-//
-// // There will be a test page available on the /test path of your server url
-// // Remove this before launching your app
-// app.get('/test', function (req, res) {
-// 	res.sendFile(path.join(__dirname, '/public/test.html'));
-// });
-
-// $(document).ready(function ()
-// {
-//     Parse.initialize("cryptic-waters12");
-//     Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
-//     console.log(Parse.User.current());
-// });
 
 
 var port = process.env.PORT || 1337;

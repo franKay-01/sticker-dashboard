@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="large-6 columns">
+        <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
+
+            <% stickers.forEach(function(item, index) { %>
+
+            <li>
+                <div>
+                    <img style="display: block" id="abi" src="<%= item.get("uri").url() %>">
+
+                    <div><h4 class="subheader">  <%= item.get("stickerName") %></h4></div>
+                </div>
+
+
+            </li>
+            <% }); %>
+
+        </ul>
+    </div>
+</div>

@@ -14,29 +14,23 @@ getCookie = function (cname) {
 };
 
 var token = getCookie("token");
-//console.log("token------"+token);
+console.log("token------"+token);
 if (token !== "") {
-    if (Parse.User.current() !== null) {
-        var user = Parse.User.current();
-        var sessionToken = user.getSessionToken();
-        console.log("User's token: " + sessionToken);
-        Parse.User.become(document.cookie).then(function(val){
-            console.log("value------" + val);
-                console.log("current user: " + JSON.stringify(user));
-                console.log("cookies: " + req.body.cookies);
+    if (Parse.User.current() === null) {
+        // var user = Parse.User.current();
+        // var sessionToken = user.getSessionToken();
+        // console.log("User's token: " + sessionToken);
+        Parse.User.become(token).then(function(val){
+            console.log("success------"+val);
             },
-
             function (error) {
-
-            alert(JSON.stringify(error));
-               // window.location = "https://cryptic-waters-41617.herokuapp.com/";
+            alert("error====="+JSON.stringify(error));
          });
-    }
-    else
-    {
-        function cookies()
-        {
-            console.log("cookies: " + req.body.cookies);
-        }
+    } else {
+
+        console.log("already logged in");
+
+      //  alert("already a parse user"+Parse.User.current().getSessionToken());
+
     }
 }
