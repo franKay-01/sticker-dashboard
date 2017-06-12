@@ -125,8 +125,6 @@ app.use(mountPath, api);
 
 // Home Page
 app.get('/', function (req, res) {
-    //res.sendFile(path.join(__dirname, '/public/index.ejs'));
-
     var session = req.session.token;
     if (session) {
         res.redirect("/dashboard");
@@ -207,16 +205,12 @@ app.get('/dashboard', function (req, res) {
 
 // Add Stickers
 app.get('/stickers', function (req, res) {
-    // res.sendFile(path.join(__dirname, '/public/stickers.ejs'));
-
     var session = req.session.token;
     var token = req.cookies.token;
 
     if (session && token) {
-
-
+        res.render("/stickers");
     } else {
-
         res.redirect("/");
     }
 
