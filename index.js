@@ -5,7 +5,7 @@ var SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
 var path = require('path');
 var cors = require('cors');
 var Parse = require("parse/node"); // import the module
-var bodyParser  = require('body-parser');
+var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 
@@ -128,9 +128,9 @@ app.get('/', function (req, res) {
     //res.sendFile(path.join(__dirname, '/public/index.ejs'));
 
     var session = req.session.token;
-    if(session) {
+    if (session) {
         res.redirect("/dashboard");
-    }else {
+    } else {
         res.render("pages/signup");
     }
 
@@ -165,16 +165,16 @@ app.post('/login', function (req, res) {
 
 app.get('/logout', function (req, res) {
 
-    Parse.User.logOut().then(function() {
+    Parse.User.logOut().then(function () {
 
-        res.redirect("/signup");
-        res.cookie('token', "");
+            res.redirect("/signup");
+            res.cookie('token', "");
 
-    },
-    function(error){
+        },
+        function (error) {
 
-        console.log(JSON.stringify(error));
-    });
+            console.log(JSON.stringify(error));
+        });
 
 });
 
@@ -182,13 +182,15 @@ app.get('/logout', function (req, res) {
 app.get('/dashboard', function (req, res) {
 
     var session = req.session.token;
-    if(session) {
+    var token = req.cookies.token;
 
-        console.log("token====="+JSON.stringify(req.cookies));
+    if (session && token) {
+
+        console.log("token=====" + JSON.stringify(req.cookies.token));
         //console.log("signed cookie====="+res.signedCookie.token);
         res.render("pages/dashboard", {});
 
-    }else {
+    } else {
 
         res.redirect("/");
     }
@@ -198,9 +200,33 @@ app.get('/dashboard', function (req, res) {
 // Add Stickers
 app.get('/stickers', function (req, res) {
     // res.sendFile(path.join(__dirname, '/public/stickers.ejs'));
-    res.render("pages/stickers", {});
-});
 
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+    if (session && token) {
+
+        new Parse.Query("Sticker")
+            .find({sessionToken: token}).then(function (stickers) {
+
+            console.log("sticker length" + stickers.length);
+
+            res.render("pages/stickers", {});
+
+        }, function (error) {
+
+            console.log("stickers error" + error);
+
+        });
+
+
+    } else {
+
+        res.redirect("/");
+    }
+
+
+});
 
 
 var port = process.env.PORT || 1337;
