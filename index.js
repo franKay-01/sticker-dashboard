@@ -7,6 +7,7 @@ var cors = require('cors');
 var Parse = require("parse/node"); // import the module
 var bodyParser  = require('body-parser');
 var cookieParser = require('cookie-parser');
+var parseExpressCookieSession = require('parse-express-cookie-session');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
@@ -84,10 +85,16 @@ var app = express();
 app.use(cors());
 app.use(bodyParser.json());   // Middleware for reading request body
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }));
 app.use(cookieParser());
-//app.use(cookieParser('A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK'));
+app.use(parseExpressCookieSession({
+    fetchUser: true,
+    key: 'prive.char',
+    cookie: {
+        maxAge: 3600000 * 24 * 30
+    }
+}));
 
 //app.use(parseExpressHttpsRedirect());
 
@@ -129,19 +136,15 @@ app.post('/login', function (req, res) {
 
     var username = req.body.username;
     var password = req.body.password;
-    console.log("params: " + JSON.stringify(req.body));
+
+
     Parse.User.logIn(username, password).then(function (user) {
-    console.log(JSON.stringify(user));
-        //success goes here
-        //set cookie to current user sessiontoken
+
         res.cookie('token', user.getSessionToken());
         res.redirect("/dashboard");
-        //print out cookie
-        alert(res.cookie);
 
-        //document cookie
-        console.log(document.cookie);
     }, function (error) {
+
         console.log(error);
         //error goes here
         res.redirect("/", {
@@ -175,13 +178,18 @@ app.get('/stickers', function (req, res) {
 
 // Dashboard
 app.get('/dashboard', function (req, res) {
-    // res.sendFile(path.join(__dirname, '/public/dashboard.ejs'));
-    // Parse.Cloud.run("getStickers",req, res).then(function(response)
-    // {
-    //     console.log(response);
-    // });
-    // console.log("cookies: ");
-    res.render("pages/dashboard", {});
+
+
+    var _currentUser = Parse.User.current();
+    if(_currentUser) {
+
+        res.render("pages/dashboard", {});
+
+    }else {
+        res.redirect("/signup");
+    }
+
+
 
 });
 
