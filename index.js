@@ -7,7 +7,6 @@ var cors = require('cors');
 var Parse = require("parse/node"); // import the module
 var bodyParser  = require('body-parser');
 var cookieParser = require('cookie-parser');
-//var parseExpressCookieSession = require('parse-express-cookie-session');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
@@ -87,16 +86,13 @@ app.use(bodyParser.json());   // Middleware for reading request body
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-app.use(cookieParser());
-/*
-app.use(parseExpressCookieSession({
-    fetchUser: true,
-    key: 'prive.char',
-    cookie: {
-        maxAge: 3600000 * 24 * 30
-    }
+
+app.use(cookieSession({
+    name: "token",
+    secret: "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
+    maxAge: 15724800000
 }));
-*/
+app.use(cookieParser("A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK"));
 
 //app.use(parseExpressHttpsRedirect());
 
@@ -139,10 +135,10 @@ app.post('/login', function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
 
-
     Parse.User.logIn(username, password).then(function (user) {
 
         res.cookie('token', user.getSessionToken());
+        req.session.token = user.getSessionToken();
         res.redirect("/dashboard");
 
     }, function (error) {
@@ -160,13 +156,15 @@ app.post('/login', function (req, res) {
 });
 
 app.get('/logout', function (req, res) {
-    Parse.User.logOut().then(function()
-    {
+
+    Parse.User.logOut().then(function() {
+
         res.redirect("/signup");
         res.cookie('token', "");
+
     },
-    function(error)
-    {
+    function(error){
+
         console.log(JSON.stringify(error));
     });
 
@@ -181,17 +179,15 @@ app.get('/stickers', function (req, res) {
 // Dashboard
 app.get('/dashboard', function (req, res) {
 
-
-    var _currentUser = Parse.User.current();
-    if(_currentUser) {
+    var session = req.session.token;
+    if(session) {
 
         res.render("pages/dashboard", {});
 
     }else {
+
         res.redirect("/");
     }
-
-
 
 });
 

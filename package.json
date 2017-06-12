@@ -11,6 +11,7 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.2",
     "cors": "*",
     "crypto": "0.0.3",
     "ejs": "^2.5.6",
@@ -18,7 +19,6 @@
     "kerberos": "~0.0.x",
     "moment": "^2.12.0",
     "parse": "~1.9.2",
-    "parse-express-cookie-session": "0.0.3",
     "parse-server": "~2.2.12",
     "parse-server-sendgrid-adapter": "^1.0.0",
     "sendgrid": "^4.5.0",
