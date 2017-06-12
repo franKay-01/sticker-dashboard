@@ -37,15 +37,15 @@ if (token !== "") {
         // var sessionToken = user.getSessionToken();
         // console.log("User's token: " + sessionToken);
         Parse.User.become(token).then(function(val){
-            console.log("value------"+val);
+            console.log("success------"+val);
             },
             function (error) {
-            alert(JSON.stringify(error));
+            alert("error====="+JSON.stringify(error));
 
          });
     } else {
 
-        alert(Parse.User.current().getSessionToken());
+        alert("already a parse user"+Parse.User.current().getSessionToken());
 
     }
 }
