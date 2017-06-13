@@ -221,6 +221,7 @@ input::-webkit-input-placeholder {
     padding: 120px 50px 120px 50px;
     font-size: 18px;
     background-color: mediumpurple;
+    height: inherit;
 }
 
 #right-col {

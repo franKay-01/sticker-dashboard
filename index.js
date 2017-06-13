@@ -157,6 +157,17 @@ app.post('/login', function (req, res) {
 
     });
 
+    app.post('/upload', function (req, res)
+    {
+        var session = req.session.token;
+        var token = req.cookies.token;
+
+        if (session && token)
+        {
+            res.redirect("/dashboard");
+        }
+    });
+
     //res.sendFile(path.join(__dirname, '/public/index.ejs'));
     // res.render("pages/index");
 });
