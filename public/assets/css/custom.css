@@ -185,38 +185,8 @@ fieldset {
     border: 2px solid black;
     background-color: #dddddd;
     width: 60%;
-    height: 100%;
+    height: 120%;
     margin: 0 auto;
-
-    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-}
-
-.container1:before, .container1:after
-{
-    content:"";
-    position:absolute;
-    z-index:-1;
-    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
-    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
-    box-shadow:0 0 20px rgba(0,0,0,0.8);
-    top:0;
-    bottom:0;
-    left:10px;
-    right:10px;
-    -moz-border-radius:100px / 10px;
-    border-radius:100px / 10px;
-}
-.container1:after
-{
-    right:10px;
-    left:auto;
-    -webkit-transform:skew(8deg) rotate(3deg);
-    -moz-transform:skew(8deg) rotate(3deg);
-    -ms-transform:skew(8deg) rotate(3deg);
-    -o-transform:skew(8deg) rotate(3deg);
-    transform:skew(8deg) rotate(3deg);
 }
 
 input::-webkit-input-placeholder {
@@ -226,7 +196,7 @@ input::-webkit-input-placeholder {
 #tform {
     height: 400px;
     margin: 0 auto;
-    padding: 10px;
+    padding: 15px;
     /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
 }
 
@@ -253,17 +223,19 @@ input::-webkit-input-placeholder {
 #btns {
     position: absolute;
     margin-top: 80px;
+    font-family: serif;
 }
 
 #cancel {
     cursor: pointer;
-    width: 40%;
+    max-width: 40%;
     background: red;
     color: #FFF;
     margin-right: 75px;
-    padding: 5px;
-    font-size: 25px;
+    padding: 10px;
+    font-size: 170%;
     transition: 0.5s;
+    position: relative;
 }
 
 #cancel:hover {
@@ -275,12 +247,13 @@ input::-webkit-input-placeholder {
 
 #upload {
     cursor: pointer;
-    width: 40%;
+    max-width: 40%;
     background: #464B9C;
     color: #FFF;
-    padding: 5px;
-    font-size: 25px;
+    padding: 10px;
+    font-size: 170%;
     transition: 0.5s;
+    position: relative;
 }
 
 #upload:hover {
@@ -288,6 +261,47 @@ input::-webkit-input-placeholder {
     color: #464B9C;
     transition: 0.5s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+/*POP UP MODAL*/
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    transistion: 0.3s;
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 

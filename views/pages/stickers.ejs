@@ -23,7 +23,7 @@
 </head>
 
 <body class="third-background-color">
-
+<div id="myModal" class="modal">
 <!-- Logo -->
 <div class="row header-top-spacing">
 
@@ -57,14 +57,19 @@
 
 <!--form goes here-->
 <div class="container1">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Some text in the Modal..</p>
+    </div>
     <form id="tform">
-            <div id="left-col">
-                <img id="ima" src="/public/assets/images/DXD.jpg">
+            <div id="left-col" type="file">
+                <h2>CLICK TO ADD STICKER</h2>
             </div>
             <div id="right-col">
-               <input type="text" placeholder="Sticker Name">
-                <input type="text" placeholder="Local Name">
-                <input type="text" placeholder=" Category e.g funny, jumpy">
+               <input type="text" placeholder="Sticker Name" id="stname">
+                <input type="text" placeholder="Local Name" id="lname">
+                <input type="text" placeholder=" Category e.g funny, jumpy" id="category">
                 <div id="btns">
                     <button id="cancel">CANCEL</button> <button id="upload" type="submit">UPLOAD</button>
                 </div
@@ -73,7 +78,7 @@
     </form>
 </div>
 
-
+</div>
 
 <!-- Body -->
 
