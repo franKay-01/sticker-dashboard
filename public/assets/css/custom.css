@@ -193,11 +193,7 @@ fieldset {
     box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
-.container
-{
-    
-}
-.container:before, .container:after
+.container1:before, .container1:after
 {
     content:"";
     position:absolute;
@@ -212,7 +208,7 @@ fieldset {
     -moz-border-radius:100px / 10px;
     border-radius:100px / 10px;
 }
-.container:after
+.container1:after
 {
     right:10px;
     left:auto;
@@ -224,15 +220,14 @@ fieldset {
 }
 
 input::-webkit-input-placeholder {
-    color: black !important;
+    color: darkslategrey !important;
 }
 
 #tform {
     height: 400px;
-    width: 400px;
     margin: 0 auto;
     padding: 10px;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
 }
 
 #left-col {
@@ -255,13 +250,19 @@ input::-webkit-input-placeholder {
     width: 30%;
 }
 
+#btns {
+    position: absolute;
+    margin-top: 80px;
+}
+
 #cancel {
     cursor: pointer;
-    width: 100%;
+    width: 40%;
     background: red;
     color: #FFF;
+    margin-right: 75px;
     padding: 5px;
-    font-size: 15px;
+    font-size: 25px;
     transition: 0.5s;
 }
 
@@ -274,11 +275,11 @@ input::-webkit-input-placeholder {
 
 #upload {
     cursor: pointer;
-    width: 100%;
+    width: 40%;
     background: #464B9C;
     color: #FFF;
     padding: 5px;
-    font-size: 15px;
+    font-size: 25px;
     transition: 0.5s;
 }
 
