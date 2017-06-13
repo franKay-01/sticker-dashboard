@@ -20,7 +20,7 @@ $(document).ready(function () {
     );
 
     var StickerObject = new Parse.Object.extend("Stickers");
-var newFile = $("#left-col")[0];
+var newFile = $("#filein")[0];
 if(newFile.files.length > 0)
 {
     var file = newFile.files[0];

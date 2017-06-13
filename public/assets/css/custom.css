@@ -205,7 +205,8 @@ input::-webkit-input-placeholder {
     position: absolute;
     overflow: hidden;
     left: 22%;
-    width: 50%;
+    width: 22%;
+    height: 300px;
 }
 
 #add-img {
@@ -215,7 +216,11 @@ input::-webkit-input-placeholder {
 #left-col img {
     max-height: 320px;
     max-width: 45%;
-
+}
+#filein {
+    padding: 120px 50px 120px 50px;
+    font-size: 18px;
+    background-color: mediumpurple;
 }
 
 #right-col {
