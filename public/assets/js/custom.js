@@ -22,18 +22,19 @@ $(document).ready(function () {
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
+            console.log("File uploaded");
             reader.onload = function (e) {
                 $('#add-img').attr('src', e.target.result);
             };
             reader.readAsDataURL(input.files[0]);
         }
     }
-
-    var newFile = $("#filein")[0];
-    if(newFile.files.length > 0)
-    {
-        var file = newFile.files[0];
-        var filename = file.name;
+    //
+    // var newFile = $("#filein")[0];
+    // if(newFile.files.length > 0)
+    // {
+    //     var file = newFile.files[0];
+    //     var filename = file.name;
         // var trimName = filename.substring(0, filename.length-4);
         // $("#filein").change(function () {
         //     if (this.files && this.files[0]) {
@@ -66,13 +67,13 @@ $(document).ready(function () {
     //     // });
     //     // return false;
     // });
-}
-else
-    {
-        function error(err) {
-            console.log("file not uploaded" + err);
-        }
-    }
+// }
+// else
+//     {
+//         function error(err) {
+//             console.log("file not uploaded" + err);
+//         }
+//     }
 
     console.log("current cookie: " + document.cookie);
 
