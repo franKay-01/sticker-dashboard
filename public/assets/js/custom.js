@@ -30,7 +30,7 @@ $(document).ready(function () {
 
         reader.onload = function (e) {
             var img = $("#add-img").attr('src', e.target.result);
-            $('.#left-col').html(img);
+            $('#left-col').html(img);
         };
 
         reader.readAsDataURL(this.files[0]);
