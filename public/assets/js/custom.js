@@ -29,6 +29,7 @@ $(document).ready(function () {
             reader.readAsDataURL(input.files[0]);
         }
     }
+    $("#filein").click(readURL());
     //
     // var newFile = $("#filein")[0];
     // if(newFile.files.length > 0)
