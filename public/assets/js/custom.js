@@ -45,31 +45,6 @@ $(document).ready(function () {
         });
         return false;
     });
-    //
-    // var parseFile = new Parse.File(filename, file);
-    // parseFile.save().then(function()
-    // {
-    //     var sticker = new StickerObject();
-    //     sticker.set("stickerName",trimName);
-    //     sticker.set("localName",trimName);
-    //     sticker.set("uri",parseFile);
-    //     sticker.set("category",["painful"]);
-    //     sticker.set("stickerPhraseImage", "");
-    //     sticker.save().then(function()
-    //     {
-    //         //file has been uploaded
-    //         alert("image uploaded to parse");
-    //     },
-    //     function(problem)
-    //     {
-    //         //file was not uploaded
-    //         console.error("Could not upload. " + problem);
-    //     });
-    // }, function(err)
-    // {
-    //     //parsefile was not saved
-    //     console.error(err);
-    // });
 }
 
     console.log("current cookie: " + document.cookie);
