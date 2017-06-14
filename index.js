@@ -9,11 +9,11 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var fs = require('fs');
-var multer  = require('multer');
+//var multer  = require('multer');
 
 
 //uploaded file storage location
-var upload = multer({ dest: '/upload' });
+//var upload = multer({ dest: '/upload' });
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
