@@ -88,7 +88,7 @@ app.use(bodyParser.json());   // Middleware for reading request body
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-app.use(express.bodyParser({uploadDir:'/public/assets/images/sticker'}));
+app.use(bodyParser({uploadDir:'/public/assets/images/sticker'}));
 
 app.use(cookieSession({
     name: "session",
