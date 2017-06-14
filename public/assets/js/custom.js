@@ -32,18 +32,19 @@ $(document).ready(function () {
         console.log("File loaded: " + trimName);
 
     //AJAX
-    $("#form#tform").submit(function()
+    $("#tform").submit(function()
     {
         var formData = new FormData($(this)[0]);
-        $.ajax({
-            url: "/login",
-            type: "POST",
-            data: formData,
-            async: false,
-            cache: false,
-            contentType: false,
-            processData: false
-        });
+        console.log(formData);
+        // $.ajax({
+        //     url: "/login",
+        //     type: "POST",
+        //     data: formData,
+        //     async: false,
+        //     cache: false,
+        //     contentType: false,
+        //     processData: false
+        // });
         return false;
     });
 }
