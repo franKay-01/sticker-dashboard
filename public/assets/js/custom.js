@@ -19,25 +19,34 @@ $(document).ready(function () {
         }
     );
 
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#add-img').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
     var newFile = $("#filein")[0];
     if(newFile.files.length > 0)
     {
         var file = newFile.files[0];
         var filename = file.name;
         // var trimName = filename.substring(0, filename.length-4);
-        $("#filein").change(function () {
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    var img = $('#add-img').attr('src', e.target.result);
-                    console.log("file: " + filename);
-                    $('.upload-image-preview').html(img);
-                };
-
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
+        // $("#filein").change(function () {
+        //     if (this.files && this.files[0]) {
+        //         var reader = new FileReader();
+        //
+        //         reader.onload = function (e) {
+        //             var img = $('#add-img').attr('src', e.target.result);
+        //             console.log("file: " + filename);
+        //         };
+        //
+        //         reader.readAsDataURL(this.files[0]);
+        //     }
+        // });
 
         // $("#left-col").attr("src", file);
 
