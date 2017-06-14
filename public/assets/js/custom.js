@@ -29,8 +29,8 @@ $(document).ready(function () {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            var img = $('#left-col').attr('src', e.target.result);
-            $('#left-col').html(img);
+            var img = $("#add-img").attr('src', e.target.result);
+            $('.#left-col').html(img);
         };
 
         reader.readAsDataURL(this.files[0]);
