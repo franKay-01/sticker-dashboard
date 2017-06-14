@@ -45,13 +45,13 @@ $(document).ready(function () {
         //     contentType: false,
         //     processData: false
         // });
-        return false;
+        // return false;
     });
 }
 else
     {
         function error(err) {
-            console.log(err);
+            console.log("file not uploaded" + err);
         }
     }
 
