@@ -31,6 +31,7 @@ $(document).ready(function () {
 
                 reader.onload = function (e) {
                     var img = $('#add-img').attr('src', e.target.result);
+                    console.log("file: " + filename);
                     $('.upload-image-preview').html(img);
                 };
 
