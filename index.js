@@ -8,6 +8,7 @@ var Parse = require("parse/node"); // import the module
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
+var fs = require('fs');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
@@ -160,9 +161,12 @@ app.post('/login', function (req, res) {
     //Upload File To Parse
     app.post('/upload', function (req, res)
     {
-
+        app.use(express.bodyParser({uploadDir:'/public/assets/images/sticker'}))
         var session = req.session.token;
         var token = req.cookies.token;
+
+        var tempPath = req.files.file.path;
+
 
         //input fields from form
         var stickerName = req.body.stickername;
@@ -200,6 +204,7 @@ app.post('/login', function (req, res) {
                 console.log(req.body.stickername);
                 //return to dashboard page
                 res.render("/dashboard");
+                res.sendfile(path.resolve('/public/assets/images/sticker'));
             });
         }
         //no session exists reload stickers page
