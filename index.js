@@ -203,8 +203,8 @@ app.post('/login', function (req, res) {
                 console.error(err);
                 console.log(req.body.stickername);
                 //return to dashboard page
-                res.render("/dashboard");
                 res.sendfile(path.resolve('/public/assets/images/sticker'));
+                res.render("/dashboard");
             });
         }
         //no session exists reload stickers page
