@@ -157,14 +157,24 @@ app.post('/login', function (req, res) {
 
     });
 
+    //Upload File To Parse
     app.post('/upload', function (req, res)
     {
+
         var session = req.session.token;
         var token = req.cookies.token;
 
         if (session && token)
         {
-            res.redirect("/dashboard");
+            // var StickerObject = new Parse.Object.extend("Stickers");
+            console.log(req.param());
+
+            // res.redirect("/dashboard");
+        }
+        else {
+            function error(err) {
+                console.log(err);
+            }
         }
     });
 
