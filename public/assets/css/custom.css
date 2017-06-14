@@ -218,7 +218,7 @@ input::-webkit-input-placeholder {
     max-width: 45%;
 }
 #filein {
-    padding: 120px 50px 120px 50px;
+    padding: 270px 50px 0 5px;
     font-size: 18px;
     background-color: mediumpurple;
     height: inherit;
@@ -244,7 +244,8 @@ input::-webkit-input-placeholder {
     color: #FFF;
     margin-right: 75px;
     padding: 10px;
-    font-size: 170%;
+    font-family: monospace;
+    font-size: 130%;
     transition: 0.5s;
     position: relative;
 }
@@ -262,7 +263,8 @@ input::-webkit-input-placeholder {
     background: #464B9C;
     color: #FFF;
     padding: 10px;
-    font-size: 170%;
+    font-family: monospace;;
+    font-size: 130%;
     transition: 0.5s;
     position: relative;
 }
