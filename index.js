@@ -168,7 +168,7 @@ app.post('/login', function (req, res) {
         {
             // var StickerObject = new Parse.Object.extend("Stickers");
             console.log(req.body.stickername);
-            res.redirect("/dashboard");
+            res.render("/dashboard");
         }
         else {
             function error(err) {
