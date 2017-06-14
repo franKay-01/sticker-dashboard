@@ -168,14 +168,17 @@ app.post('/login', function (req, res) {
         {
             // var StickerObject = new Parse.Object.extend("Stickers");
             console.log(req.body.stickername);
-            // res.redirect("/dashboard");
+            res.redirect("/dashboard");
         }
         else {
             function error(err) {
-                console.log("Error" + err);
-                console.log(req.body.stickername);
+                console.log("error:::::: " + err);
+                console.log("problem==========="+req.body.stickername);
+                res.redirect("/stickers", {
+                    error: err.message
+                });
             }
-        }
+            }
     });
 
     //res.sendFile(path.join(__dirname, '/public/index.ejs'));
