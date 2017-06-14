@@ -24,29 +24,35 @@ $(document).ready(function () {
     {
         var file = newFile.files[0];
         var filename = file.name;
-        var trimName = filename.substring(0, filename.length-4);
+        // var trimName = filename.substring(0, filename.length-4);
+        console.log("File loaded: " + filename);
+        var reader = new FileReader();
 
-        stName.value = trimName;
-        lName.value = trimName;
-        $("#left-col").attr("src", file);
-        console.log("File loaded: " + trimName);
+        reader.onload = function (e) {
+            var img = $('#left-col').attr('src', e.target.result);
+            $('#left-col').html(img);
+        };
+
+        reader.readAsDataURL(this.files[0]);
+
+        // $("#left-col").attr("src", file);
 
     //AJAX
-    $("#tform").submit(function()
-    {
-        var formData = new FormData($(this)[0]);
-        console.log(formData);
-        // $.ajax({
-        //     url: "/login",
-        //     type: "POST",
-        //     data: formData,
-        //     async: false,
-        //     cache: false,
-        //     contentType: false,
-        //     processData: false
-        // });
-        // return false;
-    });
+    // $("#tform").submit(function()
+    // {
+    //     var formData = new FormData($(this)[0]);
+    //     console.log(formData);
+    //     // $.ajax({
+    //     //     url: "/login",
+    //     //     type: "POST",
+    //     //     data: formData,
+    //     //     async: false,
+    //     //     cache: false,
+    //     //     contentType: false,
+    //     //     processData: false
+    //     // });
+    //     // return false;
+    // });
 }
 else
     {

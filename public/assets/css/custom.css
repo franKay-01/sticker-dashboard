@@ -201,7 +201,7 @@ input::-webkit-input-placeholder {
 }
 
 #left-col {
-    border: 2px solid darkslategrey;
+    /*border: 2px solid darkslategrey;*/
     position: absolute;
     overflow: hidden;
     left: 22%;
