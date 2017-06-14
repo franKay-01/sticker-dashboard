@@ -165,7 +165,7 @@ app.post('/login', function (req, res) {
 });
 
 //Upload File To Parse
-app.post('/upload',upload.single('avatar'), function (req, res)
+app.post('/upload', function (req, res)
 {
 
     var session = req.session.token;
