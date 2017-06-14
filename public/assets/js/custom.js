@@ -29,13 +29,14 @@ $(document).ready(function () {
         stName.value = trimName;
         lName.value = trimName;
         $("#left-col").attr("src", file);
+        console.log("File loaded: " + trimName);
 
     //AJAX
     $("#form#tform").submit(function()
     {
         var formData = new FormData($(this)[0]);
         $.ajax({
-            url: window.location = "/login",
+            url: "/login",
             type: "POST",
             data: formData,
             async: false,
@@ -46,6 +47,12 @@ $(document).ready(function () {
         return false;
     });
 }
+else
+    {
+        function error(err) {
+            console.log(err);
+        }
+    }
 
     console.log("current cookie: " + document.cookie);
 
