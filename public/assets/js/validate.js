@@ -14,7 +14,7 @@ getCookie = function (cname) {
 };
 
 var token = getCookie("token");
-console.log("token------"+token);
+// console.log("token------"+token);
 if (token !== "") {
     if (Parse.User.current() === null) {
         // var user = Parse.User.current();

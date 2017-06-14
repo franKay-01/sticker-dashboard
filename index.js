@@ -167,7 +167,7 @@ app.post('/login', function (req, res) {
         if (session && token)
         {
             // var StickerObject = new Parse.Object.extend("Stickers");
-            console.log(req.param);
+            console.log("session token::::::" + req.session.token);
 
             // res.redirect("/dashboard");
         }
