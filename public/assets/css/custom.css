@@ -220,7 +220,7 @@ input::-webkit-input-placeholder {
 #filein {
     padding: 270px 50px 0 5px;
     font-size: 18px;
-    background-color: mediumpurple;
+    border: 2px solid darkslategrey;
     height: inherit;
 }
 

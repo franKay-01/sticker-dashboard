@@ -25,15 +25,18 @@ $(document).ready(function () {
         var file = newFile.files[0];
         var filename = file.name;
         // var trimName = filename.substring(0, filename.length-4);
-        console.log("File loaded: " + filename);
-        var reader = new FileReader();
+        $("#filein").change(function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
 
-        reader.onload = function (e) {
-            var img = $("#add-img").attr('src', e.target.result);
-            $('#left-col').html(img);
-        };
+                reader.onload = function (e) {
+                    var img = $('#add-img').attr('src', e.target.result);
+                    $('.upload-image-preview').html(img);
+                };
 
-        reader.readAsDataURL(this.files[0]);
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
 
         // $("#left-col").attr("src", file);
 
