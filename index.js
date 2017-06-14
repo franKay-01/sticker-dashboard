@@ -9,6 +9,10 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var fs = require('fs');
+var multer  = require('multer');
+
+//uploaded file storage location
+var upload = multer({ dest: '/public/assets/images/sticker' });
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
@@ -88,7 +92,6 @@ app.use(bodyParser.json());   // Middleware for reading request body
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-app.use(bodyParser({uploadDir:'/public/assets/images/sticker'}));
 
 app.use(cookieSession({
     name: "session",
@@ -161,13 +164,14 @@ app.post('/login', function (req, res) {
 });
 
 //Upload File To Parse
-app.post('/upload', function (req, res)
+app.post('/upload',upload.single('avatar'), function (req, res)
 {
 
     var session = req.session.token;
     var token = req.cookies.token;
 
-    console.log("REQUEST INFO " + req.files);
+    console.log("FILE INFO " + req.files);
+    console.log("BODY INFO " + req.body);
 
     res.redirect("/dashboard");
 
