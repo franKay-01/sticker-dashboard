@@ -167,13 +167,13 @@ app.post('/login', function (req, res) {
         if (session && token)
         {
             // var StickerObject = new Parse.Object.extend("Stickers");
-            console.log(req.param());
+            console.log(req.param);
 
             // res.redirect("/dashboard");
         }
         else {
             function error(err) {
-                console.log(err);
+                console.log("Error" + err);
             }
         }
     });
