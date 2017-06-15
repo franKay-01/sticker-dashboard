@@ -182,11 +182,9 @@ fieldset {
 
 /*ADD STICKER FORM*/
 .container1 {
-    background-color: #dddddd;
     width: 60%;
-    height: 120%;
+    height: 200%;
     margin: 0 auto;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
 input::-webkit-input-placeholder {
@@ -194,10 +192,11 @@ input::-webkit-input-placeholder {
 }
 
 #tform {
-    height: 400px;
+    height: 450px;
     margin: 0 auto;
+    background-color: #dddddd;
     padding: 15px;
-    /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2), 0 0 5px 10px rgba(0, 0, 0, 0.24)
 }
 
 #left-col {
@@ -216,8 +215,10 @@ input::-webkit-input-placeholder {
 
 #filein {
     color: darkslategray;
-    padding-top: 300px;
-    padding-left: 13px;
+    margin-top: 300px;
+    font-size: 20px;
+    margin-left: 13px;
+    font-family: monospace;
 }
 
 #right-col {
@@ -239,7 +240,9 @@ input::-webkit-input-placeholder {
     max-width: 40%;
     background: red;
     color: #FFF;
-    margin-right: 75px;
+    margin-right: 170px;
+    margin-left: 20px;
+    margin-top: 50px;
     padding: 10px;
     font-family: monospace;
     font-size: 130%;

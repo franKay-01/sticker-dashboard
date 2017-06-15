@@ -8,6 +8,7 @@ var Parse = require("parse/node"); // import the module
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
+var dropzone = require('dropzone');
 var fs = require('fs');
 //var multer  = require('multer');
 
