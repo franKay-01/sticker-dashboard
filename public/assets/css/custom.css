@@ -216,6 +216,8 @@ input::-webkit-input-placeholder {
 
 #filein {
     color: darkslategray;
+    padding-top: 300px;
+    padding-left: 13px;
 }
 
 #right-col {
@@ -233,6 +235,7 @@ input::-webkit-input-placeholder {
 
 #cancel {
     cursor: pointer;
+    border: 1px solid red;
     max-width: 40%;
     background: red;
     color: #FFF;
@@ -240,14 +243,14 @@ input::-webkit-input-placeholder {
     padding: 10px;
     font-family: monospace;
     font-size: 130%;
-    transition: 0.5s;
+    transition: 0.3s;
     position: relative;
 }
 
 #cancel:hover {
     background: white;
     color: red;
-    transition: 0.5s;
+    transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
@@ -255,18 +258,19 @@ input::-webkit-input-placeholder {
     cursor: pointer;
     max-width: 40%;
     background: #464B9C;
+    border: 1px solid #464B9C;
     color: #FFF;
     padding: 10px;
     font-family: monospace;;
     font-size: 130%;
-    transition: 0.5s;
+    transition: 0.3s;
     position: relative;
 }
 
 #upload:hover {
     background: white;
     color: #464B9C;
-    transition: 0.5s;
+    transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
