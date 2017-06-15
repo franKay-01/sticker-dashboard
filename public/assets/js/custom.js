@@ -19,17 +19,19 @@ $(document).ready(function () {
         }
     );
 
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            console.log("File uploaded");
-            reader.onload = function (e) {
-                $('#left-col').attr('src', e.target.result);
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    $("#filein").click(readURL());
+
+
+    $("#filein").click(function (input) {
+        alert("Clicked");
+        // if (input.files && input.files[0]) {
+        //     var reader = new FileReader();
+        //     console.log("File uploaded");
+        //     reader.onload = function (e) {
+        //         $('#left-col').attr('src', e.target.result);
+        //     };
+        //     reader.readAsDataURL(input.files[0]);
+        // }
+    });
     //
     // var newFile = $("#filein")[0];
     // if(newFile.files.length > 0)
