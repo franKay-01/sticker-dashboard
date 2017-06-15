@@ -210,20 +210,12 @@ input::-webkit-input-placeholder {
 }
 
 #add-img {
-    width: 22%;
-    height: 300px;
+    width: 100%;
+    height: 100%;
 }
 
-#left-col img {
-    max-height: 320px;
-    max-width: 45%;
-}
 #filein {
-    padding: 270px 50px 0 5px;
-    font-size: 18px;
-    border: 2px solid darkslategrey;
     color: darkslategray;
-    height: inherit;
 }
 
 #right-col {
