@@ -201,7 +201,7 @@ input::-webkit-input-placeholder {
 }
 
 #left-col {
-    /*border: 2px solid darkslategrey;*/
+    border: 2px solid darkslategrey;
     position: absolute;
     overflow: hidden;
     left: 22%;
@@ -210,8 +210,8 @@ input::-webkit-input-placeholder {
 }
 
 #add-img {
-    height: inherit;
-    width: inherit;
+    width: 22%;
+    height: 300px;
 }
 
 #left-col img {
