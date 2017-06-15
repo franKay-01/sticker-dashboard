@@ -20,42 +20,19 @@ $(document).ready(function () {
     );
 
 
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-    // $("#filein").click(function (input) {
-
-    // });
-
-    $("#filein").change(function (input) {
-        console.log($("#filein").val());
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#filein").change(function(){
+        readURL(this);
     });
-    //
-
-
-        // $("#left-col").attr("src", file);
-
-    //AJAX
-    // $("#tform").submit(function()
-    // {
-    //     var formData = new FormData($(this)[0]);
-    //     console.log(formData);
-    //     // $.ajax({
-    //     //     url: "/login",
-    //     //     type: "POST",
-    //     //     data: formData,
-    //     //     async: false,
-    //     //     cache: false,
-    //     //     contentType: false,
-    //     //     processData: false
-    //     // });
-    //     // return false;
-    // });
-// }
-// else
-//     {
-//         function error(err) {
-//             console.log("file not uploaded" + err);
-//         }
-//     }
 
     console.log("current cookie: " + document.cookie);
 
