@@ -2,7 +2,7 @@
  *  Steps handler
  */
 
-var Steps = {}
+var Steps = {};
 
 Steps.init = function() {
   this.buildParseUrl();
@@ -145,6 +145,42 @@ XHR.GET = function(path, callback) {
   this.xhttp.send(null);
 }
 
+//NEW SCRIPT FOR DRAGNDROP
+var template = '<div class="preview">'+
+    '<span class="imageHolder">'+
+    '<img id="prev" />'+
+    '<span class="uploaded"></span>'+
+    '</span>'+
+    '<div class="progressHolder">'+
+    '<div class="progress"></div>'+
+    '</div>'+
+    '</div>';
+
+function createImage(file){
+
+    var preview = $(template),
+        image = $('#prev', preview);
+    var reader = new FileReader();
+
+    image.width = 100;
+    image.height = 100;
+
+    reader.onload = function(e){
+        // e.target.result holds the DataURL which
+        // can be used as a source of the image:
+        image.attr('src',e.target.result);
+    };
+    // Reading the file as a DataURL. When finished,
+    // this will trigger the onload function above:
+    reader.readAsDataURL(file);
+    message.hide();
+    preview.appendTo(dropbox);
+    // Associating a preview container
+    // with the file, using jQuery's $.data():
+
+    $.data(file,preview);
+}
+//NEW SCRIPT FOR DRAGNDROP
 
 /**
  *  Boot
