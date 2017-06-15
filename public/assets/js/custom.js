@@ -26,14 +26,12 @@ $(document).ready(function () {
     // });
 
     $("#filein").change(function (input) {
-         if (input.files && input.files[0]) {
              var reader = new FileReader();
              console.log("File uploaded");
              reader.onload = function (e) {
                  $('#left-col').attr('src', e.target.result);
              };
              reader.readAsDataURL(input.files[0]);
-         }
     });
     //
 
