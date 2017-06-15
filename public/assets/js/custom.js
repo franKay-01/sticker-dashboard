@@ -33,7 +33,7 @@ $(document).ready(function () {
     //     // }
     // });
 
-    $("#filein").onchange(function (input) {
+    $("#filein").change(function (input) {
         alert("Changed");
     });
     //
