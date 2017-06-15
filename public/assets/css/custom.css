@@ -210,7 +210,8 @@ input::-webkit-input-placeholder {
 }
 
 #add-img {
-    font-size: 15px;
+    height: inherit;
+    width: inherit;
 }
 
 #left-col img {
