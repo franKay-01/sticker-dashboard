@@ -231,7 +231,7 @@ app.post('/upload', function (req, res)
 },
      function (error) {
 
-        console.log("Error " +JSON.stringify(error);
+        console.log("Error " +JSON.stringify(error));
         //error goes here
         res.redirect("/", {
             error: error.message
