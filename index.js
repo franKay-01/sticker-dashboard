@@ -181,16 +181,16 @@ app.post('/upload', function (req, res)
     console.log("BODY INFO " + JSON.stringify(req.body));
     console.log("FILE NAME " + JSON.stringify(req.body.filename));
 
-    var fstream;
-    req.pipe(req.busboy);
-    req.busboy.on('file', function (fieldname, file, filename) {
-        console.log("Uploading: " + filename);
-        fstream = fs.createWriteStream(__dirname + '/files/' + filename);
-        file.pipe(fstream);
-        fstream.on('close', function () {
-            res.redirect('back');
-        });
-    });
+    // var fstream;
+    // req.pipe(req.busboy);
+    // req.busboy.on('file', function (fieldname, file, filename) {
+    //     console.log("Uploading: " + filename);
+    //     fstream = fs.createWriteStream(__dirname + '/files/' + filename);
+    //     file.pipe(fstream);
+    //     fstream.on('close', function () {
+    //         res.redirect('back');
+    //     });
+    // });
 
     res.redirect("/dashboard");
 
