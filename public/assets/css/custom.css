@@ -293,6 +293,7 @@ input::-webkit-input-placeholder {
 }
 .demo-droppable:hover {
     transition: 0.3s;
+    background: #00CC71;
     cursor: pointer;
 }
 

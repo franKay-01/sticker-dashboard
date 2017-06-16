@@ -1,8 +1,3 @@
-// //import parse dependencies
-// var Parse = require("parse");
-// var ParseServer = require('parse-server').ParseServer;
-Parse.initialize("cryptic-waters12");
-Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
 $(document).ready(function () {
 

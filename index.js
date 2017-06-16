@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var fs = require('fs');
-//var multer  = require('multer');
+var multer  = require('multer');
 
 
 //uploaded file storage location
@@ -137,7 +137,6 @@ app.get('/', function (req, res) {
     } else {
         res.render("pages/signup");
     }
-
 });
 
 
@@ -160,7 +159,6 @@ app.post('/login', function (req, res) {
         res.redirect("/", {
             error: error.message
         });
-
     });
 });
 
@@ -230,7 +228,15 @@ app.post('/upload', function (req, res)
 
     //res.sendFile(path.join(__dirname, '/public/index.ejs'));
     // res.render("pages/index");
-});
+},
+     function (error) {
+
+        console.log(error);
+        //error goes here
+        res.redirect("/", {
+            error: error.message
+        });
+    });
 
 app.get('/logout', function (req, res) {
 
