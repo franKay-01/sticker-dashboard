@@ -100,10 +100,10 @@ app.configure(function(){
 var app = express();
 
 app.use(cors());
-app.use(bodyParser.json());   // Middleware for reading request body
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
+// app.use(bodyParser.json());   // Middleware for reading request body
+// app.use(bodyParser.urlencoded({
+//     extended: false
+// }));
 
 app.use(cookieSession({
     name: "session",
