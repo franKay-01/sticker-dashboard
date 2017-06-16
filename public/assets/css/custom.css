@@ -289,16 +289,16 @@ input::-webkit-input-placeholder {
     transition: 0.3s;
 }
 .demo-droppable.dragover {
-    background: #00CC71;
+    background: mediumpurple;
 }
 .demo-droppable:hover {
     transition: 0.3s;
-    background: #00CC71;
+    background: mediumpurple;
     cursor: pointer;
 }
 
 .demo-droppable:click {
-    background: #00CC71;
+    background: mediumpurple;
 }
 
 .output {

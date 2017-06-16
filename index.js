@@ -169,7 +169,8 @@ app.post('/upload', function (req, res)
     var session = req.session.token;
     var token = req.cookies.token;
 
-    console.log("FILE INFO " + JSON.stringify(req.files.name));
+    console.log("FILE INFO " + JSON.stringify(req.files.tfile));
+    console.log("FILE INFO " + JSON.stringify(req.files.ffile));
     console.log("BODY INFO " + JSON.stringify(req.body));
 
     res.redirect("/dashboard");
