@@ -235,10 +235,8 @@ app.post('/upload', function (req, res)
 app.get('/logout', function (req, res) {
 
     Parse.User.logOut().then(function () {
-
-            res.redirect("/");
+            res.redirect("/signup");
             res.cookie('token', "");
-
         },
         function (error) {
 
