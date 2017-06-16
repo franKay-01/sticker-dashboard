@@ -213,7 +213,7 @@ input::-webkit-input-placeholder {
     height: 100%;
 }
 
-#filein {
+#filename {
     color: darkslategray;
     margin-top: 300px;
     font-size: 20px;
@@ -280,14 +280,13 @@ input::-webkit-input-placeholder {
 
 /*NEW STUFF FOR DRAG N DROP*/
 .demo-droppable {
-    background: #08c;
-    color: #fff;
+    background: #fefefe;
+    color: black;
     margin-top: 100px;
     margin-left: 450px;
     text-align: center;
-    width: 390px;
-    height: 321px;
-    /*margin: 0 auto;*/
+    width: 310px;
+    height: 306px;
     transition: 0.3s;
 }
 .demo-droppable.dragover {
@@ -303,15 +302,15 @@ input::-webkit-input-placeholder {
 }
 
 .output {
-    height: 90%;
+    width: 100%;
+}
+.output img {
     width: 95%;
-    padding: 5px;
-    overflow: hidden;
-    border: 1px solid black;
 }
 
 #word {
     padding-top: 50px;
+    color: black;
 }
 
 

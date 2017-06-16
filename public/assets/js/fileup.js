@@ -65,7 +65,8 @@
                 alert("only images!!!!!");
                 output.preventDefault();
             }
-            output.innerHTML += '<p>'+files[i].name+'</p>';
+            var filename = document.getElementById('filename');
+            filename.innerHTML = files[i].name;
         }
     });
 })(this);
