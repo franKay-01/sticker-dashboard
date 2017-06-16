@@ -143,100 +143,75 @@ XHR.GET = function(path, callback) {
   this.xhttp.setRequestHeader("X-Parse-Application-Id", "myAppId");
   this.xhttp.setRequestHeader("Content-type", "application/json");
   this.xhttp.send(null);
-}
+};
 
 //NEW SCRIPT FOR DRAGNDROP
+(function(window) {
+    function triggerCallback(e, callback) {
+        if(!callback || typeof callback !== 'function') {
+            return;
+        }
+        var files;
+        if(e.dataTransfer) {
+            files = e.dataTransfer.files;
+        } else if(e.target) {
+            files = e.target.files;
+        }
+        callback.call(null, files);
+    }
+    function makeDroppable(ele, callback) {
+        var input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('multiple', true);
+        input.style.display = 'none';
+        input.addEventListener('change', function(e) {
+            triggerCallback(e, callback);
+        });
+        ele.appendChild(input);
 
-////////////////////////////////////\
-$(function(){
-    var dropbox = $('#dropbox'),
-        message = $('.message', dropbox);
+        ele.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            ele.classList.add('dragover');
+        });
 
-    dropbox.filedrop({
-        // The name of the $_FILES entry:
-        paramname:'pic',
-        maxfiles: 5,
-        maxfilesize: 2, // in mb
-        url: 'post_file.php',
-        uploadFinished:function(i,file,response){
-            $.data(file).addClass('done');
-            // response is the JSON object that post_file.php returns
-        },
+        ele.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            ele.classList.remove('dragover');
+        });
 
-        error: function(err, file) {
-            switch(err) {
-                case 'BrowserNotSupported':
-                    showMessage('Your browser does not support HTML5 file uploads!');
-                    break;
-                case 'TooManyFiles':
-                    alert('Too many files! Please select 5 at most!');
-                    break;
-                case 'FileTooLarge':
-                    alert(file.name+' is too large! Please upload files up to 2mb.');
-                    break;
-                default:
-                    break;
+        ele.addEventListener('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            ele.classList.remove('dragover');
+            triggerCallback(e, callback);
+        });
+
+        ele.addEventListener('click', function() {
+            input.value = null;
+            input.click();
+        });
+    }
+    window.makeDroppable = makeDroppable;
+})(this);
+(function(window) {
+    makeDroppable(window.document.querySelector('.demo-droppable'), function(files) {
+        console.log(files);
+        var output = document.querySelector('.output');
+        output.innerHTML = '';
+        for(var i=0; i<files.length; i++) {
+            if(files[i].type.indexOf('image/') === 0) {
+                output.innerHTML += '<img width="200" src="' + URL.createObjectURL(files[i]) + '" />';
             }
-        },
-
-        // Called before each upload is started
-        beforeEach: function(file){
-            if(!file.type.match(/^image\//)){
-                alert('Only images are allowed!');
-                // Returning false will cause the
-                // file to be rejected
-                return false;
+            else {
+                alert("only images!!!!!");
+                output.preventDefault();
             }
-        },
-        uploadStarted:function(i, file, len){
-            createImage(file);
-        },
-        progressUpdated: function(i, file, progress) {
-            $.data(file).find('.progress').width(progress);
+            output.innerHTML += '<p>'+files[i].name+'</p>';
         }
     });
-
-    function showMessage(msg){
-        message.html(msg);
-    }
-
-});
-
-//template
-var template = '<div class="preview">'+
-    '<span class="imageHolder">'+
-    '<img id="prev" />'+
-    '<span class="uploaded"></span>'+
-    '</span>'+
-    '<div class="progressHolder">'+
-    '<div class="progress"></div>'+
-    '</div>'+
-    '</div>';
-
-function createImage(file){
-
-    var preview = $(template),
-        image = $('#prev', preview);
-    var reader = new FileReader();
-
-    image.width = 100;
-    image.height = 100;
-
-    reader.onload = function(e){
-        // e.target.result holds the DataURL which
-        // can be used as a source of the image:
-        image.attr('src',e.target.result);
-    };
-    // Reading the file as a DataURL. When finished,
-    // this will trigger the onload function above:
-    reader.readAsDataURL(file);
-    message.hide();
-    preview.appendTo(dropbox);
-    // Associating a preview container
-    // with the file, using jQuery's $.data():
-
-    $.data(file,preview);
-}
+})(this);
 //NEW SCRIPT FOR DRAGNDROP
 
 /**
