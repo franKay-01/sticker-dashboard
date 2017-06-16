@@ -87,23 +87,15 @@ var api = new ParseServer({
 // javascriptKey, restAPIKey, dotNetKey, clientKey
 
 //for file upload
-app.configure(function(){
-    app.use(express.methodOverride());
-    app.use(express.bodyParser({keepExtensions:true,uploadDir:path.join(__dirname,'/files')}));
-});
-app.configure(function(){
-    app.use(express.methodOverride());
-    app.use(express.multipart());
-});
 //for file upload
 
 var app = express();
 
 app.use(cors());
-// app.use(bodyParser.json());   // Middleware for reading request body
-// app.use(bodyParser.urlencoded({
-//     extended: false
-// }));
+app.use(bodyParser.json());   // Middleware for reading request body
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 
 app.use(cookieSession({
     name: "session",
