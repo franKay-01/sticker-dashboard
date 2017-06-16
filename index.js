@@ -170,7 +170,7 @@ app.post('/upload', function (req, res)
     var token = req.cookies.token;
 
     console.log("FILE INFO " + req.files);
-    console.log("BODY INFO " + req.body);
+    console.log("BODY INFO " + JSON.stringify(req.body));
 
     res.redirect("/dashboard");
 
@@ -231,7 +231,7 @@ app.post('/upload', function (req, res)
 },
      function (error) {
 
-        console.log(error);
+        console.log("Error " +JSON.stringify(error);
         //error goes here
         res.redirect("/", {
             error: error.message
