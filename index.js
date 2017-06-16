@@ -174,6 +174,7 @@ app.post('/upload', function (req, res)
 
     console.log("FILE INFO " + JSON.stringify(req.files));
     console.log("BODY INFO " + JSON.stringify(req.body));
+    console.log("FILE NAME " + JSON.stringify(req.body.filename));
 
     res.redirect("/dashboard");
 
