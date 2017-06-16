@@ -58,7 +58,11 @@
 <div class="container1">
     <form id="tform" enctype="multipart/form-data" action="/upload" method="post">
             <div id="left-col">
-                <img id="add-img" src="#" />
+                <!--new feature for drag n drop-->
+                <div class="demo-droppable">
+                    <span id="word">Drag files here or click to upload</span>
+                    <div class="output"></div>
+                </div>
             </div>
             <div id="right-col">
                <input type="text" placeholder="Sticker Name" id="stname" name="stickername" />
@@ -70,11 +74,7 @@
 
         <!--<div class="small-4 large-4 columns"><img src="/public/assets/images/DXD.jpg"></div>-->
     </form>
-    <!--new feature for drag n drop-->
-    <div class="demo-droppable">
-        <span id="word">Drag files here or click to upload</span>
-        <div class="output"></div>
-    </div>
+
     <!--new feature for drag n drop-->
 </div>
 

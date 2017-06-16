@@ -4,11 +4,6 @@
 Parse.initialize("cryptic-waters12");
 Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
-//input variables
-var stName = $("#stname").val();
-var lName = $("#lname").val();
-var category = $("#category").val();
-
 $(document).ready(function () {
 
     $('.features').slick(
