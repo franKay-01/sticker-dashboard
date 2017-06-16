@@ -86,6 +86,17 @@ var api = new ParseServer({
 // If you wish you require them, you can set them as options in the initialization above:
 // javascriptKey, restAPIKey, dotNetKey, clientKey
 
+//for file upload
+app.configure(function(){
+    app.use(express.methodOverride());
+    app.use(express.bodyParser({keepExtensions:true,uploadDir:path.join(__dirname,'/files')}));
+});
+app.configure(function(){
+    app.use(express.methodOverride());
+    app.use(express.multipart());
+});
+//for file upload
+
 var app = express();
 
 app.use(cors());

@@ -68,6 +68,7 @@
             }
             var filename = document.getElementById('filename');
             filename.innerHTML = files[i].name;
+            console.log("File details" + ffile);
         }
     });
 })(this);
