@@ -131,8 +131,8 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 app.set('view engine', 'ejs');
 
 //uploaded file storage location
-//var upload = multer({ dest: '/upload' });
-var upload = multer();
+var upload = multer({ dest: '/upload' });
+// var upload = multer();
 
 // Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
@@ -195,15 +195,16 @@ app.post('/upload', upload.single('ffile'), function (req, res)
 
     // var tempPath = req.files.file.path;
     // //input fields from form
-    var stickerName = req.body.stickername;
-    var localName = req.body.localname;
-    var category = req.body.cat;
-    var file = req.body.ffile;
-    console.log("Sticker NAME " + JSON.stringify(stickerName));
-    console.log("Local NAME " + JSON.stringify(localName));
-    console.log("category NAME " + JSON.stringify(category));
-    console.log("file " + JSON.stringify(file));
+    // var stickerName = req.body.stickername;
+    // var localName = req.body.localname;
+    // var category = req.body.cat;
+    // var file = req.body.ffile;
+    // console.log("Sticker NAME " + JSON.stringify(stickerName));
+    // console.log("Local NAME " + JSON.stringify(localName));
+    // console.log("category NAME " + JSON.stringify(category));
+    // console.log("file " + JSON.stringify(file));
 
+    res.redirect("/stickers");
 
 
     if (session && token)
