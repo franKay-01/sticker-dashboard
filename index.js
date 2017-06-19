@@ -199,6 +199,9 @@ app.post('/upload', function (req, res)
     var file = req.body.ffile;
     console.log("Sticker NAME " + JSON.stringify(stickerName));
     console.log("Local NAME " + JSON.stringify(localName));
+    console.log("Local NAME " + JSON.stringify(category));
+    console.log("Local NAME " + JSON.stringify(file));
+
 
 
     // if (session && token)
@@ -229,7 +232,7 @@ app.post('/upload', function (req, res)
     //         //sticker object was not saved
     //         console.error("Obj not saved: " + err);
     //         //return to dashboard page
-    //         res.redirect("/dashboard");
+            res.redirect("/dashboard");
     //     });
     // }
     // //no session exists reload stickers page
