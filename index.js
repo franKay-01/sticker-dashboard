@@ -199,42 +199,44 @@ app.post('/upload', function (req, res)
     var file = req.body.ffile;
     console.log("Sticker NAME " + JSON.stringify(stickerName));
     console.log("Local NAME " + JSON.stringify(localName));
-    console.log("Local NAME " + JSON.stringify(category));
-    console.log("Local NAME " + JSON.stringify(file));
+    console.log("category NAME " + JSON.stringify(category));
+    console.log("file " + JSON.stringify(file));
 
 
 
-    // if (session && token)
-    // {
-    //     //save parsefile object to dashboard
-    //     var StickerObject = new Parse.Object.extend("Stickers");
-    //     var parseFile = new Parse.File(stickerName, file);
-    //     parseFile.save().then(function()
-    //     {
-    //         var sticker = new StickerObject();
-    //         sticker.set("stickerName",stickerName);
-    //         sticker.set("localName",localName);
-    //         sticker.set("uri",parseFile);
-    //         sticker.set("category",category);
-    //         sticker.set("stickerPhraseImage", "");
-    //         sticker.save().then(function()
-    //             {
-    //                 //file has been uploaded
-    //                 alert("image uploaded to parse");
-    //             },
-    //             function(problem)
-    //             {
-    //                 //sticker was not uploaded
-    //                 console.error("Could not upload. " + problem);
-    //             });
-    //     }, function(err)
-    //     {
-    //         //sticker object was not saved
-    //         console.error("Obj not saved: " + err);
-    //         //return to dashboard page
+    if (session && token)
+    {
+        //save parsefile object to dashboard
+        var StickerObject = new Parse.Object.extend("Stickers");
+        var parseFile = new Parse.File(stickerName, file);
+        console.log(("Parse File:::::::" + parseFile));
+
+        parseFile.save().then(function()
+        {
+            var sticker = new StickerObject();
+            sticker.set("stickerName",stickerName);
+            sticker.set("localName",localName);
+            sticker.set("uri",parseFile);
+            sticker.set("category",category);
+            sticker.set("stickerPhraseImage", "");
+            sticker.save().then(function()
+                {
+                    //file has been uploaded
+                    alert("image uploaded to parse");
+                },
+                function(problem)
+                {
+                    //sticker was not uploaded
+                    console.error("Could not upload. " + problem);
+                });
+        }, function(err)
+        {
+            //sticker object was not saved
+            console.error("Obj not saved: " + err);
+            //return to dashboard page
             res.redirect("/dashboard");
-    //     });
-    // }
+        });
+    }
     // //no session exists reload stickers page
     // else {
     //     function error(err) {
