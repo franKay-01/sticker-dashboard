@@ -220,15 +220,17 @@ input::-webkit-input-placeholder {
     margin-left: 19px;
     font-family: monospace;
     position: absolute;
+    width: 300px;
 }
 #filenam {
     color: darkslategray;
-    margin-top: 310px;
+    margin-top: 350px;
     font-size: 20px;
     margin-left: 19px;
     font-family: monospace;
     position: absolute;
     display: none;
+    width: 300px;
 }
 
 #right-col {
