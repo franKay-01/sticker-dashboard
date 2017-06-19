@@ -143,7 +143,6 @@ var storage = multer.diskStorage({
 });
 console.log("STORAGE  "+ JSON.stringify(storage));
 var upload = multer({ storage: storage });
-
 // Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
