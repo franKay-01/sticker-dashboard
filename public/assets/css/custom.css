@@ -221,6 +221,15 @@ input::-webkit-input-placeholder {
     font-family: monospace;
     position: absolute;
 }
+#filenam {
+    color: darkslategray;
+    margin-top: 310px;
+    font-size: 20px;
+    margin-left: 19px;
+    font-family: monospace;
+    position: absolute;
+    display: none;
+}
 
 #right-col {
     position: absolute;
