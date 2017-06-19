@@ -97,8 +97,8 @@ app.use(bodyParser.json());   // Middleware for reading request body
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-app.use(multer({ dest: '/tmp/'}));
-app.use(busboy());
+// app.use(multer({ dest: '/tmp/'}));
+// app.use(busboy());
 
 
 
