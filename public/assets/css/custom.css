@@ -326,8 +326,8 @@ input::-webkit-input-placeholder {
 
 .block {
     height: 320px;
-    width:  260px;
-    background-color: blue;
+    width:  250px;
+    background-color: white;
     margin: 10px auto;
     border: 2px solid black;
 }
