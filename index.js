@@ -192,71 +192,58 @@ app.post('/upload', function (req, res)
     //     });
     // });
 
-    res.redirect("/dashboard");
-
     // var tempPath = req.files.file.path;
     // //input fields from form
-    // var stickerName = req.body.stickername;
-    // var localName = req.body.localname;
-    // var category = req.body.cat;
-    // var file = req.body.stickerfile;
-    //
-    // if (session && token)
-    // {
-    //     //save parsefile object to dashboard
-    //     var StickerObject = new Parse.Object.extend("Stickers");
-    //     var parseFile = new Parse.File(stickerName, file);
-    //     parseFile.save().then(function()
-    //     {
-    //         var sticker = new StickerObject();
-    //         sticker.set("stickerName",stickerName);
-    //         sticker.set("localName",localName);
-    //         sticker.set("uri",parseFile);
-    //         sticker.set("category",category);
-    //         sticker.set("stickerPhraseImage", "");
-    //         sticker.save().then(function()
-    //             {
-    //                 //file has been uploaded
-    //                 alert("image uploaded to parse");
-    //             },
-    //             function(problem)
-    //             {
-    //                 //sticker was not uploaded
-    //                 console.error("Could not upload. " + problem);
-    //             });
-    //     }, function(err)
-    //     {
-    //         //sticker object was not saved
-    //         console.error(err);
-    //         console.log(req.body.stickername);
-    //         //return to dashboard page
-    //         res.sendfile(path.resolve('/public/assets/images/sticker/away bus.png'));
-    //         res.render("/dashboard");
-    //     });
-    // }
-    // //no session exists reload stickers page
-    // else {
-    //     function error(err) {
-    //         console.log("error:::::: " + err);
-    //         console.log("problem==========="+req.body.stickername);
-    //         res.redirect("/stickers", {
-    //             error: err.message
-    //         });
-    //     }
-    // }
-    // });
+    var stickerName = req.body.stickername;
+    var localName = req.body.localname;
+    var category = req.body.cat;
+    var file = req.body.ffile;
+
+    if (session && token)
+    {
+        //save parsefile object to dashboard
+        var StickerObject = new Parse.Object.extend("Stickers");
+        var parseFile = new Parse.File(stickerName, file);
+        parseFile.save().then(function()
+        {
+            var sticker = new StickerObject();
+            sticker.set("stickerName",stickerName);
+            sticker.set("localName",localName);
+            sticker.set("uri",parseFile);
+            sticker.set("category",category);
+            sticker.set("stickerPhraseImage", "");
+            sticker.save().then(function()
+                {
+                    //file has been uploaded
+                    alert("image uploaded to parse");
+                },
+                function(problem)
+                {
+                    //sticker was not uploaded
+                    console.error("Could not upload. " + problem);
+                });
+        }, function(err)
+        {
+            //sticker object was not saved
+            console.error("Obj not saved: " + err);
+            //return to dashboard page
+            res.redirect("/dashboard");
+        });
+    }
+    //no session exists reload stickers page
+    else {
+        function error(err) {
+            console.log("error:::::: " + err);
+            console.log("problem==========="+req.body.stickername);
+            res.redirect("/stickers", {
+                error: err.message
+            });
+        }
+    }
+    });
 
     //res.sendFile(path.join(__dirname, '/public/index.ejs'));
     // res.render("pages/index");
-},
-     function (error) {
-
-        console.log("Error " +JSON.stringify(error));
-        //error goes here
-        res.redirect("/", {
-            error: error.message
-        });
-    });
 
 app.get('/logout', function (req, res) {
 
