@@ -324,6 +324,12 @@ input::-webkit-input-placeholder {
     color: black;
 }
 
-
+.block {
+    height: 200px;
+    width: 200px;
+    background-color: blue;
+    margin: 10px auto;
+    border: 2px solid black;
+}
 
 
