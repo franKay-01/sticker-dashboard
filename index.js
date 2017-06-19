@@ -179,8 +179,8 @@ app.post('/upload', upload.single('ffile'), function (req, res)
     var token = req.cookies.token;
 
     console.log("FILE INFO " + JSON.stringify(req.file));
-   // console.log("FILE INFO " + JSON.stringify(req.files));
-    console.log("BODY INFO " + JSON.stringify(req.body));
+   console.log("FILES INFO " + JSON.stringify(req.files));
+    // console.log("BODY INFO " + JSON.stringify(req.body));
 
     // var fstream;
     // req.pipe(req.busboy);
