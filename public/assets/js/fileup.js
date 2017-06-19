@@ -19,6 +19,7 @@
     function makeDroppable(ele, callback) {
         var input = document.createElement('input');
         input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
         input.setAttribute('multiple', true);
         input.setAttribute('name', 'ffile');
         input.style.display = 'none';
