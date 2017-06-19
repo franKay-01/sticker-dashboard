@@ -2,22 +2,19 @@
     <!--<div class="large-12 columns">-->
 
          <div class="row small-up-1 medium-up-3 large-up-5">
+             <% stickers.forEach(function(item, index) { %>
              <div class="column">
-                 <div class="block"></div>
+                 <div class="block">
+                     <img style="display: block" id="abi" src="<%= item.get("uri").url() %>">
+                     <div><h4 class="subheader">  <%= item.get("stickerName") %></h4></div>
+                 </div>
              </div>
-             <div class="column">
-                 <div class="block"></div>
-             </div>
-             <div class="column">
-                 <div class="block"></div>
-             </div>
-             <div class="column">
-                 <div class="block"></div>
-             </div>
-             <div class="column">
-                 <div class="block"></div>
-             </div>
+             <% }); %>
          </div>
+
+
+
+
 
 
 
