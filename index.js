@@ -141,6 +141,7 @@ var storage = multer.diskStorage({
         cb(null, file.fieldname + '-' + Date.now())
     }
 });
+console.log("STORAGE  "+ JSON.stringify(storage));
 var upload = multer({ storage: storage });
 
 // Serve the Parse API on the /parse URL prefix
