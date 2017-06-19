@@ -9,12 +9,10 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var fs = require('fs');
-// var multer  = require('multer');
+var multer  = require('multer');
 // var busboy = require('connect-busboy');
 
 
-//uploaded file storage location
-//var upload = multer({ dest: '/upload' });
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
@@ -132,6 +130,8 @@ app.all('/', function (req, res, next) {
 app.use('/public', express.static(path.join(__dirname, '/public')));
 app.set('view engine', 'ejs');
 
+//uploaded file storage location
+var upload = multer({ dest: '/upload' });
 
 // Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
@@ -171,7 +171,7 @@ app.post('/login', function (req, res) {
 });
 
 //Upload File To Parse
-app.post('/upload', function (req, res)
+app.post('/upload', upload.single('ffile'), function (req, res)
 {
 
     var session = req.session.token;
