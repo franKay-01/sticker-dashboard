@@ -95,10 +95,10 @@ app.use(cors());
 // app.use(bodyParser.urlencoded({
 //     extended: true
 // }));
-app.configure(function(){
+
     app.use(express.methodOverride());
     app.use(express.multipart());
-});
+
 // app.use(multer({ dest: '/tmp/'}));
 // app.use(busboy());
 
