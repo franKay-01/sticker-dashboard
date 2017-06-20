@@ -101,11 +101,6 @@ app.use(cors());
 
 app.use(methodOverride());
 
-// app.use(Base64());
-    // app.use(multipart());
-
-// app.use(multer({ dest: '/tmp/'}));
-// app.use(busboy());
 
 
 
@@ -219,7 +214,7 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
     {
         //save parsefile object to dashboard
         //save img as obj in base64 format
-        var data = Base64.encode(JSON.stringify(file));
+        var data = JSON.stringify(file);
 
         var StickerObject = new Parse.Object.extend("Stickers");
         var parseFile = new Parse.File(stickerName, data);
