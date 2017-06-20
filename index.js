@@ -11,6 +11,7 @@ var cookieSession = require('cookie-session');
 var fs = require('fs');
 var multer  = require('multer');
 var methodOverride = require('method-override');
+var multipart = require('multipart');
 // var busboy = require('connect-busboy');
 
 
@@ -98,7 +99,7 @@ app.use(cors());
 // }));
 
     app.use(methodOverride());
-    app.use(express.multipart());
+    app.use(multipart());
 
 // app.use(multer({ dest: '/tmp/'}));
 // app.use(busboy());
