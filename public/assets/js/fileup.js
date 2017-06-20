@@ -23,6 +23,7 @@
         input.setAttribute('multiple', true);
         input.setAttribute('name', 'ffile');
         input.style.display = 'none';
+
         input.addEventListener('change', function(e) {
             triggerCallback(e, callback);
         });
