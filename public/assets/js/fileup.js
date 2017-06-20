@@ -67,10 +67,10 @@
                 alert("only images!!!!!");
                 output.preventDefault();
             }
-            var filename = document.getElementById('filename');
-            filename.innerHTML = files[i].name;
-
-            var trimmedName = name.substring(0, name.length-4);
+            var fname = document.getElementById('filename');
+            fname.innerHTML = files[i].name;
+            var filename = files[i].name;
+            var trimmedName = filename.substring(0, name.length-4);
             document.getElementById('stname').value = trimmedName;
             document.getElementById('lname').value = trimmedName;
             console.log("File details" + ffile);

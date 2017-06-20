@@ -196,29 +196,20 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
     console.log("FILE INFO " + JSON.stringify(req.file));
     console.log("BODY INFO " + JSON.stringify(req.body));
 
-    // var fstream;
-    // req.pipe(req.busboy);
-    // req.busboy.on('file', function (fieldname, file, filename) {
-    //     console.log("Uploading: " + filename);
-    //     fstream = fs.createWriteStream(__dirname + '/files/' + filename);
-    //     file.pipe(fstream);
-    //     fstream.on('close', function () {
-    //         res.redirect('back');
-    //     });
-    // });
+
 
     // var tempPath = req.files.file.path;
     // //input fields from form
-    // var stickerName = req.body.stickername;
-    // var localName = req.body.localname;
-    // var category = req.body.cat;
-    // var file = req.body.ffile;
+    var stickerName = req.body.stickername;
+    var localName = req.body.localname;
+    var category = req.body.cat;
+    var file = req.file;
     // console.log("Sticker NAME " + JSON.stringify(stickerName));
     // console.log("Local NAME " + JSON.stringify(localName));
     // console.log("category NAME " + JSON.stringify(category));
     // console.log("file " + JSON.stringify(file));
 
-    res.redirect("/stickers");
+
 
 
     if (session && token)
@@ -229,9 +220,11 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
         //     base64: file.buffer.toString('base64')
         // };
 
-        // var StickerObject = new Parse.Object.extend("Stickers");
-        // var parseFile = new Parse.File(stickerName, file);
-        // console.log(("Parse File:::::::" + parseFile));
+        var StickerObject = new Parse.Object.extend("Stickers");
+        var parseFile = new Parse.File(stickerName, file);
+        console.log(("Parse File:::::::" + parseFile));
+
+        res.redirect("/stickers");
         //
         // parseFile.save().then(function()
         // {
