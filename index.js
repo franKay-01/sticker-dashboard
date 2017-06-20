@@ -143,7 +143,7 @@ var storage = multer.diskStorage({
 });
 console.log("STORAGE  "+ JSON.stringify(storage));
 
-var upload = multer({ storage: storage });
+var upload = multer({ storage: storage }).single('ffile');
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 
@@ -182,7 +182,7 @@ app.post('/login', function (req, res) {
 });
 
 //Upload File To Parse
-app.post('/upload', upload.single('ffile'), function (req, res)
+app.post('/upload', function (req, res)
 {
 
     var session = req.session.token;
