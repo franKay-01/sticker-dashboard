@@ -99,7 +99,7 @@ app.use(cors());
 // }));
 
     app.use(methodOverride());
-    app.use(multipart());
+    // app.use(multipart());
 
 // app.use(multer({ dest: '/tmp/'}));
 // app.use(busboy());
