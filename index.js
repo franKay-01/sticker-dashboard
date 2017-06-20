@@ -101,7 +101,7 @@ app.use(cors());
 
 app.use(methodOverride());
 
-app.use(Base64());
+// app.use(Base64());
     // app.use(multipart());
 
 // app.use(multer({ dest: '/tmp/'}));
