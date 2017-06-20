@@ -135,7 +135,7 @@ app.set('view engine', 'ejs');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         console.log("Dest");
-        cb(null, 'uploads/')
+        cb(null, '/tmp/my-uploads')
     },
     filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now())
@@ -146,6 +146,7 @@ console.log("STORAGE  "+ JSON.stringify(storage));
 var upload = multer({ storage: storage });
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
+
 
 // Home Page
 app.get('/', function (req, res) {
