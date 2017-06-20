@@ -98,7 +98,7 @@ app.use(cors());
 //     extended: true
 // }));
 
-    app.use(methodOverride());
+app.use(methodOverride());
     // app.use(multipart());
 
 // app.use(multer({ dest: '/tmp/'}));
@@ -140,14 +140,13 @@ app.set('view engine', 'ejs');
 // var upload = multer();
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        console.log("Dest");
+        console.log("Dest " + file);
         cb(null, '/uploads')
     },
     filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now())
     }
 });
-console.log("STORAGE  "+ JSON.stringify(storage));
 
 var upload = multer({ storage: storage });
 var mountPath = process.env.PARSE_MOUNT || '/parse';
