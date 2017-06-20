@@ -10,7 +10,7 @@ var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var fs = require('fs');
 var multer  = require('multer');
-// var busboy = require('connect-busboy');
+var busboy = require('connect-busboy');
 
 
 
@@ -96,7 +96,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 // app.use(multer({ dest: '/tmp/'}));
-// app.use(busboy());
+app.use(busboy());
 
 
 
@@ -135,7 +135,7 @@ app.set('view engine', 'ejs');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         console.log("Dest");
-        cb(null, '/tmp/my-uploads')
+        cb(null, '/upload/')
     },
     filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now())
@@ -143,7 +143,7 @@ var storage = multer.diskStorage({
 });
 console.log("STORAGE  "+ JSON.stringify(storage));
 
-var upload = multer({ storage: storage }).single('ffile');
+var upload = multer({ storage: storage });
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 
@@ -182,7 +182,7 @@ app.post('/login', function (req, res) {
 });
 
 //Upload File To Parse
-app.post('/upload', function (req, res)
+app.post('/upload', upload.single('ffile'), function (req, res)
 {
 
     var session = req.session.token;
