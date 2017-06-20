@@ -12,6 +12,7 @@ var fs = require('fs');
 var multer  = require('multer');
 var methodOverride = require('method-override');
 var multipart = require('multipart');
+var Base64 = require('node-base64-image');
 // var busboy = require('connect-busboy');
 
 
@@ -99,6 +100,8 @@ app.use(cors());
 // }));
 
 app.use(methodOverride());
+
+app.use(Base64());
     // app.use(multipart());
 
 // app.use(multer({ dest: '/tmp/'}));
