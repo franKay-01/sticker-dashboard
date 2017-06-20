@@ -73,6 +73,7 @@
             var trimmedName = filename.substring(0, name.length-4);
             document.getElementById('stname').value = trimmedName;
             document.getElementById('lname').value = trimmedName;
+            console.log("trimmed name: " + trimmedName);
             console.log("File details" + ffile);
         }
     });
