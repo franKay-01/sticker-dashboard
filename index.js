@@ -87,8 +87,8 @@ var api = new ParseServer({
 // If you wish you require them, you can set them as options in the initialization above:
 // javascriptKey, restAPIKey, dotNetKey, clientKey
 
-//for file upload
-//for file upload
+//for file uploads
+//for file uploads
 
 var app = express();
 
@@ -137,11 +137,11 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 app.set('view engine', 'ejs');
 
 //uploaded file storage location
-// var upload = multer();
+// var uploads = multer();
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         console.log("Dest " + JSON.stringify(file));
-        cb(null, '/uploads')
+        cb(null, './uploads')
     },
     filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now())
@@ -187,7 +187,7 @@ app.post('/login', function (req, res) {
 });
 
 //Upload File To Parse
-app.post('/upload', upload.single('ffile'), function (req, res)
+app.post('/uploads', upload.single('ffile'), function (req, res)
 {
 
     var session = req.session.token;
@@ -250,7 +250,7 @@ app.post('/upload', upload.single('ffile'), function (req, res)
         //         function(problem)
         //         {
         //             //sticker was not uploaded
-        //             console.error("Could not upload. " + problem);
+        //             console.error("Could not uploads. " + problem);
         //         });
         // }, function(err)
         // {
