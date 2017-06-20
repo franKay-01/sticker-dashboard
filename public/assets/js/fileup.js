@@ -71,8 +71,8 @@
             filename.innerHTML = files[i].name;
 
             var trimmedName = name.substring(0, name.length-4);
-            document.getElementById('stname').innerHTML = trimmedName;
-            document.getElementById('lname').innerHTML = trimmedName;
+            document.getElementById('stname').value = trimmedName;
+            document.getElementById('lname').value = trimmedName;
             console.log("File details" + ffile);
         }
     });
