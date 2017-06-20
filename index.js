@@ -10,6 +10,7 @@ var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var fs = require('fs');
 var multer  = require('multer');
+var methodOverride = require('method-override');
 // var busboy = require('connect-busboy');
 
 
@@ -96,7 +97,7 @@ app.use(cors());
 //     extended: true
 // }));
 
-    app.use(express.methodOverride());
+    app.use(methodOverride());
     app.use(express.multipart());
 
 // app.use(multer({ dest: '/tmp/'}));
