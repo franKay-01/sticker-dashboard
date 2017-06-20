@@ -25,7 +25,7 @@ $(document).ready(function () {
     // });
     //UPLOAD FILE AND PREVIEW
 
-    console.log("current cookie in application: " + document.cookie);
+    console.log("current cookie: " + document.cookie);
 
 });
 
