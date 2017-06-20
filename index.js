@@ -140,7 +140,7 @@ app.set('view engine', 'ejs');
 // var upload = multer();
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        console.log("Dest " + file);
+        console.log("Dest " + JSON.stringify(file));
         cb(null, '/uploads')
     },
     filename: function (req, file, cb) {
