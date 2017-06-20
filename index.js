@@ -141,7 +141,7 @@ app.set('view engine', 'ejs');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         console.log("Dest");
-        cb(null, './uploads')
+        cb(null, './public/uploads')
     },
     filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now())
