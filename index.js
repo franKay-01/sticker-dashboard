@@ -96,7 +96,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 // app.use(multer({ dest: '/tmp/'}));
-app.use(busboy());
+// app.use(busboy());
 
 
 
