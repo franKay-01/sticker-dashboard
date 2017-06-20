@@ -93,7 +93,7 @@ var app = express();
 app.use(cors());
 app.use(bodyParser.json());   // Middleware for reading request body
 app.use(bodyParser.urlencoded({
-    extended: false
+    extended: true
 }));
 // app.use(multer({ dest: '/tmp/'}));
 // app.use(busboy());
@@ -142,8 +142,8 @@ var storage = multer.diskStorage({
     }
 });
 console.log("STORAGE  "+ JSON.stringify(storage));
+
 var upload = multer({ storage: storage });
-// Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 
