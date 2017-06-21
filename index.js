@@ -218,10 +218,10 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
         var newFile = new Buffer(data).toString("base64");
 
         try {
-            var ndata = fs.readFile(newFile, 'utf8');
+            var ndata = fs.readFileSync(newFile, 'utf8');
             console.log('ndata=========' + ndata);
         } catch(e) {
-            console.log('Error:', e.stack);
+            console.log('Error:', e);
         }
 
         var StickerObject = new Parse.Object.extend("Stickers");
