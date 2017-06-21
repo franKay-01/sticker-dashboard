@@ -215,10 +215,10 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
         //save parsefile object to dashboard
         //save img as obj in base64 format
         var data = JSON.stringify(file);
-        var newFile = new Buffer(objJsonStr).toString("base64");
+        var newFile = new Buffer(data).toString("base64");
 
         var StickerObject = new Parse.Object.extend("Stickers");
-        var parseFile = new Parse.File(stickerName, data);
+        var parseFile = new Parse.File(stickerName, newFile);
         console.log(("Parse File:::::::" + parseFile));
 
         //
