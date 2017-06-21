@@ -5,7 +5,7 @@ var SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
 var path = require('path');
 var cors = require('cors');
 var Parse = require("parse/node"); // import the module
-// var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var fs = require('fs');
@@ -94,10 +94,10 @@ var api = new ParseServer({
 var app = express();
 
 app.use(cors());
-// app.use(bodyParser.json());   // Middleware for reading request body
-// app.use(bodyParser.urlencoded({
-//     extended: true
-// }));
+app.use(bodyParser.json());   // Middleware for reading request body
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 app.use(methodOverride());
 
