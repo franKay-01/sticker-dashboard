@@ -197,10 +197,6 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
     var localName = req.body.localname;
     var category = req.body.cat;
     var file = req.file;
-    // console.log("Sticker NAME " + JSON.stringify(stickerName));
-    // console.log("Local NAME " + JSON.stringify(localName));
-    // console.log("category NAME " + JSON.stringify(category));
-    // console.log("file " + JSON.stringify(file));
 
 
     if (session && token) {
@@ -229,24 +225,23 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
 
         parseFile.save().then(function () {
             console.log('success!!!!');
-            res.redirect("/dashboard");
 
-            //     var sticker = new StickerObject();
-            //     sticker.set("stickerName",stickerName);
-            //     sticker.set("localName",localName);
-            //     sticker.set("uri",parseFile);
-            //     sticker.set("category",category);
-            //     sticker.set("stickerPhraseImage", "");
-            //     sticker.save().then(function()
-            //         {
-            //             //file has been uploaded
-            //             console.log("image uploaded to parse");
-            //         },
-            //         function(problem)
-            //         {
-            //             //sticker was not uploaded
-            //             console.error("Could not upload file__ " + problem);
-            //         });
+                var sticker = new StickerObject();
+                sticker.set("stickerName",stickerName);
+                sticker.set("localName",localName);
+                sticker.set("uri",parseFile);
+                sticker.set("category",category);
+                sticker.set("stickerPhraseImage", "");
+                sticker.save().then(function()
+                    {
+                        //file has been uploaded
+                        console.log("image uploaded to parse");
+                    },
+                    function(problem)
+                    {
+                        //sticker was not uploaded
+                        console.error("Could not upload file__ " + problem);
+                    });
         }, function (err) {
             //sticker object was not saved
             console.error("Obj not saved: " + err);
