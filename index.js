@@ -9,12 +9,11 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var fs = require('fs');
-var multer  = require('multer');
+var multer = require('multer');
 var methodOverride = require('method-override');
 var multipart = require('multipart');
 var Base64 = require('node-base64-image');
 // var busboy = require('connect-busboy');
-
 
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
@@ -102,8 +101,6 @@ app.use(bodyParser.urlencoded({
 app.use(methodOverride());
 
 
-
-
 app.use(cookieSession({
     name: "session",
     secret: "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
@@ -146,7 +143,7 @@ var storage = multer.diskStorage({
     }
 });
 
-var upload = multer({ storage: storage });
+var upload = multer({storage: storage});
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 
@@ -185,8 +182,7 @@ app.post('/login', function (req, res) {
 });
 
 //Upload File To Parse
-app.post('/uploads', upload.single('ffile'), function (req, res)
-{
+app.post('/uploads', upload.single('ffile'), function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
@@ -211,53 +207,52 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
 
         //save parsefile object to dashboard
         //save img as obj in base64 format
-       /* var data = JSON.stringify(file);
-        var newFile = new Buffer(data).toString("base64");
+        /* var data = JSON.stringify(file);
+         var newFile = new Buffer(data).toString("base64");
 
-        try {
-            var ndata = fs.readFileSync(newFile, 'base64');
-            console.log('ndata=========' + ndata);
-        } catch(e) {
-            console.log('ReadFileSync Error:::', e);
-        }
+         try {
+         var ndata = fs.readFileSync(newFile, 'base64');
+         console.log('ndata=========' + ndata);
+         } catch(e) {
+         console.log('ReadFileSync Error:::', e);
+         }
 
-        var StickerObject = new Parse.Object.extend("Stickers");
-        stickerName += ".png";*/
+         var StickerObject = new Parse.Object.extend("Stickers");
+         stickerName += ".png";*/
         //var write = fs.createWriteStream(file);
-        var bitmap = fs.readFileSync(file.path);
+        var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
         // convert binary data to base64 encoded string
         var buffer = new Buffer(bitmap).toString('base64');
-        var parseFile = new Parse.File(stickerName, buffer);
+        console.log(buffer);
+        var parseFile = new Parse.File(stickerName, bitmap);
         console.log("Parse File::::::::::" + JSON.stringify(parseFile));
 
-        parseFile.save().then(function()
-        {
+        parseFile.save().then(function () {
             console.log('success!!!!');
             res.redirect("/dashboard");
 
-        //     var sticker = new StickerObject();
-        //     sticker.set("stickerName",stickerName);
-        //     sticker.set("localName",localName);
-        //     sticker.set("uri",parseFile);
-        //     sticker.set("category",category);
-        //     sticker.set("stickerPhraseImage", "");
-        //     sticker.save().then(function()
-        //         {
-        //             //file has been uploaded
-        //             console.log("image uploaded to parse");
-        //         },
-        //         function(problem)
-        //         {
-        //             //sticker was not uploaded
-        //             console.error("Could not upload file__ " + problem);
-        //         });
-        }, function(err)
-        {
+            //     var sticker = new StickerObject();
+            //     sticker.set("stickerName",stickerName);
+            //     sticker.set("localName",localName);
+            //     sticker.set("uri",parseFile);
+            //     sticker.set("category",category);
+            //     sticker.set("stickerPhraseImage", "");
+            //     sticker.save().then(function()
+            //         {
+            //             //file has been uploaded
+            //             console.log("image uploaded to parse");
+            //         },
+            //         function(problem)
+            //         {
+            //             //sticker was not uploaded
+            //             console.error("Could not upload file__ " + problem);
+            //         });
+        }, function (err) {
             //sticker object was not saved
             console.error("Obj not saved: " + err);
             //return to dashboard page
             res.redirect("/dashboard");
-        // res.redirect("/stickers");
+            // res.redirect("/stickers");
         });
     }
     // //no session exists reload stickers page
@@ -270,10 +265,10 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
     //         });
     //     }
     // }
-    });
+});
 
-    //res.sendFile(path.join(__dirname, '/public/index.ejs'));
-    // res.render("pages/index");
+//res.sendFile(path.join(__dirname, '/public/index.ejs'));
+// res.render("pages/index");
 
 app.get('/logout', function (req, res) {
 
@@ -299,7 +294,7 @@ app.get('/dashboard', function (req, res) {
         new Parse.Query("Sticker")
             .find({sessionToken: token}).then(function (stickers) {
 
-            res.render("pages/dashboard", {stickers:stickers});
+            res.render("pages/dashboard", {stickers: stickers});
 
         }, function (error) {
 
