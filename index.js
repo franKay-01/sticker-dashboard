@@ -200,29 +200,18 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
 
         //save parsefile object to dashboard
         //save img as obj in base64 format
-        /* var data = JSON.stringify(file);
-         var newFile = new Buffer(data).toString("base64");
 
-         try {
-         var ndata = fs.readFileSync(newFile, 'base64');
-         console.log('ndata=========' + ndata);
-         } catch(e) {
-         console.log('ReadFileSync Error:::', e);
-         }*/
-
-         var StickerObject = new Parse.Object.extend("Sticker");
-
-        //var write = fs.createWriteStream(file);
         var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-        // convert binary data to base64 encoded string
-       // var base64 = new Buffer(bitmap).toString('base64');
-      //  console.log(bitmap);
+
         var parseFile = new Parse.File(stickerName, { base64: bitmap },file.mimetype);
         console.log("Parse File::::::::::" + JSON.stringify(parseFile));
 
+        //parse file object
+        var StickerObject = new Parse.Object.extend("Sticker");
         parseFile.save().then(function () {
-            console.log('success!!!!');
+            console.log('saving parse file................');
 
+                //instance of parse file object
                 var sticker = new StickerObject();
                 sticker.set("stickerName",stickerName);
                 sticker.set("localName",localName);
@@ -231,46 +220,40 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
                 sticker.set("stickerPhraseImage", "");
                 sticker.save().then(function()
                     {
-                        //file has been uploaded
+                        //file has been uploaded, back to dashboard
                         console.log("image uploaded to parse");
                         res.redirect("/dashboard");
                     },
                     function(problem)
                     {
-                        //sticker was not uploaded
+                        //sticker was not uploaded, reload stickers page
                         console.error("Could not upload file__ " + JSON.stringify(problem));
+                        res.redirect("/stickers");
                     });
         }, function (err) {
-            //sticker object was not saved
+            //sticker object was not saved, reload stickers page
             console.error("Obj not saved: " + JSON.stringify(err));
-            //return to dashboard page
-            res.redirect("/dashboard");
-            // res.redirect("/stickers");
+            res.redirect("/stickers");
         });
     }
-    // //no session exists reload stickers page
-    // else {
-    //     function error(err) {
-    //         console.log("error:::::: " + err);
-    //         console.log("problem==========="+req.body.stickername);
-    //         res.redirect("/stickers", {
-    //             error: err.message
-    //         });
-    //     }
-    // }
+    // //no session exists reload signup page
+    else {
+        function error(err) {
+            console.log("error:::::: " + JSON.stringify(err));
+            res.redirect("/");
+        }
+    }
 });
 
-//res.sendFile(path.join(__dirname, '/public/index.ejs'));
-// res.render("pages/index");
-
+//LOGOUT
 app.get('/logout', function (req, res) {
 
     Parse.User.logOut().then(function () {
             res.redirect("/signup");
             res.cookie('token', "");
+            console.log('----------SUCCESSFUL LOGOUT-----------');
         },
         function (error) {
-
             console.log(JSON.stringify(error));
         });
 
@@ -286,15 +269,10 @@ app.get('/dashboard', function (req, res) {
 
         new Parse.Query("Sticker")
             .find({sessionToken: token}).then(function (stickers) {
-
             res.render("pages/dashboard", {stickers: stickers});
-
         }, function (error) {
-
             console.log("stickers error" + error);
-
         });
-
     } else {
 
         res.render("pages/signup");
@@ -312,7 +290,6 @@ app.get('/stickers', function (req, res) {
     } else {
         res.redirect("/");
     }
-
 });
 
 
