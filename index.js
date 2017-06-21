@@ -215,10 +215,10 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
         //save parsefile object to dashboard
         //save img as obj in base64 format
         // var data = JSON.stringify(file);
-        // var newFile = new Buffer(data).toString("base64");
+        var newFile = new Buffer(file).toString("base64");
 
         try {
-            var ndata = fs.readFileSync(file, 'utf8');
+            var ndata = fs.readFileSync(newFile, 'utf8');
             console.log('ndata=========' + ndata);
         } catch(e) {
             console.log('Error:', e.stack);
