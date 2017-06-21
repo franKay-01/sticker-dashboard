@@ -229,32 +229,32 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
         var parseFile = new Parse.File(stickerName, ndata);
         console.log("Parse File:::::::" + JSON.stringify(parseFile));
 
-        // parseFile.save().then(function()
-        // {
-        //     var sticker = new StickerObject();
-        //     sticker.set("stickerName",stickerName);
-        //     sticker.set("localName",localName);
-        //     sticker.set("uri",parseFile);
-        //     sticker.set("category",category);
-        //     sticker.set("stickerPhraseImage", "");
-        //     sticker.save().then(function()
-        //         {
-        //             //file has been uploaded
-        //             console.log("image uploaded to parse");
-        //         },
-        //         function(problem)
-        //         {
-        //             //sticker was not uploaded
-        //             console.error("Could not upload file__ " + problem);
-        //         });
-        // }, function(err)
-        // {
-        //     //sticker object was not saved
-        //     console.error("Obj not saved: " + err);
-        //     //return to dashboard page
-        //     res.redirect("/dashboard");
+        parseFile.save().then(function()
+        {
+            var sticker = new StickerObject();
+            sticker.set("stickerName",stickerName);
+            sticker.set("localName",localName);
+            sticker.set("uri",parseFile);
+            sticker.set("category",category);
+            sticker.set("stickerPhraseImage", "");
+            sticker.save().then(function()
+                {
+                    //file has been uploaded
+                    console.log("image uploaded to parse");
+                },
+                function(problem)
+                {
+                    //sticker was not uploaded
+                    console.error("Could not upload file__ " + problem);
+                });
+        }, function(err)
+        {
+            //sticker object was not saved
+            console.error("Obj not saved: " + err);
+            //return to dashboard page
+            res.redirect("/dashboard");
         // res.redirect("/stickers");
-        // });
+        });
     }
     // //no session exists reload stickers page
     // else {
