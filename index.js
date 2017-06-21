@@ -210,7 +210,7 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
          console.log('ReadFileSync Error:::', e);
          }*/
 
-         var StickerObject = new Parse.Object.extend("Stickers");
+         var StickerObject = new Parse.Object.extend("Sticker");
 
         //var write = fs.createWriteStream(file);
         var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
