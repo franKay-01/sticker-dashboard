@@ -216,7 +216,7 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
         //save img as obj in base64 format
         var data = JSON.stringify(file);
         var newFile = new Buffer(data).toString("base64");
-        console.log("New File---------" + newFile);
+        // console.log("New File---------" + newFile);
 
         try {
             var ndata = fs.readFileSync(newFile, 'utf8');
@@ -231,22 +231,24 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
 
         parseFile.save().then(function()
         {
-            var sticker = new StickerObject();
-            sticker.set("stickerName",stickerName);
-            sticker.set("localName",localName);
-            sticker.set("uri",parseFile);
-            sticker.set("category",category);
-            sticker.set("stickerPhraseImage", "");
-            sticker.save().then(function()
-                {
-                    //file has been uploaded
-                    console.log("image uploaded to parse");
-                },
-                function(problem)
-                {
-                    //sticker was not uploaded
-                    console.error("Could not upload file__ " + problem);
-                });
+            console.log('success!!!!');
+
+        //     var sticker = new StickerObject();
+        //     sticker.set("stickerName",stickerName);
+        //     sticker.set("localName",localName);
+        //     sticker.set("uri",parseFile);
+        //     sticker.set("category",category);
+        //     sticker.set("stickerPhraseImage", "");
+        //     sticker.save().then(function()
+        //         {
+        //             //file has been uploaded
+        //             console.log("image uploaded to parse");
+        //         },
+        //         function(problem)
+        //         {
+        //             //sticker was not uploaded
+        //             console.error("Could not upload file__ " + problem);
+        //         });
         }, function(err)
         {
             //sticker object was not saved
