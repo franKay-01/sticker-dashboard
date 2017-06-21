@@ -190,14 +190,11 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
     console.log("FILE INFO " + JSON.stringify(req.file));
     console.log("BODY INFO " + JSON.stringify(req.body));
 
-
-    // var tempPath = req.files.file.path;
     // //input fields from form
     var stickerName = req.body.stickername;
     var localName = req.body.localname;
     var category = req.body.cat;
     var file = req.file;
-
 
     if (session && token) {
 
@@ -211,10 +208,10 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
          console.log('ndata=========' + ndata);
          } catch(e) {
          console.log('ReadFileSync Error:::', e);
-         }
+         }*/
 
          var StickerObject = new Parse.Object.extend("Stickers");
-         stickerName += ".png";*/
+
         //var write = fs.createWriteStream(file);
         var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
         // convert binary data to base64 encoded string
@@ -236,6 +233,7 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
                     {
                         //file has been uploaded
                         console.log("image uploaded to parse");
+                        res.redirect("/dashboard");
                     },
                     function(problem)
                     {
