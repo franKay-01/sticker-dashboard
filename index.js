@@ -227,7 +227,7 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
                 sticker.set("stickerName",stickerName);
                 sticker.set("localName",localName);
                 sticker.set("uri",parseFile);
-                sticker.set("category",category);
+                sticker.set("category",[category]);
                 sticker.set("stickerPhraseImage", "");
                 sticker.save().then(function()
                     {
@@ -238,11 +238,11 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
                     function(problem)
                     {
                         //sticker was not uploaded
-                        console.error("Could not upload file__ " + problem);
+                        console.error("Could not upload file__ " + JSON.stringify(problem));
                     });
         }, function (err) {
             //sticker object was not saved
-            console.error("Obj not saved: " + err);
+            console.error("Obj not saved: " + JSON.stringify(err));
             //return to dashboard page
             res.redirect("/dashboard");
             // res.redirect("/stickers");
