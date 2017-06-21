@@ -216,6 +216,14 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
         //save img as obj in base64 format
         var data = JSON.stringify(file);
         var newFile = new Buffer(data).toString("base64");
+        console.log("New File---------" + newFile);
+
+        try {
+            var ndata = fs.readFileSync(newFile, 'utf8');
+            console.log(ndata);
+        } catch(e) {
+            console.log('Error:', e.stack);
+        }
 
         var StickerObject = new Parse.Object.extend("Stickers");
         var parseFile = new Parse.File(stickerName, newFile);

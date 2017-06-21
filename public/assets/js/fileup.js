@@ -70,7 +70,7 @@
             var fname = document.getElementById('filename');
             fname.innerHTML = files[i].name;
             var filename = files[i].name;
-            var trimmedName = filename.substring(0, name.length-4);
+            var trimmedName = filename.substring(0, filename.length-4);
             document.getElementById('stname').value = trimmedName;
             document.getElementById('lname').value = trimmedName;
             console.log("trimmed name: " + trimmedName);
