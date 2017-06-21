@@ -217,16 +217,16 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
         var data = JSON.stringify(file);
         var newFile = new Buffer(data).toString("base64");
 
-        try {
-            var ndata = fs.readFileSync(newFile, 'utf8');
-            console.log('ndata=========' + ndata);
-        } catch(e) {
-            console.log('Error:', e.stack);
-        }
+        // try {
+        //     var ndata = fs.readFileSync(newFile, 'utf8');
+        //     console.log('ndata=========' + ndata);
+        // } catch(e) {
+        //     console.log('Error:', e.stack);
+        // }
 
         var StickerObject = new Parse.Object.extend("Stickers");
         stickerName += ".png";
-        var parseFile = new Parse.File(stickerName, ndata);
+        var parseFile = new Parse.File(stickerName, newFile);
         console.log("Parse File::::::::::" + JSON.stringify(parseFile));
 
         parseFile.save().then(function()
