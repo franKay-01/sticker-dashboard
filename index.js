@@ -295,7 +295,6 @@ app.get('/dashboard', function (req, res) {
 
     if (session && token) {
 
-
         new Parse.Query("Sticker")
             .find({sessionToken: token}).then(function (stickers) {
 
@@ -309,7 +308,7 @@ app.get('/dashboard', function (req, res) {
 
     } else {
 
-        res.redirect("/");
+        res.render("pages/signup");
     }
 
 });
