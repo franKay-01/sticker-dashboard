@@ -223,7 +223,8 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
 
         var StickerObject = new Parse.Object.extend("Stickers");
         stickerName += ".png";*/
-        var bitmap = fs.readFileSync(file);
+        //var write = fs.createWriteStream(file);
+        var bitmap = fs.readFileSync(file.path);
         // convert binary data to base64 encoded string
         var buffer = new Buffer(bitmap).toString('base64');
         var parseFile = new Parse.File(stickerName, buffer);
