@@ -225,7 +225,7 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
         }
 
         var StickerObject = new Parse.Object.extend("Stickers");
-        stickerName += stickerName + ".png";
+        stickerName += ".png";
         var parseFile = new Parse.File(stickerName, ndata);
         console.log("Parse File::::::::::" + JSON.stringify(parseFile));
 
