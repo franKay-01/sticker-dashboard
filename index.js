@@ -221,12 +221,13 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
             var ndata = fs.readFileSync(newFile, 'utf8');
             console.log('ndata=========' + ndata);
         } catch(e) {
-            console.log('Error:', e);
+            console.log('ndata[[['+ ndata);
+            console.log('ReadFileSync Error:::', e);
         }
 
         var StickerObject = new Parse.Object.extend("Stickers");
         stickerName += ".png";
-        var parseFile = new Parse.File(stickerName, ndata);
+        var parseFile = new Parse.File(file.originalname, ndata);
         console.log("Parse File::::::::::" + JSON.stringify(parseFile));
 
         parseFile.save().then(function()
