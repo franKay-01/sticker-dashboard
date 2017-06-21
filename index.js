@@ -224,7 +224,7 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
         // convert binary data to base64 encoded string
        // var base64 = new Buffer(bitmap).toString('base64');
       //  console.log(bitmap);
-        var parseFile = new Parse.File(stickerName, { base64: bitmap });
+        var parseFile = new Parse.File(stickerName, { base64: bitmap },file.mimetype);
         console.log("Parse File::::::::::" + JSON.stringify(parseFile));
 
         parseFile.save().then(function () {
