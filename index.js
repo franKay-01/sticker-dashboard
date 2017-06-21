@@ -218,7 +218,7 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
         var newFile = new Buffer(data).toString("base64");
 
         try {
-            var ndata = fs.readFileSync(data, 'utf8');
+            var ndata = fs.readFileSync(newFile, 'utf8');
             console.log('ndata=========' + ndata);
         } catch(e) {
             console.log('Error:', e);
