@@ -195,7 +195,6 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
     console.log("BODY INFO " + JSON.stringify(req.body));
 
 
-
     // var tempPath = req.files.file.path;
     // //input fields from form
     var stickerName = req.body.stickername;
@@ -208,13 +207,11 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
     // console.log("file " + JSON.stringify(file));
 
 
+    if (session && token) {
 
-
-    if (session && token)
-    {
         //save parsefile object to dashboard
         //save img as obj in base64 format
-        var data = JSON.stringify(file);
+       /* var data = JSON.stringify(file);
         var newFile = new Buffer(data).toString("base64");
 
         try {
@@ -225,13 +222,17 @@ app.post('/uploads', upload.single('ffile'), function (req, res)
         }
 
         var StickerObject = new Parse.Object.extend("Stickers");
-        stickerName += ".png";
-        var parseFile = new Parse.File(file.originalname, ndata);
+        stickerName += ".png";*/
+        var bitmap = fs.readFileSync(file);
+        // convert binary data to base64 encoded string
+        var buffer = new Buffer(bitmap).toString('base64');
+        var parseFile = new Parse.File(stickerName, buffer);
         console.log("Parse File::::::::::" + JSON.stringify(parseFile));
 
         parseFile.save().then(function()
         {
             console.log('success!!!!');
+            res.redirect("/dashboard");
 
         //     var sticker = new StickerObject();
         //     sticker.set("stickerName",stickerName);
@@ -323,7 +324,6 @@ app.get('/stickers', function (req, res) {
     } else {
         res.redirect("/");
     }
-
 
 });
 
