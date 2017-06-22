@@ -222,6 +222,20 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
                     {
                         //file has been uploaded, back to dashboard
                         console.log("image uploaded to parse");
+
+                        //Delete tmp fil after upload
+                        var tmpFN = file.ffile.meta.path;
+                        fs.unlink(tmpFN, function(err){
+                            if(err)
+                            {
+                                console.log("-------Could not del temp"+err); callback(err)
+                            }
+                            else {
+                                console.log('deleted tmp file');
+                                callback(null)
+                            }
+                        });
+
                         res.redirect("/dashboard");
                     },
                     function(problem)
