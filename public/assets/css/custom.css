@@ -175,20 +175,38 @@ fieldset {
     height: 325px;
 }
 
+/*Conteiner for stickers on dashboard*/
+
+.block {
+    height: 255px;
+    width:  250px;
+    background-color: white;
+    margin: 10px auto;
+    border: 2px solid black;
+}
+
 #abi {
     height: 230px;
     width:  260px;
 }
 
 .stickerName {
-    margin-top: -0.8rem;
+    margin-top: 0.1rem;
     margin-bottom: 0.5rem;
-    margin-left: 0.3rem;
     font-weight: normal;
     line-height: 1.4;
-    color: black;
-    content: '"';
+    text-align: center;
+    color: #fefefe;
+    background-color: black;
 }
+
+.stickerName p {
+    font-size: 20px;
+    text-rendering: optimizeLegibility;
+}
+
+/*Conteiner for stickers on dashboard*/
+
 
 /*ADD STICKER FORM*/
 .container1 {
@@ -334,12 +352,6 @@ input::-webkit-input-placeholder {
     color: black;
 }
 
-.block {
-    height: 320px;
-    width:  250px;
-    background-color: white;
-    margin: 10px auto;
-    border: 2px solid black;
-}
+
 
 
