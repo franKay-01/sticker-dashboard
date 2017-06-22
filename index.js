@@ -300,11 +300,11 @@ app.get('/dashboard', function (req, res) {
             .find({sessionToken: token}).then(function (stickers) {
             res.render("pages/dashboard", {stickers: stickers});
         }, function (error) {
-            console.log("stickers error" + error);
+            console.log("stickers error" + JSON.stringify(error));
         });
     } else {
-
-        res.redirect("/signup");
+        console.log("No Session Exists, log in");
+        res.redirect("/");
     }
 
 });
