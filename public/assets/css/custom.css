@@ -176,8 +176,18 @@ fieldset {
 }
 
 #abi {
-    height: 320px;
+    height: 230px;
     width:  260px;
+}
+
+.stickerName {
+    margin-top: -0.8rem;
+    margin-bottom: 0.5rem;
+    margin-left: 0.3rem;
+    font-weight: normal;
+    line-height: 1.4;
+    color: black;
+    content: '"';
 }
 
 /*ADD STICKER FORM*/
