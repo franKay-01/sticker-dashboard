@@ -31,3 +31,10 @@ if (token !== "") {
             });
     }
 }
+
+var logoutBtn =  documnet.getElementById('signout'); 
+logoutBtn.onclick( function () {
+   Parse.User.logout().then(function () {
+       location.href = "/logout";
+   }) 
+});
