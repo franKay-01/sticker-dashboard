@@ -173,7 +173,7 @@ app.post('/login', function (req, res) {
 
     }, function (error) {
 
-        console.log(error);
+        console.log(JSON.stringify(error));
         //error goes here
         res.redirect("/", {
             error: error.message
@@ -272,7 +272,8 @@ app.get('/dashboard', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
-
+    console.log("Session===========" + JSON.stringify(session));
+    console.log("Token===========" + JSON.stringify(token));
     if (session && token) {
 
         new Parse.Query("Sticker").
