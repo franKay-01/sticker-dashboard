@@ -8,7 +8,7 @@
 
     <!--Logo-->
     <link rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.ico" />
-    <title>Dashboard</title>
+    <title>Sticker Details</title>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
     </style>
@@ -41,7 +41,7 @@
             </div>
 
             <div class="columns large-8 small-12">
-                <h3 class="logo-text primary-font">Dashboard - Stickers</h3>
+                <h3 class="logo-text primary-font">Details</h3>
                 <!--<h4 class="primary-font beta-text">Sticker - Dashboard</h4>-->
             </div>
             <!--link to dashboard and stickers-->
@@ -53,8 +53,25 @@
 </div>
 <!-- Logo -->
 
+<!--form goes here-->
+<div class="container1">
+    <form id="tform" action="/uploads" enctype="multipart/form-data" method="post">
+        <div id="left-col">
+            <div class="demo-droppable">
+                <div class="output" name="tfile"></div>
+            </div>
+        </div>
+        <div id="right-col">
+            <input type="text" placeholder="Sticker Name" id="stname" name="stickername" />
+            <input type="text" placeholder="Local Name" id="lname" name="localname">
+            <input type="text" placeholder="Category e.g funny, silly" id="category" name="cat"/>
+            <button id="upload" type="submit">SAVE/UPDATE</button>
+        </div>
+        <button id="editbtn" href="/edit/:id">EDIT</button><button id="delbtn" href="/delete/:id">EDIT</button>
 
-<% include ../partials/sticker-item %>
+    </form>
+
+</div>
 <!-- Body -->
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/></body>

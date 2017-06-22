@@ -309,6 +309,12 @@ app.get('/stickers', function (req, res) {
     }
 });
 
+//EDIT/STICKER DETAILS
+// app.get('/details/:id', function (req, res) {
+//
+// });
+
+
 
 var port = process.env.PORT || 1337;
 var httpServer = require('http').createServer(app);
