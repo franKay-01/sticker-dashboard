@@ -34,7 +34,7 @@ if (token !== "") {
 
 // var logoutBtn =  documnet.getElementById('signout');
  function logoutUser() {
-   Parse.User.logout().then(function () {
+   Parse.User.logOut().then(function () {
        location.href = "/logout";
    });
 }
