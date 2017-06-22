@@ -173,7 +173,7 @@ app.post('/login', function (req, res) {
 
     }, function (error) {
 
-        console.log(error);
+        console.log(JSON.stringify(error));
         //error goes here
         res.redirect("/", {
             error: error.message
