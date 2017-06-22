@@ -304,7 +304,7 @@ app.get('/dashboard', function (req, res) {
         });
     } else {
 
-        res.render("pages/signup");
+        res.redirect("/signup");
     }
 
 });
