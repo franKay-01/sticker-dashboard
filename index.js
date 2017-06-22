@@ -262,7 +262,7 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
 app.get('/logout', function (req, res) {
 
     req.session = null;
-    req.cookie('token', "");
+    res.cookie('token', "");
     res.redirect("/");
 
 });
