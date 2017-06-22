@@ -229,11 +229,9 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
                             if(err)
                             {
                                 console.log("-------Could not del temp"+JSON.stringify(err));
-                                callback(err)
                             }
                             else {
-                                console.log('deleted tmp file');
-                                callback(null)
+                                console.log('deleted tmp file.....Size: ' + file.size);
                             }
                         });
 
@@ -263,14 +261,28 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
 //LOGOUT
 app.get('/logout', function (req, res) {
 
-    Parse.User.logOut().then(function () {
-            res.redirect("/signup");
-            res.cookie('token', "");
-            console.log('----------SUCCESSFUL LOGOUT-----------');
-        },
-        function (error) {
-            console.log(JSON.stringify(error));
-        });
+    console.log("Params===========" + req.param());
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+    if(session && token)
+    {
+        console.log("Current User==============" +Parse.User.current());
+        Parse.User.logOut().then(function () {
+                res.redirect("/signup");
+                res.cookie('token', "");
+                console.log('----------SUCCESSFUL LOGOUT-----------');
+            },
+            function (error) {
+                console.log("Could not logout" + JSON.stringify(error));
+            });
+    }
+    else
+    {
+        console.log("No Current user found...........SIGN IN");
+        redirect("/");
+    }
+
 
 });
 
