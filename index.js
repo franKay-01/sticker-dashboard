@@ -261,30 +261,9 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
 //LOGOUT
 app.get('/logout', function (req, res) {
 
-    console.log("Params===========" + JSON.stringify(req.param));
-    var session = req.session.token;
-    var token = req.cookies.token;
-    console.log("Session===========" + JSON.stringify(session));
-    console.log("Token===========" + JSON.stringify(token));
-
-    if(session && token)
-    {
-        console.log("Current User==============" +Parse.User.current());
-        Parse.User.logOut().then(function () {
-                res.redirect("/signup");
-                res.cookie('token', "");
-                console.log('----------SUCCESSFUL LOGOUT-----------');
-            },
-            function (error) {
-                console.log("Could not logout" + JSON.stringify(error));
-            });
-    }
-    else
-    {
-        console.log("No Current user found...........SIGN IN");
-        redirect("/");
-    }
-
+    req.session = null;
+    req.cookie('token', "");
+    res.redirect("/");
 
 });
 
@@ -296,15 +275,23 @@ app.get('/dashboard', function (req, res) {
 
     if (session && token) {
 
-        new Parse.Query("Sticker")
-            .find({sessionToken: token}).then(function (stickers) {
+        new Parse.Query("Sticker").
+        find({sessionToken: token}).
+        then(function (stickers) {
+
             res.render("pages/dashboard", {stickers: stickers});
+
         }, function (error) {
+
             console.log("stickers error" + JSON.stringify(error));
+
         });
+
     } else {
+
         console.log("No Session Exists, log in");
         res.redirect("/");
+
     }
 
 });

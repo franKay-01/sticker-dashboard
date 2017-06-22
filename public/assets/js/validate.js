@@ -14,23 +14,20 @@ getCookie = function (cname) {
 };
 
 var token = getCookie("token");
-// console.log("token------"+token);
+
 if (token !== "") {
+
     if (Parse.User.current() === null) {
-        // var user = Parse.User.current();
-        // var sessionToken = user.getSessionToken();
-        // console.log("User's token: " + sessionToken);
-        Parse.User.become(token).then(function(val){
-            console.log("success------"+val);
+
+        Parse.User.become(token).then(function () {
+                //do nothing
+                //Parse.User.current is available
             },
             function (error) {
-            alert("error====="+JSON.stringify(error));
-         });
-    } else {
 
-        console.log("already logged in");
+                //TODO handle error with an Alert
+                alert(error.message);
 
-      //  alert("already a parse user"+Parse.User.current().getSessionToken());
-
+            });
     }
 }
