@@ -261,9 +261,11 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
 //LOGOUT
 app.get('/logout', function (req, res) {
 
-    console.log("Params===========" + req.param());
+    console.log("Params===========" + JSON.stringify(req.param));
     var session = req.session.token;
     var token = req.cookies.token;
+    console.log("Session===========" + JSON.stringify(session));
+    console.log("Token===========" + JSON.stringify(token));
 
     if(session && token)
     {
