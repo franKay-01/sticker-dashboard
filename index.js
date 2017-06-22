@@ -224,7 +224,7 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
                         console.log("image uploaded to parse");
 
                         //Delete tmp fil after upload
-                        var tmpFN = file.ffile.path;
+                        var tmpFN = file.path;
                         fs.unlink(tmpFN, function(err){
                             if(err)
                             {
