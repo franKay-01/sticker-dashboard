@@ -32,9 +32,9 @@ if (token !== "") {
     }
 }
 
-var logoutBtn =  documnet.getElementById('signout'); 
-logoutBtn.onclick( function () {
+// var logoutBtn =  documnet.getElementById('signout');
+ function logoutUser() {
    Parse.User.logout().then(function () {
        location.href = "/logout";
-   }) 
-});
+   });
+}
