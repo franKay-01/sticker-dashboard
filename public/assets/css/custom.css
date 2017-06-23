@@ -275,7 +275,6 @@ input::-webkit-input-placeholder {
 
 #cancel {
     cursor: pointer;
-    border: 1px solid red;
     max-width: 40%;
     background: red;
     color: #FFF;
@@ -300,7 +299,6 @@ input::-webkit-input-placeholder {
     cursor: pointer;
     max-width: 40%;
     background: #464B9C;
-    border: 1px solid #464B9C;
     color: #FFF;
     padding: 10px;
     font-family: monospace;;
@@ -314,6 +312,7 @@ input::-webkit-input-placeholder {
     color: #464B9C;
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    
 }
 
 
@@ -354,16 +353,15 @@ input::-webkit-input-placeholder {
 /*BUTTONS IN DETAILS PAGE*/
 #editbtn {
     cursor: pointer;
-    border: 1px solid white;
     max-width: 40%;
     background: white;
     color: mediumpurple;
-    margin-top: 307px;
+    margin-top: 315px;
     font-size: 20px;
-    margin-left: 19px;
+    margin-left: 198px;
     font-family: monospace;
     position: absolute;
-    width: 300px;
+    width: 91px;
 }
 
 #editbtn:hover {
@@ -375,16 +373,15 @@ input::-webkit-input-placeholder {
 
 #delbtn {
     cursor: pointer;
-    border: 1px solid red;
     max-width: 40%;
     background: red;
     color: white;
-    margin-top: 307px;
+    margin-top: 315px;
     font-size: 20px;
-    margin-left: 25px;
+    margin-left: 6px;
     font-family: monospace;
     position: absolute;
-    width: 300px;
+    width: 91px;
 }
 
 #delbtn:hover {
