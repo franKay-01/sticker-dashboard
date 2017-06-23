@@ -330,7 +330,6 @@ app.get('/details/:id', function (req, res) {
                 res.redirect("/dashboard")
             }
 
-
             },
             function (err) {
                 console.log("Error Loading-----------------------" + JSON.stringify(err));
@@ -342,6 +341,26 @@ app.get('/details/:id', function (req, res) {
     }
 });
 
+//Update Sticker
+app.post(upload.single('ffile'), function (req, res) {
+
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+    console.log("NEW FILE INFO----" + JSON.stringify(req.file));
+    console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
+
+    // //input fields from form
+    var stickerName = req.body.stickername;
+    var localName = req.body.localname;
+    var category = req.body.cat;
+    var file = req.file;
+
+    // if(session && token)
+    // {
+    //
+    // }
+});
 
 
 var port = process.env.PORT || 1337;
