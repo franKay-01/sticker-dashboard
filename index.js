@@ -358,7 +358,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
     if(session && token)
     {
-
+        res.redirect("/dashboard");
     }
     else {
         function problem(error) {
