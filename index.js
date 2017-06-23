@@ -310,7 +310,7 @@ app.get('/stickers', function (req, res) {
 });
 
 //EDIT/STICKER DETAILS
-app.get('/details/:id', function (req, res) {
+app.get('/details/', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
