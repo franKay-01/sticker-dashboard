@@ -175,7 +175,7 @@ fieldset {
     height: 325px;
 }
 
-/*Conteiner for stickers on dashboard*/
+/*Container for stickers on dashboard*/
 
 .block {
     height: 255px;
@@ -205,12 +205,12 @@ fieldset {
     text-rendering: optimizeLegibility;
 }
 
-/*Conteiner for stickers on dashboard*/
+/*Container for stickers on dashboard*/
 
 
 /*ADD STICKER FORM*/
 .container1 {
-    width: 60%;
+    width: 42%;
     height: 200%;
     margin: 0 auto;
 }
@@ -231,8 +231,7 @@ input::-webkit-input-placeholder {
     border: 2px solid darkslategrey;
     position: absolute;
     overflow: hidden;
-    left: 22%;
-    width: 22%;
+    left: 30%;
     height: 300px;
 }
 
@@ -264,8 +263,8 @@ input::-webkit-input-placeholder {
 #right-col {
     position: absolute;
     overflow: hidden;
-    left: 45%;
-    width: 30%;
+    left: 48%;
+    width: 21%;
 }
 
 #btns {
@@ -351,6 +350,50 @@ input::-webkit-input-placeholder {
     padding-top: 50px;
     color: black;
 }
+
+/*BUTTONS IN DETAILS PAGE*/
+#editbtn {
+    cursor: pointer;
+    border: 1px solid white;
+    max-width: 40%;
+    background: white;
+    color: mediumpurple;
+    margin-top: 307px;
+    font-size: 20px;
+    margin-left: 19px;
+    font-family: monospace;
+    position: absolute;
+    width: 300px;
+}
+
+#editbtn:hover {
+    background: mediumpurple;
+    color: white;
+    transition: 0.3s;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+#delbtn {
+    cursor: pointer;
+    border: 1px solid red;
+    max-width: 40%;
+    background: red;
+    color: white;
+    margin-top: 307px;
+    font-size: 20px;
+    margin-left: 25px;
+    font-family: monospace;
+    position: absolute;
+    width: 300px;
+}
+
+#delbtn:hover {
+    background: white;
+    color: red;
+    transition: 0.3s;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+/*BUTTONS IN DETAILS PAGE*/
 
 
 
