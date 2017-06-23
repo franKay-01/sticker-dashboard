@@ -8,7 +8,10 @@
                      <a href="/details">
                  <div class="block">
                      <img style="display: block; color: white;" id="abi" src="<%= item.get("uri").url() %>">
-                     <div><p class="stickerName">  <%= item.get("stickerName") %></p></div>
+                     <div>
+                         <p class="stickerName">  <%= item.get("stickerName") %></p>
+                         <span id="objId" name="objectid"><%= item.id %></span>
+                     </div>
                  </div>
                      </a>
              </div>

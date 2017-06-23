@@ -12,7 +12,6 @@ var fs = require('fs');
 var multer = require('multer');
 var methodOverride = require('method-override');
 var multipart = require('multipart');
-var Base64 = require('node-base64-image');
 // var busboy = require('connect-busboy');
 
 
@@ -310,11 +309,12 @@ app.get('/stickers', function (req, res) {
 });
 
 //EDIT/STICKER DETAILS
-app.get('/details/', function (req, res) {
+app.get('/details/:objectid?', function (req, res) {
     var session = req.session.token;
-    var token = req.cookies.token;
+    var token   = req.cookies.token;
 
     console.log("Parameters::::::::::::::::" + JSON.stringify(req.param));
+    console.log("Body;;;;;;::::::::::::::::" + JSON.stringify(req.body));
     if (session && token)
     {
         res.render("pages/details");

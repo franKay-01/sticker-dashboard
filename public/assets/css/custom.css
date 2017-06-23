@@ -185,6 +185,10 @@ fieldset {
     border: 2px solid black;
 }
 
+#objId {
+    display: none;
+}
+
 #abi {
     height: 230px;
     width:  260px;
@@ -312,7 +316,7 @@ input::-webkit-input-placeholder {
     color: #464B9C;
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-    
+
 }
 
 
