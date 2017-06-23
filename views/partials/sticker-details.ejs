@@ -1,5 +1,5 @@
 <form id="tform" action="/uploads" enctype="multipart/form-data" method="post">
-    <% stickers.first(function(item, index) { %>
+    <% stickers.forEach(function(item, index) { %>
     <div id="left-col">
         <div class="demo-droppable">
             <div class="output" name="tfile"></div>
