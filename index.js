@@ -314,7 +314,7 @@ app.get('/details/', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
-    console.log("Parameters::::::::::::::::" + req.param);
+    console.log("Parameters::::::::::::::::" + JSON.stringify(req.param));
     if (session && token)
     {
         res.render("pages/details");
