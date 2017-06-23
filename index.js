@@ -342,7 +342,7 @@ app.get('/details/:id', function (req, res) {
 });
 
 //Update Sticker
-app.post(upload.single('im1'), function (req, res) {
+app.post('/update/:id', upload.single('im1'), function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
