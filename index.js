@@ -320,6 +320,7 @@ app.get('/details/:id', function (req, res) {
     if (session && token)
     {
         res.render("pages/details",{id:id});
+
     }
     else {
         res.redirect("/");
