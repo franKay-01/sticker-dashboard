@@ -324,9 +324,13 @@ app.get('/details/:id', function (req, res) {
 
         var q1 = new Parse.Query("Sticker");
 
-        q1.first("objectId", id).then(function (sticker) {
+        q1.find("objectId", id).then(function (sticker) {
             res.render("pages/details",{sticker: sticker});
-        });
+        },
+            function (err) {
+                console.log("Error Loading-----------------------" + JSON.stringify(err));
+            }
+        );
 
     }
     else {
