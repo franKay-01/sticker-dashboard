@@ -315,15 +315,22 @@ app.get('/details/:id', function (req, res) {
     var token   = req.cookies.token;
     var id   = req.params.id;
 
-    console.log("Parameters::::::::::::::::" + JSON.stringify(req.params));
-    console.log("Id::::::::::::::::::::::::" + JSON.stringify(id));
     if (session && token)
     {
-        var q1 = new Parse.Query("Sticker");
+        var sticker = new Parse.Query("Sticker");
+        sticker.equalTo("objectId", id);
+        sticker.first({sessionToken: token}).then(function (sticker) {
 
-        q1.find(id).then(function (sticker) {
-                console.log("Found Sticker-----------------------" + JSON.stringify(sticker));
+            if(sticker){
+
+                console.log("Sticker::::::::::::::::" + JSON.stringify(sticker));
                 res.render("pages/details",{sticker: sticker});
+            }else {
+                console.log("Nothing Found::::::::::::::::");
+                res.redirect("/dashboard")
+            }
+
+
             },
             function (err) {
                 console.log("Error Loading-----------------------" + JSON.stringify(err));
