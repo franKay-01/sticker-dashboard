@@ -61,7 +61,7 @@
         output.innerHTML = '';
         for(var i=0; i<files.length; i++) {
             if(files[i].type.indexOf('image/') === 0) {
-                output.innerHTML += '<img id="im1" style="width: 91%; height: 95%;" src="' + URL.createObjectURL(files[i]) + '" />';
+                output.innerHTML += '<img name="im1" id="im1" style="width: 91%; height: 95%;" src="' + URL.createObjectURL(files[i]) + '" />';
                 // var elem = document.getElementById('im1');
                 // elem.parentNode.removeChild(elem);
             }
