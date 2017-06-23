@@ -271,8 +271,9 @@ app.get('/dashboard', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
-    console.log("Session===========" + JSON.stringify(session));
-    console.log("Token===========" + JSON.stringify(token));
+    // console.log("Session===========" + JSON.stringify(session));
+    // console.log("Token===========" + JSON.stringify(token));
+
     if (session && token) {
 
         new Parse.Query("Sticker").
@@ -283,7 +284,7 @@ app.get('/dashboard', function (req, res) {
 
         }, function (error) {
 
-            console.log("stickers error" + JSON.stringify(error));
+            console.log("dashboard error" + JSON.stringify(error));
 
         });
 
@@ -314,16 +315,22 @@ app.get('/details/:id', function (req, res) {
     var token   = req.cookies.token;
     var id   = req.params.id;
 
-    console.log("Parameters::::::::::::::::" + JSON.stringify(req.param));
-    console.log("Body::::::::::::::::::::::" + JSON.stringify(req.body));
-    console.log("Body::::::::::::::::::::::" + JSON.stringify(id));
+    console.log("Parameters::::::::::::::::" + JSON.stringify(req.params));
+    console.log("Id::::::::::::::::::::::::" + JSON.stringify(id));
     if (session && token)
     {
-        res.render("pages/details",{id:id});
+        var StickerObject = new Parse.Object.extend("Sticker");
+        var sticker = new StickerObject();
+
+        var q1 = new Parse.Query("Sticker");
+
+        q1.first("objectId", id).then(function (sticker) {
+            res.render("pages/details",{sticker: sticker});
+        });
 
     }
     else {
-        res.redirect("/");
+        res.redirect("/dashboard");
     }
 
 
