@@ -21,7 +21,7 @@
         input.setAttribute('type', 'file');
         input.setAttribute('accept', 'image/*');
         input.setAttribute('multiple', true);
-        input.setAttribute('name', 'ffile');
+        input.setAttribute('name', 'im1');
         input.style.display = 'none';
         input.addEventListener('change', function(e) {
             triggerCallback(e, callback);

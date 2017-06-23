@@ -349,6 +349,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
     console.log("NEW FILE INFO----" + JSON.stringify(req.file));
     console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
+    console.log("NEW BODY INFO-----" + JSON.stringify(req.params));
 
     // //input fields from form
     var stickerName = req.body.stickername;
