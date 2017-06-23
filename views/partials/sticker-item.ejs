@@ -3,13 +3,15 @@
 
          <div class="row small-up-1 medium-up-3 large-up-4">
              <% stickers.forEach(function(item, index) { %>
-             <a href="/details">
+
                  <div class="column">
+                     <a href="/details">
                  <div class="block">
                      <img style="display: block; color: white;" id="abi" src="<%= item.get("uri").url() %>">
                      <div><p class="stickerName">  <%= item.get("stickerName") %></p></div>
                  </div>
+                     </a>
              </div>
-             </a>
+
              <% }); %>
          </div>
