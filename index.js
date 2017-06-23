@@ -319,12 +319,9 @@ app.get('/details/:id', function (req, res) {
     console.log("Id::::::::::::::::::::::::" + JSON.stringify(id));
     if (session && token)
     {
-        var StickerObject = new Parse.Object.extend("Sticker");
-
         var q1 = new Parse.Query("Sticker");
 
         q1.first("objectId", id).then(function (sticker) {
-                console.log("Found Sticker-----------------------" + JSON.stringify(sticker));
                 res.render("pages/details",{sticker: sticker});
             },
             function (err) {
@@ -336,8 +333,6 @@ app.get('/details/:id', function (req, res) {
     else {
         res.redirect("/dashboard");
     }
-
-
 });
 
 

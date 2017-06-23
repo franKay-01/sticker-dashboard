@@ -338,15 +338,18 @@ input::-webkit-input-placeholder {
     cursor: pointer;
 }
 
-.demo-droppable:click {
-    background: mediumpurple;
-}
+/*.demo-droppable:click {*/
+    /*background: mediumpurple;*/
+/*}*/
 
 .output {
     width: 100%;
 }
 .output img {
-    width: 95%;
+    display: inline-block;
+    vertical-align: middle;
+    width: 91%;
+    height: 95%;
 }
 
 #word {
