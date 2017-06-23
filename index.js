@@ -356,10 +356,16 @@ app.post(upload.single('ffile'), function (req, res) {
     var category = req.body.cat;
     var file = req.file;
 
-    // if(session && token)
-    // {
-    //
-    // }
+    if(session && token)
+    {
+
+    }
+    else {
+        function problem(error) {
+            console.log("Could not upload[[[[[[" + error);
+            res.redirect("/details");
+        }
+    }
 });
 
 
