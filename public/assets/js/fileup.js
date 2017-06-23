@@ -61,7 +61,7 @@
         output.innerHTML = '';
         for(var i=0; i<files.length; i++) {
             if(files[i].type.indexOf('image/') === 0) {
-                output.innerHTML += '<img width="200" src="' + URL.createObjectURL(files[i]) + '" />';
+                output.innerHTML += '<img style="width: 91%; height: 95%;" src="' + URL.createObjectURL(files[i]) + '" />';
             }
             else {
                 alert("only images!!!!!");
