@@ -55,27 +55,8 @@
 
 <!--form goes here-->
 <div class="container1">
-    <form id="tform" action="/uploads" enctype="multipart/form-data" method="post">
-        <% stickers.first(function(item, index) { %>
-        <div id="left-col">
-            <div class="demo-droppable">
-                <div class="output" name="tfile"></div>
-                <img  width="200"  src="<%= item.get("uri").url() %>">
-            </div>
-        </div>
-        <div id="right-col">
-            <input type="text" placeholder="Sticker Name" id="stname" name="stickername" >
-            <%= item.get("stickerName") %>
-            <input type="text" placeholder="Local Name" id="lname" name="localname">
-            <%= item.get("localName") %>
-            <input type="text" placeholder="Category e.g funny, silly" id="category" name="cat"/>
-            <%= item.get("category") %>
 
-            <button id="upload" type="submit">SAVE/UPDATE</button>
-        </div>
-        <button id="editbtn" href="/edit/:id">EDIT</button><button id="delbtn" href="/delete/:id">DELETE</button>
-        <% }); %>
-    </form>
+    <% include ../partials/sticker-details %>
 
 </div>
 <!-- Body -->
