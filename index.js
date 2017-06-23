@@ -320,11 +320,10 @@ app.get('/details/:id', function (req, res) {
     if (session && token)
     {
         var StickerObject = new Parse.Object.extend("Sticker");
-        var sticker = new StickerObject();
 
         var q1 = new Parse.Query("Sticker");
 
-        q1.find("objectId", id).then(function (sticker) {
+        q1.first("objectId", id).then(function (sticker) {
             res.render("pages/details",{sticker: sticker});
         },
             function (err) {
