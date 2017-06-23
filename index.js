@@ -309,15 +309,17 @@ app.get('/stickers', function (req, res) {
 });
 
 //EDIT/STICKER DETAILS
-app.get('/details/:objectid?', function (req, res) {
+app.get('/details/:id', function (req, res) {
     var session = req.session.token;
     var token   = req.cookies.token;
+    var id   = req.params.id;
 
     console.log("Parameters::::::::::::::::" + JSON.stringify(req.param));
-    console.log("Body;;;;;;::::::::::::::::" + JSON.stringify(req.body));
+    console.log("Body::::::::::::::::::::::" + JSON.stringify(req.body));
+    console.log("Body::::::::::::::::::::::" + JSON.stringify(id));
     if (session && token)
     {
-        res.render("pages/details");
+        res.render("pages/details",{id:id});
     }
     else {
         res.redirect("/");
