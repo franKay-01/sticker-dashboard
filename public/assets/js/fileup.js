@@ -61,9 +61,9 @@
         output.innerHTML = '';
         for(var i=0; i<files.length; i++) {
             if(files[i].type.indexOf('image/') === 0) {
-                output.innerHTML += '<img name="im1" id="im1" style="width: 91%; height: 95%;" src="' + URL.createObjectURL(files[i]) + '" />';
-                // var elem = document.getElementById('im1');
-                // elem.parentNode.removeChild(elem);
+                output.innerHTML += '<img name="im1" id="im1" style="width: 91%; height: 95%;" ' +
+                    'src="' + URL.createObjectURL(files[i]) + '" />';
+                document.getElementById('imgChange').value = 'true';
             }
             else {
                 alert("only images!!!!!");

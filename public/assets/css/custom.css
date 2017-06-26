@@ -214,7 +214,7 @@ fieldset {
 
 /*ADD STICKER FORM*/
 .container1 {
-    width: 42%;
+    width: 60%;
     height: 200%;
     margin: 0 auto;
 }
@@ -235,7 +235,7 @@ input::-webkit-input-placeholder {
     border: 2px solid darkslategrey;
     position: absolute;
     overflow: hidden;
-    left: 30%;
+    left: 21%;
     height: 300px;
 }
 
@@ -267,7 +267,7 @@ input::-webkit-input-placeholder {
 #right-col {
     position: absolute;
     overflow: hidden;
-    left: 48%;
+    left: 55%;
     width: 21%;
 }
 
@@ -325,7 +325,7 @@ input::-webkit-input-placeholder {
     background: #fefefe;
     color: black;
     text-align: center;
-    width: 310px;
+    width: 290px;
     height: 306px;
     transition: 0.3s;
 }
