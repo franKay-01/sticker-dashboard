@@ -369,6 +369,10 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                 {
                     console.log('image has changed paaaaaaaaaa');
                 }
+                else {
+                    console.log('image has not changed koraaaaaaaaa');
+
+                }
             },
             function (notfound) {
                 console.log("STICKER NOT FOUNDDDDDDDDDDDDD: " + JSON.stringify(notfound))
@@ -407,7 +411,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
         //                     }
         //                 });
         //
-        //                 res.redirect("/dashboard");
+                        res.redirect("/dashboard");
         //             },
         //             function(problem)
         //             {
