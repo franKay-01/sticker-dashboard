@@ -366,7 +366,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                 // newSticker.set("localName", localName);
                 // newSticker.set("category", [category]);
                 // newSticker.set("stickerPhraseImage", "");
-                if(imgChange.value == 'true')
+                if(imgChange == 'true')
                 {
                     console.log('image has changed paaaaaaaaaa');
                 }
