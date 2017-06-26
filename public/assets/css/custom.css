@@ -178,7 +178,7 @@ fieldset {
 /*Container for stickers on dashboard*/
 
 .block {
-    height: 255px;
+    height: 260px;
     width:  250px;
     background-color: white;
     margin: 10px auto;
@@ -214,7 +214,7 @@ fieldset {
 
 /*ADD STICKER FORM*/
 .container1 {
-    width: 60%;
+    width: 50%;
     height: 200%;
     margin: 0 auto;
 }
@@ -235,7 +235,7 @@ input::-webkit-input-placeholder {
     border: 2px solid darkslategrey;
     position: absolute;
     overflow: hidden;
-    left: 21%;
+    left: 26%;
     height: 300px;
 }
 
@@ -267,8 +267,8 @@ input::-webkit-input-placeholder {
 #right-col {
     position: absolute;
     overflow: hidden;
-    left: 55%;
-    width: 21%;
+    left: 50%;
+    width: 23%;
 }
 
 #btns {
