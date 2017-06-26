@@ -361,51 +361,60 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
     if(session && token)
     {
+        var NewSticker = new Parse.Object.extend("Sticker");
+        var squery = new Parse.Query(NewSticker);
+        squery.equalTo("objectId", stickerId);
+        squery.first({sessionToken: token}).then(
+            function (newSticker) {
+                console.log("STICKER FOUND FOR UPDATEEEEEEEEEEEEEEE: " + JSON.stringify(newSticker));
+            },
+            function (notfound) {
+                console.log("STICKER NOT FOUNDDDDDDDDDDDDD: " + JSON.stringify(notfound))
+            }
+        );
+
         //Check if image has changed
-        if(imgChange.value == 'true')
-        {
             //save new file
-            var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-            var parseFile = new Parse.File(stickerName, { base64: bitmap },file.mimetype);
-            console.log("Updated Parse File::::::::::" + JSON.stringify(parseFile));
-
-            var NewSticker = new Parse.Object.extend("Sticker");
-            var squery = new Parse.Query(NewSticker);
-            squery.equalTo("objectId", stickerId);
-            squery.first({sessionToken: token}).then(
-                function (newSticker) {
-                    newSticker.set("stickerName",stickerName);
-                    newSticker.set("localName",localName);
-                    newSticker.set("uri",parseFile);
-                    newSticker.set("category",[category]);
-                    newSticker.set("stickerPhraseImage", "");
-                    newSticker.save().then(function()
-                        {
-                            //sticker updated sucessfully
-                            console.log("image uploaded to parse");
-                            //Delete tmp fil after update
-                            var tmpFN = file.path;
-                            fs.unlink(tmpFN, function(err){
-                                if(err)
-                                {
-                                    console.log("Could not del temp++++++++"+JSON.stringify(err));
-                                }
-                                else {
-                                    console.log('deleted tmp file.....Size: ' + file.size);
-                                }
-                            });
-
-                            res.redirect("/dashboard");
-                        },
-                        function(problem)
-                        {
-                            //sticker not updated...reload page
-                            console.error("Update unsuccessful__ " + JSON.stringify(problem));
-                            res.redirect("/details",{id: stickerId} );
-                        });
-                }
-            );
-        }
+            // var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+            // var parseFile = new Parse.File(stickerName, { base64: bitmap },file.mimetype);
+            // console.log("Updated Parse File::::::::::" + JSON.stringify(parseFile));
+            //
+            // var NewSticker = new Parse.Object.extend("Sticker");
+            // var squery = new Parse.Query(NewSticker);
+            // squery.equalTo("objectId", stickerId);
+            // squery.first({sessionToken: token}).then(
+            //     function (newSticker) {
+            //         newSticker.set("stickerName",stickerName);
+            //         newSticker.set("localName",localName);
+            //         newSticker.set("uri",parseFile);
+            //         newSticker.set("category",[category]);
+            //         newSticker.set("stickerPhraseImage", "");
+            //         newSticker.save().then(function()
+            //             {
+            //                 //sticker updated sucessfully
+            //                 console.log("image uploaded to parse");
+            //                 //Delete tmp fil after update
+            //                 var tmpFN = file.path;
+            //                 fs.unlink(tmpFN, function(err){
+            //                     if(err)
+            //                     {
+            //                         console.log("Could not del temp++++++++"+JSON.stringify(err));
+            //                     }
+            //                     else {
+            //                         console.log('deleted tmp file.....Size: ' + file.size);
+            //                     }
+            //                 });
+            //
+            //                 res.redirect("/dashboard");
+            //             },
+            //             function(problem)
+            //             {
+            //                 //sticker not updated...reload page
+            //                 console.error("Update unsuccessful__ " + JSON.stringify(problem));
+            //                 res.redirect("/details",{id: stickerId} );
+            //             });
+            //     }
+            // );
         //image has not been changed
     }
     else {
