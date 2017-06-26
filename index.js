@@ -202,7 +202,7 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
 
         var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
-        var parseFile = new Parse.File(stickerName, { base64: bitmap },file.mimetype);
+        var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
         console.log("Parse File::::::::::" + JSON.stringify(parseFile));
 
         //parse file object
@@ -210,38 +210,35 @@ app.post('/uploads', upload.single('ffile'), function (req, res) {
         parseFile.save().then(function () {
             console.log('saving parse file................');
 
-                //instance of parse file object
-                var sticker = new StickerObject();
-                sticker.set("stickerName",stickerName);
-                sticker.set("localName",localName);
-                sticker.set("uri",parseFile);
-                sticker.set("category",[category]);
-                sticker.set("stickerPhraseImage", "");
-                sticker.save().then(function()
-                    {
-                        //file has been uploaded, back to dashboard
-                        console.log("image uploaded to parse");
+            //instance of parse file object
+            var sticker = new StickerObject();
+            sticker.set("stickerName", stickerName);
+            sticker.set("localName", localName);
+            sticker.set("uri", parseFile);
+            sticker.set("category", [category]);
+            sticker.set("stickerPhraseImage", "");
+            sticker.save().then(function () {
+                    //file has been uploaded, back to dashboard
+                    console.log("image uploaded to parse");
 
-                        //Delete tmp fil after upload
-                        var tmpFN = file.path;
-                        fs.unlink(tmpFN, function(err){
-                            if(err)
-                            {
-                                console.log("-------Could not del temp"+JSON.stringify(err));
-                            }
-                            else {
-                                console.log('deleted tmp file.....Size: ' + file.size);
-                            }
-                        });
-
-                        res.redirect("/dashboard");
-                    },
-                    function(problem)
-                    {
-                        //sticker was not uploaded, reload stickers page
-                        console.error("Could not upload file__ " + JSON.stringify(problem));
-                        res.redirect("/stickers");
+                    //Delete tmp fil after upload
+                    var tmpFN = file.path;
+                    fs.unlink(tmpFN, function (err) {
+                        if (err) {
+                            console.log("-------Could not del temp" + JSON.stringify(err));
+                        }
+                        else {
+                            console.log('deleted tmp file.....Size: ' + file.size);
+                        }
                     });
+
+                    res.redirect("/dashboard");
+                },
+                function (problem) {
+                    //sticker was not uploaded, reload stickers page
+                    console.error("Could not upload file__ " + JSON.stringify(problem));
+                    res.redirect("/stickers");
+                });
         }, function (err) {
             //sticker object was not saved, reload stickers page
             console.error("Obj not saved: " + JSON.stringify(err));
@@ -276,9 +273,7 @@ app.get('/dashboard', function (req, res) {
 
     if (session && token) {
 
-        new Parse.Query("Sticker").
-        find({sessionToken: token}).
-        then(function (stickers) {
+        new Parse.Query("Sticker").find({sessionToken: token}).then(function (stickers) {
 
             res.render("pages/dashboard", {stickers: stickers});
 
@@ -312,23 +307,22 @@ app.get('/stickers', function (req, res) {
 //EDIT/STICKER DETAILS
 app.get('/details/:id', function (req, res) {
     var session = req.session.token;
-    var token   = req.cookies.token;
-    var id   = req.params.id;
+    var token = req.cookies.token;
+    var id = req.params.id;
 
-    if (session && token)
-    {
+    if (session && token) {
         var sticker = new Parse.Query("Sticker");
         sticker.equalTo("objectId", id);
         sticker.first({sessionToken: token}).then(function (sticker) {
 
-            if(sticker){
+                if (sticker) {
 
-                console.log("Sticker::::::::::::::::" + JSON.stringify(sticker));
-                res.render("pages/details",{sticker: sticker});
-            }else {
-                console.log("Nothing Found::::::::::::::::");
-                res.redirect("/dashboard")
-            }
+                    console.log("Sticker::::::::::::::::" + JSON.stringify(sticker));
+                    res.render("pages/details", {sticker: sticker});
+                } else {
+                    console.log("Nothing Found::::::::::::::::");
+                    res.redirect("/dashboard")
+                }
 
             },
             function (err) {
@@ -359,14 +353,22 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var imgChange = req.body.imgChange;
     var stickerId = req.params.id;
 
-    if(session && token)
-    {
+    if (session && token) {
         var NewSticker = new Parse.Object.extend("Sticker");
         var squery = new Parse.Query(NewSticker);
         squery.equalTo("objectId", stickerId);
         squery.first({sessionToken: token}).then(
             function (newSticker) {
                 console.log("STICKER FOUND FOR UPDATEEEEEEEEEEEEEEE: " + JSON.stringify(newSticker));
+                //Update new sticker properties
+                // newSticker.set("stickerName", stickerName);
+                // newSticker.set("localName", localName);
+                // newSticker.set("category", [category]);
+                // newSticker.set("stickerPhraseImage", "");
+                if(imgChange.value == 'true')
+                {
+                    console.log('image has changed paaaaaaaaaa');
+                }
             },
             function (notfound) {
                 console.log("STICKER NOT FOUNDDDDDDDDDDDDD: " + JSON.stringify(notfound))
@@ -374,47 +376,47 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
         );
 
         //Check if image has changed
-            //save new file
-            // var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-            // var parseFile = new Parse.File(stickerName, { base64: bitmap },file.mimetype);
-            // console.log("Updated Parse File::::::::::" + JSON.stringify(parseFile));
-            //
-            // var NewSticker = new Parse.Object.extend("Sticker");
-            // var squery = new Parse.Query(NewSticker);
-            // squery.equalTo("objectId", stickerId);
-            // squery.first({sessionToken: token}).then(
-            //     function (newSticker) {
-            //         newSticker.set("stickerName",stickerName);
-            //         newSticker.set("localName",localName);
-            //         newSticker.set("uri",parseFile);
-            //         newSticker.set("category",[category]);
-            //         newSticker.set("stickerPhraseImage", "");
-            //         newSticker.save().then(function()
-            //             {
-            //                 //sticker updated sucessfully
-            //                 console.log("image uploaded to parse");
-            //                 //Delete tmp fil after update
-            //                 var tmpFN = file.path;
-            //                 fs.unlink(tmpFN, function(err){
-            //                     if(err)
-            //                     {
-            //                         console.log("Could not del temp++++++++"+JSON.stringify(err));
-            //                     }
-            //                     else {
-            //                         console.log('deleted tmp file.....Size: ' + file.size);
-            //                     }
-            //                 });
-            //
-            //                 res.redirect("/dashboard");
-            //             },
-            //             function(problem)
-            //             {
-            //                 //sticker not updated...reload page
-            //                 console.error("Update unsuccessful__ " + JSON.stringify(problem));
-            //                 res.redirect("/details",{id: stickerId} );
-            //             });
-            //     }
-            // );
+        //save new file
+        // var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+        // var parseFile = new Parse.File(stickerName, { base64: bitmap },file.mimetype);
+        // console.log("Updated Parse File::::::::::" + JSON.stringify(parseFile));
+        //
+        // var NewSticker = new Parse.Object.extend("Sticker");
+        // var squery = new Parse.Query(NewSticker);
+        // squery.equalTo("objectId", stickerId);
+        // squery.first({sessionToken: token}).then(
+        //     function (newSticker) {
+        //         newSticker.set("stickerName",stickerName);
+        //         newSticker.set("localName",localName);
+        //         newSticker.set("uri",parseFile);
+        //         newSticker.set("category",[category]);
+        //         newSticker.set("stickerPhraseImage", "");
+        //         newSticker.save().then(function()
+        //             {
+        //                 //sticker updated sucessfully
+        //                 console.log("image uploaded to parse");
+        //                 //Delete tmp fil after update
+        //                 var tmpFN = file.path;
+        //                 fs.unlink(tmpFN, function(err){
+        //                     if(err)
+        //                     {
+        //                         console.log("Could not del temp++++++++"+JSON.stringify(err));
+        //                     }
+        //                     else {
+        //                         console.log('deleted tmp file.....Size: ' + file.size);
+        //                     }
+        //                 });
+        //
+        //                 res.redirect("/dashboard");
+        //             },
+        //             function(problem)
+        //             {
+        //                 //sticker not updated...reload page
+        //                 console.error("Update unsuccessful__ " + JSON.stringify(problem));
+        //                 res.redirect("/details",{id: stickerId} );
+        //             });
+        //     }
+        // );
         //image has not been changed
     }
     else {
