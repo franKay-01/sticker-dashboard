@@ -369,6 +369,11 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                 if(imgChange === 'true')
                 {
                     console.log('image has changed paaaaaaaaaa');
+                    //updare sticker image
+                    var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+                    var parseFile = new Parse.File(stickerName, { base64: bitmap },file.mimetype);
+                    console.log("Updated Parse File::::::::::" + JSON.stringify(parseFile));
+                    // newSticker.set("uri",parseFile);
                 }
                 else {
                     console.log('image has not changed koraaaaaaaaa');
