@@ -362,18 +362,43 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
             function (newSticker) {
                 console.log("STICKER FOUND FOR UPDATEEEEEEEEEEEEEEE: " + JSON.stringify(newSticker));
                 //Update new sticker properties
-                // newSticker.set("stickerName", stickerName);
-                // newSticker.set("localName", localName);
-                // newSticker.set("category", [category]);
-                // newSticker.set("stickerPhraseImage", "");
-                if(imgChange === 'true')
-                {
+                newSticker.set("stickerName", stickerName);
+                newSticker.set("localName", localName);
+                newSticker.set("category", [category]);
+                newSticker.set("stickerPhraseImage", "");
+                if (imgChange === 'true') {
                     console.log('image has changed paaaaaaaaaa');
+
                     //updare sticker image
                     var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-                    var parseFile = new Parse.File(stickerName, { base64: bitmap },file.mimetype);
+                    var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+
                     console.log("Updated Parse File::::::::::" + JSON.stringify(parseFile));
-                    // newSticker.set("uri",parseFile);
+                    newSticker.set("uri",parseFile);
+                    newSticker.save().then(function () {
+
+                            //sticker updated sucessfully
+                            console.log("image updated to parse");
+
+                            //Delete tmp fil after update
+                            var tmpFN = file.path;
+                            fs.unlink(tmpFN, function (err) {
+                                if (err) {
+                                    console.log("Could not del temp++++++++" + JSON.stringify(err));
+                                }
+                                else {
+                                    console.log('deleted tmp file.....Size: ' + file.size);
+                                }
+                            });
+                        },
+                        function(problem)
+                                    {
+                                        //sticker not updated...reload page
+                                        console.error("Update unsuccessful__ " + JSON.stringify(problem));
+                                        res.redirect("/details",{id: stickerId} );
+                                    }
+                    );
+
                 }
                 else {
                     console.log('image has not changed koraaaaaaaaa');
@@ -417,7 +442,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
         //                     }
         //                 });
         //
-                        res.redirect("/dashboard");
+        res.redirect("/dashboard");
         //             },
         //             function(problem)
         //             {
