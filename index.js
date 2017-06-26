@@ -343,7 +343,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
     console.log("NEW FILE INFO----" + JSON.stringify(req.file));
     console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
-    console.log("NEW BODY INFO-----" + JSON.stringify(req.params));
+    console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
 
     // //input fields from form
     var stickerName = req.body.stickername;
@@ -351,6 +351,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var category = req.body.cat;
     var file = req.file;
     var imgChange = req.body.imgChange;
+    console.log("Image change^^^^^^^^^^" + imgChange);
     var stickerId = req.params.id;
 
     if (session && token) {
