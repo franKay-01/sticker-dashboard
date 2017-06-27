@@ -26,7 +26,8 @@ if (token !== "") {
             function (error) {
 
                 //TODO handle error with an Alert
-                console.log(error.message);
+                console.log("Not become:::"+ error.message);
+                console.log("Token:::"+ token);
 
             });
     }
