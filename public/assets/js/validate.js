@@ -31,6 +31,10 @@ if (token !== "") {
 
             });
     }
+    else
+    {
+        console.log("Current user::::::" + Parse.User.current());
+    }
 }
 
 // var logoutBtn =  documnet.getElementById('signout');
