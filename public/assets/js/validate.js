@@ -26,7 +26,7 @@ if (token !== "") {
             function (error) {
 
                 //TODO handle error with an Alert
-                // alert(error.message);
+                console.log(error.message);
 
             });
     }
