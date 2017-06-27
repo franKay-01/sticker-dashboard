@@ -166,7 +166,8 @@ app.post('/login', function (req, res) {
 
     Parse.User.logIn(username, password).then(function (user) {
 
-        res.cookie('token', user.getSessionToken());
+        var cookie = res.cookie('token', user.getSessionToken());
+        console.log("Cookieeeeeeeee:" + cookie);
         req.session.token = user.getSessionToken();
         res.redirect("/dashboard");
 
