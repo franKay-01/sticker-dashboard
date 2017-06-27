@@ -18,8 +18,9 @@ var token = getCookie("token");
 if (token !== "") {
 
     if (Parse.User.current() === null) {
-        console.log("Current user::::::" + Parse.User.current());
+
         Parse.User.become(token).then(function () {
+                console.log("Current user::::::" + Parse.User.current());
                 //do nothing
                 //Parse.User.current is available
             },
