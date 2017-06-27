@@ -341,9 +341,9 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
-    console.log("NEW FILE INFO----" + JSON.stringify(req.file));
-    console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
-    console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
+    // console.log("NEW FILE INFO----" + JSON.stringify(req.file));
+    // console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
+    // console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
 
     // //input fields from form
     var stickerName = req.body.stickername;
@@ -351,13 +351,14 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var category = req.body.cat;
     var file = req.file;
     var imgChange = req.body.imgChange;
-    console.log("Image change^^^^^^^^^^" + imgChange);
     var stickerId = req.params.id;
 
     if (session && token) {
+
         var NewSticker = new Parse.Object.extend("Sticker");
         var squery = new Parse.Query(NewSticker);
         squery.equalTo("objectId", stickerId);
+
         squery.first({sessionToken: token}).then(
             function (newSticker) {
                 console.log("STICKER FOUND FOR UPDATEEEEEEEEEEEEEEE: " + JSON.stringify(newSticker));
@@ -373,11 +374,10 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                     var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
                     var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
 
-                    console.log("Updated Parse File::::::::::" + JSON.stringify(parseFile));
+                    // console.log("Updated Parse File::::::::::" + JSON.stringify(parseFile));
                     newSticker.set("uri",parseFile);
                     newSticker.save().then(function () {
 
-                            //sticker updated sucessfully
                             console.log("image updated to parse");
 
                             //Delete tmp fil after update
