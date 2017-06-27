@@ -401,4 +401,9 @@ input::-webkit-input-placeholder {
 
 
 
+#dropzone {
+    border: 2px solid white;
+}
+
+
 

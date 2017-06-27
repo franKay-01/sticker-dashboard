@@ -40,12 +40,11 @@
                 <h3 class="logo-text primary-font">Stickers - Dashboard</h3>
                 <h4 class="primary-font beta-text">Add Sticker</h4>
             </div>
+            <a id="signout" onclick="logoutUser()">SIGN OUT</a>
+            <p></p>
             <!--link to dashboard and stickers-->
             <%- include('../partials/links') %>
         </div>
-        <!--Link to sign up page-->
-        <a id="signlink" href="/signup">SIGN IN</a><br><br>
-        <a id="signout" onclick="logoutUser()">SIGN OUT</a>
     </div>
 </div>
 <!-- Logo -->
@@ -71,7 +70,12 @@
                 <button id="cancel" href="/dashboard">CANCEL</button> <button id="upload" type="submit">UPLOAD</button>
             </div>
         <span  id="filename" name="filename">No file chosen</span>
+    </form>
 
+    <p></p>
+    <!--New Form-->
+    <form action="/file-upload" class="dropzone" id="my-awesome-dropzone">
+        <input type="file" name="file"  id="dropzone"/>
     </form>
 
     <!--new feature for drag n drop-->
@@ -89,6 +93,7 @@
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/fileup.js"></script>
+<script type="text/javascript" src="/public/assets/js/dropzone.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
 
 </body>
