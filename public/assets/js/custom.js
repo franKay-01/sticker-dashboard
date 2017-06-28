@@ -27,7 +27,7 @@ $(document).ready(function () {
 
     console.log("current cookie: " + document.cookie);
 
-    var drop = $("input");
+    var drop = $("#files");
     drop.on('dragenter', function (e) {
         $(".drop").css({
             "border": "4px dashed #09f",

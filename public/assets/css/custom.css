@@ -399,6 +399,15 @@ input::-webkit-input-placeholder {
 /*BUTTONS IN DETAILS PAGE*/
 
 
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 
 #dropzone {
     border: 2px solid white;
