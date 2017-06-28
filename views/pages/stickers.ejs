@@ -54,31 +54,40 @@
 </div>
 
 <!--form goes here-->
-<div class="container1">
-    <form id="tform" action="/uploads" enctype="multipart/form-data" method="post">
-            <div id="left-col">
-                <!--new feature for drag n drop-->
-                <div class="demo-droppable">
-                    <span id="word">Drag files here or click to upload</span>
-                    <div class="output" name="tfile"></div>
-                </div>
-            </div>
-            <div id="right-col">
-               <input type="text" placeholder="Sticker Name" id="stname" name="stickername" />
-                <input type="text" placeholder="Local Name" id="lname" name="localname">
-                <input type="text" placeholder="Category e.g funny, silly" id="category" name="cat"/>
-                <button id="cancel" href="/dashboard">CANCEL</button> <button id="upload" type="submit">UPLOAD</button>
-            </div>
-        <span  id="filename" name="filename">No file chosen</span>
-    </form>
+<!--<div class="container1">-->
+    <!--<form id="tform" action="/uploads" enctype="multipart/form-data" method="post">-->
 
-    <p></p>
-    <!--New Form-->
-    <form action="/file-upload" class="dropzone" id="my-awesome-dropzone">
-        <input type="file" name="file"  id="dropzone"/>
-    </form>
+            <!--<div id="left-col">-->
+                <!--&lt;!&ndash;new feature for drag n drop&ndash;&gt;-->
+                <!--<div class="demo-droppable">-->
+                    <!--<span id="word">Drag files here or click to upload</span>-->
+                    <!--<div class="output" name="tfile"></div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div id="right-col">-->
+               <!--<input type="text" placeholder="Sticker Name" id="stname" name="stickername" />-->
+                <!--<input type="text" placeholder="Local Name" id="lname" name="localname">-->
+                <!--<input type="text" placeholder="Category e.g funny, silly" id="category" name="cat"/>-->
+                <!--<button id="cancel" href="/dashboard">CANCEL</button> <button id="upload" type="submit">UPLOAD</button>-->
+            <!--</div>-->
+        <!--<span  id="filename" name="filename">No file chosen</span>-->
 
-    <!--new feature for drag n drop-->
+    <!--</form>-->
+<!--</div>-->
+
+<div class="wrapper">
+    <div class="drop">
+        <div class="cont">
+            <i class="fa fa-cloud-upload"></i>
+            <div class="tit">
+                Drag & Drop
+            </div>
+            <div class="desc">
+                your files to Assets, or click to browse
+            </div>
+        </div>
+        <output id="list"></output><input id="files" multiple="true" name="files[]" type="file" />
+    </div>
 </div>
 
 <!-- Body -->
