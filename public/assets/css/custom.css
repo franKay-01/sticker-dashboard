@@ -411,9 +411,9 @@ input::-webkit-input-placeholder {
 }
 
 .drop {
-    width: 60%;
-    height: 80%;
-    border: 3px dashed #DADFE3;
+    width: 50%;
+    height: 60%;
+    border: 3px dashed grey;
     border-radius: 15px;
     overflow: hidden;
     text-align: center;
@@ -427,6 +427,7 @@ input::-webkit-input-placeholder {
     left: 0;
     bottom: 0;
     right: 0;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0px 7px 23px 0 rgba(0, 0, 0, 1);
 }
 
 .drop .cont {
@@ -477,8 +478,8 @@ input::-webkit-input-placeholder {
 }
 
 #list {
-    width: 100%;
-    height: 150%;
+    width: 95%;
+    height: 95%;
     text-align: left;
     position: absolute;
     left: 15px;
