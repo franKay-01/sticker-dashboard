@@ -69,11 +69,13 @@ $(document).ready(function () {
                     span.innerHTML = ['<img class="thumb" src="', e.target.result,
                         '" title="', escape(theFile.name), '"/>'].join('');
                     document.getElementById('list').insertBefore(span, null);
+                    console.log("success in upload");
                 };
             })(f);
 
             // Read in the image file as a data URL.
             reader.readAsDataURL(f);
+            console.log("F:::" +f );
         }
     }
 
