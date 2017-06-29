@@ -432,11 +432,11 @@ input::-webkit-input-placeholder {
     transition: all 0.5s ease-out;
     margin: auto;
     position: absolute;
-    top: 0;
+    top: 300px;
     left: 0;
     bottom: 0;
     right: 0;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0px 7px 23px 0 rgba(0, 0, 0, 1);
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
 }
 
 .drop .cont {
