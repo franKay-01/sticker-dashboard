@@ -3,7 +3,6 @@
  */
 var drop = $("input");
 drop.on('dragenter', function (e) {
-    console.log("dragentered");
     $(".drop").css({
         "border": "4px dashed #09f",
         "background": "rgba(0, 153, 255, .05)"

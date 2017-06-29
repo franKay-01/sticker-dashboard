@@ -428,8 +428,8 @@ input::-webkit-input-placeholder {
 }
 
 .drop {
-    width: 50%;
-    height: 60%;
+    width: 43%;
+    height: 50%;
     border: 3px dashed grey;
     border-radius: 15px;
     overflow: hidden;
@@ -449,7 +449,7 @@ input::-webkit-input-placeholder {
 
 .drop .cont {
     width: 500px;
-    height: 120px;
+    height: 100px;
     color: red;
     -webkit-transition: all 0.5s ease-out;
     -moz-transition: all 0.5s ease-out;
