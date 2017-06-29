@@ -28,17 +28,17 @@
         });
         ele.appendChild(input);
 
-        // ele.addEventListener('dragover', function(e) {
-        //     e.preventDefault();
-        //     e.stopPropagation();
-        //     ele.classList.add('dragover');
-        // });
-
-        ele.addEventListener('dragleave', function(e) {
+        ele.addEventListener('dragover', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            ele.classList.remove('dragover');
+            ele.classList.add('dragover');
         });
+
+        // ele.addEventListener('dragleave', function(e) {
+        //     e.preventDefault();
+        //     e.stopPropagation();
+        //     ele.classList.remove('dragover');
+        // });
 
         ele.addEventListener('drop', function(e) {
             e.preventDefault();
