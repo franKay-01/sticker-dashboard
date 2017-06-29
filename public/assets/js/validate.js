@@ -1,4 +1,4 @@
-Parse.initialize("cryptic-waters12");
+Parse.initialize("d55f9778-9269-40c2-84a2-e0caaf2ad87a");
 Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
 
