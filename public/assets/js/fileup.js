@@ -43,7 +43,7 @@
         ele.addEventListener('drop', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            ele.classList.remove('dragover');
+            // ele.classList.remove('dragover');
             triggerCallback(e, callback);
         });
 
