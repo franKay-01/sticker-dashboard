@@ -182,7 +182,7 @@ app.post('/login', function (req, res) {
 });
 
 //Upload File To Parse..........upload.any()--multiple files
-app.post('/uploads', upload.single('ffile'), function (req, res) {
+app.post('/uploads', upload.single('im1'), function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;

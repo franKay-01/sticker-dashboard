@@ -56,7 +56,7 @@
 })(this);
 (function(window) {
     makeDroppable(window.document.querySelector('.demo-droppable'), function(files) {
-        console.log(files);
+        console.log("File obtained");
         var output = document.querySelector('.output');
         output.innerHTML = '';
         for(var i=0; i<files.length; i++) {
