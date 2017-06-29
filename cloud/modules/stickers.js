@@ -10,9 +10,9 @@ getQuery = function (key, value) {
     return query;
 };
 
-getAll = function (token) {
+getAll = function () {
     return new Parse.Query(Stickers)
-        .find({sessionToken:token});
+        .find({useMasterKey: true});
 };
 
 /**
@@ -26,7 +26,7 @@ findById = function (stickerId,token) {
     var promise = new Parse.Promise();
 
     getQuery("objectId", stickerId)
-        .first({sessionToken:token})
+        .first({useMasterKey: true})
         .then(function (sticker) {
 
             if(sticker){
