@@ -28,11 +28,11 @@
         });
         ele.appendChild(input);
 
-        ele.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            ele.classList.add('dragover');
-        });
+        // ele.addEventListener('dragover', function(e) {
+        //     e.preventDefault();
+        //     e.stopPropagation();
+        //     ele.classList.add('dragover');
+        // });
 
         ele.addEventListener('dragleave', function(e) {
             e.preventDefault();
