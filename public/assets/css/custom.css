@@ -323,7 +323,49 @@ input::-webkit-input-placeholder {
     color: #464B9C;
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
 
+#upload1 {
+    cursor: pointer;
+    max-width: 40%;
+    background: white;
+    color: #464B9C;
+    padding: 10px;
+    font-family: monospace;
+    font-size: 130%;
+    transition: 0.3s;
+    position: absolute;
+    border: 1px solid black;
+    margin-top: 290px;
+    left: 810px;
+}
+#upload1:hover {
+    background: white;
+    color: #464B9C;
+    transition: 0.3s;
+    box-shadow:0 0 5px 5px rgba(0, 0, 0, 0.2), 0 0 5px 0 rgba(0, 0, 0, 0)
+}
+
+#cancel1 {
+    cursor: pointer;
+    max-width: 40%;
+    background: white;
+    color: red;
+    padding: 10px;
+    font-family: monospace;
+    font-size: 130%;
+    transition: 0.3s;
+    position: absolute;
+    border: 1px solid black;
+    margin-top: 250px;
+    left: 350px;
+}
+
+#cancel1:hover {
+    background: white;
+    color: red;
+    transition: 0.3s;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
 
