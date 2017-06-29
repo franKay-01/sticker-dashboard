@@ -12,7 +12,7 @@
     </style>
 
     <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
-
+    <link rel="icon"  href="favicon.ico" />
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
@@ -22,8 +22,7 @@
 
 </head>
 
-<body class="secondary-background-color">
-
+<body class="third-background-color">
 <!-- Logo -->
 <div class="row header-top-spacing">
 
@@ -38,15 +37,14 @@
             </div>
 
             <div class="columns large-8 small-12">
-                <h3 class="logo-text primary-font">Cyfa</h3>
-                <h4 class="primary-font beta-text">Beta Program</h4>
+                <h3 class="logo-text primary-font">Stickers - Dashboard</h3>
+                <h4 class="primary-font beta-text">Add Sticker</h4>
             </div>
+            <a id="signout" onclick="logoutUser()">SIGN OUT</a>
+            <p></p>
             <!--link to dashboard and stickers-->
             <%- include('../partials/links') %>
         </div>
-        <!--Link to sign up page-->
-        <a id="signlink" href="/signup">SIGN IN</a><br><br>
-        <a id="signout" href="/stickers">SIGN OUT</a>
     </div>
 </div>
 <!-- Logo -->
@@ -55,21 +53,42 @@
     <div class="columns large-12 hide-for-small-only margin-top-60"></div>
 </div>
 
-<!--form goes here-->
-<div class="row">
-    <div class="large-4 columns" id="ima"><img src="/public/assets/images/DXD.jpg"></div>
-    <div class="large-8 columns" id="tform"><!--form--></div>
+<!--Drag n Drop Form-->
+<form action="/uploads" enctype="multipart/form-data" method="post">
+<div class="wrapper">
+    <div class="drop">
+        <div class="cont">
+            <i class="fa fa-cloud-upload"></i>
+            <div class="tit">
+                Drag & Drop
+            </div>
+            <div class="desc">
+                your stickers here, or click to browse
+            </div>
+        </div>
+        <output id="list"></output><input id="files" multiple="true" name="files[]" type="file" />
+    </div>
 </div>
-
+    <button id="cancel1" href="/dashboard">CANCEL</button>
+    <button id="upload1" type="submit">UPLOAD STICKER(S)</button>
+</form>
 
 <!-- Body -->
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
 <!-- Compiled and minified JavaScript -->
+<!--<script src="http://code.jquery.com/jquery-1.6.3.min.js"></script>-->
+
+<!-- Including the HTML5 Uploader plugin -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/dropzone.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
+<script type="text/javascript" src="/public/assets/js/fileup.js"></script>
+<script type="text/javascript" src="/public/assets/js/hope.js"></script>
+
 
 </body>
 
