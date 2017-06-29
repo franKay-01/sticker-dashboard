@@ -2,7 +2,6 @@
  * Created by derry on 28-Jun-17.
  */
 var drop = $("input");
-console.log("Drop:" + drop);
 drop.on('dragenter', function (e) {
     console.log("dragentered");
     $(".drop").css({
