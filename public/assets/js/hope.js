@@ -3,6 +3,7 @@
  */
 var drop = $("#files");
 drop.on('dragenter', function (e) {
+    console.log("dragentered");
     $(".drop").css({
         "border": "4px dashed #09f",
         "background": "rgba(0, 153, 255, .05)"
@@ -24,7 +25,7 @@ drop.on('dragenter', function (e) {
 
 function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
-
+    console.log("Files: " + files);
     // Loop through the FileList and render image files as thumbnails.
     for (var i = 0, f; f = files[i]; i++) {
 

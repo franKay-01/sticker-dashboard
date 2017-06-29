@@ -178,8 +178,8 @@ fieldset {
 /*Container for stickers on dashboard*/
 
 .block {
-    height: 260px;
-    width:  250px;
+    height: 274px;
+    width:  260px;
     background-color: white;
     margin: 10px auto;
     border: 2px solid black;
@@ -193,15 +193,17 @@ fieldset {
     height: 230px;
     width:  260px;
     opacity: 0.8;
+    transition: 0.3s;
 }
 
 #abi:hover {
-    transform: scale(1.5, 1.5); /** default is 1, scale it to 1.5 */
+    transform: scale(1.2, 1.2);
     opacity: 1;
+    transition: 0.3s;
 }
 
 .stickerName {
-    margin-top: 0.1rem;
+    margin-top: 1.3rem;
     margin-bottom: 0.5rem;
     font-weight: normal;
     line-height: 1.4;
