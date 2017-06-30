@@ -24,7 +24,6 @@ drop.on('dragenter', function (e) {
 
 function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
-    console.log("Files: " + files);
     // Loop through the FileList and render image files as thumbnails.
     for (var i = 0, f; f = files[i]; i++) {
 
@@ -32,6 +31,8 @@ function handleFileSelect(evt) {
         if (!f.type.match('image.*')) {
             continue;
         }
+
+        console.log("File: " + JSON.stringify("File length" + f.length));
 
         var reader = new FileReader();
 
