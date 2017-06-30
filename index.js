@@ -354,9 +354,9 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
-    // console.log("NEW FILE INFO----" + JSON.stringify(req.file));
-    // console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
-    // console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
+    console.log("NEW FILE INFO----" + JSON.stringify(req.file));
+    console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
+    console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
 
     // //input fields from form
     var stickerName = req.body.stickername;
