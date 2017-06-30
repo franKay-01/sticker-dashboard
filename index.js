@@ -189,11 +189,17 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     console.log("FILE INFO " + JSON.stringify(req.files));
     console.log("BODY INFO " + JSON.stringify(req.body));
 
+    var files = req.files;
+
+    for(var i=0, f; f = files[i]; i++)
+    {
+        console.log('File Pathhhhhhhh: ' + JSON.stringify(f.path));
+    }
+
     // //input fields from form
     var stickerName = req.body.stickername;
     var localName = req.body.localname;
     var category = req.body.cat;
-    var files = req.files;
 
     if (session && token) {
 
