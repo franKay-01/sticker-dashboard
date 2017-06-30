@@ -189,17 +189,19 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     console.log("FILE INFO " + JSON.stringify(req.files));
     console.log("BODY INFO " + JSON.stringify(req.body));
 
-    var fullname     = req.body.originalname;
-    console.log("FULLNAME****** " + JSON.stringify(fullname));
-    var stickerName  = fullname.substring(0, fullname.length-4);
-    var localName    = stickerName;
-    var category     = ["funny, really"];
+
     var files        = req.files;
 
     if (session && token)
     {
         for(var i=0, f; f = files[i]; i++)
         {
+            var fullname     = f.originalname;
+            console.log("FULLNAME****** " + JSON.stringify(fullname));
+            var stickerName  = fullname.substring(0, fullname.length-4);
+            var localName    = stickerName;
+            var category     = ["funny, really"];
+
             console.log('File Path---------------: ' + JSON.stringify(f.path));
             var bitmap = fs.readFileSync(f.path, {encoding: 'base64'});
 
