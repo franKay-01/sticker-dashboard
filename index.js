@@ -190,6 +190,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     console.log("BODY INFO " + JSON.stringify(req.body));
 
     var fullname     = req.body.originalname;
+    console.log("FULLNAME****** " + JSON.stringify(fullname));
     var stickerName  = fullname.substring(0, fullname.length-4);
     var localName    = stickerName;
     var category     = ["funny, really"];
