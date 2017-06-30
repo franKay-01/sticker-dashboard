@@ -131,7 +131,6 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 app.set('view engine', 'ejs');
 
 //uploaded file storage location
-// var uploads = multer();
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         console.log("Dest " + JSON.stringify(file));
@@ -182,7 +181,7 @@ app.post('/login', function (req, res) {
 });
 
 //Upload File To Parse..........upload.any()--multiple files
-app.post('/uploads', upload.single('im1'), function (req, res) {
+app.post('/uploads', upload.single(), function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
