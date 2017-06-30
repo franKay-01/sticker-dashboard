@@ -206,7 +206,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
         //save parsefile object to dashboard
         //save img as obj in base64 format
 
-        var bitmap = fs.readFileSync(JSON.stringify(files.path), {encoding: 'base64'});
+        var bitmap = fs.readFileSync((files.path).toString(), {encoding: 'base64'});
 
         var parseFile = new Parse.File(stickerName, {base64: bitmap}, files.mimetype);
         console.log("Parse File::::::::::" + JSON.stringify(parseFile));
