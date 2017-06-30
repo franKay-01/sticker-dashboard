@@ -193,16 +193,16 @@ app.post('/uploads', upload.array('im1'), function (req, res) {
     var stickerName = req.body.stickername;
     var localName = req.body.localname;
     var category = req.body.cat;
-    var file = req.file;
+    var files = req.files;
 
     if (session && token) {
 
         //save parsefile object to dashboard
         //save img as obj in base64 format
 
-        var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+        var bitmap = fs.readFileSync(files.path, {encoding: 'base64'});
 
-        var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+        var parseFile = new Parse.File(stickerName, {base64: bitmap}, files.mimetype);
         console.log("Parse File::::::::::" + JSON.stringify(parseFile));
 
         //parse file object
@@ -222,7 +222,7 @@ app.post('/uploads', upload.array('im1'), function (req, res) {
                     console.log("image uploaded to parse");
 
                     //Delete tmp fil after upload
-                    var tmpFN = file.path;
+                    var tmpFN = files.path;
                     fs.unlink(tmpFN, function (err) {
                         if (err) {
                             console.log("-------Could not del temp" + JSON.stringify(err));
