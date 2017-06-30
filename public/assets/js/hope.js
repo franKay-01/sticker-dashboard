@@ -24,6 +24,7 @@ drop.on('dragenter', function (e) {
 
 function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
+    var arrayfiles = [];
     // Loop through the FileList and render image files as thumbnails.
     for (var i = 0, f; f = files[i]; i++) {
 
@@ -31,8 +32,8 @@ function handleFileSelect(evt) {
         if (!f.type.match('image.*')) {
             continue;
         }
-
-        console.log("File: " + JSON.stringify("File length" + f.length));
+        arrayfiles.push(f);
+        console.log("Array length = " + arrayfiles.length);
 
         var reader = new FileReader();
 
@@ -41,7 +42,7 @@ function handleFileSelect(evt) {
             return function(e) {
                 // Render thumbnail.
                 var span = document.createElement('span');
-                span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                span.innerHTML = ['<img class="thumb" name="im1" src="', e.target.result,
                     '" title="', escape(theFile.name), '"/>'].join('');
                 document.getElementById('list').insertBefore(span, null);
                 console.log("success in upload");
@@ -50,7 +51,7 @@ function handleFileSelect(evt) {
 
         // Read in the image file as a data URL.
         reader.readAsDataURL(f);
-        console.log("F:::" +f );
+        console.log("F:::" +f.toString() );
     }
 }
 
