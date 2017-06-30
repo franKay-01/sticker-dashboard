@@ -181,12 +181,12 @@ app.post('/login', function (req, res) {
 });
 
 //Upload File To Parse..........upload.any()--multiple files
-app.post('/uploads', upload.array('im1', 5), function (req, res) {
+app.post('/uploads', upload.array('im1'), function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
 
-    console.log("FILE INFO " + JSON.stringify(req.file));
+    console.log("FILE INFO " + JSON.stringify(req.files));
     console.log("BODY INFO " + JSON.stringify(req.body));
 
     // //input fields from form
