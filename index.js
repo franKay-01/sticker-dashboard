@@ -191,25 +191,23 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
     var files = req.files;
 
-    for(var i=0, f; f = files[i]; i++)
+    if (session && token)
     {
-        console.log('File Pathhhhhhhh: ' + JSON.stringify(f.path));
+        for(var i=0, f; f = files[i]; i++)
+        {
+            console.log('File Pathhhhhhhh: ' + JSON.stringify(f.path));
+            var bitmap = fs.readFileSync(f.path, {encoding: 'base64'});
+
+            var parseFile = new Parse.File(stickerName, {base64: bitmap}, f.mimetype);
+            console.log("Parse File::::::::::" + JSON.stringify(parseFile));
+        }
     }
 
-    // //input fields from form
-    var stickerName = req.body.stickername;
-    var localName = req.body.localname;
-    var category = req.body.cat;
 
     if (session && token) {
 
         //save parsefile object to dashboard
         //save img as obj in base64 format
-
-        var bitmap = fs.readFileSync(files.path, {encoding: 'base64'});
-
-        var parseFile = new Parse.File(stickerName, {base64: bitmap}, files.mimetype);
-        console.log("Parse File::::::::::" + JSON.stringify(parseFile));
 
         //parse file object
         var StickerObject = new Parse.Object.extend("Sticker");
