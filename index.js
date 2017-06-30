@@ -360,6 +360,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
     // //input fields from form
     var stickerName = req.body.stickername;
+    console.log("NEW STICKER NAMEEEEEEEE: " + JSON.stringify(stickerName));
     var localName = req.body.localname;
     var category = req.body.cat;
     var file = req.file;
