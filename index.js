@@ -196,56 +196,61 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
         files.forEach(function (sticker, index) {
 
             var fullname = sticker.originalname;
-            console.log("FULLNAME****** " + JSON.stringify(fullname));
-            var stickerName = fullname.substring(0, fullname.length - 4);
-            var localName = stickerName;
-            var category = ["funny, really"];
+            // var stickerName = fullname.substring(0, fullname.length - 4);
 
-            console.log('File Path---------------: ' + JSON.stringify(sticker.path));
-            var bitmap = fs.readFileSync(sticker.path, {encoding: 'base64'});
+            console.log("Sticker name----------" + fullname);
 
-            var parseFile = new Parse.File(stickerName, {base64: bitmap}, sticker.mimetype);
-            console.log("Parse File::::::::::" + JSON.stringify(parseFile));
-
-            //parse file object
-            var StickerObject = new Parse.Object.extend("Sticker");
-            parseFile.save().then(function () {
-                console.log('saving parse file................');
-
-                //instance of parse file object
-                var sticker = new StickerObject();
-                sticker.set("stickerName", stickerName);
-                sticker.set("localName", localName);
-                sticker.set("uri", parseFile);
-                sticker.set("category", [category]);
-                sticker.set("stickerPhraseImage", "");
-                sticker.save().then(function () {
-                        //file has been uploaded, back to dashboard
-                        console.log("image uploaded to parse");
-
-                        //Delete tmp fil after upload
-                        var tmpFN = sticker.path;
-                        fs.unlink(tmpFN, function (err) {
-                            if (err) {
-                                console.log("-------Could not del temp" + JSON.stringify(err));
-                            }
-                            else {
-                                console.log('deleted tmp file.....Size: ' + sticker.size);
-                            }
-                        });
-
-                        res.redirect("/dashboard");
-                    },
-                    function (problem) {
-                        //sticker was not uploaded, reload stickers page
-                        console.error("Could not upload file__ " + JSON.stringify(problem));
-                        res.redirect("/add-stickers1");
-                    });
-            }, function (err) {
-                //sticker object was not saved, reload stickers page
-                console.error("Obj not saved: " + JSON.stringify(err));
-                res.redirect("/add-stickers1");
-            });
+            // var fullname = sticker.originalname;
+            // console.log("FULLNAME****** " + JSON.stringify(fullname));
+            // var stickerName = fullname.substring(0, fullname.length - 4);
+            // var localName = stickerName;
+            // var category = ["funny, really"];
+            //
+            // console.log('File Path---------------: ' + JSON.stringify(sticker.path));
+            // var bitmap = fs.readFileSync(sticker.path, {encoding: 'base64'});
+            //
+            // var parseFile = new Parse.File(stickerName, {base64: bitmap}, sticker.mimetype);
+            // console.log("Parse File::::::::::" + JSON.stringify(parseFile));
+            //
+            // //parse file object
+            // var StickerObject = new Parse.Object.extend("Sticker");
+            // parseFile.save().then(function () {
+            //     console.log('saving parse file................');
+            //
+            //     //instance of parse file object
+            //     var sticker = new StickerObject();
+            //     sticker.set("stickerName", stickerName);
+            //     sticker.set("localName", localName);
+            //     sticker.set("uri", parseFile);
+            //     sticker.set("category", [category]);
+            //     sticker.set("stickerPhraseImage", "");
+            //     sticker.save().then(function () {
+            //             //file has been uploaded, back to dashboard
+            //             console.log("image uploaded to parse");
+            //
+            //             //Delete tmp fil after upload
+            //             var tmpFN = sticker.path;
+            //             fs.unlink(tmpFN, function (err) {
+            //                 if (err) {
+            //                     console.log("-------Could not del temp" + JSON.stringify(err));
+            //                 }
+            //                 else {
+            //                     console.log('deleted tmp file.....Size: ' + sticker.size);
+            //                 }
+            //             });
+            //
+            //             res.redirect("/dashboard");
+            //         },
+            //         function (problem) {
+            //             //sticker was not uploaded, reload stickers page
+            //             console.error("Could not upload file__ " + JSON.stringify(problem));
+            //             res.redirect("/add-stickers1");
+            //         });
+            // }, function (err) {
+            //     //sticker object was not saved, reload stickers page
+            //     console.error("Obj not saved: " + JSON.stringify(err));
+            //     res.redirect("/add-stickers1");
+            // });
 
         });
 
