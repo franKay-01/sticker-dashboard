@@ -195,16 +195,16 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     if (session && token) {
         files.forEach(function (sticker, index) {
 
-            var fullname = f.originalname;
+            var fullname = sticker.originalname;
             console.log("FULLNAME****** " + JSON.stringify(fullname));
             var stickerName = fullname.substring(0, fullname.length - 4);
             var localName = stickerName;
             var category = ["funny, really"];
 
-            console.log('File Path---------------: ' + JSON.stringify(f.path));
-            var bitmap = fs.readFileSync(f.path, {encoding: 'base64'});
+            console.log('File Path---------------: ' + JSON.stringify(sticker.path));
+            var bitmap = fs.readFileSync(sticker.path, {encoding: 'base64'});
 
-            var parseFile = new Parse.File(stickerName, {base64: bitmap}, f.mimetype);
+            var parseFile = new Parse.File(stickerName, {base64: bitmap}, sticker.mimetype);
             console.log("Parse File::::::::::" + JSON.stringify(parseFile));
 
             //parse file object
@@ -224,13 +224,13 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                         console.log("image uploaded to parse");
 
                         //Delete tmp fil after upload
-                        var tmpFN = files.path;
+                        var tmpFN = sticker.path;
                         fs.unlink(tmpFN, function (err) {
                             if (err) {
                                 console.log("-------Could not del temp" + JSON.stringify(err));
                             }
                             else {
-                                console.log('deleted tmp file.....Size: ' + file.size);
+                                console.log('deleted tmp file.....Size: ' + sticker.size);
                             }
                         });
 
