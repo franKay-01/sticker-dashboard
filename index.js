@@ -187,7 +187,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     var token = req.cookies.token;
 
     console.log("FILE INFO " + JSON.stringify(req.files));
-    console.log("FILE INFO " + JSON.parse(req.files));
     console.log("BODY INFO " + JSON.stringify(req.body));
 
 
