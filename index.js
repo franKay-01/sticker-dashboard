@@ -199,7 +199,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
             // var stickerName = fullname.substring(0, fullname.length - 4);
 
             console.log("Sticker name----------" + fullname);
-            res.redirect("/dashboard");
 
 
             // var fullname = sticker.originalname;
@@ -255,6 +254,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
             // });
 
         });
+        res.redirect("/dashboard");
 
     }
 
