@@ -445,7 +445,6 @@ input::-webkit-input-placeholder {
 }
 
 .cont {
-    width: 500px;
     height: 100px;
     color: red;
     -webkit-transition: all 0.5s ease-out;
