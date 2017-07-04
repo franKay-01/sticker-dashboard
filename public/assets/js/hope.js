@@ -42,7 +42,7 @@ function handleFileSelect(evt) {
             return function(e) {
                 // Render thumbnail.
                 var span = document.createElement('span');
-                span.innerHTML = ['<img class="thumb" name="im1" src="', e.target.result,
+                span.innerHTML = ['<img class="thumb" name="im1" style="width: 60%; height: 65%;" src="', e.target.result,
                     '" title="', escape(theFile.name), '"/>'].join('');
                 document.getElementById('list').insertBefore(span, null);
                 console.log("success in upload");
