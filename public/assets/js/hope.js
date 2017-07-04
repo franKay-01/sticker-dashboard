@@ -1,24 +1,24 @@
 /**
  * Created by derry on 28-Jun-17.
  */
-// var drop = $("input");
-// drop.on('dragenter', function (e) {
-//     $(".drop").css({
-//         "border": "4px dashed #09f",
-//         "background": "rgba(0, 153, 255, .05)"
-//     });
-//     $(".cont").css({
-//         "color": "#09f"
-//     });
-// }).on('dragleave dragend mouseout drop', function (e) {
-//     $(".drop").css({
-//         "border": "3px dashed #DADFE3",
-//         "background": "transparent"
-//     });
-//     $(".cont").css({
-//         "color": "#8E99A5"
-//     });
-// });
+var drop = $("input");
+drop.on('dragenter', function (e) {
+    $(".drop").css({
+        "border": "4px dashed #09f",
+        "background": "rgba(0, 153, 255, .05)"
+    });
+    $(".cont").css({
+        "color": "#09f"
+    });
+}).on('dragleave dragend mouseout drop', function (e) {
+    $(".drop").css({
+        "border": "3px dashed #DADFE3",
+        "background": "transparent"
+    });
+    $(".cont").css({
+        "color": "#8E99A5"
+    });
+});
 
 
 

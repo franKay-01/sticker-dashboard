@@ -388,15 +388,25 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                 newSticker.set("localName", localName);
                 newSticker.set("category", [category]);
                 newSticker.set("stickerPhraseImage", "");
+
                 if (imgChange === 'true') {
                     console.log('image has changed paaaaaaaaaa');
 
-                    //updare sticker image
+                    //update sticker image
                     var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
                     var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-
-                    // console.log("Updated Parse File::::::::::" + JSON.stringify(parseFile));
                     newSticker.set("uri", parseFile);
+                }
+                else {
+                    console.log('image has not changed koraaaaaaaaa');
+
+                }
+                    // //update sticker image
+                    // var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+                    // var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                    // newSticker.set("uri", parseFile);
+                    //
+                    //
                     newSticker.save().then(function () {
 
                             console.log("image updated to parse");
@@ -418,12 +428,6 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                             res.redirect("/details", {id: stickerId});
                         }
                     );
-
-                }
-                else {
-                    console.log('image has not changed koraaaaaaaaa');
-
-                }
             },
             function (notfound) {
                 console.log("STICKER NOT FOUNDDDDDDDDDDDDD: " + JSON.stringify(notfound))
