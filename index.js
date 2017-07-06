@@ -348,12 +348,12 @@ app.get('/collection/:id', function (req, res) {
         //TODO get current collection's id and find all stickers that are linked to it
         var collection = new Parse.Query("Collection");
         collection.equalTo("objectId", coll_id);
-        collection.first({sessionToken: token}).then(function (coll_sticker) {
+        collection.first({sessionToken: token}).then(function (stickers) {
 
-                if (coll_sticker) {
+                if (stickers) {
 
-                    console.log("Sticker::::::::::::::::" + JSON.stringify(coll_sticker));
-                    res.render("pages/collection", {coll_sticker: coll_sticker});
+                    console.log("Sticker::::::::::::::::" + JSON.stringify(stickers));
+                    res.render("pages/collection", {stickers: stickers});
                 } else {
                     console.log("Nothing Found::::::::::::::::");
                     res.redirect("/dashboard")
