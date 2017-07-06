@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Logo-->
+    <link rel="icon"  href="/public/images/logo.png" />
+    <title>Stickers Collections</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+    </style>
+
+    <link rel="stylesheet" href="/public/assets/css/foundation.css">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.css">-->
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+
+</head>
+
+<body class="primary-background-color">
+
+<!-- Logo -->
+<div class="row header-top-spacing">
+
+    <div class="columns large-12 small-12">
+
+        <div class="row">
+
+            <div class="columns large-1 small-12">
+                <a href="https://cryptic-waters-41617.herokuapp.com">
+                    <img  class="logo" src="/public/assets/images/logo.png" alt="Cyfa Logo"/>
+                </a>
+            </div>
+
+            <div class="columns large-8 small-12">
+                <h3 class="logo-text primary-font">Dashboard - Collections</h3>
+            </div>
+            <a id="signout" onclick="logoutUser()">SIGN OUT</a>
+            <p></p>
+            <!--link to dashboard and stickers-->
+            <%- include('../partials/links') %>
+        </div>
+    </div>
+</div>
+<!-- Logo -->
+
+
+<% include ../partials/sticker-item %>
+<!-- Body -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js"></script>
+<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+
+</body>
+
+
+</html>

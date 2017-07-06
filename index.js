@@ -297,13 +297,31 @@ app.get('/dashboard', function (req, res) {
 
         });
 
-    } else {
-
+    }
+    else {
         console.log("No Session Exists, log in");
         res.redirect("/");
-
     }
 
+});
+
+// Collection Dashboard
+//Displays 'folders' representing each collection from Parse
+app.get('/collection-dashboard', function (req, res) {
+
+    var session = req.session.token;
+    var token = req.cookies.token;
+    console.log("Session===========" + JSON.stringify(session));
+    console.log("Token===========" + JSON.stringify(token));
+
+    if (session && token) {
+
+            res.render("pages/collection-dashboard");
+    }
+    else {
+        console.log("No Session Exists, log in");
+        res.redirect("/");
+    }
 });
 
 // Add Stickers Version 1
@@ -317,6 +335,37 @@ app.get('/add-stickers1', function (req, res) {
         res.redirect("/");
     }
 });
+
+// Page for selected collection from dashboard
+//Displays all stickers linked to selected collection
+app.get('/collection/id', function (req, res) {
+
+    var session = req.session.token;
+    var token = req.cookies.token;
+    console.log("Session===========" + JSON.stringify(session));
+    console.log("Token===========" + JSON.stringify(token));
+
+    if (session && token) {
+
+        //TODO get current collection's id and find all stickers that are linked to it
+        new Parse.Query("Sticker").find({sessionToken: token}).then(function (stickers) {
+
+            res.render("pages/collection", {stickers: stickers});
+
+        }, function (error) {
+
+            console.log("dashboard error" + JSON.stringify(error));
+
+        });
+
+    }
+    else {
+        console.log("No Session Exists, log in");
+        res.redirect("/");
+    }
+
+});
+
 
 // Add Stickers Version 2
 app.get('/add-stickers2', function (req, res) {
