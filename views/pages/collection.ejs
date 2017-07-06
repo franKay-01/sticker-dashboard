@@ -37,7 +37,7 @@
 
             <div class="columns large-8 small-12">
                 <!--TODO add collection name to title below-->
-                <h3 class="logo-text primary-font">Collection : </h3>
+                <h3 class="logo-text primary-font">Collection </h3>
             </div>
             <a id="signout" onclick="logoutUser()">SIGN OUT</a>
             <p></p>
@@ -49,7 +49,20 @@
 <!-- Logo -->
 
 
-<% include ../partials/collection-stickers %>
+<div class="row small-up-1 medium-up-3 large-up-4">
+    <% coll_sticker.forEach(function(item, index) { %>
+
+    <div class="column">
+        <a href="/collection/<%= item.id %>">
+            <div class="block">
+                <p class="stickerName">  <%= item.get("stickerName") %></p>
+            </div>
+        </a>
+    </div>
+
+    <% }); %>
+</div>
+
 <!-- Body -->
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
