@@ -434,9 +434,7 @@ input::-webkit-input-placeholder {
     overflow: hidden;
     text-align: center;
     background: white;
-    -webkit-transition: all 0.5s ease-out;
-    -moz-transition: all 0.5s ease-out;
-    transition: all 0.5s ease-out;
+    transition: all 0.5s;
     margin: 0 auto;
     position: relative;
     height: 400px;
@@ -447,9 +445,7 @@ input::-webkit-input-placeholder {
 .cont {
     height: 100px;
     color: red;
-    -webkit-transition: all 0.5s ease-out;
-    -moz-transition: all 0.5s ease-out;
-    transition: all 0.5s ease-out;
+    transition: 0.5s;
     margin: auto;
     position: absolute;
     top: 0;
