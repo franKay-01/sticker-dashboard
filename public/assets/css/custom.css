@@ -444,7 +444,7 @@ input::-webkit-input-placeholder {
 
 .cont {
     height: 100px;
-    color: red;
+    color: darkgray;
     transition: 0.5s;
     margin: auto;
     position: absolute;
