@@ -2,15 +2,21 @@
  * Created by derry on 28-Jun-17.
  */
 var drop = $("input");
-drop.on('dragenter mousein', function (e) {
+drop.on('dragenter', function (e) {
     $(".drop").css({
         "border": "4px dashed grey",
-        "background": "#a7a9d7"
+        "background": "#8E99A5"
+    });
+    $(".cont").css({
+        "color": "#09f"
     });
 }).on('dragleave dragend mouseout drop', function (e) {
     $(".drop").css({
-        "background": "#fff",
-        "border": "3px dashed grey"
+        "border": "3px dashed #DADFE3",
+        "background": "transparent"
+    });
+    $(".cont").css({
+        "color": "#8E99A5"
     });
 });
 
