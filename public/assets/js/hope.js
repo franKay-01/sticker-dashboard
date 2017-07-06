@@ -4,8 +4,8 @@
 var drop = $("input");
 drop.on('dragenter', function (e) {
     $(".drop").css({
-        "border": "4px dashed #09f",
-        "background": "rgba(0, 153, 255, .05)"
+        "border": "4px dashed grey",
+        "background": "red"
     });
     $(".cont").css({
         "color": "#09f"
@@ -14,9 +14,6 @@ drop.on('dragenter', function (e) {
     $(".drop").css({
         "border": "3px dashed #DADFE3",
         "background": "transparent"
-    });
-    $(".cont").css({
-        "color": "#8E99A5"
     });
 });
 
