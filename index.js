@@ -184,11 +184,14 @@ app.post('/login', function (req, res) {
 app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
     var session = req.session.token;
-    var token = req.cookies.token;
+    var token   = req.cookies.token;
 
     console.log("FILE INFO " + JSON.stringify(req.files));
 
     var files = req.files;
+
+    var Collection = Parse.Object.extend("Collection");
+    var collection = new Collection();
 
     if (session && token) {
         files.forEach(function (sticker, index) {
@@ -219,6 +222,10 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 sticker.set("uri", parseFile);
                 sticker.set("category", [category]);
                 sticker.set("stickerPhraseImage", "");
+
+                //TODO SET STICKER'S PARENT TO COLLECTION
+                sticker.set("parent", collection);
+
                 sticker.save().then(function () {
                         //file has been uploaded, back to dashboard
                         console.log("image uploaded to parse");

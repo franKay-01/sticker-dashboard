@@ -4,7 +4,7 @@
 var drop = $("input");
 drop.on('dragenter mouseover', function (e) {
     $(".drop").css({
-        "border": "4px dashed grey",
+        "border": "4px dashed white",
         "background": "#9598d0"
     });
     $(".cont").css({
