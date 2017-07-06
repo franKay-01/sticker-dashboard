@@ -196,8 +196,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     if (session && token) {
         files.forEach(function (sticker, index) {
 
-            console.log("Sticker name----------" + fullname);
-
             var fullname = sticker.originalname;
             console.log("FULLNAME****** " + JSON.stringify(fullname));
             var stickerName = fullname.substring(0, fullname.length - 4);
@@ -333,6 +331,49 @@ app.get('/collections-dashboard', function (req, res) {
     }
 });
 
+// Page for selected collection from dashboard
+//Displays all stickers linked to selected collection
+app.get('/collection/:id', function (req, res) {
+
+    var session = req.session.token;
+    var token   = req.cookies.token;
+    var coll_id = req.params.id;
+
+    console.log("Session===========" + JSON.stringify(session));
+    console.log("Token===========" + JSON.stringify(token));
+    console.log("Collection ID===========" + JSON.stringify(coll_id));
+
+    if (session && token) {
+
+        //TODO get current collection's id and find all stickers that are linked to it
+        var collection = new Parse.Query("Collection");
+        collection.equalTo("objectId", coll_id);
+        collection.first({sessionToken: token}).then(function (coll_sticker) {
+
+                if (coll_sticker) {
+
+                    console.log("Sticker::::::::::::::::" + JSON.stringify(coll_sticker));
+                    res.render("pages/collection", {coll_sticker: coll_sticker});
+                } else {
+                    console.log("Nothing Found::::::::::::::::");
+                    res.redirect("/dashboard")
+                }
+
+            },
+            function (err) {
+                console.log("Error Loading-----------------------" + JSON.stringify(err));
+            }
+        );
+
+    }
+    else {
+        console.log("No Session Exists, log in");
+        res.redirect("/");
+    }
+
+});
+
+
 // Add Stickers Version 1
 app.get('/add-stickers1', function (req, res) {
     var session = req.session.token;
@@ -343,36 +384,6 @@ app.get('/add-stickers1', function (req, res) {
     } else {
         res.redirect("/");
     }
-});
-
-// Page for selected collection from dashboard
-//Displays all stickers linked to selected collection
-app.get('/collection/id', function (req, res) {
-
-    var session = req.session.token;
-    var token = req.cookies.token;
-    console.log("Session===========" + JSON.stringify(session));
-    console.log("Token===========" + JSON.stringify(token));
-
-    if (session && token) {
-
-        //TODO get current collection's id and find all stickers that are linked to it
-        new Parse.Query("Sticker").find({sessionToken: token}).then(function (stickers) {
-
-            res.render("pages/collection", {stickers: stickers});
-
-        }, function (error) {
-
-            console.log("dashboard error" + JSON.stringify(error));
-
-        });
-
-    }
-    else {
-        console.log("No Session Exists, log in");
-        res.redirect("/");
-    }
-
 });
 
 
