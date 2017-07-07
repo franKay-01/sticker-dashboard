@@ -302,15 +302,15 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
                 sticker.set("stickerPhraseImage", "");
 
                 // //GET ID OF CURRENT COLLECTION
-                // var colq = new Parse.Query("Collection");
-                // colq.equalTo("parent", coll_id);
-                // colq.first({sessionToken: token}).then(function (collection){
-                //         console.log("Current Collection====== " + JSON.stringify(collection));
-                //         sticker.set("parent", collection);
-                //     },
-                //     function (error) {
-                //         console.log("Unfound collectionnnnnnnn: " + JSON.stringify(error));
-                //     });
+                var colq = new Parse.Query("Collection");
+                colq.equalTo("collection_name", "Ghamoji");
+                colq.first({sessionToken: token}).then(function (collection){
+                        console.log("Current Collection====== " + JSON.stringify(collection));
+                        sticker.set("parent", collection);
+                    },
+                    function (error) {
+                        console.log("Unfound collectionnnnnnnn: " + JSON.stringify(error));
+                    });
 
                 sticker.save().then(function () {
                         //file has been uploaded, back to dashboard
