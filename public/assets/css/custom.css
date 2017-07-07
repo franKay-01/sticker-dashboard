@@ -185,13 +185,26 @@ fieldset {
     border: 2px solid black;
 }
 
-/*Dive for displaying collection*/
+/*Div for displaying collection*/
 .coll-block {
     height: 274px;
     width:  260px;
-    background-color: white;
+    /*background-color: white;*/
     margin: 10px auto;
-    border: 2px solid black;
+    /*border: 2px solid black;*/
+}
+
+#folder-icon {
+    height: 230px;
+    width:  260px;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+#folder-icon:hover {
+    transform: scale(1.2, 1.2);
+    opacity: 1;
+    transition: 0.3s;
 }
 
 
