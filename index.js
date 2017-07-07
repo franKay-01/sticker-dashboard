@@ -302,19 +302,6 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
                 sticker.set("stickerPhraseImage", "");
 
                 //GET ID OF CURRENT COLLECTION
-                var colq = new Parse.Query("Collection");
-                colq.equalTo("collection_name", "Ghamoji");
-                colq.first({sessionToken: token}).then(function (collection){
-                        console.log("Current Collection====== " + JSON.stringify(collection));
-                        var collection_relation = collection.relation("Collection");
-                        collection_relation.add(sticker);
-                        console.log("Relation added to collection class");
-                        collection.save();
-                    },
-                    function (error) {
-                        console.log("Unfound collectionnnnnnnn: " + JSON.stringify(error));
-                    });
-
 
                 sticker.save().then(function () {
                         //file has been uploaded, back to dashboard
@@ -338,6 +325,20 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
                         console.error("Could not upload file__ " + JSON.stringify(problem));
                         res.redirect("/add-stickers1");
                     });
+
+                var colq = new Parse.Query("Collection");
+                colq.equalTo("collection_name", "Ghamoji");
+                colq.first({sessionToken: token}).then(function (collection){
+                        console.log("Current Collection====== " + JSON.stringify(collection));
+                        var collection_relation = collection.relation("Collection");
+                        collection_relation.add(sticker);
+                        console.log("Relation added to collection class");
+                        collection.save();
+                    },
+                    function (error) {
+                        console.log("Unfound collectionnnnnnnn: " + JSON.stringify(error));
+                    });
+
             }, function (err) {
                 //sticker object was not saved, reload stickers page
                 console.error("Obj not saved: " + JSON.stringify(err));
