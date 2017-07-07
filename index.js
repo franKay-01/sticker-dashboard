@@ -190,16 +190,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
     var files = req.files;
 
-    var colq = new Parse.Query("Collection");
-    colq.equalTo("parent", coll_id);
-    colq.first({sessionToken: token}).then(function (collection){
-        console.log("Current COllection====== " + JSON.stringify(collection));
-        var coll = collection;
-    },
-    function (error) {
-        console.log("Unfound collectionnnnnnnn: " + JSON.stringify(error));
-    });
-
     if (session && token) {
         files.forEach(function (sticker, index) {
 
@@ -227,9 +217,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 sticker.set("uri", parseFile);
                 sticker.set("category", [category]);
                 sticker.set("stickerPhraseImage", "");
-
-                //TODO SET STICKER'S PARENT TO COLLECTION
-                sticker.set("parent", collection);
 
                 sticker.save().then(function () {
                         //file has been uploaded, back to dashboard
@@ -272,6 +259,102 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
         }
     }
 });
+
+//NEW UPLOAD FORM/PAGE
+app.post('/upload', upload.array('im1[]'), function (req, res) {
+
+    var session = req.session.token;
+    var token   = req.cookies.token;
+    // var coll_id = req.params.id;
+
+    // console.log("Collection ID===========" + JSON.stringify(coll_id));
+
+    console.log("FILE INFO********: " + JSON.stringify(req.files));
+
+    var files = req.files;
+
+    if (session && token) {
+        files.forEach(function (sticker, index) {
+
+            var fullname = sticker.originalname;
+            console.log("FULLNAME****** " + JSON.stringify(fullname));
+            var stickerName = fullname.substring(0, fullname.length - 4);
+            var localName = stickerName;
+            var category = ["funny, really"];
+
+            console.log('File Path---------------: ' + JSON.stringify(sticker.path));
+            var bitmap = fs.readFileSync(sticker.path, {encoding: 'base64'});
+
+            var parseFile = new Parse.File(stickerName, {base64: bitmap}, sticker.mimetype);
+            console.log("Parse File::::::::::" + JSON.stringify(parseFile));
+
+            //parse file object
+            var StickerObject = new Parse.Object.extend("Sticker");
+            parseFile.save().then(function () {
+                console.log('saving parse file................');
+
+                //instance of parse file object
+                var sticker = new StickerObject();
+                sticker.set("stickerName", stickerName);
+                sticker.set("localName", localName);
+                sticker.set("uri", parseFile);
+                sticker.set("category", [category]);
+                sticker.set("stickerPhraseImage", "");
+
+                // //GET ID OF CURRENT COLLECTION
+                // var colq = new Parse.Query("Collection");
+                // colq.equalTo("parent", coll_id);
+                // colq.first({sessionToken: token}).then(function (collection){
+                //         console.log("Current Collection====== " + JSON.stringify(collection));
+                //         sticker.set("parent", collection);
+                //     },
+                //     function (error) {
+                //         console.log("Unfound collectionnnnnnnn: " + JSON.stringify(error));
+                //     });
+
+                sticker.save().then(function () {
+                        //file has been uploaded, back to dashboard
+                        console.log("image uploaded to parse");
+
+                        //Delete tmp fil after upload
+                        var tmpFN = sticker.path;
+                        fs.unlink(tmpFN, function (err) {
+                            if (err) {
+                                console.log("-------Could not del temp" + JSON.stringify(err));
+                            }
+                            else {
+                                console.log('deleted tmp file.....Size: ' + sticker.size);
+                            }
+                        });
+
+                        res.redirect("/dashboard");
+                    },
+                    function (problem) {
+                        //sticker was not uploaded, reload stickers page
+                        console.error("Could not upload file__ " + JSON.stringify(problem));
+                        res.redirect("/add-stickers1");
+                    });
+            }, function (err) {
+                //sticker object was not saved, reload stickers page
+                console.error("Obj not saved: " + JSON.stringify(err));
+                res.redirect("/add-stickers1");
+            });
+
+        });
+        res.redirect("/dashboard");
+
+    }
+
+    // //no session exists reload signup page
+    else {
+        function error(err) {
+            console.log("error:::::: " + JSON.stringify(err));
+            res.redirect("/");
+        }
+    }
+});
+
+
 
 //LOGOUT
 app.get('/logout', function (req, res) {
@@ -401,6 +484,19 @@ app.get('/add-stickers2', function (req, res) {
 
     if (session && token) {
         res.render("pages/add-stickers2");
+    } else {
+        res.redirect("/");
+    }
+});
+
+
+// Add Stickers Version 3
+app.get('/add-to-collection', function (req, res) {
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+    if (session && token) {
+        res.render("pages/add-to-collection");
     } else {
         res.redirect("/");
     }
