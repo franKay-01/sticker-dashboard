@@ -306,7 +306,9 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
                 colq.equalTo("collection_name", "Ghamoji");
                 colq.first({sessionToken: token}).then(function (collection){
                         console.log("Current Collection====== " + JSON.stringify(collection));
-                        sticker.set("parent", collection);
+                        var collection_relation = collection.relation("collection_relation");
+                        collection_relation.add(sticker);
+                        console.log("Relation added to collection class");
                     },
                     function (error) {
                         console.log("Unfound collectionnnnnnnn: " + JSON.stringify(error));
