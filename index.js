@@ -190,8 +190,15 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
     var files = req.files;
 
-    var Collection = Parse.Object.extend("Collection");
-    var collection = new Collection();
+    var colq = new Parse.Query("Collection");
+    colq.equalTo("parent", coll_id);
+    colq.first({sessionToken: token}).then(function (collection){
+        console.log("Current COllection====== " + JSON.stringify(collection));
+        var coll = collection;
+    },
+    function (error) {
+        console.log("Unfound collectionnnnnnnn: " + JSON.stringify(error));
+    });
 
     if (session && token) {
         files.forEach(function (sticker, index) {

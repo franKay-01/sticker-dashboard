@@ -188,7 +188,7 @@ fieldset {
 /*Dive for displaying collection*/
 .coll-block {
     height: 274px;
-    width:  350px;
+    width:  260px;
     background-color: white;
     margin: 10px auto;
     border: 2px solid black;
@@ -196,7 +196,7 @@ fieldset {
 
 
 .coll-name {
-    margin-top: 17.5rem;
+    margin-top: 1.2rem;
     margin-bottom: 0.5rem;
     font-weight: normal;
     line-height: 1.4;
