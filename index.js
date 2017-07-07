@@ -301,24 +301,24 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
                 sticker.set("category", [category]);
                 sticker.set("stickerPhraseImage", "");
 
+                //GET ID OF CURRENT COLLECTION
+                var colq = new Parse.Query("Collection");
+                colq.equalTo("collection_name", "Ghamoji");
+                colq.first({sessionToken: token}).then(function (collection){
+                        console.log("Current Collection====== " + JSON.stringify(collection));
+                        var collection_relation = collection.relation("Collection");
+                        collection_relation.add(sticker);
+                        console.log("Relation added to collection class");
+                        collection.save();
+                    },
+                    function (error) {
+                        console.log("Unfound collectionnnnnnnn: " + JSON.stringify(error));
+                    });
+
 
                 sticker.save().then(function () {
                         //file has been uploaded, back to dashboard
                         console.log("image uploaded to parse");
-
-                        //GET ID OF CURRENT COLLECTION
-                        var colq = new Parse.Query("Collection");
-                        colq.equalTo("collection_name", "Ghamoji");
-                        colq.first({sessionToken: token}).then(function (collection){
-                                console.log("Current Collection====== " + JSON.stringify(collection));
-                                var collection_relation = collection.relation("collection_relation");
-                                collection_relation.add(sticker);
-                                console.log("Relation added to collection class");
-                                collection.save();
-                            },
-                            function (error) {
-                                console.log("Unfound collectionnnnnnnn: " + JSON.stringify(error));
-                            });
 
                         //Delete tmp fil after upload
                         var tmpFN = sticker.path;
