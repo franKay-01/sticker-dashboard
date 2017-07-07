@@ -314,6 +314,7 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
                                 var collection_relation = collection.relation("collection_relation");
                                 collection_relation.add(sticker);
                                 console.log("Relation added to collection class");
+                                collection.save();
                             },
                             function (error) {
                                 console.log("Unfound collectionnnnnnnn: " + JSON.stringify(error));
