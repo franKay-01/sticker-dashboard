@@ -451,7 +451,7 @@ app.get('/collection/:id', function (req, res) {
              col.query().find({
                  success: function (stickers) {
                      console.log("Stickers foundd:::: " + JSON.stringify(stickers));
-                     response.success(stickers);
+                     // response.success(stickers);
                      res.render("pages/collection", {stickers: stickers});
                  },
                  error: function(error){
