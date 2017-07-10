@@ -441,12 +441,9 @@ app.get('/collection/:id', function (req, res) {
     if (session && token) {
 
         //TODO get current collection's id and find all stickers that are linked to it
-        var coll = Parse.Object.extend("Collection");
-        var collq = coll.relation("Sticker");
-
         var sticker = new Parse.Query("Stickers");
-        // sticker.equalTo("parent", coll_id);
-        collq.query().find({sessionToken: token}).then(function (stickers) {
+        sticker.include("arrays");
+        sticker.find({sessionToken: token}).then(function (stickers) {
 
                 if (stickers) {
 
