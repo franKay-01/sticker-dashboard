@@ -437,10 +437,13 @@ app.get('/collection/:id', function (req, res) {
     console.log("Session===========" + JSON.stringify(session));
     console.log("Token===========" + JSON.stringify(token));
     console.log("Collection ID===========" + JSON.stringify(coll_id));
+    console.log("BODY===========" + JSON.stringify(req.body));
+    console.log("PARAMETERS===========" + JSON.stringify(req.params));
 
     if (session && token) {
 
         //TODO get current collection's id and find all stickers that are linked to it
+
         var sticker = new Parse.Query("Stickers");
         sticker.include("Stickers");
         sticker.find({sessionToken: token}).then(function (stickers) {
