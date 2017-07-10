@@ -309,9 +309,8 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
                         console.log("Current Collection====== " + JSON.stringify(collection));
                         var collection_relation = collection.relation("Collection");
                         collection_relation.add(sticker);
-                        sticker.set("parent", collection);
                         console.log("Relation added to collection class");
-                        collection.save();
+                        collection_relation.save();
                     },
                     function (error) {
                         console.log("Unfound collectionnnnnnnn: " + JSON.stringify(error));
