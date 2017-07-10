@@ -444,24 +444,41 @@ app.get('/collection/:id', function (req, res) {
 
         //TODO get current collection's id and find all stickers that are linked to it
 
-        var sticker = new Parse.Query("Stickers");
-        sticker.include("Stickers");
-        sticker.find({sessionToken: token}).then(function (stickers) {
-
-                if (stickers) {
-
-                    console.log("Sticker::::::::::::::::" + JSON.stringify(stickers));
-                    res.render("pages/collection", {stickers: stickers});
-                } else {
-                    console.log("Nothing Found::::::::::::::::");
-                    res.redirect("/dashboard")
-                }
-
-            },
-            function (err) {
-                console.log("Error Loading-----------------------" + JSON.stringify(err));
+        var colquery =  new Parse.Query("Collection");
+        colquery.get(coll_id, {
+            success: function(collection){
+             var col = collection.relation("sticker");
+             col.query().find({
+                 success: function (stickers) {
+                     console.log("Stickers foundd:::: " + JSON.stringify(stickers));
+                     response.success(stickers);
+                     res.render("pages/collection", {stickers: stickers});
+                 },
+                 error: function(error){
+                     response.error(error);
+                     console.log("Nothing Found::::::::::::::::");
+                     res.redirect("/dashboard")
+                 }
+             })
             }
-        );
+        });
+        // collection.include("stickers");
+        // collection.find({sessionToken: token}).then(function (stickers) {
+        //
+        //         if (stickers) {
+        //
+        //             console.log("Sticker::::::::::::::::" + JSON.stringify(stickers));
+        //             res.render("pages/collection", {stickers: stickers});
+        //         } else {
+        //             console.log("Nothing Found::::::::::::::::");
+        //             res.redirect("/dashboard")
+        //         }
+        //
+        //     },
+        //     function (err) {
+        //         console.log("Error Loading-----------------------" + JSON.stringify(err));
+        //     }
+        // );
 
     }
     else {
