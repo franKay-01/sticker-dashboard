@@ -327,10 +327,10 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
                                 console.log("Relation added to collection class");
                                 collection.save().then(
                                     function (collect_relation) {
-                                        console.log("RELATION SAVED++++++" + JSON.stringify(collect_relation))
+                                        console.log("RELATION SAVED+++++++++" + JSON.stringify(collect_relation));
                                     },
                                     function (error) {
-                                        console.log("RELATION NOT SAVED+++" + JSON.stringify(error))
+                                        console.log("RELATION NOT SAVED+++" + JSON.stringify(error));
                                     }
                                 );
                             },
