@@ -301,12 +301,14 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
                 sticker.set("category", [category]);
                 sticker.set("stickerPhraseImage", "");
 
+
                 //GET ID OF CURRENT COLLECTION
                 var colq = new Parse.Query("Collection");
                 colq.equalTo("collection_name", "Ghamoji");
                 console.log("Searching for collection.........");
                 colq.first({sessionToken: token}).then(function (collection){
                         console.log("Current Collection====== " + JSON.stringify(collection));
+                        sticker.set("parent", collection);
                         var collection_relation = collection.relation("Collection");
                         collection_relation.add(sticker);
                         console.log("Relation added to collection class");
