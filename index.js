@@ -447,10 +447,10 @@ app.get('/collection/:id', function (req, res) {
         var colquery =  new Parse.Query("Collection");
         colquery.get(coll_id, {
             success: function(collection){
-             var col = collection.relation("sticker");
+             var col = collection.relation("Collection");
              col.query().find({
                  success: function (stickers) {
-                     console.log("Stickers foundd:::: " + JSON.stringify(stickers));
+                     console.log("Stickers foundd:::: " + stickers.length);
                      // response.success(stickers);
                      res.render("pages/collection", {stickers: stickers});
                  },

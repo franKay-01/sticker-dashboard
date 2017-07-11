@@ -1,12 +1,15 @@
 <!--Display Collections from parse-->
 
 <div class="row small-up-1 medium-up-3 large-up-4">
-    <% coll_sticker.forEach(function(item, index) { %>
+    <% stickers.forEach(function(item, index) { %>
 
     <div class="column">
         <a href="/collection/<%= item.id %>">
             <div class="block">
+                <img style="display: block; color: white;" id="abi" src="<%= item.get("uri").url() %>">
+                <div>
                 <p class="stickerName">  <%= item.get("stickerName") %></p>
+                </div>
             </div>
         </a>
     </div>
