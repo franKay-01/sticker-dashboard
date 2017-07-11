@@ -274,77 +274,83 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
     var files = req.files;
 
     if (session && token) {
-        files.forEach(function (sticker, index) {
 
-            var fullname = sticker.originalname;
-            console.log("FULLNAME****** " + JSON.stringify(fullname));
-            var stickerName = fullname.substring(0, fullname.length - 4);
-            var localName = stickerName;
-            var category = ["funny, really"];
+        //GET ID OF CURRENT COLLECTION
+        var colq = new Parse.Query("Collection");
+        colq.equalTo("collection_name", "Ghamoji");
+        console.log("Searching for collection.........");
+        colq.first({sessionToken: token}).then(function (collection){
+                console.log("Current Collection====== " + JSON.stringify(collection));
 
-            console.log('File Path---------------: ' + JSON.stringify(sticker.path));
-            var bitmap = fs.readFileSync(sticker.path, {encoding: 'base64'});
+                //File saving Process Begins
+                files.forEach(function (sticker, index) {
 
-            var parseFile = new Parse.File(stickerName, {base64: bitmap}, sticker.mimetype);
-            console.log("Parse File::::::::::" + JSON.stringify(parseFile));
+                    var fullname = sticker.originalname;
+                    console.log("FULLNAME****** " + JSON.stringify(fullname));
+                    var stickerName = fullname.substring(0, fullname.length - 4);
+                    var localName = stickerName;
+                    var category = ["funny, really"];
 
-            //parse file object
-            var StickerObject = new Parse.Object.extend("Sticker");
-            parseFile.save().then(function () {
-                console.log('saving parse file................');
+                    console.log('File Path---------------: ' + JSON.stringify(sticker.path));
+                    var bitmap = fs.readFileSync(sticker.path, {encoding: 'base64'});
 
-                //instance of parse file object
-                var sticker = new StickerObject();
-                sticker.set("stickerName", stickerName);
-                sticker.set("localName", localName);
-                sticker.set("uri", parseFile);
-                sticker.set("category", [category]);
-                sticker.set("stickerPhraseImage", "");
+                    var parseFile = new Parse.File(stickerName, {base64: bitmap}, sticker.mimetype);
+                    console.log("Parse File::::::::::" + JSON.stringify(parseFile));
 
-                sticker.save().then(function () {
-                        //file has been uploaded, back to dashboard
-                        console.log("image uploaded to parse");
+                    //parse file object
+                    var StickerObject = new Parse.Object.extend("Sticker");
+                    parseFile.save().then(function () {
+                        console.log('saving parse file................');
 
-                        //Delete tmp fil after upload
-                        var tmpFN = sticker.path;
-                        fs.unlink(tmpFN, function (err) {
-                            if (err) {
-                                console.log("-------Could not del temp" + JSON.stringify(err));
-                            }
-                            else {
-                                console.log('deleted tmp file.....Size: ' + sticker.size);
-                            }
-                        });
+                        //instance of parse file object
+                        var sticker = new StickerObject();
+                        sticker.set("stickerName", stickerName);
+                        sticker.set("localName", localName);
+                        sticker.set("uri", parseFile);
+                        sticker.set("category", [category]);
+                        sticker.set("stickerPhraseImage", "");
+                        sticker.set("parent", collection);
 
-                        //GET ID OF CURRENT COLLECTION
-                        var colq = new Parse.Query("Collection");
-                        colq.equalTo("collection_name", "Ghamoji");
-                        console.log("Searching for collection.........");
-                        colq.first({sessionToken: token}).then(function (collection){
-                                console.log("Current Collection====== " + JSON.stringify(collection));
+                        sticker.save().then(function () {
+                                //file has been uploaded, back to dashboard
+                                console.log("image uploaded to parse");
+
                                 var collection_relation = collection.relation("Collection");
                                 collection_relation.add(sticker);
                                 console.log("Relation added to collection class");
                                 collection.save();
-                            },
-                            function (error) {
-                                console.log("Unfound collectionnnnnnnn: " + JSON.stringify(error));
-                            });
 
-                        res.redirect("/dashboard");
-                    },
-                    function (problem) {
-                        //sticker was not uploaded, reload stickers page
-                        console.error("Could not upload file__ " + JSON.stringify(problem));
+                                //Delete tmp fil after upload
+                                var tmpFN = sticker.path;
+                                fs.unlink(tmpFN, function (err) {
+                                    if (err) {
+                                        console.log("-------Could not del temp" + JSON.stringify(err));
+                                    }
+                                    else {
+                                        console.log('deleted tmp file.....Size: ' + sticker.size);
+                                    }
+                                });
+
+                                res.redirect("/dashboard");
+                            },
+                            function (problem) {
+                                //sticker was not uploaded, reload stickers page
+                                console.error("Could not upload file__ " + JSON.stringify(problem));
+                                res.redirect("/add-stickers1");
+                            });
+                    }, function (err) {
+                        //sticker object was not saved, reload stickers page
+                        console.error("Obj not saved: " + JSON.stringify(err));
                         res.redirect("/add-stickers1");
                     });
-            }, function (err) {
-                //sticker object was not saved, reload stickers page
-                console.error("Obj not saved: " + JSON.stringify(err));
-                res.redirect("/add-stickers1");
+
+                });
+                //File saving Process Ends
+            },
+            function (error) {
+                console.log("Not Found collection::::::::::: " + JSON.stringify(error));
             });
 
-        });
         res.redirect("/dashboard");
 
     }
@@ -435,9 +441,6 @@ app.get('/collection/:id', function (req, res) {
 
     console.log("Session===========" + JSON.stringify(session));
     console.log("Token===========" + JSON.stringify(token));
-    console.log("Collection ID===========" + JSON.stringify(coll_id));
-    console.log("BODY===========" + JSON.stringify(req.body));
-    console.log("PARAMETERS===========" + JSON.stringify(req.params));
 
     if (session && token) {
 
@@ -446,10 +449,13 @@ app.get('/collection/:id', function (req, res) {
         var colquery =  new Parse.Query("Collection");
         colquery.get(coll_id, {
             success: function(collection){
+                //todo change the column 'collection' in Collection class to stickers
+                //todo then do the same for below
+
              var col = collection.relation("Collection");
              col.query().find({
                  success: function (stickers) {
-                     console.log("Stickers foundd:::: " + stickers.length);
+                     console.log("Stickers found:::: " + stickers.length);
                      // response.success(stickers);
                      res.render("pages/collection", {stickers: stickers});
                  },
