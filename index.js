@@ -301,24 +301,6 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
                 sticker.set("category", [category]);
                 sticker.set("stickerPhraseImage", "");
 
-
-                //GET ID OF CURRENT COLLECTION
-                var colq = new Parse.Query("Collection");
-                colq.equalTo("collection_name", "Ghamoji");
-                console.log("Searching for collection.........");
-                colq.first({sessionToken: token}).then(function (collection){
-                        console.log("Current Collection====== " + JSON.stringify(collection));
-                        sticker.set("parent", collection);
-                        var collection_relation = collection.relation("Collection");
-                        collection_relation.add(sticker);
-                        console.log("Relation added to collection class");
-                        collection.save();
-                    },
-                    function (error) {
-                        console.log("Unfound collectionnnnnnnn: " + JSON.stringify(error));
-                    });
-
-
                 sticker.save().then(function () {
                         //file has been uploaded, back to dashboard
                         console.log("image uploaded to parse");
@@ -333,6 +315,28 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
                                 console.log('deleted tmp file.....Size: ' + sticker.size);
                             }
                         });
+
+                        //GET ID OF CURRENT COLLECTION
+                        var colq = new Parse.Query("Collection");
+                        colq.equalTo("collection_name", "Ghamoji");
+                        console.log("Searching for collection.........");
+                        colq.first({sessionToken: token}).then(function (collection){
+                                console.log("Current Collection====== " + JSON.stringify(collection));
+                                var collection_relation = collection.relation("Collection");
+                                collection_relation.add(sticker);
+                                console.log("Relation added to collection class");
+                                collection.save().then(
+                                    function (collect_relation) {
+                                        console.log("RELATION SAVED++++++" + JSON.stringify(collect_relation))
+                                    },
+                                    function (error) {
+                                        console.log("RELATION NOT SAVED+++" + JSON.stringify(error))
+                                    }
+                                );
+                            },
+                            function (error) {
+                                console.log("Unfound collectionnnnnnnn: " + JSON.stringify(error));
+                            });
 
                         res.redirect("/dashboard");
                     },
