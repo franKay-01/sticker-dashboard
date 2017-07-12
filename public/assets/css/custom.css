@@ -602,6 +602,17 @@ input::-webkit-input-placeholder {
     display: none;
     z-index: 999;
 }
+
+#close{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 30px;
+    border-radius: 50%;
+    color: red;
+    float: right;
+    cursor: pointer;
+}
 /*CATEGORIES*/
 
 
