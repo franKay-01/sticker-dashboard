@@ -585,17 +585,22 @@ input::-webkit-input-placeholder {
 }
 
 .stickers {
-    padding: 10px;
+    margin-top: 8%;
 }
 
 .rightside {
-    left: 50%;
-    width: 23%;
-}
-.leftside {
+    border: 2px solid blue;
     position: absolute;
     overflow: hidden;
-    left: 26%;
+    left: 37%;
+    width: 57%;
+}
+.leftside {
+    border: 2px solid red;
+    position: absolute;
+    overflow: hidden;
+    left: 4%;
+    width: 25%;
 }
 
 #img-prev {
@@ -624,7 +629,7 @@ input::-webkit-input-placeholder {
     line-height: 30px;
     font-size: 30px;
     left: 97%;
-    bottom: 97%;
+    bottom: 96%;
     position: absolute;
     color: red;
     float: right;
@@ -635,6 +640,7 @@ input::-webkit-input-placeholder {
     border: 1px solid #333;
     display: inline-block;
     line-height: 15px;
+    left: 43%;
 }
 
 .tags-input .tag {
