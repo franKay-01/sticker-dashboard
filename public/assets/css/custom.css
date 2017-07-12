@@ -576,7 +576,9 @@ input::-webkit-input-placeholder {
 /*CATEGORIES*/
 .stick-category {
     width: 400px;
-    height: 600px;
+    height: 500px;
+    margin: 0 auto;
+    border: 2px solid whitesmoke;
 }
 /*CATEGORIES*/
 
