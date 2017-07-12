@@ -76,6 +76,7 @@ function insertAfter(referenceNode, newNode) {
     hiddenInput.setAttribute('name', el.getAttribute('data-name'));
 
     mainInput.setAttribute('type', 'text');
+    mainInput.setAttribute('placholder', 'Type a category and press comma(,)');
     mainInput.classList.add('main-input');
     mainInput.addEventListener('input', function () {
         var enteredTags = mainInput.value.split(',');
@@ -104,7 +105,7 @@ function insertAfter(referenceNode, newNode) {
     function addTag (text) {
         var tag = {
             text: text,
-            element: document.createElement('span'),
+            element: document.createElement('span')
         };
 
         tag.element.classList.add('tag');

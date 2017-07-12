@@ -584,12 +584,18 @@ input::-webkit-input-placeholder {
     z-index: 1000;
 }
 
+#title {
+    text-transform: uppercase;
+    color: #000;
+    text-align: center;
+}
+
 .stickers {
     margin-top: 8%;
 }
 
 .rightside {
-    border: 2px solid blue;
+    border: 1px solid blue;
     position: absolute;
     overflow: hidden;
     left: 35%;
