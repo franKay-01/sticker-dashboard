@@ -588,6 +588,16 @@ input::-webkit-input-placeholder {
     padding: 10px;
 }
 
+.rightside {
+    left: 50%;
+    width: 23%;
+}
+.leftside {
+    position: absolute;
+    overflow: hidden;
+    left: 26%;
+}
+
 #img-prev {
     width: 20px;
     height: 20px;
@@ -613,7 +623,7 @@ input::-webkit-input-placeholder {
     height: 30px;
     line-height: 30px;
     font-size: 30px;
-    left: 96%;
+    left: 97%;
     bottom: 97%;
     position: absolute;
     color: red;
