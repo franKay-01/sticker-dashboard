@@ -61,6 +61,12 @@ function handleFileSelect(evt) {
 $('#files').change(handleFileSelect);
 
 //TAG COMPONENTS
+// function to insert tags after maininput element
+function insertAfter(referenceNode, newNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
+
 [].forEach.call(document.getElementsByClassName('tags-input'), function (el) {
     var hiddenInput = document.createElement('input'),
         mainInput = document.createElement('input'),
@@ -113,7 +119,8 @@ $('#files').change(handleFileSelect);
 
         tags.push(tag);
 
-        el.insertBefore(tag.element, mainInput);
+        // el.insertBefore(tag.element, mainInput);
+        insertAfter(mainInput, tag.element);
 
         refreshTags();
         console.log(tags.length);

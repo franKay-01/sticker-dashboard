@@ -592,11 +592,11 @@ input::-webkit-input-placeholder {
     border: 2px solid blue;
     position: absolute;
     overflow: hidden;
-    left: 37%;
+    left: 35%;
     width: 57%;
 }
 .leftside {
-    border: 2px solid red;
+    border: 1px solid red;
     position: absolute;
     overflow: hidden;
     left: 4%;
@@ -637,14 +637,15 @@ input::-webkit-input-placeholder {
 }
 
 .tags-input {
-    border: 1px solid #333;
-    display: inline-block;
+    /*border: 1px solid #333;*/
+    /*display: inline-block;*/
     line-height: 15px;
     left: 43%;
 }
 
 .tags-input .tag {
     font-size: 85%;
+    color: black;
     padding: 0.5em 0.75em;
     margin: 0.25em 0.1em;
     display: inline-block;
@@ -672,9 +673,11 @@ input::-webkit-input-placeholder {
 }
 
 .tags-input .main-input {
-    border: 0;
+    border: 1px solid lightslategray;
     outline: 0;
-    padding: 0.5em 0.1em;
+    width: 98%;
+    height: 30px;
+    /*padding: 0.5em 0.1em;*/
 }
 
 /*CATEGORIES*/
