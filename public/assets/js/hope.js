@@ -44,6 +44,9 @@ function handleFileSelect(evt) {
                 var span = document.createElement('span');
                 span.innerHTML = ['<img class="thumb" name="im1" " src="', e.target.result,
                     '" title="', escape(theFile.name), '"/>'].join('');
+
+                document.getElementById('#img-prev').innerHTML = ['<img class="thumb" name="im1" " src="', e.target.result,
+                    '" title="', escape(theFile.name), '"/>'].join('');
                 document.getElementById('list').insertBefore(span, null);
                 console.log("success in upload");
             };
