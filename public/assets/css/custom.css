@@ -575,7 +575,7 @@ input::-webkit-input-placeholder {
 
 /*CATEGORIES*/
 .stick-category {
-    width: 400px;
+    width: 600px;
     height: 500px;
     margin: -120px auto;
     position: relative;
@@ -584,9 +584,14 @@ input::-webkit-input-placeholder {
     z-index: 1000;
 }
 
+.stickers {
+    padding: 10px;
+}
+
 #img-prev {
     width: 20px;
     height: 20px;
+    border: 2px solid black;
 }
 #fname {
     color: #000;
@@ -594,7 +599,7 @@ input::-webkit-input-placeholder {
 
 .cover {
     width: 100%;
-    height: 100%;
+    height: 240%;
     position: absolute;
     top: 0;
     left: 0;
@@ -608,11 +613,54 @@ input::-webkit-input-placeholder {
     height: 30px;
     line-height: 30px;
     font-size: 30px;
-    border-radius: 50%;
+    left: 96%;
+    bottom: 97%;
+    position: absolute;
     color: red;
     float: right;
     cursor: pointer;
 }
+
+.tags-input {
+    border: 1px solid #333;
+    display: inline-block;
+    line-height: 15px;
+}
+
+.tags-input .tag {
+    font-size: 85%;
+    padding: 0.5em 0.75em;
+    margin: 0.25em 0.1em;
+    display: inline-block;
+    background-color: #ddd;
+    transition: all 0.1s linear;
+    cursor: pointer;
+}
+
+/*when you hover over tags*/
+.tags-input .tag:hover {
+    background-color: #3af;
+    color: white;
+}
+
+.tags-input .tag .close::after {
+    content: '×';
+    font-weight: bold;
+    display: inline-block;
+    transform: scale(1.4);
+    margin-left: 0.75em;
+}
+
+.tags-input .tag .close:hover::after {
+    color: red;
+}
+
+.tags-input .main-input {
+    border: 0;
+    outline: 0;
+    padding: 0.5em 0.1em;
+}
+
 /*CATEGORIES*/
 
 
