@@ -573,4 +573,11 @@ input::-webkit-input-placeholder {
 
 /* END---------NEW DRAG AND DROP FORM*/
 
+/*CATEGORIES*/
+.stick-category {
+    width: 400px;
+    height: 600px;
+}
+/*CATEGORIES*/
+
 
