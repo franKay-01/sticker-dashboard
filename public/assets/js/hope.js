@@ -144,3 +144,25 @@ function insertAfter(referenceNode, newNode) {
         return tag.replace(/[^\w -]/g, '').trim().replace(/\W+/g, '-');
     }
 });
+
+$(document).ready(function()
+    	{
+    		$('.btn').on('click', function()
+    			{
+    				$('.cover').fadeIn('medium');
+    				$('.stick-category').fadeIn('medium');
+    			});
+    		$('#close').on('click', function()
+    		{
+    			if($(event.target).is('#close'))
+    				{
+    				$('.cover').fadeOut('medium');
+    				$('.stick-category').fadeOut('medium');
+    				}
+    		});
+    		$('.cover').on('click', function()
+    		{
+    			$('.cover').fadeOut('slow');
+    			$('.stick-category').fadeOut('slow');
+    		});
+    	});

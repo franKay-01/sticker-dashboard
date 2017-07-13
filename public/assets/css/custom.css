@@ -599,6 +599,16 @@ input::-webkit-input-placeholder {
     margin-top: 100px;
 }
 
+.btn {
+    padding: 10px 15px;
+    background-color: blue;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
 .stick-category {
     width: 600px;
     height: 500px;
