@@ -463,6 +463,7 @@ input::-webkit-input-placeholder {
 .drop {
     width: 43%;
     border-radius: 15px;
+    /*display: none;*/
     background: white;
     overflow: hidden;
     text-align: center;
@@ -470,7 +471,7 @@ input::-webkit-input-placeholder {
     margin: 0 auto;
     position: relative;
     height: 400px;
-    bottom: 350px;
+    bottom: 100px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
 }
 
@@ -577,6 +578,7 @@ input::-webkit-input-placeholder {
 .stick-category {
     width: 600px;
     height: 500px;
+    /*display: none;*/
     margin: -120px auto;
     position: relative;
     border: 2px solid whitesmoke;
