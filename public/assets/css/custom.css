@@ -591,10 +591,18 @@ input::-webkit-input-placeholder {
 
 
 /*CATEGORIES*/
+
+.containerx {
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 100px;
+}
+
 .stick-category {
     width: 600px;
     height: 500px;
-    /*display: none;*/
+    display: none;
     margin: -120px auto;
     position: relative;
     border: 2px solid whitesmoke;

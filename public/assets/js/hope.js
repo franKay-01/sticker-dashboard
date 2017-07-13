@@ -97,7 +97,8 @@ function insertAfter(referenceNode, newNode) {
     el.appendChild(mainInput);
     el.appendChild(hiddenInput);
 
-    addTag('hello!');
+    addTag('funny');
+    console.log("it works yo");
 
     function addTag (text) {
         var tag = {
