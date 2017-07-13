@@ -317,8 +317,8 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
 
                                 var collection_relation = collection.relation("Collection");
                                 collection_relation.add(sticker);
-                                console.log(" added to collection class");
-                                collection.saveRelation();
+                                console.log("Relation added to collection class");
+                                collection.save();
 
                                 //Delete tmp fil after upload
                                 var tmpFN = sticker.path;

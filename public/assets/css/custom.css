@@ -462,16 +462,16 @@ input::-webkit-input-placeholder {
 
 .drop {
     width: 43%;
+    border: 3px dashed grey;
     border-radius: 15px;
-    /*display: none;*/
-    background: white;
     overflow: hidden;
     text-align: center;
+    background: white;
     transition: all 0.5s;
     margin: 0 auto;
     position: relative;
     height: 400px;
-    bottom: 100px;
+    bottom: 110px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
 }
 
@@ -511,7 +511,6 @@ input::-webkit-input-placeholder {
     left: 0;
     bottom: 0;
     right: 0;
-    display: none;
 }
 
 #list {
@@ -541,7 +540,7 @@ input::-webkit-input-placeholder {
     position: relative;
     margin-top: 285px;
     bottom: 330px;
-    left: 45%;
+    left: 640px;
 }
 #upload1:hover {
     background: #464B9C;
@@ -562,7 +561,7 @@ input::-webkit-input-placeholder {
     position: relative;
     margin-top: 285px;
     bottom: 330px;
-    left: 30%;
+    left: 430px;
 }
 
 #cancel1:hover {
@@ -573,121 +572,5 @@ input::-webkit-input-placeholder {
 }
 
 /* END---------NEW DRAG AND DROP FORM*/
-
-/*CATEGORIES*/
-.stick-category {
-    width: 600px;
-    height: 500px;
-    /*display: none;*/
-    margin: -120px auto;
-    position: relative;
-    border: 2px solid whitesmoke;
-    background-color: white;
-    z-index: 1000;
-}
-
-#title {
-    text-transform: uppercase;
-    color: #000;
-    text-align: center;
-}
-
-.stickers {
-    margin-top: 8%;
-}
-
-.rightside {
-    border: 1px solid blue;
-    position: absolute;
-    overflow: hidden;
-    left: 35%;
-    width: 57%;
-}
-.leftside {
-    border: 1px solid red;
-    position: absolute;
-    overflow: hidden;
-    left: 4%;
-    width: 25%;
-}
-
-#img-prev {
-    width: 20px;
-    height: 20px;
-    border: 2px solid black;
-}
-#fname {
-    color: #000;
-}
-
-.cover {
-    width: 100%;
-    height: 240%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
-    z-index: 999;
-}
-
-#close{
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    font-size: 30px;
-    left: 97%;
-    bottom: 96%;
-    position: absolute;
-    color: red;
-    float: right;
-    cursor: pointer;
-}
-
-.tags-input {
-    /*border: 1px solid #333;*/
-    /*display: inline-block;*/
-    line-height: 15px;
-    left: 43%;
-}
-
-.tags-input .tag {
-    font-size: 85%;
-    color: black;
-    padding: 0.5em 0.75em;
-    margin: 0.25em 0.1em;
-    display: inline-block;
-    background-color: #ddd;
-    transition: all 0.1s linear;
-    cursor: pointer;
-}
-
-/*when you hover over tags*/
-.tags-input .tag:hover {
-    background-color: #3af;
-    color: white;
-}
-
-.tags-input .tag .close::after {
-    content: '×';
-    font-weight: bold;
-    display: inline-block;
-    transform: scale(1.4);
-    margin-left: 0.75em;
-}
-
-.tags-input .tag .close:hover::after {
-    color: red;
-}
-
-.tags-input .main-input {
-    border: 1px solid lightslategray;
-    outline: 0;
-    width: 98%;
-    height: 30px;
-    /*padding: 0.5em 0.1em;*/
-}
-
-/*CATEGORIES*/
 
 
