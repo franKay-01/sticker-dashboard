@@ -594,7 +594,7 @@ input::-webkit-input-placeholder {
 
 .containerx {
     position: relative;
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     text-align: center;
     margin-top: 100px;
 }
@@ -613,7 +613,8 @@ input::-webkit-input-placeholder {
     width: 600px;
     height: 500px;
     display: none;
-    margin: -120px auto;
+    margin: 0 auto;
+    bottom: 852px;
     position: relative;
     border: 2px solid whitesmoke;
     background-color: white;
