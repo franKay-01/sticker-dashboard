@@ -403,6 +403,59 @@ app.get('/dashboard', function (req, res) {
 
 });
 
+app.get("/pay",function(req,res){
+
+    var url = 'https://sandbox.api.visa.com/visadirect/fundstransfer/v1/pullfundstransactions';
+    var body = {
+        "acquirerCountryCode": "840",
+        "acquiringBin": "408999",
+        "amount": "124.02",
+        "businessApplicationId": "AA",
+        "cardAcceptor": {
+            "address": {
+                "country": "USA",
+                "county": "San Mateo",
+                "state": "CA",
+                "zipCode": "94404"
+            },
+            "idCode": "ABCD1234ABCD123",
+            "name": "Visa Inc. USA-Foster City",
+            "terminalId": "ABCD1234"
+        },
+        "cavv": "0700100038238906000013405823891061668252",
+        "foreignExchangeFeeTransaction": "11.99",
+        "localTransactionDateTime": "2017-07-18T10:31:14",
+        "retrievalReferenceNumber": "330000550000",
+        "senderCardExpiryDate": "2015-10",
+        "senderCurrencyCode": "USD",
+        "senderPrimaryAccountNumber": "4895142232120006",
+        "surcharge": "11.99",
+        "systemsTraceAuditNumber": "451001"
+    };
+
+    Parse.Cloud.httpRequest({
+        "method": "POST",
+        "url": url,
+        "headers": {
+            // "Authorization": "Basic aWlocGtoZHU6bnZtdnp2bWY=",
+            "Authorization":"Basic UU9XWjRaVU9OTjk1V1RCTzhONjMyMUJRR1dOclpDZlJjdjY2LUROTFVlblM1Y05FQTpYUk1xRncxdQ==",
+            "Content-Type": "application/json,application/octet-stream"
+        },
+        body: body
+    }).then(function (httpResponse) {
+        promise.resolve(httpResponse);
+        console.log(httpResponse.data);
+        res.send("success");
+    }, function (httpResponse) {
+        promise.reject(httpResponse.status);
+        console.log(httpResponse.data);
+        res.send("error")
+    });
+
+    return promise;
+
+});
+
 // Collection Dashboard
 //Displays 'folders' representing each collection from Parse
 app.get('/collections-dashboard', function (req, res) {
