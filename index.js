@@ -440,7 +440,7 @@ app.get('/pay', function (req, res) {
         "headers": {
             // "Authorization": "Basic aWlocGtoZHU6bnZtdnp2bWY=",
             "Authorization":"Basic UU9XWjRaVU9OTjk1V1RCTzhONjMyMUJRR1dOclpDZlJjdjY2LUROTFVlblM1Y05FQTpYUk1xRncxdQ==",
-            "Content-Type": "application/json,application/octet-stream"
+            "Accept": "application/json,application/octet-stream"
         },
         body: body
     }).then(function (httpResponse) {
