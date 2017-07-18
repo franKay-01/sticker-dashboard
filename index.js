@@ -403,7 +403,7 @@ app.get('/dashboard', function (req, res) {
 
 });
 
-app.get("/pay",function(req,res){
+app.get('/pay', function (req, res) {
 
     var url = 'https://sandbox.api.visa.com/visadirect/fundstransfer/v1/pullfundstransactions';
     var body = {
