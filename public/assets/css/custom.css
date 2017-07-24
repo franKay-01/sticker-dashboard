@@ -553,7 +553,7 @@ input::-webkit-input-placeholder {
     cursor: pointer;
     max-width: 40%;
     background: white;
-    color: red;
+    color: deepskyblue;
     padding: 10px;
     font-family: monospace;
     font-size: 130%;
@@ -565,7 +565,7 @@ input::-webkit-input-placeholder {
 }
 
 #cancel1:hover {
-    background: red;
+    background: deepskyblue;
     color: white;
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -612,6 +612,7 @@ input::-webkit-input-placeholder {
     padding: 5px;
     color: white;
     background-color: rebeccapurple;
+    margin-top: 330px;
 }
 
 
@@ -655,7 +656,6 @@ input::-webkit-input-placeholder {
 #img-prev {
     width: 20px;
     height: 20px;
-    border: 2px solid black;
 }
 #fname {
     color: #000;

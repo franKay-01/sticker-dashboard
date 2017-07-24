@@ -46,7 +46,7 @@ function handleFileSelect(evt) {
                     '" title="', escape(theFile.name), '"/>'].join('');
                 //display img in img-prev
                 var prev = document.getElementById('img-prev');
-                prev.innerHTML = ['<img id="img-prev" name="im1" " src="', e.target.result,
+                prev.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
                     '" title="', escape(theFile.name), '"/>'].join('');
                 document.getElementById('fname').innerHTML = theFile.name;
 
@@ -152,7 +152,7 @@ function insertAfter(referenceNode, newNode) {
 
 $(document).ready(function()
     	{
-    		$('.btn').on('click', function()
+    		$('#categories').on('click', function()
     			{
     				$('.cover').fadeIn('medium');
     				$('.stick-category').fadeIn('medium');
@@ -167,7 +167,7 @@ $(document).ready(function()
     		});
             $('#okaybtn').on('click', function()
             {
-                if($(event.target).is('#close'))
+                if($(event.target).is('#okaybtn'))
                 {
                     $('.cover').fadeOut('medium');
                     $('.stick-category').fadeOut('medium');
