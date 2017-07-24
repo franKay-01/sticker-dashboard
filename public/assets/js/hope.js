@@ -46,8 +46,9 @@ function handleFileSelect(evt) {
                     '" title="', escape(theFile.name), '"/>'].join('');
                 //display img in img-prev
                 var prev = document.getElementById('img-prev');
-                prev.innerHTML = ['<img class="thumb" name="im1" " src="', e.target.result,
+                prev.innerHTML = ['<img id="img-prev" name="im1" " src="', e.target.result,
                     '" title="', escape(theFile.name), '"/>'].join('');
+                document.getElementById('fname').innerHTML = theFile.name;
 
                 document.getElementById('list').insertBefore(span, null);
                 console.log("success in upload");
@@ -103,7 +104,6 @@ function insertAfter(referenceNode, newNode) {
     el.appendChild(hiddenInput);
 
     addTag('funny');
-    console.log("it works yo");
 
     function addTag (text) {
         var tag = {
@@ -165,6 +165,14 @@ $(document).ready(function()
     				$('.stick-category').fadeOut('medium');
     				}
     		});
+            $('#okaybtn').on('click', function()
+            {
+                if($(event.target).is('#close'))
+                {
+                    $('.cover').fadeOut('medium');
+                    $('.stick-category').fadeOut('medium');
+                }
+            });
     		$('.cover').on('click', function()
     		{
     			$('.cover').fadeOut('slow');

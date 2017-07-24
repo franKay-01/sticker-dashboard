@@ -608,6 +608,12 @@ input::-webkit-input-placeholder {
     text-transform: uppercase;
 }
 
+#okaybtn {
+    padding: 5px;
+    color: white;
+    background-color: rebeccapurple;
+}
+
 
 .stick-category {
     width: 600px;
