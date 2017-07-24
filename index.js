@@ -186,7 +186,9 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     var session = req.session.token;
     var token   = req.cookies.token;
 
-    console.log("FILE INFO " + JSON.stringify(req.files));
+    console.log("FILE INFO***************: " + JSON.stringify(req.files));
+    console.log("BODY INFO***************: " + JSON.stringify(req.body));
+    console.log("PARAMS, IF ANY *********: " + JSON.stringify(req.params));
 
     var files = req.files;
 
@@ -269,9 +271,9 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
 
     // console.log("Collection ID===========" + JSON.stringify(coll_id));
 
-    console.log("FILE INFO********: " + JSON.stringify(req.files));
-    console.log("BODY INFO********: " + JSON.stringify(req.body));
-    console.log("PARAMS, IF ANY ********: " + JSON.stringify(req.params));
+    console.log("FILE INFO***************: " + JSON.stringify(req.files));
+    console.log("BODY INFO***************: " + JSON.stringify(req.body));
+    console.log("PARAMS, IF ANY *********: " + JSON.stringify(req.params));
 
     var files = req.files;
 
