@@ -549,7 +549,7 @@ input::-webkit-input-placeholder {
     box-shadow: inset 0 0 0 3px rgba(245, 236, 236, 0.2), 0 0 5px 0 rgba(0, 0, 0, 0);
 }
 
-#categories1 {
+#categories {
     cursor: pointer;
     max-width: 40%;
     background: white;
