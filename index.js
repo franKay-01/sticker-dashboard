@@ -272,8 +272,6 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
     // console.log("Collection ID===========" + JSON.stringify(coll_id));
 
     console.log("FILE INFO***************: " + JSON.stringify(req.files));
-    console.log("BODY INFO***************: " + JSON.stringify(req.body));
-    console.log("PARAMS, IF ANY *********: " + JSON.stringify(req.params));
 
     var files = req.files;
 

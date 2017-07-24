@@ -50,6 +50,11 @@ function handleFileSelect(evt) {
                     '" title="', escape(theFile.name), '"/>'].join('');
                 document.getElementById('fname').innerHTML = theFile.name;
 
+                var category = document.createElement('input');
+                category.setAttribute('name', 'cat');
+                category.setAttribute('type', 'text');
+                category.style.display = 'none';
+
                 document.getElementById('list').insertBefore(span, null);
                 console.log("success in upload");
             };
