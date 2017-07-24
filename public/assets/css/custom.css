@@ -540,7 +540,7 @@ input::-webkit-input-placeholder {
     position: relative;
     margin-top: 285px;
     bottom: 330px;
-    left: 640px;
+    left: 50%;
 }
 #upload1:hover {
     background: #464B9C;
@@ -561,10 +561,10 @@ input::-webkit-input-placeholder {
     position: relative;
     margin-top: 285px;
     bottom: 330px;
-    left: 430px;
+    left: 30%;
 }
 
-#cancel1:hover {
+#categories:hover {
     background: deepskyblue;
     color: white;
     transition: 0.3s;

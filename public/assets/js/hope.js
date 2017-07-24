@@ -112,6 +112,8 @@ function insertAfter(referenceNode, newNode) {
         };
 
         tag.element.classList.add('tag');
+        //set name of tags/category
+        tag.element.setAttribute('name', 'category');
         tag.element.textContent = tag.text;
 
         var closeBtn = document.createElement('span');
