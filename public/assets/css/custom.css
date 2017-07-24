@@ -540,7 +540,7 @@ input::-webkit-input-placeholder {
     position: relative;
     margin-top: 285px;
     bottom: 333px;
-    left: 5%;
+    left: 55%;
 }
 #upload1:hover {
     background: #464B9C;
@@ -559,7 +559,7 @@ input::-webkit-input-placeholder {
     font-size: 130%;
     transition: 0.3s;
     position: relative;
-    bottom: 377px;
+    bottom: 481px;
     left: 30%;
 }
 
