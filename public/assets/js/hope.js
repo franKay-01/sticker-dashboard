@@ -23,6 +23,18 @@ drop.on('dragenter mouseover', function (e) {
 
 
 function handleFileSelect(evt) {
+    var stickers = document.createElement("span");
+    stickers.innerHTML = "<div class='stickers'>" +
+        "<div class='leftside'>" +
+        "<span id='img-prev'></span>" +
+        "<p id='fname'>file name</p>" +
+        "</div>" +
+        "<div class='rightside'>" +
+        "<div class='tags-input' data-name='tags-input'></div>" +
+        "</div>" +
+        "</div>" +
+        "<button type='button' id='okaybtn'>OKAY</button>";
+
     var files = evt.target.files; // FileList object
     var arrayfiles = [];
     // Loop through the FileList and render image files as thumbnails.
@@ -42,18 +54,6 @@ function handleFileSelect(evt) {
         reader.onload = (function(theFile) {
             return function(e) {
                 // Render thumbnail.
-
-                var stickers = document.createElement("span");
-                stickers.innerHTML = "<div class='stickers'>" +
-                    "<div class='leftside'>" +
-                    "<span id='img-prev'></span>" +
-                    "<p id='fname'>file name</p>" +
-                    "</div>" +
-                    "<div class='rightside'>" +
-                    "<div class='tags-input' data-name='tags-input'></div>" +
-                    "</div>" +
-                    "</div>" +
-                    "<button type='button' id='okaybtn'>OKAY</button>";
 
                 var container = document.getElementsByClassName("containerx");
                 container.innerHTML = stickers.innerHTML;
