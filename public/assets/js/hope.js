@@ -44,8 +44,7 @@ function handleFileSelect(evt) {
             return function(e) {
                 // Render thumbnail.
 
-                var container = document.getElementById("stick-category");
-                container.innerHTML = stickers.innerHTML;
+
 
                 //preview images in drag n drop area
                 var span = document.createElement('span');
@@ -79,6 +78,8 @@ function handleFileSelect(evt) {
                     "</div>";
 
 
+                var container = document.getElementById("stick-category");
+                container.innerHTML = stickers.innerHTML;
                 //display img in img-prev
                 // var prev = document.createElement('img-prev');
                 // prev.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
