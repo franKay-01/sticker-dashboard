@@ -62,20 +62,20 @@ function handleFileSelect(evt) {
                 span.innerHTML = ['<img class="thumb" name="im1" " src="', e.target.result,
                     '" title="', escape(theFile.name), '"/>'].join('');
 
-                document.getElementById('list').insertBefore(span, null);
-                console.log("success in upload");
-
-                //display simg in img-prev
+                //display img in img-prev
                 var prev = document.getElementById('img-prev');
                 prev.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
                     '" title="', escape(theFile.name), '"/>'].join('');
                 document.getElementById('fname').innerHTML = theFile.name;
 
+                document.getElementById('list').insertBefore(span, null);
+                console.log("success in upload");
+
                 //input element to hold categories of each sticker
-                var category = document.createElement('input');
-                category.setAttribute('name', 'cat');
-                category.setAttribute('type', 'text');
-                category.style.display = 'none';
+                // var category = document.createElement('input');
+                // category.setAttribute('name', 'cat');
+                // category.setAttribute('type', 'text');
+                // category.style.display = 'none';
 
 
             };
