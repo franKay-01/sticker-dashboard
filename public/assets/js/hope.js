@@ -44,8 +44,6 @@ function handleFileSelect(evt) {
             return function(e) {
                 // Render thumbnail.
 
-
-
                 //preview images in drag n drop area
                 var span = document.createElement('span');
                 span.innerHTML = ['<img class="thumb" name="im1" " src="', e.target.result,
