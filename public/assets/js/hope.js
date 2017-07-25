@@ -52,7 +52,7 @@ function handleFileSelect(evt) {
                 console.log("success in upload");
                 //create preview for image in category option
 
-                var prev = document.createElement('img-prev');
+                var prev = document.getElementById('img-prev');
                 prev.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
                     '" title="', escape(theFile.name), '"/>'].join('');
                 document.getElementById('fname').innerHTML = theFile.name;
@@ -174,14 +174,14 @@ $(document).ready(function()
     		$('#categories').on('click', function()
     			{
     				$('.cover').fadeIn('medium');
-    				$('.stick-category').fadeIn('medium');
+    				$('#stick-category').fadeIn('medium');
     			});
     		$('#close').on('click', function()
     		{
     			if($(event.target).is('#close'))
     				{
     				$('.cover').fadeOut('medium');
-    				$('.stick-category').fadeOut('medium');
+    				$('#stick-category').fadeOut('medium');
     				}
     		});
             $('#okaybtn').on('click', function()
@@ -189,12 +189,12 @@ $(document).ready(function()
                 if($(event.target).is('#okaybtn'))
                 {
                     $('.cover').fadeOut('medium');
-                    $('.stick-category').fadeOut('medium');
+                    $('#stick-category').fadeOut('medium');
                 }
             });
     		$('.cover').on('click', function()
     		{
     			$('.cover').fadeOut('slow');
-    			$('.stick-category').fadeOut('slow');
+    			$('#stick-category').fadeOut('slow');
     		});
     	});
