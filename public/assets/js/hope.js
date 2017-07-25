@@ -46,6 +46,9 @@ function handleFileSelect(evt) {
                 span.innerHTML = ['<img class="thumb" name="im1" " src="', e.target.result,
                     '" title="', escape(theFile.name), '"/>'].join('');
 
+                document.getElementById('list').insertBefore(span, null);
+                console.log("success in upload");
+
                 var stickers = document.createElement("span");
                 stickers.innerHTML =
                     "<div class='stickers'>" +
@@ -74,8 +77,7 @@ function handleFileSelect(evt) {
                 category.setAttribute('type', 'text');
                 category.style.display = 'none';
 
-                document.getElementById('list').insertBefore(span, null);
-                console.log("success in upload");
+
             };
         })(f);
 
