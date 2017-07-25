@@ -75,12 +75,13 @@ function handleFileSelect(evt) {
 
 
                 var container = document.getElementById("stick-category");
-                container.innerHTML = stickers.innerHTML;
+                // container.innerHTML = stickers.innerHTML;
                 //display img in img-prev
-                // var prev = document.createElement('img-prev');
-                // prev.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
-                //     '" title="', escape(theFile.name), '"/>'].join('');
-                // document.getElementById('fname').innerHTML = theFile.name;
+
+                var prev = document.createElement('img-prev');
+                prev.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
+                    '" title="', escape(theFile.name), '"/>'].join('');
+                document.getElementById('fname').innerHTML = theFile.name;
 
                 //input element to hold categories of each sticker
             };
