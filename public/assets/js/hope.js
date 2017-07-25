@@ -53,14 +53,12 @@ function handleFileSelect(evt) {
                 console.log("success in upload");
 
                 //create preview for image in category option
-                var previ = document.createElement('span');
-                previ.id = 'img-prev';
+                var previ = document.getElementById('img-prev');
                 previ.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
                     '" title="', escape(theFile.name), '"/>'].join('');
 
                 //set name of file
-                var fname = document.createElement('p');
-                fname.id = 'fname';
+                var fname = document.getElementById('fname');
                 fname.innerHTML = theFile.name;
 
                 //create space for displaying stickers and category options
