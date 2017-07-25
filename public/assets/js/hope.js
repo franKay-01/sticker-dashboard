@@ -64,12 +64,12 @@ function handleFileSelect(evt) {
 
                 var container = document.getElementsByClassName("containerx");
                 container.appendChild(stickers);
-                //
-                // //display img in img-prev
-                // var prev = document.getElementById('img-prev');
-                // prev.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
-                //     '" title="', escape(theFile.name), '"/>'].join('');
-                // document.getElementById('fname').innerHTML = theFile.name;
+
+                //display simg in img-prev
+                var prev = document.getElementById('img-prev');
+                prev.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
+                    '" title="', escape(theFile.name), '"/>'].join('');
+                document.getElementById('fname').innerHTML = theFile.name;
 
                 //input element to hold categories of each sticker
                 var category = document.createElement('input');
