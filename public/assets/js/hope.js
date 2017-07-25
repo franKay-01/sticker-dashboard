@@ -50,8 +50,7 @@ function handleFileSelect(evt) {
                 console.log("success in upload");
 
                 var stickers = document.createElement("span");
-                stickers.innerHTML =
-                    "<div class='stickers'>" +
+                stickers.innerHTML = "<div class='stickers'>" +
                     "<div class='leftside'>" +
                     "<span id='img-prev'></span>" +
                     "<p id='fname'>file name</p>" +
