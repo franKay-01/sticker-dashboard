@@ -23,17 +23,6 @@ drop.on('dragenter mouseover', function (e) {
 
 
 function handleFileSelect(evt) {
-    var stickers = document.createElement("span");
-    stickers.innerHTML = "<div class='stickers'>" +
-        "<div class='leftside'>" +
-        "<span id='img-prev'></span>" +
-        "<p id='fname'>file name</p>" +
-        "</div>" +
-        "<div class='rightside'>" +
-        "<div class='tags-input' data-name='tags-input'></div>" +
-        "</div>" +
-        "</div>" +
-        "<button type='button' id='okaybtn'>OKAY</button>";
 
     var files = evt.target.files; // FileList object
     var arrayfiles = [];
@@ -55,9 +44,10 @@ function handleFileSelect(evt) {
             return function(e) {
                 // Render thumbnail.
 
-                var container = document.getElementsByClassName("containerx");
+                var container = document.getElementById("stick-category");
                 container.innerHTML = stickers.innerHTML;
 
+                //preview images in drag n drop area
                 var span = document.createElement('span');
                 span.innerHTML = ['<img class="thumb" name="im1" " src="', e.target.result,
                     '" title="', escape(theFile.name), '"/>'].join('');
@@ -65,19 +55,37 @@ function handleFileSelect(evt) {
                 document.getElementById('list').insertBefore(span, null);
                 console.log("success in upload");
 
+                //create preview for image in category option
+                var previ = document.createElement('span');
+                previ.id = 'img-prev';
+                previ.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
+                    '" title="', escape(theFile.name), '"/>'].join('');
+
+                //set name of file
+                var fname = document.createElement('p');
+                fname.id = 'fname';
+                fname.innerHTML = theFile.name;
+
+                //create space for displaying stickers and category options
+                var stickers = document.createElement("span");
+                stickers.innerHTML = "<div class='stickers'>" +
+                    "<div class='leftside'>" +
+                    previ.innerHTML +
+                    fname.innerHTML +
+                    "</div>" +
+                    "<div class='rightside'>" +
+                    "<div class='tags-input' data-name='tags-input'></div>" +
+                    "</div>" +
+                    "</div>";
+
+
                 //display img in img-prev
-                var prev = document.getElementById('img-prev');
+                // var prev = document.createElement('img-prev');
                 // prev.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
                 //     '" title="', escape(theFile.name), '"/>'].join('');
-                document.getElementById('fname').innerHTML = theFile.name;
+                // document.getElementById('fname').innerHTML = theFile.name;
 
                 //input element to hold categories of each sticker
-                var category = document.createElement('input');
-                category.setAttribute('name', 'cat');
-                category.setAttribute('type', 'text');
-                category.style.display = 'none';
-
-
             };
         })(f);
 
