@@ -42,12 +42,6 @@ function handleFileSelect(evt) {
         reader.onload = (function(theFile) {
             return function(e) {
                 // Render thumbnail.
-                var span = document.createElement('span');
-                span.innerHTML = ['<img class="thumb" name="im1" " src="', e.target.result,
-                    '" title="', escape(theFile.name), '"/>'].join('');
-
-                document.getElementById('list').insertBefore(span, null);
-                console.log("success in upload");
 
                 var stickers = document.createElement("span");
                 stickers.innerHTML = "<div class='stickers'>" +
@@ -63,6 +57,13 @@ function handleFileSelect(evt) {
 
                 var container = document.getElementsByClassName("containerx");
                 container.innerHTML = stickers.innerHTML;
+
+                var span = document.createElement('span');
+                span.innerHTML = ['<img class="thumb" name="im1" " src="', e.target.result,
+                    '" title="', escape(theFile.name), '"/>'].join('');
+
+                document.getElementById('list').insertBefore(span, null);
+                console.log("success in upload");
 
                 //display simg in img-prev
                 var prev = document.getElementById('img-prev');
