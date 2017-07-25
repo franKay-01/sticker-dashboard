@@ -42,7 +42,6 @@ function handleFileSelect(evt) {
         // Closure to capture the file information.
         reader.onload = (function(theFile) {
             return function(e) {
-                // Render thumbnail.
 
                 //preview images in drag n drop area
                 var span = document.createElement('span');
@@ -51,32 +50,7 @@ function handleFileSelect(evt) {
 
                 document.getElementById('list').insertBefore(span, null);
                 console.log("success in upload");
-
                 //create preview for image in category option
-                var previ = document.getElementById('img-prev');
-                previ.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
-                    '" title="', escape(theFile.name), '"/>'].join('');
-
-                //set name of file
-                var fname = document.getElementById('fname');
-                fname.innerHTML = theFile.name;
-
-                //create space for displaying stickers and category options
-                var stickers = document.createElement("span");
-                stickers.innerHTML = "<div class='stickers'>" +
-                    "<div class='leftside'>" +
-                    previ.innerHTML +
-                    fname.innerHTML +
-                    "</div>" +
-                    "<div class='rightside'>" +
-                    "<div class='tags-input' data-name='tags-input'></div>" +
-                    "</div>" +
-                    "</div>";
-
-
-                var container = document.getElementById("stick-category");
-                // container.innerHTML = stickers.innerHTML;
-                //display img in img-prev
 
                 var prev = document.createElement('img-prev');
                 prev.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
@@ -93,6 +67,17 @@ function handleFileSelect(evt) {
         console.log("F:::" +f.toString() );
     }
 }
+/*//create space for displaying stickers and category options
+ var stickers = document.createElement("span");
+ stickers.innerHTML = "<div class='stickers'>" +
+ "<div class='leftside'>" +
+ previ.innerHTML +
+ fname.innerHTML +
+ "</div>" +
+ "<div class='rightside'>" +
+ "<div class='tags-input' data-name='tags-input'></div>" +
+ "</div>" +
+ "</div>";*/
 
 $('#files').change(handleFileSelect);
 
