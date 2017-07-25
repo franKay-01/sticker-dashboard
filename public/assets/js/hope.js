@@ -46,27 +46,27 @@ function handleFileSelect(evt) {
                 span.innerHTML = ['<img class="thumb" name="im1" " src="', e.target.result,
                     '" title="', escape(theFile.name), '"/>'].join('');
 
-                var stickers = document.createElement("span");
-                stickers.innerHTML =
-                    "<div class='stickers'>" +
-                    "<div class='leftside'>" +
-                    "<span id='img-prev'></span>" +
-                    "<p id='fname'>file name</p>" +
-                    "</div>" +
-                    "<div class='rightside'>" +
-                    "<div class='tags-input' data-name='tags-input'></div>" +
-                    "</div>" +
-                    "</div>" +
-                    "<button type='button' id='okaybtn'>OKAY</button>";
-
-                var container = document.getElementsByClassName("containerx");
-                container.appendChild(stickers);
-
-                //display img in img-prev
-                var prev = document.getElementById('img-prev');
-                prev.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
-                    '" title="', escape(theFile.name), '"/>'].join('');
-                document.getElementById('fname').innerHTML = theFile.name;
+                // var stickers = document.createElement("span");
+                // stickers.innerHTML =
+                //     "<div class='stickers'>" +
+                //     "<div class='leftside'>" +
+                //     "<span id='img-prev'></span>" +
+                //     "<p id='fname'>file name</p>" +
+                //     "</div>" +
+                //     "<div class='rightside'>" +
+                //     "<div class='tags-input' data-name='tags-input'></div>" +
+                //     "</div>" +
+                //     "</div>" +
+                //     "<button type='button' id='okaybtn'>OKAY</button>";
+                //
+                // var container = document.getElementsByClassName("containerx");
+                // container.appendChild(stickers);
+                //
+                // //display img in img-prev
+                // var prev = document.getElementById('img-prev');
+                // prev.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
+                //     '" title="', escape(theFile.name), '"/>'].join('');
+                // document.getElementById('fname').innerHTML = theFile.name;
 
                 //input element to hold categories of each sticker
                 var category = document.createElement('input');
