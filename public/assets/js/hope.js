@@ -82,70 +82,6 @@ function handleFileSelect(evt) {
         })(f);
 
 
-
-        [].forEach.call(document.getElementsByClassName('tags-input'), function (el) {
-            var hiddenInput = document.createElement('input'),
-                mainInput = document.createElement('input'),
-                tags = [];
-
-            hiddenInput.setAttribute('type', 'hidden');
-            hiddenInput.setAttribute('name', el.getAttribute('data-name'));
-
-            mainInput.setAttribute('type', 'text');
-            mainInput.setAttribute('placeholder', 'Type a category and press comma(,)');
-            mainInput.classList.add('main-input');
-            mainInput.addEventListener('input', function () {
-                var enteredTags = mainInput.value.split(',');
-                if (enteredTags.length > 1) {
-                    enteredTags.forEach(function (t) {
-                        var filteredTag = filterTag(t);
-                        if (filteredTag.length > 0)
-                            addTag(filteredTag);
-                    });
-                    mainInput.value = '';
-                }
-            });
-
-            mainInput.addEventListener('keydown', function (e) {
-                var keyCode = e.which || e.keyCode;
-                if (keyCode === 8 && mainInput.value.length === 0 && tags.length > 0) {
-                    removeTag(tags.length - 1);
-                }
-            });
-
-            el.appendChild(mainInput);
-            el.appendChild(hiddenInput);
-
-            addTag('funny');
-
-            function addTag (text) {
-                var tag = {
-                    text: text,
-                    element: document.createElement('span')
-                };
-
-                tag.element.classList.add('tag');
-                //set name of tags/category
-                tag.element.setAttribute('name', 'category');
-                tag.element.textContent = tag.text;
-
-                var closeBtn = document.createElement('span');
-                closeBtn.classList.add('close');
-                closeBtn.addEventListener('click', function () {
-                    removeTag(tags.indexOf(tag));
-                });
-                tag.element.appendChild(closeBtn);
-
-                tags.push(tag);
-
-                // el.insertBefore(tag.element, mainInput);
-                insertAfter(mainInput, tag.element);
-
-                refreshTags();
-                console.log(tags.length);
-            }
-        });
-
         // Read in the image file as a data URL.
         reader.readAsDataURL(f);
         console.log("F:::" +f.toString() );
@@ -159,6 +95,68 @@ $('#files').change(handleFileSelect);
 function insertAfter(referenceNode, newNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
+[].forEach.call(document.getElementsByClassName('tags-input'), function (el) {
+    var hiddenInput = document.createElement('input'),
+        mainInput = document.createElement('input'),
+        tags = [];
+
+    hiddenInput.setAttribute('type', 'hidden');
+    hiddenInput.setAttribute('name', el.getAttribute('data-name'));
+
+    mainInput.setAttribute('type', 'text');
+    mainInput.setAttribute('placeholder', 'Type a category and press comma(,)');
+    mainInput.classList.add('main-input');
+    mainInput.addEventListener('input', function () {
+        var enteredTags = mainInput.value.split(',');
+        if (enteredTags.length > 1) {
+            enteredTags.forEach(function (t) {
+                var filteredTag = filterTag(t);
+                if (filteredTag.length > 0)
+                    addTag(filteredTag);
+            });
+            mainInput.value = '';
+        }
+    });
+
+    mainInput.addEventListener('keydown', function (e) {
+        var keyCode = e.which || e.keyCode;
+        if (keyCode === 8 && mainInput.value.length === 0 && tags.length > 0) {
+            removeTag(tags.length - 1);
+        }
+    });
+
+    el.appendChild(mainInput);
+    el.appendChild(hiddenInput);
+
+    addTag('funny');
+
+    function addTag (text) {
+        var tag = {
+            text: text,
+            element: document.createElement('span')
+        };
+
+        tag.element.classList.add('tag');
+        //set name of tags/category
+        tag.element.setAttribute('name', 'category');
+        tag.element.textContent = tag.text;
+
+        var closeBtn = document.createElement('span');
+        closeBtn.classList.add('close');
+        closeBtn.addEventListener('click', function () {
+            removeTag(tags.indexOf(tag));
+        });
+        tag.element.appendChild(closeBtn);
+
+        tags.push(tag);
+
+        // el.insertBefore(tag.element, mainInput);
+        insertAfter(mainInput, tag.element);
+
+        refreshTags();
+        console.log(tags.length);
+    }
+});
 
 function removeTag (index) {
     var tag = tags[index];
