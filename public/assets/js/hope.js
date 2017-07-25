@@ -46,21 +46,21 @@ function handleFileSelect(evt) {
                 span.innerHTML = ['<img class="thumb" name="im1" " src="', e.target.result,
                     '" title="', escape(theFile.name), '"/>'].join('');
 
-                // var stickers = document.createElement("span");
-                // stickers.innerHTML =
-                //     "<div class='stickers'>" +
-                //     "<div class='leftside'>" +
-                //     "<span id='img-prev'></span>" +
-                //     "<p id='fname'>file name</p>" +
-                //     "</div>" +
-                //     "<div class='rightside'>" +
-                //     "<div class='tags-input' data-name='tags-input'></div>" +
-                //     "</div>" +
-                //     "</div>" +
-                //     "<button type='button' id='okaybtn'>OKAY</button>";
-                //
-                // var container = document.getElementsByClassName("containerx");
-                // container.appendChild(stickers);
+                var stickers = document.createElement("span");
+                stickers.innerHTML =
+                    "<div class='stickers'>" +
+                    "<div class='leftside'>" +
+                    "<span id='img-prev'></span>" +
+                    "<p id='fname'>file name</p>" +
+                    "</div>" +
+                    "<div class='rightside'>" +
+                    "<div class='tags-input' data-name='tags-input'></div>" +
+                    "</div>" +
+                    "</div>" +
+                    "<button type='button' id='okaybtn'>OKAY</button>";
+
+                var container = document.getElementsByClassName("containerx");
+                container.appendChild(stickers);
                 //
                 // //display img in img-prev
                 // var prev = document.getElementById('img-prev');
@@ -154,26 +154,27 @@ function insertAfter(referenceNode, newNode) {
         refreshTags();
         console.log(tags.length);
     }
+
+    function removeTag (index) {
+        var tag = tags[index];
+        tags.splice(index, 1);
+        el.removeChild(tag.element);
+        refreshTags();
+    }
+
+    function refreshTags () {
+        var tagsList = [];
+        tags.forEach(function (t) {
+            tagsList.push(t.text);
+        });
+        hiddenInput.value = tagsList.join(',');
+    }
+
+    function filterTag (tag) {
+        return tag.replace(/[^\w -]/g, '').trim().replace(/\W+/g, '-');
+    }
+
 });
-
-function removeTag (index) {
-    var tag = tags[index];
-    tags.splice(index, 1);
-    el.removeChild(tag.element);
-    refreshTags();
-}
-
-function refreshTags () {
-    var tagsList = [];
-    tags.forEach(function (t) {
-        tagsList.push(t.text);
-    });
-    hiddenInput.value = tagsList.join(',');
-}
-
-function filterTag (tag) {
-    return tag.replace(/[^\w -]/g, '').trim().replace(/\W+/g, '-');
-}
 
 $(document).ready(function()
     	{
