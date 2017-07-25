@@ -34,9 +34,7 @@ function handleFileSelect(evt) {
         }
 
         var stickers = document.createElement("span");
-           stickers.innerHTML = "<div class='stick-category'>" +
-            "<span id='close'>&times;</span>" +
-            "<span id='title'>set categories for each sticker</span>" +
+           stickers.innerHTML =
             "<div class='stickers'>" +
             "<div class='leftside'>" +
             "<span id='img-prev'></span>" +
@@ -46,8 +44,7 @@ function handleFileSelect(evt) {
             "<div class='tags-input' data-name='tags-input'></div>" +
             "</div>" +
             "</div>" +
-            "<button type='button' id='okaybtn'>OKAY</button>" +
-            "</div>";
+            "<button type='button' id='okaybtn'>OKAY</button>";
 
         var container = document.getElementsByClassName("containerx");
         container.appendChild(stickers);
