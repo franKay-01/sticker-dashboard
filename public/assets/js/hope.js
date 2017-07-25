@@ -63,7 +63,7 @@ function handleFileSelect(evt) {
                     "<button type='button' id='okaybtn'>OKAY</button>";
 
                 var container = document.getElementsByClassName("containerx");
-                container.appendChild(stickers);
+                container.innerHTML = stickers;
 
                 //display simg in img-prev
                 var prev = document.getElementById('img-prev');
