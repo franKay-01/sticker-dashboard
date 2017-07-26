@@ -9,6 +9,21 @@ $(document).ready(function () {
         }
     );
 
+    //Toggle create new collection form
+    $(function()
+    {
+        $('#showform').on('click', function(){
+            $('#hiddenform').fadeIn('fast');
+            $('#page-mask').fadeIn('fast');
+        });
+
+        $('#closeb').on('click', function(){
+            $('#hiddenform').fadeOut('fast');
+            $('#page-mask').fadeOut('fast');
+        });
+    });
+
+
     //UPLOAD FILE AND PREVIEW
     // function readURL(input) {
     //     if (input.files && input.files[0]) {

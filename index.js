@@ -564,13 +564,8 @@ app.get('/add-to-collection', function (req, res) {
 
     if (session && token) {
         res.render("pages/add-to-collection");
-
-        var coll_name = req.param.name;
-        var newCollection = new Parse.Object.extend("Collection");
-        newCollection.set("name", coll_name);
-
-
-    } else {
+    }
+    else {
         res.redirect("/");
     }
 });
@@ -581,6 +576,10 @@ app.get('/create-collection', function (req, res) {
 
     if (session && token) {
         res.render("pages/create-collection");
+        var coll_name = req.param.name;
+        var newCollection = new Parse.Object.extend("Collection");
+        newCollection.set("name", coll_name);
+
     } else {
         res.redirect("/");
     }

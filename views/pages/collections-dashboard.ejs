@@ -48,7 +48,7 @@
             <%- include('../partials/links') %>
 
             <div class="columns small-7 large-8">
-                <a class="uplink" href="/create-collection">  Create New Collection</a>
+                <a class="uplink" href="/create-collection" id="showform">  Create New Collection</a>
             </div>
         </div>
     </div>
@@ -57,6 +57,38 @@
 
 
 <% include ../partials/collection-item %>
+
+<div id="hiddenform">
+    <form action="/new-collection" id="collection">
+        <table>
+            <th colspan="2" id="titles">
+                CREATE NEW COLLECTION
+                <span id='closeb'>X</span>
+            </th>
+            <tr>
+                <td>
+                    <label>Enter collection name:</label>
+                </td>
+                <td>
+                    <input type="text" placeholder="collection name" name="coll_name" id="coll_name"><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" id="cancel">CANCEL</button>
+                </td>
+                <td>
+                    <button type="button" id="createcoll">CREATE</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div id="page-mask"></div>
+
+
+
 <!-- Body -->
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>

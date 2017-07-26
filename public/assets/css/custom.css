@@ -725,5 +725,78 @@ input::-webkit-input-placeholder {
     outline: 0;
     width: 98%;
     height: 30px;
-    /*padding: 0.5em 0.1em;*/
 }
+
+/*Create Collection Form*/
+#collection {
+    background-color: white;
+    color: black;
+    width: 100%;
+    margin: 0 auto;
+    /*padding: 15px;*/
+}
+label{color: #464B9C; font-size: 147%; font-weight: bold;}
+
+tr #titles {
+    background-color: rebeccapurple;
+    color:white;
+    width: inherit;
+    text-align: center;
+}
+
+#collection td {
+    padding: 25px;
+}
+#collection table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#collection #cancel {
+    padding: 10px;
+    background-color: white;
+    color: red;
+    font-size: 130%;
+    margin-left: 35%;
+}
+
+#collection #createcoll {
+    padding: 10px;
+    background-color: #464B9C;
+    color: white;
+    font-size: 130%;
+}
+
+#coll_name {
+    line-height: 30px;
+}
+
+#closeb {
+    float:right;
+    color: white;
+}
+
+#closeb:hover {
+    float:right;
+    color:darkgrey;
+    cursor: pointer;
+}
+
+#hiddenform {
+    display: none;
+    position: absolute;
+    margin-top: 100px;
+    margin-left: 200px;
+    z-index: 9999;
+}
+
+#page-mask {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-color: rgba(0,0,0,0.6);
+}
+
