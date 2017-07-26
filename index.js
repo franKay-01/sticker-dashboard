@@ -574,7 +574,7 @@ app.get('/new-collection', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
-    console.log("BODY------------" + req.body);
+    console.log("BODY------------" + JSON.stringify(req.body));
     var coll_name = req.body.coll_name;
 
     if (session && token) {
