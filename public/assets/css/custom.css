@@ -752,7 +752,7 @@ tr #titles {
     width: 100%;
 }
 
-#collection #cancel {
+#collection #cancell {
     padding: 10px;
     background-color: white;
     color: red;
@@ -785,8 +785,8 @@ tr #titles {
 #hiddenform {
     display: none;
     position: absolute;
-    margin-top: 100px;
-    margin-left: 200px;
+    margin-top: 200px;
+    margin-left: 250px;
     z-index: 9999;
 }
 
