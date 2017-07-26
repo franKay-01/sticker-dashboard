@@ -580,9 +580,10 @@ app.post('/new-collection', function (req, res) {
     if (session && token) {
         console.log("CAN CONTINUE");
 
-        var newCollection = new Parse.Object.extend("Collection");
-        newCollection.set("collection_name", coll_name);
-        newCollection.save().then(function (coll) {
+        var Collection = new Parse.Object.extend("Collection");
+        var collection = new Collection();
+        collection.set("collection_name", coll_name);
+        collection.save().then(function (coll) {
             console.log("COllection Created: " + JSON.stringify(coll));
         });
 
