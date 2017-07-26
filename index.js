@@ -180,8 +180,8 @@ app.post('/login', function (req, res) {
     });
 });
 
-//Upload File To Parse..........upload.any()--multiple files
-app.post('/uploads', upload.array('im1[]'), function (req, res) {
+//UPLOAD ONE STICKER
+app.post('/upload', upload.array('im1[]'), function (req, res) {
 
     var session = req.session.token;
     var token   = req.cookies.token;
@@ -262,8 +262,8 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     }
 });
 
-//NEW UPLOAD FORM/PAGE
-app.post('/upload', upload.array('im1[]'), function (req, res) {
+//UPLOAD MULTIPLE STICKERS
+app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
     var session = req.session.token;
     var token   = req.cookies.token;
@@ -500,8 +500,6 @@ app.get('/collection/:id', function (req, res) {
 
     if (session && token) {
 
-        //TODO get current collection's id and find all stickers that are linked to it
-
         var colquery =  new Parse.Query("Collection");
         colquery.get(coll_id, {
             success: function(collection){
@@ -523,23 +521,6 @@ app.get('/collection/:id', function (req, res) {
              })
             }
         });
-        // collection.include("stickers");
-        // collection.find({sessionToken: token}).then(function (stickers) {
-        //
-        //         if (stickers) {
-        //
-        //             console.log("Sticker::::::::::::::::" + JSON.stringify(stickers));
-        //             res.render("pages/collection", {stickers: stickers});
-        //         } else {
-        //             console.log("Nothing Found::::::::::::::::");
-        //             res.redirect("/dashboard")
-        //         }
-        //
-        //     },
-        //     function (err) {
-        //         console.log("Error Loading-----------------------" + JSON.stringify(err));
-        //     }
-        // );
 
     }
     else {
@@ -587,6 +568,17 @@ app.get('/add-to-collection', function (req, res) {
         res.redirect("/");
     }
 });
+
+// app.get('/create-collection', function (req, res) {
+//     var session = req.session.token;
+//     var token = req.cookies.token;
+//
+//     if (session && token) {
+//         res.render("pages/create-collection");
+//     } else {
+//         res.redirect("/");
+//     }
+// });
 
 
 //EDIT/STICKER DETAILS
