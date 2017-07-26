@@ -733,19 +733,23 @@ input::-webkit-input-placeholder {
     color: black;
     width: 100%;
     margin: 0 auto;
-    /*padding: 15px;*/
 }
-label{color: #464B9C; font-size: 147%; font-weight: bold;}
+label{
+    color: #464B9C;
+    font-size: 145%;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
 
 tr #titles {
     background-color: rebeccapurple;
     color:white;
-    width: inherit;
     text-align: center;
+    font-size: 160%;
 }
 
 #collection td {
-    padding: 25px;
+    padding: 17px;
 }
 #collection table {
     border-collapse: collapse;
@@ -755,20 +759,33 @@ tr #titles {
 #collection #cancell {
     padding: 10px;
     background-color: white;
-    color: red;
+    color: rebeccapurple;
     font-size: 130%;
-    margin-left: 35%;
+    margin-left: 45%;
+    border: 1px solid;
+    border-radius: 10px;
+}
+#collection #cancell:hover {
+    background-color: rebeccapurple;
+    color: white;
 }
 
 #collection #createcoll {
     padding: 10px;
-    background-color: #464B9C;
+    background-color: rebeccapurple;
     color: white;
     font-size: 130%;
+    margin-left: 60px;
+    border-radius: 10px;
+    border: 1px solid;
+}
+#collection #createcoll:hover {
+    background-color: #600080;
 }
 
 #coll_name {
-    line-height: 30px;
+    margin-right: 93px;
+    border: 1px solid lightgrey;
 }
 
 #closeb {
@@ -785,8 +802,7 @@ tr #titles {
 #hiddenform {
     display: none;
     position: absolute;
-    margin-top: 200px;
-    margin-left: 250px;
+    margin-left: 25%;
     z-index: 9999;
 }
 
