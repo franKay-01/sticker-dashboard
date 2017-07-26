@@ -173,14 +173,14 @@ $(document).ready(function()
     	{
     		$('#categories').on('click', function()
     			{
-    				$('.cover').fadeIn('medium');
+    				$('#page-mask').fadeIn('medium');
     				$('#stick-category').fadeIn('medium');
     			});
     		$('#close').on('click', function()
     		{
     			if($(event.target).is('#close'))
     				{
-    				$('.cover').fadeOut('medium');
+    				$('#page-mask').fadeOut('medium');
     				$('#stick-category').fadeOut('medium');
     				}
     		});
@@ -188,13 +188,13 @@ $(document).ready(function()
             {
                 if($(event.target).is('#okaybtn'))
                 {
-                    $('.cover').fadeOut('medium');
+                    $('#page-mask').fadeOut('medium');
                     $('#stick-category').fadeOut('medium');
                 }
             });
-    		$('.cover').on('click', function()
+    		$('#page-mask').on('click', function()
     		{
-    			$('.cover').fadeOut('slow');
+    			$('#page-mask').fadeOut('slow');
     			$('#stick-category').fadeOut('slow');
     		});
     	});

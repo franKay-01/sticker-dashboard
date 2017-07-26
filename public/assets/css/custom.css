@@ -764,10 +764,12 @@ tr #titles {
     margin-left: 45%;
     border: 1px solid;
     border-radius: 10px;
+    transition: 0.3s;
 }
 #collection #cancell:hover {
     background-color: rebeccapurple;
     color: white;
+    transition: 0.3s;
 }
 
 #collection #createcoll {
@@ -778,9 +780,11 @@ tr #titles {
     margin-left: 60px;
     border-radius: 10px;
     border: 1px solid;
+    transition: 0.3s;
 }
 #collection #createcoll:hover {
     background-color: #600080;
+    transition: 0.3s;
 }
 
 #coll_name {

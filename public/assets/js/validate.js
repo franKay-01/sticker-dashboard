@@ -38,9 +38,29 @@ if (token !== "") {
     }
 }
 
-// var logoutBtn =  documnet.getElementById('signout');
  function logoutUser() {
    Parse.User.logOut().then(function () {
        location.href = "/logout";
    });
 }
+
+
+//check that input field is filled first createcoll
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

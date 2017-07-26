@@ -570,15 +570,23 @@ app.get('/add-to-collection', function (req, res) {
     }
 });
 
-app.get('/create-collection', function (req, res) {
+app.get('/new-collection', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
+    console.log("BODY------------" + req.body);
+    var coll_name = req.body.coll_name;
+
     if (session && token) {
-        res.render("pages/create-collection");
-        var coll_name = req.param.name;
-        var newCollection = new Parse.Object.extend("Collection");
-        newCollection.set("name", coll_name);
+        console.log("CAN CONTINUE");
+
+        // var newCollection = new Parse.Object.extend("Collection");
+        // newCollection.set("collection_name", coll_name);
+        // newCollection.save().then(function (coll) {
+        //     console.log("COllection Created: " + JSON.stringify(coll));
+        // });
+
+        res.redirect('/collections-dashboard');
 
     } else {
         res.redirect("/");
