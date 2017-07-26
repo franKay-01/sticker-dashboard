@@ -570,11 +570,12 @@ app.get('/add-to-collection', function (req, res) {
     }
 });
 
-app.get('/new-collection', function (req, res) {
+app.post('/new-collection', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
     console.log("BODY------------" + JSON.stringify(req.body));
+    console.log("PARAMS------------" + JSON.stringify(req.params));
     var coll_name = req.body.coll_name;
 
     if (session && token) {
