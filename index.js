@@ -575,17 +575,16 @@ app.post('/new-collection', function (req, res) {
     var token = req.cookies.token;
 
     console.log("BODY------------" + JSON.stringify(req.body));
-    console.log("PARAMS------------" + JSON.stringify(req.params));
     var coll_name = req.body.coll_name;
 
     if (session && token) {
         console.log("CAN CONTINUE");
 
-        // var newCollection = new Parse.Object.extend("Collection");
-        // newCollection.set("collection_name", coll_name);
-        // newCollection.save().then(function (coll) {
-        //     console.log("COllection Created: " + JSON.stringify(coll));
-        // });
+        var newCollection = new Parse.Object.extend("Collection");
+        newCollection.set("collection_name", coll_name);
+        newCollection.save().then(function (coll) {
+            console.log("COllection Created: " + JSON.stringify(coll));
+        });
 
         res.redirect('/collections-dashboard');
 
