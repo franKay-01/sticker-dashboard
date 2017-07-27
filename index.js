@@ -267,7 +267,10 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
     var session = req.session.token;
     var token   = req.cookies.token;
-    var coll_id = req.params.id;
+    var coll_id = req.body.coll_id;
+
+    console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
+    console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
 
     console.log("Collection ID===========" + JSON.stringify(coll_id));
 
