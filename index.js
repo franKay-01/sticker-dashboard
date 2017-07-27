@@ -267,9 +267,9 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
     var session = req.session.token;
     var token   = req.cookies.token;
-    // var coll_id = req.params.id;
+    var coll_id = req.params.id;
 
-    // console.log("Collection ID===========" + JSON.stringify(coll_id));
+    console.log("Collection ID===========" + JSON.stringify(coll_id));
 
     console.log("FILE INFO***************: " + JSON.stringify(req.files));
 
@@ -279,7 +279,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
         //GET ID OF CURRENT COLLECTION
         var colq = new Parse.Query("Collection");
-        colq.equalTo("collection_name", "Ghamoji");
+        colq.equalTo("objectId", coll_id);
         console.log("Searching for collection.........");
         colq.first({sessionToken: token}).then(function (collection){
                 console.log("Current Collection====== " + JSON.stringify(collection));
@@ -532,7 +532,7 @@ app.get('/collection/:id', function (req, res) {
 
 
 // Add Stickers Version 1
-app.get('/add-stickers1', function (req, res) {
+app.get('/add-stickers1/:id', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 

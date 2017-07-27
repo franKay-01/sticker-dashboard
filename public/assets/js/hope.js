@@ -67,17 +67,6 @@ function handleFileSelect(evt) {
         console.log("F:::" +f.toString() );
     }
 }
-/*//create space for displaying stickers and category options
- var stickers = document.createElement("span");
- stickers.innerHTML = "<div class='stickers'>" +
- "<div class='leftside'>" +
- previ.innerHTML +
- fname.innerHTML +
- "</div>" +
- "<div class='rightside'>" +
- "<div class='tags-input' data-name='tags-input'></div>" +
- "</div>" +
- "</div>";*/
 
 $('#files').change(handleFileSelect);
 
@@ -169,32 +158,10 @@ function insertAfter(referenceNode, newNode) {
 
 });
 
-$(document).ready(function()
-    	{
-    		$('#categories').on('click', function()
-    			{
-    				$('#page-mask').fadeIn('medium');
-    				$('#stick-category').fadeIn('medium');
-    			});
-    		$('#close').on('click', function()
-    		{
-    			if($(event.target).is('#close'))
-    				{
-    				$('#page-mask').fadeOut('medium');
-    				$('#stick-category').fadeOut('medium');
-    				}
-    		});
-            $('#okaybtn').on('click', function()
-            {
-                if($(event.target).is('#okaybtn'))
-                {
-                    $('#page-mask').fadeOut('medium');
-                    $('#stick-category').fadeOut('medium');
-                }
-            });
-    		$('#page-mask').on('click', function()
-    		{
-    			$('#page-mask').fadeOut('slow');
-    			$('#stick-category').fadeOut('slow');
-    		});
-    	});
+//clear form
+$('#clear').click(function(){
+    $('#upform')[0].reset();
+    $('.thumb').remove();
+});
+
+
