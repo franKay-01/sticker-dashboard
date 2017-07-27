@@ -540,7 +540,7 @@ app.get('/add-stickers1/:id', function (req, res) {
     var token = req.cookies.token;
 
     if (session && token) {
-        res.render("pages/add-stickers1");
+        res.render("pages/add-stickers1", {id:coll_id});
     } else {
         res.redirect("/");
     }
