@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--Logo-->
     <link rel="icon"  href="/public/images/logo.png" />
-    <title>Collections Dashboard</title>
+
+    <!--TODO add collection name to title-->
+    <title>Collection</title>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
     </style>
-
     <link rel="stylesheet" href="/public/assets/css/foundation.css">
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.css">-->
 
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
@@ -25,14 +25,10 @@
 </head>
 
 <body class="primary-background-color">
-
 <!-- Logo -->
 <div class="row header-top-spacing">
-
     <div class="columns large-12 small-12">
-
         <div class="row">
-
             <div class="columns large-1 small-12">
                 <a href="https://cryptic-waters-41617.herokuapp.com">
                     <img  class="logo" src="/public/assets/images/logo.png" alt="Cyfa Logo"/>
@@ -40,52 +36,40 @@
             </div>
 
             <div class="columns large-8 small-12">
-                <h3 class="logo-text primary-font">Dashboard - Collections</h3>
+                <!--TODO add collection name to title below-->
+                <h3 class="logo-text primary-font">Select Categories for Stickers </h3>
             </div>
             <a id="signout" onclick="logoutUser()">SIGN OUT</a>
             <p></p>
             <!--link to other pages-->
             <%- include('../partials/links') %>
-
-            <div class="columns small-7 large-8">
-                <a class="uplink" id="showform">  Create New Collection</a>
-            </div>
         </div>
     </div>
 </div>
 <!-- Logo -->
 
-<div id="hiddenform">
-    <form id="collection-form" action="/new-collection" method="post">
-        <table>
-            <th colspan="2" id="titles">
-                CREATE NEW COLLECTION
-                <span id='closeb'>X</span>
-            </th>
-            <tr>
-                <td>
-                    <label>Enter collection name:</label>
-                </td>
-                <td>
-                    <input type="text" placeholder="collection name" name="coll_name" id="coll_name"><br>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="button" id="cancell">CANCEL</button>
-                </td>
-                <td>
-                    <button type="submit" id="createcoll">CREATE</button>
-                </td>
-            </tr>
-        </table>
-    </form>
-</div>
+<form id="categories-form">
+    <div class="containerx">
+        <div id='stick-category'>
+            <span id='close'>&times;</span>
+            <span id='title'>set categories for each sticker</span>
 
-<% include ../partials/collection-item %>
+            <div class='stickers'>
+                <div class='leftside'>
+                    <span id='img-prev'></span>
+                    <p id='fname'>file name</p>
+                </div>
+                <div class='rightside'>
+                    <div class='tags-input' data-name='tags-input'></div>
+                </div>
+            </div>
 
-<div id="page-mask1"></div>
-
+            <button type='button' id='okaybtn'>OKAY</button>
+        </div>
+        <!--place id of current collection in form-->
+        <input type="text" name="coll_id" style="display: none;" value="<%= id %>" >
+    </div>
+</form>
 
 
 <!-- Body -->

@@ -369,6 +369,19 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     }
 });
 
+//SELECT CATEGORIES PAGE
+app.get('/categories', function (req, res) {
+
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+    if (session && token) {
+        res.render("pages/categories");
+    } else {
+        res.redirect("/");
+    }
+});
+
 
 
 //LOGOUT
@@ -385,8 +398,8 @@ app.get('/dashboard', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
-    console.log("Session===========" + JSON.stringify(session));
-    console.log("Token===========" + JSON.stringify(token));
+    // console.log("Session===========" + JSON.stringify(session));
+    // console.log("Token===========" + JSON.stringify(token));
 
     if (session && token) {
 
