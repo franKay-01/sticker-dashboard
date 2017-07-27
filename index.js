@@ -503,7 +503,7 @@ app.get('/collection/:id', function (req, res) {
         var colquery =  new Parse.Query("Collection");
         colquery.get(coll_id, {
             success: function(collection){
-                //todo change the column 'collection' in Collection class to stickers
+                //todo change the column 'collection' in Collection class to stickers in parse dashboard
                 //todo then do the same for below
 
              var col = collection.relation("Collection");
@@ -511,7 +511,7 @@ app.get('/collection/:id', function (req, res) {
                  success: function (stickers) {
                      console.log("Stickers found:::: " + stickers.length);
                      // response.success(stickers);
-                     res.render("pages/collection", {stickers: stickers});
+                     res.render("pages/collection", {stickers: stickers,id:coll_id});
                  },
                  error: function(error){
                      response.error(error);
