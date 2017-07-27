@@ -17,11 +17,16 @@ $(document).ready(function () {
             $('#page-mask').fadeIn('fast');
         });
 
+        //close/hide form
         $('#closeb').on('click', function(){
             $('#hiddenform').fadeOut('fast');
             $('#page-mask').fadeOut('fast');
+            $('#collection-form')[0].reset();
         });
     });
+
+
+
 
     $(document).ready(function()
     {

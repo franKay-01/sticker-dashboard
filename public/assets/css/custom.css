@@ -532,7 +532,7 @@ input::-webkit-input-placeholder {
     cursor: pointer;
     max-width: 40%;
     background: white;
-    color: #464B9C;
+    color: #2f326a;
     padding: 1%;
     font-family: monospace;
     font-size: 130%;
@@ -543,10 +543,10 @@ input::-webkit-input-placeholder {
     left: 55%;
 }
 #upload1:hover {
-    background: #464B9C;
+    background: #8487c8;
     color: white;
     transition: 0.3s;
-    box-shadow: inset 0 0 0 3px rgba(245, 236, 236, 0.2), 0 0 5px 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
 #clear {
@@ -728,7 +728,7 @@ input::-webkit-input-placeholder {
 }
 
 /*Create Collection Form*/
-#collection {
+#collection-form {
     background-color: white;
     color: black;
     width: 100%;
@@ -742,39 +742,39 @@ label{
 }
 
 tr #titles {
-    background-color: rebeccapurple;
+    background-color: #464B9C;
     color:white;
     text-align: center;
     font-size: 160%;
 }
 
-#collection td {
+#collection-form td {
     padding: 17px;
 }
-#collection table {
+#collection-form table {
     border-collapse: collapse;
     width: 100%;
 }
 
-#collection #cancell {
+#collection-form #cancell {
     padding: 10px;
     background-color: white;
-    color: rebeccapurple;
+    color: #2f326a;
     font-size: 130%;
     margin-left: 45%;
     border: 1px solid;
     border-radius: 10px;
     transition: 0.3s;
 }
-#collection #cancell:hover {
-    background-color: rebeccapurple;
+#collection-form #cancell:hover {
+    background-color: #2f326a;
     color: white;
     transition: 0.3s;
 }
 
-#collection #createcoll {
+#collection-form #createcoll {
     padding: 10px;
-    background-color: rebeccapurple;
+    background-color: #3f438d;
     color: white;
     font-size: 130%;
     margin-left: 60px;
@@ -782,8 +782,8 @@ tr #titles {
     border: 1px solid;
     transition: 0.3s;
 }
-#collection #createcoll:hover {
-    background-color: #600080;
+#collection-form #createcoll:hover {
+    background-color: #282a58;
     transition: 0.3s;
 }
 
