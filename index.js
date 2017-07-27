@@ -539,6 +539,10 @@ app.get('/add-stickers1/:id', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
+    console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
+    console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
+    var coll_id = req.params.id;
+
     if (session && token) {
         res.render("pages/add-stickers1", {id:coll_id});
     } else {
