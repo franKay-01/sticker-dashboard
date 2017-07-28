@@ -370,11 +370,6 @@ input::-webkit-input-placeholder {
     font-size: medium;
     margin-right: 5%;
 }
-#arrow:hover {
-    color: white;
-    background-color: blue;
-    transition: 0.4s;
-}
 
 #chooseCat {
     width: 85%;

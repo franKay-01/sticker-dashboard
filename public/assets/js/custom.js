@@ -30,8 +30,23 @@ $(document).ready(function () {
         });
     });
 
+/*Toggle  'select categories' menu*/
+    $('#chooseCat').click(function(){
+        if ($('.categories').is(':visible')) {
+            $('.categories').slideUp('medium');
+        }
+        else {
+            $('.categories').slideDown('medium');
+        }
+    });
 
-
+    $checks = $(":checkbox");
+    $checks.on('change', function() {
+        var string = $checks.filter(":checked").map(function(i,v){
+            return this.value;
+        }).get().join(", ");
+        $('#category').val(string);
+    });
 
     $(document).ready(function()
     {
