@@ -278,7 +278,8 @@ input::-webkit-input-placeholder {
 }
 
 #tform {
-    height: 450px;
+    height: 570px;
+    width: 92%;
     background-color: #dddddd;
     padding: 15px;
     margin-bottom: 20%;
@@ -287,7 +288,7 @@ input::-webkit-input-placeholder {
 
 #tform label{
     color: #464B9C;
-    font-size: 145%;
+    font-size: 120%;
     font-weight: bold;
 }
 
@@ -328,7 +329,8 @@ input::-webkit-input-placeholder {
 #right-col {
     position: absolute;
     overflow: hidden;
-    left: 50%;
+    left: 47%;
+    height: 84%;
     width: 23%;
 }
 
@@ -360,9 +362,8 @@ input::-webkit-input-placeholder {
 }
 
 .categoryOption {
-    border: 1px solid black;
     position: absolute;
-    bottom: 30%;
+    bottom: 23%;
     width: 100%;
 }
 
@@ -373,11 +374,9 @@ input::-webkit-input-placeholder {
 
 #chooseCat {
     width: 85%;
-    position: relative;
     color: #202246;
     font-size: 100%;
-    background-color: #cacce7;
-    bottom: 100%;
+    background-color: darkgrey;
     padding: 3%;
 }
 
@@ -400,6 +399,20 @@ input::-webkit-input-placeholder {
     font-size: 130%;
     transition: 0.3s;
     position: relative;
+}
+
+#updatebtn {
+    cursor: pointer;
+    width: 40%;
+    background: #464B9C;
+    color: #FFF;
+    padding: 10px;
+    font-family: monospace;
+    font-size: 130%;
+    transition: 0.3s;
+    position: absolute;
+    left: 58%;
+    bottom: 0;
 }
 
 #upload:hover {
