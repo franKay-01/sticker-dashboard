@@ -595,8 +595,8 @@ input::-webkit-input-placeholder {
 #upload1 {
     cursor: pointer;
     max-width: 40%;
-    background: white;
-    color: #2f326a;
+    background: #2f326a;
+    color: white;
     padding: 1%;
     font-family: monospace;
     font-size: 130%;
@@ -607,8 +607,8 @@ input::-webkit-input-placeholder {
     left: 55%;
 }
 #upload1:hover {
-    background: #8487c8;
-    color: white;
+    background: white;
+    color: #8487c8;
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -616,8 +616,8 @@ input::-webkit-input-placeholder {
 #clear {
     cursor: pointer;
     max-width: 40%;
-    background: white;
-    color: #202246;
+    background: #202246;
+    color: white;
     padding: 1%;
     font-family: monospace;
     font-size: 130%;
@@ -628,8 +628,8 @@ input::-webkit-input-placeholder {
 }
 
 #clear:hover {
-    background: #202246;
-    color: white;
+    background: white;
+    color: #202246;
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
