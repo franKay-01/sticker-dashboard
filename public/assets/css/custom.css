@@ -35,7 +35,7 @@ a:hover, a:visited, a:active {
 }
 
 .primary-background-color {
-    background-color: #464B9C;
+    background-color: #FFFFFF;
 }
 
 .secondary-background-color {
@@ -76,6 +76,18 @@ a:hover, a:visited, a:active {
 .beta-text {
     color: white;
     font-weight: 600;
+}
+
+.logo2 {
+    width: 131px;
+    height: 34px;
+    object-fit: contain;
+}
+
+.Rectangle {
+    width: 1024px;
+    height: 72px;
+    background-color: rgba(245, 245, 245, 0.76);
 }
 
 .margin-top-60 {
