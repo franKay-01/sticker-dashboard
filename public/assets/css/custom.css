@@ -347,6 +347,42 @@ input::-webkit-input-placeholder {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
+.categoryOption {
+    border: 1px solid black;
+    position: absolute;
+    bottom: 30%;
+    width: 100%;
+}
+
+#arrow {
+    font-size: medium;
+    margin-right: 5%;
+}
+#arrow:hover {
+    color: white;
+    background-color: blue;
+    transition: 0.4s;
+}
+
+#chooseCat {
+    width: 85%;
+    position: relative;
+    color: #202246;
+    font-size: 100%;
+    background-color: #cacce7;
+    bottom: 100%;
+    padding: 3%;
+}
+
+.categories {
+    font-size: 120%;
+    background-color: rebeccapurple;
+    color: white;
+    width: 85%;
+    display: none;
+}
+
+
 #upload {
     cursor: pointer;
     max-width: 40%;

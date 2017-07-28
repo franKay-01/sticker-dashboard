@@ -20,6 +20,15 @@
         <label>Category:</label> <input type="text" placeholder="Category e.g funny, silly" id="category" name="cat"
                value="<%= sticker.get("category") %>">
 
+        <div class="categoryOption">
+            <button id="chooseCat" type="button"> <span id="arrow">&#9660;</span>Choose existing categories</button>
+
+            <div class="categories">
+                <input type="checkbox" name="cat1" value="Silly">Silly<br>
+                <input type="checkbox" name="cat2" value="Funny">Funny<br>
+                <input type="checkbox" name="cat3" value="Crazy">Crazy<br>
+            </div>
+        </div>
 
         <button id="upload" type="submit">UPDATE</button>
     </div>

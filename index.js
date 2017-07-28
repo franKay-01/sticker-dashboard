@@ -330,7 +330,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                                     }
                                 });
 
-                                res.redirect("/dashboard");
+                                res.redirect("/collections-dashboard");
                             },
                             function (error) {
                                 //sticker was not uploaded, reload stickers page
