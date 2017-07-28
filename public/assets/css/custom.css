@@ -257,6 +257,7 @@ fieldset {
 .container1 {
     width: 50%;
     height: 200%;
+    bottom: 20%;
     margin: 0 auto;
 }
 
@@ -266,10 +267,16 @@ input::-webkit-input-placeholder {
 
 #tform {
     height: 450px;
-    margin: 0 auto;
     background-color: #dddddd;
     padding: 15px;
+    margin-bottom: 20%;
     box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2), 0 0 5px 10px rgba(0, 0, 0, 0.24)
+}
+
+#tform label{
+    color: #464B9C;
+    font-size: 145%;
+    font-weight: bold;
 }
 
 #left-col {
@@ -278,6 +285,7 @@ input::-webkit-input-placeholder {
     overflow: hidden;
     left: 26%;
     height: 300px;
+    width: 18%;
 }
 
 #add-img {
@@ -366,8 +374,8 @@ input::-webkit-input-placeholder {
     background: #fefefe;
     color: black;
     text-align: center;
-    width: 290px;
-    height: 306px;
+    width: 100%;
+    height: 100%;
     transition: 0.3s;
 }
 .demo-droppable.dragover {
@@ -739,7 +747,7 @@ input::-webkit-input-placeholder {
     width: 100%;
     margin: 0 auto;
 }
-label{
+#collection-form label{
     color: #464B9C;
     font-size: 145%;
     font-weight: bold;

@@ -166,14 +166,12 @@ app.post('/login', function (req, res) {
     Parse.User.logIn(username, password).then(function (user) {
 
         res.cookie('token', user.getSessionToken());
-        // console.log("Cookieeeeeeeeeeee:" + JSON.stringify(cookie));
         req.session.token = user.getSessionToken();
         res.redirect("/dashboard");
 
     }, function (error) {
-
-        console.log(JSON.stringify(error));
-        //error goes here
+        //
+        // console.log(JSON.stringify(error));
         res.redirect("/", {
             error: error.message
         });
@@ -184,11 +182,11 @@ app.post('/login', function (req, res) {
 app.post('/upload', upload.array('im1[]'), function (req, res) {
 
     var session = req.session.token;
-    var token   = req.cookies.token;
+    var token = req.cookies.token;
 
-    console.log("FILE INFO***************: " + JSON.stringify(req.files));
-    console.log("BODY INFO***************: " + JSON.stringify(req.body));
-    console.log("PARAMS, IF ANY *********: " + JSON.stringify(req.params));
+    // console.log("FILE INFO***************: " + JSON.stringify(req.files));
+    // console.log("BODY INFO***************: " + JSON.stringify(req.body));
+    // console.log("PARAMS, IF ANY *********: " + JSON.stringify(req.params));
 
     var files = req.files;
 
@@ -196,24 +194,26 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
         files.forEach(function (sticker, index) {
 
             var fullname = sticker.originalname;
-            console.log("FULLNAME****** " + JSON.stringify(fullname));
+            //remove file extension name
             var stickerName = fullname.substring(0, fullname.length - 4);
+            //TODO get rid off localName var
             var localName = stickerName;
-            var category = ["funny, really"];
 
-            console.log('File Path---------------: ' + JSON.stringify(sticker.path));
+            var category = ['funny', 'really'];
+
+            //converts uploaded fille to base64 format
             var bitmap = fs.readFileSync(sticker.path, {encoding: 'base64'});
 
             var parseFile = new Parse.File(stickerName, {base64: bitmap}, sticker.mimetype);
-            console.log("Parse File::::::::::" + JSON.stringify(parseFile));
 
-            //parse file object
-            var StickerObject = new Parse.Object.extend("Sticker");
+            //create parse file object
+            var Sticker = new Parse.Object.extend("Sticker");
+
+            //TODO organize promises
             parseFile.save().then(function () {
-                console.log('saving parse file................');
 
-                //instance of parse file object
-                var sticker = new StickerObject();
+                //instance of parse object
+                var sticker = new Sticker();
                 sticker.set("stickerName", stickerName);
                 sticker.set("localName", localName);
                 sticker.set("uri", parseFile);
@@ -221,29 +221,27 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
                 sticker.set("stickerPhraseImage", "");
 
                 sticker.save().then(function () {
-                        //file has been uploaded, back to dashboard
-                        console.log("image uploaded to parse");
 
-                        //Delete tmp fil after upload
-                        var tmpFN = sticker.path;
-                        fs.unlink(tmpFN, function (err) {
+                        //Delete tmp file after upload
+                        var tempFile = sticker.path;
+                        fs.unlink(tempFile, function (err) {
                             if (err) {
+                                //TODO handle error code
                                 console.log("-------Could not del temp" + JSON.stringify(err));
-                            }
-                            else {
-                                console.log('deleted tmp file.....Size: ' + sticker.size);
                             }
                         });
 
                         res.redirect("/dashboard");
                     },
-                    function (problem) {
+                    function (error) {
                         //sticker was not uploaded, reload stickers page
-                        console.error("Could not upload file__ " + JSON.stringify(problem));
+                        //TODO handle error code
+                        console.error("Could not upload file__ " + JSON.stringify(error));
                         res.redirect("/add-stickers1");
                     });
             }, function (err) {
                 //sticker object was not saved, reload stickers page
+                //TODO handle error code
                 console.error("Obj not saved: " + JSON.stringify(err));
                 res.redirect("/add-stickers1");
             });
@@ -256,6 +254,7 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
     // //no session exists reload signup page
     else {
         function error(err) {
+            //TODO report error to user
             console.log("error:::::: " + JSON.stringify(err));
             res.redirect("/");
         }
@@ -266,85 +265,82 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
 app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
     var session = req.session.token;
-    var token   = req.cookies.token;
+    var token = req.cookies.token;
     var coll_id = req.body.coll_id;
 
-    console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
-    console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
-
+    // console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
+    // console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
+    //
     console.log("Collection ID===========" + JSON.stringify(coll_id));
-
-    console.log("FILE INFO***************: " + JSON.stringify(req.files));
+    //
+    // console.log("FILE INFO***************: " + JSON.stringify(req.files));
 
     var files = req.files;
 
     if (session && token) {
 
         //GET ID OF CURRENT COLLECTION
-        var colq = new Parse.Query("Collection");
-        colq.equalTo("objectId", coll_id);
-        console.log("Searching for collection.........");
-        colq.first({sessionToken: token}).then(function (collection){
-                console.log("Current Collection====== " + JSON.stringify(collection));
+        var collection = new Parse.Query("Collection");
+        collection.equalTo("objectId", coll_id);
+        collection.first({sessionToken: token}).then(function (collection) {
 
                 //File saving Process Begins
                 files.forEach(function (sticker, index) {
 
-                    var fullname = sticker.originalname;
-                    console.log("FULLNAME****** " + JSON.stringify(fullname));
-                    var stickerName = fullname.substring(0, fullname.length - 4);
+                    //TODO update originalname to originalName
+                    var fullName = sticker.originalname;
+                    // console.log("FULLNAME****** " + JSON.stringify(fullName));
+                    var stickerName = fullName.substring(0, fullName.length - 4);
+                    //TODO eliminate localName var
                     var localName = stickerName;
-                    var category = ["funny, proly"];
 
-                    console.log('File Path---------------: ' + JSON.stringify(sticker.path));
+                    // console.log('File Path---------------: ' + JSON.stringify(sticker.path));
+                    //convert file to base64 format
                     var bitmap = fs.readFileSync(sticker.path, {encoding: 'base64'});
 
                     var parseFile = new Parse.File(stickerName, {base64: bitmap}, sticker.mimetype);
                     console.log("Parse File::::::::::" + JSON.stringify(parseFile));
 
                     //parse file object
-                    var StickerObject = new Parse.Object.extend("Sticker");
-                    parseFile.save().then(function () {
-                        console.log('saving parse file................');
+                    var Sticker = new Parse.Object.extend("Sticker");
 
-                        //instance of parse file object
-                        var sticker = new StickerObject();
+                    //TODO handle promises
+                    parseFile.save().then(function () {
+
+                        //instance of parse object
+                        var sticker = new Sticker();
                         sticker.set("stickerName", stickerName);
                         sticker.set("localName", localName);
                         sticker.set("uri", parseFile);
-                        sticker.set("category", [category]);
                         sticker.set("stickerPhraseImage", "");
                         sticker.set("parent", collection);
 
                         sticker.save().then(function () {
-                                //file has been uploaded, back to dashboard
-                                console.log("image uploaded to parse");
 
                                 var collection_relation = collection.relation("Collection");
                                 collection_relation.add(sticker);
-                                console.log("Relation added to collection class");
                                 collection.save();
 
                                 //Delete tmp fil after upload
-                                var tmpFN = sticker.path;
-                                fs.unlink(tmpFN, function (err) {
+                                var tempFile = sticker.path;
+                                fs.unlink(tempFile, function (err) {
                                     if (err) {
+                                        //TODO handle error code
                                         console.log("-------Could not del temp" + JSON.stringify(err));
-                                    }
-                                    else {
-                                        console.log('deleted tmp file.....Size: ' + sticker.size);
                                     }
                                 });
 
                                 res.redirect("/dashboard");
                             },
-                            function (problem) {
+                            function (error) {
                                 //sticker was not uploaded, reload stickers page
-                                console.error("Could not upload file__ " + JSON.stringify(problem));
+                                //TODO handle error code
+                                console.error("Could not upload file__ " + JSON.stringify(error));
                                 res.redirect("/add-stickers1");
                             });
                     }, function (err) {
                         //sticker object was not saved, reload stickers page
+                        //TODO handle error code
                         console.error("Obj not saved: " + JSON.stringify(err));
                         res.redirect("/add-stickers1");
                     });
@@ -353,6 +349,8 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 //File saving Process Ends
             },
             function (error) {
+
+                //TODO handle error code
                 console.log("Not Found collection::::::::::: " + JSON.stringify(error));
             });
 
@@ -381,7 +379,6 @@ app.get('/categories', function (req, res) {
         res.redirect("/");
     }
 });
-
 
 
 //LOGOUT
@@ -421,59 +418,6 @@ app.get('/dashboard', function (req, res) {
 
 });
 
-app.get('/pay', function (req, res) {
-
-    var promise = new Parse.Promise();
-    var url = 'https://sandbox.api.visa.com/visadirect/fundstransfer/v1/pullfundstransactions';
-    var body = {
-        "acquirerCountryCode": "840",
-        "acquiringBin": "408999",
-        "amount": "124.02",
-        "businessApplicationId": "AA",
-        "cardAcceptor": {
-            "address": {
-                "country": "USA",
-                "county": "San Mateo",
-                "state": "CA",
-                "zipCode": "94404"
-            },
-            "idCode": "ABCD1234ABCD123",
-            "name": "Visa Inc. USA-Foster City",
-            "terminalId": "ABCD1234"
-        },
-        "cavv": "0700100038238906000013405823891061668252",
-        "foreignExchangeFeeTransaction": "11.99",
-        "localTransactionDateTime": "2017-07-18T10:31:14",
-        "retrievalReferenceNumber": "330000550000",
-        "senderCardExpiryDate": "2015-10",
-        "senderCurrencyCode": "USD",
-        "senderPrimaryAccountNumber": "4895142232120006",
-        "surcharge": "11.99",
-        "systemsTraceAuditNumber": "451001"
-    };
-
-    Parse.Cloud.httpRequest({
-        "method": "POST",
-        "url": url,
-        "headers": {
-            // "Authorization": "Basic aWlocGtoZHU6bnZtdnp2bWY=",
-            "Authorization":"Basic UU9XWjRaVU9OTjk1V1RCTzhONjMyMUJRR1dOclpDZlJjdjY2LUROTFVlblM1Y05FQTpYUk1xRncxdQ==",
-            "Accept": "application/json,application/octet-stream"
-        },
-        body: body
-    }).then(function (httpResponse) {
-        promise.resolve(httpResponse);
-        console.log(httpResponse.data);
-        res.send("success");
-    }, function (httpResponse) {
-        promise.reject(httpResponse.status);
-        console.log(httpResponse.data);
-        res.send("error")
-    });
-
-    return promise;
-
-});
 
 // Collection Dashboard
 //Displays 'folders' representing each collection from Parse
@@ -481,8 +425,6 @@ app.get('/collections-dashboard', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
-    console.log("Session===========" + JSON.stringify(session));
-    console.log("Token===========" + JSON.stringify(token));
 
     if (session && token) {
 
@@ -491,7 +433,7 @@ app.get('/collections-dashboard', function (req, res) {
             res.render("pages/collections-dashboard", {collections: collections});
 
         }, function (error) {
-
+            //TODO handle error code
             console.log("Colll error" + JSON.stringify(error));
 
         });
@@ -508,39 +450,34 @@ app.get('/collections-dashboard', function (req, res) {
 app.get('/collection/:id', function (req, res) {
 
     var session = req.session.token;
-    var token   = req.cookies.token;
+    var token = req.cookies.token;
     var coll_id = req.params.id;
-
-    console.log("Session===========" + JSON.stringify(session));
-    console.log("Token===========" + JSON.stringify(token));
 
     if (session && token) {
 
-        var colquery =  new Parse.Query("Collection");
-        colquery.get(coll_id, {
-            success: function(collection){
+        var collection = new Parse.Query("Collection");
+        collection.get(coll_id, {
+            success: function (collection) {
                 //todo change the column 'collection' in Collection class to stickers in parse dashboard
                 //todo then do the same for below
 
-             var col = collection.relation("Collection");
-             col.query().find({
-                 success: function (stickers) {
-                     console.log("Stickers found:::: " + stickers.length);
-                     // response.success(stickers);
-                     res.render("pages/collection", {stickers: stickers,id:coll_id});
-                 },
-                 error: function(error){
-                     response.error(error);
-                     console.log("Nothing Found::::::::::::::::");
-                     res.redirect("/dashboard")
-                 }
-             })
+                var col = collection.relation("Collection");
+                col.query().find({
+                    success: function (stickers) {
+                        res.render("pages/collection", {stickers: stickers, id: coll_id});
+                    },
+                    error: function (error) {
+                        //TODO handle error code
+                        response.error(error);
+                        res.redirect("/dashboard")
+                    }
+                })
             }
         });
 
     }
     else {
-        console.log("No Session Exists, log in");
+        //No session exists, log in
         res.redirect("/");
     }
 
@@ -552,12 +489,12 @@ app.get('/add-stickers1/:id', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
-    console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
-    console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
+    // console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
+    // console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
     var coll_id = req.params.id;
 
     if (session && token) {
-        res.render("pages/add-stickers1", {id:coll_id});
+        res.render("pages/add-stickers1", {id: coll_id});
     } else {
         res.redirect("/");
     }
@@ -577,35 +514,18 @@ app.get('/add-stickers2', function (req, res) {
 });
 
 
-// Add Stickers Version 3
-app.get('/add-to-collection', function (req, res) {
-    var session = req.session.token;
-    var token = req.cookies.token;
-
-    if (session && token) {
-        res.render("pages/add-to-collection");
-    }
-    else {
-        res.redirect("/");
-    }
-});
-
 app.post('/new-collection', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
-    console.log("BODY------------" + JSON.stringify(req.body));
     var coll_name = req.body.coll_name;
 
     if (session && token) {
-        console.log("CAN CONTINUE");
 
         var Collection = new Parse.Object.extend("Collection");
         var collection = new Collection();
         collection.set("collection_name", coll_name);
-        collection.save().then(function (coll) {
-            console.log("COllection Created: " + JSON.stringify(coll));
-        });
+        collection.save().then(function (coll) {});
 
         res.redirect('/collections-dashboard');
 
@@ -627,16 +547,14 @@ app.get('/details/:id', function (req, res) {
         sticker.first({sessionToken: token}).then(function (sticker) {
 
                 if (sticker) {
-
-                    console.log("Sticker::::::::::::::::" + JSON.stringify(sticker));
                     res.render("pages/details", {sticker: sticker});
                 } else {
-                    console.log("Nothing Found::::::::::::::::");
+                    //sticker does not exist
                     res.redirect("/dashboard")
                 }
-
             },
             function (err) {
+                //TODO handle error code
                 console.log("Error Loading-----------------------" + JSON.stringify(err));
             }
         );
@@ -652,14 +570,14 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
-    console.log("NEW FILE INFO----" + JSON.stringify(req.file));
-    console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
-    console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
+    // console.log("NEW FILE INFO----" + JSON.stringify(req.file));
+    // console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
+    // console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
 
     // //input fields from form
+    //TODO eliminate localName...same as stickerName
     var stickerName = req.body.stickername;
-    console.log("NEW STICKER NAMEEEEEEEE: " + JSON.stringify(stickerName));
-    var localName = req.body.localname;
+    var localName = stickerName;
     var category = req.body.cat;
     var file = req.file;
     var imgChange = req.body.imgChange;
@@ -668,12 +586,11 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     if (session && token) {
 
         var NewSticker = new Parse.Object.extend("Sticker");
-        var squery = new Parse.Query(NewSticker);
-        squery.equalTo("objectId", stickerId);
+        var sticker = new Parse.Query(NewSticker);
+        sticker.equalTo("objectId", stickerId);
 
-        squery.first({sessionToken: token}).then(
+        sticker.first({sessionToken: token}).then(
             function (newSticker) {
-                console.log("STICKER FOUND FOR UPDATEEEEEEEEEEEEEEE: " + JSON.stringify(newSticker));
                 //Update new sticker properties
                 newSticker.set("stickerName", stickerName);
                 newSticker.set("localName", localName);
@@ -681,41 +598,35 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                 newSticker.set("stickerPhraseImage", "");
 
                 if (imgChange === 'true') {
-                    console.log('image has changed paaaaaaaaaa');
-
                     //update sticker image
                     var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
                     var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                     newSticker.set("uri", parseFile);
                 }
                 else {
-                    console.log('image has not changed koraaaaaaaaa');
-
+                    //image has not changed
                 }
-                    //Update sticker's properties to parse
-                    newSticker.save().then(function () {
-
-                            console.log("image updated to parse");
-
-                            //Delete tmp fil after update
-                            var tmpFN = file.path;
-                            fs.unlink(tmpFN, function (err) {
-                                if (err) {
-                                    console.log("Could not del temp++++++++" + JSON.stringify(err));
-                                }
-                                else {
-                                    console.log('deleted tmp file.....Size: ' + file.size);
-                                }
-                            });
-                        },
-                        function (problem) {
-                            //sticker not updated...reload page
-                            console.error("Update unsuccessful__ " + JSON.stringify(problem));
-                            res.redirect("/details", {id: stickerId});
-                        }
-                    );
+                //Update sticker's properties to parse
+                newSticker.save().then(function () {
+                        //Delete tmp fil after update
+                        var tempFile = file.path;
+                        fs.unlink(tempFile, function (err) {
+                            if (err) {
+                                //TODO handle error code
+                                console.log("Could not del temp++++++++" + JSON.stringify(err));
+                            }
+                        });
+                    },
+                    function (problem) {
+                        //sticker not updated...reload page
+                        //TODO handle error code
+                        console.error("Update unsuccessful__ " + JSON.stringify(problem));
+                        res.redirect("/details", {id: stickerId});
+                    }
+                );
             },
             function (notfound) {
+                //TODO handle error code
                 console.log("STICKER NOT FOUND: " + JSON.stringify(notfound))
             }
         );
@@ -723,6 +634,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     }
     else {
         function problem(error) {
+            //TODO handle error code
             console.log("No session found[[[[[[" + error);
             res.redirect("/details");
         }
