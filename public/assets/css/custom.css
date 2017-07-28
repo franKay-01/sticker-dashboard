@@ -38,6 +38,13 @@ a:hover, a:visited, a:active {
     background-color: #FFFFFF;
 }
 
+.background {
+    width: 852px;
+    height: 735px;
+    object-fit: contain;
+    opacity: 0.47;
+}
+
 .secondary-background-color {
     background-color: #fefefe;
 }
@@ -105,6 +112,7 @@ input[type=search], textarea.materialize-textarea {
     font-weight: 600;
     font-size: 18px;
     transition: 5s;
+    color: #464B9C;
 }
 .uplink:hover {
     transition: 5s;
