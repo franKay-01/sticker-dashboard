@@ -2,9 +2,8 @@ body {
     background-image: url(../images/background.png);
     background-position: top center;
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 170%;
     font-family: 'Open Sans', sans-serif;
-    color: white !important;
 }
 
 a {
@@ -14,12 +13,12 @@ a {
 
 
 .logo2 {
-    width: 67px;
-    height: 62px;
+    width: 20%;
+    height: 60%;
 }
 
 .header-top-spacing {
-    margin-top: 50px;
+    /*margin-top: 50px;*/
 }
 
 .primary-color {
