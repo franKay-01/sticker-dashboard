@@ -554,7 +554,7 @@ app.get('/details/:id', function (req, res) {
                     categories.find().then(function (categories) {
                         console.log("Categories found|||||||||" + JSON.stringify(categories));
 
-                        res.render("pages/details", {sticker: sticker}, {categories:categories});
+                        res.render("pages/details", {sticker: sticker, categories:categories});
                     },
                     function (error) {
                         console.log("No categories found- " + error);
