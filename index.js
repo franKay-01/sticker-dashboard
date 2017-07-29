@@ -547,7 +547,21 @@ app.get('/details/:id', function (req, res) {
         sticker.first({sessionToken: token}).then(function (sticker) {
 
                 if (sticker) {
-                    res.render("pages/details", {sticker: sticker});
+
+                    //load categories from parse
+                    var categories = new Parse.Query("Category");
+                    categories = categories.descending("name");
+                    categories.find().then(function (categories) {
+                        console.log("Categories found::" + JSON.stringify(categories));
+                        // for(var i=0; i<categories.length; i++){
+                        //     console.log(JSON.stringify(categories[i].get('name')));
+                        // }
+                        res.render("pages/details", {sticker: sticker});
+                    },
+                    function (error) {
+                        console.log("No categories found- " + error);
+                    }
+                    );
                 } else {
                     //sticker does not exist
                     res.redirect("/dashboard")
