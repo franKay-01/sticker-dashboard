@@ -170,8 +170,7 @@ app.post('/login', function (req, res) {
         res.redirect("/dashboard");
 
     }, function (error) {
-        //
-        // console.log(JSON.stringify(error));
+        //TODO handle errors
         res.redirect("/", {
             error: error.message
         });
@@ -184,24 +183,17 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
-    // console.log("FILE INFO***************: " + JSON.stringify(req.files));
-    // console.log("BODY INFO***************: " + JSON.stringify(req.body));
-    // console.log("PARAMS, IF ANY *********: " + JSON.stringify(req.params));
-
     var files = req.files;
 
     if (session && token) {
         files.forEach(function (sticker, index) {
 
             var fullname = sticker.originalname;
+
             //remove file extension name
             var stickerName = fullname.substring(0, fullname.length - 4);
-            //TODO get rid off localName var
-            var localName = stickerName;
 
-            var category = ['funny', 'really'];
-
-            //converts uploaded fille to base64 format
+            //converts uploaded file to base64 format
             var bitmap = fs.readFileSync(sticker.path, {encoding: 'base64'});
 
             var parseFile = new Parse.File(stickerName, {base64: bitmap}, sticker.mimetype);
@@ -215,9 +207,8 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
                 //instance of parse object
                 var sticker = new Sticker();
                 sticker.set("stickerName", stickerName);
-                sticker.set("localName", localName);
+                sticker.set("localName", stickerName);
                 sticker.set("uri", parseFile);
-                sticker.set("category", [category]);
                 sticker.set("stickerPhraseImage", "");
 
                 sticker.save().then(function () {
@@ -267,14 +258,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = req.body.coll_id;
-
-    // console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
-    // console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
-    //
-    console.log("Collection ID===========" + JSON.stringify(coll_id));
-    //
-    // console.log("FILE INFO***************: " + JSON.stringify(req.files));
-
     var files = req.files;
 
     if (session && token) {
@@ -289,12 +272,10 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                     //TODO update originalname to originalName
                     var fullName = sticker.originalname;
-                    // console.log("FULLNAME****** " + JSON.stringify(fullName));
+
                     var stickerName = fullName.substring(0, fullName.length - 4);
                     //TODO eliminate localName var
-                    var localName = stickerName;
 
-                    // console.log('File Path---------------: ' + JSON.stringify(sticker.path));
                     //convert file to base64 format
                     var bitmap = fs.readFileSync(sticker.path, {encoding: 'base64'});
 
@@ -310,7 +291,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                         //instance of parse object
                         var sticker = new Sticker();
                         sticker.set("stickerName", stickerName);
-                        sticker.set("localName", localName);
+                        sticker.set("localName", stickerName);
                         sticker.set("uri", parseFile);
                         sticker.set("stickerPhraseImage", "");
                         sticker.set("parent", collection);
@@ -488,9 +469,6 @@ app.get('/collection/:id', function (req, res) {
 app.get('/add-stickers1/:id', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
-
-    // console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
-    // console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
     var coll_id = req.params.id;
 
     if (session && token) {
@@ -548,14 +526,14 @@ app.get('/details/:id', function (req, res) {
 
                 if (sticker) {
 
-                    //load categories from parse
+                    //find categories from dashboard
                     var categories = new Parse.Query("Category");
                     categories = categories.descending("name");
-                    categories.find().then(function (categories) {
-                        console.log("Categories found|||||||||" + JSON.stringify(categories));
 
+                    categories.find().then(function (categories) {
                         res.render("pages/details", {sticker: sticker, categories:categories});
                     },
+                        //TODO handle errors
                     function (error) {
                         console.log("No categories found- " + error);
                     }
@@ -582,14 +560,9 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
-    // console.log("NEW FILE INFO----" + JSON.stringify(req.file));
-    // console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
-    // console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
-
     // //input fields from form
     //TODO eliminate localName...same as stickerName
     var stickerName = req.body.stickername;
-    var localName = stickerName;
     var category = req.body.cat;
     var file = req.file;
     var imgChange = req.body.imgChange;
@@ -605,7 +578,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
             function (newSticker) {
                 //Update new sticker properties
                 newSticker.set("stickerName", stickerName);
-                newSticker.set("localName", localName);
+                newSticker.set("localName", stickerName);
                 newSticker.set("category", [category]);
                 newSticker.set("stickerPhraseImage", "");
 
@@ -620,6 +593,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                 }
                 //Update sticker's properties to parse
                 newSticker.save().then(function () {
+
                         //Delete tmp fil after update
                         var tempFile = file.path;
                         fs.unlink(tempFile, function (err) {
