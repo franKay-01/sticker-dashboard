@@ -552,11 +552,9 @@ app.get('/details/:id', function (req, res) {
                     var categories = new Parse.Query("Category");
                     categories = categories.descending("name");
                     categories.find().then(function (categories) {
-                        console.log("Categories found::" + JSON.stringify(categories));
-                        // for(var i=0; i<categories.length; i++){
-                        //     console.log(JSON.stringify(categories[i].get('name')));
-                        // }
-                        res.render("pages/details", {sticker: sticker});
+                        console.log("Categories found|||||||||" + JSON.stringify(categories));
+
+                        res.render("pages/details", {sticker: sticker}, {categories:categories});
                     },
                     function (error) {
                         console.log("No categories found- " + error);
