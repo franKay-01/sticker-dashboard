@@ -595,7 +595,7 @@ input::-webkit-input-placeholder {
 #upload1 {
     cursor: pointer;
     max-width: 40%;
-    background: #2f326a;
+    background: #8487c8;
     color: white;
     padding: 1%;
     font-family: monospace;
@@ -623,7 +623,7 @@ input::-webkit-input-placeholder {
     font-size: 130%;
     transition: 0.3s;
     position: relative;
-    bottom: 481px;
+    bottom: 380px;
     left: 30%;
 }
 
