@@ -28,7 +28,8 @@
             <div class="categories">
                 <% categories.forEach(function(item, index) { %>
 
-                <input type="checkbox" name="cat1" value="<%= item.get("name")%>"><%= item.get("name")%><br>
+                <input type="checkbox" class="filled-in" id="filled-in-box"
+                       name="cat1" value="<%= item.get("name")%>"><%= item.get("name")%><br>
                 <!--<input type="checkbox" name="cat2" value="Funny">Funny<br>-->
                 <!--<input type="checkbox" name="cat3" value="Crazy">Crazy<br>-->
 
