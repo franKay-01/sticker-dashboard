@@ -8,16 +8,16 @@
     </div>
 
     <div id="right-col">
-        <label>Sticker Name:</label> <input type="text" placeholder="Sticker Name" id="stname" name="stickername"
+        <label>Sticker Name:</label> <input placeholder="Sticker Name" id="stname" name="stickername"
                value="<%= sticker.get("stickerName") %>">
 
         <!--if new img has been uploaded, set value to true-->
         <input type="hidden" id="imgChange" name="imgChange" value="false">
 
-        <label>Local Name:</label> <input type="text" placeholder="Local Name" id="lname" name="localname"
+        <label>Local Name:</label> <input  placeholder="Local Name" id="lname" name="localname"
                value="<%= sticker.get("localName") %>">
 
-        <label>Category:</label> <input type="text" placeholder="Category e.g funny, silly" id="category" name="cat"
+        <label>Category:</label> <input  placeholder="Category e.g funny, silly" id="category" name="cat"
                value="<%= sticker.get("category") %>">
         <!--test checkbox input-->
         <input type="radio" value="Test">Test
