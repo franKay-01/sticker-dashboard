@@ -278,7 +278,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                     //convert file to base64 format
                     var bitmap = fs.readFileSync(sticker.path, {encoding: 'base64'});
-
                     var parseFile = new Parse.File(stickerName, {base64: bitmap}, sticker.mimetype);
                     console.log("Parse File::::::::::" + JSON.stringify(parseFile));
 
@@ -560,20 +559,24 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
-    // //input fields from form
-    //TODO eliminate localName...same as stickerName
+    //input fields from form
     var stickerName = req.body.stickername;
     var category = req.body.cat;
     var file = req.file;
     var imgChange = req.body.imgChange;
     var stickerId = req.params.id;
 
+    console.log("PARAMS-------------------" + req.params);
+    console.log("BODY-------------------" + req.body);
+
     if (session && token) {
+
+        // var categoryQuery = new Parse.Query("Category");
+        // categoryQuery.equalTo("objectId", coll_id);
 
         var NewSticker = new Parse.Object.extend("Sticker");
         var sticker = new Parse.Query(NewSticker);
         sticker.equalTo("objectId", stickerId);
-
         sticker.first({sessionToken: token}).then(
             function (newSticker) {
                 //Update new sticker properties
@@ -611,9 +614,9 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                     }
                 );
             },
-            function (notfound) {
+            function (error) {
                 //TODO handle error code
-                console.log("STICKER NOT FOUND: " + JSON.stringify(notfound))
+                console.log("STICKER NOT FOUND: " + JSON.stringify(error))
             }
         );
         res.redirect("/dashboard");
