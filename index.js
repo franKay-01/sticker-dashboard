@@ -573,7 +573,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
         var categoryQuery = new Parse.Query("Category");
 
         //query for existing categories in parse
-        console.log("length of array:::::: " + category.length);
+        console.log("content of array:::::: " + category);
         for(var i=0; i<category.length; i++)
         {
             categoryQuery.equalTo("name", category[i]);
