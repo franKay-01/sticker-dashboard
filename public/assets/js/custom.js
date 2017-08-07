@@ -173,6 +173,7 @@ $(document).ready(function () {
 
         for(var i in categories){
             categories[i] = categories[i].trim();
+            console.log("Current length:"+categories.length);
         }
         console.log(categories.length);
     });
