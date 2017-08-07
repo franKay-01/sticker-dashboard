@@ -566,13 +566,25 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var imgChange = req.body.imgChange;
     var stickerId = req.params.id;
 
-    console.log("PARAMS-------------------" + JSON.stringify(req.params));
     console.log("BODY-------------------" + JSON.stringify(req.body));
 
     if (session && token) {
 
-        // var categoryQuery = new Parse.Query("Category");
-        // categoryQuery.equalTo("objectId", coll_id);
+        var categoryQuery = new Parse.Query("Category");
+
+        //query for existing categories in parse
+        for(var i=0; i<category.length; i++)
+        {
+            categoryQuery.equalTo("name", category[i]);
+            categoryQuery.first().then(function(catgory){
+                console.log("Category||||||||" + JSON.stringify(catgory));
+            },
+            function(error){
+                connsole.error("Error" + error);
+            });
+        }
+
+
 
         var NewSticker = new Parse.Object.extend("Sticker");
         var sticker = new Parse.Query(NewSticker);
