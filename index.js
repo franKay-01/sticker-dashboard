@@ -573,16 +573,16 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
         var categoryQuery = new Parse.Query("Category");
 
         //query for existing categories in parse
-        console.log("content of array:::::: " + category);
         for(var i=0; i<category.length; i++)
         {
-            categoryQuery.equalTo("name", category[i]);
-            categoryQuery.find().then(function(catgory){
-                console.log("Category||||||||" + JSON.stringify(catgory));
-            },
-            function(error){
-                connsole.error("Error" + error);
-            });
+            console.log("Item000000: " + category[i]);
+            // categoryQuery.equalTo("name", category[i]);
+            // categoryQuery.find().then(function(catgory){
+            //     console.log("Category||||||||" + JSON.stringify(catgory));
+            // },
+            // function(error){
+            //     connsole.error("Error" + error);
+            // });
         }
 
 
