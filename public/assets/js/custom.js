@@ -167,16 +167,6 @@ $(document).ready(function () {
     });
 
     //save input field values in array
-    $('.cat1').on('change', function(){
-        var category = $('.cat1').val();
-        var categories = category.split(',');
-
-        for(var i in categories){
-            categories[i] = categories[i].trim();
-            console.log("Current length:"+categories.length);
-        }
-        console.log(categories.length);
-    });
 
     console.log("current cookie: " + document.cookie);
 
