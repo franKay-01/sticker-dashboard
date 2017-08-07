@@ -566,8 +566,8 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var imgChange = req.body.imgChange;
     var stickerId = req.params.id;
 
-    console.log("PARAMS-------------------" + req.params);
-    console.log("BODY-------------------" + req.body);
+    console.log("PARAMS-------------------" + JSON.stringify(req.params));
+    console.log("BODY-------------------" + JSON.stringify(req.body));
 
     if (session && token) {
 
