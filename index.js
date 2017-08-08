@@ -458,7 +458,7 @@ app.get('/collection/:id', function (req, res) {
                             console.log("EACH CATEGORIES " + categories);
                             var category = new Parse.Query("Category");
 
-                            category.containedIn("categories",categories).find({sessionToken: token}).then(
+                            category.containedIn("objectId",categories).find({sessionToken: token}).then(
                                 function (foundCategories) {
 
                                     if (foundCategories.length) {
