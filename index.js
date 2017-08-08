@@ -458,6 +458,8 @@ app.get('/collection/:id', function (req, res) {
                                         });
                                         stickers['categories'] = _categories;
                                         console.log("CATEGORY " + _categories);
+                                    } else {
+                                        stickers['categories'] = [];
                                     }
                                 },
                                 function () {
