@@ -428,6 +428,8 @@ app.get('/collections-dashboard', function (req, res) {
 
 app.get('/cat', function (req, res) {
 
+    var session = req.session.token;
+    var token = req.cookies.token;
 
     Parse.Promise.when(
         new Parse.Query("Category").find({sessionToken: token}),
