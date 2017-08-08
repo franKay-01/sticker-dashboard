@@ -433,18 +433,23 @@ app.get('/cat', function (req, res) {
 
     Parse.Promise.when(
         new Parse.Query("Category").find({sessionToken: token}),
-        new Parse.Query("Sticker").first({sessionToken: token})
-    ).then(function(categories,sticker){
+        new Parse.Query("Sticker").find({sessionToken: token})
+    ).then(function(categories,stickers){
 
         console.log("CATEGORIES " + JSON.stringify(categories));
-        console.log("STICKER " + JSON.stringify(sticker));
+        console.log("STICKER " + JSON.stringify(stickers));
 
-        var sticker_relation = sticker.relation("cat");
-        _.each(categories,function(category){
-            sticker_relation.add(category);
+        _.each(stickers,function(sticker) {
+
+            var sticker_relation = sticker.relation("cat");
+            _.each(categories, function (category) {
+                sticker_relation.add(category);
+            });
+
+            sticker.save();
+
         });
 
-        sticker.save();
         res.send("chicken noodle soup")
 
 
