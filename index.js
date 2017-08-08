@@ -577,7 +577,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
         for(var i=0; i<categoryArray.length; i++)
         {
             console.log("Item " + [i]+"::: " + categoryArray[i]);
-            categoryQuery.equalTo("name", category[i]);
+            categoryQuery.equalTo("name", categoryArray[i]);
             categoryQuery.find().then(function(catgory){
                 console.log("Category||||||||" + JSON.stringify(catgory));
             },
