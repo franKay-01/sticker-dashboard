@@ -454,6 +454,8 @@ app.get('/collection/:id', function (req, res) {
                             console.log("EACH " + JSON.stringify(sticker));
 
                             var categories = sticker.get("categories");
+
+                            console.log("EACH CATEGORIES " + categories);
                             var category = new Parse.Query("Category");
 
                             category.containedIn("categories",categories).find({sessionToken: token}).then(
