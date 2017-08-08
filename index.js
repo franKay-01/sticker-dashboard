@@ -333,9 +333,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 //TODO handle error code
                 console.log("Not Found collection::::::::::: " + JSON.stringify(error));
             });
-
-        res.redirect("/dashboard");
-
     }
 
     // //no session exists reload signup page
