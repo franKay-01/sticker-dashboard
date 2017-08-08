@@ -333,7 +333,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 //TODO handle error code
                 console.log("Not Found collection::::::::::: " + JSON.stringify(error));
             });
-        res.redirect("/collection", {id: coll_id});
+        res.redirect("/collections-dashboard");
 
     }
 
