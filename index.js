@@ -438,6 +438,7 @@ app.get('/collection/:id', function (req, res) {
         var collection = new Parse.Query("Collection");
         collection.get(coll_id, {
             success: function (collection) {
+
                 //todo change the column 'collection' in Collection class to stickers in parse dashboard
                 //todo then do the same for below
 
@@ -458,8 +459,9 @@ app.get('/collection/:id', function (req, res) {
                             console.log("EACH CATEGORIES " + categories);
                             var category = new Parse.Query("Category");
 
-                            category.containedIn("objectId",categories).find({sessionToken: token}).then(
-                                function (foundCategories) {
+                            category.containedIn("objectId", categories).find({
+                                sessionToken: token,
+                                success: function (foundCategories) {
 
                                     if (foundCategories.length) {
 
@@ -480,11 +482,10 @@ app.get('/collection/:id', function (req, res) {
                                     res.render("pages/collection", {stickers: stickers, id: coll_id});
 
                                 },
-                                function () {
-
-                                })
+                                error: function () {
+                                }
+                            });
                         });
-
 
                     },
                     error: function (error) {
