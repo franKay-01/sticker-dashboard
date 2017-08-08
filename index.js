@@ -603,7 +603,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                             }
                             //Update sticker's properties to parse
                             newSticker.save().then(function () {
-                                    var sticker_relation = catgory.relation("Category");
+                                    var sticker_relation = catgory.relation("sticker");
                                     sticker_relation.add(newSticker);
                                     catgory.save();
 
