@@ -605,6 +605,8 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                             //Update sticker's properties to parse
                             newSticker.save().then(function () {
 
+                                    catgory.add("sticker", newSticker);
+
                                     //Delete tmp fil after update
                                     var tempFile = file.path;
                                     fs.unlink(tempFile, function (err) {
