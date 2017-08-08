@@ -166,6 +166,7 @@ $(document).ready(function () {
 
     });
 
+    //save input field values in array
 
     console.log("current cookie: " + document.cookie);
 
