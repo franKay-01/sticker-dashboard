@@ -451,12 +451,12 @@ app.get('/collection/:id', function (req, res) {
 
                         _.each(stickers, function (sticker) {
 
-                            console.log("EACH " + sticker);
+                            console.log("EACH " + JSON.stringify(sticker));
 
                             var categories = sticker.get("category");
                             var category = new Parse.Query("Category");
 
-                            category.containedIn(categories).find({sessionToken: token}).then(
+                            category.containedIn("categories",categories).find({sessionToken: token}).then(
                                 function (foundCategories) {
 
                                     if (foundCategories.length) {
