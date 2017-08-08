@@ -425,6 +425,37 @@ app.get('/collections-dashboard', function (req, res) {
     }
 });
 
+
+app.get('/cat', function (req, res) {
+
+
+    Parse.Promise.when(
+        new Parse.Query("Category").find({sessionToken: token}),
+        new Parse.Query("Sticker").first({sessionToken: token})
+    ).then(function(categories,sticker){
+
+        console.log("CATEGORIES " + JSON.stringify(categories));
+        console.log("STICKER " + JSON.stringify(sticker));
+
+        var sticker_relation = sticker.relation("cat");
+        _.each(categories,function(category){
+            sticker_relation.add(category);
+        });
+
+        sticker.save();
+        res.send("chicken noodle soup")
+
+
+    },function(error){
+        console.log(JSON.stringify(error));
+    });
+
+
+
+
+
+});
+
 // Page for selected collection from dashboard
 //Displays all stickers linked to selected collection
 app.get('/collection/:id', function (req, res) {
