@@ -443,6 +443,7 @@ app.get('/collection/:id', function (req, res) {
                 //todo then do the same for below
 
                 console.log("COLLECTION QUERY" + collection);
+                var isDone = false;
 
                 var col = collection.relation("Collection");
                 col.query().find({
@@ -450,7 +451,7 @@ app.get('/collection/:id', function (req, res) {
 
                         console.log("COLLECTION " + JSON.stringify(stickers));
 
-                        _.each(stickers, function (sticker) {
+                        _.each(stickers, function (sticker, index) {
 
                             console.log("EACH " + JSON.stringify(sticker));
 
@@ -473,6 +474,7 @@ app.get('/collection/:id', function (req, res) {
                                         });
                                         stickers['categoryName'] = _categories;
                                         console.log("CATEGORY " + _categories);
+
                                     } else {
 
                                         console.log("NOT FOUND ");
@@ -483,11 +485,17 @@ app.get('/collection/:id', function (req, res) {
                                 error: function () {
                                 }
                             });
+
+                            if (index === stickers.length - 1 || stickers.length === 0) {
+                                isDone = true;
+                            }
+
+                            if (isDone) {
+                                console.log("STICKERS " + JSON.stringify(stickers));
+                                res.render("pages/collection", {stickers: stickers, id: coll_id});
+                            }
+
                         });
-
-                        console.log("STICKERS " + JSON.stringify(stickers));
-
-                        res.render("pages/collection", {stickers: stickers, id: coll_id});
 
                     },
                     error: function (error) {
