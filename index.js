@@ -590,7 +590,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                             //Update new sticker properties
                             newSticker.set("stickerName", stickerName);
                             newSticker.set("localName", stickerName);
-                            newSticker.set("category", catgory);
+                            newSticker.add("category", catgory);
 
                             if (imgChange === 'true') {
                                 //update sticker image
