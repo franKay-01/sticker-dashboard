@@ -591,7 +591,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                             newSticker.set("localName", stickerName);
                             // newSticker.set("category", [category]);
                             newSticker.set("stickerPhraseImage", "");
-                            newSticker.add("category", catgory);
+                            newSticker.set("category", catgory);
 
                             if (imgChange === 'true') {
                                 //update sticker image
