@@ -577,13 +577,13 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
         for(var i=0; i<categoryArray.length; i++)
         {
             console.log("Item " + [i]+"::: " + categoryArray[i]);
-            // categoryQuery.equalTo("name", category[i]);
-            // categoryQuery.find().then(function(catgory){
-            //     console.log("Category||||||||" + JSON.stringify(catgory));
-            // },
-            // function(error){
-            //     connsole.error("Error" + error);
-            // });
+            categoryQuery.equalTo("name", category[i]);
+            categoryQuery.find().then(function(catgory){
+                console.log("Category||||||||" + JSON.stringify(catgory));
+            },
+            function(error){
+                console.error("Error" + error);
+            });
         }
 
 
