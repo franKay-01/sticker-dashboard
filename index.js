@@ -10,6 +10,7 @@ var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var fs = require('fs');
 var multer = require('multer');
+var _ = require('underscore');
 var methodOverride = require('method-override');
 var multipart = require('multipart');
 // var busboy = require('connect-busboy');
@@ -444,17 +445,28 @@ app.get('/collection/:id', function (req, res) {
                 col.query().find({
                     success: function (stickers) {
 
-                        //test querying categories
-                         var testQuery = new Parse.Query("Sticker");
-                         testQuery.equalTo("name", "silly");
-                         testQuery.find().then(function (categoryy) {
-                             console.log("STICKER___________________________:" + JSON.stringify(categoryy));
-                             categoryy.forEach(function (cat, index) {
-                                 console.log("STICKER FOUND-------------------:" + cat.get("stickerName"));
-                             });
-                         });
+                        _.each(stickers, function (sticker) {
+                            var categories = sticker.get("category");
+                            var category = new Parse.Query("Category");
+                            category.containedIn(categories).find({sessionToken: token}).then(
+                                function (foundCategories) {
+
+                                    if (foundCategories.length) {
+                                        var _categories = [];
+                                        _.each(foundCategories, function (foundCategory) {
+                                            _categories.push(foundCategory);
+                                        });
+                                        stickers['categories'] = _categories;
+
+                                    }
+                                },
+                                function () {
+
+                                })
+                        });
 
                         res.render("pages/collection", {stickers: stickers, id: coll_id});
+
                     },
                     error: function (error) {
                         //TODO handle error code
@@ -512,7 +524,8 @@ app.post('/new-collection', function (req, res) {
         var Collection = new Parse.Object.extend("Collection");
         var collection = new Collection();
         collection.set("collection_name", coll_name);
-        collection.save().then(function (coll) {});
+        collection.save().then(function (coll) {
+        });
 
         res.redirect('/collections-dashboard');
 
@@ -540,12 +553,12 @@ app.get('/details/:id', function (req, res) {
                     categories = categories.descending("name");
 
                     categories.find().then(function (categories) {
-                        res.render("pages/details", {sticker: sticker, categories:categories});
-                    },
+                            res.render("pages/details", {sticker: sticker, categories: categories});
+                        },
                         //TODO handle errors
-                    function (error) {
-                        console.log("No categories found- " + error);
-                    }
+                        function (error) {
+                            console.log("No categories found- " + error);
+                        }
                     );
                 } else {
                     //sticker does not exist
@@ -584,13 +597,12 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
         var categoryArray = category.split(", ");
         //query for existing categories in parse
-        categoryArray.forEach(function (category, index)
-        {
-            console.log("Item " + [index]+"::: " + category);
+        categoryArray.forEach(function (category, index) {
+            console.log("Item " + [index] + "::: " + category);
 
             categoryQuery.equalTo("name", category);
-            categoryQuery.find().then(function(catgory){
-                console.log("Category*****************" + JSON.stringify(catgory));
+            categoryQuery.find().then(function (catgory) {
+                    console.log("Category*****************" + JSON.stringify(catgory));
 
                     var NewSticker = new Parse.Object.extend("Sticker");
                     var sticker = new Parse.Query(NewSticker);
@@ -639,10 +651,10 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                             console.log("STICKER NOT FOUND: " + JSON.stringify(error))
                         }
                     );
-            },
-            function(error){
-                console.error("Error" + error);
-            });
+                },
+                function (error) {
+                    console.error("Error" + error);
+                });
         });
 
         res.redirect("/dashboard");
