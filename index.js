@@ -445,13 +445,22 @@ app.get('/collection/:id', function (req, res) {
                 col.query().find({
                     success: function (stickers) {
 
+                        console.log("COLLECTION " + JSON.stringify(stickers));
+
                         _.each(stickers, function (sticker) {
+
+                            console.log("EACH " + sticker);
+
                             var categories = sticker.get("category");
                             var category = new Parse.Query("Category");
+
                             category.containedIn(categories).find({sessionToken: token}).then(
                                 function (foundCategories) {
 
                                     if (foundCategories.length) {
+
+                                        console.log("FOUND " + foundCategories);
+
                                         var _categories = [];
                                         _.each(foundCategories, function (foundCategory) {
                                             _categories.push(foundCategory);
@@ -459,8 +468,11 @@ app.get('/collection/:id', function (req, res) {
                                         stickers['categories'] = _categories;
                                         console.log("CATEGORY " + _categories);
                                     } else {
+
+                                        console.log("NOT FOUND ");
                                         stickers['categories'] = [];
                                     }
+
                                 },
                                 function () {
 
