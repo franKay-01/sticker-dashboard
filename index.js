@@ -479,13 +479,13 @@ app.get('/collection/:id', function (req, res) {
                                         stickers['categoryName'] = [];
                                     }
 
-
-
                                 },
                                 error: function () {
                                 }
                             });
                         });
+
+                        console.log("STICKERS " + JSON.stringify(stickers));
 
                         res.render("pages/collection", {stickers: stickers, id: coll_id});
 
