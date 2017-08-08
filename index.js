@@ -467,7 +467,7 @@ app.get('/collection/:id', function (req, res) {
 
                                         var _categories = [];
                                         _.each(foundCategories, function (foundCategory) {
-                                            _categories.push(foundCategory);
+                                            _categories.push(foundCategory.get("name"));
                                         });
                                         stickers['categories'] = _categories;
                                         console.log("CATEGORY " + _categories);
