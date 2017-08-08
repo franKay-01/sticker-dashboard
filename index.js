@@ -480,56 +480,19 @@ app.get('/collection/:id', function (req, res) {
                 //todo change the column 'collection' in Collection class to stickers in parse dashboard
                 //todo then do the same for below
 
-                console.log("COLLECTION QUERY" + collection);
-                var isDone = false;
+
 
                 var col = collection.relation("Collection");
                 col.query().find({
                     success: function (stickers) {
 
-                        console.log("COLLECTION " + JSON.stringify(stickers));
+                        var sticky_relation = stickers[0].relation("cat");
+                        console.log("CAT RELATION " + JSON.stringify(sticky_relation));
 
-                        _.each(stickers, function (sticker, index) {
+                        res.render("pages/collection", {stickers: stickers, id: coll_id});
 
-                            console.log("EACH " + JSON.stringify(sticker));
 
-                            var categories = sticker.get("categories");
 
-                            console.log("EACH CATEGORIES " + categories);
-                            var category = new Parse.Query("Category");
-
-                            category.containedIn("objectId", categories).find({
-                                sessionToken: token,
-                                success: function (foundCategories) {
-
-                                    if (foundCategories.length) {
-
-                                        console.log("FOUND " + JSON.stringify(foundCategories));
-
-                                        var _categories = [];
-                                        _.each(foundCategories, function (foundCategory) {
-                                            _categories.push(foundCategory.get("name"));
-                                        });
-                                        stickers.categoryName = _categories;
-                                        console.log("CATEGORY " + _categories);
-
-                                    } else {
-
-                                        console.log("NOT FOUND ");
-                                        stickers.categoryName = [];
-                                    }
-
-                                    if (index === stickers.length - 1 || stickers.length === 0) {
-                                        console.log("STICKERS " + stickers[0].categoryName);
-                                        res.render("pages/collection", {stickers: stickers, id: coll_id});
-                                    }
-
-                                },
-                                error: function () {
-                                }
-                            });
-
-                        });
 
                     },
                     error: function (error) {
