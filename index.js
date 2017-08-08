@@ -574,12 +574,13 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
         var categoryArray = category.split(", ");
         //query for existing categories in parse
-        for(var i=0; i<categoryArray.length; i++)
+        categoryArray.forEach(function (category, index)
         {
-            console.log("Item " + [i]+"::: " + categoryArray[i]);
-            categoryQuery.equalTo("name", categoryArray[i]);
+            console.log("Item " + [index]+"::: " + category);
+
+            categoryQuery.equalTo("name", category);
             categoryQuery.find().then(function(catgory){
-                console.log("Category||||||||" + JSON.stringify(catgory));
+                console.log("Category*****************" + JSON.stringify(catgory));
 
                     var NewSticker = new Parse.Object.extend("Sticker");
                     var sticker = new Parse.Query(NewSticker);
@@ -589,8 +590,6 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                             //Update new sticker properties
                             newSticker.set("stickerName", stickerName);
                             newSticker.set("localName", stickerName);
-                            // newSticker.set("category", [category]);
-                            newSticker.set("stickerPhraseImage", "");
                             newSticker.set("category", catgory);
 
                             if (imgChange === 'true') {
@@ -634,7 +633,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
             function(error){
                 console.error("Error" + error);
             });
-        }
+        });
 
         res.redirect("/dashboard");
     }
