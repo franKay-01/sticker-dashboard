@@ -443,12 +443,23 @@ app.get('/collection/:id', function (req, res) {
                 var col = collection.relation("Collection");
                 col.query().find({
                     success: function (stickers) {
+
+                        //test querying categories
+                         var testQuery = new Parse.Query("Sticker");
+                         testQuery.equalTo("name", "silly");
+                         testQuery.find().then(function (categoryy) {
+                             console.log("STICKER___________________________:" + JSON.stringify(categoryy));
+                             categoryy.forEach(function (cat, index) {
+                                 console.log("STICKER FOUND-------------------:" + cat.get("stickerName"));
+                             });
+                         });
+
                         res.render("pages/collection", {stickers: stickers, id: coll_id});
                     },
                     error: function (error) {
                         //TODO handle error code
                         response.error(error);
-                        res.redirect("/dashboard")
+                        res.redirect("/collection-dashboard")
                     }
                 })
             }
