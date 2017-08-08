@@ -472,13 +472,13 @@ app.get('/collection/:id', function (req, res) {
                                         _.each(foundCategories, function (foundCategory) {
                                             _categories.push(foundCategory.get("name"));
                                         });
-                                        stickers['categoryName'] = _categories;
+                                        stickers.categoryName = _categories;
                                         console.log("CATEGORY " + _categories);
 
                                     } else {
 
                                         console.log("NOT FOUND ");
-                                        stickers['categoryName'] = [];
+                                        stickers.categoryName = [];
                                     }
 
                                 },
@@ -491,7 +491,7 @@ app.get('/collection/:id', function (req, res) {
                             }
 
                             if (isDone) {
-                                console.log("STICKERS " + stickers[0]["categoryName"]);
+                                console.log("STICKERS " + stickers[0].categoryName);
                                 res.render("pages/collection", {stickers: stickers, id: coll_id});
                             }
 
