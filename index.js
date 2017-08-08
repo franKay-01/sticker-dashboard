@@ -481,19 +481,19 @@ app.get('/collection/:id', function (req, res) {
                                         stickers.categoryName = [];
                                     }
 
+                                    if (index === stickers.length - 1 || stickers.length === 0) {
+                                        isDone = true;
+                                    }
+
+                                    if (isDone) {
+                                        console.log("STICKERS " + stickers[0].categoryName);
+                                        res.render("pages/collection", {stickers: stickers, id: coll_id});
+                                    }
+
                                 },
                                 error: function () {
                                 }
                             });
-
-                            if (index === stickers.length - 1 || stickers.length === 0) {
-                                isDone = true;
-                            }
-
-                            if (isDone) {
-                                console.log("STICKERS " + stickers[0].categoryName);
-                                res.render("pages/collection", {stickers: stickers, id: coll_id});
-                            }
 
                         });
 
