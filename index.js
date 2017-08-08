@@ -441,6 +441,8 @@ app.get('/collection/:id', function (req, res) {
                 //todo change the column 'collection' in Collection class to stickers in parse dashboard
                 //todo then do the same for below
 
+                console.log("COLLECTION QUERY" + collection);
+
                 var col = collection.relation("Collection");
                 col.query().find({
                     success: function (stickers) {
