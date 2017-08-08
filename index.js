@@ -479,13 +479,15 @@ app.get('/collection/:id', function (req, res) {
                                         stickers['categories'] = [];
                                     }
 
-                                    res.render("pages/collection", {stickers: stickers, id: coll_id});
+
 
                                 },
                                 error: function () {
                                 }
                             });
                         });
+
+                        res.render("pages/collection", {stickers: stickers, id: coll_id});
 
                     },
                     error: function (error) {
