@@ -434,12 +434,12 @@ app.get('/cat', function (req, res) {
     Parse.Promise.when(
         new Parse.Query("Category").find({sessionToken: token}),
         new Parse.Query("Sticker").find({sessionToken: token})
-    ).then(function(categories,stickers){
+    ).then(function (categories, stickers) {
 
         console.log("CATEGORIES " + JSON.stringify(categories));
         console.log("STICKER " + JSON.stringify(stickers));
 
-        _.each(stickers,function(sticker) {
+        _.each(stickers, function (sticker) {
 
             var sticker_relation = sticker.relation("cat");
             _.each(categories, function (category) {
@@ -453,12 +453,9 @@ app.get('/cat', function (req, res) {
         res.send("chicken noodle soup")
 
 
-    },function(error){
+    }, function (error) {
         console.log(JSON.stringify(error));
     });
-
-
-
 
 
 });
@@ -479,19 +476,43 @@ app.get('/collection/:id', function (req, res) {
 
                 //todo change the column 'collection' in Collection class to stickers in parse dashboard
                 //todo then do the same for below
-
-
+                var resultArray = [];
 
                 var col = collection.relation("Collection");
                 col.query().find({
                     success: function (stickers) {
 
-                        var sticky_relation = stickers[0].relation("cat");
-                        console.log("CAT RELATION " + JSON.stringify(sticky_relation));
+                        Parse.Promise.as().then(function () { // this just gets the ball rolling
+                            var promise = Parse.Promise.as(); // define a promise
 
-                        res.render("pages/collection", {stickers: stickers, id: coll_id});
+                            _.each(stickers, function (sticker) { // use underscore, its better :)
+                                promise = promise.then(function () { // each time this loops the promise gets reassigned to the function below
 
+                                    var query = sticker.relation("cat");
+                                    return query.find().then(function (categories) { // the code will wait (run async) before looping again knowing that this query (all parse queries) returns a promise. If there wasn't something returning a promise, it wouldn't wait.
 
+                                        var _categoryName = [];
+                                        _.each(categories, function (category) {
+                                            _categoryName.push(category.get("name"))
+                                        });
+                                        sticker.categoryName = _categoryName;
+                                        resultArray.push(sticker);
+
+                                        return Parse.Promise.as(); // the code will wait again for the above to complete because there is another promise returning here (this is just a default promise, but you could also run something like return object.save() which would also return a promise)
+
+                                    }, function (error) {
+                                        response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
+                                    });
+                                }); // edit: missing these guys
+                            });
+                            return promise; // this will not be triggered until the whole loop above runs and all promises above are resolved
+
+                        }).then(function () {
+                            console.log("RESULT ARRAY " + resultArray);
+                            res.render("pages/collection", {stickers: resultArray, id: coll_id});
+                        }, function (error) {
+                            response.error("script failed with error.code: " + error.code + " error.message: " + error.message);
+                        });
 
 
                     },
