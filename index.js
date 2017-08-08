@@ -463,7 +463,7 @@ app.get('/collection/:id', function (req, res) {
 
                                     if (foundCategories.length) {
 
-                                        console.log("FOUND " + foundCategories);
+                                        console.log("FOUND " + JSON.stringify(foundCategories));
 
                                         var _categories = [];
                                         _.each(foundCategories, function (foundCategory) {
@@ -477,13 +477,14 @@ app.get('/collection/:id', function (req, res) {
                                         stickers['categories'] = [];
                                     }
 
+                                    res.render("pages/collection", {stickers: stickers, id: coll_id});
+
                                 },
                                 function () {
 
                                 })
                         });
 
-                        res.render("pages/collection", {stickers: stickers, id: coll_id});
 
                     },
                     error: function (error) {
