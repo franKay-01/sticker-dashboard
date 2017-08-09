@@ -170,7 +170,7 @@ $(document).ready(function () {
         $('plus').attr('src', 'plus.png');
     });
     $('#addbtn').on('mouseout', function(){
-        $('.plus').attr('src', 'plus2.png');
+        $('.plus').attr('src', 'plus.png');
     });
 
     //show/hide edit form button
@@ -178,10 +178,20 @@ $(document).ready(function () {
         $('#page-mask1').fadeIn('fast');
         $('.hidden').fadeIn('fast');
     });
-    $('.delbtn1').on('click', function () {
+    $('#cancelbtn').on('click', function () {
         $('#page-mask1').fadeOut('fast');
         $('.hidden').fadeOut('fast');
     });
+
+    $('#addbtn').on('click', function () {
+        $('#page-mask1').fadeIn('fast');
+        $('.hidden1').fadeIn('fast');
+    });
+    $('#cancelbtn1').on('click', function () {
+        $('#page-mask1').fadeOut('fast');
+        $('.hidden').fadeOut('fast');
+    });
+
 
 
 

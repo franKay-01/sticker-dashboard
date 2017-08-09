@@ -921,3 +921,65 @@ tr #titles {
 }
 
 
+
+/*ADD form----------------------------------------*/
+.hidden1 {
+    display: none;
+    position: absolute;
+    /*margin: 0 auto;*/
+    width: 60%;
+    z-index: 2;
+}
+
+#addform {
+    margin-left: 50%;
+}
+
+#addtable {
+    width: 100%;
+}
+
+#heading2 {
+    background-color: blue;
+    font-size: 120%;
+    text-align: center;
+}
+
+#addtable td {
+    color: black;
+    border-collapse: collapse;
+    background-color: lightgrey;
+}
+
+#cancelbtn1 {
+    padding: 10px;
+    background-color: white;
+    color: red;
+    font-size: 80%;
+    margin-left: 35%;
+}
+
+#savebtn1 {
+    padding: 10px;
+    background-color: white;
+    color: blue;
+    font-size: 80%;
+    margin-left: 45%;
+}
+
+#catname1 {
+    font-weight: bold;
+    font-size: 125%;
+    color: #464B9C;
+    font-family: Arial;
+    border: 1px solid
+}
+
+#label-cn {
+    font-weight: bolder;
+    font-size: 130%;
+    color: #464B9C;
+    font-family: Arial;
+}
+
+
