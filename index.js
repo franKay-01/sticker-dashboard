@@ -370,6 +370,24 @@ app.get('/categories', function (req, res) {
     }
 });
 
+app.post("/new-category", function (req, res) {
+
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+    if(session && token)
+    {
+
+        console.log("BODY_______________:" +    JSON.stringify(req.body));
+
+        res.render("pages/categories");
+
+    }
+
+
+});
+
+
 
 //LOGOUT
 app.get('/logout', function (req, res) {
@@ -385,8 +403,6 @@ app.get('/dashboard', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
-    // console.log("Session===========" + JSON.stringify(session));
-    // console.log("Token===========" + JSON.stringify(token));
 
     if (session && token) {
 

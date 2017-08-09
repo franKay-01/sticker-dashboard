@@ -166,12 +166,13 @@ $(document).ready(function () {
 
     });
 
+    //add button style
     $('#addbtn').on('mouseover', function(){
-        $('plus').attr('src', 'plus.png');
+        $('#plus').attr('src', 'plus.png');
     });
-    $('#addbtn').on('mouseout', function(){
-        $('.plus').attr('src', 'plus.png');
-    });
+    // $('#addbtn').on('mouseout', function(){
+    //     $('#plus').attr('src', 'plus2.png');
+    // });
 
     //show/hide edit form button
     $('.editbtn1').on('click', function () {
@@ -183,13 +184,14 @@ $(document).ready(function () {
         $('.hidden').fadeOut('fast');
     });
 
+    //show add-category form
     $('#addbtn').on('click', function () {
         $('#page-mask1').fadeIn('fast');
         $('.hidden1').fadeIn('fast');
     });
     $('#cancelbtn1').on('click', function () {
         $('#page-mask1').fadeOut('fast');
-        $('.hidden').fadeOut('fast');
+        $('.hidden1').fadeOut('fast');
     });
 
 
