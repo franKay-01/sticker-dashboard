@@ -775,6 +775,7 @@ tr #titles {
     background-color: #464B9C;
     color:white;
     text-align: center;
+    font-size: 150%;
 }
 
 #cattable,  #cattable td {
@@ -819,11 +820,11 @@ tr #titles {
 
 .mainrow {
     text-align: center;
-    font-size: 170%;
+    font-size: 130%;
 }
 
 .categoryname {
-    font-size: 150%;
+    font-size: 120%;
 }
 
 #cattable td {
