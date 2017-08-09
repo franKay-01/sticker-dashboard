@@ -354,7 +354,17 @@ app.get('/categories', function (req, res) {
     var token = req.cookies.token;
 
     if (session && token) {
-        res.render("pages/categories");
+
+        //query parse for all categories
+        new Parse.Query("Category").find({sessionToken: token}).then(function (categories){
+            catgories.forEach(function (cat, index) {
+                console.log("Category" + index + ":::::" + cat);
+            });
+            res.render("pages/categories", {categories:categories});
+        },
+        function (error) {
+            console.log("No categories found.............." + JSON.stringify(error));
+        });
     } else {
         res.redirect("/");
     }
