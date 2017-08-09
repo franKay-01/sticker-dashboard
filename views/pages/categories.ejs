@@ -49,15 +49,38 @@
 </div>
 <!-- Logo -->
 
-<div class="columns small-7 large-8">
-<button id="addbtn"><img id="plus" src="/public/assets/images/plus"> ADD A NEW CATEGORY</button>
+<div class="posit">
+<button id="addbtn"><img id="plus" src="/public/assets/images/plus.png"> ADD A NEW CATEGORY</button>
 </div>
 
 <%- include ../partials/category-table %>
 
+<div class="hidden">
+    <form id="editform">
+        <table id="editable">
+            <tr>
+                <th  colspan="2" id="heading1">
+                    EDIT CATEGORY
+                </th>
+            </tr>
+            <tr>
+                <td id="label-c">Category Name: </td>
+                <td><input type="text" name="catname" id="catname" /></td>
+            </tr>
+            <tr>
+                <td>
+                    <button id="cancelbtn" type="button">CANCEL</button>
+                </td>
+                <td>
+                    <button id="savebtn" type="button">SAVE</button>
+                </td>
+            </tr>
 
+        </table>
+    </form>
+</div>
 
-
+<div id="page-mask1"></div>
 <!-- Body -->
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>

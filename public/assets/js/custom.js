@@ -173,7 +173,19 @@ $(document).ready(function () {
         $('.plus').attr('src', 'plus.png');
     });
 
-    //save input field values in array
+    //show/hide edit form button
+    $('#editbtn1').on('click', function () {
+        $('#page-mask1').fadeIn('fast');
+        $('#hidden').fadeIn('fast');
+    });
+    $('#cancelbtn').on('click', function () {
+        $('#page-mask1').fadeOut('fast');
+        $('#hidden').fadeOut('fast');
+    });
+
+
+
+
 
     console.log("current cookie: " + document.cookie);
 

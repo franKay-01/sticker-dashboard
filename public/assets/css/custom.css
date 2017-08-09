@@ -849,4 +849,67 @@ tr #titles {
     color: darkslategrey;
 }
 
+.posit {
+    border: 1px solid black;
+}
+/*edit form----------------------------------------*/
+.hidden {
+    /*display: none;*/
+    /*position: absolute;*/
+    /*margin: 0 auto;*/
+    width: 60%;
+    z-index: 9999;
+}
+
+#editform {
+    margin-left: 50%;
+}
+
+#editable {
+    width: 100%;
+}
+
+#heading1 {
+    background-color: blue;
+    font-size: 120%;
+    text-align: center;
+}
+
+#editable td {
+    color: black;
+    border-collapse: collapse;
+    background-color: lightgrey;
+}
+
+#cancelbtn {
+    padding: 10px;
+    background-color: white;
+    color: red;
+    font-size: 80%;
+    margin-left: 35%;
+}
+
+#savebtn {
+    padding: 10px;
+    background-color: white;
+    color: blue;
+    font-size: 80%;
+    margin-left: 45%;
+}
+
+#catname {
+    font-weight: bold;
+    font-size: 125%;
+    color: #464B9C;
+    font-family: Arial, serif;
+    border: 1px solid
+}
+
+#label-c {
+    font-weight: bolder;
+    font-size: 130%;
+    color: #464B9C;
+    font-family: Arial, serif;
+}
+
 
