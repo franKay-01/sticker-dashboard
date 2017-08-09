@@ -370,7 +370,7 @@ app.get('/categories', function (req, res) {
     }
 });
 
-app.post("/new-category", function (req, res) {
+app.post('/new-category', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
@@ -380,11 +380,11 @@ app.post("/new-category", function (req, res) {
 
         console.log("BODY_______________:" +    JSON.stringify(req.body));
 
-        res.render("pages/categories");
-
+        res.redirect("pages/categories");
     }
-
-
+    else {
+        res.redirect("/");
+    }
 });
 
 
