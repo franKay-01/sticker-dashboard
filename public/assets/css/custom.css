@@ -765,8 +765,10 @@ tr #titles {
     background-color: rgba(0,0,0,0.6);
 }
 
-.addiv {
-    border: 2px solid black;
+.posit {
+    border: 1px solid black;
+    width: 30%;
+    margin: 0 auto;
 }
 
 #addbtn {
@@ -786,6 +788,7 @@ tr #titles {
 .contable {
     margin: 0 auto;
     width: 50%;
+    padding-top: 3%;
 }
 
 #heading {
@@ -849,9 +852,6 @@ tr #titles {
     color: darkslategrey;
 }
 
-.posit {
-    border: 1px solid black;
-}
 /*edit form----------------------------------------*/
 .hidden {
     /*display: none;*/
