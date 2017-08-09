@@ -437,22 +437,12 @@ app.get('/collection/:id', function (req, res) {
         var collection = new Parse.Query("Collection");
         collection.get(coll_id, {
             success: function (collection) {
-                //todo change the column 'collection' in Collection class to stickers in parse dashboard
+                //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
                 //todo then do the same for below
 
                 var col = collection.relation("Collection");
                 col.query().find({
                     success: function (stickers) {
-
-                        //test querying categories
-                         var testQuery = new Parse.Query("Sticker");
-                         testQuery.equalTo("name", "silly");
-                         testQuery.find().then(function (categoryy) {
-                             console.log("STICKER___________________________:" + JSON.stringify(categoryy));
-                             categoryy.forEach(function (cat, index) {
-                                 console.log("STICKER FOUND-------------------:" + cat.get("stickerName"));
-                             });
-                         });
 
                         res.render("pages/collection", {stickers: stickers, id: coll_id});
                     },
