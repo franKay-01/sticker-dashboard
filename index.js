@@ -10,6 +10,7 @@ var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var fs = require('fs');
 var multer = require('multer');
+var _ = require('underscore');
 var methodOverride = require('method-override');
 var multipart = require('multipart');
 // var busboy = require('connect-busboy');
@@ -424,6 +425,41 @@ app.get('/collections-dashboard', function (req, res) {
     }
 });
 
+
+app.get('/cat', function (req, res) {
+
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+    Parse.Promise.when(
+        new Parse.Query("Category").find({sessionToken: token}),
+        new Parse.Query("Sticker").find({sessionToken: token})
+    ).then(function (categories, stickers) {
+
+        console.log("CATEGORIES " + JSON.stringify(categories));
+        console.log("STICKER " + JSON.stringify(stickers));
+
+        _.each(stickers, function (sticker) {
+
+            var sticker_relation = sticker.relation("cat");
+            _.each(categories, function (category) {
+                sticker_relation.add(category);
+            });
+
+            sticker.save();
+
+        });
+
+        res.send("chicken noodle soup")
+
+
+    }, function (error) {
+        console.log(JSON.stringify(error));
+    });
+
+
+});
+
 // Page for selected collection from dashboard
 //Displays all stickers linked to selected collection
 app.get('/collection/:id', function (req, res) {
@@ -438,13 +474,44 @@ app.get('/collection/:id', function (req, res) {
         collection.get(coll_id, {
             success: function (collection) {
                 //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
-                //todo then do the same for below
+                var resultArray = [];
 
                 var col = collection.relation("Collection");
                 col.query().find({
                     success: function (stickers) {
 
                         res.render("pages/collection", {stickers: stickers, id: coll_id});
+                        Parse.Promise.as().then(function () { // this just gets the ball rolling
+                            var promise = Parse.Promise.as(); // define a promise
+
+                            _.each(stickers, function (sticker) { // use underscore, its better :)
+                                promise = promise.then(function () { // each time this loops the promise gets reassigned to the function below
+
+                                    var query = sticker.relation("cat");
+                                    return query.find().then(function (categories) { // the code will wait (run async) before looping again knowing that this query (all parse queries) returns a promise. If there wasn't something returning a promise, it wouldn't wait.
+
+                                        var _categoryName = [];
+                                        _.each(categories, function (category) {
+                                            _categoryName.push(category.get("name"))
+                                        });
+                                        sticker.categoryName = _categoryName;
+                                        resultArray.push(sticker);
+
+                                        return Parse.Promise.as(); // the code will wait again for the above to complete because there is another promise returning here (this is just a default promise, but you could also run something like return object.save() which would also return a promise)
+
+                                    }, function (error) {
+                                        response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
+                                    });
+                                }); // edit: missing these guys
+                            });
+                            return promise; // this will not be triggered until the whole loop above runs and all promises above are resolved
+
+                        }).then(function () {
+                            console.log("RESULT ARRAY " + resultArray);
+                            res.render("pages/collection", {stickers: resultArray, id: coll_id});
+                        }, function (error) {
+                            response.error("script failed with error.code: " + error.code + " error.message: " + error.message);
+                        });
                     },
                     error: function (error) {
                         //TODO handle error code
@@ -502,7 +569,8 @@ app.post('/new-collection', function (req, res) {
         var Collection = new Parse.Object.extend("Collection");
         var collection = new Collection();
         collection.set("collection_name", coll_name);
-        collection.save().then(function (coll) {});
+        collection.save().then(function (coll) {
+        });
 
         res.redirect('/collections-dashboard');
 
@@ -530,12 +598,12 @@ app.get('/details/:id', function (req, res) {
                     categories = categories.descending("name");
 
                     categories.find().then(function (categories) {
-                        res.render("pages/details", {sticker: sticker, categories:categories});
-                    },
+                            res.render("pages/details", {sticker: sticker, categories: categories});
+                        },
                         //TODO handle errors
-                    function (error) {
-                        console.log("No categories found- " + error);
-                    }
+                        function (error) {
+                            console.log("No categories found- " + error);
+                        }
                     );
                 } else {
                     //sticker does not exist
@@ -574,13 +642,12 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
         var categoryArray = category.split(", ");
         //query for existing categories in parse
-        categoryArray.forEach(function (category, index)
-        {
-            console.log("Item " + [index]+"::: " + category);
+        categoryArray.forEach(function (category, index) {
+            console.log("Item " + [index] + "::: " + category);
 
             categoryQuery.equalTo("name", category);
-            categoryQuery.find().then(function(catgory){
-                console.log("Category*****************" + JSON.stringify(catgory));
+            categoryQuery.find().then(function (catgory) {
+                    console.log("Category*****************" + JSON.stringify(catgory));
 
                     var NewSticker = new Parse.Object.extend("Sticker");
                     var sticker = new Parse.Query(NewSticker);
@@ -629,10 +696,10 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                             console.log("STICKER NOT FOUND: " + JSON.stringify(error))
                         }
                     );
-            },
-            function(error){
-                console.error("Error" + error);
-            });
+                },
+                function (error) {
+                    console.error("Error" + error);
+                });
         });
 
         res.redirect("/dashboard");
