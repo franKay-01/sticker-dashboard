@@ -167,10 +167,10 @@ $(document).ready(function () {
     });
 
     $('#addbtn').on('mouseover', function(){
-        $('plus').attr('src', 'plus2.png');
+        $('plus').attr('src', 'plus.png');
     });
     $('#addbtn').on('mouseout', function(){
-        $('.plus').attr('src', 'plus.png');
+        $('.plus').attr('src', 'plus2.png');
     });
 
     //show/hide edit form button

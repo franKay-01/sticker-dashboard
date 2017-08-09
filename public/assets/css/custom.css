@@ -782,6 +782,8 @@ tr #titles {
     background-color: white;
     border: 1px solid #464B9C;
     transition: 0.3s;
+    font-weight: bolder;
+    font-size: 120%;
 }
 
 /*CATEGORIES TABLE*/
@@ -854,11 +856,12 @@ tr #titles {
 
 /*edit form----------------------------------------*/
 .hidden {
-    /*display: none;*/
+    display: none;
     /*position: absolute;*/
     /*margin: 0 auto;*/
     width: 60%;
     z-index: 9999;
+    padding-top: 3%;
 }
 
 #editform {
@@ -870,8 +873,9 @@ tr #titles {
 }
 
 #heading1 {
-    background-color: blue;
+    background-color: #464B9C;
     font-size: 120%;
+    color: white;
     text-align: center;
 }
 
