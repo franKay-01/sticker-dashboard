@@ -766,8 +766,7 @@ tr #titles {
 }
 
 .posit {
-    border: 1px solid black;
-    width: 30%;
+    width: 20%;
     margin: 0 auto;
 }
 
@@ -778,6 +777,7 @@ tr #titles {
     font-weight: bolder;
     font-size: 120%;
     transition: 0.3s;
+    width: 100%;
     padding: 10px;
 }
 #addbtn:hover {
@@ -785,6 +785,10 @@ tr #titles {
     background-color: white;
     border: 1px solid #464B9C;
     transition: 0.3s;
+}
+
+#plus{
+    margin-right: 3%;
 }
 
 /*CATEGORIES TABLE*/
@@ -860,6 +864,7 @@ tr #titles {
     display: none;
     width: 60%;
     z-index: 9999;
+    position: absolute;
     padding-top: 3%;
 }
 

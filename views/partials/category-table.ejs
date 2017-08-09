@@ -12,10 +12,10 @@
         <% categories.forEach(function(item, index) { %>
         <tr>
             <td><%=index+1 %></td>
-            <td class="categoryname"><%= item.get("name")%></td>
+            <td><input type="text" class="categoryname" value="<%= item.get("name")%>" readonly></td>
             <td>
-                <button id="editbtn1" value="<%= item.get("objectId")%>">EDIT</button>
-                <button id="delbtn1" value="<%= item.get("objectId")%>">REMOVE</button>
+                <button class="editbtn1" value="<%= item.get("objectId")%>">EDIT</button>
+                <button class="delbtn1" value="<%= item.get("objectId")%>">REMOVE</button>
             </td>
         </tr>
         <% }); %>

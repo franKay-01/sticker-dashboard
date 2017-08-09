@@ -174,11 +174,11 @@ $(document).ready(function () {
     });
 
     //show/hide edit form button
-    $('#editbtn1').on('click', function () {
+    $('.editbtn1').on('click', function () {
         $('#page-mask1').fadeIn('fast');
         $('.hidden').fadeIn('fast');
     });
-    $('#cancelbtn').on('click', function () {
+    $('.cancelbtn').on('click', function () {
         $('#page-mask1').fadeOut('fast');
         $('.hidden').fadeOut('fast');
     });
