@@ -374,13 +374,25 @@ app.post('/new-category', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
+    var categoryName = req.body.catname;
 
     if(session && token)
     {
 
         console.log("BODY_______________:" +    JSON.stringify(req.body));
 
-        res.redirect("/categories");
+        var Category = new Parse.Object.extend("Category");
+        var categoryObject = new Category();
+
+        categoryObject.set("name", categoryName);
+        categoryObject.save().then(function (cat) {
+            console.log("Saved_______" + JSON.stringify(cat));
+            res.redirect("/categories");
+        },
+        function (error) {
+            console.log("Not created" + error);
+            res.redirect("/");
+        });
     }
     else {
         res.redirect("/");
