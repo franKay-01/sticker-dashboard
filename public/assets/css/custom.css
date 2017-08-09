@@ -775,15 +775,16 @@ tr #titles {
     color: white;
     background-color: #464B9C;
     border: 1px solid #464B9C;
+    font-weight: bolder;
+    font-size: 120%;
     transition: 0.3s;
+    padding: 10px;
 }
 #addbtn:hover {
     color: #464B9C;
     background-color: white;
     border: 1px solid #464B9C;
     transition: 0.3s;
-    font-weight: bolder;
-    font-size: 120%;
 }
 
 /*CATEGORIES TABLE*/
@@ -857,8 +858,6 @@ tr #titles {
 /*edit form----------------------------------------*/
 .hidden {
     display: none;
-    /*position: absolute;*/
-    /*margin: 0 auto;*/
     width: 60%;
     z-index: 9999;
     padding-top: 3%;
