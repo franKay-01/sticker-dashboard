@@ -171,7 +171,7 @@ $(document).ready(function () {
         $('#plus').attr('src', 'plus.png');
     });
     $('#addbtn').on('mouseout', function(){
-        $('#plus').attr('src', 'plus2.png');
+        $('#plus').attr('src', 'plus.png');
     });
 
     //show/hide edit form button

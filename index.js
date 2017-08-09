@@ -380,7 +380,7 @@ app.post('/new-category', function (req, res) {
 
         console.log("BODY_______________:" +    JSON.stringify(req.body));
 
-        res.redirect("pages/categories");
+        res.redirect("/categories");
     }
     else {
         res.redirect("/");
