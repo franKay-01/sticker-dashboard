@@ -1,5 +1,3 @@
-<!-- table for categories -->
-<% categories.forEach(function(item, index) { %>
 
 <div class="contable">
     <table id="cattable">
@@ -11,6 +9,7 @@
             <th>CATEGORY NAME</th>
             <th>OPTIONS</th>
         </tr>
+        <% categories.forEach(function(item, index) { %>
         <tr>
             <td><%=index%></td>
             <td class="categoryname"><%= item.get("name")%></td>
@@ -19,7 +18,6 @@
                 <button id="delbtn1" value="<%= item.get("objectId")%>">REMOVE</button>
             </td>
         </tr>
+        <% }); %>
     </table>
 </div>
-
-<% }); %>
