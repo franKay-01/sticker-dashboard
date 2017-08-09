@@ -178,7 +178,7 @@ $(document).ready(function () {
         $('#page-mask1').fadeIn('fast');
         $('.hidden').fadeIn('fast');
     });
-    $('.cancelbtn').on('click', function () {
+    $('.delbtn1').on('click', function () {
         $('#page-mask1').fadeOut('fast');
         $('.hidden').fadeOut('fast');
     });
