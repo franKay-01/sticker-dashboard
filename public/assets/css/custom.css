@@ -785,7 +785,7 @@ tr #titles {
     border: 2px solid #464B9C;
 }
 
-#editbtn {
+#editbtn1 {
     padding: 5px;
     background-color: #8487c8;
     border: 1px solid #8487c8;
@@ -795,14 +795,14 @@ tr #titles {
     margin-right: 10%;
     margin-left: 25%;
 }
-#editbtn:hover {
+#editbtn1:hover {
     background-color: white;
     border: 1px solid #8487c8;
     color: #8487c8;
     transition: 0.2s;
 }
 
-#delbtn {
+#delbtn1 {
     padding: 5px;
     background-color: #282a58;
     border: 1px solid #282a58;
@@ -810,7 +810,7 @@ tr #titles {
     transition: 0.2s;
     font-size: 110%;
 }
-#delbtn:hover {
+#delbtn1:hover {
     background-color: white;
     border: 1px solid #282a58;
     color: #282a58;
