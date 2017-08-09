@@ -765,10 +765,27 @@ tr #titles {
     background-color: rgba(0,0,0,0.6);
 }
 
+.addiv {
+    border: 2px solid black;
+}
+
+#addbtn {
+    color: white;
+    background-color: #464B9C;
+    border: 1px solid #464B9C;
+    transition: 0.3s;
+}
+#addbtn:hover {
+    color: #464B9C;
+    background-color: white;
+    border: 1px solid #464B9C;
+    transition: 0.3s;
+}
+
 /*CATEGORIES TABLE*/
 .contable {
     margin: 0 auto;
-    width: 40%;
+    width: 50%;
 }
 
 #heading {

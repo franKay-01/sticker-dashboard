@@ -166,6 +166,13 @@ $(document).ready(function () {
 
     });
 
+    $('#addbtn').on('mouseover', function(){
+        $('plus').attr('src', 'plus2.png');
+    });
+    $('#addbtn').on('mouseout', function(){
+        $('.plus').attr('src', 'plus.png');
+    });
+
     //save input field values in array
 
     console.log("current cookie: " + document.cookie);
