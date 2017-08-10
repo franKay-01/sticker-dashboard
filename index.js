@@ -576,10 +576,10 @@ app.get('/collection/:id', function (req, res) {
                         //res.render("pages/collection", {stickers: stickers, id: coll_id});
                         Parse.Promise.as().then(function () { // this just gets the ball rolling
                             var promise = Parse.Promise.as(); // define a promise
-
+                            console.log("FIRST PROMISE");
                             _.each(stickers, function (sticker) { // use underscore, its better :)
                                 promise = promise.then(function () { // each time this loops the promise gets reassigned to the function below
-
+                                    console.log("STICKER " + JSON.stringify(sticker));
                                     var query = sticker.relation("cat");
                                     return query.find().then(function (categories) { // the code will wait (run async) before looping again knowing that this query (all parse queries) returns a promise. If there wasn't something returning a promise, it wouldn't wait.
 
