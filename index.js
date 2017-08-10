@@ -574,7 +574,7 @@ app.get('/collection/:id', function (req, res) {
                 var col = collection.relation("Collection");
                 col.query().find().then(function (stickers) {
 
-                    var promise = Parse.Promise.as();
+                  //  var promise = Parse.Promise.as();
 
                     if (stickers.length) {
 
@@ -582,18 +582,22 @@ app.get('/collection/:id', function (req, res) {
 
                         _.each(stickers, function (sticker) {
 
-                            promise = promise.then(function () {
+
+                            var query = sticker.relation("cat");
+                            return query.find();
+
+                            /*promise = promise.then(function () {
 
                                 console.log("STICKER " + JSON.stringify(sticker));
 
                                 var query = sticker.relation("cat");
                                 return query.find();
-                            }); // edit: missing these guys
+                            });*/ // edit: missing these guys
                         });
 
                     }
 
-                    return promise;
+                  //  return promise;
 
                 }).then(function (categories) {
 
