@@ -401,19 +401,20 @@ app.post('/update-category', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
-    var categoryName = req.body.catname;
+    var newName = req.body.catname;
+    var currentName = req.body.currentName;
 
     if(session && token){
 
         console.log("BODY.................." + JSON.stringify(req.body));
 
         var category = new Parse.Query("Category");
-        category.equalTo("name", categoryName);
+        category.equalTo("name", currentName);
         category.first().then( function (category){
 
             console.log("FOUNNNNNNDDDD" + JSON.stringify(category));
 
-            category.set("name", categoryName);
+            category.set("name", newName);
             category.save().then(function (updatedCategory) {
                 console.log("UPDATED CATEGORY:::::::::::" + JSON.stringify(updatedCategory));
 

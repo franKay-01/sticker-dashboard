@@ -184,6 +184,7 @@ $(document).ready(function () {
 
             //insert category name into text field for editing
             $('#catname').val($this.val());
+            $('#currentName').val($this.val());
         });
     });
     $('#cancelbtn').on('click', function () {
