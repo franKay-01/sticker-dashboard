@@ -507,7 +507,6 @@ app.get('/collections-dashboard', function (req, res) {
             res.render("pages/collections-dashboard", {collections: collections});
 
         }, function (error) {
-            //TODO handle error code
             console.log("Colll error" + JSON.stringify(error));
 
         });
@@ -569,12 +568,12 @@ app.get('/collection/:id', function (req, res) {
             success: function (collection) {
                 //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
                 var resultArray = [];
-
+                console.log("COLLECTION");
                 var col = collection.relation("Collection");
                 col.query().find({
                     success: function (stickers) {
-
-                        res.render("pages/collection", {stickers: stickers, id: coll_id});
+                        console.log("STICKERS");
+                        //res.render("pages/collection", {stickers: stickers, id: coll_id});
                         Parse.Promise.as().then(function () { // this just gets the ball rolling
                             var promise = Parse.Promise.as(); // define a promise
 
@@ -663,12 +662,14 @@ app.post('/new-collection', function (req, res) {
         var Collection = new Parse.Object.extend("Collection");
         var collection = new Collection();
         collection.set("collection_name", coll_name);
-        collection.save().then(function (coll) {
+
+        collection.save().then(function () {
+
+            res.redirect('/collections-dashboard');
+
         });
-
-        res.redirect('/collections-dashboard');
-
-    } else {
+    }
+    else {
         res.redirect("/");
     }
 });
