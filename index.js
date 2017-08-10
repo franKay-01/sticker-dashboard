@@ -379,14 +379,12 @@ app.post('/new-category', function (req, res) {
     if(session && token)
     {
 
-        console.log("BODY_______________:" +    JSON.stringify(req.body));
-
         var Category = new Parse.Object.extend("Category");
         var categoryObject = new Category();
 
         categoryObject.set("name", categoryName);
         categoryObject.save().then(function (cat) {
-            console.log("Saved_______" + JSON.stringify(cat));
+            // console.log("Saved_______" + JSON.stringify(cat));
             res.redirect("/categories");
         },
         function (error) {

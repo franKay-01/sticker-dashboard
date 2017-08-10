@@ -168,16 +168,19 @@ $(document).ready(function () {
 
     //add button style
     $('#addbtn').on('mouseover', function(){
-        $('#plus').attr('src', 'plus.png');
+        $('#plus').attr('src', 'pluscolor.png');
     });
     $('#addbtn').on('mouseout', function(){
-        $('#plus').attr('src', 'plus2.png');
+        $('#plus').attr('src', 'pluswhite.png');
     });
 
     //show/hide edit form button
     $('.editbtn1').on('click', function () {
         $('#page-mask1').fadeIn('fast');
         $('.hidden').fadeIn('fast');
+
+        //insert category name into text field for editing
+        $('#catname').val($('.categoryname').val());
     });
     $('#cancelbtn').on('click', function () {
         $('#page-mask1').fadeOut('fast');
@@ -193,6 +196,8 @@ $(document).ready(function () {
         $('#page-mask1').fadeOut('fast');
         $('.hidden1').fadeOut('fast');
     });
+
+
 
 
 
