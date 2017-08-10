@@ -199,6 +199,7 @@ $(document).ready(function () {
     $('#cancelbtn1').on('click', function () {
         $('#page-mask1').fadeOut('fast');
         $('.hidden1').fadeOut('fast');
+        $('#editform')[0].reset();
     });
 
 

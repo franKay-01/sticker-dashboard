@@ -397,7 +397,7 @@ app.post('/new-category', function (req, res) {
     }
 });
 
-app.post('/new-category', function (req, res) {
+app.post('/update-category', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
