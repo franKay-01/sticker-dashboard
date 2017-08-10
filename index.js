@@ -401,13 +401,33 @@ app.post('/update-category', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
+    var categoryName = req.body.catname;
 
     if(session && token){
 
         console.log("BODY.................." + JSON.stringify(req.body));
-        res.redirect("/categories");
+
+        var category = new Parse.Query("Category");
+        category.equalTo("name", categoryName);
+        category.first().then( function (category){
+
+            console.log("FOUNNNNNNDDDD" + JSON.stringify(category));
+
+            category.set("name", categoryName);
+            category.save().then(function (updatedCategory) {
+                console.log("UPDATED CATEGORY:::::::::::" + JSON.stringify(updatedCategory));
+
+                    res.redirect("/categories");
+            },
+                function (error) {
+                    console.error("NOPE" + error);
+                });
+        },
+        function (error) {
+            console.error(error);
+        });
     }
-    else {
+    else { //no session found
         res.redirect("/");
     }
 
