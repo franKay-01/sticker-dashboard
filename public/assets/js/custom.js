@@ -176,13 +176,15 @@ $(document).ready(function () {
 
     //show/hide edit form button
     $('.editbtn1').each(function () {
-        var $this = $(this);
 
-        $('#page-mask1').fadeIn('fast');
-        $('.hidden').fadeIn('fast');
+        $('.editbtn1').on('click', function () {
+            var $this = $(this);
+            $('#page-mask1').fadeIn('fast');
+            $('.hidden').fadeIn('fast');
 
-        //insert category name into text field for editing
-        $('#catname').val($this.val());
+            //insert category name into text field for editing
+            $('#catname').val($this.val());
+        });
     });
     $('#cancelbtn').on('click', function () {
         $('#page-mask1').fadeOut('fast');
