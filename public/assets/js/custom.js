@@ -75,23 +75,21 @@ $(document).ready(function () {
     //show 'remove-category' form
     $('.delbtn1').each(function () {
 
-        $('#delbtn1').on('click', function () {
+        $('.delbtn1').on('click', function () {
             var $this = $(this);
             $('.hidden2').fadeIn('fast');
-            $('#page-mask').fadeIn('fast');
+            $('#page-mask1').fadeIn('fast');
 
             //insert category name into text field for removal
             $('#catname').val($this.val());
             $('#currentName-d').val($this.val());
         });
-
-        //cancel remove
-        $('#cancelbtn2').on('click', function () {
-            $('#page-mask1').fadeOut('fast');
-            $('.hidden1').fadeOut('fast');
-            $('#editform')[0].reset();
-        });
-
+    });
+    //cancel remove
+    $('#cancelbtn2').on('click', function () {
+        $('#page-mask1').fadeOut('fast');
+        $('.hidden1').fadeOut('fast');
+        $('#deleteform')[0].reset();
     });
 
 
