@@ -12,7 +12,7 @@
         <% categories.forEach(function(item, index) { %>
         <tr>
             <td><%=index+1 %></td>
-            <td><input type="text" class="categoryname" value="<%= item.get("name")%>" readonly></td>
+            <td><input type="text" id="categoryname" value="<%= item.get("name")%>" readonly></td>
             <td>
                 <button class="editbtn1" value="<%= item.get("name")%>">EDIT</button>
                 <button class="delbtn1" value="<%= item.get("name")%>">REMOVE</button>

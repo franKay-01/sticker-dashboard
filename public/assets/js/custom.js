@@ -180,7 +180,7 @@ $(document).ready(function () {
         $('.hidden').fadeIn('fast');
 
         //insert category name into text field for editing
-        $('#catname').val($('.categoryname').val());
+        $('#catname').val($('#categoryname').val());
     });
     $('#cancelbtn').on('click', function () {
         $('#page-mask1').fadeOut('fast');
