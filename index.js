@@ -561,79 +561,60 @@ app.get('/collection/:id', function (req, res) {
     var token = req.cookies.token;
     var coll_id = req.params.id;
 
-
-    var query = new Parse.Query("Comments");
-    query.equalTo("post", post);
-
-    query.find().then(function(results) {
-        // Create a trivial resolved promise as a base case.
-        var promise = Parse.Promise.as();
-        _.each(results, function(result) {
-            // For each item, extend the promise with a function to delete it.
-            promise = promise.then(function() {
-                // Return a promise that will be resolved when the delete is finished.
-                return result.destroy();
-            });
-        });
-        return promise;
-
-    }).then(function() {
-        // Every comment was deleted.
-    });
-
     if (session && token) {
 
         var collection = new Parse.Query("Collection");
         collection.get(coll_id, {
             success: function (collection) {
+
                 //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
                 var resultArray = [];
-                console.log("COLLECTION");
+                var _stickers = [];
+
                 var col = collection.relation("Collection");
-                col.query().find({
-                    success: function (stickers) {
-                        console.log("STICKERS");
-                        //res.render("pages/collection", {stickers: stickers, id: coll_id});
-                        Parse.Promise.as().then(function () { // this just gets the ball rolling
-                            var promise = Parse.Promise.as(); // define a promise
-                            console.log("FIRST PROMISE");
-                            _.each(stickers, function (sticker) { // use underscore, its better :)
-                                promise = promise.then(function () { // each time this loops the promise gets reassigned to the function below
-                                    console.log("STICKER " + JSON.stringify(sticker));
-                                    var query = sticker.relation("cat");
-                                    return query.find().then(function (categories) { // the code will wait (run async) before looping again knowing that this query (all parse queries) returns a promise. If there wasn't something returning a promise, it wouldn't wait.
+                col.query().find().then(function (stickers) {
 
-                                        var _categoryName = [];
-                                        _.each(categories, function (category) {
-                                            _categoryName.push(category.get("name"))
-                                        });
-                                        sticker.categoryName = _categoryName;
-                                        resultArray.push(sticker);
+                    var promise = Parse.Promise.as();
 
-                                        // return Parse.Promise.as(); // the code will wait again for the above to complete because there is another promise returning here (this is just a default promise, but you could also run something like return object.save() which would also return a promise)
+                    if (stickers.length) {
 
-                                    }, function (error) {
-                                        response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
-                                    });
-                                }); // edit: missing these guys
-                            });
-                            return promise; // this will not be triggered until the whole loop above runs and all promises above are resolved
+                        _stickers = stickers;
 
-                        }).then(function () {
-                            console.log("RESULT ARRAY " + resultArray);
-                            res.render("pages/collection", {stickers: resultArray, id: coll_id});
-                        }, function (error) {
-                            response.error("script failed with error.code: " + error.code + " error.message: " + error.message);
+                        _.each(stickers, function (sticker) {
+
+                            promise = promise.then(function () {
+
+                                console.log("STICKER " + JSON.stringify(sticker));
+
+                                var query = sticker.relation("cat");
+                                return query.find();
+                            }); // edit: missing these guys
                         });
-                    },
-                    error: function (error) {
-                        //TODO handle error code
-                        response.error(error);
-                        res.redirect("/collection-dashboard")
+
                     }
-                })
+
+                    return promise;
+
+                }).then(function (categories) {
+
+                    console.log("CATEGORIES " + JSON.stringify(categories));
+
+                    /*    var _categoryName = [];
+                        _.each(categories, function (category) {
+                            _categoryName.push(category.get("name"))
+                        });
+                        _sticker.categoryName = _categoryName;
+                        resultArray.push(_sticker);*/
+
+                   // console.log("RESULT ARRAY " + resultArray);
+                    res.render("pages/collection", {stickers: _stickers, id: coll_id});
+
+                }, function (error) {
+                    response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
+                });
             }
         });
+
 
     }
     else {
@@ -706,18 +687,18 @@ app.get('/details/:id', function (req, res) {
         sticker.equalTo("objectId", id);
         sticker.first({sessionToken: token}).then(function (sticker) {
 
-                    //find categories from dashboard
-                    var categories = new Parse.Query("Category");
-                    categories = categories.descending("name");
+                //find categories from dashboard
+                var categories = new Parse.Query("Category");
+                categories = categories.descending("name");
 
-                    categories.find().then(function (categories) {
-                            res.render("pages/details", {sticker: sticker, categories: categories});
-                        },
-                        //TODO handle errors
-                        function (error) {
-                            console.log("No categories found- " + error);
-                        }
-                    );
+                categories.find().then(function (categories) {
+                        res.render("pages/details", {sticker: sticker, categories: categories});
+                    },
+                    //TODO handle errors
+                    function (error) {
+                        console.log("No categories found- " + error);
+                    }
+                );
             },
             function (err) {
                 //TODO handle error code
