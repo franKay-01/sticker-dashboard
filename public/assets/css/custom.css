@@ -852,6 +852,9 @@ tr #titles {
 
 #categoryname {
     font-size: 120%;
+    cursor: auto;
+    color: black;
+    border-bottom-color: white;
 }
 
 #cattable td {
@@ -922,6 +925,9 @@ tr #titles {
     color: #464B9C;
     font-family: Arial, serif;
     border: 1px solid
+}
+#catname:focus {
+    background-color: white;
 }
 
 #label-c {
@@ -1021,7 +1027,7 @@ tr #titles {
 }
 
 #heading3 {
-    background-color: blue;
+    background-color: #464B9C;
     font-size: 120%;
     text-align: center;
     color: white;
@@ -1060,7 +1066,7 @@ tr #titles {
     transition: 0.2s;
 }
 
-#catname-d {
+#catnameD {
     font-weight: bold;
     text-align: center;
     font-size: 170%;

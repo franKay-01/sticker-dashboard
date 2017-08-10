@@ -81,8 +81,8 @@ $(document).ready(function () {
             $('#page-mask1').fadeIn('fast');
 
             //insert category name into text field for removal
-            $('#catname-d').val($this.val());
-            $('#currentName-d').val($this.val());
+            $('#catnameD').val($this.val());
+            $('#currentNameD').val($this.val());
         });
     });
     //cancel remove

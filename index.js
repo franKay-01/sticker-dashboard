@@ -430,6 +430,41 @@ app.post('/update-category', function (req, res) {
 });
 
 
+app.post('/remove-category', function (req, res) {
+
+    var session = req.session.token;
+    var token = req.cookies.token;
+    var newName = req.body.catnameD;
+    var currentName = req.body.currentNameD;
+
+    if(session && token){
+
+        console.log("Category_________: " + JSON.stringify(req.body));
+
+        var category = new Parse.Query("Category");
+        category.equalTo("name", currentName);
+        category.first().then( function (category){
+            console.log("Categoryyyyyy: " + JSON.stringify(category));
+                category.remove("name", newName);
+                category.save().then(function () {
+
+                        res.redirect("/categories");
+                    },
+                    function (error) {
+                        console.error(error);
+                    });
+            },
+            function (error) {
+                console.error(error);
+            });
+    }
+    else { //no session found
+        res.redirect("/");
+    }
+
+});
+
+
 
 //LOGOUT
 app.get('/logout', function (req, res) {
