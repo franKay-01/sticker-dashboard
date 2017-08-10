@@ -397,6 +397,22 @@ app.post('/new-category', function (req, res) {
     }
 });
 
+app.post('/new-category', function (req, res) {
+
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+    if(session && token){
+
+        console.log("BODY.................." + JSON.stringify(req.body));
+        res.redirect("/categories");
+    }
+    else {
+        res.redirect("/");
+    }
+
+});
+
 
 
 //LOGOUT
