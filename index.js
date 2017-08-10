@@ -448,6 +448,7 @@ app.post('/remove-category', function (req, res) {
                 category.destroy({
                     success: function (object) {
                         console.log("removed" + JSON.stringify(object));
+                        res.redirect("/categories");
                     },
                     error: function (error) {
                         console.log("Could not destroy" + error);
