@@ -212,37 +212,25 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
                 sticker.set("uri", parseFile);
                 sticker.set("stickerPhraseImage", "");
 
-                sticker.save().then(function () {
+                return sticker.save();
 
-                        //Delete tmp file after upload
-                        var tempFile = sticker.path;
-                        fs.unlink(tempFile, function (err) {
-                            if (err) {
-                                //TODO handle error code
-                                console.log("-------Could not del temp" + JSON.stringify(err));
-                            }
-                        });
-
-                        res.redirect("/dashboard");
-                    },
-                    function (error) {
-                        //sticker was not uploaded, reload stickers page
-                        //TODO handle error code
-                        console.error("Could not upload file__ " + JSON.stringify(error));
-                        res.redirect("/add-stickers1");
+            }).then(function () {
+                    //Delete tmp file after upload
+                    var tempFile = sticker.path;
+                    fs.unlink(tempFile, function (err) {
+                        if (err) {
+                            //TODO handle error code
+                            console.log("-------Could not del temp" + JSON.stringify(err));
+                        }
                     });
-            }, function (err) {
-                //sticker object was not saved, reload stickers page
-                //TODO handle error code
-                console.error("Obj not saved: " + JSON.stringify(err));
-                res.redirect("/add-stickers1");
-            });
-
+                    res.redirect("/dashboard");
+                },
+                function (errors) {
+                    console.log("COuld not Upload Sticker..." + errors);
+                });
         });
-        res.redirect("/dashboard");
 
     }
-
     // //no session exists reload signup page
     else {
         function error(err) {
@@ -261,6 +249,29 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     var coll_id = req.body.coll_id;
     var files = req.files;
 
+    /* var collection = new Parse.Query("Collection");
+     collection.first().then(function(sticker){
+
+     sticker.set("stickerName", stickerName);
+     sticker.set("localName", stickerName);
+     sticker.set("uri", parseFile);
+     sticker.set("stickerPhraseImage", "");
+     return sticker.save();
+
+     }).then(function(){
+
+     //added categories
+     var collection = new Parse.Query("Collection");
+     collection.equalTo("objectId", coll_id);
+     return collection.find();
+
+     }).then(function(){
+
+     },function(error){
+
+     });*/
+
+
     if (session && token) {
 
         //GET ID OF CURRENT COLLECTION
@@ -268,76 +279,57 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
         collection.equalTo("objectId", coll_id);
         collection.first({sessionToken: token}).then(function (collection) {
 
-                //File saving Process Begins
-                files.forEach(function (sticker, index) {
+            //File saving Process Begins
+            files.forEach(function (sticker, index) {
 
-                    //TODO update originalname to originalName
-                    var fullName = sticker.originalname;
+                //TODO update originalname to originalName
+                var fullName = sticker.originalname;
 
-                    var stickerName = fullName.substring(0, fullName.length - 4);
-                    //TODO eliminate localName var
+                var stickerName = fullName.substring(0, fullName.length - 4);
 
-                    //convert file to base64 format
-                    var bitmap = fs.readFileSync(sticker.path, {encoding: 'base64'});
-                    var parseFile = new Parse.File(stickerName, {base64: bitmap}, sticker.mimetype);
-                    console.log("Parse File::::::::::" + JSON.stringify(parseFile));
+                //convert file to base64 format
+                var bitmap = fs.readFileSync(sticker.path, {encoding: 'base64'});
+                var parseFile = new Parse.File(stickerName, {base64: bitmap}, sticker.mimetype);
+                console.log("Parse File::::::::::" + JSON.stringify(parseFile));
 
-                    //parse file object
-                    var Sticker = new Parse.Object.extend("Sticker");
+                //parse file object
+                var Sticker = new Parse.Object.extend("Sticker");
 
-                    //TODO handle promises
-                    parseFile.save().then(function () {
+                //TODO handle promises
+                parseFile.save().then(function () {
 
-                        //instance of parse object
-                        var sticker = new Sticker();
-                        sticker.set("stickerName", stickerName);
-                        sticker.set("localName", stickerName);
-                        sticker.set("uri", parseFile);
-                        sticker.set("stickerPhraseImage", "");
-                        sticker.set("parent", collection);
+                    //instance of parse object
+                    var sticker = new Sticker();
+                    sticker.set("stickerName", stickerName);
+                    sticker.set("localName", stickerName);
+                    sticker.set("uri", parseFile);
+                    sticker.set("stickerPhraseImage", "");
+                    sticker.set("parent", collection);
 
-                        sticker.save().then(function () {
+                    return sticker.save();
 
-                                var collection_relation = collection.relation("Collection");
-                                collection_relation.add(sticker);
-                                collection.save();
+                }).then(function () {
 
-                                //Delete tmp fil after upload
-                                var tempFile = sticker.path;
-                                fs.unlink(tempFile, function (err) {
-                                    if (err) {
-                                        //TODO handle error code
-                                        console.log("-------Could not del temp" + JSON.stringify(err));
-                                    }
-                                });
+                    var collection_relation = collection.relation("Collection");
+                    collection_relation.add(sticker);
+                    collection.save();
 
-                                res.redirect("/collections-dashboard");
-                            },
-                            function (error) {
-                                //sticker was not uploaded, reload stickers page
-                                //TODO handle error code
-                                console.error("Could not upload file__ " + JSON.stringify(error));
-                                res.redirect("/add-stickers1");
-                            });
-                    }, function (err) {
-                        //sticker object was not saved, reload stickers page
-                        //TODO handle error code
-                        console.error("Obj not saved: " + JSON.stringify(err));
-                        res.redirect("/add-stickers1");
+                    //Delete tmp fil after upload
+                    var tempFile = sticker.path;
+                    fs.unlink(tempFile, function (err) {
+                        if (err) {
+                            //TODO handle error code
+                            console.log("-------Could not del temp" + JSON.stringify(err));
+                        }
                     });
-
+                    res.redirect("/collections-dashboard");
                 });
-                //File saving Process Ends
-            },
-            function (error) {
-
-                //TODO handle error code
-                console.log("Not Found collection::::::::::: " + JSON.stringify(error));
             });
+            //File saving Process Ends
+        });
         res.redirect("/collections-dashboard");
 
     }
-
     // //no session exists reload signup page
     else {
         function error(err) {
@@ -356,19 +348,20 @@ app.get('/categories', function (req, res) {
     if (session && token) {
 
         //query parse for all categories
-        new Parse.Query("Category").find({sessionToken: token}).then(function (categories){
-            categories.forEach(function (cat, index) {
-                console.log("Category" + index + ":::::" + cat);
+        new Parse.Query("Category").find({sessionToken: token}).then(function (categories) {
+                categories.forEach(function (cat, index) {
+                    console.log("Category" + index + ":::::" + cat);
+                });
+                res.render("pages/categories", {categories: categories});
+            },
+            function (error) {
+                console.log("No categories found.............." + JSON.stringify(error));
             });
-            res.render("pages/categories", {categories:categories});
-        },
-        function (error) {
-            console.log("No categories found.............." + JSON.stringify(error));
-        });
     } else {
         res.redirect("/");
     }
 });
+
 
 app.post('/new-category', function (req, res) {
 
@@ -376,21 +369,20 @@ app.post('/new-category', function (req, res) {
     var token = req.cookies.token;
     var categoryName = req.body.catname;
 
-    if(session && token)
-    {
+    if (session && token) {
 
         var Category = new Parse.Object.extend("Category");
         var categoryObject = new Category();
 
         categoryObject.set("name", categoryName);
-        categoryObject.save().then(function (cat) {
-            // console.log("Saved_______" + JSON.stringify(cat));
-            res.redirect("/categories");
-        },
-        function (error) {
-            console.log("Not created" + error);
-            res.redirect("/");
-        });
+        categoryObject.save().then(function () {
+
+                res.redirect("/categories");
+            },
+            function (error) {
+                console.log("Not created" + error);
+                res.redirect("/");
+            });
     }
     else {
         res.redirect("/");
@@ -404,24 +396,25 @@ app.post('/update-category', function (req, res) {
     var newName = req.body.catname;
     var currentName = req.body.currentName;
 
-    if(session && token){
+    if (session && token) {
 
         var category = new Parse.Query("Category");
         category.equalTo("name", currentName);
-        category.first().then( function (category){
+        category.first().then(function (category) {
 
-            category.set("name", newName);
-            category.save().then(function () {
+                category.set("name", newName);
+                return category.save();
 
-                    res.redirect("/categories");
+            }.then(function () {
+
+                res.redirect("/categories");
+
             },
-                function (error) {
-                    console.error(error);
-                });
-        },
-        function (error) {
-            console.error(error);
-        });
+            function (error) {
+
+                console.error(error);
+            })
+        );
     }
     else { //no session found
         res.redirect("/");
@@ -434,17 +427,16 @@ app.post('/remove-category', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
-    var newName = req.body.catnameD;
     var currentName = req.body.currentNameD;
 
-    if(session && token){
+    if (session && token) {
 
         console.log("Category_________: " + JSON.stringify(req.body));
 
         var category = new Parse.Query("Category");
         category.equalTo("name", currentName);
-        category.first().then( function (category){
-            console.log("Categoryyyyyy: " + JSON.stringify(category));
+        category.first().then(function (category) {
+                console.log("Categoryyyyyy: " + JSON.stringify(category));
                 category.destroy({
                     success: function (object) {
                         console.log("removed" + JSON.stringify(object));
@@ -464,7 +456,6 @@ app.post('/remove-category', function (req, res) {
     }
 
 });
-
 
 
 //LOGOUT
