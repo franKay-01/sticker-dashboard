@@ -404,8 +404,8 @@ app.post('/update-category', function (req, res) {
 
                 category.set("name", newName);
                 return category.save();
-
-            }.then(function () {
+            }
+        ).then(function () {
 
                 res.redirect("/categories");
 
@@ -413,8 +413,7 @@ app.post('/update-category', function (req, res) {
             function (error) {
 
                 console.error(error);
-            })
-        );
+            });
     }
     else { //no session found
         res.redirect("/");
@@ -686,8 +685,6 @@ app.get('/details/:id', function (req, res) {
         sticker.equalTo("objectId", id);
         sticker.first({sessionToken: token}).then(function (sticker) {
 
-                if (sticker) {
-
                     //find categories from dashboard
                     var categories = new Parse.Query("Category");
                     categories = categories.descending("name");
@@ -700,10 +697,6 @@ app.get('/details/:id', function (req, res) {
                             console.log("No categories found- " + error);
                         }
                     );
-                } else {
-                    //sticker does not exist
-                    res.redirect("/dashboard")
-                }
             },
             function (err) {
                 //TODO handle error code
