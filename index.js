@@ -445,14 +445,15 @@ app.post('/remove-category', function (req, res) {
         category.equalTo("name", currentName);
         category.first().then( function (category){
             console.log("Categoryyyyyy: " + JSON.stringify(category));
-                category.remove("name", newName);
-                category.save().then(function () {
-
-                        res.redirect("/categories");
-                    },
-                    function (error) {
-                        console.error(error);
-                    });
+                category.destroy().then({
+                        success: function (object) {
+                            console.log("removed" + JSON.stringify(object));
+                        },
+                        error: function (error) {
+                        console.log("Could not destroy" + error);
+                        }
+                    }
+                )
             },
             function (error) {
                 console.error(error);
