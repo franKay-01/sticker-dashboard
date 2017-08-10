@@ -787,11 +787,11 @@ tr #titles {
     transition: 0.3s;
 }
 
-#plus{
+.plus{
     margin-right: 3%;
 }
 
-/*CATEGORIES TABLE*/
+/*CATEGORIES TABLE.....................*/
 .contable {
     margin: 0 auto;
     width: 50%;
@@ -859,7 +859,7 @@ tr #titles {
     color: darkslategrey;
 }
 
-/*edit form----------------------------------------*/
+/*EDIT CATEGORY form----------------------------------------*/
 .hidden {
     display: none;
     width: 60%;
@@ -884,25 +884,36 @@ tr #titles {
 }
 
 #editable td {
-    color: black;
     border-collapse: collapse;
     background-color: lightgrey;
 }
 
 #cancelbtn {
     padding: 10px;
-    background-color: white;
-    color: red;
+    background-color: #282a58;
+    color: white;
     font-size: 80%;
     margin-left: 35%;
+    transition: 0.2s;
+}
+#cancelbtn:hover {
+    background-color: white;
+    color: #282a58;
+    transition: 0.2s;
 }
 
 #savebtn {
     padding: 10px;
-    background-color: white;
-    color: blue;
+    background-color: #464B9C;
+    color: white;
     font-size: 80%;
     margin-left: 45%;
+    transition: 0.2s;
+}
+#savebtn:hover {
+    background-color: white;
+    color: #464B9C;
+    transition: 0.2s;
 }
 
 #catname {
@@ -922,11 +933,10 @@ tr #titles {
 
 
 
-/*ADD form----------------------------------------*/
+/*ADD CATEGORY form----------------------------------------*/
 .hidden1 {
     display: none;
     position: absolute;
-    /*margin: 0 auto;*/
     width: 60%;
     z-index: 2;
 }
@@ -940,31 +950,43 @@ tr #titles {
 }
 
 #heading2 {
-    background-color: blue;
+    background-color: #464B9C;
     font-size: 120%;
+    color: white;
     text-align: center;
 }
 
 #addtable td {
-    color: black;
     border-collapse: collapse;
     background-color: lightgrey;
 }
 
 #cancelbtn1 {
     padding: 10px;
-    background-color: white;
-    color: red;
+    background-color: #282a58;
+    color: white;
     font-size: 80%;
     margin-left: 35%;
+    transition: 0.2s;
+}
+#cancelbtn1:hover {
+    background-color: white;
+    color: #282a58;
+    transition: 0.2s;
 }
 
 #savebtn1 {
     padding: 10px;
-    background-color: white;
-    color: blue;
+    background-color: #464B9C;
+    color: white;
     font-size: 80%;
     margin-left: 45%;
+    transition: 0.2s;
+}
+#savebtn1:hover {
+    background-color: white;
+    color: #464B9C;
+    transition: 0.2s;
 }
 
 #catname1 {
@@ -982,4 +1004,65 @@ tr #titles {
     font-family: Arial;
 }
 
+/*DELETE CATEGORY form----------------------------------------*/
+.hidden2 {
+    display: none;
+    position: absolute;
+    width: 60%;
+    z-index: 2;
+}
 
+#deleteform {
+    margin-left: 50%;
+}
+
+#deltable {
+    width: 100%;
+}
+
+#heading3 {
+    background-color: blue;
+    font-size: 120%;
+    text-align: center;
+}
+
+#deltable td {
+    border-collapse: collapse;
+    background-color: lightgrey;
+}
+
+#cancelbtn2 {
+    padding: 10px;
+    background-color: #282a58;
+    color: white;
+    font-size: 80%;
+    margin-left: 35%;
+    transition: 0.2s;
+}
+#cancelbtn2:hover {
+    background-color: white;
+    color: #282a58;
+    transition: 0.2s;
+}
+
+#savebtn2 {
+    padding: 10px;
+    background-color: #464B9C;
+    color: white;
+    font-size: 80%;
+    margin-left: 45%;
+    transition: 0.2s;
+}
+#savebtn2:hover {
+    background-color: white;
+    color: #464B9C;
+    transition: 0.2s;
+}
+
+#catname-d {
+    font-weight: bold;
+    text-align: center;
+    font-size: 170%;
+    color: #464B9C;
+    font-family: Arial;
+}

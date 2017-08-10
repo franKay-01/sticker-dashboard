@@ -406,22 +406,17 @@ app.post('/update-category', function (req, res) {
 
     if(session && token){
 
-        console.log("BODY.................." + JSON.stringify(req.body));
-
         var category = new Parse.Query("Category");
         category.equalTo("name", currentName);
         category.first().then( function (category){
 
-            console.log("FOUNNNNNNDDDD" + JSON.stringify(category));
-
             category.set("name", newName);
-            category.save().then(function (updatedCategory) {
-                console.log("UPDATED CATEGORY:::::::::::" + JSON.stringify(updatedCategory));
+            category.save().then(function () {
 
                     res.redirect("/categories");
             },
                 function (error) {
-                    console.error("NOPE" + error);
+                    console.error(error);
                 });
         },
         function (error) {

@@ -50,7 +50,7 @@
 <!-- Logo -->
 
 <div class="posit">
-<button id="addbtn"><img id="plus" src="/public/assets/images/pluswhite.png"> ADD A NEW CATEGORY</button>
+<button id="addbtn"><img class="plus" src="/public/assets/images/pluswhite.png"> ADD A NEW CATEGORY</button>
 </div>
 
 <div class="hidden">
@@ -100,6 +100,32 @@
                 </td>
                 <td>
                     <button id="savebtn1" type="submit">SAVE</button>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+
+<!--remove category form-->
+<div class="hidden2">
+    <form id="deleteform" action="/remove-category" method="post">
+        <table id="deltable">
+            <tr>
+                <th  colspan="2" id="heading3">
+                    REMOVE THIS CATEGORY??
+                </th>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="text" name="catname" id="catname-d" /></td>
+                <input type="hidden" name="currentName-d" id="currentName-d">
+            </tr>
+            <tr>
+                <td>
+                    <button id="cancelbtn2" type="button">FORGET IT</button>
+                </td>
+                <td>
+                    <button id="savebtn2" type="button">YES, REMOVE</button>
                 </td>
             </tr>
 
