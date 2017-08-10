@@ -590,7 +590,7 @@ app.get('/collection/:id', function (req, res) {
                                         sticker.categoryName = _categoryName;
                                         resultArray.push(sticker);
 
-                                        return Parse.Promise.as(); // the code will wait again for the above to complete because there is another promise returning here (this is just a default promise, but you could also run something like return object.save() which would also return a promise)
+                                        // return Parse.Promise.as(); // the code will wait again for the above to complete because there is another promise returning here (this is just a default promise, but you could also run something like return object.save() which would also return a promise)
 
                                     }, function (error) {
                                         response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
