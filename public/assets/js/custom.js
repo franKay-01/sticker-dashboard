@@ -40,11 +40,12 @@ $(document).ready(function () {
     });
 
     $checks = $(":checkbox");
-    $checks.on('change', function () {
+    $checks.on('change', function (e) {
         var string = $checks.filter(":checked").map(function (i, v) {
-            return this.value;
+            return $(this).attr("data-name");
         }).get().join(", ");
-        $('#category').val(string);
+      $('#category').val(string);
+
     });
 
 
