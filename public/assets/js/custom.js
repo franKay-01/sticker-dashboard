@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
 
     $('.features').slick(
@@ -10,21 +9,20 @@ $(document).ready(function () {
     );
 
     //Toggle create new collection form
-    $(function()
-    {
+    $(function () {
         //show collection form
-        $('#showform').on('click', function(){
+        $('#showform').on('click', function () {
             $('#hiddenform').fadeIn('fast');
             $('#page-mask1').fadeIn('fast');
         });
 
         //close/hide form
-        $('#closeb').on('click', function(){
+        $('#closeb').on('click', function () {
             $('#hiddenform').fadeOut('fast');
             $('#page-mask1').fadeOut('fast');
             $('#collection-form')[0].reset();
         });
-        $('#cancell').on('click', function(){
+        $('#cancell').on('click', function () {
             $('#hiddenform').fadeOut('fast');
             $('#page-mask1').fadeOut('fast');
             $('#collection-form')[0].reset();
@@ -32,7 +30,7 @@ $(document).ready(function () {
     });
 
     /*Toggle  'Choose categories' menu*/
-    $('#chooseCat').click(function(){
+    $('#chooseCat').click(function () {
         if ($('.categories').is(':visible')) {
             $('.categories').slideUp('medium');
         }
@@ -42,8 +40,8 @@ $(document).ready(function () {
     });
 
     $checks = $(":checkbox");
-    $checks.on('change', function() {
-        var string = $checks.filter(":checked").map(function(i,v){
+    $checks.on('change', function () {
+        var string = $checks.filter(":checked").map(function (i, v) {
             return this.value;
         }).get().join(", ");
         $('#category').val(string);
@@ -51,10 +49,10 @@ $(document).ready(function () {
 
 
     //add button style
-    $('#addbtn').on('mouseover', function(){
+    $('#addbtn').on('mouseover', function () {
         $('.plus').attr('src', 'pluscolor.png');
     });
-    $('#addbtn').on('mouseout', function(){
+    $('#addbtn').on('mouseout', function () {
         $('.plus').attr('src', 'pluswhite.png');
     });
 
@@ -112,7 +110,6 @@ $(document).ready(function () {
 
 
     console.log("current cookie: " + document.cookie);
-
 
 
 });

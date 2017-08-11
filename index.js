@@ -574,7 +574,8 @@ app.get('/collection/:id', function (req, res) {
                 var col = collection.relation("Collection");
                 col.query().find().then(function (stickers) {
 
-                  //  var promise = Parse.Promise.as();
+                    res.render("pages/collection", {stickers: stickers, id: coll_id});
+                   /* var promise = Parse.Promise.as();
 
                     if (stickers.length) {
 
@@ -586,34 +587,35 @@ app.get('/collection/:id', function (req, res) {
                             var query = sticker.relation("cat");
                             return query.find();
 
-                            /*promise = promise.then(function () {
+                            promise = promise.then(function () {
 
                                 console.log("STICKER " + JSON.stringify(sticker));
 
                                 var query = sticker.relation("cat");
                                 return query.find();
-                            });*/ // edit: missing these guys
+                            });
                         });
 
                     }
 
-                  //  return promise;
+                   return promise;*/
 
-                }).then(function (categories) {
+                   /*
+                   * .then(function (categories) {
 
                     console.log("CATEGORIES " + JSON.stringify(categories));
 
-                    /*    var _categoryName = [];
-                        _.each(categories, function (category) {
-                            _categoryName.push(category.get("name"))
-                        });
-                        _sticker.categoryName = _categoryName;
-                        resultArray.push(_sticker);*/
+                       var _categoryName = [];
+                    _.each(categories, function (category) {
+                    _categoryName.push(category.get("name"))
+                    });
+                    _sticker.categoryName = _categoryName;
+                    resultArray.push(_sticker);
 
-                   // console.log("RESULT ARRAY " + resultArray);
-                    res.render("pages/collection", {stickers: _stickers, id: coll_id});
+                    // console.log("RESULT ARRAY " + resultArray);
+                    res.render("pages/collection", {stickers: _stickers, id: coll_id});*/
 
-                }, function (error) {
+                },function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
                 });
             }
