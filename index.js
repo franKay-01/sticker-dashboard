@@ -731,8 +731,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var stickerId = req.params.id;
     // var categoryArray = category.split(", ");
 
-    console.log("STICKER ID " + stickerId);
-    console.log("BODY CATEGORIES " + category);
+
 
 
     if (session && token) {
@@ -743,7 +742,11 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
         ).then(function (sticker, categories) {
 
             var sticker_relation = sticker.relation("cat");
+            console.log("STICKER RELATON " + sticker.relation("cat"));
+
             _.each(categories, function (category) {
+                console.log("CATEGORIES " + category);
+
                 sticker_relation.add(category);
             });
 
