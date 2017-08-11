@@ -739,6 +739,7 @@ console.log("STICKER ID::::::::::" + JSON.stringify(stickerId));
             new Parse.Query("Category").containedIn("objectId", category).find()
 
         ).then(function (sticker, categories) {
+            console.log("STICKER ::::::::::" + JSON.stringify(sticker));
 
             var sticker_relation = sticker.relation("cat");
 
@@ -775,7 +776,7 @@ console.log("STICKER ID::::::::::" + JSON.stringify(stickerId));
                 }
             });
 
-            res.redirect("/dashboard");
+            res.redirect("/collections-dashboard");
 
         }, function (e) {
             console.log("SERVER ERROR " + e.message);
