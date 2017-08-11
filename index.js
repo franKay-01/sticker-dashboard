@@ -731,9 +731,13 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var stickerId = req.params.id;
    // var categoryArray = category.split(", ");
 
+    console.log("STICKER ID " + stickerId);
+    console.log("BODY CATEGORIES " + JSON.stringify(categories));
+
+
     if (session && token) {
 
-        Parse.Promise.when(
+            Parse.Promise.when(
             new Parse.Query("Sticker").equalTo("objectId",stickerId),
             new Parse.Query("Category").containedIn("objectId",category)
         ).then(function(sticker,categories){
