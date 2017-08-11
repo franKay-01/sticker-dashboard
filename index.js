@@ -737,11 +737,9 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     if (session && token) {
 
         Parse.Promise.when(
-            new Parse.Query("Sticker").equalTo("objectId", req.params.id),
-            new Parse.Query("Category").containedIn("objectId", category)
+            new Parse.Query("Sticker").equalTo("objectId", req.params.id).find(),
+            new Parse.Query("Category").containedIn("objectId", category).find()
         ).then(function (sticker, categories) {
-
-            console.log("STICKER " + JSON.stringify(sticker));
 
             var sticker_relation = sticker.relation("cat");
 
