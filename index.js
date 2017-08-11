@@ -741,6 +741,8 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
             new Parse.Query("Category").containedIn("objectId", category)
         ).then(function (sticker, categories) {
 
+            console.log("STICKER " + JSON.stringify(sticker));
+
             var sticker_relation = sticker.relation("cat");
 
             _.each(categories, function (category) {
@@ -757,7 +759,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
             res.redirect("/dashboard");
 
         },function (e) {
-            console.log("SERVER ERROR " +e.message);
+            console.log("SERVER ERROR " +e.code);
             res.redirect("/dashboard");
         });
 
