@@ -725,17 +725,17 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
     //input fields from form
     var stickerName = req.body.stickername;
-    var category = req.body.cat;
+    var category = req.body.cat1;
     var file = req.file;
     var imgChange = req.body.imgChange;
     var stickerId = req.params.id;
-    var categoryArray = category.split(", ");
+   // var categoryArray = category.split(", ");
 
     if (session && token) {
 
         Parse.Promise.when(
             new Parse.Query("Sticker").equalTo("objectId",stickerId),
-            new Parse.Query("Category").containedIn("objectId",categoryArray)
+            new Parse.Query("Category").containedIn("objectId",category)
         ).then(function(sticker,categories){
 
             if(sticker && categories.length){
