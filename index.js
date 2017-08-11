@@ -575,47 +575,47 @@ app.get('/collection/:id', function (req, res) {
                 col.query().find().then(function (stickers) {
 
                     res.render("pages/collection", {stickers: stickers, id: coll_id});
-                   /* var promise = Parse.Promise.as();
+                    /* var promise = Parse.Promise.as();
 
-                    if (stickers.length) {
+                     if (stickers.length) {
 
-                        _stickers = stickers;
+                         _stickers = stickers;
 
-                        _.each(stickers, function (sticker) {
+                         _.each(stickers, function (sticker) {
 
 
-                            var query = sticker.relation("cat");
-                            return query.find();
+                             var query = sticker.relation("cat");
+                             return query.find();
 
-                            promise = promise.then(function () {
+                             promise = promise.then(function () {
 
-                                console.log("STICKER " + JSON.stringify(sticker));
+                                 console.log("STICKER " + JSON.stringify(sticker));
 
-                                var query = sticker.relation("cat");
-                                return query.find();
-                            });
-                        });
+                                 var query = sticker.relation("cat");
+                                 return query.find();
+                             });
+                         });
 
-                    }
+                     }
 
-                   return promise;*/
+                    return promise;*/
 
-                   /*
-                   * .then(function (categories) {
+                    /*
+                    * .then(function (categories) {
 
-                    console.log("CATEGORIES " + JSON.stringify(categories));
+                     console.log("CATEGORIES " + JSON.stringify(categories));
 
-                       var _categoryName = [];
-                    _.each(categories, function (category) {
-                    _categoryName.push(category.get("name"))
-                    });
-                    _sticker.categoryName = _categoryName;
-                    resultArray.push(_sticker);
+                        var _categoryName = [];
+                     _.each(categories, function (category) {
+                     _categoryName.push(category.get("name"))
+                     });
+                     _sticker.categoryName = _categoryName;
+                     resultArray.push(_sticker);
 
-                    // console.log("RESULT ARRAY " + resultArray);
-                    res.render("pages/collection", {stickers: _stickers, id: coll_id});*/
+                     // console.log("RESULT ARRAY " + resultArray);
+                     res.render("pages/collection", {stickers: _stickers, id: coll_id});*/
 
-                },function (error) {
+                }, function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
                 });
             }
@@ -729,7 +729,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var file = req.file;
     var imgChange = req.body.imgChange;
     var stickerId = req.params.id;
-   // var categoryArray = category.split(", ");
+    // var categoryArray = category.split(", ");
 
     console.log("STICKER ID " + stickerId);
     console.log("BODY CATEGORIES " + category);
@@ -737,83 +737,85 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
     if (session && token) {
 
-            Parse.Promise.when(
-            new Parse.Query("Sticker").equalTo("objectId",stickerId),
-            new Parse.Query("Category").containedIn("objectId",category)
-        ).then(function(sticker,categories){
+        Parse.Promise.when(
+            new Parse.Query("Sticker").equalTo("objectId", stickerId),
+            new Parse.Query("Category").containedIn("objectId", category)
+        ).then(function (sticker, categories) {
 
-               // console.log("STICKER " + JSON.stringify(sticker));
-              //  console.log("CATEGORIES " + JSON.stringify(categories));
+            var sticker_relation = sticker.relation("cat");
+            _.each(categories, function (category) {
+                sticker_relation.add(category);
+            });
 
-            if(sticker && categories.length){
-                console.log("STICKER " + JSON.stringify(sticker));
-                console.log("CATEGORIES " + JSON.stringify(categories));
-            }
+            return sticker.save();
 
-                res.redirect("/dashboard");
+
+        }).then(function () {
+
+            res.redirect("/dashboard");
 
         });
 
         //query for existing categories in parse
-     /*   categoryArray.forEach(function (category, index) {
-            console.log("Item " + [index] + "::: " + category);
+        /*   categoryArray.forEach(function (category, index) {
+               console.log("Item " + [index] + "::: " + category);
 
-            categoryQuery.equalTo("name", category);
-            categoryQuery.find().then(function (catgory) {
-                    console.log("Category*****************" + JSON.stringify(catgory));
+               categoryQuery.equalTo("name", category);
+               categoryQuery.find().then(function (catgory) {
+                       console.log("Category*****************" + JSON.stringify(catgory));
 
-                    var NewSticker = new Parse.Object.extend("Sticker");
-                    var sticker = new Parse.Query(NewSticker);
-                    sticker.equalTo("objectId", stickerId);
-                    sticker.first({sessionToken: token}).then(
-                        function (newSticker) {
-                            //Update new sticker properties
-                            newSticker.set("stickerName", stickerName);
-                            newSticker.set("localName", stickerName);
-                            newSticker.add("category", catgory);
+                       var NewSticker = new Parse.Object.extend("Sticker");
+                       var sticker = new Parse.Query(NewSticker);
+                       sticker.equalTo("objectId", stickerId);
+                       sticker.first({sessionToken: token}).then(
+                           function (newSticker) {
+                               //Update new sticker properties
+                               newSticker.set("stickerName", stickerName);
+                               newSticker.set("localName", stickerName);
+                               newSticker.add("category", catgory);
 
-                            if (imgChange === 'true') {
-                                //update sticker image
-                                var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-                                var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                                newSticker.set("uri", parseFile);
-                            }
-                            else {
-                                //image has not changed
-                            }
-                            //Update sticker's properties to parse
-                            newSticker.save().then(function () {
-                                    var sticker_relation = catgory.relation("sticker");
-                                    sticker_relation.add(newSticker);
-                                    catgory.save();
+                               if (imgChange === 'true') {
+                                   //update sticker image
+                                   var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+                                   var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                                   newSticker.set("uri", parseFile);
+                               }
+                               else {
+                                   //image has not changed
+                               }
+                               //Update sticker's properties to parse
+                               newSticker.save().then(function () {
+                                       var sticker_relation = catgory.relation("sticker");
+                                       sticker_relation.add(newSticker);
+                                       catgory.save();
 
-                                    //Delete tmp fil after update
-                                    var tempFile = file.path;
-                                    fs.unlink(tempFile, function (err) {
-                                        if (err) {
-                                            //TODO handle error code
-                                            console.log("Could not del temp++++++++" + JSON.stringify(err));
-                                        }
-                                    });
-                                },
-                                function (problem) {
-                                    //sticker not updated...reload page
-                                    //TODO handle error code
-                                    console.error("Update unsuccessful__ " + JSON.stringify(problem));
-                                    res.redirect("/details", {id: stickerId});
-                                }
-                            );
-                        },
-                        function (error) {
-                            //TODO handle error code
-                            console.log("STICKER NOT FOUND: " + JSON.stringify(error))
-                        }
-                    );
-                },
-                function (error) {
-                    console.error("Error" + error);
-                });
-        });*/
+                                       //Delete tmp fil after update
+                                       var tempFile = file.path;
+                                       fs.unlink(tempFile, function (err) {
+                                           if (err) {
+                                               //TODO handle error code
+                                               console.log("Could not del temp++++++++" + JSON.stringify(err));
+                                           }
+                                       });
+                                   },
+                                   function (problem) {
+                                       //sticker not updated...reload page
+                                       //TODO handle error code
+                                       console.error("Update unsuccessful__ " + JSON.stringify(problem));
+                                       res.redirect("/details", {id: stickerId});
+                                   }
+                               );
+                           },
+                           function (error) {
+                               //TODO handle error code
+                               console.log("STICKER NOT FOUND: " + JSON.stringify(error))
+                           }
+                       );
+                   },
+                   function (error) {
+                       console.error("Error" + error);
+                   });
+           });*/
 
 
     }
