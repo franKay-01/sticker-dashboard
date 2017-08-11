@@ -754,6 +754,9 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
             res.redirect("/dashboard");
 
+        },function (e) {
+            console.log("SERVER ERROR " +e.message);
+            res.redirect("/dashboard");
         });
 
         //query for existing categories in parse
