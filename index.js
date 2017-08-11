@@ -742,7 +742,6 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
         ).then(function (sticker, categories) {
 
             var sticker_relation = sticker.relation("cat");
-            console.log("STICKER RELATON " + sticker.relation("cat"));
 
             _.each(categories, function (category) {
                 console.log("CATEGORIES " + category);
