@@ -742,6 +742,9 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
             new Parse.Query("Category").containedIn("objectId",category)
         ).then(function(sticker,categories){
 
+                console.log("STICKER " + JSON.stringify(sticker));
+                console.log("CATEGORIES " + JSON.stringify(categories));
+
             if(sticker && categories.length){
                 console.log("STICKER " + JSON.stringify(sticker));
                 console.log("CATEGORIES " + JSON.stringify(categories));
