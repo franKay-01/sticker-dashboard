@@ -735,7 +735,7 @@ console.log("STICKER ID::::::::::" + JSON.stringify(stickerId));
 
         Parse.Promise.when(
 
-            new Parse.Query("Sticker").equalTo("objectId", stickerId).find(),
+            new Parse.Query("Sticker").equalTo("objectId", stickerId).first(),
             new Parse.Query("Category").containedIn("objectId", category).find()
 
         ).then(function (sticker, categories) {
