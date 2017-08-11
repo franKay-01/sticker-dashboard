@@ -732,7 +732,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
    // var categoryArray = category.split(", ");
 
     console.log("STICKER ID " + stickerId);
-    console.log("BODY CATEGORIES " + JSON.stringify(categories));
+    console.log("BODY CATEGORIES " + category);
 
 
     if (session && token) {
