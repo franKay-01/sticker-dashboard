@@ -389,10 +389,9 @@ input::-webkit-input-placeholder {
 
 .cat1 {
     margin-left: 10px;
-    vertical-align: bottom;
 }
 
-.category-field {
+#category {
     color: black;
 }
 
