@@ -750,6 +750,8 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                 console.log("CATEGORIES " + JSON.stringify(categories));
             }
 
+                res.redirect("/dashboard");
+
         });
 
         //query for existing categories in parse
@@ -813,7 +815,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                 });
         });*/
 
-        res.redirect("/dashboard");
+
     }
     else {
         function problem(error) {
