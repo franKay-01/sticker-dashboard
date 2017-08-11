@@ -737,7 +737,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     if (session && token) {
 
         Parse.Promise.when(
-            new Parse.Query("Sticker").equalTo("objectId", stickerId),
+            new Parse.Query("Sticker").equalTo("objectId", req.params.id),
             new Parse.Query("Category").containedIn("objectId", category)
         ).then(function (sticker, categories) {
 
