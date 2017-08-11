@@ -730,7 +730,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var imgChange = req.body.imgChange;
     var stickerId = req.params.id;
 
-
+console.log("STICKER ID::::::::::" + JSON.stringify(stickerId));
     if (session && token) {
 
         Parse.Promise.when(
