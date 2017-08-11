@@ -265,7 +265,7 @@ fieldset {
 /*Container for stickers on dashboard--------------END*/
 
 
-/*ADD STICKER FORM*/
+/*STICKER DETAILS FORM*/
 .container1 {
     width: 50%;
     height: 200%;
@@ -292,11 +292,11 @@ input::-webkit-input-placeholder {
     font-weight: bold;
 }
 
-#left-col {
+#right-column {
     border: 2px solid darkslategrey;
     position: absolute;
     overflow: hidden;
-    left: 26%;
+    left: 52%;
     height: 300px;
     width: 18%;
 }
@@ -326,10 +326,10 @@ input::-webkit-input-placeholder {
     width: 300px;
 }
 
-#right-col {
+#left-column {
     position: absolute;
     overflow: hidden;
-    left: 47%;
+    left: 27%;
     height: 84%;
     width: 23%;
 }
@@ -363,7 +363,6 @@ input::-webkit-input-placeholder {
 
 .categoryOption {
     position: absolute;
-    bottom: 23%;
     width: 100%;
 }
 
@@ -388,22 +387,18 @@ input::-webkit-input-placeholder {
     display: none;
 }
 
+.cat1 {
+    margin-left: 10px;
+    vertical-align: bottom;
+}
 
-#upload {
-    cursor: pointer;
-    max-width: 40%;
-    background: #464B9C;
-    color: #FFF;
-    padding: 10px;
-    font-family: monospace;;
-    font-size: 130%;
-    transition: 0.3s;
-    position: relative;
+.category-field {
+    color: black;
 }
 
 #updatebtn {
     cursor: pointer;
-    width: 40%;
+    width: 15%;
     background: #464B9C;
     color: #FFF;
     padding: 10px;
@@ -411,17 +406,17 @@ input::-webkit-input-placeholder {
     font-size: 130%;
     transition: 0.3s;
     position: absolute;
-    left: 58%;
-    bottom: 0;
+    left: 42%;
+    bottom: 17%;
 }
 
-#upload:hover {
+#updatebtn:hover {
     background: white;
     color: #464B9C;
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-/*ADD STICKER FORM--------------END*/
+/*STICKER DETAILS FORM--------------END*/
 
 
 

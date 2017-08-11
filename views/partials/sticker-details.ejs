@@ -1,13 +1,13 @@
 
 <form id="tform" action="/update/<%= sticker.id %>" enctype="multipart/form-data" method="post">
-    <div id="left-col">
+    <div id="right-column">
         <div class="demo-droppable">
             <div class="output" name="tfile"></div>
             <img id="im1" name="im1" style="width: 100%; height: 100%;"  src="<%= sticker.get("uri").url() %>">
         </div>
     </div>
 
-    <div id="right-col">
+    <div id="left-column">
         <label>Sticker Name:</label> <input placeholder="Sticker Name" id="stname" name="stickername"
                value="<%= sticker.get("stickerName") %>">
 
@@ -18,7 +18,7 @@
                value="<%= sticker.get("localName") %>">
 
         <label>Category:</label> <input  placeholder="Category e.g funny, silly" id="category" name="cat"
-               value="<%= sticker.get("category") %>">
+               class="category-field" value="<%= sticker.get("category") %>" disabled>
 
         <div class="categoryOption">
             <button id="chooseCat" type="button"> <span id="arrow">&#9660;</span>Choose categories</button>
@@ -30,9 +30,10 @@
 
                 <% }); %>
             </div>
-        </div>
 
-        <button id="updatebtn" type="submit">UPDATE</button>
+        </div>
     </div>
+
+    <button id="updatebtn" type="submit">UPDATE</button>
 
 </form>
