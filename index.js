@@ -202,7 +202,6 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
             //create parse file object
             var Sticker = new Parse.Object.extend("Sticker");
 
-            //TODO organize promises
             parseFile.save().then(function () {
 
                 //instance of parse object
@@ -295,7 +294,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 //parse file object
                 var Sticker = new Parse.Object.extend("Sticker");
 
-                //TODO handle promises
                 parseFile.save().then(function () {
 
                     //instance of parse object
@@ -304,13 +302,13 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     sticker.set("localName", stickerName);
                     sticker.set("uri", parseFile);
                     sticker.set("stickerPhraseImage", "");
-                    sticker.set("parent", collection);
+                    sticker.set("collection", collection);
 
                     return sticker.save();
 
                 }).then(function () {
 
-                    var collection_relation = collection.relation("Collection");
+                    var collection_relation = collection.relation("stickers");
                     collection_relation.add(sticker);
                     collection.save();
 
@@ -322,7 +320,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                             console.log("-------Could not del temp" + JSON.stringify(err));
                         }
                     });
-                    res.redirect("/collections-dashboard");
+                    res.render("pages/collection", {id: coll_id});
                 });
             });
             //File saving Process Ends
@@ -435,14 +433,13 @@ app.post('/remove-category', function (req, res) {
         var category = new Parse.Query("Category");
         category.equalTo("name", currentName);
         category.first().then(function (category) {
-                console.log("Categoryyyyyy: " + JSON.stringify(category));
                 category.destroy({
                     success: function (object) {
                         console.log("removed" + JSON.stringify(object));
                         res.redirect("/categories");
                     },
                     error: function (error) {
-                        console.log("Could not destroy" + error);
+                        console.log("Could not remove" + error);
                     }
                 });
             },
@@ -518,7 +515,7 @@ app.get('/collections-dashboard', function (req, res) {
     }
 });
 
-
+//this route adds all categories to each sticker in the database
 app.get('/cat', function (req, res) {
 
     var session = req.session.token;
@@ -534,7 +531,7 @@ app.get('/cat', function (req, res) {
 
         _.each(stickers, function (sticker) {
 
-            var sticker_relation = sticker.relation("cat");
+            var sticker_relation = sticker.relation("categories");
             _.each(categories, function (category) {
                 sticker_relation.add(category);
             });
@@ -553,8 +550,8 @@ app.get('/cat', function (req, res) {
 
 });
 
-// Page for selected collection from dashboard
-//Displays all stickers linked to selected collection
+
+//Displays all stickers belonging to a selected collection
 app.get('/collection/:id', function (req, res) {
 
     var session = req.session.token;
