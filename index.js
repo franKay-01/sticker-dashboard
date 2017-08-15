@@ -576,7 +576,7 @@ app.get('/collection/:id', function (req, res) {
 
                 var coll_stickers = new Parse.Query("Sticker");
                 coll_stickers.equalTo("collection", coll_id);
-                coll_stickers.find().then(function (stickers) {
+                coll_stickers.find({sessionToken: token}).then(function (stickers) {
                     _.each(stickers, function (sticker) {
                         console.log("All stickers related to " + JSON.stringify(coll_id) + " " + JSON.stringify(sticker));
                     });
