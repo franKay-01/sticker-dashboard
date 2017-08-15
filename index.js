@@ -567,14 +567,14 @@ app.get('/collection/:id', function (req, res) {
 
     if (session && token) {
 
-        var collection = new Parse.Query("Collection");
-        collection.get(coll_id, {
-            success: function (collection) {
+        // var collection = new Parse.Query("Collection");
+        // collection.get(coll_id, {
+        //     success: function (collection) {
 
                 var resultArray = [];
                 var _stickers = [];
 
-                var coll_stickers = new Parse.Query("stickers");
+                var coll_stickers = new Parse.Query("Sticker");
                 coll_stickers.equalTo("collection", coll_id);
                 coll_stickers.find().then(function (stickers) {
                     _.each(stickers, function (sticker) {
@@ -624,8 +624,8 @@ app.get('/collection/:id', function (req, res) {
                 }, function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
                 });
-            }
-        });
+        //     }
+        // });
 
 
     }
