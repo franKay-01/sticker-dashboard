@@ -296,39 +296,41 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 parseFile.save().then(function () {
 
-                    //instance of parse object
-                    var sticker = new Sticker();
-                    sticker.set("stickerName", stickerName);
-                    sticker.set("localName", stickerName);
-                    sticker.set("uri", parseFile);
-                    sticker.set("stickerPhraseImage", "");
-                    sticker.set("collection", collection);
+                        //instance of parse object
+                        var sticker = new Sticker();
+                        sticker.set("stickerName", stickerName);
+                        sticker.set("localName", stickerName);
+                        sticker.set("uri", parseFile);
+                        sticker.set("stickerPhraseImage", "");
+                        sticker.set("collection", collection);
 
-                    var collection_relation = collection.relation("Collection");
-                    collection_relation.add(sticker);
-                    collection.save();
+                        sticker.save().then(function () {
 
-                    return sticker.save();
-
-                }).then(function () {
-
-
-
-                    //Delete tmp fil after upload
-                    var tempFile = sticker.path;
-                    fs.unlink(tempFile, function (err) {
-                        if (err) {
-                            //TODO handle error code
-                            console.log("-------Could not del temp" + JSON.stringify(err));
-                        }
+                                var collection_relation = collection.relation("Collection");
+                                collection_relation.add(sticker);
+                                collection.save();
+                                console.log("+++++++++++++++++Saved Collection++++++++++++++++");
+                                //Delete tmp fil after upload
+                                var tempFile = sticker.path;
+                                fs.unlink(tempFile, function (err) {
+                                    if (err) {
+                                        //TODO handle error code
+                                        console.log("-------Could not del temp" + JSON.stringify(err));
+                                    }
+                                });
+                            },
+                            function (error) {
+                                console.log("failed to save sticker" + error);
+                            });
+                    },
+                    function (error) {
+                        console.log("did not save file" + error);
                     });
-                    // res.render("pages/collection", {id: coll_id});
-                });
+                //File saving Process Ends
             });
-            //File saving Process Ends
-        });
-        res.redirect("/collections-dashboard");
+            res.redirect("/collections-dashboard");
 
+        });
     }
     // //no session exists reload signup page
     else {
