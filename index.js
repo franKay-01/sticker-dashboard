@@ -308,8 +308,8 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                                 var collection_relation = collection.relation("stickers");
                                 collection_relation.add(sticker);
-
-
+                                collection.save();
+                                console.log("+++++++++++++++++Saved Collection++++++++++++++++");
                                 //Delete tmp fil after upload
                                 var tempFile = sticker.path;
                                 fs.unlink(tempFile, function (err) {
@@ -321,8 +321,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                                         console.log("_______________Deleted well__________________/")
                                     }
                                 });
-                                collection.save();
-                                console.log("+++++++++++++++++Saved Collection++++++++++++++++");
+                                res.redirect("/collections-dashboard");
                             },
                             function (error) {
                                 console.log("failed to save sticker" + error);
