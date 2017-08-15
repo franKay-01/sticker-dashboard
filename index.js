@@ -308,7 +308,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 }).then(function () {
 
-                    var collection_relation = collection.relation("stickers");
+                    var collection_relation = collection.relation("Collection");
                     collection_relation.add(sticker);
                     collection.save();
 
@@ -320,12 +320,12 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                             console.log("-------Could not del temp" + JSON.stringify(err));
                         }
                     });
-                    res.render("pages/collection", {id: coll_id});
+                    // res.render("pages/collection", {id: coll_id});
                 });
             });
             //File saving Process Ends
         });
-        res.redirect("/collections-dashboard");
+        res.render("pages/collection", {id: coll_id});
 
     }
     // //no session exists reload signup page
