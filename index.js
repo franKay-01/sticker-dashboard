@@ -575,8 +575,9 @@ app.get('/collection/:id', function (req, res) {
                 var _stickers = [];
 
                 var coll_stickers = new Parse.Query("stickers");
-                coll_stickers.equalTo("collection", coll_id).then(function (stickers) {
-
+                coll_stickers.equalTo("collection", coll_id);
+                coll_stickers.find().then(function (stickers) {
+                    console.log("All stickers related to " + JSON.stringify(coll_id));
                     res.render("pages/collection", {stickers: stickers, id: coll_id});
                     /* var promise = Parse.Promise.as();
 
