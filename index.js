@@ -306,6 +306,10 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                         sticker.save().then(function () {
 
+                                var collection_relation = collection.relation("stickers");
+                                collection_relation.add(sticker);
+
+
                                 //Delete tmp fil after upload
                                 var tempFile = sticker.path;
                                 fs.unlink(tempFile, function (err) {
@@ -313,15 +317,16 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                                         //TODO handle error code
                                         console.log("-------Could not del temp" + JSON.stringify(err));
                                     }
+                                    else {
+                                        console.log("_______________Deleted well__________________/")
+                                    }
                                 });
+                                collection.save();
+                                console.log("+++++++++++++++++Saved Collection++++++++++++++++");
                             },
                             function (error) {
                                 console.log("failed to save sticker" + error);
                             });
-                        var collection_relation = collection.relation("stickers");
-                        collection_relation.add(sticker);
-                        collection.save();
-                        console.log("+++++++++++++++++Saved Collection++++++++++++++++");
                     },
                     function (error) {
                         console.log("did not save file" + error);
@@ -568,7 +573,6 @@ app.get('/collection/:id', function (req, res) {
         collection.get(coll_id, {
             success: function (collection) {
 
-                //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
                 var resultArray = [];
                 var _stickers = [];
 
