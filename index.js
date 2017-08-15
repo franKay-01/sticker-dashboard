@@ -325,7 +325,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
             });
             //File saving Process Ends
         });
-        res.render("pages/collection", {id: coll_id});
+        res.redirect("/collection");
 
     }
     // //no session exists reload signup page
