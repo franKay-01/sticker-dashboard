@@ -572,7 +572,7 @@ app.get('/collection/:id', function (req, res) {
                 var resultArray = [];
                 var _stickers = [];
 
-                var col = collection.relation("Collection");
+                var col = collection.relation("stickers");
                 col.query().find().then(function (stickers) {
 
                     res.render("pages/collection", {stickers: stickers, id: coll_id});
