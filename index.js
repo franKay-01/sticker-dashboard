@@ -301,7 +301,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                         sticker.set("stickerName", stickerName);
                         sticker.set("localName", stickerName);
                         sticker.set("uri", parseFile);
-                        sticker.set("stickerPhraseImage", "");
                         sticker.set("collection", collection);
 
                         sticker.save().then(function () {
@@ -575,8 +574,8 @@ app.get('/collection/:id', function (req, res) {
                 var resultArray = [];
                 var _stickers = [];
 
-                var col = collection.relation("stickers");
-                col.query().find().then(function (stickers) {
+                var coll_stickers = new Parse.Query("stickers");
+                coll_stickers.equalTo("collection", coll_id).then(function (stickers) {
 
                     res.render("pages/collection", {stickers: stickers, id: coll_id});
                     /* var promise = Parse.Promise.as();
