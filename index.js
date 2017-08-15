@@ -306,7 +306,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                         sticker.save().then(function () {
 
-                                var collection_relation = collection.relation("Collection");
+                                var collection_relation = collection.relation("stickers");
                                 collection_relation.add(sticker);
                                 collection.save();
                                 console.log("+++++++++++++++++Saved Collection++++++++++++++++");
