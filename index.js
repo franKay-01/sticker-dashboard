@@ -319,7 +319,14 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                                 var collection_relation = collection.relation("Collection");
                                 collection_relation.add(sticker);
-                                collection.save();
+                                collection.save({
+                                    success: function () {
+                                console.log("-----------Relation creation successful--------");
+                                },
+                                    error: function (error) {
+                                        console.log("-----------Failed to create relation------")
+                                    }}
+                                );
 
                                 //Delete tmp fil after upload
                                 var tempFile = sticker.path;
