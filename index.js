@@ -277,7 +277,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
         var collection = new Parse.Query("Collection");
         collection.equalTo("objectId", coll_id);
         collection.first({sessionToken: token}).then(function (collection) {
-
+    console.log("Collection Found_________" + JSON.stringify(collection));
             //File saving Process Begins
             files.forEach(function (sticker, index) {
 
@@ -311,6 +311,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     var collection_relation = collection.relation("stickers");
                     collection_relation.add(sticker);
                     collection.save();
+                    console.log("________Collection Saved_______");
 
                     //Delete tmp fil after upload
                     var tempFile = sticker.path;
@@ -319,13 +320,18 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                             //TODO handle error code
                             console.log("-------Could not del temp" + JSON.stringify(err));
                         }
+                        else {
+                            console.log("==========temp file deleted=============");
+                        }
                     });
-                    res.render("pages/collection", {id: coll_id});
                 });
             });
+            console.log("+++++++++++++FILE UPLOAD SUCCESS");
+            res.redirect("/collections-dashboard");
+            // res.redirect("pages/collection", {id: coll_id});
             //File saving Process Ends
         });
-        res.redirect("/collections-dashboard");
+        // res.redirect("/collections-dashboard");
 
     }
     // //no session exists reload signup page
