@@ -569,10 +569,11 @@ app.get('/collection/:id', function (req, res) {
         collection.get(coll_id, {
             success: function (collection) {
 
+                var collectionName = collection.get("collection_name");
                 var col = collection.relation("Collection");
                 col.query().find().then(function (stickers) {
 
-                    res.render("pages/collection", {stickers: stickers, id: coll_id});
+                    res.render("pages/collection", {stickers: stickers, id: coll_id, cName: collectionName});
 
                 }, function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
