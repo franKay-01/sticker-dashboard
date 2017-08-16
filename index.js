@@ -306,15 +306,15 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                     return sticker.save();
 
-                }).then(function () {
+                }).then(function (savedSticker) {
 
                     var collection_relation = collection.relation("stickers");
-                    collection_relation.add(sticker);
+                    collection_relation.add(savedSticker);
                     collection.save();
                     console.log("________Collection Saved_______");
 
                     //Delete tmp fil after upload
-                    var tempFile = sticker.path;
+                    var tempFile = savedSticker.path;
                     fs.unlink(tempFile, function (err) {
                         if (err) {
                             //TODO handle error code
