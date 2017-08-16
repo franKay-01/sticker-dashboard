@@ -573,6 +573,10 @@ app.get('/collection/:id', function (req, res) {
                 var col = collection.relation("Collection");
                 col.query().find().then(function (stickers) {
 
+                    _.each(stickers, function (sticker) {
+                        console.log("Sticker related to " + JSON.stringify(coll_id) + "*****" + JSON.stringify(sticker));
+                    });
+
                     res.render("pages/collection", {stickers: stickers, id: coll_id, cName: collectionName});
 
                 }, function (error) {
