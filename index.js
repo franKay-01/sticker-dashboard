@@ -304,12 +304,13 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     sticker.set("stickerPhraseImage", "");
                     sticker.set("collection", collection);
 
+                    var collection_relation = collection.relation("stickers");
+                    collection_relation.add(sticker);
+
                     return sticker.save();
 
                 }).then(function () {
 
-                    var collection_relation = collection.relation("stickers");
-                    collection_relation.add(sticker);
                     collection.save();
 
                     //Delete tmp fil after upload
