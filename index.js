@@ -322,22 +322,24 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                                 collection.save({
                                     success: function () {
                                 console.log("-----------Relation creation successful--------");
+
+                                        //Delete tmp fil after upload
+                                        var tempFile = sticker.path;
+                                        fs.unlink(tempFile, function (err) {
+                                            if (err) {
+                                                //TODO handle error code
+                                                console.log("-------Could not del temp" + JSON.stringify(err));
+                                            }
+                                        });
+
+                                        res.redirect("/collections-dashboard");
                                 },
                                     error: function (error) {
                                         console.log("-----------Failed to create relation------")
                                     }}
                                 );
 
-                                //Delete tmp fil after upload
-                                var tempFile = sticker.path;
-                                fs.unlink(tempFile, function (err) {
-                                    if (err) {
-                                        //TODO handle error code
-                                        console.log("-------Could not del temp" + JSON.stringify(err));
-                                    }
-                                });
 
-                                res.redirect("/collections-dashboard");
                             },
                             function (error) {
                                 //sticker was not uploaded, reload stickers page
