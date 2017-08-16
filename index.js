@@ -296,44 +296,37 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 parseFile.save().then(function () {
 
-                        //instance of parse object
-                        var sticker = new Sticker();
-                        sticker.set("stickerName", stickerName);
-                        sticker.set("localName", stickerName);
-                        sticker.set("uri", parseFile);
-                        sticker.set("collection", collection);
+                    //instance of parse object
+                    var sticker = new Sticker();
+                    sticker.set("stickerName", stickerName);
+                    sticker.set("localName", stickerName);
+                    sticker.set("uri", parseFile);
+                    sticker.set("stickerPhraseImage", "");
+                    sticker.set("collection", collection);
 
-                        sticker.save().then(function () {
+                    return sticker.save();
 
-                                var collection_relation = collection.relation("stickers");
-                                collection_relation.add(sticker);
-                                collection.save();
-                                console.log("+++++++++++++++++Saved Collection++++++++++++++++");
-                                //Delete tmp fil after upload
-                                var tempFile = sticker.path;
-                                fs.unlink(tempFile, function (err) {
-                                    if (err) {
-                                        //TODO handle error code
-                                        console.log("-------Could not del temp" + JSON.stringify(err));
-                                    }
-                                    else {
-                                        console.log("_______________Deleted well__________________/")
-                                    }
-                                });
-                                res.redirect("/collections-dashboard");
-                            },
-                            function (error) {
-                                console.log("failed to save sticker" + error);
-                            });
-                    },
-                    function (error) {
-                        console.log("did not save file" + error);
+                }).then(function () {
+
+                    var collection_relation = collection.relation("stickers");
+                    collection_relation.add(sticker);
+                    collection.save();
+
+                    //Delete tmp fil after upload
+                    var tempFile = sticker.path;
+                    fs.unlink(tempFile, function (err) {
+                        if (err) {
+                            //TODO handle error code
+                            console.log("-------Could not del temp" + JSON.stringify(err));
+                        }
                     });
-                //File saving Process Ends
+                    res.render("pages/collection", {id: coll_id});
+                });
             });
-            res.redirect("/collections-dashboard");
-
+            //File saving Process Ends
         });
+        res.redirect("/collections-dashboard");
+
     }
     // //no session exists reload signup page
     else {
@@ -567,19 +560,17 @@ app.get('/collection/:id', function (req, res) {
 
     if (session && token) {
 
-        // var collection = new Parse.Query("Collection");
-        // collection.get(coll_id, {
-        //     success: function (collection) {
+        var collection = new Parse.Query("Collection");
+        collection.get(coll_id, {
+            success: function (collection) {
 
+                //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
                 var resultArray = [];
                 var _stickers = [];
 
-                var coll_stickers = new Parse.Query("Sticker");
-                coll_stickers.equalTo("collection", coll_id);
-                coll_stickers.find({sessionToken: token}).then(function (stickers) {
-                    _.each(stickers, function (sticker) {
-                        console.log("All stickers related to " + JSON.stringify(coll_id) + " " + JSON.stringify(sticker));
-                    });
+                var col = collection.relation("Collection");
+                col.query().find().then(function (stickers) {
+
                     res.render("pages/collection", {stickers: stickers, id: coll_id});
                     /* var promise = Parse.Promise.as();
 
@@ -624,8 +615,8 @@ app.get('/collection/:id', function (req, res) {
                 }, function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
                 });
-        //     }
-        // });
+            }
+        });
 
 
     }
