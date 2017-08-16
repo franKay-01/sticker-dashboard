@@ -570,53 +570,14 @@ app.get('/collection/:id', function (req, res) {
         collection.get(coll_id, {
             success: function (collection) {
 
-                //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
-                var resultArray = [];
-                var _stickers = [];
-
-                var col = collection.relation("Collection");
-                col.query().find().then(function (stickers) {
-
+                var coll_stickers = new Parse.Query("Sticker");
+                coll_stickers.equalTo("collection", collection);
+                coll_stickers.find({sessionToken: token}).then(function (stickers) {
+                    _.each(stickers, function (sticker) {
+                        console.log("Sticker related to " + JSON.stringify(coll_id) + " " + JSON.stringify(sticker));
+                    });
                     res.render("pages/collection", {stickers: stickers, id: coll_id});
-                    /* var promise = Parse.Promise.as();
 
-                     if (stickers.length) {
-
-                     _stickers = stickers;
-
-                     _.each(stickers, function (sticker) {
-
-
-                     var query = sticker.relation("cat");
-                     return query.find();
-
-                     promise = promise.then(function () {
-
-                     console.log("STICKER " + JSON.stringify(sticker));
-
-                     var query = sticker.relation("cat");
-                     return query.find();
-                     });
-                     });
-
-                     }
-
-                     return promise;*/
-
-                    /*
-                     * .then(function (categories) {
-
-                     console.log("CATEGORIES " + JSON.stringify(categories));
-
-                     var _categoryName = [];
-                     _.each(categories, function (category) {
-                     _categoryName.push(category.get("name"))
-                     });
-                     _sticker.categoryName = _categoryName;
-                     resultArray.push(_sticker);
-
-                     // console.log("RESULT ARRAY " + resultArray);
-                     res.render("pages/collection", {stickers: _stickers, id: coll_id});*/
 
                 }, function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
