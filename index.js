@@ -570,7 +570,7 @@ app.get('/collection/:id', function (req, res) {
             success: function (collection) {
 
                 var collectionName = collection.get("collection_name");
-                var col = collection.relation("Collection");
+                var col = collection.relation("stickers");
                 col.query().find().then(function (stickers) {
 
                     _.each(stickers, function (sticker) {
