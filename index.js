@@ -332,7 +332,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                                             }
                                         });
 
-                                        res.redirect("/collections-dashboard");
                                 },
                                     error: function (error) {
                                         console.log("-----------Failed to create relation------")
@@ -355,6 +354,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     });
 
                 });
+                res.redirect("/collections-dashboard");
                 //File saving Process Ends
             },
             function (error) {
