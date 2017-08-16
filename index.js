@@ -570,12 +570,12 @@ app.get('/collection/:id', function (req, res) {
         collection.get(coll_id, {
             success: function (collection) {
 
+                var collectionName = collection.get("collection_name");
+                console.log("Collection name:::::::::::::" + collectionName);
                 var coll_stickers = new Parse.Query("Sticker");
                 coll_stickers.equalTo("collection", collection);
                 coll_stickers.find({sessionToken: token}).then(function (stickers) {
-                    _.each(stickers, function (sticker) {
-                        console.log("Sticker related to " + JSON.stringify(coll_id) + " " + JSON.stringify(sticker));
-                    });
+
                     res.render("pages/collection", {stickers: stickers, id: coll_id});
 
 
