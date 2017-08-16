@@ -576,7 +576,7 @@ app.get('/collection/:id', function (req, res) {
                 coll_stickers.equalTo("collection", collection);
                 coll_stickers.find({sessionToken: token}).then(function (stickers) {
 
-                    res.render("pages/collection", {stickers: stickers, id: coll_id});
+                    res.render("pages/collection", {stickers: stickers, id: coll_id, cName: collectionName});
 
 
                 }, function (error) {

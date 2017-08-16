@@ -19,19 +19,18 @@
 
         <label>Category:</label> <input  placeholder="Category e.g funny, silly" id="category" name="cat"
                                          value="<%= sticker.get("category") %>" disabled>
+    </div>
+    <div class="categoryOption">
+        <button id="chooseCat" type="button"> <span id="arrow">&#9660;</span>Choose categories</button>
 
-        <div class="categoryOption">
-            <button id="chooseCat" type="button"> <span id="arrow">&#9660;</span>Choose categories</button>
+        <div class="categories">
+            <% categories.forEach(function(item, index) { %>
 
-            <div class="categories">
-                <% categories.forEach(function(item, index) { %>
+            <input type="checkbox" class="cat1" name="cat1[]" data-name="<%=item.get('name')%>" value="<%= item.id%>"><%= item.get("name")%>
 
-                <input type="checkbox" class="cat1" name="cat1[]" data-name="<%=item.get('name')%>" value="<%= item.id%>"><%= item.get("name")%>
-
-                <% }); %>
-            </div>
-
+            <% }); %>
         </div>
+
     </div>
 
     <button id="updatebtn" type="submit">UPDATE</button>

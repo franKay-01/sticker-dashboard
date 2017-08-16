@@ -268,9 +268,14 @@ fieldset {
 /*STICKER DETAILS FORM*/
 .container1 {
     width: 50%;
-    height: 200%;
-    bottom: 20%;
-    margin: 0 auto;
+    height: 100%;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-top: 15%;
 }
 
 input::-webkit-input-placeholder {
@@ -279,7 +284,7 @@ input::-webkit-input-placeholder {
 
 #tform {
     height: 570px;
-    width: 92%;
+    width: 85%;
     background-color: #dddddd;
     padding: 15px;
     margin-bottom: 20%;
@@ -296,9 +301,9 @@ input::-webkit-input-placeholder {
     border: 2px solid darkslategrey;
     position: absolute;
     overflow: hidden;
-    left: 52%;
-    height: 300px;
-    width: 18%;
+    left: 47%;
+    height: 290px;
+    width: 34%;
 }
 
 #add-img {
@@ -329,7 +334,7 @@ input::-webkit-input-placeholder {
 #left-column {
     position: absolute;
     overflow: hidden;
-    left: 27%;
+    left: 7%;
     height: 84%;
     width: 23%;
 }
@@ -363,7 +368,8 @@ input::-webkit-input-placeholder {
 
 .categoryOption {
     position: absolute;
-    width: 100%;
+    bottom: 0;
+    width: inherit;
 }
 
 #arrow {
@@ -405,8 +411,8 @@ input::-webkit-input-placeholder {
     font-size: 130%;
     transition: 0.3s;
     position: absolute;
-    left: 42%;
-    bottom: 17%;
+    left: 65%;
+    margin-top: 65%;
 }
 
 #updatebtn:hover {
