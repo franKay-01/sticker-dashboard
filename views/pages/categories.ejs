@@ -25,16 +25,15 @@
 </head>
 
 <body class="primary-background-color">
-
-<div class="Rectangle">
-    <img src="/public/assets/images/logo2.png"
-         srcset="/public/assets/images/logo@2x.png 2x,/public/assets/images//logo@3x.png 3x" class="logo2">
-</div>
-
 <!-- Logo -->
 <div class="row header-top-spacing">
     <div class="columns large-12 small-12">
         <div class="row">
+            <div class="columns large-1 small-12">
+                <a href="https://cryptic-waters-41617.herokuapp.com">
+                    <img  class="logo" src="/public/assets/images/logo.png" alt="Cyfa Logo"/>
+                </a>
+            </div>
 
             <div class="columns large-8 small-12">
                 <!--TODO add collection name to title below-->
@@ -48,95 +47,24 @@
     </div>
 </div>
 <!-- Logo -->
+    <div class="containerx">
+        <form id='stick-category'>
+            <span id='title'>set categories for each sticker</span>
+            <div class='stickers'>
+                <div class='leftside'>
+                    <span id='img-prev'></span>
+                    <p id='fname'>file name</p>
+                </div>
+                <div class='rightside'>
+                    <div class='tags-input' data-name='tags-input'></div>
+                </div>
+            </div>
 
-<div class="posit">
-<button id="addbtn"><img class="plus" src="/public/assets/images/pluswhite.png"> ADD A NEW CATEGORY</button>
-</div>
-
-<div class="hidden">
-    <form id="editform" action="/update-category" method="post">
-        <table id="editable">
-            <tr>
-                <th  colspan="2" id="heading1">
-                    EDIT CATEGORY
-                </th>
-            </tr>
-            <tr>
-                <td id="label-c">Rename category: </td>
-                <td>
-                    <input type="text" name="catname" id="catname" autofocus onfocus="this.value = this.value;" />
-                    <input type="hidden" name="currentName" id="currentName">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button id="cancelbtn" type="button">CANCEL</button>
-                </td>
-                <td>
-                    <button id="savebtn" type="submit">SAVE</button>
-                </td>
-            </tr>
-
-        </table>
-    </form>
-</div>
-
-<!--add category form-->
-<div class="hidden1">
-    <form id="addform" action="/new-category" method="post">
-        <table id="addtable">
-            <tr>
-                <th  colspan="2" id="heading2">
-                    ADD NEW CATEGORY
-                </th>
-            </tr>
-            <tr>
-                <td id="label-cn">Type Category Name: </td>
-                <td><input type="text" name="catname" id="catname" /></td>
-            </tr>
-            <tr>
-                <td>
-                    <button id="cancelbtn1" type="button">CANCEL</button>
-                </td>
-                <td>
-                    <button id="savebtn1" type="submit">SAVE</button>
-                </td>
-            </tr>
-
-        </table>
-    </form>
-</div>
-
-<!--remove category form-->
-<div class="hidden2">
-    <form id="deleteform" action="/remove-category" method="post">
-        <table id="deltable">
-            <tr>
-                <th  colspan="2" id="heading3">
-                    REMOVE THIS CATEGORY??
-                </th>
-            </tr>
-            <tr>
-                <td colspan="2"><input type="text" name="catnameD" id="catnameD" /></td>
-                <input type="hidden" name="currentNameD" id="currentNameD">
-            </tr>
-            <tr>
-                <td>
-                    <button id="cancelbtn2" type="button">FORGET IT</button>
-                </td>
-                <td>
-                    <button id="savebtn2" type="submit">YES, REMOVE</button>
-                </td>
-            </tr>
-
-        </table>
-    </form>
-</div>
-
-<%- include ../partials/category-table %>
+            <button type='button' id='okaybtn'>OKAY</button>
+        </form>
+    </div>
 
 
-<div id="page-mask1"></div>
 <!-- Body -->
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
