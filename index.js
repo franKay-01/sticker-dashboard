@@ -301,7 +301,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     sticker.set("stickerName", stickerName);
                     sticker.set("localName", stickerName);
                     sticker.set("uri", parseFile);
-                    sticker.set("stickerPhraseImage", "");
                     sticker.set("collection", collection);
 
                     return sticker.save();
@@ -570,14 +569,10 @@ app.get('/collection/:id', function (req, res) {
         collection.get(coll_id, {
             success: function (collection) {
 
-                var collectionName = collection.get("collection_name");
-                console.log("Collection name:::::::::::::" + collectionName);
-                var coll_stickers = new Parse.Query("Sticker");
-                coll_stickers.equalTo("collection", collection);
-                coll_stickers.find({sessionToken: token}).then(function (stickers) {
+                var col = collection.relation("Collection");
+                col.query().find().then(function (stickers) {
 
-                    res.render("pages/collection", {stickers: stickers, id: coll_id, cName: collectionName});
-
+                    res.render("pages/collection", {stickers: stickers, id: coll_id});
 
                 }, function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
