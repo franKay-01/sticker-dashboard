@@ -277,7 +277,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
         var collection = new Parse.Query("Collection");
         collection.equalTo("objectId", coll_id);
         collection.first({sessionToken: token}).then(function (collection) {
-    console.log("Collection Found_________" + JSON.stringify(collection));
+            console.log("Collection Found_________" + JSON.stringify(collection));
             //File saving Process Begins
             files.forEach(function (sticker, index) {
 
@@ -306,7 +306,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     return sticker.save();
 
                 }).then(function (savedSticker) {
-
+                    console.log("New Sticker=========" + JSON.stringify(savedSticker));
                     var collection_relation = collection.relation("stickers");
                     collection_relation.add(savedSticker);
                     collection.save();
