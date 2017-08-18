@@ -674,26 +674,34 @@ app.get('/details/:id', function (req, res) {
     var token = req.cookies.token;
     var id = req.params.id;
     var stickerDetail;
+    var allCategories;
 
     if (session && token) {
-        var sticker = new Parse.Query("Sticker");
-        sticker.equalTo("objectId", id);
-        sticker.first({sessionToken: token}).then(function (sticker) {
 
-            stickerDetail = sticker;
+        Parse.Promise.when(
+            new Parse.Query("Sticker").equalTo("objectId", id).first({sessionToken: token}),
+            new Parse.Query("Category").find()
+        ).then(function (sticker, categories) {
 
-            var sticker_relation = sticker.relation("categories");
-            return sticker_relation.query().find();
+                stickerDetail = sticker;
+                allCategories = categories;
+
+                var sticker_relation = sticker.relation("categories");
+                return sticker_relation.query().find();
 
             }
-        ).then(function(categories){
+        ).then(function (stickerCategories) {
 
             var categoryNames = [];
-            _.each(categories,function(category){
+            _.each(stickerCategories, function (category) {
                 categoryNames.push(category.get("name"))
             });
 
-            res.render("pages/details", {sticker: stickerDetail, categories: categoryNames});
+            res.render("pages/details", {
+                sticker: stickerDetail,
+                categoryNames: categoryNames,
+                categories: allCategories
+            });
 
         }, function (err) {
             //TODO handle error code
