@@ -18,13 +18,13 @@
                value="<%= sticker.get("localName") %>">
 
         <label>Category:</label> <input  placeholder="Category e.g funny, silly" id="category" name="cat"
-                                         value="<%= categories %>" disabled>
+                                         value="<%= categoryNames %>" disabled>
 
         <div class="categoryOption">
             <button id="chooseCat" type="button"> <span id="arrow">&#9660;</span>Choose categories</button>
 
             <div class="categories">
-                <% categories.forEach(function(item, index) { %>
+                <% categories.forEach(function(item) { %>
 
                 <input type="checkbox" class="cat1" name="cat1[]" data-name="<%=item.get('name')%>" value="<%= item.id%>"><%= item.get("name")%>
 
