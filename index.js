@@ -673,30 +673,32 @@ app.get('/details/:id', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var id = req.params.id;
+    var stickerDetail;
 
     if (session && token) {
         var sticker = new Parse.Query("Sticker");
         sticker.equalTo("objectId", id);
         sticker.first({sessionToken: token}).then(function (sticker) {
 
-                //find categories from dashboard
-                var categories = new Parse.Query("Category");
-                categories = categories.descending("name");
+            stickerDetail = sticker;
 
-                categories.find().then(function (categories) {
-                        res.render("pages/details", {sticker: sticker, categories: categories});
-                    },
-                    //TODO handle errors
-                    function (error) {
-                        console.log("No categories found- " + error);
-                    }
-                );
-            },
-            function (err) {
-                //TODO handle error code
-                console.log("Error Loading-----------------------" + JSON.stringify(err));
+            var sticker_relation = sticker.relation("categories");
+            return sticker_relation.query().find();
+
             }
-        );
+        ).then(function(categories){
+
+            var categoryNames = [];
+            _.each(categories,function(category){
+                categoryNames.push(category.get("name"))
+            });
+
+            res.render("pages/details", {sticker: stickerDetail, categories: categoryNames});
+
+        }, function (err) {
+            //TODO handle error code
+            console.log("Error Loading-----------------------" + JSON.stringify(err));
+        });
     }
     else {
         res.redirect("/dashboard");
