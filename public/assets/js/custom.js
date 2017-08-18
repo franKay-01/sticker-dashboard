@@ -42,7 +42,7 @@ $(document).ready(function () {
     });
 
     $checks = $(":checkbox");
-    $("input[type=checkbox][value='funny']").attr("checked","true");
+    $('input:checkbox[value="' + 'funny' + '"]').prop('checked', true);
     $checks.on('change', function (e) {
         var string = $checks.filter(":checked").map(function (i, v) {
             return $(this).attr("data-name");
@@ -50,7 +50,6 @@ $(document).ready(function () {
         $('#category').val(string);
 
     });
-
 
     //add button style
     $('#addbtn').on('mouseover', function () {
