@@ -765,14 +765,16 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
             console.log("STICKER UPDATED" + JSON.stringify(sticker));
 
-            //Delete tmp fil after update
-            var tempFile = file.path;
-            fs.unlink(tempFile, function (err) {
-                if (err) {
-                    //TODO handle error code
-                    console.log("Could not del temp++++++++" + JSON.stringify(err));
-                }
-            });
+            if (imgChange === 'true') {
+                //Delete tmp fil after update
+                var tempFile = file.path;
+                fs.unlink(tempFile, function (err) {
+                    if (err) {
+                        //TODO handle error code
+                        console.log("Could not del temp++++++++" + JSON.stringify(err));
+                    }
+                });
+            }
 
             console.log("FILE UPDATED SUCCESSFULLYYYY");
             res.redirect("/dashboard");
