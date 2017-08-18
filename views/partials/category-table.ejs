@@ -1,0 +1,23 @@
+
+<div class="contable">
+    <table id="cattable">
+        <th colspan="3" id="heading">
+            CURRENT CATEGORIES
+        </th>
+        <tr class="mainrow">
+            <th>No.</th>
+            <th>CATEGORY NAME</th>
+            <th>OPTIONS</th>
+        </tr>
+        <% categories.forEach(function(item, index) { %>
+        <tr>
+            <td><%=index+1 %></td>
+            <td><input type="text" id="categoryname" value="<%= item.get("name")%>" disabled></td>
+            <td>
+                <button class="editbtn1" value="<%= item.get("name")%>">EDIT</button>
+                <button class="delbtn1" value="<%= item.get("name")%>">REMOVE</button>
+            </td>
+        </tr>
+        <% }); %>
+    </table>
+</div>

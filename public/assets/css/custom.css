@@ -1,10 +1,9 @@
 body {
-    background-image: url(../images/imgHeader.png);
+    background-image: url(../images/background.png);
     background-position: top center;
     background-repeat: no-repeat;
-    background-size: 70%;
+    background-size: 170%;
     font-family: 'Open Sans', sans-serif;
-    color: white !important;
 }
 
 a {
@@ -13,17 +12,13 @@ a {
 }
 
 
-a:hover, a:visited, a:active {
-    color: white !important;
-}
-
-.logo {
-    width: 67px;
-    height: 62px;
+.logo2 {
+    width: 20%;
+    height: 60%;
 }
 
 .header-top-spacing {
-    margin-top: 50px;
+    /*margin-top: 50px;*/
 }
 
 .primary-color {
@@ -36,6 +31,13 @@ a:hover, a:visited, a:active {
 
 .primary-background-color {
     background-color: #FFFFFF;
+}
+
+.background {
+    width: 852px;
+    height: 735px;
+    object-fit: contain;
+    opacity: 0.47;
 }
 
 .secondary-background-color {
@@ -67,16 +69,12 @@ a:hover, a:visited, a:active {
 }
 
 .logo-text {
-    color: white;
+    color: #464B9C;
     margin: 0;
     padding: 0;
     font-weight: 300;
 }
 
-.beta-text {
-    color: white;
-    font-weight: 600;
-}
 
 .logo2 {
     width: 131px;
@@ -85,7 +83,7 @@ a:hover, a:visited, a:active {
 }
 
 .Rectangle {
-    width: 1024px;
+    width: 100%;
     height: 72px;
     background-color: rgba(245, 245, 245, 0.76);
 }
@@ -105,6 +103,7 @@ input[type=search], textarea.materialize-textarea {
     font-weight: 600;
     font-size: 18px;
     transition: 5s;
+    color: #464B9C;
 }
 .uplink:hover {
     transition: 5s;
@@ -120,6 +119,7 @@ input[type=search], textarea.materialize-textarea {
 }
 #signout {
     font-weight: bold;
+    color: #464B9C;
 }
 
 #signout:hover {
@@ -265,7 +265,7 @@ fieldset {
 /*Container for stickers on dashboard--------------END*/
 
 
-/*ADD STICKER FORM*/
+/*STICKER DETAILS FORM*/
 .container1 {
     width: 50%;
     height: 200%;
@@ -278,7 +278,8 @@ input::-webkit-input-placeholder {
 }
 
 #tform {
-    height: 450px;
+    height: 570px;
+    width: 92%;
     background-color: #dddddd;
     padding: 15px;
     margin-bottom: 20%;
@@ -287,15 +288,15 @@ input::-webkit-input-placeholder {
 
 #tform label{
     color: #464B9C;
-    font-size: 145%;
+    font-size: 120%;
     font-weight: bold;
 }
 
-#left-col {
+#right-column {
     border: 2px solid darkslategrey;
     position: absolute;
     overflow: hidden;
-    left: 26%;
+    left: 52%;
     height: 300px;
     width: 18%;
 }
@@ -325,10 +326,11 @@ input::-webkit-input-placeholder {
     width: 300px;
 }
 
-#right-col {
+#left-column {
     position: absolute;
     overflow: hidden;
-    left: 50%;
+    left: 27%;
+    height: 84%;
     width: 23%;
 }
 
@@ -360,9 +362,7 @@ input::-webkit-input-placeholder {
 }
 
 .categoryOption {
-    border: 1px solid black;
     position: absolute;
-    bottom: 30%;
     width: 100%;
 }
 
@@ -370,19 +370,12 @@ input::-webkit-input-placeholder {
     font-size: medium;
     margin-right: 5%;
 }
-#arrow:hover {
-    color: white;
-    background-color: blue;
-    transition: 0.4s;
-}
 
 #chooseCat {
     width: 85%;
-    position: relative;
     color: #202246;
     font-size: 100%;
-    background-color: #cacce7;
-    bottom: 100%;
+    background-color: darkgrey;
     padding: 3%;
 }
 
@@ -394,26 +387,35 @@ input::-webkit-input-placeholder {
     display: none;
 }
 
+.cat1 {
+    margin-left: 10px;
+}
 
-#upload {
+#category {
+    color: black;
+}
+
+#updatebtn {
     cursor: pointer;
-    max-width: 40%;
+    width: 15%;
     background: #464B9C;
     color: #FFF;
     padding: 10px;
-    font-family: monospace;;
+    font-family: monospace;
     font-size: 130%;
     transition: 0.3s;
-    position: relative;
+    position: absolute;
+    left: 42%;
+    bottom: 17%;
 }
 
-#upload:hover {
+#updatebtn:hover {
     background: white;
     color: #464B9C;
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-/*ADD STICKER FORM--------------END*/
+/*STICKER DETAILS FORM--------------END*/
 
 
 
@@ -587,8 +589,8 @@ input::-webkit-input-placeholder {
 #upload1 {
     cursor: pointer;
     max-width: 40%;
-    background: white;
-    color: #2f326a;
+    background: #8487c8;
+    color: white;
     padding: 1%;
     font-family: monospace;
     font-size: 130%;
@@ -599,8 +601,8 @@ input::-webkit-input-placeholder {
     left: 55%;
 }
 #upload1:hover {
-    background: #8487c8;
-    color: white;
+    background: white;
+    color: #8487c8;
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -608,20 +610,20 @@ input::-webkit-input-placeholder {
 #clear {
     cursor: pointer;
     max-width: 40%;
-    background: white;
-    color: #202246;
+    background: #202246;
+    color: white;
     padding: 1%;
     font-family: monospace;
     font-size: 130%;
     transition: 0.3s;
     position: relative;
-    bottom: 481px;
+    bottom: 380px;
     left: 30%;
 }
 
 #clear:hover {
-    background: #202246;
-    color: white;
+    background: white;
+    color: #202246;
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -643,30 +645,6 @@ input::-webkit-input-placeholder {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
 }
 
-
-
-/*clear*/
-
-.containerx {
-    position: absolute;
-    margin: auto;
-    top: 0;
-    bottom: 3%;
-    left: 0;
-    right: 22%;
-    width: 30%;
-    height: 30%;
-}
-
-.btn {
-    padding: 10px 15px;
-    background-color: blue;
-    border-radius: 4px;
-    color: white;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
 #okaybtn {
     padding: 5px;
     position: absolute;
@@ -677,116 +655,6 @@ input::-webkit-input-placeholder {
     left: 45%;
 }
 
-
-#stick-category {
-    width: 140%;
-    height: 200%;
-    padding: 10px;
-    display: table;
-    text-align: center;
-    position: absolute;
-    border-radius: 10px;
-    background-color: white;
-}
-
-#title {
-    text-transform: uppercase;
-    color: #000;
-    text-align: center;
-}
-
-.stickers {
-    margin-top: 8%;
-}
-
-.rightside {
-    border: 1px solid blue;
-    position: absolute;
-    overflow: hidden;
-    left: 35%;
-    width: 57%;
-}
-.leftside {
-    border: 1px solid red;
-    position: absolute;
-    overflow: hidden;
-    left: 4%;
-    width: 25%;
-}
-
-#img-prev {
-    width: 20px;
-    height: 20px;
-}
-#fname {
-    color: #000;
-}
-
-.cover {
-    width: 100%;
-    height: 240%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
-    z-index: 999;
-}
-
-#close{
-    width: 30px;
-    height: 30px;
-    font-size: 30px;
-    left: 96%;
-    bottom: 96%;
-    position: absolute;
-    color: red;
-    float: right;
-    cursor: pointer;
-}
-
-.tags-input {
-    /*border: 1px solid #333;*/
-    /*display: inline-block;*/
-    line-height: 15px;
-    left: 43%;
-}
-
-.tags-input .tag {
-    font-size: 85%;
-    color: black;
-    padding: 0.5em 0.75em;
-    margin: 0.25em 0.1em;
-    display: inline-block;
-    background-color: #ddd;
-    transition: all 0.1s linear;
-    cursor: pointer;
-}
-
-/*when you hover over tags*/
-.tags-input .tag:hover {
-    background-color: #3af;
-    color: white;
-}
-
-.tags-input .tag .close::after {
-    content: '×';
-    font-weight: bold;
-    display: inline-block;
-    transform: scale(1.4);
-    margin-left: 0.75em;
-}
-
-.tags-input .tag .close:hover::after {
-    color: red;
-}
-
-.tags-input .main-input {
-    border: 1px solid lightslategray;
-    outline: 0;
-    width: 98%;
-    height: 30px;
-}
 
 /*Create Collection Form*/
 #collection-form {
@@ -891,3 +759,311 @@ tr #titles {
     background-color: rgba(0,0,0,0.6);
 }
 
+.posit {
+    width: 20%;
+    margin: 0 auto;
+}
+
+#addbtn {
+    color: white;
+    background-color: #464B9C;
+    border: 1px solid #464B9C;
+    font-weight: bolder;
+    font-size: 120%;
+    transition: 0.3s;
+    width: 100%;
+    padding: 10px;
+}
+#addbtn:hover {
+    color: #464B9C;
+    background-color: white;
+    border: 1px solid #464B9C;
+    transition: 0.3s;
+}
+
+.plus{
+    margin-right: 3%;
+}
+
+/*CATEGORIES TABLE.....................*/
+.contable {
+    margin: 0 auto;
+    width: 50%;
+    padding-top: 3%;
+}
+
+#heading {
+    background-color: #464B9C;
+    color:white;
+    text-align: center;
+    font-size: 150%;
+}
+
+#cattable,  #cattable td {
+    border-collapse: collapse;
+}
+
+#cattable td, th {
+    border: 2px solid #464B9C;
+}
+
+.editbtn1 {
+    padding: 5px;
+    background-color: #8487c8;
+    border: 1px solid #8487c8;
+    color: white;
+    font-size: 110%;
+    transition: 0.2s;
+    margin-right: 10%;
+    margin-left: 25%;
+}
+.editbtn1:hover {
+    background-color: white;
+    border: 1px solid #8487c8;
+    color: #8487c8;
+    transition: 0.2s;
+}
+
+.delbtn1 {
+    padding: 5px;
+    background-color: #282a58;
+    border: 1px solid #282a58;
+    color: white;
+    transition: 0.2s;
+    font-size: 110%;
+}
+.delbtn1:hover {
+    background-color: white;
+    border: 1px solid #282a58;
+    color: #282a58;
+    transition: 0.2s;
+}
+
+.mainrow {
+    text-align: center;
+    font-size: 130%;
+}
+
+#categoryname {
+    font-size: 120%;
+    cursor: auto;
+    color: black;
+    border-bottom-color: white;
+}
+
+#cattable td {
+    background-color: lightgrey;
+    color: darkslategrey;
+}
+
+/*EDIT CATEGORY form----------------------------------------*/
+.hidden {
+    display: none;
+    width: 60%;
+    z-index: 9999;
+    position: absolute;
+    padding-top: 3%;
+}
+
+#editform {
+    margin-left: 50%;
+}
+
+#editable {
+    width: 100%;
+}
+
+#heading1 {
+    background-color: #464B9C;
+    font-size: 120%;
+    color: white;
+    text-align: center;
+}
+
+#editable td {
+    border-collapse: collapse;
+    background-color: lightgrey;
+}
+
+#cancelbtn {
+    padding: 10px;
+    background-color: #282a58;
+    color: white;
+    font-size: 80%;
+    margin-left: 35%;
+    transition: 0.2s;
+}
+#cancelbtn:hover {
+    background-color: white;
+    color: #282a58;
+    transition: 0.2s;
+}
+
+#savebtn {
+    padding: 10px;
+    background-color: #464B9C;
+    color: white;
+    font-size: 80%;
+    margin-left: 45%;
+    transition: 0.2s;
+}
+#savebtn:hover {
+    background-color: white;
+    color: #464B9C;
+    transition: 0.2s;
+}
+
+#catname {
+    font-weight: bold;
+    font-size: 125%;
+    color: #464B9C;
+    font-family: Arial, serif;
+    border: 1px solid
+}
+#catname:focus {
+    background-color: white;
+}
+
+#label-c {
+    font-weight: bolder;
+    font-size: 130%;
+    color: #464B9C;
+    font-family: Arial, serif;
+}
+
+
+
+/*ADD CATEGORY form----------------------------------------*/
+.hidden1 {
+    display: none;
+    position: absolute;
+    width: 60%;
+    z-index: 2;
+}
+
+#addform {
+    margin-left: 50%;
+}
+
+#addtable {
+    width: 100%;
+}
+
+#heading2 {
+    background-color: #464B9C;
+    font-size: 120%;
+    color: white;
+    text-align: center;
+}
+
+#addtable td {
+    border-collapse: collapse;
+    background-color: lightgrey;
+}
+
+#cancelbtn1 {
+    padding: 10px;
+    background-color: #282a58;
+    color: white;
+    font-size: 80%;
+    margin-left: 35%;
+    transition: 0.2s;
+}
+#cancelbtn1:hover {
+    background-color: white;
+    color: #282a58;
+    transition: 0.2s;
+}
+
+#savebtn1 {
+    padding: 10px;
+    background-color: #464B9C;
+    color: white;
+    font-size: 80%;
+    margin-left: 45%;
+    transition: 0.2s;
+}
+#savebtn1:hover {
+    background-color: white;
+    color: #464B9C;
+    transition: 0.2s;
+}
+
+#catname1 {
+    font-weight: bold;
+    font-size: 125%;
+    color: #464B9C;
+    font-family: Arial;
+    border: 1px solid
+}
+
+#label-cn {
+    font-weight: bolder;
+    font-size: 130%;
+    color: #464B9C;
+    font-family: Arial;
+}
+
+/*DELETE CATEGORY form----------------------------------------*/
+.hidden2 {
+    display: none;
+    position: absolute;
+    width: 60%;
+    z-index: 2;
+}
+
+#deleteform {
+    margin-left: 50%;
+}
+
+#deltable {
+    width: 100%;
+}
+
+#heading3 {
+    background-color: #464B9C;
+    font-size: 120%;
+    text-align: center;
+    color: white;
+}
+
+#deltable td {
+    border-collapse: collapse;
+    background-color: lightgrey;
+}
+
+#cancelbtn2 {
+    padding: 10px;
+    background-color: #282a58;
+    color: white;
+    font-size: 80%;
+    margin-left: 35%;
+    transition: 0.2s;
+}
+#cancelbtn2:hover {
+    background-color: white;
+    color: #282a58;
+    transition: 0.2s;
+}
+
+#savebtn2 {
+    padding: 10px;
+    background-color: #464B9C;
+    color: white;
+    font-size: 80%;
+    margin-left: 45%;
+    transition: 0.2s;
+}
+#savebtn2:hover {
+    background-color: white;
+    color: #464B9C;
+    transition: 0.2s;
+}
+
+#catnameD {
+    font-weight: bold;
+    text-align: center;
+    font-size: 170%;
+    color: #464B9C;
+    font-family: Arial;
+}
