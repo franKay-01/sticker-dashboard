@@ -271,11 +271,14 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     var files = req.files;
     var fileDetails = [];
     var stickerDetails = [];
+    var stickerCollection;
 
     if (session && token) {
 
         var collection = new Parse.Query("Collection");
-        collection.equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
+        collection.equalTo("objectId", coll_id).first({sessionToken: token}).then(function () {
+
+            stickerCollection = collection;
 
             files.forEach(function (file) {
 
@@ -320,12 +323,12 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
             });
 
             _.each(stickers, function (sticker) {
-                var collection_relation = collection.relation("Collection");
+                var collection_relation = stickerCollection.relation("Collection");
                 collection_relation.add(sticker);
             });
 
             console.log("SAVE COLLECTION RELATION");
-            return collection.save();
+            return stickerCollection.save();
 
         }).then(function () {
 
