@@ -8,7 +8,7 @@
     <!--Logo-->
 
     <!--TODO add collection name to title-->
-    <title>Collection</title>
+    <title> <%= collectionName %> Collection</title>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
     </style>
@@ -35,15 +35,14 @@
         <div class="row">
 
             <div class="columns large-8 small-12">
-                <!--TODO add collection name to title below-->
-                <h3 class="logo-text primary-font">Collection </h3>
+                <h3 class="logo-text primary-font">  <%= collectionName %> Collection </h3>
             </div>
             <a id="signout" onclick="logoutUser()">SIGN OUT</a>
             <p></p>
             <!--link to other pages-->
             <%- include('../partials/links') %>
 
-            <a class="uplink" href="/add-stickers1/<%= id %>">   Add To Collection</a>
+            <a class="uplink" href="/add-stickers1/<%= id %>">   Add To This Collection</a>
         </div>
     </div>
 </div>

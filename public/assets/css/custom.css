@@ -397,16 +397,16 @@ input::-webkit-input-placeholder {
 
 #updatebtn {
     cursor: pointer;
-    width: 15%;
+    width: 25%;
     background: #464B9C;
     color: #FFF;
     padding: 10px;
     font-family: monospace;
     font-size: 130%;
     transition: 0.3s;
-    position: absolute;
+    position: relative;
     left: 42%;
-    bottom: 17%;
+    top: 90%;
 }
 
 #updatebtn:hover {
