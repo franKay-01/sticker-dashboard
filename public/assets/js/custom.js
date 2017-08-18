@@ -8,8 +8,6 @@ $(document).ready(function () {
         }
     );
 
-    var existingCategories = $('#category').val();
-
     //Toggle create new collection form
     $(function () {
         //show collection form
@@ -42,7 +40,7 @@ $(document).ready(function () {
     });
 
     $checks = $(":checkbox");
-    $('input:checkbox[data-name="' + 'funny' + '"]').prop('checked', true);
+    $('input:checkbox[data-name="' + $('#category').val() + '"]').prop('checked', true);
     $checks.on('change', function (e) {
         var string = $checks.filter(":checked").map(function (i, v) {
             return $(this).attr("data-name");
