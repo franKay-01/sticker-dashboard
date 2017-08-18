@@ -276,7 +276,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     if (session && token) {
 
         var collection = new Parse.Query("Collection");
-        collection.equalTo("objectId", coll_id).first({sessionToken: token}).then(function () {
+        collection.equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
 
             stickerCollection = collection;
 
