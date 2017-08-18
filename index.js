@@ -321,36 +321,26 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                                 collection_relation.add(sticker);
                                 collection.save({
                                     success: function () {
-                                console.log("-----------Relation creation successful--------");
-
-                                        //Delete tmp fil after upload
-                                        var tempFile = sticker.path;
-                                        fs.unlink(tempFile, function (err) {
-                                            if (err) {
-                                                //TODO handle error code
-                                                console.log("-------Could not del temp" + JSON.stringify(err));
-                                            }
-                                        });
-
-                                },
+                                        console.log("-----------Relation creation successful--------");
+                                    },
                                     error: function (error) {
-                                        console.log("-----------Failed to create relation------")
-                                    }}
-                                );
+                                        console.log("-----------Failed to create relation------" + error);
+                                    }
+                                });
 
+                                //Delete tmp fil after upload
+                                var tempFile = sticker.path;
+                                fs.unlink(tempFile, function (err) {
+                                    if (err) {
+                                        //TODO handle error code
+                                        console.log("-------Could not del temp" + JSON.stringify(err));
+                                    }
+                                    else {
+                                        console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                                    }
+                                });
 
-                            },
-                            function (error) {
-                                //sticker was not uploaded, reload stickers page
-                                //TODO handle error code
-                                console.error("Could not upload file__ " + JSON.stringify(error));
-                                res.redirect("/add-stickers1");
                             });
-                    }, function (err) {
-                        //sticker object was not saved, reload stickers page
-                        //TODO handle error code
-                        console.error("Obj not saved: " + JSON.stringify(err));
-                        res.redirect("/add-stickers1");
                     });
 
                 });
@@ -534,7 +524,8 @@ app.post('/new-collection', function (req, res) {
         var Collection = new Parse.Object.extend("Collection");
         var collection = new Collection();
         collection.set("collection_name", coll_name);
-        collection.save().then(function (coll) {});
+        collection.save().then(function (coll) {
+        });
 
         res.redirect('/collections-dashboard');
 

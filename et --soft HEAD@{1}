@@ -1,0 +1,1144 @@
+[33mcommit b85c1b0a9e576ba9f1f4219a08bcaec2abe4b73a[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 16 16:08:06 2017 +0100
+
+    reverting to project on Friday
+
+[33mcommit ea2a0a8d2f793ed6f3610e7d94dad0aaf43ebbf4[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 16 15:26:46 2017 +0100
+
+    changed relation name i query
+
+[33mcommit c5a2a8385b3e471b57db3b2a90097d56e8410fa1[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 16 15:24:29 2017 +0100
+
+    testing collection's stickers
+
+[33mcommit 3f5545a5a6b2190990611c34e9fd42728b8bce40[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 16 14:44:36 2017 +0100
+
+    chhecking new sticker uploaded
+
+[33mcommit e23f6b59dcc34f2e1bfd5c903201c5096cb54841[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 16 14:32:31 2017 +0100
+
+    query on collection's stickers
+
+[33mcommit 7b3b04552c12c7beefe580d0769eb1a92448ab59[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 16 14:27:14 2017 +0100
+
+    query on collection's stickers
+
+[33mcommit 857c6213f1d82ba77e008475a5797fe72609d5bf[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 16 14:16:17 2017 +0100
+
+    test add sticker to collection again
+    
+    Signed-off-by: EnigmaDX <derryckdxd@gmail.com>
+
+[33mcommit 9e7cd8507b677ee575ee5a7d77188f6ca9098a3a[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 16 13:30:05 2017 +0100
+
+    corrected name of collection
+
+[33mcommit 7ddf9e3ea9fe111c242c9141ea7fed0d2c2c48ee[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 16 13:24:05 2017 +0100
+
+    redesigning sticker details form
+
+[33mcommit 27c75ad7725d829e94b26112bbe80af12150b824[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 16 11:50:10 2017 +0100
+
+    getting collection name for webpage
+
+[33mcommit 85991841944b477b96f17e772a3db98e74cdf188[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 16 11:13:37 2017 +0100
+
+    new query for collection stickers
+
+[33mcommit dc993db85f334395f592b10d39f69637a792f04d[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 16 10:19:18 2017 +0100
+
+    debugging sticker upload
+
+[33mcommit 2d83d78f1edf9474d1ab725b5ea03509a64a8f21[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 16 09:58:52 2017 +0100
+
+    test adding sticker to collection
+
+[33mcommit da32b282b6724e6d04fbef2a8a1333e2ab0573bd[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 16 09:54:39 2017 +0100
+
+    test adding relation to colection
+
+[33mcommit 3c6c7b88b6094572bca5aeb55e8faf62ec86f227[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 16 09:20:39 2017 +0100
+
+    reverting to state of project on Fiday
+
+[33mcommit fee85181677367184024b69e432a09bfdb3efae2[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 16:55:48 2017 +0100
+
+    changed name of query class
+
+[33mcommit d21683bbc982008de6584658015382c5077a0479[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 16:25:18 2017 +0100
+
+    changed name of query class
+
+[33mcommit 9fbc853d67c6f4831282743fc8d7936d3863d5d2[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 15:57:01 2017 +0100
+
+    logging stickers in collection
+
+[33mcommit 3743b74d0c4d5dfdea9052dc31fa880f9c6a7467[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 15:50:22 2017 +0100
+
+    test new query for displaying collection stickers
+
+[33mcommit a45468d441254f36049bb969ed2f9de4711325b4[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 15:39:46 2017 +0100
+
+    test new query for displaying collection stickers
+
+[33mcommit 3ef822471761f0560d2ca26005e653cb3d3720bd[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 13:09:57 2017 +0100
+
+    relocate relation creation code and added route
+
+[33mcommit 492ad567f468b686e33b0e359db6e8b5eebca1b1[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 12:53:49 2017 +0100
+
+    returned img file to uploads folder due to error
+
+[33mcommit 67ba898e979a21b13c7eed6406d683e0131316c8[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 12:45:22 2017 +0100
+
+    relocate relation creation code 2
+
+[33mcommit 2f7b0f034cad015c8bb16275f4ad37462f2857c3[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 12:30:40 2017 +0100
+
+    relocate relation creation code
+
+[33mcommit e111ec5c9da768d9c2c8c48819c91149a3c126aa[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 12:21:47 2017 +0100
+
+    fixing error in creating colection/sticker relation
+
+[33mcommit dc016cf7e653139cef13bc8ccf87823e70504aca[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 12:03:07 2017 +0100
+
+    fixing error in creating colection/sticker relation
+
+[33mcommit e6762de16745602a757c12e9ce5c9f5f51fae210[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 11:44:05 2017 +0100
+
+    fixed error in collection route
+
+[33mcommit 7cc9bc233290b42f436c02ca152d5e25c4c3187c[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 11:30:35 2017 +0100
+
+    changed column name for collection relation to stickers
+
+[33mcommit 525ab5d86649610b312f7706f275b84d181b133d[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 11:15:41 2017 +0100
+
+    edit file upload route
+
+[33mcommit 291ffc93fcbed4f4c820055ea5e40d75568e601a[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 10:57:35 2017 +0100
+
+    link collection back to stickers
+
+[33mcommit f0eab7e84af82a1a717aa0c665f3c63ee4b30ce7[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 10:48:38 2017 +0100
+
+    fix route after file upload
+
+[33mcommit 0aa36d66979b7c1f146ce1d42d55b6d22561c491[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 10:38:32 2017 +0100
+
+    fix route after file upload
+
+[33mcommit 530f799bddcdc34f6df324abd4df79a4b0b2766e[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 10:32:17 2017 +0100
+
+    link collection back to stickers
+
+[33mcommit 23e02b03e29bbbaa79b1f8f181ef97afaecb3646[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 15 10:17:32 2017 +0100
+
+    re-uploading all stickers
+
+[33mcommit 3d6af94f7110db1be99b059f4031a32150f01460[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Aug 11 16:55:07 2017 +0100
+
+    redo route after update
+
+[33mcommit 6c86bb52827dcf9c44bf6ea93ba914412fef6b36[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Aug 11 16:43:08 2017 +0100
+
+    fixed error in adding category
+
+[33mcommit 4edbd3d2de73436dc08e9b5271d7d75030c23c31[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Aug 11 16:40:42 2017 +0100
+
+    logging sticker id
+
+[33mcommit 2fccbb77ceab3d5a523396b6486ebfe7d8e5ebdf[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Aug 11 16:35:56 2017 +0100
+
+    logging sticker id
+
+[33mcommit b93fcaef57f24675952ccb086d187851f96da6bf[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 16:25:48 2017 +0000
+
+    added the ability to add categories
+
+[33mcommit 6baf034cf3e3889a30bf3502545121567d477cab[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 16:13:00 2017 +0000
+
+    fixed query error
+
+[33mcommit a793c0fad665ffa90cd9bdac79d9f317d57c0ff6[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 16:09:50 2017 +0000
+
+    added error logs
+
+[33mcommit 3b1e398fe3046b7ac7f1f28302853e10b46c178c[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 16:03:48 2017 +0000
+
+    added error logs
+
+[33mcommit aff8714701babef82601d430bb7be8351034adb3[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 16:00:33 2017 +0000
+
+    added error logs
+
+[33mcommit a879c7a30f23b58c7715858ee848ab87a376b60e[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 15:54:36 2017 +0000
+
+    added error logs
+
+[33mcommit d01aaa6b700384a029da73183a5d808a44058125[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 15:43:24 2017 +0000
+
+    added error logs
+
+[33mcommit 3cba836f863c9549b0e8e1f6f24aac992ad0291f[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 15:39:51 2017 +0000
+
+    added code for saving categories
+
+[33mcommit 2a8d4b90e2688c33bac4835f4c27f2d7dbdf2a5c[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 15:33:54 2017 +0000
+
+    checking body output
+
+[33mcommit 010aa03383325c2a59bbefd36e950d543d44c6ab[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 15:28:39 2017 +0000
+
+    checking body output
+
+[33mcommit cdb85f9264b38bc809bd467e4acfed3aa9fb5d36[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 15:26:54 2017 +0000
+
+    checking body output
+
+[33mcommit 6f23749918cf5b7137bd60a2f05e9e1eb7a2bee6[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 15:23:36 2017 +0000
+
+    checking body output
+
+[33mcommit 4162d1e85d8700930abb93c51dc7c980663e0600[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 15:21:15 2017 +0000
+
+    checking body output
+
+[33mcommit 9cd44d52b1475490aa1374c08dfe133194a024a6[m
+Merge: 8d5118b d8698e5
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 15:17:49 2017 +0000
+
+    Merge branch 'master' of https://git.heroku.com/cryptic-waters-41617
+
+[33mcommit 8d5118bec4e5e601343eae8bdb68ed0b63cd1567[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 15:17:36 2017 +0000
+
+    commented out split
+
+[33mcommit 2d07416f7d0c082ab85336db2f363f9a13aedaab[m
+Merge: d1e562a 0ed15db
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 14:52:59 2017 +0000
+
+    Merge branch 'master' of https://git.heroku.com/cryptic-waters-41617
+
+[33mcommit d1e562a012f26b0ff9f1a479bac5fac01903f767[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Fri Aug 11 14:52:27 2017 +0000
+
+    added ability to retrieve sticker and category at the same time
+
+[33mcommit d8698e5e8166a57828b514cd8c8b99b241c68b17[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Aug 11 15:15:01 2017 +0100
+
+    saving category names js
+
+[33mcommit b732d917d3cb2413b8f0528c2741a056d98d7d7b[m
+Merge: 379ea10 2d07416
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Aug 11 15:13:20 2017 +0100
+
+    Merge branch 'master' of https://git.heroku.com/cryptic-waters-41617
+
+[33mcommit 379ea10215dd9a03b5c5d1126fd028b28bb76d8e[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Aug 11 15:12:27 2017 +0100
+
+    saving category names js
+
+[33mcommit 0ed15dbdae0e7e0a311bc62c7992c986e1010d22[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Aug 11 14:50:10 2017 +0100
+
+    put object ids of categories in checkboxes
+
+[33mcommit a18cae721ad51b249c61bc825a8c8385d6d8d81b[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Aug 11 14:30:43 2017 +0100
+
+    edited sticker details form
+
+[33mcommit 70641cf62dfd769c8ea6206437ee330bbdedb41b[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Aug 11 13:31:46 2017 +0100
+
+    editing sticker details form
+
+[33mcommit 9f133e02175925f054399985ebc7607ceb2391ad[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Aug 11 10:02:25 2017 +0100
+
+    return to previous collection stickers page
+
+[33mcommit 7ed1b087c377d7929cdc63210b5ff4b87828a62a[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Thu Aug 10 16:38:47 2017 +0000
+
+    created a much simplier query
+
+[33mcommit 525ba0cce98e4102003b5f4ae80c6f9614e1a071[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Thu Aug 10 16:35:23 2017 +0000
+
+    created a much simplier query
+
+[33mcommit 2ced10d94f1b1d8d4df4d20b2acd798dda9650d4[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 15:43:05 2017 +0100
+
+    testing new promises
+
+[33mcommit ac30435225e3721c61d1a1b3b1632e7de4eb8f7a[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 15:36:18 2017 +0100
+
+    logging progress of promises
+
+[33mcommit 39cac7bed38935b54e3353fc24e445c9e42c8513[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 15:32:09 2017 +0100
+
+    logging progress of promises
+
+[33mcommit 5ff5d0e58d5a2c2561159988e5b56ce951069407[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 15:27:29 2017 +0100
+
+    working on collection/id route
+
+[33mcommit c3feee53890d147ace53bf6780b48b8dae32f3e4[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 15:14:44 2017 +0100
+
+    restructure promises in index.js
+
+[33mcommit ad53e04f2e50953762961ccffe4eb6812c135f75[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 15:07:18 2017 +0100
+
+    restructure promises in index.js
+
+[33mcommit f54cd50ea6668dcac591b5594a97860d076b46ac[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 14:17:02 2017 +0100
+
+    fixed route in remove-category
+
+[33mcommit 2d817713100dbaf6dc550d0e777b1905c951dfb5[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 14:12:37 2017 +0100
+
+    implementing destroy method for category
+
+[33mcommit 88715202a5431cd31b013d96750ee4baa6e44177[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 14:03:58 2017 +0100
+
+    implementing destroy method for category
+
+[33mcommit 5324e001fdecd63783bbdabbe66ec7d1a731e312[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 13:39:38 2017 +0100
+
+    test remove category
+
+[33mcommit 1f95de17f410e68b076591a77c60fae3df61a87d[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 12:28:45 2017 +0100
+
+    editing 'remove category' form
+
+[33mcommit b145f2a777769c7c9324a4eb4060b687afef9900[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 12:21:33 2017 +0100
+
+    included 'remove category' form
+
+[33mcommit d49d36e896e63bfd5004253e59af331ad749e056[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 12:12:39 2017 +0100
+
+    included 'remove category' form
+
+[33mcommit 641c144caca6ce3d4cda617bc872fb8ff4f62473[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 10:52:08 2017 +0100
+
+    included old name in hidden text field for querying
+
+[33mcommit 42df7eb3746c7cc32a08dd9c498b2aee99b948b1[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 10:43:27 2017 +0100
+
+    test update category name
+
+[33mcommit a00cd29e91a3ddd9af5737a744fdad86e1b09c7e[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 10:25:20 2017 +0100
+
+    corrected route name in index.js
+
+[33mcommit b0d5b58202cf91e473d6ffc925c672664a210dca[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 10:22:29 2017 +0100
+
+    change type of save button to submit
+
+[33mcommit a2ffa2ad1602d46281892c7a9139fcbc323f6bb0[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 10:17:31 2017 +0100
+
+    passing form details through server
+
+[33mcommit fd9ead41061130f945aaf6081ad15243d2cd214e[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 10:01:58 2017 +0100
+
+    test putting category name into new form for editing
+
+[33mcommit 0cf5f9b95cdcf000bdb876b4fad12057329a00ff[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 09:58:14 2017 +0100
+
+    test putting category name into new form for editing
+
+[33mcommit 694792c558b9e6089a72ea29cf877b6a15a18e5d[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 09:27:25 2017 +0100
+
+    test putting category name into new form for editing
+
+[33mcommit a697dd76afd5e205645128c2167334fc292ab957[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Aug 10 09:22:29 2017 +0100
+
+    test putting category name into new form for editing
+
+[33mcommit d4537e2487fa73aad5a008bd053e61f4898c38fc[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 18:46:53 2017 +0100
+
+    test adding new category
+
+[33mcommit 2d4d19a47924617d90bd19a2072f6b312fb2dcc7[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 18:39:48 2017 +0100
+
+    test adding new category
+
+[33mcommit 38fd7f35e5f2295df0ae850b9f9eeed59eb0bf7a[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 18:36:42 2017 +0100
+
+    test adding new category
+
+[33mcommit 1796049a3498fce5399cfe433c3392344a145995[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 18:31:28 2017 +0100
+
+    test adding new category
+
+[33mcommit b738195cda6e264740520e2f4de605257de674f6[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 18:28:41 2017 +0100
+
+    include add- category table
+
+[33mcommit b9b9be13d65697ac2ae46093b0cad33794f1148d[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 18:12:07 2017 +0100
+
+    include add- category table
+
+[33mcommit 0691850e9e97dcd5de55c4d3f7ac0d7dd98c7fe9[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 17:44:57 2017 +0100
+
+    edit category table
+
+[33mcommit 012d8ff144b25cac96776f43635c269e7ab4c8ba[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 17:40:45 2017 +0100
+
+    edit category table
+
+[33mcommit 8b987c866aa6e6fe2c893ccde721e946a7f6942e[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 17:37:38 2017 +0100
+
+    edit category table
+
+[33mcommit 48179989381f210cecf7bb2fe7cb868502adea44[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 16:48:58 2017 +0100
+
+    working on edit category form
+
+[33mcommit b2192ea36e00ad78d95fba100099f26663fa41d0[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 16:39:25 2017 +0100
+
+    working on edit category form
+
+[33mcommit d576de510e6b09e1e41d03a7f36d7e76e5a020a1[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 16:17:38 2017 +0100
+
+    working on edit category form
+
+[33mcommit 2cb40e028b5817f6f2a2b92f1063dcdc6c591cf5[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 16:07:24 2017 +0100
+
+    working on edit category form
+
+[33mcommit 5eada4a8b4afadfddd1f64f3a2bb2b4c6b651ee8[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 15:51:13 2017 +0100
+
+    include add button for categorries
+
+[33mcommit e33cd670ace46bb560e57570bb65745d32c24b75[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 12:56:59 2017 +0100
+
+    test displaying categories in table
+
+[33mcommit 9646ef2f26170b5b262cca183f0cdcaf1bedcdfc[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 12:53:55 2017 +0100
+
+    test displaying categories in table
+
+[33mcommit a0a4d277218e0d906dd24ad96685a5d79246603c[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 12:42:43 2017 +0100
+
+    test loggin categories form parse
+
+[33mcommit 93676f67d1ebd4a9fdd808d01c72ee1ff5a07490[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 12:36:39 2017 +0100
+
+    test loggin categories form parse
+
+[33mcommit 701d6dd7fee3af8755d5f0eea6e0453ca588ad18[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 11:43:27 2017 +0100
+
+    fied css var name conflict
+
+[33mcommit 4dcddd92df0434a2bb632474f564a78396a0a0d7[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 11:38:40 2017 +0100
+
+    fied css var name conflict
+
+[33mcommit 05aa97d148142c046d12d53bafdf4c18ae6e36ff[m
+Merge: a7f8a3f 9668abb
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 11:29:14 2017 +0100
+
+    adding table for categories fixed merge conflict
+
+[33mcommit a7f8a3fce73eab79e332e58fed71fc21c708536b[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Wed Aug 9 11:25:35 2017 +0100
+
+    adding table for categories
+
+[33mcommit 9668abb133ac60d52bf41d61354b701979af4848[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 20:19:07 2017 +0000
+
+    added complex query
+
+[33mcommit 352a68734e016eb0ac43d4a38923da51cb712e34[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 19:49:59 2017 +0000
+
+    trying to figure out the relation
+
+[33mcommit f34e2421f5ed78a40a12c3dabde7e51b46cd3cb3[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 19:42:51 2017 +0000
+
+    added a relation to all the freaking stickers
+
+[33mcommit e9d786f521b0f003cdd01f0afec05ba0c29dc094[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 19:37:20 2017 +0000
+
+    added multiple category as relation to stickers
+
+[33mcommit cd73267fa916dbcb7dc0e4cb8556384b4398ea2a[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 19:35:46 2017 +0000
+
+    added multiple category as relation to stickers
+
+[33mcommit 480c96a8b49d284ad4d9a1d3a3c085e5bddf0c03[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 18:32:40 2017 +0000
+
+    added a fail safe boolean
+
+[33mcommit 912f63bc249e6e1e3c91509a297c3055966ea913[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 18:29:15 2017 +0000
+
+    added a fail safe boolean
+
+[33mcommit adaffa5e06fda111fd8cd21bca867da79e54d214[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 18:25:56 2017 +0000
+
+    added a fail safe boolean
+
+[33mcommit 3be60236622a6550dcb2fbb76b5cea788810d6a9[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 18:22:53 2017 +0000
+
+    added a fail safe boolean
+
+[33mcommit bfec310e92a4e2d81f97e794559f14b96f06b903[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 18:17:15 2017 +0000
+
+    added a fail safe boolean
+
+[33mcommit 7c231c51dd082f2a9d5715471f79c4050691d481[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 18:11:58 2017 +0000
+
+    added a fail safe boolean
+
+[33mcommit 550dc84de6d8fef473541f702ce69db61b8c9a47[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 18:00:57 2017 +0000
+
+    log all stickers
+
+[33mcommit 13086b75b3c64756b85d690603fb8c74517d8b76[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 17:56:55 2017 +0000
+
+    updated object name
+
+[33mcommit 4628c7faaf73f9dc4d58c069695aa149e10aeb1c[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 17:55:11 2017 +0000
+
+    updated query to sync
+
+[33mcommit 2af9196d3ff0fe5f688b9001b078bbd080b7cb41[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 17:52:49 2017 +0000
+
+    updated query to sync
+
+[33mcommit 6840640035acce75178add882d7ad736b5639b27[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 17:49:53 2017 +0000
+
+    updated query to sync
+
+[33mcommit ed3f651d1a54624bc403ef08fa9cfc0f9acee88e[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 17:40:16 2017 +0000
+
+    extracted category name
+
+[33mcommit 3928959efea1b12e09af8c70977560ad6b47108a[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 17:35:43 2017 +0000
+
+    extracted category name
+
+[33mcommit 61febec628b233c0c3011c9af1068ebb989124b5[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 17:29:34 2017 +0000
+
+    testing output of categories
+
+[33mcommit ca719e92d75ac6693d1eb07838ca113a58ffa52b[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 17:25:00 2017 +0000
+
+    fixed key reference
+
+[33mcommit d183b01e05602501b2fbf8c609b8897af2e8fa9d[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 17:15:42 2017 +0000
+
+    added missing key
+
+[33mcommit c289d9617d52c8686715c262b89328616629bbed[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 17:10:47 2017 +0000
+
+    added missing key
+
+[33mcommit 2f8ac3ddbeb114f71cc4cdb56c0f3ab77f40bc4b[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 17:07:47 2017 +0000
+
+    added missing key
+
+[33mcommit 1af4d52b0cf279e506e0fd3a24487ad6a028b621[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 17:02:35 2017 +0000
+
+    added more logs
+
+[33mcommit 4320aa327146962c2c9a64d8235f1f70c6e44ed4[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 16:19:08 2017 +0000
+
+    added some logs
+
+[33mcommit 706fff36540a66650b5079419f6ad511f0c7012e[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 15:41:06 2017 +0000
+
+    added option for empty categories
+
+[33mcommit b601983e7f505de53798d98c39d53b3f5eac59bf[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 15:38:30 2017 +0000
+
+    minor updates
+
+[33mcommit e0be9e9dcc1af11f941125c88a6aaf80172960da[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 15:05:15 2017 +0000
+
+    added complex category query
+
+[33mcommit 3c3b17731935ada35e7abb599ffc8e45bf4b59b0[m
+Merge: 516f0f1 3b07b6f
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Tue Aug 8 14:50:06 2017 +0000
+
+    Merge branch 'master' of https://git.heroku.com/cryptic-waters-41617
+
+[33mcommit 3b07b6fed5aae51c46c8922c6724e2fb28016391[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 8 14:17:44 2017 +0100
+
+    test querying categories
+
+[33mcommit 886ac0adeefda2a50993225c53c1eb8c7127f068[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 8 13:52:53 2017 +0100
+
+    redo redirect after sticker upload
+
+[33mcommit 692db9b50a9b7b31cf5205c5f4997d40afe6e6f3[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 8 12:53:03 2017 +0100
+
+    redo redirect after sticker upload
+
+[33mcommit 2f45bf3b7c17043c34704278f05d2a9f8958733f[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 8 12:46:01 2017 +0100
+
+    redo redirect after sticker upload
+
+[33mcommit 0152c8a3acd03a33953426e8fae83001690e3027[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 8 12:20:24 2017 +0100
+
+    edit relation process
+
+[33mcommit 96048801a6ba5ad200e17c738b46b16b0b67d3f7[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 8 11:31:47 2017 +0100
+
+    test create relation in category
+
+[33mcommit 1dc7dce9e1b7b1fd04503d65ae102e5172b94e01[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 8 11:10:37 2017 +0100
+
+    test create relation in category
+
+[33mcommit c311f81de8e9ab6ef9d1523ead19293d0ab91dfb[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 8 10:24:11 2017 +0100
+
+    trying relation with categories
+
+[33mcommit b54850a5ce8fc283191380940f2e5ea94227f731[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 8 10:20:27 2017 +0100
+
+    trying relation with categories
+
+[33mcommit 82b3002cee253eb7a44077c096738d22f21292c9[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 8 10:00:09 2017 +0100
+
+    test adding category to update
+
+[33mcommit a32f19f90addf633c6c46282900e0eb5eceb499a[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 8 09:45:51 2017 +0100
+
+    test adding category to update
+
+[33mcommit 10a14eff51749ef8613ce80d6cd68a306cf3e9b7[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 8 08:52:05 2017 +0100
+
+    test querying categories
+
+[33mcommit 431ae485300929229d7db426a0a6fa10adb45721[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Tue Aug 8 08:39:17 2017 +0100
+
+    test querying categories
+
+[33mcommit b7d7a0ef59143d9ae8c4bdc69a90c9f13806811b[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Mon Aug 7 17:19:13 2017 +0100
+
+    test saving categories in array final
+
+[33mcommit 17cb59e25dd1308568e1fc4e2303d5a95b73ba0a[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Mon Aug 7 16:42:46 2017 +0100
+
+    test saving categories in array
+
+[33mcommit cc33782dbe274781e7499438853be0fd526973e8[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Mon Aug 7 16:39:29 2017 +0100
+
+    test saving categories in array
+
+[33mcommit b9ecc48ec06449bd7d4e95c02a67a81d676c7e7f[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Mon Aug 7 15:00:33 2017 +0100
+
+    test printing categories
+
+[33mcommit 2a0cb5c618d90fb474c91768e6422683e4a8ad2a[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Mon Aug 7 14:48:38 2017 +0100
+
+    test printing categories
+
+[33mcommit 8e9352b5d79fcc1ae4cf15d89eed9547849cb17f[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Mon Aug 7 14:38:20 2017 +0100
+
+    test printing categories
+
+[33mcommit a3f93c810d0d3220b26229c2a3e9f698fb9563f0[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Mon Aug 7 13:03:02 2017 +0100
+
+    test query for categories
+
+[33mcommit 318ab6f697a09e99028068baf4cc5692ef0f4694[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Mon Aug 7 12:56:25 2017 +0100
+
+    test query for categories
+
+[33mcommit 758a853e5b12ea73fe6bbaeeb62272aeeb3efb82[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Mon Aug 7 12:18:06 2017 +0100
+
+    testing params in update route
+
+[33mcommit 43e2dfb4675195e71d8202918f8ba9e3a3b9b33c[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Mon Aug 7 12:10:08 2017 +0100
+
+    testing params in update route
+
+[33mcommit 83ea3d2869ced5cc6940b1059c56289190d3eb07[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Mon Aug 7 09:33:09 2017 +0100
+
+    css edit for checkboxes insticker details
+
+[33mcommit 8d66c7f8829dd79f26051d87b43a1ec6cba459fd[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Mon Aug 7 09:19:07 2017 +0100
+
+    css edit for checkboxes insticker details
+
+[33mcommit 2d68f5755c1bd0b2b8c533ac08ac03ea57c835c5[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Mon Jul 31 08:12:45 2017 +0100
+
+    edit checkboxes in sticker-details
+
+[33mcommit 516f0f1184c5709e488f70775881c4827d92453e[m
+Author: pixelbendr <dev@psyphertxt.com>
+Date:   Mon Jul 31 07:08:57 2017 +0000
+
+    minor updates
+
+[33mcommit 66d2a32613acb9646de4d5dfdb6e71e136dbdafc[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Mon Jul 31 08:00:50 2017 +0100
+
+    edit checkboxes in sticker-details
+
+[33mcommit 4c33749aaa0101c3a8e1f2b37fd7922a5b07a1e1[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Sat Jul 29 23:49:00 2017 +0100
+
+    completed loading categories from parse to details page
+
+[33mcommit a2e32a7f0f7eed6ae6a094adf388a5ba61a0ee56[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Sat Jul 29 23:33:16 2017 +0100
+
+    test loading categories to sticker details page
+
+[33mcommit db71cc0507ee619b7636d4b3da6385aaea05d8df[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Sat Jul 29 23:29:09 2017 +0100
+
+    test loading categories to sticker details page
+
+[33mcommit c97999d9fc7e7ffc21290c02938ee97bcf290d5f[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Sat Jul 29 23:20:40 2017 +0100
+
+    test load categories from parse
+
+[33mcommit 1ad0c7399ee62b8a0617e73ace0c084f7ca2cb54[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Sat Jul 29 22:36:24 2017 +0100
+
+    fixing checkbox issue in sticker details
+
+[33mcommit f16805804d729b39f23283e33711ab2f38af4284[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Sat Jul 29 22:31:00 2017 +0100
+
+    fixing checkbox issue in sticker details
+
+[33mcommit 42785a39898ec240c9f962ca451b238dd2df6f35[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Jul 28 17:52:24 2017 +0100
+
+    css seticker details form
+
+[33mcommit 0fe81613f9e44f74bbbfb82765c789225bc5a5cf[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Jul 28 17:47:10 2017 +0100
+
+    css seticker details form
+
+[33mcommit 2f8d0bcf25ef0c514d29f9527e71bd8add1eab36[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Jul 28 16:40:37 2017 +0100
+
+    working on select categories menu
+
+[33mcommit ae3ba011e96f29ff9bc996562f0383d2ac4d1a1c[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Jul 28 16:34:02 2017 +0100
+
+    redesign all pages
+
+[33mcommit f18d0edb41b12faed6b754b37765655c263f554f[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Jul 28 15:43:03 2017 +0100
+
+    fresh start
+
+[33mcommit 6d606b9fe76979d432c64d74220a8954f5abeb01[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Jul 28 13:50:37 2017 +0100
+
+    redesign pages
+
+[33mcommit 3413851cb7a6c13564963049e64cfc1e6eabdf10[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Jul 28 13:46:27 2017 +0100
+
+    redesign pages
+
+[33mcommit c09399bed8458ce5afab235f811df85c776bbbf8[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Jul 28 13:33:59 2017 +0100
+
+    redesign pages
+
+[33mcommit 25c9239d75bdba78e28a3627f942590d874c459d[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Jul 28 13:19:57 2017 +0100
+
+    option for categories
+
+[33mcommit 53d5d3031fc168862084c9a88eaa3312ed80afb5[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Jul 28 10:55:21 2017 +0100
+
+    fixed error in collection relation
+
+[33mcommit f8ba838d7076dc1b738984a28b2d5533d677d9b8[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Fri Jul 28 10:45:05 2017 +0100
+
+    code cleanup index.js
+
+[33mcommit 972eae45ea116598f8de540081b2a4f2be4e8645[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Jul 27 16:14:09 2017 +0100
+
+    editing categories form
+
+[33mcommit 22092c412887906740547c2d9a6533be49792d66[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Jul 27 13:04:34 2017 +0100
+
+    add form to categories page
+
+[33mcommit 4ed23b1947eec4af5ec73388d16d01d16d7ef7b1[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Jul 27 13:00:05 2017 +0100
+
+    make options visible in categories page
+
+[33mcommit cf10971741b60e12f08cf896aa4afbd40c100698[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Jul 27 12:56:31 2017 +0100
+
+    added categories page
+
+[33mcommit caaecc7f489388f577f2c7c3ed352dc8baa76abc[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Jul 27 12:54:39 2017 +0100
+
+    added categories page
+
+[33mcommit 421479eebce8a8461e1049583acf3a45a3000ac5[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Jul 27 12:49:51 2017 +0100
+
+    added categories page
+
+[33mcommit a512bce2b4d3d9e790a5824e9e7abf1ccd3aea97[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Jul 27 11:18:10 2017 +0100
+
+    include collection id to add-stickers form
+
+[33mcommit 46698fca65b4be89af2c695ce8f181bd647bea91[m
+Author: EnigmaDX <derryckdxd@gmail.com>
+Date:   Thu Jul 27 11:14:30
