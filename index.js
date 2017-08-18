@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var fs = require('fs');
+var _ = require('underscore');
 var multer = require('multer');
 var methodOverride = require('method-override');
 var multipart = require('multipart');
@@ -267,103 +268,163 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = req.body.coll_id;
-
-    // console.log("NEW BODY INFO-----" + JSON.stringify(req.body));
-    // console.log("NEW PARAMS INFO-----" + JSON.stringify(req.params));
-    //
-    console.log("Collection ID===========" + JSON.stringify(coll_id));
-    //
-    console.log("FILE INFO***************: " + JSON.stringify(req.files));
-
     var files = req.files;
+    var fileDetails = [];
+    var stickerDetails = [];
 
     if (session && token) {
 
-        //GET ID OF CURRENT COLLECTION
         var collection = new Parse.Query("Collection");
-        collection.equalTo("objectId", coll_id);
-        collection.first({sessionToken: token}).then(function (collection) {
+        collection.equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
 
-                //File saving Process Begins
-                files.forEach(function (sticker, index) {
+            files.forEach(function (file) {
 
-                    //TODO update originalname to originalName
-                    var fullName = sticker.originalname;
-                    // console.log("FULLNAME****** " + JSON.stringify(fullName));
-                    var stickerName = fullName.substring(0, fullName.length - 4);
-                    //TODO eliminate localName var
-                    var localName = stickerName;
+                //TODO update originalname to originalName
+                var fullName = file.originalname;
+                var stickerName = fullName.substring(0, fullName.length - 4);
 
-                    // console.log('File Path---------------: ' + JSON.stringify(sticker.path));
-                    //convert file to base64 format
-                    var bitmap = fs.readFileSync(sticker.path, {encoding: 'base64'});
+                var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
-                    var parseFile = new Parse.File(stickerName, {base64: bitmap}, sticker.mimetype);
-                    console.log("Parse File::::::::::" + JSON.stringify(parseFile));
+                //create our parse fule
+                var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                var Sticker = new Parse.Object.extend("Sticker");
+                var sticker = new Sticker();
+                sticker.set("stickerName", stickerName);
+                sticker.set("localName", stickerName);
+                sticker.set("uri", parseFile);
+                sticker.set("stickerPhraseImage", "");
+                sticker.set("parent", collection);
 
-                    //parse file object
-                    var Sticker = new Parse.Object.extend("Sticker");
+                stickerDetails.push(sticker);
+                fileDetails.push(file);
 
-                    //TODO handle promises
-                    parseFile.save().then(function () {
-
-                        //instance of parse object
-                        var sticker = new Sticker();
-                        sticker.set("stickerName", stickerName);
-                        sticker.set("localName", localName);
-                        sticker.set("uri", parseFile);
-                        sticker.set("stickerPhraseImage", "");
-                        sticker.set("parent", collection);
-
-                        sticker.save().then(function () {
-
-                                var collection_relation = collection.relation("Collection");
-                                collection_relation.add(sticker);
-                                collection.save({
-                                    success: function () {
-                                        console.log("-----------Relation creation successful--------");
-                                    },
-                                    error: function (error) {
-                                        console.log("-----------Failed to create relation------" + error);
-                                    }
-                                });
-
-                                //Delete tmp fil after upload
-                                var tempFile = sticker.path;
-                                fs.unlink(tempFile, function (err) {
-                                    if (err) {
-                                        //TODO handle error code
-                                        console.log("-------Could not del temp" + JSON.stringify(err));
-                                    }
-                                    else {
-                                        console.log("SUUCCCEESSSSS IN DELTEING TEMP");
-                                    }
-                                });
-
-                            });
-                    });
-
-                });
-                res.redirect("/collections-dashboard");
-                //File saving Process Ends
-            },
-            function (error) {
-
-                //TODO handle error code
-                console.log("Not Found collection::::::::::: " + JSON.stringify(error));
             });
 
-        res.redirect("/dashboard");
+            console.log("SAVE ALL OBJECTS AND FILE");
+            return Parse.Object.saveAll(stickerDetails);
+
+        }).then(function (stickers) {
+
+            _.each(fileDetails, function (file) {
+                //Delete tmp fil after upload
+                var tempFile = file.path;
+                fs.unlink(tempFile, function (err) {
+                    if (err) {
+                        //TODO handle error code
+                        console.log("-------Could not del temp" + JSON.stringify(err));
+                    }
+                    else {
+                        console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                    }
+                });
+            });
+
+            _.each(stickers, function (sticker) {
+                var collection_relation = collection.relation("Collection");
+                collection_relation.add(sticker);
+            });
+
+            console.log("SAVE COLLECTION RELATION");
+            return collection.save();
+
+        }).then(function () {
+
+            console.log("REDIRECT TO DASHBOARD");
+            res.redirect("/collections-dashboard");
+
+        }, function (error) {
+            console.log("BIG BIG ERROR" + error.message);
+            res.redirect("/add-stickers1");
+        });
+
+
+    } else {
+
+        res.redirect("/");
 
     }
 
+    /* if (session && token) {
+
+         //GET ID OF CURRENT COLLECTION
+         var collection = new Parse.Query("Collection");
+         collection.equalTo("objectId", coll_id);
+         collection.first({sessionToken: token}).then(function (collection) {
+
+                 //File saving Process Begins
+                 files.forEach(function (file) {
+
+                     //TODO update originalname to originalName
+                     var fullName = file.originalname;
+                     var stickerName = fullName.substring(0, fullName.length - 4);
+
+                     //TODO eliminate localName var
+                     var localName = stickerName;
+                     var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                     //create our parse fule
+                     var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+
+                     parseFile.save().then(function () {
+
+                         //instance of parse object
+                         var Sticker = new Parse.Object.extend("Sticker");
+                         var sticker = new Sticker();
+                         sticker.set("stickerName", stickerName);
+                         sticker.set("localName", localName);
+                         sticker.set("uri", parseFile);
+                         sticker.set("stickerPhraseImage", "");
+                         sticker.set("parent", collection);
+
+                         sticker.save().then(function () {
+
+                             var collection_relation = collection.relation("Collection");
+                             collection_relation.add(sticker);
+                             collection.save({
+                                 success: function () {
+                                     console.log("-----------Relation creation successful--------");
+                                 },
+                                 error: function (error) {
+                                     console.log("-----------Failed to create relation------" + error);
+                                 }
+                             });
+
+                             //Delete tmp fil after upload
+                             var tempFile = file.path;
+                             fs.unlink(tempFile, function (err) {
+                                 if (err) {
+                                     //TODO handle error code
+                                     console.log("-------Could not del temp" + JSON.stringify(err));
+                                 }
+                                 else {
+                                     console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                                 }
+                             });
+
+                         });
+                     });
+
+                 });
+                 res.redirect("/collections-dashboard");
+                 //File saving Process Ends
+             },
+             function (error) {
+
+                 //TODO handle error code
+                 console.log("Not Found collection::::::::::: " + JSON.stringify(error));
+             });
+
+         res.redirect("/dashboard");
+
+     }*/
+
     // //no session exists reload signup page
-    else {
+    /*else {
         function error(err) {
             console.log("error:::::: " + JSON.stringify(err));
             res.redirect("/");
         }
-    }
+    }*/
 });
 
 //SELECT CATEGORIES PAGE
