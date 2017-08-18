@@ -42,8 +42,11 @@ $(document).ready(function () {
     $checks = $(":checkbox");
     var categories = String($('#category').val()).split(",");
     for( var i = 0; i < categories.length; i++ ) {
+        console.log(i);
         $('input:checkbox[data-name="' + i + '"]').prop('checked', true);
     }
+    $('input:checkbox[data-name="silly"]').prop('checked', true);
+    $('input:checkbox[data-name="funny"]').prop('checked', true);
     $checks.on('change', function (e) {
         var string = $checks.filter(":checked").map(function (i, v) {
             return $(this).attr("data-name");
