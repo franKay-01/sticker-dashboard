@@ -723,24 +723,24 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
     //input fields from form
     var stickerName = req.body.stickername;
-    var category = req.body.cat1;
+    var categoryList = req.body.cat1;
     var file = req.file;
     var imgChange = req.body.imgChange;
     var stickerId = req.params.id;
 
-    console.log("STICKER ID::::::::::" + JSON.stringify(stickerId));
     if (session && token) {
 
         Parse.Promise.when(
             new Parse.Query("Sticker").equalTo("objectId", stickerId).first(),
-            new Parse.Query("Category").containedIn("objectId", category).find()
-        ).then(function (sticker, categories) {
-            console.log("STICKER ::::::::::" + JSON.stringify(sticker));
+            new Parse.Query("Category").containedIn("objectId", categoryList).find()
 
-            var sticker_relation = sticker.relation("cat");
+        ).then(function (sticker, categories) {
+
+            var sticker_relation = sticker.relation("categories");
 
             _.each(categories, function (category) {
 
+                console.log("ADDED CATEGORY" + category);
                 sticker_relation.add(category);
 
             });
@@ -761,7 +761,9 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
             return sticker.save();
 
 
-        }).then(function () {
+        }).then(function (sticker) {
+
+            console.log("STICKER UPDATED" + JSON.stringify(sticker));
 
             //Delete tmp fil after update
             var tempFile = file.path;
@@ -771,12 +773,14 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
                     console.log("Could not del temp++++++++" + JSON.stringify(err));
                 }
             });
+
             console.log("FILE UPDATED SUCCESSFULLYYYY");
             res.redirect("/dashboard");
 
         }, function (e) {
-            console.log("SERVER ERROR " + e.message);
+            console.log("SERVER ERROR " + JSON.stringify(e));
             res.redirect("/dashboard");
+
         });
 
     } else {
