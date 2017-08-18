@@ -41,7 +41,9 @@ $(document).ready(function () {
 
     $checks = $(":checkbox");
     var categories = String($('#category').val()).split(",");
-    $('input:checkbox[data-name="' + categories + '"]').prop('checked', true);
+    for( var i = 0; i < categories.length; i++ ) {
+        $('input:checkbox[data-name="' + i + '"]').prop('checked', true);
+    }
     $checks.on('change', function (e) {
         var string = $checks.filter(":checked").map(function (i, v) {
             return $(this).attr("data-name");
