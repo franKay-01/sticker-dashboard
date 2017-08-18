@@ -42,7 +42,7 @@ $(document).ready(function () {
     });
 
     $checks = $(":checkbox");
-    $('input:checkbox[value="' + 'funny' + '"]').prop('checked', true);
+    $('input:checkbox[data-name="' + 'funny' + '"]').prop('checked', true);
     $checks.on('change', function (e) {
         var string = $checks.filter(":checked").map(function (i, v) {
             return $(this).attr("data-name");
