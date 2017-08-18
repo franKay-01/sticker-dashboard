@@ -671,30 +671,42 @@ app.get('/details/:id', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var id = req.params.id;
+    var stickerDetail;
+    var allCategories;
 
     if (session && token) {
-        var sticker = new Parse.Query("Sticker");
-        sticker.equalTo("objectId", id);
-        sticker.first({sessionToken: token}).then(function (sticker) {
 
-                //find categories from dashboard
-                var categories = new Parse.Query("Category");
-                categories = categories.descending("name");
+        Parse.Promise.when(
+            new Parse.Query("Sticker").equalTo("objectId", id).first({sessionToken: token}),
+            new Parse.Query("Category").find()
+        ).then(function (sticker, categories) {
 
-                categories.find().then(function (categories) {
-                        res.render("pages/details", {sticker: sticker, categories: categories});
-                    },
-                    //TODO handle errors
-                    function (error) {
-                        console.log("No categories found- " + error);
-                    }
-                );
-            },
-            function (err) {
-                //TODO handle error code
-                console.log("Error Loading-----------------------" + JSON.stringify(err));
+                stickerDetail = sticker;
+                allCategories = categories;
+
+                var sticker_relation = sticker.relation("categories");
+                return sticker_relation.query().find();
+
             }
-        );
+        ).then(function (stickerCategories) {
+
+            var categoryNames = [];
+            _.each(stickerCategories, function (category) {
+                categoryNames.push(category.get("name"))
+            });
+
+            console.log("CATEGORY NAMES " + categoryNames);
+
+            res.render("pages/details", {
+                sticker: stickerDetail,
+                categoryNames: categoryNames,
+                categories: allCategories
+            });
+
+        }, function (err) {
+            //TODO handle error code
+            console.log("Error Loading-----------------------" + JSON.stringify(err));
+        });
     }
     else {
         res.redirect("/dashboard");
@@ -709,24 +721,24 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
     //input fields from form
     var stickerName = req.body.stickername;
-    var category = req.body.cat1;
+    var categoryList = req.body.cat1;
     var file = req.file;
     var imgChange = req.body.imgChange;
     var stickerId = req.params.id;
 
-    console.log("STICKER ID::::::::::" + JSON.stringify(stickerId));
     if (session && token) {
 
         Parse.Promise.when(
             new Parse.Query("Sticker").equalTo("objectId", stickerId).first(),
-            new Parse.Query("Category").containedIn("objectId", category).find()
-        ).then(function (sticker, categories) {
-            console.log("STICKER ::::::::::" + JSON.stringify(sticker));
+            new Parse.Query("Category").containedIn("objectId", categoryList).find()
 
-            var sticker_relation = sticker.relation("cat");
+        ).then(function (sticker, categories) {
+
+            var sticker_relation = sticker.relation("categories");
 
             _.each(categories, function (category) {
 
+                console.log("ADDED CATEGORY" + category);
                 sticker_relation.add(category);
 
             });
@@ -747,22 +759,28 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
             return sticker.save();
 
 
-        }).then(function () {
+        }).then(function (sticker) {
 
-            //Delete tmp fil after update
-            var tempFile = file.path;
-            fs.unlink(tempFile, function (err) {
-                if (err) {
-                    //TODO handle error code
-                    console.log("Could not del temp++++++++" + JSON.stringify(err));
-                }
-            });
+            console.log("STICKER UPDATED" + JSON.stringify(sticker));
+
+            if (imgChange === 'true') {
+                //Delete tmp fil after update
+                var tempFile = file.path;
+                fs.unlink(tempFile, function (err) {
+                    if (err) {
+                        //TODO handle error code
+                        console.log("Could not del temp++++++++" + JSON.stringify(err));
+                    }
+                });
+            }
+
             console.log("FILE UPDATED SUCCESSFULLYYYY");
             res.redirect("/dashboard");
 
         }, function (e) {
-            console.log("SERVER ERROR " + e.message);
+            console.log("SERVER ERROR " + JSON.stringify(e));
             res.redirect("/dashboard");
+
         });
 
     } else {

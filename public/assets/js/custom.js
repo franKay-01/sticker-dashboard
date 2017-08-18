@@ -40,14 +40,14 @@ $(document).ready(function () {
     });
 
     $checks = $(":checkbox");
+    $('input:checkbox[data-name="' + $('#category').val() + '"]').prop('checked', true);
     $checks.on('change', function (e) {
         var string = $checks.filter(":checked").map(function (i, v) {
             return $(this).attr("data-name");
         }).get().join(", ");
-      $('#category').val(string);
+        $('#category').val(string);
 
     });
-
 
     //add button style
     $('#addbtn').on('mouseover', function () {
