@@ -273,7 +273,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     //
     console.log("Collection ID===========" + JSON.stringify(coll_id));
     //
-    // console.log("FILE INFO***************: " + JSON.stringify(req.files));
+    console.log("FILE INFO***************: " + JSON.stringify(req.files));
 
     var files = req.files;
 
