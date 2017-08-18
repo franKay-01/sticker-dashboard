@@ -46,8 +46,14 @@ $(document).ready(function () {
         var string = $checks.filter(":checked").map(function (i, v) {
             return $(this).attr("data-name");
         }).get().join(", ");
-        existingCategories += string;
-      $('#category').val(existingCategories);
+        if(existingCategories !== ""){
+            existingCategories += ", "+string;
+            $('#category').val(existingCategories);
+            existingCategories = "";
+        }else{
+            $('#category').val(string);
+        }
+
 
     });
 
