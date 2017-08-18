@@ -697,6 +697,8 @@ app.get('/details/:id', function (req, res) {
                 categoryNames.push(category.get("name"))
             });
 
+            console.log("CATEGORY NAMES " + categoryNames);
+
             res.render("pages/details", {
                 sticker: stickerDetail,
                 categoryNames: categoryNames,
