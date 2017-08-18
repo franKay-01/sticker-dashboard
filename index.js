@@ -247,93 +247,82 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     var token = req.cookies.token;
     var coll_id = req.body.coll_id;
     var files = req.files;
-
-    /* var collection = new Parse.Query("Collection");
-     collection.first().then(function(sticker){
-
-     sticker.set("stickerName", stickerName);
-     sticker.set("localName", stickerName);
-     sticker.set("uri", parseFile);
-     sticker.set("stickerPhraseImage", "");
-     return sticker.save();
-
-     }).then(function(){
-
-     //added categories
-     var collection = new Parse.Query("Collection");
-     collection.equalTo("objectId", coll_id);
-     return collection.find();
-
-     }).then(function(){
-
-     },function(error){
-
-     });*/
-
+    var fileDetails = [];
+    var stickerDetails = [];
+    var stickerCollection;
 
     if (session && token) {
 
-        //GET ID OF CURRENT COLLECTION
         var collection = new Parse.Query("Collection");
-        collection.equalTo("objectId", coll_id);
-        collection.first({sessionToken: token}).then(function (collection) {
+        collection.equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
 
-            //File saving Process Begins
-            files.forEach(function (sticker, index) {
+            stickerCollection = collection;
+
+            files.forEach(function (file) {
 
                 //TODO update originalname to originalName
-                var fullName = sticker.originalname;
-
+                var fullName = file.originalname;
                 var stickerName = fullName.substring(0, fullName.length - 4);
 
-                //convert file to base64 format
-                var bitmap = fs.readFileSync(sticker.path, {encoding: 'base64'});
-                var parseFile = new Parse.File(stickerName, {base64: bitmap}, sticker.mimetype);
-                console.log("Parse File::::::::::" + JSON.stringify(parseFile));
+                var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
-                //parse file object
+                //create our parse file
+                var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                 var Sticker = new Parse.Object.extend("Sticker");
+                var sticker = new Sticker();
+                sticker.set("stickerName", stickerName);
+                sticker.set("localName", stickerName);
+                sticker.set("uri", parseFile);
+                sticker.set("stickerPhraseImage", "");
+                sticker.set("parent", collection);
 
-                parseFile.save().then(function () {
+                stickerDetails.push(sticker);
+                fileDetails.push(file);
 
-                    //instance of parse object
-                    var sticker = new Sticker();
-                    sticker.set("stickerName", stickerName);
-                    sticker.set("localName", stickerName);
-                    sticker.set("uri", parseFile);
-                    sticker.set("stickerPhraseImage", "");
-                    sticker.set("collection", collection);
+            });
 
-                    return sticker.save();
+            console.log("SAVE ALL OBJECTS AND FILE");
+            return Parse.Object.saveAll(stickerDetails);
 
-                }).then(function () {
+        }).then(function (stickers) {
 
-                    var collection_relation = collection.relation("stickers");
-                    collection_relation.add(sticker);
-                    collection.save();
-
-                    //Delete tmp fil after upload
-                    var tempFile = sticker.path;
-                    fs.unlink(tempFile, function (err) {
-                        if (err) {
-                            //TODO handle error code
-                            console.log("-------Could not del temp" + JSON.stringify(err));
-                        }
-                    });
-                    res.render("pages/collection", {id: coll_id});
+            _.each(fileDetails, function (file) {
+                //Delete tmp fil after upload
+                var tempFile = file.path;
+                fs.unlink(tempFile, function (err) {
+                    if (err) {
+                        //TODO handle error code
+                        console.log("-------Could not del temp" + JSON.stringify(err));
+                    }
+                    else {
+                        console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                    }
                 });
             });
-            //File saving Process Ends
-        });
-        res.redirect("/collections-dashboard");
 
-    }
-    // //no session exists reload signup page
-    else {
-        function error(err) {
-            console.log("error:::::: " + JSON.stringify(err));
-            res.redirect("/");
-        }
+            _.each(stickers, function (sticker) {
+                var collection_relation = stickerCollection.relation("Collection");
+                collection_relation.add(sticker);
+            });
+
+            console.log("SAVE COLLECTION RELATION");
+            return stickerCollection.save();
+
+        }).then(function () {
+
+            console.log("REDIRECT TO DASHBOARD");
+            res.redirect("/collections-dashboard");
+
+        }, function (error) {
+            console.log("BIG BIG ERROR" + error.message);
+            res.redirect("/add-stickers1");
+        });
+
+
+    } else {
+
+        res.redirect("/");
+
     }
 });
 
