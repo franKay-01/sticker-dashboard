@@ -40,8 +40,11 @@ $(document).ready(function () {
     });
 
     $checks = $(":checkbox");
-    var categories = String($('#categoryInput').val()).split(",");
-    $('input:checkbox[data-name="' + categories + '"]').prop('checked', true);
+    var categories = String($('#category').val()).split(",");
+    for( var i = 0; i < categories.length; i++ ) {
+        console.log(i);
+        $('input:checkbox[data-name="' + categories[i] + '"]').prop('checked', true);
+    }
     $checks.on('change', function (e) {
         var string = $checks.filter(":checked").map(function (i, v) {
             return $(this).attr("data-name");
