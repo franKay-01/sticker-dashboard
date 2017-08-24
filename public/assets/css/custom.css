@@ -88,6 +88,13 @@ a {
     background-color: rgba(245, 245, 245, 0.76);
 }
 
+.bar {
+    width: 1024px;
+    height: 4px;
+    object-fit: contain;
+    background-image: linear-gradient(to right, #f08056, #e9675a 36%, #6d40ed 75%, #a95adf);
+}
+
 .margin-top-60 {
     margin-top: 60px;
 }
@@ -732,7 +739,7 @@ tr #titles {
     cursor: pointer;
 }
 
-#hiddenform {
+#hiddenCreateForm {
     display: none;
     position: absolute;
     margin-left: 30%;
