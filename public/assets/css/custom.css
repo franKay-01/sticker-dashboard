@@ -69,16 +69,16 @@ a {
 }
 
 .logo-text {
-    color: #464B9C;
+    color: #e02f1f;
     margin: 0;
     padding: 0;
-    font-weight: 300;
+    font-weight: 900;
 }
 
 
 .logo2 {
-    width: 131px;
-    height: 34px;
+    width: 135px;
+    height: 75px;
     object-fit: contain;
 }
 
@@ -107,13 +107,13 @@ input[type=search], textarea.materialize-textarea {
 }
 
 .uplink {
-    font-weight: 600;
-    font-size: 18px;
-    transition: 5s;
-    color: #464B9C;
+    font-weight: 800;
+    font-size: 22px;
+    transition: .5s;
+    color: #e9675a;
 }
 .uplink:hover {
-    transition: 5s;
+    transition: .5s;
     text-decoration: underline;
 }
 
@@ -127,6 +127,7 @@ input[type=search], textarea.materialize-textarea {
 #signoutLink {
     font-weight: bold;
     color: #464B9C;
+    margin-left: 87%;
 }
 
 #signoutLink:hover {
