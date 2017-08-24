@@ -4,7 +4,7 @@
 	left: 30px;
 }
 
-.level-hero.hero-home .container {
+.level-hero.hero-home .signUpFormContainer {
 	position: static;
 }
 
@@ -17,7 +17,7 @@
 	background-color: #000;
 }
 
-.level-hero .container {
+.level-hero .signUpFormContainer {
 	max-width: 1200px;
 }
 

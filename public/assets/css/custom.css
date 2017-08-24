@@ -117,16 +117,16 @@ input[type=search], textarea.materialize-textarea {
 #signlink:hover {
     text-decoration: underline;
 }
-#signout {
+#signoutLink {
     font-weight: bold;
     color: #464B9C;
 }
 
-#signout:hover {
+#signoutLink:hover {
     text-decoration: underline;
 }
 
-#contact {
+#signUpForm {
     background: #F9F9F9;
     color: black;
     height: 350px;
@@ -134,15 +134,15 @@ input[type=search], textarea.materialize-textarea {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
-#uname,
-#pwd{
+#username,
+#password{
     width: 100%;
     background: ghostwhite;
     /*margin: 10;*/
     border: 1px solid darkgrey;
 }
 
-.container {
+.signUpFormContainer {
     max-width: 400px;
     width: 100%;
     margin-top: 40px;
@@ -150,7 +150,7 @@ input[type=search], textarea.materialize-textarea {
     background: whitesmoke;
 }
 
-#loginSubmit {
+#btnLogin {
     cursor: pointer;
     width: 100%;
     background: #464B9C;
@@ -161,11 +161,11 @@ input[type=search], textarea.materialize-textarea {
     transition: 0.5s;
 }
 
-#sp {
+#text {
     text-align: center;
 }
 
-#loginSubmit:hover {
+#btnLogin:hover {
     background: white;
     color: #464B9C;
     transition: 0.5s;
@@ -266,7 +266,7 @@ fieldset {
 
 
 /*STICKER DETAILS FORM*/
-.container1 {
+.detailsFormContainer {
     width: 50%;
     height: 200%;
     bottom: 20%;
@@ -277,7 +277,7 @@ input::-webkit-input-placeholder {
     color: slategrey;
 }
 
-#tform {
+#detailsForm {
     height: 570px;
     width: 92%;
     background-color: #dddddd;
@@ -286,13 +286,13 @@ input::-webkit-input-placeholder {
     box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2), 0 0 5px 10px rgba(0, 0, 0, 0.24)
 }
 
-#tform label{
+#detailsForm label{
     color: #464B9C;
     font-size: 120%;
     font-weight: bold;
 }
 
-#right-column {
+#rightColumn {
     border: 2px solid darkslategrey;
     position: absolute;
     overflow: hidden;
@@ -326,7 +326,7 @@ input::-webkit-input-placeholder {
     width: 300px;
 }
 
-#left-column {
+#leftColumn {
     position: absolute;
     overflow: hidden;
     left: 27%;
@@ -361,7 +361,7 @@ input::-webkit-input-placeholder {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
-.categoryOption {
+.categoryOptions {
     position: absolute;
     width: 100%;
 }
@@ -371,7 +371,7 @@ input::-webkit-input-placeholder {
     margin-right: 5%;
 }
 
-#chooseCat {
+#btnChooseCategory {
     width: 85%;
     color: #202246;
     font-size: 100%;
@@ -379,7 +379,7 @@ input::-webkit-input-placeholder {
     padding: 3%;
 }
 
-.categories {
+.categoriesList {
     font-size: 120%;
     background-color: rebeccapurple;
     color: white;
@@ -387,15 +387,15 @@ input::-webkit-input-placeholder {
     display: none;
 }
 
-.cat1 {
+.categoryOption {
     margin-left: 10px;
 }
 
-#category {
+#categoryInput {
     color: black;
 }
 
-#updatebtn {
+#btnUpdateSticker {
     cursor: pointer;
     width: 25%;
     background: #464B9C;
@@ -409,7 +409,7 @@ input::-webkit-input-placeholder {
     top: 90%;
 }
 
-#updatebtn:hover {
+#btnUpdateSticker:hover {
     background: white;
     color: #464B9C;
     transition: 0.3s;
@@ -420,7 +420,7 @@ input::-webkit-input-placeholder {
 
 
 /*NEW DRAG N DROP FORM ADD STICKERS*/
-.demo-droppable {
+.droppableArea {
     background: #fefefe;
     color: black;
     text-align: center;
@@ -428,10 +428,10 @@ input::-webkit-input-placeholder {
     height: 100%;
     transition: 0.3s;
 }
-.demo-droppable.dragover {
+.droppableArea.dragover {
     background: mediumpurple;
 }
-.demo-droppable:hover {
+.droppableArea:hover {
     transition: 0.3s;
     background: mediumpurple;
     cursor: pointer;
@@ -571,7 +571,7 @@ input::-webkit-input-placeholder {
     right: 0;
 }
 
-#list {
+#filesList {
     width: 95%;
     height: 95%;
     text-align: left;
@@ -580,13 +580,13 @@ input::-webkit-input-placeholder {
     right: 14px;
     top: 10px;
 }
-#list .thumb {
+#filesList .thumb {
     height: 95px;
     border: 1px solid #323a44;
     margin: 10px 5px 0 0;
 }
 
-#upload1 {
+#btnUploadSticker {
     cursor: pointer;
     max-width: 40%;
     background: #8487c8;
@@ -600,14 +600,14 @@ input::-webkit-input-placeholder {
     bottom: 333px;
     left: 55%;
 }
-#upload1:hover {
+#btnUploadSticker:hover {
     background: white;
     color: #8487c8;
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
-#clear {
+#btnClearAddForm {
     cursor: pointer;
     max-width: 40%;
     background: #202246;
@@ -621,7 +621,7 @@ input::-webkit-input-placeholder {
     left: 30%;
 }
 
-#clear:hover {
+#btnClearAddForm:hover {
     background: white;
     color: #202246;
     transition: 0.3s;
@@ -657,13 +657,13 @@ input::-webkit-input-placeholder {
 
 
 /*Create Collection Form*/
-#collection-form {
+#collectionForm {
     background-color: white;
     color: black;
     width: 100%;
     margin: 0 auto;
 }
-#collection-form label{
+#collectionForm label{
     color: #464B9C;
     font-size: 145%;
     font-weight: bold;
@@ -677,15 +677,15 @@ tr #titles {
     font-size: 160%;
 }
 
-#collection-form td {
+#collectionForm td {
     padding: 17px;
 }
-#collection-form table {
+#collectionForm table {
     border-collapse: collapse;
     width: 100%;
 }
 
-#collection-form #cancell {
+#collectionForm #btnCancelCreateColl {
     padding: 10px;
     background-color: white;
     color: #2f326a;
@@ -695,13 +695,13 @@ tr #titles {
     border-radius: 10px;
     transition: 0.3s;
 }
-#collection-form #cancell:hover {
+#collectionForm #btnCancelCreateColl:hover {
     background-color: #2f326a;
     color: white;
     transition: 0.3s;
 }
 
-#collection-form #createcoll {
+#collectionForm #btnCreateCollection {
     padding: 10px;
     background-color: #3f438d;
     color: white;
@@ -711,22 +711,22 @@ tr #titles {
     border: 1px solid;
     transition: 0.3s;
 }
-#collection-form #createcoll:hover {
+#collectionForm #btnCreateCollection:hover {
     background-color: #282a58;
     transition: 0.3s;
 }
 
-#coll_name {
+#collectionName {
     margin-right: 93px;
     border: 1px solid lightgrey;
 }
 
-#closeb {
+#closeSign {
     float:right;
     color: white;
 }
 
-#closeb:hover {
+#closeSign:hover {
     float:right;
     color:darkgrey;
     cursor: pointer;
@@ -739,7 +739,7 @@ tr #titles {
     z-index: 9999;
 }
 
-#page-mask {
+#pageMask {
     display: none;
     position: fixed;
     left: 0;
@@ -749,22 +749,12 @@ tr #titles {
     background-color: rgba(0,0,0,0.6);
 }
 
-#page-mask1 {
-    display: none;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    background-color: rgba(0,0,0,0.6);
-}
-
-.posit {
+.addCategoryDiv {
     width: 20%;
     margin: 0 auto;
 }
 
-#addbtn {
+#btnAddCategory {
     color: white;
     background-color: #464B9C;
     border: 1px solid #464B9C;
@@ -774,7 +764,7 @@ tr #titles {
     width: 100%;
     padding: 10px;
 }
-#addbtn:hover {
+#btnAddCategory:hover {
     color: #464B9C;
     background-color: white;
     border: 1px solid #464B9C;
@@ -857,7 +847,7 @@ tr #titles {
 }
 
 /*EDIT CATEGORY form----------------------------------------*/
-.hidden {
+.hiddenEditForm {
     display: none;
     width: 60%;
     z-index: 9999;
@@ -865,27 +855,27 @@ tr #titles {
     padding-top: 3%;
 }
 
-#editform {
+#editCategoryForm {
     margin-left: 50%;
 }
 
-#editable {
+#editTable {
     width: 100%;
 }
 
-#heading1 {
+#editHeading {
     background-color: #464B9C;
     font-size: 120%;
     color: white;
     text-align: center;
 }
 
-#editable td {
+#editTable td {
     border-collapse: collapse;
     background-color: lightgrey;
 }
 
-#cancelbtn {
+#btnCancelEditCat {
     padding: 10px;
     background-color: #282a58;
     color: white;
@@ -893,13 +883,13 @@ tr #titles {
     margin-left: 35%;
     transition: 0.2s;
 }
-#cancelbtn:hover {
+#btnCancelEditCat:hover {
     background-color: white;
     color: #282a58;
     transition: 0.2s;
 }
 
-#savebtn {
+#btnSaveEditCat {
     padding: 10px;
     background-color: #464B9C;
     color: white;
@@ -907,20 +897,20 @@ tr #titles {
     margin-left: 45%;
     transition: 0.2s;
 }
-#savebtn:hover {
+#btnSaveEditCat:hover {
     background-color: white;
     color: #464B9C;
     transition: 0.2s;
 }
 
-#catname {
+#categoryName {
     font-weight: bold;
     font-size: 125%;
     color: #464B9C;
     font-family: Arial, serif;
     border: 1px solid
 }
-#catname:focus {
+#categoryName:focus {
     background-color: white;
 }
 
@@ -934,14 +924,14 @@ tr #titles {
 
 
 /*ADD CATEGORY form----------------------------------------*/
-.hidden1 {
+.hiddenAddCatForm {
     display: none;
     position: absolute;
     width: 60%;
     z-index: 2;
 }
 
-#addform {
+#addCategoryForm {
     margin-left: 50%;
 }
 
@@ -949,7 +939,7 @@ tr #titles {
     width: 100%;
 }
 
-#heading2 {
+#headingAdd {
     background-color: #464B9C;
     font-size: 120%;
     color: white;
@@ -961,7 +951,7 @@ tr #titles {
     background-color: lightgrey;
 }
 
-#cancelbtn1 {
+#btnCancelAddCat {
     padding: 10px;
     background-color: #282a58;
     color: white;
@@ -969,13 +959,13 @@ tr #titles {
     margin-left: 35%;
     transition: 0.2s;
 }
-#cancelbtn1:hover {
+#btnCancelAddCat:hover {
     background-color: white;
     color: #282a58;
     transition: 0.2s;
 }
 
-#savebtn1 {
+#btnSaveAddCat {
     padding: 10px;
     background-color: #464B9C;
     color: white;
@@ -983,18 +973,10 @@ tr #titles {
     margin-left: 45%;
     transition: 0.2s;
 }
-#savebtn1:hover {
+#btnSaveAddCat:hover {
     background-color: white;
     color: #464B9C;
     transition: 0.2s;
-}
-
-#catname1 {
-    font-weight: bold;
-    font-size: 125%;
-    color: #464B9C;
-    font-family: Arial;
-    border: 1px solid
 }
 
 #label-cn {
@@ -1005,34 +987,34 @@ tr #titles {
 }
 
 /*DELETE CATEGORY form----------------------------------------*/
-.hidden2 {
+.hiddenRemoveCategory {
     display: none;
     position: absolute;
     width: 60%;
     z-index: 2;
 }
 
-#deleteform {
+#deleteCategoryForm {
     margin-left: 50%;
 }
 
-#deltable {
+#deleteTable {
     width: 100%;
 }
 
-#heading3 {
+#headingRemove {
     background-color: #464B9C;
     font-size: 120%;
     text-align: center;
     color: white;
 }
 
-#deltable td {
+#deleteTable td {
     border-collapse: collapse;
     background-color: lightgrey;
 }
 
-#cancelbtn2 {
+#btnCancelRemove {
     padding: 10px;
     background-color: #282a58;
     color: white;
@@ -1040,13 +1022,13 @@ tr #titles {
     margin-left: 35%;
     transition: 0.2s;
 }
-#cancelbtn2:hover {
+#btnCancelRemove:hover {
     background-color: white;
     color: #282a58;
     transition: 0.2s;
 }
 
-#savebtn2 {
+#btnSaveRemove {
     padding: 10px;
     background-color: #464B9C;
     color: white;
@@ -1054,13 +1036,13 @@ tr #titles {
     margin-left: 45%;
     transition: 0.2s;
 }
-#savebtn2:hover {
+#btnSaveRemove:hover {
     background-color: white;
     color: #464B9C;
     transition: 0.2s;
 }
 
-#catnameD {
+#catNameRemove {
     font-weight: bold;
     text-align: center;
     font-size: 170%;

@@ -62,7 +62,7 @@
 
 }
 
-.hero-careers > .container {
+.hero-careers > .signUpFormContainer {
 
 	padding-top: 30px;
 	padding-bottom: 185px;
@@ -73,7 +73,7 @@
 
 
 @media ( min-width: 400px ) {
-	.hero-careers > .container {
+	.hero-careers > .signUpFormContainer {
 		background-position: 100% 100%;
 
 		padding-bottom: 200px;
@@ -81,7 +81,7 @@
 }
 
 @media ( min-width: 568px ) {
-	.hero-careers > .container {
+	.hero-careers > .signUpFormContainer {
 		background-position: 100% 100%;
 
 		background-size: 50%;
@@ -90,7 +90,7 @@
 
 @media ( min-width: 768px ) {
 
-	.hero-careers > .container {
+	.hero-careers > .signUpFormContainer {
 		padding-top: 50px;
 
 		background-size: 46%;
@@ -101,7 +101,7 @@
 
 @media ( min-width: 992px ) {
 
-	.hero-careers > .container {
+	.hero-careers > .signUpFormContainer {
 		padding-top: 0;
 		padding-bottom: 0;
 
@@ -113,7 +113,7 @@
 
 @media ( min-width: 1200px ) {
 
-	.hero-careers > .container {
+	.hero-careers > .signUpFormContainer {
 		background-size: contain;
 		background-position: 100% 30px;
 	}

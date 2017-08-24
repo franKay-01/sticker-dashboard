@@ -11,50 +11,50 @@ $(document).ready(function () {
     //Toggle create new collection form
     $(function () {
         //show collection form
-        $('#showform').on('click', function () {
-            $('#hiddenform').fadeIn('fast');
-            $('#page-mask1').fadeIn('fast');
+        $('#showCreateForm').on('click', function () {
+            $('#hiddenCreateForm').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
         });
 
         //close/hide form
-        $('#closeb').on('click', function () {
-            $('#hiddenform').fadeOut('fast');
-            $('#page-mask1').fadeOut('fast');
-            $('#collection-form')[0].reset();
+        $('#closeSign').on('click', function () {
+            $('#hiddenCreateForm').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#collectionForm')[0].reset();
         });
-        $('#cancell').on('click', function () {
-            $('#hiddenform').fadeOut('fast');
-            $('#page-mask1').fadeOut('fast');
-            $('#collection-form')[0].reset();
+        $('#btnCancelCreateColl').on('click', function () {
+            $('#hiddenCreateForm').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#collectionForm')[0].reset();
         });
     });
 
     /*Toggle  'Choose categories' menu*/
-    $('#chooseCat').click(function () {
-        if ($('.categories').is(':visible')) {
-            $('.categories').slideUp('medium');
+    $('#btnChooseCategory').click(function () {
+        if ($('.categoriesList').is(':visible')) {
+            $('.categoriesList').slideUp('medium');
         }
         else {
-            $('.categories').slideDown('medium');
+            $('.categoriesList').slideDown('medium');
         }
     });
 
     $checks = $(":checkbox");
-    var categories = String($('#category').val()).split(",");
+    var categories = String($('#categoryInput').val()).split(",");
     $('input:checkbox[data-name="' + categories + '"]').prop('checked', true);
     $checks.on('change', function (e) {
         var string = $checks.filter(":checked").map(function (i, v) {
             return $(this).attr("data-name");
         }).get().join(", ");
-        $('#category').val(string);
+        $('#categoryInput').val(string);
 
     });
 
     //add button style
-    $('#addbtn').on('mouseover', function () {
+    $('#btnAddCategory').on('mouseover', function () {
         $('.plus').attr('src', 'pluscolor.png');
     });
-    $('#addbtn').on('mouseout', function () {
+    $('#btnAddCategory').on('mouseout', function () {
         $('.plus').attr('src', 'pluswhite.png');
     });
 
@@ -63,30 +63,30 @@ $(document).ready(function () {
 
         $('.editbtn1').on('click', function () {
             var $this = $(this);
-            $('#page-mask1').fadeIn('fast');
-            $('.hidden').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('.hiddenEditForm').fadeIn('fast');
 
             //insert category name into text field for editing
-            $('#catname').val($this.val());
+            $('#categoryName').val($this.val());
             $('#currentName').val($this.val());
         });
     });
     //remove form
-    $('#cancelbtn').on('click', function () {
-        $('#page-mask1').fadeOut('fast');
-        $('.hidden').fadeOut('fast');
+    $('#btnCancelEditCat').on('click', function () {
+        $('#pageMask').fadeOut('fast');
+        $('.hiddenEditForm').fadeOut('fast');
     });
 
     //show add-category form
-    $('#addbtn').on('click', function () {
-        $('#page-mask1').fadeIn('fast');
-        $('.hidden1').fadeIn('fast');
+    $('#btnAddCategory').on('click', function () {
+        $('#pageMask').fadeIn('fast');
+        $('.hiddenAddCatForm').fadeIn('fast');
     });
     //remove form
-    $('#cancelbtn1').on('click', function () {
-        $('#page-mask1').fadeOut('fast');
-        $('.hidden1').fadeOut('fast');
-        $('#editform')[0].reset();
+    $('#btnCancelAddCat').on('click', function () {
+        $('#pageMask').fadeOut('fast');
+        $('.hiddenAddCatForm').fadeOut('fast');
+        $('#editCategoryForm')[0].reset();
     });
 
 
@@ -95,19 +95,19 @@ $(document).ready(function () {
 
         $('.delbtn1').on('click', function () {
             var $this = $(this);
-            $('.hidden2').fadeIn('fast');
-            $('#page-mask1').fadeIn('fast');
+            $('.hiddenRemoveCategory').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
 
             //insert category name into text field for removal
-            $('#catnameD').val($this.val());
+            $('#catNameRemove').val($this.val());
             $('#currentNameD').val($this.val());
         });
     });
     //cancel remove
-    $('#cancelbtn2').on('click', function () {
-        $('#page-mask1').fadeOut('fast');
-        $('.hidden2').fadeOut('fast');
-        $('#deleteform')[0].reset();
+    $('#btnCancelRemove').on('click', function () {
+        $('#pageMask').fadeOut('fast');
+        $('.hiddenRemoveCategory').fadeOut('fast');
+        $('#deleteCategoryForm')[0].reset();
     });
 
 

@@ -40,40 +40,40 @@
             <div class="columns large-8 small-12">
                 <h3 class="logo-text primary-font">Dashboard - Collections</h3>
             </div>
-            <a id="signout" onclick="logoutUser()">SIGN OUT</a>
+            <a id="signoutLink" onclick="logoutUser()">SIGN OUT</a>
             <p></p>
             <!--link to other pages-->
             <%- include('../partials/links') %>
 
             <div class="columns small-7 large-8">
-                <a class="uplink" id="showform">  Create New Collection</a>
+                <a class="uplink" id="showCreateForm">  Create New Collection</a>
             </div>
         </div>
     </div>
 </div>
 <!-- Logo -->
 
-<div id="hiddenform">
-    <form id="collection-form" action="/new-collection" method="post">
+<div id="hiddenCreateForm">
+    <form id="collectionForm" action="/new-collection" method="post">
         <table>
             <th colspan="2" id="titles">
                 CREATE NEW COLLECTION
-                <span id='closeb'>X</span>
+                <span id='closeSign'>X</span>
             </th>
             <tr>
                 <td>
                     <label>Enter collection name:</label>
                 </td>
                 <td>
-                    <input type="text" placeholder="collection name" name="coll_name" id="coll_name"><br>
+                    <input type="text" placeholder="collection name" name="coll_name" id="collectionName"><br>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <button type="button" id="cancell">CANCEL</button>
+                    <button type="button" id="btnCancelCreateColl">CANCEL</button>
                 </td>
                 <td>
-                    <button type="submit" id="createcoll">CREATE</button>
+                    <button type="submit" id="btnCreateCollection">CREATE</button>
                 </td>
             </tr>
         </table>
@@ -82,7 +82,7 @@
 
 <% include ../partials/collection-item %>
 
-<div id="page-mask1"></div>
+<div id="pageMask"></div>
 
 
 

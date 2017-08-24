@@ -1055,7 +1055,7 @@ input.text:focus {
 
 }
 
-.hero-home .container:first-child {
+.hero-home .signUpFormContainer:first-child {
 	position: relative;
 	z-index: 3;
 }
@@ -1122,7 +1122,7 @@ input.text:focus {
 		padding: 0;
 	}
 
-	.level-img-right > .container {
+	.level-img-right > .signUpFormContainer {
 		position: relative;
 		margin-top: 2.727rem;
 		padding: 40px 15px 220px;
@@ -1147,7 +1147,7 @@ input.text:focus {
 }
 
 @media ( min-width: 1200px ) {
-	.level-img-right > .container {
+	.level-img-right > .signUpFormContainer {
 		background: none;
 	}
 	
@@ -1860,12 +1860,12 @@ label {
 }
 
 
-.hero-ads > .container {
+.hero-ads > .signUpFormContainer {
 	position: relative;
 	padding-bottom: 15%;
 }
 
-.hero-ads > .container hr {
+.hero-ads > .signUpFormContainer hr {
 	position: absolute;
 	bottom: 0;
 	left: 15px;

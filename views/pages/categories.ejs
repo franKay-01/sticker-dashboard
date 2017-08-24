@@ -37,10 +37,9 @@
         <div class="row">
 
             <div class="columns large-8 small-12">
-                <!--TODO add collection name to title below-->
                 <h3 class="logo-text primary-font">Select Categories for Stickers </h3>
             </div>
-            <a id="signout" onclick="logoutUser()">SIGN OUT</a>
+            <a id="signoutLink" onclick="logoutUser()">SIGN OUT</a>
             <p></p>
             <!--link to other pages-->
             <%- include('../partials/links') %>
@@ -49,31 +48,31 @@
 </div>
 <!-- Logo -->
 
-<div class="posit">
-<button id="addbtn"><img class="plus" src="/public/assets/images/pluswhite.png"> ADD A NEW CATEGORY</button>
+<div class="addCategoryDiv">
+<button id="btnAddCategory"><img class="plus" src="/public/assets/images/pluswhite.png"> ADD A NEW CATEGORY</button>
 </div>
 
-<div class="hidden">
-    <form id="editform" action="/update-category" method="post">
-        <table id="editable">
+<div class="hiddenEditForm">
+    <form id="editCategoryForm" action="/update-category" method="post">
+        <table id="editTable">
             <tr>
-                <th  colspan="2" id="heading1">
+                <th  colspan="2" id="editHeading">
                     EDIT CATEGORY
                 </th>
             </tr>
             <tr>
                 <td id="label-c">Rename category: </td>
                 <td>
-                    <input type="text" name="catname" id="catname" autofocus onfocus="this.value = this.value;" />
+                    <input type="text" name="catname" id="categoryName" autofocus onfocus="this.value = this.value;" />
                     <input type="hidden" name="currentName" id="currentName">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <button id="cancelbtn" type="button">CANCEL</button>
+                    <button id="btnCancelEditCat" type="button">CANCEL</button>
                 </td>
                 <td>
-                    <button id="savebtn" type="submit">SAVE</button>
+                    <button id="btnSaveEditCat" type="submit">SAVE</button>
                 </td>
             </tr>
 
@@ -82,24 +81,24 @@
 </div>
 
 <!--add category form-->
-<div class="hidden1">
-    <form id="addform" action="/new-category" method="post">
+<div class="hiddenAddCatForm">
+    <form id="addCategoryForm" action="/new-category" method="post">
         <table id="addtable">
             <tr>
-                <th  colspan="2" id="heading2">
+                <th  colspan="2" id="headingAdd">
                     ADD NEW CATEGORY
                 </th>
             </tr>
             <tr>
                 <td id="label-cn">Type Category Name: </td>
-                <td><input type="text" name="catname" id="catname" /></td>
+                <td><input type="text" name="catname" id="categoryName" /></td>
             </tr>
             <tr>
                 <td>
-                    <button id="cancelbtn1" type="button">CANCEL</button>
+                    <button id="btnCancelAddCat" type="button">CANCEL</button>
                 </td>
                 <td>
-                    <button id="savebtn1" type="submit">SAVE</button>
+                    <button id="btnSaveAddCat" type="submit">SAVE</button>
                 </td>
             </tr>
 
@@ -108,24 +107,24 @@
 </div>
 
 <!--remove category form-->
-<div class="hidden2">
-    <form id="deleteform" action="/remove-category" method="post">
-        <table id="deltable">
+<div class="hiddenRemoveCategory">
+    <form id="deleteCategoryForm" action="/remove-category" method="post">
+        <table id="deleteTable">
             <tr>
-                <th  colspan="2" id="heading3">
+                <th  colspan="2" id="headingRemove">
                     REMOVE THIS CATEGORY??
                 </th>
             </tr>
             <tr>
-                <td colspan="2"><input type="text" name="catnameD" id="catnameD" /></td>
-                <input type="hidden" name="currentNameD" id="currentNameD">
+                <td colspan="2"><input type="text" name="catnameD" id="catNameRemove" /></td>
+                <input type="hidden" name="currentNameD" id="currentNameRemove">
             </tr>
             <tr>
                 <td>
-                    <button id="cancelbtn2" type="button">FORGET IT</button>
+                    <button id="btnCancelRemove" type="button">FORGET IT</button>
                 </td>
                 <td>
-                    <button id="savebtn2" type="submit">YES, REMOVE</button>
+                    <button id="btnSaveRemove" type="submit">YES, REMOVE</button>
                 </td>
             </tr>
 
@@ -136,7 +135,7 @@
 <%- include ../partials/category-table %>
 
 
-<div id="page-mask1"></div>
+<div id="page-mask"></div>
 <!-- Body -->
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>

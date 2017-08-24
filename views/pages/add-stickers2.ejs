@@ -30,10 +30,9 @@
         <div class="row">
 
             <div class="columns large-8 small-12">
-                <h3 class="logo-text primary-font">Stickers - Dashboard</h3>
                 <h4 class="primary-font beta-text">Add Sticker</h4>
             </div>
-            <a id="signout" onclick="logoutUser()">SIGN OUT</a>
+            <a id="signoutLink" onclick="logoutUser()">SIGN OUT</a>
             <p></p>
             <!--link to dashboard and stickers-->
             <%- include('../partials/links') %>
@@ -47,12 +46,12 @@
 </div>
 
 <!--form goes here-->
-<div class="container1">
-    <form id="tform" action="/uploads" enctype="multipart/form-data" method="post">
+<div class="detailsFormContainer">
+    <form id="detailsForm" action="/uploads" enctype="multipart/form-data" method="post">
 
         <div id="left-col">
             <!--new feature for drag n drop-->
-            <div class="demo-droppable">
+            <div class="droppableArea">
                 <span id="word">Drag files here or click to upload</span>
                 <div class="output" name="tfile"></div>
                 <input type="hidden"  name="imgChange" id="imgChange"/>
@@ -61,7 +60,7 @@
         <div id="right-col">
             <input type="text" placeholder="Sticker Name" id="stname" name="stickername"/>
             <input type="text" placeholder="Local Name" id="lname" name="localname">
-            <input type="text" placeholder="Category e.g funny, silly" id="category" name="cat"/>
+            <input type="text" placeholder="Category e.g funny, silly" id="categoryInput" name="cat"/>
             <button id="cancel" href="/dashboard">CANCEL</button>
             <button id="upload" type="submit">UPLOAD</button>
         </div>

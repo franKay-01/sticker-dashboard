@@ -559,45 +559,6 @@ app.get('/collection/:id', function (req, res) {
                 col.query().find().then(function (stickers) {
 
                     res.render("pages/collection", {stickers: stickers, id: coll_id, collectionName: coll_name});
-                    /* var promise = Parse.Promise.as();
-
-                     if (stickers.length) {
-
-                     _stickers = stickers;
-
-                     _.each(stickers, function (sticker) {
-
-
-                     var query = sticker.relation("cat");
-                     return query.find();
-
-                     promise = promise.then(function () {
-
-                     console.log("STICKER " + JSON.stringify(sticker));
-
-                     var query = sticker.relation("cat");
-                     return query.find();
-                     });
-                     });
-
-                     }
-
-                     return promise;*/
-
-                    /*
-                     * .then(function (categories) {
-
-                     console.log("CATEGORIES " + JSON.stringify(categories));
-
-                     var _categoryName = [];
-                     _.each(categories, function (category) {
-                     _categoryName.push(category.get("name"))
-                     });
-                     _sticker.categoryName = _categoryName;
-                     resultArray.push(_sticker);
-
-                     // console.log("RESULT ARRAY " + resultArray);
-                     res.render("pages/collection", {stickers: _stickers, id: coll_id});*/
 
                 }, function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
@@ -720,7 +681,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var token = req.cookies.token;
 
     //input fields from form
-    var stickerName = req.body.stickername;
+    var stickerName = req.body.stickerName;
     var categoryList = req.body.cat1;
     var file = req.file;
     var imgChange = req.body.imgChange;

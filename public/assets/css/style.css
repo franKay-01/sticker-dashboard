@@ -30,7 +30,7 @@ a:visited {
   text-align: center;
 }
 
-.hidden {
+.hiddenEditForm {
   display: none;
 }
 
@@ -38,7 +38,7 @@ a:visited {
   app css
  */
 
-.container {
+.signUpFormContainer {
   margin: 0 auto;
   margin-top: 45px;
   max-width: 860px;

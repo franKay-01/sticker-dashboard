@@ -48,7 +48,7 @@ function handleFileSelect(evt) {
                 span.innerHTML = ['<img class="thumb" name="im1" " src="', e.target.result,
                     '" title="', escape(theFile.name), '"/>'].join('');
 
-                document.getElementById('list').insertBefore(span, null);
+                document.getElementById('filesList').insertBefore(span, null);
                 console.log("success in upload");
                 //create preview for image in category option
 
@@ -70,8 +70,8 @@ function handleFileSelect(evt) {
 
 $('#files').change(handleFileSelect);
 
-//clear form
-$('#clear').click(function(){
+//clearForm form
+$('#btnClearAddForm').click(function(){
     $('#upform')[0].reset();
     $('.thumb').remove();
 });

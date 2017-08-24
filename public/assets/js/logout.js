@@ -3,7 +3,7 @@
  */
 $(document).ready(function () {
 
-    $('#signout').onclick(function () {
+    $('#signoutLink').onclick(function () {
         window.location = '/logout';
     });
 

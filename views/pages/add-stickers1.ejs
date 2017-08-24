@@ -42,7 +42,7 @@
                 <h3 class="logo-text primary-font">Stickers - Dashboard</h3>
                 <h4 class="primary-font beta-text">Add Sticker</h4>
             </div>
-            <a id="signout" onclick="logoutUser()">SIGN OUT</a>
+            <a id="signoutLink" onclick="logoutUser()">SIGN OUT</a>
             <p></p>
             <!--link to dashboard and stickers-->
             <%- include('../partials/links') %>
@@ -56,7 +56,7 @@
 </div>
 
 <!--Drag n Drop Form-->
-<form id="upform" action="/uploads" enctype="multipart/form-data" method="post">
+<form id="addStickersForm" action="/uploads" enctype="multipart/form-data" method="post">
     <div class="wrapper">
         <div class="drop">
             <div class="cont">
@@ -68,16 +68,16 @@
                     your stickers here, or click to browse
                 </div>
             </div>
-            <output id="list"></output>
+            <output id="filesList"></output>
             <input id="files" multiple="true" name="im1[]" type="file"/>
         </div>
     </div>
-    <button id="upload1" type="submit">UPLOAD STICKER(S)</button>
+    <button id="btnUploadSticker" type="submit">UPLOAD STICKER(S)</button>
     <input type="hidden" name="coll_id" style="display: none" value="<%= id %>">
 </form>
-<button id="clear">CLEAR</button>
+<button id="btnClearAddForm">CLEAR</button>
 
-<div id="page-mask"></div>
+<div id="pageMask"></div>
 <!--<div class="cover"></div>-->
 <!-- Body -->
 

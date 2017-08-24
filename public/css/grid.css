@@ -1576,24 +1576,24 @@ pre code {
   max-height: 340px;
   overflow-y: scroll;
 }
-.container {
+.signUpFormContainer {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
 }
 @media (min-width: 768px) {
-  .container {
+  .signUpFormContainer {
     width: 750px;
   }
 }
 @media (min-width: 992px) {
-  .container {
+  .signUpFormContainer {
     width: 970px;
   }
 }
 @media (min-width: 1200px) {
-  .container {
+  .signUpFormContainer {
     width: 1170px;
   }
 }
@@ -4127,17 +4127,17 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     max-height: 200px;
   }
 }
-.container > .navbar-header,
+.signUpFormContainer > .navbar-header,
 .container-fluid > .navbar-header,
-.container > .navbar-collapse,
+.signUpFormContainer > .navbar-collapse,
 .container-fluid > .navbar-collapse {
   margin-right: -15px;
   margin-left: -15px;
 }
 @media (min-width: 768px) {
-  .container > .navbar-header,
+  .signUpFormContainer > .navbar-header,
   .container-fluid > .navbar-header,
-  .container > .navbar-collapse,
+  .signUpFormContainer > .navbar-collapse,
   .container-fluid > .navbar-collapse {
     margin-right: 0;
     margin-left: 0;
@@ -4189,7 +4189,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   display: block;
 }
 @media (min-width: 768px) {
-  .navbar > .container .navbar-brand,
+  .navbar > .signUpFormContainer .navbar-brand,
   .navbar > .container-fluid .navbar-brand {
     margin-left: -15px;
   }
@@ -4873,18 +4873,18 @@ a.badge:focus {
 .jumbotron > hr {
   border-top-color: #d5d5d5;
 }
-.container .jumbotron,
+.signUpFormContainer .jumbotron,
 .container-fluid .jumbotron {
   border-radius: 6px;
 }
-.jumbotron .container {
+.jumbotron .signUpFormContainer {
   max-width: 100%;
 }
 @media screen and (min-width: 768px) {
   .jumbotron {
     padding: 48px 0;
   }
-  .container .jumbotron,
+  .signUpFormContainer .jumbotron,
   .container-fluid .jumbotron {
     padding-right: 60px;
     padding-left: 60px;
@@ -6292,8 +6292,8 @@ button.close {
 .clearfix:after,
 .dl-horizontal dd:before,
 .dl-horizontal dd:after,
-.container:before,
-.container:after,
+.signUpFormContainer:before,
+.signUpFormContainer:after,
 .container-fluid:before,
 .container-fluid:after,
 .row:before,
@@ -6323,7 +6323,7 @@ button.close {
 }
 .clearfix:after,
 .dl-horizontal dd:after,
-.container:after,
+.signUpFormContainer:after,
 .container-fluid:after,
 .row:after,
 .form-horizontal .form-group:after,
@@ -6365,7 +6365,7 @@ button.close {
   background-color: transparent;
   border: 0;
 }
-.hidden {
+.hiddenEditForm {
   display: none !important;
 }
 .affix {
