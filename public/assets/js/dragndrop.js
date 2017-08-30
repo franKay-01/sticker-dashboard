@@ -5,10 +5,10 @@ var drop = $("input");
 drop.on('dragenter mouseover', function (e) {
     $(".drop").css({
         "border": "4px dashed white",
-        "background": "#9598d0"
+        "background": "#e34435"
     });
     $(".cont").css({
-        "color": "#737373"
+        "color": "#ff0000"
     });
 }).on('dragleave dragend mouseout drop', function (e) {
     $(".drop").css({
@@ -16,7 +16,7 @@ drop.on('dragenter mouseover', function (e) {
         "background": "white"
     });
     $(".cont").css({
-        "color": "#999999"
+        "color": "#ff0000"
     });
 });
 

@@ -89,9 +89,8 @@ a {
 }
 
 .bar {
-    width: 1024px;
+    width: 100%;
     height: 4px;
-    object-fit: contain;
     background-image: linear-gradient(to right, #f08056, #e9675a 36%, #6d40ed 75%, #a95adf);
 }
 
@@ -114,6 +113,7 @@ input[type=search], textarea.materialize-textarea {
 }
 .uplink:hover {
     transition: .5s;
+    color: #b42518;
     text-decoration: underline;
 }
 
@@ -126,7 +126,7 @@ input[type=search], textarea.materialize-textarea {
 }
 #signoutLink {
     font-weight: bold;
-    color: #464B9C;
+    color: #e9675a;
     margin-left: 87%;
 }
 
@@ -515,12 +515,6 @@ input::-webkit-input-placeholder {
     box-sizing: border-box;
 }
 
-
-#dropzone {
-    border: 2px solid white;
-}
-
-
 .wrapper {
     width: 100%;
     height: 100%;
@@ -543,7 +537,7 @@ input::-webkit-input-placeholder {
 
 .cont {
     height: 100px;
-    color: darkgray;
+    color: red;
     transition: 0.5s;
     margin: auto;
     position: absolute;
@@ -562,14 +556,13 @@ input::-webkit-input-placeholder {
     text-transform: uppercase;
 }
 .drop .cont .desc {
-    color: #A4AEBB;
+    color: red;
 }
 
 .drop input {
     width: 100%;
     height: 100%;
     cursor: pointer;
-    background: red;
     opacity: 0;
     margin: auto;
     position: absolute;
@@ -597,7 +590,7 @@ input::-webkit-input-placeholder {
 #btnUploadSticker {
     cursor: pointer;
     max-width: 40%;
-    background: #8487c8;
+    background: #e02f1f;
     color: white;
     padding: 1%;
     font-family: monospace;
@@ -610,7 +603,7 @@ input::-webkit-input-placeholder {
 }
 #btnUploadSticker:hover {
     background: white;
-    color: #8487c8;
+    color: #e02f1f;
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -618,7 +611,7 @@ input::-webkit-input-placeholder {
 #btnClearAddForm {
     cursor: pointer;
     max-width: 40%;
-    background: #202246;
+    background: #871c12;
     color: white;
     padding: 1%;
     font-family: monospace;
@@ -631,7 +624,7 @@ input::-webkit-input-placeholder {
 
 #btnClearAddForm:hover {
     background: white;
-    color: #202246;
+    color: #871c12;
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -672,14 +665,14 @@ input::-webkit-input-placeholder {
     margin: 0 auto;
 }
 #collectionForm label{
-    color: #464B9C;
+    color: red;
     font-size: 145%;
     font-weight: bold;
     margin-bottom: 50px;
 }
 
 tr #titles {
-    background-color: #464B9C;
+    background-color: #ca2a1c;
     color:white;
     text-align: center;
     font-size: 160%;
@@ -704,14 +697,14 @@ tr #titles {
     transition: 0.3s;
 }
 #collectionForm #btnCancelCreateColl:hover {
-    background-color: #2f326a;
+    background-color: #ca2a1c;
     color: white;
     transition: 0.3s;
 }
 
 #collectionForm #btnCreateCollection {
     padding: 10px;
-    background-color: #3f438d;
+    background-color: #e9675a;
     color: white;
     font-size: 130%;
     margin-left: 60px;
@@ -720,7 +713,7 @@ tr #titles {
     transition: 0.3s;
 }
 #collectionForm #btnCreateCollection:hover {
-    background-color: #282a58;
+    background-color: #ca2a1c;
     transition: 0.3s;
 }
 
@@ -743,8 +736,9 @@ tr #titles {
 #hiddenCreateForm {
     display: none;
     position: absolute;
-    margin-left: 30%;
+    margin-left: 25%;
     z-index: 9999;
+    top: 204px;
 }
 
 #pageMask {
@@ -802,7 +796,7 @@ tr #titles {
 }
 
 #cattable td, th {
-    border: 2px solid #464B9C;
+    border: 2px solid #ca2a1c;
 }
 
 .editbtn1 {
