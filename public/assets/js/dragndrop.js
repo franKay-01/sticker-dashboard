@@ -8,7 +8,7 @@ drop.on('dragenter mouseover', function (e) {
         "background": "#e34435"
     });
     $(".cont").css({
-        "color": "#ff0000"
+        "color": "#ffffff"
     });
 }).on('dragleave dragend mouseout drop', function (e) {
     $(".drop").css({

@@ -44,10 +44,6 @@ a {
     background-color: #fefefe;
 }
 
-.third-background-color {
-    background-color: #464B9C;
-}
-
 .primary-font {
     font-family: 'Open Sans', sans-serif;
 }
@@ -161,7 +157,7 @@ input[type=search], textarea.materialize-textarea {
 #btnLogin {
     cursor: pointer;
     width: 100%;
-    background: #464B9C;
+    background: #ff471a;
     color: #FFF;
     margin: 7px;
     padding: 10px;
@@ -175,7 +171,7 @@ input[type=search], textarea.materialize-textarea {
 
 #btnLogin:hover {
     background: white;
-    color: #464B9C;
+    color: #ff471a;
     transition: 0.5s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -295,7 +291,7 @@ input::-webkit-input-placeholder {
 }
 
 #detailsForm label{
-    color: #464B9C;
+    color: #ff3300;
     font-size: 120%;
     font-weight: bold;
 }
@@ -381,15 +377,15 @@ input::-webkit-input-placeholder {
 
 #btnChooseCategory {
     width: 85%;
-    color: #202246;
+    color: #ff3300;
     font-size: 100%;
-    background-color: darkgrey;
+    background-color: #661400;
     padding: 3%;
 }
 
 .categoriesList {
     font-size: 120%;
-    background-color: rebeccapurple;
+    background-color: #ff3300;
     color: white;
     width: 85%;
     display: none;
@@ -406,7 +402,7 @@ input::-webkit-input-placeholder {
 #btnUpdateSticker {
     cursor: pointer;
     width: 25%;
-    background: #464B9C;
+    background: #ff5c33;
     color: #FFF;
     padding: 10px;
     font-family: monospace;
@@ -419,7 +415,7 @@ input::-webkit-input-placeholder {
 
 #btnUpdateSticker:hover {
     background: white;
-    color: #464B9C;
+    color: #ff5c33;
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -437,11 +433,11 @@ input::-webkit-input-placeholder {
     transition: 0.3s;
 }
 .droppableArea.dragover {
-    background: mediumpurple;
+    background: #ff3300;
 }
 .droppableArea:hover {
     transition: 0.3s;
-    background: mediumpurple;
+    background: #ff3300;
     cursor: pointer;
 }
 
@@ -646,17 +642,6 @@ input::-webkit-input-placeholder {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
 }
 
-#okaybtn {
-    padding: 5px;
-    position: absolute;
-    color: white;
-    background-color: rebeccapurple;
-    bottom: 2%;
-    display: table-cell;
-    left: 45%;
-}
-
-
 /*Create Collection Form*/
 #collectionForm {
     background-color: white;
@@ -689,7 +674,7 @@ tr #titles {
 #collectionForm #btnCancelCreateColl {
     padding: 10px;
     background-color: white;
-    color: #2f326a;
+    color: #ca2a1c;
     font-size: 130%;
     margin-left: 45%;
     border: 1px solid;
@@ -758,8 +743,8 @@ tr #titles {
 
 #btnAddCategory {
     color: white;
-    background-color: #464B9C;
-    border: 1px solid #464B9C;
+    background-color: #e34435;
+    border: 1px solid;
     font-weight: bolder;
     font-size: 120%;
     transition: 0.3s;
@@ -767,9 +752,9 @@ tr #titles {
     padding: 10px;
 }
 #btnAddCategory:hover {
-    color: #464B9C;
+    color: #e34435;
     background-color: white;
-    border: 1px solid #464B9C;
+    border: 1px solid;
     transition: 0.3s;
 }
 
@@ -785,7 +770,7 @@ tr #titles {
 }
 
 #heading {
-    background-color: #464B9C;
+    background-color: #e34435;
     color:white;
     text-align: center;
     font-size: 150%;
@@ -801,8 +786,8 @@ tr #titles {
 
 .editbtn1 {
     padding: 5px;
-    background-color: #8487c8;
-    border: 1px solid #8487c8;
+    background-color: #ff8566;
+    border: 1px solid #ff8566;
     color: white;
     font-size: 110%;
     transition: 0.2s;
@@ -811,23 +796,23 @@ tr #titles {
 }
 .editbtn1:hover {
     background-color: white;
-    border: 1px solid #8487c8;
-    color: #8487c8;
+    border: 1px solid #ff8566;
+    color: #ff8566;
     transition: 0.2s;
 }
 
 .delbtn1 {
     padding: 5px;
-    background-color: #282a58;
-    border: 1px solid #282a58;
+    background-color: #991f00;
+    border: 1px solid #991f00;
     color: white;
     transition: 0.2s;
     font-size: 110%;
 }
 .delbtn1:hover {
     background-color: white;
-    border: 1px solid #282a58;
-    color: #282a58;
+    border: 1px solid #991f00;
+    color: #991f00;
     transition: 0.2s;
 }
 
@@ -866,7 +851,7 @@ tr #titles {
 }
 
 #editHeading {
-    background-color: #464B9C;
+    background-color: #e62e00;
     font-size: 120%;
     color: white;
     text-align: center;
@@ -879,7 +864,7 @@ tr #titles {
 
 #btnCancelEditCat {
     padding: 10px;
-    background-color: #282a58;
+    background-color: #991f00;
     color: white;
     font-size: 80%;
     margin-left: 35%;
@@ -887,13 +872,13 @@ tr #titles {
 }
 #btnCancelEditCat:hover {
     background-color: white;
-    color: #282a58;
+    color: #991f00;
     transition: 0.2s;
 }
 
 #btnSaveEditCat {
     padding: 10px;
-    background-color: #464B9C;
+    background-color: #e62e00;
     color: white;
     font-size: 80%;
     margin-left: 45%;
@@ -901,14 +886,14 @@ tr #titles {
 }
 #btnSaveEditCat:hover {
     background-color: white;
-    color: #464B9C;
+    color: #e62e00;
     transition: 0.2s;
 }
 
 #categoryName {
     font-weight: bold;
     font-size: 125%;
-    color: #464B9C;
+    color: #e62e00;
     font-family: Arial, serif;
     border: 1px solid
 }
@@ -919,7 +904,7 @@ tr #titles {
 #label-c {
     font-weight: bolder;
     font-size: 130%;
-    color: #464B9C;
+    color: #e62e00;
     font-family: Arial, serif;
 }
 
@@ -942,7 +927,7 @@ tr #titles {
 }
 
 #headingAdd {
-    background-color: #464B9C;
+    background-color: #ca2a1c;
     font-size: 120%;
     color: white;
     text-align: center;
@@ -955,7 +940,7 @@ tr #titles {
 
 #btnCancelAddCat {
     padding: 10px;
-    background-color: #282a58;
+    background-color: #991f00;
     color: white;
     font-size: 80%;
     margin-left: 35%;
@@ -963,13 +948,13 @@ tr #titles {
 }
 #btnCancelAddCat:hover {
     background-color: white;
-    color: #282a58;
+    color: #991f00;
     transition: 0.2s;
 }
 
 #btnSaveAddCat {
     padding: 10px;
-    background-color: #464B9C;
+    background-color: #ff3300;
     color: white;
     font-size: 80%;
     margin-left: 45%;
@@ -977,14 +962,14 @@ tr #titles {
 }
 #btnSaveAddCat:hover {
     background-color: white;
-    color: #464B9C;
+    color: #ff3300;
     transition: 0.2s;
 }
 
 #label-cn {
     font-weight: bolder;
     font-size: 130%;
-    color: #464B9C;
+    color: red;
     font-family: Arial;
 }
 
@@ -1005,7 +990,7 @@ tr #titles {
 }
 
 #headingRemove {
-    background-color: #464B9C;
+    background-color: #e62e00;
     font-size: 120%;
     text-align: center;
     color: white;
@@ -1018,7 +1003,7 @@ tr #titles {
 
 #btnCancelRemove {
     padding: 10px;
-    background-color: #282a58;
+    background-color: #991f00;
     color: white;
     font-size: 80%;
     margin-left: 35%;
@@ -1026,13 +1011,13 @@ tr #titles {
 }
 #btnCancelRemove:hover {
     background-color: white;
-    color: #282a58;
+    color: #991f00;
     transition: 0.2s;
 }
 
 #btnSaveRemove {
     padding: 10px;
-    background-color: #464B9C;
+    background-color: #e62e00;
     color: white;
     font-size: 80%;
     margin-left: 45%;
@@ -1040,7 +1025,7 @@ tr #titles {
 }
 #btnSaveRemove:hover {
     background-color: white;
-    color: #464B9C;
+    color: #e62e00;
     transition: 0.2s;
 }
 
@@ -1048,6 +1033,6 @@ tr #titles {
     font-weight: bold;
     text-align: center;
     font-size: 170%;
-    color: #464B9C;
+    color: #e62e00;
     font-family: Arial;
 }
