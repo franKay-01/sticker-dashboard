@@ -458,7 +458,8 @@ app.post('/remove-category', function (req, res) {
 app.get('/logout', function (req, res) {
 
     req.session = null;
-    res.cookie('token', "");
+    //res.cookie('token', "");
+    res.clearCookie('token');
     res.redirect("/");
 
 });
