@@ -4,6 +4,7 @@ Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
 getCookie = function (cname) {
     var name = cname + "=";
+    console.log("Document Cookie "+ document.cookie);
     var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
@@ -19,7 +20,7 @@ if (token !== "") {
 
     if (Parse.User.current() === null) {
 
-        Parse.User.become("r:091e8dd4d0a9deccdef3c58fa44d160c").then(function () {
+        Parse.User.become(token).then(function () {
                 console.log("Current user::::::" + Parse.User.current());
                 //do nothing
                 //Parse.User.current is available
