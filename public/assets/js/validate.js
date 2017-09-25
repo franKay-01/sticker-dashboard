@@ -19,7 +19,7 @@ if (token !== "") {
 
     if (Parse.User.current() === null) {
 
-        Parse.User.become(token).then(function () {
+        Parse.User.become("r:091e8dd4d0a9deccdef3c58fa44d160c").then(function () {
                 console.log("Current user::::::" + Parse.User.current());
                 //do nothing
                 //Parse.User.current is available
