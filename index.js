@@ -244,6 +244,11 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
     }
 });
 
+//TODO dropbox API
+/*app.post('/dropbox', upload.array('im1[]'), function (req, res) {
+
+})*/
+
 //UPLOAD MULTIPLE STICKERS
 app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
