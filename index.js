@@ -150,7 +150,9 @@ app.use(mountPath, api);
 // Home Page
 app.get('/', function (req, res) {
     var session = req.session.token;
-    if (session) {
+    var token = req.cookies.token;
+
+    if (session && token) {
         res.redirect("/dashboard");
     } else {
         res.render("pages/signup");
