@@ -166,6 +166,8 @@ app.post('/login', function (req, res) {
 
     Parse.User.logIn(username, password).then(function (user) {
 
+        console.log("SESSIONS TOKEN "+user.getSessionToken());
+
         res.cookie('token', user.getSessionToken());
         req.session.token = user.getSessionToken();
         res.redirect("/dashboard");
@@ -507,6 +509,7 @@ app.get('/collections-dashboard', function (req, res) {
 });
 
 //this route adds all categories to each sticker in the database
+//TODO delete this route
 app.get('/cat', function (req, res) {
 
     var session = req.session.token;
