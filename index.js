@@ -168,7 +168,7 @@ app.post('/login', function (req, res) {
 
     Parse.User.logIn(username, password).then(function (user) {
 
-        console.log("SESSIONS TOKEN "+user.getSessionToken());
+        console.log("SESSIONS TOKEN " + user.getSessionToken());
 
         res.cookie('token', user.getSessionToken());
         req.session.token = user.getSessionToken();
@@ -453,12 +453,12 @@ app.post('/remove-category', function (req, res) {
 
 });
 
-
 //LOGOUT
 app.get('/logout', function (req, res) {
 
-    req.session = null;
+    //req.session = null;
     //res.cookie('token', "");
+    req.session.destroy();
     res.clearCookie('token');
     res.redirect("/");
 
@@ -705,7 +705,6 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
         Parse.Promise.when(
             new Parse.Query("Sticker").equalTo("objectId", stickerId).first(),
             new Parse.Query("Category").containedIn("objectId", categoryList).find()
-
         ).then(function (sticker, categories) {
 
             var sticker_relation = sticker.relation("categories");
