@@ -21,7 +21,15 @@ if (token !== "") {
     if (Parse.User.current() === null) {
 
         token = "r:"+token.substring(2);
-        Parse.User.become(token).then(function () {
+        Parse.User.become(token,{
+            success:function(){
+                console.log("Current user::::::" + Parse.User.current());
+            },
+            error:function(error){
+                console.log("Not become:::"+ error.message);
+            }
+        });
+        /*Parse.User.become(token).then(function () {
                 console.log("Current user::::::" + Parse.User.current());
                 //do nothing
                 //Parse.User.current is available
@@ -32,7 +40,7 @@ if (token !== "") {
                 console.log("Not become:::"+ error.message);
                 console.log("Token:::"+ token);
 
-            });
+            });*/
     }
     else
     {
