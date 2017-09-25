@@ -354,6 +354,7 @@ app.post('/new-category', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
+    //TODO update naming conventions
     var categoryName = req.body.catname;
 
     if (session && token) {
@@ -386,6 +387,7 @@ app.post('/update-category', function (req, res) {
     if (session && token) {
 
         var category = new Parse.Query("Category");
+        //objectId
         category.equalTo("name", currentName);
         category.first().then(function (category) {
 
@@ -413,7 +415,7 @@ app.post('/remove-category', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
-    var currentName = req.body.currentNameD;
+    var currentName = req.body.catnameD;
 
     if (session && token) {
 
