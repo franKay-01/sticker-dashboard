@@ -456,9 +456,9 @@ app.post('/remove-category', function (req, res) {
 //LOGOUT
 app.get('/logout', function (req, res) {
 
-    //req.session = null;
+    req.session = null;
     //res.cookie('token', "");
-    req.session.destroy();
+    //req.session.destroy();
     res.clearCookie('token');
     res.redirect("/");
 
