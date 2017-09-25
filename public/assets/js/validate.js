@@ -20,6 +20,7 @@ if (token !== "") {
 
     if (Parse.User.current() === null) {
 
+        token = "r:"+token.substring(2);
         Parse.User.become(token).then(function () {
                 console.log("Current user::::::" + Parse.User.current());
                 //do nothing
