@@ -56,6 +56,7 @@
       var image = document.getElementById("imageid");
       image.src = file.link;
       var base64 = getBase64Image(document.getElementById("imageid"));
+      var base64_ = getBase(image.src);
       image.src = base64;
       document.getElementById("filesList").appendChild(span).appendChild(img);
     }
@@ -67,12 +68,23 @@
   canvas.height = img.height;
   var ctx = canvas.getContext("2d");
   ctx.drawImage(img, 0, 0);
-  var dataURL = canvas.toDataURL(img.src);
+  var dataURL = canvas.toDataURL();
   console.log("Data URL "+dataURL);
   var url_ = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
   console.log("New URL "+url_);
   return url_;
 }
+
+    function getBase(url_){
+        HttpRequest req = new HttpRequest();
+        req.setEndpoint(url_);
+        req.setMethod('GET');
+        Http binding = new Http();
+        HttpResponse res = binding.send(req);
+        Blob image = res.getBodyAsBlob();
+        console.log('data:'+res.getHeader('Content-Type')+';base64,'+EncodingUtil.base64Encode(image);
+    }
+
     }
     </script>
 </head>
