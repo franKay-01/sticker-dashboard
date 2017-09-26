@@ -55,12 +55,11 @@
       img.className = "thumb";
       var image = document.getElementById("imageid");
       image.src = file.link;
-      // var base64 = getBase64Image(document.getElementById("imageid"));
-      var base64_ = convertToDataURLviaCanvas(image.src,"image/jpeg");
+      var base64 = getBase64Image(document.getElementById("imageid"));
       image.src = base64;
       document.getElementById("filesList").appendChild(span).appendChild(img);
     }
-}
+
     function getBase64Image(img) {
   console.log("Image passed "+img);
   var canvas = document.createElement("canvas");
@@ -74,28 +73,7 @@
   console.log("New URL "+url_);
   return url_;
 }
-
-function convertToDataURLviaCanvas(url, outputFormat){
-    
-        let img = new Image();
-        img.crossOrigin = 'Anonymous';
-        img.onload = function(){
-            let canvas = <HTMLCanvasElement> document.createElement('CANVAS'),
-            ctx = canvas.getContext('2d'),
-            dataURL;
-            canvas.height = this.height;
-            canvas.width = this.width;
-            ctx.drawImage(this, 0, 0);
-            dataURL = canvas.toDataURL(outputFormat);
-            //callback(dataURL);
-            canvas = null;
-            resolve(dataURL); 
-        };
-        img.src = url;
-        console.log("This is the base64 "+img.src);
-    
-}
-    
+    }
     </script>
 </head>
 
