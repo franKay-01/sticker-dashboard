@@ -42,7 +42,7 @@ function handleFileSelect(evt) {
         // Closure to capture the file information.
         reader.onload = (function(theFile) {
             return function(e) {
-
+ 
                 //preview images in drag n drop area
                 var span = document.createElement('span');
                 span.innerHTML = ['<img class="thumb" name="im1" " src="', e.target.result,

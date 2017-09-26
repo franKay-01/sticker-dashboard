@@ -51,8 +51,19 @@
       src = src.replace("mode=fit", "mode=crop");
       img.src = src;
       img.className = "th"
-      document.getElementsByName("im1[]")[0].appendChild(img);
+      document.getElementById("imageid").src = file.link;
+      getBase64Image(document.getElementById("imageid"));
     }
+
+    function getBase64Image(img) {
+  var canvas = document.createElement("canvas");
+  canvas.width = img.width;
+  canvas.height = img.height;
+  var ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0);
+  var dataURL = canvas.toDataURL("image/png");
+  return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+}
     }
     </script>
 </head>
@@ -94,6 +105,8 @@
 
 <!--Drag n Drop Form-->
  <div id="dropbox-container"></div>
+ <img id=imageid>
+
 <form id="addStickersForm" action="/uploads" enctype="multipart/form-data" method="post">
     <div class="wrapper">
         <div class="drop">
