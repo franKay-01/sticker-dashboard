@@ -94,11 +94,11 @@
                 document.getElementById('fname').innerHTML = file.name;
 
                   };
-        })(f);
+        });
 
 
         // Read in the image file as a data URL.
-        reader.readAsDataURL(f);
+        reader.readAsDataURL(file);
     }
      
      var convertImgToDataURLviaCanvas = function(url, callback) {
