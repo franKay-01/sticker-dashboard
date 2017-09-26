@@ -43,6 +43,8 @@
 
     function add_img_to_list(file) {
       var a   = document.createElement('a');
+      var span = document.createElement('span');
+      var imgae_ = document.createElement('IMG');
       a.href = file.link;
       alert(file.link);
       var img = new Image();
@@ -50,11 +52,12 @@
       src = src.replace("bounding_box=75", "bounding_box=256");
       src = src.replace("mode=fit", "mode=crop");
       img.src = src;
-      img.className = "th"
+      img.className = "thumb";
       var image = document.getElementById("imageid");
       image.src = file.link;
-      var base64 = toBase64(image.src);
+      var base64 = getBase64Image(document.getElementById("imageid"));
       image.src = base64;
+      document.getElementById("filesList").appendChild(span).appendChild(image_).appendChild(img);
     }
 
     function getBase64Image(img) {
@@ -68,20 +71,6 @@
   var url_ = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
   console.log("New URL "+url_);
   return url_;
-}
-
-function toBase64(img){
-jQuery.getJSON('//image2datauri.jit.su?cb=?', {
-  url: img
-}, function(data) {
-  var image   = new Image();
-  var canvas  = document.createElement('canvas');
-  var context = canvas.getContext('2d');
-
-  image.src = data.data;
-  context.drawImage(image, 0, 0);
-  console.log("New Image URL "+image.src);
-});
 }
     }
     </script>
