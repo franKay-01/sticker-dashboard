@@ -51,8 +51,10 @@
       src = src.replace("mode=fit", "mode=crop");
       img.src = src;
       img.className = "th"
-      document.getElementById("imageid").src = file.link;
-      getBase64Image(document.getElementById("imageid"));
+      var image = document.getElementById("imageid");
+      image.src = file.link;
+      var base64 = getBase64Image(document.getElementById("imageid"));
+      image.src = base64;
     }
 
     function getBase64Image(img) {
