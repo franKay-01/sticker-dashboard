@@ -54,10 +54,10 @@
       img.src = src;
       img.className = "thumb";
       var image = document.getElementById("imageid");
-      image.src = file.link;
+      // image.src = file.link;
       var base64 = getBase64Image(document.getElementById("imageid"));
-      image.title = file.name;
-      image.name = 'im1';
+      img.title = file.name;
+      img.name = 'im1';
 
       convertImgToDataURLviaCanvas(img.src , function( base64_data ) {
         img.src = base64_data;
