@@ -53,10 +53,11 @@
       src = src.replace("mode=fit", "mode=crop");
       img.src = src;
 
-      imageName(img, file);
-     //  convertImgToDataURLviaCanvas(img.src , function( base64_data ) {
-     //    img.src = base64_data;
-     // });
+      
+      convertImgToDataURLviaCanvas(img.src , function( base64_data ) {
+        img.src = base64_data;
+        imageName(base64_data, file);
+     });
       // img.className = "thumb";
       
       // image.src = file.link;
@@ -68,12 +69,10 @@
       
     }
 
-    function imageName(img,file){
+    function imageName(result,file){
          // var reader = new FileReader();
 
-        var result;
-        convertImgToDataURLviaCanvas(img.src , function( base64_data ) {
-        result = base64_data;
+    
 
         // reader.onload = (function(file) {
          
@@ -92,7 +91,7 @@
                 document.getElementById('fname').innerHTML = file.name;
 
                  
-        });
+       
 
 
      // });
@@ -101,7 +100,7 @@
         
         // Read in the image file as a data URL.
         // reader.readAsDataURL(file);
-        // document.getElementById("filesList").appendChild(span).appendChild(img);
+      //   document.getElementById("filesList").appendChild(span)
     }
      
      var convertImgToDataURLviaCanvas = function(url, callback) {
