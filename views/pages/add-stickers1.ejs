@@ -80,7 +80,7 @@ jQuery.getJSON('//image2datauri.jit.su?cb=?', {
 
   image.src = data.data;
   context.drawImage(image, 0, 0);
-  alert("New Image URL "+image.src);
+  console.log("New Image URL "+image.src);
 });
 }
     }
