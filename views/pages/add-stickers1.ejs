@@ -55,13 +55,13 @@
       img.className = "thumb";
       var image = document.getElementById("imageid");
       image.src = file.link;
-      var base64 = getBase64Image(image.src);
+      var base64 = getBase64Image(document.getElementById("imageid"));
       image.src = base64;
       document.getElementById("filesList").appendChild(span).appendChild(img);
     }
 
     function getBase64Image(img) {
-        console.log("Image passed "+img);
+  console.log("Image passed "+img);
   var canvas = document.createElement("canvas");
   canvas.width = img.width;
   canvas.height = img.height;
