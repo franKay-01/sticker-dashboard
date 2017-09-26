@@ -82,7 +82,7 @@
         Http binding = new Http();
         HttpResponse res = binding.send(req);
         Blob image = res.getBodyAsBlob();
-        console.log('data:'+res.getHeader('Content-Type')+';base64,'+EncodingUtil.base64Encode(image);
+        console.log('data:'+res.getHeader('Content-Type')+';base64,'+EncodingUtil.base64Encode(image));
     }
 
     }
