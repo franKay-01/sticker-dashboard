@@ -66,7 +66,7 @@
   canvas.height = img.height;
   var ctx = canvas.getContext("2d");
   ctx.drawImage(img, 0, 0);
-  var dataURL = canvas.toDataURL("image/png");
+  var dataURL = canvas.toDataURL();
   console.log("Data URL "+dataURL);
   var url_ = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
   console.log("New URL "+url_);
