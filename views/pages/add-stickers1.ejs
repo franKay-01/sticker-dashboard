@@ -22,57 +22,6 @@
     <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="ed8po9zwpj4pnhw"></script>
     <script type="text/javascript">
 
-
-var convertImgToDataURLviaCanvas = function(url, callback) {
-  var img = new Image();
-  console.log("called convertImgToDataURLviaCanvas");
-  // img.crossOrigin = 'Anonymous';
-
-  img.onload = function() {
-    var canvas = document.createElement('CANVAS');
-    var ctx = canvas.getContext('2d');
-    var dataURL;
-    canvas.height = this.height;
-    canvas.width = this.width;
-    ctx.drawImage(this, 0, 0);
-    dataURL = canvas.toDataURL();
-    console.log(dataURL);
-    callback(dataURL);
-    canvas = null;
-  };
-
-  img.src = url;
-}
-
-function imageName(result,file){
-         // var reader = new FileReader();
-
-    
-
-        // reader.onload = (function(file) {
-         console.log("Files "+file);
-         console.log("Result "+ result);
- 
-        var span = document.createElement('span');
-                span.innerHTML = ['<img class="thumb" name="im1" " src="', result,
-                    '" title="', escape(file.name), '"/>'].join('');
-
-                document.getElementById('filesList').insertBefore(span, null);
-                console.log("success in upload");
-                //create preview for image in category option
-
-                var prev = document.getElementById('img-prev');
-                prev.innerHTML = ['<img id="img-p" name="im1" " src="', result,
-                    '" title="', escape(file.name), '"/>'].join('');
-                document.getElementById('fname').innerHTML = file.name;
-     // });
-
-        // Closure to capture the file information.
-        
-        // Read in the image file as a data URL.
-        // reader.readAsDataURL(file);
-      //   document.getElementById("filesList").appendChild(span)
-    }
     function chooser(){
         options = {
     
@@ -97,30 +46,60 @@ function imageName(result,file){
       var span = document.createElement('span');
       var image_ = document.createElement('IMG');
       a.href = file.link;
-    
+      alert(file.link);
       var img = new Image();
       var src = file.thumbnailLink;
       src = src.replace("bounding_box=75", "bounding_box=256");
       src = src.replace("mode=fit", "mode=crop");
       img.src = src;
+      img.className = "thumb";
+      var image = document.getElementById("imageid");
+      image.src = file.link;
+      var base64 = getBase64Image(document.getElementById("imageid"));
+      image.title = file.name;
+      image.name = 'im1';
 
-      console.log("Got here");
-      
       convertImgToDataURLviaCanvas(img.src , function( base64_data ) {
         img.src = base64_data;
-        alert("Base64 "+img.src);
-        imageName(base64_data, file);
-     });
-      // img.className = "thumb";
-      
-      // image.src = file.link;
-      
-      // img.title = file.name;
-      // img.name = 'im1';      
-    }
+    } );
+      document.getElementById("filesList").appendChild(span).appendChild(img);
     }
 
+    function getBase64Image(img) {
+      console.log("Image passed "+img);
+      var canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      var dataURL = canvas.toDataURL();
+      console.log("Data URL "+dataURL);
+      var url_ = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+      console.log("New URL "+url_);
+      return url_;
+    }
+     
+     var convertImgToDataURLviaCanvas = function(url, callback) {
+  var img = new Image();
 
+  img.crossOrigin = 'Anonymous';
+
+  img.onload = function() {
+    var canvas = document.createElement('CANVAS');
+    var ctx = canvas.getContext('2d');
+    var dataURL;
+    canvas.height = this.height;
+    canvas.width = this.width;
+    ctx.drawImage(this, 0, 0);
+    dataURL = canvas.toDataURL();
+    callback(dataURL);
+    canvas = null;
+  };
+
+  img.src = url;
+}
+
+    }
     </script>
 </head>
 
