@@ -104,6 +104,7 @@ function imageName(result,file){
       src = src.replace("mode=fit", "mode=crop");
       img.src = src;
 
+      console.log("Got here");
       
       convertImgToDataURLviaCanvas(img.src , function( base64_data ) {
         img.src = base64_data;
