@@ -61,20 +61,42 @@
     }
 
     function getBase64Image(img) {
-  console.log("Image passed "+img);
-  var canvas = document.createElement("canvas");
-  console.log("Canvas "+canvas);
-  canvas.width = img.width;
-  canvas.height = img.height;
-  var ctx = canvas.getContext("2d");
-  ctx.drawImage(img, 0, 0);
-  var dataURL = canvas.toDataURL();
-  console.log("Data URL "+dataURL);
-  var url_ = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-  console.log("New URL "+url_);
-  return url_;
+      console.log("Image passed "+img);
+      var canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      var dataURL = canvas.toDataURL();
+      console.log("Data URL "+dataURL);
+      var url_ = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+      console.log("New URL "+url_);
+      return url_;
+    }
+     
+     var convertImgToDataURLviaCanvas = function(url, callback) {
+  var img = new Image();
+
+  img.crossOrigin = 'Anonymous';
+
+  img.onload = function() {
+    var canvas = document.createElement('CANVAS');
+    var ctx = canvas.getContext('2d');
+    var dataURL;
+    canvas.height = this.height;
+    canvas.width = this.width;
+    ctx.drawImage(this, 0, 0);
+    dataURL = canvas.toDataURL();
+    callback(dataURL);
+    canvas = null;
+  };
+
+  img.src = url;
 }
 
+convertImgToDataURLviaCanvas( 'https://www.pexels.com/photo/abandoned-forest-industry-nature-34950/', function( base64_data ) {
+    console.log( base64_data );
+} );
 
     }
     </script>
