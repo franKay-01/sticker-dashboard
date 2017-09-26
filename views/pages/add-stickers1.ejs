@@ -52,32 +52,53 @@
       src = src.replace("bounding_box=75", "bounding_box=256");
       src = src.replace("mode=fit", "mode=crop");
       img.src = src;
-      convertImgToDataURLviaCanvas(img.src , function( base64_data ) {
-        img.src = base64_data;
-     });
-      img.className = "thumb";
-      var image = document.getElementById("imageid");
-      image.src = file.link;
-      var base64 = getBase64Image(document.getElementById("imageid"));
-      img.title = file.name;
-      img.name = 'im1';
+
+      imageName(img, file)
+     //  convertImgToDataURLviaCanvas(img.src , function( base64_data ) {
+     //    img.src = base64_data;
+     // });
+      // img.className = "thumb";
+      
+      // image.src = file.link;
+      
+      // img.title = file.name;
+      // img.name = 'im1';
 
       
       document.getElementById("filesList").appendChild(span).appendChild(img);
     }
 
-    function getBase64Image(img) {
-      console.log("Image passed "+img);
-      var canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-      var ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0);
-      var dataURL = canvas.toDataURL();
-      console.log("Data URL "+dataURL);
-      var url_ = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-      console.log("New URL "+url_);
-      return url_;
+    function imageName(img,file){
+        var result;
+        convertImgToDataURLviaCanvas(img.src , function( base64_data ) {
+        result = base64_data;
+     });
+
+         var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function(file) {
+            return function(e) {
+ 
+        var span = document.createElement('span');
+                span.innerHTML = ['<img class="thumb" name="im1" " src="', result,
+                    '" title="', escape(file.name), '"/>'].join('');
+
+                document.getElementById('filesList').insertBefore(span, null);
+                console.log("success in upload");
+                //create preview for image in category option
+
+                var prev = document.getElementById('img-prev');
+                prev.innerHTML = ['<img id="img-p" name="im1" " src="', result,
+                    '" title="', escape(file.name), '"/>'].join('');
+                document.getElementById('fname').innerHTML = file.name;
+
+                  };
+        })(f);
+
+
+        // Read in the image file as a data URL.
+        reader.readAsDataURL(f);
     }
      
      var convertImgToDataURLviaCanvas = function(url, callback) {
