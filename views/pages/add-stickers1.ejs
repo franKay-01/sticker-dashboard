@@ -56,11 +56,10 @@
       var image = document.getElementById("imageid");
       image.src = file.link;
       var base64 = getBase64Image(document.getElementById("imageid"));
-      var base64_ = getBase(image.src);
       image.src = base64;
       document.getElementById("filesList").appendChild(span).appendChild(img);
     }
-}
+
     function getBase64Image(img) {
   console.log("Image passed "+img);
   var canvas = document.createElement("canvas");
@@ -75,17 +74,8 @@
   return url_;
 }
 
-    function getBase(url_){
-        HttpRequest req = new HttpRequest();
-        req.setEndpoint(url_);
-        req.setMethod('GET');
-        Http binding = new Http();
-        HttpResponse res = binding.send(req);
-        Blob image = res.getBodyAsBlob();
-        console.log('data:'+res.getHeader('Content-Type')+';base64,'+EncodingUtil.base64Encode(image));
-    }
 
-    
+    }
     </script>
 </head>
 
