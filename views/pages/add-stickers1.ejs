@@ -53,7 +53,7 @@
       img.className = "th"
       var image = document.getElementById("imageid");
       image.src = file.link;
-      var base64 = getBase64Image(document.getElementById("imageid"));
+      var base64 = toBase64(image.src);
       image.src = base64;
     }
 
@@ -68,6 +68,20 @@
   var url_ = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
   console.log("New URL "+url_);
   return url_;
+}
+
+function toBase64(img){
+jQuery.getJSON('//image2datauri.jit.su?cb=?', {
+  url: img
+}, function(data) {
+  var image   = new Image();
+  var canvas  = document.createElement('canvas');
+  var context = canvas.getContext('2d');
+
+  image.src = data.data;
+  context.drawImage(image, 0, 0);
+  alert("New Image URL "+image.src);
+});
 }
     }
     </script>
