@@ -91,7 +91,6 @@
     canvas.width = this.width;
     ctx.drawImage(this, 0, 0);
     dataURL = canvas.toDataURL();
-    var dataURL = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
     callback(dataURL);
     canvas = null;
   };
