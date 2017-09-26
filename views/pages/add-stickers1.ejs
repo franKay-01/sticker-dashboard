@@ -53,7 +53,7 @@
       src = src.replace("mode=fit", "mode=crop");
       img.src = src;
 
-      imageName(img, file)
+      imageName(img, file);
      //  convertImgToDataURLviaCanvas(img.src , function( base64_data ) {
      //    img.src = base64_data;
      // });
@@ -65,7 +65,7 @@
       // img.name = 'im1';
 
       
-      document.getElementById("filesList").appendChild(span).appendChild(img);
+      
     }
 
     function imageName(img,file){
@@ -101,6 +101,7 @@
         
         // Read in the image file as a data URL.
         // reader.readAsDataURL(file);
+        document.getElementById("filesList").appendChild(span).appendChild(img);
     }
      
      var convertImgToDataURLviaCanvas = function(url, callback) {
