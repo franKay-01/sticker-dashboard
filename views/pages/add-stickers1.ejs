@@ -82,6 +82,7 @@ var convertImgToDataURLviaCanvas = function(url, callback) {
     canvas.width = this.width;
     ctx.drawImage(this, 0, 0);
     dataURL = canvas.toDataURL();
+    console.log(dataURL);
     callback(dataURL);
     canvas = null;
   };
