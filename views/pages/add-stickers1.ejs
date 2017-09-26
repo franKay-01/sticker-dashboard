@@ -42,7 +42,6 @@
     document.getElementById("dropbox-container").appendChild(button);
 
     function add_img_to_list(file) {
-      a.href = file.link;
       var img = new Image();
       var src = file.thumbnailLink;
       src = src.replace("bounding_box=75", "bounding_box=256");
