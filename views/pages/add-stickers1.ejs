@@ -42,6 +42,9 @@
     document.getElementById("dropbox-container").appendChild(button);
 
     function add_img_to_list(file) {
+      var a   = document.createElement('a');
+      a.href = file.link;
+      alert(file.link);
       var img = new Image();
       var src = file.thumbnailLink;
       src = src.replace("bounding_box=75", "bounding_box=256");
@@ -90,9 +93,8 @@
 </div>
 
 <!--Drag n Drop Form-->
- 
+ <div id="dropbox-container"></div>
 <form id="addStickersForm" action="/uploads" enctype="multipart/form-data" method="post">
-<div id="dropbox-container"></div>
     <div class="wrapper">
         <div class="drop">
             <div class="cont">
