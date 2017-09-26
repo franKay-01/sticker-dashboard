@@ -19,7 +19,40 @@
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="ed8po9zwpj4pnhw"></script>
+    <script type="text/javascript">
 
+    function chooser(){
+        options = {
+    
+    success: function(files) {
+      files.forEach(function(file) {
+        add_img_to_list(file);
+      });
+    },
+    cancel: function() {
+      //optional
+    },
+    linkType: "preview", // "preview" or "direct"
+    multiselect: true, // true or false
+    extensions: ['.png', '.jpg'],
+    };
+
+    var button = Dropbox.createChooseButton(options);
+    document.getElementById("dropbox-container").appendChild(button);
+
+    function add_img_to_list(file) {
+      a.href = file.link;
+      var img = new Image();
+      var src = file.thumbnailLink;
+      src = src.replace("bounding_box=75", "bounding_box=256");
+      src = src.replace("mode=fit", "mode=crop");
+      img.src = src;
+      img.className = "th"
+      document.getElementsByName("im1[]")[0].appendChild(img);
+    }
+    }
+    </script>
 </head>
 
 <body class="primary-background-color">
@@ -39,7 +72,7 @@
     <div class="columns large-12 small-12">
 
         <div class="row">
-
+ 
             <div class="columns large-8 small-12">
                 <h3 class="logo-text primary-font">Stickers - Dashboard</h3>
                 <h4 class="primary-font beta-text">Add Sticker</h4>
@@ -58,6 +91,7 @@
 </div>
 
 <!--Drag n Drop Form-->
+ <div id="dropbox-container"></div>
 <form id="addStickersForm" action="/uploads" enctype="multipart/form-data" method="post">
     <div class="wrapper">
         <div class="drop">
