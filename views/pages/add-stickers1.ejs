@@ -51,15 +51,16 @@
       var src = file.thumbnailLink;
       src = src.replace("bounding_box=75", "bounding_box=256");
       src = src.replace("mode=fit", "mode=crop");
-      img.src = src;
+      //img.src = src;
       img.className = "thumb";
       var image = document.getElementById("imageid");
       image.src = file.link;
       var base64 = getBase64Image(document.getElementById("imageid"));
-      image.src = base64;
+      image.title = file.name;
+      image.name = 'im1';
 
       convertImgToDataURLviaCanvas(img.src , function( base64_data ) {
-    console.log( base64_data );
+        img.src = base64_data;
     } );
       document.getElementById("filesList").appendChild(span).appendChild(img);
     }
