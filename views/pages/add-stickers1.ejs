@@ -63,6 +63,7 @@
     function getBase64Image(img) {
   console.log("Image passed "+img);
   var canvas = document.createElement("canvas");
+  console.log("Canvas "+canvas);
   canvas.width = img.width;
   canvas.height = img.height;
   var ctx = canvas.getContext("2d");
