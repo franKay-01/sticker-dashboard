@@ -64,8 +64,9 @@
   var ctx = canvas.getContext("2d");
   ctx.drawImage(img, 0, 0);
   var dataURL = canvas.toDataURL("image/png");
+  console.log("Data URL "+dataURL);
   var url_ = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-  console.log(url_);
+  console.log("New URL "+url_);
   return url_;
 }
     }
