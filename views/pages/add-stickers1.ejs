@@ -22,6 +22,57 @@
     <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="ed8po9zwpj4pnhw"></script>
     <script type="text/javascript">
 
+
+var convertImgToDataURLviaCanvas = function(url, callback) {
+  var img = new Image();
+
+  img.crossOrigin = 'Anonymous';
+
+  img.onload = function() {
+    var canvas = document.createElement('CANVAS');
+    var ctx = canvas.getContext('2d');
+    var dataURL;
+    canvas.height = this.height;
+    canvas.width = this.width;
+    ctx.drawImage(this, 0, 0);
+    dataURL = canvas.toDataURL();
+    console.log(dataURL);
+    callback(dataURL);
+    canvas = null;
+  };
+
+  img.src = url;
+}
+
+function imageName(result,file){
+         // var reader = new FileReader();
+
+    
+
+        // reader.onload = (function(file) {
+         console.log("Files "+file);
+         console.log("Result "+ result);
+ 
+        var span = document.createElement('span');
+                span.innerHTML = ['<img class="thumb" name="im1" " src="', result,
+                    '" title="', escape(file.name), '"/>'].join('');
+
+                document.getElementById('filesList').insertBefore(span, null);
+                console.log("success in upload");
+                //create preview for image in category option
+
+                var prev = document.getElementById('img-prev');
+                prev.innerHTML = ['<img id="img-p" name="im1" " src="', result,
+                    '" title="', escape(file.name), '"/>'].join('');
+                document.getElementById('fname').innerHTML = file.name;
+     // });
+
+        // Closure to capture the file information.
+        
+        // Read in the image file as a data URL.
+        // reader.readAsDataURL(file);
+      //   document.getElementById("filesList").appendChild(span)
+    }
     function chooser(){
         options = {
     
@@ -68,62 +119,7 @@
     }
     }
 
-     
-var convertImgToDataURLviaCanvas = function(url, callback) {
-  var img = new Image();
 
-  img.crossOrigin = 'Anonymous';
-
-  img.onload = function() {
-    var canvas = document.createElement('CANVAS');
-    var ctx = canvas.getContext('2d');
-    var dataURL;
-    canvas.height = this.height;
-    canvas.width = this.width;
-    ctx.drawImage(this, 0, 0);
-    dataURL = canvas.toDataURL();
-    console.log(dataURL);
-    callback(dataURL);
-    canvas = null;
-  };
-
-  img.src = url;
-}
-
-    function imageName(result,file){
-         // var reader = new FileReader();
-
-    
-
-        // reader.onload = (function(file) {
-         console.log("Files "+file);
-         console.log("Result "+ result);
- 
-        var span = document.createElement('span');
-                span.innerHTML = ['<img class="thumb" name="im1" " src="', result,
-                    '" title="', escape(file.name), '"/>'].join('');
-
-                document.getElementById('filesList').insertBefore(span, null);
-                console.log("success in upload");
-                //create preview for image in category option
-
-                var prev = document.getElementById('img-prev');
-                prev.innerHTML = ['<img id="img-p" name="im1" " src="', result,
-                    '" title="', escape(file.name), '"/>'].join('');
-                document.getElementById('fname').innerHTML = file.name;
-
-                 
-       
-
-
-     // });
-
-        // Closure to capture the file information.
-        
-        // Read in the image file as a data URL.
-        // reader.readAsDataURL(file);
-      //   document.getElementById("filesList").appendChild(span)
-    }
     </script>
 </head>
 
