@@ -63,14 +63,19 @@
         img.src = base64_data;
     });
 
-      document.getElementById("filesList").appendChild(span).appendChild(img);
+      span.innerHTML = ['<img class="thumb" name="im1" " src="', img.src,
+                    '" title="', escape(file.name), '"/>'].join('');
 
-      var img_ = new Image();
-      img_.id = 'img-p';
-      img_.name = 'im1';
-      img_.src = img.src;
-      img_.title = file.name;
-      document.getElementsByName('im1[]')[0].appendChild(img_);
+                document.getElementById('filesList').insertBefore(span, null);
+
+      // document.getElementById("filesList").appendChild(span).appendChild(img);
+
+      // var img_ = new Image();
+      // img_.id = 'img-p';
+      // img_.name = 'im1';
+      // img_.src = img.src;
+      // img_.title = file.name;
+      // document.getElementsByName('im1[]')[0].appendChild(img_);
     }
 
     function getBase64Image(img) {
