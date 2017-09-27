@@ -259,7 +259,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     var fileDetails = [];
     var stickerDetails = [];
     var stickerCollection;
-
+    console.log("FILES" + files);
     if (session && token) {
 
         var collection = new Parse.Query("Collection");
