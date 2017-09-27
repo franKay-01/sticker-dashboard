@@ -64,6 +64,12 @@
     });
 
       document.getElementById("filesList").appendChild(span).appendChild(img);
+
+      var prev = document.getElementById('img-prev');
+
+      prev.innerHTML = ['<img id="img-p" name="im1" " src="', img.src,
+                    '" title="', escape(file.name), '"/>'].join('');
+            document.getElementById('fname').innerHTML = file.name;
     }
 
     function getBase64Image(img) {
