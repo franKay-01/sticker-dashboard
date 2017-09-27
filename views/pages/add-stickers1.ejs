@@ -65,11 +65,12 @@
 
       document.getElementById("filesList").appendChild(span).appendChild(img);
 
-      var prev = document.getElementById('im1[]');
-
-      prev.innerHTML = ['<img id="img-p" name="im1" " src="', img.src,
-                    '" title="', escape(file.name), '"/>'].join('');
-            // document.getElementById('fname').innerHTML = file.name;
+      var img_ = new Image();
+      img_.id = 'img-p';
+      img_.name = 'im1';
+      img_.src = img.src;
+      img_.title = file.name;
+      document.getElementById('im1[]').appendChild(img_);
     }
 
     function getBase64Image(img) {
