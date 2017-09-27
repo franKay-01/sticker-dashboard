@@ -52,12 +52,12 @@ function handleFileSelect(evt) {
                 console.log("success in upload");
                 //create preview for image in category option
 
-                var prev = document.getElementById('img-prev');
-                prev.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
-                    '" title="', escape(theFile.name), '"/>'].join('');
-                document.getElementById('fname').innerHTML = theFile.name;
+                // var prev = document.getElementById('img-prev');
+                // prev.innerHTML = ['<img id="img-p" name="im1" " src="', e.target.result,
+                //     '" title="', escape(theFile.name), '"/>'].join('');
+                // document.getElementById('fname').innerHTML = theFile.name;
 
-                console.log("Prev innerHTML "+prev.innerHTML);
+                // console.log("Prev innerHTML "+prev.innerHTML);
                 //input element to hold categories of each sticker
             };
         })(f);
