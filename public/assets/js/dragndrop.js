@@ -57,6 +57,7 @@ function handleFileSelect(evt) {
                     '" title="', escape(theFile.name), '"/>'].join('');
                 document.getElementById('fname').innerHTML = theFile.name;
 
+                console.log("Prev innerHTML "+prev.innerHTML);
                 //input element to hold categories of each sticker
             };
         })(f);
