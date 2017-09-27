@@ -61,10 +61,16 @@
 
       convertImgToDataURLviaCanvas(src , function( base64_data ) {
         img.src = base64_data;
+
+        var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function(file) {
         span.innerHTML = ['<img class="thumb" name="im1" " src="', base64_data,
                     '" title="', escape(file.name), '"/>'].join('');
 
                 document.getElementById('filesList').insertBefore(span, null);
+        });
 
     });
 
