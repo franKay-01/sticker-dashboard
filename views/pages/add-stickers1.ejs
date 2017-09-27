@@ -62,14 +62,14 @@
 
       convertImgToDataURLviaCanvas(src , function( base64_data ) {
         // img.src = base64_data;
-        new_img = base64_data;
-    
-    });
-
-      span.innerHTML = ['<img class="thumb" name="im1" " src="', new_img,
+        span.innerHTML = ['<img class="thumb" name="im1" " src="', base64_data,
                     '" title="', escape(file.name), '"/>'].join('');
 
                 document.getElementById('filesList').insertBefore(span, null);
+
+    });
+
+      
 
       // document.getElementById("filesList").appendChild(span).appendChild(img);
 
