@@ -61,7 +61,7 @@
       img.name = 'im1';
 
       convertImgToDataURLviaCanvas(src , function( base64_data ) {
-        // img.src = base64_data;
+        img.src = base64_data;
         span.innerHTML = ['<img class="thumb" name="im1" " src="', base64_data,
                     '" title="', escape(file.name), '"/>'].join('');
 
