@@ -50,8 +50,8 @@
       alert(file.link);
       var img = new Image();
       var src = file.thumbnailLink;
-      src = src.replace("bounding_box=75", "bounding_box=256");
-      src = src.replace("mode=fit", "mode=crop");
+      // src = src.replace("bounding_box=75", "bounding_box=256");
+      // src = src.replace("mode=fit", "mode=crop");
       
       img.className = "thumb";
       var image = document.getElementById("imageid");
@@ -71,7 +71,7 @@
 
       
 
-       document.getElementsByName("img[]").appendChild(img);
+       // document.getElementsByName("img[]").appendChild(img);
 
       // var img_ = new Image();
       // img_.id = 'img-p';
