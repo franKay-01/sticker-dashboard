@@ -264,7 +264,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
         var collection = new Parse.Query("Collection");
         collection.equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
-
+            console.log("INSIDE COLLECTION");
             stickerCollection = collection;
 
             files.forEach(function (file) {
@@ -277,7 +277,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 //create our parse file
                 var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                alert("This is the parseFile "+parseFile);
+                console.log("PARSEFILE "+parseFile);
                 var Sticker = new Parse.Object.extend("Sticker");
                 var sticker = new Sticker();
                 sticker.set("stickerName", stickerName);
