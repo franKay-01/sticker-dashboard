@@ -66,7 +66,9 @@
         span.innerHTML = ['<img class="thumb" name="im1" " src="', base64_data,
                     '" title="', escape(file.name), '"/>'].join('');
 
-                document.getElementById('box').insertBefore(span, null);
+        var box = document.getElementById('box');
+        box.innerHTML=['<img class="thumb" name="im1" " src="', base64_data,
+                    '" title="', escape(file.name), '"/>'].join('');
                 // document.getElementsByName('im1[]')[0].appendChild(img);
 
     });
