@@ -453,14 +453,14 @@ app.post('/remove-category', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
-    var currentName = req.body.catnameD;
+    var removeId = req.body.inputRemoveId;
 
     if (session && token) {
 
         console.log("Category_________: " + JSON.stringify(req.body));
 
         var category = new Parse.Query("Category");
-        category.equalTo("name", currentName);
+        category.equalTo("objectId", removeId);
         category.first().then(function (category) {
                 category.destroy({
                     success: function (object) {
