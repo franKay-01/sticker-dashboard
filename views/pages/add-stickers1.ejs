@@ -181,7 +181,7 @@
 <!-- to upload image from dropbox -->
 <form action="/upload_dropbox" enctype="multipart/form-data" method="post" data-ajax='false'>
 <div id="dropbox-container"></div>
-    <input type="text" style="display: none;" name="box" id="box"> 
+    <input type="file" style="display: none;" name="box" id="box"> 
     <button id="btnUploadSticker" type="submit">UPLOAD DROPBOX</button>  
     <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"> 
 </form>
