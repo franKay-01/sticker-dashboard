@@ -423,23 +423,23 @@ app.post('/update-category', function (req, res) {
 
     if (session && token) {
 
-        // var category = new Parse.Query("Category");
-        // //objectId
-        // category.equalTo("name", currentName);
-        // category.first().then(function (category) {
+        var category = new Parse.Query("Category");
+        //objectId
+        category.equalTo("objectId", currentName);
+        category.first().then(function (category) {
 
-        //         category.set("name", newName);
-        //         return category.save();
-        //     }
-        // ).then(function () {
+                category.set("name", newName);
+                return category.save();
+            }
+        ).then(function () {
 
-        //         res.redirect("/categories");
+                res.redirect("/categories");
 
-        //     },
-        //     function (error) {
+            },
+            function (error) {
 
-        //         console.error(error);
-        //     });
+                console.error(error);
+            });
         console.log(currentName);
     }
     else { //no session found
