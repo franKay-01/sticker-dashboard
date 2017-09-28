@@ -6,9 +6,9 @@ $(document).ready(function () {
             // files.forEach(function(file) {
             //     dropboxImageSelected(file);
             // });
-          //  dropboxImageSelected(file);
-            imageToBase64(file.url,function(result){
-                fileUploadUI(file.name,result)
+            //  dropboxImageSelected(file);
+            imageToBase64(file.url, function (result) {
+                fileUploadUI(file.name, result)
             })
         },
         cancel: function () {
@@ -40,7 +40,7 @@ $(document).ready(function () {
         var span = $('<span></span>');
         span.html(['<img class="thumb" name="im1" " src="', result,
             '" title="', escape(name), '"/>'].join(''));
-
+        console.log(span.html());
         $('#filesList').before(span);
     };
 
@@ -62,6 +62,8 @@ $(document).ready(function () {
         };
 
         img.src = url;
+
+        console.log("image source " + img.src);
     }
 
 });
