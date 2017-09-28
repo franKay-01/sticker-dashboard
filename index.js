@@ -258,7 +258,7 @@ app.post('/upload_dropbox', upload.array('box'), function (req, res){
     var stickerDetails = [];
     var stickerCollection;
 
- console.log("FILES" + files + " COLL_ID "+ coll_id);
+ console.log("FILE" + files + " COLL_ID "+ coll_id);
 
 // var download = function(uri, filename, callback){
 //   request.head(uri, function(err, res, body){
@@ -285,7 +285,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     var fileDetails = [];
     var stickerDetails = [];
     var stickerCollection;
-    console.log("FILES" + req.files + "COLL_ID "+ coll_id);
+    // console.log("FILES" + req.files + "COLL_ID "+ coll_id);
     if (session && token) {
 
         var collection = new Parse.Query("Collection");
