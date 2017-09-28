@@ -253,7 +253,7 @@ app.post('/upload_dropbox', upload.array('box'), function (req, res){
     var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = req.body.coll_id;
-    var files = req.file;
+    var files = req.body.box;
     var fileDetails = [];
     var stickerDetails = [];
     var stickerCollection;
