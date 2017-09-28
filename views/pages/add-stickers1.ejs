@@ -18,114 +18,10 @@
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <!--parse js-->
-    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="ed8po9zwpj4pnhw"></script>
-    <script type="text/javascript">
 
-    function chooser(){
-        options = {
-    
-    success: function(files) {
-      files.forEach(function(file) {
-        add_img_to_list(file);
-      });
-    },
-    cancel: function() {
-      //optional
-    },
-    linkType: "preview", // "preview" or "direct"
-    multiselect: true, // true or false
-    extensions: ['.png', '.jpg'],
-    };
-
-    var button = Dropbox.createChooseButton(options);
-    document.getElementById("dropbox-container").appendChild(button);
-
-    
-
-    function add_img_to_list(file) {
-      var a   = document.createElement('a');
-      var span = document.createElement('span');
-      var image_ = document.createElement('IMG');
-      var new_img;
-      var link_ = file.link;
-      var img = new Image();
-      var src = file.thumbnailLink;
-      alert(src);
-      // src = src.replace("bounding_box=75", "bounding_box=256");
-      // src = src.replace("mode=fit", "mode=crop");
-      
-      img.className = "thumb";
-      var image = document.getElementById("imageid");
-      // image.src = file.link;
-      // var base64 = getBase64Image(document.getElementById("imageid"));
-      img.title = file.name;
-      img.name = 'im1';
-
-      span.innerHTML = ['<img class="thumb" name="im1" " src="', src,
-                    '" title="', escape(file.name), '"/>'].join('');
-        document.getElementById('box').insertBefore(span, null);
-
-      convertImgToDataURLviaCanvas(src , function( base64_data ) {
-        img.src = base64_data;
-        // span.innerHTML = ['<img class="thumb" name="im1" " src="', base64_data,
-        //             '" title="', escape(file.name), '"/>'].join('');
-        // document.getElementById('box').insertBefore(span, null);
-       // document.getElementById('box').appendChild();
-        // box.innerHTML=['<img class="thumb" name="im1" " src="', base64_data,
-        //             '" title="', escape(file.name), '"/>'].join('');
-                // document.getElementsByName('im1[]')[0].appendChild(img);
-
-    });
-      // var img_ = new Image();
-      // img_.id = 'img-p';
-      // img_.name = 'im1';
-      // img_.src = img.src;
-      // img_.title = file.name;
-       // document.getElementsByName('im1[]')[0].appendChild(img_);
-    }
-
-    // function getBase64Image(img) {
-    //   console.log("Image passed "+img);
-    //   var canvas = document.createElement("canvas");
-    //   canvas.width = img.width;
-    //   canvas.height = img.height;
-    //   var ctx = canvas.getContext("2d");
-    //   ctx.drawImage(img, 0, 0);
-    //   var dataURL = canvas.toDataURL();
-    //   console.log("Data URL "+dataURL);
-    //   var url_ = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-    //   console.log("New URL "+url_);
-    //   return url_;
-    // }
-     
-     var convertImgToDataURLviaCanvas = function(url, callback) {
-  var img = new Image();
-
-  img.crossOrigin = 'Anonymous';
-
-  img.onload = function() {
-    var canvas = document.createElement('CANVAS');
-    var ctx = canvas.getContext('2d');
-    var dataURL;
-    canvas.height = this.height;
-    canvas.width = this.width;
-    ctx.drawImage(this, 0, 0);
-    dataURL = canvas.toDataURL();
-    callback(dataURL);
-    canvas = null;
-  };
-
-  img.src = url;
-}
-
-}
-    </script>
 </head>
 
 <body class="primary-background-color" onload="chooser()">
-
-<body class="primary-background-color">
 
 <div class="Rectangle">
     <img src="/public/assets/images/logo2.png"
@@ -185,33 +81,27 @@
 
 <!-- to upload image from dropbox -->
 <form action="/upload_dropbox" enctype="multipart/form-data" method="post" data-ajax='false'>
-<div id="dropbox-container"></div>
+    <div id="dropbox-container"></div>
     <input type="file" style="display: none;" name="box" id="box"> 
     <button id="btnUploadSticker" type="submit">UPLOAD DROPBOX</button>  
     <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"> 
 </form>
 
-
 <div id="pageMask"></div>
 <!--<div class="cover"></div>-->
 <!-- Body -->
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
-<!-- Compiled and minified JavaScript -->
-<!--<script src="http://code.jquery.com/jquery-1.6.3.min.js"></script>-->
-
-<!-- Including the HTML5 Uploader plugin -->
-
+</body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"></script>
+<script src="https://npmcdn.com/parse/dist/parse.js"></script>
+<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="ed8po9zwpj4pnhw"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
-<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/dropzone.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
-<!--<script type="text/javascript" src="/public/assets/js/fileup.js"></script>-->
 <script type="text/javascript" src="/public/assets/js/dragndrop.js"></script>
+<script type="text/javascript" src="/public/assets/js/dropbox.js"></script>
 
 
-</body>
 
 
 </html>
