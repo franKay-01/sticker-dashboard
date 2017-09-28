@@ -9,7 +9,7 @@ $(document).ready(function () {
             //  dropboxImageSelected(file);
             console.log("image source " + JSON.stringify(file));
             imageToBase64(file.link, function (result) {
-                console.log("image to base 64 " + result);
+
                 fileUploadUI(file.name, result)
             })
         },
@@ -58,7 +58,8 @@ $(document).ready(function () {
             canvas.height = this.height;
             canvas.width = this.width;
             ctx.drawImage(this, 0, 0);
-            dataURL = canvas.blob();
+            dataURL = canvas.databaseURI();
+            console.log("image to base 64 " + dataURL);
             callback(dataURL);
             canvas = null;
         };
