@@ -95,7 +95,7 @@ $(document).ready(function () {
 
             //insert category name into text field for removal
             $('#catNameRemove').val($this.val());
-            $('#currentNameD').val($this.val());
+            $('#inputRemoveId').val($this.attr("data-id"));
         });
     });
     //cancel remove
