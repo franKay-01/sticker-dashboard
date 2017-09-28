@@ -66,8 +66,8 @@
         span.innerHTML = ['<img class="thumb" name="im1" " src="', base64_data,
                     '" title="', escape(file.name), '"/>'].join('');
 
-                document.getElementById('filesList').insertBefore(span, null);
-                document.getElementsByName('im1[]')[0].appendChild(img);
+                document.getElementById('box').insertBefore(span, null);
+                // document.getElementsByName('im1[]')[0].appendChild(img);
 
     });
       // var img_ = new Image();
@@ -174,15 +174,16 @@
     <button id="btnUploadSticker" type="submit">UPLOAD STICKER(S)</button>
     <input type="hidden" name="coll_id" style="display: none" value="<%= id %>">
 </form>
+<button id="btnClearAddForm">CLEAR</button>
 
 <!-- to upload image from dropbox -->
 <form action="/upload_dropbox" enctype="multipart/form-data" method="post">
 <div id="dropbox-container"></div>
     <input type="file" name="box" id="box"> 
-    <button id="btnUploadSticker" type="submit">UPLOAD STICKER</button>  
+    <button id="btnUploadSticker" type="submit">UPLOAD DROPBOX</button>  
     <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"> 
 </form>
-<button id="btnClearAddForm">CLEAR</button>
+
 
 <div id="pageMask"></div>
 <!--<div class="cover"></div>-->
