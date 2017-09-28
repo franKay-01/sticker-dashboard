@@ -258,7 +258,7 @@ app.post('/upload_dropbox', upload.array('box'), function (req, res){
     var stickerDetails = [];
     var stickerCollection;
 
- console.log("FILES" + files.path + "COLL_ID "+ coll_id);
+ console.log("FILE" + files + " COLL_ID "+ coll_id);
 
 // var download = function(uri, filename, callback){
 //   request.head(uri, function(err, res, body){
@@ -285,7 +285,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     var fileDetails = [];
     var stickerDetails = [];
     var stickerCollection;
-    console.log("FILES" + req.files + "COLL_ID "+ coll_id);
+    // console.log("FILES" + req.files + "COLL_ID "+ coll_id);
     if (session && token) {
 
         var collection = new Parse.Query("Collection");
@@ -372,9 +372,10 @@ app.get('/categories', function (req, res) {
 
         //query parse for all categories
         new Parse.Query("Category").find({sessionToken: token}).then(function (categories) {
-                categories.forEach(function (cat, index) {
-                    console.log("Category" + index + ":::::" + cat);
-                });
+               /* categories.forEach(function (cat, index) {
+                    console.log("Category" + index + ":::::" + JSON.stringify(cat));
+                });*/
+                console.log("FIRST ID: "+JSON.stringify(categories[0].id));
                 res.render("pages/categories", {categories: categories});
             },
             function (error) {
@@ -422,23 +423,24 @@ app.post('/update-category', function (req, res) {
 
     if (session && token) {
 
-        var category = new Parse.Query("Category");
-        //objectId
-        category.equalTo("name", currentName);
-        category.first().then(function (category) {
+        // var category = new Parse.Query("Category");
+        // //objectId
+        // category.equalTo("name", currentName);
+        // category.first().then(function (category) {
 
-                category.set("name", newName);
-                return category.save();
-            }
-        ).then(function () {
+        //         category.set("name", newName);
+        //         return category.save();
+        //     }
+        // ).then(function () {
 
-                res.redirect("/categories");
+        //         res.redirect("/categories");
 
-            },
-            function (error) {
+        //     },
+        //     function (error) {
 
-                console.error(error);
-            });
+        //         console.error(error);
+        //     });
+        console.log(currentName);
     }
     else { //no session found
         res.redirect("/");

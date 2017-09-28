@@ -18,10 +18,9 @@
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <!--parse js-->
-
 </head>
 
-<body class="primary-background-color" onload="chooser()">
+<body class="primary-background-color">
 
 <div class="Rectangle">
     <img src="/public/assets/images/logo2.png"
@@ -80,9 +79,9 @@
 <button id="btnClearAddForm">CLEAR</button>
 
 <!-- to upload image from dropbox -->
-<form action="/upload_dropbox" enctype="multipart/form-data" method="post" data-ajax='false'>
-    <div id="dropbox-container"></div>
-    <input type="file" style="display: none;" name="box" id="box"> 
+<form action="/upload_dropbox" enctype="multipart/form-data" method="post">
+<div id="dropbox-container"></div>
+    <input type="file" name="box" id="box">
     <button id="btnUploadSticker" type="submit">UPLOAD DROPBOX</button>  
     <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"> 
 </form>
