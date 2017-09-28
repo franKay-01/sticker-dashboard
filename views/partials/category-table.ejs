@@ -15,8 +15,8 @@
             <td><input type="text" id="categoryname" value="<%= item.get("name")%>" disabled></td>
             <td>
                 <%= item.id%>
-                <button class="editbtn1" value="<%= item.get("name")%>">EDIT</button>
-                <button class="delbtn1" value="<%= item.get("name")%>">REMOVE</button>
+                <button class="editbtn1" value="<%= item.id %>">EDIT</button>
+                <button class="delbtn1" value="<%= item.id %>">REMOVE</button>
             </td>
         </tr>
         <% }); %>
