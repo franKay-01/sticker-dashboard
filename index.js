@@ -258,6 +258,8 @@ app.post('/upload_dropbox', upload.array('box'), function (req, res){
     var stickerDetails = [];
     var stickerCollection;
 
+var collection = new Parse.Query("Collection");
+        collection.equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
 files.forEach(function (file) {
 
                 //TODO update originalname to originalName
@@ -265,7 +267,7 @@ files.forEach(function (file) {
                 var stickerName = fullName.substring(0, fullName.length - 4);
                 console.log("FILES" + stickerName + " COLL_ID "+ coll_id);
             });
-
+});
  
 
 // var download = function(uri, filename, callback){
