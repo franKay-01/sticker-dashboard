@@ -419,28 +419,28 @@ app.post('/update-category', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var newName = req.body.catname;
-    var currentName = req.body.currentName;
+    var currentId = req.body.categoryId;
 
     if (session && token) {
 
-        // var category = new Parse.Query("Category");
-        // //objectId
-        // category.equalTo("name", currentName);
-        // category.first().then(function (category) {
+        var category = new Parse.Query("Category");
+        //objectId
+        category.equalTo("objectId", currentId);
+        category.first().then(function (category) {
 
-        //         category.set("name", newName);
-        //         return category.save();
-        //     }
-        // ).then(function () {
+                category.set("name", newName);
+                return category.save();
+            }
+        ).then(function () {
 
-        //         res.redirect("/categories");
+                res.redirect("/categories");
 
-        //     },
-        //     function (error) {
+            },
+            function (error) {
 
-        //         console.error(error);
-        //     });
-        console.log(currentName);
+                console.error(error);
+            });
+        console.log(currentId);
     }
     else { //no session found
         res.redirect("/");

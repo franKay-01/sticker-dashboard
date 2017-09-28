@@ -62,8 +62,8 @@ $(document).ready(function () {
             $('.hiddenEditForm').fadeIn('fast');
 
             //insert category name into text field for editing
-            $('#categoryName').val($this.val());
-            $('#currentName').val($this.val());
+            $('#categoryId').val($this.val());
+            $('#categoryId').val($this.val());
         });
     });
     //remove form
