@@ -6,7 +6,10 @@ $(document).ready(function () {
             // files.forEach(function(file) {
             //     dropboxImageSelected(file);
             // });
-            dropboxImageSelected(file);
+          //  dropboxImageSelected(file);
+            imageToBase64(file.url,function(result){
+                fileUploadUI(file.name,result)
+            })
         },
         cancel: function () {
             //optional
@@ -22,20 +25,24 @@ $(document).ready(function () {
     var button = Dropbox.createChooseButton(options);
     $("#dropbox-container").append(button);
 
-    function dropboxImageSelected(file) {
+    function dropboxImageSelected(file, callback) {
 
         var reader = new FileReader();
 
         reader.onloadend = function () {
-            var span = $('<span></span>');
-            span.html(['<img class="thumb" name="im1" " src="', reader.result,
-                '" title="', escape(file.name), '"/>'].join(''));
-
-            $('#filesList').before(span);
+            callback();
         };
         reader.readAsDataURL(file);
 
     }
+
+    var fileUploadUI = function (name, result) {
+        var span = $('<span></span>');
+        span.html(['<img class="thumb" name="im1" " src="', result,
+            '" title="', escape(name), '"/>'].join(''));
+
+        $('#filesList').before(span);
+    };
 
     var imageToBase64 = function (url, callback) {
         var img = new Image();
@@ -49,13 +56,12 @@ $(document).ready(function () {
             canvas.height = this.height;
             canvas.width = this.width;
             ctx.drawImage(this, 0, 0);
-            dataURL = canvas.toDataURL();
+            dataURL = canvas.blob();
             callback(dataURL);
             canvas = null;
         };
 
         img.src = url;
     }
-
 
 });
