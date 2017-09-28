@@ -258,7 +258,15 @@ app.post('/upload_dropbox', upload.array('box'), function (req, res){
     var stickerDetails = [];
     var stickerCollection;
 
- console.log("FILES" + files.originalname + " COLL_ID "+ coll_id);
+files.forEach(function (file) {
+
+                //TODO update originalname to originalName
+                var fullName = file.originalname;
+                var stickerName = fullName.substring(0, fullName.length - 4);
+                console.log("FILES" + stickerName + " COLL_ID "+ coll_id);
+            });
+
+ 
 
 // var download = function(uri, filename, callback){
 //   request.head(uri, function(err, res, body){
