@@ -7,7 +7,9 @@ $(document).ready(function () {
             //     dropboxImageSelected(file);
             // });
             //  dropboxImageSelected(file);
+            console.log("image source " + JSON.stringify(file));
             imageToBase64(file.link, function (result) {
+                console.log("image to base 64 " + result);
                 fileUploadUI(file.name, result)
             })
         },
@@ -62,7 +64,7 @@ $(document).ready(function () {
         };
 
 
-        console.log("image source " + img.src);
+
     }
 
 });
