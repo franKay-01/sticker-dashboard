@@ -249,16 +249,16 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
 
 })*/
 
-app.post('/upload_dropbox', function (req, res){
+app.post('/upload_dropbox', upload.fields('box'), function (req, res){
     var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = req.body.coll_id;
-    var files = req.box;
+    var files = req.file;
     var fileDetails = [];
     var stickerDetails = [];
     var stickerCollection;
 
- console.log("FILES" + files + "COLL_ID "+ coll_id);
+ console.log("FILES" + files.originalname + " COLL_ID "+ coll_id);
 
 // var download = function(uri, filename, callback){
 //   request.head(uri, function(err, res, body){
