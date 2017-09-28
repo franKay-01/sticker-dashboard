@@ -7,7 +7,7 @@ $(document).ready(function () {
             //     dropboxImageSelected(file);
             // });
             //  dropboxImageSelected(file);
-            imageToBase64(file.url, function (result) {
+            imageToBase64(file.link, function (result) {
                 fileUploadUI(file.name, result)
             })
         },
@@ -46,7 +46,7 @@ $(document).ready(function () {
 
     var imageToBase64 = function (url, callback) {
         var img = new Image();
-
+        img.src = url;
         img.crossOrigin = 'Anonymous';
 
         img.onload = function () {
@@ -61,7 +61,6 @@ $(document).ready(function () {
             canvas = null;
         };
 
-        img.src = url;
 
         console.log("image source " + img.src);
     }
