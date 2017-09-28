@@ -249,11 +249,11 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
 
 })*/
 
-app.post('/upload_dropbox', function (req, res){
+app.post('/upload_dropbox', upload.array('box'), function (req, res){
     var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = req.body.coll_id;
-    var files = req.files.file.name;
+    var files = req.body.box;
     var fileDetails = [];
     var stickerDetails = [];
     var stickerCollection;
