@@ -258,7 +258,21 @@ app.post('/upload_dropbox', upload.array('box'), function (req, res){
     var stickerDetails = [];
     var stickerCollection;
 
-    console.log("FILES" + req.files + "COLL_ID "+ coll_id);
+ console.log("FILES" + files.name + "COLL_ID "+ coll_id);
+
+// var download = function(uri, filename, callback){
+//   request.head(uri, function(err, res, body){
+//     console.log('content-type:', res.headers['content-type']);
+//     console.log('content-length:', res.headers['content-length']);
+
+//     request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+//   });
+// };
+
+// download('https://www.google.com/images/srpr/logo3w.png', 'google.png', function(){
+//   console.log('done');
+// });
+
 });
 
 //UPLOAD MULTIPLE STICKERS
