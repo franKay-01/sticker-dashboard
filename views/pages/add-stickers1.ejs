@@ -80,7 +80,9 @@
 
 <!-- to upload image from dropbox -->
 <form action="/upload_dropbox" enctype="multipart/form-data" method="post">
-<div id="dropbox-container"></div>
+<div id="dropbox-container">
+
+</div>
     <input type="file" name="box" id="box">
     <button id="btnUploadSticker" type="submit">UPLOAD DROPBOX</button>  
     <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"> 

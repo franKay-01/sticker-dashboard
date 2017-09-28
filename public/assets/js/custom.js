@@ -1,13 +1,5 @@
 $(document).ready(function () {
 
-    $('.features').slick(
-        {
-            dots: true,
-            autoplay: true,
-            arrows: false
-        }
-    );
-
     //Toggle create new collection form
     $(function () {
         //show collection form
