@@ -48,12 +48,12 @@
       var span = document.createElement('span');
       var image_ = document.createElement('IMG');
       var new_img;
-      a.href = file.link;
+      var link_ = file.link;
       var img = new Image();
       var src = file.thumbnailLink;
       // src = src.replace("bounding_box=75", "bounding_box=256");
       // src = src.replace("mode=fit", "mode=crop");
-      
+      document.getElementById('box').appendChild(link_);
       img.className = "thumb";
       var image = document.getElementById("imageid");
       // image.src = file.link;
@@ -66,9 +66,9 @@
         span.innerHTML = ['<img class="thumb" name="im1" " src="', base64_data,
                     '" title="', escape(file.name), '"/>'].join('');
 
-        var box = document.getElementById('box');
-        box.innerHTML=['<img class="thumb" name="im1" " src="', base64_data,
-                    '" title="', escape(file.name), '"/>'].join('');
+       // document.getElementById('box').appendChild();
+        // box.innerHTML=['<img class="thumb" name="im1" " src="', base64_data,
+        //             '" title="', escape(file.name), '"/>'].join('');
                 // document.getElementsByName('im1[]')[0].appendChild(img);
 
     });
@@ -181,7 +181,7 @@
 <!-- to upload image from dropbox -->
 <form action="/upload_dropbox" enctype="multipart/form-data" method="post" data-ajax='false'>
 <div id="dropbox-container"></div>
-    <input type="file" name="box" id="box"> 
+    <input type="text" style="display: none;" name="box" id="box"> 
     <button id="btnUploadSticker" type="submit">UPLOAD DROPBOX</button>  
     <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"> 
 </form>

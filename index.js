@@ -258,7 +258,7 @@ app.post('/upload_dropbox', upload.array('box'), function (req, res){
     var stickerDetails = [];
     var stickerCollection;
 
- console.log("FILES" + files.name + "COLL_ID "+ coll_id);
+ console.log("FILES" + files.path + "COLL_ID "+ coll_id);
 
 // var download = function(uri, filename, callback){
 //   request.head(uri, function(err, res, body){
