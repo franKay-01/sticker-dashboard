@@ -373,7 +373,7 @@ app.get('/categories', function (req, res) {
         //query parse for all categories
         new Parse.Query("Category").find({sessionToken: token}).then(function (categories) {
                 categories.forEach(function (cat, index) {
-                    console.log("Category" + index + ":::::" + cat);
+                    console.log("Category" + index + ":::::" + JSON.Stringify(cat));
                 });
                 res.render("pages/categories", {categories: categories});
             },
