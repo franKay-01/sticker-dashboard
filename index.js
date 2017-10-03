@@ -1,5 +1,6 @@
 var express = require('express');
-var ParseServer = require('parse-server').ParseServer;
+var Parse = require('parse-server');
+var ParseServer = Parse.ParseServer;
 var S3Adapter = require('parse-server').S3Adapter;
 var SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
 var path = require('path');
@@ -794,6 +795,116 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     }
 });
 
+app.get('/upload_page', function(req,res){
+    res.render("upload");
+});
+
+app.post('/upload-file', function(req,res){
+    if (!req.body) {
+        console.log("ERROR");
+    }else{
+    var bitmap;
+    var name =  req.body.fileName;
+    var files = req.body.inputFile;
+    console.log("MIME TYPE"+files.mimetype);
+    console.log(files);
+    // convert binary data to base64 encoded string
+    i2b(files, function(err, data){
+        if(err){
+            console.log("ERROR occurred when converting");
+            
+        }else{
+            // console.log("NEW BASE "+JSON.stringify(data));
+            bitmap = data;
+        }
+
+    });
+
+    var session = req.session.token;
+    var token = req.cookies.token;
+    var coll_id = 'bGNBesreD0';
+    var fileDetails = [];
+    var stickerDetails = [];
+    var stickerCollection;
+    // console.log("FILES" + req.files + "COLL_ID "+ coll_id);
+    if (session && token) {
+
+        var collection = new Parse.Query("Collection");
+        collection.equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
+            console.log("INSIDE COLLECTION");
+            stickerCollection = collection;
+
+            files.forEach(function (file) {
+
+                //TODO update originalname to originalName
+                var fullName = name;
+                var stickerName = fullName.substring(0, fullName.length - 4);
+
+                // var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                //create our parse file
+                var parseFile = new Parse.File(stickerName, {base64: bitmap});
+                console.log("PARSEFILE "+parseFile);
+                var Sticker = new Parse.Object.extend("Sticker");
+                var sticker = new Sticker();
+                sticker.set("stickerName", stickerName);
+                sticker.set("localName", stickerName);
+                sticker.set("uri", parseFile);
+                sticker.set("stickerPhraseImage", "");
+                sticker.set("parent", collection);
+
+                stickerDetails.push(sticker);
+                fileDetails.push(file);
+
+            });
+
+            console.log("SAVE ALL OBJECTS AND FILE");
+            return Parse.Object.saveAll(stickerDetails);
+
+        }).then(function (stickers) {
+
+            _.each(fileDetails, function (file) {
+                //Delete tmp fil after upload
+                var tempFile = file.path;
+                fs.unlink(tempFile, function (err) {
+                    if (err) {
+                        //TODO handle error code
+                        console.log("-------Could not del temp" + JSON.stringify(err));
+                    }
+                    else {
+                        console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                    }
+                });
+            });
+
+            _.each(stickers, function (sticker) {
+                var collection_relation = stickerCollection.relation("Collection");
+                collection_relation.add(sticker);
+            });
+
+            console.log("SAVE COLLECTION RELATION");
+            return stickerCollection.save();
+
+        }).then(function () {
+
+            console.log("REDIRECT TO DASHBOARD");
+            res.redirect("/");
+
+        }, function (error) {
+            console.log("BIG BIG ERROR" + error.message);
+            res.redirect("/");
+        });
+
+
+    } else {
+
+        res.redirect("/");
+
+    }
+    res.redirect("/");
+}
+
+});
 /*
  app.post('/update/:id', upload.single('im1'), function (req, res) {
 

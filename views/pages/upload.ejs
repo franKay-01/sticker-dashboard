@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Main</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+    </style>
+
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <!--parse js-->
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="ed8po9zwpj4pnhw"></script>
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script type="text/javascript">
+    function dropbox(){
+        options = {
+        
+        success: function(files) {
+          files.forEach(function(file) {
+            add_img_to_list(file);
+          });
+        },
+        cancel: function() {
+          //optional
+        },
+        linkType: "direct", // "preview" or "direct"
+        multiselect: true, // true or false
+        extensions: ['.png', '.jpg'],
+        };
+
+        var button = Dropbox.createChooseButton(options);
+        document.getElementById("dropbox-container").appendChild(button);
+    }
+
+    function add_img_to_list(file) {
+      //TODO try link instead of thumbnailLink
+      var name = file.name;
+      var source = file.thumbnailLink;
+      var type = file.type;
+      alert("This is the type: "+name);
+      document.getElementById('inputFile').value = source;
+      document.getElementById('inputFile').fileName = name;
+    }
+
+    
+    </script>
+</head>
+
+<body class="secondary-background-color" onload="dropbox()">
+    <form action="/upload-file" method="post" id="formId">
+        <div id="dropbox-container"></div>
+        <input type="text" style="display: none" name="inputFile" id="inputFile">
+        <input type="text" name="coll_id" style="display: none" value="bGNBesreD0">
+        <!-- <div id="inputFile" name="inputFile"></div> -->
+        <input type="submit">
+    </form>
+</body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js">
+</script>
+
+</html>
