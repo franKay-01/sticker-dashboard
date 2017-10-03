@@ -49,8 +49,8 @@
       var type = name.substr(name.length - 3);
       // alert("This is the type: "+type);
       document.getElementById('inputFile').value = source;
-      document.getElementById('inputFile').fileName = name;
-      document.getElementById('inputFile').fileType = type;
+      document.getElementById('fileName').value = name;
+      document.getElementById('file').value = type;
     }
 
     
@@ -61,6 +61,8 @@
     <form action="/upload-file" method="post" id="formId">
         <div id="dropbox-container"></div>
         <input type="text" style="display: none" name="inputFile" id="inputFile">
+        <input type="text" style="display: none;" name="fileName" id="fileName">
+        <input type="text" style="display: none;" name="file" id="file">
         <input type="text" name="coll_id" style="display: none" value="bGNBesreD0">
         <!-- <div id="inputFile" name="inputFile"></div> -->
         <input type="submit">

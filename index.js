@@ -824,7 +824,7 @@ app.post('/upload-file', function(req,res){
     var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = 'bGNBesreD0';
-    var type = req.body.fileType;
+    var type = req.body.file;
     var fileDetails = [];
     var stickerDetails = [];
     var stickerCollection;
