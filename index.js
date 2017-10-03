@@ -807,7 +807,7 @@ app.post('/upload-file', function(req,res){
     var bitmap;
     var name =  req.body.fileName;
     var files = req.body.inputFile;
-    console.log("MIME TYPE"+files.file);
+    console.log("MIME TYPE "+req.body.file);
     console.log(files);
     // convert binary data to base64 encoded string
     i2b(files, function(err, data){
