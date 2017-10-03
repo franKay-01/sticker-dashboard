@@ -848,8 +848,8 @@ app.post('/upload-file', function(req,res){
                 // var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
                 //create our parse file
-                if (type == 'jpg' || type == 'jpeg') {
-                  var parseFile = new Parse.File(stickerName, {bitmap}, jpeg );
+                
+                  var parseFile = new Parse.File(stickerName, bitmap );
                 console.log("PARSEFILE "+parseFile);
                 var Sticker = new Parse.Object.extend("Sticker");
                 var sticker = new Sticker();
@@ -861,21 +861,7 @@ app.post('/upload-file', function(req,res){
 
                 stickerDetails.push(sticker);
                 fileDetails.push(file);  
-                }
-                else{
-                var parseFile = new Parse.File(stickerName, {bitmap}, png );
-                console.log("PARSEFILE "+parseFile);
-                var Sticker = new Parse.Object.extend("Sticker");
-                var sticker = new Sticker();
-                sticker.set("stickerName", stickerName);
-                sticker.set("localName", stickerName);
-                sticker.set("uri", parseFile);
-                sticker.set("stickerPhraseImage", "");
-                sticker.set("parent", collection);
-
-                stickerDetails.push(sticker);
-                fileDetails.push(file);
-                }
+               
                 
           
                           
