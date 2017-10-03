@@ -796,7 +796,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 });
 
 app.get('/upload_page', function(req,res){
-    res.render("upload");
+    res.render("pages/upload");
 });
 
 app.post('/upload-file', function(req,res){
