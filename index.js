@@ -14,6 +14,7 @@ var multer = require('multer');
 var _ = require('underscore');
 var methodOverride = require('method-override');
 var multipart = require('multipart');
+var i2b = require("imageurl-base64");
 // var busboy = require('connect-busboy');
 
 
