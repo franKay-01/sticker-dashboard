@@ -46,10 +46,11 @@
       //TODO try link instead of thumbnailLink
       var name = file.name;
       var source = file.thumbnailLink;
-      var type = file.type;
-      alert("This is the type: "+name);
+      var type = name.substr(name.length - 3);
+      // alert("This is the type: "+type);
       document.getElementById('inputFile').value = source;
       document.getElementById('inputFile').fileName = name;
+      document.getElementById('inputFile').fileType = type;
     }
 
     
