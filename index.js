@@ -869,10 +869,11 @@ app.post('/upload-file', function(req,res){
             
 
         }).then(function (stickers) {
-
+            console.log("ENTERED SECOND FUNCTION TO DELETE FILES");
             _.each(fileDetails, function (file) {
                 //Delete tmp fil after upload
                 var tempFile = file.path;
+                console.log("TEMP FILE PATH " + tempFile);
                 fs.unlink(tempFile, function (err) {
                     if (err) {
                         //TODO handle error code

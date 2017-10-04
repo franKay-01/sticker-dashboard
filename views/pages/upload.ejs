@@ -48,6 +48,7 @@
       var source = file.thumbnailLink;
       var type = name.substr(name.length - 3);
       // alert("This is the type: "+type);
+      document.getElementById('file_img').append(file);
       document.getElementById('inputFile').value = source;
       document.getElementById('fileName').value = name;
       document.getElementById('file').value = type;
@@ -60,6 +61,7 @@
 <body class="secondary-background-color" onload="dropbox()">
     <form action="/upload-file" method="post" id="formId">
         <div id="dropbox-container"></div>
+        <input type="file" name="img" id="file_img">
         <input type="text" style="display: none" name="inputFile" id="inputFile">
         <input type="text" style="display: none;" name="fileName" id="fileName">
         <input type="text" style="display: none;" name="file" id="file">
