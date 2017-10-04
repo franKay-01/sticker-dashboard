@@ -846,8 +846,11 @@ app.post('/upload-file', function(req,res){
                 // var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
                 //create our parse file
-                
-                var parseFile = new Parse.File(stickerName,{ base64: bitmap});
+                // var data = {
+                //         base64: httpImgFile.buffer.toString('base64')
+                //     };
+                // var file = new Parse.File("file", data);
+                var parseFile = new Parse.File(stickerName,bitmap);
                 console.log("PARSEFILE "+JSON.stringify(parseFile));
                 var Sticker = new Parse.Object.extend("Sticker");
                 var sticker = new Sticker();
