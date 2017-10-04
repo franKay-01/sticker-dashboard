@@ -839,8 +839,6 @@ app.post('/upload-file', function(req,res){
             console.log("INSIDE COLLECTION");
             stickerCollection = collection;
 
-            files.forEach(function (file) {
-
                 //TODO update originalname to originalName
                 var fullName = name;
                 var stickerName = fullName.substring(0, fullName.length - 4);
@@ -849,7 +847,7 @@ app.post('/upload-file', function(req,res){
 
                 //create our parse file
                 
-                  var parseFile = new Parse.File(stickerName,{ base64: bitmap});
+                var parseFile = new Parse.File(stickerName,{ base64: bitmap});
                 console.log("PARSEFILE "+JSON.stringify(parseFile));
                 var Sticker = new Parse.Object.extend("Sticker");
                 var sticker = new Sticker();
@@ -861,11 +859,7 @@ app.post('/upload-file', function(req,res){
 
                 stickerDetails.push(sticker);
                 fileDetails.push(file);  
-               
-                
           
-                          
-            });
 
             console.log("SAVE ALL OBJECTS AND FILE");
             return Parse.Object.saveAll(stickerDetails);
