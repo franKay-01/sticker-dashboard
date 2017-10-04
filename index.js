@@ -816,7 +816,7 @@ app.post('/upload-file', function (req, res) {
         fileUrl = req.body.fileUrl; // receive url from form
         name = name.substring(0, name.length - 4);
 
-        // Convert binary data to base64 encoded string
+        // Convert url link to base64 encoded data
         i2b(fileUrl, function (err, data) {
             if (err) {
                 console.log("ERROR occurred when converting");
