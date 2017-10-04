@@ -860,19 +860,19 @@ app.post('/upload-file', function(req,res){
                 sticker.set("stickerPhraseImage", "");
                 sticker.set("parent", collection);
 
-                stickerDetails.push(sticker);
-                fileDetails.push(files);  
+                // stickerDetails.push(sticker);
+                // fileDetails.push(files);  
           
 
             console.log("SAVE ALL OBJECTS AND FILE");
-            return Parse.Object.saveAll(stickerDetails);
+            return Parse.Object.saveAll(sticker);
             
 
         }).then(function (stickers) {
             console.log("ENTERED SECOND FUNCTION TO DELETE FILES");
-            _.each(fileDetails, function (file) {
+            // _.each(fileDetails, function (file) {
                 //Delete tmp fil after upload
-                var tempFile = file.path;
+                var tempFile = stickers.path;
                 console.log("TEMP FILE PATH " + tempFile);
                 fs.unlink(tempFile, function (err) {
                     if (err) {
@@ -883,12 +883,12 @@ app.post('/upload-file', function(req,res){
                         console.log("SUUCCCEESSSSS IN DELTEING TEMP");
                     }
                 });
-            });
+            
 
-            _.each(stickers, function (sticker) {
+            // _.each(stickers, function (sticker) {
                 var collection_relation = stickerCollection.relation("Collection");
                 collection_relation.add(sticker);
-            });
+            // });
 
             console.log("SAVE COLLECTION RELATION");
             return stickerCollection.save();
