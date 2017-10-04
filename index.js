@@ -802,14 +802,18 @@ app.get('/upload_page', function (req, res) {
 
 app.post('/upload-file', function (req, res) {
 
-    if (!req.body) {
-        console.log("ERROR");
-    } else {
-        var bitmap;
-        var name = req.body.fileName;
-        var fileUrl = req.body.fileUrl; // receive url from form
-        console.log("MIME TYPE " + req.body.file);
-        console.log(fileUrl);
+    var bitmap;
+    var name;
+    var fileUrl;
+    var session = req.session.token;
+    var token = req.cookies.token;
+    var coll_id = req.body.coll_id;
+    var stickerCollection;
+
+    if (session && token) {
+
+        name = req.body.fileName;
+        fileUrl = req.body.fileUrl; // receive url from form
 
         // Convert binary data to base64 encoded string
         i2b(fileUrl, function (err, data) {
@@ -817,102 +821,60 @@ app.post('/upload-file', function (req, res) {
                 console.log("ERROR occurred when converting");
                 res.redirect("/");
             } else {
-                 console.log("NEW BASE "+JSON.stringify(data));
+                console.log("NEW BASE " + JSON.stringify(data));
                 bitmap = data;
             }
 
         });
 
-        var session = req.session.token;
-        var token = req.cookies.token;
-        var coll_id = req.body.coll_id;
-        var type = req.body.fileType;
-        var fileDetails = [];
-        var stickerDetails = [];
-        var stickerCollection;
-        var jpeg = 'image/jpeg';
-        var png = 'image/png';
+        var collection = new Parse.Query("Collection");
+        collection.equalTo("objectId", coll_id)
+            .first({sessionToken: token})
+            .then(function (collection) {
 
-        // console.log("FILES" + req.files + "COLL_ID "+ coll_id);
-        if (session && token) {
-
-            var collection = new Parse.Query("Collection");
-            collection.equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
-                console.log("INSIDE COLLECTION");
                 stickerCollection = collection;
-
-                // files.forEach(function (file) {
-                //TODO update originalname to originalName
-                var fullName = name;
-                var stickerName = fullName.substring(0, fullName.length - 4);
-
-                // var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-
-                //create our parse file
-                // var data = {
-                //         base64: httpImgFile.buffer.toString('base64')
-                //     };
-                // var file = new Parse.File("file", data);
+                var stickerName = name.substring(0, name.length - 4);
                 var parseFile = new Parse.File(stickerName, bitmap);
-                console.log("PARSEFILE " + JSON.stringify(parseFile));
-                var Sticker = new Parse.Object.extend("Sticker");
-                var sticker = new Sticker();
-                sticker.set("stickerName", stickerName);
-                sticker.set("localName", stickerName);
-                sticker.set("uri", parseFile);
-                sticker.set("stickerPhraseImage", "");
-                sticker.set("parent", collection);
+                return parseFile.save();
 
-                // return Parse.Object.saveAll(sticker);
+            }).then(function (file) {
 
-                return sticker.save();
+            var stickerName = name.substring(0, name.length - 4);
+            var Sticker = new Parse.Object.extend("Sticker");
+            var sticker = new Sticker();
+            sticker.set("stickerName", stickerName);
+            sticker.set("localName", stickerName);
+            sticker.set("uri", file);
+            sticker.set("stickerPhraseImage", "");
+            sticker.set("parent", stickerCollection);
 
+            return sticker.save();
 
-            }).then(function (sticker) {
-                console.log("ENTERED SECOND FUNCTION TO DELETE FILES");
-                // _.each(fileDetails, function (file) {
-                //Delete tmp fil after upload
-                /*var tempFile = sticker.path;
-                console.log("TEMP FILE PATH " + tempFile);
-                fs.unlink(tempFile, function (err) {
-                    if (err) {
-                        //TODO handle error code
-                        console.log("-------Could not del temp" + JSON.stringify(err));
-                    }
-                    else {
-                        console.log("SUUCCCEESSSSS IN DELTEING TEMP");
-                    }
-                });*/
+        }).then(function (sticker) {
 
+            var collection_relation = stickerCollection.relation("Collection");
+            collection_relation.add(sticker);
 
-                // _.each(stickers, function (sticker) {
-                var collection_relation = stickerCollection.relation("Collection");
-                collection_relation.add(sticker);
-                // });
+            return stickerCollection.save();
 
-                console.log("SAVE COLLECTION RELATION");
-                return stickerCollection.save();
+        }).then(function () {
 
-            }).then(function () {
-
-                console.log("REDIRECT TO DASHBOARD");
-                res.redirect("/");
-
-            }, function (error) {
-                console.log("BIG BIG ERROR" + error.message);
-                res.redirect("/");
-            });
-
-
-        } else {
-
+            console.log("REDIRECT TO DASHBOARD");
             res.redirect("/");
 
-        }
+        }, function (error) {
+            console.log("BIG BIG ERROR" + error.message);
+            res.redirect("/");
+        });
+
+    } else {
+
         res.redirect("/");
+
     }
 
 });
+
 /*
  app.post('/update/:id', upload.single('im1'), function (req, res) {
 
@@ -1005,7 +967,6 @@ app.post('/upload-file', function (req, res) {
  }
  });
  * */
-
 
 var port = process.env.PORT || 1337;
 var httpServer = require('http').createServer(app);
