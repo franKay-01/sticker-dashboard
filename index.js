@@ -817,7 +817,7 @@ app.post('/upload-file', function (req, res) {
                 console.log("ERROR occurred when converting");
 
             } else {
-                // console.log("NEW BASE "+JSON.stringify(data));
+                 console.log("NEW BASE "+JSON.stringify(data));
                 bitmap = data;
             }
 
@@ -863,17 +863,9 @@ app.post('/upload-file', function (req, res) {
                 sticker.set("stickerPhraseImage", "");
                 sticker.set("parent", collection);
 
-                parseFile.save().then(function (file) {
-                }, function () {
-                    console.log("Filed save");
-                    return sticker.save();
-                });
-                // stickerDetails.push(sticker);
-                // fileDetails.push(files);  
-                // });
-                console.log("STICKER DETAILS " + JSON.stringify(sticker));
-                console.log("SAVE ALL OBJECTS AND FILE");
                 // return Parse.Object.saveAll(sticker);
+
+                return sticker.save();
 
 
             }).then(function (sticker) {
