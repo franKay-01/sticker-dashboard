@@ -850,7 +850,7 @@ app.post('/upload-file', function(req,res){
                 //create our parse file
                 
                   var parseFile = new Parse.File(stickerName,{ base64: bitmap});
-                console.log("PARSEFILE "+parseFile);
+                console.log("PARSEFILE "+JSON.stringify(parseFile));
                 var Sticker = new Parse.Object.extend("Sticker");
                 var sticker = new Sticker();
                 sticker.set("stickerName", stickerName);
