@@ -806,11 +806,12 @@ app.post('/upload-file', function(req,res){
     }else{
     var bitmap;
     var name =  req.body.fileName;
-    var files = req.body.inputFile;
+    var fileUrl = req.body.fileUrl; // receive url from form
     console.log("MIME TYPE "+req.body.file);
-    console.log(files);
-    // convert binary data to base64 encoded string
-    i2b(files, function(err, data){
+    console.log(fileUrl);
+    
+    // Convert binary data to base64 encoded string
+    i2b(fileUrl, function(err, data){
         if(err){
             console.log("ERROR occurred when converting");
             
@@ -824,7 +825,7 @@ app.post('/upload-file', function(req,res){
     var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = req.body.coll_id;
-    var type = req.body.file;
+    var type = req.body.fileType;
     var fileDetails = [];
     var stickerDetails = [];
     var stickerCollection;
@@ -838,7 +839,8 @@ app.post('/upload-file', function(req,res){
         collection.equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
             console.log("INSIDE COLLECTION");
             stickerCollection = collection;
-            files.forEach(function (file) {
+            
+            // files.forEach(function (file) {
                 //TODO update originalname to originalName
                 var fullName = name;
                 var stickerName = fullName.substring(0, fullName.length - 4);
@@ -862,7 +864,7 @@ app.post('/upload-file', function(req,res){
 
                 // stickerDetails.push(sticker);
                 // fileDetails.push(files);  
-          });
+          // });
             console.log("STICKER DETAILS "+JSON.stringify(sticker));
             console.log("SAVE ALL OBJECTS AND FILE");
             return Parse.Object.saveAll(sticker);
