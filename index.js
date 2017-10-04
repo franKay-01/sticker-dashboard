@@ -814,6 +814,7 @@ app.post('/upload-file', function (req, res) {
 
         name = req.body.fileName;
         fileUrl = req.body.fileUrl; // receive url from form
+        name = name.substring(0, name.length - 4);
 
         // Convert binary data to base64 encoded string
         i2b(fileUrl, function (err, data) {
@@ -833,17 +834,15 @@ app.post('/upload-file', function (req, res) {
             .then(function (collection) {
 
                 stickerCollection = collection;
-                var stickerName = name.substring(0, name.length - 4);
-                var parseFile = new Parse.File(stickerName, bitmap);
+                var parseFile = new Parse.File(name, bitmap);
                 return parseFile.save();
 
             }).then(function (file) {
 
-            var stickerName = name.substring(0, name.length - 4);
             var Sticker = new Parse.Object.extend("Sticker");
             var sticker = new Sticker();
-            sticker.set("stickerName", stickerName);
-            sticker.set("localName", stickerName);
+            sticker.set("stickerName", name);
+            sticker.set("localName", name);
             sticker.set("uri", file);
             sticker.set("stickerPhraseImage", "");
             sticker.set("parent", stickerCollection);
