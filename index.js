@@ -815,7 +815,7 @@ app.post('/upload-file', function (req, res) {
         i2b(fileUrl, function (err, data) {
             if (err) {
                 console.log("ERROR occurred when converting");
-
+                res.redirect("/");
             } else {
                  console.log("NEW BASE "+JSON.stringify(data));
                 bitmap = data;
