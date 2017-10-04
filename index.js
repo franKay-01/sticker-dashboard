@@ -823,7 +823,7 @@ app.post('/upload-file', function(req,res){
 
     var session = req.session.token;
     var token = req.cookies.token;
-    var coll_id = 'bGNBesreD0';
+    var coll_id = req.body.coll_id;
     var type = req.body.file;
     var fileDetails = [];
     var stickerDetails = [];
