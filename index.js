@@ -251,7 +251,7 @@ app.post('/upload', upload.array('im1[]'), function (req, res) {
 
 })*/
 
-app.post('/upload_dropbox', upload.array('box'), function (req, res){
+app.post('/upload_dropbox', upload.array('box'), function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = req.body.coll_id;
@@ -260,7 +260,7 @@ app.post('/upload_dropbox', upload.array('box'), function (req, res){
     var stickerDetails = [];
     var stickerCollection;
 
- console.log("FILE" + files + " COLL_ID "+ coll_id);
+    console.log("FILE" + files + " COLL_ID " + coll_id);
 
 // var download = function(uri, filename, callback){
 //   request.head(uri, function(err, res, body){
@@ -305,7 +305,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 //create our parse file
                 var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                console.log("PARSEFILE "+ JSON.stringify(parseFile));
+                console.log("PARSEFILE " + JSON.stringify(parseFile));
                 var Sticker = new Parse.Object.extend("Sticker");
                 var sticker = new Sticker();
                 sticker.set("stickerName", stickerName);
@@ -374,10 +374,10 @@ app.get('/categories', function (req, res) {
 
         //query parse for all categories
         new Parse.Query("Category").find({sessionToken: token}).then(function (categories) {
-               /* categories.forEach(function (cat, index) {
-                    console.log("Category" + index + ":::::" + JSON.stringify(cat));
-                });*/
-                console.log("FIRST ID: "+JSON.stringify(categories[0].id));
+                /* categories.forEach(function (cat, index) {
+                     console.log("Category" + index + ":::::" + JSON.stringify(cat));
+                 });*/
+                console.log("FIRST ID: " + JSON.stringify(categories[0].id));
                 res.render("pages/categories", {categories: categories});
             },
             function (error) {
@@ -796,52 +796,52 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     }
 });
 
-app.get('/upload_page', function(req,res){
+app.get('/upload_page', function (req, res) {
     res.render("pages/upload");
 });
 
-app.post('/upload-file', function(req,res){
+app.post('/upload-file', function (req, res) {
 
     if (!req.body) {
         console.log("ERROR");
-    }else{
-    var bitmap;
-    var name =  req.body.fileName;
-    var fileUrl = req.body.fileUrl; // receive url from form
-    console.log("MIME TYPE "+req.body.file);
-    console.log(fileUrl);
-    
-    // Convert binary data to base64 encoded string
-    i2b(fileUrl, function(err, data){
-        if(err){
-            console.log("ERROR occurred when converting");
-            
-        }else{
-            // console.log("NEW BASE "+JSON.stringify(data));
-            bitmap = data;
-        }
+    } else {
+        var bitmap;
+        var name = req.body.fileName;
+        var fileUrl = req.body.fileUrl; // receive url from form
+        console.log("MIME TYPE " + req.body.file);
+        console.log(fileUrl);
 
-    });
+        // Convert binary data to base64 encoded string
+        i2b(fileUrl, function (err, data) {
+            if (err) {
+                console.log("ERROR occurred when converting");
 
-    var session = req.session.token;
-    var token = req.cookies.token;
-    var coll_id = req.body.coll_id;
-    var type = req.body.fileType;
-    var fileDetails = [];
-    var stickerDetails = [];
-    var stickerCollection;
-    var jpeg = 'image/jpeg';
-    var png = 'image/png';
+            } else {
+                // console.log("NEW BASE "+JSON.stringify(data));
+                bitmap = data;
+            }
 
-    // console.log("FILES" + req.files + "COLL_ID "+ coll_id);
-    if (session && token) {
+        });
 
-        var collection = new Parse.Query("Collection");
-        collection.equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
-            console.log("INSIDE COLLECTION");
-            stickerCollection = collection;
-            
-            // files.forEach(function (file) {
+        var session = req.session.token;
+        var token = req.cookies.token;
+        var coll_id = req.body.coll_id;
+        var type = req.body.fileType;
+        var fileDetails = [];
+        var stickerDetails = [];
+        var stickerCollection;
+        var jpeg = 'image/jpeg';
+        var png = 'image/png';
+
+        // console.log("FILES" + req.files + "COLL_ID "+ coll_id);
+        if (session && token) {
+
+            var collection = new Parse.Query("Collection");
+            collection.equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
+                console.log("INSIDE COLLECTION");
+                stickerCollection = collection;
+
+                // files.forEach(function (file) {
                 //TODO update originalname to originalName
                 var fullName = name;
                 var stickerName = fullName.substring(0, fullName.length - 4);
@@ -853,8 +853,8 @@ app.post('/upload-file', function(req,res){
                 //         base64: httpImgFile.buffer.toString('base64')
                 //     };
                 // var file = new Parse.File("file", data);
-                var parseFile = new Parse.File(stickerName,bitmap);
-                console.log("PARSEFILE "+JSON.stringify(parseFile));
+                var parseFile = new Parse.File(stickerName, bitmap);
+                console.log("PARSEFILE " + JSON.stringify(parseFile));
                 var Sticker = new Parse.Object.extend("Sticker");
                 var sticker = new Sticker();
                 sticker.set("stickerName", stickerName);
@@ -863,19 +863,22 @@ app.post('/upload-file', function(req,res){
                 sticker.set("stickerPhraseImage", "");
                 sticker.set("parent", collection);
 
-
+                parseFile.save().then(function (file) {
+                }, function () {
+                    console.log("Filed save");
+                    return sticker.save();
+                });
                 // stickerDetails.push(sticker);
                 // fileDetails.push(files);  
-          // });
-            console.log("STICKER DETAILS "+JSON.stringify(sticker));
-            console.log("SAVE ALL OBJECTS AND FILE");
-           // return Parse.Object.saveAll(sticker);
-            return sticker.save();
-            
+                // });
+                console.log("STICKER DETAILS " + JSON.stringify(sticker));
+                console.log("SAVE ALL OBJECTS AND FILE");
+                // return Parse.Object.saveAll(sticker);
 
-        }).then(function (sticker) {
-            console.log("ENTERED SECOND FUNCTION TO DELETE FILES");
-            // _.each(fileDetails, function (file) {
+
+            }).then(function (sticker) {
+                console.log("ENTERED SECOND FUNCTION TO DELETE FILES");
+                // _.each(fileDetails, function (file) {
                 //Delete tmp fil after upload
                 /*var tempFile = sticker.path;
                 console.log("TEMP FILE PATH " + tempFile);
@@ -888,34 +891,34 @@ app.post('/upload-file', function(req,res){
                         console.log("SUUCCCEESSSSS IN DELTEING TEMP");
                     }
                 });*/
-            
 
-            // _.each(stickers, function (sticker) {
+
+                // _.each(stickers, function (sticker) {
                 var collection_relation = stickerCollection.relation("Collection");
                 collection_relation.add(sticker);
-            // });
+                // });
 
-            console.log("SAVE COLLECTION RELATION");
-            return stickerCollection.save();
+                console.log("SAVE COLLECTION RELATION");
+                return stickerCollection.save();
 
-        }).then(function () {
+            }).then(function () {
 
-            console.log("REDIRECT TO DASHBOARD");
+                console.log("REDIRECT TO DASHBOARD");
+                res.redirect("/");
+
+            }, function (error) {
+                console.log("BIG BIG ERROR" + error.message);
+                res.redirect("/");
+            });
+
+
+        } else {
+
             res.redirect("/");
 
-        }, function (error) {
-            console.log("BIG BIG ERROR" + error.message);
-            res.redirect("/");
-        });
-
-
-    } else {
-
+        }
         res.redirect("/");
-
     }
-    res.redirect("/");
-}
 
 });
 /*
