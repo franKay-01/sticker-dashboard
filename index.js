@@ -861,7 +861,7 @@ app.post('/upload-file', function(req,res){
                 sticker.set("parent", collection);
 
                 stickerDetails.push(sticker);
-                fileDetails.push(file);  
+                fileDetails.push(files);  
           
 
             console.log("SAVE ALL OBJECTS AND FILE");
