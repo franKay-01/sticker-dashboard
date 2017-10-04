@@ -801,6 +801,7 @@ app.get('/upload_page', function(req,res){
 });
 
 app.post('/upload-file', function(req,res){
+
     if (!req.body) {
         console.log("ERROR");
     }else{
@@ -862,19 +863,21 @@ app.post('/upload-file', function(req,res){
                 sticker.set("stickerPhraseImage", "");
                 sticker.set("parent", collection);
 
+
                 // stickerDetails.push(sticker);
                 // fileDetails.push(files);  
           // });
             console.log("STICKER DETAILS "+JSON.stringify(sticker));
             console.log("SAVE ALL OBJECTS AND FILE");
-            return Parse.Object.saveAll(sticker);
+           // return Parse.Object.saveAll(sticker);
+            return sticker.save();
             
 
-        }).then(function (stickers) {
+        }).then(function (sticker) {
             console.log("ENTERED SECOND FUNCTION TO DELETE FILES");
             // _.each(fileDetails, function (file) {
                 //Delete tmp fil after upload
-                var tempFile = stickers.path;
+                /*var tempFile = sticker.path;
                 console.log("TEMP FILE PATH " + tempFile);
                 fs.unlink(tempFile, function (err) {
                     if (err) {
@@ -884,7 +887,7 @@ app.post('/upload-file', function(req,res){
                     else {
                         console.log("SUUCCCEESSSSS IN DELTEING TEMP");
                     }
-                });
+                });*/
             
 
             // _.each(stickers, function (sticker) {
