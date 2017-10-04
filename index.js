@@ -863,7 +863,7 @@ app.post('/upload-file', function(req,res){
                 // stickerDetails.push(sticker);
                 // fileDetails.push(files);  
           
-
+            console.log("STICKER DETAILS "+JSON.stringify(sticker));
             console.log("SAVE ALL OBJECTS AND FILE");
             return Parse.Object.saveAll(sticker);
             
