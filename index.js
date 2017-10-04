@@ -838,7 +838,7 @@ app.post('/upload-file', function(req,res){
         collection.equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
             console.log("INSIDE COLLECTION");
             stickerCollection = collection;
-
+            files.forEach(function (file) {
                 //TODO update originalname to originalName
                 var fullName = name;
                 var stickerName = fullName.substring(0, fullName.length - 4);
@@ -862,7 +862,7 @@ app.post('/upload-file', function(req,res){
 
                 // stickerDetails.push(sticker);
                 // fileDetails.push(files);  
-          
+          });
             console.log("STICKER DETAILS "+JSON.stringify(sticker));
             console.log("SAVE ALL OBJECTS AND FILE");
             return Parse.Object.saveAll(sticker);
