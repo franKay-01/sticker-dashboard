@@ -835,7 +835,7 @@ app.post('/upload-file', function (req, res) {
         collection.equalTo("objectId", coll_id)
             .first({sessionToken: token})
             .then(function (collection) {
-
+                console.log("ABOUT tO CREATE PARSEFILE");
                 stickerCollection = collection;
                 if (mimeType == "jpg" || mimeType == "jpeg"){
                     var parseFile =  new Parse.File(name, { base64: bitmap }, jpeg );
