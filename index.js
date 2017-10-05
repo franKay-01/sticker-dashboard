@@ -837,9 +837,9 @@ app.post('/upload-file', function (req, res) {
 
                 stickerCollection = collection;
                 if (mimeType == "jpg" || mimeType == "jpeg"){
-                    var parseFile =  new Parse.File(name, bitmap, jpeg );
+                    var parseFile =  new Parse.File(name, { base64: bitmap }, jpeg );
                 }else if (mimeType == "png"){
-                    var parseFile =  new Parse.File(name, bitmap, png );
+                    var parseFile =  new Parse.File(name, { base64: bitmap }, png );
                 }
                 console.log("LOG BEFORE RETURNING PARSEFILE");
                 console.log("PARSEFILE "+JSON.stringify(parseFile));
