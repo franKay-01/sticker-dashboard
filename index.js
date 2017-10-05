@@ -808,10 +808,6 @@ app.post('/upload-file', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = req.body.coll_id;
-    var mimeType = req.body.file;
-    var jpeg = "image/jpeg";
-    var png = "image/png";
-    console.log("MIME "+ mimeType);
     var stickerCollection;
 
     if (session && token) {
@@ -835,15 +831,9 @@ app.post('/upload-file', function (req, res) {
         collection.equalTo("objectId", coll_id)
             .first({sessionToken: token})
             .then(function (collection) {
-                console.log("ABOUT tO CREATE PARSEFILE");
+
                 stickerCollection = collection;
-                if (mimeType == "jpg" || mimeType == "jpeg"){
-                    var parseFile =  new Parse.File(name, { base64: bitmap }, jpeg );
-                    console.log("PARSEFILE " +parseFile);
-                }else if (mimeType == "png"){
-                    var parseFile =  new Parse.File(name, { base64: bitmap }, png );
-                    console.log("PARSEFILE " +parseFile);
-                }
+                var parseFile =  new Parse.File(name, bitmap);
                 console.log("LOG BEFORE RETURNING PARSEFILE");
                 console.log("PARSEFILE "+JSON.stringify(parseFile));
                 return parseFile.save();
