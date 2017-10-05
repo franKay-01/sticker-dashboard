@@ -836,15 +836,15 @@ app.post('/upload-file', function (req, res) {
                 var parseFile =  new Parse.File(name, bitmap);
                 console.log("LOG BEFORE RETURNING PARSEFILE");
                 console.log("PARSEFILE "+JSON.stringify(parseFile));
-            //     return parseFile.save();
+                return parseFile.save();
 
-            // }).then(function (file) {
+            }).then(function (file) {
 
             var Sticker = new Parse.Object.extend("Sticker");
             var sticker = new Sticker();
             sticker.set("stickerName", name);
             sticker.set("localName", name);
-            sticker.set("uri", parseFile);
+            sticker.set("uri", file);
             sticker.set("stickerPhraseImage", "");
             sticker.set("parent", stickerCollection);
             console.log("LOG BEFORE SAVING STICKER");
