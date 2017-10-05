@@ -835,6 +835,7 @@ app.post('/upload-file', function (req, res) {
 
                 stickerCollection = collection;
                 var parseFile = new Parse.File(name, bitmap);
+                console.log("LOG BEFORE RETURNING PARSEFILE");
                 return parseFile.save();
 
             }).then(function (file) {
@@ -846,14 +847,14 @@ app.post('/upload-file', function (req, res) {
             sticker.set("uri", file);
             sticker.set("stickerPhraseImage", "");
             sticker.set("parent", stickerCollection);
-
+            console.log("LOG BEFORE SAVING STICKER");
             return sticker.save();
 
         }).then(function (sticker) {
 
             var collection_relation = stickerCollection.relation("Collection");
             collection_relation.add(sticker);
-
+            console.log("LOG BEFORE SAVING STICKERCOLLECTION");
             return stickerCollection.save();
 
         }).then(function () {
