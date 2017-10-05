@@ -811,6 +811,7 @@ app.post('/upload-file', function (req, res) {
     var mimeType = req.body.file;
     var jpeg = "image/jpeg";
     var png = "image/png";
+    console.log("MIME "+ mimeType);
     var stickerCollection;
 
     if (session && token) {
