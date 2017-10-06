@@ -818,8 +818,10 @@ app.post('/upload-file', function (req, res) {
         type = type.toLowerCase();
         if (type == 'jpg') {
             mimetype = jpeg;
+            console.log("MIMETYPE WAS SET TO JPEG");
         }else if (type == 'png') {
             mimetype = png;
+            console.log("MIMETYPE WAS SET TO PNG");
         }
         name = req.body.fileName;
         fileUrl = req.body.fileUrl; // receive url from form
