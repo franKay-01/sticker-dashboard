@@ -809,7 +809,7 @@ app.post('/upload-file', function (req, res) {
     var token = req.cookies.token;
     var coll_id = req.body.coll_id;
     var stickerCollection;
-    var jpeg = "image/jpg";
+    var jpeg = "image/jpeg";
     var png = "image/png";
     var mimetype;
 
