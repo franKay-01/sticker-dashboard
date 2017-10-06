@@ -809,9 +809,17 @@ app.post('/upload-file', function (req, res) {
     var token = req.cookies.token;
     var coll_id = req.body.coll_id;
     var stickerCollection;
+    var jpeg = "image/jpg";
+    var png = "image/png";
+    var mimetype;
 
     if (session && token) {
-
+        var type = req.body.file;
+        if (type == 'jpg') {
+            mimetype = jpeg;
+        }else if (type == 'png') {
+            mimetype = png;
+        }
         name = req.body.fileName;
         fileUrl = req.body.fileUrl; // receive url from form
         name = name.substring(0, name.length - 4);
@@ -833,7 +841,7 @@ app.post('/upload-file', function (req, res) {
             .then(function (collection) {
 
                 stickerCollection = collection;
-                var parseFile =  new Parse.File(name, bitmap);
+                var parseFile =  new Parse.File(name, bitmap, mimetype);
                 console.log("LOG BEFORE RETURNING PARSEFILE");
                 console.log("PARSEFILE "+JSON.stringify(parseFile));
                 return parseFile.save();
