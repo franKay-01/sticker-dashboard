@@ -815,6 +815,7 @@ app.post('/upload-file', function (req, res) {
 
     if (session && token) {
         var type = req.body.file;
+        type = type.toLowerCase();
         if (type == 'jpg') {
             mimetype = jpeg;
         }else if (type == 'png') {
