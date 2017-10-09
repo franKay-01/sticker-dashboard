@@ -849,9 +849,7 @@ app.post('/upload-file', function (req, res) {
                 var parseFile =  new Parse.File(name, bitmap, mimetype);
                 console.log("LOG BEFORE RETURNING PARSEFILE");
                 console.log("PARSEFILE "+JSON.stringify(parseFile));
-                var promise = parseFile.save();
-                console.log("PROMISE "+ JSON.stringify(promise));
-                return promise;
+                return parseFile.save();
 
             }).then(function (file) {
                 console.log("FILE PASSED "+JSON.stringify(file));
