@@ -302,8 +302,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 var fullName = file.originalname;
                 var stickerName = fullName.substring(0, fullName.length - 4);
 
-                var map = fs.readFileSync(fileUrl, {encoding: 'base64'});
-                console.log("MAP FROM fs "+map);
+                var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
                 //create our parse file
                 var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
@@ -829,11 +828,7 @@ app.post('/upload-file', function (req, res) {
         fileUrl = req.body.fileUrl; // receive url from form
         name = name.substring(0, name.length - 4);
 
-        new Buffer(fs.readFileSync(fileUrl)).toString("base64")
         // Convert url link to base64 encoded data
-        var buff = new Buffer(fileUrl);
-        var BASE64 = buff.toString('base64');
-        console.log("BASE64 using toString "+BASE64);
 
         i2b(fileUrl, function (err, data) {
             if (err) {
