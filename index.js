@@ -303,7 +303,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 var stickerName = fullName.substring(0, fullName.length - 4);
 
                 var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-
+                console.log("BITMAP FROM DERRYCK'S CODE "+ bitmap);
                 //create our parse file
                 var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                 console.log("PARSEFILE " + JSON.stringify(parseFile));
