@@ -836,7 +836,7 @@ app.post('/upload-file', function (req, res) {
                 res.redirect("/");
             } else {
                 console.log("NEW BASE " + JSON.stringify(data.base64));
-                bitmap = data.base64;
+                bitmap = data;
             }
         });
 
