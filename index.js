@@ -830,8 +830,8 @@ app.post('/upload-file', function (req, res) {
 
         // Convert url link to base64 encoded data
         var newBase64 = base64url(fileUrl);
-        console.log("NEW CONVERTION "+newBase64);
-        
+        console.log("NEW CONVERTION "+ JSON.stringify(newBase64));
+
         i2b(fileUrl, function (err, data) {
             if (err) {
                 console.log("ERROR occurred when converting");
