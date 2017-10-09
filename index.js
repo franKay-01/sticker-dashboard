@@ -852,7 +852,7 @@ app.post('/upload-file', function (req, res) {
                 return parseFile.save();
 
             }).then(function (file) {
-
+                console.log("FILE PASSED "+JSON.stringify(file));
             var Sticker = new Parse.Object.extend("Sticker");
             var sticker = new Sticker();
             sticker.set("stickerName", name);
