@@ -832,10 +832,6 @@ app.post('/upload-file', function (req, res) {
         var BASE64 = fileUrl.toString('base64');
         console.log("BASE64 using toString "+BASE64);
 
-        base64Img.requestBase64(fileUrl, function(err, res, body) {
-            console.log("BASE64 FROM BASE_IMG "+JSON.stringify(body));
-        });
-
         i2b(fileUrl, function (err, data) {
             if (err) {
                 console.log("ERROR occurred when converting");
