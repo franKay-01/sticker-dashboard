@@ -832,9 +832,9 @@ app.post('/upload-file', function (req, res) {
         // Convert url link to base64 encoded data
 
         fetch.remote(fileUrl).then((data) => {
-          console.log("BASE64 FROM FETCH "+data); 
+          console.log("BASE64 FROM FETCH "+JSON.stringify(data)); 
         }).catch((reason) => {
-            console.log(reason);
+            console.log(JSON.stringify(reason));
         });
 
 
