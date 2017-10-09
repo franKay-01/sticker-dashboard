@@ -16,6 +16,8 @@ var methodOverride = require('method-override');
 var multipart = require('multipart');
 var i2b = require("imageurl-base64");
 var base64url = require('base64url');
+var base64Img = require('base64-img');
+
 // var busboy = require('connect-busboy');
 
 
@@ -829,8 +831,10 @@ app.post('/upload-file', function (req, res) {
         name = name.substring(0, name.length - 4);
 
         // Convert url link to base64 encoded data
-        var newBase64 = base64url(fileUrl);
-        console.log("NEW CONVERTION "+ JSON.stringify(newBase64));
+
+        base64Img.requestBase64(fileUrl, function(err, res, body) {
+            console.log("BASE64 FROM BASE_IMG "+JSON.stringify(body));
+        });
 
         i2b(fileUrl, function (err, data) {
             if (err) {
