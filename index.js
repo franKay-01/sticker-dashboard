@@ -304,7 +304,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 var map = fs.readFileSync(fileUrl, {encoding: 'base64'});
                 console.log("MAP FROM fs "+map);
-                
+
                 //create our parse file
                 var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                 console.log("PARSEFILE " + JSON.stringify(parseFile));
@@ -829,7 +829,7 @@ app.post('/upload-file', function (req, res) {
         fileUrl = req.body.fileUrl; // receive url from form
         name = name.substring(0, name.length - 4);
 
-        new Buffer(fs.readFileSync(req.files[i].path)).toString("base64")
+        new Buffer(fs.readFileSync(fileUrl)).toString("base64")
         // Convert url link to base64 encoded data
         var buff = new Buffer(fileUrl);
         var BASE64 = buff.toString('base64');
