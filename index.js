@@ -829,7 +829,8 @@ app.post('/upload-file', function (req, res) {
         name = name.substring(0, name.length - 4);
 
         // Convert url link to base64 encoded data
-        var BASE64 = fileUrl.toString('base64');
+        var buff = new Buffer(fileUrl);
+        var BASE64 = buff.toString('base64');
         console.log("BASE64 using toString "+BASE64);
 
         i2b(fileUrl, function (err, data) {
