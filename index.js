@@ -831,13 +831,15 @@ app.post('/upload-file', function (req, res) {
 
         // Convert url link to base64 encoded data
 
-        fetch.remote(fileUrl, function(err, data){
-            if (err) {
-                console.log(JSON.stringify(err));
-            }else{
-                 console.log("BASE64 FROM FETCH "+JSON.stringify(data));
-            } 
+        fetch.remote(fileUrl).then((data) => {
+          console.log("BASE64 FROM FETCH "+JSON.stringify(data)); 
+        }).catch((reason) => {
+            console.log(JSON.stringify(reason));
+        });
 
+
+        base64Img.requestBase64(fileUrl, function(err, res, body) {
+            console.log("BASE64 FROM BASE_IMG "+JSON.stringify(body));
         });
 
         i2b(fileUrl, function (err, data) {
