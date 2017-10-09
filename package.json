@@ -9,8 +9,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "base64-img": "^1.0.3",
-    "base64url": "^2.0.0",
     "body-parser": "^1.17.2",
     "busboy": "^0.2.14",
     "cookie-parser": "^1.4.3",
@@ -19,7 +17,6 @@
     "crypto": "0.0.3",
     "ejs": "^2.5.6",
     "express": "~4.11.x",
-    "fetch-base64": "^2.0.0",
     "fine-uploader": "^5.14.5",
     "imageurl-base64": "*",
     "kerberos": "~0.0.x",
