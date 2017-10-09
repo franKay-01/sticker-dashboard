@@ -303,7 +303,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 var stickerName = fullName.substring(0, fullName.length - 4);
 
                 var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-                console.log("BITMAP FROM DERRYCK'S CODE "+ JSON.stringify(bitmap));
+                console.log("BITMAP FROM DERRYCK'S CODE " + JSON.stringify(bitmap));
                 //create our parse file
                 var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                 console.log("PARSEFILE " + JSON.stringify(parseFile));
@@ -820,7 +820,7 @@ app.post('/upload-file', function (req, res) {
         if (type == 'jpg') {
             mimetype = jpeg;
             console.log("MIMETYPE WAS SET TO JPEG");
-        }else if (type == 'png') {
+        } else if (type == 'png') {
             mimetype = png;
             console.log("MIMETYPE WAS SET TO PNG");
         }
@@ -846,24 +846,21 @@ app.post('/upload-file', function (req, res) {
             .then(function (collection) {
 
                 stickerCollection = collection;
-                var parseFile =  new Parse.File(name, bitmap, mimetype);
-                console.log("LOG BEFORE RETURNING PARSEFILE");
-                console.log("PARSEFILE "+JSON.stringify(parseFile));
-                return parseFile.save();
+                var parseFile = new Parse.File(name, bitmap, mimetype);
+                console.log("FILE PASSED " + JSON.stringify(file));
+                var Sticker = new Parse.Object.extend("Sticker");
+                var sticker = new Sticker();
+                sticker.set("stickerName", name);
+                sticker.set("localName", name);
+                sticker.set("uri", parseFile);
+                sticker.set("stickerPhraseImage", "");
+                sticker.set("parent", collection);
 
-            }).then(function (file) {
-                console.log("FILE PASSED "+JSON.stringify(file));
-            var Sticker = new Parse.Object.extend("Sticker");
-            var sticker = new Sticker();
-            sticker.set("stickerName", name);
-            sticker.set("localName", name);
-            sticker.set("uri", file);
-            sticker.set("stickerPhraseImage", "");
-            sticker.set("parent", stickerCollection);
-            console.log("LOG BEFORE SAVING STICKER");
-            return sticker.save();
+                console.log("LOG BEFORE SAVING STICKER");
+                return sticker.save();
 
-        }).then(function (sticker) {
+
+            }).then(function (sticker) {
 
             var collection_relation = stickerCollection.relation("Collection");
             collection_relation.add(sticker);
