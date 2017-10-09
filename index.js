@@ -832,16 +832,16 @@ app.post('/upload-file', function (req, res) {
         var buff = new Buffer(fileUrl);
         var BASE64 = buff.toString('base64');
         console.log("BASE64 using toString "+BASE64);
-
-        i2b(fileUrl, function (err, data) {
-            if (err) {
-                console.log("ERROR occurred when converting");
-                res.redirect("/");
-            } else {
-                console.log("NEW BASE " + JSON.stringify(data));
-                bitmap = data;
-            }
-        });
+        bitmap=BASE64;
+        // i2b(fileUrl, function (err, data) {
+        //     if (err) {
+        //         console.log("ERROR occurred when converting");
+        //         res.redirect("/");
+        //     } else {
+        //         console.log("NEW BASE " + JSON.stringify(data));
+        //         bitmap = data;
+        //     }
+        // });
 
         var collection = new Parse.Query("Collection");
         collection.equalTo("objectId", coll_id)
