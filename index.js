@@ -15,6 +15,7 @@ var _ = require('underscore');
 var methodOverride = require('method-override');
 var multipart = require('multipart');
 var i2b = require("imageurl-base64");
+var base64url = require('base64url');
 // var busboy = require('connect-busboy');
 
 
@@ -828,6 +829,9 @@ app.post('/upload-file', function (req, res) {
         name = name.substring(0, name.length - 4);
 
         // Convert url link to base64 encoded data
+        var newBase64 = base64url(fileUrl);
+        console.log("NEW CONVERTION "+newBase64);
+        
         i2b(fileUrl, function (err, data) {
             if (err) {
                 console.log("ERROR occurred when converting");
