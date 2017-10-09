@@ -817,10 +817,10 @@ app.post('/upload-file', function (req, res) {
     if (session && token) {
         var type = req.body.file;
         type = type.toLowerCase();
-        if (type == 'jpg') {
+        if (type === 'jpg') {
             mimetype = jpeg;
             console.log("MIMETYPE WAS SET TO JPEG");
-        } else if (type == 'png') {
+        } else if (type === 'png') {
             mimetype = png;
             console.log("MIMETYPE WAS SET TO PNG");
         }
@@ -847,7 +847,7 @@ app.post('/upload-file', function (req, res) {
 
                 stickerCollection = collection;
                 var parseFile = new Parse.File(name, bitmap, mimetype);
-                console.log("FILE PASSED " + JSON.stringify(file));
+                // console.log("FILE PASSED " + JSON.stringify(file));
                 var Sticker = new Parse.Object.extend("Sticker");
                 var sticker = new Sticker();
                 sticker.set("stickerName", name);
