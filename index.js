@@ -835,7 +835,7 @@ app.post('/upload-file', function (req, res) {
                 console.log("ERROR occurred when converting");
                 res.redirect("/");
             } else {
-                console.log("NEW BASE " + JSON.stringify(data));
+                console.log("NEW BASE " + JSON.stringify(data.base64));
                 bitmap = data;
             }
         });
