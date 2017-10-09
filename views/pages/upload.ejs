@@ -48,6 +48,12 @@
       alert(name);
       var source = file.thumbnailLink;
       var type = name.substr(name.length - 3);
+
+      jQuery.getJSON('//image2datauri.jit.su?cb=?', {
+        url: source
+      }, function(data) {
+          alert(data);
+      });
       // alert("This is the type: "+type);
       document.getElementById('fileUrl').value = source;
       document.getElementById('fileName').value = name;
