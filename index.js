@@ -857,7 +857,7 @@ app.post('/upload-file', function (req, res) {
                 sticker.set("parent", collection);
 
                 console.log("LOG BEFORE SAVING STICKER");
-                console.log("STICKER "+JSON.stringify(sticker));
+                
                 return sticker.save();
 
 
