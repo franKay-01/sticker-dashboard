@@ -47,6 +47,8 @@
       var name = file.name;
       alert(name);
       var source = file.link;
+      var base64 = btoa(source);
+      alert(base64);
       var type = name.substr(name.length - 3);
       // btoa();
      
