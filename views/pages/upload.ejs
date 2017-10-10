@@ -48,12 +48,12 @@
       alert(name);
       var source = file.link;
       var base64 = window.btoa(source);
-      alert(base64);
+      alert(source);
       var type = name.substr(name.length - 3);
       // btoa();
      
       // alert("This is the type: "+type);
-      document.getElementById('fileUrl').value = source;
+      document.getElementById('fileUrl').value = base64;
       document.getElementById('fileName').value = name;
       document.getElementById('fileType').value = type;
     }
