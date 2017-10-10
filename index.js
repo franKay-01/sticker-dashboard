@@ -846,7 +846,7 @@ app.post('/upload-file', function (req, res) {
             .then(function (collection) {
 
                 stickerCollection = collection;
-                var parseFile = new Parse.File(name, bitmap);
+                var parseFile = new Parse.File(name, bitmap, mimetype);
                 // console.log("FILE PASSED " + JSON.stringify(file));
                 var Sticker = new Parse.Object.extend("Sticker");
                 var sticker = new Sticker();
