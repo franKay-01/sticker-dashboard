@@ -306,7 +306,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 console.log("BITMAP FROM DERRYCK'S CODE " + JSON.stringify(bitmap));
                 //create our parse file
                 var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                console.log("PARSEFILE " + JSON.stringify(parseFile));
+                console.log("PARSEFILE " + JSON.stringify(parseFile)+ " name "+stickerName+" collection "+JSON.stringify(collection));
                 var Sticker = new Parse.Object.extend("Sticker");
                 var sticker = new Sticker();
                 sticker.set("stickerName", stickerName);
