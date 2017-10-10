@@ -825,20 +825,20 @@ app.post('/upload-file', function (req, res) {
             console.log("MIMETYPE WAS SET TO PNG");
         }
         name = req.body.fileName;
-        fileUrl = req.body.fileUrl; // receive url from form
+        // fileUrl = req.body.fileUrl; // receive url from form
         name = name.substring(0, name.length - 4);
-
+        bitmap = req.body.fileUrl;
         // Convert url link to base64 encoded data
 
-        i2b(fileUrl, function (err, data) {
-            if (err) {
-                console.log("ERROR occurred when converting");
-                res.redirect("/");
-            } else {
-                console.log("NEW BASE " + JSON.stringify(data.base64));
-                bitmap = data;
-            }
-        });
+        // i2b(fileUrl, function (err, data) {
+        //     if (err) {
+        //         console.log("ERROR occurred when converting");
+        //         res.redirect("/");
+        //     } else {
+        //         console.log("NEW BASE " + JSON.stringify(data.base64));
+        //         bitmap = data;
+        //     }
+        // });
 
         var collection = new Parse.Query("Collection");
         collection.equalTo("objectId", coll_id)
