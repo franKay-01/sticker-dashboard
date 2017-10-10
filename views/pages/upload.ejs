@@ -45,15 +45,13 @@
     function add_img_to_list(file) {
       //TODO try link instead of thumbnailLink
       var name = file.name;
-      // alert(name);
+      alert(name);
       var source = file.link;
-      var base64 = window.btoa(source);
-      alert(base64);
       var type = name.substr(name.length - 3);
       // btoa();
      
       // alert("This is the type: "+type);
-      document.getElementById('fileUrl').value = base64;
+      document.getElementById('fileUrl').value = source;
       document.getElementById('fileName').value = name;
       document.getElementById('fileType').value = type;
     }
