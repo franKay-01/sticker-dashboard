@@ -863,7 +863,7 @@ app.post('/upload-file', function (req, res) {
 
 
             }).then(function (sticker) {
-
+            console.log("STICKER FROM PARSEFILE "+JSON.stringify(sticker));
             var collection_relation = stickerCollection.relation("Collection");
             collection_relation.add(sticker);
             console.log("LOG BEFORE SAVING STICKERCOLLECTION");
