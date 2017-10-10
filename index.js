@@ -855,7 +855,7 @@ app.post('/upload-file', function (req, res) {
                 sticker.set("uri", parseFile);
                 sticker.set("stickerPhraseImage", "");
                 sticker.set("parent", collection);
-
+                console.log(JSON.stringify(sticker));
                 console.log("LOG BEFORE SAVING STICKER");
                 return sticker.save();
 
