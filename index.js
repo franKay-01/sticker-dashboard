@@ -875,7 +875,7 @@ app.post('/upload-file', function (req, res) {
             res.redirect("/");
 
         }, function (error) {
-            console.log("BIG BIG ERROR" + error.message + " ERROR CODE " + error.code);
+            console.log("BIG BIG ERROR" + JSON.stringify(error));
             res.redirect("/");
         });
 
