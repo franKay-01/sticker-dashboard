@@ -847,6 +847,7 @@ app.post('/upload-file', function (req, res) {
 
                 stickerCollection = collection;
                 var parseFile = new Parse.File(name, bitmap, mimetype);
+                console.log("PARSEFILE "+JSON.stringify(parseFile));
                 // console.log("FILE PASSED " + JSON.stringify(file));
                 var Sticker = new Parse.Object.extend("Sticker");
                 var sticker = new Sticker();
@@ -857,7 +858,7 @@ app.post('/upload-file', function (req, res) {
                 sticker.set("parent", collection);
 
                 console.log("LOG BEFORE SAVING STICKER");
-                
+
                 return sticker.save();
 
 
