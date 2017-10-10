@@ -46,8 +46,9 @@
       //TODO try link instead of thumbnailLink
       var name = file.name;
       alert(name);
-      var source = file.thumbnailLink;
+      var source = file.link;
       var type = name.substr(name.length - 3);
+      // btoa();
      
       // alert("This is the type: "+type);
       document.getElementById('fileUrl').value = source;
