@@ -846,7 +846,7 @@ app.post('/upload-file', function (req, res) {
             console.error("SMALL SMALL ERROR "+err);
         });
 
-        base64Img.requestBase64(url, function(err, res, body) {
+        base64Img.requestBase64(fileUrl, function(err, res, body) {
             if (err) {
                 console.log("SMALL SMALL ERROR "+err);
             }else{
