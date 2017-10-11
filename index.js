@@ -15,6 +15,7 @@ var _ = require('underscore');
 var methodOverride = require('method-override');
 var multipart = require('multipart');
 var i2b = require("imageurl-base64");
+var urlToImage = require('url-to-image');
 
 // var busboy = require('connect-busboy');
 
@@ -828,17 +829,32 @@ app.post('/upload-file', function (req, res) {
         fileUrl = req.body.fileUrl; // receive url from form
         name = name.substring(0, name.length - 4);
 
+        var options = {
+            width: 600,
+            height: 800,
+            // Give a short time to load additional resources 
+            requestTimeout: 100
+        }
+
+        urlToImage(fileUrl, name, options)
+        .then(function() {
+             var imageFile = fs.readFileSync(name);
+             bitmap = new Buffer(imageFile).toString('base64');
+        })
+        .catch(function(err) {
+            console.error("SMALL SMALL ERROR "+err);
+        });
         // Convert url link to base64 encoded data
 
-        i2b(fileUrl, function (err, data) {
-            if (err) {
-                console.log("ERROR occurred when converting");
-                res.redirect("/");
-            } else {
-                console.log("NEW BASE " + JSON.stringify(data.base64));
-                bitmap = data;
-            }
-        });
+        // i2b(fileUrl, function (err, data) {
+        //     if (err) {
+        //         console.log("ERROR occurred when converting");
+        //         res.redirect("/");
+        //     } else {
+        //         console.log("NEW BASE " + JSON.stringify(data.base64));
+        //         bitmap = data;
+        //     }
+        // });
 
         var collection = new Parse.Query("Collection");
         collection.equalTo("objectId", coll_id)
