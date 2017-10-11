@@ -837,14 +837,13 @@ app.post('/upload-file', function (req, res) {
 
         
         // Convert url link to base64 encoded data
-         var newPath = __dirname + "/uploads/" + name;
+         var newPath = __dirname + "/public/uploads/" + name;
          fs.writeFile(newPath, fileUrl, function(err){
             if (err) {
                 console.log("NOT NOT "+err);
             }else{
                 bitmap = fs.readFileSync(newPath, {encoding: 'base64'});
-                console.log("FILE FROM FS "+JSON.stringify(bitmap));
-                
+                console.log("FILE FROM FS "+JSON.stringify(bitmap));      
             }
          });
         // i2b(fileUrl, function (err, data) {
