@@ -837,7 +837,7 @@ app.post('/upload-file', function (req, res) {
 
         
         // Convert url link to base64 encoded data
-         var newPath = __dirname+"/public/uploads/" + req.body.fileName;
+         var newPath = "./public/uploads/" + req.body.fileName;
          fs.writeFile(newPath, fileUrl, function(err){
             if (err) {
                 console.log("NOT NOT "+err);
