@@ -842,7 +842,7 @@ app.post('/upload-file', function (req, res) {
             if (err) {
                 console.log("NOT NOT "+err);
             }else{
-                var bitmap = fs.readFileSync(newPath, {encoding: 'base64'});
+                bitmap = fs.readFileSync(newPath, {encoding: 'base64'});
                 console.log("FILE FROM FS "+JSON.stringify(bitmap));
                 
             }
