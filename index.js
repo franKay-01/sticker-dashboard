@@ -838,7 +838,7 @@ app.post('/upload-file', function (req, res) {
 
         urlToImage(fileUrl, name, options)
         .then(function() {
-             console.log("IMAGE "+JSON.stringify(name));
+             console.log("IMAGE FROM URLTOIMAGE"+JSON.stringify(name));
         })
         .catch(function(err) {
             console.error("SMALL SMALL ERROR "+err);
