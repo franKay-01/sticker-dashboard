@@ -842,7 +842,9 @@ app.post('/upload-file', function (req, res) {
             if (err) {
                 console.log("NOT NOT "+err);
             }else{
-                res.redirect("/uploads/" + name);
+                fs.readFile(newPath, function (err, data) {
+                    console.log("FILE FROM FS "+JSON.stringify(data));
+                });
             }
          });
         // i2b(fileUrl, function (err, data) {
