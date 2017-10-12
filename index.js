@@ -15,7 +15,7 @@ var _ = require('underscore');
 var methodOverride = require('method-override');
 var multipart = require('multipart');
 var i2b = require("imageurl-base64");
-var urlToImage = require('url-to-image');
+// var urlToImage = require('url-to-image');
 
 // var busboy = require('connect-busboy');
 
@@ -842,11 +842,7 @@ app.post('/upload-file', function (req, res) {
                 res.redirect("/");
             } else {
                 console.log("NEW BASE " + JSON.stringify(data.base64));
-                bit = data;
-            }
-        });
-
-        bit = bit.split(':base64,').pop();
+                bit = data.split(':base64,').pop();
         // Convert url link to base64 encoded data
          var newPath = "./public/uploads/" + req.body.fileName;
          fs.writeFile(newPath, bit, {encoding: 'base64'}, function(err){
@@ -858,6 +854,10 @@ app.post('/upload-file', function (req, res) {
                 console.log("IMAGE CREATED BY SPLIT");      
             }
          });
+            }
+        });
+
+
         
 
         var collection = new Parse.Query("Collection");
