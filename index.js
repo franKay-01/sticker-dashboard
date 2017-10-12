@@ -835,38 +835,30 @@ app.post('/upload-file', function (req, res) {
             // Give a short time to load additional resources 
             requestTimeout: 100
         }
-
-        var newPath = "./public/uploads/" + req.body.fileName;
-
-        urlToImage('fileUrl', newPath, options)
-        .then(function() {
-            bitmap = fs.readFileSync(newPath, {encoding: 'base64'});
-            console.log("FILE FROM URLTOIMAGE "+JSON.stringify(bitmap));
-        })
-        .catch(function(err) {
-            console.error(err);
+        var bit;
+        i2b(fileUrl, function (err, data) {
+            if (err) {
+                console.log("ERROR occurred when converting");
+                res.redirect("/");
+            } else {
+                console.log("NEW BASE " + JSON.stringify(data.base64));
+                bit = data;
+            }
         });
 
-
+        bit = bit.split(':base64,').pop();
         // Convert url link to base64 encoded data
-         
-         fs.writeFile(newPath, fileUrl, function(err){
+         var newPath = "./public/uploads/" + req.body.fileName;
+         fs.writeFile(newPath, bit, {encoding: 'base64'}, function(err){
             if (err) {
                 console.log("NOT NOT "+err);
             }else{
-                bitmap = fs.readFileSync(newPath, {encoding: 'base64'});
-                console.log("FILE FROM FS "+JSON.stringify(bitmap));      
+                // bitmap = fs.readFileSync(newPath, {encoding: 'base64'});
+                // console.log("FILE FROM FS "+JSON.stringify(bitmap));
+                console.log("IMAGE CREATED BY SPLIT");      
             }
          });
-        // i2b(fileUrl, function (err, data) {
-        //     if (err) {
-        //         console.log("ERROR occurred when converting");
-        //         res.redirect("/");
-        //     } else {
-        //         console.log("NEW BASE " + JSON.stringify(data.base64));
-        //         bitmap = data;
-        //     }
-        // });
+        
 
         var collection = new Parse.Query("Collection");
         collection.equalTo("objectId", coll_id)
