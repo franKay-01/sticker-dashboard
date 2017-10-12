@@ -842,6 +842,7 @@ app.post('/upload-file', function (req, res) {
                 res.redirect("/");
             } else {
                 console.log("NEW BASE " + JSON.stringify(data.base64));
+                data = data + '';
                 bit = data.split(':base64,').pop();
         // Convert url link to base64 encoded data
          var newPath = "./public/uploads/" + req.body.fileName;
