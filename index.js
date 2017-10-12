@@ -832,14 +832,14 @@ app.post('/upload-file', function (req, res) {
 
         var options = {
              url: fileUrl,
-             dest: '/public/uploads' 
+             dest: __dirname+'/public/uploads' 
         }
         
         download.image(options)
           .then(({ filename, image }) => {
-            console.log('File saved to', filename)
+            console.log('FILE SAVED TO ', filename);
           }).catch((err) => {
-            throw err
+            throw err;
           });
 
         i2b(fileUrl, function (err, data) {
