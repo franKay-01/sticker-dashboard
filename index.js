@@ -838,15 +838,6 @@ app.post('/upload-file', function (req, res) {
         download.image(options)
           .then(({ filename, image }) => {
             console.log('FILE SAVED TO ', filename);
-            fs.readFile(newPath, function(err, data){
-            if (err) {
-                console.log("NOT NOT "+err);
-            }else{
-                // bitmap = fs.readFileSync(newPath, {encoding: 'base64'});
-                // console.log("FILE FROM FS "+JSON.stringify(bitmap));
-                console.log("DATA PULLED FROM FILE "+JSON.stringify(data));      
-            }
-            });
           }).catch((err) => {
             throw err;
           });
@@ -860,11 +851,20 @@ app.post('/upload-file', function (req, res) {
     
         // Convert url link to base64 encoded data
          // var newPath = __dirname + "/public/uploads/" + req.body.fileName;
-         
+         // fs.readFile(newPath, function(err, data){
+         //    if (err) {
+         //        console.log("NOT NOT "+err);
+         //    }else{
+         //        // bitmap = fs.readFileSync(newPath, {encoding: 'base64'});
+         //        // console.log("FILE FROM FS "+JSON.stringify(bitmap));
+         //        console.log(JSON.stringify(data));      
+         //    }
+         // });
         //     }
         // });
-        var image = fs.readFile(__dirname + '/public/uploads/'+req.body.fileName);
-        console.log("IMAGE PULLED FROM FILE "+JSON.stringify(image));        
+
+
+        
 
         var collection = new Parse.Query("Collection");
         collection.equalTo("objectId", coll_id)
