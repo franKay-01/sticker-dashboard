@@ -843,12 +843,50 @@ app.post('/upload-file', function (req, res) {
                 console.log("NOT NOT "+err);
             }else{
                 bitmap = new Buffer(data).toString('base64');
-                // console.log("BASE64 FROM FILE IN FOLDER"+JSON.stringify(base64data));      
-             }
-            });
-          }).catch((err) => {
-            throw err;
-          });
+                // console.log("BASE64 FROM FILE IN FOLDER"+JSON.stringify(base64data));  
+                var collection = new Parse.Query("Collection");
+            collection.equalTo("objectId", coll_id)
+                .first({sessionToken: token})
+                .then(function (collection) {
+                    console.log("BITMAP PASSED BY FILE "+bitmap);
+                    stickerCollection = collection;
+                    var parseFile = new Parse.File(name, bitmap, mimetype);
+                    console.log("PARSEFILE "+JSON.stringify(parseFile)+ " name "+name+" collection "+JSON.stringify(collection));
+                    // console.log("FILE PASSED " + JSON.stringify(file));
+                    var Sticker = new Parse.Object.extend("Sticker");
+                    var sticker = new Sticker();
+                    sticker.set("stickerName", name);
+                    sticker.set("localName", name);
+                    sticker.set("uri", parseFile);
+                    sticker.set("stickerPhraseImage", "");
+                    sticker.set("parent", collection);
+
+                    console.log("LOG BEFORE SAVING STICKER");
+
+                    return sticker.save();
+
+
+                }).then(function (sticker) {
+                console.log("STICKER FROM PARSEFILE "+JSON.stringify(sticker));
+                var collection_relation = stickerCollection.relation("Collection");
+                collection_relation.add(sticker);
+                console.log("LOG BEFORE SAVING STICKERCOLLECTION");
+                return stickerCollection.save();
+
+            }).then(function () {
+
+                console.log("REDIRECT TO DASHBOARD");
+                res.redirect("/");
+
+            }, function (error) {
+                console.log("BIG BIG ERROR" + error.message);
+                res.redirect("/");
+            });    
+                 }
+                });
+              }).catch((err) => {
+                throw err;
+              });
 
         // i2b(fileUrl, function (err, data) {
         //     if (err) {
@@ -871,44 +909,7 @@ app.post('/upload-file', function (req, res) {
         //     }
         // });
 
-        var collection = new Parse.Query("Collection");
-        collection.equalTo("objectId", coll_id)
-            .first({sessionToken: token})
-            .then(function (collection) {
-                console.log("BITMAP PASSED BY FILE "+bitmap);
-                stickerCollection = collection;
-                var parseFile = new Parse.File(name, bitmap, mimetype);
-                console.log("PARSEFILE "+JSON.stringify(parseFile)+ " name "+name+" collection "+JSON.stringify(collection));
-                // console.log("FILE PASSED " + JSON.stringify(file));
-                var Sticker = new Parse.Object.extend("Sticker");
-                var sticker = new Sticker();
-                sticker.set("stickerName", name);
-                sticker.set("localName", name);
-                sticker.set("uri", parseFile);
-                sticker.set("stickerPhraseImage", "");
-                sticker.set("parent", collection);
-
-                console.log("LOG BEFORE SAVING STICKER");
-
-                return sticker.save();
-
-
-            }).then(function (sticker) {
-            console.log("STICKER FROM PARSEFILE "+JSON.stringify(sticker));
-            var collection_relation = stickerCollection.relation("Collection");
-            collection_relation.add(sticker);
-            console.log("LOG BEFORE SAVING STICKERCOLLECTION");
-            return stickerCollection.save();
-
-        }).then(function () {
-
-            console.log("REDIRECT TO DASHBOARD");
-            res.redirect("/");
-
-        }, function (error) {
-            console.log("BIG BIG ERROR" + error.message);
-            res.redirect("/");
-        });
+        
 
     } else {
 
