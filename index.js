@@ -838,6 +838,13 @@ app.post('/upload-file', function (req, res) {
         download.image(options)
           .then(({ filename, image }) => {
             console.log('FILE SAVED TO ', filename);
+            fs.readFile(filename, function(err, data){
+            if (err) {
+                console.log("NOT NOT "+err);
+            }else{
+                console.log(JSON.stringify(data));      
+             }
+            });
           }).catch((err) => {
             throw err;
           });
