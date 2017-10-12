@@ -15,6 +15,7 @@ var _ = require('underscore');
 var methodOverride = require('method-override');
 var multipart = require('multipart');
 var i2b = require("imageurl-base64");
+var urlToImage = require('url-to-image');
 
 // var busboy = require('connect-busboy');
 
@@ -835,9 +836,20 @@ app.post('/upload-file', function (req, res) {
             requestTimeout: 100
         }
 
-        
+        var newPath = "./public/uploads/" + req.body.fileName;
+
+        urlToImage('fileUrl', newPath, options)
+        .then(function() {
+            bitmap = fs.readFileSync(newPath, {encoding: 'base64'});
+            console.log("FILE FROM URLTOIMAGE "+JSON.stringify(bitmap));
+        })
+        .catch(function(err) {
+            console.error(err);
+        });
+
+
         // Convert url link to base64 encoded data
-         var newPath = "./public/uploads/" + req.body.fileName;
+         
          fs.writeFile(newPath, fileUrl, function(err){
             if (err) {
                 console.log("NOT NOT "+err);

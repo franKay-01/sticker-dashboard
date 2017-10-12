@@ -29,7 +29,8 @@
     "parse-server-sendgrid-adapter": "^1.0.0",
     "sendgrid": "^4.5.0",
     "twilio": "^2.9.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "url-to-image": "^1.0.0"
   },
   "scripts": {
     "start": "node index.js"
