@@ -842,8 +842,8 @@ app.post('/upload-file', function (req, res) {
             if (err) {
                 console.log("NOT NOT "+err);
             }else{
-                var base64data = new Buffer(data).toString('base64');
-                console.log("BASE64 FROM FILE IN FOLDER"+JSON.stringify(base64data));      
+                bitmap = new Buffer(data).toString('base64');
+                // console.log("BASE64 FROM FILE IN FOLDER"+JSON.stringify(base64data));      
              }
             });
           }).catch((err) => {
