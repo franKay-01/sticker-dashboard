@@ -843,7 +843,7 @@ app.post('/upload-file', function (req, res) {
                 console.log("NOT NOT "+err);
             }else{
                 var base64data = new Buffer(data).toString('base64');
-                console.log(JSON.stringify(base64data));      
+                console.log("BASE64 FROM FILE "+JSON.stringify(base64data));      
              }
             });
           }).catch((err) => {
