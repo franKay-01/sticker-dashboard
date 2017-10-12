@@ -838,6 +838,15 @@ app.post('/upload-file', function (req, res) {
         download.image(options)
           .then(({ filename, image }) => {
             console.log('FILE SAVED TO ', filename);
+            fs.readFile(newPath, function(err, data){
+            if (err) {
+                console.log("NOT NOT "+err);
+            }else{
+                // bitmap = fs.readFileSync(newPath, {encoding: 'base64'});
+                // console.log("FILE FROM FS "+JSON.stringify(bitmap));
+                console.log("DATA PULLED FROM FILE "+JSON.stringify(data));      
+            }
+            });
           }).catch((err) => {
             throw err;
           });
@@ -850,16 +859,8 @@ app.post('/upload-file', function (req, res) {
         //         console.log("NEW BASE " + JSON.stringify(data.base64));
     
         // Convert url link to base64 encoded data
-         var newPath = __dirname + "/public/uploads/" + req.body.fileName;
-         fs.readFile(newPath, function(err, data){
-            if (err) {
-                console.log("NOT NOT "+err);
-            }else{
-                // bitmap = fs.readFileSync(newPath, {encoding: 'base64'});
-                // console.log("FILE FROM FS "+JSON.stringify(bitmap));
-                console.log("DATA PULLED FROM FILE "+JSON.stringify(data));      
-            }
-         });
+         // var newPath = __dirname + "/public/uploads/" + req.body.fileName;
+         
         //     }
         // });
         var image = fs.readFile(__dirname + '/public/uploads/'+req.body.fileName);
