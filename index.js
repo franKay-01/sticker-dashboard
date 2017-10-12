@@ -15,6 +15,7 @@ var _ = require('underscore');
 var methodOverride = require('method-override');
 var multipart = require('multipart');
 var i2b = require("imageurl-base64");
+var download = require('image-downloader')
 // var urlToImage = require('url-to-image');
 
 // var busboy = require('connect-busboy');
@@ -830,20 +831,24 @@ app.post('/upload-file', function (req, res) {
         name = name.substring(0, name.length - 4);
 
         var options = {
-            width: 600,
-            height: 800,
-            // Give a short time to load additional resources 
-            requestTimeout: 100
+             url: fileUrl,
+             dest: '/public/uploads' 
         }
-        var bit;
+        
+        download.image(options)
+          .then(({ filename, image }) => {
+            console.log('File saved to', filename)
+          }).catch((err) => {
+            throw err
+          });
+
         i2b(fileUrl, function (err, data) {
             if (err) {
                 console.log("ERROR occurred when converting");
                 res.redirect("/");
             } else {
                 console.log("NEW BASE " + JSON.stringify(data.base64));
-               
-              
+    
         // Convert url link to base64 encoded data
          var newPath = __dirname + "/public/uploads/" + req.body.fileName;
          fs.writeFile(newPath, data, function(err){
