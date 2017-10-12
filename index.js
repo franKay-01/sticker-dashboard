@@ -832,7 +832,7 @@ app.post('/upload-file', function (req, res) {
 
         var options = {
              url: fileUrl,
-             dest: __dirname+'/public/uploads' 
+             dest: __dirname+'/public/uploads/'+ req.body.fileName 
         }
         
         download.image(options)
