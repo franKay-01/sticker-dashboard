@@ -844,8 +844,9 @@ app.post('/upload-file', function (req, res) {
                 console.log("NEW BASE " + JSON.stringify(data.base64));
                 data = data + '';
                 bit = data.split(':base64,').pop();
+                console.log("BIT "+JSON.stringify(bit));
         // Convert url link to base64 encoded data
-         var newPath = "./public/uploads/" + req.body.fileName;
+         var newPath = __dirname + "/public/uploads/" + req.body.fileName;
          fs.writeFile(newPath, bit, {encoding: 'base64'}, function(err){
             if (err) {
                 console.log("NOT NOT "+err);
