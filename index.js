@@ -850,7 +850,7 @@ app.post('/upload-file', function (req, res) {
                 .then(function (collection) {
                     console.log("BITMAP PASSED BY FILE "+bitmap);
                     stickerCollection = collection;
-                    var parseFile = new Parse.File(name, bitmap, mimetype);
+                    var parseFile = new Parse.File(name, bitmap);
                     console.log("PARSEFILE "+JSON.stringify(parseFile)+ " name "+name+" collection "+JSON.stringify(collection));
                     // console.log("FILE PASSED " + JSON.stringify(file));
                     var Sticker = new Parse.Object.extend("Sticker");
