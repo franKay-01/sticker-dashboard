@@ -838,14 +838,15 @@ app.post('/upload-file', function (req, res) {
         download.image(options)
           .then(({ filename, image }) => {
             console.log('FILE SAVED TO ', filename);
-            fs.readFile(filename, function(err, data){
-            if (err) {
-                console.log("NOT NOT "+err);
-            }else{
-                bitmap = new Buffer(data).toString('base64');
+            bitmap = fs.readFileSync(filename, {encoding: 'base64'});
+            // fs.readFile(filename, function(err, data){
+            // if (err) {
+            //     console.log("NOT NOT "+err);
+            // }else{
+                // bitmap = new Buffer(data).toString('base64');
                 // console.log("BASE64 FROM FILE IN FOLDER"+JSON.stringify(base64data));  
                 var collection = new Parse.Query("Collection");
-            collection.equalTo("objectId", coll_id)
+             collection.equalTo("objectId", coll_id)
                 .first({sessionToken: token})
                 .then(function (collection) {
                     console.log("BITMAP PASSED BY FILE "+bitmap);
@@ -882,8 +883,8 @@ app.post('/upload-file', function (req, res) {
                 console.log("BIG BIG ERROR" + error.message);
                 res.redirect("/");
             });    
-                 }
-                });
+                 // }
+                // });
               }).catch((err) => {
                 throw err;
               });
