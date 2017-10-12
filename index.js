@@ -842,29 +842,28 @@ app.post('/upload-file', function (req, res) {
             throw err;
           });
 
-        i2b(fileUrl, function (err, data) {
-            if (err) {
-                console.log("ERROR occurred when converting");
-                res.redirect("/");
-            } else {
-                console.log("NEW BASE " + JSON.stringify(data.base64));
+        // i2b(fileUrl, function (err, data) {
+        //     if (err) {
+        //         console.log("ERROR occurred when converting");
+        //         res.redirect("/");
+        //     } else {
+        //         console.log("NEW BASE " + JSON.stringify(data.base64));
     
         // Convert url link to base64 encoded data
          var newPath = __dirname + "/public/uploads/" + req.body.fileName;
-         fs.writeFile(newPath, data, function(err){
+         fs.readFile(newPath, function(err, data){
             if (err) {
                 console.log("NOT NOT "+err);
             }else{
                 // bitmap = fs.readFileSync(newPath, {encoding: 'base64'});
                 // console.log("FILE FROM FS "+JSON.stringify(bitmap));
-                console.log("IMAGE CREATED BY SPLIT");      
+                console.log("DATA PULLED FROM FILE "+JSON.stringify(data));      
             }
          });
-            }
-        });
-
-
-        
+        //     }
+        // });
+        var image = fs.readFile(__dirname + '/public/uploads/'+req.body.fileName);
+        console.log("IMAGE PULLED FROM FILE "+JSON.stringify(image));        
 
         var collection = new Parse.Query("Collection");
         collection.equalTo("objectId", coll_id)
