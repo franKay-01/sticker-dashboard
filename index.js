@@ -160,10 +160,9 @@ app.get('/', function (req, res) {
     if (session && token) {
         res.redirect("/dashboard");
     } else {
-        res.render("pages/signup");
+        res.render("pages/login");
     }
 });
-
 
 //login the user in using Parse
 app.post('/login', function (req, res) {
@@ -873,6 +872,13 @@ app.post('/upload-file', function (req, res) {
                 var collection_relation = stickerCollection.relation("Collection");
                 collection_relation.add(sticker);
                 console.log("LOG BEFORE SAVING STICKERCOLLECTION");
+                fs.unlink(filename, function (err) {
+                 if (err) {
+                     //TODO handle error code
+                     console.log("Could not del temp++++++++" + JSON.stringify(err));
+                     }
+                 });
+ 
                 return stickerCollection.save();
 
             }).then(function () {

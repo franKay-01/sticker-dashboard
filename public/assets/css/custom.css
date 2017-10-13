@@ -11,6 +11,12 @@ a {
     font-size: large;
 }
 
+.loginCard {
+  width: 338px;
+  height: 414px;
+  border-radius: 15px;
+  background-image: linear-gradient(to bottom, #d77255, #8651aa);
+}
 
 .logo2 {
     width: 20%;

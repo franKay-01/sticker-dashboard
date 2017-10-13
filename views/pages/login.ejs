@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign Up - Cyfa</title>
+
+    <!--Logo-->
+    <link rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.ico" />
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+    </style>
+
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+
+</head>
+
+<body class="primary-background-color">
+
+<div class="Rectangle">
+    <img src="/public/assets/images/logo2.png"
+         srcset="/public/assets/images/logo@2x.png 2x,/public/assets/images//logo@3x.png 3x" class="logo2">
+</div>
+
+<img src="/public/assets/images/bar.png" srcset="img/bar@2x.png 2x,img/bar@3x.png 3x" class="bar">
+
+<!-- Logo -->
+<div class="row header-top-spacing">
+    <div class="row">
+        <div class="columns large-8 small-12">
+            <h3 class="logo-text primary-font">Cyfa - Login in</h3>
+        </div>
+
+    </div>
+</div>
+<!-- Logo -->
+
+<% if (locals.error) { %>
+<h6 class="subheader text-center">
+    <%= locals.error %>
+</h6>
+<% } %>
+
+<!-- Body -->
+<div class="row">
+    <div class="signUpFormContainer">
+    <!-- id="signUpForm" -->
+        <form class="loginCard" action="/login" method="post">
+            <span id="text">Welcome to Publisher</span>
+            <fieldset>
+                <input id="username" placeholder="Name" type="text" tabindex="1" name="username"
+                       autofocus><br>
+                <input id="email" placeholder="Email" type="email" tabindex="1" name="email"
+                       autofocus><br>
+                <input id="password" placeholder="Password" type="password" name="password" tabindex="2"><br>
+                <button name="login" type="submit" id="btnLogin" data-submit="...Sending">Login</button>
+                <a href="/forgetPassword">Forgot password?</a>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<!-- Body -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js">
+</script>
+
+</body>
+
+
+</html>
