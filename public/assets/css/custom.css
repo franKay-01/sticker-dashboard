@@ -18,6 +18,13 @@ a {
   background-image: linear-gradient(to bottom, #d77255, #8651aa);
 }
 
+.loginDiv {
+  width: 1440px;
+  height: 633px;
+  opacity: 0.84;
+  background-color: #ffffff;
+}
+
 .logo2 {
     width: 20%;
     height: 60%;
