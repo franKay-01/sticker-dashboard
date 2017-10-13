@@ -19,8 +19,8 @@ a {
 }
 
 .loginDiv {
-  width: 1440px;
-  height: 633px;
+  width: auto;
+  height: 30%;
   opacity: 0.84;
   background-color: #ffffff;
 }
