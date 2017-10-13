@@ -25,6 +25,15 @@ a {
   background-color: #ffffff;
 }
 
+.box{
+    background: transparent;
+    border-top:0;
+    border-right: 0;
+    border-left: 0;
+    border-color: black;
+    border-width: 3px
+}
+
 .Welcome-to-publisher {
   width: 450px;
   height: 52px;
