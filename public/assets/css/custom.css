@@ -25,6 +25,17 @@ a {
   background-color: #ffffff;
 }
 
+.Welcome-to-publisher {
+  width: 433px;
+  height: 52px;
+  font-family: Montserrat;
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -2.5px;
+  text-align: left;
+  color: #919191;
+}
+
 .logo2 {
     width: 20%;
     height: 60%;
