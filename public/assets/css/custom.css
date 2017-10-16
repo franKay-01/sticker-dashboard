@@ -196,7 +196,6 @@ input[type=search], textarea.materialize-textarea {
 .signUpFormContainer {
     max-width: 400px;
     width: 100%;
-    margin-top: 40px;
     position: relative;
     /*background: whitesmoke;*/
 }
