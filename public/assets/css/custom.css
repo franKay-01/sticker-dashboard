@@ -12,7 +12,7 @@ a {
 }
 
 .row{
-    width: 100%
+    width: 100% !important
 }
 .loginCard {
   width: 338px !important;
