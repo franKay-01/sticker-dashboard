@@ -492,7 +492,7 @@ pre {
   display: none !important; }
 
 .row {
-  max-width: 75rem;
+  max-width: 95rem;
   margin-right: auto;
   margin-left: auto; }
   .row::before, .row::after {
