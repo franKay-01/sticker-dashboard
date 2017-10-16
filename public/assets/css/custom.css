@@ -215,6 +215,7 @@ input[type=search], textarea.materialize-textarea {
 .Icons {
   width: 338px;
   height: 414px;
+  margin-right: 10px;
   border-radius: 15px;
   background-color: black;
 }
