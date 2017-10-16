@@ -204,6 +204,7 @@ input[type=search], textarea.materialize-textarea {
     cursor: pointer;
     width: relative;
     background: transparent;
+    float: right;
     color: #FFF;
     margin: 7px;
     padding: 10px;
