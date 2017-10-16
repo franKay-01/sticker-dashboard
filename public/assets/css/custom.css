@@ -217,12 +217,10 @@ input[type=search], textarea.materialize-textarea {
     text-align: center;
 }
 
-/*#btnLogin:hover {
-    background: white;
-    color: #ff471a;
+#btnLogin:hover {
+    color: #9464b4;
     transition: 0.5s;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-}*/
+}
 
 #signup {
     font-weight: bold;
