@@ -197,7 +197,6 @@ input[type=search], textarea.materialize-textarea {
     max-width: 400px;
     width: 100%;
     position: relative;
-    /*background: whitesmoke;*/
 }
 
 #btnLogin {
