@@ -12,8 +12,9 @@ a {
 }
 
 .loginCard {
-  width: relative;
+  width: 338px !important;
   height: 414px;
+  margin-right: 10px;
   border-radius: 15px;
   background-image: linear-gradient(to bottom, #d77255, #8651aa);
 }
