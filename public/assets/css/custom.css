@@ -11,6 +11,9 @@ a {
     font-size: large;
 }
 
+.row{
+    width: 100%
+}
 .loginCard {
   width: 338px !important;
   height: 414px;
