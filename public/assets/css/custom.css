@@ -42,7 +42,11 @@ a {
   box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
 }
 
-.loginDiv {
+.footer{
+    margin-left: 0
+}
+
+.opaqueDiv {
   width: auto;
   height: 600px;
   opacity: 0.84;
