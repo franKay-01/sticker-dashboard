@@ -20,6 +20,15 @@ a {
   box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
 }
 
+.Icons {
+  width: 300px !important;
+  height: 400px !important;
+  margin-right: 10px;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
+}
+
 .loginDiv {
   width: auto;
   height: 600px;
@@ -220,15 +229,6 @@ input[type=search], textarea.materialize-textarea {
     padding-bottom: 10px;
     font-size: 20px;
     transition: 0.5s;
-}
-
-.Icons {
-  width: 300px !important;
-  height: 400px !important;
-  margin-right: 10px;
-  border-radius: 15px;
-  background-color: white;
-  box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
 }
 
 .gbeja_notxt {
