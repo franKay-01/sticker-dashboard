@@ -84,8 +84,9 @@ a {
 }
 
 .logo2 {
-    width: 20%;
-    height: 60%;
+  width: 535px;
+  height: 115px;
+  object-fit: contain;
 }
 
 .header-top-spacing {
