@@ -86,6 +86,7 @@ a {
 .logo2 {
   width: 535px;
   height: 115px;
+  margin-left: 100px;
   object-fit: contain;
 }
 
