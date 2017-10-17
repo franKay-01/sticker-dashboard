@@ -43,7 +43,16 @@ a {
 }
 
 .footer{
-    margin-left: 0
+  margin-left: 0;
+  width: 245px;
+  height: 24px;
+  font-family: SFUIText;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: -1.2px;
+  text-align: left;
+  color: #919191;
+
 }
 
 .opaqueDiv {
