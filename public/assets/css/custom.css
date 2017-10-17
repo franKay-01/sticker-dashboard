@@ -234,8 +234,6 @@ input[type=search], textarea.materialize-textarea {
 .gbeja_notxt {
   width: 300px;
   height: 300px;
-  margin-left: 50%;
-  margin-top: 50%;
   object-fit: contain;
 }
 
