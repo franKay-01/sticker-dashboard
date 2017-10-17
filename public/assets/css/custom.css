@@ -187,11 +187,12 @@ input[type=search], textarea.materialize-textarea {
     font-size: 22px;
     transition: .5s;
     color: #e9675a;
+    float: left;
 }
+
 .uplink:hover {
     transition: .5s;
-    color: #b42518;
-    text-decoration: underline;
+    color: #8651aa;
 }
 
 #signlink {
