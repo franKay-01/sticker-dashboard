@@ -12,8 +12,8 @@ a {
 }
 
 .loginCard {
-  width: 338px !important;
-  height: 414px;
+  width: 300px !important;
+  height: 400px !important;
   margin-right: 10px;
   border-radius: 15px;
   background-image: linear-gradient(to bottom, #d77255, #8651aa);
@@ -223,8 +223,8 @@ input[type=search], textarea.materialize-textarea {
 }
 
 .Icons {
-  width: 300px;
-  height: 400px;
+  width: 300px !important;
+  height: 400px !important;
   margin-right: 10px;
   border-radius: 15px;
   background-color: white;
@@ -234,6 +234,7 @@ input[type=search], textarea.materialize-textarea {
 .gbeja_notxt {
   width: 300px;
   height: 300px;
+  margin: auto;
   object-fit: contain;
 }
 
