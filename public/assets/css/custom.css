@@ -17,7 +17,7 @@ a {
   margin-right: 10px;
   border-radius: 15px;
   margin-left: 60px;
-  padding-bottom: 10px;
+  margin-bottom: 15px;
   background-image: linear-gradient(to bottom, #d77255, #8651aa);
   box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
 }
@@ -30,7 +30,7 @@ a {
   width: 300px !important;
   height: 400px !important;
   margin-right: 10px;
-  padding-bottom: 10px;
+  margin-bottom: 15px;
   border-radius: 15px;
   background-color: white;
   box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
