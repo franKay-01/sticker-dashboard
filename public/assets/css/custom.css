@@ -236,7 +236,7 @@ input[type=search], textarea.materialize-textarea {
   height: 300px;
   display: block;
   margin: 0 auto !important;
-  object-fit: contain;
+  /*object-fit: contain;*/
 }
 
 #text {
