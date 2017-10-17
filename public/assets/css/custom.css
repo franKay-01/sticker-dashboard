@@ -36,6 +36,14 @@ a {
     border-width: 4px;
 }
 
+::-webkit-box-shadow{ 
+   box-shadow:  -3px 3px 25px -1px rgba(0,0,0,0.6);
+}
+
+:-moz-box-shadow{
+     box-shadow:-3px 3px 25px -1px rgba(0,0,0,0.6);
+} 
+
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: white !important;
 }
@@ -218,7 +226,8 @@ input[type=search], textarea.materialize-textarea {
   height: 414px;
   margin-right: 10px;
   border-radius: 15px;
-  background-color: black;
+  background-color: white;
+  box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
 }
 
 .gbeja_notxt {
