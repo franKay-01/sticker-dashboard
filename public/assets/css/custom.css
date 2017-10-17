@@ -21,6 +21,10 @@ a {
   box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
 }
 
+.shift{
+  margin-left: 100px !important;
+}
+
 .Icons {
   width: 300px !important;
   height: 400px !important;
