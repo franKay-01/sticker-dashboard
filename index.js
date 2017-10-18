@@ -173,7 +173,7 @@ app.get('/login', function(req, res){
         res.redirect("/dashboard");
     }else{   
         let query = new Parse.Query("Sticker");
-        query.limit(20);
+        query.limit(40);
         query.find({sessionToken: token}).then(function (cards) {
             /*_.each(cards, function (sticker) {
              cardDetails = items[Math.floor(Math.random()*sticker.length)];
