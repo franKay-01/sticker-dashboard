@@ -90,6 +90,33 @@ a {
   object-fit: contain;
 }
 
+.GhanaTok {
+  width: 118px;
+  height: 32px;
+  font-family: Montserrat;
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -1.5px;
+  text-align: left;
+  color: #a46580;
+}
+
+.GhanaTok:hover{
+    color: #402631
+}
+
+.Recent-Packs {
+  width: 159px;
+  height: 32px;
+  font-family: Montserrat;
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: -1.5px;
+  text-align: left;
+  margin-bottom: 28px;
+  color: #3c3c3c;
+}
+
 .create_new {
   width: 160px;
   height: 25px;
@@ -98,6 +125,7 @@ a {
   font-weight: 600;
   letter-spacing: -1.2px;
   text-align: left;
+  margin-bottom: 59px;
   color: #c47462;
 }
 
