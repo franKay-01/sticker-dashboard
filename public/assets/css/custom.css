@@ -19,6 +19,7 @@ a {
   font-weight: bold;
   letter-spacing: -2.1px;
   text-align: left;
+  margin-bottom: 10px;
   color: #ffffff;
 }
 
@@ -31,6 +32,7 @@ a {
   letter-spacing: -1.5px;
   text-align: left;
   color: #ffffff;
+  margin-bottom: 10px;
 }
 
 ._stickers-Packs {
@@ -42,6 +44,7 @@ a {
   letter-spacing: -1.5px;
   text-align: left;
   color: #ffffff;
+  margin-bottom: 10px;
 }
 
 ._stickers {
@@ -53,7 +56,9 @@ a {
   letter-spacing: -1.5px;
   text-align: left;
   color: #ffffff;
+  margin-bottom: 10px;
 }
+
 .loginCard {
   width: 300px !important;
   height: 400px !important;
