@@ -83,6 +83,13 @@ a {
   object-fit: contain;
 }
 
+.icon_category {
+  width: 48px;
+  height: 49px;
+  margin-bottom: 5px;
+  object-fit: contain;
+}
+
 .create_new {
   width: 130px;
   height: 25px;
@@ -97,7 +104,8 @@ a {
 .createButton{
     width: 140px;
     height: 80px;
-    margin-left:140px;
+    margin-left:80px;
+    margin-top: 42px;
     background-color: transparent;
 }
 
