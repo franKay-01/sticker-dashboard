@@ -164,6 +164,17 @@ app.get('/', function (req, res) {
     }
 });
 
+app.get('/home', function(req, res){
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+    if (session && token) {
+        res.render("pages/home");
+    } else {
+        res.redirect("/dashboard");
+    }
+})
+
 //login the user in using Parse
 app.post('/login', function (req, res) {
 
