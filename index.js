@@ -160,7 +160,28 @@ app.get('/', function (req, res) {
     if (session && token) {
         res.redirect("/dashboard");
     } else {
-        res.render("pages/login");
+        res.render("/login");
+    }
+});
+
+app.get('/login', function(req, res){
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+    if (session && token){
+        res.redirect("/dashboard");
+    }else{   
+        var query = new Parse.Query("Sticker");
+        query.limit(3);
+        query.find({sessionToken: token}).then(function (cards) {
+
+            res.render("pages/login", {stickers: cards});
+
+        }, function (error) {
+
+            console.log("logIn error" + JSON.stringify(error));
+
+        });
     }
 });
 
