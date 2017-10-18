@@ -160,7 +160,7 @@ app.get('/', function (req, res) {
     if (session && token) {
         res.redirect("/dashboard");
     } else {
-        res.render("/login");
+        res.redirect("/login");
     }
 });
 
