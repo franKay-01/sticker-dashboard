@@ -23,6 +23,11 @@ a {
   color: #ffffff;
 }
 
+.card_head_position{
+  margin-left: 26px;
+  margin-top: 15px
+}
+
 ._categories {
   width: 175px;
   height: 32px;
@@ -73,6 +78,8 @@ a {
 .icon_create_sticker{
   width: 58px;
   height: 58px;
+  margin: 35px 20px auto !important;
+  object-fit: contain;
 }
 
 .grid-container{
