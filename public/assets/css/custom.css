@@ -78,8 +78,15 @@ a {
 .icon_create_sticker{
   width: 58px;
   height: 58px;
-  margin: 35px 20px auto !important;
+  /*margin: 35px 20px auto !important;*/
   object-fit: contain;
+}
+
+.createButton{
+    width: 140px;
+    height: 50px;
+    background-color: transparent;
+    border-color: none
 }
 
 .grid-container{
