@@ -167,15 +167,18 @@ app.get('/', function (req, res) {
 app.get('/login', function(req, res){
     var session = req.session.token;
     var token = req.cookies.token;
+    var cardDetails = [];
 
     if (session && token){
         res.redirect("/dashboard");
     }else{   
         var query = new Parse.Query("Sticker");
-        query.limit(3);
+        query.limit(20);
         query.find({sessionToken: token}).then(function (cards) {
-
-            res.render("pages/login", {stickers: cards});
+            _.each(cards, function (sticker) {
+             cardDetails = items[Math.floor(Math.random()*sticker.length)];
+            });
+            res.render("pages/login", {stickers: cardDetails});
 
         }, function (error) {
 
