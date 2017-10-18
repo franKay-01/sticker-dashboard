@@ -129,6 +129,11 @@ a {
   color: #c47462;
 }
 
+.card_head_position_2{
+  margin-left: 14px;
+  margin-top: 10px
+}
+
 .createButton{
     width: 140px;
     height: 80px;
