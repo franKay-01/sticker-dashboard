@@ -12,6 +12,7 @@ var cookieSession = require('cookie-session');
 var fs = require('fs');
 var multer = require('multer');
 var _ = require('underscore');
+var helper = require('./cloud/modules/helpers');
 var methodOverride = require('method-override');
 var multipart = require('multipart');
 var i2b = require("imageurl-base64");
@@ -175,10 +176,10 @@ app.get('/login', function(req, res){
         var query = new Parse.Query("Sticker");
         query.limit(20);
         query.find({sessionToken: token}).then(function (cards) {
-            _.each(cards, function (sticker) {
+            /*_.each(cards, function (sticker) {
              cardDetails = items[Math.floor(Math.random()*sticker.length)];
-            });
-            res.render("pages/login", {stickers: cardDetails});
+            });*/
+            res.render("pages/login", {stickers: helper.shuffle(cards)});
 
         }, function (error) {
 
