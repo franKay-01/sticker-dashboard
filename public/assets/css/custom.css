@@ -361,10 +361,11 @@ input[type=search], textarea.materialize-textarea {
   width: 300px;
   background-color: #f5f5f5;
   position: absolute;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   margin-bottom: 24px;
   bottom: 0;
+  opacity: 0.9;
 }
 
 .sticker_name_text{
