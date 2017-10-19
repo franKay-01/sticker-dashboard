@@ -196,7 +196,7 @@ a {
 .opaqueDiv {
   background-image: url(../images/cards-background.png);
   background-repeat: repeat;
-  width: auto;
+  width: 100% !important;
   height: 600px;
   opacity: 0.84;
   background-color: #ffffff;
