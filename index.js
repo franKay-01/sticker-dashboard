@@ -585,6 +585,30 @@ app.get('/second_dashboard', function(req, res){
 
 // Collection Dashboard
 //Displays 'folders' representing each collection from Parse
+
+app.get('/pack_collection', function(req, res){
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+    if (session && token) {
+        let query = new Parse.Query("Collection");
+        query.limit(3);
+        query.find({sessionToken: token}).then(function (collections) {
+
+            res.render("pages/pack_collection", {collections: collections});
+
+        }, function (error) {
+            console.log("Colll error" + JSON.stringify(error));
+
+        });
+
+    }
+    else {
+        console.log("No Session Exists, log in");
+        res.redirect("/");
+    }
+});
+
 app.get('/collections-dashboard', function (req, res) {
 
     var session = req.session.token;

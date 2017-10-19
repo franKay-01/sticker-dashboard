@@ -1,0 +1,17 @@
+<!--Display Collections from parse-->
+
+<div class="row small-up-1 medium-up-3 large-up-4">
+    <% collections.forEach(function(item, index) { %>
+
+    <div class="column">
+        <a href="/collection/<%= item.id %>">
+                <div class="medium-3 large-3 cell Icons">
+                    <img class="gbeja_notxt" src="/public/assets/images/file.png">
+                    <div class="name_tag"><p class="sticker_name_text"><%= item.get("collection_name") %></p></div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <% }); %>
+</div>
