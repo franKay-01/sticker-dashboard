@@ -5,7 +5,7 @@ let S3Adapter = require('parse-server').S3Adapter;
 let SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
 let path = require('path');
 let cors = require('cors');
-require("parse/node"); // import the module
+let ParseSDK = require("parse/node"); // import the module
 let bodyParser = require('body-parser');
 let cookieParser = require('cookie-parser');
 let cookieSession = require('cookie-session');
