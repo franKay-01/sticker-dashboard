@@ -75,10 +75,6 @@ a {
   box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
 }
 
-a:visited { 
-    color: pink;
-}
-
 .icon_create_sticker{
   width: 58px;
   height: 58px;
@@ -141,6 +137,10 @@ a:visited {
     margin-left:80px;
     margin-top: 42px;
     background-color: transparent;
+}
+
+.createButton:focus{
+    background-color: none
 }
 
 .view_all {
