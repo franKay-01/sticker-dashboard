@@ -360,7 +360,7 @@ input[type=search], textarea.materialize-textarea {
 .name_tag{
   width: 300px;
   background-color: #f5f5f5;
-  position: absolute;
+  position: relative;
   padding-top: 10px;
   padding-bottom: 10px;
   margin-bottom: 24px;
