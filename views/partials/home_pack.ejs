@@ -3,8 +3,7 @@
 <h1>no collections found</h1>
 <% } else { %>
 <% collections.forEach(function(item) { %>
-<div class="GhanaTok"><a href="/collection/<%= item.id %>"><%= item.get("collection_name") %></a></div>
-<div><a class="view_all" href="/pack_collection">View All</a></div>
+<div><a class="GhanaTok" href="/collection/<%= item.id %>"><%= item.get("collection_name") %></a></div>
 <% }); %>
 <% } %>
 
