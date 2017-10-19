@@ -364,6 +364,7 @@ input[type=search], textarea.materialize-textarea {
 #signlink:hover {
     text-decoration: underline;
 }
+
 #signoutLink {
     font-weight: bold;
     color: #e9675a;
