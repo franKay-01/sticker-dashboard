@@ -193,9 +193,27 @@ app.get('/login', function(req, res){
 app.get('/home', function(req, res){
     var session = req.session.token;
     var token = req.cookies.token;
+    var pack = [];
+    var pack_category = [];
 
     if (session && token) {
-        res.render("pages/home");
+        let query = new Parse.Query("Collection");
+        let query_2 = new Parse.Query("Category");
+        query.limit(3);
+        query.find({sessionToken: token}).then(function (collection) {
+            pack = collection;
+        }, function(error){
+             console.log("HOME error" + JSON.stringify(error));
+        });
+
+        query_2.limit(3);
+        query_2.find({sessionToken: token}).then(function (category) {
+            pack_category = category;
+        }, function(error){
+             console.log("HOME error" + JSON.stringify(error));
+        });
+
+        res.render("pages/home", {collection:pack }, {category:pack_category});
     } else {
         res.redirect("/dashboard");
     }
