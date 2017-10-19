@@ -1,27 +1,27 @@
 let express = require('express');
-var ParseServer = require('parse-server').ParseServer;
-var S3Adapter = require('parse-server').S3Adapter;
-var SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
-var path = require('path');
-var cors = require('cors');
-var Parse = require("parse/node"); // import the module
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var cookieSession = require('cookie-session');
-var fs = require('fs');
-var multer = require('multer');
-var _ = require('underscore');
-var helper = require('./cloud/modules/helpers');
-var methodOverride = require('method-override');
-var multipart = require('multipart');
-var i2b = require("imageurl-base64");
-var download = require('image-downloader')
+let ParseServer = require('parse-server').ParseServer;
+let S3Adapter = require('parse-server').S3Adapter;
+let SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
+let path = require('path');
+let cors = require('cors');
+let Parse = require("parse/node"); // import the module
+let bodyParser = require('body-parser');
+let cookieParser = require('cookie-parser');
+let cookieSession = require('cookie-session');
+let fs = require('fs');
+let multer = require('multer');
+let _ = require('underscore');
+let helper = require('./cloud/modules/helpers');
+let methodOverride = require('method-override');
+let multipart = require('multipart');
+let i2b = require("imageurl-base64");
+let download = require('image-downloader');
 // var urlToImage = require('url-to-image');
 
 // var busboy = require('connect-busboy');
 
 
-var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
+let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
 Parse.initialize("d55f9778-9269-40c2-84a2-e0caaf2ad87a");
 Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
