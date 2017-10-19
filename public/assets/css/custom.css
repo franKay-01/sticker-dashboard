@@ -81,7 +81,16 @@ a {
   margin-bottom: 5px;
   /*margin: 20px auto !important;
   object-fit: contain;*/
-  margin-right: 20px;
+  margin-right: 0px;
+}
+
+button,
+button:focus,
+button:active{
+    border:none;
+    background:none;
+    outline:none;
+    padding:0;
 }
 
 .icon_category {
@@ -89,7 +98,7 @@ a {
   height: 49px;
   margin-bottom: 5px;
   /*object-fit: contain;*/
-  margin-right: 20px;
+  margin-right: 0px;
 }
 
 .GhanaTok {
@@ -127,7 +136,7 @@ a {
   font-weight: 600;
   letter-spacing: -1.2px;
   text-align: left;
-  margin-bottom: 59px;
+  /*margin-bottom: 59px;*/
   color: #c47462;
 }
 
