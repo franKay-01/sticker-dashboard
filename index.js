@@ -202,6 +202,7 @@ app.get('/home', function(req, res){
         query.limit(3);
         query.find({sessionToken: token}).then(function (collection) {
             pack = collection;
+            console.log("PACK "+JSON.stringify(pack));
         }, function(error){
              console.log("HOME error" + JSON.stringify(error));
         });
@@ -209,12 +210,12 @@ app.get('/home', function(req, res){
         query_2.limit(3);
         query_2.find({sessionToken: token}).then(function (category) {
             pack_category = category;
-            console.log("PACK_CATEGORY "+pack_category);
+            console.log("PACK_CATEGORY "+JSON.stringify(pack_category));
         }, function(error){
              console.log("HOME error" + JSON.stringify(error));
         });
 
-        res.render("pages/home", {collection:pack,category:pack_category });
+        res.render("pages/home", {collections:pack,categories:pack_category });
     } else {
         res.redirect("/dashboard");
     }
