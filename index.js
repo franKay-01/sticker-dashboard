@@ -1,6 +1,5 @@
 let express = require('express');
-let Parse = require('parse-server');
-let ParseServer = Parse.ParseServer;
+let ParseServer = require('parse-server').ParseServer;
 let S3Adapter = require('parse-server').S3Adapter;
 let SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
 let path = require('path');
