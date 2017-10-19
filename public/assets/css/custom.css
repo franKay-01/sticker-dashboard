@@ -81,7 +81,7 @@ a {
   margin-bottom: 5px;
   /*margin: 20px auto !important;
   object-fit: contain;*/
-  margin-right: 0px;
+  margin-right: 20px;
 }
 
 button,
@@ -98,7 +98,7 @@ button:active{
   height: 49px;
   margin-bottom: 5px;
   /*object-fit: contain;*/
-  margin-right: 0px;
+  margin-right: 20px;
 }
 
 .GhanaTok {
