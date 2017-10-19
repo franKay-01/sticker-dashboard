@@ -75,19 +75,25 @@ a {
   box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
 }
 
+a:visited { 
+    color: pink;
+}
+
 .icon_create_sticker{
   width: 58px;
   height: 58px;
   margin-bottom: 5px;
-  margin: 20px auto !important;
-  object-fit: contain;
+  /*margin: 20px auto !important;
+  object-fit: contain;*/
+  margin-right: 20px;
 }
 
 .icon_category {
   width: 48px;
   height: 49px;
   margin-bottom: 5px;
-  object-fit: contain;
+  /*object-fit: contain;*/
+  margin-right: 20px;
 }
 
 .GhanaTok {
