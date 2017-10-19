@@ -357,6 +357,25 @@ input[type=search], textarea.materialize-textarea {
     color: #8651aa;
 }
 
+.name_tag{
+  width: 338px;
+  height: 76px;
+  background-color: #f5f5f5;
+  position: absolute;
+  bottom: 0;
+  border-bottom: 24px;
+
+}
+
+.sticker_name_text{
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: -0.9px;
+  text-align: left;
+  color: #002b5c;
+}
+
 #signlink {
      font-weight: bold;
  }
