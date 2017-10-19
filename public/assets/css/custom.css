@@ -106,7 +106,7 @@ a {
 }
 
 .Recent-Packs {
-  width: 159px;
+  width: 165px;
   height: 32px;
   font-family: Montserrat;
   font-size: 26px;
@@ -131,7 +131,7 @@ a {
 
 .createButton{
     width: 140px;
-    height: 80px;
+    height: 100px;
     margin-left:80px;
     margin-top: 42px;
     background-color: transparent;
@@ -153,7 +153,7 @@ a {
 }
 
 .recent_category {
-  width: 197px;
+  width: 210px;
   height: 32px;
   font-family: Montserrat;
   font-size: 26px;
