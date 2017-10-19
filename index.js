@@ -197,29 +197,33 @@ app.get('/home', function(req, res){
     var pack_category = [];
 
     if (session && token) {
-        let query = new Parse.Query("Collection");
-        let query_2 = new Parse.Query("Category");
-        query.limit(3);
-        query.find({sessionToken: token}).then(function (collection) {
-            pack = collection;
-            console.log("PACK "+JSON.stringify(pack));
-        }, function(error){
-             console.log("HOME error" + JSON.stringify(error));
+        const limit = 3;
+        Parse.Promise.When(
+            new Parse.Query("Collection").limit(limit).find({sessionToken: token}),
+            new Parse.Query("Category").limit(limit).find({sessionToken: token})
+        ).then(function(collection,categories){
+            let _collection = [];
+            let _categories = [];
+            if(collection.length) {
+                _collection = collection;
+
+            }
+            if(categories.length) {
+                _categories = categories;
+
+            }
+
+            res.render("pages/home", {collections:_collection,categories:_categories });
+
+        },function(error){
+            console.log(JSON.stringify(error));
+            res.redirect("/dashboard");
         });
 
-        query_2.limit(3);
-        query_2.find({sessionToken: token}).then(function (category) {
-            pack_category = category;
-            console.log("PACK_CATEGORY "+JSON.stringify(pack_category));
-        }, function(error){
-             console.log("HOME error" + JSON.stringify(error));
-        });
-
-        res.render("pages/home", {collections:pack,categories:pack_category });
     } else {
         res.redirect("/dashboard");
     }
-})
+});
 
 //login the user in using Parse
 app.post('/login', function (req, res) {

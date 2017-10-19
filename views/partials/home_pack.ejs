@@ -1,7 +1,14 @@
 <!-- Cards -->
- <% collections.forEach(function(item, index) { %>
-    <div class="GhanaTok"><%= item.get("collection_name") %></div>
+<% if (collections.length === 0) { %>
+<h1>no collections found</h1>
+<% } else { %>
+<% collections.forEach(function(item) { %>
+<div class="GhanaTok"><%= item.get("collection_name") %></div>
 <% }); %>
+<% } %>
+
+
+
     
  
     

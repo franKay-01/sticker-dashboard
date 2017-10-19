@@ -1,7 +1,11 @@
 <!-- Cards -->
- <% categories.forEach(function(item, index) { %>
-    <div class="GhanaTok"><%= item.get("name") %></div>
+<% if (categories.length === 0) { %>
+<h1>no categories found</h1>
+<% } else { %>
+<% categories.forEach(function(item) { %>
+<div class="GhanaTok"><%= item.get("name") %></div>
 <% }); %>
-    
+<% } %>
+
  
     
