@@ -1,4 +1,4 @@
-var express = require('express');
+let express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var S3Adapter = require('parse-server').S3Adapter;
 var SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
