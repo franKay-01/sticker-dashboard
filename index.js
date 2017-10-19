@@ -198,7 +198,7 @@ app.get('/home', function(req, res){
 
     if (session && token) {
         const limit = 3;
-        Parse.Promise.When(
+         Parse.Promise.when(
             new Parse.Query("Collection").limit(limit).find({sessionToken: token}),
             new Parse.Query("Category").limit(limit).find({sessionToken: token})
         ).then(function(collection,categories){
