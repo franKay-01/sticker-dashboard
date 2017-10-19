@@ -374,6 +374,8 @@ input[type=search], textarea.materialize-textarea {
   letter-spacing: -0.9px;
   text-align: left;
   color: #002b5c;
+  text-align: center;
+  padding-top: 50px
 }
 
 #signlink {
