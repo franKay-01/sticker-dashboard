@@ -560,6 +560,28 @@ app.get('/dashboard', function (req, res) {
 
 });
 
+app.get('/second_dashboard', function(req, res){
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+    if (session && token) {
+
+        new Parse.Query("Sticker").find({sessionToken: token}).then(function (stickers) {
+
+            res.render("pages/dashboard_2", {stickers: stickers});
+
+        }, function (error) {
+
+            console.log("dashboard error" + JSON.stringify(error));
+
+        });
+
+    }
+    else {
+        console.log("No Session Exists, log in");
+        res.redirect("/");
+    }
+});
 
 // Collection Dashboard
 //Displays 'folders' representing each collection from Parse
