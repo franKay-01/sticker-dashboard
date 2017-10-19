@@ -209,6 +209,7 @@ app.get('/home', function(req, res){
         query_2.limit(3);
         query_2.find({sessionToken: token}).then(function (category) {
             pack_category = category;
+            console.log("PACK_CATEGORY "+pack_category);
         }, function(error){
              console.log("HOME error" + JSON.stringify(error));
         });
