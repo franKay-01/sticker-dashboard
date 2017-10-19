@@ -368,7 +368,9 @@ input[type=search], textarea.materialize-textarea {
 #signoutLink {
     font-weight: bold;
     color: #e9675a;
-    margin-left: 87%;
+    float: right;
+    margin-top: 70px;
+    margin-right: 25px
 }
 
 #signoutLink:hover {
