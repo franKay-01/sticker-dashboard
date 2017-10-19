@@ -214,7 +214,7 @@ app.get('/home', function(req, res){
              console.log("HOME error" + JSON.stringify(error));
         });
 
-        res.render("pages/home", {collection:pack }, {category:pack_category});
+        res.render("pages/home", {collection:pack,category:pack_category });
     } else {
         res.redirect("/dashboard");
     }
