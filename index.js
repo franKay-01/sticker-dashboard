@@ -225,6 +225,28 @@ app.get('/home', function(req, res){
     }
 });
 
+// Testing something FRANCIS
+app.get('/increment', function(req, res){
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+    if (session && token) {
+    var query = new Parse.Object.extend("Post");
+    var Query = new Parse.Query(query);
+
+    Query.first({sessionToken: token}).then(function(post){
+        console.log("FIRST POST "+ JSON.stringify(post));
+        Query.increment("numComments");
+        Query.save();
+    }).then(function(next){
+        console.log("FIRST POST "+ JSON.stringify(post));
+        res.render("pages/home");
+    });
+    }else{
+        res.redirect("/dashboard");
+    }
+});
+
 //login the user in using Parse
 app.post('/login', function (req, res) {
 
