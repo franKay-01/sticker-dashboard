@@ -229,12 +229,12 @@ app.get('/home', function(req, res){
 app.get('/increment', function(req, res){
     var session = req.session.token;
     var token = req.cookies.token;
-
+  // collection.equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
     if (session && token) {
     var query = new Parse.Object.extend("Post");
     var Query = new Parse.Query(query);
-
-    Query.first({sessionToken: token}).then(function(post){
+    Query.limit(1);
+    Query.get("numComments").then(function(post){
 
         console.log("FIRST POST "+ JSON.stringify(post));
         Query.increment("numComments");
