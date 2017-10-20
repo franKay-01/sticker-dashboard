@@ -235,13 +235,17 @@ app.get('/increment', function(req, res){
     var Query = new Parse.Query(query);
 
     Query.first({sessionToken: token}).then(function(post){
+        
         console.log("FIRST POST "+ JSON.stringify(post));
         Query.increment("numComments");
-        Query.save().then(function(next){
-        console.log("FIRST POST "+ JSON.stringify(post));
+        return Query.save();
+
+    }).then(function (next) {
+
+        console.log("SECOND POST "+ JSON.stringify(post));
         res.render("pages/home");
     });
-    });
+    
 }else{
         res.redirect("/dashboard");
     }
