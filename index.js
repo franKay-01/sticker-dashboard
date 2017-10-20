@@ -237,12 +237,12 @@ app.get('/increment', function(req, res){
     Query.first({sessionToken: token}).then(function(post){
         console.log("FIRST POST "+ JSON.stringify(post));
         Query.increment("numComments");
-        Query.save();
-    }).then(function(next){
+        Query.save().then(function(next){
         console.log("FIRST POST "+ JSON.stringify(post));
         res.render("pages/home");
     });
-    }else{
+    });
+}else{
         res.redirect("/dashboard");
     }
 });
