@@ -1095,12 +1095,6 @@ tr #titles {
     font-size: 40px;
 }
 
-#closeSign:hover {
-    float:right;
-    color:darkgrey;
-    cursor: pointer;
-}
-
 #hiddenCreateForm {
     display: none;
     position: absolute;
