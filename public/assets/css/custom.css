@@ -506,12 +506,18 @@ input[type=search], textarea.materialize-textarea {
   width: 83px;
   height: 83px;
   object-fit: contain;
+  display: block;
+  margin: 20px 90px auto !important;
+  margin-top: 82px;
 }
 
 .btn_pack_icon {
   width: 112px;
   height: 104px;
   object-fit: contain;
+  display: block;
+  margin: 20px 90px auto !important;
+  margin-top: 82px;
 }
 
 .gbeja_notxt {
