@@ -72,6 +72,7 @@ a {
   letter-spacing: -2.5px;
   text-align: left;
   color: #ffffff;
+  margin-bottom: 100px !important
 }
 
 .cancel {
@@ -550,7 +551,6 @@ input[type=search], textarea.materialize-textarea {
 
 ._pack{
     width: 450px !important;
-    margin-top: 103px !important;
     margin-bottom: 77px !important;
     text-align: left;
     background: transparent;
