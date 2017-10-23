@@ -36,7 +36,7 @@
         <a class="uplink" id="showCreateForm">  Create New Collection</a>
  </div> -->
 <div id="hiddenCreateForm">
-    <form id="collectionForm" action="/new-collection" method="post">
+    <form id="create_back_background" action="/new-collection" method="post">
         <table>
             <th colspan="2" id="titles">
                 CREATE NEW COLLECTION
@@ -63,7 +63,7 @@
 </div>
 <div class="grid-x grid-margin-x opaqueDiv">
 <div class="medium-3 large-3 cell Icons">
-    <img class="Icon_create_sticker_pack" src="/public/assets/images/icon-create-sticker-pack.png">
+    <img class="Icon_create_sticker_pack" id="showCreateForm" src="/public/assets/images/icon-create-sticker-pack.png">
     <div class="create_new_pack" id="showCreateForm">CREATE NEW PACK</div>
 </div>
 <% include ../partials/packs %>
