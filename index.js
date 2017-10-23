@@ -412,7 +412,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
         }).then(function () {
 
             console.log("REDIRECT TO DASHBOARD");
-            res.redirect("/collections-dashboard");
+            res.redirect("/pack_dashboard");
 
         }, function (error) {
             console.log("BIG BIG ERROR" + error.message);
@@ -633,8 +633,8 @@ app.get('/pack_collection', function(req, res){
     }
 });
 
-app.get('/collections-dashboard', function (req, res) {
-
+app.get('/pack_dashboard', function (req, res) {
+    
     var session = req.session.token;
     var token = req.cookies.token;
 
@@ -770,7 +770,7 @@ app.post('/new-collection', function (req, res) {
 
         collection.save().then(function () {
 
-            res.redirect('/collections-dashboard');
+            res.redirect('/pack_dashboard');
 
         });
     }
