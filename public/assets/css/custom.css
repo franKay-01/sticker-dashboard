@@ -461,13 +461,12 @@ input[type=search], textarea.materialize-textarea {
 #signUp {
     cursor: pointer;
     width: relative;
-    margin-top: -25px !important;
     background: transparent;
     margin: 7px;
     padding: 10px;
-    font-weight: 800;
+    font-weight: 800 !important;
     padding-bottom: 10px;
-    font-size: 18px;
+    font-size: 25px !important;
     transition: 0.5s;
     font-family: Montserrat;
     font-size: 35px;
@@ -475,6 +474,8 @@ input[type=search], textarea.materialize-textarea {
     letter-spacing: -2.1px;
     color: #ffffff;
     text-align: center;
+    margin-top: 20px !important;
+    margin-right: 60px;
 }
 
 .gbeja_notxt {
