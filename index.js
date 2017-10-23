@@ -564,7 +564,8 @@ app.get('/dashboard', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
-
+    console.log("TOKEN RETRIEVED FROM BROWSER "+ token);
+    
     if (session && token) {
 
         new Parse.Query("Sticker").find({sessionToken: token}).then(function (stickers) {
