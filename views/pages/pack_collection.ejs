@@ -36,18 +36,15 @@
         <a class="uplink" id="showCreateForm">  Create New Collection</a>
  </div> -->
 <div id="hiddenCreateForm">
-    <form id="collectionForm" action="/new-collection" method="post">
+    <form id="create_back_background" action="/new-collection" method="post">
         <table>
-            <th colspan="2" id="titles">
+            <th colspan="2">
                 CREATE NEW COLLECTION
                 <span id='closeSign'>X</span>
             </th>
             <tr>
                 <td>
-                    <label>Enter collection name:</label>
-                </td>
-                <td>
-                    <input type="text" placeholder="collection name" name="coll_name" id="collectionName"><br>
+                    <input type="text" class="box" placeholder="Pack name" name="coll_name"><br>
                 </td>
             </tr>
             <tr>

@@ -27,6 +27,13 @@ a {
   color: #ffffff;
 }
 
+.create_back_background {
+  width: 726px;
+  height: 414px;
+  border-radius: 15px;
+  background-image: linear-gradient(to bottom, #d77255, #8651aa);
+}
+
 .card_head_position{
   margin-left: 26px;
   margin-top: 15px
