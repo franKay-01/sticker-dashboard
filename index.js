@@ -565,7 +565,7 @@ app.get('/dashboard', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     console.log("TOKEN RETRIEVED FROM BROWSER "+ token);
-    
+
     if (session && token) {
 
         new Parse.Query("Sticker").find({sessionToken: token}).then(function (stickers) {
@@ -763,13 +763,15 @@ app.post('/new-collection', function (req, res) {
     var token = req.cookies.token;
 
     var coll_name = req.body.coll_name;
+    var pack_description = req.body.coll_description;
 
     if (session && token) {
 
         var Collection = new Parse.Object.extend("Collection");
         var collection = new Collection();
         collection.set("collection_name", coll_name);
-
+        collection.set("pack_description",pack_description);
+        
         collection.save().then(function () {
 
             res.redirect('/pack_dashboard');
