@@ -502,6 +502,18 @@ input[type=search], textarea.materialize-textarea {
     margin-right: 60px;
 }
 
+.Icon_create_sticker_pack {
+  width: 83px;
+  height: 83px;
+  object-fit: contain;
+}
+
+.btn_pack_icon {
+  width: 112px;
+  height: 104px;
+  object-fit: contain;
+}
+
 .gbeja_notxt {
   width: 300px;
   height: 300px;
