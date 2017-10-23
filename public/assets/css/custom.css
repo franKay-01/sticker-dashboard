@@ -399,6 +399,16 @@ input[type=search], textarea.materialize-textarea {
   padding-top: 10px
 }
 
+.pack_name_text {
+  /*width: 147px;*/
+  height: 39px;
+  font-family: Montserrat;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -1.9px;
+  text-align: left;
+  color: #3c3c3c;
+}
 #signlink {
      font-weight: bold;
  }
@@ -460,6 +470,16 @@ input[type=search], textarea.materialize-textarea {
     letter-spacing: -2.1px;
     text-align: left;
     color: #ffffff;
+}
+
+.create_new_pack {
+  height: 37px;
+  font-family: Montserrat;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -1.8px;
+  text-align: left;
+  color: #c47462;
 }
 
 #signUp {
