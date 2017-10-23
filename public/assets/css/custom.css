@@ -82,7 +82,7 @@ a {
   font-weight: 300;
   letter-spacing: -2.1px;
   text-align: left;
-  margin-left: 414px;
+  margin-left: 400px;
   color: #ffffff;
   margin-right: 40px
 }
@@ -553,7 +553,6 @@ input[type=search], textarea.materialize-textarea {
 
 ._pack{
     width: 450px !important;
-    margin-bottom: 77px !important;
     text-align: left;
     background: transparent;
     border-top:0;
