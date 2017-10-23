@@ -406,7 +406,8 @@ input[type=search], textarea.materialize-textarea {
   font-size: 32px;
   font-weight: 600;
   letter-spacing: -1.9px;
-  text-align: left;
+  text-align: center;
+  margin-top: 10px;
   color: #3c3c3c;
 }
 #signlink {
@@ -478,7 +479,8 @@ input[type=search], textarea.materialize-textarea {
   font-size: 30px;
   font-weight: 600;
   letter-spacing: -1.8px;
-  text-align: left;
+  text-align: center;
+  margin-top: 20px !important;
   color: #c47462;
 }
 
@@ -508,7 +510,7 @@ input[type=search], textarea.materialize-textarea {
   object-fit: contain;
   display: block;
   margin: 20px 90px auto !important;
-  margin-top: 82px;
+  margin-top: 82px !important;
 }
 
 .btn_pack_icon {
@@ -517,7 +519,7 @@ input[type=search], textarea.materialize-textarea {
   object-fit: contain;
   display: block;
   margin: 20px 90px auto !important;
-  margin-top: 82px;
+  margin-top: 82px !important;
 }
 
 .gbeja_notxt {
