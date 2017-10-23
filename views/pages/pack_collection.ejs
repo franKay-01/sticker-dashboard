@@ -38,29 +38,18 @@
 <div id="hiddenCreateForm">
   <!-- <div id="create_back_background"> -->
   <div class="medium-3 large-3 cell create_back_background">
-    <form action="/new-collection" method="post">
-        <table>
-            <th colspan="2" class="create_New_Pack">
+    <form id="pack_form" action="/new-collection" method="post">
+        <div class="create_New_Pack">
                 CREATE NEW PACK
                 <span id='closeSign'>X</span>
-            </th>
-            <tr>
-                <td>
-                    <label>Enter collection name:</label>
-                </td>
-                <td>
-                    <input type="text" placeholder="collection name" name="coll_name" id="collectionName"><br>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="button" id="btnCancelCreateColl">CANCEL</button>
-                </td>
-                <td>
-                    <button type="submit" id="btnCreateCollection">CREATE</button>
-                </td>
-            </tr>
-        </table>
+          </div> 
+                   
+        <input type="text" placeholder="collection name" name="coll_name" id="collectionName"><br>
+          
+        <button type="button" id="btnCancelCreateColl">CANCEL</button>
+               
+        <button type="submit" id="btnCreateCollection">CREATE</button>
+        
     </form>
     </div>
 </div>

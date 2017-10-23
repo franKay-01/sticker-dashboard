@@ -12,12 +12,12 @@ $(document).ready(function () {
         $('#closeSign').on('click', function () {
             $('#hiddenCreateForm').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
-            $('#collectionForm')[0].reset();
+            $('#pack_form')[0].reset();
         });
         $('#btnCancelCreateColl').on('click', function () {
             $('#hiddenCreateForm').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
-            $('#collectionForm')[0].reset();
+            $('#pack_form')[0].reset();
         });
     });
 
