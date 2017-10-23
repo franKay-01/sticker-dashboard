@@ -74,6 +74,28 @@ a {
   margin-bottom: 100px !important
 }
 
+.from_computer {
+  width: 188px;
+  height: 32px;
+  font-family: Montserrat;
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -1.5px;
+  text-align: left;
+  color: #a46580;
+}
+
+.dropbox_upload {
+  width: 193px;
+  height: 32px;
+  font-family: Montserrat;
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -1.5px;
+  text-align: left;
+  color: #a46580;
+}
+
 .new_sticker {
   width: 196px;
   height: 37px;
@@ -81,7 +103,7 @@ a {
   font-size: 30px;
   font-weight: 600;
   letter-spacing: -1.8px;
-  text-align: left;
+  text-align: center;
   color: #c47462;
   margin-bottom: 20px !important;
 }
