@@ -36,15 +36,18 @@
         <a class="uplink" id="showCreateForm">  Create New Collection</a>
  </div> -->
 <div id="hiddenCreateForm">
-    <form id="create_back_background" action="/new-collection" method="post">
+    <form id="collectionForm" action="/new-collection" method="post">
         <table>
-            <th colspan="2">
+            <th colspan="2" id="titles">
                 CREATE NEW COLLECTION
                 <span id='closeSign'>X</span>
             </th>
             <tr>
                 <td>
-                    <input type="text" class="box" placeholder="Pack name" name="coll_name"><br>
+                    <label>Enter collection name:</label>
+                </td>
+                <td>
+                    <input type="text" placeholder="collection name" name="coll_name" id="collectionName"><br>
                 </td>
             </tr>
             <tr>
@@ -60,7 +63,7 @@
 </div>
 <div class="grid-x grid-margin-x opaqueDiv">
 <div class="medium-3 large-3 cell Icons">
-    <img class="Icon_create_sticker_pack" id="showCreateForm" src="/public/assets/images/icon-create-sticker-pack.png">
+    <img class="Icon_create_sticker_pack" src="/public/assets/images/icon-create-sticker-pack.png">
     <div class="create_new_pack" id="showCreateForm">CREATE NEW PACK</div>
 </div>
 <% include ../partials/packs %>
