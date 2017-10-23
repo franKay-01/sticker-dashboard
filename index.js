@@ -707,7 +707,7 @@ app.get('/collection/:id', function (req, res) {
         var collection = new Parse.Query("Collection");
         collection.get(coll_id, {
             success: function (collection) {
-                var coll_name = collection.get("name");
+                var coll_name = collection.get("collection_name");
                 //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
 
                 var col = collection.relation("Collection");
