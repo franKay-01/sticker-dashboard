@@ -237,6 +237,7 @@ app.post('/login', function (req, res) {
 
         res.cookie('token', user.getSessionToken());
         req.session.token = user.getSessionToken();
+        console.log("USER GETS TOKEN : "+user.getSessionToken());
         res.redirect("/dashboard");
 
     }, function (error) {
@@ -634,7 +635,7 @@ app.get('/pack_collection', function(req, res){
 });
 
 app.get('/pack_dashboard', function (req, res) {
-    
+
     var session = req.session.token;
     var token = req.cookies.token;
 
