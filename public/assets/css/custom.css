@@ -74,6 +74,28 @@ a {
   color: #ffffff;
 }
 
+.cancel {
+  width: 105px;
+  height: 43px;
+  font-family: Montserrat;
+  font-size: 35px;
+  font-weight: 300;
+  letter-spacing: -2.1px;
+  text-align: left;
+  color: #ffffff;
+}
+
+.create {
+  width: 106px;
+  height: 43px;
+  font-family: Montserrat;
+  font-size: 35px;
+  font-weight: bold;
+  letter-spacing: -2.1px;
+  text-align: left;
+  color: #ffffff;
+}
+
 ._stickers {
   width: 133px;
   height: 32px;

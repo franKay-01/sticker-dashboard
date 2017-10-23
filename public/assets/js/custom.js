@@ -14,7 +14,7 @@ $(document).ready(function () {
             $('#pageMask').fadeOut('fast');
             $('#pack_form')[0].reset();
         });
-        $('#btnCancelCreateColl').on('click', function () {
+        $('#btnCancel').on('click', function () {
             $('#hiddenCreateForm').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#pack_form')[0].reset();
