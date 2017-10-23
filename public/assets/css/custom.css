@@ -1089,8 +1089,10 @@ tr #titles {
 }
 
 #closeSign {
-    float:right;
+    /* float: right; */
     color: white;
+    margin-left: 300px;
+    font-size: 40px;
 }
 
 #closeSign:hover {
