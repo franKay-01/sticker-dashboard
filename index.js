@@ -713,8 +713,8 @@ app.get('/collection/:id', function (req, res) {
                 var col = collection.relation("Collection");
                 col.query().find().then(function (stickers) {
 
-                    res.render("pages/collection", {stickers: stickers, id: coll_id, collectionName: coll_name});
-
+                    // res.render("pages/collection", {stickers: stickers, id: coll_id, collectionName: coll_name});
+                    res.render("pages/new_collection", {stickers: stickers, id: coll_id, collectionName: coll_name});
                 }, function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
                 });
@@ -771,10 +771,10 @@ app.post('/new-collection', function (req, res) {
         var collection = new Collection();
         collection.set("collection_name", coll_name);
         collection.set("pack_description",pack_description);
-        
+
         collection.save().then(function () {
 
-            res.redirect('/pack_dashboard');
+            res.redirect('/pack_collection');
 
         });
     }

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign Up - Cyfa</title>
+
+    <!--Logo-->
+    <link rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.ico"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+    </style>
+
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+
+</head>
+
+<body class="primary-background-color">
+<div class="grid-container">
+    <div class="medium-12 large-12">
+        <img src="/public/assets/images/G_logo.png"
+         srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo2">
+    </div>
+
+    <span class="medium-12 large-12 Welcome-to-publisher"><b>Welcome James</b></span>
+
+<img src="/public/assets/images/bar.png" srcset="img/bar@2x.png 2x,img/bar@3x.png 3x" class="bar">
+
+<!-- Logo -->
+<div class="row header-top-spacing">
+    <div class="columns large-12 small-12">
+        <div class="row">
+
+            <div class="medium-12 large-12">
+                <h3 class="logo-text primary-font">  <%= collectionName %> Pack </h3>
+            </div>
+           <!--  <a id="signoutLink" onclick="logoutUser()">SIGN OUT</a> -->
+            <p></p>
+            <!--link to other pages-->
+            <!-- <%- include('../partials/links') %> -->
+
+            <!-- <a class="uplink" href="/add-stickers1/<%= id %>">   Add To This Collection</a> -->
+        </div>
+    </div>
+</div>
+<div class="grid-x grid-margin-x opaqueDiv">
+    <div class="medium-3 large-3 cell loginCard">
+        <div class="card_head_position">
+         <div class="Stats">Menu</div>
+         <div class="_stickers">Home</div>
+         <div class="_stickers-Packs">Categories</div>
+         <div class="_categories">Packs</div>
+        </div>
+    </div>
+    <div class="medium-3 large-3 cell loginCard">
+        <div class="card_head_position">
+         <div class="Stats">Menu</div>
+         <div class="_stickers">Home</div>
+         <div class="_stickers-Packs">Categories</div>
+         <div class="_categories">Packs</div>
+        </div>
+    </div>
+    <div class="medium-3 large-3 cell Icons">
+        <img class="btn_pack_icon" src="/public/assets/images/create-sticker-icon.png">
+        <div><p class="new_sticker">NEW STICKER</p></div>  
+        <a class="uplink" href="/add-stickers1/<%= id %>">From Computer</a> 
+        <a class="uplink" href="/upload_page">Dropbox Upload</a>       
+    </div>
+    
+    <% include ../partials/sticker-cards %>
+    
+</div>
+<!-- Body -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js"></script>
+<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+
+</body>
+
+
+</html
