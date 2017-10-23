@@ -32,9 +32,9 @@
         <img src="/public/assets/images/G_logo.png"
          srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo2">
     </div>
-<div class="small-12 large-12">
+<!-- <div class="small-12 large-12">
         <a class="uplink" id="showCreateForm">  Create New Collection</a>
- </div>
+ </div> -->
 <div id="hiddenCreateForm">
     <form id="collectionForm" action="/new-collection" method="post">
         <table>
@@ -64,7 +64,7 @@
 <div class="grid-x grid-margin-x opaqueDiv">
 <div class="medium-3 large-3 cell Icons">
     <img class="Icon_create_sticker_pack" src="/public/assets/images/icon-create-sticker-pack.png">
-    <div class="create_new_pack">CREATE NEW PACK</div>
+    <div class="create_new_pack" id="showCreateForm">CREATE NEW PACK</div>
 </div>
 <% include ../partials/packs %>
 </div>
