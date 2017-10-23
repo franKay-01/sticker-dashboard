@@ -523,9 +523,17 @@ input[type=search], textarea.materialize-textarea {
 }
 
 ._pack{
-    width: 350px !important;
+    width: 450px !important;
     margin-top: 103px !important;
     margin-bottom: 77px !important;
+    text-align: left;
+    background: transparent;
+    border-top:0;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 3px white solid !important;
+    border-color: black;
+    border-width: 6px;
 }
 
 .Icon_create_sticker_pack {
