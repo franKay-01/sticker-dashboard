@@ -82,7 +82,9 @@ a {
   font-weight: 300;
   letter-spacing: -2.1px;
   text-align: left;
+  margin-left: 414px;
   color: #ffffff;
+  margin-right: 40px
 }
 
 .create {
@@ -93,6 +95,7 @@ a {
   font-weight: bold;
   letter-spacing: -2.1px;
   text-align: left;
+  margin-left:550px;
   color: #ffffff;
 }
 
