@@ -39,8 +39,8 @@
 
 <!--Drag n Drop Form-->
  
- <img id=imageid>
-
+ <img id=imageid />
+<div class="medium-12 large-12">
 <form id="addStickersForm" action="/uploads" enctype="multipart/form-data" method="post">
     <div class="wrapper">
         <div class="drop">
@@ -60,6 +60,7 @@
     <button id="btnUploadSticker" type="submit">UPLOAD STICKER(S)</button>
     <input type="hidden" name="coll_id" style="display: none" value="<%= id %>">
 </form>
+</div>
 <button id="btnClearAddForm">CLEAR</button>
 </div>
 <div id="pageMask"></div>
