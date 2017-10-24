@@ -227,6 +227,17 @@ button:active{
     background-color: transparent;
 }
 
+.upload {
+  width: 120px;
+  height: 44px;
+  font-family: Montserrat;
+  font-size: 36px;
+  font-weight: bold;
+  letter-spacing: -2.1px;
+  text-align: left;
+  color: #a46580;
+}
+
 .createButton:focus{
     background-color: none
 }
@@ -1062,6 +1073,16 @@ fieldset {
     color: #e02f1f;
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.clear {
+  width: 79px;
+  height: 43px;
+  font-family: Montserrat;
+  font-size: 35px;
+  letter-spacing: -2.1px;
+  text-align: left;
+  color: #a46580;
 }
 
 #btnClearAddForm {
