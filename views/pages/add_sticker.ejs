@@ -41,7 +41,7 @@
 <br>
 <div class="grid-x grid-margin-x">
 <div class="medium-12 large-12 cell">
-<form id="addStickersForm" style="height: 500px" action="/uploads" enctype="multipart/form-data" method="post">
+<form id="addStickersForm" action="/uploads" enctype="multipart/form-data" method="post">
     <div class="wrapper">
         <div class="drop">
             <div class="cont">
@@ -55,10 +55,11 @@
             </div>
             <output id="filesList"></output>
             <input id="files" multiple="true" name="im1[]" type="file"/>
+            <button class="upload" type="submit">Upload</button>
+    <button class="clear">CLEAR</button>
         </div>
     </div>
-    <button class="upload" type="submit">Upload</button>
-    <button class="clear">CLEAR</button>
+    
     <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"/>
 </form>
 </div>
