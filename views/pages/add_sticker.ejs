@@ -61,16 +61,6 @@
     <input type="hidden" name="coll_id" style="display: none" value="<%= id %>">
 </form>
 <button id="btnClearAddForm">CLEAR</button>
-
-<!-- to upload image from dropbox -->
-<form action="/upload_dropbox" enctype="multipart/form-data" method="post">
-<div id="dropbox-container">
-
-</div>
-    <input type="file" name="box" id="box">
-    <button id="btnUploadSticker" type="submit">UPLOAD DROPBOX</button>  
-    <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"> 
-</form>
 </div>
 <div id="pageMask"></div>
 <!--<div class="cover"></div>-->
@@ -84,9 +74,4 @@
 <script type="text/javascript" src="/public/assets/js/dropzone.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
 <script type="text/javascript" src="/public/assets/js/dragndrop.js"></script>
-<script type="text/javascript" src="/public/assets/js/dropbox.js"></script>
-
-
-
-
 </html>
