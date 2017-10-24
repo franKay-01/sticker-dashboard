@@ -31,8 +31,7 @@
          srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo2">
     </div>
 <div class="medium-12 large-12">
-<form id="addStickersForm" style="height: 500px" action="/uploads" enctype="multipart/form-data" method="post">
-    <div class="wrapper">
+<form id="addStickersForm" action="/uploads" enctype="multipart/form-data" method="post">
         <div class="drop">
             <div class="cont">
                 <i class="fa fa-cloud-upload"></i>
@@ -45,7 +44,7 @@
             </div>
             <output id="filesList"></output>
             <input id="files" multiple="true" name="im1[]" type="file"/>
-        </div>
+        
     </div>
     <button id="btnUploadSticker" type="submit">UPLOAD STICKER(S)</button>
     <button id="btnClearAddForm">CLEAR</button>
