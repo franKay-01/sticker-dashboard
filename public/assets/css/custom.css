@@ -1086,10 +1086,9 @@ fieldset {
 
 /* END---------NEW DRAG AND DROP FORM*/
 
-.drop {
+/*.drop {
     width: 43%;
     border-radius: 15px;
-    /*display: none;*/
     background: white;
     overflow: hidden;
     text-align: center;
@@ -1099,7 +1098,7 @@ fieldset {
     height: 400px;
     bottom: 100px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
-}
+}*/
 
 /*Create Collection Form*/
 #collectionForm {
