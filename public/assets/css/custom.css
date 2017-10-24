@@ -982,7 +982,7 @@ fieldset {
     border-width:5px;
     border:hidden;
     height: 400px;
-    /*bottom: 110px;*/
+    bottom: 110px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
 }
 
@@ -1099,7 +1099,7 @@ fieldset {
     margin: 0 auto;
     position: relative;
     height: 400px;
-    /*bottom: 100px;*/
+    bottom: 100px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
 }
 
