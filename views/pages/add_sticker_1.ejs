@@ -30,6 +30,27 @@
         <img src="/public/assets/images/G_logo.png"
          srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo2">
     </div>
-<div class="medium-12 large-12 Welcome-to-publisher"><b>Welcome James</b></div>
+<div class="medium-12 large-12">
+<form id="addStickersForm" style="height: 500px" action="/uploads" enctype="multipart/form-data" method="post">
+    <div class="wrapper">
+        <div class="drop">
+            <div class="cont">
+                <i class="fa fa-cloud-upload"></i>
+                <div class="tit">
+                    Drag & Drop
+                </div>
+                <div class="desc">
+                    your stickers here, or click to browse
+                </div>
+            </div>
+            <output id="filesList"></output>
+            <input id="files" multiple="true" name="im1[]" type="file"/>
+        </div>
+    </div>
+    <button id="btnUploadSticker" type="submit">UPLOAD STICKER(S)</button>
+    <button id="btnClearAddForm">CLEAR</button>
+    <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"/>
+</form>
+</div>
 </div>
 </body>
