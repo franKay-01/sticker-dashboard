@@ -42,7 +42,7 @@
  <img id=imageid />
 
 <div class="medium-12 large-12">
-<form id="addStickersForm" action="/uploads" enctype="multipart/form-data" method="post">
+<form id="addStickersForm" class="form_size" action="/uploads" enctype="multipart/form-data" method="post">
     <div class="wrapper">
         <div class="drop">
             <div class="cont">
@@ -59,11 +59,12 @@
         </div>
     </div>
     <button id="btnUploadSticker" type="submit">UPLOAD STICKER(S)</button>
+    <button id="btnClearAddForm">CLEAR</button>
     <input type="hidden" name="coll_id" style="display: none" value="<%= id %>">
 </form>
 
 </div>
-<button id="btnClearAddForm">CLEAR</button>
+
 <div id="pageMask"></div>
 </div>
 

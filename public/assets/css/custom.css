@@ -970,6 +970,9 @@ fieldset {
     height: 100%;
 }
 
+.form_size{
+    height: 500px
+}
 .drop {
     width: 50%;
     border-radius: 15px;
