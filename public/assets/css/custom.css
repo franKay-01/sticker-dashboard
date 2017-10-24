@@ -971,8 +971,7 @@ fieldset {
 }
 
 .drop {
-    width: 43%;
-    border: 3px dashed grey;
+    width: 50%;
     border-radius: 15px;
     overflow: hidden;
     text-align: center;
@@ -980,6 +979,8 @@ fieldset {
     transition: all 0.5s;
     margin: 0 auto;
     position: relative;
+    border-width:5px;
+    border:hidden;
     height: 400px;
     bottom: 110px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
