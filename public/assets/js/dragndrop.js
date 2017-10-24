@@ -4,6 +4,7 @@
 var drop = $("input");
 drop.on('dragenter mouseover', function (e) {
     $(".drop").css({
+        "border": "4px none",
         "background": "#a46580"
     });
     $(".cont").css({
@@ -11,6 +12,7 @@ drop.on('dragenter mouseover', function (e) {
     });
 }).on('dragleave dragend mouseout drop', function (e) {
     $(".drop").css({
+        "border": "3px none",
         "background": "white"
     });
     $(".cont").css({
