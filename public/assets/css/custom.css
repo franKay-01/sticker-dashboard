@@ -970,6 +970,7 @@ fieldset {
 }
 
 .drop {
+    width: 50%;
     border-radius: 15px;
     overflow: hidden;
     text-align: center;
