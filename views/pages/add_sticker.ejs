@@ -33,13 +33,14 @@
          srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo2">
     </div>
 
-<!-- <div class="row">
+<div class="row">
     <div class="columns large-12 hide-for-small-only margin-top-60"></div>
-</div> -->
+</div>
 
 <!--Drag n Drop Form-->
  
  <img id=imageid />
+<div class="grid-x grid-margin-x">
 <div class="medium-12 large-12">
 <form id="addStickersForm" action="/uploads" enctype="multipart/form-data" method="post">
     <div class="wrapper">
@@ -60,6 +61,7 @@
     <button id="btnUploadSticker" type="submit">UPLOAD STICKER(S)</button>
     <input type="hidden" name="coll_id" style="display: none" value="<%= id %>">
 </form>
+</div>
 </div>
 <button id="btnClearAddForm">CLEAR</button>
 <div id="pageMask"></div>
