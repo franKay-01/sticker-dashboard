@@ -4,7 +4,8 @@
 var drop = $("input");
 drop.on('dragenter mouseover', function (e) {
     $(".drop").css({
-        "border": "none",
+        "border": "hidden",
+        "border-width":"5px",
         "background": "#a46580"
     });
     $(".cont").css({
@@ -12,7 +13,8 @@ drop.on('dragenter mouseover', function (e) {
     });
 }).on('dragleave dragend mouseout drop', function (e) {
     $(".drop").css({
-        "border": "none",
+        "border": "hidden",
+        "border-width":"5px",
         "background": "white"
     });
     $(".cont").css({
