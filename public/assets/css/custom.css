@@ -1006,7 +1006,13 @@ fieldset {
     text-transform: uppercase;
 }
 .drop .cont .desc {
-    color: red;
+  height: 32px;
+  font-family: Montserrat;
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: -1.5px;
+  text-align: center;
+  color: #a9a9a9;
 }
 
 .drop input {
