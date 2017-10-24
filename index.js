@@ -739,7 +739,7 @@ app.get('/add-stickers1/:id', function (req, res) {
 
     if (session && token) {
         // res.render("pages/add-stickers1", {id: coll_id});
-        res.render("pages/add_sticker_1", {id: coll_id});
+        res.render("pages/add_sticker", {id: coll_id});
     } else {
         res.redirect("/");
     }
