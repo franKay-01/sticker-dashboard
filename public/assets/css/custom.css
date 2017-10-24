@@ -1006,7 +1006,7 @@ fieldset {
     text-transform: uppercase;
 }
 .drop .cont .desc {
-    color: blue;
+    color: red;
 }
 
 .drop input {
