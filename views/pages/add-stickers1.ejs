@@ -76,7 +76,7 @@
     <button id="btnUploadSticker" type="submit">UPLOAD STICKER(S)</button>
     <input type="hidden" name="coll_id" style="display: none" value="<%= id %>">
 </form>
-<button id="btnClearAddForm">CLEAR</button>
+<button id="btnClearAddForm" onClick="this.form.reset()">CLEAR</button>
 
 <!-- to upload image from dropbox -->
 <form action="/upload_dropbox" enctype="multipart/form-data" method="post">
