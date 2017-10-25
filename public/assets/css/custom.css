@@ -228,10 +228,10 @@ button:active{
 }
 
 .upload {
-  width: 120px;
-  height: 44px;
+  width: 106px;
+  height: 43px;
   font-family: Montserrat;
-  font-size: 36px;
+  font-size: 35px;
   font-weight: bold;
   letter-spacing: -2.1px;
   text-align: left;
@@ -1075,15 +1075,16 @@ fieldset {
 }
 
 .clear {
-  width: 79px;
+  width: 105px;
   height: 43px;
   font-family: Montserrat;
   font-size: 35px;
+  font-weight: 300;
   letter-spacing: -2.1px;
-  margin-left: 20%;
-  margin-right: 5%;
   text-align: left;
+  margin-left: 400px;
   color: #a46580;
+  margin-right: 10px
 }
 
 #btnClearAddForm {
