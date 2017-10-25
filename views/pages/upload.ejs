@@ -43,6 +43,19 @@
         document.getElementById("dropbox-container").appendChild(button);
     }
 
+     document.getElementById("chooser-image").onclick = function () {
+        Dropbox.choose({
+            linkType: "direct",
+            multiselect: true, // true or false
+            extensions: ['.png', '.jpg'],
+            success: function (files) {
+              files.forEach(function(file) {
+             add_img_to_list(file);
+             });
+            }
+        });
+    };
+
     function add_img_to_list(file) {
       //TODO try link instead of thumbnailLink
       var name = file.name;
@@ -77,6 +90,7 @@
         <div class="drop">
             <div class="cont">
         <div id="dropbox-container"></div>
+        <img id="chooser-image" src="/public/assets/images/parse-logo.png" />
         </div>
       </div>
     </div>
