@@ -1080,6 +1080,8 @@ fieldset {
   font-family: Montserrat;
   font-size: 35px;
   letter-spacing: -2.1px;
+  margin-left: 20%;
+  margin-right: 5%;
   text-align: left;
   color: #a46580;
 }
