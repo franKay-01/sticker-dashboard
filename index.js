@@ -158,7 +158,8 @@ app.get('/', function (req, res) {
     var token = req.cookies.token;
 
     if (session && token) {
-        res.redirect("/dashboard");
+        res.redirect("/home");
+        // res.redirect("/dashboard");
     } else {
         res.redirect("/login");
     }
@@ -169,7 +170,7 @@ app.get('/login', function(req, res){
     var token = req.cookies.token;
 
     if (session && token){
-        res.redirect("/dashboard");
+        res.redirect("/home");
     }else{
         let query = new Parse.Query("Sticker");
         query.limit(40);
@@ -412,8 +413,8 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
         }).then(function () {
 
-            console.log("REDIRECT TO DASHBOARD");
-            res.redirect("/pack_dashboard");
+            console.log("REDIRECT TO PACK COLLECTION");
+            res.redirect("/pack_collection");
 
         }, function (error) {
             console.log("BIG BIG ERROR" + error.message);
