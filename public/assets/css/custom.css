@@ -995,6 +995,10 @@ fieldset {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
 }
 
+.image_upload{
+    margin-top: 90px
+}
+
 .cont {
     height: 100px;
     color: #a46580;
@@ -1015,6 +1019,17 @@ fieldset {
     font-size: 200%;
     text-transform: uppercase;
 }
+
+.choose_from_dropbox {
+  height: 32px;
+  font-family: Montserrat;
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: -1.5px;
+  text-align: center;
+  color: #a9a9a9;
+}
+
 .drop .cont .desc {
   height: 32px;
   font-family: Montserrat;
