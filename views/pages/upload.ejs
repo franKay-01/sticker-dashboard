@@ -46,8 +46,8 @@
      document.getElementById("chooser-image").onclick = function () {
         Dropbox.choose({
             linkType: "direct",
-            multiselect: true, // true or false
-            extensions: ['.png', '.jpg'],
+            // multiselect: true, // true or false
+            // extensions: ['.png', '.jpg'],
             success: function (files) {
               files.forEach(function(file) {
              add_img_to_list(file);
