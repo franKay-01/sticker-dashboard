@@ -911,8 +911,17 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     }
 });
 
-app.get('/upload_page', function (req, res) {
-    res.render("pages/upload");
+app.get('/upload_page/:id', function (req, res) {
+    var session = req.session.token;
+    var token = req.cookies.token;
+    var coll_id = req.params.id;
+
+    if (session && token) {
+        res.render("pages/upload", {id: coll_id});
+    }else{
+        res.redirect("/dashboard");
+    }
+    
 });
 
 app.post('/upload-file', function (req, res) {

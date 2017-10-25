@@ -3,12 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
 
-    <title>Main</title>
+    <!--Logo-->
+    <link rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.ico"/>
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800,900');
     </style>
 
     <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
@@ -17,8 +18,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <!--parse js-->
-    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
     <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="ed8po9zwpj4pnhw"></script>
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script type="text/javascript">
@@ -62,15 +63,33 @@
 </head>
 
 <body class="secondary-background-color" onload="dropbox()">
+
+<div class="grid-container">
+
+<div class="medium-12 large-12">
+        <img src="/public/assets/images/G_logo.png"
+         srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo2">
+    </div>
+<div class="grid-x grid-margin-x">
+<div class="medium-12 large-12 cell">
     <form action="/upload-file" method="post" id="formId">
+    <div class="wrapper">
+        <div class="drop">
+            <div class="cont">
         <div id="dropbox-container"></div>
+        </div>
+      </div>
+    </div>
         <input type="text" style="display: none" name="fileUrl" id="fileUrl">
         <input type="text" style="display: none;" name="fileName" id="fileName">
         <input type="text" style="display: none;" name="file" id="fileType">
-        <input type="hidden" name="coll_id" style="display: none" value="bGNBesreD0">       
+        <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"/>       
  <!-- <div id="inputFile" name="inputFile"></div> -->
         <input type="submit">
     </form>
+      </div>
+    </div>
+  </div>
 </body>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
 <!-- Compiled and minified JavaScript -->
