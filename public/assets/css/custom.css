@@ -1087,7 +1087,7 @@ fieldset {
   margin-right: 10px
 }
 
-#btnClearAddForm {
+/*#btnClearAddForm {
     cursor: pointer;
     max-width: 40%;
     background: #871c12;
@@ -1106,7 +1106,7 @@ fieldset {
     color: #871c12;
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-}
+}*/
 
 /* END---------NEW DRAG AND DROP FORM*/
 
