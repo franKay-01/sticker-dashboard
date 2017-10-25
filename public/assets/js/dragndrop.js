@@ -77,7 +77,7 @@ $('#files').change(handleFileSelect);
 $('#btnClearAddForm').click(function(){
     // $('#upform')[0].reset();
     // $('.thumb').remove();
-    document.getElementById("files").value = "";
+    document.getElementById("filesList").value = "";
 });
 
 
