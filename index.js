@@ -194,8 +194,6 @@ app.get('/login', function(req, res){
 app.get('/home', function(req, res){
     var session = req.session.token;
     var token = req.cookies.token;
-    var user = req.user;
-    console.log("NAME OF USER "+JSON.stringify(user)); 
     var pack = [];
     var pack_category = [];
 
@@ -220,11 +218,11 @@ app.get('/home', function(req, res){
 
         },function(error){
             console.log(JSON.stringify(error));
-            res.redirect("/dashboard");
+            res.redirect("/home");
         });
 
     } else {
-        res.redirect("/dashboard");
+        res.redirect("/login");
     }
 });
 
@@ -241,7 +239,7 @@ app.post('/login', function (req, res) {
         res.cookie('token', user.getSessionToken());
         req.session.token = user.getSessionToken();
         console.log("USER GETS TOKEN : "+user.getSessionToken());
-        res.redirect("/dashboard");
+        res.redirect("/home");
 
     }, function (error) {
         //TODO handle errors
