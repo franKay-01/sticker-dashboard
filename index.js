@@ -194,7 +194,7 @@ app.get('/login', function(req, res){
 app.get('/home', function(req, res){
     var session = req.session.token;
     var token = req.cookies.token;
-    var user = req.session;
+    var user = req.user;
     console.log("NAME OF USER "+JSON.stringify(user)); 
     var pack = [];
     var pack_category = [];
