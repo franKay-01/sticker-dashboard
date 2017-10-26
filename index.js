@@ -194,14 +194,7 @@ app.get('/login', function(req, res){
 app.get('/home', function(req, res){
     var session = req.session.token;
     var token = req.cookies.token;
-    var currentUser = Parse.User.current();
-    currentUser.fetch().then(function(fetchedUser){
-        var name = fetchedUser.getUsername();
-        console.log("CURRENT USER "+JSON.stringify(name));
-        }, function(error){
-        console.log("CURRENT USER NOT FOUND "+ error);
-    });
-    
+    var user = req.user;
     var pack = [];
     var pack_category = [];
 
@@ -222,7 +215,7 @@ app.get('/home', function(req, res){
 
             }
 
-            res.render("pages/home", {collections:_collection,categories:_categories });
+            res.render("pages/home", {collections:_collection,categories:_categories, name: user.get("name") });
 
         },function(error){
             console.log(JSON.stringify(error));
