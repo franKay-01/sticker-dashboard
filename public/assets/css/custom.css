@@ -505,7 +505,7 @@ input[type=search], textarea.materialize-textarea {
  }
 
 #signlink:hover {
-    text-decoration: underline;
+    cursor: pointer;
 }
 
 #signoutLink {
@@ -513,8 +513,8 @@ input[type=search], textarea.materialize-textarea {
     margin-top: 70px;
     margin-right: 25px;
     font-family: Montserrat;
-    font-size: 35px;
-    font-weight: bold;
+    font-size: 25px;
+    font-weight: 900;
     letter-spacing: -2.1px;
     color: #af627f;
 }
