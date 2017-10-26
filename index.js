@@ -194,6 +194,8 @@ app.get('/login', function(req, res){
 app.get('/home', function(req, res){
     var session = req.session.token;
     var token = req.cookies.token;
+    var currentUser = Parse.User.current();
+    console.log("CURRENT USER "+JSON.stringify(currentUser));
     var pack = [];
     var pack_category = [];
 
