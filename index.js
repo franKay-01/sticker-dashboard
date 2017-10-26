@@ -195,7 +195,13 @@ app.get('/home', function(req, res){
     var session = req.session.token;
     var token = req.cookies.token;
     var currentUser = Parse.User.current();
-    console.log("CURRENT USER "+JSON.stringify(currentUser));
+    currentUser.fetch().then(function(fetchedUser){
+        var name = fetchedUser.getUsername();
+        console.log("CURRENT USER "+JSON.stringify(name));
+        }, function(error){
+        console.log("CURRENT USER NOT FOUND "+ error);
+    });
+    
     var pack = [];
     var pack_category = [];
 
