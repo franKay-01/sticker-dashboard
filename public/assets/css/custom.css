@@ -520,7 +520,7 @@ input[type=search], textarea.materialize-textarea {
 }
 
 #signoutLink:hover {
-    text-decoration: underline;
+    cursor: pointer;
 }
 
 #signUpForm {
