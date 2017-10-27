@@ -38,7 +38,24 @@
          srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo2">
          <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
     </div>
-
+    <div id="hiddenCreateForm">
+  <!-- <div id="create_back_background"> -->
+  <div class="medium-3 large-3 cell create_back_background">
+    <form id="pack_form" action="/new-collection" method="post">
+       <center> 
+        <div class="create_New_Pack medium-12 large-12">CREATE NEW PACK </div> 
+                  
+          <input type="text" class="_pack" placeholder="Pack name" name="coll_name"><br>
+          <input type="text" class="_pack" placeholder="Pack description" name="coll_description"><br>
+         </center> 
+        <span>
+        <button type="button" id="btnCancel" class="cancel">Cancel</button>
+         </span>
+         <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+    </form>
+    </div>
     <span class="medium-12 large-12 Welcome-to-publisher"><b>Welcome </b></span>
     <div class="grid-x grid-margin-x opaqueDiv">
       <div class="medium-3 large-3 cell loginCard">
@@ -50,13 +67,13 @@
         </div>
       </div>
       <div class="medium-3 large-3 cell Icons">
-      
-        <div class="createButton">
+      <a href="#" id="showCreateForm">
+        <button class="createButton">
           <img src="/public/assets/images/icon-create-sticker-pack.png" srcset="/public/assets/images/icon-create-sticker-pack.png 2x,
              /public/assets/images/icon-create-sticker-pack.png 3x" class="icon_create_sticker">
           <div class="create_new">CREATE NEW</div>
-        </div>
-        
+        </button>
+        </a>
         <div class="card_head_position">
            <div class="Recent-Packs">Recent Packs</div>
            <%- include('../partials/home_pack') %>
