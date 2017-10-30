@@ -774,9 +774,9 @@ app.post('/new-collection', function (req, res) {
         collection.set("collection_name", coll_name);
         collection.set("pack_description",pack_description);
 
-        collection.save().then(function () {
+        collection.save().then(function (collection) {
 
-            res.redirect('/pack_collection');
+            res.redirect('/collection/'+collection.id);
 
         });
     }
