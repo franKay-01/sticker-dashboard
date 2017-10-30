@@ -8,6 +8,8 @@ $(document).ready(function () {
             $('#pageMask').fadeIn('fast');
             $('#opaqueDiv').fadeOut('fast');
             $('#logo2').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
         });
 
         //close/hide form
@@ -16,12 +18,16 @@ $(document).ready(function () {
             $('#pageMask').fadeOut('fast');
             $('#logo2').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
             $('#pack_form')[0].reset();
         });
         $('#btnCancel').on('click', function () {
             $('#hiddenCreateForm').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#logo2').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
             $('#pack_form')[0].reset();
         });
