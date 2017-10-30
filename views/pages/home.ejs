@@ -38,6 +38,7 @@
          srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo2">
          <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
     </div>
+    <div id="pageMask"></div>
     <div id="hiddenCreateForm">
   <!-- <div id="create_back_background"> -->
   <div class="medium-3 large-3 cell create_back_background">
@@ -45,8 +46,8 @@
        <center> 
         <div class="create_New_Pack medium-12 large-12">CREATE NEW PACK </div> 
                   
-          <input type="text" class="_pack" placeholder="Pack name" name="coll_name"><br>
-          <input type="text" class="_pack" placeholder="Pack description" name="coll_description"><br>
+          <input type="text" class="_pack validate" placeholder="Pack name" name="coll_name" required="" aria-required="true"><br>
+          <input type="text" class="_pack validate" placeholder="Pack description" name="coll_description" required="" aria-required="true"><br>
          </center> 
         <span>
         <button type="button" id="btnCancel" class="cancel">Cancel</button>
