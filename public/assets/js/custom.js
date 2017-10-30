@@ -6,17 +6,23 @@ $(document).ready(function () {
         $('#showCreateForm').on('click', function () {
             $('#hiddenCreateForm').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo2').fadeOut('fast');
         });
 
         //close/hide form
         $('#closeSign').on('click', function () {
             $('#hiddenCreateForm').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
+            $('#logo2').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
             $('#pack_form')[0].reset();
         });
         $('#btnCancel').on('click', function () {
             $('#hiddenCreateForm').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
+            $('#logo2').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
             $('#pack_form')[0].reset();
         });
     });
