@@ -817,7 +817,7 @@ app.get('/details/:id', function (req, res) {
 
             console.log("CATEGORY NAMES " + categoryNames);
 
-            res.render("pages/details", {
+            res.render("pages/details_2", {
                 sticker: stickerDetail,
                 categoryNames: categoryNames,
                 categories: allCategories
