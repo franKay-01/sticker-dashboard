@@ -8,13 +8,13 @@
     </div>
 
     <div id="leftColumn">
-        <label class="update_label">Sticker Name:</label> <input placeholder="Sticker Name" name="stickerName"
+        <label class="update_label">Sticker Name:</label> <input placeholder="Sticker Name" class="box" name="stickerName"
                value="<%= sticker.get("stickerName") %>">
 
         <!--if new img has been uploaded, set value to true-->
         <input type="hidden" id="imgChange" name="imgChange" value="false">
 
-        <label class="update_label">Local Name:</label> <input  placeholder="Local Name" name="localname"
+        <label class="update_label">Local Name:</label> <input  placeholder="Local Name" class="box" name="localname"
                value="<%= sticker.get("localName") %>">
 
         <label class="update_label">Category:</label> <input placeholder="Category e.g funny, silly" id="categoryInput" name="cat"
