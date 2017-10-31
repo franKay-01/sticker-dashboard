@@ -1092,6 +1092,7 @@ fieldset {
     background: #e02f1f;
     color: white;
     padding: 1%;
+    margin-top: 105px;
     font-family: monospace;
     font-size: 130%;
     transition: 0.3s;
