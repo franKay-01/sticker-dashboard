@@ -27,6 +27,17 @@ a {
   color: #ffffff;
 }
 
+.update_label {
+  width: 165px;
+  height: 24px;
+  font-family: Montserrat;
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 0.96;
+  text-align: left;
+  color: #a46580;
+}
+
 .create_back_background {
   width: 726px;
   height: 414px;
@@ -758,11 +769,11 @@ fieldset {
     box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2), 0 0 5px 10px rgba(0, 0, 0, 0.24)
 }
 
-#detailsForm label{
+/*#detailsForm label{
     color: #ff3300;
     font-size: 120%;
     font-weight: bold;
-}
+}*/
 
 #rightColumn {
     border: 2px solid darkslategrey;
