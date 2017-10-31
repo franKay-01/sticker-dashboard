@@ -34,6 +34,7 @@ a {
   font-weight: bold;
   line-height: 0.96;
   text-align: left;
+  margin-bottom: 15px;
   color: #a46580;
 }
 
@@ -769,7 +770,6 @@ fieldset {
 #rightColumn {
     /*border: 2px solid darkslategrey;*/
     float: right;
-    margin-bottom: 15px;
     position: absolute;
     overflow: hidden;
     left: 52%;
