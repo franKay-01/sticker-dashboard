@@ -921,7 +921,7 @@ fieldset {
 }
 .droppableArea:hover {
     transition: 0.3s;
-    background: #ff3300;
+    background: #a46580;
     cursor: pointer;
 }
 
