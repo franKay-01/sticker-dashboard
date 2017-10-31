@@ -769,6 +769,7 @@ fieldset {
 #rightColumn {
     /*border: 2px solid darkslategrey;*/
     float: right;
+    margin-bottom: 15px;
     position: absolute;
     overflow: hidden;
     left: 52%;
