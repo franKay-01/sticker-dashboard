@@ -1005,7 +1005,7 @@ fieldset {
     border-radius: 15px;
     margin: 70px auto;
     padding: 15px;
-    margin-bottom: 20%;
+    /*margin-bottom: 20%;*/
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
 }
 
