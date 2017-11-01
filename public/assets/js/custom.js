@@ -88,7 +88,7 @@ $(document).ready(function () {
     //show add-category form
     $('#btnAddCategory').on('click', function () {
         $('#pageMask').fadeIn('fast');
-        $('.hiddenAddCatForm').fadeIn('fast');
+        $('#hiddenAddCatForm').fadeIn('fast');
         $('#logo2').fadeOut('fast');
         $('#Welcome').fadeOut('fast');
         $('#signoutLink').fadeOut('fast');
