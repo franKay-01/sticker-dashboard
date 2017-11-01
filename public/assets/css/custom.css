@@ -785,7 +785,6 @@ fieldset {
     overflow: hidden;
     left: 52%;
     height: 300px;
-    width: 18%;
 }
 
 #add-img {
@@ -1000,7 +999,7 @@ fieldset {
 }
 
 #detailsForm {
-    height: 570px;
+    height: 450px;
     width: 70%;
     background: white;
     border-radius: 15px;
