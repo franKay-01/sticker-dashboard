@@ -445,7 +445,7 @@ app.get('/categories', function (req, res) {
             let categories = [];
             if(count.length) {
               let counts = count;
-
+              console.log("CATEGORIES COUNT "+counts);
             }
             if(categories.length) {
                 categories = categories;
