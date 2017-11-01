@@ -24,7 +24,6 @@ $(document).ready(function () {
         });
         $('#btnCancel').on('click', function () {
             $('#hiddenCreateForm').fadeOut('fast');
-            $('#hiddenAddCatForm').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#logo2').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
@@ -97,8 +96,12 @@ $(document).ready(function () {
     //remove form
     $('#btn_cancelAddCat').on('click', function () {
         $('#pageMask').fadeOut('fast');
-        $('.hiddenAddCatForm').fadeOut('fast');
-        $('#editCategoryForm')[0].reset();
+        $('#hiddenAddCatForm').fadeOut('fast');
+        $('#logo2').fadeIn('fast');
+        $('#Welcome').fadeIn('fast');
+        $('#signoutLink').fadeIn('fast');
+        $('#opaqueDiv').fadeIn('fast');
+        $('#pack_form')[0].reset();
     });
 
 
