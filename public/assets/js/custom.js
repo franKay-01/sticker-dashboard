@@ -91,6 +91,7 @@ $(document).ready(function () {
         $('#logo2').fadeOut('fast');
         $('#Welcome').fadeOut('fast');
         $('#signoutLink').fadeOut('fast');
+        $('#opaqueDiv').fadeOut('fast');;
     });
     //remove form
     $('#btn_cancelAddCat').on('click', function () {
