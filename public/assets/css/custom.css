@@ -1250,6 +1250,14 @@ tr #titles {
     top: 204px;
 }
 
+#hiddenAddCatForm {
+    display: none;
+    position: absolute;
+    margin-left: 25%;
+    z-index: 9999;
+    top: 204px;
+}
+
 #hiddenCreateCategoryForm{
     display: none;
     position: absolute;
