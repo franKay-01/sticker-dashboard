@@ -442,8 +442,11 @@ app.get('/categories', function (req, res) {
                 /* categories.forEach(function (cat, index) {
                      console.log("Category" + index + ":::::" + JSON.stringify(cat));
                  });*/
-                console.log("FIRST ID: " + JSON.stringify(categories[0].id));
-                res.render("pages/categories", {categories: categories});
+                 categories.count().then(function (counts){
+                    console.log("FIRST ID: " + JSON.stringify(categories[0].id));
+                res.render("pages/categories", {categories: categories, count:counts});
+            });
+                
             },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
