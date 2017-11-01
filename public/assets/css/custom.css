@@ -1444,16 +1444,16 @@ tr #titles {
 
 
 /*ADD CATEGORY form----------------------------------------*/
-.hiddenAddCatForm {
+/*.hiddenAddCatForm {
     display: none;
     position: absolute;
     width: 60%;
     z-index: 2;
-}
+}*/
 
-#addCategoryForm {
+/*#addCategoryForm {
     margin-left: 50%;
-}
+}*/
 
 #addtable {
     width: 100%;
