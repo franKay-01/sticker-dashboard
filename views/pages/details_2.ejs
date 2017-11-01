@@ -34,10 +34,12 @@
          </a>
     </div>
     <div class="grid-x grid-margin-x opaqueDiv" id="opaqueDiv">
-    <form id="detailsForm" class="medium-12 large-12" action="/update/<%= sticker.id %>" enctype="multipart/form-data" method="post">
+    <div class="medium-12 large-12">
+    <form id="detailsForm" action="/update/<%= sticker.id %>" enctype="multipart/form-data" method="post">
     <% include ../partials/sticker-details %>
     <button id="btnUpdateSticker" type="submit">UPDATE</button>
     </form>
+    </div>
     </div>
 </div>
 </body>
