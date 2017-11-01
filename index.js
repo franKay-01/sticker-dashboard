@@ -438,29 +438,14 @@ app.get('/categories', function (req, res) {
     if (session && token) {
 
         //query parse for all categories
-        Parse.Promise.when(
-            new Parse.Query("Category").count(),
-            new Parse.Query("Category").limit(limit).find({sessionToken: token})
-        ).then(function(count,categories){
-            let categories = [];
-            if(count.length) {
-              let counts = count;
-              console.log("CATEGORIES COUNT "+counts);
-            }
-            if(categories.length) {
-                categories = categories;
-
-            }
-             res.render("pages/categories", {categories: categories, count:counts});
-
-        },
-        // new Parse.Query("Category").find({sessionToken: token}).then(function (categories) {
-        //          categories.forEach(function (cat, index) {
-        //              console.log("Category" + index + ":::::" + JSON.stringify(cat));
-        //          });
-        //         console.log("FIRST ID: " + JSON.stringify(categories[0].id));
-        //         res.render("pages/categories", {categories: categories});
-        //     },
+        
+        new Parse.Query("Category").find({sessionToken: token}).then(function (categories) {
+                /* categories.forEach(function (cat, index) {
+                     console.log("Category" + index + ":::::" + JSON.stringify(cat));
+                 });*/
+                console.log("FIRST ID: " + JSON.stringify(categories[0].id));
+                res.render("pages/categories", {categories: categories});
+            },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
             });
