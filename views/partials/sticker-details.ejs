@@ -1,13 +1,13 @@
 
 <form id="detailsForm" action="/update/<%= sticker.id %>" enctype="multipart/form-data" method="post">
-    <div id="small-6 cell">
+    <div id="rightColumn">
         <div class="droppableArea">
             <div class="output" name="tfile"></div>
             <img id="im1" name="im1" style="width: 100%; height: 100%;"  src="<%= sticker.get("uri").url() %>">
         </div>
     </div>
 
-    <div id="small-6 cell">
+    <div id="leftColumn">
         <label class="update_label">Sticker Name:</label> <input placeholder="Sticker Name" class="box_2" name="stickerName"
                value="<%= sticker.get("stickerName") %>">
 
