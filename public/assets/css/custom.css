@@ -920,7 +920,6 @@ fieldset {
 }
 .droppableArea:hover {
     transition: 0.3s;
-    background: #a46580;
     cursor: pointer;
 }
 
@@ -1000,7 +999,7 @@ fieldset {
 
 #detailsForm {
     height: 450px;
-    width: 70%;
+    width: 65%;
     background: white;
     border-radius: 15px;
     margin: 70px auto;
