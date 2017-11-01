@@ -33,13 +33,8 @@
          srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo2" id="logo2">
          </a>
     </div>
-    <div class="grid-x" id="opaqueDiv">
-    <div class="large-auto cell">
-    <form id="detailsForm" action="/update/<%= sticker.id %>" enctype="multipart/form-data" method="post">
+    <div class="grid-x grid-margin-x" id="opaqueDiv">
     <% include ../partials/sticker-details %>
-    <button id="btnUpdateSticker" type="submit">UPDATE</button>
-    </form>
-    </div>
     </div>
 </div>
 </body>
