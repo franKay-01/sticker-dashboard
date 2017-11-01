@@ -1250,6 +1250,17 @@ tr #titles {
     top: 204px;
 }
 
+.add_category_label {
+  width: 201px;
+  height: 33px;
+  font-family: Montserrat;
+  font-size: 27px;
+  font-weight: 600;
+  letter-spacing: -1.6px;
+  text-align: center;
+  color: #c47462;
+}
+
 #hiddenAddCatForm {
     display: none;
     position: absolute;
