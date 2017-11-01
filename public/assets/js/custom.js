@@ -90,7 +90,7 @@ $(document).ready(function () {
         $('.hiddenAddCatForm').fadeIn('fast');
     });
     //remove form
-    $('#btnCancelAddCat').on('click', function () {
+    $('#btn_cancelAddCat').on('click', function () {
         $('#pageMask').fadeOut('fast');
         $('.hiddenAddCatForm').fadeOut('fast');
         $('#editCategoryForm')[0].reset();
