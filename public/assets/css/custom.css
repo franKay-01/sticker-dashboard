@@ -1274,7 +1274,7 @@ tr #titles {
     margin: 0 auto;
 }
 
-#btnAddCategory {
+/*#btnAddCategory {
     color: white;
     background-color: #e34435;
     border: 1px solid;
@@ -1289,7 +1289,7 @@ tr #titles {
     background-color: white;
     border: 1px solid;
     transition: 0.3s;
-}
+}*/
 
 .plus{
     margin-right: 3%;
