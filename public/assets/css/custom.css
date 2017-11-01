@@ -908,7 +908,7 @@ fieldset {
 
 /*NEW DRAG N DROP FORM ADD STICKERS*/
 .droppableArea {
-    background: #fefefe;
+    /*background: #fefefe;*/
     color: black;
     text-align: center;
     /*width: 100%;*/
@@ -999,7 +999,7 @@ fieldset {
 
 #detailsForm {
     height: 450px;
-    width: 65%;
+    width: 67%;
     background: white;
     border-radius: 15px;
     margin: 70px auto;
