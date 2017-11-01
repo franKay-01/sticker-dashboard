@@ -24,6 +24,7 @@ $(document).ready(function () {
         });
         $('#btnCancel').on('click', function () {
             $('#hiddenCreateForm').fadeOut('fast');
+            $('#hiddenAddCatForm').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#logo2').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
