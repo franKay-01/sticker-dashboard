@@ -1457,6 +1457,13 @@ tr #titles {
 .category_div{
     margin-bottom: 20px
 }
+
+.btnEdit {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  background-color: #aeaeae;
+}
 /*EDIT CATEGORY form----------------------------------------*/
 .hiddenEditForm {
     display: none;
