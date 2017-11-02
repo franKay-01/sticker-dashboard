@@ -25,6 +25,57 @@
 </head>
 <body class="primary-background-color">
 <div class="grid-container">
+<div class="hiddenEditForm">
+    <form id="editCategoryForm" action="/update-category" method="post">
+        <table id="editTable">
+            <tr>
+                <th  colspan="2" id="editHeading">
+                    EDIT CATEGORY
+                </th>
+            </tr>
+            <tr>
+                <td id="label-c">Rename category: </td>
+                <td>
+                    <input type="text" name="catname" id="categoryName" autofocus onfocus="this.value = this.value;" />
+                    <input type="hidden" name="categoryId" id="categoryId">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button id="btnCancelEditCat" type="button">CANCEL</button>
+                </td>
+                <td>
+                    <button id="btnSaveEditCat" type="submit">SAVE</button>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+<div class="hiddenRemoveCategory">
+    <form id="deleteCategoryForm" action="/remove-category" method="post">
+        <table id="deleteTable">
+            <tr>
+                <th  colspan="2" id="headingRemove">
+                    REMOVE THIS CATEGORY??
+                </th>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="text" name="catnameD" id="catNameRemove" /></td>
+                <input type="hidden" name="inputRemoveId" id="inputRemoveId">
+            </tr>
+            <tr>
+                <td>
+                    <button id="btnCancelRemove" type="button">FORGET IT</button>
+                </td>
+                <td>
+                    <button id="btnSaveRemove" type="submit">YES, REMOVE</button>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>
     <div class="medium-12 large-12">
       <a href="/home">
         <img src="/public/assets/images/G_logo.png"
