@@ -445,9 +445,9 @@ app.get('/categories', function (req, res) {
                  });*/
                 console.log("FIRST ID: " + JSON.stringify(categories[0].id));
                 var o = Object.keys(categories).length;
-                console.log("TOTAL NUMBERS "+ o);
-                res.render("pages/categories", {categories: categories});
-                // res.render("pages/categories_2", {categories: categories});
+                console.log("TOTAL NUMBER "+ o);
+                // res.render("pages/categories", {categories: categories});
+                res.render("pages/categories_2", {categories: categories});
             },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
@@ -821,7 +821,7 @@ app.get('/details/:id', function (req, res) {
 
             console.log("CATEGORY NAMES " + categoryNames);
 
-            res.render("pages/details_2", {
+            res.render("pages/details", {
                 sticker: stickerDetail,
                 categoryNames: categoryNames,
                 categories: allCategories
