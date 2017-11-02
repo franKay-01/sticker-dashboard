@@ -1312,13 +1312,13 @@ tr #titles {
     cursor: pointer;
 }
 
-#hiddenCreateForm {
+/*#hiddenCreateForm {
     display: none;
     position: absolute;
     margin-left: 25%;
     z-index: 9999;
     top: 204px;
-}
+}*/
 
 .add_category_label {
   height: 33px;
@@ -1330,13 +1330,13 @@ tr #titles {
   color: #c47462;
 }
 
-#hiddenAddCatForm {
+/*#hiddenAddCatForm {
     display: none;
     position: absolute;
     margin-left: 300px;
     z-index: 9999;
     top: 204px;
-}
+}*/
 
 #hiddenCreateCategoryForm{
     display: none;
@@ -1469,13 +1469,13 @@ tr #titles {
   object-fit: contain;
 }
 /*EDIT CATEGORY form----------------------------------------*/
-.hiddenEditForm {
+/*.hiddenEditForm {
     display: none;
     width: 60%;
     z-index: 9999;
     position: absolute;
     padding-top: 3%;
-}
+}*/
 
 #editCategoryForm {
     margin-left: 50%;
@@ -1497,7 +1497,7 @@ tr #titles {
     background-color: lightgrey;
 }
 
-#btnCancelEditCat {
+/*#btnCancelEditCat {
     padding: 10px;
     background-color: #991f00;
     color: white;
@@ -1509,7 +1509,7 @@ tr #titles {
     background-color: white;
     color: #991f00;
     transition: 0.2s;
-}
+}*/
 
 #btnSaveEditCat {
     padding: 10px;

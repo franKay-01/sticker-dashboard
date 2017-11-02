@@ -72,6 +72,10 @@ $(document).ready(function () {
             var $this = $(this);
             $('#pageMask').fadeIn('fast');
             $('#hiddenEditForm').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo2').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
 
             //insert category name into text field for editing
             $('#categoryId').val($this.val());
@@ -82,6 +86,10 @@ $(document).ready(function () {
     $('#btnCancelEditCat').on('click', function () {
         $('#pageMask').fadeOut('fast');
         $('#hiddenEditForm').fadeOut('fast');
+        $('#opaqueDiv').fadeIn('fast');
+        $('#logo2').fadeIn('fast');
+        $('#Welcome').fadeIn('fast');
+        $('#signoutLink').fadeIn('fast');
     });
 
     //show add-category form
