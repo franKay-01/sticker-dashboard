@@ -66,9 +66,9 @@ $(document).ready(function () {
     });
 
     //show/hide edit form button
-    $('#editbtn1').each(function () {
+    // $('#editbtn1').each(function () {
 
-        $('#editbtn1').on('click', function () {
+        $('.editbtn1').on('click', function () {
             var $this = $(this);
             $('#pageMask').fadeIn('fast');
             $('#hiddenEditForm').fadeIn('fast');
@@ -76,12 +76,12 @@ $(document).ready(function () {
             $('#logo2').fadeOut('fast');
             $('#Welcome').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
-            
+
             //insert category name into text field for editing
             $('#categoryId').val($this.val());
             $('#categoryId').val($this.val());
         });
-    });
+    // });
     //remove form
     $('#btnCancelEditCat').on('click', function () {
         $('#pageMask').fadeOut('fast');
