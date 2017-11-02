@@ -284,6 +284,17 @@ button:active{
   color: #a46580;
 }
 
+.update {
+  width: 106px;
+  height: 43px;
+  font-family: Montserrat;
+  font-size: 35px;
+  font-weight: bold;
+  letter-spacing: -2.1px;
+  text-align: left;
+  color: #a46580;
+}
+
 .createButton:focus{
     background-color: none
 }
