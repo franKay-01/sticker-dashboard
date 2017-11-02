@@ -446,8 +446,8 @@ app.get('/categories', function (req, res) {
                 console.log("FIRST ID: " + JSON.stringify(categories[0].id));
                 var o = Object.keys(categories).length;
                 console.log("TOTAL NUMBER "+ o);
-                // res.render("pages/categories", {categories: categories});
-                res.render("pages/categories_2", {categories: categories});
+                res.render("pages/categories", {categories: categories});
+                // res.render("pages/categories_2", {categories: categories});
             },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
