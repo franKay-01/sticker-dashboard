@@ -1312,13 +1312,13 @@ tr #titles {
     cursor: pointer;
 }
 
-/*#hiddenCreateForm {
+#hiddenCreateForm {
     display: none;
     position: absolute;
     margin-left: 25%;
     z-index: 9999;
     top: 204px;
-}*/
+}
 
 .add_category_label {
   height: 33px;
@@ -1330,13 +1330,13 @@ tr #titles {
   color: #c47462;
 }
 
-/*#hiddenAddCatForm {
+#hiddenAddCatForm {
     display: none;
     position: absolute;
     margin-left: 300px;
     z-index: 9999;
     top: 204px;
-}*/
+}
 
 #hiddenCreateCategoryForm{
     display: none;
