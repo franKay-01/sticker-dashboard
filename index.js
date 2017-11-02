@@ -165,13 +165,13 @@ app.get('/', function (req, res) {
     }
 });
 
-app.get('/login', function(req, res){
+app.get('/login', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
-    if (session && token){
+    if (session && token) {
         res.redirect("/home");
-    }else{
+    } else {
         let query = new Parse.Query("Sticker");
         query.limit(40);
         query.find({sessionToken: token}).then(function (cards) {
@@ -181,7 +181,7 @@ app.get('/login', function(req, res){
             cards = helper.shuffle(cards);
             cards = cards.slice(0, 3);
 
-            res.render("pages/login", {stickers:cards });
+            res.render("pages/login", {stickers: cards});
 
         }, function (error) {
 
@@ -191,7 +191,7 @@ app.get('/login', function(req, res){
     }
 });
 
-app.get('/home', function(req, res){
+app.get('/home', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var pack = [];
@@ -199,24 +199,24 @@ app.get('/home', function(req, res){
 
     if (session && token) {
         const limit = 3;
-         Parse.Promise.when(
+        Parse.Promise.when(
             new Parse.Query("Collection").limit(limit).find({sessionToken: token}),
             new Parse.Query("Category").limit(limit).find({sessionToken: token})
-        ).then(function(collection,categories){
+        ).then(function (collection, categories) {
             let _collection = [];
             let _categories = [];
-            if(collection.length) {
+            if (collection.length) {
                 _collection = collection;
 
             }
-            if(categories.length) {
+            if (categories.length) {
                 _categories = categories;
 
             }
 
-            res.render("pages/home", {collections:_collection,categories:_categories});
+            res.render("pages/home", {collections: _collection, categories: _categories});
 
-        },function(error){
+        }, function (error) {
             console.log(JSON.stringify(error));
             res.redirect("/home");
         });
@@ -238,7 +238,7 @@ app.post('/login', function (req, res) {
 
         res.cookie('token', user.getSessionToken());
         req.session.token = user.getSessionToken();
-        console.log("USER GETS TOKEN : "+user.getSessionToken());
+        console.log("USER GETS TOKEN : " + user.getSessionToken());
         res.redirect("/home");
 
     }, function (error) {
@@ -370,7 +370,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 console.log("BITMAP FROM DERRYCK'S CODE " + JSON.stringify(bitmap));
                 //create our parse file
                 var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                console.log("PARSEFILE " + JSON.stringify(parseFile)+ " name "+stickerName+" collection "+JSON.stringify(collection));
+                console.log("PARSEFILE " + JSON.stringify(parseFile) + " name " + stickerName + " collection " + JSON.stringify(collection));
                 var Sticker = new Parse.Object.extend("Sticker");
                 var sticker = new Sticker();
                 sticker.set("stickerName", stickerName);
@@ -441,7 +441,9 @@ app.get('/categories', function (req, res) {
 
         new Parse.Query("Category").find({sessionToken: token}).then(function (categories) {
 
-                _categories = helper.chunks(categories,3);
+                _categories = helper.chunks(categories, 3);
+
+                console.log(JSON.stringify(_categories));
 
                 res.render("pages/categories_2", {categories: _categories});
             },
@@ -452,7 +454,6 @@ app.get('/categories', function (req, res) {
         res.redirect("/");
     }
 });
-
 
 app.post('/new-category', function (req, res) {
 
@@ -565,7 +566,7 @@ app.get('/dashboard', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
-    console.log("TOKEN RETRIEVED FROM BROWSER "+ token);
+    console.log("TOKEN RETRIEVED FROM BROWSER " + token);
 
     if (session && token) {
 
@@ -587,7 +588,7 @@ app.get('/dashboard', function (req, res) {
 
 });
 
-app.get('/second_dashboard', function(req, res){
+app.get('/second_dashboard', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
@@ -613,7 +614,7 @@ app.get('/second_dashboard', function(req, res){
 // Collection Dashboard
 //Displays 'folders' representing each collection from Parse
 
-app.get('/pack_collection', function(req, res){
+app.get('/pack_collection', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
@@ -772,11 +773,11 @@ app.post('/new-collection', function (req, res) {
         var Collection = new Parse.Object.extend("Collection");
         var collection = new Collection();
         collection.set("collection_name", coll_name);
-        collection.set("pack_description",pack_description);
+        collection.set("pack_description", pack_description);
 
         collection.save().then(function (collection) {
 
-            res.redirect('/collection/'+collection.id);
+            res.redirect('/collection/' + collection.id);
 
         });
     }
@@ -920,10 +921,10 @@ app.get('/upload_page/:id', function (req, res) {
 
     if (session && token) {
         res.render("pages/upload", {id: coll_id});
-    }else{
+    } else {
         res.redirect("/dashboard");
     }
-    
+
 });
 
 app.post('/upload-file', function (req, res) {
@@ -954,71 +955,71 @@ app.post('/upload-file', function (req, res) {
         name = name.substring(0, name.length - 4);
 
         var options = {
-             url: fileUrl,
-             dest: __dirname+'/public/uploads/'+ req.body.fileName
+            url: fileUrl,
+            dest: __dirname + '/public/uploads/' + req.body.fileName
         }
 
         download.image(options)
-          .then(({ filename, image }) => {
-            console.log('FILE SAVED TO ', filename);
-            bitmap = fs.readFileSync(filename, {encoding: 'base64'});
-            // fs.readFile(filename, function(err, data){
-            // if (err) {
-            //     console.log("NOT NOT "+err);
-            // }else{
+            .then(({filename, image}) => {
+                console.log('FILE SAVED TO ', filename);
+                bitmap = fs.readFileSync(filename, {encoding: 'base64'});
+                // fs.readFile(filename, function(err, data){
+                // if (err) {
+                //     console.log("NOT NOT "+err);
+                // }else{
                 // bitmap = new Buffer(data).toString('base64');
                 // console.log("BASE64 FROM FILE IN FOLDER"+JSON.stringify(base64data));
                 var collection = new Parse.Query("Collection");
-             collection.equalTo("objectId", coll_id)
-                .first({sessionToken: token})
-                .then(function (collection) {
-                    console.log("BITMAP PASSED BY FILE "+bitmap);
-                    console.log("NAME "+name+" collection "+JSON.stringify(collection));
-                    stickerCollection = collection;
-                    var parseFile = new Parse.File(name, {base64: bitmap});
-                    console.log("PARSEFILE "+JSON.stringify(parseFile)+ " name "+name+" collection "+JSON.stringify(collection));
-                    // console.log("FILE PASSED " + JSON.stringify(file));
-                    var Sticker = new Parse.Object.extend("Sticker");
-                    var sticker = new Sticker();
-                    sticker.set("stickerName", name);
-                    sticker.set("localName", name);
-                    sticker.set("uri", parseFile);
-                    sticker.set("stickerPhraseImage", "");
-                    sticker.set("parent", collection);
+                collection.equalTo("objectId", coll_id)
+                    .first({sessionToken: token})
+                    .then(function (collection) {
+                        console.log("BITMAP PASSED BY FILE " + bitmap);
+                        console.log("NAME " + name + " collection " + JSON.stringify(collection));
+                        stickerCollection = collection;
+                        var parseFile = new Parse.File(name, {base64: bitmap});
+                        console.log("PARSEFILE " + JSON.stringify(parseFile) + " name " + name + " collection " + JSON.stringify(collection));
+                        // console.log("FILE PASSED " + JSON.stringify(file));
+                        var Sticker = new Parse.Object.extend("Sticker");
+                        var sticker = new Sticker();
+                        sticker.set("stickerName", name);
+                        sticker.set("localName", name);
+                        sticker.set("uri", parseFile);
+                        sticker.set("stickerPhraseImage", "");
+                        sticker.set("parent", collection);
 
-                    console.log("LOG BEFORE SAVING STICKER");
+                        console.log("LOG BEFORE SAVING STICKER");
 
-                    return sticker.save();
+                        return sticker.save();
 
 
-                }).then(function (sticker) {
-                console.log("STICKER FROM PARSEFILE "+JSON.stringify(sticker));
-                var collection_relation = stickerCollection.relation("Collection");
-                collection_relation.add(sticker);
-                console.log("LOG BEFORE SAVING STICKERCOLLECTION");
-                fs.unlink(filename, function (err) {
-                 if (err) {
-                     //TODO handle error code
-                     console.log("Could not del temp++++++++" + JSON.stringify(err));
-                     }
-                 });
+                    }).then(function (sticker) {
+                    console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
+                    var collection_relation = stickerCollection.relation("Collection");
+                    collection_relation.add(sticker);
+                    console.log("LOG BEFORE SAVING STICKERCOLLECTION");
+                    fs.unlink(filename, function (err) {
+                        if (err) {
+                            //TODO handle error code
+                            console.log("Could not del temp++++++++" + JSON.stringify(err));
+                        }
+                    });
 
-                return stickerCollection.save();
+                    return stickerCollection.save();
 
-            }).then(function () {
+                }).then(function () {
 
-                console.log("REDIRECT TO DASHBOARD");
-                res.redirect("/");
+                    console.log("REDIRECT TO DASHBOARD");
+                    res.redirect("/");
 
-            }, function (error) {
-                console.log("BIG BIG ERROR" + error.message);
-                res.redirect("/");
-            });
-                 // }
+                }, function (error) {
+                    console.log("BIG BIG ERROR" + error.message);
+                    res.redirect("/");
+                });
+                // }
                 // });
-              }).catch((err) => {
-                throw err;
-              });
+            }).catch((err) => {
+            throw err;
+        });
 
         // i2b(fileUrl, function (err, data) {
         //     if (err) {
@@ -1028,19 +1029,18 @@ app.post('/upload-file', function (req, res) {
         //         console.log("NEW BASE " + JSON.stringify(data.base64));
 
         // Convert url link to base64 encoded data
-         // var newPath = __dirname + "/public/uploads/" + req.body.fileName;
-         // fs.readFile(newPath, function(err, data){
-         //    if (err) {
-         //        console.log("NOT NOT "+err);
-         //    }else{
-         //        // bitmap = fs.readFileSync(newPath, {encoding: 'base64'});
-         //        // console.log("FILE FROM FS "+JSON.stringify(bitmap));
-         //        console.log(JSON.stringify(data));
-         //    }
-         // });
+        // var newPath = __dirname + "/public/uploads/" + req.body.fileName;
+        // fs.readFile(newPath, function(err, data){
+        //    if (err) {
+        //        console.log("NOT NOT "+err);
+        //    }else{
+        //        // bitmap = fs.readFileSync(newPath, {encoding: 'base64'});
+        //        // console.log("FILE FROM FS "+JSON.stringify(bitmap));
+        //        console.log(JSON.stringify(data));
+        //    }
+        // });
         //     }
         // });
-
 
 
     } else {
