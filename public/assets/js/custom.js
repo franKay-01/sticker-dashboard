@@ -106,11 +106,11 @@ $(document).ready(function () {
 
 
     //show 'remove-category' form
-    $('.delbtn1').each(function () {
+    $('#delbtn1').each(function () {
 
-        $('.delbtn1').on('click', function () {
+        $('#delbtn1').on('click', function () {
             var $this = $(this);
-            $('.hiddenRemoveCategory').fadeIn('fast');
+            $('#hiddenRemoveCategory').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
 
             //insert category name into text field for removal
