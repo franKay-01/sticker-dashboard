@@ -143,6 +143,16 @@ a {
   margin-right: 10px
 }
 
+.category_text {
+  height: 49px;
+  font-family: Montserrat;
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: -2.4px;
+  text-align: justify;
+  color: #a46580;
+}
+
 .cancel_2 {
   width: 105px;
   height: 43px;
