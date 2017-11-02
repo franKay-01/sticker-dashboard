@@ -441,9 +441,7 @@ app.get('/categories', function (req, res) {
 
         new Parse.Query("Category").find({sessionToken: token}).then(function (categories) {
 
-                _categories = helper.chunks(categories, 3);
-
-                console.log(JSON.stringify(_categories));
+                let _categories = helper.chunks(categories, 3);
 
                 res.render("pages/categories_2", {categories: _categories});
             },
