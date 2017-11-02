@@ -791,10 +791,11 @@ app.post('/new-collection', function (req, res) {
 
 
 //EDIT/STICKER DETAILS
-app.get('/details/:id', function (req, res) {
+app.get('/details/:id/:coll_id', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var id = req.params.id;
+    var pack_ = req.params.coll_id;
     var stickerDetail;
     var allCategories;
 
@@ -824,7 +825,8 @@ app.get('/details/:id', function (req, res) {
             res.render("pages/details_2", {
                 sticker: stickerDetail,
                 categoryNames: categoryNames,
-                categories: allCategories
+                categories: allCategories,
+                pack_id: pack_
             });
 
         }, function (err) {
