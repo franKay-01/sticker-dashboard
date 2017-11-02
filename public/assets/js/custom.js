@@ -76,7 +76,7 @@ $(document).ready(function () {
             $('#logo2').fadeOut('fast');
             $('#Welcome').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
-
+            
             //insert category name into text field for editing
             $('#categoryId').val($this.val());
             $('#categoryId').val($this.val());

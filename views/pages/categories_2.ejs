@@ -27,11 +27,11 @@
 <div class="grid-container">
 <div id="pageMask"></div>
 <div id="hiddenEditForm" style="display: none">
-    <div class="medium-3 large-3 cell create_back_background">
-    <form id="editCategoryForm" action="/update-category" method="post">
+  <div class="medium-3 large-3 cell create_back_background">
+    <form id="pack_form" action="/update-category" method="post">
       <center> 
         <div class="create_New_Pack medium-12 large-12">EDIT CATEGORY </div>          
-      Rename category: <input type="text" name="catname" id="categoryName" autofocus onfocus="this.value = this.value;" />
+      Rename category:<input type="text" name="catname" id="categoryName" autofocus onfocus="this.value = this.value;" />
                     <input type="hidden" name="categoryId" id="categoryId">
           <br>
          </center> 
@@ -42,7 +42,7 @@
         <button type="submit" class="create">CREATE</button>
         </span>
        </form>
-    </div>
+  </div>
 </div>
 <div id="hiddenRemoveCategory" style="display: none;">
     <form id="deleteCategoryForm" action="/remove-category" method="post">
@@ -75,7 +75,7 @@
          </a>
         <!--  <a id="signoutLink" onclick="logoutUser()">LOGOUT</a> -->
     </div>
-    <span class="medium-12 large-12 Welcome-to-publisher"><b>Categories</b></span>
+    <span class="medium-12 large-12 Welcome-to-publisher" id="Welcome"><b>Categories</b></span>
     <div class="grid-x grid-margin-x opaqueDiv">
         <div class="medium-3 large-3 cell loginCard_2">
          <div class="card_head_position">
