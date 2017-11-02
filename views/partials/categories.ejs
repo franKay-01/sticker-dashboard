@@ -2,7 +2,7 @@
 <% categories.forEach(function(items) { %>
     <div class="medium-3 large-3 cell Icons">
         <% items.forEach(function(item) { %>
-            <div>
+            <div class="medium-12 large-12">
                 <input type="text" id="category_text" value="<%= item.get("name") %>" disabled>
                 <button class="editbtn1" value="<%= item.id %>"><img src="/public/assets/images/btn-edit.png" /></button>
                 <button class="delbtn1" data-id="<%= item.id %>" value="<%= item.get("name") %>">REMOVE</button>

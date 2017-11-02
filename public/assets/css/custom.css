@@ -1404,7 +1404,7 @@ tr #titles {
     border: 2px solid #ca2a1c;
 }
 
-.editbtn1 {
+/*.editbtn1 {
     padding: 5px;
     background-color: #ff8566;
     border: 1px solid #ff8566;
@@ -1435,6 +1435,7 @@ tr #titles {
     color: #991f00;
     transition: 0.2s;
 }
+*/
 
 .mainrow {
     text-align: center;
