@@ -1456,7 +1456,8 @@ tr #titles {
 }
 
 .category_div{
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    width: max-content;
 }
 
 .btnEdit {
