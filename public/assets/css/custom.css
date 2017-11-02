@@ -1454,6 +1454,9 @@ tr #titles {
     color: darkslategrey;
 }
 
+.category_div{
+    margin-bottom: 20px
+}
 /*EDIT CATEGORY form----------------------------------------*/
 .hiddenEditForm {
     display: none;
