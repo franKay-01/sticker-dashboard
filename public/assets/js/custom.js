@@ -66,12 +66,12 @@ $(document).ready(function () {
     });
 
     //show/hide edit form button
-    $('.editbtn1').each(function () {
+    $('#editbtn1').each(function () {
 
-        $('.editbtn1').on('click', function () {
+        $('#editbtn1').on('click', function () {
             var $this = $(this);
             $('#pageMask').fadeIn('fast');
-            $('.hiddenEditForm').fadeIn('fast');
+            $('#hiddenEditForm').fadeIn('fast');
 
             //insert category name into text field for editing
             $('#categoryId').val($this.val());
@@ -81,7 +81,7 @@ $(document).ready(function () {
     //remove form
     $('#btnCancelEditCat').on('click', function () {
         $('#pageMask').fadeOut('fast');
-        $('.hiddenEditForm').fadeOut('fast');
+        $('#hiddenEditForm').fadeOut('fast');
     });
 
     //show add-category form
