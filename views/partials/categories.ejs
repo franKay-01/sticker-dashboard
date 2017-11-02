@@ -1,9 +1,12 @@
-
-        <% categories.forEach(function(item, index) { %>
+<!-- get values from initial array: should  en -->
+<% categories.forEach(function(items) { %>
+    <% items.forEach(function(item) { %>
         <div class="medium-3 large-3 cell Icons">
-            <input type="text" id="categoryname" value="<%= item.get("name")%>" disabled>
-                <button class="editbtn1" value="<%= item.id %>">EDIT</button>
-                <button class="delbtn1" data-id="<%= item.id %>"  value="<%= item.get("name") %>">REMOVE</button>
+            <input type="text" id="categoryname" value="<%= item.get("name") %>" disabled>
+            <button class="editbtn1" value="<%= item.id %>">EDIT</button>
+            <button class="delbtn1" data-id="<%= item.id %>" value="<%= item.get("name") %>">REMOVE</button>
         </div>
-        <% }); %>
+    <% }); %>
+<% }); %>
+
  

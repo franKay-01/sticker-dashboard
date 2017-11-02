@@ -440,14 +440,10 @@ app.get('/categories', function (req, res) {
         //query parse for all categories
 
         new Parse.Query("Category").find({sessionToken: token}).then(function (categories) {
-                /* categories.forEach(function (cat, index) {
-                     console.log("Category" + index + ":::::" + JSON.stringify(cat));
-                 });*/
-                console.log("FIRST ID: " + JSON.stringify(categories[0].id));
-                var o = Object.keys(categories).length;
-                console.log("TOTAL NUMBER "+ o);
-                // res.render("pages/categories", {categories: categories});
-                res.render("pages/categories_2", {categories: categories});
+
+                _categories = helper.chunks(categories,3);
+
+                res.render("pages/categories_2", {categories: _categories});
             },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));

@@ -52,11 +52,20 @@ shuffle = function (array) {
     }
 
     return array;
-}
+};
+
+chunks = function(arr, chunkSize) {
+    var groups = [], i;
+    for (i = 0; i < arr.length; i += chunkSize) {
+        groups.push(arr.slice(i, i + chunkSize));
+    }
+    return groups;
+};
 
 
 exports.truncateText = truncateText;
 exports.randomHash = randomHash;
+exports.chunks = chunks;
 exports.hash = hash;
 exports.shuffle = shuffle;
 exports.getUsername = getUsername;
