@@ -1459,10 +1459,12 @@ tr #titles {
 }
 
 .btnEdit {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
+  margin-top: -20px;
+  margin-right: 20px;
+  margin-left: 20px;
   object-fit: contain;
-  background-color: #aeaeae;
 }
 /*EDIT CATEGORY form----------------------------------------*/
 .hiddenEditForm {
