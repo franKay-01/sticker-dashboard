@@ -78,7 +78,7 @@ $(document).ready(function () {
             $('#signoutLink').fadeOut('fast');
 
             //insert category name into text field for editing
-            $('#categoryId').val($this.val());
+            $('#categoryName').val($this.val());
             $('#categoryId').val($this.val());
         });
     // });
