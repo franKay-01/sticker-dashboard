@@ -486,7 +486,7 @@ app.post('/update-category', function (req, res) {
     var token = req.cookies.token;
     var newName = req.body.catname;
     var currentId = req.body.categoryId;
-
+    console.log("NAME "+newName+ " OBJECTID "+currentId);
     if (session && token) {
 
         var category = new Parse.Query("Category");
