@@ -79,7 +79,7 @@ $(document).ready(function () {
 
             //insert category name into text field for editing
             $('#categoryName').val($this.val());
-            $('#categoryId').val($this.val());
+            $('#categoryId').val($this.attr("data-id"));
         });
     // });
     //remove form
