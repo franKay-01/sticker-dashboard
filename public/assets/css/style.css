@@ -32,6 +32,10 @@ a:visited {
 
 .hiddenEditForm {
   display: none;
+  position: absolute;
+  margin: 0px 300px auto;
+  z-index: 9999;
+  top: 204px;
 }
 
 /*
