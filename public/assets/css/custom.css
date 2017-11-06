@@ -1612,12 +1612,13 @@ tr #titles {
 }
 
 /*DELETE CATEGORY form----------------------------------------*/
-/*.hiddenRemoveCategory {
-    display: none;
-    position: absolute;
-    width: 60%;
-    z-index: 2;
-}*/
+#hiddenRemoveCategory {
+   display: none;
+   position: absolute;
+   margin: 0px 300px auto;
+   z-index: 9999;
+   top: 204px;
+}
 
 /*#deleteCategoryForm {
     margin-left: 50%;
