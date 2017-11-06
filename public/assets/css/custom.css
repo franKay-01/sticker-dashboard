@@ -692,7 +692,7 @@ input[type=search], textarea.materialize-textarea {
 ._pack{
     width: 450px !important;
     text-align: left;
-    color: white !important;
+    color: black !important;
     font-size: 2rem !important;
     background: transparent;
     border-top:0;
