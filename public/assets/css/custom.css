@@ -1527,7 +1527,7 @@ tr #titles {
     transition: 0.2s;
 }
 
-#categoryName {
+/*#categoryName {
     font-weight: bold;
     font-size: 125%;
     color: #e62e00;
@@ -1536,7 +1536,7 @@ tr #titles {
 }
 #categoryName:focus {
     background-color: white;
-}
+}*/
 
 #label-c {
     font-weight: bolder;
