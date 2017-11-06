@@ -131,7 +131,11 @@ $(document).ready(function () {
     //cancel remove
     $('#btnCancelRemove').on('click', function () {
         $('#pageMask').fadeOut('fast');
-        $('.hiddenRemoveCategory').fadeOut('fast');
+        $('#hiddenRemoveCategory').fadeOut('fast');
+        $('#logo2').fadeIn('fast');
+        $('#Welcome').fadeIn('fast');
+        $('#signoutLink').fadeIn('fast');
+        $('#opaqueDiv').fadeIn('fast');
         $('#pack_form')[0].reset();
     });
 

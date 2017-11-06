@@ -1609,12 +1609,12 @@ tr #titles {
 }
 
 /*DELETE CATEGORY form----------------------------------------*/
-.hiddenRemoveCategory {
+/*.hiddenRemoveCategory {
     display: none;
     position: absolute;
     width: 60%;
     z-index: 2;
-}
+}*/
 
 /*#deleteCategoryForm {
     margin-left: 50%;
@@ -1636,7 +1636,7 @@ tr #titles {
     background-color: lightgrey;
 }
 
-#btnCancelRemove {
+/*#btnCancelRemove {
     padding: 10px;
     background-color: #991f00;
     color: white;
@@ -1670,4 +1670,4 @@ tr #titles {
     font-size: 170%;
     color: #e62e00;
     font-family: Arial;
-}
+}*/
