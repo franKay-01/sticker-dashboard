@@ -1315,7 +1315,7 @@ tr #titles {
 #hiddenCreateForm {
     display: none;
     position: absolute;
-    margin-left: 25%;
+    margin: 0px 300px auto;
     z-index: 9999;
     top: 204px;
 }
@@ -1616,9 +1616,9 @@ tr #titles {
     z-index: 2;
 }
 
-#deleteCategoryForm {
+/*#deleteCategoryForm {
     margin-left: 50%;
-}
+}*/
 
 #deleteTable {
     width: 100%;

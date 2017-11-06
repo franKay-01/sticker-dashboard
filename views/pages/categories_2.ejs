@@ -52,28 +52,24 @@
   </div>
 </div>
 <div id="hiddenRemoveCategory" style="display: none;">
-    <form id="deleteCategoryForm" action="/remove-category" method="post">
-        <table id="deleteTable">
-            <tr>
-                <th  colspan="2" id="headingRemove">
-                    REMOVE THIS CATEGORY??
-                </th>
-            </tr>
-            <tr>
-                <td colspan="2"><input type="text" name="catnameD" id="catNameRemove" /></td>
-                <input type="hidden" name="inputRemoveId" id="inputRemoveId">
-            </tr>
-            <tr>
-                <td>
-                    <button id="btnCancelRemove" type="button">FORGET IT</button>
-                </td>
-                <td>
-                    <button id="btnSaveRemove" type="submit">YES, REMOVE</button>
-                </td>
-            </tr>
-
-        </table>
-    </form>
+  <div class="medium-3 large-3 cell create_back_background">
+    <form id="pack_form" action="/remove-category" method="post">
+        <center> 
+        <div class="create_New_Pack medium-12 large-12">EDIT CATEGORY </div>          
+      Rename category:<input type="text" name="catname" id="categoryName" autofocus onfocus="this.value = this.value;" />
+                    <input type="hidden" name="categoryId" id="categoryId" />
+          <br>
+         </center>
+           <input type="text" name="catnameD" id="catNameRemove" />
+           <input type="hidden" name="inputRemoveId" id="inputRemoveId">
+            <span>
+           <button id="btnCancelRemove" type="button">FORGET IT</button>
+             </span>
+             <span>
+           <button id="btnSaveRemove" type="submit">YES, REMOVE</button>
+            </span>
+     </form>
+   </div>
 </div>
     
     <span class="medium-12 large-12 Welcome-to-publisher" id="Welcome"><b>Categories</b></span>

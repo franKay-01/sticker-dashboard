@@ -114,30 +114,27 @@ $(document).ready(function () {
 
 
     //show 'remove-category' form
-    $('#delbtn1').each(function () {
-
-        $('#delbtn1').on('click', function () {
+        $('.delbtn1').on('click', function () {
             var $this = $(this);
             $('#hiddenRemoveCategory').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
-
+            $('#logo2').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#opaqueDiv').fadeOut('fast');;
             //insert category name into text field for removal
             $('#catNameRemove').val($this.val());
             $('#inputRemoveId').val($this.attr("data-id"));
         });
     });
+
     //cancel remove
     $('#btnCancelRemove').on('click', function () {
         $('#pageMask').fadeOut('fast');
         $('.hiddenRemoveCategory').fadeOut('fast');
-        $('#deleteCategoryForm')[0].reset();
+        $('#pack_form')[0].reset();
     });
 
-
-    //console.log("current cookie: " + document.cookie);
-
-
-});
 
 
 
