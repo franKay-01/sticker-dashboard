@@ -618,7 +618,7 @@ app.get('/pack_collection', function (req, res) {
 
     if (session && token) {
         let query = new Parse.Query("Collection");
-        query.limit(3);
+        //query.limit(3);
         query.find({sessionToken: token}).then(function (collections) {
 
             res.render("pages/pack_collection", {collections: collections});
