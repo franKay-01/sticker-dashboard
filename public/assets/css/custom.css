@@ -701,6 +701,7 @@ input[type=search], textarea.materialize-textarea {
     border-bottom: 3px white solid !important;
     border-color: black;
     border-width: 6px;
+    background-color: transparent !important;
 }
 
 .Icon_create_sticker_pack {
