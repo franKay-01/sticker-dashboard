@@ -144,6 +144,7 @@ a {
 }
 
 .category_text {
+  width: 300px !important;
   height: 49px;
   font-family: Montserrat;
   font-size: 40px;
