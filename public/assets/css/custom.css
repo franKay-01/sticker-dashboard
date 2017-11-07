@@ -138,7 +138,7 @@ a {
   font-weight: 300;
   letter-spacing: -2.1px;
   text-align: left;
-  margin-left: 400px;
+  margin-left: 350px;
   color: #ffffff;
   margin-right: 10px
 }
@@ -401,7 +401,7 @@ button:active{
 }
 
 .box{
-    background: transparent;
+    background-color: transparent !important;
     border-top:0;
     border-right: 0;
     border-left: 0;
