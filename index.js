@@ -1009,43 +1009,20 @@ app.post('/upload-file', function (req, res) {
                 }).then(function () {
 
                     console.log("REDIRECT TO DASHBOARD");
-                    res.redirect("/");
+                    res.redirect("/collection/coll_id");
 
                 }, function (error) {
                     console.log("BIG BIG ERROR" + error.message);
-                    res.redirect("/");
+                    res.redirect("/collection/coll_id");
                 });
                 // }
                 // });
             }).catch((err) => {
             throw err;
         });
-
-        // i2b(fileUrl, function (err, data) {
-        //     if (err) {
-        //         console.log("ERROR occurred when converting");
-        //         res.redirect("/");
-        //     } else {
-        //         console.log("NEW BASE " + JSON.stringify(data.base64));
-
-        // Convert url link to base64 encoded data
-        // var newPath = __dirname + "/public/uploads/" + req.body.fileName;
-        // fs.readFile(newPath, function(err, data){
-        //    if (err) {
-        //        console.log("NOT NOT "+err);
-        //    }else{
-        //        // bitmap = fs.readFileSync(newPath, {encoding: 'base64'});
-        //        // console.log("FILE FROM FS "+JSON.stringify(bitmap));
-        //        console.log(JSON.stringify(data));
-        //    }
-        // });
-        //     }
-        // });
-
-
     } else {
 
-        res.redirect("/");
+        res.redirect("/collection/coll_id");
 
     }
 
