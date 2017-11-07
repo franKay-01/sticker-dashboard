@@ -1,17 +1,25 @@
 <!-- get values from initial array: should  en -->
 <% categories.forEach(function(items) { %>
     <div class="medium-3 large-3 cell Icons">
+    <table>
         <% items.forEach(function(item) { %>
             <div class="medium-12 large-12 category_div">
+            <tr>
                <!-- <input type="text" id="category_text" value="<%= item.get("name") %>" disabled> -->
-                <span class="category_text"> <%= item.get("name") %> 
+               <td>
+                <span class="category_text"> <%= item.get("name") %> </span>
+                </td>
+                <td>
                 <button type="button" class="editbtn1" data-id="<%= item.id %>" value="<%= item.get("name") %>"><img class="btnEdit" src="/public/assets/images/btn-edit.png" /></button>
+                </td>
+                <td>
                 <button type="button" class="delbtn1" data-id="<%= item.id %>" value="<%= item.get("name") %>"><img class="btnEdit" src="/public/assets/images/btn-delete.png" /></button>
-             <!--   <hr align="center" width="50%"> -->
-                </span>
-                <hr align="center" width="50%">
+                </td>
+                </tr>
+                <!-- <hr align="center" width="50%"> -->
             </div>
         <% }); %>
+        </table>
     </div>
 <% }); %>
 
