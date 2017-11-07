@@ -732,14 +732,15 @@ app.get('/collection/:id', function (req, res) {
 
 
 // Add Stickers Version 1
-app.get('/add-stickers1/:id', function (req, res) {
+app.get('/add-stickers1/:id/:collection_name', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = req.params.id;
+    var col_name = req.params.collection_name;
 
     if (session && token) {
         // res.render("pages/add-stickers1", {id: coll_id});
-        res.render("pages/add_sticker", {id: coll_id});
+        res.render("pages/add_sticker", {id: coll_id, coll_name: col_name});
     } else {
         res.redirect("/");
     }
@@ -912,13 +913,14 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     }
 });
 
-app.get('/upload_page/:id', function (req, res) {
+app.get('/upload_page/:id/:collection_name', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = req.params.id;
+    var col_name = req.params.collection_name;
 
     if (session && token) {
-        res.render("pages/upload", {id: coll_id});
+        res.render("pages/upload", {id: coll_id, coll_name:col_name});
     } else {
         res.redirect("/dashboard");
     }
