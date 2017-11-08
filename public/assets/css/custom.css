@@ -953,7 +953,7 @@ fieldset {
 .categoriesList {
     font-size: 120%;
     background-color: #ff3300;
-    color: white;
+    color: black;
     width: 85%;
     display: none;
 }
