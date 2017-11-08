@@ -224,7 +224,7 @@ app.get('/home', function (req, res) {
                 collections: _collection,
                 categories: _categories,
                 categoryLength: categoryLength,
-                packLength: categoryLength,
+                packLength: packLength,
                 stickerLength: stickerLength
             });
 
