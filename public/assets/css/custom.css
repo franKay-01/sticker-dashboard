@@ -964,6 +964,7 @@ fieldset {
 
 [type="checkbox"]:not(:checked), [type="checkbox"]:checked{
     opacity: 1 !important;
+    position: unset;
 }
 
 #categoryInput {
