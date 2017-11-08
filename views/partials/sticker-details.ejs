@@ -26,7 +26,8 @@
         <div class="categoryOptions">
             <button id="btnChooseCategory" type="button"> <span id="arrow">&#9660;</span>Choose categories</button>
 
-            <div class="categoriesList">
+           <!-- <div class="categoriesList"> -->
+         <div class="input-field col s12 categoriesList">
             <select multiple>
                 <% categories.forEach(function(item) { %>
                 <option value="<%= item.id%>" name="cat1[]" data-name="<%=item.get('name')%>"><%= item.get("name")%></option>
