@@ -24,23 +24,17 @@
                                         value="<%= categoryNames %>" disabled>
 
         <div class="categoryOptions">
-           <!-- <button id="btnChooseCategory" type="button"> <span id="arrow">&#9660;</span>Choose categories</button> -->
+            <button id="btnChooseCategory" type="button"> <span id="arrow">&#9660;</span>Choose categories</button>
 
-            <button type="button" id="btnChooseCategory" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"><span id="arrow">&#9660;</span>Choose categories</button>
-                    
             <div class="categoriesList">
-             <ul class="dropdown-menu">  
                 <% categories.forEach(function(item) { %>
-                <li><a class="small" name="cat1[]" data-name="<%=item.get('name')%>"
-                       value="<%= item.id%>" tabIndex="-1"><input type="checkbox"/>&nbsp;<%= item.get("name")%></a></li>
 
-               <!-- <input type="checkbox" class="categoryOption" name="cat1[]" data-name="<%=item.get('name')%>"
-                       value="<%= item.id%>"><%= item.get("name")%> -->
+                <input type="checkbox" class="categoryOption" name="cat1[]" data-name="<%=item.get('name')%>"
+                       value="<%= item.id%>"><%= item.get("name")%>
 
                 <% }); %>
-                </ul>
             </div>
-        
+
       <!--  </div> -->
     </div>
 
