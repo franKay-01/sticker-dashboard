@@ -27,12 +27,15 @@
             <button id="btnChooseCategory" type="button"> <span id="arrow">&#9660;</span>Choose categories</button>
 
             <div class="categoriesList">
+            <select multiple>
                 <% categories.forEach(function(item) { %>
-
-                <input type="checkbox" class="categoryOption" name="cat1[]" data-name="<%=item.get('name')%>"
-                       value="<%= item.id%>"><%= item.get("name")%>
+                <option value="<%= item.id%>" name="cat1[]" data-name="<%=item.get('name')%>"><%= item.get("name")%></option>
+                
+                <!-- <input type="checkbox" class="categoryOption" name="cat1[]" data-name="<%=item.get('name')%>"
+                       value="<%= item.id%>"><%= item.get("name")%> -->
 
                 <% }); %>
+                </select>
             </div>
 
       <!--  </div> -->
