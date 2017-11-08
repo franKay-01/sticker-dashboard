@@ -1,6 +1,6 @@
 
 <form id="detailsForm" action="/update/<%= sticker.id %>" enctype="multipart/form-data" method="post">
- <div class="grid-x grid-margin-x">
+ 
   <div class="medium-6 large-5 cell">
   <!-- <div id="rightColumn"> -->
         <div class="droppableArea">
@@ -28,17 +28,14 @@
 
             <div class="categoriesList">
                 <% categories.forEach(function(item) { %>
-
-                <input type="checkbox" class="categoryOption" name="cat1[]" data-name="<%=item.get('name')%>"
-                       value="<%= item.id%>"><%= item.get("name")%>
-
+                <input type="checkbox" class="categoryOption" name="cat1[]" data-name="<%=item.get('name')%>" value="<%= item.id%>"><%= item.get("name")%>
                 <% }); %>
             </div>
 
       <!--  </div> -->
     </div>
 
-  </div>
+  
  <div class="medium-12 large-12 cell" style="margin-top:10%;">
     <center>
     <a href="/collection/<%= pack_id %>" class="cancel_2">Cancel</a>
