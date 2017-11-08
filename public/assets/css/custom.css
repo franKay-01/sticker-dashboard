@@ -962,6 +962,10 @@ fieldset {
     margin-left: 10px;
 }
 
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked{
+    opacity: 1 !important;
+}
+
 #categoryInput {
     color: black;
 }
