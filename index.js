@@ -223,9 +223,9 @@ app.get('/home', function (req, res) {
             res.render("pages/home", {
                 collections: _collection,
                 categories: _categories,
-                categoryLength: categoryLength,
-                packLength: packLength,
-                stickerLength: stickerLength
+                categoryLength: helper.leadingZero(categoryLength),
+                packLength: helper.leadingZero(packLength),
+                stickerLength: helper.leadingZero(stickerLength)
             });
 
         }, function (error) {

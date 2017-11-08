@@ -54,7 +54,7 @@ shuffle = function (array) {
     return array;
 };
 
-chunks = function(arr, chunkSize) {
+chunks = function (arr, chunkSize) {
     var groups = [], i;
     for (i = 0; i < arr.length; i += chunkSize) {
         groups.push(arr.slice(i, i + chunkSize));
@@ -62,10 +62,19 @@ chunks = function(arr, chunkSize) {
     return groups;
 };
 
+leadingZero = function (number) {
+    if (number.toString().length === 1) {
+        return "0" + number;
+    } else {
+        return number;
+    }
+};
+
 
 exports.truncateText = truncateText;
 exports.randomHash = randomHash;
 exports.chunks = chunks;
+exports.leadingZero = leadingZero;
 exports.hash = hash;
 exports.shuffle = shuffle;
 exports.getUsername = getUsername;
