@@ -201,20 +201,32 @@ app.get('/home', function (req, res) {
         const limit = 3;
         Parse.Promise.when(
             new Parse.Query("Collection").limit(limit).find({sessionToken: token}),
-            new Parse.Query("Category").limit(limit).find({sessionToken: token})
-        ).then(function (collection, categories) {
+            new Parse.Query("Category").limit(limit).find({sessionToken: token}),
+            //count all objects
+            new Parse.Query("Category").count({sessionToken: token}),
+            new Parse.Query("Collection").count({sessionToken: token}),
+            new Parse.Query("Sticker").count({sessionToken: token}),
+        ).then(function (collection, categories, categoryLength, packLength, stickerLength) {
             let _collection = [];
             let _categories = [];
+
             if (collection.length) {
                 _collection = collection;
 
             }
+
             if (categories.length) {
                 _categories = categories;
 
             }
 
-            res.render("pages/home", {collections: _collection, categories: _categories});
+            res.render("pages/home", {
+                collections: _collection,
+                categories: _categories,
+                categoryLength: categoryLength,
+                packLength: categoryLength,
+                stickerLength: stickerLength
+            });
 
         }, function (error) {
             console.log(JSON.stringify(error));
@@ -486,7 +498,7 @@ app.post('/update-category', function (req, res) {
     var token = req.cookies.token;
     var newName = req.body.catname;
     var currentId = req.body.categoryId;
-    console.log("NAME "+newName+ " OBJECTID "+currentId);
+    console.log("NAME " + newName + " OBJECTID " + currentId);
     if (session && token) {
 
         var category = new Parse.Query("Category");
@@ -920,7 +932,7 @@ app.get('/upload_page/:id/:collection_name', function (req, res) {
     var col_name = req.params.collection_name;
 
     if (session && token) {
-        res.render("pages/upload", {id: coll_id, coll_name:col_name});
+        res.render("pages/upload", {id: coll_id, coll_name: col_name});
     } else {
         res.redirect("/dashboard");
     }
