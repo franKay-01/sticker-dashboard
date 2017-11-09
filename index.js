@@ -445,7 +445,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 });
 
 // FIND A SPECIFIC CATEGORY
-app.get('/find_category', function(req, res){
+app.post('/find_category', function(req, res){
     var session = req.session.token;
     var token = req.cookies.token;
     var category_name = req.body.searchCat;
