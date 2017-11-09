@@ -455,8 +455,8 @@ app.post('/find_category', function(req, res){
          var query = new Parse.Query("Category");
          query.equalTo("name",category_name);
          query.first().then(function (category) {
-            var name = category.name;
-            var _id = category.objectId;
+            var name = category.get("name");
+            var _id = category.get("objectId");
             console.log("CATEGORY DETAILS "+ JSON.stringify(name));
             res.render("pages/search_categories", {name: name, id:_id});
          }, 
