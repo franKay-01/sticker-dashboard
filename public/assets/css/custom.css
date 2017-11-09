@@ -733,21 +733,25 @@ input[type=search], textarea.materialize-textarea {
 
 ._pack_2::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
-    color: #8651aa;
+    color: #8651aa !important;
+    font-size: 25px !important;
 }
 ._pack_2:-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #8651aa;
+    color: #8651aa !important;
+    font-size: 25px !important;
     opacity: 1;
 }
 ._pack_2::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #8651aa;
+    color: #8651aa !important;
+    font-size: 25px !important;
     opacity: 1;
 }
 ._pack_2:-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #8651aa;
+    color: #8651aa !important;
+    font-size: 25px !important;
 }
 
 .Icon_create_sticker_pack {
