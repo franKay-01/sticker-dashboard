@@ -444,6 +444,27 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     }
 });
 
+// FIND A SPECIFIC CATEGORY
+app.get('/find_category', function(req, res){
+    var session = req.session.token;
+    var token = req.cookies.token;
+    var category_name = req.body.searchCat;
+
+    if (session && token) {
+
+         var query = new Parse.Query("Category");
+         query.equalTo("name",category_name).then(function (category) {
+            console.log("CATEGORY DETAILS "+ JSON.stringify(category));
+            // res.render("pages/search_categories", {categories: _categories});
+         }, 
+         function(error){
+            console.log("No categories found.............." + JSON.stringify(error));
+         });
+    }else{
+        res.redirect("/");
+    }
+});
+
 //SELECT CATEGORIES PAGE
 app.get('/categories', function (req, res) {
 
