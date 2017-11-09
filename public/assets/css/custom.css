@@ -383,6 +383,17 @@ button:active{
   box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
 }
 
+.category_details {
+  width: 500px !important;
+  height: 400px !important;
+  margin-right: 10px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  position: relative;
+  background-color: white;
+  box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
+}
+
 .forgottenPass{
   margin-right: -38%;
   margin-top: -10px;
