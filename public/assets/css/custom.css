@@ -716,6 +716,21 @@ input[type=search], textarea.materialize-textarea {
     background-color: transparent !important;
 }
 
+._pack_2{
+    width: 350px !important;
+    text-align: left;
+    color: #8651aa !important;
+    font-size: 2rem !important;
+    background: transparent;
+    border-top:0;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 3px #8651aa solid !important;
+    border-color: #8651aa;
+    border-width: 6px;
+    background-color: transparent !important;
+}
+
 .Icon_create_sticker_pack {
   width: 83px;
   height: 83px;
