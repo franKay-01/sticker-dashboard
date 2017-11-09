@@ -21,7 +21,14 @@
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-
+    <script type="text/javascript">
+      var currentUser = Parse.User.current();
+        if (currentUser) {
+            alert(currentUser);
+        } else {
+            // show the signup or login page
+        }
+    </script>
 </head>
 
 <body class="primary-background-color">
