@@ -247,7 +247,7 @@ app.post('/login', function (req, res) {
     Parse.User.logIn(username, password).then(function (user) {
 
         console.log("SESSIONS TOKEN " + user.getSessionToken());
-        console.log("USER INFO "+ JSON.stringify(user.name()));
+        console.log("USER INFO "+ JSON.stringify(user));
         res.cookie('token', user.getSessionToken());
         req.session.token = user.getSessionToken();
         console.log("USER GETS TOKEN : " + user.getSessionToken());
