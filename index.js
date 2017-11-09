@@ -457,7 +457,7 @@ app.post('/find_category', function(req, res){
          query.first().then(function (category) {
             var name = category.name;
             var _id = category.objectId;
-            // console.log("CATEGORY DETAILS "+ JSON.stringify(category));
+            console.log("CATEGORY DETAILS "+ JSON.stringify(name));
             res.render("pages/search_categories", {name: name, id:_id});
          }, 
          function(error){
