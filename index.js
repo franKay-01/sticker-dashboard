@@ -250,7 +250,9 @@ app.post('/login', function (req, res) {
     Parse.User.logIn(username, password).then(function (user) {
 
         console.log("SESSIONS TOKEN " + user.getSessionToken());
-        // console.log("USER INFO "+ JSON.stringify(user.getUsername()));
+        var name = user.getUsername();
+        s = name.substring(0, name.indexOf('@'));
+        console.log("USERNAME CHANGED "+ s);
         res.cookie('token', user.getSessionToken());
         res.cookie('username', user.getUsername());
         req.session.token = user.getSessionToken();
