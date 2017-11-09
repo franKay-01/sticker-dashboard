@@ -194,6 +194,8 @@ app.get('/login', function (req, res) {
 app.get('/home', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
+    var username = req.cookies.username;
+
     var pack = [];
     var pack_category = [];
 
@@ -225,7 +227,8 @@ app.get('/home', function (req, res) {
                 categories: _categories,
                 categoryLength: helper.leadingZero(categoryLength),
                 packLength: helper.leadingZero(packLength),
-                stickerLength: helper.leadingZero(stickerLength)
+                stickerLength: helper.leadingZero(stickerLength),
+                username: username
             });
 
         }, function (error) {
@@ -247,8 +250,9 @@ app.post('/login', function (req, res) {
     Parse.User.logIn(username, password).then(function (user) {
 
         console.log("SESSIONS TOKEN " + user.getSessionToken());
-        console.log("USER INFO "+ JSON.stringify(user.getUsername()));
+        // console.log("USER INFO "+ JSON.stringify(user.getUsername()));
         res.cookie('token', user.getSessionToken());
+        res.cookie('username', user.getUsername());
         req.session.token = user.getSessionToken();
         console.log("USER GETS TOKEN : " + user.getSessionToken());
         res.redirect("/home");
