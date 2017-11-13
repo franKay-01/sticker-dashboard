@@ -166,6 +166,13 @@ hr{
   margin-left: 21px;
 }
 
+td, th{
+    display: table-cell !important;
+    text-align: left !important;
+    vertical-align: middle !important;
+    max-width: 150px !important;
+}
+
 .cancel_2 {
   width: 105px;
   height: 43px;
