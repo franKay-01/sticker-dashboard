@@ -248,19 +248,20 @@ app.post('/login', function (req, res) {
     let password = req.body.password;
 
     Parse.User.logIn(username, password).then(function (user) {
-
-        console.log("SESSIONS TOKEN " + user.getSessionToken());
-        res.cookie('token', user.getSessionToken());
-        res.cookie('username', user.getUsername());
-        req.session.token = user.getSessionToken();
-        console.log("USER GETS TOKEN : " + user.getSessionToken());
-        res.redirect("/home");
-
+        if (user) {
+            console.log("SESSIONS TOKEN " + user.getSessionToken());
+            res.cookie('token', user.getSessionToken());
+            res.cookie('username', user.getUsername());
+            req.session.token = user.getSessionToken();
+            console.log("USER GETS TOKEN : " + user.getSessionToken());
+            res.redirect("/home");
+        }else {
+            res.redirect("/");
+        }
     }, function (error) {
         //TODO handle errors
-        res.redirect("/", {
-            error: error.message
-        });
+        console.log("ERROR WHEN LOGGIN IN "+error);
+        res.redirect("/");
     });
 });
 
