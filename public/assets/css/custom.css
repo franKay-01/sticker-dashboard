@@ -155,7 +155,7 @@ hr{
 }
 
 .category_text {
-  width: 300px !important;
+  /*width: 300px !important;*/
   height: 49px;
   font-family: Montserrat;
   font-size: 40px;
@@ -163,7 +163,7 @@ hr{
   letter-spacing: -2.4px;
   text-align: justify;
   color: #a46580;
-  margin-left: 21px;
+  /*margin-left: 21px;*/
     display: block;
     white-space: nowrap;
     text-overflow: ellipsis;
