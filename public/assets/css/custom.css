@@ -164,6 +164,11 @@ hr{
   text-align: justify;
   color: #a46580;
   margin-left: 21px;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    /*width: 100%;*/
 }
 
 td, th{
