@@ -1520,6 +1520,15 @@ tr #titles {
 }
 */
 
+.catbtn{
+    float: right;
+    margin-right: 10px;
+}
+
+.catbtn_2{
+    float: right;
+}
+
 .mainrow {
     text-align: center;
     font-size: 130%;

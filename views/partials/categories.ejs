@@ -10,10 +10,9 @@
                 <span class="category_text"> <%= item.get("name") %> </span>
                 </td>
                 <td>
-                <button type="button" class="editbtn1" data-id="<%= item.id %>" value="<%= item.get("name") %>"><img class="btnEdit" src="/public/assets/images/btn-edit.png" /></button>
-                </td>
-                <td>
-                <button type="button" class="delbtn1" data-id="<%= item.id %>" value="<%= item.get("name") %>"><img class="btnEdit" src="/public/assets/images/btn-delete.png" /></button>
+                <button type="button" class="catbtn" data-id="<%= item.id %>" value="<%= item.get("name") %>"><img class="btnEdit" src="/public/assets/images/btn-edit.png" /></button>
+                &nbsp;&nbsp;
+                <button type="button" class="catbtn_2" data-id="<%= item.id %>" value="<%= item.get("name") %>"><img class="btnEdit" src="/public/assets/images/btn-delete.png" /></button>
                 </td>
                 </tr>
                 <!-- <hr align="center" width="50%"> -->
