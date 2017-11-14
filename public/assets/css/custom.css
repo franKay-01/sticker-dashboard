@@ -741,7 +741,7 @@ input[type=search], textarea.materialize-textarea {
 }
 
 ._pack_2{
-    width: 350px !important;
+    width: 250px !important;
     text-align: left;
     color: #8651aa !important;
     font-size: 2rem !important;
@@ -752,6 +752,7 @@ input[type=search], textarea.materialize-textarea {
     border-bottom: 3px #8651aa solid !important;
     border-color: #8651aa;
     border-width: 6px;
+    margin-right: 15px !important;
     background-color: transparent !important;
 }
 
