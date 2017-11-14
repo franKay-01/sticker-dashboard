@@ -73,6 +73,7 @@ $(document).ready(function () {
             $('#pageMask').fadeIn('fast');
             $('#hiddenEditForm').fadeIn('fast');
             $('#opaqueDiv').fadeOut('fast');
+            $('#searchBar').fadeOut('fast');
             $('#logo2').fadeOut('fast');
             $('#Welcome').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
@@ -88,6 +89,7 @@ $(document).ready(function () {
         $('#hiddenEditForm').fadeOut('fast');
         $('#opaqueDiv').fadeIn('fast');
         $('#logo2').fadeIn('fast');
+        $('#searchBar').fadeIn('fast');
         $('#Welcome').fadeIn('fast');
         $('#signoutLink').fadeIn('fast');
     });
