@@ -1559,6 +1559,7 @@ tr #titles {
   margin-right: 20px;
   margin-left: 20px;
   object-fit: contain;
+    float: right;
 }
 /*EDIT CATEGORY form----------------------------------------*/
 #hiddenEditForm {
