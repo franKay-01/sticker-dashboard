@@ -108,7 +108,7 @@ $(document).ready(function () {
         $('#hiddenAddCatForm').fadeOut('fast');
         $('#logo2').fadeIn('fast');
         $('#Welcome').fadeIn('fast');
-        $('#searchCat').fade('fast');
+        $('#searchCat').fadeIn('fast');
         $('#signoutLink').fadeIn('fast');
         $('#opaqueDiv').fadeIn('fast');
         $('#pack_form')[0].reset();
