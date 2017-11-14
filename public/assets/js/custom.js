@@ -97,9 +97,10 @@ $(document).ready(function () {
         $('#pageMask').fadeIn('fast');
         $('#hiddenAddCatForm').fadeIn('fast');
         $('#logo2').fadeOut('fast');
+        $('#searchCat').fadeOut('fast');
         $('#Welcome').fadeOut('fast');
         $('#signoutLink').fadeOut('fast');
-        $('#opaqueDiv').fadeOut('fast');;
+        $('#opaqueDiv').fadeOut('fast');
     });
     //remove form
     $('#btn_cancelAddCat').on('click', function () {
@@ -107,6 +108,7 @@ $(document).ready(function () {
         $('#hiddenAddCatForm').fadeOut('fast');
         $('#logo2').fadeIn('fast');
         $('#Welcome').fadeIn('fast');
+        $('#searchCat').fadeIn('fast');
         $('#signoutLink').fadeIn('fast');
         $('#opaqueDiv').fadeIn('fast');
         $('#pack_form')[0].reset();
