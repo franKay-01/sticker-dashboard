@@ -68,7 +68,7 @@ $(document).ready(function () {
     //show/hide edit form button
     // $('#editbtn1').each(function () {
 
-        $('.catbtn_2').on('click', function () {
+        $('.btnEdit').on('click', function () {
             var $this = $(this);
             $('#pageMask').fadeIn('fast');
             $('#hiddenEditForm').fadeIn('fast');
