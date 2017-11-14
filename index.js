@@ -458,8 +458,13 @@ app.post('/find_category', function(req, res){
          query.first().then(function (category) {
             // var name = category.get("name");
             // var _id = category.get("id");
-            console.log("CATEGORY DETAILS "+ JSON.stringify(category));
-            res.render("pages/search_categories", {category_details: category});
+             if (category) {
+                 console.log("CATEGORY DETAILS " + JSON.stringify(category));
+                 res.render("pages/search_categories", {category_details: category});
+             }else {
+                 console.log("No categories found..............");
+                 res.redirect("/categories");
+             }
          }, 
          function(error){
             console.log("No categories found.............." + JSON.stringify(error));
