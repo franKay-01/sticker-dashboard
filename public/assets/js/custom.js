@@ -68,7 +68,7 @@ $(document).ready(function () {
     //show/hide edit form button
     // $('#editbtn1').each(function () {
 
-        $('.btnEdit').on('click', function () {
+        $('.catbtn_2').on('click', function () {
             var $this = $(this);
             $('#pageMask').fadeIn('fast');
             $('#hiddenEditForm').fadeIn('fast');
@@ -108,7 +108,7 @@ $(document).ready(function () {
         $('#hiddenAddCatForm').fadeOut('fast');
         $('#logo2').fadeIn('fast');
         $('#Welcome').fadeIn('fast');
-        $('#searchCat').fadeIn('fast');
+        $('#searchCat').fade('fast');
         $('#signoutLink').fadeIn('fast');
         $('#opaqueDiv').fadeIn('fast');
         $('#pack_form')[0].reset();
