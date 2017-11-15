@@ -84,7 +84,11 @@
             <%= category_details.get("name") %>
         </div>
         <div>
-            <%= category_details.id %>
+
+            <button type="button" class="catbtn_2 delbtn1" data-id="<%= category_details.id %>" value="<%= category_details.get("name") %>"><img class="btnEdit" src="/public/assets/images/btn-delete.png" /></button>
+
+            <button type="button" class="catbtn editbtn1" data-id="<%= category_details.id %>" value="<%= category_details.get("name") %>"><img class="btnEdit" src="/public/assets/images/btn-edit.png" /></button>
+
         </div>
     </div>
 </div>

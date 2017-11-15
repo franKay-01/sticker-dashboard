@@ -769,6 +769,7 @@ input[type=search], textarea.materialize-textarea {
     border-color: black;
     border-width: 6px;
     background-color: transparent !important;
+    margin: 55px auto;
 }
 
 ._pack_2::-webkit-input-placeholder {
