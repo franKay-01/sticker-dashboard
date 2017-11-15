@@ -18,6 +18,11 @@ let multipart = require('multipart');
 let i2b = require("imageurl-base64");
 let download = require('image-downloader');
 
+//TODO use vars for class names
+//TODO change class names to make it more appropriate
+let CollectionClass = "Collection";
+let StickerClass = "Sticker";
+let CategoryClass = "Category";
 
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
@@ -169,40 +174,6 @@ app.get('/', function (req, res) {
     }
 });
 
-
-
-
-
-
-// app.get('/login', function (req, res) {
-//
-//     var session = req.session.token;
-//     var token = req.cookies.token;
-//
-//     if (session && token) {
-//
-//         res.redirect("/home");
-//
-//     } else {
-//
-//         //retrieve stickers to randomly display on the home page
-//         new Parse.Query("Sticker").limit(40).find({sessionToken: token}).then(function (cards) {
-//
-//             cards = helper.shuffle(cards);
-//
-//             //render 3 stickers on the page
-//             cards = cards.slice(0, 3);
-//
-//             res.render("pages/login", {stickers: cards});
-//
-//         }, function (error) {
-//
-//             res.render("pages/login", {stickers: []});
-//
-//         });
-//     }
-// });
-
 //login the user in using Parse
 app.post('/login', function (req, res) {
 
@@ -229,23 +200,25 @@ app.post('/login', function (req, res) {
 });
 
 app.get('/home', function (req, res) {
+
     var session = req.session.token;
     var token = req.cookies.token;
     var username = req.cookies.username;
     username = username.substring(0, username.indexOf('@'));
-    var pack = [];
-    var pack_category = [];
 
     if (session && token) {
+
         const limit = 3;
         Parse.Promise.when(
-            new Parse.Query("Collection").limit(limit).find({sessionToken: token}),
-            new Parse.Query("Category").limit(limit).find({sessionToken: token}),
+            new Parse.Query(CollectionClass).limit(limit).find({sessionToken: token}),
+            new Parse.Query(CategoryClass).limit(limit).find({sessionToken: token}),
             //count all objects
-            new Parse.Query("Category").count({sessionToken: token}),
-            new Parse.Query("Collection").count({sessionToken: token}),
-            new Parse.Query("Sticker").count({sessionToken: token}),
+            //TODO have a stats class
+            new Parse.Query(CategoryClass).count({sessionToken: token}),
+            new Parse.Query(CollectionClass).count({sessionToken: token}),
+            new Parse.Query(StickerClass).count({sessionToken: token}),
         ).then(function (collection, categories, categoryLength, packLength, stickerLength) {
+
             let _collection = [];
             let _categories = [];
 
@@ -269,107 +242,14 @@ app.get('/home', function (req, res) {
             });
 
         }, function (error) {
+            //TODO render error
             console.log(JSON.stringify(error));
             res.redirect("/home");
         });
 
     } else {
-        res.redirect("/login");
+        res.redirect("/");
     }
-});
-
-
-//UPLOAD ONE STICKER
-app.post('/upload', upload.array('im1[]'), function (req, res) {
-
-    let session = req.session.token;
-    let token = req.cookies.token;
-
-    let files = req.files;
-
-    if (session && token) {
-        files.forEach(function (sticker, index) {
-
-            let fullname = sticker.originalname;
-
-            //remove file extension name
-            let stickerName = fullname.substring(0, fullname.length - 4);
-
-            //converts uploaded file to base64 format
-            let bitmap = fs.readFileSync(sticker.path, {encoding: 'base64'});
-
-            let parseFile = new Parse.File(stickerName, {base64: bitmap}, sticker.mimetype);
-
-            //create parse file object
-            let Sticker = new Parse.Object.extend("Sticker");
-
-            parseFile.save().then(function () {
-
-                //instance of parse object
-                let sticker = new Sticker();
-                sticker.set("stickerName", stickerName);
-                sticker.set("localName", stickerName);
-                sticker.set("uri", parseFile);
-                sticker.set("stickerPhraseImage", "");
-
-                return sticker.save();
-
-            }).then(function () {
-                    //Delete tmp file after upload
-                    let tempFile = sticker.path;
-                    fs.unlink(tempFile, function (err) {
-                        if (err) {
-                            //TODO handle error code
-                            console.log("-------Could not del temp" + JSON.stringify(err));
-                        }
-                    });
-                    res.redirect("/dashboard");
-                },
-                function (errors) {
-                    console.log("COuld not Upload Sticker..." + errors);
-                });
-        });
-
-    }
-    // //no session exists reload signup page
-    else {
-        function error(err) {
-            //TODO report error to user
-            console.log("error:::::: " + JSON.stringify(err));
-            res.redirect("/");
-        }
-    }
-});
-
-//TODO dropbox API
-/*app.post('/dropbox', upload.array('im1[]'), function (req, res) {
-
-})*/
-
-app.post('/upload_dropbox', upload.array('box'), function (req, res) {
-    var session = req.session.token;
-    var token = req.cookies.token;
-    var coll_id = req.body.coll_id;
-    var files = req.files;
-    var fileDetails = [];
-    var stickerDetails = [];
-    var stickerCollection;
-
-    console.log("FILE" + files + " COLL_ID " + coll_id);
-
-// var download = function(uri, filename, callback){
-//   request.head(uri, function(err, res, body){
-//     console.log('content-type:', res.headers['content-type']);
-//     console.log('content-length:', res.headers['content-length']);
-
-//     request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
-//   });
-// };
-
-// download('https://www.google.com/images/srpr/logo3w.png', 'google.png', function(){
-//   console.log('done');
-// });
-
 });
 
 //UPLOAD MULTIPLE STICKERS
@@ -377,22 +257,23 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
-    var coll_id = req.body.coll_id;
+    //TODO from coll_id to collectionId in the ejs file
+    var collectionId = req.body.coll_id;
     var files = req.files;
     var fileDetails = [];
     var stickerDetails = [];
     var stickerCollection;
-    // console.log("FILES" + req.files + "COLL_ID "+ coll_id);
+
     if (session && token) {
 
-        var collection = new Parse.Query("Collection");
-        collection.equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
+        //TODO remove unused logs
+        new Parse.Query(CollectionClass).equalTo("objectId", collectionId).first({sessionToken: token}).then(function (collection) {
+
             console.log("INSIDE COLLECTION");
             stickerCollection = collection;
 
             files.forEach(function (file) {
 
-                //TODO update originalname to originalName
                 var fullName = file.originalname;
                 var stickerName = fullName.substring(0, fullName.length - 4);
 
@@ -459,15 +340,19 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     }
 });
 
+//TODO update all route names to read name-name or name
 // FIND A SPECIFIC CATEGORY
 app.post('/find_category', function (req, res) {
+
     var session = req.session.token;
     var token = req.cookies.token;
+    //TODO use camelCase categoryName
+    //TODO descriptive names searchCategory
     var category_name = req.body.searchCat;
 
     if (session && token) {
 
-        var query = new Parse.Query("Category");
+        var query = new Parse.Query(CategoryClass);
         query.equalTo("name", category_name);
         query.first().then(function (category) {
                 // var name = category.get("name");
@@ -987,6 +872,7 @@ app.get('/upload_page/:id/:collection_name', function (req, res) {
 
 });
 
+//TODO change route name to upload-dropbox-file
 app.post('/upload-file', function (req, res) {
 
     var bitmap;
