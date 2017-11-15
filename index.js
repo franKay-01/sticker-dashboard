@@ -169,11 +169,6 @@ app.get('/', function (req, res) {
     }
 });
 
-
-
-
-
-
 // app.get('/login', function (req, res) {
 //
 //     var session = req.session.token;
