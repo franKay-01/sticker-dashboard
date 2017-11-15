@@ -123,6 +123,7 @@ $(document).ready(function () {
             $('#hiddenRemoveCategory').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
             $('#logo2').fadeOut('fast');
+            $('#searchCat').fadeOut('fast');
             $('#Welcome').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
             $('#opaqueDiv').fadeOut('fast');;
@@ -138,6 +139,7 @@ $(document).ready(function () {
         $('#hiddenRemoveCategory').fadeOut('fast');
         $('#logo2').fadeIn('fast');
         $('#Welcome').fadeIn('fast');
+        $('#searchCat').fadeIn('fast');
         $('#signoutLink').fadeIn('fast');
         $('#opaqueDiv').fadeIn('fast');
         $('#pack_form')[0].reset();
