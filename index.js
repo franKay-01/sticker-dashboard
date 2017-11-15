@@ -407,7 +407,7 @@ app.post('/new-category', function (req, res) {
 
     if (session && token) {
 
-        var Category = new Parse.Object.extend("Category");
+        var Category = new Parse.Object.extend(CategoryClass);
         var categoryObject = new Category();
 
         categoryObject.set("name", categoryName);
