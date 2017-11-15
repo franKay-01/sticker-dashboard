@@ -13,12 +13,10 @@ let multer = require('multer');
 let _ = require('underscore');
 let helper = require('./cloud/modules/helpers');
 let methodOverride = require('method-override');
+//TODO removed unused modules
 let multipart = require('multipart');
 let i2b = require("imageurl-base64");
 let download = require('image-downloader');
-// var urlToImage = require('url-to-image');
-
-// var busboy = require('connect-busboy');
 
 
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
@@ -92,8 +90,6 @@ var api = new ParseServer({
 // If you wish you require them, you can set them as options in the initialization above:
 // javascriptKey, restAPIKey, dotNetKey, clientKey
 
-//for file uploads
-//for file uploads
 
 var app = express();
 
@@ -112,11 +108,6 @@ app.use(cookieSession({
     maxAge: 15724800000
 }));
 app.use(cookieParser("A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK"));
-
-//app.use(parseExpressHttpsRedirect());
-
-//TODO use to pass basic functionality to template
-//app.locals.filters = filters;
 
 
 app.all('*', function (req, res, next) {
@@ -151,44 +142,86 @@ var upload = multer({storage: storage});
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 
-
 // Home Page
 app.get('/', function (req, res) {
-    var session = req.session.token;
-    var token = req.cookies.token;
 
-    if (session && token) {
-        res.redirect("/home");
-        // res.redirect("/dashboard");
-    } else {
-        res.redirect("/login");
-    }
-});
-
-app.get('/login', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
     if (session && token) {
         res.redirect("/home");
     } else {
-        let query = new Parse.Query("Sticker");
-        query.limit(40);
-        query.find({sessionToken: token}).then(function (cards) {
-            /*_.each(cards, function (sticker) {
-             cardDetails = items[Math.floor(Math.random()*sticker.length)];
-            });*/
+        //retrieve stickers to randomly display on the home page
+        new Parse.Query("Sticker").limit(40).find({sessionToken: token}).then(function (cards) {
+
             cards = helper.shuffle(cards);
+
+            //render 3 stickers on the page
             cards = cards.slice(0, 3);
 
             res.render("pages/login", {stickers: cards});
 
         }, function (error) {
 
-            console.log("logIn error" + JSON.stringify(error));
+            res.render("pages/login", {stickers: []});
 
         });
     }
+});
+
+
+// app.get('/login', function (req, res) {
+//
+//     var session = req.session.token;
+//     var token = req.cookies.token;
+//
+//     if (session && token) {
+//
+//         res.redirect("/home");
+//
+//     } else {
+//
+//         //retrieve stickers to randomly display on the home page
+//         new Parse.Query("Sticker").limit(40).find({sessionToken: token}).then(function (cards) {
+//
+//             cards = helper.shuffle(cards);
+//
+//             //render 3 stickers on the page
+//             cards = cards.slice(0, 3);
+//
+//             res.render("pages/login", {stickers: cards});
+//
+//         }, function (error) {
+//
+//             res.render("pages/login", {stickers: []});
+//
+//         });
+//     }
+// });
+
+//login the user in using Parse
+app.post('/login', function (req, res) {
+
+    let username = req.body.username;
+    let password = req.body.password;
+
+    Parse.User.logIn(username, password).then(function (user) {
+        if (user) {
+            console.log("SESSIONS TOKEN " + user.getSessionToken());
+            res.cookie('token', user.getSessionToken());
+            res.cookie('username', user.getUsername());
+            req.session.token = user.getSessionToken();
+            console.log("USER GETS TOKEN : " + user.getSessionToken());
+            res.redirect("/home");
+        } else {
+            res.redirect("/");
+        }
+    }, function (error) {
+        //TODO render error message
+        //TODO handle errors
+        console.log("ERROR WHEN LOGGIN IN " + error);
+        res.redirect("/");
+    });
 });
 
 app.get('/home', function (req, res) {
@@ -241,29 +274,6 @@ app.get('/home', function (req, res) {
     }
 });
 
-//login the user in using Parse
-app.post('/login', function (req, res) {
-
-    let username = req.body.username;
-    let password = req.body.password;
-
-    Parse.User.logIn(username, password).then(function (user) {
-        if (user) {
-            console.log("SESSIONS TOKEN " + user.getSessionToken());
-            res.cookie('token', user.getSessionToken());
-            res.cookie('username', user.getUsername());
-            req.session.token = user.getSessionToken();
-            console.log("USER GETS TOKEN : " + user.getSessionToken());
-            res.redirect("/home");
-        }else {
-            res.redirect("/");
-        }
-    }, function (error) {
-        //TODO handle errors
-        console.log("ERROR WHEN LOGGIN IN "+error);
-        res.redirect("/");
-    });
-});
 
 //UPLOAD ONE STICKER
 app.post('/upload', upload.array('im1[]'), function (req, res) {
@@ -446,31 +456,31 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 });
 
 // FIND A SPECIFIC CATEGORY
-app.post('/find_category', function(req, res){
+app.post('/find_category', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var category_name = req.body.searchCat;
 
     if (session && token) {
 
-         var query = new Parse.Query("Category");
-         query.equalTo("name",category_name);
-         query.first().then(function (category) {
-            // var name = category.get("name");
-            // var _id = category.get("id");
-             if (category) {
-                 console.log("CATEGORY DETAILS " + JSON.stringify(category));
-                 res.render("pages/search_categories", {category_details: category});
-             }else {
-                 console.log("No categories found..............");
-                 res.redirect("/categories");
-             }
-         }, 
-         function(error){
-            console.log("No categories found.............." + JSON.stringify(error));
-            res.redirect("/categories");
-         });
-    }else{
+        var query = new Parse.Query("Category");
+        query.equalTo("name", category_name);
+        query.first().then(function (category) {
+                // var name = category.get("name");
+                // var _id = category.get("id");
+                if (category) {
+                    console.log("CATEGORY DETAILS " + JSON.stringify(category));
+                    res.render("pages/search_categories", {category_details: category});
+                } else {
+                    console.log("No categories found..............");
+                    res.redirect("/categories");
+                }
+            },
+            function (error) {
+                console.log("No categories found.............." + JSON.stringify(error));
+                res.redirect("/categories");
+            });
+    } else {
         res.redirect("/categories");
     }
 });
