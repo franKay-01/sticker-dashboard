@@ -1,4 +1,11 @@
 <!-- get values from initial array: should  en -->
+<% if (categories.length === 0) { %>
+<div class="medium-3 large-3 cell Icons">
+    <img src="/public/assets/images/broken.png" class="gbeja_notxt">
+    <div class="name_tag"><p class="sticker_name_text">Broken Link - Reload</p></div>
+</div>
+<% } else { %>
+
 <% categories.forEach(function(items) { %>
     <div class="medium-3 large-3 cell Icons">
     <table>
@@ -23,5 +30,6 @@
         </table>
     </div>
 <% }); %>
+<% } %>
 
  
