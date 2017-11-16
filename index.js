@@ -195,7 +195,7 @@ app.post('/login', function (req, res) {
         //TODO render error message
         //TODO handle errors
         console.log("ERROR WHEN LOGGIN IN " + error);
-        res.redirect("/", {error: error.message});
+        res.redirect("/home", {error: error.message});
     });
 });
 
