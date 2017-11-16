@@ -361,8 +361,7 @@ app.post('/find_category', function (req, res) {
                     console.log("CATEGORY DETAILS " + JSON.stringify(category));
                     res.render("pages/search_categories", {category_details: category});
                 }else {
-                    console.log("No categories found.............." + JSON.stringify(error));
-                    searchErrorMessage = error.message;
+                    searchErrorMessage = "Category not found";
                     res.redirect("/categories");
                 }
             },
