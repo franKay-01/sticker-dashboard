@@ -237,6 +237,17 @@ td, th{
   box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
 }
 
+.errorCard {
+    width: 500px !important;
+    height: 100px !important;
+    margin-right: 10px;
+    border-radius: 15px;
+    /*margin-left: 60px;*/
+    margin-bottom: 15px;
+    background-image: linear-gradient(to bottom, #d77255, #8651aa);
+    box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
+}
+
 .loginCard_2 {
   width: 300px !important;
   height: 400px !important;

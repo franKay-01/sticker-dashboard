@@ -25,12 +25,6 @@
 </head>
 
 <body class="primary-background-color">
-<% if (error.length > 0) { %>
-<h6 class="subheader text-center">
-    <%= error %>
-</h6>
-<% } %>
-
 <!-- Body -->
 
     <div class="grid-container">
@@ -40,6 +34,11 @@
          srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo2">
          </a>
     </div>
+        <% if (error.length > 0) { %>
+        <div class="medium-12 large-12 errorCard">
+            <%= error %>
+        </div>
+        <% } %>
     <span class="medium-12 large-12 Welcome-to-publisher"><b>Welcome to Publisher</b></span>
     <div class="grid-x grid-margin-x opaqueDiv">
       <div class="medium-3 large-3 cell loginCard">
