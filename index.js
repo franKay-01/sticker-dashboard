@@ -17,6 +17,7 @@ let methodOverride = require('method-override');
 let multipart = require('multipart');
 let i2b = require("imageurl-base64");
 let download = require('image-downloader');
+var ERROR = "";
 
 //TODO use vars for class names
 //TODO change class names to make it more appropriate
@@ -195,7 +196,9 @@ app.post('/login', function (req, res) {
         //TODO render error message
         //TODO handle errors
         console.log("ERROR WHEN LOGGIN IN " + error);
-        res.redirect("/home", {error: error.message});
+        ERROR = error.message;
+        res.redirect("/home");
+
     });
 });
 
@@ -205,7 +208,7 @@ app.get('/home', function (req, res) {
     var token = req.cookies.token;
     var username = req.cookies.username;
     username = username.substring(0, username.indexOf('@'));
-
+    console.log("ERROR MESSAGE FROM LOGIN FAIL "+ERROR);
     if (session && token) {
 
         const limit = 3;
