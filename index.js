@@ -361,7 +361,7 @@ app.post('/find_category', function (req, res) {
                     res.render("pages/search_categories", {category_details: category});
                 } else {
                     console.log("No categories found..............");
-                    res.redirect("/categories");
+                    res.render("pages/search_categories", {category_details: []});
                 }
             },
             function (error) {
