@@ -208,7 +208,7 @@ app.get('/home', function (req, res) {
     var token = req.cookies.token;
     var username = req.cookies.username;
     username = username.substring(0, username.indexOf('@'));
-    console.log("ERROR MESSAGE FROM LOGIN FAIL "+ERROR);
+
     if (session && token) {
 
         const limit = 3;
@@ -236,6 +236,7 @@ app.get('/home', function (req, res) {
             }
 
             res.render("pages/home", {
+                error:ERROR,
                 collections: _collection,
                 categories: _categories,
                 categoryLength: helper.leadingZero(categoryLength),
