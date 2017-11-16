@@ -15,6 +15,7 @@ let helper = require('./cloud/modules/helpers');
 let methodOverride = require('method-override');
 let download = require('image-downloader');
 var errorMessage = "";
+var searchErrorMessage = "";
 
 //TODO use vars for class names
 //TODO change class names to make it more appropriate
@@ -359,13 +360,11 @@ app.post('/find_category', function (req, res) {
                 if (category) {
                     console.log("CATEGORY DETAILS " + JSON.stringify(category));
                     res.render("pages/search_categories", {category_details: category});
-                } else {
-                    console.log("No categories found..............");
-                    res.render("pages/search_categories", {category_details: []});
                 }
             },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
+                searchErrorMessage = error.message;
                 res.redirect("/categories");
             });
     } else {
@@ -387,7 +386,7 @@ app.get('/categories', function (req, res) {
 
                 let _categories = helper.chunks(categories, 4);
 
-                res.render("pages/categories_2", {categories: _categories});
+                res.render("pages/categories_2", {categories: _categories, error: searchErrorMessage});
             },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
