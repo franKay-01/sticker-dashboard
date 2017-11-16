@@ -17,7 +17,7 @@ let methodOverride = require('method-override');
 let multipart = require('multipart');
 let i2b = require("imageurl-base64");
 let download = require('image-downloader');
-var errorMessage = "";
+var errorMessage = "false";
 
 //TODO use vars for class names
 //TODO change class names to make it more appropriate
