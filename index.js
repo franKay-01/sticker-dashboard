@@ -17,7 +17,7 @@ let methodOverride = require('method-override');
 let multipart = require('multipart');
 let i2b = require("imageurl-base64");
 let download = require('image-downloader');
-var ERROR = "";
+var errorMessage = "";
 
 //TODO use vars for class names
 //TODO change class names to make it more appropriate
@@ -165,7 +165,7 @@ app.get('/', function (req, res) {
             //render 3 stickers on the page
             cards = cards.slice(0, 3);
 
-            res.render("pages/login", {stickers: cards});
+            res.render("pages/login", {stickers: cards,error:errorMessage});
 
         }, function (error) {
 
@@ -196,7 +196,7 @@ app.post('/login', function (req, res) {
         //TODO render error message
         //TODO handle errors
         console.log("ERROR WHEN LOGGIN IN " + error);
-        ERROR = error.message;
+        errorMessage = error.message;
         res.redirect("/home");
 
     });
@@ -236,7 +236,6 @@ app.get('/home', function (req, res) {
             }
 
             res.render("pages/home", {
-                error:ERROR,
                 collections: _collection,
                 categories: _categories,
                 categoryLength: helper.leadingZero(categoryLength),
