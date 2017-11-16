@@ -242,7 +242,7 @@ app.get('/home', function (req, res) {
             });
 
         }, function (error) {
-            //TODO render error
+            //TODO how to display error on home page
             console.log(JSON.stringify(error));
             res.redirect("/home");
         });
@@ -657,7 +657,6 @@ app.get('/collection/:id', function (req, res) {
                 var col = collection.relation(CollectionClass);
                 col.query().find().then(function (stickers) {
 
-                    // res.render("pages/collection", {stickers: stickers, id: coll_id, collectionName: coll_name});
                     res.render("pages/new_collection", {stickers: stickers, id: coll_id, collectionName: coll_name});
                 }, function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
