@@ -351,9 +351,12 @@ app.post('/find_category', function (req, res) {
 
     if (session && token) {
 
-        new Parse.Query(CategoryClass).equalTo("name", categoryName).first().then(function (category) {
+        var searchCategory = new Parse.Query(CategoryClass);
+        searchCategory.equalTo("name", categoryName);
+        searchCategory.first().then(function (category) {
                 // var name = category.get("name");
                 // var _id = category.get("id");
+            console.log("MESSAGE FROM SEARCH "+ JSON.stringify(category));
                 if (category.length =! null) {
                     console.log("CATEGORY DETAILS " + JSON.stringify(category));
                     res.render("pages/search_categories", {category_details: category});
