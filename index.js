@@ -351,38 +351,22 @@ app.post('/find_category', function (req, res) {
 
     if (session && token) {
 
-        // var  = Parse.Object.extend(CategoryClass);
-        var query = new Parse.Query(CategoryClass);
-        query.equalTo("name", categoryName);
-        query.first({
-            success: function(category) {
-                // Successfully retrieved the object.
-                console.log("CATEGORY DETAILS " + JSON.stringify(category));
-                res.render("pages/search_categories", {category_details: category});
+        var searchCategory = new Parse.Query(CategoryClass);
+        searchCategory.equalTo("name", categoryName);
+        searchCategory.first().then(function (category) {
+                // var name = category.get("name");
+                // var _id = category.get("id");
+            console.log("MESSAGE FROM SEARCH "+ JSON.stringify(category));
+                if (category !== 'undefined'){
+                    console.log("CATEGORY DETAILS " + JSON.stringify(category));
+                    res.render("pages/search_categories", {category_details: category});
+                }
             },
-            error: function(error) {
+            function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
                 searchErrorMessage = error.message;
                 res.redirect("/categories");
-            }
-        });
-
-        // var searchCategory = new Parse.Query(CategoryClass);
-        // searchCategory.equalTo("name", categoryName);
-        // searchCategory.first().then(function (category) {
-        //         // var name = category.get("name");
-        //         // var _id = category.get("id");
-        //     console.log("MESSAGE FROM SEARCH "+ JSON.stringify(category));
-        //         if (category.length =! null) {
-        //             console.log("CATEGORY DETAILS " + JSON.stringify(category));
-        //             res.render("pages/search_categories", {category_details: category});
-        //         }
-        //     },
-        //     function (error) {
-        //         console.log("No categories found.............." + JSON.stringify(error));
-        //         searchErrorMessage = error.message;
-        //         res.redirect("/categories");
-        //     });
+            });
     } else {
         res.redirect("/categories");
     }
