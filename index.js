@@ -353,7 +353,8 @@ app.post('/find_category', function (req, res) {
 
     if (session && token) {
 
-        var query = new Parse.Query(CategoryClass).equalTo("name", categoryName);
+        var query = new Parse.Query(CategoryClass);
+        query.equalTo("name", categoryName);
         query.first().then(function (category) {
                 // var name = category.get("name");
                 // var _id = category.get("id");
