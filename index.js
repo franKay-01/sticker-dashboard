@@ -351,15 +351,13 @@ app.post('/find_category', function (req, res) {
 
     if (session && token) {
 
-        var query = new Parse.Query(CategoryClass);
-        query.equalTo("name", categoryName);
-        query.first().then(function (category) {
+        new Parse.Query(CategoryClass).equalTo("name", categoryName).first().then(function (category) {
                 // var name = category.get("name");
                 // var _id = category.get("id");
-                if (category) {
-                    console.log("CATEGORY DETAILS " + JSON.stringify(category));
-                    res.render("pages/search_categories", {category_details: category});
-                }
+
+                console.log("CATEGORY DETAILS " + JSON.stringify(category));
+                res.render("pages/search_categories", {category_details: category});
+
             },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
