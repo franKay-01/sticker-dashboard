@@ -79,13 +79,7 @@
          <div><a class="_categories" href="/pack_collection">Packs</a></div>
         </div>
     </div>
-     <% if (category_details.length === 0) { %>
-     <div class="medium-12 large-12 errorCard">
-         <div style="text-align: center;font-size: 20px;">
-             CATEGORY NOT FOUND
-         </div>
-     </div>
-     <% } else { %>
+
      <div class="medium-9 large-9 cell category_details">
          <div class="_pack_3">
              <%= category_details.get("name") %>
@@ -98,8 +92,6 @@
              </center>
          </div>
      </div>
-
-     <% } %>
 
 </div>
     <!-- <div class="grid-x grid-margin-x" id="opaqueDiv"> -->
