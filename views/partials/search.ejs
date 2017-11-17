@@ -1,0 +1,22 @@
+<!-- get values from initial array: should  en -->
+<% if (categories.length === 0) { %>
+<div class="medium-3 large-3 cell Icons">
+    <img src="/public/assets/images/broken.png" class="gbeja_notxt">
+    <div class="name_tag"><p class="sticker_name_text">Broken Link/Category Not Found - Reload</p></div>
+    <a href="/categories"> < Back</a>
+</div>
+<% } else { %>
+
+<div class="medium-9 large-9 cell category_details">
+    <div class="_pack_3">
+        <%= categories.get("name") %>
+    </div>
+    <div>
+        <center>
+            <button type="button" class="editbtn1" data-id="<%= categories.id %>" value="<%= categories.get("name") %>"><img class="btnEdit" src="/public/assets/images/btn-edit.png" /></button>
+
+            <button type="button" class="delbtn1" data-id="<%= categories.id %>" value="<%= categories.get("name") %>"><img class="btnEdit" src="/public/assets/images/btn-delete.png" /></button>
+        </center>
+    </div>
+</div>
+<% } %>

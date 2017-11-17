@@ -359,11 +359,11 @@ app.post('/find_category', function (req, res) {
             if(category) {
                 console.log("MESSAGE FROM SEARCH " + category);
                 console.log("CATEGORY DETAILS " + JSON.stringify(category));
-                res.render("pages/categories_2", {categories: category});
+                res.render("pages/search_categories", {categories: category});
             }else {
                 console.log("MESSAGE FROM SEARCH " + category);
                 console.log("CATEGORY DETAILS " + JSON.stringify(category));
-                res.render("pages/categories_2", {categories: []});
+                res.render("pages/search_categories", {categories: []});
             }
 
             },
