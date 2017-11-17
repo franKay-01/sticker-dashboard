@@ -137,19 +137,21 @@ $(document).ready(function () {
         $('#catNameRemove').val($this.val());
         $('#inputRemoveId').val($this.attr("data-id"));
     });
+
+    //cancel remove
+    $('#btnCancelRemove').on('click', function () {
+        $('#pageMask').fadeOut('fast');
+        $('#hiddenRemoveCategory').fadeOut('fast');
+        $('#logo2').fadeIn('fast');
+        $('#Welcome').fadeIn('fast');
+        $('#searchCat').fadeIn('fast');
+        $('#signoutLink').fadeIn('fast');
+        $('#opaqueDiv').fadeIn('fast');
+        $('#pack_form')[0].reset();
+    });
+
 });
 
-//cancel remove
-$('#btnCancelRemove').on('click', function () {
-    $('#pageMask').fadeOut('fast');
-    $('#hiddenRemoveCategory').fadeOut('fast');
-    $('#logo2').fadeIn('fast');
-    $('#Welcome').fadeIn('fast');
-    $('#searchCat').fadeIn('fast');
-    $('#signoutLink').fadeIn('fast');
-    $('#opaqueDiv').fadeIn('fast');
-    $('#pack_form')[0].reset();
-});
 
 
 
