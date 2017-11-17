@@ -383,6 +383,7 @@ app.get('/categories', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var categoryName = req.body.searchCat;
+    console.log("CATEGORY NAME "+ categoryName);
 
     if (session && token) {
 
