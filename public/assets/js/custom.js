@@ -3,6 +3,7 @@ $(document).ready(function () {
     //Toggle create new collection form
     $(function () {
         //show collection form
+        //TODO convert id's to classes
         $('#showCreateForm').on('click', function () {
             $('#hiddenCreateForm').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
@@ -35,17 +36,18 @@ $(document).ready(function () {
 
     /*Toggle  'Choose categories' menu*/
     $('#btnChooseCategory').click(function () {
-        if ($('.categoriesList').is(':visible')) {
-            $('.categoriesList').slideUp('medium');
+        const categoriesList = $('.categoriesList');
+        if (categoriesList.is(':visible')) {
+            categoriesList.slideUp('medium');
         }
         else {
-            $('.categoriesList').slideDown('medium');
+            categoriesList.slideDown('medium');
         }
     });
 
     $checks = $(":checkbox");
     var categories = String($('#category').val()).split(",");
-    for( var i = 0; i < categories.length; i++ ) {
+    for (var i = 0; i < categories.length; i++) {
         console.log(i);
         $('input:checkbox[data-name="' + categories[i] + '"]').prop('checked', true);
     }
@@ -57,31 +59,25 @@ $(document).ready(function () {
 
     });
 
-    //add button style
-    $('#btnAddCategory').on('mouseover', function () {
-        $('.plus').attr('src', 'pluscolor.png');
-    });
-    $('#btnAddCategory').on('mouseout', function () {
-        $('.plus').attr('src', 'pluswhite.png');
-    });
-
     //show/hide edit form button
     // $('#editbtn1').each(function () {
 
-        $('.editbtn1').on('click', function () {
-            var $this = $(this);
-            $('#pageMask').fadeIn('fast');
-            $('#hiddenEditForm').fadeIn('fast');
-            $('#opaqueDiv').fadeOut('fast');
-            $('#searchBar').fadeOut('fast');
-            $('#logo2').fadeOut('fast');
-            $('#Welcome').fadeOut('fast');
-            $('#signoutLink').fadeOut('fast');
+    //TODO example names categoryEditBtn btnEditCategories
+    //TODO add comments or use description names
+    $('.editbtn1').on('click', function () {
+        var $this = $(this);
+        $('#pageMask').fadeIn('fast');
+        $('#hiddenEditForm').fadeIn('fast');
+        $('#opaqueDiv').fadeOut('fast');
+        $('#searchBar').fadeOut('fast');
+        $('#logo2').fadeOut('fast');
+        $('#Welcome').fadeOut('fast');
+        $('#signoutLink').fadeOut('fast');
 
-            //insert category name into text field for editing
-            $('#categoryName').val($this.val());
-            $('#categoryId').val($this.attr("data-id"));
-        });
+        //insert category name into text field for editing
+        $('#categoryName').val($this.val());
+        $('#categoryId').val($this.attr("data-id"));
+    });
     // });
     //remove form
     $('#btnCancelEditCat').on('click', function () {
@@ -94,8 +90,17 @@ $(document).ready(function () {
         $('#signoutLink').fadeIn('fast');
     });
 
+    const btnAddCategory = $('#btnAddCategory');
+    //add button style
+    btnAddCategory.on('mouseover', function () {
+        $('.plus').attr('src', 'pluscolor.png');
+    });
+    btnAddCategory.on('mouseout', function () {
+        $('.plus').attr('src', 'pluswhite.png');
+    });
+
     //show add-category form
-    $('#btnAddCategory').on('click', function () {
+    btnAddCategory.on('click', function () {
         $('#pageMask').fadeIn('fast');
         $('#hiddenAddCatForm').fadeIn('fast');
         $('#logo2').fadeOut('fast');
@@ -118,32 +123,33 @@ $(document).ready(function () {
 
 
     //show 'remove-category' form
-        $('.delbtn1').on('click', function () {
-            var $this = $(this);
-            $('#hiddenRemoveCategory').fadeIn('fast');
-            $('#pageMask').fadeIn('fast');
-            $('#logo2').fadeOut('fast');
-            $('#searchCat').fadeOut('fast');
-            $('#Welcome').fadeOut('fast');
-            $('#signoutLink').fadeOut('fast');
-            $('#opaqueDiv').fadeOut('fast');;
-            //insert category name into text field for removal
-            $('#catNameRemove').val($this.val());
-            $('#inputRemoveId').val($this.attr("data-id"));
-        });
+    $('.delbtn1').on('click', function () {
+        var $this = $(this);
+        $('#hiddenRemoveCategory').fadeIn('fast');
+        $('#pageMask').fadeIn('fast');
+        $('#logo2').fadeOut('fast');
+        $('#searchCat').fadeOut('fast');
+        $('#Welcome').fadeOut('fast');
+        $('#signoutLink').fadeOut('fast');
+        $('#opaqueDiv').fadeOut('fast');
+        ;
+        //insert category name into text field for removal
+        $('#catNameRemove').val($this.val());
+        $('#inputRemoveId').val($this.attr("data-id"));
     });
+});
 
-    //cancel remove
-    $('#btnCancelRemove').on('click', function () {
-        $('#pageMask').fadeOut('fast');
-        $('#hiddenRemoveCategory').fadeOut('fast');
-        $('#logo2').fadeIn('fast');
-        $('#Welcome').fadeIn('fast');
-        $('#searchCat').fadeIn('fast');
-        $('#signoutLink').fadeIn('fast');
-        $('#opaqueDiv').fadeIn('fast');
-        $('#pack_form')[0].reset();
-    });
+//cancel remove
+$('#btnCancelRemove').on('click', function () {
+    $('#pageMask').fadeOut('fast');
+    $('#hiddenRemoveCategory').fadeOut('fast');
+    $('#logo2').fadeIn('fast');
+    $('#Welcome').fadeIn('fast');
+    $('#searchCat').fadeIn('fast');
+    $('#signoutLink').fadeIn('fast');
+    $('#opaqueDiv').fadeIn('fast');
+    $('#pack_form')[0].reset();
+});
 
 
 
