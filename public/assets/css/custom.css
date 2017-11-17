@@ -1,11 +1,3 @@
-/*body {
-    background-image: url(../images/background@2x.png);
-    background-position: top center;
-    background-repeat: no-repeat;
-    background-size: 170%;
-    font-family: 'Open Sans', sans-serif;
-}*/
-
 body {
     background : url(../images/background.png) repeat;
 }
@@ -15,7 +7,35 @@ a {
     font-size: large;
 }
 
-.Stats {
+button,
+button:focus,
+button:active{
+    border:none;
+    background:none;
+    outline:none;
+    padding:0;
+}
+
+hr{
+    clear: both !important;
+    max-width: 75rem !important;
+    height: 0 !important;
+    margin: 0rem auto !important;
+    border-top: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 2px solid #a46580 !important;
+    border-left: 0 !important;
+}
+
+td, th{
+    display: table-cell !important;
+    text-align: left !important;
+    vertical-align: middle !important;
+    max-width: 150px !important;
+}
+/*##################################################################################################################################################*/
+
+.stats {
   width: 83px;
   height: 43px;
   font-family: Montserrat;
@@ -50,7 +70,7 @@ a {
   color: #a46580;
 }
 
-.create_back_background {
+.create_background {
   width: 726px;
   height: 414px;
   border-radius: 15px;
@@ -143,17 +163,6 @@ a {
   margin-right: 10px
 }
 
-hr{
-    clear: both !important;
-    max-width: 75rem !important;
-    height: 0 !important;
-    margin: 0rem auto !important;
-    border-top: 0 !important;
-    border-right: 0 !important;
-    border-bottom: 2px solid #a46580 !important;
-    border-left: 0 !important;
-}
-
 .category_text {
   /*width: 300px !important;*/
   height: 49px;
@@ -169,13 +178,6 @@ hr{
     text-overflow: ellipsis;
     overflow: hidden;
     /*width: 100%;*/
-}
-
-td, th{
-    display: table-cell !important;
-    text-align: left !important;
-    vertical-align: middle !important;
-    max-width: 150px !important;
 }
 
 .cancel_2 {
@@ -268,15 +270,6 @@ td, th{
   /*margin: 20px auto !important;
   object-fit: contain;*/
   margin-right: 20px;
-}
-
-button,
-button:focus,
-button:active{
-    border:none;
-    background:none;
-    outline:none;
-    padding:0;
 }
 
 .icon_category {
@@ -391,11 +384,6 @@ button:active{
     max-width: 90rem;
     margin: 0 auto;
 }
-
-/*.shift{
-  margin-left: 90rem !important;
-  max-width: 0 !important
-}*/
 
 .Icons {
   width: 300px !important;
@@ -533,41 +521,12 @@ button:active{
     font-family: 'Open Sans', sans-serif;
 }
 
-.font-weight-400 {
-    font-weight: 400;
-}
-
-.font-weight-500 {
-    font-weight: 500;
-}
-
-.font-weight-600 {
-    font-weight: 600;
-}
-
-.font-weight-700 {
-    font-weight: 700;
-}
-
 .logo-text {
     color: #e02f1f;
     margin: 0;
     padding: 0;
     font-weight: 900;
 }
-
-
-/*.logo2 {
-    width: 135px;
-    height: 75px;
-    object-fit: contain;
-}*/
-
-/*.Rectangle {
-    width: 100%;
-    height: 72px;
-    background-color: rgba(245, 245, 245, 0.76);
-}*/
 
 .bar {
     width: 100%;
@@ -578,13 +537,6 @@ button:active{
 .margin-top-60 {
     margin-top: 60px;
 }
-
-/*input:not([type]), input[type=text], input[type=password], input[type=email],
-input[type=url], input[type=time], input[type=date], input[type=datetime],
-input[type=datetime-local], input[type=tel], input[type=number],
-input[type=search], textarea.materialize-textarea {
-    border-bottom: 2px solid white;
-}*/
 
 .uplink {
     font-weight: 800;
@@ -945,17 +897,6 @@ fieldset {
     margin: 0 auto;
 }
 
-/*input::-webkit-input-placeholder {
-    color: slategrey;
-}*/
-
-
-/*#detailsForm label{
-    color: #ff3300;
-    font-size: 120%;
-    font-weight: bold;
-}*/
-
 #rightColumn {
     /*border: 2px solid darkslategrey;*/
     float: right;
@@ -1312,43 +1253,6 @@ fieldset {
   margin-right: 10px
 }
 
-/*#btnClearAddForm {
-    cursor: pointer;
-    max-width: 40%;
-    background: #871c12;
-    color: white;
-    padding: 1%;
-    font-family: monospace;
-    font-size: 130%;
-    transition: 0.3s;
-    position: relative;
-    bottom: 380px;
-    left: 30%;
-}
-
-#btnClearAddForm:hover {
-    background: white;
-    color: #871c12;
-    transition: 0.3s;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-}*/
-
-/* END---------NEW DRAG AND DROP FORM*/
-
-/*.drop {
-    width: 43%;
-    border-radius: 15px;
-    background: white;
-    overflow: hidden;
-    text-align: center;
-    transition: all 0.5s;
-    margin: 0 auto;
-    position: relative;
-    height: 400px;
-    bottom: 100px;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
-}*/
-
 /*Create Collection Form*/
 #collectionForm {
     background-color: white;
@@ -1475,23 +1379,6 @@ tr #titles {
     margin: 0 auto;
 }
 
-/*#btnAddCategory {
-    color: white;
-    background-color: #e34435;
-    border: 1px solid;
-    font-weight: bolder;
-    font-size: 120%;
-    transition: 0.3s;
-    width: 100%;
-    padding: 10px;
-}
-#btnAddCategory:hover {
-    color: #e34435;
-    background-color: white;
-    border: 1px solid;
-    transition: 0.3s;
-}*/
-
 .plus{
     margin-right: 3%;
 }
@@ -1517,39 +1404,6 @@ tr #titles {
 #cattable td, th {
     border: 2px solid #ca2a1c;
 }
-
-/*.editbtn1 {
-    padding: 5px;
-    background-color: #ff8566;
-    border: 1px solid #ff8566;
-    color: white;
-    font-size: 110%;
-    transition: 0.2s;
-    margin-right: 10%;
-    margin-left: 25%;
-}
-.editbtn1:hover {
-    background-color: white;
-    border: 1px solid #ff8566;
-    color: #ff8566;
-    transition: 0.2s;
-}
-
-.delbtn1 {
-    padding: 5px;
-    background-color: #991f00;
-    border: 1px solid #991f00;
-    color: white;
-    transition: 0.2s;
-    font-size: 110%;
-}
-.delbtn1:hover {
-    background-color: white;
-    border: 1px solid #991f00;
-    color: #991f00;
-    transition: 0.2s;
-}
-*/
 
 .catbtn{
     float: right;
@@ -1619,20 +1473,6 @@ tr #titles {
     background-color: lightgrey;
 }
 
-/*#btnCancelEditCat {
-    padding: 10px;
-    background-color: #991f00;
-    color: white;
-    font-size: 80%;
-    margin-left: 35%;
-    transition: 0.2s;
-}
-#btnCancelEditCat:hover {
-    background-color: white;
-    color: #991f00;
-    transition: 0.2s;
-}*/
-
 #btnSaveEditCat {
     padding: 10px;
     background-color: #e62e00;
@@ -1647,37 +1487,12 @@ tr #titles {
     transition: 0.2s;
 }
 
-/*#categoryName {
-    font-weight: bold;
-    font-size: 125%;
-    color: #e62e00;
-    font-family: Arial, serif;
-    border: 1px solid
-}
-#categoryName:focus {
-    background-color: white;
-}*/
-
 #label-c {
     font-weight: bolder;
     font-size: 130%;
     color: #e62e00;
     font-family: Arial, serif;
 }
-
-
-
-/*ADD CATEGORY form----------------------------------------*/
-/*.hiddenAddCatForm {
-    display: none;
-    position: absolute;
-    width: 60%;
-    z-index: 2;
-}*/
-
-/*#addCategoryForm {
-    margin-left: 50%;
-}*/
 
 #addtable {
     width: 100%;
@@ -1739,10 +1554,6 @@ tr #titles {
    top: 204px;
 }
 
-/*#deleteCategoryForm {
-    margin-left: 50%;
-}*/
-
 #deleteTable {
     width: 100%;
 }
@@ -1758,39 +1569,3 @@ tr #titles {
     border-collapse: collapse;
     background-color: lightgrey;
 }
-
-/*#btnCancelRemove {
-    padding: 10px;
-    background-color: #991f00;
-    color: white;
-    font-size: 80%;
-    margin-left: 35%;
-    transition: 0.2s;
-}
-#btnCancelRemove:hover {
-    background-color: white;
-    color: #991f00;
-    transition: 0.2s;
-}
-
-#btnSaveRemove {
-    padding: 10px;
-    background-color: #e62e00;
-    color: white;
-    font-size: 80%;
-    margin-left: 45%;
-    transition: 0.2s;
-}
-#btnSaveRemove:hover {
-    background-color: white;
-    color: #e62e00;
-    transition: 0.2s;
-}
-
-#catNameRemove {
-    font-weight: bold;
-    text-align: center;
-    font-size: 170%;
-    color: #e62e00;
-    font-family: Arial;
-}*/
