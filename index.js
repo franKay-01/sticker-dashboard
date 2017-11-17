@@ -357,15 +357,9 @@ app.post('/find_category', function (req, res) {
                 // var name = category.get("name");
                 // var _id = category.get("id");
                 console.log("MESSAGE FROM SEARCH " + category);
-
-                if (category) {
                     console.log("CATEGORY DETAILS " + JSON.stringify(category));
-                    res.render("pages/search_categories", {category_details: category});
-                } else {
-                    console.log("No categories found.............." + JSON.stringify(error));
-                    searchErrorMessage = "Category not found";
-                    res.redirect("/categories");
-                }
+                    res.render("pages/categories_2", {categories: category});
+
             },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
@@ -382,38 +376,18 @@ app.get('/categories', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
-    var categoryName = req.body.searchCat;
-    console.log("CATEGORY NAME "+ categoryName);
 
     if (session && token) {
 
-        var query = new Parse.Query(CategoryClass);
+        new Parse.Query(CategoryClass).find({sessionToken: token}).then(function (categories) {
 
-        if (categoryName) {
-            query.equalto("name", categoryName).first({sessionToken: token}).then(function (categories) {
+                let _categories = helper.chunks(categories, 4);
 
-                    let _categories = helper.chunks(categories, 4);
-
-                    res.render("pages/categories_2", {categories: _categories});
-                },
-                function (error) {
-                    console.log("No categories found.............." + JSON.stringify(error));
-                });
-        } else {
-            query.find({sessionToken: token}).then(function (categories) {
-
-                    let _categories = helper.chunks(categories, 4);
-
-                    res.render("pages/categories_2", {categories: _categories});
-                },
-                function (error) {
-                    console.log("No categories found.............." + JSON.stringify(error));
-                });
-        }
-
-        //query parse for all categories
-
-
+                res.render("pages/categories_2", {categories: _categories});
+            },
+            function (error) {
+                console.log("No categories found.............." + JSON.stringify(error));
+            });
     } else {
         res.redirect("/");
     }
