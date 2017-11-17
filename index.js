@@ -389,7 +389,7 @@ app.get('/categories', function (req, res) {
         var query = new Parse.Query(CategoryClass);
 
         if (categoryName) {
-            query.equalto("name", name).first({sessionToken: token});
+            query.equalto("name", categoryName).first({sessionToken: token});
         } else {
             query.find({sessionToken: token});
         }
@@ -400,7 +400,7 @@ app.get('/categories', function (req, res) {
 
                 let _categories = helper.chunks(categories, 4);
 
-                res.render("pages/categories_2", {categories: _categories, error: searchErrorMessage});
+                res.render("pages/categories_2", {categories: _categories});
             },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
