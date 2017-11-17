@@ -390,22 +390,30 @@ app.get('/categories', function (req, res) {
         var query = new Parse.Query(CategoryClass);
 
         if (categoryName) {
-            query.equalto("name", categoryName).first({sessionToken: token});
+            query.equalto("name", categoryName).first({sessionToken: token}).then(function (categories) {
+
+                    let _categories = helper.chunks(categories, 4);
+
+                    res.render("pages/categories_2", {categories: _categories});
+                },
+                function (error) {
+                    console.log("No categories found.............." + JSON.stringify(error));
+                });
         } else {
-            query.find({sessionToken: token});
+            query.find({sessionToken: token}).then(function (categories) {
+
+                    let _categories = helper.chunks(categories, 4);
+
+                    res.render("pages/categories_2", {categories: _categories});
+                },
+                function (error) {
+                    console.log("No categories found.............." + JSON.stringify(error));
+                });
         }
 
         //query parse for all categories
 
-        query.then(function (categories) {
 
-                let _categories = helper.chunks(categories, 4);
-
-                res.render("pages/categories_2", {categories: _categories});
-            },
-            function (error) {
-                console.log("No categories found.............." + JSON.stringify(error));
-            });
     } else {
         res.redirect("/");
     }
