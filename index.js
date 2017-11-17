@@ -356,9 +356,15 @@ app.post('/find_category', function (req, res) {
         searchCategory.first().then(function (category) {
                 // var name = category.get("name");
                 // var _id = category.get("id");
+            if(category) {
                 console.log("MESSAGE FROM SEARCH " + category);
-                    console.log("CATEGORY DETAILS " + JSON.stringify(category));
-                    res.render("pages/categories_2", {categories: category});
+                console.log("CATEGORY DETAILS " + JSON.stringify(category));
+                res.render("pages/categories_2", {categories: category});
+            }else {
+                console.log("MESSAGE FROM SEARCH " + category);
+                console.log("CATEGORY DETAILS " + JSON.stringify(category));
+                res.render("pages/categories_2", {categories: []});
+            }
 
             },
             function (error) {
