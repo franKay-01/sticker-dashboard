@@ -163,7 +163,7 @@ app.get('/', function (req, res) {
             //render 3 stickers on the page
             cards = cards.slice(0, 3);
 
-            res.render("pages/login", {stickers: cards,error:errorMessage});
+            res.render("pages/login", {stickers: cards, error: errorMessage});
 
         }, function (error) {
 
@@ -181,12 +181,12 @@ app.post('/login', function (req, res) {
 
     Parse.User.logIn(username, password).then(function (user) {
 
-            console.log("SESSIONS TOKEN " + user.getSessionToken());
-            res.cookie('token', user.getSessionToken());
-            res.cookie('username', user.getUsername());
-            req.session.token = user.getSessionToken();
-            console.log("USER GETS TOKEN : " + user.getSessionToken());
-            res.redirect("/home");
+        console.log("SESSIONS TOKEN " + user.getSessionToken());
+        res.cookie('token', user.getSessionToken());
+        res.cookie('username', user.getUsername());
+        req.session.token = user.getSessionToken();
+        console.log("USER GETS TOKEN : " + user.getSessionToken());
+        res.redirect("/home");
 
     }, function (error) {
         //TODO render error message
@@ -356,12 +356,12 @@ app.post('/find_category', function (req, res) {
         searchCategory.first().then(function (category) {
                 // var name = category.get("name");
                 // var _id = category.get("id");
-            console.log("MESSAGE FROM SEARCH "+ category);
+                console.log("MESSAGE FROM SEARCH " + category);
 
                 if (category) {
                     console.log("CATEGORY DETAILS " + JSON.stringify(category));
                     res.render("pages/search_categories", {category_details: category});
-                }else {
+                } else {
                     console.log("No categories found.............." + JSON.stringify(error));
                     searchErrorMessage = "Category not found";
                     res.redirect("/categories");
@@ -382,12 +382,21 @@ app.get('/categories', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
+    var categoryName = req.body.searchCat;
 
     if (session && token) {
 
+        var query = new Parse.Query(CategoryClass);
+
+        if (categoryName) {
+            query.equalto("name", name).first({sessionToken: token});
+        } else {
+            query.find({sessionToken: token});
+        }
+
         //query parse for all categories
 
-        new Parse.Query(CategoryClass).find({sessionToken: token}).then(function (categories) {
+        query.then(function (categories) {
 
                 let _categories = helper.chunks(categories, 4);
 
