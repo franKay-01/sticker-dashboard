@@ -359,6 +359,8 @@ app.post('/find_category', function (req, res) {
             console.log("MESSAGE FROM SEARCH "+ category);
             var result;
             result = JSON.stringify(category);
+                console.log("MESSAGE FROM RESULT "+ result);
+
                 if (result !== undefined) {
                     console.log("CATEGORY DETAILS " + JSON.stringify(category));
                     res.render("pages/search_categories", {category_details: category});
