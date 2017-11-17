@@ -361,13 +361,14 @@ app.post('/find_category', function (req, res) {
             result = JSON.stringify(category);
                 console.log("MESSAGE FROM RESULT "+ result);
 
-                if (result !== "undefined") {
-                    console.log("CATEGORY DETAILS " + JSON.stringify(category));
-                    res.render("pages/search_categories", {category_details: category});
-                }else {
+                if (result === "undefined") {
                     console.log("No categories found.............." + JSON.stringify(error));
                     searchErrorMessage = error.message;
                     res.redirect("/categories");
+                }else {
+
+                    console.log("CATEGORY DETAILS " + JSON.stringify(category));
+                    res.render("pages/search_categories", {category_details: category});
                 }
             },
             function (error) {
