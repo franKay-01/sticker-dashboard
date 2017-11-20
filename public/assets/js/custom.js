@@ -22,6 +22,7 @@ $(document).ready(function () {
             $('#opaqueDiv').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
             $('#pack_form')[0].reset();
         });
         $('#btnCancel').on('click', function () {
