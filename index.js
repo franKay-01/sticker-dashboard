@@ -203,10 +203,10 @@ app.get('/home', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var username = req.cookies.username;
-    username = username.substring(0, username.indexOf('@'));
+
 
     if (session && token) {
-
+        username = username.substring(0, username.indexOf('@'));
         const limit = 3;
         Parse.Promise.when(
             new Parse.Query(CollectionClass).limit(limit).find({sessionToken: token}),

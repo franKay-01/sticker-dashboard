@@ -84,7 +84,7 @@ td, th {
 }
 
 ._categories {
-    width: 175px;
+    /*width: 175px;*/
     height: 32px;
     font-family: Montserrat;
     font-size: 26px;
@@ -96,7 +96,7 @@ td, th {
 }
 
 ._stickers_packs {
-    width: 204px;
+    /*width: 204px;*/
     height: 32px;
     font-family: Montserrat;
     font-size: 26px;
@@ -206,7 +206,7 @@ td, th {
 }
 
 ._stickers {
-    width: 133px;
+    /*width: 133px;*/
     height: 32px;
     font-family: Montserrat;
     font-size: 26px;
