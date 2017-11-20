@@ -328,7 +328,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
         }, function (error) {
             console.log("BIG BIG ERROR" + error.message);
-            res.redirect("/add-stickers1");
+            res.redirect("/add_stickers");
         });
 
 
@@ -399,7 +399,7 @@ app.get('/categories', function (req, res) {
     }
 });
 
-app.post('/new-category', function (req, res) {
+app.post('/new_category', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
@@ -426,7 +426,7 @@ app.post('/new-category', function (req, res) {
     }
 });
 
-app.post('/update-category', function (req, res) {
+app.post('/update_category', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
@@ -461,7 +461,7 @@ app.post('/update-category', function (req, res) {
 });
 
 
-app.post('/remove-category', function (req, res) {
+app.post('/remove_category', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
@@ -581,65 +581,6 @@ app.get('/pack_collection', function (req, res) {
     }
 });
 
-app.get('/pack_dashboard', function (req, res) {
-
-    var session = req.session.token;
-    var token = req.cookies.token;
-
-    if (session && token) {
-
-        new Parse.Query(CollectionClass).find({sessionToken: token}).then(function (collections) {
-
-            res.render("pages/collections-dashboard", {collections: collections});
-
-        }, function (error) {
-            console.log("Colll error" + JSON.stringify(error));
-
-        });
-
-    }
-    else {
-        console.log("No Session Exists, log in");
-        res.redirect("/");
-    }
-});
-
-//this route adds all categories to each sticker in the database
-//TODO delete this route
-app.get('/cat', function (req, res) {
-
-    var session = req.session.token;
-    var token = req.cookies.token;
-
-    Parse.Promise.when(
-        new Parse.Query(CategoryClass).find({sessionToken: token}),
-        new Parse.Query(StickerClass).find({sessionToken: token})
-    ).then(function (categories, stickers) {
-
-        console.log("CATEGORIES " + JSON.stringify(categories));
-        console.log("STICKER " + JSON.stringify(stickers));
-
-        _.each(stickers, function (sticker) {
-
-            var sticker_relation = sticker.relation(CategoryClass);
-            _.each(categories, function (category) {
-                sticker_relation.add(category);
-            });
-
-            sticker.save();
-
-        });
-
-        res.send("chicken noodle soup")
-
-
-    }, function (error) {
-        console.log(JSON.stringify(error));
-    });
-
-
-});
-
 
 //Displays all stickers belonging to a selected collection
 app.get('/collection/:id', function (req, res) {
@@ -677,7 +618,7 @@ app.get('/collection/:id', function (req, res) {
 
 
 // Add Stickers Version 1
-app.get('/add-stickers1/:id/:collection_name', function (req, res) {
+app.get('/add_stickers/:id/:collection_name', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = req.params.id;
@@ -691,21 +632,7 @@ app.get('/add-stickers1/:id/:collection_name', function (req, res) {
     }
 });
 
-
-// Add Stickers Version 2
-app.get('/add-stickers2', function (req, res) {
-    var session = req.session.token;
-    var token = req.cookies.token;
-
-    if (session && token) {
-        res.render("pages/add-stickers2");
-    } else {
-        res.redirect("/");
-    }
-});
-
-
-app.post('/new-collection', function (req, res) {
+app.post('/new_collection', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
@@ -873,7 +800,7 @@ app.get('/upload_page/:id/:collection_name', function (req, res) {
 });
 
 //TODO change route name to upload-dropbox-file
-app.post('/upload-file', function (req, res) {
+app.post('/upload_dropbox_file', function (req, res) {
 
     var bitmap;
     var name;
@@ -942,7 +869,7 @@ app.post('/upload-file', function (req, res) {
                     console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
                     var collection_relation = stickerCollection.relation(CollectionClass);
                     collection_relation.add(sticker);
-                    console.log("LOG BEFORE SAVING STICKERCOLLECTION");
+                    console.log("LOG BEFORE SAVING STICKER COLLECTION");
                     fs.unlink(filename, function (err) {
                         if (err) {
                             //TODO handle error code
