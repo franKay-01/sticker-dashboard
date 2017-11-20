@@ -1,5 +1,5 @@
 body {
-    background : url(../images/background.png) repeat;
+    background: url(../images/background.png) repeat;
 }
 
 a {
@@ -9,14 +9,14 @@ a {
 
 button,
 button:focus,
-button:active{
-    border:none;
-    background:none;
-    outline:none;
-    padding:0;
+button:active {
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0;
 }
 
-hr{
+hr {
     clear: both !important;
     max-width: 75rem !important;
     height: 0 !important;
@@ -27,152 +27,153 @@ hr{
     border-left: 0 !important;
 }
 
-td, th{
+td, th {
     display: table-cell !important;
     text-align: left !important;
     vertical-align: middle !important;
     max-width: 150px !important;
 }
+
 /*##################################################################################################################################################*/
 
 .stats {
-  width: 83px;
-  height: 43px;
-  font-family: Montserrat;
-  font-size: 35px;
-  font-weight: bold;
-  letter-spacing: -2.1px;
-  text-align: left;
-  margin-bottom: 10px;
-  color: #ffffff;
+    width: 83px;
+    height: 43px;
+    font-family: Montserrat;
+    font-size: 35px;
+    font-weight: bold;
+    letter-spacing: -2.1px;
+    text-align: left;
+    margin-bottom: 10px;
+    color: #ffffff;
 }
 
 ._stats {
-  width: 83px;
-  height: 43px;
-  font-family: Montserrat;
-  font-size: 35px;
-  font-weight: bold;
-  letter-spacing: -2.1px;
-  text-align: left;
-  margin-bottom: 10px;
-  color: black;
+    width: 83px;
+    height: 43px;
+    font-family: Montserrat;
+    font-size: 35px;
+    font-weight: bold;
+    letter-spacing: -2.1px;
+    text-align: left;
+    margin-bottom: 10px;
+    color: black;
 }
 
 .update_label {
-  height: 24px;
-  font-family: Montserrat;
-  font-size: 25px;
-  font-weight: bold;
-  line-height: 0.96;
-  text-align: left;
-  margin-bottom: 15px;
-  color: #a46580;
+    height: 24px;
+    font-family: Montserrat;
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 0.96;
+    text-align: left;
+    margin-bottom: 15px;
+    color: #a46580;
 }
 
 .create_background {
-  width: 726px;
-  height: 414px;
-  border-radius: 15px;
-  background-image: linear-gradient(to bottom, #d77255, #8651aa);
+    width: 726px;
+    height: 414px;
+    border-radius: 15px;
+    background-image: linear-gradient(to bottom, #d77255, #8651aa);
 }
 
-.card_head_position{
-  margin-left: 26px;
-  margin-top: 15px
+.card_head_position {
+    margin-left: 26px;
+    margin-top: 15px
 }
 
 ._categories {
-  width: 175px;
-  height: 32px;
-  font-family: Montserrat;
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: -1.5px;
-  text-align: left;
-  color: #ffffff;
-  margin-bottom: 10px;
+    width: 175px;
+    height: 32px;
+    font-family: Montserrat;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    text-align: left;
+    color: #ffffff;
+    margin-bottom: 10px;
 }
 
 ._stickers_packs {
-  width: 204px;
-  height: 32px;
-  font-family: Montserrat;
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: -1.5px;
-  text-align: left;
-  color: #ffffff;
-  margin-bottom: 10px;
+    width: 204px;
+    height: 32px;
+    font-family: Montserrat;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    text-align: left;
+    color: #ffffff;
+    margin-bottom: 10px;
 }
 
 .create_new_pack {
-  height: 52px;
-  font-family: Montserrat;
-  font-size: 42px;
-  font-weight: 800;
-  letter-spacing: -2.5px;
-  text-align: center;
-  color: #ffffff;
-  margin-bottom: 100px !important
+    height: 52px;
+    font-family: Montserrat;
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -2.5px;
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 100px !important
 }
 
 .from_computer {
-  height: 32px;
-  font-family: Montserrat;
-  font-size: 26px;
-  font-weight: 500;
-  letter-spacing: -1.5px;
-  text-align: left;
-  color: #a46580;
-  margin-left: 25px
+    height: 32px;
+    font-family: Montserrat;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -1.5px;
+    text-align: left;
+    color: #a46580;
+    margin-left: 25px
 }
 
 .dropbox_upload {
-  height: 32px;
-  font-family: Montserrat;
-  font-size: 26px;
-  font-weight: 500;
-  letter-spacing: -1.5px;
-  text-align: left;
-  color: #a46580;
-  margin-left: 25px
+    height: 32px;
+    font-family: Montserrat;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -1.5px;
+    text-align: left;
+    color: #a46580;
+    margin-left: 25px
 }
 
 .new_sticker {
-  height: 37px;
-  font-family: Montserrat;
-  font-size: 30px;
-  font-weight: 600;
-  letter-spacing: -1.8px;
-  text-align: center;
-  color: #c47462;
-  margin-bottom: 20px !important;
+    height: 37px;
+    font-family: Montserrat;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -1.8px;
+    text-align: center;
+    color: #c47462;
+    margin-bottom: 20px !important;
 }
 
 .cancel {
-  width: 105px;
-  height: 43px;
-  font-family: Montserrat;
-  font-size: 35px;
-  font-weight: 300;
-  letter-spacing: -2.1px;
-  text-align: left;
-  margin-left: 350px;
-  color: #ffffff;
-  margin-right: 10px
+    width: 105px;
+    height: 43px;
+    font-family: Montserrat;
+    font-size: 35px;
+    font-weight: 300;
+    letter-spacing: -2.1px;
+    text-align: left;
+    margin-left: 350px;
+    color: #ffffff;
+    margin-right: 10px
 }
 
 .category_text {
-  /*width: 300px !important;*/
-  height: 49px;
-  font-family: Montserrat;
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: -2.0px;
-  text-align: justify;
-  color: #a46580;
-  /*margin-left: 21px;*/
+    /*width: 300px !important;*/
+    height: 49px;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -2.0px;
+    text-align: justify;
+    color: #a46580;
+    /*margin-left: 21px;*/
     display: block;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -181,50 +182,50 @@ td, th{
 }
 
 .cancel_btn {
-  width: 105px;
-  height: 43px;
-  font-family: Montserrat;
-  font-size: 35px;
-  font-weight: 300;
-  letter-spacing: -2.1px;
-  text-align: left;
-  /*margin-left: 400px;*/
-  color: #a46580;
-  margin-right: 15px
+    width: 105px;
+    height: 43px;
+    font-family: Montserrat;
+    font-size: 35px;
+    font-weight: 300;
+    letter-spacing: -2.1px;
+    text-align: left;
+    /*margin-left: 400px;*/
+    color: #a46580;
+    margin-right: 15px
 }
 
 .create {
-  width: 106px;
-  height: 43px;
-  font-family: Montserrat;
-  font-size: 35px;
-  font-weight: bold;
-  letter-spacing: -2.1px;
-  text-align: left;
-  color: #ffffff;
+    width: 106px;
+    height: 43px;
+    font-family: Montserrat;
+    font-size: 35px;
+    font-weight: bold;
+    letter-spacing: -2.1px;
+    text-align: left;
+    color: #ffffff;
 }
 
 ._stickers {
-  width: 133px;
-  height: 32px;
-  font-family: Montserrat;
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: -1.5px;
-  text-align: left;
-  color: #ffffff;
-  margin-bottom: 10px;
+    width: 133px;
+    height: 32px;
+    font-family: Montserrat;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    text-align: left;
+    color: #ffffff;
+    margin-bottom: 10px;
 }
 
 .loginCard {
-  width: 300px !important;
-  height: 400px !important;
-  margin-right: 10px;
-  border-radius: 15px;
-  /*margin-left: 60px;*/
-  margin-bottom: 15px;
-  background-image: linear-gradient(to bottom, #d77255, #8651aa);
-  box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
+    width: 300px !important;
+    height: 400px !important;
+    margin-right: 10px;
+    border-radius: 15px;
+    /*margin-left: 60px;*/
+    margin-bottom: 15px;
+    background-image: linear-gradient(to bottom, #d77255, #8651aa);
+    box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
 }
 
 .errorCard {
@@ -236,174 +237,174 @@ td, th{
     background-color: white;
     color: red;
     font-weight: bold;
-    box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
+    box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
 }
 
-
-.icon_create_sticker{
-  width: 58px;
-  height: 58px;
-  margin-bottom: 5px;
-  /*margin: 20px auto !important;
-  object-fit: contain;*/
-  margin-right: 20px;
+.icon_create_sticker {
+    width: 58px;
+    height: 58px;
+    margin-bottom: 5px;
+    /*margin: 20px auto !important;
+    object-fit: contain;*/
+    margin-right: 20px;
 }
 
 .icon_category {
-  width: 48px;
-  height: 49px;
-  margin-bottom: 5px;
-  /*object-fit: contain;*/
-  margin-right: 20px;
+    width: 48px;
+    height: 49px;
+    margin-bottom: 5px;
+    /*object-fit: contain;*/
+    margin-right: 20px;
 }
 
 .GhanaTok {
-  width: 135px;
-  height: 32px;
-  font-family: Montserrat;
-  font-size: 26px;
-  font-weight: 500;
-  letter-spacing: -1.5px;
-  text-align: left;
-  color: #a46580;
+    width: 135px;
+    height: 32px;
+    font-family: Montserrat;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -1.5px;
+    text-align: left;
+    color: #a46580;
 }
 
-.GhanaTok:hover{
+.GhanaTok:hover {
     color: #402631;
 }
 
 .recent_packs {
-  width: auto;
-  height: 30px;
-  font-family: Montserrat;
-  font-size: 26px;
-  font-weight: bold;
-  letter-spacing: -1.5px;
-  text-align: left;
-  margin-bottom: 20px;
-  color: #3c3c3c;
+    width: auto;
+    height: 30px;
+    font-family: Montserrat;
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: -1.5px;
+    text-align: left;
+    margin-bottom: 20px;
+    color: #3c3c3c;
 }
 
 .create_new {
-  width: 160px;
-  height: 25px;
-  font-family: Montserrat;
-  font-size: 20.8px;
-  font-weight: 600;
-  letter-spacing: -1.2px;
-  text-align: left;
-  /*margin-bottom: 59px;*/
-  color: #c47462;
+    width: 160px;
+    height: 25px;
+    font-family: Montserrat;
+    font-size: 20.8px;
+    font-weight: 600;
+    letter-spacing: -1.2px;
+    text-align: left;
+    /*margin-bottom: 59px;*/
+    color: #c47462;
 }
 
-.create_button{
+.create_button {
     /*width: 140px;*/
     height: 120px;
-    margin-left:80px;
+    margin-left: 80px;
     margin-top: 42px;
     background-color: transparent;
 }
 
 .upload {
-  width: 106px;
-  height: 43px;
-  font-family: Montserrat;
-  font-size: 35px;
-  font-weight: bold;
-  letter-spacing: -2.1px;
-  text-align: left;
-  color: #a46580;
+    width: 106px;
+    height: 43px;
+    font-family: Montserrat;
+    font-size: 35px;
+    font-weight: bold;
+    letter-spacing: -2.1px;
+    text-align: left;
+    color: #a46580;
 }
 
 .update {
-  width: 106px;
-  height: 43px;
-  font-family: Montserrat;
-  font-size: 35px;
-  font-weight: bold;
-  letter-spacing: -2.1px;
-  text-align: left;
-  color: #a46580;
+    width: 106px;
+    height: 43px;
+    font-family: Montserrat;
+    font-size: 35px;
+    font-weight: bold;
+    letter-spacing: -2.1px;
+    text-align: left;
+    color: #a46580;
 }
 
-.create_button:focus{
+.create_button:focus {
     background-color: none
 }
 
 .view_all {
-  width: 76px;
-  height: 25px;
-  font-family: Montserrat;
-  font-size: 21px;
-  font-weight: 500;
-  letter-spacing: -1.2px;
-  text-align: left;
-  color: #5e5e5e;
+    width: 76px;
+    height: 25px;
+    font-family: Montserrat;
+    font-size: 21px;
+    font-weight: 500;
+    letter-spacing: -1.2px;
+    text-align: left;
+    color: #5e5e5e;
 }
 
-.view_all:hover{
-  color: #402631;
+.view_all:hover {
+    color: #402631;
 }
 
 .recent_category {
-  width: auto;
-  height: 30px;
-  font-family: Montserrat;
-  font-size: 26px;
-  font-weight: bold;
-  letter-spacing: -1.5px;
-  text-align: left;
-  color: #3c3c3c;
-  margin-bottom: 20px;
+    width: auto;
+    height: 30px;
+    font-family: Montserrat;
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: -1.5px;
+    text-align: left;
+    color: #3c3c3c;
+    margin-bottom: 20px;
 }
 
-.grid-container{
+.grid-container {
     max-width: 90rem;
     margin: 0 auto;
 }
 
 .icons {
-  width: 300px !important;
-  height: 400px !important;
-  margin-right: 10px;
-  margin-bottom: 15px;
-  border-radius: 15px;
-  position: relative;
-  background-color: white;
-  box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
+    width: 300px !important;
+    height: 400px !important;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    position: relative;
+    background-color: white;
+    box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
 }
 
 .category_details {
-  width: 500px !important;
-  height: 400px !important;
-  margin-right: 10px;
-  margin-bottom: 15px;
-  border-radius: 15px;
-  position: relative;
-  background-color: white;
-  box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
+    width: 500px !important;
+    height: 400px !important;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    position: relative;
+    background-color: white;
+    box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
 }
 
-.forgottenPass{
-  margin-right: -38%;
-  margin-top: -10px;
-  float: right; 
+.forgottenPass {
+    margin-right: -38%;
+    margin-top: -10px;
+    float: right;
 }
-.footer{
-  margin-left: 0;
+
+.footer {
+    margin-left: 0;
 }
 
 .opaqueDiv {
-  background-image: url(../images/cards-background.png);
-  background-repeat: repeat;
-  width: 100% !important;
-  height: 460px;
-  background-color: #ffffff;
+    background-image: url(../images/cards-background.png);
+    background-repeat: repeat;
+    width: 100% !important;
+    height: 460px;
+    background-color: #ffffff;
 }
 
-.box{
+.box {
     background-color: transparent !important;
-    border-top:0;
+    border-top: 0;
     border-right: 0;
     border-left: 0;
     border-bottom: 3px white solid !important;
@@ -412,10 +413,10 @@ td, th{
     color: white;
 }
 
-.box_2{
+.box_2 {
     background: transparent;
-    border:solid 4px #a46580;
-    border-top:0;
+    border: solid 4px #a46580;
+    border-top: 0;
     border-right: 0;
     border-left: 0;
     border-bottom: 3px #a46580 solid !important;
@@ -423,48 +424,51 @@ td, th{
     border-width: 4px;
 }
 
-::-webkit-box-shadow{ 
-   box-shadow:  -3px 3px 25px -1px rgba(0,0,0,0.6);
+::-webkit-box-shadow {
+    box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
 }
 
-:-moz-box-shadow{
-     box-shadow:-3px 3px 25px -1px rgba(0,0,0,0.6);
-} 
+:-moz-box-shadow {
+    box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
+}
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: white !important;
-  font-size: 25px !important;
+    color: white !important;
+    font-size: 25px !important;
 }
+
 ::-moz-placeholder { /* Firefox 19+ */
-  color: white !important;
-  font-size: 25px !important;
+    color: white !important;
+    font-size: 25px !important;
 }
+
 :-ms-input-placeholder { /* IE 10+ */
-  color: white !important;
-  font-size: 25px !important;
+    color: white !important;
+    font-size: 25px !important;
 }
+
 :-moz-placeholder { /* Firefox 18- */
-  color: white !important;
-  font-size: 25px !important;
+    color: white !important;
+    font-size: 25px !important;
 }
 
 .welcome_post {
-  width: 100%;
-  height: 52px;
-  font-size: 48px;
-  font-weight: 800;
-  letter-spacing: -2.5px;
-  text-align: left;
-  color: #919191;
-  margin-bottom: 5%;
+    width: 100%;
+    height: 52px;
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -2.5px;
+    text-align: left;
+    color: #919191;
+    margin-bottom: 5%;
     background-color: #fff;
 }
 
 .logo {
-  width: 300px;
-  /*height: 80px;*/
-  margin-top: 50px;
-  margin-bottom: 35px
+    width: 300px;
+    /*height: 80px;*/
+    margin-top: 50px;
+    margin-bottom: 35px
 }
 
 .header-top-spacing {
@@ -523,7 +527,7 @@ td, th{
     float: left;
 }
 
-.uplink_2{
+.uplink_2 {
     width: 245px;
     height: 24px;
     font-size: 20px;
@@ -538,42 +542,43 @@ td, th{
     color: #8651aa;
 }
 
-.name_tag{
-  width: 300px;
-  background-color: #f5f5f5;
-  position: absolute;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-bottom: 24px;
-  bottom: 0;
-  opacity: 0.9;
+.name_tag {
+    width: 300px;
+    background-color: #f5f5f5;
+    position: absolute;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 24px;
+    bottom: 0;
+    opacity: 0.9;
 }
 
-.sticker_name_text{
-  font-family: Montserrat;
-  font-size: 16px;
-  font-weight: bold;
-  letter-spacing: -0.9px;
-  text-align: left;
-  color: #002b5c;
-  text-align: center;
-  padding-top: 10px
+.sticker_name_text {
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: -0.9px;
+    text-align: left;
+    color: #002b5c;
+    text-align: center;
+    padding-top: 10px
 }
 
 .pack_name_text {
-  /*width: 147px;*/
-  height: 39px;
-  font-family: Montserrat;
-  font-size: 32px;
-  font-weight: 600;
-  letter-spacing: -1.9px;
-  text-align: center;
-  margin-top: 10px;
-  color: #3c3c3c;
+    /*width: 147px;*/
+    height: 39px;
+    font-family: Montserrat;
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -1.9px;
+    text-align: center;
+    margin-top: 10px;
+    color: #3c3c3c;
 }
+
 #signlink {
-     font-weight: bold;
- }
+    font-weight: bold;
+}
 
 #signlink:hover {
     cursor: pointer;
@@ -603,7 +608,7 @@ td, th{
 }
 
 #username,
-#password{
+#password {
     width: 100%;
     background: ghostwhite;
     /*margin: 10;*/
@@ -638,14 +643,14 @@ td, th{
 }
 
 .create_new_pack {
-  height: 37px;
-  font-family: Montserrat;
-  font-size: 30px;
-  font-weight: 600;
-  letter-spacing: -1.8px;
-  text-align: center;
-  margin-top: 20px !important;
-  color: #c47462;
+    height: 37px;
+    font-family: Montserrat;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -1.8px;
+    text-align: center;
+    margin-top: 20px !important;
+    color: #c47462;
 }
 
 #signUp {
@@ -668,13 +673,13 @@ td, th{
     margin-right: 60px;
 }
 
-._pack{
+._pack {
     width: 450px !important;
     text-align: left;
     color: white !important;
     font-size: 2rem !important;
     background: transparent;
-    border-top:0;
+    border-top: 0;
     border-right: 0;
     border-left: 0;
     border-bottom: 3px white solid !important;
@@ -683,13 +688,13 @@ td, th{
     background-color: transparent !important;
 }
 
-._pack_2{
+._pack_2 {
     width: 250px !important;
     text-align: left;
     color: #8651aa !important;
     font-size: 2rem !important;
     background: transparent;
-    border-top:0;
+    border-top: 0;
     border-right: 0;
     border-left: 0;
     border-bottom: 3px #8651aa solid !important;
@@ -699,13 +704,13 @@ td, th{
     background-color: transparent !important;
 }
 
-._pack_3{
+._pack_3 {
     width: 250px !important;
     text-align: center;
     color: #8651aa !important;
     font-size: 2rem !important;
     background: transparent;
-    border-top:0;
+    border-top: 0;
     border-right: 0;
     border-left: 0;
     border-bottom: 3px #8651aa solid !important;
@@ -720,18 +725,21 @@ td, th{
     color: #8651aa !important;
     font-size: 25px !important;
 }
+
 ._pack_2:-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
     color: #8651aa !important;
     font-size: 25px !important;
     opacity: 1;
 }
+
 ._pack_2::-moz-placeholder {
     /* Mozilla Firefox 19+ */
     color: #8651aa !important;
     font-size: 25px !important;
     opacity: 1;
 }
+
 ._pack_2:-ms-input-placeholder {
     /* Internet Explorer 10-11 */
     color: #8651aa !important;
@@ -739,29 +747,29 @@ td, th{
 }
 
 .Icon_create_sticker_pack {
-  width: 83px;
-  height: 83px;
-  object-fit: contain;
-  display: block;
-  margin: 20px 110px auto !important;
-  margin-top: 82px !important;
+    width: 83px;
+    height: 83px;
+    object-fit: contain;
+    display: block;
+    margin: 20px 110px auto !important;
+    margin-top: 82px !important;
 }
 
 .btn_pack_icon {
-  width: 112px;
-  height: 104px;
-  object-fit: contain;
-  display: block;
-  margin: 20px 90px auto !important;
-  margin-top: 82px !important;
+    width: 112px;
+    height: 104px;
+    object-fit: contain;
+    display: block;
+    margin: 20px 90px auto !important;
+    margin-top: 82px !important;
 }
 
 .gbeja_notxt {
-  width: 300px;
-  height: 300px;
-  display: block;
-  margin: 20px auto !important;
-  object-fit: contain;
+    width: 300px;
+    height: 300px;
+    display: block;
+    margin: 20px auto !important;
+    object-fit: contain;
 }
 
 #text {
@@ -792,7 +800,7 @@ fieldset {
 
 .block {
     height: 274px;
-    width:  260px;
+    width: 260px;
     background-color: white;
     margin: 10px auto;
     border: 2px solid black;
@@ -801,7 +809,7 @@ fieldset {
 /*Div for displaying collection*/
 .coll-block {
     height: 274px;
-    width:  260px;
+    width: 260px;
     /*background-color: white;*/
     margin: 10px auto;
     /*border: 2px solid black;*/
@@ -809,7 +817,7 @@ fieldset {
 
 #folder-icon {
     height: 230px;
-    width:  260px;
+    width: 260px;
     opacity: 0.8;
     transition: 0.3s;
 }
@@ -819,7 +827,6 @@ fieldset {
     opacity: 1;
     transition: 0.3s;
 }
-
 
 .coll-name {
     margin-top: 1.2rem;
@@ -837,7 +844,7 @@ fieldset {
 
 #abi {
     height: 230px;
-    width:  260px;
+    width: 260px;
     opacity: 0.8;
     transition: 0.3s;
 }
@@ -864,7 +871,6 @@ fieldset {
 }
 
 /*Container for stickers on dashboard--------------END*/
-
 
 /*STICKER DETAILS FORM*/
 .detailsFormContainer {
@@ -897,6 +903,7 @@ fieldset {
     position: absolute;
     width: 300px;
 }
+
 #filenam {
     color: darkslategray;
     margin-top: 350px;
@@ -973,7 +980,7 @@ fieldset {
     margin-left: 10px;
 }
 
-[type="checkbox"]:not(:checked), [type="checkbox"]:checked{
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
     opacity: 1 !important;
     position: unset;
 }
@@ -1003,9 +1010,8 @@ fieldset {
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
+
 /*STICKER DETAILS FORM--------------END*/
-
-
 
 /*NEW DRAG N DROP FORM ADD STICKERS*/
 .droppableArea {
@@ -1016,9 +1022,11 @@ fieldset {
     /*height: 100%;*/
     transition: 0.3s;
 }
+
 .droppableArea.dragover {
     background: #ff3300;
 }
+
 .droppableArea:hover {
     transition: 0.3s;
     cursor: pointer;
@@ -1027,6 +1035,7 @@ fieldset {
 .output {
     width: 100%;
 }
+
 .output img {
     display: inline-block;
     vertical-align: middle;
@@ -1038,8 +1047,8 @@ fieldset {
     padding-top: 50px;
     color: black;
 }
-/*NEW DRAG N DROP FORM ADD STICKERS--------END*/
 
+/*NEW DRAG N DROP FORM ADD STICKERS--------END*/
 
 /*BUTTONS IN DETAILS PAGE*/
 #editbtn {
@@ -1081,9 +1090,8 @@ fieldset {
     transition: 0.3s;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
+
 /*BUTTONS IN DETAILS PAGE--------END*/
-
-
 
 /*NEW DRAG AND DROP FORM*/
 *,
@@ -1118,13 +1126,13 @@ fieldset {
     transition: all 0.5s;
     margin: 70px auto;
     position: relative;
-    border-width:5px;
-    border:hidden;
+    border-width: 5px;
+    border: hidden;
     height: 400px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
 }
 
-.image_upload{
+.image_upload {
     margin-top: 90px
 }
 
@@ -1139,34 +1147,36 @@ fieldset {
     bottom: 0;
     right: 0;
 }
+
 .drop .cont i {
     font-size: 40%;
     color: #8E99A5;
     position: relative;
 }
+
 .drop .cont .tit {
     font-size: 200%;
     text-transform: uppercase;
 }
 
 .choose_from_dropbox {
-  height: 32px;
-  font-family: Montserrat;
-  font-size: 26px;
-  font-weight: bold;
-  letter-spacing: -1.5px;
-  text-align: center;
-  color: #a9a9a9;
+    height: 32px;
+    font-family: Montserrat;
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: -1.5px;
+    text-align: center;
+    color: #a9a9a9;
 }
 
 .drop .cont .desc {
-  height: 32px;
-  font-family: Montserrat;
-  font-size: 26px;
-  font-weight: bold;
-  letter-spacing: -1.5px;
-  text-align: center;
-  color: #a9a9a9;
+    height: 32px;
+    font-family: Montserrat;
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: -1.5px;
+    text-align: center;
+    color: #a9a9a9;
 }
 
 .drop input {
@@ -1191,6 +1201,7 @@ fieldset {
     right: 14px;
     top: 10px;
 }
+
 #filesList .thumb {
     height: 95px;
     border: 1px solid #323a44;
@@ -1211,6 +1222,7 @@ fieldset {
     bottom: 333px;
     left: 55%;
 }
+
 #btnUploadSticker:hover {
     background: white;
     color: #e02f1f;
@@ -1219,15 +1231,15 @@ fieldset {
 }
 
 .clear {
-  width: 105px;
-  height: 43px;
-  font-family: Montserrat;
-  font-size: 35px;
-  font-weight: 300;
-  letter-spacing: -2.1px;
-  text-align: left;
-  color: #a46580;
-  margin-right: 10px
+    width: 105px;
+    height: 43px;
+    font-family: Montserrat;
+    font-size: 35px;
+    font-weight: 300;
+    letter-spacing: -2.1px;
+    text-align: left;
+    color: #a46580;
+    margin-right: 10px
 }
 
 /*Create Collection Form*/
@@ -1237,7 +1249,8 @@ fieldset {
     width: 100%;
     margin: 0 auto;
 }
-#collectionForm label{
+
+#collectionForm label {
     color: red;
     font-size: 145%;
     font-weight: bold;
@@ -1246,7 +1259,7 @@ fieldset {
 
 tr #titles {
     background-color: #ca2a1c;
-    color:white;
+    color: white;
     text-align: center;
     font-size: 160%;
 }
@@ -1254,6 +1267,7 @@ tr #titles {
 #collectionForm td {
     padding: 17px;
 }
+
 #collectionForm table {
     border-collapse: collapse;
     width: 100%;
@@ -1269,6 +1283,7 @@ tr #titles {
     border-radius: 10px;
     transition: 0.3s;
 }
+
 #collectionForm #btnCancelCreateColl:hover {
     background-color: #ca2a1c;
     color: white;
@@ -1285,6 +1300,7 @@ tr #titles {
     border: 1px solid;
     transition: 0.3s;
 }
+
 #collectionForm #btnCreateCollection:hover {
     background-color: #ca2a1c;
     transition: 0.3s;
@@ -1315,13 +1331,13 @@ tr #titles {
 }
 
 .add_category_label {
-  height: 33px;
-  font-family: Montserrat;
-  font-size: 27px;
-  font-weight: 600;
-  letter-spacing: -1.6px;
-  text-align: center;
-  color: #c47462;
+    height: 33px;
+    font-family: Montserrat;
+    font-size: 27px;
+    font-weight: 600;
+    letter-spacing: -1.6px;
+    text-align: center;
+    color: #c47462;
 }
 
 #hiddenAddCatForm {
@@ -1332,12 +1348,12 @@ tr #titles {
     top: 204px;
 }
 
-#hiddenCreateCategoryForm{
+#hiddenCreateCategoryForm {
     display: none;
     position: absolute;
     margin-left: 300px;
     z-index: 9999;
-    top: 204px; 
+    top: 204px;
 }
 
 #pageMask {
@@ -1347,8 +1363,8 @@ tr #titles {
     right: 0;
     bottom: 0;
     top: 0;
-    z-index:-1;
-    background-color: rgba(0,0,0,0.6);
+    z-index: -1;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .addCategoryDiv {
@@ -1356,7 +1372,7 @@ tr #titles {
     margin: 0 auto;
 }
 
-.plus{
+.plus {
     margin-right: 3%;
 }
 
@@ -1369,12 +1385,12 @@ tr #titles {
 
 #heading {
     background-color: #e34435;
-    color:white;
+    color: white;
     text-align: center;
     font-size: 150%;
 }
 
-#cattable,  #cattable td {
+#cattable, #cattable td {
     border-collapse: collapse;
 }
 
@@ -1382,12 +1398,12 @@ tr #titles {
     border: 2px solid #ca2a1c;
 }
 
-.catbtn{
+.catbtn {
     float: right;
     margin-right: 10px;
 }
 
-.catbtn_2{
+.catbtn_2 {
     float: right;
 }
 
@@ -1408,26 +1424,27 @@ tr #titles {
     color: darkslategrey;
 }
 
-.category_div{
+.category_div {
     margin-bottom: 20px;
     width: max-content;
 }
 
 .btnEdit {
-  width: 20px;
-  height: 20px;
-  margin-top: -20px;
-  margin-right: 20px;
-  margin-left: 20px;
-  object-fit: contain;
+    width: 20px;
+    height: 20px;
+    margin-top: -20px;
+    margin-right: 20px;
+    margin-left: 20px;
+    object-fit: contain;
 }
+
 /*EDIT CATEGORY form----------------------------------------*/
 #hiddenEditForm {
-  display: none;
-  position: absolute;
-  margin: 0px 300px auto;
-  z-index: 9999;
-  top: 204px;
+    display: none;
+    position: absolute;
+    margin: 0px 300px auto;
+    z-index: 9999;
+    top: 204px;
 }
 
 #editCategoryForm {
@@ -1458,6 +1475,7 @@ tr #titles {
     margin-left: 45%;
     transition: 0.2s;
 }
+
 #btnSaveEditCat:hover {
     background-color: white;
     color: #e62e00;
@@ -1495,6 +1513,7 @@ tr #titles {
     margin-left: 35%;
     transition: 0.2s;
 }
+
 #btnCancelAddCat:hover {
     background-color: white;
     color: #991f00;
@@ -1509,6 +1528,7 @@ tr #titles {
     margin-left: 45%;
     transition: 0.2s;
 }
+
 #btnSaveAddCat:hover {
     background-color: white;
     color: #ff3300;
@@ -1524,11 +1544,11 @@ tr #titles {
 
 /*DELETE CATEGORY form----------------------------------------*/
 #hiddenRemoveCategory {
-   display: none;
-   position: absolute;
-   margin: 0px 300px auto;
-   z-index: 9999;
-   top: 204px;
+    display: none;
+    position: absolute;
+    margin: 0px 300px auto;
+    z-index: 9999;
+    top: 204px;
 }
 
 #deleteTable {
