@@ -1303,10 +1303,6 @@ tr #titles {
     border: 1px solid lightgrey;
 }
 
-#closeSign:hover {
-    cursor: pointer;
-}
-
 #hiddenCreateForm {
     display: none;
     position: absolute;
