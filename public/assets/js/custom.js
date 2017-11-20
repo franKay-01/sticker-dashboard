@@ -11,6 +11,7 @@ $(document).ready(function () {
             $('#logo').fadeOut('fast');
             $('#Welcome').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
         });
 
         //close/hide form
