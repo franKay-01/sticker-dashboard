@@ -481,14 +481,6 @@ td, th {
     /*margin-top: 50px;*/
 }
 
-.primary-color {
-    color: #464B9C;
-}
-
-.secondary-color {
-    color: #373C85;
-}
-
 .primary-background-color {
     background-color: #FFFFFF;
 }
@@ -502,10 +494,6 @@ td, th {
 
 .secondary-background-color {
     background-color: #fefefe;
-}
-
-.primary-font {
-    font-family: 'Open Sans', sans-serif;
 }
 
 .logo-text {
@@ -533,7 +521,7 @@ td, th {
     float: left;
 }
 
-.uplink_2 {
+.link {
     width: 245px;
     height: 24px;
     font-size: 20px;
@@ -685,6 +673,10 @@ td, th {
     color: white !important;
     font-size: 2rem !important;
     background: transparent;
+
+}
+
+.common_pack_detail{
     border-top: 0;
     border-right: 0;
     border-left: 0;
@@ -693,21 +685,14 @@ td, th {
     border-width: 6px;
     background-color: transparent !important;
 }
-
 ._pack_2 {
     width: 250px !important;
     text-align: left;
     color: #8651aa !important;
     font-size: 2rem !important;
     background: transparent;
-    border-top: 0;
-    border-right: 0;
-    border-left: 0;
-    border-bottom: 3px #8651aa solid !important;
     border-color: #8651aa;
-    border-width: 6px;
     margin-right: 15px !important;
-    background-color: transparent !important;
 }
 
 ._pack_3 {
