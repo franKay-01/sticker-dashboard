@@ -28,7 +28,7 @@
 <div class="medium-12 large-12">
       <a href="/home">
         <img src="/public/assets/images/G_logo.png"
-         srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo2" id="logo2">
+         srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo" id="logo">
          </a>
         <!--  <a id="signoutLink" onclick="logoutUser()">LOGOUT</a> -->
     </div>
@@ -37,7 +37,7 @@
   <div class="medium-3 large-3 cell create_background">
     <form id="pack_form" action="/update-category" method="post">
       <center> 
-        <div class="create_New_Pack medium-12 large-12">EDIT CATEGORY </div>          
+        <div class="create_new_pack medium-12 large-12">EDIT CATEGORY </div>
       Rename category:<input type="text" name="catname" class="_pack" id="categoryName" autofocus onfocus="this.value = this.value;" />
                     <input type="hidden" name="categoryId" id="categoryId" />
           <br>
@@ -88,7 +88,7 @@
     </div>
     </div>
 
-    <span class="medium-6 large-6 Welcome-to-publisher" id="Welcome"><b>Categories</b></span>  
+    <span class="medium-6 large-6 welcome_post" id="Welcome"><b>Categories</b></span>
     <span class="medium-6 large-6" id="searchCat">
     <form action="/find_category" id="searchBar" method="post">
    
@@ -103,11 +103,11 @@
          <div class="card_head_position">
          <div class="stats">Menu</div>
          <div><a class="_stickers" href="/home">Home</a></div>
-         <div><a class="_stickers-Packs" href="/categories">Categories</a></div>
+         <div><a class="_stickers_packs" href="/categories">Categories</a></div>
          <div><a class="_categories" href="/pack_collection">Packs</a></div>
         </div>
         </div>
-        <div class="medium-3 large-3 cell Icons" id="btnAddCategory">
+        <div class="medium-3 large-3 cell icons" id="btnAddCategory">
         <img class="btn_pack_icon" src="/public/assets/images/icon-category.png">
         <div class="add_category_label">
             ADD CATEGORY

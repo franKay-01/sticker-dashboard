@@ -94,7 +94,7 @@ td, th{
   margin-bottom: 10px;
 }
 
-._stickers-Packs {
+._stickers_packs {
   width: 204px;
   height: 32px;
   font-family: Montserrat;
@@ -106,7 +106,7 @@ td, th{
   margin-bottom: 10px;
 }
 
-.create_New_Pack {
+.create_new_pack {
   height: 52px;
   font-family: Montserrat;
   font-size: 42px;
@@ -180,7 +180,7 @@ td, th{
     /*width: 100%;*/
 }
 
-.cancel_2 {
+.cancel_btn {
   width: 105px;
   height: 43px;
   font-family: Montserrat;
@@ -216,18 +216,6 @@ td, th{
   margin-bottom: 10px;
 }
 
-._stickers_2 {
-  width: 133px;
-  height: 32px;
-  font-family: Montserrat;
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: -1.5px;
-  text-align: left;
-  color: #a46580;
-  margin-bottom: 10px;
-}
-
 .loginCard {
   width: 300px !important;
   height: 400px !important;
@@ -251,17 +239,6 @@ td, th{
     box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
 }
 
-
-.loginCard_2 {
-  width: 300px !important;
-  height: 400px !important;
-  margin-right: 10px;
-  border-radius: 15px;
-  /*margin-left: 60px;*/
-  margin-bottom: 15px;
-  background: white;
-  box-shadow: -3px 3px 25px -1px rgba(0,0,0,0.6);
-}
 
 .icon_create_sticker{
   width: 58px;
@@ -295,7 +272,7 @@ td, th{
     color: #402631;
 }
 
-.Recent-Packs {
+.recent_packs {
   width: auto;
   height: 30px;
   font-family: Montserrat;
@@ -319,7 +296,7 @@ td, th{
   color: #c47462;
 }
 
-.createButton{
+.create_button{
     /*width: 140px;*/
     height: 120px;
     margin-left:80px;
@@ -349,7 +326,7 @@ td, th{
   color: #a46580;
 }
 
-.createButton:focus{
+.create_button:focus{
     background-color: none
 }
 
@@ -385,7 +362,7 @@ td, th{
     margin: 0 auto;
 }
 
-.Icons {
+.icons {
   width: 300px !important;
   height: 400px !important;
   margin-right: 10px;
@@ -471,7 +448,7 @@ td, th{
   font-size: 25px !important;
 }
 
-.Welcome-to-publisher {
+.welcome_post {
   width: 100%;
   height: 52px;
   font-size: 48px;
@@ -483,9 +460,9 @@ td, th{
     background-color: #fff;
 }
 
-.logo2 {
+.logo {
   width: 300px;
-  height: 80px;
+  /*height: 80px;*/
   margin-top: 50px;
   margin-bottom: 35px
 }

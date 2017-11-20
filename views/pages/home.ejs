@@ -31,7 +31,7 @@
     <div class="medium-12 large-12">
       <a href="/home">
         <img src="/public/assets/images/G_logo.png"
-         srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo2" id="logo2">
+         srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo" id="logo">
          </a>
          <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
     </div>
@@ -76,32 +76,32 @@
     </div>
     </div>
     <!-- End of hidden form -->
-    <span class="medium-12 large-12 Welcome-to-publisher" id="Welcome"><b>Welcome <%= username %> </b></span>
+    <span class="medium-12 large-12 welcome_post" id="Welcome"><b>Welcome <%= username %> </b></span>
     <div class="grid-x grid-margin-x opaqueDiv" id="opaqueDiv">
       <div class="medium-3 large-3 cell loginCard">
         <div class="card_head_position">
          <div class="stats">Stats</div>
          <div class="_stickers"><%= stickerLength %> Stickers</div>
-         <div class="_stickers-Packs"><%= packLength %> Packs</div>
+         <div class="_stickers_packs"><%= packLength %> Packs</div>
          <div class="_categories"><%= categoryLength %> Categories</div>
         </div>
       </div>
-      <div class="medium-3 large-3 cell Icons">
+      <div class="medium-3 large-3 cell icons">
       <a href="#" id="showCreateForm">
-        <button class="createButton">
+        <button class="create_button">
           <img src="/public/assets/images/icon-create-sticker-pack.png" srcset="/public/assets/images/icon-create-sticker-pack.png 2x,
              /public/assets/images/icon-create-sticker-pack.png 3x" class="icon_create_sticker">
           <div class="create_new">CREATE NEW</div>
         </button>
         </a>
         <div class="card_head_position">
-           <div class="Recent-Packs">Recent Packs</div>
+           <div class="recent_packs">Recent Packs</div>
            <%- include('../partials/home_pack') %>
          </div>
       </div>
-      <div class="medium-3 large-3 cell Icons">
+      <div class="medium-3 large-3 cell icons">
       <a href="#" id="btnAddCategory">
-       <button class="createButton">
+       <button class="create_button">
         <img src="/public/assets/images/icon-category.png" srcset="/public/assets/images/icon-category.png 2x,
              /public/assets/images/icon-category.png 3x" class="icon_category">
              <div class="create_new">ADD CATEGORY</div>

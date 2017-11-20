@@ -30,7 +30,7 @@
 <div class="medium-12 large-12">
 <a href="/home">
         <img src="/public/assets/images/G_logo.png"
-         srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo2" id="logo2">
+         srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo" id="logo">
          </a>
     </div>
     <div id="pageMask"></div>
@@ -38,7 +38,7 @@
   <div class="medium-3 large-3 cell create_background">
     <form id="pack_form" action="/update-category" method="post">
       <center> 
-        <div class="create_New_Pack medium-12 large-12">EDIT CATEGORY </div>          
+        <div class="create_new_pack medium-12 large-12">EDIT CATEGORY </div>
       Rename category:<input type="text" name="catname" class="_pack" id="categoryName" autofocus onfocus="this.value = this.value;" />
                     <input type="hidden" name="categoryId" id="categoryId" />
           <br>
@@ -56,7 +56,7 @@
   <div class="medium-3 large-3 cell create_background">
     <form id="pack_form" action="/remove-category" method="post">
         <center> 
-        <div class="create_New_Pack medium-12 large-12">REMOVE CATEGORY </div>          
+        <div class="create_new_pack medium-12 large-12">REMOVE CATEGORY </div>
             <input type="text" class="_pack" name="catnameD" id="catNameRemove" />
            <input type="hidden" name="inputRemoveId" id="inputRemoveId">
           <br>
@@ -75,7 +75,7 @@
         <div class="card_head_position">
          <div class="stats">Menu</div>
          <div><a class="_stickers" href="/home">Home</a></div>
-         <div><a class="_stickers-Packs" href="/categories">Categories</a></div>
+         <div><a class="_stickers_packs" href="/categories">Categories</a></div>
          <div><a class="_categories" href="/pack_collection">Packs</a></div>
         </div>
     </div>
