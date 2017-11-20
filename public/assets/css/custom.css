@@ -1303,13 +1303,6 @@ tr #titles {
     border: 1px solid lightgrey;
 }
 
-#closeSign {
-    /* float: right; */
-    color: white;
-    margin-left: 300px;
-    font-size: 40px;
-}
-
 #closeSign:hover {
     cursor: pointer;
 }
