@@ -389,7 +389,7 @@ app.get('/categories', function (req, res) {
 
                 let _categories = helper.chunks(categories, 4);
 
-                res.render("pages/categories_2", {categories: _categories});
+                res.render("pages/categories", {categories: _categories});
             },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
@@ -540,7 +540,7 @@ app.get('/second_dashboard', function (req, res) {
 
         new Parse.Query(StickerClass).find({sessionToken: token}).then(function (stickers) {
 
-            res.render("pages/dashboard_2", {stickers: stickers});
+            res.render("pages/dashboard", {stickers: stickers});
 
         }, function (error) {
 
@@ -763,7 +763,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
             console.log("CATEGORY NAMES " + categoryNames);
 
-            res.render("pages/details_2", {
+            res.render("pages/details", {
                 sticker: stickerDetail,
                 categoryNames: categoryNames,
                 categories: allCategories,
