@@ -217,7 +217,7 @@ td, th {
     margin-bottom: 10px;
 }
 
-.loginCard {
+.login_card {
     width: 300px !important;
     height: 400px !important;
     margin-right: 10px;
@@ -228,7 +228,7 @@ td, th {
     box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
 }
 
-.errorCard {
+.error_card {
     width: 500px !important;
     height: 30px !important;
     margin: 10px auto;
@@ -257,7 +257,7 @@ td, th {
     margin-right: 20px;
 }
 
-.GhanaTok {
+.home_pack_description {
     width: 135px;
     height: 32px;
     font-family: Montserrat;
@@ -268,7 +268,7 @@ td, th {
     color: #a46580;
 }
 
-.GhanaTok:hover {
+.home_pack_description:hover {
     color: #402631;
 }
 
@@ -384,7 +384,13 @@ td, th {
     box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
 }
 
-.forgottenPass {
+.forgotten_password {
+    margin-right: -38%;
+    margin-top: -10px;
+    float: right;
+}
+
+.signup_text {
     margin-right: -38%;
     margin-top: -10px;
     float: right;
