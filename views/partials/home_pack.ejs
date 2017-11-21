@@ -1,6 +1,6 @@
 <!-- Cards -->
 <% if (collections.length === 0) { %>
-<h1>no Packs found</h1>
+
 <% } else { %>
 <% collections.forEach(function(item) { %>
 <div><a class="home_pack_description" href="/collection/<%= item.id %>"><%= item.get("collection_name") %></a></div>
