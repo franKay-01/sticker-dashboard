@@ -4,6 +4,7 @@ $(document).ready(function () {
     $(function () {
         //show collection form
         //TODO convert id's to classes
+        // This is to show a hidden form to create new packs
         $('#showCreateForm').on('click', function () {
             $('#hiddenCreateForm').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
@@ -25,6 +26,7 @@ $(document).ready(function () {
             $('#pack_id').fadeIn('fast');
             $('#pack_form')[0].reset();
         });
+        //This is to reset a form and close it
         $('#btnCancel').on('click', function () {
             $('#hiddenCreateForm').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
@@ -66,6 +68,7 @@ $(document).ready(function () {
 
     //TODO example names categoryEditBtn btnEditCategories
     //TODO add comments or use description names
+    // This is to show a form that allows a user edit the selected category
     $('.editbtn1').on('click', function () {
         var $this = $(this);
         $('#pageMask').fadeIn('fast');
@@ -81,7 +84,7 @@ $(document).ready(function () {
         $('#categoryId').val($this.attr("data-id"));
     });
     // });
-    //remove form
+    // This is to close the form being used to edit the category item
     $('#btnCancelEditCat').on('click', function () {
         $('#pageMask').fadeOut('fast');
         $('#hiddenEditForm').fadeOut('fast');
