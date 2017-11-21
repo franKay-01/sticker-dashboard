@@ -215,7 +215,7 @@ app.get('/home', function (req, res) {
             //TODO have a stats class
             new Parse.Query(CategoryClass).count({sessionToken: token}),
             new Parse.Query(CollectionClass).count({sessionToken: token}),
-            new Parse.Query(StickerClass).count({sessionToken: token}),
+            new Parse.Query(StickerClass).count({sessionToken: token})
         ).then(function (collection, categories, categoryLength, packLength, stickerLength) {
 
             let _collection = [];
