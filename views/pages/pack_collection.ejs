@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Packs - Cyfa</title>
 
-    <!--Logo-->
     <link rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.ico"/>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800,900');
@@ -35,20 +34,21 @@
                  id="logo">
         </a>
     </div>
-    <!-- <div class="small-12 large-12">
-            <a class="uplink" id="showCreateForm">  Create New Collection</a>
-     </div> -->
+    <!-- End of logo-->
     <div id="pageMask"></div>
+
+    <!-- Hidden form for creating new packs-->
     <div id="hiddenCreateForm">
-        <!-- <div id="create_back_background"> -->
         <div class="medium-3 large-3 cell create_background">
             <form id="pack_form" action="/new_collection" method="post">
                 <center>
                     <div class="edit_labels medium-12 large-12">CREATE NEW PACK</div>
 
-                    <input type="text" class="_pack common_pack_detail validate" placeholder="Pack name" name="coll_name" required=""
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Pack name"
+                           name="coll_name" required=""
                            aria-required="true"><br>
-                    <input type="text" class="_pack common_pack_detail validate" placeholder="Pack description" name="coll_description"
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Pack description"
+                           name="coll_description"
                            required="" aria-required="true"><br>
                 </center>
                 <span>
@@ -60,6 +60,7 @@
             </form>
         </div>
     </div>
+    <!-- End of form-->
     <span class="medium-12 large-12 welcome_post" id="pack_id"><b>All Packs</b></span>
 
     <div class="grid-x grid-margin-x opaqueDiv" id="opaqueDiv">

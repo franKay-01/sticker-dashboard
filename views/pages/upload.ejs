@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard</title>
 
-    <!--Logo-->
     <link rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.ico"/>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800,900');
@@ -20,46 +19,41 @@
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <!--parse js-->
-    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="ed8po9zwpj4pnhw"></script>
+    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs"
+            data-app-key="ed8po9zwpj4pnhw"></script>
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script type="text/javascript">
-    function dropbox(){
-        options = {
-        
-        success: function(files) {
-          files.forEach(function(file) {
-            add_img_to_list(file);
-          });
-        },
-        cancel: function() {
-          //optional
-        },
-        linkType: "direct", // "preview" or "direct"
-        multiselect: true, // true or false
-        extensions: ['.png', '.jpg'],
-        };
-        Dropbox.choose(options);
-        // var button = Dropbox.createChooseButton(options);
-        // document.getElementById("dropbox-container").appendChild(button);
-    }
+        function dropbox() {
+            options = {
+
+                success: function (files) {
+                    files.forEach(function (file) {
+                        add_img_to_list(file);
+                    });
+                },
+                cancel: function () {
+                    //optional
+                },
+                linkType: "direct", // "preview" or "direct"
+                multiselect: true, // true or false
+                extensions: ['.png', '.jpg'],
+            };
+            Dropbox.choose(options);
+        }
 
 
-    function add_img_to_list(file) {
-      //TODO try link instead of thumbnailLink
-      var name = file.name;
-      // alert(name);
-      var source = file.link;
-      // alert(JSON.stringify(file));
-      var type = name.substr(name.length - 3);
-      // btoa();
-     
-      // alert("This is the type: "+type);
-      document.getElementById('fileUrl').value = source;
-      document.getElementById('fileName').value = name;
-      document.getElementById('fileType').value = type;
-    }
+        function add_img_to_list(file) {
+            //TODO try link instead of thumbnailLink
+            var name = file.name;
+            var source = file.link;
+            var type = name.substr(name.length - 3);
 
-    
+            document.getElementById('fileUrl').value = source;
+            document.getElementById('fileName').value = name;
+            document.getElementById('fileType').value = type;
+        }
+
+
     </script>
 </head>
 
@@ -67,44 +61,44 @@
 
 <div class="grid-container">
 
-<div class="medium-12 large-12">
-<a href="/home">
-        <img src="/public/assets/images/G_logo.png"
-         srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
-         </a>
-
+    <div class="medium-12 large-12">
+        <!-- Logo -->
+        <a href="/home">
+            <img src="/public/assets/images/G_logo.png"
+                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
+        </a>
+        <!-- End of logo -->
     </div>
     <span class="medium-12 large-12 welcome_post"><b><%= coll_name %> Sticker Pack</b></span>
-<div class="grid-x grid-margin-x">
-<div class="medium-12 large-12 cell">
-    <form action="/upload_dropbox_file" method="post" id="formId">
-    <div class="wrapper">
-        <div class="drop">
-            <!-- <div class="cont"> -->
-        <img src="/public/assets/images/dropbox.png" class="image_upload" onclick="dropbox()">
-        <div class="choose_from_dropbox">
-                    Choose from Dropbox
+    <div class="grid-x grid-margin-x">
+        <div class="medium-12 large-12 cell">
+            <!-- Form to add stickers from dropbox -->
+            <form action="/upload_dropbox_file" method="post" id="formId">
+                <div class="wrapper">
+                    <div class="drop">
+                        <img src="/public/assets/images/dropbox.png" class="image_upload" onclick="dropbox()">
+                        <div class="choose_from_dropbox">
+                            Choose from Dropbox
+                        </div>
+                    </div>
                 </div>
-        <!-- </div> -->
-      </div>
-    </div>
-        <input type="text" style="display: none" name="fileUrl" id="fileUrl">
-        <input type="text" style="display: none;" name="fileName" id="fileName">
-        <input type="text" style="display: none;" name="file" id="fileType">
-        <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"/>       
- <!-- <div id="inputFile" name="inputFile"></div> -->
-      <center>
+                <input type="text" style="display: none" name="fileUrl" id="fileUrl">
+                <input type="text" style="display: none;" name="fileName" id="fileName">
+                <input type="text" style="display: none;" name="file" id="fileType">
+                <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"/>
+                <center>
       <span>
         <button type="button" id="btnClearAddForm"><a href="/collection/<%= id %>" class="clear">Cancel</a></button>
       </span>
-       <span>
+                    <span>
         <button type="submit" class="upload">Upload</button>
         </span>
-        </center>
-    </form>
-      </div>
+                </center>
+            </form>
+            <!-- End of form -->
+        </div>
     </div>
-  </div>
+</div>
 </body>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
 <!-- Compiled and minified JavaScript -->

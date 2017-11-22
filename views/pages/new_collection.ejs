@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pack Collection - Cyfa</title>
 
-  
     <link rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.ico"/>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800,900');
@@ -26,35 +25,39 @@
 
 <body class="primary-background-color">
 <div class="grid-container">
+    <!-- Logo -->
     <div class="medium-12 large-12">
-    <a href="/home">
-        <img src="/public/assets/images/G_logo.png"
-         srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
-         </a>
+        <a href="/home">
+            <img src="/public/assets/images/G_logo.png"
+                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
+        </a>
     </div>
-
+    <!-- End of logo -->
     <span class="medium-12 large-12 welcome_post"><b><%= collectionName %> Sticker Pack</b></span>
 
-    <!-- <h3 class="logo-text primary-font">  <%= collectionName %> Pack </h3> -->
-<div class="grid-x grid-margin-x opaqueDiv">
-    <div class="medium-3 large-3 cell login_card">
-        <div class="card_head_position">
-         <div class="stats">Menu</div>
-         <div><a class="_stickers" href="/home">Home</a></div>
-         <div><a class="_stickers" href="/categories">Categories</a></div>
-         <div><a class="_categories" href="/pack_collection">Packs</a></div>
+    <div class="grid-x grid-margin-x opaqueDiv">
+        <!-- Card for displaying navigation links-->
+        <div class="medium-3 large-3 cell login_card">
+            <div class="card_head_position">
+                <div class="stats">Menu</div>
+                <div><a class="_stickers" href="/home">Home</a></div>
+                <div><a class="_stickers" href="/categories">Categories</a></div>
+                <div><a class="_categories" href="/pack_collection">Packs</a></div>
+            </div>
         </div>
+        <!-- End of card-->
+
+        <!-- Card to allow user add stickers from dropbox of from computer-->
+        <div class="medium-3 large-3 cell icons">
+            <img class="btn_pack_icon" src="/public/assets/images/create-sticker-icon.png">
+            <div><p class="new_sticker">NEW STICKER</p></div>
+            <a class="from_computer" href="/add_stickers/<%= id %>/<%= collectionName %>">From Computer</a><br>
+            <a class="dropbox_upload" href="/upload_page/<%= id %>/<%= collectionName %>">Dropbox Upload</a>
+        </div>
+    <!-- End of card -->
+        <% include ../partials/sticker_cards %>
+        <%- include('../partials/footer') %>
     </div>
-    <div class="medium-3 large-3 cell icons">
-        <img class="btn_pack_icon" src="/public/assets/images/create-sticker-icon.png">
-        <div><p class="new_sticker">NEW STICKER</p></div>  
-        <a class="from_computer" href="/add_stickers/<%= id %>/<%= collectionName %>">From Computer</a><br>
-        <a class="dropbox_upload" href="/upload_page/<%= id %>/<%= collectionName %>">Dropbox Upload</a>       
-    </div>
-    
-    <% include ../partials/sticker_cards %>
-    <%- include('../partials/footer') %>
-</div>
 </div>
 <!-- Body -->
 

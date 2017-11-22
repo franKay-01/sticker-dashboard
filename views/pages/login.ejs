@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sign Up - Cyfa</title>
 
-    <!--Logo-->
     <link rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.ico"/>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800,900');
@@ -28,12 +27,14 @@
 <!-- Body -->
 
 <div class="grid-container">
+    <!-- Logo -->
     <div class="medium-12 large-12">
         <a href="/home">
             <img src="/public/assets/images/G_logo.png"
                  srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
         </a>
     </div>
+    <!-- End of logo-->
     <% if (error.length > 0) { %>
     <div class="medium-12 large-12 error_card">
         <div style="text-align: center;font-size: 20px;">
@@ -44,6 +45,7 @@
     <span class="medium-12 large-12 welcome_post"><b>Welcome to Publisher</b></span>
     <div class="grid-x grid-margin-x opaqueDiv">
         <div class="medium-3 large-3 cell login_card">
+            <!-- Form to allow user login-->
             <form action="/login" method="post">
                 <fieldset>
                     <input style="margin-top: 30px;font-size: 2rem !important;" class="box" placeholder="Email"
@@ -57,6 +59,7 @@
                     <a href="#" id="signUp" class="signup_text">Sign up here</a>
                 </fieldset>
             </form>
+            <!-- End of form-->
         </div>
         <%- include('../partials/card') %>
         <%- include('../partials/footer') %>

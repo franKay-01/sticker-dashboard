@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Categories - Cyfa</title>
 
-    <!--Logo-->
     <link rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.ico"/>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800,900');
@@ -25,80 +24,92 @@
 </head>
 <body class="primary-background-color">
 <div class="grid-container">
-<div class="medium-12 large-12">
-      <a href="/home">
-        <img src="/public/assets/images/G_logo.png"
-         srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo" id="logo">
-         </a>
-        <!--  <a id="signoutLink" onclick="logoutUser()">LOGOUT</a> -->
+    <!-- Logo -->
+    <div class="medium-12 large-12">
+        <a href="/home">
+            <img src="/public/assets/images/G_logo.png"
+                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
+                 id="logo">
+        </a>
     </div>
-<div id="pageMask"></div>
-<div id="hiddenEditForm" style="display: none">
-  <div class="medium-3 large-3 cell create_background">
-    <form id="pack_form" action="/update_category" method="post">
-      <center> 
-        <div class="edit_labels medium-12 large-12">EDIT CATEGORY </div>
-      Rename category:<input type="text" name="catname" class="_pack common_pack_detail" id="categoryName" autofocus onfocus="this.value = this.value;" />
-                    <input type="hidden" name="categoryId" id="categoryId" />
-          <br>
-         </center> 
-         <span>
+    <!-- End of logo-->
+    <div id="pageMask"></div>
+    <!-- Hidden form to edit category-->
+    <div id="hiddenEditForm" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <form id="pack_form" action="/update_category" method="post">
+                <center>
+                    <div class="edit_labels medium-12 large-12">EDIT CATEGORY</div>
+                    Rename category:<input type="text" name="catname" class="_pack common_pack_detail" id="categoryName"
+                                           autofocus onfocus="this.value = this.value;"/>
+                    <input type="hidden" name="categoryId" id="categoryId"/>
+                    <br>
+                </center>
+                <span>
         <button type="button" id="btnCancelEditCat" class="cancel">Cancel</button>
          </span>
-         <span>
+                <span>
         <button type="submit" class="create">Edit</button>
         </span>
-       </form>
-  </div>
-</div>
-<div id="hiddenRemoveCategory" style="display: none;">
-  <div class="medium-3 large-3 cell create_background">
-    <form id="pack_form" action="/remove_category" method="post">
-        <center> 
-        <div class="edit_labels medium-12 large-12">REMOVE CATEGORY </div>
-            <input type="text" class="_pack common_pack_detail" name="catnameD" id="catNameRemove" />
-           <input type="hidden" name="inputRemoveId" id="inputRemoveId">
-          <br>
-         </center>
-        <span>
+            </form>
+        </div>
+    </div>
+    <!-- End of form-->
+
+    <!-- Hidden form to remove category-->
+    <div id="hiddenRemoveCategory" style="display: none;">
+        <div class="medium-3 large-3 cell create_background">
+            <form id="pack_form" action="/remove_category" method="post">
+                <center>
+                    <div class="edit_labels medium-12 large-12">REMOVE CATEGORY</div>
+                    <input type="text" class="_pack common_pack_detail" name="catnameD" id="catNameRemove"/>
+                    <input type="hidden" name="inputRemoveId" id="inputRemoveId">
+                    <br>
+                </center>
+                <span>
            <button id="btnCancelRemove" type="button" class="cancel">Cancel</button>
              </span>
-             <span>
+                <span>
            <button id="btnSaveRemove" type="submit" class="create">Remove</button>
             </span>
-     </form>
-   </div>
-</div>
-<div id="hiddenAddCatForm" style="display: none">
-  <!-- <div id="create_back_background"> -->
-  <div class="medium-3 large-3 cell create_background">
-     <form id="pack_form" action="/new_category" method="post">
-       <center> 
-        <div class="edit_labels medium-12 large-12">CREATE NEW CATEGORY </div>
-          <input type="text" class="_pack common_pack_detail validate" placeholder="Category Name" name="catname" required="" aria-required="true" />
-          <br>
-         </center> 
-        <span>
+            </form>
+        </div>
+    </div>
+    <!-- End of form-->
+
+    <!-- Hidden form to add category-->
+    <div id="hiddenAddCatForm" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <form id="pack_form" action="/new_category" method="post">
+                <center>
+                    <div class="edit_labels medium-12 large-12">CREATE NEW CATEGORY</div>
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Category Name"
+                           name="catname" required="" aria-required="true"/>
+                    <br>
+                </center>
+                <span>
         <button type="button" id="btn_cancelAddCat" class="cancel">Cancel</button>
          </span>
-         <span>
+                <span>
         <button type="submit" class="create">CREATE</button>
         </span>
-    </form>
+            </form>
+        </div>
     </div>
-    </div>
-
+    <!-- End of form-->
     <span class="medium-6 large-6 welcome_post" id="Welcome"><b>Categories</b></span>
     <span class="medium-6 large-6" id="searchCat">
     <form action="/find_category" id="searchBar" method="post">
    
-    <input type="text" class="_pack_2 common_pack_detail validate" style="float: left;" placeholder="Category Name" name="searchCat" required="" aria-required="true" />
+    <input type="text" class="_pack_2 common_pack_detail validate" style="float: left;" placeholder="Category Name"
+           name="searchCat" required="" aria-required="true"/>
     
     <button type="submit"><i class="fa fa-search" style="font-size:36px;color: #8651aa;float: left;"></i></button>
  
     </form>
     </span>
     <div class="grid-x grid-margin-x opaqueDiv" id="opaqueDiv">
+        <!-- Card to display navigation property-->
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
                 <div class="stats">Menu</div>
@@ -107,12 +118,16 @@
                 <div><a class="_categories" href="/pack_collection">Packs</a></div>
             </div>
         </div>
+        <!-- End of card-->
+
+        <!-- Card to add new category-->
         <div class="medium-3 large-3 cell icons" id="btnAddCategory">
-        <img class="btn_pack_icon" src="/public/assets/images/icon-category.png">
-        <div class="add_category_label">
-            ADD CATEGORY
-        </div>  
+            <img class="btn_pack_icon" src="/public/assets/images/icon-category.png">
+            <div class="add_category_label">
+                ADD CATEGORY
+            </div>
         </div>
+        <!-- End of card-->
         <% include ../partials/categories %>
     </div>
 
