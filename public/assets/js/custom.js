@@ -109,7 +109,7 @@ $(document).ready(function () {
         $('#pageMask').fadeIn('fast');
         $('#hiddenAddCatForm').fadeIn('fast');
         $('#logo').fadeOut('fast');
-        $('#searchCat').fadeOut('fast');
+        $('#searchCategory').fadeOut('fast');
         $('#Welcome').fadeOut('fast');
         $('#signoutLink').fadeOut('fast');
         $('#opaqueDiv').fadeOut('fast');
@@ -120,7 +120,7 @@ $(document).ready(function () {
         $('#hiddenAddCatForm').fadeOut('fast');
         $('#logo').fadeIn('fast');
         $('#Welcome').fadeIn('fast');
-        $('#searchCat').fadeIn('fast');
+        $('#searchCategory').fadeIn('fast');
         $('#signoutLink').fadeIn('fast');
         $('#opaqueDiv').fadeIn('fast');
         $('#pack_form')[0].reset();
@@ -133,7 +133,7 @@ $(document).ready(function () {
         $('#hiddenRemoveCategory').fadeIn('fast');
         $('#pageMask').fadeIn('fast');
         $('#logo').fadeOut('fast');
-        $('#searchCat').fadeOut('fast');
+        $('#searchCategory').fadeOut('fast');
         $('#Welcome').fadeOut('fast');
         $('#signoutLink').fadeOut('fast');
         $('#opaqueDiv').fadeOut('fast');
@@ -149,7 +149,7 @@ $(document).ready(function () {
         $('#hiddenRemoveCategory').fadeOut('fast');
         $('#logo').fadeIn('fast');
         $('#Welcome').fadeIn('fast');
-        $('#searchCat').fadeIn('fast');
+        $('#searchCategory').fadeIn('fast');
         $('#signoutLink').fadeIn('fast');
         $('#opaqueDiv').fadeIn('fast');
         $('#pack_form')[0].reset();

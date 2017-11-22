@@ -345,17 +345,14 @@ app.post('/find_category', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
-    //TODO use camelCase categoryName
-    //TODO descriptive names searchCategory
-    var categoryName = req.body.searchCat;
+    var categoryName = req.body.searchCategory;
 
     if (session && token) {
 
         var searchCategory = new Parse.Query(CategoryClass);
         searchCategory.equalTo("name", categoryName);
         searchCategory.first().then(function (category) {
-                // var name = category.get("name");
-                // var _id = category.get("id");
+
                 if (category) {
                     console.log("MESSAGE FROM SEARCH " + category);
                     console.log("CATEGORY DETAILS " + JSON.stringify(category));
@@ -432,11 +429,10 @@ app.post('/update_category', function (req, res) {
     var token = req.cookies.token;
     var newName = req.body.catname;
     var currentId = req.body.categoryId;
-    console.log("NAME " + newName + " OBJECTID " + currentId);
+
     if (session && token) {
 
         var category = new Parse.Query("Category");
-        //objectId
         category.equalTo("objectId", currentId);
         category.first().then(function (category) {
 
@@ -498,8 +494,6 @@ app.post('/remove_category', function (req, res) {
 app.get('/logout', function (req, res) {
 
     req.session = null;
-    //res.cookie('token', "");
-    //req.session.destroy();
     res.clearCookie('token');
     res.redirect("/");
 
@@ -556,15 +550,12 @@ app.get('/second_dashboard', function (req, res) {
 });
 
 // Collection Dashboard
-//Displays 'folders' representing each collection from Parse
-
 app.get('/pack_collection', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
     if (session && token) {
         let query = new Parse.Query(CollectionClass);
-        //query.limit(3);
         query.find({sessionToken: token}).then(function (collections) {
 
             res.render("pages/pack_collection", {collections: collections});
@@ -625,7 +616,6 @@ app.get('/add_stickers/:id/:collection_name', function (req, res) {
     var col_name = req.params.collection_name;
 
     if (session && token) {
-        // res.render("pages/add-stickers1", {id: coll_id});
         res.render("pages/add_sticker", {id: coll_id, coll_name: col_name});
     } else {
         res.redirect("/");
@@ -836,22 +826,12 @@ app.post('/upload_dropbox_file', function (req, res) {
             .then(({filename, image}) => {
                 console.log('FILE SAVED TO ', filename);
                 bitmap = fs.readFileSync(filename, {encoding: 'base64'});
-                // fs.readFile(filename, function(err, data){
-                // if (err) {
-                //     console.log("NOT NOT "+err);
-                // }else{
-                // bitmap = new Buffer(data).toString('base64');
-                // console.log("BASE64 FROM FILE IN FOLDER"+JSON.stringify(base64data));
                 var collection = new Parse.Query(CollectionClass);
                 collection.equalTo("objectId", coll_id)
                     .first({sessionToken: token})
                     .then(function (collection) {
-                        console.log("BITMAP PASSED BY FILE " + bitmap);
-                        console.log("NAME " + name + " collection " + JSON.stringify(collection));
                         stickerCollection = collection;
                         var parseFile = new Parse.File(name, {base64: bitmap});
-                        console.log("PARSEFILE " + JSON.stringify(parseFile) + " name " + name + " collection " + JSON.stringify(collection));
-                        // console.log("FILE PASSED " + JSON.stringify(file));
                         var Sticker = new Parse.Object.extend(StickerClass);
                         var sticker = new Sticker();
                         sticker.set("stickerName", name);
@@ -869,7 +849,6 @@ app.post('/upload_dropbox_file', function (req, res) {
                     console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
                     var collection_relation = stickerCollection.relation(CollectionClass);
                     collection_relation.add(sticker);
-                    console.log("LOG BEFORE SAVING STICKER COLLECTION");
                     fs.unlink(filename, function (err) {
                         if (err) {
                             //TODO handle error code
@@ -888,8 +867,6 @@ app.post('/upload_dropbox_file', function (req, res) {
                     console.log("BIG BIG ERROR" + error.message);
                     res.redirect("/collection/coll_id");
                 });
-                // }
-                // });
             }).catch((err) => {
             throw err;
         });
