@@ -5,7 +5,7 @@ var stickers = require("../modules/stickers");
 
 Parse.Cloud.define("getStickers", function (req, res) {
 
-    var user = req.user;
+   // var user = req.user;
 
     stickers.getAll().then(function(stickers){
 
@@ -22,7 +22,7 @@ Parse.Cloud.define("getStickers", function (req, res) {
 Parse.Cloud.define("getSticker", function (req, res) {
 
     var stickerId = req.params.stickerId;
-    var user = req.user;
+   // var user = req.user;
 
     stickers.findById(stickerId).then(function (badge) {
 
