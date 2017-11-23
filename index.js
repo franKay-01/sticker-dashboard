@@ -815,9 +815,10 @@ app.post('/upload_dropbox_file', function (req, res) {
         }
         name = req.body.fileName;
         fileUrl = req.body.fileUrl; // receive url from form
-        console.log("ARRAY FROM UPLOAD "+ fileUrl.length);
-        for(var i = 0; i < fileUrl.length; i ++){
-            console.log("FILE AT POSITION "+ i+" AND FILE IS "+ fileUrl[i]);
+        fileUrll = req.body.fileUrll; // receive url from form
+        console.log("ARRAY FROM UPLOAD "+ fileUrll.length);
+        for(var i = 0; i < fileUrll.length; i ++){
+            console.log("FILE AT POSITION "+ i+" AND FILE IS "+ fileUrll[i]);
         }
             name = name.substring(0, name.length - 4);
 
