@@ -27,9 +27,9 @@
             options = {
 
                 success: function (files) {
-//                    files.forEach(function (file) {
+                    files.forEach(function (file) {
                         add_img_to_list(files);
-//                    });
+                    });
                 },
                 cancel: function () {
                     //optional
@@ -43,14 +43,14 @@
 
 
         function add_img_to_list(file) {
-            alert(JSON.stringify(file));
-//            var name = file.name;
-//            var source = file.link;
-//            var type = name.substr(name.length - 3);
 
-            document.getElementById('fileUrl').value = file;
-//            document.getElementById('fileName').value = name;
-//            document.getElementById('fileType').value = type;
+            var name = file.name;
+            var source = file.link;
+            var type = name.substr(name.length - 3);
+
+            document.getElementById('fileUrl').value = source;
+            document.getElementById('fileName').value = name;
+            document.getElementById('fileType').value = type;
         }
 
 
