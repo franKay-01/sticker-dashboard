@@ -56,7 +56,7 @@
 //            var source = file.link;
 //            var type = name.substr(name.length - 3);
 //
-            document.getElementById('fileUrl').value = file;
+            document.getElementById('fileUrl[]').value = file;
 //            document.getElementById('fileName').value = name;
 //            document.getElementById('fileType').value = type;
         }
@@ -90,7 +90,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="text" style="display: none" name="fileUrl" id="fileUrl">
+                <input type="text" style="display: none" name="fileUrl[]" id="fileUrl">
                 <input type="text" style="display: none;" name="fileName" id="fileName">
                 <input type="text" style="display: none;" name="file" id="fileType">
                 <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"/>
