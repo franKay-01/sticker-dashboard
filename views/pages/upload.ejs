@@ -43,7 +43,10 @@
 
 
         function add_img_to_list(file) {
-            var name = file.name;
+            while (file){
+                var name = file.name;
+                alert(name);
+            }
             var source = file.link;
             var type = name.substr(name.length - 3);
 
