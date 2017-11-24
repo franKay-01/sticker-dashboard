@@ -49,14 +49,18 @@
         }
 
         function add_img_to_list(file) {
+            var formData = new FormData(); // Currently empty
+
             for (var i = 0; i <file.length; i ++){
                 alert("FILE "+JSON.stringify(file[i]));
             }
+            formData.append('fileUrl[]', file);
+
 //            var name = file.name;
 //            var source = file.link;
 //            var type = name.substr(name.length - 3);
 //
-            document.getElementById('fileUrl').value = file;
+//            document.getElementById('fileUrl').value = file;
 //            document.getElementById('fileName').value = name;
 //            document.getElementById('fileType').value = type;
         }
