@@ -50,11 +50,13 @@
 
         function add_img_to_list(file) {
             var formData = new FormData(); // Currently empty
+            var array_names = new Array();
 
             for (var i = 0; i <file.length; i ++){
+                array_names[i] = file[i].name;
                 alert("FILE "+JSON.stringify(file[i].name));
             }
-            formData.append('fileUrl[]', file);
+            formData.append('fileUrl[]', array_names);
 
 //            var name = file.name;
 //            var source = file.link;
