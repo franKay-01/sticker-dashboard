@@ -817,6 +817,8 @@ app.post('/upload_dropbox_file', function (req, res) {
 
         fileUrl = req.body.fileUrl; // receive url from form
         console.log("ARRAY LENGTH : "+fileUrl.length);
+        var array = fileUrl.split(',');
+        console.log("ARRAY WITHOUT COMMA "+JSON.stringify(array));
         console.log("ARRAY LENGTH : "+JSON.stringify(fileUrl));
 
         // name = name.substring(0, name.length - 4);
