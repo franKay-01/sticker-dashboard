@@ -829,42 +829,46 @@ app.post('/upload_dropbox_file', function (req, res) {
 
         new Parse.Query(CollectionClass).equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
 
-                names_array.forEach(function (file, index) {
-                    // name = file.substring(0, name.length - 4);
-                    console.log("LINK FROM ARRAY "+links_array[index]);
-                    var options = {
-                        url: links_array[index],
-                        dest: __dirname + '/public/uploads/' + file
-                    };
+            names_array.forEach(function (file, index) {
+                // name = file.substring(0, name.length - 4);
+                console.log("LINK FROM ARRAY " + links_array[index]);
 
-                    download.image(options).then(({filename, image}) => {
-                        console.log('FILE SAVED TO ', filename);
-                        bitmap = fs.readFileSync(filename, {encoding: 'base64'});
+                var options = {
+                    url: links_array[index],
+                    dest: __dirname + '/public/uploads/' + file
+                };
 
-                        stickerCollection = collection;
-                        var parseFile = new Parse.File(file, {base64: bitmap});
-                        var Sticker = new Parse.Object.extend(StickerClass);
-                        var sticker = new Sticker();
-                        sticker.set("stickerName", name);
-                        sticker.set("localName", name);
-                        sticker.set("uri", parseFile);
-                        sticker.set("stickerPhraseImage", "");
-                        sticker.set("parent", collection);
+                download.image(options).then(({filename, image}) => {
 
-                        console.log("LOG BEFORE SAVING STICKER");
+                    console.log('FILE SAVED TO ', filename);
+                    bitmap = fs.readFileSync(filename, {encoding: 'base64'});
 
-                        stickerDetails.push(sticker);
-                        fileDetails.push(file);
-                    }).catch((err) => {
-                        throw err;
-                    });
+                    stickerCollection = collection;
+                    var parseFile = new Parse.File(file, {base64: bitmap});
+
+                    var Sticker = new Parse.Object.extend(StickerClass);
+                    var sticker = new Sticker();
+                    sticker.set("stickerName", name);
+                    sticker.set("localName", name);
+                    sticker.set("uri", parseFile);
+                    sticker.set("stickerPhraseImage", "");
+                    sticker.set("parent", collection);
+
+                    console.log("LOG BEFORE SAVING STICKER");
+
+                    stickerDetails.push(sticker);
+                    fileDetails.push(file);
+
+                }).catch((err) => {
+                    console.log("IMAGE DOWNLOAD ERROR " + err);
                 });
-                // return sticker.save()
+            });
+            // return sticker.save()
+            console.log("STICKER OBJECTS " + stickerDetails);
+            return Parse.Object.saveAll(stickerDetails);
 
-                return Parse.Object.saveAll(stickerDetails);
-
-            }).then(function (sticker) {
-                console.log("STICKERS SAVED");
+        }).then(function (stickers) {
+            console.log("STICKERS SAVED");
             console.log("REDIRECT TO DASHBOARD");
             res.redirect("/collection/coll_id");
             // _.each(fileDetails, function (file) {
