@@ -840,7 +840,7 @@ app.post('/upload_dropbox_file', function (req, res) {
                     download.image(options).then(({filename, image}) => {
                         console.log('FILE SAVED TO ', filename);
                         bitmap = fs.readFileSync(filename, {encoding: 'base64'});
-
+                        console.log("BITMAP "+JSON.stringify(bitmap));
                         stickerCollection = collection;
                         var parseFile = new Parse.File(file, {base64: bitmap});
                         var Sticker = new Parse.Object.extend(StickerClass);
