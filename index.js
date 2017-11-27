@@ -829,13 +829,13 @@ app.post('/upload_dropbox_file', function (req, res) {
 
         new Parse.Query(CollectionClass).equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
 
-            names_array.forEach(function (file, index) {
+            names_array.forEach(function (name, index) {
                 // name = file.substring(0, name.length - 4);
                 console.log("LINK FROM ARRAY " + links_array[index]);
 
                 var options = {
                     url: links_array[index],
-                    dest: __dirname + '/public/uploads/' + file
+                    dest: __dirname + '/public/uploads/' + name
                 };
 
                 download.image(options).then(({filename, image}) => {
@@ -844,7 +844,7 @@ app.post('/upload_dropbox_file', function (req, res) {
                     bitmap = fs.readFileSync(filename, {encoding: 'base64'});
 
                     stickerCollection = collection;
-                    var parseFile = new Parse.File(file, {base64: bitmap});
+                    var parseFile = new Parse.File(name, {base64: bitmap});
 
                     var Sticker = new Parse.Object.extend(StickerClass);
                     var sticker = new Sticker();
