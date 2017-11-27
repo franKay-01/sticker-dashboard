@@ -832,52 +832,52 @@ app.post('/upload_dropbox_file', function (req, res) {
             .first({sessionToken: token})
             .then(function (collection) {
 
-        names_array.forEach(function (file, index) {
-            name = file.substring(0, name.length - 4);
+                names_array.forEach(function (file, index) {
+                    name = file.substring(0, name.length - 4);
 
-            var options = {
-                url: links_array[index],
-                dest: __dirname + '/public/uploads/' + file
-            };
+                    var options = {
+                        url: links_array[index],
+                        dest: __dirname + '/public/uploads/' + file
+                    };
 
-            download.image(options).then(({filename, image}) => {
-                console.log('FILE SAVED TO ', filename);
-            bitmap = fs.readFileSync(filename, {encoding: 'base64'});
+                    download.image(options).then(({filename, image}) => {
+                        console.log('FILE SAVED TO ', filename);
+                        bitmap = fs.readFileSync(filename, {encoding: 'base64'});
 
-                    stickerCollection = collection;
-                    var parseFile = new Parse.File(name, {base64: bitmap});
-                    var Sticker = new Parse.Object.extend(StickerClass);
-                    var sticker = new Sticker();
-                    sticker.set("stickerName", name);
-                    sticker.set("localName", name);
-                    sticker.set("uri", parseFile);
-                    sticker.set("stickerPhraseImage", "");
-                    sticker.set("parent", collection);
+                        stickerCollection = collection;
+                        var parseFile = new Parse.File(name, {base64: bitmap});
+                        var Sticker = new Parse.Object.extend(StickerClass);
+                        var sticker = new Sticker();
+                        sticker.set("stickerName", name);
+                        sticker.set("localName", name);
+                        sticker.set("uri", parseFile);
+                        sticker.set("stickerPhraseImage", "");
+                        sticker.set("parent", collection);
 
-                    console.log("LOG BEFORE SAVING STICKER");
+                        console.log("LOG BEFORE SAVING STICKER");
 
-                    stickerDetails.push(sticker);
-                    fileDetails.push(file);
-        });
-            }).catch((err) => {
-                throw err;
-        });
-            // return sticker.save()
+                        stickerDetails.push(sticker);
+                        fileDetails.push(file);
+                    }).catch((err) => {
+                        throw err;
+                    });
+                });
+                // return sticker.save()
 
-        return Parse.Object.saveAll(stickerDetails);
+                return Parse.Object.saveAll(stickerDetails);
 
-    }).then(function (sticker) {
-        _.each(fileDetails, function (file) {
-            console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
-            var collection_relation = stickerCollection.relation(CollectionClass);
-            collection_relation.add(sticker);
-            fs.unlink(filename, function (err) {
-                if (err) {
-                    //TODO handle error code
-                    console.log("Could not del temp++++++++" + JSON.stringify(err));
-                }
+            }).then(function (sticker) {
+            _.each(fileDetails, function (file) {
+                console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
+                var collection_relation = stickerCollection.relation(CollectionClass);
+                collection_relation.add(sticker);
+                fs.unlink(filename, function (err) {
+                    if (err) {
+                        //TODO handle error code
+                        console.log("Could not del temp++++++++" + JSON.stringify(err));
+                    }
+                });
             });
-        });
 
             return stickerCollection.save();
 
