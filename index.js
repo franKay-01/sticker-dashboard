@@ -827,13 +827,10 @@ app.post('/upload_dropbox_file', function (req, res) {
         console.log("LINKS : " + links_array);
 
 
-        var collection = new Parse.Query(CollectionClass);
-        collection.equalTo("objectId", coll_id)
-            .first({sessionToken: token})
-            .then(function (collection) {
+        new Parse.Query(CollectionClass).equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
 
                 names_array.forEach(function (file, index) {
-                    name = file.substring(0, name.length - 4);
+                    // name = file.substring(0, name.length - 4);
                     console.log("LINK FROM ARRAY "+links_array[index]);
                     var options = {
                         url: links_array[index],
@@ -845,7 +842,7 @@ app.post('/upload_dropbox_file', function (req, res) {
                         bitmap = fs.readFileSync(filename, {encoding: 'base64'});
 
                         stickerCollection = collection;
-                        var parseFile = new Parse.File(name, {base64: bitmap});
+                        var parseFile = new Parse.File(file, {base64: bitmap});
                         var Sticker = new Parse.Object.extend(StickerClass);
                         var sticker = new Sticker();
                         sticker.set("stickerName", name);
