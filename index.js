@@ -864,7 +864,7 @@ app.post('/upload_dropbox_file', function (req, res) {
                 });
             });
             // return sticker.save()
-            console.log("STICKER OBJECTS " + stickerDetails);
+            console.log("STICKER OBJECTS " + JSON.stringify(stickerDetails));
             return Parse.Object.saveAll(stickerDetails);
 
         }).then(function (stickers) {
