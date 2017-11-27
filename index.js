@@ -834,7 +834,7 @@ app.post('/upload_dropbox_file', function (req, res) {
                 dest: __dirname + '/public/uploads/' + file
             };
 
-            download.image(options).then(({filename, image}) = > {
+            download.image(options).then(({filename, image}) => {
                 console.log('FILE SAVED TO ', filename);
             bitmap = fs.readFileSync(filename, {encoding: 'base64'});
             var collection = new Parse.Query(CollectionClass);
@@ -855,11 +855,9 @@ app.post('/upload_dropbox_file', function (req, res) {
 
                     stickerDetails.push(sticker);
                     fileDetails.push(file);
-
-
-                }).catch((err) = > {
+        });
+            }).catch((err) => {
                 throw err;
-            });
         });
             // return sticker.save()
 
