@@ -861,7 +861,7 @@ app.post('/upload_dropbox_file', function (req, res) {
                 throw err;
             });
         });
-            // return sticker.save();
+            // return sticker.save()
 
         return Parse.Object.saveAll(stickerDetails);
 
