@@ -819,7 +819,7 @@ app.post('/upload_dropbox_file', function (req, res) {
         console.log("ARRAY LENGTH : "+fileUrl.length);
         var links = JSON.stringify(fileUrl);
         var names = JSON.stringify(name);
-        names_array = name.split(",");
+        names_array = names.split(",");
         links_array = links.split(",");
         console.log("NAMES : "+names_array.length);
         console.log("NAMES : "+ links_array.length);
