@@ -799,83 +799,87 @@ app.post('/upload_dropbox_file', function (req, res) {
     var token = req.cookies.token;
     var coll_id = req.body.coll_id;
     var stickerCollection;
-    var jpeg = "image/jpeg";
-    var png = "image/png";
-    var mimetype;
+    // var jpeg = "image/jpeg";
+    // var png = "image/png";
+    // var mimetype;
 
     if (session && token) {
-        var type = req.body.file;
-        type = type.toLowerCase();
-        if (type === 'jpg') {
-            mimetype = jpeg;
-            console.log("MIMETYPE WAS SET TO JPEG");
-        } else if (type === 'png') {
-            mimetype = png;
-            console.log("MIMETYPE WAS SET TO PNG");
-        }
+        // var type = req.body.file;
+        // type = type.toLowerCase();
+        // if (type === 'jpg') {
+        //     mimetype = jpeg;
+        //     console.log("MIMETYPE WAS SET TO JPEG");
+        // } else if (type === 'png') {
+        //     mimetype = png;
+        //     console.log("MIMETYPE WAS SET TO PNG");
+        // }
         name = req.body.fileName;
 
         fileUrl = req.body.fileUrl; // receive url from form
         console.log("ARRAY LENGTH : "+fileUrl.length);
         var names = JSON.stringify(fileUrl);
-        names = names.split(",");
+        names_array = names.split(",");
         console.log("NAMES : "+ names.length);
 
-        // name = name.substring(0, name.length - 4);
-        //
-        // var options = {
-        //     url: fileUrl,
-        //     dest: __dirname + '/public/uploads/' + req.body.fileName
-        // };
+        names.forEach( function (file) {
+            "use strict";
+            name = name.substring(0, name.length - 4);
 
-        // download.image(options)
-        //     .then(({filename, image}) => {
-        //         console.log('FILE SAVED TO ', filename);
-        //         bitmap = fs.readFileSync(filename, {encoding: 'base64'});
-        //         var collection = new Parse.Query(CollectionClass);
-        //         collection.equalTo("objectId", coll_id)
-        //             .first({sessionToken: token})
-        //             .then(function (collection) {
-        //                 stickerCollection = collection;
-        //                 var parseFile = new Parse.File(name, {base64: bitmap});
-        //                 var Sticker = new Parse.Object.extend(StickerClass);
-        //                 var sticker = new Sticker();
-        //                 sticker.set("stickerName", name);
-        //                 sticker.set("localName", name);
-        //                 sticker.set("uri", parseFile);
-        //                 sticker.set("stickerPhraseImage", "");
-        //                 sticker.set("parent", collection);
-        //
-        //                 console.log("LOG BEFORE SAVING STICKER");
-        //
-        //                 return sticker.save();
-        //
-        //
-        //             }).then(function (sticker) {
-        //             console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
-        //             var collection_relation = stickerCollection.relation(CollectionClass);
-        //             collection_relation.add(sticker);
-        //             fs.unlink(filename, function (err) {
-        //                 if (err) {
-        //                     //TODO handle error code
-        //                     console.log("Could not del temp++++++++" + JSON.stringify(err));
-        //                 }
-        //             });
-        //
-        //             return stickerCollection.save();
-        //
-        //         }).then(function () {
-        //
-        //             console.log("REDIRECT TO DASHBOARD");
-        //             res.redirect("/collection/coll_id");
-        //
-        //         }, function (error) {
-        //             console.log("BIG BIG ERROR" + error.message);
-        //             res.redirect("/collection/coll_id");
-        //         });
-        //     }).catch((err) => {
-        //     throw err;
-        // });
+            var options = {
+                url: fileUrl,
+                dest: __dirname + '/public/uploads/' + req.body.fileName
+            };
+
+            download.image(options)
+                .then(({filename, image}) => {
+                    console.log('FILE SAVED TO ', filename);
+                    bitmap = fs.readFileSync(filename, {encoding: 'base64'});
+                    var collection = new Parse.Query(CollectionClass);
+                    collection.equalTo("objectId", coll_id)
+                        .first({sessionToken: token})
+                        .then(function (collection) {
+                            stickerCollection = collection;
+                            var parseFile = new Parse.File(name, {base64: bitmap});
+                            var Sticker = new Parse.Object.extend(StickerClass);
+                            var sticker = new Sticker();
+                            sticker.set("stickerName", name);
+                            sticker.set("localName", name);
+                            sticker.set("uri", parseFile);
+                            sticker.set("stickerPhraseImage", "");
+                            sticker.set("parent", collection);
+
+                            console.log("LOG BEFORE SAVING STICKER");
+
+                            return sticker.save();
+
+
+                        }).then(function (sticker) {
+                        console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
+                        var collection_relation = stickerCollection.relation(CollectionClass);
+                        collection_relation.add(sticker);
+                        fs.unlink(filename, function (err) {
+                            if (err) {
+                                //TODO handle error code
+                                console.log("Could not del temp++++++++" + JSON.stringify(err));
+                            }
+                        });
+
+                        return stickerCollection.save();
+
+                    }).then(function () {
+
+                        console.log("REDIRECT TO DASHBOARD");
+                        res.redirect("/collection/coll_id");
+
+                    }, function (error) {
+                        console.log("BIG BIG ERROR" + error.message);
+                        res.redirect("/collection/coll_id");
+                    });
+                }).catch((err) => {
+                throw err;
+            });
+        });
+
     } else {
 
         res.redirect("/collection/coll_id");
