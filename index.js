@@ -840,10 +840,9 @@ app.post('/upload_dropbox_file', function (req, res) {
                     download.image(options).then(({filename, image}) => {
                         console.log('FILE SAVED TO ', filename);
                         bitmap = fs.readFileSync(filename, {encoding: 'base64'});
-                        console.log("BITMAP "+JSON.stringify(bitmap));
+
                         stickerCollection = collection;
                         var parseFile = new Parse.File(file, {base64: bitmap});
-                        console.log("PARSEFILE "+JSON.stringify(parseFile));
                         var Sticker = new Parse.Object.extend(StickerClass);
                         var sticker = new Sticker();
                         sticker.set("stickerName", name);
@@ -865,19 +864,22 @@ app.post('/upload_dropbox_file', function (req, res) {
                 return Parse.Object.saveAll(stickerDetails);
 
             }).then(function (sticker) {
-            _.each(fileDetails, function (file) {
-                console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
-                var collection_relation = stickerCollection.relation(CollectionClass);
-                collection_relation.add(sticker);
-                fs.unlink(filename, function (err) {
-                    if (err) {
-                        //TODO handle error code
-                        console.log("Could not del temp++++++++" + JSON.stringify(err));
-                    }
-                });
-            });
-
-            return stickerCollection.save();
+                console.log("STICKERS SAVED");
+            console.log("REDIRECT TO DASHBOARD");
+            res.redirect("/collection/coll_id");
+            // _.each(fileDetails, function (file) {
+            //     console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
+            //     var collection_relation = stickerCollection.relation(CollectionClass);
+            //     collection_relation.add(sticker);
+            //     fs.unlink(filename, function (err) {
+            //         if (err) {
+            //             //TODO handle error code
+            //             console.log("Could not del temp++++++++" + JSON.stringify(err));
+            //         }
+            //     });
+            // });
+            //
+            // return stickerCollection.save();
 
         }).then(function () {
 
