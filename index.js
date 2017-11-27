@@ -843,6 +843,7 @@ app.post('/upload_dropbox_file', function (req, res) {
                         console.log("BITMAP "+JSON.stringify(bitmap));
                         stickerCollection = collection;
                         var parseFile = new Parse.File(file, {base64: bitmap});
+                        console.log("PARSEFILE "+JSON.stringify(parseFile));
                         var Sticker = new Parse.Object.extend(StickerClass);
                         var sticker = new Sticker();
                         sticker.set("stickerName", name);
