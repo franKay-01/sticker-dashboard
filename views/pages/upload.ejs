@@ -50,10 +50,12 @@
 
         function add_img_to_list(file) {
             var formData = new FormData(); // Currently empty
-            var array_names = new Array();
+            var _links = new Array();
+            var _names = new Array();
             alert(file.length);
             for (var i = 0; i <file.length; i ++){
-                array_names[i] = file[i].link;
+                _links[i] = file[i].link;
+                _names[i] = file[i].name;
                 alert("FILE "+JSON.stringify(file[i].link));
             }
 //            formData.append('fileUrl[]', array_names);
@@ -62,8 +64,8 @@
 //            var source = file.link;
 //            var type = name.substr(name.length - 3);
 //
-            document.getElementById('fileUrl').value = array_names;
-//            document.getElementById('fileName').value = name;
+            document.getElementById('fileUrl').value = _links;
+            document.getElementById('fileName').value = _names;
 //            document.getElementById('fileType').value = type;
         }
 
@@ -97,7 +99,7 @@
                     </div>
                 </div>
                 <input type="text" style="display: none" name="fileUrl[]" id="fileUrl">
-                <input type="text" style="display: none;" name="fileName" id="fileName">
+                <input type="text" style="display: none;" name="fileName[]" id="fileName">
                 <input type="text" style="display: none;" name="file" id="fileType">
                 <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"/>
                 <center>
