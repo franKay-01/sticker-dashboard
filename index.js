@@ -832,7 +832,7 @@ app.post('/upload_dropbox_file', function (req, res) {
             names_array.forEach(function (file, index) {
                 // name = file.substring(0, name.length - 4);
                 console.log("LINK FROM ARRAY " + links_array[index]);
-
+                console.log("FILENAME "+file);
                 var options = {
                     url: links_array[index],
                     dest: __dirname + '/public/uploads/' + name
