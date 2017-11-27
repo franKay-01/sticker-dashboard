@@ -881,12 +881,12 @@ app.post('/upload_dropbox_file', function (req, res) {
             //
             // return stickerCollection.save();
 
-        }).then(function () {
+        }/*).then(function () {
 
             console.log("REDIRECT TO DASHBOARD");
             res.redirect("/collection/coll_id");
 
-        }, function (error) {
+        }*/, function (error) {
             console.log("BIG BIG ERROR" + error.message);
             res.redirect("/collection/coll_id");
         });
