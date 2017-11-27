@@ -52,14 +52,17 @@
             var formData = new FormData(); // Currently empty
             var _links = new Array();
             var _names = new Array();
-            alert(file.length);
+
             for (var i = 0; i <file.length; i ++){
                 _links[i] = file[i].link;
                 _names[i] = file[i].name;
-                alert("FILE "+JSON.stringify(file[i].link));
+                alert("LINK "+JSON.stringify(file[i].link));
+                alert("NAME "+JSON.stringify(file[i].name));
+
             }
 //            formData.append('fileUrl[]', array_names);
-            alert("NAME "+array_names.length);
+            alert("LINK "+_links.length);
+            alert("NAME "+_names.length);
 //            var name = file.name;
 //            var source = file.link;
 //            var type = name.substr(name.length - 3);
