@@ -16,10 +16,8 @@ $(document).ready(function () {
         });
 
         //clear form
-        var control = $('#clearBtn');
-
-        control.on('click', function () {
-                control.replaceWith( control = control.clone( true ) );
+        $('#clearBtn').on('click', function () {
+            $("#files").val("");
         });
 
         //close/hide form
