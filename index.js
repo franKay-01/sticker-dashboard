@@ -905,14 +905,15 @@ app.post('/upload_dropbox_file', function (req, res) {
                 console.log("BIG BIG ERROR" + error.message);
                 res.redirect("/collection/coll_id");
             });
-
-
-        } else {
-
-            res.redirect("/collection/coll_id");
-
         }
+
+
+    } else {
+
+        res.redirect("/collection/coll_id");
+
     }
+
 
 });
 
