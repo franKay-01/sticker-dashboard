@@ -832,7 +832,7 @@ app.post('/upload_dropbox_file', function (req, res) {
             // name = file.substring(0, name.length - 4);
 
             console.log("LINK FROM ARRAY " + links_array[index]);
-            console.log("FILENAME "+file);
+            console.log("FILENAME " + file);
             var options = {
                 url: links_array[index],
                 dest: __dirname + '/public/uploads/' + name
@@ -851,28 +851,28 @@ app.post('/upload_dropbox_file', function (req, res) {
                 sticker.set("uri", parseFile);
                 sticker.set("stickerPhraseImage", "");
 
-
-                console.log("LOG BEFORE SAVING STICKER");
-
                 stickerDetails.push(sticker);
                 fileDetails.push(file);
                 downloadCount++;
-                console.log("STICKER DETAILS "+stickerDetails);
+
+                console.log("COUNT " + downloadCount);
 
             }).catch((err) => {
-                console.log("IMAGE DOWNLOAD ERROR " + err);
-            });
 
+                console.log("IMAGE DOWNLOAD ERROR " + err);
+
+            });
 
         });
 
-       if(names_array.length === downloadCount)
+        if (names_array.length === downloadCount)
+            console.log("MEETS CONDITION");
 
         new Parse.Query(CollectionClass).equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
 
             var _stickerDetails = [];
             stickerCollection = collection;
-            _.each(stickerDetails,function(sticker){
+            _.each(stickerDetails, function (sticker) {
                 sticker.set("parent", collection);
                 _stickerDetails.push(sticker)
             });
