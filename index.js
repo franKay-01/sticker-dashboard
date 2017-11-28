@@ -875,7 +875,7 @@ app.post('/upload_dropbox_file', function (req, res) {
         //
         // });
 
-        download(links_array, __dirname + '/public/uploads')
+        download(["https://dl.dropboxusercontent.com/1/view/9h90t5qcdgn57g4/hug.png"], __dirname + '/public/uploads')
             .then(result => {
                 console.log('IMAGES downloaded', result);
             /*}).then(function (results) {
