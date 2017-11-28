@@ -17,7 +17,7 @@ $(document).ready(function () {
 
         //clear form
         $('#clearBtn').on('click', function () {
-            document.getElementById("pack_id").reset();
+            $("#filesList").remove();
         });
 
         //close/hide form
