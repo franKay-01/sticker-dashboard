@@ -825,7 +825,7 @@ app.post('/upload_dropbox_file', function (req, res) {
 
             var options = {
                 url: fileUrl,
-                dest: __dirname + '/public/uploads/' + req.body.fileName;
+                dest: __dirname + '/public/uploads/' + req.body.fileName
             };
 
         new Parse.Query(CollectionClass).equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
