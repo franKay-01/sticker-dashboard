@@ -858,6 +858,7 @@ app.post('/upload_dropbox_file', function (req, res) {
 
                     stickerDetails.push(sticker);
                     fileDetails.push(file);
+                    console.log("STICKER DETAILS "+stickerDetails);
 
                 }).catch((err) => {
                     console.log("IMAGE DOWNLOAD ERROR " + err);
