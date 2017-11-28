@@ -836,6 +836,8 @@ app.post('/upload_dropbox_file', function (req, res) {
             dest[i] = __dirname + '/public/uploads/' + names_array[i];
         }
 
+        console.log("DEST "+JSON.stringify(dest));
+
 
         // names_array.forEach(function (file, index) {
         //     // name = file.substring(0, name.length - 4);
