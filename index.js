@@ -804,6 +804,8 @@ app.post('/upload_dropbox_file', function (req, res) {
     var fileDetails = [];
     var stickerDetails = [];
     var downloadCount = 0;
+    name = req.body.fileName;
+    fileUrl = req.body.fileUrl;
 
     // var jpeg = "image/jpeg";
     // var png = "image/png";
@@ -819,9 +821,7 @@ app.post('/upload_dropbox_file', function (req, res) {
         //     mimetype = png;
         //     console.log("MIMETYPE WAS SET TO PNG");
         // }
-        name = req.body.fileName;
-
-        fileUrl = req.body.fileUrl; // receive url from form
+       // receive url from form
 
         // var links = JSON.stringify(fileUrl);
         // var names = JSON.stringify(name);
@@ -875,13 +875,17 @@ app.post('/upload_dropbox_file', function (req, res) {
         //
         // });
 
-        download(["https://dl.dropboxusercontent.com/1/view/9h90t5qcdgn57g4/hug.png"], __dirname + '/public/uploads')
+        validFiles = [ 'http://pbs.twimg.com/media/CZkz9-jUUAAWd3l.jpg:small',
+            'https://scontent.cdninstagram.com/t51.2885-15/s320x320/e35/12558483_1213523205344331_738628413_n.jpg',
+            'http://uploadubqt.storage.googleapis.com/ubqt_56a8b55516f26dde42188f47:small.jpg' ];
+
+        download(validFiles, 'public/uploads')
             .then(result => {
                 console.log('IMAGES downloaded', result);
             /*}).then(function (results) {
             _.each(results, function (image) {
                 console.log("IMAGES FROM NEW PLUGIN "+image.filename);
-            })*/;
+            })*/
         }).catch(error => console.log("DOWNLOADED error", JSON.stringify(error)));
 
 
