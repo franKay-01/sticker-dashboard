@@ -875,7 +875,7 @@ app.post('/upload_dropbox_file', function (req, res) {
         //
         // });
 
-        download(links_array, dest)
+        download(links_array, __dirname + '/public/uploads/')
             .then(result => {
                 console.log('Images downloaded', result);
             }).then(function (results) {
