@@ -279,7 +279,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 var stickerName = fullName.substring(0, fullName.length - 4);
 
                 var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-                console.log("BITMAP FROM DERRYCK'S CODE " + JSON.stringify(bitmap));
+                // console.log("BITMAP FROM DERRYCK'S CODE " + JSON.stringify(bitmap));
                 //create our parse file
                 var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                 console.log("PARSEFILE " + JSON.stringify(parseFile) + " name " + stickerName + " collection " + JSON.stringify(collection));
@@ -875,7 +875,7 @@ app.post('/upload_dropbox_file', function (req, res) {
         //
         // });
 
-        download(links_array, '/public/uploads/')
+        download(links_array, dest)
             .then(result => {
                 console.log('Images downloaded', result);
             }).then(function (results) {
