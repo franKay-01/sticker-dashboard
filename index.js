@@ -836,6 +836,7 @@ app.post('/upload_dropbox_file', function (req, res) {
                 bitmap = fs.readFileSync(filename, {encoding: 'base64'});
 
                 var parseFile = new Parse.File(name, {base64: bitmap});
+                console.log("PARSEFILE "+JSON.stringify(parseFile));
                 var Sticker = new Parse.Object.extend(StickerClass);
                 var sticker = new Sticker();
                 sticker.set("stickerName", name);
@@ -843,6 +844,8 @@ app.post('/upload_dropbox_file', function (req, res) {
                 sticker.set("parent", collection);
                 sticker.set("uri", parseFile);
                 sticker.set("stickerPhraseImage", "");
+
+                console.log("SAVE ALL OBJECTS AND FILE");
 
                 return sticker.save();
 
