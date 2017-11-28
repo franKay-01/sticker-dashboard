@@ -16,11 +16,11 @@ $(document).ready(function () {
         });
 
         //clear form
-        // $('#clearBtn').on('click', function () {
-        //     var span = document.createElement('span');
-        //     span.innerHTML = "";
-        //     document.getElementById('filesList').insertBefore(span, null);
-        // });
+        var control = $('#clearBtn');
+
+        control.on('click', function () {
+                control.replaceWith( control = control.clone( true ) );
+        });
 
         //close/hide form
         $('#closeSign').on('click', function () {
