@@ -17,7 +17,7 @@ $(document).ready(function () {
 
         //clear form
         $('#clearBtn').on('click', function () {
-            $("#filesList").remove();
+            $("#image_id").remove();
         });
 
         //close/hide form

@@ -47,7 +47,7 @@ function handleFileSelect(evt) {
  
                 //preview images in drag n drop area
                 var span = document.createElement('span');
-                span.innerHTML = ['<img class="thumb" name="im1" " src="', e.target.result,
+                span.innerHTML = ['<img class="thumb" name="im1" " id="image_id" src="', e.target.result,
                     '" title="', escape(theFile.name), '"/>'].join('');
 
                 document.getElementById('filesList').insertBefore(span, null);
