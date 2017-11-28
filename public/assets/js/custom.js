@@ -16,7 +16,7 @@ $(document).ready(function () {
         });
 
         //clear form
-        $('.clearBtn').on('click', function () {
+        $('#clearBtn').on('click', function () {
             var span = document.createElement('span');
             span.innerHTML = "";
             document.getElementById('filesList').insertBefore(span, null);
