@@ -851,8 +851,6 @@ app.post('/upload_dropbox_file', function (req, res) {
 
                 return sticker.save();
 
-            }).catch((err) => {
-                console.log("DOWNLOAD ERROR "+ JSON.stringify(err));
             });
         }).then(function (sticker) {
 
@@ -866,7 +864,9 @@ app.post('/upload_dropbox_file', function (req, res) {
             console.log("REDIRECT TO DASHBOARD");
             res.redirect("/collection/"+coll_id);
 
-        }, function (error) {
+        }).catch((err) => {
+            console.log("DOWNLOAD ERROR "+ JSON.stringify(err));
+        }), function (error) {
                 console.log("BIG BIG ERROR" + error.message);
                 res.redirect("/collection/"+coll_id);
             });
