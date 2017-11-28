@@ -59,11 +59,11 @@
                 alert("LINK " + JSON.stringify(file[i].link));
                 alert("NAME " + JSON.stringify(file[i].name));
 
-                var span = document.createElement('span');
-                span.innerHTML = ['<img class="thumb" name="im1" " id="image_id" src="', file[i].link ,
-                    '" title="', file[i].name, '"/>'].join('');
-
-                document.getElementById('fileType').insertBefore(span, null);
+//                var span = document.createElement('span');
+//                span.innerHTML = ['<img class="thumb" name="im1" " id="image_id" src="', file[i].link ,
+//                    '" title="', file[i].name, '"/>'].join('');
+//
+//                document.getElementById('fileType').insertBefore(span, null);
 
             }
 //            formData.append('fileUrl[]', array_names);
@@ -108,7 +108,7 @@
                 </div>
                 <input type="text" style="display: none" name="fileUrl" id="fileUrl">
                 <input type="text" style="display: none;" name="fileName" id="fileName">
-                <output type="text" style="display: none;" name="file" id="fileType"></output>
+                <!--<output type="text" style="display: none;" name="file" id="fileType"></output>-->
                 <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"/>
                 <center>
       <span>
