@@ -830,17 +830,6 @@ app.post('/upload_dropbox_file', function (req, res) {
             var fileDetails = [];
             var stickerDetails = [];
 
-
-            category.destroy({
-                success: function (object) {
-                    console.log("removed" + JSON.stringify(object));
-                    res.redirect("/categories");
-                },
-                error: function (error) {
-                    console.log("Could not remove" + error);
-                }
-            });
-
             names_array.forEach(function (file, index) {
                 // name = file.substring(0, name.length - 4);
 
