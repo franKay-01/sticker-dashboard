@@ -20,6 +20,13 @@
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script>
+        var input = $("#files");
+
+        function something_happens() {
+            input.replaceWith(input.val('').clone(true));
+        };
+    </script>
 
 </head>
 
@@ -62,7 +69,7 @@
         <span>
         <button type="button" id="btnClearAddForm"><a href="/collection/<%= id %>" class="clear">Cancel</a></button>
       </span><span>
-        <button type="button" class="clear" id="clearBtn">Clear</button>
+        <button type="button" class="clear" onclick="something_happens()">Clear</button>
       </span>
                         <span>
         <button type="submit" class="upload">Upload</button>

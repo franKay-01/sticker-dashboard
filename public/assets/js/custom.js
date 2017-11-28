@@ -16,12 +16,11 @@ $(document).ready(function () {
         });
 
         //clear form
-        $('#clearBtn').on('click', function () {
-            alert("CLick worked");
-            var span = document.createElement('span');
-            span.innerHTML = "";
-            document.getElementById('filesList').insertBefore(span, null);
-        });
+        // $('#clearBtn').on('click', function () {
+        //     var span = document.createElement('span');
+        //     span.innerHTML = "";
+        //     document.getElementById('filesList').insertBefore(span, null);
+        // });
 
         //close/hide form
         $('#closeSign').on('click', function () {
