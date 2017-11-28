@@ -875,13 +875,13 @@ app.post('/upload_dropbox_file', function (req, res) {
         //
         // });
 
-        download(links_array, __dirname + '/public/uploads/')
+        download(links_array, __dirname + '/public/uploads')
             .then(result => {
-                console.log('Images downloaded', result);
-            }).then(function (results) {
+                console.log('IMAGES downloaded', result);
+            /*}).then(function (results) {
             _.each(results, function (image) {
                 console.log("IMAGES FROM NEW PLUGIN "+image.filename);
-            });
+            })*/;
         }).catch(error => console.log("DOWNLOADED error", JSON.stringify(error)));
 
 
