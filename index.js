@@ -833,7 +833,7 @@ app.post('/upload_dropbox_file', function (req, res) {
         console.log("LINKS : " + links_array);
 
         for (var i = 0; i < names_array; i ++){
-            dest[i] = __dirname + '/public/uploads/' + names_array[i];
+            dest[i] =  '/public/uploads/' + names_array[i];
         }
 
         console.log("DEST "+JSON.stringify(dest));
