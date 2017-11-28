@@ -865,52 +865,53 @@ app.post('/upload_dropbox_file', function (req, res) {
 
         });
 
-        if (names_array.length === downloadCount)
+        if (names_array.length === downloadCount) {
             console.log("MEETS CONDITION");
 
-        new Parse.Query(CollectionClass).equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
+            new Parse.Query(CollectionClass).equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
 
-            var _stickerDetails = [];
-            stickerCollection = collection;
-            _.each(stickerDetails, function (sticker) {
-                sticker.set("parent", collection);
-                _stickerDetails.push(sticker)
-            });
-            return Parse.Object.saveAll(_stickerDetails);
+                var _stickerDetails = [];
+                stickerCollection = collection;
+                _.each(stickerDetails, function (sticker) {
+                    sticker.set("parent", collection);
+                    _stickerDetails.push(sticker)
+                });
+                return Parse.Object.saveAll(_stickerDetails);
 
-        }).then(function (stickers) {
-            console.log("STICKERS SAVED");
-            console.log("REDIRECT TO DASHBOARD");
-            res.redirect("/collection/coll_id");
-            // _.each(fileDetails, function (file) {
-            //     console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
-            //     var collection_relation = stickerCollection.relation(CollectionClass);
-            //     collection_relation.add(sticker);
-            //     fs.unlink(filename, function (err) {
-            //         if (err) {
-            //             //TODO handle error code
-            //             console.log("Could not del temp++++++++" + JSON.stringify(err));
-            //         }
-            //     });
-            // });
-            //
-            // return stickerCollection.save();
+            }).then(function (stickers) {
+                console.log("STICKERS SAVED");
+                console.log("REDIRECT TO DASHBOARD");
+                res.redirect("/collection/coll_id");
+                // _.each(fileDetails, function (file) {
+                //     console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
+                //     var collection_relation = stickerCollection.relation(CollectionClass);
+                //     collection_relation.add(sticker);
+                //     fs.unlink(filename, function (err) {
+                //         if (err) {
+                //             //TODO handle error code
+                //             console.log("Could not del temp++++++++" + JSON.stringify(err));
+                //         }
+                //     });
+                // });
+                //
+                // return stickerCollection.save();
 
-        }/*).then(function () {
+            }/*).then(function () {
 
             console.log("REDIRECT TO DASHBOARD");
             res.redirect("/collection/coll_id");
 
         }*/, function (error) {
-            console.log("BIG BIG ERROR" + error.message);
+                console.log("BIG BIG ERROR" + error.message);
+                res.redirect("/collection/coll_id");
+            });
+
+
+        } else {
+
             res.redirect("/collection/coll_id");
-        });
 
-
-    } else {
-
-        res.redirect("/collection/coll_id");
-
+        }
     }
 
 });
