@@ -881,7 +881,7 @@ app.post('/upload_dropbox_file', function (req, res) {
             }).then(function (stickers) {
                 console.log("STICKERS SAVED");
                 console.log("REDIRECT TO DASHBOARD");
-                res.redirect("/collection/coll_id");
+                res.redirect("/collection/"+coll_id);
                 // _.each(fileDetails, function (file) {
                 //     console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
                 //     var collection_relation = stickerCollection.relation(CollectionClass);
@@ -903,17 +903,20 @@ app.post('/upload_dropbox_file', function (req, res) {
 
         }*/, function (error) {
                 console.log("BIG BIG ERROR" + error.message);
-                res.redirect("/collection/coll_id");
+                res.redirect("/collection/"+coll_id);
             });
+        }else {
+
+            res.redirect("/collection/"+coll_id);
+
         }
 
 
     } else {
 
-        res.redirect("/collection/coll_id");
+        res.redirect("/collection/"+coll_id);
 
     }
-
 
 });
 
