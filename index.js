@@ -801,9 +801,6 @@ app.post('/upload_dropbox_file', function (req, res) {
     var token = req.cookies.token;
     var coll_id = req.body.coll_id;
     var stickerCollection;
-    var fileDetails = [];
-    var stickerDetails = [];
-    var downloadCount = 0;
     name = req.body.fileName;
     fileUrl = req.body.fileUrl;
 
@@ -831,7 +828,7 @@ app.post('/upload_dropbox_file', function (req, res) {
         new Parse.Query(CollectionClass).equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
             console.log("INSIDE COLLECTION");
             stickerCollection = collection;
-
+            console.log("STICKER COLLECTION "+JSON.stringify(stickerCollection));
             download.image(options).then(({filename, image}) => {
 
                 console.log('FILE SAVED TO ', filename);
@@ -848,7 +845,6 @@ app.post('/upload_dropbox_file', function (req, res) {
                 sticker.set("stickerPhraseImage", "");
 
                 console.log("SAVE ALL OBJECTS AND FILE");
-
                 return sticker.save();
 
             }).catch((err) => {
