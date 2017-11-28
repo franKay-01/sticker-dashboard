@@ -827,16 +827,15 @@ app.post('/upload_dropbox_file', function (req, res) {
         // var names = JSON.stringify(name);
         names_array = name.split(",");
         links_array = fileUrl.split(",");
-        var dest = [];
 
-        console.log("NAMES : " + names_array);
+        console.log("NAMES : " + names_array.length);
         console.log("LINKS : " + links_array);
 
-        for (var i = 0; i < names_array; i ++){
-            dest[i] =  '/public/uploads/' + names_array[i];
-        }
-
-        console.log("DEST "+JSON.stringify(dest));
+        // for (var i = 0; i < names_array; i ++){
+        //     dest[i] = __dirname + '/public/uploads/' + names_array[i];
+        // }
+        //
+        // console.log("DEST "+JSON.stringify(dest));
 
 
         // names_array.forEach(function (file, index) {
@@ -876,7 +875,7 @@ app.post('/upload_dropbox_file', function (req, res) {
         //
         // });
 
-        download(links_array, dest)
+        download(links_array, '/public/uploads/')
             .then(result => {
                 console.log('Images downloaded', result);
             }).then(function (results) {
