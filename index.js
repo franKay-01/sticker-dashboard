@@ -851,7 +851,37 @@ app.post('/upload_dropbox_file', function (req, res) {
                     dest: __dirname + '/public/uploads/' + name
                 };
 
-                download.image(options).then(({filename, image}) => {
+                async function downloadIMG() {
+                    try {
+                        const { filename, image } = await download.image(options);
+
+                        console.log('FILE SAVED TO ', filename);
+                        bitmap = fs.readFileSync(filename, {encoding: 'base64'});
+
+                        stickerCollection = collection;
+                        var parseFile = new Parse.File(file, {base64: bitmap});
+
+                        var Sticker = new Parse.Object.extend(StickerClass);
+                        var sticker = new Sticker();
+                        sticker.set("stickerName", file);
+                        sticker.set("localName", file);
+                        sticker.set("uri", parseFile);
+                        sticker.set("stickerPhraseImage", "");
+                        sticker.set("parent", collection);
+
+                        console.log("LOG BEFORE SAVING STICKER");
+
+                        stickerDetails.push(sticker);
+                        fileDetails.push(file);
+                        console.log("STICKER DETAILS "+stickerDetails);
+                    } catch (e) {
+                        throw e
+                    }
+                }
+
+                downloadIMG();
+
+               /* download.image(options).then(({filename, image}) => {
 
                     console.log('FILE SAVED TO ', filename);
                     bitmap = fs.readFileSync(filename, {encoding: 'base64'});
@@ -875,7 +905,7 @@ app.post('/upload_dropbox_file', function (req, res) {
 
                 }).catch((err) => {
                     console.log("IMAGE DOWNLOAD ERROR " + err);
-                });
+                });*/
             });
             // return sticker.save()
             console.log("STICKER OBJECTS " + JSON.stringify(stickerDetails));
