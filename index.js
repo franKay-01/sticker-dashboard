@@ -13,8 +13,8 @@ let multer = require('multer');
 let _ = require('underscore');
 let helper = require('./cloud/modules/helpers');
 let methodOverride = require('method-override');
-// let download = require('image-downloader');
-let download = require('images-downloader').images;
+let download = require('image-downloader');
+// let download = require('images-downloader').images;
 
 var errorMessage = "";
 var searchErrorMessage = "";
@@ -812,135 +812,65 @@ app.post('/upload_dropbox_file', function (req, res) {
     // var mimetype;
 
     if (session && token) {
-        // var type = req.body.file;
-        // type = type.toLowerCase();
-        // if (type === 'jpg') {
-        //     mimetype = jpeg;
-        //     console.log("MIMETYPE WAS SET TO JPEG");
-        // } else if (type === 'png') {
-        //     mimetype = png;
-        //     console.log("MIMETYPE WAS SET TO PNG");
-        // }
+
        // receive url from form
 
         // var links = JSON.stringify(fileUrl);
         // var names = JSON.stringify(name);
-        names_array = name.split(",");
-        links_array = fileUrl.split(",");
+        // names_array = name.split(",");
+        // links_array = fileUrl.split(",");
+        // console.log("NAMES : " + names_array.length);
+        // console.log("LINKS : " + links_array);
+         name = file.substring(0, name.length - 4);
 
-        console.log("NAMES : " + names_array.length);
-        console.log("LINKS : " + links_array);
+            var options = {
+                url: links_array[index],
+                dest: __dirname + '/public/uploads/' + name
+            };
 
-        // for (var i = 0; i < names_array; i ++){
-        //     dest[i] = __dirname + '/public/uploads/' + names_array[i];
-        // }
-        //
-        // console.log("DEST "+JSON.stringify(dest));
+        new Parse.Query(CollectionClass).equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
 
+            download.image(options).then(({filename, image}) => {
 
-        // names_array.forEach(function (file, index) {
-        //     // name = file.substring(0, name.length - 4);
-        //
-        //     console.log("LINK FROM ARRAY " + links_array[index]);
-        //     console.log("FILENAME " + file);
-        //     var options = {
-        //         url: links_array[index],
-        //         dest: __dirname + '/public/uploads/' + name
-        //     };
-        //
-        //     download.image(options).then(({filename, image}) => {
-        //
-        //         console.log('FILE SAVED TO ', filename);
-        //         bitmap = fs.readFileSync(filename, {encoding: 'base64'});
-        //
-        //         var parseFile = new Parse.File(file, {base64: bitmap});
-        //         var Sticker = new Parse.Object.extend(StickerClass);
-        //         var sticker = new Sticker();
-        //         sticker.set("stickerName", file);
-        //         sticker.set("localName", file);
-        //         sticker.set("uri", parseFile);
-        //         sticker.set("stickerPhraseImage", "");
-        //
-        //         stickerDetails.push(sticker);
-        //         fileDetails.push(file);
-        //         downloadCount++;
-        //
-        //         console.log("COUNT " + downloadCount);
-        //
-        //     }).catch((err) => {
-        //
-        //         console.log("IMAGE DOWNLOAD ERROR " + err);
-        //
-        //     });
-        //
-        // });
+                console.log('FILE SAVED TO ', filename);
+                bitmap = fs.readFileSync(filename, {encoding: 'base64'});
 
-        validFiles = [ 'http://pbs.twimg.com/media/CZkz9-jUUAAWd3l.jpg:small',
-            'https://scontent.cdninstagram.com/t51.2885-15/s320x320/e35/12558483_1213523205344331_738628413_n.jpg',
-            'http://uploadubqt.storage.googleapis.com/ubqt_56a8b55516f26dde42188f47:small.jpg' ];
+                var parseFile = new Parse.File(name, {base64: bitmap});
+                var Sticker = new Parse.Object.extend(StickerClass);
+                var sticker = new Sticker();
+                sticker.set("stickerName", name);
+                sticker.set("localName", name);
+                sticker.set("parent", collection);
+                sticker.set("uri", parseFile);
+                sticker.set("stickerPhraseImage", "");
 
-        download(validFiles, 'public/uploads')
-            .then(result => {
-                console.log('IMAGES downloaded', result);
-            /*}).then(function (results) {
-            _.each(results, function (image) {
-                console.log("IMAGES FROM NEW PLUGIN "+image.filename);
-            })*/
-        }).catch(error => console.log("DOWNLOADED error", JSON.stringify(error)));
+                return sticker.save();
 
+            }).catch((err) => {
+                console.log("DOWNLOAD ERROR "+ JSON.stringify(err));
+            });
+        }).then(function (sticker) {
 
-        if (names_array.length === downloadCount) {
-            console.log("MEETS CONDITION");
+                var collection_relation = stickerCollection.relation(CollectionClass);
+                collection_relation.add(sticker);
 
-            new Parse.Query(CollectionClass).equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
+                return stickerCollection.save();
 
-                var _stickerDetails = [];
-                stickerCollection = collection;
-                _.each(stickerDetails, function (sticker) {
-                    sticker.set("parent", collection);
-                    _stickerDetails.push(sticker)
-                });
-                return Parse.Object.saveAll(_stickerDetails);
-
-            }).then(function (stickers) {
-                console.log("STICKERS SAVED");
-                console.log("REDIRECT TO DASHBOARD");
-                res.redirect("/collection/"+coll_id);
-                // _.each(fileDetails, function (file) {
-                //     console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
-                //     var collection_relation = stickerCollection.relation(CollectionClass);
-                //     collection_relation.add(sticker);
-                //     fs.unlink(filename, function (err) {
-                //         if (err) {
-                //             //TODO handle error code
-                //             console.log("Could not del temp++++++++" + JSON.stringify(err));
-                //         }
-                //     });
-                // });
-                //
-                // return stickerCollection.save();
-
-            }/*).then(function () {
+            }).then(function () {
 
             console.log("REDIRECT TO DASHBOARD");
-            res.redirect("/collection/coll_id");
+            res.redirect("/collection/"+coll_id);
 
-        }*/, function (error) {
+        }, function (error) {
                 console.log("BIG BIG ERROR" + error.message);
                 res.redirect("/collection/"+coll_id);
             });
+
         }else {
 
             res.redirect("/collection/"+coll_id);
 
         }
-
-
-    } else {
-
-        res.redirect("/collection/"+coll_id);
-
-    }
 
 });
 

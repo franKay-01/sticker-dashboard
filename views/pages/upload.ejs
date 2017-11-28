@@ -23,16 +23,14 @@
             data-app-key="ed8po9zwpj4pnhw"></script>
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script type="text/javascript">
-        var array_files = new Array();
 
         function dropbox() {
             options = {
 
                 success: function (files) {
                     files.forEach(function (file) {
-                        push_array(file);
+                        add_img_to_list(file);
                     });
-                    add_img_to_list(array_files);
                 },
                 cancel: function () {
                     //optional
@@ -44,20 +42,7 @@
             Dropbox.choose(options);
         }
 
-        function push_array(file) {
-            array_files.push(file);
-        }
-
         function add_img_to_list(file) {
-            var formData = new FormData(); // Currently empty
-            var _links = new Array();
-            var _names = new Array();
-
-            for (var i = 0; i < file.length; i++) {
-                _links[i] = file[i].link;
-                _names[i] = file[i].name;
-                alert("LINK " + JSON.stringify(file[i].link));
-                alert("NAME " + JSON.stringify(file[i].name));
 
 //                var span = document.createElement('span');
 //                span.innerHTML = ['<img class="thumb" name="im1" " id="image_id" src="', file[i].link ,
@@ -65,15 +50,13 @@
 //
 //                document.getElementById('fileType').insertBefore(span, null);
 
-            }
-//            formData.append('fileUrl[]', array_names);
-//            var name = file.name;
-//            var source = file.link;
-//            var type = name.substr(name.length - 3);
+            var name = file.name;
+            var source = file.link;
+            var type = name.substr(name.length - 3);
 //
-            document.getElementById('fileUrl').value = _links.toString();
-            document.getElementById('fileName').value = _names.toString();
-//            document.getElementById('fileType').value = type;
+            document.getElementById('fileUrl').value = source;
+            document.getElementById('fileName').value = name;
+            document.getElementById('fileType').value = type;
         }
 
 
@@ -108,7 +91,7 @@
                 </div>
                 <input type="text" style="display: none" name="fileUrl" id="fileUrl">
                 <input type="text" style="display: none;" name="fileName" id="fileName">
-                <!--<output type="text" style="display: none;" name="file" id="fileType"></output>-->
+                <input type="text" style="display: none;" name="file" id="fileType">
                 <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"/>
                 <center>
       <span>
