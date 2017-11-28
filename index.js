@@ -824,7 +824,7 @@ app.post('/upload_dropbox_file', function (req, res) {
          name = name.substring(0, name.length - 4);
 
             var options = {
-                url: links_array[index],
+                url: fileUrl,
                 dest: __dirname + '/public/uploads/' + name
             };
 
