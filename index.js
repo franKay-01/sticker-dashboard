@@ -825,10 +825,12 @@ app.post('/upload_dropbox_file', function (req, res) {
 
             var options = {
                 url: fileUrl,
-                dest: __dirname + '/public/uploads/' + name
+                dest: __dirname + '/public/uploads/' + req.body.fileName;
             };
 
         new Parse.Query(CollectionClass).equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
+            console.log("INSIDE COLLECTION");
+            stickerCollection = collection;
 
             download.image(options).then(({filename, image}) => {
 
