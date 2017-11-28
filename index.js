@@ -799,8 +799,7 @@ app.post('/upload_dropbox_file', function (req, res) {
     var token = req.cookies.token;
     var coll_id = req.body.coll_id;
     var stickerCollection;
-    var fileDetails = [];
-    var stickerDetails = [];
+
     // var jpeg = "image/jpeg";
     // var png = "image/png";
     // var mimetype;
@@ -828,6 +827,8 @@ app.post('/upload_dropbox_file', function (req, res) {
 
 
         new Parse.Query(CollectionClass).equalTo("objectId", coll_id).first({sessionToken: token}).then(function (collection) {
+            var fileDetails = [];
+            var stickerDetails = [];
 
             names_array.forEach(function (file, index) {
                 // name = file.substring(0, name.length - 4);
