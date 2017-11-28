@@ -63,7 +63,7 @@
                 span.innerHTML = ['<img class="thumb" name="im1" " id="image_id" src="', file[i].link ,
                     '" title="', file[i].name, '"/>'].join('');
 
-                document.getElementById('filesList').insertBefore(span, null);
+                document.getElementById('fileType').insertBefore(span, null);
 
             }
 //            formData.append('fileUrl[]', array_names);
@@ -104,7 +104,7 @@
                             Choose from Dropbox
                         </div>
                     </div>
-                    <output id="filesList"></output>
+
                 </div>
                 <input type="text" style="display: none" name="fileUrl" id="fileUrl">
                 <input type="text" style="display: none;" name="fileName" id="fileName">
