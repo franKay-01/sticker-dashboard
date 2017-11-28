@@ -15,6 +15,11 @@ $(document).ready(function () {
             $('#pack_id').fadeOut('fast');
         });
 
+        //clear form
+        $('#clearBtn').on('click', function () {
+            $('#pack_form')[0].reset();
+        });
+
         //close/hide form
         $('#closeSign').on('click', function () {
             $('#hiddenCreateForm').fadeOut('fast');
@@ -126,7 +131,6 @@ $(document).ready(function () {
         $('#pack_form')[0].reset();
     });
 
-
     //show 'remove-category' form
     $('.delbtn1').on('click', function () {
         var $this = $(this);
@@ -154,6 +158,8 @@ $(document).ready(function () {
         $('#opaqueDiv').fadeIn('fast');
         $('#pack_form')[0].reset();
     });
+
+
 
 });
 

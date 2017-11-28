@@ -822,7 +822,7 @@ app.post('/upload_dropbox_file', function (req, res) {
         // var names = JSON.stringify(name);
         names_array = name.split(",");
         links_array = fileUrl.split(",");
-        console.log("NAMES : " + names_array[0]);
+        console.log("NAMES : " + names_array.length);
         console.log("LINKS : " + links_array);
 
 
@@ -830,8 +830,20 @@ app.post('/upload_dropbox_file', function (req, res) {
             var fileDetails = [];
             var stickerDetails = [];
 
+
+            category.destroy({
+                success: function (object) {
+                    console.log("removed" + JSON.stringify(object));
+                    res.redirect("/categories");
+                },
+                error: function (error) {
+                    console.log("Could not remove" + error);
+                }
+            });
+
             names_array.forEach(function (file, index) {
                 // name = file.substring(0, name.length - 4);
+
                 console.log("LINK FROM ARRAY " + links_array[index]);
                 console.log("FILENAME "+file);
                 var options = {
