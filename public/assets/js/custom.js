@@ -16,8 +16,8 @@ $(document).ready(function () {
         });
 
         //clear form
-        $('#clearBtn').on('click', function () {
-            $('#pack_form')[0].reset();
+        $('.clearBtn').on('click', function () {
+            document.getElementById("pack_id").reset();
         });
 
         //close/hide form
