@@ -882,7 +882,7 @@ app.post('/upload_dropbox_file', function (req, res) {
             _.each(results, function (image) {
                 console.log("IMAGES FROM NEW PLUGIN "+image.filename);
             });
-        }).catch(error => console.log("DOWNLOADED error", JSON.stringify(error));
+        }).catch(error => console.log("DOWNLOADED error", JSON.stringify(error)));
 
 
         if (names_array.length === downloadCount) {
