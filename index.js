@@ -831,7 +831,7 @@ app.post('/upload_dropbox_file', function (req, res) {
             console.log("STICKER COLLECTION "+JSON.stringify(stickerCollection));
             download.image(options).then(({filename, image}) => {
 
-                console.log('FILE SAVED TO ', filename);
+                console.log('FILE SAVED TO '+ filename);
                 bitmap = fs.readFileSync(filename, {encoding: 'base64'});
 
                 var parseFile = new Parse.File(name, {base64: bitmap});
