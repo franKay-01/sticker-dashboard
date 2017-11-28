@@ -17,7 +17,7 @@ $(document).ready(function () {
 
         //clear form
         $('#clearBtn').on('click', function () {
-            $('#pack_form').reset();
+            document.getElementById("pack_id").reset();
         });
 
         //close/hide form
