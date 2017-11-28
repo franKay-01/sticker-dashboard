@@ -13,7 +13,9 @@ let multer = require('multer');
 let _ = require('underscore');
 let helper = require('./cloud/modules/helpers');
 let methodOverride = require('method-override');
-let download = require('image-downloader');
+// let download = require('image-downloader');
+let download = require('images-downloader').images;
+
 var errorMessage = "";
 var searchErrorMessage = "";
 
@@ -825,44 +827,60 @@ app.post('/upload_dropbox_file', function (req, res) {
         // var names = JSON.stringify(name);
         names_array = name.split(",");
         links_array = fileUrl.split(",");
+        var dest = new Array();
+
         console.log("NAMES : " + names_array.length);
         console.log("LINKS : " + links_array);
 
-        names_array.forEach(function (file, index) {
-            // name = file.substring(0, name.length - 4);
+        for (var i = 0; i < names_array; i ++){
+            dest[i] = __dirname + '/public/uploads/' + names_array[i];
+        }
 
-            console.log("LINK FROM ARRAY " + links_array[index]);
-            console.log("FILENAME " + file);
-            var options = {
-                url: links_array[index],
-                dest: __dirname + '/public/uploads/' + name
-            };
 
-            download.image(options).then(({filename, image}) => {
+        // names_array.forEach(function (file, index) {
+        //     // name = file.substring(0, name.length - 4);
+        //
+        //     console.log("LINK FROM ARRAY " + links_array[index]);
+        //     console.log("FILENAME " + file);
+        //     var options = {
+        //         url: links_array[index],
+        //         dest: __dirname + '/public/uploads/' + name
+        //     };
+        //
+        //     download.image(options).then(({filename, image}) => {
+        //
+        //         console.log('FILE SAVED TO ', filename);
+        //         bitmap = fs.readFileSync(filename, {encoding: 'base64'});
+        //
+        //         var parseFile = new Parse.File(file, {base64: bitmap});
+        //         var Sticker = new Parse.Object.extend(StickerClass);
+        //         var sticker = new Sticker();
+        //         sticker.set("stickerName", file);
+        //         sticker.set("localName", file);
+        //         sticker.set("uri", parseFile);
+        //         sticker.set("stickerPhraseImage", "");
+        //
+        //         stickerDetails.push(sticker);
+        //         fileDetails.push(file);
+        //         downloadCount++;
+        //
+        //         console.log("COUNT " + downloadCount);
+        //
+        //     }).catch((err) => {
+        //
+        //         console.log("IMAGE DOWNLOAD ERROR " + err);
+        //
+        //     });
+        //
+        // });
 
-                console.log('FILE SAVED TO ', filename);
-                bitmap = fs.readFileSync(filename, {encoding: 'base64'});
-
-                var parseFile = new Parse.File(file, {base64: bitmap});
-                var Sticker = new Parse.Object.extend(StickerClass);
-                var sticker = new Sticker();
-                sticker.set("stickerName", file);
-                sticker.set("localName", file);
-                sticker.set("uri", parseFile);
-                sticker.set("stickerPhraseImage", "");
-
-                stickerDetails.push(sticker);
-                fileDetails.push(file);
-                downloadCount++;
-
-                console.log("COUNT " + downloadCount);
-
-            }).catch((err) => {
-
-                console.log("IMAGE DOWNLOAD ERROR " + err);
-
+        download(links_array, dest)
+            .then(result => {
+                console.log('Images downloaded', result);
+            }).then(function (results) {
+            _.each(results, function (image) {
+                console.log("IMAGES FROM NEW PLUGIN "+image.filename);
             });
-
         });
 
         if (names_array.length === downloadCount) {
