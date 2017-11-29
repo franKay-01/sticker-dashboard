@@ -13,7 +13,6 @@ $(document).ready(function () {
             $('#Welcome').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
             $('#pack_id').fadeOut('fast');
-            $('#detailsForm').fadeOut('fast');
         });
 
         $('#addCategory').on('click', function () {
@@ -24,6 +23,7 @@ $(document).ready(function () {
             $('#Welcome').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
             $('#pack_id').fadeOut('fast');
+            $('#detailsForm').fadeOut('fast');
         });
 
         //clear form
