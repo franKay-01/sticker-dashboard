@@ -2,6 +2,11 @@ $(document).ready(function () {
 
     //Toggle create new collection form
     $(function () {
+
+        $('#_addCategoryForm').on('submit', function () {
+            alert('Form submitted!');
+            return false;
+        });
         //show collection form
         //TODO convert id's to classes
         // This is to show a hidden form to create new packs
