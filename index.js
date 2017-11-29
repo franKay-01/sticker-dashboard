@@ -721,6 +721,8 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
             var sticker_relation = sticker.relation(CategoryClass);
 
+            sticker.set("stickerName", stickerName);
+            sticker.set("localName", stickerName);
             _.each(categories, function (category) {
 
                 console.log("ADDED CATEGORY" + category);
@@ -732,8 +734,6 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
             if (imgChange === 'true') {
 
                 //Update new sticker properties
-                sticker.set("stickerName", stickerName);
-                sticker.set("localName", stickerName);
 
                 //update sticker image
                 var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
