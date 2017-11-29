@@ -957,11 +957,11 @@ app.post('/upload_dropbox_file', function (req, res) {
                 }).then(function () {
 
                     console.log("REDIRECT TO DASHBOARD");
-                    res.redirect("/collection/coll_id");
+                    res.redirect("/collection/"+coll_id);
 
                 }, function (error) {
                     console.log("BIG BIG ERROR" + error.message);
-                    res.redirect("/collection/coll_id");
+                    res.redirect("/collection/"+coll_id);
                 });
                 // }
                 // });
