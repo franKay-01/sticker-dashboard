@@ -970,7 +970,7 @@ app.post('/upload_dropbox_file', function (req, res) {
         });
     } else {
 
-        res.redirect("/collection/coll_id");
+        res.redirect("/collection/"+coll_id);
 
     }
 
