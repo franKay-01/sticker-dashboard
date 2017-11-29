@@ -15,14 +15,6 @@ $(document).ready(function () {
             }
         });
 
-        $('#editCategory').on('click', function () {
-            $('#addCategoryForm').fadeOut('fast');
-            $('#pageMask').fadeOut('fast');
-            $('#logo').fadeIn('fast');
-            $('#opaqueDiv').fadeIn('fast');
-            $('#detailsForm').fadeIn('fast');
-            $('#signoutLink').fadeIn('fast');
-        });
         //show collection form
         //TODO convert id's to classes
         // This is to show a hidden form to create new packs
