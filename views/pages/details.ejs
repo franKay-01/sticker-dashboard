@@ -35,6 +35,29 @@
         <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
 
     </div>
+    <div id="pageMask"></div>
+    <div id="addCategoryForm">
+        <div class="medium-3 large-3 cell create_background">
+            <form id="pack_form" action="/new_collection" method="post">
+                <center>
+                    <div class="edit_labels medium-12 large-12">CREATE NEW PACK</div>
+
+                    <div class="categoriesList">
+                        <% categories.forEach(function(item) { %>
+                        <input type="checkbox" class="categoryOption" name="cat1[]" data-name="<%=item.get('name')%>" value="<%= item.id%>"> &nbsp;<%= item.get("name")%>
+                        <% }); %>
+                       </div>
+                    <br>
+                </center>
+                <span>
+        <button type="button" id="btnCancel" class="cancel">Cancel</button>
+         </span>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+            </form>
+        </div>
+    </div>
     <!--End of logo-->
     <% include ../partials/sticker_details %>
 

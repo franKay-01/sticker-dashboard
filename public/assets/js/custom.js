@@ -15,6 +15,16 @@ $(document).ready(function () {
             $('#pack_id').fadeOut('fast');
         });
 
+        $('#addCategory').on('click', function () {
+            $('#addCategoryForm').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
+
         //clear form
         $('#clearBtn').on('click', function () {
             $("#image_id").remove();
