@@ -4,7 +4,16 @@ $(document).ready(function () {
     $(function () {
 
         $('#_addCategoryForm').on('submit', function () {
-            alert('Form submitted!');
+            var checkboxes = document.getElementsByName("cat1");
+            var checkboxesChecked = [];
+            // loop over them all
+            for (var i=0; i<checkboxes.length; i++) {
+                // And stick the checked ones onto an array...
+                if (checkboxes[i].checked) {
+                    checkboxesChecked.push(checkboxes[i]);
+                }
+            }
+            alert(checkboxesChecked.length);
             return false;
         });
         //show collection form
