@@ -43,8 +43,8 @@
                     <div class="edit_labels medium-12 large-12">CREATE NEW PACK</div>
 
                     <div class="categoriesList">
-                        <% categories.forEach(function(item) { %>
-                        <input type="checkbox" class="categoryOption" name="cat1[]" data-name="<%=item.get('name')%>" value="<%= item.id%>"> &nbsp;<%= item.get("name")%>
+                        <% categoryNames.forEach(function(item) { %>
+                        <input type="checkbox" class="categoryOption" name="cat1[]" data-name="<%= item %>" value="<%= item.id%>"> &nbsp;<%= item %>
                         <% }); %>
                        </div>
                     <br>
