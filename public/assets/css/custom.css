@@ -860,7 +860,7 @@ fieldset {
     background-color: #d0afbd;
     color: #ffffff;
     width: 85%;
-    display: none;
+    /*display: none;*/
 }
 
 .categoryOption {
