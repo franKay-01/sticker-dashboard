@@ -5,7 +5,6 @@ $(document).ready(function () {
 
         $('#_addCategoryForm').on('submit', function () {
             var checkboxes = document.getElementsByName("categoryList");
-            alert(JSON.stringify(checkboxes));
             var checkboxesChecked = [];
             // loop over them all
             for (var i=0; i<checkboxes.length; i++) {
@@ -14,7 +13,7 @@ $(document).ready(function () {
                     checkboxesChecked.push(checkboxes[i]);
                 }
             }
-            alert(checkboxesChecked.length);
+            alert(checkboxesChecked);
             return false;
         });
         //show collection form
