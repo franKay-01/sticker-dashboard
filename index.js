@@ -760,11 +760,11 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
             }
 
             console.log("FILE UPDATED SUCCESSFULLYYYY");
-            res.redirect("/dashboard");
+            res.redirect("/");
 
         }, function (e) {
             console.log("SERVER ERROR " + JSON.stringify(e));
-            res.redirect("/dashboard");
+            res.redirect("/");
 
         });
 
