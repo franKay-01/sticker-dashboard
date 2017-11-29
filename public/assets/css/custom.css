@@ -857,7 +857,7 @@ fieldset {
 
 .categoriesList {
     font-size: 120%;
-    background-color: #d0afbd;
+    /*background-color: #d0afbd;*/
     color: #ffffff;
     width: 85%;
     /*display: none;*/
