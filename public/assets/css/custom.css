@@ -1204,6 +1204,14 @@ tr #titles {
     top: 204px;
 }
 
+#addCategoryForm {
+    display: none;
+    position: absolute;
+    margin: 0px 300px auto;
+    z-index: 9999;
+    top: 204px;
+}
+
 .add_category_label {
     height: 33px;
     font-family: Montserrat;
