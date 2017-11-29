@@ -20,16 +20,21 @@
         <label class="update_label">Category:</label> <input placeholder="Category e.g funny, silly" id="categoryInput" name="cat"
                                         value="<%= categoryNames %>" disabled>
 
-        <div class="categoryOptions">
-            <button id="btnChooseCategory" type="button"> <span id="arrow">&#9660;</span>Choose categories</button>
+      <div>
+          <button type="button" id="addCategory" class="clear">Add</button>
+          <button type="button" id="removeCategory" class="clear">Remove</button>
+      </div>
 
-            <div class="categoriesList">
-                <% categories.forEach(function(item) { %>
-                <input type="checkbox" class="categoryOption" name="cat1[]" data-name="<%=item.get('name')%>" value="<%= item.id%>"> &nbsp;<%= item.get("name")%>
-                <% }); %>
-            </div>
+        <!--<div class="categoryOptions">-->
+            <!--<button id="btnChooseCategory" type="button"> <span id="arrow">&#9660;</span>Choose categories</button>-->
 
-    </div>
+            <!--<div class="categoriesList">-->
+                <!--<% categories.forEach(function(item) { %>-->
+                <!--<input type="checkbox" class="categoryOption" name="cat1[]" data-name="<%=item.get('name')%>" value="<%= item.id%>"> &nbsp;<%= item.get("name")%>-->
+                <!--<% }); %>-->
+            <!--</div>-->
+
+    <!--</div>-->
 
   </div>
  <div class="medium-12 large-12 cell" style="margin-top:10%;">
