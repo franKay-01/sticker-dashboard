@@ -4,7 +4,7 @@ $(document).ready(function () {
     $(function () {
 
         $('#_addCategoryForm').on('submit', function () {
-            var checkboxes = document.getElementById("categoryList");
+            var checkboxes = document.getElementsByName("categoryList");
             alert(JSON.stringify(checkboxes));
             var checkboxesChecked = [];
             // loop over them all
