@@ -13,8 +13,15 @@ $(document).ready(function () {
                     checkboxesChecked.push(checkboxes[i].value);
                 }
             }
-            alert(JSON.stringify(checkboxesChecked));
-            return false;
+        });
+
+        $('#editCategory').on('click', function () {
+            $('#addCategoryForm').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#detailsForm').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
         });
         //show collection form
         //TODO convert id's to classes
