@@ -10,7 +10,7 @@ $(document).ready(function () {
             for (var i=0; i<checkboxes.length; i++) {
                 // And stick the checked ones onto an array...
                 if (checkboxes[i].checked) {
-                    checkboxesChecked.push(checkboxes[i]);
+                    checkboxesChecked.push(checkboxes[i].value);
                 }
             }
             alert(JSON.stringify(checkboxesChecked));
