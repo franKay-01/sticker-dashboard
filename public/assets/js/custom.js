@@ -42,6 +42,16 @@ $(document).ready(function () {
             $('#pack_id').fadeIn('fast');
             $('#pack_form')[0].reset();
         });
+
+        $('#btnCategoryCancel').on('click', function () {
+            $('#addCategoryForm').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#detailsForm').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+        });
+
         //This is to reset a form and close it
         $('#btnCancel').on('click', function () {
             $('#hiddenCreateForm').fadeOut('fast');
