@@ -1123,6 +1123,10 @@ fieldset {
     margin-right: 25px
 }
 
+.text_size{
+    font-size: 25px !important;
+}
+
 /*Create Collection Form*/
 #collectionForm {
     background-color: white;
