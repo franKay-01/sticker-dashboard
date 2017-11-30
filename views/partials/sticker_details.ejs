@@ -17,8 +17,9 @@
         <label class="update_label">Local Name:</label> <input  placeholder="Local Name" class="box_2" name="localname"
                value="<%= sticker.get("localName") %>">
 
-        <label class="update_label">Category:</label> <input placeholder="Category e.g funny, silly" id="categoryInput" name="categoryName"
+        <label class="update_label">Category:</label> <input placeholder="Category e.g funny, silly" id="categoryInput" name="category"
                                         value="<%= categoryNames %>" disabled>
+      <input type="text" name="categoryName" style="display: none">
 
       <div>
           <button type="button" id="addCategory" class="clear text_size">Edit Category</button>

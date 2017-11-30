@@ -13,6 +13,8 @@ $(document).ready(function () {
                     checkboxesChecked.push(checkboxes[i].value);
                 }
             }
+            var result = JSON.stringify(checkboxesChecked);
+            alert(result);
         });
 
         //show collection form
