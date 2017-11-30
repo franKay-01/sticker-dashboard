@@ -714,13 +714,22 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
     var category_list = categoryList.split(",");
 
-     console.log("CATEGORY LIST " + JSON.stringify(category_list));
+    // Returns if a value is an array
+    // function isArray (value) {
+    //     return value && typeof value === 'object' && value.constructor === Array;
+    // };
+
+// ES5 actually has a method for this (ie9+)
+    console.log("ARRAY TYPE "+Array.isArray(category_list));
+
+     console.log("CATEGORY LIST " + isA(category_list));
     if (session && token) {
 
         Parse.Promise.when(
             new Parse.Query(StickerClass).equalTo("objectId", stickerId).first(),
             new Parse.Query(CategoryClass).containedIn("objectId", categoryList).find()
         ).then(function (sticker, categories) {
+            console.log("QUERIES WORKED"+JSON.stringify(categories));
 
             var sticker_relation = sticker.relation(CategoryClass);
 
