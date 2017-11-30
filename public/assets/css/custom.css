@@ -1124,9 +1124,8 @@ fieldset {
 }
 
 .text_size{
-    font-size: 25px !important;
-    border: 2px dashed;
-    border-color: #a46580;
+    font-size: 20px !important;
+    font-weight: bold;
 }
 
 /*Create Collection Form*/
