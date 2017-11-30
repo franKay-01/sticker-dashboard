@@ -102,10 +102,14 @@ $(document).ready(function () {
             return $(this).attr("data-name");
         }).get().join(", ");
 
+        var ids = $checks.filter(":checked").map(function (i, v) {
+            return $(this).val();
+        }).get().join(", ");
+
         console.log("selected categories "+ string);
       //  alert("E is "+string);
         $('#categoryInput').val(string);
-        $('#cat').val(string);
+        $('#cat').val(ids);
     });
 
     //show/hide edit form button
