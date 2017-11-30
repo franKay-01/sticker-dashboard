@@ -707,12 +707,14 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
     //input fields from form
     var stickerName = req.body.stickerName;
-    var categoryList = req.body.category;
+    var categoryList = req.body.category_name;
     var file = req.file;
     var imgChange = req.body.imgChange;
     var stickerId = req.params.id;
 
-     console.log("CATEGORY LIST " +req.body.category_name);
+    var category_list = categoryList.split(",");
+
+     console.log("CATEGORY LIST " + JSON.stringify(category_list));
     if (session && token) {
 
         Parse.Promise.when(
