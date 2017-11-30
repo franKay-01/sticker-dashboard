@@ -105,7 +105,7 @@ $(document).ready(function () {
         console.log("selected categories "+ string);
       //  alert("E is "+string);
         $('#categoryInput').val(string);
-
+        $('#cat').val(string);
     });
 
     //show/hide edit form button
