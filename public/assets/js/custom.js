@@ -104,7 +104,7 @@ $(document).ready(function () {
 
         var ids = $checks.filter(":checked").map(function (i, v) {
             return $(this).val();
-        }).get().join(", ");
+        }).get().join(",");
 
         console.log("selected categories "+ string);
       //  alert("E is "+string);
