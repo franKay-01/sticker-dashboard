@@ -101,7 +101,7 @@ $(document).ready(function () {
             return $(this).attr("data-name");
         }).get().join(", ");
 
-        alert("E is "+e);
+        alert("E is "+JSON.stringify(e));
         $('#categoryInput').val(string);
 
     });
