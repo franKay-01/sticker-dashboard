@@ -1126,6 +1126,7 @@ fieldset {
 .text_size{
     font-size: 20px !important;
     font-weight: bold;
+    letter-spacing: -1.1px !important;
 }
 
 /*Create Collection Form*/
