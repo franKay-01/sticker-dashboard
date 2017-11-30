@@ -722,7 +722,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 // ES5 actually has a method for this (ie9+)
     console.log("ARRAY TYPE "+Array.isArray(category_list));
 
-     console.log("CATEGORY LIST " + isA(category_list));
+     console.log("CATEGORY LIST " + JSON.stringify(category_list));
     if (session && token) {
 
         Parse.Promise.when(
