@@ -712,7 +712,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var imgChange = req.body.imgChange;
     var stickerId = req.params.id;
 
-     console.log("CATEGORY LIST " +req.body.category);
+     console.log("CATEGORY LIST " +req.body.category_name);
     if (session && token) {
 
         Parse.Promise.when(
