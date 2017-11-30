@@ -96,12 +96,14 @@ $(document).ready(function () {
         console.log(i);
         $('input:checkbox[data-name="' + categories[i] + '"]').prop('checked', true);
     }
+
     $checks.on('change', function (e) {
         var string = $checks.filter(":checked").map(function (i, v) {
             return $(this).attr("data-name");
         }).get().join(", ");
 
-        alert("E is "+string);
+        console.log("selected categories "+ string);
+      //  alert("E is "+string);
         $('#categoryInput').val(string);
 
     });
