@@ -707,7 +707,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
     //input fields from form
     var stickerName = req.body.stickerName;
-    var categoryList = req.body.categoryName;
+    var categoryList = req.body.categoryName    ;
     var file = req.file;
     var imgChange = req.body.imgChange;
     var stickerId = req.params.id;

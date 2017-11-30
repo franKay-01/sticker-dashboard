@@ -2,10 +2,11 @@ $(document).ready(function () {
 
     //Toggle create new collection form
     $(function () {
+        var checkboxesChecked = [];
+
 
         $('#_addCategoryForm').on('submit', function () {
             var checkboxes = document.getElementsByName("categoryList");
-            var checkboxesChecked = [];
             // loop over them all
             for (var i=0; i<checkboxes.length; i++) {
                 // And stick the checked ones onto an array...
@@ -13,8 +14,7 @@ $(document).ready(function () {
                     checkboxesChecked.push(checkboxes[i].value);
                 }
             }
-            var result = JSON.stringify(checkboxesChecked);
-            alert(result);
+
         });
 
         //show collection form
@@ -100,6 +100,8 @@ $(document).ready(function () {
         var string = $checks.filter(":checked").map(function (i, v) {
             return $(this).attr("data-name");
         }).get().join(", ");
+
+        alert(string);
         $('#categoryInput').val(string);
 
     });
