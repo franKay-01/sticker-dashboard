@@ -723,11 +723,17 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     console.log("ARRAY TYPE "+Array.isArray(category_list));
 
      console.log("CATEGORY LIST " + JSON.stringify(category_list));
+
+     var _listee = [];
+     _.each(category_list,function(category){
+         _listee.push(category);
+     });
+
     if (session && token) {
 
         Parse.Promise.when(
             new Parse.Query(StickerClass).equalTo("objectId", stickerId).first(),
-            new Parse.Query(CategoryClass).containedIn("objectId", categoryList).find()
+            new Parse.Query(CategoryClass).containedIn("objectId", _listee).find()
         ).then(function (sticker, categories) {
             console.log("QUERIES WORKED"+JSON.stringify(categories));
 
