@@ -691,28 +691,28 @@ td, th {
 }
 
 #categoryInput::-webkit-input-placeholder {
-    color: #8651aa !important;
+    color: #a46580 !important;
     font-size: 25px !important;
 }
 
 
 #categoryInput:-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #8651aa !important;
+    color: #a46580 !important;
     font-size: 25px !important;
     opacity: 1;
 }
 
 #categoryInput::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #8651aa !important;
+    color: #a46580 !important;
     font-size: 25px !important;
     opacity: 1;
 }
 
 #categoryInput:-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #8651aa !important;
+    color: #a46580 !important;
     font-size: 25px !important;
 }
 
