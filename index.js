@@ -211,12 +211,12 @@ app.get('/home', function (req, res) {
         username = username.substring(0, username.indexOf('@'));
         const limit = 3;
         Parse.Promise.when(
-            new Parse.Query(CollectionClass).limit(limit).find({sessionToken: token}),
+            new Parse.Query(PacksClass).limit(limit).find({sessionToken: token}),
             new Parse.Query(CategoryClass).limit(limit).find({sessionToken: token}),
             //count all objects
             //TODO have a stats class
             new Parse.Query(CategoryClass).count({sessionToken: token}),
-            new Parse.Query(CollectionClass).count({sessionToken: token}),
+            new Parse.Query(PacksClass).count({sessionToken: token}),
             new Parse.Query(StickerClass).count({sessionToken: token})
         ).then(function (collection, categories, categoryLength, packLength, stickerLength) {
 
@@ -268,7 +268,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     if (session && token) {
 
         //TODO remove unused logs
-        new Parse.Query(CollectionClass).equalTo("objectId", collectionId).first({sessionToken: token}).then(function (collection) {
+        new Parse.Query(PacksClass).equalTo("objectId", collectionId).first({sessionToken: token}).then(function (collection) {
 
             console.log("INSIDE COLLECTION");
             stickerCollection = collection;
@@ -556,7 +556,7 @@ app.get('/pack_collection', function (req, res) {
     var token = req.cookies.token;
 
     if (session && token) {
-        let query = new Parse.Query(CollectionClass);
+        let query = new Parse.Query(PacksClass);
         query.find({sessionToken: token}).then(function (collections) {
 
             res.render("pages/pack_collection", {collections: collections});
@@ -589,7 +589,7 @@ app.get('/collection/:id', function (req, res) {
                 var coll_name = collection.get("collection_name");
                 //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
 
-                var col = collection.relation(CollectionClass);
+                var col = collection.relation(PacksClass);
                 col.query().find().then(function (stickers) {
 
                     res.render("pages/new_collection", {stickers: stickers, id: coll_id, collectionName: coll_name});
@@ -934,7 +934,7 @@ app.post('/upload_dropbox_file', function (req, res) {
                 // }else{
                 // bitmap = new Buffer(data).toString('base64');
                 // console.log("BASE64 FROM FILE IN FOLDER"+JSON.stringify(base64data));
-                var collection = new Parse.Query(CollectionClass);
+                var collection = new Parse.Query(PacksClass);
                 collection.equalTo("objectId", coll_id)
                     .first({sessionToken: token})
                     .then(function (collection) {
@@ -959,7 +959,7 @@ app.post('/upload_dropbox_file', function (req, res) {
 
                     }).then(function (sticker) {
                     console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
-                    var collection_relation = stickerCollection.relation(CollectionClass);
+                    var collection_relation = stickerCollection.relation(PacksClass);
                     collection_relation.add(sticker);
                     console.log("LOG BEFORE SAVING STICKER COLLECTION");
                     fs.unlink(filename, function (err) {
