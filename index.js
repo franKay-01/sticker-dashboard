@@ -159,7 +159,7 @@ app.get('/', function (req, res) {
         res.redirect("/home");
     } else {
         //retrieve stickers to randomly display on the home page
-        new Parse.Query("Sticker").limit(40).find({sessionToken: token}).then(function (cards) {
+        new Parse.Query("Stickers").limit(40).find({sessionToken: token}).then(function (cards) {
 
             cards = helper.shuffle(cards);
 
