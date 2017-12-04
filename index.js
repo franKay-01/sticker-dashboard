@@ -24,8 +24,7 @@ var searchErrorMessage = "";
 let CollectionClass = "Collection";
 let StickerClass = "Stickers";
 let CategoryClass = "Category";
-// let PacksClass = "Packs";
-
+let PacksClass = "Packs";
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
 Parse.initialize("d55f9778-9269-40c2-84a2-e0caaf2ad87a");
@@ -289,7 +288,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 sticker.set("stickerName", stickerName);
                 sticker.set("localName", stickerName);
                 sticker.set("uri", parseFile);
-                sticker.set("stickerPhraseImage", "");
                 sticker.set("parent", collection);
 
                 stickerDetails.push(sticker);
@@ -317,7 +315,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
             });
 
             _.each(stickers, function (sticker) {
-                var collection_relation = stickerCollection.relation(CollectionClass);
+                var collection_relation = stickerCollection.relation(PacksClass);
                 collection_relation.add(sticker);
             });
 
@@ -634,10 +632,10 @@ app.post('/new_collection', function (req, res) {
 
     if (session && token) {
 
-        var Collection = new Parse.Object.extend(CollectionClass);
+        var Collection = new Parse.Object.extend(PacksClass);
         var collection = new Collection();
         collection.set("collection_name", coll_name);
-        collection.set("pack_description", pack_description);
+        collection.set("description", pack_description);
 
         collection.save().then(function (collection) {
 
