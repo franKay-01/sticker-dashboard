@@ -592,7 +592,7 @@ app.get('/collection/:id', function (req, res) {
                 var col = collection.relation(PacksClass);
                 col.query().find().then(function (stickers) {
 
-                    res.render("pages/new_collection", {stickers: stickers, id: coll_id, collectionName: coll_name});
+                    res.render("pages/new_pack", {stickers: stickers, id: coll_id, collectionName: coll_name});
                 }, function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
                 });
@@ -623,7 +623,7 @@ app.get('/add_stickers/:id/:pack_name', function (req, res) {
     }
 });
 
-app.post('/new_collection', function (req, res) {
+app.post('/new_pack', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
 
