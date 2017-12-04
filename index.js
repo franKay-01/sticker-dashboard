@@ -901,20 +901,9 @@ app.post('/upload_dropbox_file', function (req, res) {
     var token = req.cookies.token;
     var coll_id = req.body.coll_id;
     var stickerCollection;
-    var jpeg = "image/jpeg";
-    var png = "image/png";
-    var mimetype;
 
     if (session && token) {
-        var type = req.body.file;
-        type = type.toLowerCase();
-        if (type === 'jpg') {
-            mimetype = jpeg;
-            console.log("MIMETYPE WAS SET TO JPEG");
-        } else if (type === 'png') {
-            mimetype = png;
-            console.log("MIMETYPE WAS SET TO PNG");
-        }
+
         name = req.body.fileName;
         fileUrl = req.body.fileUrl; // receive url from form
         name = name.substring(0, name.length - 4);
@@ -928,12 +917,7 @@ app.post('/upload_dropbox_file', function (req, res) {
             .then(({filename, image}) => {
                 console.log('FILE SAVED TO ', filename);
                 bitmap = fs.readFileSync(filename, {encoding: 'base64'});
-                // fs.readFile(filename, function(err, data){
-                // if (err) {
-                //     console.log("NOT NOT "+err);
-                // }else{
-                // bitmap = new Buffer(data).toString('base64');
-                // console.log("BASE64 FROM FILE IN FOLDER"+JSON.stringify(base64data));
+
                 var collection = new Parse.Query(PacksClass);
                 collection.equalTo("objectId", coll_id)
                     .first({sessionToken: token})
@@ -943,13 +927,12 @@ app.post('/upload_dropbox_file', function (req, res) {
                         stickerCollection = collection;
                         var parseFile = new Parse.File(name, {base64: bitmap});
                         console.log("PARSEFILE " + JSON.stringify(parseFile) + " name " + name + " collection " + JSON.stringify(collection));
-                        // console.log("FILE PASSED " + JSON.stringify(file));
+
                         var Sticker = new Parse.Object.extend(StickerClass);
                         var sticker = new Sticker();
                         sticker.set("stickerName", name);
                         sticker.set("localName", name);
                         sticker.set("uri", parseFile);
-                        sticker.set("stickerPhraseImage", "");
                         sticker.set("parent", collection);
 
                         console.log("LOG BEFORE SAVING STICKER");
@@ -980,8 +963,6 @@ app.post('/upload_dropbox_file', function (req, res) {
                     console.log("BIG BIG ERROR" + error.message);
                     res.redirect("/collection/"+coll_id);
                 });
-                // }
-                // });
             }).catch((err) => {
             throw err;
         });
