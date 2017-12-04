@@ -24,6 +24,7 @@ var searchErrorMessage = "";
 let CollectionClass = "Collection";
 let StickerClass = "Sticker";
 let CategoryClass = "Category";
+let PacksClass = "Packs";
 
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
@@ -217,8 +218,9 @@ app.get('/home', function (req, res) {
             //TODO have a stats class
             new Parse.Query(CategoryClass).count({sessionToken: token}),
             new Parse.Query(CollectionClass).count({sessionToken: token}),
-            new Parse.Query(StickerClass).count({sessionToken: token})
-        ).then(function (collection, categories, categoryLength, packLength, stickerLength) {
+            // new Parse.Query(StickerClass).count({sessionToken: token})
+            new Parse.Query(PacksClass).count({sessionToken: token})
+    ).then(function (collection, categories, categoryLength, packLength, stickerLength) {
 
             let _collection = [];
             let _categories = [];
@@ -283,7 +285,8 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 //create our parse file
                 var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                 console.log("PARSEFILE " + JSON.stringify(parseFile) + " name " + stickerName + " collection " + JSON.stringify(collection));
-                var Sticker = new Parse.Object.extend(StickerClass);
+                // var Sticker = new Parse.Object.extend(StickerClass);
+                var Sticker = new Parse.Object.extend(PacksClass);
                 var sticker = new Sticker();
                 sticker.set("stickerName", stickerName);
                 sticker.set("localName", stickerName);
@@ -510,15 +513,17 @@ app.get('/dashboard', function (req, res) {
 
     if (session && token) {
 
-        new Parse.Query(StickerClass).find({sessionToken: token}).then(function (stickers) {
+        // new Parse.Query(StickerClass).find({sessionToken: token}).then(function (stickers) {
+        new Parse.Query(PacksClass).find({sessionToken: token}).then(function (stickers) {
 
-            res.render("pages/dashboard", {stickers: stickers});
+                res.render("pages/dashboard", {stickers: stickers});
 
-        }, function (error) {
+            }, function (error) {
 
-            console.log("dashboard error" + JSON.stringify(error));
+                console.log("dashboard error" + JSON.stringify(error));
 
-        });
+            });
+        }
 
     }
     else {
@@ -534,7 +539,8 @@ app.get('/second_dashboard', function (req, res) {
 
     if (session && token) {
 
-        new Parse.Query(StickerClass).find({sessionToken: token}).then(function (stickers) {
+        // new Parse.Query(StickerClass).find({sessionToken: token}).then(function (stickers) {
+        new Parse.Query(PacksClass).find({sessionToken: token}).then(function (stickers) {
 
             res.render("pages/dashboard", {stickers: stickers});
 
@@ -662,7 +668,8 @@ app.get('/details/:id/:coll_id', function (req, res) {
     if (session && token) {
 
         Parse.Promise.when(
-            new Parse.Query(StickerClass).equalTo("objectId", id).first({sessionToken: token}),
+            // new Parse.Query(StickerClass).equalTo("objectId", id).first({sessionToken: token}),
+            new Parse.Query(PacksClass).equalTo("objectId", id).first({sessionToken: token}),
             new Parse.Query(CategoryClass).find()
         ).then(function (sticker, categories) {
 
@@ -732,7 +739,8 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     if (session && token) {
 
         Parse.Promise.when(
-            new Parse.Query(StickerClass).equalTo("objectId", stickerId).first(),
+            // new Parse.Query(StickerClass).equalTo("objectId", stickerId).first(),
+            new Parse.Query(PacksClass).equalTo("objectId", stickerId).first(),
             new Parse.Query(CategoryClass).containedIn("objectId", _listee).find()
         ).then(function (sticker, categories) {
             console.log("QUERIES WORKED"+JSON.stringify(categories));
@@ -945,7 +953,8 @@ app.post('/upload_dropbox_file', function (req, res) {
                         var parseFile = new Parse.File(name, {base64: bitmap});
                         console.log("PARSEFILE " + JSON.stringify(parseFile) + " name " + name + " collection " + JSON.stringify(collection));
                         // console.log("FILE PASSED " + JSON.stringify(file));
-                        var Sticker = new Parse.Object.extend(StickerClass);
+                        // var Sticker = new Parse.Object.extend(StickerClass);
+                        var Sticker = new Parse.Object.extend(PacksClass);
                         var sticker = new Sticker();
                         sticker.set("stickerName", name);
                         sticker.set("localName", name);
