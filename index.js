@@ -575,7 +575,7 @@ app.get('/pack_collection', function (req, res) {
 
 
 //Displays all stickers belonging to a selected collection
-app.get('/collection/:id', function (req, res) {
+app.get('/pack/:id', function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
@@ -639,7 +639,7 @@ app.post('/new_pack', function (req, res) {
 
         collection.save().then(function (collection) {
 
-            res.redirect('/collection/' + collection.id);
+            res.redirect('/pack/' + collection.id);
 
         });
     }
@@ -957,18 +957,18 @@ app.post('/upload_dropbox_file', function (req, res) {
                 }).then(function () {
 
                     console.log("REDIRECT TO DASHBOARD");
-                    res.redirect("/collection/"+coll_id);
+                    res.redirect("/pack/"+coll_id);
 
                 }, function (error) {
                     console.log("BIG BIG ERROR" + error.message);
-                    res.redirect("/collection/"+coll_id);
+                    res.redirect("/pack/"+coll_id);
                 });
             }).catch((err) => {
             throw err;
         });
     } else {
 
-        res.redirect("/collection/"+coll_id);
+        res.redirect("/pack/"+coll_id);
 
     }
 

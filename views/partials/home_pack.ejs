@@ -3,7 +3,7 @@
 
 <% } else { %>
 <% collections.forEach(function(item) { %>
-<div><a class="home_pack_description" href="/collection/<%= item.id %>"><%= item.get("pack_name") %></a></div>
+<div><a class="home_pack_description" href="/pack/<%= item.id %>"><%= item.get("pack_name") %></a></div>
 <% }); %>
 <div><a class="view_all" href="/pack_collection">View All</a></div>
 <% } %>
