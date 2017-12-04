@@ -9,7 +9,7 @@ Parse.Cloud.define("getStickers", function (req, res) {
 
     stickers.getAll().then(function (stickers) {
 
-        var sticker_relation = stickers.relation("Category");
+        var sticker_relation = stickers.relation("Categories");
         return sticker_relation.query().find();
 
     }).then(function (stickerCategories) {

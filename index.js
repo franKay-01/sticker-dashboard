@@ -23,7 +23,7 @@ var searchErrorMessage = "";
 //TODO change class names to make it more appropriate
 let CollectionClass = "Collection";
 let StickerClass = "Stickers";
-let CategoryClass = "Category";
+let CategoryClass = "Categories";
 let PacksClass = "Packs";
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
@@ -433,7 +433,7 @@ app.post('/update_category', function (req, res) {
 
     if (session && token) {
 
-        var category = new Parse.Query("Category");
+        var category = new Parse.Query("Categories");
         category.equalTo("objectId", currentId);
         category.first().then(function (category) {
 
@@ -586,7 +586,7 @@ app.get('/collection/:id', function (req, res) {
         var collection = new Parse.Query(PacksClass);
         collection.get(coll_id, {
             success: function (collection) {
-                var coll_name = collection.get("collection_name");
+                var coll_name = collection.get("pack_name");
                 //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
 
                 var col = collection.relation(PacksClass);
@@ -610,11 +610,11 @@ app.get('/collection/:id', function (req, res) {
 
 
 // Add Stickers Version 1
-app.get('/add_stickers/:id/:collection_name', function (req, res) {
+app.get('/add_stickers/:id/:pack_name', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = req.params.id;
-    var col_name = req.params.collection_name;
+    var col_name = req.params.pack_name;
 
     if (session && token) {
         res.render("pages/add_sticker", {id: coll_id, coll_name: col_name});
@@ -634,7 +634,7 @@ app.post('/new_collection', function (req, res) {
 
         var Collection = new Parse.Object.extend(PacksClass);
         var collection = new Collection();
-        collection.set("collection_name", coll_name);
+        collection.set("pack_name", coll_name);
         collection.set("description", pack_description);
 
         collection.save().then(function (collection) {
@@ -794,11 +794,11 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     }
 });
 
-app.get('/upload_page/:id/:collection_name', function (req, res) {
+app.get('/upload_page/:id/:pack_name', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = req.params.id;
-    var col_name = req.params.collection_name;
+    var col_name = req.params.pack_name;
 
     if (session && token) {
         res.render("pages/upload", {id: coll_id, coll_name: col_name});
