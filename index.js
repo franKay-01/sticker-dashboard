@@ -583,7 +583,7 @@ app.get('/collection/:id', function (req, res) {
 
     if (session && token) {
 
-        var collection = new Parse.Query(CollectionClass);
+        var collection = new Parse.Query(PacksClass);
         collection.get(coll_id, {
             success: function (collection) {
                 var coll_name = collection.get("collection_name");
