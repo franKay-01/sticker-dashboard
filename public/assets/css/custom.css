@@ -692,32 +692,29 @@ td, th {
 
 #categoryInput::-webkit-input-placeholder {
     color: #a46580 !important;
-    font-size: 25px !important;
+    font-size: 20px !important;
 }
 
 
 #categoryInput:-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
     color: #a46580 !important;
-    font-size: 25px !important;
+    font-size: 20px !important;
     opacity: 1;
 }
 
 #categoryInput::-moz-placeholder {
     /* Mozilla Firefox 19+ */
     color: #a46580 !important;
-    font-size: 25px !important;
+    font-size: 20px !important;
     opacity: 1;
 }
 
 #categoryInput:-ms-input-placeholder {
     /* Internet Explorer 10-11 */
     color: #a46580 !important;
-    font-size: 25px !important;
+    font-size: 20px !important;
 }
-
-
-
 
 ._pack_2::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
