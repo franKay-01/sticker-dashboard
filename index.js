@@ -22,7 +22,7 @@ var searchErrorMessage = "";
 //TODO use vars for class names
 //TODO change class names to make it more appropriate
 let CollectionClass = "Collection";
-let StickerClass = "Stickers";
+let StickerClass = "Sticker";
 let CategoryClass = "Category";
 // let PacksClass = "Packs";
 
