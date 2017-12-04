@@ -41,7 +41,7 @@ td, th {
     height: 43px;
     font-family: Montserrat;
     font-size: 35px;
-    font-weight: bold;
+    font-weight: 900;
     letter-spacing: -2.1px;
     text-align: left;
     margin-bottom: 10px;
@@ -109,7 +109,7 @@ td, th {
     height: 52px;
     font-family: Montserrat;
     font-size: 42px;
-    font-weight: 800;
+    font-weight: 900;
     letter-spacing: -2.5px;
     text-align: center;
     color: #ffffff;
@@ -142,7 +142,7 @@ td, th {
     height: 37px;
     font-family: Montserrat;
     font-size: 30px;
-    font-weight: 600;
+    font-weight: 900;
     letter-spacing: -1.8px;
     text-align: center;
     color: #c47462;
@@ -1218,7 +1218,7 @@ tr #titles {
     height: 33px;
     font-family: Montserrat;
     font-size: 27px;
-    font-weight: 600;
+    font-weight: 900;
     letter-spacing: -1.6px;
     text-align: center;
     color: #c47462;
