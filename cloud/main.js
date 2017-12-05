@@ -1,5 +1,6 @@
 //used to retrieve all stickers
-// let Parse = require("parse/node").Parse;
+//  let Parse = require("parse/node").Parse;
+var Parse = require('parse/node');
 
 //require("./functions/getStickers");
 
