@@ -1,15 +1,15 @@
 //used to retrieve all stickers
-//  let Parse = require("/app/node_modules/parse/node");// .Parse;
+let Parse = require('parse-server').ParseServer;// .Parse;
 //require("./functions/getStickers");
 
-// Parse.Cloud.job("sticker_number", function(request, status) {
-//      new Parse.Query("Stickers").count().then(function (result) {
-//         console.log("GOT THIS "+ JSON.stringify(result));
-//      });
-// });
+Parse.Cloud.job("sticker_number", function(request, status) {
+     new Parse.Query("Stickers").count().then(function (result) {
+        console.log("GOT THIS "+ JSON.stringify(result));
+     });
+});
 
-function name_test() {
-    console.log("I AM THE TEST");
-}
-
-name_test();
+// function name_test() {
+//     console.log("I AM THE TEST");
+// }
+//
+// name_test();
