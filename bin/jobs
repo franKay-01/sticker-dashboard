@@ -1,0 +1,5 @@
+var Parse = require('parse/node');
+Parse.initialize("d55f9778-9269-40c2-84a2-e0caaf2ad87a", "16bb574a-8088-4da6-b5ca-edb1c0bba02c");
+Parse.serverURL = process.env.SERVER_URL;
+
+Parse.Cloud.run("stickerNumber");
