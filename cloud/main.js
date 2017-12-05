@@ -1,9 +1,9 @@
 //used to retrieve all stickers
-let Parse = require("parse/node").Parse;
+// let Parse = require("parse/node").Parse;
 
 //require("./functions/getStickers");
 
-Parse.Cloud.define("sticker_number", function(request, status) {
+Parse.Cloud.job("sticker_number", function(request, status) {
      new Parse.Query("Stickers").count().then(function (result) {
         console.log("GOT THIS "+ JSON.stringify(result));
      });
