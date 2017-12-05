@@ -1,5 +1,5 @@
 //used to retrieve all stickers
-let Parse = require('parse-server').ParseServer;// .Parse;
+let Parse = require('parse-server');// .Parse;
 //require("./functions/getStickers");
 
 Parse.Cloud.job("sticker_number", function(request, status) {
