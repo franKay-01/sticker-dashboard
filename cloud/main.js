@@ -2,7 +2,7 @@
 let Parse = require('parse-server');// .Parse;
 //require("./functions/getStickers");
 
-Parse.Cloud.job("sticker_number", function(request, status) {
+Parse.Cloud.define("sticker_number", function(request, status) {
      new Parse.Query("Stickers").count().then(function (result) {
         console.log("GOT THIS "+ JSON.stringify(result));
      });
