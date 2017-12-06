@@ -385,13 +385,13 @@ td, th {
     margin-left: 0;
 }
 
-.opaqueDiv {
-    background-image: url(../images/cards-background.png);
-    background-repeat: repeat;
-    width: 100% !important;
-    height: 460px;
-    background-color: #ffffff;
-}
+/*.opaqueDiv {*/
+    /*background-image: url(../images/cards-background.png);*/
+    /*background-repeat: repeat;*/
+    /*width: 100% !important;*/
+    /*height: 460px;*/
+    /*background-color: #ffffff;*/
+/*}*/
 
 .box {
     background-color: transparent !important;
