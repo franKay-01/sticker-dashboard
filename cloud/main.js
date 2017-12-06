@@ -17,27 +17,27 @@ Parse.Cloud.define("stickerNumber", function (req, res) {
         new Parse.Query(CategoryClass).count())
         .then(function (stickers, packs, categories) {
 
-            if (stickers.length && packs.length && categories.length) {
+          //  if (stickers.length && packs.length && categories.length) {
                 return Parse.Promise.when(
                     new Parse.Query(StatsClass).equalTo("objectId", "R0ux0VzLB2").first(),
                     new Parse.Query(StatsClass).equalTo("objectId", "pjTizUehrT").first(),
                     new Parse.Query(StatsClass).equalTo("objectId", "2NKxat6SPF").first());
-            }
+          //  }
 
-            req.error()
+          //  req.error()
 
         }).then(function (sticker, pack, category) {
 
-        if (sticker && pack && category) {
+    //    if (sticker && pack && category) {
 
             return Parse.Promise.when(
                 sticker.set("count", sticker).save(),
                 pack.set("count", packs).save(),
                 category.set("count", categories).save());
 
-        }
+     //   }
 
-        req.error();
+       // req.error();
 
     }).then(function () {
         req.success();
