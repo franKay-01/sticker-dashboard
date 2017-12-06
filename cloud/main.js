@@ -22,8 +22,8 @@ Parse.Cloud.define("stickerNumber", function (req, res) {
 
         return Parse.Promise.when(
             new Parse.Query(StatsClass).equalTo("objectId", "R0ux0VzLB2").set("count", stickers).save(),
-            new Parse.Query(PacksClass).equalTo("objectId", "pjTizUehrT").set("count", packs).save(),
-            new Parse.Query(CategoryClass).equalTo("objectId", "2NKxat6SPF").set("count", categories).save());
+            new Parse.Query(StatsClass).equalTo("objectId", "pjTizUehrT").set("count", packs).save(),
+            new Parse.Query(StatsClass).equalTo("objectId", "2NKxat6SPF").set("count", categories).save());
 
     }).then(function (stickers, packs, categories) {
         req.success();
