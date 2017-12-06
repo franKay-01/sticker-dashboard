@@ -276,18 +276,22 @@ td, th {
 .create_new {
     height: 25px;
     font-family: Montserrat;
-    font-size: 20.8px;
+    font-size: 25px;
     font-weight: 600;
     letter-spacing: -1.2px;
     text-align: left;
-    color: #c47462;
+    color: #f23e0b;
 }
 
 .create_button {
-    height: 120px;
-    margin-left: 80px;
-    margin-top: 42px;
+    height: auto;
+    padding: 20px;
+    margin-left: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: auto;
     background-color: transparent;
+    display: block;
 }
 
 .upload {
@@ -694,7 +698,6 @@ td, th {
     color: #a46580 !important;
     font-size: 20px !important;
 }
-
 
 #categoryInput:-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
@@ -1149,7 +1152,7 @@ fieldset {
     margin-right: 25px
 }
 
-.text_size{
+.text_size {
     font-size: 20px !important;
     font-weight: bold;
     letter-spacing: -1.1px !important;
