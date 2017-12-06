@@ -4,6 +4,9 @@ let StickerClass = "Stickers";
 let CategoryClass = "Categories";
 let StatsClass = "Stats";
 let PacksClass = "Packs";
+var _stickers = 0;
+var _packs = 0;
+var _categories = 0;
 
 Parse.Cloud.define("stickerNumber", function (req, res) {
 
@@ -16,6 +19,9 @@ Parse.Cloud.define("stickerNumber", function (req, res) {
         new Parse.Query(PacksClass).count(),
         new Parse.Query(CategoryClass).count())
         .then(function (stickers, packs, categories) {
+            _stickers = stickers;
+            _packs =  packs;
+            _categories = categories;
 
           //  if (stickers.length && packs.length && categories.length) {
                 return Parse.Promise.when(
@@ -29,11 +35,10 @@ Parse.Cloud.define("stickerNumber", function (req, res) {
         }).then(function (sticker, pack, category) {
 
     //    if (sticker && pack && category) {
-            console.log("STICKER DETAILS " + JSON.stringify(sticker));
             return Parse.Promise.when(
-                sticker.set("count", sticker).save(),
-                pack.set("count", pack).save(),
-                category.set("count", category).save());
+                sticker.set("count", _stickers).save(),
+                pack.set("count", _packs).save(),
+                category.set("count", _categories).save());
 
      //   }
 
