@@ -4,6 +4,5 @@
 Parse.Cloud.define("stickerNumber", function(request, status) {
      new Parse.Query("Stickers").count().then(function (result) {
         console.log("GOT THIS "+ JSON.stringify(result));
-        console.log("USER "+Parse.User.current());
      });
 });
