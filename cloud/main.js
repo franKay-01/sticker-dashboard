@@ -32,8 +32,8 @@ Parse.Cloud.define("stickerNumber", function (req, res) {
 
             return Parse.Promise.when(
                 sticker.set("count", sticker).save(),
-                pack.set("count", packs).save(),
-                category.set("count", categories).save());
+                pack.set("count", pack).save(),
+                category.set("count", category).save());
 
      //   }
 
