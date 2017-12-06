@@ -14,19 +14,34 @@ Parse.Cloud.define("stickerNumber", function (req, res) {
     Parse.Promise.when(
         new Parse.Query(StickerClass).count(),
         new Parse.Query(PacksClass).count(),
-        new Parse.Query(CategoryClass).count()).then(function (stickers, packs, categories) {
+        new Parse.Query(CategoryClass).count())
+        .then(function (stickers, packs, categories) {
 
-        //stickers .equalTo("objectId","R0ux0VzLB2")
-        //packs .equalTo("objectId","pjTizUehrT")
-        //categories equalTo("objectId","2NKxat6SPF")
+            if (stickers.length && packs.length && categories.length) {
+                return Parse.Promise.when(
+                    new Parse.Query(StatsClass).equalTo("objectId", "R0ux0VzLB2").first(),
+                    new Parse.Query(StatsClass).equalTo("objectId", "pjTizUehrT").first(),
+                    new Parse.Query(StatsClass).equalTo("objectId", "2NKxat6SPF").first());
+            }
 
-        return Parse.Promise.when(
-            new Parse.Query(StatsClass).equalTo("objectId", "R0ux0VzLB2").set("count", stickers).save(),
-            new Parse.Query(StatsClass).equalTo("objectId", "pjTizUehrT").set("count", packs).save(),
-            new Parse.Query(StatsClass).equalTo("objectId", "2NKxat6SPF").set("count", categories).save());
+            req.error()
 
-    }).then(function (stickers, packs, categories) {
+        }).then(function (sticker, pack, category) {
+
+        if (sticker && pack && category) {
+
+            return Parse.Promise.when(
+                sticker.set("count", sticker).save(),
+                pack.set("count", packs).save(),
+                category.set("count", categories).save());
+
+        }
+
+        req.error();
+
+    }).then(function () {
         req.success();
+
     }, function (error) {
         console.log("ERROR OCCURRED " + error.message);
     });
