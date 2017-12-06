@@ -10,8 +10,8 @@ Parse.Cloud.define("stickerNumber", function(request, status) {
         new Parse.Query(StickerCLass).count(),
         new Parse.Query(CategoryClass).count()).then(function (stickers, category) {
 
-        var stats = new Parse.Query(StatsClass);
-        stats.find().then(function (stats) {
+        var Stats = new Parse.Object.extend(StatsClass);
+        var stats = new Stats();
             stats.set("stickers", stickers);
             stats.set("categories", category);
             return stats.save();
@@ -21,5 +21,4 @@ Parse.Cloud.define("stickerNumber", function(request, status) {
             console.log("ERROR OCCURRED " + error.message);
         }
 
-    });
 });
