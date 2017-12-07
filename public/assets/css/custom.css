@@ -673,8 +673,9 @@ textarea{
     font-size: 2rem !important;
     background: transparent;
     border-bottom: 3px #8651aa solid !important;
-    border-color: #8651aa;
     margin-right: 15px !important;
+    margin-left: 15px !important;
+
 }
 
 ._pack_3 {
