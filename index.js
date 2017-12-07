@@ -457,6 +457,33 @@ app.post('/update_category', function (req, res) {
 
 });
 
+//This is to remove stickers
+app.get('/delete_sticker/:id',function (req, res) {
+    var session = req.session.token;
+    var token = req.cookies.token;
+    var removeId = req.params.id;
+
+    if (session && token){
+        var sticker = new Parse.Query(StickerClass);
+        sticker.equalTo("objectId", removeId);
+
+        sticker.first().then(function (_sticker) {
+                _sticker.destroy({
+                    success: function (object) {
+                        console.log("removed" + JSON.stringify(object));
+                        res.redirect("/pack_collection");
+                    },
+                    error: function (error) {
+                        console.log("Could not remove" + error);
+                    }
+                });
+            },
+            function (error) {
+                console.error(error);
+            });
+    }
+
+});
 
 app.post('/remove_category', function (req, res) {
 
