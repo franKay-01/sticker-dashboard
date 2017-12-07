@@ -21,18 +21,14 @@
 <body class="primary-background-color">
 <div class="grid-container">
     <!-- Logo -->
-    <div class="medium-6 large-6">
+    <div class="medium-12 large-12">
         <a href="/home">
             <img src="/public/assets/images/G_logo.png"
                  srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
                  id="logo">
         </a>
-    </div>
-    <div class="medium-6 large-6">
         <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
-
     </div>
-
     <!-- End of logo-->
     <div id="pageMask"></div>
     <!-- Hidden form to edit category-->
@@ -99,9 +95,7 @@
     </div>
     <!-- End of form-->
     <span class="medium-6 large-6 welcome_post" id="Welcome"><b>Categories</b></span>
-
-    <div class="grid-x grid-margin-x" id="opaqueDiv">
-        <span class="medium-6 large-6" id="searchCategory">
+    <span class="medium-6 large-6" id="searchCategory">
     <form action="/find_category" id="searchBar" method="post">
 
     <input type="text" class="_pack_2 common_pack_detail validate" style="float: left;" placeholder="Category Name"
@@ -111,9 +105,8 @@
 
     </form>
     </span>
-
+    <div class="grid-x grid-margin-x" id="opaqueDiv">
         <!-- Card to display navigation property-->
-
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
                 <div class="stats">Menu</div>
