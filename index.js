@@ -458,10 +458,12 @@ app.post('/update_category', function (req, res) {
 });
 
 //This is to remove stickers
-app.get('/delete_sticker/:id',function (req, res) {
+app.get('/delete_sticker/:id/:pid',function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var removeId = req.params.id;
+    var pageId = req.params.pid;
+
 
     if (session && token){
         var sticker = new Parse.Query(StickerClass);
@@ -471,7 +473,7 @@ app.get('/delete_sticker/:id',function (req, res) {
                 _sticker.destroy({
                     success: function (object) {
                         console.log("removed" + JSON.stringify(object));
-                        res.redirect("/pack_collection");
+                        res.redirect("/pack/"+pageId);
                     },
                     error: function (error) {
                         console.log("Could not remove" + error);
