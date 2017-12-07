@@ -325,7 +325,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
         }).then(function () {
 
             console.log("REDIRECT TO PACK COLLECTION");
-            res.redirect("/pack_collection");
+            res.redirect("/pack/"+collectionId);
 
         }, function (error) {
             console.log("BIG BIG ERROR" + error.message);
