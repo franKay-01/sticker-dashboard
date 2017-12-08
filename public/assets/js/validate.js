@@ -22,7 +22,7 @@ if (token !== "") {
 
         token = "r:"+token.substring(2);
         console.log("TOKEN FROM USER "+JSON.stringify(token));
-        Parse.User.become(token,{
+        Parse.User.becomeInBackground(token,{
             success:function(){
                 console.log("Current user::::::" + Parse.User.current());
             },
