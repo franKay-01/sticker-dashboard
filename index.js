@@ -189,12 +189,13 @@ app.post('/login', function (req, res) {
         req.session.token = user.getSessionToken();
         console.log("USER GETS TOKEN : " + user.getSessionToken());
 
-        Parse.Session.current().then(function(session) {
-            session.set("_token", user.getSessionToken());
-            session.save().then(function() {
-                console.log("SESSION "+session.get("_token"));
-            });
-        });
+        // Session.set()
+        // Parse.Session.current().then(function(session) {
+        //     session.set("_token", user.getSessionToken());
+        //     session.save().then(function() {
+        //         console.log("SESSION "+session.get("_token"));
+        //     });
+        // });
 
         res.redirect("/home");
 
