@@ -19,9 +19,9 @@ var token = getCookie("token");
 if (token !== "") {
 
     if (Parse.User.current() === null) {
-        console.log("FIRST TOKEN "+JSON.stringify(token));
-        token = "r:"+token.substring(2);
-        console.log("TOKEN FROM USER "+JSON.stringify(token));
+        console.log("FIRST TOKEN "+JSON.stringify(sessionToken));
+        // token = "r:"+token.substring(2);
+        // console.log("TOKEN FROM USER "+JSON.stringify(token));
         // Parse.User.become(token,{
         //     success:function(){
         //         console.log("Current user::::::" + Parse.User.current());
