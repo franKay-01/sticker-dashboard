@@ -188,6 +188,14 @@ app.post('/login', function (req, res) {
         res.cookie('username', user.getUsername());
         req.session.token = user.getSessionToken();
         console.log("USER GETS TOKEN : " + user.getSessionToken());
+        Parse.User.become(user.getSessionToken(),{
+            success:function(){
+                console.log("Current user::::::" + Parse.User.current());
+            },
+            error:function(error){
+                console.log("Not become:::"+ error.message);
+            }
+        });
         res.redirect("/home");
 
     }, function (error) {
