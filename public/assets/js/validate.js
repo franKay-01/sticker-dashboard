@@ -19,26 +19,16 @@ var token = getCookie("token");
 if (token !== "") {
 
     if (Parse.User.current() === null) {
-        console.log("FIRST TOKEN "+JSON.stringify(sessionToken));
-        // token = "r:"+token.substring(2);
-        // console.log("TOKEN FROM USER "+JSON.stringify(token));
-        // Parse.User.become(token,{
-        //     success:function(){
-        //         console.log("Current user::::::" + Parse.User.current());
-        //     },
-        //     error:function(error){
-        //         console.log("Not become:::"+ error.message);
-        //     }
-        // });
 
-        Parse.User.become(token).then(function (user) {
-            // The current user is now set to user.
-            console.log("USER "+user);
-            console.log("Current user::::::" + Parse.User.current());
-
-        }, function (error) {
-            // The token could not be validated.
-            console.log("Not become:::"+ error.message);
+        token = "r:"+token.substring(2);
+        console.log("TOKEN FROM USER "+JSON.stringify(token));
+        Parse.User.become(token,{
+            success:function(){
+                console.log("Current user::::::" + Parse.User.current());
+            },
+            error:function(error){
+                console.log("Not become:::"+ error.message);
+            }
         });
 
         /*Parse.User.become(token).then(function () {
