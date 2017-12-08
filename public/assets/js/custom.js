@@ -93,7 +93,6 @@ $(document).ready(function () {
     $checks = $(":checkbox");
     var categories = String($('#category').val()).split(",");
     for (var i = 0; i < categories.length; i++) {
-        console.log(i);
         $('input:checkbox[data-name="' + categories[i] + '"]').prop('checked', true);
     }
 
