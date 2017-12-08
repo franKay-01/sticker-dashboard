@@ -206,7 +206,7 @@ app.get('/home', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var username = req.cookies.username;
-
+    console.log("PARSE USER "+Parse.User.current());
 
     if (session && token) {
         username = username.substring(0, username.indexOf('@'));
