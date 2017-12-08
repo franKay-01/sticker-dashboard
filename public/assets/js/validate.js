@@ -15,6 +15,8 @@ getCookie = function (cname) {
 };
 
 var token = getCookie("token");
+var _session = session.getAttribute("_token");
+console.log("SESSION " + JSON.stringify(_session));
 
 if (token !== "") {
 
