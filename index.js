@@ -192,7 +192,7 @@ app.post('/login', function (req, res) {
         Parse.Session.current().then(function(session) {
             session.set("_token", user.getSessionToken());
             session.save().then(function() {
-                console.log(session.get("_token"));
+                console.log("SESSION "+session.get("_token"));
             });
         });
 
