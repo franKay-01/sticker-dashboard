@@ -188,14 +188,18 @@ app.post('/login', function (req, res) {
         res.cookie('username', user.getUsername());
         req.session.token = user.getSessionToken();
         console.log("USER GETS TOKEN : " + user.getSessionToken());
-        Parse.User.become(user.getSessionToken(),{
-            success:function(){
+        Parse.User.become(user.getSessionToken()).then(function () {
                 console.log("Current user::::::" + Parse.User.current());
+                //do nothing
+                //Parse.User.current is available
             },
-            error:function(error){
+            function (error) {
+
+                //TODO handle error with an Alert
                 console.log("Not become:::"+ error.message);
-            }
-        });
+                console.log("Token:::"+ token);
+
+            });
         res.redirect("/home");
 
     }, function (error) {
