@@ -33,25 +33,57 @@
     </div>
     <!-- End of logo-->
     <span class="medium-12 large-12 welcome_post"><b>Welcome to Publisher</b></span>
-    <div class="grid-x grid-margin-x">
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                    <label for="first_name">First Name</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="last_name" type="text" class="validate">
+                    <label for="last_name">Last Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input disabled value="I am not editable" id="disabled" type="text" class="validate">
+                    <label for="disabled">Disabled</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="password" type="password" class="validate">
+                    <label for="password">Password</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email" type="email" class="validate">
+                    <label for="email">Email</label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--<div class="grid-x grid-margin-x">-->
         <!--<div class="medium-3 large-3 cell login_card">-->
             <!-- Form to allow user login-->
-            <form action="/login" method="post">
-                <fieldset>
-                    <input style="margin-top: 30px;font-size: 2rem !important;" class="box" placeholder="Email"
-                           type="email" tabindex="1" name="username"><br>
-                    <input class="box" style="font-size: 2rem !important;" placeholder="Password" type="password"
-                           name="password" tabindex="2"><br>
-                    <button name="login" type="submit" id="btnLogin" data-submit="...Sending">Login</button>
-                    <br><br>
-                    <a href="/forgetPassword" class="forgotten_password">Forgot password?</a>
-                    <br><br>
-                    <a href="#" id="signUp" class="signup_text">Sign up here</a>
-                </fieldset>
-            </form>
+            <!--<form action="/login" method="post">-->
+                <!--<fieldset>-->
+                    <!--<input style="margin-top: 30px;font-size: 2rem !important;" class="box" placeholder="Email"-->
+                           <!--type="email" tabindex="1" name="username"><br>-->
+                    <!--<input class="box" style="font-size: 2rem !important;" placeholder="Password" type="password"-->
+                           <!--name="password" tabindex="2"><br>-->
+                    <!--<button name="login" type="submit" id="btnLogin" data-submit="...Sending">Login</button>-->
+                    <!--<br><br>-->
+                    <!--<a href="/forgetPassword" class="forgotten_password">Forgot password?</a>-->
+                    <!--<br><br>-->
+                    <!--<a href="#" id="signUp" class="signup_text">Sign up here</a>-->
+                <!--</fieldset>-->
+            <!--</form>-->
             <!-- End of form-->
         <!--</div>-->
-    </div>
+    <!--</div>-->
 </div>
 
 <!-- Body -->
