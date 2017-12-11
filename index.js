@@ -175,6 +175,17 @@ app.get('/', function (req, res) {
     }
 });
 
+app.get('/sign_up', function (req, res) {
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+    if (session && token){
+        res.render("pages/sign_up");
+    }else {
+        res.redirect("/");
+    }
+});
+
 //login the user in using Parse
 app.post('/login', function (req, res) {
 
