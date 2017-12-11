@@ -407,6 +407,17 @@ textarea{
     color: white;
 }
 
+._signup_textbox{
+    background-color: transparent !important;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 3px a46580 solid !important;
+    border-color: black;
+    border-width: 4px;
+    color: #a46580;
+}
+
 .box_2 {
     background: transparent;
     border: solid 4px #a46580;
