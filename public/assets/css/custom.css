@@ -633,7 +633,6 @@ textarea{
     width: relative;
     margin-top: -25px !important;
     background: transparent;
-    color: #FFF;
     margin: 7px;
     padding: 10px;
     font-weight: 800;
@@ -645,11 +644,11 @@ textarea{
     font-weight: bold;
     letter-spacing: -2.1px;
     text-align: left;
-    color: #ffffff;
+    color: #a46580;
 }
 
 #btnSign:hover {
-    color: #d98c8c;
+    color: #301c25;
     transition: 0.5s;
 }
 
