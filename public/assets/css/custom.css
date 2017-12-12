@@ -153,7 +153,7 @@ textarea {
     margin-bottom: 20px !important;
 }
 
-.cancel {
+.add {
     /*width: 105px;*/
     height: 43px;
     font-family: Montserrat;
@@ -205,7 +205,7 @@ textarea {
     margin-right: 30px
 }
 
-.create {
+.cancel {
     height: 43px;
     font-family: Montserrat;
     font-size: 35px;
