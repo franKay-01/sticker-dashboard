@@ -181,6 +181,16 @@ app.get('/sign_up', function (req, res) {
 
 });
 
+app.post('/signup', function (req, res) {
+    let name = req.body.name;
+    let password = req.body.password;
+    let username = req.body.username;
+
+    console.log("NAME "+name+" USERNAME "+username+" PASSWORD "+password);
+    res.redirect("/sign_up");
+
+});
+
 //login the user in using Parse
 app.post('/login', function (req, res) {
 
