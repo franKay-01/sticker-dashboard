@@ -21,7 +21,7 @@
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script>
         (function() {
-            var form = document.querySelector("form#sign_form");
+            var form = document.getElementById("sign_form");
             form.addEventListener("submit", function(ev) {
                 ev.preventDefault();
                 handleFormSubmit(form);
