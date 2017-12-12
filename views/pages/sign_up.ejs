@@ -16,11 +16,26 @@
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <script type="text/javascript" src="/public/assets/js/val.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+
 
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script>
-        function submitForm() {
+        (function() {
+
+            validate.extend(validate.validators.datetime, {
+                // The value is guaranteed not to be null or undefined but otherwise it
+                // could be anything.
+                parse: function(value, options) {
+                    return +moment.utc(value);
+                },
+                // Input is a unix timestamp
+                format: function(value, options) {
+                    var format = options.dateOnly ? "YYYY-MM-DD" : "YYYY-MM-DD hh:mm:ss";
+                    return moment.utc(value).format(format);
+                }
+            });
 
             var form = document.getElementById("sign_form");
             form.addEventListener("submit", function(ev) {
@@ -131,7 +146,7 @@
                 }
             }
 
-            }
+            })();
     </script>
 </head>
 
@@ -182,7 +197,7 @@
             <span id='message'></span>
 
             <div>
-                <button name="login" onclick="submitForm()" id="btnSign" data-submit="...Sending">Sign Up</button>
+                <button name="login" type="submit" id="btnSign" data-submit="...Sending">Sign Up</button>
             </div>
 
         </form>
