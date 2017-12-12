@@ -21,8 +21,10 @@
     <script>
         function myFunction() {
             alert("TEsting");
-            var pass = $('#pwd').val()
-            alert("value "+ pass);
+            var pass = $('#pwd').val();
+            var check = $('#est5').val();
+
+            alert("value "+ pass + " check"+check);
             if (pass === $('#confirm_password').val()) {
                 $('#message').html('Matching').css('color', 'green');
             } else
