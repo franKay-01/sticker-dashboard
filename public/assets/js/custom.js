@@ -185,11 +185,18 @@ $(document).ready(function () {
         $('#opaqueDiv').fadeOut('fast');
         $('#detailsForm').fadeOut('fast');
 
-        //insert category name into text field for removal
-        // $('#catNameRemove').val($this.val());
-        // $('#inputRemoveId').val($this.attr("data-id"));
     });
 
+    //close deleteForm
+    $('.closeDelete').on('click', function () {
+        $('#deleteForm').fadeOut('fast');
+        $('#pageMask').fadeOut('fast');
+        $('#logo').fadeIn('fast');
+        $('#Welcome').fadeIn('fast');
+        $('#signoutLink').fadeIn('fast');
+        $('#opaqueDiv').fadeIn('fast');
+        $('#detailsForm').fadeIn('fast');
+    });
 
     //show 'remove-category' form
     $('.delbtn1').on('click', function () {
