@@ -183,6 +183,7 @@ $(document).ready(function () {
         $('#Welcome').fadeOut('fast');
         $('#signoutLink').fadeOut('fast');
         $('#opaqueDiv').fadeOut('fast');
+        $('#detailsForm').fadeOut('fast');
 
         //insert category name into text field for removal
         // $('#catNameRemove').val($this.val());
