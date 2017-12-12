@@ -18,18 +18,12 @@
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script>
-        var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
-
-        function validatePassword(){
-            if(password.value !== confirm_password.value) {
-                confirm_password.setCustomValidity("Passwords Don't Match");
-            } else {
-                confirm_password.setCustomValidity('');
-            }
-        }
-
-        password.onchange = validatePassword;
-        confirm_password.onkeyup = validatePassword;
+        $('#password, #confirm_password').on('keyup', function () {
+            if ($('#password').val() === $('#confirm_password').val()) {
+                $('#message').html('Matching').css('color', 'green');
+            } else
+                $('#message').html('Not Matching').css('color', 'red');
+        });
     </script>
 </head>
 
@@ -63,13 +57,13 @@
             <div class="row">
                 <div class="input-field col s12">
                     <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"
-                           type="password" tabindex="1" name="password">
+                           type="password" tabindex="1" id="password" name="password">
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"
-                           type="password" tabindex="1" name="confirm_password">
+                           type="password" tabindex="1" id="confirm_password" name="confirm_password">
                 </div>
             </div>
             <div class="row">
@@ -77,6 +71,8 @@
                     <input type="checkbox" id="test5" />&nbsp;I Aggree With <a href="#" style="color: #a46580 !important;">Agreement</a>
                 </div>
             </div>
+            <span id='message'></span>
+
             <div>
                 <button name="login" type="submit" id="btnSign" data-submit="...Sending">Sign Up</button>
             </div>
