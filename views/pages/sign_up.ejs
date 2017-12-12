@@ -9,23 +9,25 @@
     <link rel="shortcut icon" type="image/x-icon" href="/public/assets/images/favicon.ico"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
-
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <script type="text/javascript" src="/public/assets/js/val.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 
 
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script>
         // Bootstrap popovers
-        $('#form-signup_v1 [data-toggle="popover"]').popover({trigger: 'focus', placement: 'left'});
+        var form = $('#form-signup_v1');
+        form.find('[data-toggle="popover"]').popover({trigger: 'focus', placement: 'left'});
 
-        $('#form-signup_v1').validate({
+        form.validate({
             submit: {
                 settings: {
                     inputContainer: '.field',
