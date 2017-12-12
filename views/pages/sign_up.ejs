@@ -19,9 +19,13 @@
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script>
-        $( "#confirm_password" ).keyup(function() {
-            alert( "Handler for .change() called." );
-        });
+        function myFunction() {
+            alert("TEsting");
+            $( "#confirm_password" ).keyup(function() {
+                alert( "Handler for .change() called." );
+            });
+        }
+
 
         $('#pwd, #confirm_password').on('keyup', function () {
             if ($('#pwd').val() === $('#confirm_password').val()) {
@@ -79,7 +83,7 @@
             <span id='message'></span>
 
             <div>
-                <button name="login" type="submit" id="btnSign" data-submit="...Sending">Sign Up</button>
+                <button name="login" onclick="myFunction()" id="btnSign" data-submit="...Sending">Sign Up</button>
             </div>
 
         </form>
