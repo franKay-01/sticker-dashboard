@@ -9,6 +9,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@parse/s3-files-adapter": "^1.2.1",
     "body-parser": "^1.17.2",
     "busboy": "^0.2.14",
     "cookie-parser": "^1.4.3",
@@ -19,6 +20,7 @@
     "express": "~4.11.x",
     "fine-uploader": "^5.14.5",
     "image-downloader": "^3.3.0",
+    "images-downloader": "*",
     "kerberos": "~0.0.x",
     "method-override": "^2.3.9",
     "moment": "^2.12.0",
@@ -29,8 +31,7 @@
     "sendgrid": "^4.5.0",
     "twilio": "^2.9.0",
     "underscore": "^1.8.3",
-    "url-to-image": "^1.0.0",
-    "images-downloader":"*"
+    "url-to-image": "^1.0.0"
   },
   "scripts": {
     "start": "node index.js"

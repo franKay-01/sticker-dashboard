@@ -1,6 +1,6 @@
 let express = require('express');
 let ParseServer = require('parse-server').ParseServer;
-let S3Adapter = require('parse-server').S3Adapter;
+var S3Adapter = require('@parse/s3-files-adapter');
 let SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
 let path = require('path');
 let cors = require('cors');
@@ -75,22 +75,21 @@ var api = new ParseServer({
     emailAdapter: SimpleSendGridAdapter({
         apiKey: process.env.SENDGRID_API_KEY || "apikey",
         fromAddress: process.env.EMAIL_FROM || "test@example.com"
-    }),
+    })
 
     //**** File Storage ****//
-    filesAdapter: new S3Adapter(
+    /*filesAdapter: new S3Adapter(
         "AKIAIK4H65MXJJMO7Q6A",
         "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
         "cyfa",
         {
             directAccess: true
         }
-        /*
-         S3_BUCKET
-         S3_ACCESS_KEY
-         S3_SECRET_KEY
-         * */
-    )
+    )*/,
+    filesAdapter: new S3Adapter({
+        bucket: "cyfa",
+        directAccess: true
+    })
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
 // If you wish you require them, you can set them as options in the initialization above:
@@ -177,7 +176,7 @@ app.get('/', function (req, res) {
 
 app.get('/sign_up', function (req, res) {
 
-        res.render("pages/sign_up");
+    res.render("pages/sign_up");
 
 });
 
@@ -186,7 +185,7 @@ app.post('/signup', function (req, res) {
     let password = req.body.password;
     let username = req.body.username;
 
-    console.log("NAME "+name+" USERNAME "+username+" PASSWORD "+password);
+    console.log("NAME " + name + " USERNAME " + username + " PASSWORD " + password);
     res.redirect("/sign_up");
 
 });
@@ -230,7 +229,7 @@ app.get('/home', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var username = req.cookies.username;
-    console.log("PARSE USER "+Parse.User.current());
+    console.log("PARSE USER " + Parse.User.current());
 
     if (session && token) {
         username = username.substring(0, username.indexOf('@'));
@@ -350,7 +349,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
         }).then(function () {
 
             console.log("REDIRECT TO PACK COLLECTION");
-            res.redirect("/pack/"+collectionId);
+            res.redirect("/pack/" + collectionId);
 
         }, function (error) {
             console.log("BIG BIG ERROR" + error.message);
@@ -483,14 +482,14 @@ app.post('/update_category', function (req, res) {
 });
 
 //This is to remove stickers
-app.get('/delete_sticker/:id/:pid',function (req, res) {
+app.get('/delete_sticker/:id/:pid', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var removeId = req.params.id;
     var pageId = req.params.pid;
 
 
-    if (session && token){
+    if (session && token) {
         var sticker = new Parse.Query(StickerClass);
         sticker.equalTo("objectId", removeId);
 
@@ -498,7 +497,7 @@ app.get('/delete_sticker/:id/:pid',function (req, res) {
                 _sticker.destroy({
                     success: function (object) {
                         console.log("removed" + JSON.stringify(object));
-                        res.redirect("/pack/"+pageId);
+                        res.redirect("/pack/" + pageId);
                     },
                     error: function (error) {
                         console.log("Could not remove" + error);
@@ -773,14 +772,14 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     // };
 
 // ES5 actually has a method for this (ie9+)
-    console.log("ARRAY TYPE "+Array.isArray(category_list));
+    console.log("ARRAY TYPE " + Array.isArray(category_list));
 
-     console.log("CATEGORY LIST " + JSON.stringify(category_list));
+    console.log("CATEGORY LIST " + JSON.stringify(category_list));
 
-     var _listee = [];
-     _.each(category_list,function(category){
-         _listee.push(category);
-     });
+    var _listee = [];
+    _.each(category_list, function (category) {
+        _listee.push(category);
+    });
 
     if (session && token) {
 
@@ -788,7 +787,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
             new Parse.Query(StickerClass).equalTo("objectId", stickerId).first(),
             new Parse.Query(CategoryClass).containedIn("objectId", _listee).find()
         ).then(function (sticker, categories) {
-            console.log("QUERIES WORKED"+JSON.stringify(categories));
+            console.log("QUERIES WORKED" + JSON.stringify(categories));
 
             var sticker_relation = sticker.relation(CategoryClass);
 
@@ -927,18 +926,18 @@ app.post('/upload_dropbox_file', function (req, res) {
                 }).then(function () {
 
                     console.log("REDIRECT TO DASHBOARD");
-                    res.redirect("/pack/"+coll_id);
+                    res.redirect("/pack/" + coll_id);
 
                 }, function (error) {
                     console.log("BIG BIG ERROR" + error.message);
-                    res.redirect("/pack/"+coll_id);
+                    res.redirect("/pack/" + coll_id);
                 });
             }).catch((err) => {
             throw err;
         });
     } else {
 
-        res.redirect("/pack/"+coll_id);
+        res.redirect("/pack/" + coll_id);
 
     }
 
