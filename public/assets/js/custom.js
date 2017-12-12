@@ -58,13 +58,22 @@ $(document).ready(function () {
             $('#pack_form')[0].reset();
         });
 
-        $('#btnCategoryCancel').on('click', function () {
+        $('#btnCategoryAdd').on('click', function () {
             $('#addCategoryForm').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
             $('#detailsForm').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
+        });
+
+        $('#btnCategoryCancel').on('click', function () {
+            $('#addCategoryForm').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#logo').fadeOut('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#detailsForm').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
         });
 
         //This is to reset a form and close it
