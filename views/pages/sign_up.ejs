@@ -17,7 +17,20 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script>
+        var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
 
+        function validatePassword(){
+            if(password.value !== confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords Don't Match");
+            } else {
+                confirm_password.setCustomValidity('');
+            }
+        }
+
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+    </script>
 </head>
 
 <body class="primary-background-color">
@@ -37,8 +50,8 @@
         <form class="col s12">
             <div class="row">
                 <div class="input-field col s12">
-                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Email"
-                           type="email" tabindex="1" name="username">
+                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Name"
+                           type="text" tabindex="1" name="name">
                 </div>
             </div>
             <div class="row">
@@ -49,14 +62,14 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Email"
-                           type="email" tabindex="1" name="username">
+                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"
+                           type="password" tabindex="1" name="password">
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Email"
-                           type="email" tabindex="1" name="username">
+                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"
+                           type="password" tabindex="1" name="confirm_password">
                 </div>
             </div>
             <div class="row">
