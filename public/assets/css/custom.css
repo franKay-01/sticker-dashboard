@@ -154,7 +154,7 @@ textarea {
 }
 
 .cancel {
-    width: 105px;
+    /*width: 105px;*/
     height: 43px;
     font-family: Montserrat;
     font-size: 35px;
@@ -182,7 +182,7 @@ textarea {
 }
 
 .cancel_btn {
-    width: 105px;
+    /*width: 105px;*/
     height: 43px;
     font-family: Montserrat;
     font-size: 35px;
@@ -190,6 +190,18 @@ textarea {
     letter-spacing: -2.1px;
     text-align: left;
     color: #a46580;
+    margin-right: 30px
+}
+
+.delete_btn {
+    /*width: 105px;*/
+    height: 43px;
+    font-family: Montserrat;
+    font-size: 35px;
+    font-weight: 700;
+    letter-spacing: -2.1px;
+    text-align: left;
+    color: white;
     margin-right: 30px
 }
 
