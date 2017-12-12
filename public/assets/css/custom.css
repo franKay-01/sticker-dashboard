@@ -315,7 +315,7 @@ textarea {
     color: #a46580;
 }
 
-deleteForm {
+#deleteForm {
     display: none;
     position: absolute;
     margin: 0px 300px auto;
