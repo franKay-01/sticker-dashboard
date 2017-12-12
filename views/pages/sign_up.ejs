@@ -24,42 +24,19 @@
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script>
-        // Bootstrap popovers
-        var form = $('#form-signup_v1');
-        form.find('[data-toggle="popover"]').popover({trigger: 'focus', placement: 'left'});
+        var password = document.getElementById("password")
+            , confirm_password = document.getElementById("confirm_password");
 
-        form.validate({
-            submit: {
-                settings: {
-                    inputContainer: '.field',
-                    errorListClass: 'ui red pointing below label'
-                },
-                callback: {
-                    onBeforeSubmit: function (node) {
-
-                        myBeforeSubmitFunction(':D', ':)', node);
-
-                    },
-                    onSubmit: function (node, formData) {
-
-                        console.log('#' + node.id + ' has a submit override.');
-                        console.log(formData);
-
-                        //node[0].submit();
-
-                    }
-                }
+        function validatePassword(){
+            if(password.value !== confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords Don't Match");
+            } else {
+                confirm_password.setCustomValidity('');
             }
-        });
-
-        function myBeforeSubmitFunction(a, b, node) {
-
-            console.log(a, b);
-
-            node.find('input:not([type="submit"]), select, textarea').attr('readonly', 'true');
-            node.append('<div class="ui active loader"></div>');
-
         }
+
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
     </script>
 </head>
 
@@ -77,72 +54,17 @@
     <!-- End of logo-->
     <span class="medium-12 large-12 welcome_post"><b>Welcome to Publisher</b></span>
     <div class="row" style="width: 50%; background: whitesmoke">
+        <form class="pure-form">
+            <fieldset>
+                <legend>Confirm password with HTML5</legend>
 
-        <form id="form-signup_v1" name="form-signup_v1" method="POST">
-             
-                <div class="field">
-                        <label for="signup_v1-username">Username</label>
-                        <div class="ui left labeled input">
-                     
-                                <input id="signup_v1-username" name="signup_v1[username]" type="text" data-validation="[L>=6, L<=18, MIXED]" data-validation-message="$ must be between 6 and 18 characters. No special characters allowed." data-validation-regex="/^((?!admin).)*$/i" data-validation-regex-message="The word &quot;Admin&quot; is not allowed in the $" data-toggle="popover" data-content="You can use letters and numbers, no space or special characters">
-                     
-                                <div class="ui corner label">
-                                        <i class="asterisk icon"></i>
-                                    </div>
-                            </div>
-                    </div>
-                <div class="field">
-                        <label for="signup_v1-password">Password</label>
-                        <div class="ui left labeled input">
-                     
-                                <input id="signup_v1-password" name="signup_v1[password]" type="password" data-validation="[L>=6]" data-validation-message="$ must be at least 6 characters" data-toggle="popover" data-content="Your password must contain at least 6 characters">
-                     
-                                <div class="ui corner label">
-                                        <i class="asterisk icon"></i>
-                                    </div>
-                            </div>
-                    </div>
-                <div class="field">
-                        <label for="signup_v1-password-confirm">Confirm Password</label>
-                        <div class="ui left labeled input">
-                     
-                                <input id="signup_v1-password-confirm" name="signup_v1[password-confirm]" type="password" data-validation="[V==signup_v1[password]]" data-validation-message="$ does not match the password" data-toggle="popover" data-content="Both password must match">
-                     
-                                <div class="ui corner label">
-                                        <i class="asterisk icon"></i>
-                                    </div>
-                            </div>
-                    </div>
-                <div class="field">
-                        <label for="signup_v1-email">Email</label>
-                        <div class="ui left labeled input">
-                     
-                                <input id="signup_v1-email" name="signup_v1[email]" type="text" data-validation="[EMAIL]" data-toggle="popover" data-content="The email that will be associated with your account.">
-                     
-                                <div class="ui corner label">
-                                        <i class="asterisk icon"></i>
-                                    </div>
-                            </div>
-                    </div>
-                <div class="field">
-                        <label for="signup_v1-email-confirm">Confirm Email</label>
-                        <div class="ui left labeled input">
-                     
-                                <input id="signup_v1-email-confirm" name="signup_v1[email-confirm]" type="text" data-validation="[V==signup_v1[email]]" data-validation-message="$ does not match the email" data-toggle="popover" data-content="Both email must match">
-                     
-                                <div class="ui corner label">
-                                        <i class="asterisk icon"></i>
-                                    </div>
-                            </div>
-                    </div>
-             
-                <input type="submit" class="ui blue submit button" value="Sign up!">
-             
-                <button id="prefill-signup_v1" type="button" class="ui mini basic button">
-                        Prefill
-                    </button>
-             
+                <input type="password" placeholder="Password" id="password" required>
+                <input type="password" placeholder="Confirm Password" id="confirm_password" required>
+
+                <button type="submit" class="pure-button pure-button-primary">Confirm</button>
+            </fieldset>
         </form>
+
     </div>
 
 </div>
