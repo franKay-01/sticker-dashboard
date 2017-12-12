@@ -34,9 +34,10 @@ td, th {
     max-width: 150px !important;
 }
 
-textarea{
+textarea {
     height: 5rem;
 }
+
 /*##################################################################################################################################################*/
 
 .stats {
@@ -314,6 +315,14 @@ textarea{
     color: #a46580;
 }
 
+deleteForm {
+    display: none;
+    position: absolute;
+    margin: 0px 300px auto;
+    z-index: 9999;
+    top: 204px;
+}
+
 .create_button:focus {
     background-color: none
 }
@@ -389,11 +398,11 @@ textarea{
 }
 
 /*.opaqueDiv {*/
-    /*background-image: url(../images/cards-background.png);*/
-    /*background-repeat: repeat;*/
-    /*width: 100% !important;*/
-    /*height: 460px;*/
-    /*background-color: #ffffff;*/
+/*background-image: url(../images/cards-background.png);*/
+/*background-repeat: repeat;*/
+/*width: 100% !important;*/
+/*height: 460px;*/
+/*background-color: #ffffff;*/
 /*}*/
 
 .box {
@@ -407,7 +416,7 @@ textarea{
     color: white;
 }
 
-._signup_textbox{
+._signup_textbox {
     background-color: transparent !important;
     border-top: 0;
     border-right: 0;
@@ -729,7 +738,7 @@ textarea{
     margin: 55px auto;
 }
 
-._signup_textbox::-webkit-input-placeholder{
+._signup_textbox::-webkit-input-placeholder {
     color: #a46580 !important;
     font-size: 20px !important;
 }
@@ -754,12 +763,10 @@ textarea{
     font-size: 20px !important;
 }
 
-
 #categoryInput::-webkit-input-placeholder {
     color: #a46580 !important;
     font-size: 20px !important;
 }
-
 
 #categoryInput:-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
@@ -1047,23 +1054,23 @@ fieldset {
 }
 
 /*#delbtn {*/
-    /*cursor: pointer;*/
-    /*max-width: 40%;*/
-    /*background: red;*/
-    /*color: white;*/
-    /*margin-top: 315px;*/
-    /*font-size: 20px;*/
-    /*margin-left: 6px;*/
-    /*font-family: monospace;*/
-    /*position: absolute;*/
-    /*width: 91px;*/
+/*cursor: pointer;*/
+/*max-width: 40%;*/
+/*background: red;*/
+/*color: white;*/
+/*margin-top: 315px;*/
+/*font-size: 20px;*/
+/*margin-left: 6px;*/
+/*font-family: monospace;*/
+/*position: absolute;*/
+/*width: 91px;*/
 /*}*/
 
 /*#delbtn:hover {*/
-    /*background: white;*/
-    /*color: red;*/
-    /*transition: 0.3s;*/
-    /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
+/*background: white;*/
+/*color: red;*/
+/*transition: 0.3s;*/
+/*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
 /*}*/
 
 /*BUTTONS IN DETAILS PAGE--------END*/
@@ -1214,7 +1221,7 @@ fieldset {
     margin-right: 25px
 }
 
-.text_size{
+.text_size {
     font-size: 20px !important;
     font-weight: bold;
     letter-spacing: -1.1px !important;
