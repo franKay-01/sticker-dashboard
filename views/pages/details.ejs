@@ -40,33 +40,34 @@
 
                     <div class="categoriesList">
                         <% categories.forEach(function(item) { %>
-                        <input type="checkbox" class="categoryOption" name="categoryList" data-name="<%=item.get('name')%>" value="<%= item.id%>"> &nbsp;<%= item.get("name")%>
+                        <input type="checkbox" class="categoryOption" name="categoryList"
+                               data-name="<%= item.get('name') %>" value="<%= item.id %>"> &nbsp;<%= item.get("name") %>
                         <% }); %>
-                       </div>
+                    </div>
                     <br>
                 </center>
                 <div style="text-align: center;">
                 <span>
-        <button type="button" id="btnCategoryAdd" class="cancel">ADD</button>
-         </span>
-                <span>
                     <button type="button" id="btnCategoryCancel" class="create">Cancel</button>
                 </span>
+                    <span>
+                    <button type="button" id="btnCategoryAdd" class="cancel">ADD</button>
+                  </span>
                 </div>
             </form>
         </div>
     </div>
     <div id="deleteForm" style="display: none">
         <div class="medium-3 large-3 cell create_background">
-                <center>
-                    <div class="edit_labels medium-12 large-12">DELETE STICKER</div>
-                    <img src="<%= sticker.get("uri").url()%>" style="height: 250px;margin-top: -50px;"/>
-                    <br>
-                </center>
-                <span>
+            <center>
+                <div class="edit_labels medium-12 large-12">DELETE STICKER</div>
+                <img src="<%= sticker.get("uri").url() %>" style="height: 250px;margin-top: -50px;"/>
+                <br>
+            </center>
+            <span>
         <button type="button" class="cancel closeDelete">Cancel</button>
          </span>
-                <span>
+            <span>
                     <a href="/delete_sticker/<%= sticker.id %>/<%= pack_id %>" class="delete_btn">Delete</a>
                 </span>
         </div>
