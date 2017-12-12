@@ -1046,25 +1046,25 @@ fieldset {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
-#delbtn {
-    cursor: pointer;
-    max-width: 40%;
-    background: red;
-    color: white;
-    margin-top: 315px;
-    font-size: 20px;
-    margin-left: 6px;
-    font-family: monospace;
-    position: absolute;
-    width: 91px;
-}
+/*#delbtn {*/
+    /*cursor: pointer;*/
+    /*max-width: 40%;*/
+    /*background: red;*/
+    /*color: white;*/
+    /*margin-top: 315px;*/
+    /*font-size: 20px;*/
+    /*margin-left: 6px;*/
+    /*font-family: monospace;*/
+    /*position: absolute;*/
+    /*width: 91px;*/
+/*}*/
 
-#delbtn:hover {
-    background: white;
-    color: red;
-    transition: 0.3s;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-}
+/*#delbtn:hover {*/
+    /*background: white;*/
+    /*color: red;*/
+    /*transition: 0.3s;*/
+    /*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
+/*}*/
 
 /*BUTTONS IN DETAILS PAGE--------END*/
 

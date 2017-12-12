@@ -174,6 +174,22 @@ $(document).ready(function () {
         $('#pack_form')[0].reset();
     });
 
+    //show deleteForm
+    $('.delbtn').on('click', function () {
+        // var $this = $(this);
+        $('#deleteForm').fadeIn('fast');
+        $('#pageMask').fadeIn('fast');
+        $('#logo').fadeOut('fast');
+        $('#Welcome').fadeOut('fast');
+        $('#signoutLink').fadeOut('fast');
+        $('#opaqueDiv').fadeOut('fast');
+
+        //insert category name into text field for removal
+        // $('#catNameRemove').val($this.val());
+        // $('#inputRemoveId').val($this.attr("data-id"));
+    });
+
+
     //show 'remove-category' form
     $('.delbtn1').on('click', function () {
         var $this = $(this);
