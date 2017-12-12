@@ -15,31 +15,39 @@
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <script type="text/javascript" src="/public/assets/js/val.min.js"></script>
 
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script>
-        function myFunction() {
-            alert("TEsting");
-            var pass = $('#pwd').val();
-            var check = $('#est5').val();
-
-            alert("value "+ pass + " check"+check);
-            if (pass === $('#confirm_password').val()) {
-                $('#message').html('Matching').css('color', 'green');
-            } else
-                $('#message').html('Not Matching').css('color', 'red');
-
-            document.getElementById("sign_form").submit();
-
-        }
-
-
-        $('#pwd, #confirm_password').on('keyup', function () {
-            if ($('#pwd').val() === $('#confirm_password').val()) {
-                $('#message').html('Matching').css('color', 'green');
-            } else
-                $('#message').html('Not Matching').css('color', 'red');
+        var validator = new FormValidator('example_form', [{
+            name: 'req',
+            display: 'required',
+            rules: 'required'
+        }, {
+            name: 'alphanumeric',
+            rules: 'alpha_numeric'
+        }, {
+            name: 'password',
+            rules: 'required'
+        }, {
+            name: 'password_confirm',
+            display: 'password confirmation',
+            rules: 'required|matches[password]'
+        }, {
+            name: 'email',
+            rules: 'valid_email',
+            depends: function() {
+                return Math.random() > .5;
+            }
+        }, {
+            name: 'minlength',
+            display: 'min length',
+            rules: 'min_length[8]'
+        }], function(errors, event) {
+            if (errors.length > 0) {
+                // Show the errors
+            }
         });
     </script>
 </head>
@@ -57,45 +65,47 @@
     </div>
     <!-- End of logo-->
     <span class="medium-12 large-12 welcome_post"><b>Welcome to Publisher</b></span>
-    <div class="row" style="width: 50%; background: whitesmoke">
-        <form class="col s12" method="post" id="sign_form" action="/signup">
-            <div class="row">
-                <div class="input-field col s12">
-                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Name"
-                           type="text" tabindex="1" name="name">
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Email"
-                           type="email" tabindex="1" name="username">
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"
-                           type="password" tabindex="1" id="pwd" name="password">
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"
-                           type="password" tabindex="1" id="confirm_password" name="confirm_password">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    <input type="checkbox" id="test5" value="1" />&nbsp;I Aggree With <a href="#" style="color: #a46580 !important;">Agreement</a>
-                </div>
-            </div>
-            <span id='message'></span>
+    <form name="example_form"></form>
 
-            <div>
-                <button name="login" onclick="myFunction()" id="btnSign" data-submit="...Sending">Sign Up</button>
-            </div>
+    <!--<div class="row" style="width: 50%; background: whitesmoke">-->
+        <!--<form class="col s12" method="post" id="sign_form" action="/signup">-->
+            <!--<div class="row">-->
+                <!--<div class="input-field col s12">-->
+                    <!--<input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Name"-->
+                           <!--type="text" tabindex="1" name="name">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+                <!--<div class="input-field col s12">-->
+                    <!--<input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Email"-->
+                           <!--type="email" tabindex="1" name="username">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+                <!--<div class="input-field col s12">-->
+                    <!--<input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"-->
+                           <!--type="password" tabindex="1" id="pwd" name="password">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+                <!--<div class="input-field col s12">-->
+                    <!--<input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"-->
+                           <!--type="password" tabindex="1" id="confirm_password" name="confirm_password">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+                <!--<div class="col s12">-->
+                    <!--<input type="checkbox" id="test5" value="1" />&nbsp;I Aggree With <a href="#" style="color: #a46580 !important;">Agreement</a>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<span id='message'></span>-->
 
-        </form>
-    </div>
+            <!--<div>-->
+                <!--<button name="login" onclick="myFunction()" id="btnSign" data-submit="...Sending">Sign Up</button>-->
+            <!--</div>-->
+
+        <!--</form>-->
+    <!--</div>-->
     <!--<div class="grid-x grid-margin-x">-->
         <!--<div class="medium-3 large-3 cell login_card">-->
             <!-- Form to allow user login-->
