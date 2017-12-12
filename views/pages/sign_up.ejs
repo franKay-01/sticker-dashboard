@@ -22,131 +22,41 @@
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script>
-        (function() {
+        // Bootstrap popovers
+        $('#form-signup_v1 [data-toggle="popover"]').popover({trigger: 'focus', placement: 'left'});
 
-            validate.extend(validate.validators.datetime, {
-                // The value is guaranteed not to be null or undefined but otherwise it
-                // could be anything.
-                parse: function(value, options) {
-                    return +moment.utc(value);
+        $('#form-signup_v1').validate({
+            submit: {
+                settings: {
+                    inputContainer: '.field',
+                    errorListClass: 'ui red pointing below label'
                 },
-                // Input is a unix timestamp
-                format: function(value, options) {
-                    var format = options.dateOnly ? "YYYY-MM-DD" : "YYYY-MM-DD hh:mm:ss";
-                    return moment.utc(value).format(format);
-                }
-            });
+                callback: {
+                    onBeforeSubmit: function (node) {
 
-            var form = document.getElementById("sign_form");
-            form.addEventListener("submit", function(ev) {
-                ev.preventDefault();
-                handleFormSubmit(form);
-            });
+                        myBeforeSubmitFunction(':D', ':)', node);
 
-            function handleFormSubmit(form,input) {
-                var errors = validate(form, validator);
-                // then we update the form to reflect the results
-                showErrors(form, errors || {});
-                if (!errors) {
-                    showSuccess();
-                }
-            }
+                    },
+                    onSubmit: function (node, formData) {
 
-            function showErrorsForInput(input, errors) {
-                // This is the root of the input
-                var formGroup = closestParent(input.parentNode, "form-group")
-                    // Find where the error messages will be insert into
-                    , messages = formGroup.querySelector(".messages");
-                // First we remove any old messages and resets the classes
-                resetFormGroup(formGroup);
-                // If we have errors
-                if (errors) {
-                    // we first mark the group has having errors
-                    formGroup.classList.add("has-error");
-                    // then we append all the errors
-                    _.each(errors, function(error) {
-                        addError(messages, error);
-                    });
-                } else {
-                    // otherwise we simply mark it as success
-                    formGroup.classList.add("has-success");
-                }
-            }
+                        console.log('#' + node.id + ' has a submit override.');
+                        console.log(formData);
 
-            function closestParent(child, className) {
-                if (!child || child === document) {
-                    return null;
-                }
-                if (child.classList.contains(className)) {
-                    return child;
-                } else {
-                    return closestParent(child.parentNode, className);
-                }
-            }
+                        //node[0].submit();
 
-            function resetFormGroup(formGroup) {
-                // Remove the success and error classes
-                formGroup.classList.remove("has-error");
-                formGroup.classList.remove("has-success");
-                // and remove any old messages
-                _.each(formGroup.querySelectorAll(".help-block.error"), function(el) {
-                    el.parentNode.removeChild(el);
-                });
-            }
-
-            // Adds the specified error with the following markup
-            // <p class="help-block error">[message]</p>
-            function addError(messages, error) {
-                var block = document.createElement("p");
-                block.classList.add("help-block");
-                block.classList.add("error");
-                block.innerText = error;
-                messages.appendChild(block);
-            }
-
-            function showSuccess() {
-                // We made it \:D/
-                alert("Success!");
-            }
-
-            function showErrors(form, errors) {
-                // We loop through all the inputs and show the errors for that input
-                _.each(form.querySelectorAll("input[name], select[name]"), function(input) {
-                    // Since the errors can be null if no errors were found we need to handle
-                    // that
-                    showErrorsForInput(input, errors && errors[input.name]);
-                });
-            }
-
-            var validator = {
-                username: {
-                    presence: true,
-                    email: true
-                },
-                user_name:{
-                    presence:true,
-
-                },
-                "confirm-password": {
-                    // You need to confirm your password
-                    presence: true,
-                    // and it needs to be equal to the other password
-                    equality: {
-                        attribute: "password",
-                        message: "^The passwords does not match"
-                    }
-                },
-                password: {
-                    // Password is also required
-                    presence: true,
-                    // And must be at least 5 characters long
-                    length: {
-                        minimum: 5
                     }
                 }
             }
+        });
 
-            })();
+        function myBeforeSubmitFunction(a, b, node) {
+
+            console.log(a, b);
+
+            node.find('input:not([type="submit"]), select, textarea').attr('readonly', 'true');
+            node.append('<div class="ui active loader"></div>');
+
+        }
     </script>
 </head>
 
@@ -164,42 +74,107 @@
     <!-- End of logo-->
     <span class="medium-12 large-12 welcome_post"><b>Welcome to Publisher</b></span>
     <div class="row" style="width: 50%; background: whitesmoke">
-        <form class="col s12" method="post" id="sign_form" action="/signup">
-            <div class="row">
-                <div class="input-field col s12">
-                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Name"
-                           type="text" tabindex="1" name="user_name" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Email"
-                           type="email" tabindex="1" name="username" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"
-                           type="password" tabindex="1" name="password" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"
-                           type="password" tabindex="1" id="confirm_password" name="confirm_password" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    <input type="checkbox" id="test5" value="1" />&nbsp;I Aggree With <a href="#" style="color: #a46580 !important;">Agreement</a>
-                </div>
-            </div>
-            <span id='message'></span>
+        <!--<form class="col s12" method="post" id="sign_form" action="/signup">-->
+            <!--<div class="row">-->
+                <!--<div class="input-field col s12">-->
+                    <!--<input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Name"-->
+                           <!--type="text" tabindex="1" name="user_name" required>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+                <!--<div class="input-field col s12">-->
+                    <!--<input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Email"-->
+                           <!--type="email" tabindex="1" name="username" required>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+                <!--<div class="input-field col s12">-->
+                    <!--<input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"-->
+                           <!--type="password" tabindex="1" name="password" required>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+                <!--<div class="input-field col s12">-->
+                    <!--<input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"-->
+                           <!--type="password" tabindex="1" id="confirm_password" name="confirm_password" required>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+                <!--<div class="col s12">-->
+                    <!--<input type="checkbox" id="test5" value="1" />&nbsp;I Aggree With <a href="#" style="color: #a46580 !important;">Agreement</a>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<span id='message'></span>-->
 
-            <div>
-                <button name="login" type="submit" id="btnSign" data-submit="...Sending">Sign Up</button>
-            </div>
+            <!--<div>-->
+                <!--<button name="login" type="submit" id="btnSign" data-submit="...Sending">Sign Up</button>-->
+            <!--</div>-->
 
+        <!--</form>-->
+        <form id="form-signup_v1" name="form-signup_v1" method="POST">
+             
+                <div class="field">
+                        <label for="signup_v1-username">Username</label>
+                        <div class="ui left labeled input">
+                     
+                                <input id="signup_v1-username" name="signup_v1[username]" type="text" data-validation="[L>=6, L<=18, MIXED]" data-validation-message="$ must be between 6 and 18 characters. No special characters allowed." data-validation-regex="/^((?!admin).)*$/i" data-validation-regex-message="The word &quot;Admin&quot; is not allowed in the $" data-toggle="popover" data-content="You can use letters and numbers, no space or special characters">
+                     
+                                <div class="ui corner label">
+                                        <i class="asterisk icon"></i>
+                                    </div>
+                            </div>
+                    </div>
+                <div class="field">
+                        <label for="signup_v1-password">Password</label>
+                        <div class="ui left labeled input">
+                     
+                                <input id="signup_v1-password" name="signup_v1[password]" type="password" data-validation="[L>=6]" data-validation-message="$ must be at least 6 characters" data-toggle="popover" data-content="Your password must contain at least 6 characters">
+                     
+                                <div class="ui corner label">
+                                        <i class="asterisk icon"></i>
+                                    </div>
+                            </div>
+                    </div>
+                <div class="field">
+                        <label for="signup_v1-password-confirm">Confirm Password</label>
+                        <div class="ui left labeled input">
+                     
+                                <input id="signup_v1-password-confirm" name="signup_v1[password-confirm]" type="password" data-validation="[V==signup_v1[password]]" data-validation-message="$ does not match the password" data-toggle="popover" data-content="Both password must match">
+                     
+                                <div class="ui corner label">
+                                        <i class="asterisk icon"></i>
+                                    </div>
+                            </div>
+                    </div>
+                <div class="field">
+                        <label for="signup_v1-email">Email</label>
+                        <div class="ui left labeled input">
+                     
+                                <input id="signup_v1-email" name="signup_v1[email]" type="text" data-validation="[EMAIL]" data-toggle="popover" data-content="The email that will be associated with your account.">
+                     
+                                <div class="ui corner label">
+                                        <i class="asterisk icon"></i>
+                                    </div>
+                            </div>
+                    </div>
+                <div class="field">
+                        <label for="signup_v1-email-confirm">Confirm Email</label>
+                        <div class="ui left labeled input">
+                     
+                                <input id="signup_v1-email-confirm" name="signup_v1[email-confirm]" type="text" data-validation="[V==signup_v1[email]]" data-validation-message="$ does not match the email" data-toggle="popover" data-content="Both email must match">
+                     
+                                <div class="ui corner label">
+                                        <i class="asterisk icon"></i>
+                                    </div>
+                            </div>
+                    </div>
+             
+                <input type="submit" class="ui blue submit button" value="Sign up!">
+             
+                <button id="prefill-signup_v1" type="button" class="ui mini basic button">
+                        Prefill
+                    </button>
+             
         </form>
     </div>
     <!--<div class="grid-x grid-margin-x">-->
