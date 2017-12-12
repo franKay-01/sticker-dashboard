@@ -20,7 +20,8 @@
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script>
-        (function() {
+        function submitForm() {
+
             var form = document.getElementById("sign_form");
             form.addEventListener("submit", function(ev) {
                 ev.preventDefault();
@@ -130,7 +131,7 @@
                 }
             }
 
-            })();
+            }
     </script>
 </head>
 
@@ -181,7 +182,7 @@
             <span id='message'></span>
 
             <div>
-                <button name="login" type="submit" id="btnSign" data-submit="...Sending">Sign Up</button>
+                <button name="login" onclick="submitForm()" id="btnSign" data-submit="...Sending">Sign Up</button>
             </div>
 
         </form>
