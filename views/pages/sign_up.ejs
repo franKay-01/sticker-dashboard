@@ -19,6 +19,10 @@
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script>
+        $( ".confirm_password" ).change(function() {
+            alert( "Handler for .change() called." );
+        });
+
         $('#pwd, #confirm_password').on('keyup', function () {
             if ($('#pwd').val() === $('#confirm_password').val()) {
                 $('#message').html('Matching').css('color', 'green');
@@ -63,8 +67,8 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"
-                           type="password" tabindex="1" id="confirm_password" name="confirm_password">
+                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox confirm_password" placeholder="Password"
+                           type="password" tabindex="1" name="confirm_password">
                 </div>
             </div>
             <div class="row">
