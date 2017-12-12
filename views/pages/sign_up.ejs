@@ -21,12 +21,13 @@
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script>
         var validator = new FormValidator('example_form', [{
-            name: 'req',
+            name: 'user_name',
             display: 'required',
             rules: 'required'
         }, {
-            name: 'alphanumeric',
-            rules: 'alpha_numeric'
+            name: 'username',
+            display: 'required',
+            rules: 'required'
         }, {
             name: 'password',
             rules: 'required'
@@ -40,11 +41,7 @@
             depends: function() {
                 return Math.random() > .5;
             }
-        }, {
-            name: 'minlength',
-            display: 'min length',
-            rules: 'min_length[8]'
-        }], function(errors, event) {
+        },], function(errors, event) {
             if (errors.length > 0) {
                 // Show the errors
             }
@@ -65,47 +62,45 @@
     </div>
     <!-- End of logo-->
     <span class="medium-12 large-12 welcome_post"><b>Welcome to Publisher</b></span>
-    <form name="example_form"></form>
+    <div class="row" style="width: 50%; background: whitesmoke">
+        <form class="col s12" method="post" id="sign_form" action="/signup">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Name"
+                           type="text" tabindex="1" name="user_name">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Email"
+                           type="email" tabindex="1" name="username">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"
+                           type="password" tabindex="1" name="password">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"
+                           type="password" tabindex="1" id="confirm_password" name="confirm_password">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <input type="checkbox" id="test5" value="1" />&nbsp;I Aggree With <a href="#" style="color: #a46580 !important;">Agreement</a>
+                </div>
+            </div>
+            <span id='message'></span>
 
-    <!--<div class="row" style="width: 50%; background: whitesmoke">-->
-        <!--<form class="col s12" method="post" id="sign_form" action="/signup">-->
-            <!--<div class="row">-->
-                <!--<div class="input-field col s12">-->
-                    <!--<input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Name"-->
-                           <!--type="text" tabindex="1" name="name">-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row">-->
-                <!--<div class="input-field col s12">-->
-                    <!--<input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Email"-->
-                           <!--type="email" tabindex="1" name="username">-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row">-->
-                <!--<div class="input-field col s12">-->
-                    <!--<input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"-->
-                           <!--type="password" tabindex="1" id="pwd" name="password">-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row">-->
-                <!--<div class="input-field col s12">-->
-                    <!--<input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Password"-->
-                           <!--type="password" tabindex="1" id="confirm_password" name="confirm_password">-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row">-->
-                <!--<div class="col s12">-->
-                    <!--<input type="checkbox" id="test5" value="1" />&nbsp;I Aggree With <a href="#" style="color: #a46580 !important;">Agreement</a>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<span id='message'></span>-->
+            <div>
+                <button name="login" onclick="myFunction()" id="btnSign" data-submit="...Sending">Sign Up</button>
+            </div>
 
-            <!--<div>-->
-                <!--<button name="login" onclick="myFunction()" id="btnSign" data-submit="...Sending">Sign Up</button>-->
-            <!--</div>-->
-
-        <!--</form>-->
-    <!--</div>-->
+        </form>
+    </div>
     <!--<div class="grid-x grid-margin-x">-->
         <!--<div class="medium-3 large-3 cell login_card">-->
             <!-- Form to allow user login-->
