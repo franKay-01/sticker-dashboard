@@ -27,6 +27,9 @@
                 $('#message').html('Matching').css('color', 'green');
             } else
                 $('#message').html('Not Matching').css('color', 'red');
+
+            document.getElementById("sign_form").submit();
+
         }
 
 
@@ -53,7 +56,7 @@
     <!-- End of logo-->
     <span class="medium-12 large-12 welcome_post"><b>Welcome to Publisher</b></span>
     <div class="row" style="width: 50%; background: whitesmoke">
-        <form class="col s12">
+        <form class="col s12" method="post" id="sign_form" action="/signup">
             <div class="row">
                 <div class="input-field col s12">
                     <input style="margin-top: 30px;font-size: 2rem !important;" class="_signup_textbox" placeholder="Name"
