@@ -67,13 +67,13 @@ $(document).ready(function () {
             $('#signoutLink').fadeIn('fast');
         });
 
-        $('.btnCategoryCancel').on('click', function () {
-            $('#addCategoryForm').fadeIn('fast');
-            $('#pageMask').fadeIn('fast');
-            $('#logo').fadeOut('fast');
-            $('#opaqueDiv').fadeOut('fast');
-            $('#detailsForm').fadeOut('fast');
-            $('#signoutLink').fadeOut('fast');
+        $('#btnCategoryCancel').on('click', function () {
+            $('#deleteForm').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#detailsForm').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
             // $('#_addCategoryForm').fadeOut('fast');
         });
 
