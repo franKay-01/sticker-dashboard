@@ -36,6 +36,17 @@
                 return re.test(email);
             }
 
+
+            function checkPassword(pw1, pw2) {
+                if (pw1 !== pw2){
+                    alert("Passwords do not match");
+                }else {
+                    alert("Passwords match");
+                }
+            }
+
+            checkPassword(password,confirm_password);
+
             if (validateEmail(username)){
                 alert("Email is correvt");
             }else {
