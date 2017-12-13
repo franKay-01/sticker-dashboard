@@ -752,7 +752,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
 });
 
 //Update Sticker
-app.post('/update/:id', upload.single('im1'), function (req, res) {
+app.post('/update/:id/:pid', upload.single('im1'), function (req, res) {
 
     var session = req.session.token;
     var token = req.cookies.token;
@@ -763,6 +763,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
     var file = req.file;
     var imgChange = req.body.imgChange;
     var stickerId = req.params.id;
+    var packId = req.params.pid;
 
     var category_list = categoryList.split(",");
 
@@ -830,11 +831,11 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
             }
 
             console.log("FILE UPDATED SUCCESSFULLYYYY");
-            res.redirect("/");
+            res.redirect("/pack/"+packId);
 
         }, function (e) {
             console.log("SERVER ERROR " + JSON.stringify(e));
-            res.redirect("/");
+            res.redirect("/pack/"+packId);
 
         });
 
@@ -842,7 +843,7 @@ app.post('/update/:id', upload.single('im1'), function (req, res) {
 
         //TODO handle error code
         console.log("No session found[[[[[[");
-        res.redirect("/");
+        res.redirect("/pack/"+packId);
 
     }
 });
