@@ -26,7 +26,7 @@
         function signUp() {
             alert("Test");
 
-            var password = document.getElementById("name_p");
+            var password = document.getElementsByName("name_p");
             var confirm_password = document.getElementById("confirm_password");
 
             alert(JSON.stringify(password));
@@ -63,7 +63,7 @@
         <form class="pure-form">
             <fieldset>
                 <legend>Confirm password with HTML5</legend>
-                <input type="text" id="name_p" required>
+                <input type="text" name="name_p" required>
                 <input type="password" placeholder="Password" id="password" required>
                 <input type="password" placeholder="Confirm Password" id="confirm_password" required>
 
