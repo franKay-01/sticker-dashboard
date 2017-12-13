@@ -31,6 +31,16 @@
             var password = document.getElementById('password').value;
             var confirm_password = document.getElementById('confirm_password').value;
 
+            function validateEmail(email) {
+                var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(email);
+            }
+
+            if (validateEmail(username)){
+                alert("Email is correvt");
+            }else {
+                alert("Email not correct");
+            }
             alert(name);alert(username);alert(password);alert(confirm_password);
 
             // function validatePassword(){
