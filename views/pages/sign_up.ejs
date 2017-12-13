@@ -48,10 +48,12 @@
 
             if (validateEmail(username) && check === true){
                 alert("Everything matches");
+                document.getElementById("pure-form").submit();// Form submission
+
             }else {
                 alert("They dont match");
             }
-            alert(name);alert(username);alert(password);alert(confirm_password);
+            // alert(name);alert(username);alert(password);alert(confirm_password);
 
             // function validatePassword(){
             //     if(password.value !== confirm_password.value) {

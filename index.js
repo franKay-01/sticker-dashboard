@@ -175,7 +175,11 @@ app.get('/', function (req, res) {
 });
 
 app.get('/sign_up', function (req, res) {
+    var name = req.body.name_field;
+    var username = req.body.username;
+    var password = req.body.password;
 
+    console.log("NAME "+name+" USERNAME "+username+" PASSWORD "+password);
     res.render("pages/sign_up");
 
 });
