@@ -29,3 +29,32 @@ function signUp() {
     }
 
 }
+
+
+function dropbox() {
+    options = {
+
+        success: function (files) {
+            files.forEach(function (file) {
+                add_img_to_list(file);
+            });
+        },
+        cancel: function () {
+            //optional
+        },
+        linkType: "direct", // "preview" or "direct"
+        multiselect: false, // true or false
+        extensions: ['.png', '.jpg'],
+    };
+    Dropbox.choose(options);
+}
+
+function add_img_to_list(file) {
+    var name = file.name;
+    var source = file.link;
+    var type = name.substr(name.length - 3);
+
+    document.getElementById('fileUrl').value = source;
+    document.getElementById('fileName').value = name;
+    document.getElementById('fileType').value = type;
+}

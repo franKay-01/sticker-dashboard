@@ -19,45 +19,8 @@
     <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs"
             data-app-key="ed8po9zwpj4pnhw"></script>
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-    <script type="text/javascript">
+    <script src="/public/assets/js/functions.js"></script>
 
-        function dropbox() {
-            options = {
-
-                success: function (files) {
-                    files.forEach(function (file) {
-                        add_img_to_list(file);
-                    });
-                },
-                cancel: function () {
-                    //optional
-                },
-                linkType: "direct", // "preview" or "direct"
-                multiselect: false, // true or false
-                extensions: ['.png', '.jpg'],
-            };
-            Dropbox.choose(options);
-        }
-
-        function add_img_to_list(file) {
-
-//                var span = document.createElement('span');
-//                span.innerHTML = ['<img class="thumb" name="im1" " id="image_id" src="', file[i].link ,
-//                    '" title="', file[i].name, '"/>'].join('');
-//
-//                document.getElementById('fileType').insertBefore(span, null);
-
-            var name = file.name;
-            var source = file.link;
-            var type = name.substr(name.length - 3);
-//
-            document.getElementById('fileUrl').value = source;
-            document.getElementById('fileName').value = name;
-            document.getElementById('fileType').value = type;
-        }
-
-
-    </script>
 </head>
 
 <body class="secondary-background-color">
