@@ -74,7 +74,7 @@ $(document).ready(function () {
             $('#opaqueDiv').fadeOut('fast');
             $('#detailsForm').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
-            $('#_addCategoryForm').fadeOut('fast');
+            // $('#_addCategoryForm').fadeOut('fast');
         });
 
         //This is to reset a form and close it
