@@ -25,7 +25,6 @@
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script>
         function signUp() {
-            alert("Test");
             var name = document.getElementById('name_field').value;
             var username = document.getElementById('username').value;
             var password = document.getElementById('password').value;
@@ -39,18 +38,18 @@
 
             function checkPassword(pw1, pw2) {
                 if (pw1 !== pw2){
-                    alert("Passwords do not match");
+                    return true;
                 }else {
-                    alert("Passwords match");
+                   return false;
                 }
             }
 
-            checkPassword(password,confirm_password);
+            var check = checkPassword(password,confirm_password);
 
-            if (validateEmail(username)){
-                alert("Email is correvt");
+            if (validateEmail(username) && check === true){
+                alert("Everything matches");
             }else {
-                alert("Email not correct");
+                alert("They dont match");
             }
             alert(name);alert(username);alert(password);alert(confirm_password);
 
