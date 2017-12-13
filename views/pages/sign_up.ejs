@@ -28,7 +28,7 @@
             var name = document.getElementById('name_field').value;
 
             alert(JSON.stringify(name));
-            //
+
             // function validatePassword(){
             //     if(password.value !== confirm_password.value) {
             //         confirm_password.setCustomValidity("Passwords Don't Match");
@@ -58,7 +58,7 @@
     <!-- End of logo-->
     <span class="medium-12 large-12 welcome_post"><b>Welcome to Publisher</b></span>
     <div class="row" style="width: 50%; background: whitesmoke">
-        <form id="pure-form">
+        <form id="pure-form" action="/sign_up">
             <input type="text" name="name_field" id="name_field" required>
             <button type="button" onclick="signUp()" class="pure-button pure-button-primary">Confirm</button>
 
