@@ -215,6 +215,16 @@ textarea {
     color: #ffffff;
 }
 
+.create {
+    height: 43px;
+    font-family: Montserrat;
+    font-size: 35px;
+    font-weight: bold;
+    letter-spacing: -2.1px;
+    text-align: left;
+    color: #ffffff;
+}
+
 ._stickers {
     height: 32px;
     font-family: Montserrat;
