@@ -35,18 +35,18 @@
     <div id="addCategoryForm">
         <div class="medium-3 large-3 cell create_background">
             <!--<form id="_addCategoryForm">-->
-                <center>
-                    <div class="edit_labels medium-12 large-12"><b>SELECT CATEGORY</b></div>
+            <center>
+                <div class="edit_labels medium-12 large-12"><b>SELECT CATEGORY</b></div>
 
-                    <div class="categoriesList">
-                        <% categories.forEach(function(item) { %>
-                        <input type="checkbox" class="categoryOption" name="categoryList"
-                               data-name="<%= item.get('name') %>" value="<%= item.id %>"> &nbsp;<%= item.get("name") %>
-                        <% }); %>
-                    </div>
-                    <br>
-                </center>
-                <div style="text-align: center;">
+                <div class="categoriesList">
+                    <% categories.forEach(function(item) { %>
+                    <input type="checkbox" class="categoryOption" name="categoryList"
+                           data-name="<%= item.get('name') %>" value="<%= item.id %>"> &nbsp;<%= item.get("name") %>
+                    <% }); %>
+                </div>
+                <br>
+            </center>
+            <div style="text-align: center;">
                     <span>
                     <button type="button" id="btnCategoryAdd" class="add">ADD</button>
                   </span>
@@ -54,7 +54,7 @@
                     <button type="button" class="cancel btnCategoryCancel">Cancel</button>
                 </span>
 
-                </div>
+            </div>
             <!--</form>-->
         </div>
     </div>
@@ -64,13 +64,14 @@
                 <div class="edit_labels medium-12 large-12">DELETE STICKER</div>
                 <img src="<%= sticker.get("uri").url() %>" style="height: 250px;margin-top: -50px;"/>
                 <br>
-            </center>
-            <span>
-        <button type="button" class="cancel closeDelete">Cancel</button>
-         </span>
-            <span>
+                <span>
+                 <button type="button" class="cancel closeDelete">Cancel</button>
+                </span>
+                <span>
                     <a href="/delete_sticker/<%= sticker.id %>/<%= pack_id %>" class="delete_btn">Delete</a>
                 </span>
+            </center>
+
         </div>
     </div>
     <!--End of logo-->
