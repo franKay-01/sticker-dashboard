@@ -48,7 +48,7 @@
 
             if (validateEmail(username) && check === true){
                 alert("Everything matches");
-                document.getElementById("pure-form").submit();// Form submission
+                document.getElementById("signForm").submit();// Form submission
 
             }else {
                 alert("They dont match");
@@ -84,7 +84,7 @@
     <!-- End of logo-->
     <span class="medium-12 large-12 welcome_post"><b>Welcome to Publisher</b></span>
     <div class="row" style="width: 50%; background: whitesmoke">
-        <form id="pure-form" method="post" action="/signup">
+        <form id="signForm" method="post" action="/signup">
             <input type="text" name="name_field" id="name_field" required>
             <input type="email" name="username" id="username" required>
             <input type="password" name="password" id="password" required>
