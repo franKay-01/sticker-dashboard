@@ -48,8 +48,8 @@
 
             if (validateEmail(username) && check === true){
                 alert("Everything matches");
-                var x = document.getElementById("pure-form");// Form submission
-                    x[0].submit();
+                document.getElementById("pure-form").submit();// Form submission
+
             }else {
                 alert("They dont match");
             }
