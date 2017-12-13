@@ -25,11 +25,9 @@
     <script>
         function signUp() {
             alert("Test");
+            var name = document.getElementById('name_field');onfirm_password");
 
-            var password = document.getElementsByName("name_p");
-            var confirm_password = document.getElementById("confirm_password");
-
-            alert(JSON.stringify(password));
+            alert(JSON.stringify(name));
             //
             // function validatePassword(){
             //     if(password.value !== confirm_password.value) {
@@ -60,15 +58,10 @@
     <!-- End of logo-->
     <span class="medium-12 large-12 welcome_post"><b>Welcome to Publisher</b></span>
     <div class="row" style="width: 50%; background: whitesmoke">
-        <form class="pure-form">
-            <fieldset>
-                <legend>Confirm password with HTML5</legend>
-                <input type="text" name="name_p" required>
-                <input type="password" placeholder="Password" id="password" required>
-                <input type="password" placeholder="Confirm Password" id="confirm_password" required>
+        <form id="pure-form">
+            <input type="text" name="name_field" id="name_field" required>
+            <button type="button" onclick="signUp()" class="pure-button pure-button-primary">Confirm</button>
 
-                <button type="button" onclick="signUp()" class="pure-button pure-button-primary">Confirm</button>
-            </fieldset>
         </form>
 
     </div>
