@@ -153,19 +153,6 @@ textarea {
     margin-bottom: 20px !important;
 }
 
-.add {
-    /*width: 105px;*/
-    height: 43px;
-    font-family: Montserrat;
-    font-size: 35px;
-    font-weight: 300;
-    letter-spacing: -2.1px;
-    text-align: left;
-    margin-left: 350px;
-    color: #ffffff;
-    margin-right: 10px
-}
-
 .category_text {
     height: 49px;
     font-family: Montserrat;
@@ -205,7 +192,7 @@ textarea {
     margin-right: 30px
 }
 
-.cancel {
+.add {
     height: 43px;
     font-family: Montserrat;
     font-size: 35px;
@@ -213,6 +200,19 @@ textarea {
     letter-spacing: -2.1px;
     text-align: left;
     color: #ffffff;
+}
+
+.cancel{
+    /*width: 105px;*/
+    height: 43px;
+    font-family: Montserrat;
+    font-size: 35px;
+    font-weight: 300;
+    letter-spacing: -2.1px;
+    text-align: left;
+    margin-left: 350px;
+    color: #ffffff;
+    margin-right: 10px
 }
 
 .create {
