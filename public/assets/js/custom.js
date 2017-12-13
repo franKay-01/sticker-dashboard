@@ -68,6 +68,7 @@ $(document).ready(function () {
         });
 
         $('#btnCategoryCancel').on('click', function () {
+            $('#addCategoryForm').fadeOut('fast');
             $('#deleteForm').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#logo').fadeIn('fast');
