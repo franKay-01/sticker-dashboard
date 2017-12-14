@@ -445,6 +445,20 @@ textarea {
     margin-left: 10%;
 }
 
+.btnSignUp{
+    cursor: pointer;
+    background: transparent;
+    margin: 7px;
+    padding: 10px;
+    font-weight: 800 !important;
+    padding-bottom: 10px;
+    transition: 0.5s;
+    font-size: 35px !important;
+    letter-spacing: -2.1px;
+    text-align: left;
+    color: #a46580;
+}
+
 .signup_label{
     color: #a46580;
     font-weight: 700;
