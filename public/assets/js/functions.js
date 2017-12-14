@@ -22,7 +22,7 @@ function signUp() {
     var check = checkPassword(password,confirm_password);
     if (terms === true){
         alert("Check box ticked");
-        document.getElementById("tool").style.visibility = "visible";
+        document.getElementById("tool").innerHTML = "visible";
     }else {
         alert("Check box nt ticked");
     }
