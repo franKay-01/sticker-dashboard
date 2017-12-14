@@ -22,6 +22,8 @@ function signUp() {
     var check = checkPassword(password,confirm_password);
     if (terms === true){
         alert("Check box ticked");
+    }else {
+        alert("Check box nt ticked");
     }
     if (validateEmail(username) && check === true){
         alert("Everything matches");
