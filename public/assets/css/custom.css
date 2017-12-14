@@ -764,6 +764,7 @@ textarea {
 ._signup_textbox::-webkit-input-placeholder {
     color: #a46580 !important;
     font-size: 20px !important;
+    text-align: center;
 }
 
 ._signup_textbox:-moz-placeholder {
@@ -771,6 +772,7 @@ textarea {
     color: #a46580 !important;
     font-size: 20px !important;
     opacity: 1;
+    text-align: center;
 }
 
 ._signup_textbox::-moz-placeholder {
@@ -778,12 +780,14 @@ textarea {
     color: #a46580 !important;
     font-size: 20px !important;
     opacity: 1;
+    text-align: center;
 }
 
 ._signup_textbox:-ms-input-placeholder {
     /* Internet Explorer 10-11 */
     color: #a46580 !important;
     font-size: 20px !important;
+    text-align: center;
 }
 
 #categoryInput::-webkit-input-placeholder {
