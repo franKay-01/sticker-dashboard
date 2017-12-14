@@ -626,12 +626,12 @@ textarea {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
-#username,
-#password {
-    width: 100%;
-    background: ghostwhite;
-    border: 1px solid darkgrey;
-}
+/*#username,*/
+/*#password {*/
+    /*width: 100%;*/
+    /*background: ghostwhite;*/
+    /*border: 1px solid darkgrey;*/
+/*}*/
 
 .signUpFormContainer {
     max-width: 400px;
