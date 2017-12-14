@@ -3,6 +3,7 @@ function signUp() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
     var confirm_password = document.getElementById('confirm_password').value;
+    var terms = document.getElementById('terms_policy').checked;
 
     function validateEmail(email) {
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -19,10 +20,12 @@ function signUp() {
     }
 
     var check = checkPassword(password,confirm_password);
-
+    if (terms === true){
+        alert("Check box ticked");
+    }
     if (validateEmail(username) && check === true){
         alert("Everything matches");
-        document.getElementById("signForm").submit();// Form submission
+        // document.getElementById("signForm").submit();// Form submission
 
     }else {
         alert("They dont match");
