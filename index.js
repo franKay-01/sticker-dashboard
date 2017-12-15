@@ -185,7 +185,8 @@ app.post('/signup', function (req, res) {
     var password = req.body.password;
 
     var user = new Parse.User();
-    user.set("username", name);
+    user.set("name",name);
+    user.set("username", username);
     user.set("password", password);
     user.set("email", username);
 
