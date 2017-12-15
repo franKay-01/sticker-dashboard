@@ -43,6 +43,8 @@ function signUp() {
 
         if (password === ""){
             document.getElementById("pwd").innerHTML = "Password is Required";
+        }else {
+            document.getElementById("pwd").innerHTML = "Password is Required";
         }
         if (name === ""){
             document.getElementById("nameField").innerHTML = "Name is Required";
