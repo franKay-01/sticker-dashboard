@@ -32,14 +32,20 @@ function signUp() {
 
     }else {
         if (validateEmail(username) === false){
-            document.getElementById("user").innerHTML = "Name is required";
+            document.getElementById("user").innerHTML = "Email Format is not correct";
+        }
+        if (username === null){
+            document.getElementById("user").innerHTML = "Email Required";
         }
         if (check !== true){
             document.getElementById("confirm").innerHTML = "Passwords Do Not Match";
         }
 
+        if (password === null){
+            document.getElementById("pwd").innerHTML = "Password is Required";
+        }
         if (name === null){
-            document.getElementById("nameField").innerHTML = "Name is required";
+            document.getElementById("nameField").innerHTML = "Name is Required";
         }
 
         if (terms !== true){
