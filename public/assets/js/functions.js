@@ -34,17 +34,17 @@ function signUp() {
         if (validateEmail(username) === false){
             document.getElementById("user").innerHTML = "Email Format is not correct";
         }
-        if (username === null){
+        if (username === ""){
             document.getElementById("user").innerHTML = "Email Required";
         }
         if (check !== true){
             document.getElementById("confirm").innerHTML = "Passwords Do Not Match";
         }
 
-        if (password === null){
+        if (password === ""){
             document.getElementById("pwd").innerHTML = "Password is Required";
         }
-        if (name === null){
+        if (name === ""){
             document.getElementById("nameField").innerHTML = "Name is Required";
         }
 
