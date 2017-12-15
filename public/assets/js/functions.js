@@ -20,16 +20,9 @@ function signUp() {
     }
 
     var check = checkPassword(password,confirm_password);
-    // if (terms === true){
-    //     alert("Check box ticked");
-    //     document.getElementById("nameField").innerHTML = "Name is required";
-    // }else {
-    //     alert("Check box nt ticked");
-    // }
-    if (validateEmail(username) && check === true && name !== null && terms === true){
-        alert("Everything matches");
-        // document.getElementById("signForm").submit();// Form submission
 
+    if (validateEmail(username) && check === true && name !== null && terms === true){
+        document.getElementById("signForm").submit();// Form submission
     }else {
         if (validateEmail(username) === false){
             document.getElementById("user").innerHTML = "Email Format is not correct";
@@ -66,8 +59,6 @@ function signUp() {
         }else {
             document.getElementById("policy").innerHTML = "";
         }
-        alert("They dont match");
-
     }
 
 }
