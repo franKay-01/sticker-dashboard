@@ -175,7 +175,8 @@ app.get('/', function (req, res) {
 });
 
 app.get('/sign_up', function (req, res) {
-    res.render("pages/sign_up");
+    var message = "";
+    res.render("pages/sign_up",{error:message});
 });
 
 app.post('/signup', function (req, res) {
