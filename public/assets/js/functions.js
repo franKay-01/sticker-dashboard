@@ -20,18 +20,33 @@ function signUp() {
     }
 
     var check = checkPassword(password,confirm_password);
-    if (terms === true){
-        alert("Check box ticked");
-        document.getElementById("tool").innerHTML = "visible";
-    }else {
-        alert("Check box nt ticked");
-    }
-    if (validateEmail(username) && check === true){
+    // if (terms === true){
+    //     alert("Check box ticked");
+    //     document.getElementById("nameField").innerHTML = "Name is required";
+    // }else {
+    //     alert("Check box nt ticked");
+    // }
+    if (validateEmail(username) && check === true && name !== null && terms === true){
         alert("Everything matches");
         // document.getElementById("signForm").submit();// Form submission
 
     }else {
+        if (validateEmail(username) === false){
+            document.getElementById("user").innerHTML = "Name is required";
+        }
+        if (check !== true){
+            document.getElementById("confirm").innerHTML = "Passwords Do Not Match";
+        }
+
+        if (name === null){
+            document.getElementById("nameField").innerHTML = "Name is required";
+        }
+
+        if (terms !== true){
+            document.getElementById("policy").innerHTML = "Please tick";
+        }
         alert("They dont match");
+
     }
 
 }
