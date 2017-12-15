@@ -195,7 +195,7 @@ app.post('/signup', function (req, res) {
         },
         error: function(user, error) {
             // Show the error message somewhere and let the user try again.
-            var message = "SignUp was unsuccessful. Please Try Again";
+            var message = "SignUp was unsuccessful. Please Try Again.";
             res.redirect("/sign_up",{error: message});
         }
     });
