@@ -40,6 +40,13 @@
         </a>
     </div>
     <!-- End of logo-->
+    <% if (error.length > 0) { %>
+    <div class="medium-12 large-12 error_card">
+        <div style="text-align: center;font-size: 20px;">
+            <%= error %>
+        </div>
+    </div>
+    <% } %>
     <div class="medium-6 large-6 signup_form_">
         <div style="text-align: center;">
             <div class="signup_label">Sign Up</div>

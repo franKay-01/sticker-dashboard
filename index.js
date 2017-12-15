@@ -175,8 +175,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/sign_up', function (req, res) {
-        res.render("pages/sign_up");
-
+    res.render("pages/sign_up");
 });
 
 app.post('/signup', function (req, res) {
@@ -184,9 +183,23 @@ app.post('/signup', function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
 
-    console.log("NAME "+name+" USERNAME "+username+" PASSWORD "+password);
+    var user = new Parse.User();
+    user.set("username", name);
+    user.set("password", password);
+    user.set("email", username);
 
-    res.redirect("/sign_up");
+
+    user.signUp(null, {
+        success: function(user) {
+            res.redirect("/");
+        },
+        error: function(user, error) {
+            // Show the error message somewhere and let the user try again.
+            var message = "SignUp was unsuccessful. Please Try Again";
+            res.redirect("/sign_up",{error: message});
+        }
+    });
+
 
 });
 
