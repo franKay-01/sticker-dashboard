@@ -33,12 +33,20 @@ function signUp() {
     }else {
         if (validateEmail(username) === false){
             document.getElementById("user").innerHTML = "Email Format is not correct";
+        }else {
+            document.getElementById("user").innerHTML = "";
         }
+
         if (username === ""){
             document.getElementById("user").innerHTML = "Email Required";
+        }else {
+            document.getElementById("user").innerHTML = "";
         }
+
         if (check !== true){
             document.getElementById("confirm").innerHTML = "Passwords Do Not Match";
+        }else {
+            document.getElementById("confirm").innerHTML = "";
         }
 
         if (password === ""){
@@ -46,12 +54,17 @@ function signUp() {
         }else {
             document.getElementById("pwd").innerHTML = "";
         }
+
         if (name === ""){
             document.getElementById("nameField").innerHTML = "Name is Required";
+        }else {
+            document.getElementById("nameField").innerHTML = "";
         }
 
         if (terms !== true){
             document.getElementById("policy").innerHTML = "Please tick";
+        }else {
+            document.getElementById("policy").innerHTML = "";
         }
         alert("They dont match");
 
