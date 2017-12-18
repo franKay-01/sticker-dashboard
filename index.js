@@ -190,9 +190,11 @@ app.post('/signup', function (req, res) {
     user.set("password", password);
     user.set("email", username);
 
-
     user.signUp(null, {
         success: function(user) {
+            res.cookie('username', user.getUsername());
+            res.cookie('name',user.get("name"));
+
             res.redirect("/");
         },
         error: function(user, error) {
@@ -216,6 +218,7 @@ app.post('/login', function (req, res) {
         console.log("SESSIONS TOKEN " + user.getSessionToken());
         res.cookie('token', user.getSessionToken());
         res.cookie('username', user.getUsername());
+        res.cookie('name',user.get("name"));
         req.session.token = user.getSessionToken();
         console.log("USER GETS TOKEN : " + user.getSessionToken());
 
@@ -244,6 +247,8 @@ app.get('/home', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var username = req.cookies.username;
+    var name = req.cookies.name;
+
     console.log("PARSE USER " + Parse.User.current());
 
     if (session && token) {
@@ -278,7 +283,8 @@ app.get('/home', function (req, res) {
                 categoryLength: helper.leadingZero(categoryLength),
                 packLength: helper.leadingZero(packLength),
                 stickerLength: helper.leadingZero(stickerLength),
-                username: username
+                username: username,
+                user_name: name
             });
 
         }, function (error) {
