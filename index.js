@@ -14,6 +14,7 @@ let _ = require('underscore');
 let helper = require('./cloud/modules/helpers');
 let methodOverride = require('method-override');
 let download = require('image-downloader');
+let config = require('./config.json');
 // let download = require('images-downloader').images;
 
 var errorMessage = "";
@@ -26,27 +27,42 @@ let StickerClass = "Stickers";
 let CategoryClass = "Categories";
 let PacksClass = "Packs";
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
+// let databaseUri = config.DATABASE_URI; //for google
 
 Parse.initialize("d55f9778-9269-40c2-84a2-e0caaf2ad87a");
 Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
+/* for google
+// Parse.initialize(config.APP_ID);
+// Parse.serverURL = config.SERVER_URL;
+*/
+
+// console.log("DATABASE "+config.DATABASE_URI);
+
 if (!databaseUri) {
     console.log('DATABASE_URI not specified, falling back to localhost.');
 }
+
 
 var api = new ParseServer({
     //**** General Settings ****//
 
     databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
     cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
-    serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
+    // serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
+    serverURL: config.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
 
     //**** Security Settings ****//
     // allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
-    appId: process.env.APP_ID || 'myAppId',
-    masterKey: process.env.MASTER_KEY || 'myMasterKey', //Add your master key here. Keep it secret!
-    verbose: process.env.VERBOSE || true,
 
+    appId: process.env.APP_ID || 'myAppId', //For heroku
+    // appId: config.APP_ID || 'myAppId', //For google
+
+    masterKey: process.env.MASTER_KEY || 'myMasterKey', //Add your master key here. Keep it secret! //For heroku
+    // masterKey: config.MASTER_KEY || 'myMasterKey', //For google
+
+    // verbose: process.env.VERBOSE || true,
+    verbose: true,
     //**** Live Query ****//
     // liveQuery: {
     //     classNames: ["TestObject", "Place", "Team", "Player", "ChatMessage"] // List of classes to support for query subscriptions
@@ -61,21 +77,22 @@ var api = new ParseServer({
     //TODO add append parse if necessary
     publicServerURL: process.env.SERVER_URL || 'http://localhost:1337/parse',
     /* This will appear in the subject and body of the emails that are sent */
-    appName: process.env.APP_NAME || "Effective Email Marketing",
 
-    /* emailAdapter: {
+    appName: process.env.APP_NAME || "Sticker Dashboard", //for heroku
+    //appName: config.APP_NAME || 'Sticker Dashboard', // for google
+    emailAdapter: {
      module: 'parse-server-sendgrid-adapter',
      options: {
      fromAddress: process.env.EMAIL_FROM || "test@example.com",
-     //domain: process.env.SENDGRID_DOMAIN || "example.com",
-     apiKey: process.env.SENDGRID_API_KEY  || "apikey"
+     domain: process.env.MAILGUN_DOMAIN || "example.com",
+     apiKey: process.env.MAILGUN_API  || "apikey"
      }
-     },*/
+     }
 
-    emailAdapter: SimpleSendGridAdapter({
-        apiKey: process.env.SENDGRID_API_KEY || "apikey",
-        fromAddress: process.env.EMAIL_FROM || "test@example.com"
-    })
+    // emailAdapter: SimpleSendGridAdapter({
+    //     apiKey: process.env.SENDGRID_API_KEY || "apikey",
+    //     fromAddress: process.env.EMAIL_FROM || "test@example.com"
+    // })
 
     //**** File Storage ****//
     /*filesAdapter: new S3Adapter(
@@ -164,7 +181,13 @@ app.get('/', function (req, res) {
             //render 3 stickers on the page
             cards = cards.slice(0, 3);
 
-            res.render("pages/login", {stickers: cards, error: errorMessage});
+            if (errorMessage === ""){
+                res.render("pages/login", {stickers: cards, error: []});
+
+            }else {
+                res.render("pages/login", {stickers: cards, error: errorMessage});
+
+            }
 
         }, function (error) {
 

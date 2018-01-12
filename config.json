@@ -1,0 +1,11 @@
+{
+  "DATABASE_URI": "mongodb://sticker:wonderful@ds153652.mlab.com:53652/cyfa-dev",
+  "APP_ID": "cy129-asd12",
+  "APP_NAME": "Sticker Dashboard",
+  "MASTER_KEY": "das091-123aa",
+  "PARSE_MOUNT_PATH": "/parse",
+  "SERVER_URL": "https://sticker-dashboard.appspot.com/parse",
+  "MAILGUN_API":"key-e22f13ae9bc5377239d19d9f4f91aad7",
+  "MAILGUN_DOMAIN":"sandbox3ac26d2de11d4c39aea6de0b5f89e79c.mailgun.org",
+  "FROM":"Mailgun Sandbox <postmaster@sandbox3ac26d2de11d4c39aea6de0b5f89e79c.mailgun.org>"
+}
