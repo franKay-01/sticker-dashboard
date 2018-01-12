@@ -85,7 +85,7 @@ var api = new ParseServer({
      options: {
      fromAddress: process.env.EMAIL_FROM || "test@example.com",
      domain: process.env.MAILGUN_DOMAIN || "example.com",
-     apiKey: process.env.MAILGUN_API  || "apikey"
+     apiKey: process.env.MAILGUN_API_KEY  || "apikey"
      }
      }
 
