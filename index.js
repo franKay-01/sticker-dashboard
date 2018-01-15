@@ -93,13 +93,13 @@ var api = new ParseServer({
                 passwordResetEmail:{
                     subject: 'Reset your password',
                     pathPlainText: resolve(__dirname, './verification/password_reset_email.txt'),
-                    pathHtml: resolve(__dirname, './verification/password_reset_email.html'),
+                    pathHtml: resolve(__dirname, './verification/password_reset_email.ejs'),
                     callback: (user) => { return { firstName: user.get('name') }}
                 },
                 verificationEmail:{
                     subject: 'Confirm your account',
                     pathPlainText: resolve(__dirname, './verification/verification_email.txt'),
-                    pathHtml: resolve(__dirname, './verification/verification_email.html'),
+                    pathHtml: resolve(__dirname, './verification/verification_email.ejs'),
                     callback: (user) => { return { firstName: user.get('name') }}
                 }
             }
