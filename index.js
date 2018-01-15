@@ -338,6 +338,11 @@ app.get('/home', function (req, res) {
     }
 });
 
+app.get('/forgetPassword', function (req, res) {
+    res.render("pages/forgot_password");
+
+});
+
 //UPLOAD MULTIPLE STICKERS
 app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
