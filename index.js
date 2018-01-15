@@ -14,6 +14,8 @@ let _ = require('underscore');
 let helper = require('./cloud/modules/helpers');
 let methodOverride = require('method-override');
 let download = require('image-downloader');
+let resolve = require('path').resolve;
+
 let config = require('./config.json');
 // let download = require('images-downloader').images;
 
@@ -49,8 +51,8 @@ var api = new ParseServer({
 
     databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
     cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
-    // serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
-    serverURL: config.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
+    serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
+    // serverURL: config.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
 
     //**** Security Settings ****//
     // allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
@@ -81,13 +83,27 @@ var api = new ParseServer({
     appName: process.env.APP_NAME || "Sticker Dashboard", //for heroku
     //appName: config.APP_NAME || 'Sticker Dashboard', // for google
     emailAdapter: {
-     module: 'parse-server-mailgun',
-     options: {
-     fromAddress: process.env.EMAIL_FROM || "test@example.com",
-     domain: process.env.MAILGUN_DOMAIN || "example.com",
-     apiKey: process.env.MAILGUN_API_KEY  || "apikey"
-     }
-     }
+        module: 'parse-server-mailgun',
+        options: {
+            fromAddress: process.env.EMAIL_FROM || "test@example.com",
+            domain: process.env.MAILGUN_DOMAIN || "example.com",
+            apiKey: process.env.MAILGUN_API_KEY || "apikey",
+            templates: {
+                passwordResetEmail:{
+                    subject: 'Reset your password',
+                    pathPlainText: resolve(__dirname, './verification/password_reset_email.txt'),
+                    pathHtml: resolve(__dirname, './verification/password_reset_email.html'),
+                    callback: (user) => { return { firstName: user.get('name') }}
+                },
+                verificationEmail:{
+                    subject: 'Confirm your account',
+                    pathPlainText: resolve(__dirname, './verification/verification_email.txt'),
+                    pathHtml: resolve(__dirname, './verification/verification_email.html'),
+                    callback: (user) => { return { firstName: user.get('name') }}
+                }
+            }
+        }
+    }
 
     // emailAdapter: SimpleSendGridAdapter({
     //     apiKey: process.env.SENDGRID_API_KEY || "apikey",
@@ -181,10 +197,10 @@ app.get('/', function (req, res) {
             //render 3 stickers on the page
             cards = cards.slice(0, 3);
 
-            if (errorMessage === ""){
+            if (errorMessage === "") {
                 res.render("pages/login", {stickers: cards, error: []});
 
-            }else {
+            } else {
                 res.render("pages/login", {stickers: cards, error: errorMessage});
 
             }
@@ -199,7 +215,7 @@ app.get('/', function (req, res) {
 
 app.get('/sign_up', function (req, res) {
     var message = "";
-    res.render("pages/sign_up",{error:message});
+    res.render("pages/sign_up", {error: message});
 });
 
 app.post('/signup', function (req, res) {
@@ -208,22 +224,22 @@ app.post('/signup', function (req, res) {
     var password = req.body.password;
 
     var user = new Parse.User();
-    user.set("name",name);
+    user.set("name", name);
     user.set("username", username);
     user.set("password", password);
     user.set("email", username);
 
     user.signUp(null, {
-        success: function(user) {
+        success: function (user) {
             res.cookie('username', user.getUsername());
-            res.cookie('name',user.get("name"));
+            res.cookie('name', user.get("name"));
 
             res.redirect("/");
         },
-        error: function(user, error) {
+        error: function (user, error) {
             // Show the error message somewhere and let the user try again.
             var message = "SignUp was unsuccessful. Please Try Again.";
-            res.redirect("/sign_up",{error: message});
+            res.redirect("/sign_up", {error: message});
         }
     });
 
@@ -241,7 +257,7 @@ app.post('/login', function (req, res) {
         console.log("SESSIONS TOKEN " + user.getSessionToken());
         res.cookie('token', user.getSessionToken());
         res.cookie('username', user.getUsername());
-        res.cookie('name',user.get("name"));
+        res.cookie('name', user.get("name"));
         req.session.token = user.getSessionToken();
         console.log("USER GETS TOKEN : " + user.getSessionToken());
 
@@ -875,11 +891,11 @@ app.post('/update/:id/:pid', upload.single('im1'), function (req, res) {
             }
 
             console.log("FILE UPDATED SUCCESSFULLYYYY");
-            res.redirect("/pack/"+packId);
+            res.redirect("/pack/" + packId);
 
         }, function (e) {
             console.log("SERVER ERROR " + JSON.stringify(e));
-            res.redirect("/pack/"+packId);
+            res.redirect("/pack/" + packId);
 
         });
 
@@ -887,7 +903,7 @@ app.post('/update/:id/:pid', upload.single('im1'), function (req, res) {
 
         //TODO handle error code
         console.log("No session found[[[[[[");
-        res.redirect("/pack/"+packId);
+        res.redirect("/pack/" + packId);
 
     }
 });
