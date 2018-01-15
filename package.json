@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "@parse/s3-files-adapter": "^1.2.1",
+    "@parse/simple-mailgun-adapter": "^1.0.1",
     "body-parser": "^1.17.2",
     "busboy": "^0.2.14",
     "cookie-parser": "^1.4.3",
