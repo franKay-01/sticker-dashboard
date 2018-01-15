@@ -455,6 +455,41 @@ textarea {
     color: white;
 }
 
+.forgotten_password{
+    background-color: transparent !important;
+    color: #a46580;
+    border-bottom: 3px #a46580 solid !important;
+}
+
+.forgotten_password::-webkit-input-placeholder {
+    color: #a46580 !important;
+    font-size: 20px !important;
+    text-align: center;
+}
+
+.forgotten_password:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #a46580 !important;
+    font-size: 20px !important;
+    opacity: 1;
+    text-align: center;
+}
+
+.forgotten_password::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #a46580 !important;
+    font-size: 20px !important;
+    opacity: 1;
+    text-align: center;
+}
+
+.forgotten_password:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #a46580 !important;
+    font-size: 20px !important;
+    text-align: center;
+}
+
 .signup_form_{
     background: whitesmoke;
     width: 80%;
