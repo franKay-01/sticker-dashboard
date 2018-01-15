@@ -14,7 +14,11 @@ let _ = require('underscore');
 let helper = require('./cloud/modules/helpers');
 let methodOverride = require('method-override');
 let download = require('image-downloader');
+var DOMAIN = 'psyphertxt.com';
+var mailgun = require('mailgun-js')({apiKey: "pubkey-c4b672dccc449ef821e574c6b8074433", domain: DOMAIN});
+
 let resolve = require('path').resolve;
+
 
 let config = require('./config.json');
 // let download = require('images-downloader').images;
@@ -82,28 +86,30 @@ var api = new ParseServer({
 
     appName: process.env.APP_NAME || "Sticker Dashboard", //for heroku
     //appName: config.APP_NAME || 'Sticker Dashboard', // for google
-    emailAdapter: {
-        module: 'parse-server-mailgun',
-        options: {
-            fromAddress: process.env.EMAIL_FROM || "test@example.com",
-            domain: process.env.MAILGUN_DOMAIN || "example.com",
-            apiKey: process.env.MAILGUN_API_KEY || "apikey",
-            templates: {
-                passwordResetEmail:{
-                    subject: 'Reset your password',
-                    pathPlainText: resolve(__dirname, './verification/password_reset_email.txt'),
-                    pathHtml: resolve(__dirname, './verification/password_reset_email.html'),
-                    callback: (user) => { return { firstName: user.get('name') }}
-                },
-                verificationEmail:{
-                    subject: 'Confirm your account',
-                    pathPlainText: resolve(__dirname, './verification/verification_email.txt'),
-                    pathHtml: resolve(__dirname, './verification/verification_email.html'),
-                    callback: (user) => { return { firstName: user.get('name') }}
-                }
-            }
-        }
-    }
+
+
+    // emailAdapter: {
+    //     module: 'parse-server-mailgun',
+    //     options: {
+    //         fromAddress: process.env.EMAIL_FROM || "test@example.com",
+    //         domain: process.env.MAILGUN_DOMAIN || "example.com",
+    //         apiKey: process.env.MAILGUN_API_KEY || "apikey",
+    //         templates: {
+    //             passwordResetEmail:{
+    //                 subject: 'Reset your password',
+    //                 pathPlainText: resolve(__dirname, './verification/password_reset_email.txt'),
+    //                 pathHtml: resolve(__dirname, './verification/password_reset_email.html'),
+    //                 callback: (user) => { return { firstName: user.get('name') }}
+    //             },
+    //             verificationEmail:{
+    //                 subject: 'Confirm your account',
+    //                 pathPlainText: resolve(__dirname, './verification/verification_email.txt'),
+    //                 pathHtml: resolve(__dirname, './verification/verification_email.html'),
+    //                 callback: (user) => { return { firstName: user.get('name') }}
+    //             }
+    //         }
+    //     }
+    // }
 
     // emailAdapter: SimpleSendGridAdapter({
     //     apiKey: process.env.SENDGRID_API_KEY || "apikey",
@@ -118,7 +124,8 @@ var api = new ParseServer({
         {
             directAccess: true
         }
-    )*/,
+    )*/
+    //,
     filesAdapter: new S3Adapter({
         bucket: "cyfa",
         directAccess: true
@@ -234,6 +241,11 @@ app.post('/signup', function (req, res) {
             res.cookie('username', user.getUsername());
             res.cookie('name', user.get("name"));
 
+            mailgun.validate(user.getUsername(), function (error, body) {
+                console.log(body);
+            },function (error) {
+                console.log("ERROR OCCURRED WHEN VERIFYING "+error);
+            });
             res.redirect("/");
         },
         error: function (user, error) {
