@@ -244,7 +244,7 @@ app.post('/signup', function (req, res) {
             mailgun.validate(user.getUsername(), function (error, body) {
                 console.log(body);
             },function (error) {
-                console.log("ERROR OCCURRED WHEN VERIFYING "+error);
+                console.log("ERROR OCCURRED WHILES VERIFYING "+error);
             });
             res.redirect("/");
         },
