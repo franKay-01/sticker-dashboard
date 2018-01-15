@@ -81,7 +81,7 @@ var api = new ParseServer({
     appName: process.env.APP_NAME || "Sticker Dashboard", //for heroku
     //appName: config.APP_NAME || 'Sticker Dashboard', // for google
     emailAdapter: {
-     module: 'parse-server-simple-mailgun-adapter',
+     module: 'parse-server-mailgun',
      options: {
      fromAddress: process.env.EMAIL_FROM || "test@example.com",
      domain: process.env.MAILGUN_DOMAIN || "example.com",
