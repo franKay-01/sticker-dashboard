@@ -352,10 +352,17 @@ app.get('/set_password', function (req, res) {
 
 app.get('/verification', function (req, res) {
     var query = new Parse.Query(Parse.User);
-    query.get(user.objectId, {
+    var user_info = new query();
+    user_info.get(user.objectId, {
         success: function (userId) {
-            console.log(JSON.stringify(userId));
-            res.redirect('/');
+            user_info.set("emailVerified", true);
+            user_info.save(null, {
+                success: function(result){
+                    console.log(JSON.stringify(userId));
+                    res.redirect('/');
+                }
+            });
+
         },
         error: function (error) {
             console.log("ERROR occurred when verifying. ERROR is " + error);
