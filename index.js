@@ -90,17 +90,21 @@ var api = new ParseServer({
             domain: process.env.MAILGUN_DOMAIN || "example.com",
             apiKey: process.env.MAILGUN_API_KEY || "apikey",
             templates: {
-                passwordResetEmail:{
+                passwordResetEmail: {
                     subject: 'Reset your password',
                     pathPlainText: resolve(__dirname, './verification/password_reset_email.txt'),
                     pathHtml: resolve(__dirname, './verification/password_reset_email.html'),
-                    callback: (user) => { return { firstName: user.get('name') }}
+                    callback: (user) => {
+                        return {firstName: user.get('name')}
+                    }
                 },
-                verificationEmail:{
+                verificationEmail: {
                     subject: 'Confirm your account',
                     pathPlainText: resolve(__dirname, './verification/verification_email.txt'),
                     pathHtml: resolve(__dirname, './verification/verification_email.html'),
-                    callback: (user) => { return { firstName: user.get('name') }}
+                    callback: (user) => {
+                        return {firstName: user.get('name')}
+                    }
                 }
             }
         }
@@ -342,20 +346,34 @@ app.get('/forget_password', function (req, res) {
     res.render("pages/forgot_password");
 });
 
-app.get('/set_password', function (req,res) {
+app.get('/set_password', function (req, res) {
     res.render("pages/set_password");
 });
 
-app.post('/reset_password', function (req, res){
+app.get('/verification', function (req, res) {
+    var query = new Parse.Query(Parse.User);
+    query.get(user.objectId, {
+        success: function (userId) {
+            console.log(JSON.stringify(userId));
+            res.redirect('/');
+        },
+        error: function (error) {
+            console.log("ERROR occurred when verifying. ERROR is " + error);
+            res.redirect('/');
+        }
+    });
+});
+
+app.post('/reset_password', function (req, res) {
     var username = req.body.forgotten_password;
 
     Parse.User.requestPasswordReset(username, {
-        success: function() {
+        success: function () {
             // Password reset request was sent successfully
             console.log("EMAIL was sent successfully");
             res.redirect('/');
         },
-        error: function(error) {
+        error: function (error) {
             // Show the error message somewhere
             console.log("Error: " + error.code + " " + error.message);
             res.redirect('/forget_password');
