@@ -342,7 +342,7 @@ app.get('/forget_password', function (req, res) {
     res.render("pages/forgot_password");
 });
 
-app.get('set_password', function (req,res) {
+app.get('/set_password', function (req,res) {
     res.render("pages/set_password");
 });
 
