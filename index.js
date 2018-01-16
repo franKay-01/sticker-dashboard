@@ -338,8 +338,12 @@ app.get('/home', function (req, res) {
     }
 });
 
-app.get('/forgetPassword', function (req, res) {
+app.get('/forget_password', function (req, res) {
     res.render("pages/forgot_password");
+});
+
+app.get('set_password', function (req,res) {
+    res.render("pages/set_password");
 });
 
 app.post('/reset_password', function (req, res){
@@ -354,7 +358,7 @@ app.post('/reset_password', function (req, res){
         error: function(error) {
             // Show the error message somewhere
             console.log("Error: " + error.code + " " + error.message);
-            res.redirect('/forgetPassword');
+            res.redirect('/forget_password');
         }
     });
 });
