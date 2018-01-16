@@ -243,7 +243,7 @@ app.post('/signup', function (req, res) {
         },
         error: function (user, error) {
             // Show the error message somewhere and let the user try again.
-            var message = "SignUp was unsuccessful. Please Try Again.";
+            var message = "SignUp was unsuccessful. "+error;
             res.redirect("/sign_up", {error: message});
         }
     });
@@ -351,7 +351,7 @@ app.get('/set_password', function (req, res) {
 });
 
 app.get('/verification', function (req, res) {
-    var query = new Parse.Query(Parse.User);
+    var query = new Parse.Query("User");
     var user_info = new query();
     user_info.get(user.objectId, {
         success: function (userId) {
