@@ -721,11 +721,10 @@ textarea {
 }
 
 #btnForgotPass {
+    border-radius: 10px 20px;
     cursor: pointer;
-    width: relative;
-    margin-top: -25px !important;
-    background: transparent;
-    color: #a46580;
+    background: #a46580;
+    color: white;
     margin: 7px;
     padding: 10px;
     font-weight: 800;
