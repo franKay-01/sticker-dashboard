@@ -342,6 +342,23 @@ app.get('/forgetPassword', function (req, res) {
     res.render("pages/forgot_password");
 });
 
+app.post('/reset_password', function (req, res){
+    var username = req.body.forgotten_password;
+
+    Parse.User.requestPasswordReset(username, {
+        success: function() {
+            // Password reset request was sent successfully
+            console.log("EMAIL was sent successfully");
+            res.redirect('/');
+        },
+        error: function(error) {
+            // Show the error message somewhere
+            console.log("Error: " + error.code + " " + error.message);
+            res.redirect('/forgetPassword');
+        }
+    });
+});
+
 //UPLOAD MULTIPLE STICKERS
 app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
