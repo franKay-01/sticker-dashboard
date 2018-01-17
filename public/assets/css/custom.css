@@ -264,16 +264,15 @@ textarea {
 }
 
 .error_card {
-    width: 500px !important;
-    height: 30px !important;
-    margin: 10px auto;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    background-color: white;
-    color: red;
-    font-weight: bold;
-    box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
-}
+     width: 500px !important;
+     margin: 10px auto;
+     border-radius: 15px;
+     margin-bottom: 15px;
+     background-color: white;
+     color: darkred;
+     font-weight: bold;
+     box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
+ }
 
 .icon_create_sticker {
     width: 58px;
