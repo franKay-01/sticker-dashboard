@@ -55,7 +55,7 @@ Parse.Cloud.define("verification", function (req, res) {
         console.log("USER " + JSON.stringify(userId));
         console.log("VERIFICATION CHANGED");
         userId.set("emailVerified", true);
-        return userId.save({useMasterKey: true});
+        return userId.save(null, {sessionToken: request.user.getSessionToken()});
 
         //     userId.save({useMasterKey:true}, {
         //
