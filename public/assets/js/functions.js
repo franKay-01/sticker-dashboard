@@ -14,9 +14,9 @@ function signUp() {
     function checkPassword(pw1, pw2) {
         if (pw1 !== pw2){
             return false;
-        }else if (pw1 === null){
+        }else if (pw1 === ""){
             return false;
-        }else if (pw2 === null){
+        }else if (pw2 === ""){
             return false;
         }else if (pw1 === pw2) {
             return true;
