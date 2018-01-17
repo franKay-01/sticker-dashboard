@@ -351,6 +351,8 @@ app.get('/set_password', function (req, res) {
 });
 
 app.get('/verification', function (req, res) {
+    var session = req.session.token;
+    console.log("VERIFICATION TOKEN FROM BROWSER"+session);
     // var query = new Parse.Query(Parse.User);
     // query.equalTo("email", "fkay0450@gmail.com");
     //
