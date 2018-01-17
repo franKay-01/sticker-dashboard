@@ -244,7 +244,7 @@ app.post('/signup', function (req, res) {
         error: function (user, error) {
             // Show the error message somewhere and let the user try again.
             var message = "SignUp was unsuccessful. "+error;
-            res.redirect("/sign_up", {error: message});
+            res.render("pages/sign_up", {error: message});
         }
     });
 
