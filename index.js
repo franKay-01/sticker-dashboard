@@ -351,7 +351,7 @@ app.get('/set_password', function (req, res) {
 });
 
 app.get('/verification', function (req, res) {
-    var query = new Parse.Query("User");
+    var query = new Parse.Query.extend("User");
     var user_info = new query();
     user_info.get(user.objectId, {
         success: function (userId) {
