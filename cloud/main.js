@@ -20,21 +20,21 @@ Parse.Cloud.define("stickerNumber", function (req, res) {
         new Parse.Query(CategoryClass).count())
         .then(function (stickers, packs, categories) {
             _stickers = stickers;
-            _packs =  packs;
+            _packs = packs;
             _categories = categories;
 
-                return Parse.Promise.when(
-                    new Parse.Query(StatsClass).equalTo("objectId", "R0ux0VzLB2").first(),
-                    new Parse.Query(StatsClass).equalTo("objectId", "pjTizUehrT").first(),
-                    new Parse.Query(StatsClass).equalTo("objectId", "2NKxat6SPF").first());
+            return Parse.Promise.when(
+                new Parse.Query(StatsClass).equalTo("objectId", "R0ux0VzLB2").first(),
+                new Parse.Query(StatsClass).equalTo("objectId", "pjTizUehrT").first(),
+                new Parse.Query(StatsClass).equalTo("objectId", "2NKxat6SPF").first());
 
 
         }).then(function (sticker, pack, category) {
 
-            return Parse.Promise.when(
-                sticker.set("count", _stickers).save(),
-                pack.set("count", _packs).save(),
-                category.set("count", _categories).save());
+        return Parse.Promise.when(
+            sticker.set("count", _stickers).save(),
+            pack.set("count", _packs).save(),
+            category.set("count", _categories).save());
 
 
     }).then(function () {
@@ -51,23 +51,23 @@ Parse.Cloud.define("verification", function (req, res) {
     var query = new Parse.Query(Parse.User);
     query.equalTo("email", "fkay0450@gmail.com");
 
-    query.find({useMasterKey:true}).then(function (userId) {
-        console.log("USER "+JSON.stringify(userId));
+    query.find({useMasterKey: true}).then(function (userId) {
+        console.log("USER " + JSON.stringify(userId));
         console.log("VERIFICATION CHANGED");
         userId.set("emailVerified", true);
-        // userId.save().then(function(result) {
-        //             console.log("VERIFICATION CHANGED 2");
-        //             req.success();
-        //
-        // });
+        userId.save().then(function (result) {
+            console.log("VERIFICATION CHANGED 2");
+            req.success();
 
-            userId.save({useMasterKey:true}, {
-
-            success: function (result) {
-                console.log("VERIFICATION CHANGED 2");
-                req.success(result);
-            }
         });
+
+        //     userId.save({useMasterKey:true}, {
+        //
+        //     success: function (result) {
+        //         console.log("VERIFICATION CHANGED 2");
+        //         req.success(result);
+        //     }
+        // });
     }, function (error) {
         req.error("an error occurred");
     });
