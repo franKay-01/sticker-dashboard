@@ -243,7 +243,7 @@ app.post('/signup', function (req, res) {
         },
         error: function (user, error) {
             // Show the error message somewhere and let the user try again.
-            var message = "SignUp was unsuccessful. "+error.message;
+            var message = "SignUp was unsuccessful. " + error.message;
             res.render("pages/sign_up", {error: message});
         }
     });
@@ -354,13 +354,14 @@ app.get('/verification', function (req, res) {
     var query = new Parse.Query(Parse.User);
     query.equalTo("email", "fkay0450@gmail.com");
 
-    query.find({useMasterKey: true},{
+    query.find({
+        useMasterKey: true,
         success: function (userId) {
-            console.log("EMAIL FOUND "+ JSON.stringify(userId));
+            console.log("EMAIL FOUND " + JSON.stringify(userId));
             userId.set("emailVerified", true);
             userId.save(null, {
-                success: function(result){
-                    console.log("VERIFIED ACCOUNT "+JSON.stringify(userId));
+                success: function (result) {
+                    console.log("VERIFIED ACCOUNT " + JSON.stringify(userId));
                     res.redirect('/');
                 }
             });
