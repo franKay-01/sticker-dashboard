@@ -352,7 +352,9 @@ app.get('/set_password', function (req, res) {
 
 app.get('/verification', function (req, res) {
     var query = new Parse.Query(Parse.User);
-    query.get(user.objectId, {
+    query.equalTo("username", "fkay0450@gmail.com");
+
+    query.find({
         success: function (userId) {
             userId.set("emailVerified", true);
             userId.save(null, {
