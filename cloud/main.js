@@ -52,6 +52,7 @@ Parse.Cloud.define("verification", function (req, res) {
     query.equalTo("email", "fkay0450@gmail.com");
 
     query.find({useMasterKey:true}).then(function (userId) {
+        console.log("VERIFICATION CHANGED");
         userId.set("emailVerified", true);
         userId.save(null, {
             success: function (result) {
