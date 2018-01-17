@@ -372,7 +372,7 @@ app.get('/verification', function (req, res) {
     //     }
     // });
     Parse.Cloud.run("verification").then(function (verify) {
-        if (verify){
+        if (verify) {
             console.log("RETURN " + JSON.stringify(verify));
             console.log("VERIFICATION completed");
             res.redirect("/");
@@ -381,6 +381,7 @@ app.get('/verification', function (req, res) {
             res.redirect("/");
         }
 
+    });
 });
 
 app.post('/reset_password', function (req, res) {
