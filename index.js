@@ -359,7 +359,7 @@ app.get('/verification', function (req, res) {
             userId.set("emailVerified", true);
             userId.save(null, {
                 success: function(result){
-                    console.log(JSON.stringify(userId));
+                    console.log("VERIFIED ACCOUNT "+JSON.stringify(userId));
                     res.redirect('/');
                 }
             });
