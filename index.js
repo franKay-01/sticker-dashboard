@@ -240,6 +240,17 @@ app.post('/signup', function (req, res) {
             res.cookie('name', user.get("name"));
 
             res.redirect("/");
+            Parse.User.logIn(username, password).then(function (user) {
+                console.log("SESSIONS TOKEN " + user.getSessionToken());
+                res.cookie('token', user.getSessionToken());
+                res.cookie('username', user.getUsername());
+                res.cookie('name', user.get("name"));
+                req.session.token = user.getSessionToken();
+                console.log("USER GETS TOKEN : " + user.getSessionToken());
+                res.redirect("/home");
+
+
+            });
         },
         error: function (user, error) {
             // Show the error message somewhere and let the user try again.
