@@ -354,8 +354,8 @@ app.get('/verification', function (req, res) {
     var query = new Parse.Query(Parse.User);
     query.get(user.objectId, {
         success: function (userId) {
-            user_info.set("emailVerified", true);
-            user_info.save(null, {
+            userId.set("emailVerified", true);
+            userId.save(null, {
                 success: function(result){
                     console.log(JSON.stringify(userId));
                     res.redirect('/');
