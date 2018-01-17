@@ -54,14 +54,10 @@ Parse.Cloud.define("verification", function (req, res) {
     query.find({useMasterKey:true}).then(function (userId) {
         console.log("VERIFICATION CHANGED");
         userId.set("emailVerified", true);
-        userId.save(null, {
-            success: function (result) {
-                console.log("VERIFICATION CHANGED 2");
-                req.success(result);
-            }
-        });
+        return userId.save();
+    }).then(function () {
+        req.success();
     }, function (error) {
         req.error("an error occurred");
     });
-
 });
