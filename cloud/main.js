@@ -45,3 +45,27 @@ Parse.Cloud.define("stickerNumber", function (req, res) {
     });
 
 });
+
+Parse.Cloud.define("verification", function (req, res) {
+
+    var query = new Parse.Query(Parse.User);
+    query.equalTo("email", "fkay0450@gmail.com");
+
+    query.find(
+        {useMasterKey:true},{
+        success: function (userId) {
+            console.log("EMAIL FOUND " + JSON.stringify(userId));
+            userId.set("emailVerified", true);
+            userId.save(null, {
+                success: function (result) {
+                    req.success(result)
+                }
+            });
+
+        },
+        error: function (error) {
+            req.error("an error occured")
+        }
+    });
+
+});

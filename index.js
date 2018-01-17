@@ -351,26 +351,34 @@ app.get('/set_password', function (req, res) {
 });
 
 app.get('/verification', function (req, res) {
-    var query = new Parse.Query(Parse.User);
-    query.equalTo("email", "fkay0450@gmail.com");
-
-    query.find({
-        useMasterKey: true,
-        success: function (userId) {
-            console.log("EMAIL FOUND " + JSON.stringify(userId));
-            userId.set("emailVerified", true);
-            userId.save(null, {
-                success: function (result) {
-                    console.log("VERIFIED ACCOUNT " + JSON.stringify(userId));
-                    res.redirect('/');
-                }
-            });
-
-        },
-        error: function (error) {
-            console.log("ERROR occurred when verifying. ERROR is " + error.message);
-            res.redirect('/');
+    // var query = new Parse.Query(Parse.User);
+    // query.equalTo("email", "fkay0450@gmail.com");
+    //
+    // query.find({
+    //     success: function (userId) {
+    //         console.log("EMAIL FOUND " + JSON.stringify(userId));
+    //         userId.set("emailVerified", true);
+    //         userId.save(null, {
+    //             success: function (result) {
+    //                 console.log("VERIFIED ACCOUNT " + JSON.stringify(userId));
+    //                 res.redirect('/');
+    //             }
+    //         });
+    //
+    //     },
+    //     error: function (error) {
+    //         console.log("ERROR occurred when verifying. ERROR is " + error.message);
+    //         res.redirect('/');
+    //     }
+    // });
+    Parse.Cloud.run("verification").then(function (verify) {
+        if (verify){
+            console.log("VERIFICATION completed");
+            res.redirect("/");
         }
+    },function (error) {
+        console.log("ERROR VERIFICATION" + error.message);
+        res.redirect("/");
     });
 });
 
