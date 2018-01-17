@@ -56,6 +56,7 @@ Parse.Cloud.define("verification", function (req, res) {
         userId.set("emailVerified", true);
         userId.save(null, {
             success: function (result) {
+                console.log("VERIFICATION CHANGED 2");
                 req.success(result);
             }
         });
