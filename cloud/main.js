@@ -49,12 +49,12 @@ Parse.Cloud.define("stickerNumber", function (req, res) {
 Parse.Cloud.define("verification", function (req, res) {
     console.log("USER PASSED " + req.params.user);
     // var query = new Parse.Query("User");
-    // var query = new Parse.Query("User");
-    var User = Parse.Object.extend("User");
-    var users = new User();
-    users.equalTo("email", req.params.user);
+     var query = new Parse.Query("User");
 
-    users.find({sessionToken: req.params.token}).then(function (userId) {
+    query.equalTo("email", req.params.user);
+
+    query.find({sessionToken: req.params.token}).then(function (userId) {
+
         console.log("USER " + JSON.stringify(userId));
         console.log("VERIFICATION CHANGED");
         userId.set("emailVerified", true);
