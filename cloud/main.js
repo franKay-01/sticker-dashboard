@@ -51,7 +51,7 @@ Parse.Cloud.define("verification", function (req, res) {
 
     console.log("USER PASSED " + req.params.user);
     // var query = new Parse.Query("User");
-    var query = new Parse.Query.extend("User");
+    var query = new Parse.Query("User");
     var master = new query();
     master.equalTo("email", req.params.user);
 
