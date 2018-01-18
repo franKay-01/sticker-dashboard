@@ -47,7 +47,7 @@ Parse.Cloud.define("stickerNumber", function (req, res) {
 });
 
 Parse.Cloud.define("verification", function (req, res) {
-
+    console.log("USER PASSED "+ request.params.user);
     var query = new Parse.Query(Parse.User);
     query.equalTo("email", "fkay0450@gmail.com");
 

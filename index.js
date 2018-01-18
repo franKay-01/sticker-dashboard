@@ -364,20 +364,31 @@ app.get('/verification', function (req, res) {
     var username = req.cookies.username;
     var name = req.cookies.name;
 
-
-    if (session && token){
-        new Parse.Query("User").equalTo("username", username).find({sessionToken: token}).then(function (user_info) {
-            user_info.set("emailVerified", true);
-            return user_info.save();
-        }).then(function (result) {
-            if (result){
-                res.render("pages/page_verified",{user: name});
-            }
-        }, function (error) {
+    Parse.Cloud.run("verification",{user: username }).then(function (verify) {
+        if (verify) {
+            console.log("RETURN " + JSON.stringify(verify));
+            console.log("VERIFICATION completed");
+            res.render("pages/page_verified",{user: name});
+        } else {
+            console.log("VERIFICATION failed");
             res.render("pages/page_not_verified");
-        });
-    }
-    console.log("VERIFICATION TOKEN FROM BROWSER" + session);
+        }
+
+    });
+
+    // if (session && token){
+    //     new Parse.Query("User").equalTo("username", username).find({sessionToken: token}).then(function (user_info) {
+    //         user_info.set("emailVerified", true);
+    //         return user_info.save();
+    //     }).then(function (result) {
+    //         if (result){
+    //             res.render("pages/page_verified",{user: name});
+    //         }
+    //     }, function (error) {
+    //         res.render("pages/page_not_verified");
+    //     });
+    // }
+    // console.log("VERIFICATION TOKEN FROM BROWSER" + session);
     // var query = new Parse.Query(Parse.User);
     // query.equalTo("email", "fkay0450@gmail.com");
     //
@@ -398,17 +409,7 @@ app.get('/verification', function (req, res) {
     //         res.redirect('/');
     //     }
     // });
-    // Parse.Cloud.run("verification").then(function (verify) {
-    //     if (verify) {
-    //         console.log("RETURN " + JSON.stringify(verify));
-    //         console.log("VERIFICATION completed");
-    //         res.redirect("/");
-    //     } else {
-    //         console.log("VERIFICATION failed");
-    //         res.redirect("/");
-    //     }
-    //
-    // });
+
 });
 
 app.post('/reset_password', function (req, res) {
