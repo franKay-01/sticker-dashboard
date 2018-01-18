@@ -47,8 +47,12 @@ Parse.Cloud.define("stickerNumber", function (req, res) {
 });
 
 Parse.Cloud.define("verification", function (req, res) {
+    Parse.Cloud.useMasterKey();
+
     console.log("USER PASSED " + req.params.user);
-    var query = new Parse.Query("User");
+    // var query = new Parse.Query("User");
+    var query = new Parse.Query.extend(Parse.User);
+
     query.equalTo("email", req.params.user);
 
     query.find({sessionToken: req.params.token}).then(function (userId) {
@@ -57,23 +61,13 @@ Parse.Cloud.define("verification", function (req, res) {
         userId.set("emailVerified", true);
         // return userId.save({sessionToken: req.params.token});
 
-        // userId.save({sessionToken: req.params.token}, {
-        //
-        //     success: function (result) {
-        //         console.log("VERIFICATION CHANGED 2");
-        //         req.success(result);
-        //     }
-        // });
-        userId.save(null, {useMasterKey: true,
-            success: function(user) {
-                response.success();
-            },
-            error: function(error) {
-                response.error(error.message);
+        userId.save({sessionToken: req.params.token}, {
+
+            success: function (result) {
+                console.log("VERIFICATION CHANGED 2");
+                req.success(result);
             }
         });
-
-
         // }).then(function () {
         //     console.log("VERIFICATION CHANGED 2");
         //     req.success();
