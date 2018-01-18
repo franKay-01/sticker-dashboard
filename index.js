@@ -360,6 +360,23 @@ app.get('/set_password', function (req, res) {
 
 app.get('/verification', function (req, res) {
     var session = req.cookies.token;
+    var token = req.cookies.token;
+    var username = req.cookies.username;
+    var name = req.cookies.name;
+
+
+    if (session && token){
+        new Parse.Query(Parse.User).equalTo("username", username).first({sessionToken: token}).then(function (user_info) {
+            user_info.set("emailVerified", true);
+            return user_info.save();
+        }).then(function (result) {
+            if (result){
+                res.render("pages/page_verified",{user: name});
+            }
+        }, function (error) {
+            res.render("pages/page_not_verified");
+        });
+    }
     console.log("VERIFICATION TOKEN FROM BROWSER" + session);
     // var query = new Parse.Query(Parse.User);
     // query.equalTo("email", "fkay0450@gmail.com");
