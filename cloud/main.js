@@ -57,13 +57,23 @@ Parse.Cloud.define("verification", function (req, res) {
         userId.set("emailVerified", true);
         // return userId.save({sessionToken: req.params.token});
 
-        userId.save({sessionToken: req.params.token}, {
-
-            success: function (result) {
-                console.log("VERIFICATION CHANGED 2");
-                req.success(result);
+        // userId.save({sessionToken: req.params.token}, {
+        //
+        //     success: function (result) {
+        //         console.log("VERIFICATION CHANGED 2");
+        //         req.success(result);
+        //     }
+        // });
+        userId.save(null, {useMasterKey: true,
+            success: function(user) {
+                response.success();
+            },
+            error: function(error) {
+                response.error(error.message);
             }
         });
+
+
         // }).then(function () {
         //     console.log("VERIFICATION CHANGED 2");
         //     req.success();
