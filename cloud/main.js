@@ -49,9 +49,9 @@ Parse.Cloud.define("stickerNumber", function (req, res) {
 Parse.Cloud.define("verification", function (req, res) {
     console.log("USER PASSED "+ req.params.user);
     var query = new Parse.Query(Parse.User);
-    query.equalTo("email", "fkay0450@gmail.com");
+    query.equalTo("email", user);
 
-    query.find({useMasterKey: true}).then(function (userId) {
+    query.find(req.params.token).then(function (userId) {
         console.log("USER " + JSON.stringify(userId));
         console.log("VERIFICATION CHANGED");
         userId.set("emailVerified", true);

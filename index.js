@@ -364,7 +364,7 @@ app.get('/verification', function (req, res) {
     var username = req.cookies.username;
     var name = req.cookies.name;
 
-    Parse.Cloud.run("verification",{user: username }).then(function (verify) {
+    Parse.Cloud.run("verification",{user: username, token: token }).then(function (verify) {
         if (verify) {
             console.log("RETURN " + JSON.stringify(verify));
             console.log("VERIFICATION completed");
