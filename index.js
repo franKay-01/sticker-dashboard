@@ -248,8 +248,6 @@ app.post('/signup', function (req, res) {
                 req.session.token = user.getSessionToken();
                 console.log("USER GETS TOKEN : " + user.getSessionToken());
                 res.redirect("/home");
-
-
             });
         },
         error: function (user, error) {
@@ -363,7 +361,7 @@ app.get('/set_password', function (req, res) {
 
 app.get('/verification', function (req, res) {
     var session = req.cookies.token;
-    console.log("VERIFICATION TOKEN FROM BROWSER"+session);
+    console.log("VERIFICATION TOKEN FROM BROWSER" + session);
     // var query = new Parse.Query(Parse.User);
     // query.equalTo("email", "fkay0450@gmail.com");
     //
@@ -384,17 +382,17 @@ app.get('/verification', function (req, res) {
     //         res.redirect('/');
     //     }
     // });
-    Parse.Cloud.run("verification").then(function (verify) {
-        if (verify) {
-            console.log("RETURN " + JSON.stringify(verify));
-            console.log("VERIFICATION completed");
-            res.redirect("/");
-        } else {
-            console.log("VERIFICATION failed");
-            res.redirect("/");
-        }
-
-    });
+    // Parse.Cloud.run("verification").then(function (verify) {
+    //     if (verify) {
+    //         console.log("RETURN " + JSON.stringify(verify));
+    //         console.log("VERIFICATION completed");
+    //         res.redirect("/");
+    //     } else {
+    //         console.log("VERIFICATION failed");
+    //         res.redirect("/");
+    //     }
+    //
+    // });
 });
 
 app.post('/reset_password', function (req, res) {
