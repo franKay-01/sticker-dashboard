@@ -366,7 +366,7 @@ app.get('/verification', function (req, res) {
 
 
     if (session && token){
-        new Parse.Query("User").equalTo("username", username).first({sessionToken: token}).then(function (user_info) {
+        new Parse.Query("User").equalTo("username", username).find({sessionToken: token}).then(function (user_info) {
             user_info.set("emailVerified", true);
             return user_info.save();
         }).then(function (result) {
