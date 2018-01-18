@@ -51,7 +51,7 @@ Parse.Cloud.define("verification", function (req, res) {
     var query = new Parse.Query(Parse.User);
     query.equalTo("email", req.params.user);
 
-    query.find(req.params.token).then(function (userId) {
+    query.get(req.params.token).then(function (userId) {
         console.log("USER " + JSON.stringify(userId));
         console.log("VERIFICATION CHANGED");
         userId.set("emailVerified", true);
