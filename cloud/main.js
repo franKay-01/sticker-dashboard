@@ -48,7 +48,7 @@ Parse.Cloud.define("stickerNumber", function (req, res) {
 
 Parse.Cloud.define("verification", function (req, res) {
     console.log("USER PASSED "+ req.params.user);
-    var query = new Parse.Query(Parse.User);
+    var query = new Parse.Query("User");
     query.equalTo("email", req.params.user);
 
     query.get({sessionToken: req.params.token}).then(function (userId) {
