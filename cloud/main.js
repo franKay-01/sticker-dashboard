@@ -51,11 +51,11 @@ Parse.Cloud.define("verification", function (req, res) {
 
     console.log("USER PASSED " + req.params.user);
     // var query = new Parse.Query("User");
-    var query = new Parse.Query.extend(Parse.User);
+    var query = new Parse.Query(Parse.User);
+    var master = query();
+    master.equalTo("email", req.params.user);
 
-    query.equalTo("email", req.params.user);
-
-    query.find({sessionToken: req.params.token}).then(function (userId) {
+    master.find({sessionToken: req.params.token}).then(function (userId) {
         console.log("USER " + JSON.stringify(userId));
         console.log("VERIFICATION CHANGED");
         userId.set("emailVerified", true);
