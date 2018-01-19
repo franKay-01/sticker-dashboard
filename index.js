@@ -97,15 +97,16 @@ var api = new ParseServer({
                     callback: (user) => {
                         return {firstName: user.get('name')}
                     }
-                },
-                verificationEmail: {
-                    subject: 'Confirm your account',
-                    pathPlainText: resolve(__dirname, './verification/verification_email.txt'),
-                    pathHtml: resolve(__dirname, './verification/verification_email.html'),
-                    callback: (user) => {
-                        return {firstName: user.get('name')}
-                    }
                 }
+                    // ,
+                // verificationEmail: {
+                //     subject: 'Confirm your account',
+                //     pathPlainText: resolve(__dirname, './verification/verification_email.txt'),
+                //     pathHtml: resolve(__dirname, './verification/verification_email.html'),
+                //     callback: (user) => {
+                //         return {firstName: user.get('name')}
+                //     }
+                // }
             }
         }
     }
