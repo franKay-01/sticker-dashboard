@@ -102,7 +102,7 @@ var api = new ParseServer({
         //         verificationEmail: {
         //             subject: 'Confirm your account',
         //             pathPlainText: resolve(__dirname, './verification/verification_email.txt'),
-        //             pathHtml: resolve(__dirname, './verification/verify_email.html'),
+        //             pathHtml: resolve(__dirname, './verification/choose_password.html'),
         //             callback: (user) => {
         //                 return {firstName: user.get('name')}
         //             }
@@ -129,10 +129,10 @@ var api = new ParseServer({
         }
     },
     customPages: {
-        invalidLink: 'https://myapp.com/invalid-link',
-        verifyEmailSuccess: 'https://myapp.com/verify-email-success',
-        choosePassword: 'https://myapp.com/choose-password',
-        passwordResetSuccess: 'https://myapp.com/password-reset-success',
+        // invalidLink: 'https://myapp.com/invalid-link',
+        // verifyEmailSuccess: 'https://myapp.com/verify-email-success',
+        choosePassword: resolve(__dirname, './verification/choose_password.html'),
+        // passwordResetSuccess: 'https://myapp.com/password-reset-success',
     }
 
 
