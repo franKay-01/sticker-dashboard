@@ -114,18 +114,18 @@ var api = new ParseServer({
                 domain: process.env.MAILGUN_DOMAIN || "example.com",
                 apiKey: process.env.MAILGUN_API_KEY || "apikey",
                 // Verification email subject
-                verificationSubject: 'Please verify your e-mail for %appName%',
+                verificationSubject: 'Please verify your e-mail for %appname%',
                 // Verification email body
-                verificationBody: 'Hi,\n\nYou are being asked to confirm the e-mail address %email% with %appName%\n\nClick here to confirm it:\n%link%',
+                verificationBody: 'Hi,\n\nYou are being asked to confirm the e-mail address %email% with %appname%\n\nClick here to confirm it:\n%link%',
                 //OPTIONAL (will send HTML version of email):
                 // verificationBodyHTML: fs.readFileSync("./verificationBody.html", "utf8") ||  null,
 
                 // Password reset email subject
-                passwordResetSubject: 'Password Reset Request for %appName%',
+                passwordResetSubject: 'Password Reset Request for %appname%',
                 // Password reset email body
-                passwordResetBody: 'Hi,\n\nYou requested a password reset for %appName%.\n\nClick here to reset it:\n%link%',
+                passwordResetBody: 'Hi,\n\nYou requested a password reset for %appname%.\n\nClick here to reset it:\n%link%',
                 //OPTIONAL (will send HTML version of email):
-                passwordResetBodyHTML: "<!DOCTYPE html><html xmlns=http://www.w3.org/1999/xhtml>........"
+                // passwordResetBodyHTML: "<!DOCTYPE html><html xmlns=http://www.w3.org/1999/xhtml>........"
             }
         }
 
