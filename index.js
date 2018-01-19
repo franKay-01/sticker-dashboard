@@ -116,7 +116,7 @@ var api = new ParseServer({
                 // Verification email subject
                 verificationSubject: 'Please verify your e-mail for %appname%',
                 // Verification email body
-                // verificationBody: 'Hi,\n\nYou are being asked to confirm the e-mail address %email% with %appname%\n\nClick here to confirm it:\n%link%',
+                verificationBody: 'Hi,\n\nYou are being asked to confirm the e-mail address %email% with %appname%\n\nClick here to confirm it:\n%link%',
                 //OPTIONAL (will send HTML version of email):
                 verificationBodyHTML: fs.readFileSync("./verification/verify_email.html", "utf8") ||  null,
 
