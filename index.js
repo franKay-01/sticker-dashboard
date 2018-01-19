@@ -131,7 +131,7 @@ var api = new ParseServer({
     customPages: {
         // invalidLink: 'https://myapp.com/invalid-link',
         // verifyEmailSuccess: 'https://myapp.com/verify-email-success',
-        choosePassword: resolve(__dirname, './views/choose_password.html'),
+        choosePassword: 'choose_password.html'
         // passwordResetSuccess: 'https://myapp.com/password-reset-success',
     }
 
