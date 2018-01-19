@@ -47,68 +47,88 @@ if (!databaseUri) {
 
 
 var api = new ParseServer({
-    //**** General Settings ****//
+        //**** General Settings ****//
 
-    databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
-    cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
-    serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
-    // serverURL: config.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
+        databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
+        cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
+        serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
+        // serverURL: config.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
 
-    //**** Security Settings ****//
-    // allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
+        //**** Security Settings ****//
+        // allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
 
-    appId: process.env.APP_ID || 'myAppId', //For heroku
-    // appId: config.APP_ID || 'myAppId', //For google
+        appId: process.env.APP_ID || 'myAppId', //For heroku
+        // appId: config.APP_ID || 'myAppId', //For google
 
-    masterKey: process.env.MASTER_KEY || 'myMasterKey', //Add your master key here. Keep it secret! //For heroku
-    // masterKey: config.MASTER_KEY || 'myMasterKey', //For google
+        masterKey: process.env.MASTER_KEY || 'myMasterKey', //Add your master key here. Keep it secret! //For heroku
+        // masterKey: config.MASTER_KEY || 'myMasterKey', //For google
 
-    // verbose: process.env.VERBOSE || true,
-    verbose: true,
-    //**** Live Query ****//
-    // liveQuery: {
-    //     classNames: ["TestObject", "Place", "Team", "Player", "ChatMessage"] // List of classes to support for query subscriptions
-    // },
+        // verbose: process.env.VERBOSE || true,
+        verbose: true,
+        //**** Live Query ****//
+        // liveQuery: {
+        //     classNames: ["TestObject", "Place", "Team", "Player", "ChatMessage"] // List of classes to support for query subscriptions
+        // },
 
-    //**** Email Verification ****//
-    /* Enable email verification */
-    verifyUserEmails: true,
-    /* The public URL of your app */
-    // This will appear in the link that is used to verify email addresses and reset passwords.
-    /* Set the mount path as it is in serverURL */
-    //TODO add append parse if necessary
-    publicServerURL: process.env.SERVER_URL || 'http://localhost:1337/parse',
-    /* This will appear in the subject and body of the emails that are sent */
+        //**** Email Verification ****//
+        /* Enable email verification */
+        verifyUserEmails: true,
+        /* The public URL of your app */
+        // This will appear in the link that is used to verify email addresses and reset passwords.
+        /* Set the mount path as it is in serverURL */
+        //TODO add append parse if necessary
+        publicServerURL: process.env.SERVER_URL || 'http://localhost:1337/parse',
+        /* This will appear in the subject and body of the emails that are sent */
 
-    appName: process.env.APP_NAME || "Sticker Dashboard", //for heroku
-    //appName: config.APP_NAME || 'Sticker Dashboard', // for google
+        appName: process.env.APP_NAME || "Sticker Dashboard", //for heroku
+        //appName: config.APP_NAME || 'Sticker Dashboard', // for google
 
-    emailAdapter: {
-        module: 'parse-server-mailgun',
-        options: {
-            fromAddress: process.env.EMAIL_FROM || "test@example.com",
-            domain: process.env.MAILGUN_DOMAIN || "example.com",
-            apiKey: process.env.MAILGUN_API_KEY || "apikey",
-            templates: {
-                passwordResetEmail: {
-                    subject: 'Reset your password',
-                    pathPlainText: resolve(__dirname, './verification/password_reset_email.txt'),
-                    pathHtml: resolve(__dirname, './verification/password_reset_email.html'),
-                    callback: (user) => {
-                        return {firstName: user.get('name')}
-                    }
-                },
-                verificationEmail: {
-                    subject: 'Confirm your account',
-                    pathPlainText: resolve(__dirname, './verification/verification_email.txt'),
-                    pathHtml: resolve(__dirname, './verification/verify_email.html'),
-                    callback: (user) => {
-                        return {firstName: user.get('name')}
-                    }
-                }
+        emailAdapter: {
+            // module: 'parse-server-mailgun',
+            module: 'parse-server-mailgun-adapter-template',
+            // options: {
+            //     fromAddress: process.env.EMAIL_FROM || "test@example.com",
+            //     domain: process.env.MAILGUN_DOMAIN || "example.com",
+            //     apiKey: process.env.MAILGUN_API_KEY || "apikey",
+            //     templates: {
+            //         passwordResetEmail: {
+            //             subject: 'Reset your password',
+            //             pathPlainText: resolve(__dirname, './verification/password_reset_email.txt'),
+            //             pathHtml: resolve(__dirname, './verification/password_reset_email.html'),
+            //             callback: (user) => {
+            //                 return {firstName: user.get('name')}
+            //             }
+            //         },
+            //         verificationEmail: {
+            //             subject: 'Confirm your account',
+            //             pathPlainText: resolve(__dirname, './verification/verification_email.txt'),
+            //             pathHtml: resolve(__dirname, './verification/verify_email.html'),
+            //             callback: (user) => {
+            //                 return {firstName: user.get('name')}
+            //             }
+            //         }
+            //     }
+            // }
+            options: {
+                fromAddress: process.env.EMAIL_FROM || "test@example.com",
+                domain: process.env.MAILGUN_DOMAIN || "example.com",
+                apiKey: process.env.MAILGUN_API_KEY || "apikey",
+                // Verification email subject
+                verificationSubject: 'Please verify your e-mail for %appName%',
+                // Verification email body
+                verificationBody: 'Hi,\n\nYou are being asked to confirm the e-mail address %email% with %appName%\n\nClick here to confirm it:\n%link%',
+                //OPTIONAL (will send HTML version of email):
+                // verificationBodyHTML: fs.readFileSync("./verificationBody.html", "utf8") ||  null,
+
+                // Password reset email subject
+                passwordResetSubject: 'Password Reset Request for %appName%',
+                // Password reset email body
+                passwordResetBody: 'Hi,\n\nYou requested a password reset for %appName%.\n\nClick here to reset it:\n%link%',
+                //OPTIONAL (will send HTML version of email):
+                passwordResetBodyHTML: "<!DOCTYPE html><html xmlns=http://www.w3.org/1999/xhtml>........"
             }
         }
-    }
+
 
     // emailAdapter: SimpleSendGridAdapter({
     //     apiKey: process.env.SENDGRID_API_KEY || "apikey",
@@ -124,10 +144,12 @@ var api = new ParseServer({
             directAccess: true
         }
     )*/,
-    filesAdapter: new S3Adapter({
-        bucket: "cyfa",
-        directAccess: true
-    })
+    filesAdapter
+:
+new S3Adapter({
+    bucket: "cyfa",
+    directAccess: true
+})
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
 // If you wish you require them, you can set them as options in the initialization above:
