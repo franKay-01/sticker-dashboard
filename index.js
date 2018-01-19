@@ -131,7 +131,7 @@ var api = new ParseServer({
     customPages: {
         // invalidLink: 'https://myapp.com/invalid-link',
         // verifyEmailSuccess: 'https://myapp.com/verify-email-success',
-        choosePassword: 'choose_password.html'
+        choosePassword: 'http://cryptic-waters-41617.herokuapp.com/public/templates/choose_password.html'
         // passwordResetSuccess: 'https://myapp.com/password-reset-success',
     }
 
