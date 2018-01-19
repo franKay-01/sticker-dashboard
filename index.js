@@ -123,9 +123,9 @@ var api = new ParseServer({
                 // Password reset email subject
                 passwordResetSubject: 'Password Reset Request for %appname%',
                 // Password reset email body
-                passwordResetBody: 'Hi,\n\nYou requested a password reset for %appname%.\n\nClick here to reset it:\n%link%',
+                // passwordResetBody: 'Hi,\n\nYou requested a password reset for %appname%.\n\nClick here to reset it:\n%link%',
                 //OPTIONAL (will send HTML version of email):
-                // passwordResetBodyHTML: "<!DOCTYPE html><html xmlns=http://www.w3.org/1999/xhtml>........"
+                passwordResetBodyHTML: fs.readFileSync("./verification/password_reset_email.html", "utf8") ||  null
             }
         }
 
