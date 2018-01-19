@@ -45,29 +45,3 @@ Parse.Cloud.define("stickerNumber", function (req, res) {
     });
 
 });
-
-Parse.Cloud.define("verification", function (req, res) {
-    console.log("USER PASSED " + req.params.user);
-    // var query = new Parse.Query("User");
-    new Parse.Query("User").
-    equalTo("email", req.params.user).
-    first({useMasterKey: true}).
-    then(function (user) {
-
-        console.log("USER " + JSON.stringify(user));
-        console.log("VERIFICATION CHANGED");
-
-        return user.save({
-            "emailVerified": true,
-            useMasterKey: true
-        });
-
-    }).then(function (user) {
-        console.log("VERIFICATION CHANGED 1");
-        res.success(user)
-    }, function (error) {
-        console.log("ERROR " + JSON.stringify(error));
-        res.error(error.message)
-    });
-
-});

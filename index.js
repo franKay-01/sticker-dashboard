@@ -381,63 +381,6 @@ app.get('/forget_password', function (req, res) {
     res.render("pages/forgot_password");
 });
 
-app.get('/set_password', function (req, res) {
-    res.render("pages/set_password");
-});
-
-app.get('/verification', function (req, res) {
-    var session = req.cookies.token;
-    var token = req.cookies.token;
-    var username = req.cookies.username;
-    var name = req.cookies.name;
-
-    Parse.Cloud.run("verification", {user: username, token: token}).then(function (verify) {
-        if (verify) {
-            console.log("RETURN " + JSON.stringify(verify));
-            console.log("VERIFICATION completed");
-            res.render("pages/page_verified", {user: name});
-        } else {
-            console.log("VERIFICATION failed");
-            res.render("pages/page_not_verified");
-        }
-
-    });
-
-    // if (session && token){
-    //     new Parse.Query("User").equalTo("username", username).find({sessionToken: token}).then(function (user_info) {
-    //         user_info.set("emailVerified", true);
-    //         return user_info.save();
-    //     }).then(function (result) {
-    //         if (result){
-    //             res.render("pages/page_verified",{user: name});
-    //         }
-    //     }, function (error) {
-    //         res.render("pages/page_not_verified");
-    //     });
-    // }
-    // console.log("VERIFICATION TOKEN FROM BROWSER" + session);
-    // var query = new Parse.Query(Parse.User);
-    // query.equalTo("email", "fkay0450@gmail.com");
-    //
-    // query.find({
-    //     success: function (userId) {
-    //         console.log("EMAIL FOUND " + JSON.stringify(userId));
-    //         userId.set("emailVerified", true);
-    //         userId.save(null, {
-    //             success: function (result) {
-    //                 console.log("VERIFIED ACCOUNT " + JSON.stringify(userId));
-    //                 res.redirect('/');
-    //             }
-    //         });
-    //
-    //     },
-    //     error: function (error) {
-    //         console.log("ERROR occurred when verifying. ERROR is " + error.message);
-    //         res.redirect('/');
-    //     }
-    // });
-
-});
 
 app.post('/reset_password', function (req, res) {
     var username = req.body.forgotten_password;
