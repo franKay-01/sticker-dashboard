@@ -35,7 +35,7 @@
     <div id="pageMask"></div>
     <div id="hiddenCreateForm">
         <div class="medium-3 large-3 cell create_background">
-            <form id="pack_form" action="/new_pack" method="post">
+            <form id="pack_form" action="/new_pack" enctype="multipart/form-data" method="post">
                 <center>
                     <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW PACK
                     </div>
@@ -58,7 +58,7 @@
                         <label for="pricing3" class="_label">Free/Paid</label>
                     </div>
                     <br>
-                    <input style="color: white;margin: 0px 130px;" id="files" multiple="false" name="art[]" type="file"><br>
+                    <input style="color: white;margin: 0px 130px;" id="files" name="art[]" type="file"><br>
                     <!--<input type="checkbox" class="categoryOption" name="pricing">-->
 
 
