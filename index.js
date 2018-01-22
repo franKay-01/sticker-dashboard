@@ -802,26 +802,29 @@ app.get('/add_stickers/:id/:pack_name', function (req, res) {
 app.post('/new_pack', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
-
+    var files = req.files;
     var coll_name = req.body.coll_name;
-    var pack_description = req.body.coll_description;
+    var pricing = req.body.pricing;
+    var version = req.body.version;
 
-    if (session && token) {
-
-        var Collection = new Parse.Object.extend(PacksClass);
-        var collection = new Collection();
-        collection.set("pack_name", coll_name);
-        collection.set("description", pack_description);
-
-        collection.save().then(function (collection) {
-
-            res.redirect('/pack/' + collection.id);
-
-        });
-    }
-    else {
-        res.redirect("/");
-    }
+    console.log("FILE "+JSON.stringify(files)+" COLL NAME "+coll_name+ " PRICE "+pricing+ " VERSION "+version);
+    res.redirect("/");
+    // if (session && token) {
+    //
+    //     var Collection = new Parse.Object.extend(PacksClass);
+    //     var collection = new Collection();
+    //     collection.set("pack_name", coll_name);
+    //     collection.set("description", pack_description);
+    //
+    //     collection.save().then(function (collection) {
+    //
+    //         res.redirect('/pack/' + collection.id);
+    //
+    //     });
+    // }
+    // else {
+    //     res.redirect("/");
+    // }
 });
 
 
