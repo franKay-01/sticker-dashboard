@@ -37,28 +37,32 @@
         <div class="medium-3 large-3 cell create_background">
             <form id="pack_form" action="/new_pack" method="post">
                 <center>
-                    <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW PACK</div>
+                    <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW PACK
+                    </div>
 
                     <input type="text" class="_pack common_pack_detail validate" placeholder="Pack name"
                            name="coll_name" required="" aria-required="true"><br>
-                    <textarea class="_pack common_pack_detail validate" placeholder="Pack description" name="coll_description" required="" aria-required="true"></textarea>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Pack description"
+                              name="coll_description" required="" aria-required="true"></textarea>
                     <input type="text" class="_pack common_pack_detail validate" placeholder="Pack Version"
                            name="version" required="" aria-required="true"><br>
-                    <input style="color: white;" id="files" multiple="false" name="art[]" type="file">
+                    <center>
+                        <input style="color: white;" id="files" multiple="false" name="art[]" type="file">
+                    </center>
                     <!--<input type="checkbox" class="categoryOption" name="pricing">-->
 
-                        <input name="pricing" type="radio" id="pricing1" value="0" />
-                        <label for="pricing1" class="_label">Free</label>
+                    <input name="pricing" type="radio" id="pricing1" value="0"/>
+                    <label for="pricing1" class="_label">Free</label>
 
-                        <input name="pricing" type="radio" id="pricing2" value="1" />
-                        <label for="pricing2" class="_label">Paid</label>
+                    <input name="pricing" type="radio" id="pricing2" value="1"/>
+                    <label for="pricing2" class="_label">Paid</label>
 
-                        <input name="pricing" type="radio" id="pricing3" value="2" />
-                        <label for="pricing3" class="_label">Free/Paid</label>
+                    <input name="pricing" type="radio" id="pricing3" value="2"/>
+                    <label for="pricing3" class="_label">Free/Paid</label>
                     <p>
-                    <!--<input type="text" class="_pack common_pack_detail validate" placeholder="Pack description"-->
-                           <!--name="coll_description" required="" aria-required="true">-->
-                    <br>
+                        <!--<input type="text" class="_pack common_pack_detail validate" placeholder="Pack description"-->
+                        <!--name="coll_description" required="" aria-required="true">-->
+                        <br>
                 </center>
                 <span>
         <button type="submit" class="create">CREATE</button>
