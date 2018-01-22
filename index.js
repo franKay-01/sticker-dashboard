@@ -799,7 +799,7 @@ app.get('/add_stickers/:id/:pack_name', function (req, res) {
 });
 
 // creating new packs
-app.post('/new_pack', function (req, res) {
+app.post('/new_pack', upload.array('art[]'),function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var files = req.files;
