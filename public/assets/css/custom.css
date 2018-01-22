@@ -90,7 +90,7 @@ textarea {
 
 .create_background {
     width: 726px;
-    height: 414px;
+    /*height: 414px;*/
     border-radius: 15px;
     background-image: linear-gradient(to bottom, #d77255, #8651aa);
 }
