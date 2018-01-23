@@ -334,8 +334,6 @@ app.get('/home', function (req, res) {
     var name = req.cookies.name;
     var user_info = req.cookies.userId;
     var isVerified = req.cookies.email_verified;
-    console.log("EMAIL VERIFIED AGAIN"+isVerified);
-    console.log("PARSE USER " + Parse.User.current());
 
     if (session && token) {
         username = username.substring(0, username.indexOf('@'));
