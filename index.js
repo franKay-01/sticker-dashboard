@@ -294,9 +294,8 @@ app.post('/login', function (req, res) {
     let password = req.body.password;
 
     Parse.User.logIn(username, password).then(function (user) {
-        if (user.emailVerified === false) {
-            console.log("USER FROM PARSE " + user.emailVerified);
-        }
+        console.log("USER FROM PARSE " + user.emailVerified);
+
         console.log("SESSIONS TOKEN " + user.getSessionToken());
         res.cookie('token', user.getSessionToken());
         res.cookie('username', user.getUsername());
@@ -810,7 +809,7 @@ app.get('/add_stickers/:id/:pack_name', function (req, res) {
 });
 
 // creating new packs
-app.post('/new_pack', upload.array('art'),function (req, res) {
+app.post('/new_pack', upload.array('art'), function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var files = req.files;
@@ -834,7 +833,7 @@ app.post('/new_pack', upload.array('art'),function (req, res) {
         pack.set("user_id", user_info);
         pack.set("status", 0);
         pack.set("pricing", pricing);
-        pack.set("version",version);
+        pack.set("version", version);
         pack.set("archive", false);
 
         files.forEach(function (file) {
