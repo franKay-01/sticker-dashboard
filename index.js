@@ -297,8 +297,10 @@ app.post('/login', function (req, res) {
         console.log("SESSIONS TOKEN " + user.getSessionToken());
         res.cookie('token', user.getSessionToken());
         res.cookie('username', user.getUsername());
+        res.cookie('userId', user.id);
         res.cookie('name', user.get("name"));
         req.session.token = user.getSessionToken();
+        console.log("USER ID "+user.id);
         console.log("USER GETS TOKEN : " + user.getSessionToken());
 
         // Session.set()
@@ -807,7 +809,7 @@ app.post('/new_pack', upload.array('art'),function (req, res) {
     var coll_name = req.body.coll_name;
     var pricing = req.body.pricing;
     var version = req.body.version;
-
+    var user_info = req.cookies.username;
 
     // console.log("FILE "+JSON.stringify(files)+" COLL NAME "+coll_name+ " PRICE "+pricing+ " VERSION "+version);
     // files.forEach(function (file) {
@@ -820,7 +822,7 @@ app.post('/new_pack', upload.array('art'),function (req, res) {
         var pack = new PackCollection();
         pack.set("pack_name", coll_name);
         pack.set("pack_description", pack_description);
-        pack.set("user_id",user);
+        pack.set("user_id", user_info);
         pack.set("status", 0);
         pack.set("pricing", pricing);
         pack.set("version",version);
