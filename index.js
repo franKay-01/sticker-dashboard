@@ -330,7 +330,7 @@ app.get('/home', function (req, res) {
     var token = req.cookies.token;
     var username = req.cookies.username;
     var name = req.cookies.name;
-    var user_info = req.cookies.user_id;
+    var user_info = req.cookies.userId;
 
     console.log("PARSE USER " + Parse.User.current());
 
@@ -338,7 +338,7 @@ app.get('/home', function (req, res) {
         username = username.substring(0, username.indexOf('@'));
         const limit = 3;
         Parse.Promise.when(
-            new Parse.Query(PacksClass).equalTo("userId", user_info).limit(limit).find({sessionToken: token}),
+            new Parse.Query(PacksClass).equalTo("user_id", user_info).limit(limit).find({sessionToken: token}),
             new Parse.Query(CategoryClass).limit(limit).find({sessionToken: token}),
             //count all objects
             //TODO have a stats class
