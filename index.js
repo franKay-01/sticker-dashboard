@@ -304,8 +304,7 @@ app.post('/login', function (req, res) {
         req.session.token = user.getSessionToken();
 
         console.log("USER GETS TOKEN : " + user.getSessionToken());
-        ParseUser user = ParseUser.getCurrentUser();
-        Boolean isVerified = user.getBoolean("emailVerified");
+
         // Session.set()
         // Parse.Session.current().then(function(session) {
         //     session.set("_token", user.getSessionToken());
