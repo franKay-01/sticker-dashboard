@@ -576,6 +576,25 @@ app.post('/new_category', function (req, res) {
     }
 });
 
+app.get('/profile', function (req, res) {
+    var session = req.session.token;
+    var token = req.cookies.token;
+    var name = req.cookies.name;
+    var username = req.cookies.username;
+    var user_info = req.cookies.userId;
+
+    if (session && token){
+        new Parse.Query("User").equalTo("objectId", user_info).limit(limit).find({sessionToken: token}).
+            then(function (user) {
+             var user_image = user.get("user_image");
+             res.render("pages/profile", {username : name, email:username, image:user_image});
+        }, function (error) {
+            res.redirect('/');
+        });
+
+    }
+});
+
 app.post('/update_category', function (req, res) {
 
     var session = req.session.token;
