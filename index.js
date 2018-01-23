@@ -576,7 +576,7 @@ app.post('/new_category', function (req, res) {
     }
 });
 
-app.get('/profile', function (req, res) {
+app.get('/user_profile', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var name = req.cookies.name;
