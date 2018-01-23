@@ -27,8 +27,8 @@ var searchErrorMessage = "";
 let CollectionClass = "Collection";
 let StickerClass = "Stickers";
 let CategoryClass = "Categories";
-// let PacksClass = "Packs";
-let PacksClass = "Packss";
+let PacksClass = "Packs";
+// let PacksClass = "Packss";
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 // let databaseUri = config.DATABASE_URI; //for google
 
