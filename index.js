@@ -294,7 +294,9 @@ app.post('/login', function (req, res) {
     let password = req.body.password;
 
     Parse.User.logIn(username, password).then(function (user) {
-        console.log("USER FROM PARSE "+Parse.User.current());
+        if (user.emailVerified === false) {
+            console.log("USER FROM PARSE " + user.emailVerified);
+        }
         console.log("SESSIONS TOKEN " + user.getSessionToken());
         res.cookie('token', user.getSessionToken());
         res.cookie('username', user.getUsername());
