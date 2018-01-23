@@ -300,7 +300,7 @@ app.post('/login', function (req, res) {
         res.cookie('username', user.getUsername());
         res.cookie('userId', user.id);
         res.cookie('name', user.get("name"));
-        res.cookie('email_verified', user.get("emailVerified"));
+        res.cookie('email_verified', user.emailVerified);
         req.session.token = user.getSessionToken();
 
         console.log("USER GETS TOKEN : " + user.getSessionToken());
