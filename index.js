@@ -330,6 +330,7 @@ app.get('/home', function (req, res) {
     var token = req.cookies.token;
     var username = req.cookies.username;
     var name = req.cookies.name;
+    var user_info = req.cookies.user_id;
 
     console.log("PARSE USER " + Parse.User.current());
 
@@ -337,7 +338,7 @@ app.get('/home', function (req, res) {
         username = username.substring(0, username.indexOf('@'));
         const limit = 3;
         Parse.Promise.when(
-            new Parse.Query(PacksClass).limit(limit).find({sessionToken: token}),
+            new Parse.Query(PacksClass).equalTo("userId",).limit(limit).find({sessionToken: token}),
             new Parse.Query(CategoryClass).limit(limit).find({sessionToken: token}),
             //count all objects
             //TODO have a stats class
@@ -732,10 +733,11 @@ app.get('/second_dashboard', function (req, res) {
 app.get('/pack_collection', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
+    var user_info = req.cookies.userId;
 
     if (session && token) {
         let query = new Parse.Query(PacksClass);
-        query.find({sessionToken: token}).then(function (collections) {
+        query.equalTo("user_id", user_info).find({sessionToken: token}).then(function (collections) {
 
             res.render("pages/pack_collection", {collections: collections});
 
