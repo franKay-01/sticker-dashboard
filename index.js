@@ -338,7 +338,7 @@ app.get('/home', function (req, res) {
         username = username.substring(0, username.indexOf('@'));
         const limit = 3;
         Parse.Promise.when(
-            new Parse.Query(PacksClass).equalTo("userId",).limit(limit).find({sessionToken: token}),
+            new Parse.Query(PacksClass).equalTo("userId", user_info).limit(limit).find({sessionToken: token}),
             new Parse.Query(CategoryClass).limit(limit).find({sessionToken: token}),
             //count all objects
             //TODO have a stats class
