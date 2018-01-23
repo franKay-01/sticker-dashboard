@@ -303,8 +303,7 @@ app.post('/login', function (req, res) {
         res.cookie('email_verified', user.get("emailVerified") );
         req.session.token = user.getSessionToken();
 
-
-        console.table("USER GETS TOKEN : " + user.getSessionToken());
+        console.log("USER GETS TOKEN : " + user.getSessionToken());
 
         // Session.set()
         // Parse.Session.current().then(function(session) {
