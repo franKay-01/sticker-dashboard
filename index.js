@@ -799,7 +799,7 @@ app.get('/add_stickers/:id/:pack_name', function (req, res) {
 });
 
 // creating new packs
-app.post('/new_pack', upload.array('art[]'),function (req, res) {
+app.post('/new_pack', upload.array('art'),function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var files = req.files;
@@ -807,7 +807,11 @@ app.post('/new_pack', upload.array('art[]'),function (req, res) {
     var pricing = req.body.pricing;
     var version = req.body.version;
 
+
     console.log("FILE "+JSON.stringify(files)+" COLL NAME "+coll_name+ " PRICE "+pricing+ " VERSION "+version);
+    files.forEach(function (file) {
+        console.log("ORIGINAL "+file.originalname);
+    });
     res.redirect("/");
     // if (session && token) {
     //
