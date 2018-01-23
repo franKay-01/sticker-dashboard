@@ -35,7 +35,11 @@
     <% if (verified.length > 0) { %>
     <div class="medium-12 large-12 error_card">
         <div style="text-align: center;font-size: 20px;color: rosybrown">
+            <%if (verified === false){%>
             Please verify your Account. There is a link in your email. Thank you
+            <%} else{%>
+
+            <% }%>
         </div>
     </div>
     <% } %>
