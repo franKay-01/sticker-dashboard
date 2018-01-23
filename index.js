@@ -332,7 +332,7 @@ app.get('/home', function (req, res) {
     var username = req.cookies.username;
     var name = req.cookies.name;
     var user_info = req.cookies.userId;
-    var isVerified = req.cookie.email_verified;
+    // var isVerified = req.cookie.email_verified;
 
     console.log("PARSE USER " + Parse.User.current());
 
