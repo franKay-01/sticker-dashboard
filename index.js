@@ -304,7 +304,7 @@ app.post('/login', function (req, res) {
         req.session.token = user.getSessionToken();
 
 
-        console.log("USER GETS TOKEN : " + user.getSessionToken());
+        console.table("USER GETS TOKEN : " + user.getSessionToken());
 
         // Session.set()
         // Parse.Session.current().then(function(session) {
