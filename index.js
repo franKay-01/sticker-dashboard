@@ -808,50 +808,49 @@ app.post('/new_pack', upload.array('art'),function (req, res) {
     var files = req.files;
     var pack_description = req.body.pack_description;
     var coll_name = req.body.coll_name;
-    var pricing = req.body.pricing;
+    var pricing = parseInt(req.body.pricing);
     var version = req.body.version;
     var user_info = req.cookies.userId;
 
-    console.log("FILE "+JSON.stringify(files)+" COLL NAME "+coll_name+ " PRICE "+JSON.stringify(pricing)+ " VERSION "+version);
-    res.redirect('/');
+    // console.log("FILE "+JSON.stringify(files)+" COLL NAME "+coll_name+ " PRICE "+pricing+ " VERSION "+version);
     // files.forEach(function (file) {
     //     console.log("ORIGINAL "+file.originalname);
     // });
+    //
+    if (session && token) {
 
-    // if (session && token) {
-    //
-    //     var PackCollection = new Parse.Object.extend(PacksClass);
-    //     var pack = new PackCollection();
-    //     pack.set("pack_name", coll_name);
-    //     pack.set("pack_description", pack_description);
-    //     pack.set("user_id", user_info);
-    //     pack.set("status", 0);
-    //     pack.set("pricing", pricing);
-    //     pack.set("version",version);
-    //     pack.set("archive", false);
-    //
-    //     files.forEach(function (file) {
-    //         var fullName = file.originalname;
-    //         var stickerName = fullName.substring(0, fullName.length - 4);
-    //
-    //         var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-    //
-    //         var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-    //
-    //         pack.set("art_work", parseFile);
-    //
-    //     });
-    //
-    //
-    //     pack.save().then(function (collection) {
-    //
-    //         res.redirect('/pack/' + collection.id);
-    //
-    //     });
-    // }
-    // else {
-    //     res.redirect("/");
-    // }
+        var PackCollection = new Parse.Object.extend(PacksClass);
+        var pack = new PackCollection();
+        pack.set("pack_name", coll_name);
+        pack.set("pack_description", pack_description);
+        pack.set("user_id", user_info);
+        pack.set("status", 0);
+        pack.set("pricing", pricing);
+        pack.set("version",version);
+        pack.set("archive", false);
+
+        files.forEach(function (file) {
+            var fullName = file.originalname;
+            var stickerName = fullName.substring(0, fullName.length - 4);
+
+            var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+            var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+
+            pack.set("art_work", parseFile);
+
+        });
+
+
+        pack.save().then(function (collection) {
+
+            res.redirect('/pack/' + collection.id);
+
+        });
+    }
+    else {
+        res.redirect("/");
+    }
 });
 
 
