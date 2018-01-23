@@ -300,7 +300,7 @@ app.post('/login', function (req, res) {
         res.cookie('userId', user.id);
         res.cookie('name', user.get("name"));
         req.session.token = user.getSessionToken();
-        console.log("USER ID "+user.id);
+
         console.log("USER GETS TOKEN : " + user.getSessionToken());
 
         // Session.set()
@@ -809,7 +809,7 @@ app.post('/new_pack', upload.array('art'),function (req, res) {
     var coll_name = req.body.coll_name;
     var pricing = req.body.pricing;
     var version = req.body.version;
-    var user_info = req.cookies.username;
+    var user_info = req.cookies.userId;
 
     // console.log("FILE "+JSON.stringify(files)+" COLL NAME "+coll_name+ " PRICE "+pricing+ " VERSION "+version);
     // files.forEach(function (file) {
