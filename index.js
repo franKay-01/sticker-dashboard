@@ -294,14 +294,13 @@ app.post('/login', function (req, res) {
     let password = req.body.password;
 
     Parse.User.logIn(username, password).then(function (user) {
-        console.log("USER FROM PARSE " + JSON.stringify(user.get("emailVerified")));
 
         console.log("SESSIONS TOKEN " + user.getSessionToken());
         res.cookie('token', user.getSessionToken());
         res.cookie('username', user.getUsername());
         res.cookie('userId', user.id);
         res.cookie('name', user.get("name"));
-        // res.cookie('email_verified', );
+        res.cookie('email_verified', user.get("emailVerified") );
         req.session.token = user.getSessionToken();
 
 
@@ -334,7 +333,7 @@ app.get('/home', function (req, res) {
     var username = req.cookies.username;
     var name = req.cookies.name;
     var user_info = req.cookies.userId;
-    // var isVerified = req.cookie.email_verified;
+    var isVerified = req.cookie.email_verified;
 
     console.log("PARSE USER " + Parse.User.current());
 
@@ -371,9 +370,8 @@ app.get('/home', function (req, res) {
                 packLength: helper.leadingZero(packLength),
                 stickerLength: helper.leadingZero(stickerLength),
                 username: username,
-                user_name: name
-                // ,
-                // verified: isVerified
+                user_name: name,
+                verified: isVerified
             });
 
         }, function (error) {
