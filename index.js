@@ -405,6 +405,27 @@ app.post('/reset_password', function (req, res) {
     });
 });
 
+app.get('/reset_email', function (req, res) {
+    var session = req.session.token;
+    var token = req.cookies.token;
+    var user_info = req.cookies.userId;
+
+    if (session && token){
+        new Parse.Query("User").equalTo("objectId", user_info).find({sessionToken:token}).then(function (user) {
+            user.set("email","test@gmail.com");
+            user.set("username","test@gmail.com");
+            return user.save();
+        }).then(function (result) {
+            console.log("EMAIL CHANGED SUCCESSFULLY "+ JSON.stringify(result));
+            res.redirect("/");
+        }, function (error) {
+            console.log("EMAIL NOT CHANGED "+error.message);
+            res.redirect("/");
+        })
+    }
+
+});
+
 //UPLOAD MULTIPLE STICKERS
 app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
