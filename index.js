@@ -301,6 +301,8 @@ app.post('/login', function (req, res) {
         res.cookie('userId', user.id);
         res.cookie('name', user.get("name"));
         res.cookie('email_verified', user.get("emailVerified"));
+        res.cookie('profile_picture', user.get("image"));
+
         req.session.token = user.getSessionToken();
 
         console.log("USER GETS TOKEN : " + user.getSessionToken());
@@ -580,14 +582,13 @@ app.get('/user_profile', function (req, res) {
     var token = req.cookies.token;
     var name = req.cookies.name;
     var username = req.cookies.username;
+    var _image = req.cookies.profile_picture;
     var user_info = req.cookies.userId;
 
     if (session && token) {
         new Parse.Query("User").equalTo("objectId", user_info).find({sessionToken: token}).then(function (user) {
-            var _image = user.get("image");
-            console.log("USER IMAGE " + JSON.stringify(_image));
             console.log("USER PROFILE " + JSON.stringify(user));
-
+            consolelog("USER IMAGE "+_image);
             res.render("pages/profile", {username: name, email: username, image: _image});
 
 
