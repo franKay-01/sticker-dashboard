@@ -585,8 +585,8 @@ app.get('/user_profile', function (req, res) {
 
     if (session && token) {
         new Parse.Query("User").equalTo("objectId", user_info).find({sessionToken: token}).then(function (user) {
-            console.log("USER PROFILE " + JSON.stringify(user.get("image")));
-            res.render("pages/profile", {username: name, email: username, image: _image});
+            console.log("USER PROFILE " + JSON.stringify(user));
+            res.render("pages/profile", {username: name, email: username, image: user});
 
 
         }, function (error) {
