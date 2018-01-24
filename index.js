@@ -604,9 +604,9 @@ app.get('/user_profile', function (req, res) {
                 // res.render("pages/profile", {username : name, email:username, image:_image});
 
 
-        }, function (error) {
-            res.redirect('/');
-        });
+        // }, function (error) {
+        //     res.redirect('/');
+        // });
 
     }
 });
