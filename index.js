@@ -587,7 +587,7 @@ app.get('/user_profile', function (req, res) {
             then(function (user) {
                 console.log("USER PROFILE "+JSON.stringify(user));
              if(user){
-                 res.render("pages/profile", {username : name, email:username, image:user});
+                 res.render("pages/profile", {username : name, email:username, image:user.get("user_image")});
              }else {
                  res.render("pages/profile", {username : name, email:username});
 
