@@ -10,6 +10,8 @@ var _categories = 0;
 
 Parse.Cloud.define("stickerNumber", function (req, res) {
 
+    console.log("USER________"+JSON.stringify(req.user));
+
     /*STICKERS=0
     PACKS=1
     CATEGORIES=2*/
