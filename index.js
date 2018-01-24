@@ -300,7 +300,7 @@ app.post('/login', function (req, res) {
         res.cookie('username', user.getUsername());
         res.cookie('userId', user.id);
         res.cookie('name', user.get("name"));
-        res.cookie('email_verified', user.get("emailVerified") );
+        res.cookie('email_verified', user.get("emailVerified"));
         req.session.token = user.getSessionToken();
 
         console.log("USER GETS TOKEN : " + user.getSessionToken());
@@ -582,31 +582,18 @@ app.get('/user_profile', function (req, res) {
     var username = req.cookies.username;
     var user_info = req.cookies.userId;
 
-    if (session && token){
-       var User = new Parse.Query("User");
-       User.equalTo("objectId", user_info);
-       User.find({
-           success: function(user) {
-               console.log("USER IMAGE "+JSON.stringify(user.get("user_image")));
-               console.log("found a user..");
-           },
-           error: function(results, error) {
-               console.log("None found.");
-           }
-       });
+    if (session && token) {
+        new Parse.Query("User").equalTo("objectId", user_info).find({sessionToken: token}).then(function (user) {
+            var _image = user.get("email");
+            console.log("USER IMAGE " + JSON.stringify(_image));
+            console.log("USER PROFILE " + JSON.stringify(user));
 
-           // User.find({sessionToken: token}).
-            // then(function (user) {
-            //     var _image = user.get("email");
-            //     console.log("USER IMAGE "+JSON.stringify(_image));
-            //     console.log("USER PROFILE "+JSON.stringify(user));
-
-                // res.render("pages/profile", {username : name, email:username, image:_image});
+            res.render("pages/profile", {username: name, email: username, image: _image});
 
 
-        // }, function (error) {
-        //     res.redirect('/');
-        // });
+        }, function (error) {
+            res.redirect('/');
+        });
 
     }
 });
