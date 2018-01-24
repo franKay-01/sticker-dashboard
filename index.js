@@ -412,7 +412,7 @@ app.get('/reset_email', function (req, res) {
 
     if (session && token){
         new Parse.Query("User").equalTo("objectId", user_info).find().then(function (user) {
-            console.log("USER FROM RESET "+JSON.stringify(user));
+            console.log("USER FROM RESET "+JSON.stringify(user) + " CURRENT USER "+Parse.User.current());
             user.set("email","test@gmail.com");
             user.set("username","test@gmail.com");
             return user.save();
