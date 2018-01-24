@@ -32,8 +32,8 @@ let PacksClass = "Packs";
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 // let databaseUri = config.DATABASE_URI; //for google
 
-Parse.initialize("d55f9778-9269-40c2-84a2-e0caaf2ad87a");
-Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
+// Parse.initialize("d55f9778-9269-40c2-84a2-e0caaf2ad87a");
+// Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
 /* for google
 // Parse.initialize(config.APP_ID);
