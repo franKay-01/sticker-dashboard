@@ -584,13 +584,13 @@ app.get('/user_profile', function (req, res) {
     var user_info = req.cookies.userId;
 
     if (session && token) {
-        new Parse.Query("User").equalTo("objectId", user_info).find({sessionToken: token}).then(function (user) {
-            console.log("USER PROFILE " + JSON.stringify(user));
+        new Parse.Query("User").equalTo("objectId", user_info).toJSON().find({sessionToken: token}).then(function (user) {
+            console.log("USER NAME " + user.getUsername());
             var image = "";
             // if(user.get("image").url() !== undefined){
             //     image = user.get("image").url();
             // }
-            res.render("pages/profile", {username: name, email: username,image:user.get("image").url()});
+            res.render("pages/profile", {username: name, email: username});
 
 
         }, function (error) {
