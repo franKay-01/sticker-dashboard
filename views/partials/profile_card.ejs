@@ -1,18 +1,11 @@
 <!-- Cards -->
-<% if (image.length === 0) { %>
-<div class="medium-3 large-3 cell icons">
-    <img src="/public/assets/images/broken.png" class="gbeja_notxt">
-    <div class="name_tag"><p class="sticker_name_text">Broken Link - Reload</p></div>
-</div>
 
-<% } else {%>
-<% if (image !== undefined){%>
+<% if (image !== ""){%>
 <div class="medium-3 large-3 cell icons">
-    <img src="<%= image.url() %>" class="gbeja_notxt">
+    <img src="<%= image %>" class="gbeja_notxt">
 </div>
 <%} else {%>
 <div class="medium-3 large-3 cell icons">
 <input type="file" name="profile_picture">
 </div>
-<%}%>
 <%}%>
