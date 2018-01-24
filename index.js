@@ -314,13 +314,6 @@ app.post('/login', function (req, res) {
         //     });
         // });
 
-       return Parse.User.become(user.getSessionToken());
-
-
-    }).then(function () {
-
-        console.log("Current user:::::::" + Parse.User.current());
-
         res.redirect("/home");
 
     }, function (error) {
@@ -341,8 +334,6 @@ app.get('/home', function (req, res) {
     var name = req.cookies.name;
     var user_info = req.cookies.userId;
     var isVerified = req.cookies.email_verified;
-
-    console.log("USER________"+JSON.stringify(req.user));
 
     if (session && token) {
         username = username.substring(0, username.indexOf('@'));
