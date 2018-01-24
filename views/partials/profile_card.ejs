@@ -1,5 +1,8 @@
 <!-- Cards -->
 <% if (image.length === 0) { %>
+<script>
+    alert(image.get("user_image"));
+</script>
 <div class="medium-3 large-3 cell icons">
     <img src="/public/assets/images/broken.png" class="gbeja_notxt">
     <div class="name_tag"><p class="sticker_name_text">Broken Link - Reload</p></div>
@@ -12,7 +15,7 @@
     <% if (item.get("user_image") === null || item.get("user_image") === "undefined"){%>
       <input type="file" name="profile_image">
     <%} else {%>
-        <img src="<%= item.get("user_image").url() %>" class="gbeja_notxt">
+
     <%}%>
 </div>
 
