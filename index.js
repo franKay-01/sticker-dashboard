@@ -314,17 +314,14 @@ app.post('/login', function (req, res) {
         //     });
         // });
 
-        Parse.User.become(user.getSessionToken(),{
-            success:function(){
-                console.log("Current user::::::" + Parse.User.current());
+       return Parse.User.become(user.getSessionToken());
 
-                res.redirect("/home");
-            },
-            error:function(error){
-                console.log("Not become:::"+ error.message);
-            }
-        });
 
+    }).then(function () {
+
+        console.log("Current user::::::" + Parse.User.current());
+
+        res.redirect("/home");
 
     }, function (error) {
         //TODO render error message
