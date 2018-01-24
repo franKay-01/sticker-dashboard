@@ -335,6 +335,8 @@ app.get('/home', function (req, res) {
     var user_info = req.cookies.userId;
     var isVerified = req.cookies.email_verified;
 
+    console.log("USER________"+JSON.stringify(req.user));
+
     if (session && token) {
         username = username.substring(0, username.indexOf('@'));
         const limit = 3;
