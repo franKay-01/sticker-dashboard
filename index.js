@@ -314,7 +314,17 @@ app.post('/login', function (req, res) {
         //     });
         // });
 
-        res.redirect("/home");
+        Parse.User.become(user.getSessionToken(),{
+            success:function(){
+                console.log("Current user::::::" + Parse.User.current());
+
+                res.redirect("/home");
+            },
+            error:function(error){
+                console.log("Not become:::"+ error.message);
+            }
+        });
+
 
     }, function (error) {
         //TODO render error message
