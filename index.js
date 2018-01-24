@@ -590,7 +590,7 @@ app.get('/user_profile', function (req, res) {
             // if(user.get("image").url() !== undefined){
             //     image = user.get("image").url();
             // }
-            res.render("pages/profile", {username: name, email: username});
+            res.render("pages/profile", {username: name, email: username,image:user.get("image").url()});
 
 
         }, function (error) {
