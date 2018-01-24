@@ -319,7 +319,7 @@ app.post('/login', function (req, res) {
 
     }).then(function () {
 
-        console.log("Current user::::::" + Parse.User.current());
+        console.log("Current user:::::::" + Parse.User.current());
 
         res.redirect("/home");
 
