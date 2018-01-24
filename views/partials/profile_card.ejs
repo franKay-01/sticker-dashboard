@@ -5,17 +5,16 @@
     <div class="name_tag"><p class="sticker_name_text">Broken Link - Reload</p></div>
 </div>
 
-<% } %>
-<% if (image.get("user_image") === "undefined" ) { %>
+<% } else {%>
 <% image.forEach(function(item, index) { %>
-
+<% if (item.get("user_image") !== "undefined"){%>
 <div class="medium-3 large-3 cell icons">
     <img src="<%= item.get("user_image").url() %>" class="gbeja_notxt">
 </div>
-
-<% }); %>
-<% } else {%>
+<%} else {%>
 <div class="medium-3 large-3 cell icons">
-    <input type="file" name="profile_image">
+<input type="file" name="profile_picture">
 </div>
+<%}%>
+<% }); %>
 <%}%>
