@@ -605,17 +605,17 @@ app.get('/user_profile', function (req, res) {
     var name = req.cookies.name;
     var username = req.cookies.username;
     var user_info = req.cookies.userId;
+    var _profile = req.cookies.profile;
 
     if (session && token) {
         new Parse.Query("User").equalTo("objectId", user_info).find({sessionToken: token}).then(function (user) {
 
-            var _user = JSON.stringify(user);
-            _user = JSON.parse(_user);
-            console.log("USER PROFILE " + _user.username);
+
+            //console.log("USER PROFILE " + profile);
             // if(user.get("image").url() !== undefined){
             //     image = user.get("image").url();
             // }
-            res.render("pages/profile", {username: name, email: username});
+            res.render("pages/profile", {username: name, email: username,profile: _profile});
 
 
         }, function (error) {
