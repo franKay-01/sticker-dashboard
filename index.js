@@ -600,7 +600,7 @@ app.post('/new_category', function (req, res) {
 });
 
 
-app.post('/update_user', function () {
+app.post('/update_user', function (req,res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var name = req.body.name;
