@@ -5,7 +5,8 @@
     <% if (profile === "undefined"){ %>
         Profile Picture does not exist
     <%} else {%>
-        <%= JSON.stringify(profile) %>
+    <img src="<%= profile %>">
+
     <%}%>
 </div>
 <div class="medium-3 large-3 cell icons">
