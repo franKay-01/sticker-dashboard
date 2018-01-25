@@ -2,23 +2,17 @@ Parse.initialize("d55f9778-9269-40c2-84a2-e0caaf2ad87a");
 Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
 
-// getCookie = function (cname) {
-//     var name = cname + "=";
-//     console.log("Document Cookie "+ document.cookie);
-//     var ca = document.cookie.split(';');
-//     for (var i = 0; i < ca.length; i++) {
-//         var c = ca[i];
-//         while (c.charAt(0) === ' ') c = c.substring(1);
-//         if (c.indexOf(name) !== -1) return c.substring(name.length, c.length);
-//     }
-//     return undefined;
-// };
-
-function getCookie(name) {
-    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-    console.log("DOCUMENT "+v);
-    return v ? v[2] : null;
-}
+getCookie = function (cname) {
+    var name = cname + "=";
+    console.log("Document Cookie "+ document.cookie);
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1);
+        if (c.indexOf(name) !== -1) return c.substring(name.length, c.length);
+    }
+    return undefined;
+};
 
 var token = getCookie("token");
 // var _session = session.getAttribute("_token");
