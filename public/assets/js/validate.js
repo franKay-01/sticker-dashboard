@@ -3,27 +3,15 @@ Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
 
 getCookie = function (cname) {
-    // var name = cname + "=";
-    // console.log("Document Cookie "+ document.cookie);
-    // var ca = document.cookie.split(';');
-    // for (var i = 0; i < ca.length; i++) {
-    //     var c = ca[i];
-    //     while (c.charAt(0) === ' ') c = c.substring(1);
-    //     if (c.indexOf(name) !== -1) return c.substring(name.length, c.length);
-    // }
-    // return undefined;
-    var cookies = { };
-
-    if (document.cookie && document.cookie !== '') {
-        var split = document.cookie.split(';');
-        for (var i = 0; i < split.length; i++) {
-            var name_value = split[i].split("=");
-            name_value[0] = name_value[0].replace(/^ /, '');
-            cookies[decodeURIComponent(name_value[0])] = decodeURIComponent(name_value[1]);
-        }
+    var name = cname + "=";
+    console.log("Document Cookie "+ document.cookie);
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1);
+        if (c.indexOf(name) !== -1) return c.substring(name.length, c.length);
     }
-
-    return cookies;
+    return undefined;
 };
 
 var token = getCookie("token");
