@@ -24,7 +24,7 @@ if (token !== "") {
 
         token = "r:"+token.substring(2);
         console.log("TOKEN FROM USER "+JSON.stringify(token));
-        Parse.User.become("r:55487de3299991af196d1b63e8fc98de",{
+        Parse.User.become(token,{
             success:function(){
                 console.log("Current user::::::" + Parse.User.current());
             },
