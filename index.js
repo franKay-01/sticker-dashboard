@@ -611,7 +611,7 @@ app.get('/user_profile', function (req, res) {
         new Parse.Query("User").equalTo("objectId", user_info).find({sessionToken: token}).then(function (user) {
 
 
-            //console.log("USER PROFILE " + profile);
+            console.log("USER PROFILE " + JSON.stringify(_profile));
             // if(user.get("image").url() !== undefined){
             //     image = user.get("image").url();
             // }
