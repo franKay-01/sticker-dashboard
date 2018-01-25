@@ -27,6 +27,11 @@ hr {
     border-left: 0 !important;
 }
 
+hr.profile_page{
+    background-color: #fff;
+    border-top: 2px dashed #8c8b8b;
+}
+
 td, th {
     display: table-cell !important;
     text-align: left !important;
