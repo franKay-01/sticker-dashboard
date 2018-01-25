@@ -1,16 +1,17 @@
 <!-- Cards -->
+<center>
+<div class="medium-3 large-3 cell">
 
-<div class="medium-3 large-3 cell ">
-    <center>
         <% if (profile === "undefined"){ %>
         Profile Picture does not exist
         <% } else { %>
         <img src="<%= profile %>" class="user_profile">
-    </center>
+
     <% } %>
 </div>
 <div class="medium-3 large-3 cell">
-    <center>
+
         <input type="file" name="profile_picture">
-    </center>
+
 </div>
+</center>
