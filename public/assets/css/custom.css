@@ -558,6 +558,35 @@ textarea {
     border-width: 4px;
 }
 
+.box_2::-webkit-input-placeholder {
+    color: #a46580 !important;
+    font-size: 20px !important;
+    text-align: center;
+}
+
+.box_2:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #a46580 !important;
+    font-size: 20px !important;
+    opacity: 1;
+    text-align: center;
+}
+
+.box_2::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #a46580 !important;
+    font-size: 20px !important;
+    opacity: 1;
+    text-align: center;
+}
+
+.box_2:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #a46580 !important;
+    font-size: 20px !important;
+    text-align: center;
+}
+
 ::-webkit-box-shadow {
     box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
 }
