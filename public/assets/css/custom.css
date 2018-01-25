@@ -561,7 +561,6 @@ textarea {
 .box_2::-webkit-input-placeholder {
     color: #a46580 !important;
     font-size: 20px !important;
-    text-align: center;
 }
 
 .box_2:-moz-placeholder {
@@ -569,7 +568,6 @@ textarea {
     color: #a46580 !important;
     font-size: 20px !important;
     opacity: 1;
-    text-align: center;
 }
 
 .box_2::-moz-placeholder {
@@ -577,14 +575,12 @@ textarea {
     color: #a46580 !important;
     font-size: 20px !important;
     opacity: 1;
-    text-align: center;
 }
 
 .box_2:-ms-input-placeholder {
     /* Internet Explorer 10-11 */
     color: #a46580 !important;
     font-size: 20px !important;
-    text-align: center;
 }
 
 ::-webkit-box-shadow {
