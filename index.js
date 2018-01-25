@@ -610,8 +610,8 @@ app.get('/user_profile', function (req, res) {
     if (session && token) {
         new Parse.Query("User").equalTo("objectId", user_info).find({sessionToken: token}).then(function (user) {
 
-            var _image = JSON.stringify(_profile);
-            console.log("USER PROFILE " + _image.url());
+            // var _image = JSON.stringify(_profile);
+            // console.log("USER PROFILE " + _image.url());
             // if(user.get("image").url() !== undefined){
             //     image = user.get("image").url();
             // }
