@@ -179,8 +179,8 @@ app.use(cookieSession({
     maxAge: 15724800000
 }));
 
-//"A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK"
-app.use(cookieParser());
+//""
+app.use(cookieParser("A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK"));
 
 
 app.all('*', function (req, res, next) {
@@ -305,7 +305,7 @@ app.post('/login', function (req, res) {
         res.cookie('email_verified', user.get("emailVerified"));
         res.cookie('profile', user.get("image").url());
 
-        req.session.token = user._sessionToken;
+        console.log("TOKEN FROM SESSION "+user._sessionToken);
         // console.log("USER IMAGE "+req.cookies.profile);
         console.log("USER GETS TOKEN : " + user.getSessionToken());
 
