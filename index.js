@@ -305,7 +305,6 @@ app.post('/login', function (req, res) {
         res.cookie('email_verified', user.get("emailVerified"));
         res.cookie('profile', user.get("image").url());
 
-        console.log("TOKEN FROM SESSION "+user._sessionToken);
         // console.log("USER IMAGE "+req.cookies.profile);
         console.log("USER GETS TOKEN : " + user.getSessionToken());
 
