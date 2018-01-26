@@ -173,11 +173,12 @@ app.use(bodyParser.urlencoded({
 app.use(methodOverride());
 
 
-// app.use(cookieSession({
-//     name: "session",
-//     secret: "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
-//     maxAge: 15724800000
-// }));
+app.use(cookieSession({
+    name: "session",
+    secret: "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
+    maxAge: 15724800000
+}));
+
 //"A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK"
 app.use(cookieParser());
 
