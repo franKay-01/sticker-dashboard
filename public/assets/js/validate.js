@@ -21,8 +21,6 @@ var token = getCookie("token");
 if (token !== "") {
 
     if (Parse.User.current() === null) {
-        console.log("TOKEN :::::::"+_token);
-
         token = "r:"+token.substring(2);
         console.log("TOKEN FROM USER "+JSON.stringify(token));
         Parse.User.become(token,{
