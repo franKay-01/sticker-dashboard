@@ -362,6 +362,9 @@ app.get('/home', function (req, res) {
 
             }
 
+            Parse.Cloud.run("stickerNumber").then(function(){
+            });
+
             res.render("pages/home", {
                 collections: _collection,
                 categories: _categories,
