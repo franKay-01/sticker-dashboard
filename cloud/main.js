@@ -9,11 +9,7 @@ var _packs = 0;
 var _categories = 0;
 
 Parse.Cloud.define("stickerNumber", function (req, res) {
-    Parse.User.become(req.session.token).then(function (result) {
-        console.log("Current user::::::" + Parse.User.current());
-    },function (error) {
-        console.log("User not ::::::" + Parse.User.current());
-    });
+
     console.log("USER________"+JSON.stringify(req.user));
 
     /*STICKERS=0
