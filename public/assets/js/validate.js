@@ -21,7 +21,6 @@ var token = getCookie("token");
 if (token !== "") {
 
     if (Parse.User.current() === null) {
-        var _token = req.session.token;
         console.log("TOKEN :::::::"+_token);
 
         token = "r:"+token.substring(2);
