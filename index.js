@@ -173,12 +173,13 @@ app.use(bodyParser.urlencoded({
 app.use(methodOverride());
 
 
-app.use(cookieSession({
-    name: "session",
-    secret: "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
-    maxAge: 15724800000
-}));
-app.use(cookieParser("A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK"));
+// app.use(cookieSession({
+//     name: "session",
+//     secret: "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
+//     maxAge: 15724800000
+// }));
+//"A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK"
+app.use(cookieParser());
 
 
 app.all('*', function (req, res, next) {
