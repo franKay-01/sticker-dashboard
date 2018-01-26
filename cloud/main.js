@@ -47,8 +47,3 @@ Parse.Cloud.define("stickerNumber", function (req, res) {
     });
 
 });
-
-
-Parse.Cloud.define("stickerNumber", function (req, res) {
-
-});
