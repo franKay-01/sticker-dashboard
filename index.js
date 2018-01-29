@@ -302,7 +302,7 @@ app.post('/login', function (req, res) {
         res.cookie('name', user.get("name"));
         res.cookie('email_verified', user.get("emailVerified"));
         console.log("HERE");
-        res.cookie('profile', user.get("image").url());
+        // res.cookie('profile', user.get("image").url());
 
         req.session.token = user.getSessionToken();
         // console.log("USER IMAGE "+req.cookies.profile);
@@ -685,7 +685,7 @@ app.get('/user_profile', function (req, res) {
     var name = req.cookies.name;
     var username = req.cookies.username;
     var user_info = req.cookies.userId;
-    var _profile = req.cookies.profile;
+    // var _profile = req.cookies.profile;
 
     if (session && token) {
         new Parse.Query("User").equalTo("objectId", user_info).find({sessionToken: token}).then(function (user) {
