@@ -14,8 +14,6 @@ let _ = require('underscore');
 let helper = require('./cloud/modules/helpers');
 let methodOverride = require('method-override');
 let download = require('image-downloader');
-var cookie = require('cookie');
-
 let resolve = require('path').resolve;
 
 let config = require('./config.json');
@@ -180,7 +178,7 @@ app.use(cookieSession({
     secret: "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
     maxAge: 15724800000
 }));
-// app.use(cookieParser("A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK"));
+app.use(cookieParser("A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK"));
 
 
 app.all('*', function (req, res, next) {
@@ -266,19 +264,14 @@ app.post('/signup', function (req, res) {
 
     user.signUp(null, {
         success: function (user) {
-            // res.cookie('username', user.getUsername());
-            // res.cookie('name', user.get("name"));
+            res.cookie('username', user.getUsername());
+            res.cookie('name', user.get("name"));
 
             Parse.User.logIn(username, password).then(function (user) {
                 console.log("SESSIONS TOKEN " + user.getSessionToken());
-
-                cookie.serialize('token', String(user.getSessionToken()));
-                cookie.serialize('username', String(user.getSessionToken()));
-                cookie.serialize('name', String(user.getSessionToken()));
-
-                // res.cookie('token', user.getSessionToken());
-                // res.cookie('username', user.getUsername());
-                // res.cookie('name', user.get("name"));
+                res.cookie('token', user.getSessionToken());
+                res.cookie('username', user.getUsername());
+                res.cookie('name', user.get("name"));
                 req.session.token = user.getSessionToken();
                 console.log("USER GETS TOKEN : " + user.getSessionToken());
                 res.redirect("/home");
@@ -303,21 +296,12 @@ app.post('/login', function (req, res) {
     Parse.User.logIn(username, password).then(function (user) {
 
         console.log("SESSIONS TOKEN " + user.getSessionToken());
-
-        cookie.serialize('token', String(user.getSessionToken()));
-        cookie.serialize('username', String(user.getUsername()));
-        cookie.serialize('userId', String(user.id));
-        cookie.serialize('name', String(user.get("name")));
-        cookie.serialize('email_verified', String(user.get("emailVerified")));
-        cookie.serialize('profile', String(user.user.get("image").url()));
-        cookie.serialize('token', String(user.getSessionToken()));
-
-        // res.cookie('token', user.getSessionToken());
-        // res.cookie('username', user.getUsername());
-        // res.cookie('userId', user.id);
-        // res.cookie('name', user.get("name"));
-        // res.cookie('email_verified', user.get("emailVerified"));
-        // res.cookie('profile', user.get("image").url());
+        res.cookie('token', user.getSessionToken());
+        res.cookie('username', user.getUsername());
+        res.cookie('userId', user.id);
+        res.cookie('name', user.get("name"));
+        res.cookie('email_verified', user.get("emailVerified"));
+        res.cookie('profile', user.get("image").url());
 
         req.session.token = user.getSessionToken();
         // console.log("USER IMAGE "+req.cookies.profile);
