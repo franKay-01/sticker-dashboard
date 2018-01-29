@@ -57,6 +57,7 @@ textarea {
     position: fixed;
     z-index: 1;
     left: 50%;
+    opacity: 0.5;
     bottom: 30px;
     font-size: 27px;
 }
