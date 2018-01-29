@@ -262,6 +262,7 @@ app.post('/signup', function (req, res) {
     user.set("password", password);
     user.set("email", username);
 
+
     user.signUp(null, {
         success: function (user) {
             res.cookie('username', user.getUsername());
@@ -272,6 +273,8 @@ app.post('/signup', function (req, res) {
                 res.cookie('token', user.getSessionToken());
                 res.cookie('username', user.getUsername());
                 res.cookie('name', user.get("name"));
+                res.cookie('email_verified', user.get("emailVerified"));
+
                 req.session.token = user.getSessionToken();
                 console.log("USER GETS TOKEN : " + user.getSessionToken());
                 res.redirect("/home");
