@@ -17,10 +17,16 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-
+    <script>
+        function myFunction() {
+            var x = document.getElementById("toast_message")
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+    </script>
 </head>
 
-<body class="primary-background-color">
+<body class="primary-background-color" onload="myFunction()">
 <div class="grid-container">
     <!-- Logo -->
     <div class="medium-12 large-12">
@@ -56,6 +62,7 @@
     <!-- End of card -->
         <% include ../partials/sticker_cards %>
         <%- include('../partials/footer') %>
+        <div id="toast_message">Some text some message..</div>
     </div>
 </div>
 <!-- Body -->
@@ -70,4 +77,4 @@
 </body>
 
 
-</html
+</html>
