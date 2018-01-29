@@ -59,7 +59,7 @@ textarea {
     left: 50%;
     opacity: 0.5;
     bottom: 30px;
-    font-size: 27px;
+    font-size: 17px;
 }
 
 #toast_message.show {
