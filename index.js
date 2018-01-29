@@ -336,6 +336,7 @@ app.get('/home', function (req, res) {
     var user_info = req.cookies.userId;
     var isVerified = req.cookies.email_verified;
 
+    console.log("EMAIL VERIFIED "+ isVerified);
     if (session && token) {
         username = username.substring(0, username.indexOf('@'));
         const limit = 3;
@@ -630,6 +631,49 @@ app.post('/update_user', function (req,res) {
         }, function (error) {
             console.log("USER WAS NOT UPDATED "+error.message);
             res.redirect('/');
+        });
+    }
+});
+
+app.get('/review', function (req, res) {
+    var session = req.session.token;
+    var token = req.cookies.token;
+
+
+    if (session && token){
+        new Parse.Query(PacksClass).find().then(function (_packs) {
+            res.render("pages/review_page", { packs: _packs });
+        });
+
+    }
+});
+
+app.get('/packs_review/:id', function (req, res) {
+    var session = req.session.token;
+    var token = req.cookies.token;
+    var pack_id = req.params.id;
+
+    if (session && token){
+        var pack = new Parse.Query(PacksClass);
+        pack.get(pack_id, {
+            success: function (pack) {
+                var pack_name = pack.get("pack_name");
+                var pack_owner = pack.get("user_id");
+                var _owner = [];
+
+                //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
+                new Parse.Query("User").equalTo("objectId",pack_owner).find().then(function (user) {
+                    _owner = user;
+                });
+
+                var col = pack.relation(PacksClass);
+                col.query().find().then(function (stickers) {
+
+                    res.render("pages/new_pack", {stickers: stickers, id: pack_id, collectionName: pack_name, owner:_owner });
+                }, function (error) {
+                    response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
+                });
+            }
         });
     }
 });
