@@ -340,7 +340,7 @@ app.get('/home', function (req, res) {
     var user_info = req.cookies.userId;
     var isVerified = req.cookies.email_verified;
 
-    console.log("EMAIL VERIFIED "+ isVerified);
+    console.log("EMAIL VERIFIED " + isVerified);
     if (session && token) {
         username = username.substring(0, username.indexOf('@'));
         const limit = 3;
@@ -367,7 +367,7 @@ app.get('/home', function (req, res) {
 
             }
 
-            Parse.Cloud.run("stickerNumber").then(function(){
+            Parse.Cloud.run("stickerNumber").then(function () {
             });
 
             res.render("pages/home", {
@@ -419,17 +419,17 @@ app.get('/reset_email', function (req, res) {
     var token = req.cookies.token;
     var user_info = req.cookies.userId;
 
-    if (session && token){
+    if (session && token) {
         new Parse.Query("User").equalTo("objectId", user_info).find().then(function (user) {
-            console.log("USER FROM RESET "+JSON.stringify(user) + " CURRENT USER "+Parse.User.current());
-            user.set("email","test@gmail.com");
-            user.set("username","test@gmail.com");
+            console.log("USER FROM RESET " + JSON.stringify(user) + " CURRENT USER " + Parse.User.current());
+            user.set("email", "test@gmail.com");
+            user.set("username", "test@gmail.com");
             return user.save();
         }).then(function (result) {
-            console.log("EMAIL CHANGED SUCCESSFULLY "+ JSON.stringify(result));
+            console.log("EMAIL CHANGED SUCCESSFULLY " + JSON.stringify(result));
             res.redirect("/");
         }, function (error) {
-            console.log("EMAIL NOT CHANGED "+error.message);
+            console.log("EMAIL NOT CHANGED " + error.message);
             res.redirect("/");
         })
     }
@@ -608,7 +608,7 @@ app.post('/new_category', function (req, res) {
 });
 
 
-app.post('/update_user', function (req,res) {
+app.post('/update_user', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var name = req.body.name;
@@ -619,45 +619,33 @@ app.post('/update_user', function (req,res) {
     var _name = req.cookies.name;
 
 
-    if (session && token){
+    if (session && token) {
         new Parse.Query("User").equalTo("objectId", user_Id).find().then(function (user) {
-           user.set("facebook_handle", facebook);
-           user.set("twitter_handle", twitter);
-           user.set("instagram_handle", instagram);
+            user.set("facebook_handle", facebook);
+            user.set("twitter_handle", twitter);
+            user.set("instagram_handle", instagram);
 
-           if (name !== _name){
-               user.set("name", name);
-           }
-           return user.save({sessionToken: token});
+            if (name !== _name) {
+                user.set("name", name);
+            }
+            return user.save({sessionToken: token});
         }).then(function (result) {
             console.log("USER UPDATED CORRECTLY");
             res.redirect('/');
         }, function (error) {
-            console.log("USER WAS NOT UPDATED "+error.message);
+            console.log("USER WAS NOT UPDATED " + error.message);
             res.redirect('/');
         });
     }
 });
 
-app.get('/review', function (req, res) {
-    var session = req.session.token;
-    var token = req.cookies.token;
-
-
-    if (session && token){
-        new Parse.Query(PacksClass).find().then(function (_packs) {
-            res.render("pages/review_page", { packs: _packs });
-        });
-
-    }
-});
-
-app.get('/packs_review/:id', function (req, res) {
+app.get('/review/:id', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var pack_id = req.params.id;
 
-    if (session && token){
+
+    if (session && token) {
         var pack = new Parse.Query(PacksClass);
         pack.get(pack_id, {
             success: function (pack) {
@@ -665,19 +653,21 @@ app.get('/packs_review/:id', function (req, res) {
                 var pack_owner = pack.get("user_id");
                 var _owner = [];
 
-                //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
-                new Parse.Query("User").equalTo("objectId",pack_owner).find().then(function (user) {
+                new Parse.Query("User").equalTo("objectId", pack_owner).find().then(function (user) {
                     _owner = user;
                 });
 
-                var col = pack.relation(PacksClass);
-                col.query().find().then(function (stickers) {
-
-                    res.render("pages/new_pack", {stickers: stickers, id: pack_id, collectionName: pack_name, owner:_owner });
-                }, function (error) {
-                    response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
-                });
+                res.render("pages/review_page", {
+                                id: pack_id,
+                                packName: pack_name,
+                                owner: _owner
+                            });
+            },
+            error: function (error) {
+                console.log("ERROR "+error.message);
+                res.redirect('/pack_collection');
             }
+
         });
     }
 });
@@ -693,7 +683,7 @@ app.get('/user_profile', function (req, res) {
     if (session && token) {
         new Parse.Query("User").equalTo("objectId", user_info).find({sessionToken: token}).then(function (user) {
 
-            res.render("pages/profile", {username: name, email: username,profile: _profile});
+            res.render("pages/profile", {username: name, email: username, profile: _profile});
 
         }, function (error) {
             res.redirect('/');

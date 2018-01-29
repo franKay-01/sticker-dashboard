@@ -44,6 +44,20 @@ textarea {
 }
 
 /*##################################################################################################################################################*/
+.verifiy_account {
+    width: 570px;
+    height: 64px;
+    font-family: Montserrat;
+    font-size: 26px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1.5px;
+    text-align: center;
+    color: #f8c91c;
+}
+
 #toast_message {
     visibility: hidden;
     min-width: 250px;
