@@ -87,29 +87,7 @@ var api = new ParseServer({
     emailAdapter: {
         // module: 'parse-server-mailgun',
         module: 'parse-server-mailgun-adapter-template',
-        // options: {
-        //     fromAddress: process.env.EMAIL_FROM || "test@example.com",
-        //     domain: process.env.MAILGUN_DOMAIN || "example.com",
-        //     apiKey: process.env.MAILGUN_API_KEY || "apikey",
-        //     templates: {
-        //         passwordResetEmail: {
-        //             subject: 'Reset your password',
-        //             pathPlainText: resolve(__dirname, './verification/password_reset_email.txt'),
-        //             pathHtml: resolve(__dirname, './verification/password_reset_email.html'),
-        //             callback: (user) => {
-        //                 return {firstName: user.get('name')}
-        //             }
-        //         },
-        //         verificationEmail: {
-        //             subject: 'Confirm your account',
-        //             pathPlainText: resolve(__dirname, './verification/verification_email.txt'),
-        //             pathHtml: resolve(__dirname, './verification/choose_password.html'),
-        //             callback: (user) => {
-        //                 return {firstName: user.get('name')}
-        //             }
-        //         }
-        //     }
-        // }
+
         options: {
             fromAddress: process.env.EMAIL_FROM || "test@example.com",
             domain: process.env.MAILGUN_DOMAIN || "example.com",
@@ -130,7 +108,7 @@ var api = new ParseServer({
         }
     },
     customPages: {
-        // invalidLink: 'https://myapp.com/invalid-link',
+         invalidLink: 'http://cryptic-waters-41617.herokuapp.com/public/templates/invalid_link.html',
         // verifyEmailSuccess: 'https://myapp.com/verify-email-success',
         choosePassword: 'http://cryptic-waters-41617.herokuapp.com/public/templates/choose_password.html'
         // passwordResetSuccess: 'https://myapp.com/password-reset-success',

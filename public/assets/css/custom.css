@@ -690,6 +690,32 @@ textarea {
     background-color: #fff;
 }
 
+._forgot_password{
+    height: 52px;
+    font-family: Montserrat;
+    font-size: 42px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -2.5px;
+    text-align: left;
+    color: #919191;
+}
+
+._forgot_password_extra{
+    height: 24px;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1.2px;
+    text-align: left;
+    color: #a46580;
+}
+
 .logo {
     width: 300px;
     margin-top: 50px;
