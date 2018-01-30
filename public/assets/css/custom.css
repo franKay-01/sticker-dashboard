@@ -325,6 +325,17 @@ textarea {
     box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
 }
 
+.forget_card {
+    /*width: 300px !important;*/
+    height: 400px !important;
+    margin-right: 10px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    color: white;
+    background-image: linear-gradient(to bottom, #d77255, #8651aa);
+    box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
+}
+
 .error_card {
      width: 500px !important;
      margin: 10px auto;
@@ -957,7 +968,15 @@ textarea {
 ._label{
     color: white;
     font-size: 1.5rem !important;
+}
 
+._forget_text {
+    width: 450px !important;
+    text-align: left;
+    color: white !important;
+    font-size: 1.5rem !important;
+    background: transparent;
+    border-bottom: 3px white solid !important;
 }
 
 .common_pack_detail {
