@@ -723,7 +723,6 @@ textarea {
     font-stretch: normal;
     line-height: normal;
     letter-spacing: -1.2px;
-    /*text-align: left;*/
     color: #a46580;
 }
 
@@ -731,6 +730,11 @@ textarea {
     width: 300px;
     margin-top: 50px;
     margin-bottom: 35px
+}
+
+._logo{
+    height: 80px;
+    margin-top: 10px;
 }
 
 .primary-background-color {
