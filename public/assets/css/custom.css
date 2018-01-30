@@ -868,7 +868,7 @@ textarea {
 #btnForgotPass {
     border-radius: 10px 20px;
     cursor: pointer;
-    background: #a46580;
+    /*background: #a46580;*/
     color: white;
     margin: 7px;
     padding: 10px;
