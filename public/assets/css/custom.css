@@ -326,7 +326,7 @@ textarea {
 }
 
 .forget_card {
-    /*width: 300px !important;*/
+    width: 500px !important;
     height: 400px !important;
     margin-right: 10px;
     border-radius: 15px;
@@ -710,7 +710,7 @@ textarea {
     font-stretch: normal;
     line-height: normal;
     letter-spacing: -2.5px;
-    text-align: left;
+    /*text-align: left;*/
     color: #919191;
 }
 
@@ -723,7 +723,7 @@ textarea {
     font-stretch: normal;
     line-height: normal;
     letter-spacing: -1.2px;
-    text-align: left;
+    /*text-align: left;*/
     color: #a46580;
 }
 
