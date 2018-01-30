@@ -710,7 +710,6 @@ textarea {
     font-stretch: normal;
     line-height: normal;
     letter-spacing: -2.5px;
-    /*text-align: left;*/
     color: #919191;
 }
 
@@ -972,10 +971,11 @@ textarea {
 
 ._forget_text {
     width: 450px !important;
-    text-align: left;
+    text-align: center;
     color: white !important;
     font-size: 1.5rem !important;
     background: transparent;
+    margin-top: 93px;
     border-bottom: 3px white solid !important;
 }
 
