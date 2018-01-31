@@ -732,6 +732,28 @@ textarea {
     margin-bottom: 35px
 }
 
+a {
+    text-decoration: none !important;
+}
+
+._logo {
+    height: 70px;
+    margin-top: 10px;
+}
+
+.email_success{
+    height: 37px;
+    font-size: 30px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1.0px;
+    text-align: center;
+    color: #a46580;
+    margin-top: 30px;
+}
+
 ._logo{
     height: 70px;
     margin-top: 10px;
