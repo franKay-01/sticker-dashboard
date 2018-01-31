@@ -108,8 +108,8 @@ var api = new ParseServer({
         }
     },
     customPages: {
-         invalidLink: 'http://cryptic-waters-41617.herokuapp.com/public/templates/invalid_link.html',
-        // verifyEmailSuccess: 'https://myapp.com/verify-email-success',
+        invalidLink: 'http://cryptic-waters-41617.herokuapp.com/public/templates/invalid_link.html',
+        verifyEmailSuccess: 'http://cryptic-waters-41617.herokuapp.com/public/templates/email_verified.html',
         choosePassword: 'http://cryptic-waters-41617.herokuapp.com/public/templates/choose_password.html'
         // passwordResetSuccess: 'https://myapp.com/password-reset-success',
     }
@@ -636,13 +636,13 @@ app.get('/review/:id', function (req, res) {
                 });
 
                 res.render("pages/review_page", {
-                                id: pack_id,
-                                packName: pack_name,
-                                owner: _owner
-                            });
+                    id: pack_id,
+                    packName: pack_name,
+                    owner: _owner
+                });
             },
             error: function (error) {
-                console.log("ERROR "+error.message);
+                console.log("ERROR " + error.message);
                 res.redirect('/pack_collection');
             }
 
