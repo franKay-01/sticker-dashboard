@@ -111,7 +111,7 @@ var api = new ParseServer({
         invalidLink: 'http://cryptic-waters-41617.herokuapp.com/public/templates/invalid_link.html',
         verifyEmailSuccess: 'http://cryptic-waters-41617.herokuapp.com/public/templates/email_verified.html',
         choosePassword: 'http://cryptic-waters-41617.herokuapp.com/public/templates/choose_password.html',
-        // passwordResetSuccess: 'http://cryptic-waters-41617.herokuapp.com/public/templates/password_reset_success.html'
+        passwordResetSuccess: 'http://cryptic-waters-41617.herokuapp.com/public/templates/password_reset_success.html'
     }
 
 
