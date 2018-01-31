@@ -382,7 +382,7 @@ app.post('/reset_password', function (req, res) {
         success: function () {
             // Password reset request was sent successfully
             console.log("EMAIL was sent successfully");
-            res.redirect('pages/password_reset_info');
+            res.render("pages/password_reset_info");
         },
         error: function (error) {
             // Show the error message somewhere
