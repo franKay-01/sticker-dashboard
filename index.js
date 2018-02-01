@@ -635,7 +635,7 @@ app.get('/review/:id', function (req, res) {
                 var art = pack.get("art_work");
                 var _owner = [];
 
-                console.log("ABOUT TO SEARCH FOR USER "+art);
+                console.log("ABOUT TO SEARCH FOR USER "+JSON.stringify(art));
                 new Parse.Query("User").equalTo("objectId", pack_owner).find().then(function (user) {
                     _owner = user;
                 }, function (error) {
