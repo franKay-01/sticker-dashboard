@@ -619,6 +619,33 @@ app.post('/update_user', function (req, res) {
     }
 });
 
+app.post('/review_pack/:id', function () {
+    var session = req.session.token;
+    var token = req.cookies.token;
+    var pack_id = req.params.id;
+    var reviewer = req.cookies.userId;
+    var comment = req.body.review_text;
+    var status = req.body.approved;
+
+    if (session && token){
+        var Reviews = new Parse.Query.extend("Reviews");
+        var review = new Reviews();
+        review.set("comments", comment);
+        review.set("pack_id", pack_id);
+        review.set("approved", status);
+        review.set("reviewer", reviewer);
+
+        review.save().then(function () {
+            console.log("REVIEW SAVED SUCCESSFULLY ");
+            res.redirect('/');
+        }, function (error) {
+            console.log("REVIEW NOT SAVED. ERROR: " + error.message);
+            res.redirect('/review/'+pack_id);
+        })
+
+    }
+});
+
 app.get('/review/:id', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
