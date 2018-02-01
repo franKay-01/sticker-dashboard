@@ -869,8 +869,8 @@ app.get('/pack/:id', function (req, res) {
         collection.get(coll_id, {
             success: function (collection) {
                 var coll_name = collection.get("pack_name");
-                var art_work = collection.get("art_work").name;
-                console.log("ART WORK "+JSON.stringify(art_work));
+                var art_work = collection.get("art_work");
+                console.log("ART WORK "+JSON.stringify(art_work.get("name")));
                 //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
 
                 var col = collection.relation(PacksClass);
