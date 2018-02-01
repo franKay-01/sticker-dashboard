@@ -239,7 +239,7 @@ app.post('/signup', function (req, res) {
     user.set("username", username);
     user.set("password", password);
     user.set("email", username);
-
+    user.set("type",2);
 
     user.signUp(null, {
         success: function (user) {
@@ -252,7 +252,7 @@ app.post('/signup', function (req, res) {
                 res.cookie('username', user.getUsername());
                 res.cookie('name', user.get("name"));
                 res.cookie('email_verified', user.get("emailVerified"));
-
+                res.cookie('userType', user.get("type"));
                 req.session.token = user.getSessionToken();
                 console.log("USER GETS TOKEN : " + user.getSessionToken());
                 res.redirect("/home");
@@ -282,7 +282,9 @@ app.post('/login', function (req, res) {
         res.cookie('userId', user.id);
         res.cookie('name', user.get("name"));
         res.cookie('email_verified', user.get("emailVerified"));
-        console.log("HERE");
+        res.cookie('userType', user.get("type"));
+
+        // console.log("HERE");
         // res.cookie('profile', user.get("image").url());
 
         req.session.token = user.getSessionToken();
@@ -855,9 +857,9 @@ app.get('/pack/:id', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = req.params.id;
+    var user = req.cookies.userType;
 
     if (session && token) {
-
         var collection = new Parse.Query(PacksClass);
         collection.get(coll_id, {
             success: function (collection) {
