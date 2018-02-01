@@ -48,6 +48,9 @@
                 <div><a class="_stickers" href="/home">Home</a></div>
                 <div><a class="_stickers" href="/categories">Categories</a></div>
                 <div><a class="_categories" href="/pack_collection">Packs</a></div>
+                <% if (userType === 0) {%>
+                <div><a class="_stickers" href="/review_pack/<%= id %>">Review</a></div>
+                <% } %>
             </div>
         </div>
         <!-- End of card-->
