@@ -634,7 +634,7 @@ app.get('/review/:id', function (req, res) {
                 var _owner = [];
 
                 console.log("ABOUT TO SEARCH FOR USER "+pack_owner);
-                new Parse.Query("User").equalTo("objectId", pack_owner).get().then(function (user) {
+                new Parse.Query("User").equalTo("objectId", pack_owner).find().then(function (user) {
                     _owner = user;
                     console.log("USER TO BE REVIEWED "+JSON.stringify(_owner));
                 }, function (error) {
