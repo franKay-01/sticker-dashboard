@@ -619,11 +619,11 @@ app.post('/update_user', function (req, res) {
     }
 });
 
-app.get('/review/:id', function (req, res) {
+app.get('/review/:id/:art', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var pack_id = req.params.id;
-
+    var _art_work = req.params.art;
 
     if (session && token) {
         var pack = new Parse.Query(PacksClass);
@@ -636,7 +636,6 @@ app.get('/review/:id', function (req, res) {
                 console.log("ABOUT TO SEARCH FOR USER "+pack_owner);
                 new Parse.Query("User").equalTo("objectId", pack_owner).find().then(function (user) {
                     _owner = user;
-                    console.log("USER TO BE REVIEWED "+JSON.stringify(_owner));
                 }, function (error) {
                     console.log("ERROR "+error.message);
                 });
@@ -644,7 +643,8 @@ app.get('/review/:id', function (req, res) {
                 res.render("pages/review_page", {
                     id: pack_id,
                     packName: pack_name,
-                    owner: _owner
+                    owner: _owner,
+                    art_work: _art_work
                 });
             },
             error: function (error) {
@@ -862,18 +862,19 @@ app.get('/pack/:id', function (req, res) {
     var token = req.cookies.token;
     var coll_id = req.params.id;
     var user = req.cookies.userType;
-    console.log("USER TYPE "+user);
+
     if (session && token) {
         var collection = new Parse.Query(PacksClass);
         collection.get(coll_id, {
             success: function (collection) {
                 var coll_name = collection.get("pack_name");
+                var art_work = collection.get("art_work");
                 //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
 
                 var col = collection.relation(PacksClass);
                 col.query().find().then(function (stickers) {
 
-                    res.render("pages/new_pack", {stickers: stickers, id: coll_id, collectionName: coll_name, userType : user});
+                    res.render("pages/new_pack", {stickers: stickers, id: coll_id, collectionName: coll_name, userType : user, art: art_work});
                 }, function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
                 });
