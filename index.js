@@ -875,7 +875,7 @@ app.get('/pack/:id', function (req, res) {
                 var col = collection.relation(PacksClass);
                 col.query().find().then(function (stickers) {
 
-                    res.render("pages/new_pack", {stickers: stickers, id: coll_id, collectionName: coll_name, userType : user);
+                    res.render("pages/new_pack", {stickers: stickers, id: coll_id, collectionName: coll_name, userType : user});
                 }, function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
                 });
