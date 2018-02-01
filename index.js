@@ -625,7 +625,6 @@ app.get('/review/:id', function (req, res) {
     var pack_id = req.params.id;
     var _art_work = req.params.art;
 
-    console.log("ART WORK "+_art_work);
     if (session && token) {
         var pack = new Parse.Query(PacksClass);
         pack.get(pack_id, {
@@ -636,7 +635,7 @@ app.get('/review/:id', function (req, res) {
                 var _owner = [];
 
                 new Parse.Query("User").equalTo("objectId", pack_owner).find().then(function (user) {
-                    _owner = user.get("name");
+                    _owner = user;
                     console.log("ABOUT TO SEARCH FOR USER "+JSON.stringify(_owner));
                 }, function (error) {
                     console.log("ERROR "+error.message);
