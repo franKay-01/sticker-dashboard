@@ -619,7 +619,7 @@ app.post('/update_user', function (req, res) {
     }
 });
 
-app.get('/review/:id/:art', function (req, res) {
+app.get('/review/:id', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var pack_id = req.params.id;
@@ -632,6 +632,7 @@ app.get('/review/:id/:art', function (req, res) {
             success: function (pack) {
                 var pack_name = pack.get("pack_name");
                 var pack_owner = pack.get("user_id");
+                var art = pack.get("art_work");
                 var _owner = [];
 
                 console.log("ABOUT TO SEARCH FOR USER "+pack_owner);
@@ -645,7 +646,7 @@ app.get('/review/:id/:art', function (req, res) {
                     id: pack_id,
                     packName: pack_name,
                     owner: _owner,
-                    art_work: _art_work
+                    art_work: art
                 });
             },
             error: function (error) {
@@ -869,14 +870,12 @@ app.get('/pack/:id', function (req, res) {
         collection.get(coll_id, {
             success: function (collection) {
                 var coll_name = collection.get("pack_name");
-                var art_work = collection.get("art_work");
-                console.log("ART WORK "+JSON.stringify(art_work));
                 //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
 
                 var col = collection.relation(PacksClass);
                 col.query().find().then(function (stickers) {
 
-                    res.render("pages/new_pack", {stickers: stickers, id: coll_id, collectionName: coll_name, userType : user, art: art_work});
+                    res.render("pages/new_pack", {stickers: stickers, id: coll_id, collectionName: coll_name, userType : user);
                 }, function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
                 });
