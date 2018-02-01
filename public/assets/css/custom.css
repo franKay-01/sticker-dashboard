@@ -997,6 +997,11 @@ a {
     font-size: 1.5rem !important;
 }
 
+._label_review{
+    color: #a46580;
+    font-size: 1.5rem !important;
+}
+
 ._forget_text {
     width: 450px !important;
     text-align: center;
