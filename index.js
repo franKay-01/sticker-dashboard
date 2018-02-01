@@ -625,7 +625,7 @@ app.get('/review/:id/:art', function (req, res) {
     var pack_id = req.params.id;
     var _art_work = req.params.art;
 
-    console.log("ART WORK "+JSON.stringify(_art_work));
+    console.log("ART WORK "+JSON.stringify(_art_work.url()));
     if (session && token) {
         var pack = new Parse.Query(PacksClass);
         pack.get(pack_id, {
@@ -869,7 +869,7 @@ app.get('/pack/:id', function (req, res) {
         collection.get(coll_id, {
             success: function (collection) {
                 var coll_name = collection.get("pack_name");
-                var art_work = collection.get("art_work").url();
+                var art_work = collection.get("art_work");
                 console.log("ART WORK "+JSON.stringify(art_work));
                 //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
 
