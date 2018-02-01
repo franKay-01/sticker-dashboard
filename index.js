@@ -863,13 +863,13 @@ app.get('/pack/:id', function (req, res) {
     var token = req.cookies.token;
     var coll_id = req.params.id;
     var user = req.cookies.userType;
-    var art_work = [];
+
     if (session && token) {
         var collection = new Parse.Query(PacksClass);
         collection.get(coll_id, {
             success: function (collection) {
                 var coll_name = collection.get("pack_name");
-                art_work = collection.get("art_work").url();
+                var art_work = collection.get("art_work");
                 console.log("ART WORK "+JSON.stringify(art_work));
                 //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
 
