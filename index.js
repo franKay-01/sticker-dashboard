@@ -625,7 +625,7 @@ app.get('/review/:id/:art', function (req, res) {
     var pack_id = req.params.id;
     var _art_work = req.params.art;
 
-    console.log("ART WORK "+JSON.stringify(_art_work.url()));
+    console.log("ART WORK "+_art_work);
     if (session && token) {
         var pack = new Parse.Query(PacksClass);
         pack.get(pack_id, {
