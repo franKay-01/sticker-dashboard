@@ -623,7 +623,6 @@ app.get('/review/:id', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var pack_id = req.params.id;
-    var _art_work = req.params.art;
 
     if (session && token) {
         var pack = new Parse.Query(PacksClass);
@@ -634,17 +633,18 @@ app.get('/review/:id', function (req, res) {
                 var art = pack.get("art_work");
                 var _owner = [];
 
-                new Parse.Query("User").equalTo("objectId", pack_owner).find().then(function (user) {
-                    _owner = user.name();
-                    console.log("ABOUT TO SEARCH FOR USER "+JSON.stringify(_owner));
-                }, function (error) {
-                    console.log("ERROR "+error.message);
-                });
+                //
+                // new Parse.Query("User").equalTo("objectId", pack_owner).find().then(function (user) {
+                //     _owner = user;
+                //     console.log("ABOUT TO SEARCH FOR USER "+JSON.stringify(_owner));
+                // }, function (error) {
+                //     console.log("ERROR "+error.message);
+                // });
 
                 res.render("pages/review_page", {
                     id: pack_id,
                     packName: pack_name,
-                    owner: _owner,
+                    owner: pack_owner,
                     art_work: art
                 });
             },
