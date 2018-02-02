@@ -198,7 +198,6 @@ app.get('/', function (req, res) {
     var token = req.cookies.token;
 
     if (session && token) {
-        errorMessage = "";
         res.redirect("/home");
     } else {
         //retrieve stickers to randomly display on the home page
@@ -292,6 +291,8 @@ app.post('/login', function (req, res) {
         req.session.token = user.getSessionToken();
         // console.log("USER IMAGE "+req.cookies.profile);
         console.log("USER GETS TOKEN : " + user.getSessionToken());
+
+        errorMessage = "";
 
         res.redirect("/home");
 
