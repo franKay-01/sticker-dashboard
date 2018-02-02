@@ -199,6 +199,7 @@ app.get('/', function (req, res) {
 
     if (session && token) {
         res.redirect("/home");
+        errorMessage = "";
     } else {
         //retrieve stickers to randomly display on the home page
         new Parse.Query("Stickers").limit(40).find({sessionToken: token}).then(function (cards) {
@@ -212,6 +213,7 @@ app.get('/', function (req, res) {
                 res.render("pages/login", {stickers: cards, error: []});
 
             } else {
+
                 res.render("pages/login", {stickers: cards, error: errorMessage});
 
             }
@@ -306,7 +308,7 @@ app.post('/login', function (req, res) {
         //TODO handle errors
         console.log("ERROR WHEN LOGGIN IN " + error);
         errorMessage = error.message;
-        res.redirect("/home");
+        res.redirect("/");
 
     });
 });
