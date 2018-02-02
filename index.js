@@ -691,7 +691,7 @@ app.get('/user_profile', function (req, res) {
     var username = req.cookies.username;
     var user_info = req.cookies.userId;
     var _profile = req.cookies.profile_image;
-
+   console.log("IMAGE "+_profile);
     if (session && token) {
         new Parse.Query("User").equalTo("objectId", user_info).find({sessionToken: token}).then(function (user) {
 
