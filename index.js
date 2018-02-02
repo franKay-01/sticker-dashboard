@@ -198,8 +198,8 @@ app.get('/', function (req, res) {
     var token = req.cookies.token;
 
     if (session && token) {
-        res.redirect("/home");
         errorMessage = "";
+        res.redirect("/home");
     } else {
         //retrieve stickers to randomly display on the home page
         new Parse.Query("Stickers").limit(40).find({sessionToken: token}).then(function (cards) {
@@ -292,14 +292,6 @@ app.post('/login', function (req, res) {
         req.session.token = user.getSessionToken();
         // console.log("USER IMAGE "+req.cookies.profile);
         console.log("USER GETS TOKEN : " + user.getSessionToken());
-
-        // Session.set()
-        // Parse.Session.current().then(function(session) {
-        //     session.set("_token", user.getSessionToken());
-        //     session.save().then(function() {
-        //         console.log("SESSION "+session.get("_token"));
-        //     });
-        // });
 
         res.redirect("/home");
 
