@@ -1024,6 +1024,9 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
     var file = req.file;
     console.log("IMAGE CHANGED "+imgChange);
 
+    if (imgChange === true){
+        console.log("IMAGE WAS CHANGED");
+    }
     // if (session && token) {
     //     new Parse.Query("User").equalTo("objectId", user_Id).find().then(function (user) {
     //         user.set("facebook_handle", facebook);
