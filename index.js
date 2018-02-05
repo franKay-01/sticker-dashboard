@@ -240,8 +240,8 @@ app.post('/signup', function (req, res) {
     user.set("username", username);
     user.set("password", password);
     user.set("email", username);
-    user.set("type",2);
-    user.set("image_set",false);
+    user.set("type", 2);
+    user.set("image_set", false);
 
     user.signUp(null, {
         success: function (user) {
@@ -256,9 +256,9 @@ app.post('/signup', function (req, res) {
                 res.cookie('email_verified', user.get("emailVerified"));
                 res.cookie('userType', user.get("type"));
                 var status = user.get("image_set");
-                if (status === true){
+                if (status === true) {
                     res.cookie('profile_image', user.get("image").url());
-                }else {
+                } else {
                     res.cookie('profile_image', "null");
                 }
 
@@ -596,7 +596,7 @@ app.post('/review_pack/:id', function () {
     var comment = req.body.review_text;
     var status = req.body.approved;
 
-    if (session && token){
+    if (session && token) {
         var Reviews = new Parse.Query.extend("Reviews");
         var review = new Reviews();
         review.set("comments", comment);
@@ -609,7 +609,7 @@ app.post('/review_pack/:id', function () {
             res.redirect('/');
         }, function (error) {
             console.log("REVIEW NOT SAVED. ERROR: " + error.message);
-            res.redirect('/review/'+pack_id);
+            res.redirect('/review/' + pack_id);
         })
 
     }
@@ -661,7 +661,7 @@ app.get('/user_profile', function (req, res) {
     var user_info = req.cookies.userId;
     var _profile = req.cookies.profile_image;
 
-    console.log("IMAGE "+_profile);
+    console.log("IMAGE " + _profile);
 
     if (session && token) {
         new Parse.Query("User").equalTo("objectId", user_info).find({sessionToken: token}).then(function (user) {
@@ -669,7 +669,7 @@ app.get('/user_profile', function (req, res) {
             res.render("pages/profile", {username: name, email: username, profile: _profile});
 
         }, function (error) {
-            console.log("ERROR "+error.message);
+            console.log("ERROR " + error.message);
             res.redirect('/');
         });
 
@@ -873,7 +873,12 @@ app.get('/pack/:id', function (req, res) {
                 var col = collection.relation(PacksClass);
                 col.query().find().then(function (stickers) {
 
-                    res.render("pages/new_pack", {stickers: stickers, id: coll_id, collectionName: coll_name, userType : user});
+                    res.render("pages/new_pack", {
+                        stickers: stickers,
+                        id: coll_id,
+                        collectionName: coll_name,
+                        userType: user
+                    });
                 }, function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
                 });
@@ -1006,19 +1011,20 @@ app.get('/details/:id/:coll_id', function (req, res) {
     }
 });
 
-app.post('/update_user',upload.single('im1'), function (req, res) {
+app.post('/update_user', upload.single('im1'), function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var name = req.body.name;
-    // var facebook = req.body.facebook;
-    // var twitter = req.body.twitter;
-    // var instagram = req.body.instagram;
-    // var user_Id = req.cookies.userId;
+    var facebook = req.body.facebook;
+    var twitter = req.body.twitter;
+    var instagram = req.body.instagram;
+    var user_Id = req.cookies.userId;
+    var imgChange = req.body.imgChange;
     var _name = req.cookies.name;
     var file = req.file;
-    console.log("FILE FROM PROFILE "+JSON.stringify(file));
-
-
+    console.log("FILE FROM PROFILE " + file.originalname());
+    //
+    //
     // if (session && token) {
     //     new Parse.Query("User").equalTo("objectId", user_Id).find().then(function (user) {
     //         user.set("facebook_handle", facebook);
@@ -1028,6 +1034,13 @@ app.post('/update_user',upload.single('im1'), function (req, res) {
     //         if (name !== _name) {
     //             user.set("name", name);
     //         }
+    //         if (imgChange === 'true') {
+    //
+    //             var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+    //             var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+    //             user.set("image", parseFile);
+    //         }
+    //
     //         return user.save({sessionToken: token});
     //     }).then(function (result) {
     //         console.log("USER UPDATED CORRECTLY");
