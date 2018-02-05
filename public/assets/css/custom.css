@@ -1458,13 +1458,26 @@ fieldset {
     right: 0;
 }
 
-.drop .cont i {
+
+.cont_profile {
+    height: 100px;
+    color: #a46580;
+    transition: 0.5s;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.drop .cont .cont_profile i {
     font-size: 40%;
     color: #8E99A5;
     position: relative;
 }
 
-.drop .cont .tit {
+.drop .cont .cont_profile .tit {
     font-size: 200%;
     text-transform: uppercase;
 }
