@@ -241,7 +241,7 @@ app.post('/signup', function (req, res) {
     user.set("password", password);
     user.set("email", username);
     user.set("type",2);
-    user.set("image","undefined");
+    user.set("image_set",false);
 
     user.signUp(null, {
         success: function (user) {
