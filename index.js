@@ -1022,7 +1022,7 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
     var imgChange = req.body.imgChange;
     var _name = req.cookies.name;
     var file = req.file;
-    console.log("FILE FROM PROFILE " + file.originalname());
+    console.log("FILE FROM PROFILE " + file.originalname);
     //
     //
     // if (session && token) {
