@@ -1022,9 +1022,8 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
     var imgChange = req.body.imgChange;
     var _name = req.cookies.name;
     var file = req.file;
-    console.log("FILE FROM PROFILE " + file.originalname);
-    //
-    //
+    console.log("IMAGE CHANGED "+imgChange);
+
     // if (session && token) {
     //     new Parse.Query("User").equalTo("objectId", user_Id).find().then(function (user) {
     //         user.set("facebook_handle", facebook);
@@ -1037,7 +1036,7 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
     //         if (imgChange === 'true') {
     //
     //             var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-    //             var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+    //             var parseFile = new Parse.File(file.originalname, {base64: bitmap}, file.mimetype);
     //             user.set("image", parseFile);
     //         }
     //
