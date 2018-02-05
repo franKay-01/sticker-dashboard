@@ -51,7 +51,10 @@ function handleFileSelect(evt) {
                     '" title="', escape(theFile.name), '"/>'].join('');
 
                 document.getElementById('filesList').insertBefore(span, null);
+                document.getElementById('profile_change').value = true;
+
                 console.log("success in upload");
+
                 //create preview for image in category option
 
                 // var prev = document.getElementById('img-prev');
