@@ -1024,7 +1024,7 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
     var file = req.file;
     console.log("IMAGE CHANGED "+imgChange);
 
-    if (imgChange === true){
+    if (imgChange === "true"){
         console.log("IMAGE WAS CHANGED");
     }
     // if (session && token) {
