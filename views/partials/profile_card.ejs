@@ -1,12 +1,32 @@
 <!-- Cards -->
 <form id="detailsForm" action="/update_user" enctype="multipart/form-data" method="post">
     <div class="grid-x grid-margin-x">
+        <% if (profile === "null") {%>
+        <div class="medium-6 large-5 cell">
+            <div class="drop">
+                <div class="cont">
+                    <i class="fa fa-cloud-upload"></i>
+                    <div class="tit">
+                        Drag & Drop
+                    </div>
+                    <div class="desc">
+                        your Profile Picture here, or click to browse
+                    </div>
+                </div>
+
+                <output id="filesList"></output>
+                <input id="files" multiple="true" name="im1[]" type="file"/>
+
+            </div>
+        </div>
+        <%} else {%>
         <div class="medium-6 large-5 cell">
             <div class="droppableArea">
                 <div class="output" name="tfile"></div>
-                <!--<img src="<%= profile %>">-->
+                <%= profile %>
             </div>
         </div>
+        <%}%>
         <div class="medium-6 large-5 cell">
             <label class="update_label">Name:</label> <input placeholder="Sticker Name" class="box_2" name="name" value="<%= username %>">
 
