@@ -59,7 +59,7 @@ function signUp() {
         }
 
         if (terms !== true){
-            document.getElementById("policy").innerHTML = "Please tick";
+            document.getElementById("policy").innerHTML = "Please Read the policy and tick ✔";
         }else {
             document.getElementById("policy").innerHTML = "";
         }
