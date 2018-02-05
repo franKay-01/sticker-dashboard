@@ -33,12 +33,12 @@ hr{
     border-top: 2px dashed #8c8b8b;
 }
 
-td, th {
-    display: table-cell !important;
-    text-align: left !important;
-    vertical-align: middle !important;
-    max-width: 150px !important;
-}
+/*td, th {*/
+    /*display: table-cell !important;*/
+    /*text-align: left !important;*/
+    /*vertical-align: middle !important;*/
+    /*max-width: 150px !important;*/
+/*}*/
 
 textarea {
     height: 5rem;
