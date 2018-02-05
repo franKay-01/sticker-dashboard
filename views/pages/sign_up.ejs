@@ -66,11 +66,17 @@
             <label for="confirm_password" id="confirm"></label>
             <br>
             <!--<input type="checkbox" id="terms_policy" />&nbsp;<a href="#" style="color: teal;">Terms and Conditions</a><br>-->
-            <input class="with-gap" name="group1" type="radio" id="terms_policy"  />
-            <label for="terms_policy"></label>
-            <a href="#" style="color: teal;">Terms and Conditions</a>
-
-            <label for="confirm_password" id="policy"></label>
+            <table>
+                <tr>
+                    <td>
+                        <input class="with-gap" name="group1" type="radio" id="terms_policy"  />
+                        <label for="terms_policy"></label>
+                    </td>
+                    <td>
+                        <a href="#" style="color: teal;">Terms and Conditions</a>
+                    </td>
+                </tr>
+            </table>
             <br>
             <button type="button" onclick="signUp()" class="btnSignUp"><i class="fa fa-check" style="font-size: 1.5em; color: teal;" aria-hidden="true"></i></button>
 
