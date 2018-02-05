@@ -588,38 +588,6 @@ app.post('/new_category', function (req, res) {
     }
 });
 
-
-app.post('/update_user', function (req, res) {
-    var session = req.session.token;
-    var token = req.cookies.token;
-    var name = req.body.name;
-    var facebook = req.body.facebook;
-    var twitter = req.body.twitter;
-    var instagram = req.body.instagram;
-    var user_Id = req.cookies.userId;
-    var _name = req.cookies.name;
-
-
-    if (session && token) {
-        new Parse.Query("User").equalTo("objectId", user_Id).find().then(function (user) {
-            user.set("facebook_handle", facebook);
-            user.set("twitter_handle", twitter);
-            user.set("instagram_handle", instagram);
-
-            if (name !== _name) {
-                user.set("name", name);
-            }
-            return user.save({sessionToken: token});
-        }).then(function (result) {
-            console.log("USER UPDATED CORRECTLY");
-            res.redirect('/');
-        }, function (error) {
-            console.log("USER WAS NOT UPDATED " + error.message);
-            res.redirect('/');
-        });
-    }
-});
-
 app.post('/review_pack/:id', function () {
     var session = req.session.token;
     var token = req.cookies.token;
@@ -1037,6 +1005,40 @@ app.get('/details/:id/:coll_id', function (req, res) {
         res.redirect("/dashboard");
     }
 });
+
+app.post('/update_user',upload.single('im1'), function (req, res) {
+    var session = req.session.token;
+    var token = req.cookies.token;
+    var name = req.body.name;
+    // var facebook = req.body.facebook;
+    // var twitter = req.body.twitter;
+    // var instagram = req.body.instagram;
+    // var user_Id = req.cookies.userId;
+    var _name = req.cookies.name;
+    var file = req.file;
+    console.log("FILE FROM PROFILE "+JSON.stringify(file));
+
+
+    // if (session && token) {
+    //     new Parse.Query("User").equalTo("objectId", user_Id).find().then(function (user) {
+    //         user.set("facebook_handle", facebook);
+    //         user.set("twitter_handle", twitter);
+    //         user.set("instagram_handle", instagram);
+    //
+    //         if (name !== _name) {
+    //             user.set("name", name);
+    //         }
+    //         return user.save({sessionToken: token});
+    //     }).then(function (result) {
+    //         console.log("USER UPDATED CORRECTLY");
+    //         res.redirect('/');
+    //     }, function (error) {
+    //         console.log("USER WAS NOT UPDATED " + error.message);
+    //         res.redirect('/');
+    //     });
+    // }
+});
+
 
 //Update Sticker
 app.post('/update/:id/:pid', upload.single('im1'), function (req, res) {
