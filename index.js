@@ -241,7 +241,7 @@ app.post('/signup', function (req, res) {
     user.set("password", password);
     user.set("email", username);
     user.set("type",2);
-    user.set("image_set","false");
+    user.set("image_set",false);
 
     user.signUp(null, {
         success: function (user) {
@@ -255,7 +255,12 @@ app.post('/signup', function (req, res) {
                 res.cookie('name', user.get("name"));
                 res.cookie('email_verified', user.get("emailVerified"));
                 res.cookie('userType', user.get("type"));
-                res.cookie('profile_image', user.get("image").url());
+                var status = user.get("image_set");
+                if (status === true){
+                    res.cookie('profile_image', user.get("image").url());
+                }else {
+                    res.cookie('profile_image', "null");
+                }
 
                 req.session.token = user.getSessionToken();
                 console.log("USER GETS TOKEN : " + user.getSessionToken());
