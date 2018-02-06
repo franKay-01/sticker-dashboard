@@ -334,9 +334,9 @@ app.get('/home', function (req, res) {
         new Parse.Query('_Session')
             .equalTo('sessionToken', session)
             .include('user').first().then(function (user) {
-                console.log(JSON.stringify(user));
+                console.log("SESSION DATA: "+JSON.stringify(user));
         }, function (error) {
-            console.log(JSON.stringify(error));
+            console.log("SESSION DATA ERROR: "+JSON.stringify(error));
         });
 
         Parse.Promise.when(
