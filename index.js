@@ -331,14 +331,14 @@ app.get('/home', function (req, res) {
         username = username.substring(0, username.indexOf('@'));
         const limit = 3;
 
-        new Parse.Query('_Session')
+      /*  new Parse.Query('_Session')
             .equalTo('sessionToken', session)
             .include('user').then(function (user) {
                 console.log(JSON.stringify(user));
         }, function (error) {
             console.log(JSON.stringify(error));
         });
-
+*/
 
         Parse.Promise.when(
             new Parse.Query(PacksClass).equalTo("user_id", user_info).limit(limit).find({sessionToken: token}),
