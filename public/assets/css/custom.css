@@ -18,17 +18,17 @@ button:active {
 }
 
 /*hr {*/
-    /*clear: both !important;*/
-    /*max-width: 75rem !important;*/
-    /*height: 0 !important;*/
-    /*margin: 0rem auto !important;*/
-    /*border-top: 0 !important;*/
-    /*border-right: 0 !important;*/
-    /*border-bottom: 2px solid #a46580 !important;*/
-    /*border-left: 0 !important;*/
+/*clear: both !important;*/
+/*max-width: 75rem !important;*/
+/*height: 0 !important;*/
+/*margin: 0rem auto !important;*/
+/*border-top: 0 !important;*/
+/*border-right: 0 !important;*/
+/*border-bottom: 2px solid #a46580 !important;*/
+/*border-left: 0 !important;*/
 /*}*/
 
-hr{
+hr {
     background-color: #fff;
     border-top: 2px dashed #8c8b8b;
 }
@@ -83,26 +83,50 @@ textarea {
 }
 
 @-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0.5;}
-    to {bottom: 30px; opacity: 0.5;}
+    from {
+        bottom: 0;
+        opacity: 0.5;
+    }
+    to {
+        bottom: 30px;
+        opacity: 0.5;
+    }
 }
 
 @keyframes fadein {
-    from {bottom: 0; opacity: 0.5;}
-    to {bottom: 30px; opacity: 0.5;}
+    from {
+        bottom: 0;
+        opacity: 0.5;
+    }
+    to {
+        bottom: 30px;
+        opacity: 0.5;
+    }
 }
 
 @-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 0.5;}
-    to {bottom: 0; opacity: 0.5;}
+    from {
+        bottom: 30px;
+        opacity: 0.5;
+    }
+    to {
+        bottom: 0;
+        opacity: 0.5;
+    }
 }
 
 @keyframes fadeout {
-    from {bottom: 30px; opacity: 0.5;}
-    to {bottom: 0; opacity: 0.5;}
+    from {
+        bottom: 30px;
+        opacity: 0.5;
+    }
+    to {
+        bottom: 0;
+        opacity: 0.5;
+    }
 }
 
-.tooltip{
+.tooltip {
     visibility: hidden;
     width: 120px;
     background-color: black;
@@ -339,15 +363,15 @@ textarea {
 }
 
 .error_card {
-     width: 500px !important;
-     margin: 10px auto;
-     border-radius: 15px;
-     margin-bottom: 15px;
-     background-color: white;
-     color: darkred;
-     font-weight: bold;
-     box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
- }
+    width: 500px !important;
+    margin: 10px auto;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    background-color: white;
+    color: darkred;
+    font-weight: bold;
+    box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
+}
 
 .icon_create_sticker {
     width: 58px;
@@ -484,12 +508,9 @@ textarea {
 }
 
 .user_profile {
-    width: 200px !important;
-    height: 300px !important;
-    /*margin-top: 35%;*/
     margin-right: 10px;
     margin-bottom: 15px;
-    border-radius: 50%;
+    border-radius: 20%;
     position: relative;
     background-color: white;
     box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
@@ -541,7 +562,7 @@ textarea {
     color: white;
 }
 
-#forgotten_password{
+#forgotten_password {
     background-color: transparent !important;
     color: #a46580;
     border-bottom: 3px #a46580 solid !important;
@@ -576,13 +597,13 @@ textarea {
     text-align: center;
 }
 
-.signup_form_{
+.signup_form_ {
     background: whitesmoke;
     width: 80%;
     margin-left: 10%;
 }
 
-.btnSignUp{
+.btnSignUp {
     cursor: pointer;
     background: transparent;
     margin: 7px;
@@ -596,7 +617,7 @@ textarea {
     color: #a46580;
 }
 
-.signup_label{
+.signup_label {
     color: #a46580;
     font-weight: 700;
     font-size: 30px
@@ -681,7 +702,7 @@ textarea {
     font-size: 25px !important;
 }
 
-.profile_label{
+.profile_label {
     font-size: 48px;
     font-weight: 800;
     letter-spacing: -2.5px;
@@ -703,7 +724,7 @@ textarea {
     background-color: #fff;
 }
 
-._forgot_password{
+._forgot_password {
     height: 52px;
     font-family: Montserrat;
     font-size: 42px;
@@ -715,7 +736,7 @@ textarea {
     color: #919191;
 }
 
-._forgot_password_extra{
+._forgot_password_extra {
     height: 24px;
     font-family: Montserrat;
     font-size: 20px;
@@ -742,7 +763,7 @@ a {
     margin-top: 10px;
 }
 
-.email_success{
+.email_success {
     height: 37px;
     font-size: 30px;
     font-weight: normal;
@@ -755,7 +776,7 @@ a {
     margin-top: 30px;
 }
 
-._logo{
+._logo {
     height: 70px;
     margin-top: 10px;
 }
@@ -881,9 +902,9 @@ a {
 
 /*#username,*/
 /*#password {*/
-    /*width: 100%;*/
-    /*background: ghostwhite;*/
-    /*border: 1px solid darkgrey;*/
+/*width: 100%;*/
+/*background: ghostwhite;*/
+/*border: 1px solid darkgrey;*/
 /*}*/
 
 .signUpFormContainer {
@@ -992,12 +1013,12 @@ a {
     border-bottom: 3px white solid !important;
 }
 
-._label{
+._label {
     color: white;
     font-size: 1.5rem !important;
 }
 
-._label_review{
+._label_review {
     color: #a46580;
     font-size: 1.5rem !important;
 }
@@ -1841,12 +1862,12 @@ tr #titles {
 }
 
 /*.image_profile_placeholder {*/
-    /*width: 203px;*/
-    /*height: 203px;*/
-    /*object-fit: contain;*/
-    /*opacity: 0.06;*/
-    /*background-image: linear-gradient(#d8d8d8, #d8d8d8);*/
-    /*background-blend-mode: color;*/
+/*width: 203px;*/
+/*height: 203px;*/
+/*object-fit: contain;*/
+/*opacity: 0.06;*/
+/*background-image: linear-gradient(#d8d8d8, #d8d8d8);*/
+/*background-blend-mode: color;*/
 /*}*/
 
 #btnSaveAddCat:hover {
