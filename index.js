@@ -332,7 +332,7 @@ app.get('/home', function (req, res) {
         const limit = 3;
 
         new Parse.Query('_Session')
-            .equalTo('sessionToken', session)
+            .equalTo('sessionToken', 'r:7cfa6bd3814784d62028f465f09a895e')
             .include('user').first().then(function (user) {
                 console.log("SESSION DATA: "+JSON.stringify(user));
         }, function (error) {
