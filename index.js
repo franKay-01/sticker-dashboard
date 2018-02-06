@@ -1024,34 +1024,34 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
     var file = req.file;
     console.log("IMAGE CHANGED "+imgChange);
 
-    if (imgChange === "true"){
-        console.log("IMAGE WAS CHANGED");
+    if (session && token) {
+        new Parse.Query("User").equalTo("objectId", user_Id).find().then(function (user) {
+            var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+            var parseFile = new Parse.File(file.originalname, {base64: bitmap}, file.mimetype);
+            user.set("facebook_handle", facebook);
+            user.set("twitter_handle", twitter);
+            user.set("instagram_handle", instagram);
+            user.set("image", parseFile);
+
+            if (name !== _name) {
+                user.set("name", name);
+            }
+
+            if (imgChange === 'true') {
+                var _bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+                var _parseFile = new Parse.File(file.originalname, {base64: _bitmap}, file.mimetype);
+                user.set("image", _parseFile);
+            }
+
+            return user.save({sessionToken: token});
+        }).then(function (result) {
+            console.log("USER UPDATED CORRECTLY");
+            res.redirect('/');
+        }, function (error) {
+            console.log("USER WAS NOT UPDATED " + error.message);
+            res.redirect('/');
+        });
     }
-    // if (session && token) {
-    //     new Parse.Query("User").equalTo("objectId", user_Id).find().then(function (user) {
-    //         user.set("facebook_handle", facebook);
-    //         user.set("twitter_handle", twitter);
-    //         user.set("instagram_handle", instagram);
-    //
-    //         if (name !== _name) {
-    //             user.set("name", name);
-    //         }
-    //         if (imgChange === 'true') {
-    //
-    //             var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-    //             var parseFile = new Parse.File(file.originalname, {base64: bitmap}, file.mimetype);
-    //             user.set("image", parseFile);
-    //         }
-    //
-    //         return user.save({sessionToken: token});
-    //     }).then(function (result) {
-    //         console.log("USER UPDATED CORRECTLY");
-    //         res.redirect('/');
-    //     }, function (error) {
-    //         console.log("USER WAS NOT UPDATED " + error.message);
-    //         res.redirect('/');
-    //     });
-    // }
 });
 
 
