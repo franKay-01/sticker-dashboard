@@ -8,6 +8,25 @@ var _stickers = 0;
 var _packs = 0;
 var _categories = 0;
 
+var path = require('path');
+var bodyParser = require('body-parser');
+
+// This imports the Router that uses the template engine
+var index = require('./routers/index');
+
+// Sets the template engine as EJS
+app.set('view engine', 'ejs');
+
+// This defines that the 'views' folder contains the templates
+app.set('views', path.join(__dirname, '/views'));
+
+// These options are necessary to
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// This bind the Router to the / route
+app.use('/', index);
+
 Parse.Cloud.define("stickerNumber", function (req, res) {
 
     console.log("USER________"+JSON.stringify(req.user));
