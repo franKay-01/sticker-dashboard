@@ -486,7 +486,7 @@ textarea {
 .user_profile {
     width: 200px !important;
     height: 300px !important;
-    margin-top: 35%;
+    /*margin-top: 35%;*/
     margin-right: 10px;
     margin-bottom: 15px;
     border-radius: 50%;
