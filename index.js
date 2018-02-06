@@ -28,6 +28,7 @@ let CollectionClass = "Collection";
 let StickerClass = "Stickers";
 let CategoryClass = "Categories";
 let PacksClass = "Packs";
+let ReviewClass = "Reviews";
 // let PacksClass = "Packss";
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 // let databaseUri = config.DATABASE_URI; //for google
@@ -600,7 +601,7 @@ app.post('/review_pack/:id', function (req, res) {
     var status = req.body.approved;
 
     if (session && token) {
-        var Reviews = new Parse.Query.extend("Reviews");
+        var Reviews = new Parse.Query.extend(ReviewClass);
         var review = new Reviews();
         review.set("comments", comment);
         review.set("pack_id", pack_id);
