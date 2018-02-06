@@ -607,7 +607,6 @@ app.post('/review_pack/:id', function (req, res) {
         review.set("comments", comment);
         // review.set("pack_id", pack_id)
 
-
         if (status === 2){
             review.set("approved", true);
         }else if (status === 1) {
