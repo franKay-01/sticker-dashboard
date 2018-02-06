@@ -604,7 +604,12 @@ app.post('/review_pack/:id', function () {
         var review = new Reviews();
         review.set("comments", comment);
         review.set("pack_id", pack_id);
-        review.set("approved", status);
+
+        if (status === 2){
+            review.set("approved", true);
+        }else if (status === 1) {
+            review.set("approved", false);
+        }
         review.set("reviewer", reviewer);
 
         review.save().then(function () {
