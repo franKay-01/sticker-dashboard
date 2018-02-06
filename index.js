@@ -243,9 +243,9 @@ app.post('/signup', function (req, res) {
     user.set("email", username);
     user.set("type", 2);
     user.set("image_set", false);
-    user.set("facebook_handle","");
-    user.set("twitter_handle","");
-    user.set("instagram_handle","");
+    user.set("facebook_handle", "");
+    user.set("twitter_handle", "");
+    user.set("instagram_handle", "");
 
     user.signUp(null, {
         success: function (user) {
@@ -327,8 +327,18 @@ app.get('/home', function (req, res) {
 
     console.log("EMAIL VERIFIED " + isVerified);
     if (session && token) {
+
         username = username.substring(0, username.indexOf('@'));
         const limit = 3;
+
+        new Parse.Query('_Session')
+            .equalTo('sessionToken', session)
+            .include('user').first().then(function (user) {
+                console.log("SESSION DATA: "+JSON.stringify(user));
+        }, function (error) {
+            console.log("SESSION DATA ERROR: "+JSON.stringify(error));
+        });
+
         Parse.Promise.when(
             new Parse.Query(PacksClass).equalTo("user_id", user_info).limit(limit).find({sessionToken: token}),
             new Parse.Query(CategoryClass).limit(limit).find({sessionToken: token}),
@@ -600,16 +610,16 @@ app.post('/review_pack/:id', function (req, res) {
     var comment = req.body.review_text;
     var status = req.body.approved;
 
-    console.log("RESULTS "+reviewer + " "+comment+" "+status);
+    console.log("RESULTS " + reviewer + " " + comment + " " + status);
     if (session && token) {
         var Reviews = new Parse.Object.extend(ReviewClass);
         var review = new Reviews();
         review.set("comments", comment);
         // review.set("pack_id", pack_id)
 
-        if (status === 2){
+        if (status === 2) {
             review.set("approved", true);
-        }else if (status === 1) {
+        } else if (status === 1) {
             review.set("approved", false);
         }
         review.set("reviewer", reviewer);
@@ -1032,7 +1042,7 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
     var imgChange = req.body.imgChange;
     var _name = req.cookies.name;
     var file = req.file;
-    console.log("IMAGE CHANGED "+imgChange);
+    console.log("IMAGE CHANGED " + imgChange);
 
     if (session && token) {
         new Parse.Query("User").equalTo("objectId", user_Id).find().then(function (user) {

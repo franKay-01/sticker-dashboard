@@ -1,3 +1,4 @@
+let express = require('express');
 //used to retrieve all stickers
 //require("./functions/getStickers");
 let StickerClass = "Stickers";
@@ -7,6 +8,8 @@ let PacksClass = "Packs";
 var _stickers = 0;
 var _packs = 0;
 var _categories = 0;
+
+var app = express();
 
 var path = require('path');
 var bodyParser = require('body-parser');
