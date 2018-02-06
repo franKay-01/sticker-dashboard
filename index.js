@@ -243,9 +243,9 @@ app.post('/signup', function (req, res) {
     user.set("email", username);
     user.set("type", 2);
     user.set("image_set", false);
-    user.set("facebook_handle","");
-    user.set("twitter_handle","");
-    user.set("instagram_handle","");
+    user.set("facebook_handle", "");
+    user.set("twitter_handle", "");
+    user.set("instagram_handle", "");
 
     user.signUp(null, {
         success: function (user) {
@@ -600,21 +600,27 @@ app.post('/review_pack/:id', function (req, res) {
     var comment = req.body.review_text;
     var status = req.body.approved;
 
-    console.log("RESULTS "+reviewer + " "+comment+" "+status);
+    console.log("RESULTS " + reviewer + " " + comment + " " + status);
     if (session && token) {
-        var Reviews = new Parse.Object.extend(ReviewClass);
-        var review = new Reviews();
-        review.set("comments", comment);
-        review.set("pack_id", pack_id);
+        new Parse.Query(PacksClass).equalTo("objectId", pack_id).first({sessionToken: token}).then(function (pack) {
+            pack.set("status", status);
+            return pack.save().then(function () {
+                var Reviews = new Parse.Object.extend(ReviewClass);
+                var review = new Reviews();
+                review.set("comments", comment);
+                review.set("pack_id", pack);
 
-        if (status === 2){
-            review.set("approved", true);
-        }else if (status === 1) {
-            review.set("approved", false);
-        }
-        review.set("reviewer", reviewer);
+                if (status === 2) {
+                    review.set("approved", true);
+                } else if (status === 1) {
+                    review.set("approved", false);
+                }
+                review.set("reviewer", reviewer);
+                return review.save();
+            })
 
-        review.save().then(function () {
+        }).
+        then(function () {
             console.log("REVIEW SAVED SUCCESSFULLY ");
             res.redirect('/');
         }, function (error) {
@@ -1032,7 +1038,7 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
     var imgChange = req.body.imgChange;
     var _name = req.cookies.name;
     var file = req.file;
-    console.log("IMAGE CHANGED "+imgChange);
+    console.log("IMAGE CHANGED " + imgChange);
 
     if (session && token) {
         new Parse.Query("User").equalTo("objectId", user_Id).find().then(function (user) {
