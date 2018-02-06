@@ -143,6 +143,7 @@ var api = new ParseServer({
 
 var app = express();
 
+app.use(cookieParser());
 app.use(cors());
 app.use(bodyParser.json());   // Middleware for reading request body
 app.use(bodyParser.urlencoded({
@@ -157,7 +158,28 @@ app.use(cookieSession({
     secret: "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
     maxAge: 15724800000
 }));
-app.use(cookieParser("A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK"));
+// app.use(cookieParser("A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK"));
+
+
+// set a cookie
+app.use(function (req, res, next) {
+    // check if client sent cookie
+    var cookie = req.cookies.cookieName;
+    if (cookie === undefined)
+    {
+        // no: set a new cookie
+        var randomNumber=Math.random().toString();
+        randomNumber=randomNumber.substring(2,randomNumber.length);
+        res.cookie('cookieName',randomNumber, { maxAge: 900000, httpOnly: true });
+        console.log('cookie created successfully');
+    }
+    else
+    {
+        // yes, cookie was already present
+        console.log('cookie exists', cookie);
+    }
+    next(); // <-- important!
+});
 
 
 app.all('*', function (req, res, next) {
