@@ -292,7 +292,7 @@ app.post('/login', function (req, res) {
         res.cookie('name', user.get("name"));
         res.cookie('email_verified', user.get("emailVerified"));
         res.cookie('userType', user.get("type"));
-        // res.cookie('profile_image', user.get("image").url());
+        res.cookie('profile_image', user.get("image").url());
 
         req.session.token = user.getSessionToken();
         // console.log("USER IMAGE "+req.cookies.profile);
