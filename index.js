@@ -605,7 +605,8 @@ app.post('/review_pack/:id', function (req, res) {
         var Reviews = new Parse.Object.extend(ReviewClass);
         var review = new Reviews();
         review.set("comments", comment);
-        // review.set("pack_id", pack_id);
+        // review.set("pack_id", pack_id)
+
 
         if (status === 2){
             review.set("approved", true);
