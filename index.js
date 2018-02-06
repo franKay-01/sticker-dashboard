@@ -600,6 +600,7 @@ app.post('/review_pack/:id', function (req, res) {
     var comment = req.body.review_text;
     var status = req.body.approved;
 
+    console.log("RESULTS "+reviewer + " "+comment+" "+status);
     if (session && token) {
         var Reviews = new Parse.Object.extend(ReviewClass);
         var review = new Reviews();
