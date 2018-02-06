@@ -242,6 +242,9 @@ app.post('/signup', function (req, res) {
     user.set("email", username);
     user.set("type", 2);
     user.set("image_set", false);
+    user.set("facebook_handle","");
+    user.set("twitter_handle","");
+    user.set("instagram_handle","");
 
     user.signUp(null, {
         success: function (user) {
