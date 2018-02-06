@@ -591,7 +591,7 @@ app.post('/new_category', function (req, res) {
     }
 });
 
-app.post('/review_pack/:id', function () {
+app.post('/review_pack/:id', function (req, res) {
     var session = req.session.token;
     var token = req.cookies.token;
     var pack_id = req.params.id;
