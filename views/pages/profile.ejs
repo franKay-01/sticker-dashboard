@@ -16,25 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-    <script>
-        function previewFile(){
-            var preview = document.querySelector('img'); //selects the query named img
-            var file    = document.querySelector('input[type=file]').files[0]; //sames as here
-            var reader  = new FileReader();
 
-            reader.onloadend = function () {
-                preview.src = reader.result;
-            }
-
-            if (file) {
-                reader.readAsDataURL(file); //reads the data as a URL
-            } else {
-                preview.src = "";
-            }
-        }
-
-        previewFile();  //calls the function named previewFile()
-    </script>
 </head>
 <body class="primary-background-color">
 
@@ -56,7 +38,7 @@
         </center>
     </div>
 
-    <div class="grid-x grid-margin-x">
+    <div class="grid-x grid-margin-x" style="margin-top: -60px">
 
         <% include ../partials/profile_card %>
 
