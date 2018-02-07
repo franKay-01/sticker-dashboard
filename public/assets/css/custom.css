@@ -618,9 +618,9 @@ textarea {
     font-size: 25px !important;
     letter-spacing: -2.1px;
     text-align: right;
-    margin-top: 90px;
     color: #ffffff;
 }
+
 .btnSignUp {
     cursor: pointer;
     background: transparent;
@@ -629,6 +629,7 @@ textarea {
     font-size: 25px !important;
     letter-spacing: -2.1px;
     text-align: left;
+    margin-bottom: 25px !important;
     color: #ffffff;
 }
 
