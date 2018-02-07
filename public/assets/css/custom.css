@@ -44,6 +44,10 @@ textarea {
     height: 5rem;
 }
 
+label{
+    color: #ffffff !important;
+}
+
 /*##################################################################################################################################################*/
 .verifiy_account {
     height: 64px;
@@ -629,7 +633,7 @@ textarea {
     font-size: 25px !important;
     letter-spacing: -2.1px;
     text-align: left;
-    margin-bottom: 25px !important;
+    margin-bottom: 65px !important;
     color: #ffffff;
 }
 
