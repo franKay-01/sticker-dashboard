@@ -35,10 +35,11 @@
     <!-- Logo -->
     <div class="medium-12 large-12">
         <center>
-        <a href="/home">
-            <img src="/public/assets/images/G_logo.png"
-                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
-        </a>
+            <a href="/home">
+                <img src="/public/assets/images/G_logo.png"
+                     srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x"
+                     class="logo">
+            </a>
         </center>
     </div>
     <!-- End of logo-->
@@ -51,38 +52,43 @@
     <% } %>
     <div class="medium-6 large-6">
         <center>
-        <div class="signup_label">Sign Up</div>
+            <div class="sign_up_label">Sign Up</div>
         </center>
         <div style="text-align: center;" class="sign_form">
-        <form id="signForm" method="post" action="/signup">
-            <input type="text" class="_signup_textbox" placeholder="Name" name="name_field" id="name_field">
-            <label for="name_field" id="nameField"></label>
-            <!--<p id="tool"></p>-->
-            <br>
-            <input type="email" class="_signup_textbox" placeholder="Email" name="username" id="username">
-            <label for="username" id="user"></label>
-            <br>
-            <input type="password" class="_signup_textbox" placeholder="Password" name="password" id="password">
-            <label for="confirm_password" id="pwd"></label>
-
-            <br>
-            <input type="password" class="_signup_textbox" placeholder="Confirm Password" name="confirm_password" id="confirm_password">
-            <label for="confirm_password" id="confirm"></label>
-            <br>
-            <!--<input type="checkbox" id="terms_policy" />&nbsp;<a href="#" style="color: teal;">Terms and Conditions</a><br>-->
-
-            <input class="with-gap" name="group1" type="checkbox" id="terms_policy"  />
-            <!--<input class="with-gap" name="group1" type="radio" id="terms_policy"  />-->
-
-            <a href="#" style="color: teal;">Terms and Conditions</a>
             <center>
-                <div id="policy"></div>
+                <form id="signForm" method="post" action="/signup">
+                    <input type="text" class="_signup_textbox" placeholder="Name" name="name_field" id="name_field">
+                    <label for="name_field" id="nameField"></label>
+                    <!--<p id="tool"></p>-->
+                    <br>
+                    <input type="email" class="_signup_textbox" placeholder="Email" name="username" id="username">
+                    <label for="username" id="user"></label>
+                    <br>
+                    <input type="password" class="_signup_textbox" placeholder="Password" name="password" id="password">
+                    <label for="confirm_password" id="pwd"></label>
+
+                    <br>
+                    <input type="password" class="_signup_textbox" placeholder="Confirm Password"
+                           name="confirm_password" id="confirm_password">
+                    <label for="confirm_password" id="confirm"></label>
+                    <br>
+                    <!--<input type="checkbox" id="terms_policy" />&nbsp;<a href="#" style="color: teal;">Terms and Conditions</a><br>-->
+
+                    <input class="with-gap" name="group1" type="checkbox" id="terms_policy"/>
+                    <!--<input class="with-gap" name="group1" type="radio" id="terms_policy"  />-->
+
+                    <a href="#" style="color: teal;">Terms and Conditions</a>
+                    <center>
+                        <div id="policy"></div>
+                    </center>
+
+                    <br>
+                    <button type="button" onclick="signUp()" class="btnSignUp"><i class="fa fa-check"
+                                                                                  style="font-size: 1.5em; color: teal;"
+                                                                                  aria-hidden="true"></i></button>
+
+                </form>
             </center>
-
-            <br>
-            <button type="button" onclick="signUp()" class="btnSignUp"><i class="fa fa-check" style="font-size: 1.5em; color: teal;" aria-hidden="true"></i></button>
-
-        </form>
         </div>
     </div>
 

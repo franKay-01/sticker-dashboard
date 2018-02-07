@@ -630,6 +630,19 @@ textarea {
     color: #a46580;
 }
 
+.sign_up_label{
+    width: 149px;
+    height: 52px;
+    font-size: 42px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -2.5px;
+    text-align: left;
+    color: #919191;
+}
+
 ._signup_textbox {
     background-color: transparent !important;
     border-top: 0;
