@@ -25,7 +25,7 @@ function signUp() {
 
     var check = checkPassword(password,confirm_password);
 
-    if (validateEmail(username) && check === true && name !== null && terms === true){
+    if (validateEmail(username) && check === true && name !== "" && terms === true){
         document.getElementById("signForm").submit();// Form submission
     }else {
         if (validateEmail(username) === false){
