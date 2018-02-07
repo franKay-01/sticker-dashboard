@@ -2,7 +2,7 @@
   "name": "sticker-dashboard",
   "version": "2.4.0",
   "description": "Dashboard for stickers",
-  "main": "cloud/main.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/jawache/parse-server-example"
