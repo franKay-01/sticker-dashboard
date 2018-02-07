@@ -351,7 +351,7 @@ app.post('/login', function (req, res) {
 app.get('/home', function (req, res) {
 
 //    var session = req.session.token;
-    var token = req.cookies.tk;
+   // var token = req.cookies.tk;
     var username = req.cookies.username;
     var name = req.cookies.name;
     var user_info = req.cookies.userId;
@@ -360,13 +360,13 @@ app.get('/home', function (req, res) {
     console.log("EMAIL VERIFIED " + isVerified);
     // if (token) {
 
-        new Parse.Query('_Session')
-            .equalTo('sessionToken', token)
-            .include('user').first().then(function (user) {
-            console.log("SESSION DATA: "+JSON.stringify(user));
-        }, function (error) {
-            console.log("SESSION DATA ERROR: "+JSON.stringify(error));
-        });
+        // new Parse.Query('_Session')
+        //     .equalTo('sessionToken', token)
+        //     .include('user').first().then(function (user) {
+        //     console.log("SESSION DATA: "+JSON.stringify(user));
+        // }, function (error) {
+        //     console.log("SESSION DATA ERROR: "+JSON.stringify(error));
+        // });
 
         username = username.substring(0, username.indexOf('@'));
         const limit = 3;
