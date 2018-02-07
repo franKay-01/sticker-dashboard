@@ -313,7 +313,7 @@ app.post('/login', function (req, res) {
     Parse.User.logIn(username, password).then(function (user) {
 
         console.log("SESSIONS TOKEN " + user.getSessionToken());
-        res.cookie('tk', user.getSessionToken());
+        res.cookie('tk', "user");
         res.cookie('username', user.getUsername());
         res.cookie('userId', user.id);
         res.cookie('name', user.get("name"));
@@ -322,7 +322,7 @@ app.post('/login', function (req, res) {
         res.cookie('profile_image', user.get("image").url());
 
 
-        req.session.token = user.getSessionToken();
+      //  req.session.token = user.getSessionToken();
 
         // new Parse.Query('_Session')
         //     .equalTo('sessionToken', user.getSessionToken())
@@ -350,7 +350,7 @@ app.post('/login', function (req, res) {
 
 app.get('/home', function (req, res) {
 
-    var session = req.session.token;
+//    var session = req.session.token;
     var token = req.cookies.tk;
     var username = req.cookies.username;
     var name = req.cookies.name;
@@ -358,7 +358,15 @@ app.get('/home', function (req, res) {
     var isVerified = req.cookies.email_verified;
 
     console.log("EMAIL VERIFIED " + isVerified);
-    if (session && token) {
+    if (token) {
+
+        new Parse.Query('_Session')
+            .equalTo('sessionToken', token)
+            .include('user').first().then(function (user) {
+            console.log("SESSION DATA: "+JSON.stringify(user));
+        }, function (error) {
+            console.log("SESSION DATA ERROR: "+JSON.stringify(error));
+        });
 
         username = username.substring(0, username.indexOf('@'));
         const limit = 3;
