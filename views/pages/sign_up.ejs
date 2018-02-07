@@ -34,10 +34,12 @@
 <div class="grid-container">
     <!-- Logo -->
     <div class="medium-12 large-12">
+        <center>
         <a href="/home">
             <img src="/public/assets/images/G_logo.png"
                  srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
         </a>
+        </center>
     </div>
     <!-- End of logo-->
     <% if (error.length > 0) { %>
@@ -47,9 +49,11 @@
         </div>
     </div>
     <% } %>
-    <div class="medium-6 large-6 signup_form_">
-        <div style="text-align: center;">
-            <div class="signup_label">Sign Up</div>
+    <div class="medium-6 large-6">
+        <center>
+        <div class="signup_label">Sign Up</div>
+        </center>
+        <div style="text-align: center;" class="sign_form">
         <form id="signForm" method="post" action="/signup">
             <input type="text" class="_signup_textbox" placeholder="Name" name="name_field" id="name_field">
             <label for="name_field" id="nameField"></label>
