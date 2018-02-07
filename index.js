@@ -320,8 +320,17 @@ app.post('/login', function (req, res) {
         res.cookie('userType', user.get("type"));
         res.cookie('profile_image', user.get("image").url());
 
+
         req.session.token = user.getSessionToken();
-        // console.log("USER IMAGE "+req.cookies.profile);
+
+        new Parse.Query('_Session')
+            .equalTo('sessionToken', user.getSessionToken())
+            .include('user').first().then(function (user) {
+            console.log("SESSION DATA: "+JSON.stringify(user));
+        }, function (error) {
+            console.log("SESSION DATA ERROR: "+JSON.stringify(error));
+        });
+            // console.log("USER IMAGE "+req.cookies.profile);
         console.log("USER GETS TOKEN : " + user.getSessionToken());
 
         errorMessage = "";
@@ -352,14 +361,6 @@ app.get('/home', function (req, res) {
 
         username = username.substring(0, username.indexOf('@'));
         const limit = 3;
-
-        new Parse.Query('_Session')
-            .equalTo('sessionToken', 'r:3A639896d18c1d960837d1b7ebd834185b')
-            .include('user').first().then(function (user) {
-                console.log("SESSION DATA: "+JSON.stringify(user));
-        }, function (error) {
-            console.log("SESSION DATA ERROR: "+JSON.stringify(error));
-        });
 
         Parse.Promise.when(
             new Parse.Query(PacksClass).equalTo("user_id", user_info).limit(limit).find({sessionToken: token}),
