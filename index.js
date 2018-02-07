@@ -165,17 +165,15 @@ app.use(cookieSession({
 app.use(function (req, res, next) {
     // check if client sent cookie
     var cookie = req.cookies.cookieName;
-    if (cookie === undefined)
-    {
+    if (cookie === undefined) {
         // no: set a new cookie
-        var randomNumber=Math.random().toString();
-        randomNumber=randomNumber.substring(2,randomNumber.length);
-        res.cookie('cookieName',randomNumber, { maxAge: 900000, httpOnly: true });
+        var randomNumber = Math.random().toString();
+        randomNumber = randomNumber.substring(2, randomNumber.length);
+        res.cookie('cookieName', randomNumber, {maxAge: 900000, httpOnly: true});
         console.log('cookie created successfully');
-        console.log("COOKIE "+randomNumber);
+        console.log("COOKIE " + randomNumber);
     }
-    else
-    {
+    else {
         // yes, cookie was already present
         console.log('cookie exists', cookie);
     }
@@ -322,7 +320,7 @@ app.post('/login', function (req, res) {
         res.cookie('profile_image', user.get("image").url());
 
 
-      //  req.session.token = user.getSessionToken();
+        //  req.session.token = user.getSessionToken();
 
         // new Parse.Query('_Session')
         //     .equalTo('sessionToken', user.getSessionToken())
@@ -331,8 +329,8 @@ app.post('/login', function (req, res) {
         // }, function (error) {
         //     console.log("SESSION DATA ERROR: "+JSON.stringify(error));
         // });
-            // console.log("USER IMAGE "+req.cookies.profile);
-    //    console.log("USER GETS TOKEN : " + user.getSessionToken());
+        // console.log("USER IMAGE "+req.cookies.profile);
+        //    console.log("USER GETS TOKEN : " + user.getSessionToken());
 
         errorMessage = "";
 
@@ -350,15 +348,15 @@ app.post('/login', function (req, res) {
 
 app.get('/home', function (req, res) {
 
-//    var session = req.session.token;
-   // var token = req.cookies.tk;
+    var session = req.session.token;
+    var token = req.cookies.tk;
     var username = req.cookies.username;
     var name = req.cookies.name;
     var user_info = req.cookies.userId;
     var isVerified = req.cookies.email_verified;
 
     console.log("EMAIL VERIFIED " + isVerified);
-    // if (token) {
+    if (session && token) {
 
         // new Parse.Query('_Session')
         //     .equalTo('sessionToken', token)
@@ -414,9 +412,9 @@ app.get('/home', function (req, res) {
             res.redirect("/home");
         });
 
-    // } else {
-    //     res.redirect("/");
-    // }
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get('/forget_password', function (req, res) {
