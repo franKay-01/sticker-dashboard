@@ -320,7 +320,7 @@ app.post('/login', function (req, res) {
         res.cookie('profile_image', user.get("image").url());
 
 
-        //  req.session.token = user.getSessionToken();
+        req.session.token = user.getSessionToken();
 
         // new Parse.Query('_Session')
         //     .equalTo('sessionToken', user.getSessionToken())
