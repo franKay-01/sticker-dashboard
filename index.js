@@ -351,7 +351,7 @@ app.post('/login', function (req, res) {
 app.get('/home', function (req, res) {
 
     var session = req.session.token;
-    var token = req.cookies.token;
+    var token = req.cookies.tk;
     var username = req.cookies.username;
     var name = req.cookies.name;
     var user_info = req.cookies.userId;
