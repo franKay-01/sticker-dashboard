@@ -372,13 +372,13 @@ app.get('/home', function (req, res) {
         const limit = 3;
 
         Parse.Promise.when(
-            new Parse.Query(PacksClass).equalTo("user_id", user_info).limit(limit).find({sessionToken: token}),
-            new Parse.Query(CategoryClass).limit(limit).find({sessionToken: token}),
+            new Parse.Query(PacksClass).equalTo("user_id", user_info).limit(limit).find(),
+            new Parse.Query(CategoryClass).limit(limit).find(),
             //count all objects
             //TODO have a stats class
-            new Parse.Query(CategoryClass).count({sessionToken: token}),
-            new Parse.Query(PacksClass).count({sessionToken: token}),
-            new Parse.Query(StickerClass).count({sessionToken: token})
+            new Parse.Query(CategoryClass).count(),
+            new Parse.Query(PacksClass).count(),
+            new Parse.Query(StickerClass).count()
         ).then(function (collection, categories, categoryLength, packLength, stickerLength) {
 
             let _collection = [];
