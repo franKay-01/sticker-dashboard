@@ -640,16 +640,16 @@ app.post('/review_pack/:id', function (req, res) {
     var comment = req.body.review_text;
     var status = req.body.approved;
 
-
+    console.log("COMMENT "+comment+ " STATUS "+status);
     if (session && token) {
         var Reviews = new Parse.Object.extend(ReviewClass);
         var review = new Reviews();
 
         new Parse.Query(PacksClass).equalTo("objectId", pack_id).first().then(function (pack) {
             console.log("PACK FROM REVIEW "+JSON.stringify(pack));
-            if (status === 2){
+            if (status === "2"){
                 pack.set("status", 2);
-            }else if (status === 1){
+            }else if (status === "1"){
                 pack.set("status", 1);
             }
 
@@ -658,10 +658,10 @@ app.post('/review_pack/:id', function (req, res) {
 
         }).then(function () {
 
-            if (status === 2) {
+            if (status === "2") {
                 review.set("approved", true);
             } else if (status === 1) {
-                pack.set("status", 1);
+                pack.set("status", "1");
                 review.set("approved", false);
             }
             review.set("comments", comment);
