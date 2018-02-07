@@ -610,21 +610,22 @@ textarea {
     color: #919191;
 }
 
-/*.signup_form_ {*/
-    /*background: whitesmoke;*/
-    /*width: 80%;*/
-    /*margin-left: 10%;*/
-/*}*/
-
+.btnLogin {
+    cursor: pointer;
+    background: transparent;
+    font-weight: 800 !important;
+    transition: 0.5s;
+    font-size: 25px !important;
+    letter-spacing: -2.1px;
+    text-align: right;
+    color: #ffffff;
+}
 .btnSignUp {
     cursor: pointer;
     background: transparent;
-    margin: 7px;
-    padding: 10px;
     font-weight: 800 !important;
-    padding-bottom: 10px;
     transition: 0.5s;
-    font-size: 35px !important;
+    font-size: 25px !important;
     letter-spacing: -2.1px;
     text-align: left;
     color: #ffffff;
