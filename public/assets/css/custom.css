@@ -1055,7 +1055,7 @@ a {
 }
 
 ._label_review {
-    color: #a46580;
+    color: #a46580 !important;
     font-size: 1.5rem !important;
 }
 
