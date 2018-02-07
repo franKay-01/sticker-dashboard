@@ -4,7 +4,7 @@ Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
 getCookie = function (cname) {
     var name = cname + "=";
-    console.log("Document Cookie "+ document.cookie);
+    // console.log("Document Cookie "+ document.cookie);
     var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
         var c = ca[i];

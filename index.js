@@ -313,7 +313,7 @@ app.post('/login', function (req, res) {
     Parse.User.logIn(username, password).then(function (user) {
 
         console.log("SESSIONS TOKEN " + user.getSessionToken());
-        res.cookie('tk', "user");
+        res.cookie('tk', user.getSessionToken()+"  user");
         res.cookie('username', user.getUsername());
         res.cookie('userId', user.id);
         res.cookie('name', user.get("name"));
