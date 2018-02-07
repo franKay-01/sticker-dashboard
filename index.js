@@ -277,7 +277,7 @@ app.post('/signup', function (req, res) {
 
             Parse.User.logIn(username, password).then(function (user) {
                 console.log("SESSIONS TOKEN " + user.getSessionToken());
-                res.cookie('sessionToken', user.getSessionToken());
+                res.cookie('token', user.getSessionToken());
                 res.cookie('username', user.getUsername());
                 res.cookie('name', user.get("name"));
                 res.cookie('email_verified', user.get("emailVerified"));
@@ -313,7 +313,7 @@ app.post('/login', function (req, res) {
     Parse.User.logIn(username, password).then(function (user) {
 
         console.log("SESSIONS TOKEN " + user.getSessionToken());
-        res.cookie('sessionToken', user.getSessionToken());
+        res.cookie('token', user.getSessionToken());
         res.cookie('username', user.getUsername());
         res.cookie('userId', user.id);
         res.cookie('name', user.get("name"));
@@ -322,7 +322,7 @@ app.post('/login', function (req, res) {
         res.cookie('profile_image', user.get("image").url());
 
 
-         req.session.sessionToken = user.getSessionToken();
+        req.session.token = user.getSessionToken();
 
         new Parse.Query('_Session')
             .equalTo('sessionToken', user.getSessionToken())
