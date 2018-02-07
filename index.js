@@ -312,8 +312,8 @@ app.post('/login', function (req, res) {
 
     Parse.User.logIn(username, password).then(function (user) {
 
-        console.log("SESSIONS TOKEN " + user.getSessionToken);
-        res.cookie('tk', user.getSessionToken);
+        console.log("SESSIONS TOKEN " + user.get('sessionToken'));
+        res.cookie('tk', user.get('sessionToken'));
         res.cookie('username', user.getUsername());
         res.cookie('userId', user.id);
         res.cookie('name', user.get("name"));
@@ -332,7 +332,7 @@ app.post('/login', function (req, res) {
         //     console.log("SESSION DATA ERROR: "+JSON.stringify(error));
         // });
             // console.log("USER IMAGE "+req.cookies.profile);
-        console.log("USER GETS TOKEN : " + user.getSessionToken());
+    //    console.log("USER GETS TOKEN : " + user.getSessionToken());
 
         errorMessage = "";
 
