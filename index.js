@@ -358,7 +358,7 @@ app.get('/home', function (req, res) {
     var isVerified = req.cookies.email_verified;
 
     console.log("EMAIL VERIFIED " + isVerified);
-    if (token) {
+    // if (token) {
 
         new Parse.Query('_Session')
             .equalTo('sessionToken', token)
@@ -414,9 +414,9 @@ app.get('/home', function (req, res) {
             res.redirect("/home");
         });
 
-    } else {
-        res.redirect("/");
-    }
+    // } else {
+    //     res.redirect("/");
+    // }
 });
 
 app.get('/forget_password', function (req, res) {
