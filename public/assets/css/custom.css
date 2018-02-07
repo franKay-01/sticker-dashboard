@@ -610,7 +610,7 @@ textarea {
     color: #919191;
 }
 
-.btnLogin {
+._btnLogin {
     cursor: pointer;
     background: transparent;
     font-weight: 800 !important;
@@ -618,6 +618,7 @@ textarea {
     font-size: 25px !important;
     letter-spacing: -2.1px;
     text-align: right;
+    margin-top: 90px;
     color: #ffffff;
 }
 .btnSignUp {
