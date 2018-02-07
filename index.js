@@ -311,7 +311,7 @@ app.post('/login', function (req, res) {
     Parse.User.logIn(username, password).then(function (user) {
 
         console.log("SESSIONS TOKEN " + user.get('sessionToken'));
-        res.cookie('tk', user.get('sessionToken'));
+        res.cookie('token', user.get('sessionToken'));
         res.cookie('username', user.getUsername());
         res.cookie('userId', user.id);
         res.cookie('name', user.get("name"));
@@ -349,7 +349,7 @@ app.post('/login', function (req, res) {
 app.get('/home', function (req, res) {
 
     var session = req.session.token;
-    var token = req.cookies.tk;
+    var token = req.cookies.token;
     var username = req.cookies.username;
     var name = req.cookies.name;
     var user_info = req.cookies.userId;
