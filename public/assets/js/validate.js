@@ -14,7 +14,7 @@ getCookie = function (cname) {
     return undefined;
 };
 
-var token = getCookie("tk");
+var token = getCookie("token");
 // var _session = session.getAttribute("_token");
 // console.log("SESSION " + JSON.stringify(_session));
 

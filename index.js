@@ -313,7 +313,7 @@ app.post('/login', function (req, res) {
     Parse.User.logIn(username, password).then(function (user) {
 
         console.log("SESSIONS TOKEN " + user.getSessionToken());
-        res.cookie('tk', user.getSessionToken());
+        res.cookie('token', user.getSessionToken());
         res.cookie('username', user.getUsername());
         res.cookie('userId', user.id);
         res.cookie('name', user.get("name"));
@@ -324,13 +324,13 @@ app.post('/login', function (req, res) {
 
         req.session.token = res.cookies.token;
 
-        new Parse.Query('_Session')
-            .equalTo('sessionToken', user.getSessionToken())
-            .include('user').first().then(function (user) {
-            console.log("SESSION DATA: "+JSON.stringify(user));
-        }, function (error) {
-            console.log("SESSION DATA ERROR: "+JSON.stringify(error));
-        });
+        // new Parse.Query('_Session')
+        //     .equalTo('sessionToken', user.getSessionToken())
+        //     .include('user').first().then(function (user) {
+        //     console.log("SESSION DATA: "+JSON.stringify(user));
+        // }, function (error) {
+        //     console.log("SESSION DATA ERROR: "+JSON.stringify(error));
+        // });
             // console.log("USER IMAGE "+req.cookies.profile);
         console.log("USER GETS TOKEN : " + user.getSessionToken());
 
@@ -351,7 +351,7 @@ app.post('/login', function (req, res) {
 app.get('/home', function (req, res) {
 
     var session = req.session.token;
-    var token = req.cookies.tk;
+    var token = req.cookies.token;
     var username = req.cookies.username;
     var name = req.cookies.name;
     var user_info = req.cookies.userId;
