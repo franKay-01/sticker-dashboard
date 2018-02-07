@@ -640,28 +640,34 @@ app.post('/review_pack/:id', function (req, res) {
     var comment = req.body.review_text;
     var status = req.body.approved;
 
-    console.log("RESULTS " + reviewer + " " + comment + " " + status);
+
     if (session && token) {
-        var Reviews = new Parse.Object.extend(ReviewClass);
-        var review = new Reviews();
-        review.set("comments", comment);
-        // review.set("pack_id", pack_id)
 
-        if (status === 2) {
-            review.set("approved", true);
-        } else if (status === 1) {
-            review.set("approved", false);
-        }
-        review.set("reviewer", reviewer);
+        new Parse.Query(PacksClass).equalTo("objectId", pack_id).find().then(function (pack) {
+            var Reviews = new Parse.Object.extend(ReviewClass);
+            var review = new Reviews();
+            review.set("comments", comment);
+            // review.set("pack_id", pack_id)
 
-        review.save().then(function () {
-            console.log("REVIEW SAVED SUCCESSFULLY ");
-            res.redirect('/');
-        }, function (error) {
-            console.log("REVIEW NOT SAVED. ERROR: " + error.message);
-            res.redirect('/review/' + pack_id);
+            if (status === 2) {
+                pack.set("status", 2);
+                review.set("approved", true);
+            } else if (status === 1) {
+                pack.set("status", 1);
+                review.set("approved", false);
+            }
+            review.set("reviewer", reviewer);
+
+            review.save().then(function () {
+                return pack.save();
+            }).then(function () {
+                console.log("SUCCESSFULLY REVIEWED PACK "+ pack.get("name"));
+                res.redirect("/");
+            }, function (error) {
+                console.log("ERROR WHEN REVIEWING "+error.message);
+                res.redirect('/review/'+pack_id);
+            })
         })
-
     }
 });
 
