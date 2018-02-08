@@ -1071,7 +1071,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
         pack.set("version", version);
         pack.set("archive", false);
 
-        if (files) {
+        if (files !== null) {
             files.forEach(function (file) {
                 var fullName = file.originalname;
                 var stickerName = fullName.substring(0, fullName.length - 4);
