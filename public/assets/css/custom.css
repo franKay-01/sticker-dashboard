@@ -51,7 +51,7 @@ label{
 /*##################################################################################################################################################*/
 .verifiy_account {
     height: 64px;
-    font-family: Montserrat;
+
     font-size: 26px;
     font-weight: bold;
     font-style: normal;
@@ -147,7 +147,6 @@ label{
 .stats {
     width: 83px;
     height: 43px;
-    font-family: Montserrat;
     font-size: 35px;
     font-weight: 900;
     letter-spacing: -2.1px;
@@ -159,7 +158,6 @@ label{
 ._stats {
     width: 83px;
     height: 43px;
-    font-family: Montserrat;
     font-size: 35px;
     font-weight: bold;
     letter-spacing: -2.1px;
@@ -177,7 +175,6 @@ label{
 
 .update_label {
     height: 24px;
-    font-family: Montserrat;
     font-size: 25px;
     font-weight: bold;
     line-height: 0.96;
@@ -200,7 +197,6 @@ label{
 
 ._categories {
     height: 32px;
-    font-family: Montserrat;
     font-size: 26px;
     font-weight: 700;
     letter-spacing: -1.5px;
@@ -211,7 +207,6 @@ label{
 
 ._stickers_packs {
     height: 32px;
-    font-family: Montserrat;
     font-size: 26px;
     font-weight: 700;
     letter-spacing: -1.5px;
@@ -222,7 +217,6 @@ label{
 
 .edit_labels {
     height: 52px;
-    font-family: Montserrat;
     font-size: 42px;
     font-weight: 900;
     letter-spacing: -2.5px;
@@ -233,7 +227,6 @@ label{
 
 .from_computer {
     height: 32px;
-    font-family: Montserrat;
     font-size: 26px;
     font-weight: 500;
     letter-spacing: -1.5px;
@@ -244,7 +237,6 @@ label{
 
 .dropbox_upload {
     height: 32px;
-    font-family: Montserrat;
     font-size: 26px;
     font-weight: 500;
     letter-spacing: -1.5px;
@@ -255,7 +247,6 @@ label{
 
 .new_sticker {
     height: 37px;
-    font-family: Montserrat;
     font-size: 30px;
     font-weight: 900;
     letter-spacing: -1.8px;
@@ -266,7 +257,6 @@ label{
 
 .category_text {
     height: 49px;
-    font-family: Montserrat;
     font-size: 20px;
     font-weight: 500;
     letter-spacing: -2.0px;
@@ -280,9 +270,7 @@ label{
 }
 
 .cancel_btn {
-    /*width: 105px;*/
     height: 43px;
-    font-family: Montserrat;
     font-size: 35px;
     font-weight: 300;
     letter-spacing: -2.1px;
@@ -292,9 +280,7 @@ label{
 }
 
 .delete_btn {
-    /*width: 105px;*/
     height: 43px;
-    font-family: Montserrat;
     font-size: 35px;
     font-weight: 700;
     letter-spacing: -2.1px;
@@ -305,7 +291,6 @@ label{
 
 .cancel {
     height: 43px;
-    font-family: Montserrat;
     font-size: 35px;
     font-weight: 500;
     letter-spacing: -2.1px;
@@ -318,7 +303,6 @@ label{
 .add {
     /*width: 105px;*/
     height: 43px;
-    font-family: Montserrat;
     font-size: 35px;
     font-weight: 800;
     letter-spacing: -2.1px;
@@ -330,7 +314,6 @@ label{
 
 .create {
     height: 43px;
-    font-family: Montserrat;
     font-size: 35px;
     font-weight: bold;
     letter-spacing: -2.1px;
@@ -342,7 +325,7 @@ label{
 
 ._stickers {
     height: 32px;
-    font-family: Montserrat;
+
     font-size: 26px;
     font-weight: 700;
     letter-spacing: -1.5px;
@@ -401,7 +384,7 @@ label{
 .home_pack_description {
     width: 135px;
     height: 32px;
-    font-family: Montserrat;
+
     font-size: 26px;
     font-weight: 500;
     letter-spacing: -1.5px;
@@ -416,7 +399,7 @@ label{
 .recent_packs {
     width: auto;
     height: 30px;
-    font-family: Montserrat;
+
     font-size: 26px;
     font-weight: bold;
     letter-spacing: -1.5px;
@@ -427,7 +410,7 @@ label{
 
 .create_new {
     height: 25px;
-    font-family: Montserrat;
+
     font-size: 22px;
     font-weight: 800;
     letter-spacing: -1.2px;
@@ -444,7 +427,7 @@ label{
 
 .upload {
     height: 43px;
-    font-family: Montserrat;
+
     font-size: 35px;
     font-weight: bold;
     letter-spacing: -2.1px;
@@ -455,7 +438,7 @@ label{
 .update {
     /*width: 106px;*/
     height: 43px;
-    font-family: Montserrat;
+
     font-size: 35px;
     font-weight: bold;
     letter-spacing: -2.1px;
@@ -478,7 +461,7 @@ label{
 .view_all {
     width: 76px;
     height: 25px;
-    font-family: Montserrat;
+
     font-size: 21px;
     font-weight: 500;
     letter-spacing: -1.2px;
@@ -493,7 +476,7 @@ label{
 .recent_category {
     width: auto;
     height: 30px;
-    font-family: Montserrat;
+
     font-size: 26px;
     font-weight: bold;
     letter-spacing: -1.5px;
@@ -769,7 +752,7 @@ label{
 
 ._forgot_password {
     height: 52px;
-    font-family: Montserrat;
+
     font-size: 42px;
     font-weight: bold;
     font-style: normal;
@@ -781,7 +764,7 @@ label{
 
 ._forgot_password_extra {
     height: 24px;
-    font-family: Montserrat;
+
     font-size: 20px;
     font-weight: normal;
     font-style: normal;
@@ -891,7 +874,7 @@ a {
 }
 
 .sticker_name_text {
-    font-family: Montserrat;
+
     font-size: 16px;
     font-weight: bold;
     letter-spacing: -0.9px;
@@ -903,7 +886,7 @@ a {
 
 .pack_name_text {
     height: 39px;
-    font-family: Montserrat;
+
     font-size: 32px;
     font-weight: 600;
     letter-spacing: -1.9px;
@@ -924,7 +907,7 @@ a {
     float: right;
     margin-top: 70px;
     margin-right: 25px;
-    font-family: Montserrat;
+
     font-size: 25px;
     font-weight: 900;
     letter-spacing: -2.1px;
@@ -984,7 +967,7 @@ a {
     padding-bottom: 10px;
     font-size: 20px;
     transition: 0.5s;
-    font-family: Montserrat;
+
     font-size: 35px;
     font-weight: bold;
     letter-spacing: -2.1px;
@@ -1003,7 +986,7 @@ a {
     padding-bottom: 10px;
     font-size: 20px;
     transition: 0.5s;
-    font-family: Montserrat;
+
     font-size: 35px;
     font-weight: bold;
     letter-spacing: -2.1px;
@@ -1018,7 +1001,7 @@ a {
 
 .create_new_pack {
     height: 37px;
-    font-family: Montserrat;
+
     font-size: 30px;
     font-weight: 600;
     letter-spacing: -1.8px;
@@ -1037,7 +1020,7 @@ a {
     padding-bottom: 10px;
     font-size: 25px !important;
     transition: 0.5s;
-    font-family: Montserrat;
+
     font-size: 35px;
     font-weight: bold;
     letter-spacing: -2.1px;
@@ -1438,28 +1421,6 @@ fieldset {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
-/*#delbtn {*/
-/*cursor: pointer;*/
-/*max-width: 40%;*/
-/*background: red;*/
-/*color: white;*/
-/*margin-top: 315px;*/
-/*font-size: 20px;*/
-/*margin-left: 6px;*/
-/*font-family: monospace;*/
-/*position: absolute;*/
-/*width: 91px;*/
-/*}*/
-
-/*#delbtn:hover {*/
-/*background: white;*/
-/*color: red;*/
-/*transition: 0.3s;*/
-/*box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);*/
-/*}*/
-
-/*BUTTONS IN DETAILS PAGE--------END*/
-
 /*NEW DRAG AND DROP FORM*/
 *,
 *:before,
@@ -1558,7 +1519,7 @@ fieldset {
 
 .choose_from_dropbox {
     height: 32px;
-    font-family: Montserrat;
+
     font-size: 26px;
     font-weight: bold;
     letter-spacing: -1.5px;
@@ -1568,7 +1529,7 @@ fieldset {
 
 .drop .cont .desc {
     height: 32px;
-    font-family: Montserrat;
+
     font-size: 26px;
     font-weight: bold;
     letter-spacing: -1.5px;
@@ -1629,7 +1590,7 @@ fieldset {
 
 .clear {
     height: 43px;
-    font-family: Montserrat;
+
     font-size: 35px;
     font-weight: 300;
     letter-spacing: -2.1px;
@@ -1731,7 +1692,7 @@ tr #titles {
 
 .add_category_label {
     height: 33px;
-    font-family: Montserrat;
+
     font-size: 27px;
     font-weight: 900;
     letter-spacing: -1.6px;
