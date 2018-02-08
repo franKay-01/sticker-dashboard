@@ -334,7 +334,12 @@ app.post('/login', function (req, res) {
 
         errorMessage = "";
 
-        res.redirect("/home");
+        if (user.get("type") === "2") {
+            res.redirect("/home");
+        } else if (user.get("type") === "0") {
+            res.redirect("/admin_home");
+        }
+
 
     }, function (error) {
         //TODO render error message
@@ -344,6 +349,66 @@ app.post('/login', function (req, res) {
         res.redirect("/");
 
     });
+});
+
+app.get('/admin_home', function (req, res) {
+    var session = req.session.token;
+    var token = req.cookies.token;
+    var username = req.cookies.username;
+    var name = req.cookies.name;
+    var user_info = req.cookies.userId;
+    var isVerified = req.cookies.email_verified;
+
+    if (session && token) {
+
+        username = username.substring(0, username.indexOf('@'));
+
+        Parse.Promise.when(
+            new Parse.Query(PacksClass).find(),
+            new Parse.Query(CategoryClass).find(),
+            //count all objects
+            //TODO have a stats class
+            new Parse.Query(CategoryClass).count(),
+            new Parse.Query(PacksClass).count(),
+            new Parse.Query(StickerClass).count()
+        ).then(function (collection, categories, categoryLength, packLength, stickerLength) {
+
+            let _collection = [];
+            let _categories = [];
+
+            if (collection.length) {
+                _collection = collection;
+
+            }
+
+            if (categories.length) {
+                _categories = categories;
+
+            }
+
+            Parse.Cloud.run("stickerNumber").then(function () {
+            });
+
+            res.render("pages/admin_home", {
+                collections: _collection,
+                categories: _categories,
+                categoryLength: helper.leadingZero(categoryLength),
+                packLength: helper.leadingZero(packLength),
+                stickerLength: helper.leadingZero(stickerLength),
+                username: username,
+                user_name: name,
+                verified: isVerified
+            });
+
+        }, function (error) {
+            //TODO how to display error on home page
+            console.log(JSON.stringify(error));
+            res.redirect("/home");
+        });
+
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get('/home', function (req, res) {
@@ -640,16 +705,16 @@ app.post('/review_pack/:id', function (req, res) {
     var comment = req.body.review_text;
     var status = req.body.approved;
 
-    console.log("COMMENT "+comment+ " STATUS "+status);
+    console.log("COMMENT " + comment + " STATUS " + status);
     if (session && token) {
         var Reviews = new Parse.Object.extend(ReviewClass);
         var review = new Reviews();
 
         new Parse.Query(PacksClass).equalTo("objectId", pack_id).first().then(function (pack) {
-            console.log("PACK FROM REVIEW "+JSON.stringify(pack));
-            if (status === "2"){
+            console.log("PACK FROM REVIEW " + JSON.stringify(pack));
+            if (status === "2") {
                 pack.set("status", 2);
-            }else if (status === "1"){
+            } else if (status === "1") {
                 pack.set("status", 1);
             }
 
@@ -670,10 +735,10 @@ app.post('/review_pack/:id', function (req, res) {
             return review.save();
         }).then(function () {
             console.log("PACK WAS SUCCESSFULLY REVIEWED");
-            res.redirect('/pack/'+pack_id);
+            res.redirect('/pack/' + pack_id);
         }, function (error) {
             console.log("ERROR OCCURRED WHEN REVIEWING " + error.message)
-            res.redirect('/review/'+pack_id);
+            res.redirect('/review/' + pack_id);
         });
     }
 });
@@ -1000,18 +1065,34 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
         pack.set("version", version);
         pack.set("archive", false);
 
-        files.forEach(function (file) {
-            var fullName = file.originalname;
-            var stickerName = fullName.substring(0, fullName.length - 4);
+        if (files) {
+            files.forEach(function (file) {
+                var fullName = file.originalname;
+                var stickerName = fullName.substring(0, fullName.length - 4);
 
-            var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+                var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
-            var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
 
-            pack.set("art_work", parseFile);
+                pack.set("art_work", parseFile);
 
-        });
+            });
+        } else {
+            var fileUrl = "image-profile-placeholder";
+            var name = "art_work";
 
+            var options = {
+                url: fileUrl,
+                dest: __dirname + '/public/uploads/' + name
+            }
+
+            download.image(options)
+                .then(({filename, image}) => {
+                    bitmap = fs.readFileSync(filename, {encoding: 'base64'});
+                    var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                    pack.set("art_work", parseFile);
+                });
+        }
 
         pack.save().then(function (collection) {
 
