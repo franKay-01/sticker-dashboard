@@ -317,7 +317,12 @@ app.post('/login', function (req, res) {
         res.cookie('name', user.get("name"));
         res.cookie('email_verified', user.get("emailVerified"));
         res.cookie('userType', user.get("type"));
-        res.cookie('profile_image', user.get("image").url());
+        var status = user.get("image_set");
+        if (status === true) {
+            res.cookie('profile_image', user.get("image").url());
+        } else {
+            res.cookie('profile_image', "null");
+        }
 
         var userType = user.get("type");
         console.log("USER TYPE "+userType);
