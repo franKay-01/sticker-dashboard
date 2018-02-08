@@ -319,7 +319,8 @@ app.post('/login', function (req, res) {
         res.cookie('userType', user.get("type"));
         res.cookie('profile_image', user.get("image").url());
 
-
+        var userType = user.get("type");
+        console.log("USER TYPE "+userType);
         req.session.token = user.getSessionToken();
 
         // new Parse.Query('_Session')
@@ -334,9 +335,9 @@ app.post('/login', function (req, res) {
 
         errorMessage = "";
 
-        if (user.get("type") === "2") {
+        if (userType === 2) {
             res.redirect("/home");
-        } else if (user.get("type") === "0") {
+        } else if (userType === 0) {
             res.redirect("/admin_home");
         }
 
