@@ -1053,7 +1053,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
     var version = parseInt(req.body.version);
     var user_info = req.cookies.userId;
 
-    console.log("FILE CONTENT "+files);
+    console.log("FILE CONTENT "+JSON.stringify(files));
     // console.log("FILE "+JSON.stringify(files)+" COLL NAME "+coll_name+ " PRICE "+pricing+ " VERSION "+version);
     // files.forEach(function (file) {
     //     console.log("ORIGINAL "+file.originalname);
@@ -1071,7 +1071,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
         pack.set("version", version);
         pack.set("archive", false);
 
-        if (files !== null) {
+        if (files !== "") {
             files.forEach(function (file) {
                 var fullName = file.originalname;
                 var stickerName = fullName.substring(0, fullName.length - 4);
