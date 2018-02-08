@@ -168,6 +168,12 @@ label{
     color: black;
 }
 
+.send_to_review{
+    color: #0f9d58;
+    border: solid;
+    border-radius: 10px 0px;
+}
+
 .update_label {
     height: 24px;
     font-family: Montserrat;
