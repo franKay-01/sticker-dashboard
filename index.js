@@ -1078,7 +1078,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
 
             });
         } else {
-            var fileUrl = "image-profile-placeholder";
+            var fileUrl = "https://cryptic-waters-41617.herokuapp.com/public/assets/images/image-profile-placeholder.png";
             var name = "art_work";
 
             var options = {
@@ -1089,7 +1089,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
             download.image(options)
                 .then(({filename, image}) => {
                     bitmap = fs.readFileSync(filename, {encoding: 'base64'});
-                    var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                    var parseFile = new Parse.File(name, {base64: bitmap});
                     pack.set("art_work", parseFile);
                 });
         }
