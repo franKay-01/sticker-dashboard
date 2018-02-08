@@ -1053,6 +1053,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
     var version = parseInt(req.body.version);
     var user_info = req.cookies.userId;
 
+    console.log("FILE CONTENT "+files);
     // console.log("FILE "+JSON.stringify(files)+" COLL NAME "+coll_name+ " PRICE "+pricing+ " VERSION "+version);
     // files.forEach(function (file) {
     //     console.log("ORIGINAL "+file.originalname);
