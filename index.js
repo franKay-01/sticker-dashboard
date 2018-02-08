@@ -1098,7 +1098,14 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
                     bitmap = fs.readFileSync(filename, {encoding: 'base64'});
                     var parseFile = new Parse.File(name, {base64: bitmap});
                     pack.set("art_work", parseFile);
-                });
+                }).then(function () {
+                pack.save().then(function () {
+                    res.redirect('/pack/' + collection.id);
+                }, function (error) {
+                    console.log("BIG ERROR "+error.message);
+                    res.redirect('/pack/' + collection.id);
+                })
+            })
         }
 
         pack.save().then(function (collection) {
