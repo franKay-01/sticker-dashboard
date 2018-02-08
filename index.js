@@ -383,7 +383,7 @@ app.get('/admin_home', function (req, res) {
 
             if (collection.length) {
                 _collection = collection;
-
+                console.log("PACK INFO "+JSON.stringify(_collection));
             }
 
             if (categories.length) {
