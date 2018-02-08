@@ -356,7 +356,6 @@ app.get('/admin_home', function (req, res) {
     var token = req.cookies.token;
     var username = req.cookies.username;
     var name = req.cookies.name;
-    var user_info = req.cookies.userId;
     var isVerified = req.cookies.email_verified;
 
     if (session && token) {
