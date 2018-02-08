@@ -29,6 +29,11 @@ let StickerClass = "Stickers";
 let CategoryClass = "Categories";
 let PacksClass = "Packs";
 let ReviewClass = "Reviews";
+
+let PENDING = 0;
+let REVIEW = 1;
+let APPROVED = 2;
+
 // let PacksClass = "Packss";
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 // let databaseUri = config.DATABASE_URI; //for google
@@ -369,7 +374,7 @@ app.get('/admin_home', function (req, res) {
         username = username.substring(0, username.indexOf('@'));
 
         Parse.Promise.when(
-            new Parse.Query(PacksClass).find(),
+            new Parse.Query(PacksClass).notEqualTo("status",PENDING).find(),
             new Parse.Query(CategoryClass).find(),
             //count all objects
             //TODO have a stats class
@@ -718,9 +723,9 @@ app.post('/review_pack/:id', function (req, res) {
         new Parse.Query(PacksClass).equalTo("objectId", pack_id).first().then(function (pack) {
             console.log("PACK FROM REVIEW " + JSON.stringify(pack));
             if (status === "2") {
-                pack.set("status", 2);
+                pack.set("status", APPROVED);
             } else if (status === "1") {
-                pack.set("status", 1);
+                pack.set("status", REVIEW);
             }
 
             review.set("pack_id", pack);
@@ -1066,7 +1071,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
         pack.set("pack_name", coll_name);
         pack.set("pack_description", pack_description);
         pack.set("user_id", user_info);
-        pack.set("status", 0);
+        pack.set("status", PENDING);
         pack.set("pricing", pricing);
         pack.set("version", version);
         pack.set("archive", false);
