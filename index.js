@@ -1085,7 +1085,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
             });
         } else {
             var fileUrl = "https://cryptic-waters-41617.herokuapp.com/public/assets/images/image-profile-placeholder.png";
-            var name = "art_work";
+            var name = "image-profile-placeholder.png";
             console.log("FILEURL "+fileUrl);
 
             var options = {
