@@ -322,6 +322,7 @@ app.post('/login', function (req, res) {
         res.cookie('name', user.get("name"));
         res.cookie('email_verified', user.get("emailVerified"));
         res.cookie('userType', user.get("type"));
+
         var status = user.get("image_set");
         if (status === true) {
             res.cookie('profile_image', user.get("image").url());
@@ -429,7 +430,7 @@ app.get('/home', function (req, res) {
     var name = req.cookies.name;
     var user_info = req.cookies.userId;
     var isVerified = req.cookies.email_verified;
-    var userType = res.cookies.userType;
+    var userType = req.cookies.userType;
 
     console.log("EMAIL VERIFIED " + isVerified);
     if (session && token) {
