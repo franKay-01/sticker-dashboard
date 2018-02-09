@@ -169,6 +169,7 @@ label{
 .send_to_review{
     color: #641f8c;
     border: solid;
+    background: white;
     border-radius: 10px 0px;
     margin-left: 120px;
 }
