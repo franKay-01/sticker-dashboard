@@ -472,7 +472,7 @@ app.get('/home', function (req, res) {
             // Parse.Cloud.run("stickerNumber").then(function () {
             // });
             console.log("REACHED FIRST SIDE "+userType);
-            if (userType === 2) {
+            if (userType === "2") {
                 res.render("pages/home", {
                     collections: _collection,
                     categories: _categories,
@@ -483,7 +483,7 @@ app.get('/home', function (req, res) {
                     user_name: name,
                     verified: isVerified
                 });
-            } else if (userType === 0) {
+            } else if (userType === "0") {
                 console.log("REACHED SECOND SIDE "+userType);
                 res.redirect("/admin_home");
             }
