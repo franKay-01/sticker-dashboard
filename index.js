@@ -34,7 +34,6 @@ let PENDING = 0;
 let REVIEW = 1;
 let APPROVED = 2;
 
-var userType;
 // let PacksClass = "Packss";
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 // let databaseUri = config.DATABASE_URI; //for google
@@ -330,7 +329,7 @@ app.post('/login', function (req, res) {
             res.cookie('profile_image', "null");
         }
 
-        userType = user.get("type");
+        var userType = user.get("type");
         console.log("USER TYPE "+userType);
         req.session.token = user.getSessionToken();
 
@@ -470,7 +469,7 @@ app.get('/home', function (req, res) {
 
             // Parse.Cloud.run("stickerNumber").then(function () {
             // });
-
+            var userType = res.cookies.userType;
             if (userType === 2) {
                 res.render("pages/home", {
                     collections: _collection,
