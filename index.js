@@ -1006,6 +1006,7 @@ app.get('/pack/:id', function (req, res) {
         collection.get(coll_id, {
             success: function (collection) {
                 var coll_name = collection.get("pack_name");
+                var pack_status = collection.get("status");
                 //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
 
                 var col = collection.relation(PacksClass);
@@ -1015,7 +1016,8 @@ app.get('/pack/:id', function (req, res) {
                         stickers: stickers,
                         id: coll_id,
                         collectionName: coll_name,
-                        userType: user
+                        userType: user,
+                        status: pack_status
                     });
                 }, function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
@@ -1044,6 +1046,25 @@ app.get('/add_stickers/:id/:pack_name', function (req, res) {
         res.render("pages/add_sticker", {id: coll_id, coll_name: col_name});
     } else {
         res.redirect("/");
+    }
+});
+
+app.get('/send_for_review/:id', function (req, res) {
+    var session = req.session.token;
+    var token = req.cookies.token;
+    var pack_id = req.params.id;
+
+    if (session && token){
+        new Parse.Query(PacksClass).equalTo("objectId",pack_id).find().then(function (pack) {
+            pack.set("status",REVIEW);
+            return pack.save();
+        }).then(function () {
+            console.log("PACK SUBMITTED FOR REVIEW");
+            res.redirect('/pack/' + pack_id);
+        }, function (error) {
+            console.log("PACK NOT SUBMITTED FOR REVIEW. ERROR " + error.message);
+            res.redirect('/pack/' + pack_id);
+        })
     }
 });
 
