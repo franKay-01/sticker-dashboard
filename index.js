@@ -468,8 +468,8 @@ app.get('/home', function (req, res) {
 
             }
 
-            Parse.Cloud.run("stickerNumber").then(function () {
-            });
+            // Parse.Cloud.run("stickerNumber").then(function () {
+            // });
 
             if (userType === 2) {
                 res.render("pages/home", {
