@@ -396,8 +396,8 @@ app.get('/admin_home', function (req, res) {
 
             }
 
-            Parse.Cloud.run("stickerNumber").then(function () {
-            });
+            // Parse.Cloud.run("stickerNumber").then(function () {
+            // });
 
             res.render("pages/admin_home", {
                 collections: _collection,
