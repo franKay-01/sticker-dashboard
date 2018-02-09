@@ -429,6 +429,7 @@ app.get('/home', function (req, res) {
     var name = req.cookies.name;
     var user_info = req.cookies.userId;
     var isVerified = req.cookies.email_verified;
+    var userType = res.cookies.userType;
 
     console.log("EMAIL VERIFIED " + isVerified);
     if (session && token) {
@@ -469,7 +470,7 @@ app.get('/home', function (req, res) {
 
             // Parse.Cloud.run("stickerNumber").then(function () {
             // });
-            var userType = res.cookies.userType;
+
             if (userType === 2) {
                 res.render("pages/home", {
                     collections: _collection,
