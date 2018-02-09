@@ -34,6 +34,7 @@ let PENDING = 0;
 let REVIEW = 1;
 let APPROVED = 2;
 
+var userType;
 // let PacksClass = "Packss";
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 // let databaseUri = config.DATABASE_URI; //for google
@@ -329,7 +330,7 @@ app.post('/login', function (req, res) {
             res.cookie('profile_image', "null");
         }
 
-        var userType = user.get("type");
+        userType = user.get("type");
         console.log("USER TYPE "+userType);
         req.session.token = user.getSessionToken();
 
