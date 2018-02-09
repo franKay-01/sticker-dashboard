@@ -470,16 +470,21 @@ app.get('/home', function (req, res) {
             Parse.Cloud.run("stickerNumber").then(function () {
             });
 
-            res.render("pages/home", {
-                collections: _collection,
-                categories: _categories,
-                categoryLength: helper.leadingZero(categoryLength),
-                packLength: helper.leadingZero(packLength),
-                stickerLength: helper.leadingZero(stickerLength),
-                username: username,
-                user_name: name,
-                verified: isVerified
-            });
+            if (userType === 2) {
+                res.render("pages/home", {
+                    collections: _collection,
+                    categories: _categories,
+                    categoryLength: helper.leadingZero(categoryLength),
+                    packLength: helper.leadingZero(packLength),
+                    stickerLength: helper.leadingZero(stickerLength),
+                    username: username,
+                    user_name: name,
+                    verified: isVerified
+                });
+            } else if (userType === 0) {
+                res.redirect("/admin_home");
+            }
+
 
         }, function (error) {
             //TODO how to display error on home page
