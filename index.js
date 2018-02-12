@@ -14,6 +14,7 @@ let _ = require('underscore');
 let helper = require('./cloud/modules/helpers');
 let methodOverride = require('method-override');
 let download = require('image-downloader');
+let Mailgun = require('mailgun-js');
 let resolve = require('path').resolve;
 
 let config = require('./config.json');
