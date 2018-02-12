@@ -529,10 +529,10 @@ app.get('/reset_email', function (req, res) {
     var user_info = req.cookies.userId;
 
     if (session && token) {
-        new Parse.Query("User").equalTo("objectId", user_info).find().then(function (user) {
+        new Parse.Query("User").equalTo("objectId", user_info).first().then(function (user) {
             console.log("USER FROM RESET " + JSON.stringify(user) + " CURRENT USER " + Parse.User.current());
             user.set("email", "test@gmail.com");
-            user.set("username", "test@gmail.com");
+            // user.set("username", "test@gmail.com");
             return user.save();
         }).then(function (result) {
             console.log("EMAIL CHANGED SUCCESSFULLY " + JSON.stringify(result));
@@ -1077,7 +1077,7 @@ app.get('/add_stickers/:id/:pack_name', function (req, res) {
 
     if (session && token) {
         res.render("pages/add_sticker", {id: coll_id, coll_name: col_name});
-    } else {
+    } els e {
         res.redirect("/");
     }
 });
@@ -1242,7 +1242,7 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
     console.log("IMAGE CHANGED " + imgChange);
 
     if (session && token) {
-        new Parse.Query("User").equalTo("objectId", user_Id).find().then(function (user) {
+        new Parse.Query("User").equalTo("objectId", user_Id).first().then(function (user) {
             var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
             var parseFile = new Parse.File(file.originalname, {base64: bitmap}, file.mimetype);
             user.set("facebook_handle", facebook);
