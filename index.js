@@ -579,6 +579,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 sticker.set("stickerName", stickerName);
                 sticker.set("localName", stickerName);
                 sticker.set("uri", parseFile);
+                sticker.set("user_id",req.cookies.userId);
                 sticker.set("parent", collection);
 
                 stickerDetails.push(sticker);
