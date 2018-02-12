@@ -452,8 +452,8 @@ app.get('/home', function (req, res) {
             //count all objects
             //TODO have a stats class
             new Parse.Query(CategoryClass).count(),
-            new Parse.Query(PacksClass).count(),
-            new Parse.Query(StickerClass).count()
+            new Parse.Query(PacksClass).equalTo("user_id", user_info).count(),
+            new Parse.Query(StickerClass).equalTo("user_id", user_info).count()
         ).then(function (collection, categories, categoryLength, packLength, stickerLength) {
 
             let _collection = [];
