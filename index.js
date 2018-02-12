@@ -616,6 +616,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
             return stickerCollection.save();
 
         }).then(function () {
+            console.log("EMAIL IS "+req.cookies.username);
             var mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
             var data = {
                 //Specify email data
@@ -636,7 +637,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 else {
                     //Here "submitted.jade" is the view file for this landing page
                     //We pass the variable "email" from the url parameter in an object rendered by Jade
-                    console.log("EMAIL SENT");
+                    console.log("EMAIL SENT" + body);
                 }
             });
             console.log("REDIRECT TO PACK COLLECTION");
