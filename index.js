@@ -616,6 +616,29 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
             return stickerCollection.save();
 
         }).then(function () {
+            var mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
+            var data = {
+                //Specify email data
+                from: process.env.EMAIL_FROM || "test@example.com",
+                //The email to contact
+                to: req.cookies.username,
+                //Subject and text data
+                subject: 'Stickers Uploaded',
+                html: fs.readFileSync("./verification/password_reset_email.html", "utf8")
+            }
+
+            mailgun.messages().send(data, function (error, body) {
+                //If there is an error, render the error page
+                if (error) {
+                    console.log("BIG BIG ERROR: ", error.message);
+                }
+                //Else we can greet    and leave
+                else {
+                    //Here "submitted.jade" is the view file for this landing page
+                    //We pass the variable "email" from the url parameter in an object rendered by Jade
+                    console.log("EMAIL SENT");
+                }
+            });
             console.log("REDIRECT TO PACK COLLECTION");
             res.redirect("/pack/" + collectionId);
 
