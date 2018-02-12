@@ -616,29 +616,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
             return stickerCollection.save();
 
         }).then(function () {
-
-            var transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: 'fkay0450@gmail.com',
-                    pass: '0450wonderful'
-                }
-            });
-
-            var mailOptions = {
-                from: 'fkay0450@gmail.com',
-                to: 'franciskornu@gmail.com',
-                subject: 'Sending Email using Node.js',
-                text: 'That was easy!'
-            };
-
-            transporter.sendMail(mailOptions, function(error, info){
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log('Email sent: ' + info.response);
-                }
-            });
             console.log("REDIRECT TO PACK COLLECTION");
             res.redirect("/pack/" + collectionId);
 
