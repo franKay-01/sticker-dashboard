@@ -625,7 +625,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 to: req.cookies.username,
                 //Subject and text data
                 subject: 'Stickers Uploaded',
-                html: fs.readFileSync("./verification/password_reset_email.html", "utf8")
+                html: fs.readFileSync("./uploads/sticker_upload.html", "utf8")
             }
 
             mailgun.messages().send(data, function (error, body) {
