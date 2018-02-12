@@ -332,7 +332,7 @@ app.post('/login', function (req, res) {
         }
 
         var userType = user.get("type");
-        console.log("USER TYPE "+userType);
+        console.log("USER TYPE " + userType);
         req.session.token = user.getSessionToken();
 
         // new Parse.Query('_Session')
@@ -376,7 +376,7 @@ app.get('/admin_home', function (req, res) {
         username = username.substring(0, username.indexOf('@'));
 
         Parse.Promise.when(
-            new Parse.Query(PacksClass).notEqualTo("status",PENDING).find(),
+            new Parse.Query(PacksClass).notEqualTo("status", PENDING).find(),
             new Parse.Query(CategoryClass).find(),
             //count all objects
             //TODO have a stats class
@@ -390,7 +390,7 @@ app.get('/admin_home', function (req, res) {
 
             if (collection.length) {
                 _collection = collection;
-                console.log("PACK INFO "+JSON.stringify(_collection));
+                console.log("PACK INFO " + JSON.stringify(_collection));
             }
 
             if (categories.length) {
@@ -472,7 +472,7 @@ app.get('/home', function (req, res) {
 
             // Parse.Cloud.run("stickerNumber").then(function () {
             // });
-            console.log("REACHED FIRST SIDE "+userType);
+            console.log("REACHED FIRST SIDE " + userType);
             if (userType === "2") {
                 res.render("pages/home", {
                     collections: _collection,
@@ -485,7 +485,7 @@ app.get('/home', function (req, res) {
                     verified: isVerified
                 });
             } else if (userType === "0") {
-                console.log("REACHED SECOND SIDE "+userType);
+                console.log("REACHED SECOND SIDE " + userType);
                 res.redirect("/admin_home");
             }
 
@@ -580,7 +580,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 sticker.set("stickerName", stickerName);
                 sticker.set("localName", stickerName);
                 sticker.set("uri", parseFile);
-                sticker.set("user_id",req.cookies.userId);
+                sticker.set("user_id", req.cookies.userId);
                 sticker.set("parent", collection);
 
                 stickerDetails.push(sticker);
@@ -620,10 +620,15 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                    user: 'fkay0450@gmail.com',
-                    pass: '0450wonderful'
-                }
-            });
+                    address: 'smtp.gmail.com',
+                    port: 587,
+                    domain: 'gmail.com',
+                    username: 'fkay0450@gmail.com',
+                    password: '0450wonderful',
+                    encryption: yes
+        }
+        })
+            ;
 
             var mailOptions = {
                 from: 'fkay0450@gmail.com',
@@ -632,7 +637,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 text: 'That was easy!'
             };
 
-            transporter.sendMail(mailOptions, function(error, info){
+            transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
                     console.log(error);
                 } else {
@@ -1086,9 +1091,9 @@ app.get('/send_for_review/:id', function (req, res) {
     var token = req.cookies.token;
     var pack_id = req.params.id;
 
-    if (session && token){
-        new Parse.Query(PacksClass).equalTo("objectId",pack_id).find().then(function (pack) {
-            pack.set("status",REVIEW);
+    if (session && token) {
+        new Parse.Query(PacksClass).equalTo("objectId", pack_id).find().then(function (pack) {
+            pack.set("status", REVIEW);
             return pack.save();
         }).then(function () {
             console.log("PACK SUBMITTED FOR REVIEW");
@@ -1111,7 +1116,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
     var version = parseInt(req.body.version);
     var user_info = req.cookies.userId;
 
-    console.log("FILE CONTENT "+files.length);
+    console.log("FILE CONTENT " + files.length);
     // console.log("FILE "+JSON.stringify(files)+" COLL NAME "+coll_name+ " PRICE "+pricing+ " VERSION "+version);
     // files.forEach(function (file) {
     //     console.log("ORIGINAL "+file.originalname);
@@ -1144,7 +1149,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
         } else {
             var fileUrl = "https://cryptic-waters-41617.herokuapp.com/public/assets/images/image-profile-placeholder.png";
             var name = "image-profile-placeholder.png";
-            console.log("FILEURL "+fileUrl);
+            console.log("FILEURL " + fileUrl);
 
             var options = {
                 url: fileUrl,
@@ -1160,7 +1165,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
                 pack.save().then(function () {
                     res.redirect('/pack/' + collection.id);
                 }, function (error) {
-                    console.log("BIG ERROR "+error.message);
+                    console.log("BIG ERROR " + error.message);
                     res.redirect('/pack/' + collection.id);
                 })
             })
