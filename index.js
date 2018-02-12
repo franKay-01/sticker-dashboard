@@ -1077,7 +1077,7 @@ app.get('/add_stickers/:id/:pack_name', function (req, res) {
 
     if (session && token) {
         res.render("pages/add_sticker", {id: coll_id, coll_name: col_name});
-    } els e {
+    } else {
         res.redirect("/");
     }
 });
