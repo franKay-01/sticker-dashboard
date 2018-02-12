@@ -1088,7 +1088,7 @@ app.get('/send_for_review/:id', function (req, res) {
     var pack_id = req.params.id;
 
     if (session && token){
-        new Parse.Query(PacksClass).equalTo("objectId",pack_id).find().then(function (pack) {
+        new Parse.Query(PacksClass).equalTo("objectId",pack_id).first().then(function (pack) {
             console.log("PACKS "+pack);
             pack.set("status",REVIEW);
             return pack.save();
