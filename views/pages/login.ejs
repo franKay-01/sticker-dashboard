@@ -76,16 +76,17 @@
     Parse.initialize("d55f9778-9269-40c2-84a2-e0caaf2ad87a");
     Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
-    $('#login').submit(function(e) {
+    let login = $("#login");
+    login.submit(function(e) {
         e.preventDefault();
         // get all the inputs into an array.
-        let $inputs = $('#login :input');
-        ('#login').find(':submit').disable();
+        let inputs = (login+' :input');
+        login.find(':submit').disable();
 
         // not sure if you wanted this, but I thought I'd add it.
         // get an associative array of just the values.
         let values = {};
-        $inputs.each(function() {
+        inputs.each(function() {
             values[this.name] = $(this).val();
         });
 
@@ -95,10 +96,10 @@
         }).then(function(user){
             console.log(user);
           //  document.location = "/home";
-            ('#login').find(':submit').enable();
+            login.find(':submit').enable();
         },function(error){
             console.log(error);
-            ('#login').find(':submit').enable();
+            login.find(':submit').enable();
         })
 
     });
