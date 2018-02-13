@@ -106,14 +106,13 @@
 
             Parse.User.become(user.getSessionToken()).then(() => {
 
-
                 let days = 30
                 setCookie("token", user.getSessionToken(), days)
                 setCookie("username", user.getUsername(), days);
                 setCookie("name", user.get("name"), days);
-                setCookie("userId", user.id, days);
                 setCookie("email_verified", user.get("emailVerified"), days);
                 setCookie("userType", user.get("type"), days);
+                setCookie("userId", user.id, days);
 
                 document.location = "/home";
 
