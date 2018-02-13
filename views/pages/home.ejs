@@ -22,6 +22,16 @@
         $(document).ready(function () {
             //your code here
             $('.chips').material_chip();
+            $('.chips-autocomplete').material_chip({
+                autocompleteOptions: {
+                    data: {
+                        'Apple': null,
+                        'Microsoft': null,
+                        'Google': null
+                    },
+                    limit: Infinity,
+                    minLength: 1
+                }
         });
 
     </script>
@@ -63,10 +73,11 @@
                               name="pack_description" required="" aria-required="true"></textarea><br>
                     <input type="number" class="_pack common_pack_detail validate" placeholder="Pack Version"
                            name="version" required="" aria-required="true"><br>
-                    <div class="chip _pack common_pack_detail">
-                        Tag
-                        <i class="close material-icons">close</i>
+
+                    <div class="chips chips-autocomplete">
+                        <input type="text" name="keyword"><i class="close material-icons">close</i>
                     </div>
+
                     <div style="margin-bottom: 10px">
                         <input name="pricing" type="radio" id="pricing1" value="0"/>
                         <label for="pricing1" class="_label">Free</label>
