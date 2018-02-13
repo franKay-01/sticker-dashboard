@@ -425,28 +425,24 @@ app.get('/admin_home', function (req, res) {
 
 app.get('/home', function (req, res) {
 
-    /*let session = req.session.token;
     let token = req.cookies.token;
     let username = req.cookies.username;
     let name = req.cookies.name;
     let user_info = req.cookies.userId;
     let isVerified = req.cookies.email_verified;
-    let userType = req.cookies.userType;*/
+    let userType = req.cookies.userType;
 
+   if (token) {
 
-    res.send("token :" + req.cookies.token);
+        new Parse.Query('_Session')
+            .equalTo('sessionToken', token)
+            .include('user').first().then(function (user) {
+            console.log("SESSION DATA: "+JSON.stringify(user));
+        }, function (error) {
+            console.log("SESSION DATA ERROR: "+JSON.stringify(error));
+        });
 
-   // if (session && token) {
-
-        // new Parse.Query('_Session')
-        //     .equalTo('sessionToken', token)
-        //     .include('user').first().then(function (user) {
-        //     console.log("SESSION DATA: "+JSON.stringify(user));
-        // }, function (error) {
-        //     console.log("SESSION DATA ERROR: "+JSON.stringify(error));
-        // });
-
-        /*username = username.substring(0, username.indexOf('@'));
+        username = username.substring(0, username.indexOf('@'));
         const limit = 3;
 
         Parse.Promise.when(
@@ -472,8 +468,6 @@ app.get('/home', function (req, res) {
 
             }
 
-            // Parse.Cloud.run("stickerNumber").then(function () {
-            // });
             console.log("REACHED FIRST SIDE "+userType);
             if (userType === "2") {
                 res.render("pages/home", {
@@ -496,11 +490,11 @@ app.get('/home', function (req, res) {
             //TODO how to display error on home page
             console.log(JSON.stringify(error));
             res.redirect("/home");
-        });*/
+        });
 
-    /*} else {
+    } else {
         res.redirect("/");
-    }*/
+    }
 });
 
 app.get('/forget_password', function (req, res) {

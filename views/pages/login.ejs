@@ -105,8 +105,18 @@
             console.log("user", user);
 
             Parse.User.become(user.getSessionToken()).then(() => {
-                setCookie("token", user.getSessionToken(), 30)
+
+
+                let days = 30
+                setCookie("token", user.getSessionToken(), days)
+                setCookie("username", user.getUsername(), days);
+                setCookie("name", user.get("name"), days);
+                setCookie("userId", user.getId(), days);
+                setCookie("email_verified", user.get("email_verified"), days);
+                setCookie("userType", user.get("userType"), days);
+
                 document.location = "/home";
+
             }, error => {
                 console.log("Not become:::" + error.message);
             })
