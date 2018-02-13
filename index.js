@@ -314,52 +314,6 @@ app.post('/login', function (req, res) {
     let username = req.body.username;
     let password = req.body.password;
 
-    Parse.Cloud.run("login",{username:username, password:password}).then(function (user) {
-
-        res.cookie('token', user.getSessionToken());
-        res.cookie('username', user.getUsername());
-        res.cookie('userId', user.id);
-        res.cookie('name', user.get("name"));
-        res.cookie('email_verified', user.get("emailVerified"));
-        res.cookie('userType', user.get("type"));
-
-        var status = user.get("image_set");
-        if (status === true) {
-            res.cookie('profile_image', user.get("image").url());
-        } else {
-            res.cookie('profile_image', "null");
-        }
-
-        var userType = user.get("type");
-        console.log("USER TYPE "+userType);
-        req.session.token = user.getSessionToken();
-
-
-        errorMessage = "";
-
-        if (userType === 2) {
-            res.redirect("/home");
-        } else if (userType === 0) {
-            res.redirect("/admin_home");
-        }
-
-
-    }, function (error) {
-        //TODO render error message
-        //TODO handle errors
-        console.log("ERROR WHEN LOGGIN IN " + error);
-        errorMessage = error.message;
-        res.redirect("/");
-
-    });
-});
-
-//login the user in using Parse
-/*app.post('/login', function (req, res) {
-
-    let username = req.body.username;
-    let password = req.body.password;
-
     Parse.User.logIn(username, password).then(function (user) {
 
         console.log("SESSIONS TOKEN " + user.get('sessionToken'));
@@ -408,7 +362,7 @@ app.post('/login', function (req, res) {
         res.redirect("/");
 
     });
-});*/
+});
 
 app.get('/admin_home', function (req, res) {
     var session = req.session.token;
@@ -471,16 +425,18 @@ app.get('/admin_home', function (req, res) {
 
 app.get('/home', function (req, res) {
 
-    var session = req.session.token;
-    var token = req.cookies.token;
-    var username = req.cookies.username;
-    var name = req.cookies.name;
-    var user_info = req.cookies.userId;
-    var isVerified = req.cookies.email_verified;
-    var userType = req.cookies.userType;
+    /*let session = req.session.token;
+    let token = req.cookies.token;
+    let username = req.cookies.username;
+    let name = req.cookies.name;
+    let user_info = req.cookies.userId;
+    let isVerified = req.cookies.email_verified;
+    let userType = req.cookies.userType;*/
 
-    console.log("EMAIL VERIFIED " + isVerified);
-    if (session && token) {
+    console.log("SESSION TOKEN " + req.sessionToken);
+    res.send(req.sessionToken)
+
+   // if (session && token) {
 
         // new Parse.Query('_Session')
         //     .equalTo('sessionToken', token)
@@ -490,7 +446,7 @@ app.get('/home', function (req, res) {
         //     console.log("SESSION DATA ERROR: "+JSON.stringify(error));
         // });
 
-        username = username.substring(0, username.indexOf('@'));
+        /*username = username.substring(0, username.indexOf('@'));
         const limit = 3;
 
         Parse.Promise.when(
@@ -540,11 +496,11 @@ app.get('/home', function (req, res) {
             //TODO how to display error on home page
             console.log(JSON.stringify(error));
             res.redirect("/home");
-        });
+        });*/
 
-    } else {
+    /*} else {
         res.redirect("/");
-    }
+    }*/
 });
 
 app.get('/forget_password', function (req, res) {

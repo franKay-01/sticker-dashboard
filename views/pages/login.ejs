@@ -43,7 +43,7 @@
     <div class="grid-x grid-margin-x">
         <div class="medium-3 large-3 cell login_card">
             <!-- Form to allow user login-->
-            <form action="/login" method="post">
+            <form id="login" action="/login" method="post">
                 <fieldset>
                     <input style="margin-top: 30px;font-size: 1.5rem !important;" class="box" placeholder="Email"
                            type="email" tabindex="1" name="username"><br>
@@ -70,6 +70,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/custom.js">
+</script>
+<script type="application/javascript">
+
+    $('#login').submit(function(e) {
+        e.preventDefault();
+        // get all the inputs into an array.
+        let $inputs = $('#login :input');
+
+        // not sure if you wanted this, but I thought I'd add it.
+        // get an associative array of just the values.
+        let values = {};
+        $inputs.each(function() {
+            values[this.name] = $(this).val();
+        });
+
+        Parse.Cloud.run("login",{
+            username:values.username,
+            password:values.password
+        }).then(function(){
+            document.location = "/home";
+        })
+
+    });
 </script>
 
 </body>
