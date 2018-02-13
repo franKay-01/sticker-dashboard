@@ -81,7 +81,7 @@
         e.preventDefault();
         // get all the inputs into an array.
         let inputs = (login+' :input');
-        login.find(':submit').disable();
+        login.find(':submit').attr("disabled", "disabled");
 
         // not sure if you wanted this, but I thought I'd add it.
         // get an associative array of just the values.
@@ -96,10 +96,10 @@
         }).then(function(user){
             console.log(user);
           //  document.location = "/home";
-            login.find(':submit').enable();
+            login.find(':submit').removeAttr('disabled');
         },function(error){
             console.log(error);
-            login.find(':submit').enable();
+            login.find(':submit').removeAttr('disabled');
         })
 
     });
