@@ -73,39 +73,47 @@
 </script>
 <script type="application/javascript">
 
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            let date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
     Parse.initialize("d55f9778-9269-40c2-84a2-e0caaf2ad87a");
     Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
-    $('#login').submit(function(e) {
-        e.preventDefault();
-        // get all the inputs into an array.
-        let $inputs = $('#login :input');
+    $('#login').submit(function (e) {
 
-        // not sure if you wanted this, but I thought I'd add it.
-        // get an associative array of just the values.
+        e.preventDefault();
+
+        let $inputs = $('#login:input');
+
         let values = {};
-        $inputs.each(function() {
+        $inputs.each(function () {
             values[this.name] = $(this).val();
         });
 
-        Parse.Cloud.run("login",{
-            username:values.username,
-            password:values.password
-        }).then(function(user){
-            console.log("user",user);
+        Parse.Cloud.run("login", {
+            username: values.username,
+            password: values.password
+        }).then(user => {
 
-            Parse.User.become(user.getSessionToken(),{
-                success:function(){
-                    console.log("Current user::::::" + Parse.User.current());
-                     document.location = "/home";
-                },
-                error:function(error){
-                    console.log("Not become:::"+ error.message);
-                }
-            });
+            console.log("user", user);
 
-        },function(error){
-            console.log("error",error);
+            Parse.User.become(user.getSessionToken()).then(() => {
+                setCookie("token", user.getSessionToken(), 30)
+                document.location = "/home";
+            }, error => {
+                console.log("Not become:::" + error.message);
+            })
+
+
+        }, (error) => {
+            console.log("error", error);
         })
 
     });

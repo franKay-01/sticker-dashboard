@@ -434,7 +434,7 @@ app.get('/home', function (req, res) {
     let userType = req.cookies.userType;*/
 
 
-    res.send("am home")
+    res.send("token :" + req.cookies.token);
 
    // if (session && token) {
 
