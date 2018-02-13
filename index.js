@@ -433,8 +433,8 @@ app.get('/home', function (req, res) {
     let isVerified = req.cookies.email_verified;
     let userType = req.cookies.userType;*/
 
-    console.log("SESSION TOKEN " + req.sessionToken);
-    res.send(req.sessionToken)
+
+    res.send("am home")
 
    // if (session && token) {
 
