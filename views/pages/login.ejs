@@ -94,6 +94,15 @@
         }).then(function(user){
             console.log("user",user);
           //  document.location = "/home";
+            Parse.User.become(user.getSessionToken(),{
+                success:function(){
+                    console.log("Current user::::::" + Parse.User.current());
+                },
+                error:function(error){
+                    console.log("Not become:::"+ error.message);
+                }
+            });
+
         },function(error){
             console.log("error",error);
         })
