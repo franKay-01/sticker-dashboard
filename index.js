@@ -314,7 +314,7 @@ app.post('/login', function (req, res) {
     let username = req.body.username;
     let password = req.body.password;
 
-    Parse.cloud.run("login",{username:username, password:password}).then(function (user) {
+    Parse.Cloud.run("login",{username:username, password:password}).then(function (user) {
 
         res.cookie('token', user.getSessionToken());
         res.cookie('username', user.getUsername());
