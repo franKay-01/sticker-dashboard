@@ -50,6 +50,11 @@
 
         $( document ).ready(function() {
 
+            function runScript(e) {
+                if (e.keyCode === 13) {
+                    return false;
+                }
+            }
 
             $('.chips-autocomplete').material_chip({
                 secondaryPlaceholder: 'Ingrese síntomas',
@@ -304,7 +309,7 @@
                            name="version" required="" aria-required="true"><br>
 
                     <div class="chips chips-autocomplete _pack common_pack_detail" data-index="0" data-initialized="true">
-                        <input class="input" placeholder="">
+                        <input class="input" placeholder="" onkeypress="runScript()">
                         <ul class="autocomplete-content dropdown-content"></ul>
                     </div>
 
