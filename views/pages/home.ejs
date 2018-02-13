@@ -7,6 +7,7 @@
     <title>Home - Cyfa</title>
 
     <% include ../partials/fav.ejs %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
 
     <!-- Compiled and minified CSS -->
@@ -16,7 +17,9 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-
+    <!--<script>-->
+        <!--$('.chips').material_chip();-->
+    <!--</script>-->
 </head>
 
 <body class="primary-background-color">
@@ -55,13 +58,8 @@
                               name="pack_description" required="" aria-required="true"></textarea><br>
                     <input type="number" class="_pack common_pack_detail validate" placeholder="Pack Version"
                            name="version" required="" aria-required="true"><br>
-                    <select class="_pack common_pack_detail" multiple name="keyword" data-role="tagsinput">
-                        <option value="Amsterdam">Amsterdam</option>
-                        <option value="Washington">Washington</option>
-                        <option value="Sydney">Sydney</option>
-                        <option value="Beijing">Beijing</option>
-                        <option value="Cairo">Cairo</option>
-                    </select>
+                    <input type="text" class="_pack common_pack_detail" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="materialtags" />
+
                     <div style="margin-bottom: 10px">
                         <input name="pricing" type="radio" id="pricing1" value="0"/>
                         <label for="pricing1" class="_label">Free</label>
