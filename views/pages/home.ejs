@@ -48,7 +48,7 @@
         //     });
         // });
 
-        $( document ).ready(function() {
+        $(document).ready(function () {
 
             function runScript(e) {
                 if (e.keyCode === 13) {
@@ -296,22 +296,21 @@
     <div id="pageMask"></div>
     <div id="hiddenCreateForm">
         <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW PACK</div>
+            </center>
+            <div class="chips chips-autocomplete _pack common_pack_detail" data-index="0" data-initialized="true">
+                <input class="input" placeholder="" onkeypress="runScript()">
+                <ul class="autocomplete-content dropdown-content"></ul>
+            </div>
             <form id="pack_form" action="/new_pack" enctype="multipart/form-data" method="post">
                 <center>
-                    <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW PACK
-                    </div>
-
                     <input type="text" class="_pack common_pack_detail validate" placeholder="Pack name"
                            name="coll_name" required="" aria-required="true"><br>
                     <textarea class="_pack common_pack_detail validate" placeholder="Pack description"
                               name="pack_description" required="" aria-required="true"></textarea><br>
                     <input type="number" class="_pack common_pack_detail validate" placeholder="Pack Version"
                            name="version" required="" aria-required="true"><br>
-
-                    <div class="chips chips-autocomplete _pack common_pack_detail" data-index="0" data-initialized="true">
-                        <input class="input" placeholder="" onkeypress="runScript()">
-                        <ul class="autocomplete-content dropdown-content"></ul>
-                    </div>
 
                     <div style="margin-bottom: 10px">
                         <input name="pricing" type="radio" id="pricing1" value="0"/>
