@@ -314,6 +314,52 @@ app.post('/login', function (req, res) {
     let username = req.body.username;
     let password = req.body.password;
 
+    Parse.cloud.run("login",{username:username, password:password}).then(function (user) {
+
+        res.cookie('token', user.getSessionToken());
+        res.cookie('username', user.getUsername());
+        res.cookie('userId', user.id);
+        res.cookie('name', user.get("name"));
+        res.cookie('email_verified', user.get("emailVerified"));
+        res.cookie('userType', user.get("type"));
+
+        var status = user.get("image_set");
+        if (status === true) {
+            res.cookie('profile_image', user.get("image").url());
+        } else {
+            res.cookie('profile_image', "null");
+        }
+
+        var userType = user.get("type");
+        console.log("USER TYPE "+userType);
+        req.session.token = user.getSessionToken();
+
+
+        errorMessage = "";
+
+        if (userType === 2) {
+            res.redirect("/home");
+        } else if (userType === 0) {
+            res.redirect("/admin_home");
+        }
+
+
+    }, function (error) {
+        //TODO render error message
+        //TODO handle errors
+        console.log("ERROR WHEN LOGGIN IN " + error);
+        errorMessage = error.message;
+        res.redirect("/");
+
+    });
+});
+
+//login the user in using Parse
+/*app.post('/login', function (req, res) {
+
+    let username = req.body.username;
+    let password = req.body.password;
+
     Parse.User.logIn(username, password).then(function (user) {
 
         console.log("SESSIONS TOKEN " + user.get('sessionToken'));
@@ -362,7 +408,7 @@ app.post('/login', function (req, res) {
         res.redirect("/");
 
     });
-});
+});*/
 
 app.get('/admin_home', function (req, res) {
     var session = req.session.token;

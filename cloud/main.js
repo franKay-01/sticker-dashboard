@@ -8,6 +8,19 @@ var _stickers = 0;
 var _packs = 0;
 var _categories = 0;
 
+Parse.Cloud.define('login', function(req, res){
+
+    let username = req.params.username;
+    let password = req.params.password;
+
+    Parse.User.logIn(username, password).then(function(user){
+        res.success(user);
+    },function(error){
+        res.error(error);
+    });
+
+});
+
 Parse.Cloud.define("stickerNumber", function (req, res) {
 
     console.log("USER________"+JSON.stringify(req.user));
