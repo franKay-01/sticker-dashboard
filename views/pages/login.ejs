@@ -80,6 +80,7 @@
         e.preventDefault();
         // get all the inputs into an array.
         let $inputs = $('#login :input');
+        ('#login').find(':submit').disable();
 
         // not sure if you wanted this, but I thought I'd add it.
         // get an associative array of just the values.
@@ -91,8 +92,13 @@
         Parse.Cloud.run("login",{
             username:values.username,
             password:values.password
-        }).then(function(){
-            document.location = "/home";
+        }).then(function(user){
+            console.log(user);
+          //  document.location = "/home";
+            ('#login').find(':submit').enable();
+        },function(error){
+            console.log(error);
+            ('#login').find(':submit').enable();
         })
 
     });
