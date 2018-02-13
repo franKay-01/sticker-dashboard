@@ -93,10 +93,11 @@
             password:values.password
         }).then(function(user){
             console.log("user",user);
-          //  document.location = "/home";
+
             Parse.User.become(user.getSessionToken(),{
                 success:function(){
                     console.log("Current user::::::" + Parse.User.current());
+                     document.location = "/home";
                 },
                 error:function(error){
                     console.log("Not become:::"+ error.message);
