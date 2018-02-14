@@ -21,7 +21,16 @@
     <script src="/public/assets/js/materialize-tags.js"></script>
 
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script>
+        $('input').materialtags({
+            typeaheadjs: {
+            name: 'keyword',
+            displayKey: 'name',
+            valueKey: 'name',
+        }
+        });
 
+    </script>
 </head>
 
 <body class="primary-background-color">
