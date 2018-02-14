@@ -53,8 +53,12 @@
                     <!--<input class="input" placeholder="">-->
                     <!--<ul class="autocomplete-content dropdown-content"></ul>-->
                 <!--</div>-->
-                <input type="text" class="_pack common_pack_detail" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="materialtags" />
-
+                <div class="row mt-example">
+                    <div class="input-field col s12">
+                        <label for="tags">Tags</label>
+                        <input type="text" name="tags" id="tags" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="materialtags"/>
+                    </div>
+                </div>
             </center>
             <form id="pack_form" action="/new_pack" enctype="multipart/form-data" method="post">
                 <center>
