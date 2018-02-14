@@ -114,8 +114,9 @@
                 setCookie("userType", user.get("type"), days);
                 setCookie("userId", user.id, days);
 
-                console.log("USERTYPE "+ user.get("type"));
-                document.location = "/home";
+                console.log("USER TYPE "+ user.get("type"));
+                console.log("EMAIL VERIFIED "+ user.get("emailVerified"));
+               // document.location = "/home";
 
             }, error => {
                 console.log("Not become:::" + error.message);
