@@ -1187,15 +1187,15 @@ a {
 }
 
 .btn_pack_icon {
-    width: 112px;
-    height: 104px;
+    width: 300px;
+    height: 300px;
     object-fit: contain;
     display: block;
-    margin: 20px 90px auto !important;
-    margin-top: 82px !important;
 }
 
 .btn_admin_pack_icon{
+    width: 300px;
+    height: 300px;
     object-fit: contain;
     display: block;
     margin-top: 2px !important;
