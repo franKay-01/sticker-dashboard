@@ -1121,7 +1121,6 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
         pack.set("keyword", _keywords);
         pack.set("flag", false);
 
-        console.log("FIRST STEP");
         if (files.length !== 0) {
             files.forEach(function (file) {
                 var fullName = file.originalname;

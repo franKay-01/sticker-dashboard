@@ -118,6 +118,12 @@
                 setCookie("username", user.getUsername(), days);
                 setCookie("name", user.get("name"), days);
 
+                var status = user.get("image_set");
+                if (status === true) {
+                    setCookie('profile_image', user.get("image").url());
+                } else {
+                    setCookie('profile_image', "null");
+                }
                 console.log("USER TYPE "+ type);
                 console.log("EMAIL VERIFIED "+ emailVerified);
                 document.location = "/home";
