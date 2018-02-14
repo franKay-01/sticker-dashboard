@@ -114,6 +114,7 @@
                 setCookie("userType", user.get("type"), days);
                 setCookie("userId", user.id, days);
 
+                console.log("USERTYPE "+ user.get("type"));
                 document.location = "/home";
 
             }, error => {
