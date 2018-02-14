@@ -35,6 +35,10 @@ let PENDING = 0;
 let REVIEW = 1;
 let APPROVED = 2;
 
+let NORMAL = 2;
+let SUPER = 0;
+let _NORMAL = "2";
+let _SUPER = "0";
 // let PacksClass = "Packss";
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 // let databaseUri = config.DATABASE_URI; //for google
@@ -346,9 +350,9 @@ app.post('/login', function (req, res) {
 
         errorMessage = "";
 
-        if (userType === 2) {
+        if (userType === NORMAL) {
             res.redirect("/home");
-        } else if (userType === 0) {
+        } else if (userType === SUPER) {
             res.redirect("/admin_home");
         }
 
@@ -468,7 +472,7 @@ app.get('/home', function (req, res) {
             }
 
             console.log("REACHED FIRST SIDE "+userType);
-            if (userType === "2") {
+            if (userType === _NORMAL) {
                 res.render("pages/home", {
                     collections: _collection,
                     categories: _categories,
@@ -479,7 +483,7 @@ app.get('/home', function (req, res) {
                     user_name: name,
                     verified: isVerified
                 });
-            } else if (userType === "0") {
+            } else if (userType === _SUPER) {
                 console.log("REACHED SECOND SIDE "+userType);
                 res.redirect("/admin_home");
             }
