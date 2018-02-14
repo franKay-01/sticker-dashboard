@@ -365,13 +365,13 @@ app.post('/login', function (req, res) {
 });
 
 app.get('/admin_home', function (req, res) {
-    var session = req.session.token;
-    var token = req.cookies.token;
-    var username = req.cookies.username;
-    var name = req.cookies.name;
-    var isVerified = req.cookies.email_verified;
 
-    if (session && token) {
+    let token = req.cookies.token;
+    let username = req.cookies.username;
+    let name = req.cookies.name;
+    let isVerified = req.cookies.email_verified;
+
+    if (token) {
 
         username = username.substring(0, username.indexOf('@'));
 
