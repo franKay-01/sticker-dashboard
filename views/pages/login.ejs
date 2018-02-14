@@ -110,8 +110,8 @@
                 let type = user.get("type");
                 let emailVerified = user.get("emailVerified");
 
-                setCookie("email_verified", emailVerified, days);
                 setCookie("userType", type, days);
+                setCookie("email_verified", emailVerified, days);
                 setCookie("userId", user.id, days);
 
                 setCookie("token", user.getSessionToken(), days)
