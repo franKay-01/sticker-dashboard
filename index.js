@@ -1102,8 +1102,8 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
     var version = parseInt(req.body.version);
     var user_info = req.cookies.userId;
     var keywords = req.body.keyword;
-
-    console.log("KEYWORDS "+ JSON.stringify(keywords));
+    var _keywords = keywords.split(",");
+    console.log("KEYWORDS "+ JSON.stringify(_keywords));
 
     console.log("FILE CONTENT "+files.length);
 
