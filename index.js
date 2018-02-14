@@ -553,6 +553,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     var fileDetails = [];
     var stickerDetails = [];
     var stickerCollection;
+    var stickers = [];
 
     if (token) {
 
@@ -579,6 +580,10 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 sticker.set("uri", parseFile);
                 sticker.set("user_id",req.cookies.userId);
                 sticker.set("parent", collection);
+                sticker.set("categories", stickers);
+                sticker.set("flag", false);
+                sticker.set("archive", false);
+                sticker.set("sold", true);
 
                 stickerDetails.push(sticker);
                 fileDetails.push(file);
@@ -735,10 +740,11 @@ app.post('/new_category', function (req, res) {
     }
 });
 
-app.post('/review_pack/:id', function (req, res) {
+app.post('/review_pack/:id/:type', function (req, res) {
 
     var token = req.cookies.token;
-    var pack_id = req.params.id;
+    var id = req.params.id;
+    var type = req.params.type;
     var reviewer = req.cookies.userId;
     var comment = req.body.review_text;
     var status = req.body.approved;
@@ -748,7 +754,7 @@ app.post('/review_pack/:id', function (req, res) {
         var Reviews = new Parse.Object.extend(ReviewClass);
         var review = new Reviews();
 
-        new Parse.Query(PacksClass).equalTo("objectId", pack_id).first().then(function (pack) {
+        new Parse.Query(PacksClass).equalTo("objectId", id).first().then(function (pack) {
             console.log("PACK FROM REVIEW " + JSON.stringify(pack));
             if (status === "2") {
                 pack.set("status", APPROVED);
@@ -756,19 +762,26 @@ app.post('/review_pack/:id', function (req, res) {
                 pack.set("status", REVIEW);
             }
 
-            review.set("pack_id", pack);
             return pack.save();
 
         }).then(function () {
 
             if (status === "2") {
                 review.set("approved", true);
-            } else if (status === 1) {
+            } else if (status === "1") {
                 pack.set("status", "1");
                 review.set("approved", false);
             }
             review.set("comments", comment);
             review.set("reviewer", reviewer);
+            review.set("id", id);
+
+            if (type === "Pack"){
+                review.set("type",);
+            }else if (type === "Sticker"){
+                review.set("type",);
+            }
+
 
             return review.save();
         }).then(function () {
