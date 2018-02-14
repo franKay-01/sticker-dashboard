@@ -102,22 +102,24 @@
             password: values.password
         }).then(user => {
 
-            console.log("user", user);
+            Parse.User.become(user.getSessionToken()).then((user) => {
 
-            Parse.User.become(user.getSessionToken()).then(() => {
+                console.log("PARSE USER BECOME: " +user);
 
                 let days = 30
                 let type = user.get("type");
                 let emailVerified = user.get("emailVerified");
-                setCookie("token", user.getSessionToken(), days)
-                setCookie("username", user.getUsername(), days);
-                setCookie("name", user.get("name"), days);
+
                 setCookie("email_verified", emailVerified, days);
                 setCookie("userType", type, days);
                 setCookie("userId", user.id, days);
 
-                console.log("USER TYPE "+ user.get("type"));
-                console.log("EMAIL VERIFIED "+ user.get("emailVerified"));
+                setCookie("token", user.getSessionToken(), days)
+                setCookie("username", user.getUsername(), days);
+                setCookie("name", user.get("name"), days);
+
+                console.log("USER TYPE "+ type);
+                console.log("EMAIL VERIFIED "+ emailVerified);
                // document.location = "/home";
 
             }, error => {
