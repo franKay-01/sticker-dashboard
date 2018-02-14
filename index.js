@@ -222,10 +222,10 @@ app.use(mountPath, api);
 // Home Page
 app.get('/', function (req, res) {
 
-    var session = req.session.token;
+
     var token = req.cookies.token;
 
-    if (session && token) {
+    if (token) {
         res.redirect("/home");
     } else {
         //retrieve stickers to randomly display on the home page
@@ -293,7 +293,7 @@ app.post('/signup', function (req, res) {
                     res.cookie('profile_image', "null");
                 }
 
-                req.session.token = user.getSessionToken();
+
                 console.log("USER GETS TOKEN : " + user.getSessionToken());
                 res.redirect("/home");
             });
@@ -333,7 +333,6 @@ app.post('/login', function (req, res) {
 
         var userType = user.get("type");
         console.log("USER TYPE "+userType);
-        req.session.token = user.getSessionToken();
 
         // new Parse.Query('_Session')
         //     .equalTo('sessionToken', user.getSessionToken())
@@ -520,11 +519,10 @@ app.post('/reset_password', function (req, res) {
 });
 
 app.get('/reset_email', function (req, res) {
-    var session = req.session.token;
     var token = req.cookies.token;
     var user_info = req.cookies.userId;
 
-    if (session && token) {
+    if (token) {
         new Parse.Query("User").equalTo("objectId", user_info).first().then(function (user) {
             console.log("USER FROM RESET " + JSON.stringify(user) + " CURRENT USER " + Parse.User.current());
             user.set("email", "test@gmail.com");
@@ -544,7 +542,6 @@ app.get('/reset_email', function (req, res) {
 //UPLOAD MULTIPLE STICKERS
 app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
-    var session = req.session.token;
     var token = req.cookies.token;
     //TODO from coll_id to collectionId in the ejs file
     var collectionId = req.body.coll_id;
@@ -553,7 +550,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     var stickerDetails = [];
     var stickerCollection;
 
-    if (session && token) {
+    if (token) {
 
         //TODO remove unused logs
         new Parse.Query(PacksClass).equalTo("objectId", collectionId).first({sessionToken: token}).then(function (collection) {
@@ -656,11 +653,10 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 // FIND A SPECIFIC CATEGORY
 app.post('/find_category', function (req, res) {
 
-    var session = req.session.token;
     var token = req.cookies.token;
     var categoryName = req.body.searchCategory;
 
-    if (session && token) {
+    if (token) {
 
         var searchCategory = new Parse.Query(CategoryClass);
         searchCategory.equalTo("name", categoryName);
@@ -690,10 +686,10 @@ app.post('/find_category', function (req, res) {
 //SELECT CATEGORIES PAGE
 app.get('/categories', function (req, res) {
 
-    var session = req.session.token;
+
     var token = req.cookies.token;
 
-    if (session && token) {
+    if (token) {
 
         new Parse.Query(CategoryClass).find({sessionToken: token}).then(function (categories) {
 
@@ -711,12 +707,11 @@ app.get('/categories', function (req, res) {
 
 app.post('/new_category', function (req, res) {
 
-    var session = req.session.token;
     var token = req.cookies.token;
     //TODO update naming conventions
     var categoryName = req.body.catname;
 
-    if (session && token) {
+    if (token) {
 
         var Category = new Parse.Object.extend(CategoryClass);
         var categoryObject = new Category();
@@ -737,7 +732,7 @@ app.post('/new_category', function (req, res) {
 });
 
 app.post('/review_pack/:id', function (req, res) {
-    var session = req.session.token;
+
     var token = req.cookies.token;
     var pack_id = req.params.id;
     var reviewer = req.cookies.userId;
@@ -745,7 +740,7 @@ app.post('/review_pack/:id', function (req, res) {
     var status = req.body.approved;
 
     console.log("COMMENT " + comment + " STATUS " + status);
-    if (session && token) {
+    if (token) {
         var Reviews = new Parse.Object.extend(ReviewClass);
         var review = new Reviews();
 
@@ -783,11 +778,11 @@ app.post('/review_pack/:id', function (req, res) {
 });
 
 app.get('/review/:id', function (req, res) {
-    var session = req.session.token;
+
     var token = req.cookies.token;
     var pack_id = req.params.id;
 
-    if (session && token) {
+    if (token) {
         var pack = new Parse.Query(PacksClass);
         pack.get(pack_id, {
             success: function (pack) {
@@ -821,7 +816,7 @@ app.get('/review/:id', function (req, res) {
 });
 
 app.get('/user_profile', function (req, res) {
-    var session = req.session.token;
+
     var token = req.cookies.token;
     var name = req.cookies.name;
     var username = req.cookies.username;
@@ -830,7 +825,7 @@ app.get('/user_profile', function (req, res) {
 
     console.log("IMAGE " + _profile);
 
-    if (session && token) {
+    if (token) {
         new Parse.Query("User").equalTo("objectId", user_info).find({sessionToken: token}).then(function (user) {
 
             res.render("pages/profile", {username: name, email: username, profile: _profile});
@@ -845,12 +840,11 @@ app.get('/user_profile', function (req, res) {
 
 app.post('/update_category', function (req, res) {
 
-    var session = req.session.token;
     var token = req.cookies.token;
     var newName = req.body.catname;
     var currentId = req.body.categoryId;
 
-    if (session && token) {
+    if (token) {
 
         var category = new Parse.Query("Categories");
         category.equalTo("objectId", currentId);
@@ -878,13 +872,13 @@ app.post('/update_category', function (req, res) {
 
 //This is to remove stickers
 app.get('/delete_sticker/:id/:pid', function (req, res) {
-    var session = req.session.token;
+
     var token = req.cookies.token;
     var removeId = req.params.id;
     var pageId = req.params.pid;
 
 
-    if (session && token) {
+    if (token) {
         var sticker = new Parse.Query(StickerClass);
         sticker.equalTo("objectId", removeId);
 
@@ -908,11 +902,10 @@ app.get('/delete_sticker/:id/:pid', function (req, res) {
 
 app.post('/remove_category', function (req, res) {
 
-    var session = req.session.token;
     var token = req.cookies.token;
     var removeId = req.body.inputRemoveId;
 
-    if (session && token) {
+    if (token) {
 
         console.log("Category_________: " + JSON.stringify(req.body));
 
@@ -942,7 +935,6 @@ app.post('/remove_category', function (req, res) {
 //LOGOUT
 app.get('/logout', function (req, res) {
 
-    req.session = null;
     res.redirect("/");
 
 });
@@ -950,11 +942,10 @@ app.get('/logout', function (req, res) {
 // Dashboard
 app.get('/dashboard', function (req, res) {
 
-    var session = req.session.token;
     var token = req.cookies.token;
     console.log("TOKEN RETRIEVED FROM BROWSER " + token);
 
-    if (session && token) {
+    if (token) {
 
         new Parse.Query(StickerClass).find({sessionToken: token}).then(function (stickers) {
 
@@ -975,10 +966,10 @@ app.get('/dashboard', function (req, res) {
 });
 
 app.get('/second_dashboard', function (req, res) {
-    var session = req.session.token;
+
     var token = req.cookies.token;
 
-    if (session && token) {
+    if (token) {
 
         new Parse.Query(StickerClass).find({sessionToken: token}).then(function (stickers) {
 
@@ -999,11 +990,11 @@ app.get('/second_dashboard', function (req, res) {
 
 // Collection Dashboard
 app.get('/pack_collection', function (req, res) {
-    var session = req.session.token;
+
     var token = req.cookies.token;
     var user_info = req.cookies.userId;
 
-    if (session && token) {
+    if (token) {
         let query = new Parse.Query(PacksClass);
         query.equalTo("user_id", user_info).find({sessionToken: token}).then(function (collections) {
 
@@ -1025,12 +1016,11 @@ app.get('/pack_collection', function (req, res) {
 //Displays all stickers belonging to a selected collection
 app.get('/pack/:id', function (req, res) {
 
-    var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = req.params.id;
     var user = req.cookies.userType;
 
-    if (session && token) {
+    if (token) {
         var collection = new Parse.Query(PacksClass);
         collection.get(coll_id, {
             success: function (collection) {
@@ -1066,12 +1056,12 @@ app.get('/pack/:id', function (req, res) {
 
 // Add Stickers Version 1
 app.get('/add_stickers/:id/:pack_name', function (req, res) {
-    var session = req.session.token;
+
     var token = req.cookies.token;
     var coll_id = req.params.id;
     var col_name = req.params.pack_name;
 
-    if (session && token) {
+    if (token) {
         res.render("pages/add_sticker", {id: coll_id, coll_name: col_name});
     } else {
         res.redirect("/");
@@ -1079,11 +1069,11 @@ app.get('/add_stickers/:id/:pack_name', function (req, res) {
 });
 
 app.get('/send_for_review/:id', function (req, res) {
-    var session = req.session.token;
+
     var token = req.cookies.token;
     var pack_id = req.params.id;
 
-    if (session && token){
+    if (token){
         new Parse.Query(PacksClass).equalTo("objectId",pack_id).first().then(function (pack) {
             pack.set("status",REVIEW);
             return pack.save();
@@ -1099,7 +1089,7 @@ app.get('/send_for_review/:id', function (req, res) {
 
 // creating new packs
 app.post('/new_pack', upload.array('art'), function (req, res) {
-    var session = req.session.token;
+
     var token = req.cookies.token;
     var files = req.files;
     var pack_description = req.body.pack_description;
@@ -1113,7 +1103,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
 
     console.log("FILE CONTENT "+files.length);
 
-    // if (session && token) {
+    // if (token) {
     //
     //     var PackCollection = new Parse.Object.extend(PacksClass);
     //     var pack = new PackCollection();
@@ -1176,14 +1166,14 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
 
 //EDIT/STICKER DETAILS
 app.get('/details/:id/:coll_id', function (req, res) {
-    var session = req.session.token;
+
     var token = req.cookies.token;
     var id = req.params.id;
     var pack_ = req.params.coll_id;
     var stickerDetail;
     var allCategories;
 
-    if (session && token) {
+    if (token) {
 
         Parse.Promise.when(
             new Parse.Query(StickerClass).equalTo("objectId", id).first({sessionToken: token}),
@@ -1224,7 +1214,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
 });
 
 app.post('/update_user', upload.single('im1'), function (req, res) {
-    var session = req.session.token;
+
     var token = req.cookies.token;
     var name = req.body.name;
     var facebook = req.body.facebook;
@@ -1236,7 +1226,7 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
     var file = req.file;
     console.log("IMAGE CHANGED " + imgChange);
 
-    if (session && token) {
+    if (token) {
         new Parse.Query("User").equalTo("objectId", user_Id).first().then(function (user) {
             var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
             var parseFile = new Parse.File(file.originalname, {base64: bitmap}, file.mimetype);
@@ -1270,7 +1260,7 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
 //Update Sticker
 app.post('/update/:id/:pid', upload.single('im1'), function (req, res) {
 
-    var session = req.session.token;
+
     var token = req.cookies.token;
 
     //input fields from form
@@ -1298,7 +1288,7 @@ app.post('/update/:id/:pid', upload.single('im1'), function (req, res) {
         _listee.push(category);
     });
 
-    if (session && token) {
+    if (token) {
 
         Parse.Promise.when(
             new Parse.Query(StickerClass).equalTo("objectId", stickerId).first(),
@@ -1365,12 +1355,12 @@ app.post('/update/:id/:pid', upload.single('im1'), function (req, res) {
 });
 
 app.get('/upload_page/:id/:pack_name', function (req, res) {
-    var session = req.session.token;
+
     var token = req.cookies.token;
     var coll_id = req.params.id;
     var col_name = req.params.pack_name;
 
-    if (session && token) {
+    if (token) {
         res.render("pages/upload", {id: coll_id, coll_name: col_name});
     } else {
         res.redirect("/dashboard");
@@ -1383,12 +1373,11 @@ app.post('/upload_dropbox_file', function (req, res) {
     var bitmap;
     var name;
     var fileUrl;
-    var session = req.session.token;
     var token = req.cookies.token;
     var coll_id = req.body.coll_id;
     var stickerCollection;
 
-    if (session && token) {
+    if (token) {
 
         name = req.body.fileName;
         fileUrl = req.body.fileUrl; // receive url from form
