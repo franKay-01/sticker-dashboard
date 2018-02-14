@@ -107,11 +107,13 @@
             Parse.User.become(user.getSessionToken()).then(() => {
 
                 let days = 30
+                let type = user.get("type");
+                let emailVerified = user.get("emailVerified");
                 setCookie("token", user.getSessionToken(), days)
                 setCookie("username", user.getUsername(), days);
                 setCookie("name", user.get("name"), days);
-                setCookie("email_verified", user.get("emailVerified"), days);
-                setCookie("userType", user.get("type"), days);
+                setCookie("email_verified", emailVerified, days);
+                setCookie("userType", type, days);
                 setCookie("userId", user.id, days);
 
                 console.log("USER TYPE "+ user.get("type"));
