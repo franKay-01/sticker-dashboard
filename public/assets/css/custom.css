@@ -181,7 +181,7 @@ label{
     line-height: 0.96;
     text-align: left;
     margin-bottom: 15px;
-    color: #a46580;
+    color: #a46580 !important;
 }
 
 .create_background {
