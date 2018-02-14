@@ -15,10 +15,7 @@
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js"></script>
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
 
 </head>
 
@@ -54,16 +51,6 @@
                     <!--<input class="input" placeholder="">-->
                     <!--<ul class="autocomplete-content dropdown-content"></ul>-->
                 <!--</div>-->
-                    <input id="cities" class="form-control" value="New York,London" data-role="tagsinput" type="text">
-                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-                    <script>
-                        $(function() {
-                            $('#cities').tagsinput({
-                                maxTags: 3
-                            });
-                        });
-                    </script>
-
             </center>
             <form id="pack_form" action="/new_pack" enctype="multipart/form-data" method="post">
                 <center>
