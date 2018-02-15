@@ -1031,7 +1031,7 @@ app.get('/pack/:id', function (req, res) {
     var token = req.cookies.token;
     var coll_id = req.params.id;
     var user = req.cookies.userType;
-
+    console.log("USER TYPE FOR PACK "+user);
     if (token) {
         var collection = new Parse.Query(PacksClass);
         collection.get(coll_id, {
