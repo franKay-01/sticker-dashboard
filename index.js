@@ -1192,6 +1192,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
     var token = req.cookies.token;
     var id = req.params.id;
     var pack_ = req.params.coll_id;
+    var user = req.cookies.userType;
     var stickerDetail;
     var allCategories;
 
@@ -1218,12 +1219,22 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
             console.log("CATEGORY NAMES " + categoryNames);
 
-            res.render("pages/details", {
-                sticker: stickerDetail,
-                categoryNames: categoryNames,
-                categories: allCategories,
-                pack_id: pack_
-            });
+            if (user === _SUPER){
+                res.render("pages/admin_details", {
+                    sticker: stickerDetail,
+                    categoryNames: categoryNames,
+                    categories: allCategories,
+                    pack_id: pack_
+                });
+            }else{
+                res.render("pages/details", {
+                    sticker: stickerDetail,
+                    categoryNames: categoryNames,
+                    categories: allCategories,
+                    pack_id: pack_
+                });
+            }
+
 
         }, function (err) {
             //TODO handle error code

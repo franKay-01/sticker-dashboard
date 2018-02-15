@@ -1,0 +1,88 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sticker Details - Cyfa</title>
+
+    <% include ../partials/fav.ejs %>
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+
+</head>
+<body class="primary-background-color">
+<div class="grid-container">
+
+    <div class="grid-x grid-margin-x" id="opaqueDiv">
+        <div class="medium-3 large-3 cell login_card">
+            <div class="card_head_position">
+                <div class="stats">Menu</div>
+                <div><a class="_stickers" href="/home">Home</a></div>
+                <div><a class="_stickers_packs" href="/categories">Categories</a></div>
+            </div>
+        </div>
+
+    </div>
+    <form id="detailsForm" action="/review_sticker/<%= sticker.id %>/<%= pack_id %>" enctype="multipart/form-data"
+          method="post">
+        <div class="grid-x grid-margin-x">
+            <div class="medium-6 large-5 cell">
+                <div class="droppableArea">
+                    <div class="output" name="tfile"></div>
+                    <img id="im1" name="im1" style="width: 100%; height: 100%;" src="<%= sticker.get("uri").url() %>">
+                </div>
+            </div>
+            <div class="medium-6 large-5 cell">
+                <label class="update_label">Sticker Name:</label> <input placeholder="Sticker Name" class="box_2"
+                                                                         name="stickerName"
+                                                                         value="<%= sticker.get("stickerName") %>">
+
+                <!--if new img has been uploaded, set value to true-->
+                <input type="hidden" id="imgChange" name="imgChange" value="false">
+
+                <label class="update_label">Local Name:</label> <input placeholder="Local Name" class="box_2"
+                                                                       name="localname"
+                                                                       value="<%= sticker.get("localName") %>">
+
+                <label class="update_label">Category:</label>
+                <input placeholder="category e.g funny, silly"
+                       id="categoryInput" name="category"
+                       value="<%= categoryNames %>" disabled>
+                <input type="text" name="category_name" id="cat" style="display: none">
+
+                <div>
+                    <button type="button" id="addCategory" class="clear text_size">Click to Edit Category</button>
+                </div>
+
+
+            </div>
+            <div class="medium-12 large-12 cell" style="margin-top:10%;">
+                <center>
+                    <a href="/pack/<%= pack_id %>" class="cancel_btn">Cancel</a>
+                    <button type="button" class="cancel_btn delbtn" data-id="<%= sticker.id %>"
+                            value="<%= sticker.get("name") %>">Delete
+                    </button>
+                    <button class="update" type="submit">Update</button>
+                </center>
+            </div>
+        </div>
+    </form>
+    <%- include('../partials/footer') %>
+
+</div>
+
+</body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js"></script>
+<script type="text/javascript" src="/public/assets/js/fileup.js"></script>
+<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+</html>
