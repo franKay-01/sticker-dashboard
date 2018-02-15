@@ -66,19 +66,12 @@
                            value="<%= categoryNames %>" disabled>
                     <input type="text" name="category_name" id="cat" style="display: none">
 
-                    <div>
-                        <button type="button" id="addCategory" class="clear text_size">Click to Edit Category</button>
-                    </div>
-
-
                 </div>
                 <div class="medium-12 large-12 cell" style="margin-top:10%;">
                     <center>
                         <a href="/pack/<%= pack_id %>" class="cancel_btn">Cancel</a>
-                        <button type="button" class="cancel_btn delbtn" data-id="<%= sticker.id %>"
-                                value="<%= sticker.get("name") %>">Delete
-                        </button>
-                        <button class="update" type="submit">Update</button>
+
+                        <button class="update" type="submit">Submit Review</button>
                     </center>
                 </div>
             </div>
