@@ -1199,7 +1199,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
     if (token) {
 
         Parse.Promise.when(
-            new Parse.Query(StickerClass).equalTo("objectId", id).first({sessionToken: token}),
+            new Parse.Query(StickerClass).equalTo("objectId", id).first(),
             new Parse.Query(CategoryClass).find()
         ).then(function (sticker, categories) {
 
@@ -1234,15 +1234,13 @@ app.get('/details/:id/:coll_id', function (req, res) {
                     pack_id: pack_
                 });
             }
-
-
         }, function (err) {
             //TODO handle error code
             console.log("Error Loading-----------------------" + JSON.stringify(err));
         });
     }
     else {
-        res.redirect("/dashboard");
+        res.redirect("/");
     }
 });
 
