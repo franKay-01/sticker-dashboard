@@ -65,11 +65,17 @@
                     <input type="text" name="category_name" id="cat" style="display: none">
 
                     <div class="medium-6 large-5" style="color: #a46580">
-                        <ul class="dropdown menu" data-dropdown-menu>
-                            <li><a href="#">Item 1</a></li>
-                            <li><a href="#">Item 2</a></li>
-                            <li><a href="#">Item 3</a></li>
-                            <li><a href="#">Item 4</a></li>
+                        <!-- Dropdown Trigger -->
+                        <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Drop Me!</a>
+
+                        <!-- Dropdown Structure -->
+                        <ul id='dropdown1' class='dropdown-content'>
+                            <li><a href="#!">one</a></li>
+                            <li><a href="#!">two</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#!">three</a></li>
+                            <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+                            <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
                         </ul>
                     </div>
                     <textarea class="box_2 validate" placeholder="Review description"
