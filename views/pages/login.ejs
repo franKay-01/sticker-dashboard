@@ -118,7 +118,7 @@
                 setCookie("username", user.getUsername(), days);
                 setCookie("name", user.get("name"), days);
 
-                var status = user.get("image_set");
+                let status = user.get("image_set");
                 if (status === true) {
                     setCookie('profile_image', user.get("image").url());
                 } else {
