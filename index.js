@@ -740,7 +740,7 @@ app.post('/new_category', function (req, res) {
     }
 });
 
-app.post('/review_pack/:id/:type', function (req, res) {
+app.post('/review_pack/:id', function (req, res) {
 
     var token = req.cookies.token;
     var id = req.params.id;
@@ -775,13 +775,7 @@ app.post('/review_pack/:id/:type', function (req, res) {
             review.set("comments", comment);
             review.set("reviewer", reviewer);
             review.set("id", id);
-
-            if (type === "Pack"){
-                review.set("type",);
-            }else if (type === "Sticker"){
-                review.set("type",);
-            }
-
+            review.set("type", 0);
 
             return review.save();
         }).then(function () {
@@ -793,6 +787,7 @@ app.post('/review_pack/:id/:type', function (req, res) {
         });
     }
 });
+
 
 app.get('/review/:id', function (req, res) {
 
@@ -1048,26 +1043,34 @@ app.get('/pack/:id', function (req, res) {
                 var col = collection.relation(PacksClass);
                 col.query().find().then(function (stickers) {
 
-                    res.render("pages/new_pack", {
-                        stickers: stickers,
-                        id: coll_id,
-                        collectionName: coll_name,
-                        userType: user,
-                        status: pack_status
-                    });
+                    if (user === SUPER){
+                        res.render("pages/admin_pack", {
+                            stickers: stickers,
+                            id: coll_id,
+                            collectionName: coll_name,
+                            userType: user,
+                            status: pack_status
+                        });
+                    }else {
+                        res.render("pages/new_pack", {
+                            stickers: stickers,
+                            id: coll_id,
+                            collectionName: coll_name,
+                            userType: user,
+                            status: pack_status
+                        });
+                    }
+
                 }, function (error) {
                     response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
                 });
             }
         });
-
-
     }
     else {
         //No session exists, log in
         res.redirect("/");
     }
-
 });
 
 
@@ -1275,6 +1278,15 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
     }
 });
 
+app.post('review_sticker/:id/:pack_id', function (req, res) {
+    var token = req.cookies.token;
+    var id = req.params.id;
+    var type = req.params.pack_id;
+
+    if (token){
+
+    }
+});
 
 //Update Sticker
 app.post('/update/:id/:pid', upload.single('im1'), function (req, res) {
