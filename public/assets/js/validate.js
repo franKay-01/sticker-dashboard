@@ -16,8 +16,7 @@ function deleteAllCookies() {
 function logoutUser() {
     deleteAllCookies();
     Parse.User.logOut().then(function () {
-        console.log("logged out")
-      //  document.location = "/logout";
+     document.location = "/logout";
     });
 }
 
