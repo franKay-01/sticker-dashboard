@@ -1278,7 +1278,7 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
     }
 });
 
-app.post('review_sticker/:id/:pack_id', function (req, res) {
+app.post('/review_sticker/:id/:pack_id', function (req, res) {
     var token = req.cookies.token;
     var id = req.params.id;
     var type = req.params.pack_id;
