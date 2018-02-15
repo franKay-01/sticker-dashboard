@@ -65,18 +65,13 @@
                     <input type="text" name="category_name" id="cat" style="display: none">
 
                     <div class="medium-6 large-5" style="color: #a46580">
-                        <!-- Dropdown Trigger -->
-                        <a class='dropdown-button btn' href='#!' data-activates='dropdown1'>Drop Me!</a>
-
-                        <!-- Dropdown Structure -->
-                        <ul id='dropdown1' class='dropdown-content'>
-                            <li><a href="#!">one</a></li>
-                            <li><a href="#!">two</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#!">three</a></li>
-                            <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
-                            <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
-                        </ul>
+                        <label for="category">Materialize Select</label>
+                        <select id="category">
+                            <option value = "" disabled selected>Select Fruit</option>
+                            <option value = "1">Mango</option>
+                            <option value = "2">Orange</option>
+                            <option value = "3">Apple</option>
+                        </select>
                     </div>
                     <textarea class="box_2 validate" placeholder="Review description"
                               name="review_text" required="" aria-required="true"></textarea><br>
