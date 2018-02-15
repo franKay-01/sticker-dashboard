@@ -64,17 +64,15 @@
                            value="<%= categoryNames %>" disabled>
                     <input type="text" name="category_name" id="cat" style="display: none">
 
-                    <div class="medium-6 large-5" style="color: #a46580">
-                        <div class = "row">
-                        <label for="category">Materialize Select</label>
-                        <select id="category">
-                            <option value = "" disabled selected>Select Fruit</option>
-                            <option value = "1">Mango</option>
-                            <option value = "2">Orange</option>
-                            <option value = "3">Apple</option>
-                        </select>
-                        </div>
-                    </div>
+
+                    <select class="selectpicker" data-style="btn-info" name="selectpicker">
+                        <optgroup label="Select Table">
+                            <option value="">Select Month Year</option>
+                            <option value="">Select Month Year</option>
+                            <option value="">Select Month Year</option>
+                        </optgroup>
+                    </select>
+
                     <textarea class="box_2 validate" placeholder="Review description"
                               name="review_text" required="" aria-required="true"></textarea><br>
                 </div>
