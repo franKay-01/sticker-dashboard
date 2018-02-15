@@ -4,7 +4,7 @@ Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
 function deleteAllCookies() {
     var cookies = document.cookie.split(";");
-
+    console.log("COOKIES TO BE DELETED "+cookies);
     for (var i = 0; i < cookies.length; i++) {
         var cookie = cookies[i];
         var eqPos = cookie.indexOf("=");
