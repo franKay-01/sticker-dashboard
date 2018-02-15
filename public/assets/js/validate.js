@@ -9,18 +9,11 @@ function deleteAllCookies() {
     }
 }
 
-// function logoutUser() {
-//     Parse.User.logOut().then(function () {
-//         deleteAllCookies();
-//         location.href = "/logout";
-//     });
-// }
-
 function logoutUser() {
-   deleteAllCookies();
-   Parse.User.logOut().then(function () {
-       document.location = "/";
-   })
+    deleteAllCookies();
+    Parse.User.logOut().then(function () {
+        location.href = "/";
+    });
 }
 
 //check if details form has been edited before availing update button
