@@ -946,9 +946,8 @@ app.post('/remove_category', function (req, res) {
 
 //LOGOUT
 app.get('/logout', function (req, res) {
-
+    res.clearCookie('token');
     res.redirect("/");
-
 });
 
 // Dashboard
