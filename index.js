@@ -843,7 +843,7 @@ app.get('/user_profile', function (req, res) {
             res.render("pages/profile", {username: name, email: username, profile: _profile});
 
         }, function (error) {
-            console.log("ERROR " + error.message);
+            console.log("ERROR ON PROFILE " + error.message);
             res.redirect('/');
         });
 
