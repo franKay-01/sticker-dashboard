@@ -1294,7 +1294,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
 });
 
 //Update Sticker
-app.post('/update/:id/:pid', upload.single('im1'), function (req, res) {
+app.post('/update/:id/:pid', function (req, res) {
 
 
     var token = req.cookies.token;
@@ -1302,20 +1302,12 @@ app.post('/update/:id/:pid', upload.single('im1'), function (req, res) {
     //input fields from form
     var stickerName = req.body.stickerName;
     var categoryList = req.body.category_name;
-    var file = req.file;
-    var imgChange = req.body.imgChange;
     var new_categories = req.body.categories;
     var stickerId = req.params.id;
     var packId = req.params.pid;
 
     var category_list = categoryList.split(",");
 
-    // Returns if a value is an array
-    // function isArray (value) {
-    //     return value && typeof value === 'object' && value.constructor === Array;
-    // };
-
-// ES5 actually has a method for this (ie9+)
     console.log("ARRAY TYPE " + Array.isArray(category_list));
 
     console.log("CATEGORY LIST " + JSON.stringify(category_list));
@@ -1335,73 +1327,40 @@ app.post('/update/:id/:pid', upload.single('im1'), function (req, res) {
         });
     }
 
+    if (token) {
 
-    console.log("CATEGORIES "+ JSON.stringify(_listee));
+        Parse.Promise.when(
+            new Parse.Query(StickerClass).equalTo("objectId", stickerId).first(),
+        ).then(function (sticker) {
 
-    // if (token) {
-    //
-    //     Parse.Promise.when(
-    //         new Parse.Query(StickerClass).equalTo("objectId", stickerId).first(),
-    //         new Parse.Query(CategoryClass).containedIn("objectId", _listee).find()
-    //     ).then(function (sticker, categories) {
-    //         console.log("QUERIES WORKED" + JSON.stringify(categories));
-    //
-    //         var sticker_relation = sticker.relation(CategoryClass);
-    //
-    //         sticker.set("stickerName", stickerName);
-    //         sticker.set("localName", stickerName);
-    //         _.each(categories, function (category) {
-    //
-    //             console.log("ADDED CATEGORY" + category);
-    //             sticker_relation.add(category);
-    //
-    //         });
-    //
-    //         //if image has been changed
-    //         if (imgChange === 'true') {
-    //
-    //             //Update new sticker properties
-    //
-    //             //update sticker image
-    //             var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-    //             var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-    //             sticker.set("uri", parseFile);
-    //         }
-    //
-    //         return sticker.save();
-    //
-    //
-    //     }).then(function (sticker) {
-    //
-    //         console.log("STICKER UPDATED" + JSON.stringify(sticker));
-    //
-    //         if (imgChange === 'true') {
-    //             //Delete tmp fil after update
-    //             var tempFile = file.path;
-    //             fs.unlink(tempFile, function (err) {
-    //                 if (err) {
-    //                     //TODO handle error code
-    //                     console.log("Could not del temp++++++++" + JSON.stringify(err));
-    //                 }
-    //             });
-    //         }
-    //
-    //         console.log("FILE UPDATED SUCCESSFULLYYYY");
-    //         res.redirect("/pack/" + packId);
-    //
-    //     }, function (e) {
-    //         console.log("SERVER ERROR " + JSON.stringify(e));
-    //         res.redirect("/pack/" + packId);
-    //
-    //     });
-    //
-    // } else {
-    //
-    //     //TODO handle error code
-    //     console.log("No session found[[[[[[");
-    //     res.redirect("/pack/" + packId);
-    //
-    // }
+            var sticker_relation = sticker.relation(CategoryClass);
+
+            sticker.set("stickerName", stickerName);
+            sticker.set("localName", stickerName);
+            sticker.set("categories", _listee);
+
+            return sticker.save();
+
+
+        }).then(function (sticker) {
+
+            console.log("STICKER UPDATED" + JSON.stringify(sticker));
+            res.redirect("/pack/" + packId);
+
+        }, function (error) {
+
+            console.log("SERVER ERROR " + error.message);
+            res.redirect("/pack/" + packId);
+
+        });
+
+    } else {
+
+        //TODO handle error code
+        console.log("No session found[[[[[[");
+        res.redirect("/pack/" + packId);
+
+    }
 });
 
 app.get('/upload_page/:id/:pack_name', function (req, res) {
