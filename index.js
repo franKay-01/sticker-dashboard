@@ -1305,19 +1305,15 @@ app.post('/update/:id/:pid', function (req, res) {
     var new_categories = req.body.categories;
     var stickerId = req.params.id;
     var packId = req.params.pid;
-
-    var category_list = categoryList.split(",");
-
-    console.log("ARRAY TYPE " + Array.isArray(category_list));
-
-    console.log("CATEGORY LIST " + JSON.stringify(category_list));
-
     var _listee = [];
+
     if (categoryList === ""){
         _.each(new_categories, function (category) {
             _listee.push(category);
         });
     }else{
+        var category_list = categoryList.split(",");
+
         _.each(category_list, function (category) {
             _listee.push(category);
         });
