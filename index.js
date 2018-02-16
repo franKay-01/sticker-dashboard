@@ -1307,9 +1307,6 @@ app.post('/update/:id/:pid', function (req, res) {
     var packId = req.params.pid;
     var _listee = [];
 
-    console.log("NEW " + stickerName);
-    console.log("LIST " + JSON.stringify(categoryList));
-
     if (categoryList) {
 
         console.log("2");
@@ -1333,42 +1330,40 @@ app.post('/update/:id/:pid', function (req, res) {
         });
     }
 
-    console.log("LIST " + _listee);
+    if (token) {
 
-    // if (token) {
-    //
-    //     Parse.Promise.when(
-    //         new Parse.Query(StickerClass).equalTo("objectId", stickerId).first(),
-    //     ).then(function (sticker) {
-    //
-    //         var sticker_relation = sticker.relation(CategoryClass);
-    //
-    //         sticker.set("stickerName", stickerName);
-    //         sticker.set("localName", stickerName);
-    //         sticker.set("categories", _listee);
-    //
-    //         return sticker.save();
-    //
-    //
-    //     }).then(function (sticker) {
-    //
-    //         console.log("STICKER UPDATED" + JSON.stringify(sticker));
-    //         res.redirect("/pack/" + packId);
-    //
-    //     }, function (error) {
-    //
-    //         console.log("SERVER ERROR " + error.message);
-    //         res.redirect("/pack/" + packId);
-    //
-    //     });
-    //
-    // } else {
-    //
-    //     //TODO handle error code
-    //     console.log("No session found[[[[[[");
-    //     res.redirect("/pack/" + packId);
-    //
-    // }
+        Parse.Promise.when(
+            new Parse.Query(StickerClass).equalTo("objectId", stickerId).first(),
+        ).then(function (sticker) {
+
+            var sticker_relation = sticker.relation(CategoryClass);
+
+            sticker.set("stickerName", stickerName);
+            sticker.set("localName", stickerName);
+            sticker.set("categories", _listee);
+
+            return sticker.save();
+
+
+        }).then(function (sticker) {
+
+            console.log("STICKER UPDATED" + JSON.stringify(sticker));
+            res.redirect("/pack/" + packId);
+
+        }, function (error) {
+
+            console.log("SERVER ERROR " + error.message);
+            res.redirect("/pack/" + packId);
+
+        });
+
+    } else {
+
+        //TODO handle error code
+        console.log("No session found[[[[[[");
+        res.redirect("/pack/" + packId);
+
+    }
 });
 
 app.get('/upload_page/:id/:pack_name', function (req, res) {
