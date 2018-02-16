@@ -40,7 +40,25 @@
         <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
     </div>
     <!-- End of logo-->
-
+    <!-- Start of hidden form -->
+    <div id="hiddenAddCatForm" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <form id="pack_form" action="/new_category" method="post">
+                <center>
+                    <div class="edit_labels medium-12 large-12">CREATE NEW CATEGORY</div>
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Category Name"
+                           name="catname" required="" aria-required="true"/>
+                    <br>
+                </center>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btn_cancelAddCat" class="cancel">Cancel</button>
+         </span>
+            </form>
+        </div>
+    </div>
     <!-- End of hidden form -->
     <span class="medium-12 large-12 welcome_post" id="Welcome"><b>Welcome <a href="/user_profile" style="font-size: 45px;color: #af627f;"> <%= user_name %> </a></b></span>
     <div class="grid-x grid-margin-x" id="opaqueDiv">
@@ -51,6 +69,19 @@
                 <div class="_stickers"><%= stickerLength %> Stickers</div>
                 <div class="_stickers_packs"><%= packLength %> Packs</div>
                 <div class="_categories"><%= categoryLength %> Categories</div>
+            </div>
+        </div>
+        <div class="medium-3 large-3 cell icons">
+            <a href="#" id="btnAddCategory">
+                <button class="create_button">
+                    <img src="/public/assets/images/icon-category.png" srcset="/public/assets/images/icon-category.png 2x,
+             /public/assets/images/icon-category.png 3x" class="icon_category">
+                    <div class="create_new">ADD CATEGORY</div>
+                </button>
+            </a>
+            <div class="card_head_position">
+                <div class="recent_category">Recent Category</div>
+                <%- include('../partials/home_category') %>
             </div>
         </div>
         <!-- End of card-->
