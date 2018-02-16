@@ -78,15 +78,13 @@
 
 
                     <div class = "row">
-                        <label>Browser default Select</label>
                         <select class = "input-field" multiple>
                             <option value = "" disabled selected>&nbsp;Add Categories</option>
                             <% if (categories.length === 0) { %>
 
                             <%} else {%>
                             <% categories.forEach(function(items) { %>
-                            <option>Free</option>
-                            <option>Sold</option>
+                            <option value="<%= items.get("name")%>"><%= items.get("name")%></option>
                             <%})%>
                             <%}%>
                         </select>
