@@ -798,6 +798,7 @@ app.get('/review/:id', function (req, res) {
                 var pack_name = pack.get("pack_name");
                 var pack_owner = pack.get("user_id");
                 var art = pack.get("art_work");
+                var _description = pack.get("pack_description");
                 var _owner = [];
 
                 //
@@ -812,7 +813,8 @@ app.get('/review/:id', function (req, res) {
                     id: pack_id,
                     packName: pack_name,
                     owner: pack_owner,
-                    art_work: art
+                    art_work: art,
+                    description: _description
                 });
             },
             error: function (error) {
