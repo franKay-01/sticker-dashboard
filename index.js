@@ -1307,7 +1307,7 @@ app.post('/update/:id/:pid', function (req, res) {
     var packId = req.params.pid;
     var _listee = [];
 
-console.log("LIST "+categoryList);
+console.log("LIST "+JSON.stringify(categoryList));
     if (categoryList === "undefined"){
         console.log("1");
         var category_new = Array.from(new_categories);
