@@ -1321,13 +1321,20 @@ app.post('/update/:id/:pid', upload.single('im1'), function (req, res) {
     console.log("CATEGORY LIST " + JSON.stringify(category_list));
 
     var _listee = [];
-    _.each(category_list, function (category) {
-        _listee.push(category);
-    });
+    if (categoryList.length === 0){
+        _.each(new_categories, function (category) {
+            _listee.push(category);
+        });
+    }else{
+        _.each(category_list, function (category) {
+            _listee.push(category);
+        });
 
-    _.each(new_categories, function (category) {
-        _listee.push(category);
-    });
+        _.each(new_categories, function (category) {
+            _listee.push(category);
+        });
+    }
+
 
     console.log("CATEGORIES "+ JSON.stringify(_listee));
 
