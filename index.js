@@ -694,13 +694,11 @@ app.post('/find_category', function (req, res) {
 
 //SELECT CATEGORIES PAGE
 app.get('/categories', function (req, res) {
-
-
     var token = req.cookies.token;
 
     if (token) {
 
-        new Parse.Query(CategoryClass).find({sessionToken: token}).then(function (categories) {
+        new Parse.Query(CategoryClass).find().then(function (categories) {
 
                 let _categories = helper.chunks(categories, 4);
 
