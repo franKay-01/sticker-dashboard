@@ -76,20 +76,6 @@
                            value="<%= categoryNames %>" disabled>
                     <input type="text" name="category_name" id="cat" style="display: none">
 
-
-                    <div class = "row">
-                        <select class = "input-field" multiple>
-                            <option value = "" disabled selected>&nbsp;Add Categories</option>
-                            <% if (categories.length === 0) { %>
-
-                            <%} else {%>
-                            <% categories.forEach(function(items) { %>
-                            <option value="<%= items.get("name")%>"><%= items.get("name")%></option>
-                            <%})%>
-                            <%}%>
-                        </select>
-                    </div>
-
                     <textarea class="box_2 validate" placeholder="Review description"
                               name="review_text" required="" aria-required="true"></textarea><br>
                 </div>
