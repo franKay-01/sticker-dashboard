@@ -1308,14 +1308,8 @@ app.post('/update/:id/:pid', function (req, res) {
     var _listee = [];
 
 console.log("LIST "+JSON.stringify(categoryList));
-    if (categoryList === "undefined"){
-        console.log("1");
-        var category_new = Array.from(new_categories);
+    if (categoryList){
 
-        _.each(category_new, function (category) {
-            _listee.push(category);
-        });
-    }else{
         console.log("2");
         var category = Array.from(categoryList);
         var new_category = Array.from(new_categories);
@@ -1325,6 +1319,14 @@ console.log("LIST "+JSON.stringify(categoryList));
         });
 
         _.each(new_category, function (category) {
+            _listee.push(category);
+        });
+
+    }else{
+        console.log("1");
+        var category_new = Array.from(new_categories);
+
+        _.each(category_new, function (category) {
             _listee.push(category);
         });
     }
