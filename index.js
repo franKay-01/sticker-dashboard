@@ -1306,7 +1306,7 @@ app.post('/update/:id/:pid', function (req, res) {
     var stickerId = req.params.id;
     var packId = req.params.pid;
     var _listee = [];
-
+    var p = 0;
     if (categoryList === ""){
         _.each(new_categories, function (category) {
             _listee.push(category);
@@ -1317,7 +1317,9 @@ app.post('/update/:id/:pid', function (req, res) {
         });
 
         _.each(new_categories, function (category) {
+            console.log("COUNT "+ p);
             _listee.push(category);
+            p ++;
         });
     }
 
