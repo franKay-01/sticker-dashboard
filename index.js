@@ -1306,7 +1306,7 @@ app.post('/update/:id/:pid', function (req, res) {
     var stickerId = req.params.id;
     var packId = req.params.pid;
     var _listee = [];
-
+console.log("NEW "+new_categories);
 console.log("LIST "+JSON.stringify(categoryList));
     if (categoryList){
 
