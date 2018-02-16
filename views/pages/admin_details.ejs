@@ -81,9 +81,13 @@
                         <label>Browser default Select</label>
                         <select class = "browser-default" style="border: double">
                             <option value = "" disabled selected>Select Fruit</option>
-                            <option value = "1">Mango</option>
-                            <option value = "2">Orange</option>
-                            <option value = "3">Apple</option>
+                            <% if (categories.length === 0) { %>
+
+                            <%} else {%>
+                            <% categories.forEach(function(items) { %>
+                            <option value = "<%= items.name %>"><%= items.name %></option>
+                            <%})%>
+                            <%}%>
                         </select>
                     </div>
 
