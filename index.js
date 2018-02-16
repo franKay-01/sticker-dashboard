@@ -1306,20 +1306,20 @@ app.post('/update/:id/:pid', function (req, res) {
     var stickerId = req.params.id;
     var packId = req.params.pid;
     var _listee = [];
-    var p = 0;
-    if (categoryList === ""){
+    var category = JSON.parse("[" + categoryList + "]");
+    var new_category = JSON.parse("[" + new_categories + "]");
+
+    if (category.length === 0){
         _.each(new_categories, function (category) {
             _listee.push(category);
         });
     }else{
-        _.each(categoryList, function (category) {
+        _.each(category, function (category) {
             _listee.push(category);
         });
 
-        _.each(new_categories, function (category) {
-            console.log("COUNT "+ p);
+        _.each(new_category, function (category) {
             _listee.push(category);
-            p ++;
         });
     }
 
