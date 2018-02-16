@@ -1308,7 +1308,7 @@ app.post('/update/:id/:pid', function (req, res) {
     var _listee = [];
 
 console.log("LIST "+categoryList);
-    if (categoryList === ""){
+    if (categoryList === "undefined"){
         console.log("1");
         var category_new = Array.from(new_categories);
 
