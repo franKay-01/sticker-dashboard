@@ -24,14 +24,17 @@
                    value="<%= categoryNames %>" disabled>
             <input type="text" name="category_name" id="cat" style="display: none">
 
-            <div class="input-field col s12">
-                <select multiple name="categories">
-                    <option value="" disabled selected>Choose your option</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+            <div class = "row">
+                <select class = "input-field" name="categories[]" multiple>
+                    <option value = "" disabled selected>&nbsp;Add Categories</option>
+                    <% if (categories.length === 0) { %>
+
+                    <%} else {%>
+                    <% categories.forEach(function(items) { %>
+                    <option value="<%= items.get("name")%>"><%= items.get("name")%></option>
+                    <%})%>
+                    <%}%>
                 </select>
-                <label>Materialize Multiple Select</label>
             </div>
 
 
