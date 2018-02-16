@@ -336,7 +336,7 @@ app.post('/login', function (req, res) {
         }
 
         var userType = user.get("type");
-        console.log("USER TYPE "+userType);
+        console.log("USER TYPE " + userType);
 
         // new Parse.Query('_Session')
         //     .equalTo('sessionToken', user.getSessionToken())
@@ -379,7 +379,7 @@ app.get('/admin_home', function (req, res) {
         username = username.substring(0, username.indexOf('@'));
 
         Parse.Promise.when(
-            new Parse.Query(PacksClass).notEqualTo("status",PENDING).find(),
+            new Parse.Query(PacksClass).notEqualTo("status", PENDING).find(),
             new Parse.Query(CategoryClass).find(),
             //count all objects
             //TODO have a stats class
@@ -393,7 +393,7 @@ app.get('/admin_home', function (req, res) {
 
             if (collection.length) {
                 _collection = collection;
-                console.log("PACK INFO "+JSON.stringify(_collection));
+                console.log("PACK INFO " + JSON.stringify(_collection));
             }
 
             if (categories.length) {
@@ -435,14 +435,14 @@ app.get('/home', function (req, res) {
     let isVerified = req.cookies.email_verified;
     let userType = req.cookies.userType;
 
-   if (token) {
+    if (token) {
 
         new Parse.Query('_Session')
             .equalTo('sessionToken', token)
             .include('user').first().then(function (user) {
-            console.log("SESSION DATA: "+JSON.stringify(user));
+            console.log("SESSION DATA: " + JSON.stringify(user));
         }, function (error) {
-            console.log("SESSION DATA ERROR: "+JSON.stringify(error));
+            console.log("SESSION DATA ERROR: " + JSON.stringify(error));
         });
 
         username = username.substring(0, username.indexOf('@'));
@@ -471,7 +471,7 @@ app.get('/home', function (req, res) {
 
             }
 
-            console.log("REACHED FIRST SIDE "+userType);
+            console.log("REACHED FIRST SIDE " + userType);
             if (userType === _NORMAL) {
                 res.render("pages/home", {
                     collections: _collection,
@@ -484,7 +484,7 @@ app.get('/home', function (req, res) {
                     verified: isVerified
                 });
             } else if (userType === _SUPER) {
-                console.log("REACHED SECOND SIDE "+userType);
+                console.log("REACHED SECOND SIDE " + userType);
                 res.redirect("/admin_home");
             }
 
@@ -578,7 +578,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 sticker.set("stickerName", stickerName);
                 sticker.set("localName", stickerName);
                 sticker.set("uri", parseFile);
-                sticker.set("user_id",req.cookies.userId);
+                sticker.set("user_id", req.cookies.userId);
                 sticker.set("parent", collection);
                 sticker.set("flag", false);
                 sticker.set("archive", false);
@@ -617,7 +617,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
             return stickerCollection.save();
 
         }).then(function () {
-            console.log("EMAIL IS "+req.cookies.username);
+            console.log("EMAIL IS " + req.cookies.username);
             var mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
             var data = {
                 //Specify email data
@@ -1027,7 +1027,7 @@ app.get('/pack/:id', function (req, res) {
     var token = req.cookies.token;
     var coll_id = req.params.id;
     var user = req.cookies.userType;
-    console.log("USER TYPE FOR PACK "+user);
+    console.log("USER TYPE FOR PACK " + user);
     if (token) {
         var collection = new Parse.Query(PacksClass);
         collection.get(coll_id, {
@@ -1039,7 +1039,7 @@ app.get('/pack/:id', function (req, res) {
                 var col = collection.relation(PacksClass);
                 col.query().find().then(function (stickers) {
 
-                    if (user === _SUPER){
+                    if (user === _SUPER) {
                         res.render("pages/admin_pack", {
                             stickers: stickers,
                             id: coll_id,
@@ -1047,7 +1047,7 @@ app.get('/pack/:id', function (req, res) {
                             userType: user,
                             status: pack_status
                         });
-                    }else {
+                    } else {
                         res.render("pages/new_pack", {
                             stickers: stickers,
                             id: coll_id,
@@ -1089,9 +1089,9 @@ app.get('/send_for_review/:id', function (req, res) {
     var token = req.cookies.token;
     var pack_id = req.params.id;
 
-    if (token){
-        new Parse.Query(PacksClass).equalTo("objectId",pack_id).first().then(function (pack) {
-            pack.set("status",REVIEW);
+    if (token) {
+        new Parse.Query(PacksClass).equalTo("objectId", pack_id).first().then(function (pack) {
+            pack.set("status", REVIEW);
             return pack.save();
         }).then(function () {
             console.log("PACK SUBMITTED FOR REVIEW");
@@ -1117,7 +1117,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
 
     var _keywords = keywords.split(",");
 
-    console.log("FILE CONTENT "+files.length);
+    console.log("FILE CONTENT " + files.length);
 
     if (token) {
 
@@ -1148,7 +1148,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
         } else {
             var fileUrl = "https://cryptic-waters-41617.herokuapp.com/public/assets/images/image-profile-placeholder.png";
             var name = "image-profile-placeholder.png";
-            console.log("FILEURL "+fileUrl);
+            console.log("FILEURL " + fileUrl);
 
             var options = {
                 url: fileUrl,
@@ -1164,7 +1164,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
                 pack.save().then(function () {
                     res.redirect('/pack/' + collection.id);
                 }, function (error) {
-                    console.log("BIG ERROR "+error.message);
+                    console.log("BIG ERROR " + error.message);
                     res.redirect('/pack/' + collection.id);
                 })
             })
@@ -1215,14 +1215,14 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
             console.log("CATEGORY NAMES " + categoryNames);
 
-            if (user === _SUPER){
+            if (user === _SUPER) {
                 res.render("pages/admin_details", {
                     sticker: stickerDetail,
                     categoryNames: categoryNames,
                     categories: allCategories,
                     pack_id: pack_
                 });
-            }else{
+            } else {
                 res.render("pages/details", {
                     sticker: stickerDetail,
                     categoryNames: categoryNames,
@@ -1288,7 +1288,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
     var id = req.params.id;
     var type = req.params.pack_id;
 
-    if (token){
+    if (token) {
 
     }
 });
@@ -1306,9 +1306,11 @@ app.post('/update/:id/:pid', function (req, res) {
     var stickerId = req.params.id;
     var packId = req.params.pid;
     var _listee = [];
-console.log("NEW "+new_categories);
-console.log("LIST "+JSON.stringify(categoryList));
-    if (categoryList){
+
+    console.log("NEW " + stickerName);
+    console.log("LIST " + JSON.stringify(categoryList));
+
+    if (categoryList) {
 
         console.log("2");
         var category = Array.from(categoryList);
@@ -1322,7 +1324,7 @@ console.log("LIST "+JSON.stringify(categoryList));
             _listee.push(category);
         });
 
-    }else{
+    } else {
         console.log("1");
         var category_new = Array.from(new_categories);
 
@@ -1331,7 +1333,7 @@ console.log("LIST "+JSON.stringify(categoryList));
         });
     }
 
-    console.log("LIST "+_listee);
+    console.log("LIST " + _listee);
 
     // if (token) {
     //
