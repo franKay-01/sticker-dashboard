@@ -1321,7 +1321,7 @@ app.post('/update/:id/:pid', upload.single('im1'), function (req, res) {
     console.log("CATEGORY LIST " + JSON.stringify(category_list));
 
     var _listee = [];
-    if (categoryList.length === ""){
+    if (categoryList === ""){
         _.each(new_categories, function (category) {
             _listee.push(category);
         });
