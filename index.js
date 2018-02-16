@@ -1309,12 +1309,14 @@ app.post('/update/:id/:pid', function (req, res) {
 
 
     if (categoryList === ""){
+        console.log("1");
         var category_new = Array.from(new_categories);
 
         _.each(category_new, function (category) {
             _listee.push(category);
         });
     }else{
+        console.log("2");
         var category = Array.from(categoryList);
         var new_category = Array.from(new_categories);
 
