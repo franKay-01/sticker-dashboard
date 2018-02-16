@@ -24,10 +24,7 @@
 
     <script>
         $(document).ready(function() {
-            // $('select').material_select();
-            $('select').multiselect({
-                includeSelectAllOption: true
-            })
+            $('select').material_select();
         });
     </script>
 
@@ -82,7 +79,7 @@
 
                     <div class = "row">
                         <label>Browser default Select</label>
-                        <select class = "browser-default" multiple="multiple" style="border: double">
+                        <select class = "browser-default" style="border: double" multiple>
                             <option value = "" disabled selected>Add Categories</option>
                             <% if (categories.length === 0) { %>
 
