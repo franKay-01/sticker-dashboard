@@ -580,7 +580,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 sticker.set("uri", parseFile);
                 sticker.set("user_id",req.cookies.userId);
                 sticker.set("parent", collection);
-                sticker.set("categories", stickers);
                 sticker.set("flag", false);
                 sticker.set("archive", false);
                 sticker.set("sold", true);
@@ -1305,6 +1304,7 @@ app.post('/update/:id/:pid', upload.single('im1'), function (req, res) {
     var categoryList = req.body.category_name;
     var file = req.file;
     var imgChange = req.body.imgChange;
+    var new_categories = req.body.categories;
     var stickerId = req.params.id;
     var packId = req.params.pid;
 
@@ -1325,70 +1325,76 @@ app.post('/update/:id/:pid', upload.single('im1'), function (req, res) {
         _listee.push(category);
     });
 
-    if (token) {
+    _.each(new_categories, function (category) {
+        _listee.push(category);
+    });
 
-        Parse.Promise.when(
-            new Parse.Query(StickerClass).equalTo("objectId", stickerId).first(),
-            new Parse.Query(CategoryClass).containedIn("objectId", _listee).find()
-        ).then(function (sticker, categories) {
-            console.log("QUERIES WORKED" + JSON.stringify(categories));
+    console.log("CATEGORIES "+ JSON.stringify(_listee));
 
-            var sticker_relation = sticker.relation(CategoryClass);
-
-            sticker.set("stickerName", stickerName);
-            sticker.set("localName", stickerName);
-            _.each(categories, function (category) {
-
-                console.log("ADDED CATEGORY" + category);
-                sticker_relation.add(category);
-
-            });
-
-            //if image has been changed
-            if (imgChange === 'true') {
-
-                //Update new sticker properties
-
-                //update sticker image
-                var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-                var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                sticker.set("uri", parseFile);
-            }
-
-            return sticker.save();
-
-
-        }).then(function (sticker) {
-
-            console.log("STICKER UPDATED" + JSON.stringify(sticker));
-
-            if (imgChange === 'true') {
-                //Delete tmp fil after update
-                var tempFile = file.path;
-                fs.unlink(tempFile, function (err) {
-                    if (err) {
-                        //TODO handle error code
-                        console.log("Could not del temp++++++++" + JSON.stringify(err));
-                    }
-                });
-            }
-
-            console.log("FILE UPDATED SUCCESSFULLYYYY");
-            res.redirect("/pack/" + packId);
-
-        }, function (e) {
-            console.log("SERVER ERROR " + JSON.stringify(e));
-            res.redirect("/pack/" + packId);
-
-        });
-
-    } else {
-
-        //TODO handle error code
-        console.log("No session found[[[[[[");
-        res.redirect("/pack/" + packId);
-
-    }
+    // if (token) {
+    //
+    //     Parse.Promise.when(
+    //         new Parse.Query(StickerClass).equalTo("objectId", stickerId).first(),
+    //         new Parse.Query(CategoryClass).containedIn("objectId", _listee).find()
+    //     ).then(function (sticker, categories) {
+    //         console.log("QUERIES WORKED" + JSON.stringify(categories));
+    //
+    //         var sticker_relation = sticker.relation(CategoryClass);
+    //
+    //         sticker.set("stickerName", stickerName);
+    //         sticker.set("localName", stickerName);
+    //         _.each(categories, function (category) {
+    //
+    //             console.log("ADDED CATEGORY" + category);
+    //             sticker_relation.add(category);
+    //
+    //         });
+    //
+    //         //if image has been changed
+    //         if (imgChange === 'true') {
+    //
+    //             //Update new sticker properties
+    //
+    //             //update sticker image
+    //             var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+    //             var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+    //             sticker.set("uri", parseFile);
+    //         }
+    //
+    //         return sticker.save();
+    //
+    //
+    //     }).then(function (sticker) {
+    //
+    //         console.log("STICKER UPDATED" + JSON.stringify(sticker));
+    //
+    //         if (imgChange === 'true') {
+    //             //Delete tmp fil after update
+    //             var tempFile = file.path;
+    //             fs.unlink(tempFile, function (err) {
+    //                 if (err) {
+    //                     //TODO handle error code
+    //                     console.log("Could not del temp++++++++" + JSON.stringify(err));
+    //                 }
+    //             });
+    //         }
+    //
+    //         console.log("FILE UPDATED SUCCESSFULLYYYY");
+    //         res.redirect("/pack/" + packId);
+    //
+    //     }, function (e) {
+    //         console.log("SERVER ERROR " + JSON.stringify(e));
+    //         res.redirect("/pack/" + packId);
+    //
+    //     });
+    //
+    // } else {
+    //
+    //     //TODO handle error code
+    //     console.log("No session found[[[[[[");
+    //     res.redirect("/pack/" + packId);
+    //
+    // }
 });
 
 app.get('/upload_page/:id/:pack_name', function (req, res) {
