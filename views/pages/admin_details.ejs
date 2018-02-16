@@ -76,6 +76,16 @@
                            value="<%= categoryNames %>" disabled>
                     <input type="text" name="category_name" id="cat" style="display: none">
 
+                    <div class = "row">
+                        <select class = "input-field" multiple>
+                            <option value = "" disabled selected>&nbsp;Select Field</option>
+                            <option value="all">ALL</option>
+                            <option value="name">NAME</option>
+                            <option value="sticker">STICKER</option>
+                            <option value="category">CATEGORY</option>
+                        </select>
+                    </div>
+
                     <textarea class="box_2 validate" placeholder="Review description"
                               name="review_text" required="" aria-required="true"></textarea><br>
                 </div>
