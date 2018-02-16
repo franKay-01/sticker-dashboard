@@ -1312,9 +1312,7 @@ app.post('/update/:id/:pid', function (req, res) {
             _listee.push(category);
         });
     }else{
-        var category_list = categoryList.split(",");
-
-        _.each(category_list, function (category) {
+        _.each(categoryList, function (category) {
             _listee.push(category);
         });
 
