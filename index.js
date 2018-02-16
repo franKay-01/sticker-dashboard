@@ -1321,40 +1321,42 @@ app.post('/update/:id/:pid', function (req, res) {
         });
     }
 
-    if (token) {
+    console.log("LIST "+_listee);
 
-        Parse.Promise.when(
-            new Parse.Query(StickerClass).equalTo("objectId", stickerId).first(),
-        ).then(function (sticker) {
-
-            var sticker_relation = sticker.relation(CategoryClass);
-
-            sticker.set("stickerName", stickerName);
-            sticker.set("localName", stickerName);
-            sticker.set("categories", _listee);
-
-            return sticker.save();
-
-
-        }).then(function (sticker) {
-
-            console.log("STICKER UPDATED" + JSON.stringify(sticker));
-            res.redirect("/pack/" + packId);
-
-        }, function (error) {
-
-            console.log("SERVER ERROR " + error.message);
-            res.redirect("/pack/" + packId);
-
-        });
-
-    } else {
-
-        //TODO handle error code
-        console.log("No session found[[[[[[");
-        res.redirect("/pack/" + packId);
-
-    }
+    // if (token) {
+    //
+    //     Parse.Promise.when(
+    //         new Parse.Query(StickerClass).equalTo("objectId", stickerId).first(),
+    //     ).then(function (sticker) {
+    //
+    //         var sticker_relation = sticker.relation(CategoryClass);
+    //
+    //         sticker.set("stickerName", stickerName);
+    //         sticker.set("localName", stickerName);
+    //         sticker.set("categories", _listee);
+    //
+    //         return sticker.save();
+    //
+    //
+    //     }).then(function (sticker) {
+    //
+    //         console.log("STICKER UPDATED" + JSON.stringify(sticker));
+    //         res.redirect("/pack/" + packId);
+    //
+    //     }, function (error) {
+    //
+    //         console.log("SERVER ERROR " + error.message);
+    //         res.redirect("/pack/" + packId);
+    //
+    //     });
+    //
+    // } else {
+    //
+    //     //TODO handle error code
+    //     console.log("No session found[[[[[[");
+    //     res.redirect("/pack/" + packId);
+    //
+    // }
 });
 
 app.get('/upload_page/:id/:pack_name', function (req, res) {
