@@ -741,7 +741,6 @@ app.post('/review_pack/:id', function (req, res) {
 
     var token = req.cookies.token;
     var id = req.params.id;
-    var type = req.params.type;
     var reviewer = req.cookies.userId;
     var comment = req.body.review_text;
     var status = req.body.approved;
@@ -770,16 +769,16 @@ app.post('/review_pack/:id', function (req, res) {
             }
             review.set("comments", comment);
             review.set("reviewer", reviewer);
-            review.set("id", id);
+            review.set("id", toString(id));
             review.set("type", 0);
 
             return review.save();
         }).then(function () {
             console.log("PACK WAS SUCCESSFULLY REVIEWED");
-            res.redirect('/pack/' + pack_id);
+            res.redirect('/pack/' + id);
         }, function (error) {
             console.log("ERROR OCCURRED WHEN REVIEWING " + error.message)
-            res.redirect('/review/' + pack_id);
+            res.redirect('/review/' + id);
         });
     }
 });
