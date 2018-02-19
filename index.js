@@ -745,54 +745,41 @@ app.post('/review_pack/:id', function (req, res) {
     var comment = req.body.review_text;
     var status = req.body.approved;
 
-    var Reviews = new Parse.Object.extend("Reviews");
-    var review = new Reviews();
-    review.set("comments", "Not approved");
-    review.set("reviewer", "13sd0024");
-    review.set("type_id", "21");
-    review.set("type", 0);
-    review.save().then(function () {
-        console.log("WORKED");
-        res.redirect('/pack/'+id);
-    }, function (error) {
-        console.log("ERROR "+JSON.stringify(error));
-        res.redirect('/review/'+id);
-    });
-
     console.log("COMMENT " + comment + " STATUS " + status+ " ID "+id+" REVIEWER "+reviewer);
     if (token) {
+        var Reviews = new Parse.Object.extend("Reviews");
+        var review = new Reviews();
 
+        new Parse.Query(PacksClass).equalTo("objectId", id).first().then(function (pack) {
+            console.log("PACK FROM REVIEW " + JSON.stringify(pack));
+            if (status === "2") {
+                pack.set("status", APPROVED);
+            } else if (status === "1") {
+                pack.set("status", REVIEW);
+            }
 
-        // new Parse.Query(PacksClass).equalTo("objectId", id).first().then(function (pack) {
-        //     console.log("PACK FROM REVIEW " + JSON.stringify(pack));
-        //     if (status === "2") {
-        //         pack.set("status", APPROVED);
-        //     } else if (status === "1") {
-        //         pack.set("status", REVIEW);
-        //     }
-        //
-        //     return pack.save();
-        //
-        // }).then(function () {
-        //     console.log("CODE GOT HERE. STATUS "+status+" COMMENTS "+comment+" REVIEWER "+reviewer+" ID "+id);
-        //     if (status === "2") {
-        //         review.set("approved", true);
-        //     } else if (status === "1") {
-        //         review.set("approved", false);
-        //     }
-        //     review.set("comments", comment);
-        //     review.set("reviewer", reviewer);
-        //     review.set("id", id);
-        //     review.set("type", 0);
-        //
-        //     return review.save();
-        // }).then(function () {
-        //     console.log("PACK WAS SUCCESSFULLY REVIEWED");
-        //     res.redirect('/pack/' + id);
-        // }, function (error) {
-        //     console.log("ERROR OCCURRED WHEN REVIEWING " + error.message);
-        //     res.redirect('/review/' + id);
-        // });
+            return pack.save();
+
+        }).then(function () {
+            console.log("CODE GOT HERE. STATUS "+status+" COMMENTS "+comment+" REVIEWER "+reviewer+" ID "+id);
+            if (status === "2") {
+                review.set("approved", true);
+            } else if (status === "1") {
+                review.set("approved", false);
+            }
+            review.set("comments", comment);
+            review.set("reviewer", reviewer);
+            review.set("id", id);
+            review.set("type", 0);
+
+            return review.save();
+        }).then(function () {
+            console.log("PACK WAS SUCCESSFULLY REVIEWED");
+            res.redirect('/pack/' + id);
+        }, function (error) {
+            console.log("ERROR OCCURRED WHEN REVIEWING " + error.message);
+            res.redirect('/review/' + id);
+        });
     }
 });
 
