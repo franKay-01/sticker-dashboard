@@ -745,10 +745,12 @@ app.post('/review_pack/:id', function (req, res) {
     var comment = req.body.review_text;
     var status = req.body.approved;
 
+    var Reviews = new Parse.Object.extend(ReviewClass);
+    var review = new Reviews();
+
     console.log("COMMENT " + comment + " STATUS " + status+ " ID "+id+" REVIEWER "+reviewer);
     if (token) {
-        var Reviews = new Parse.Object.extend(ReviewClass);
-        var review = new Reviews();
+
 
         new Parse.Query(PacksClass).equalTo("objectId", id).first().then(function (pack) {
             console.log("PACK FROM REVIEW " + JSON.stringify(pack));
