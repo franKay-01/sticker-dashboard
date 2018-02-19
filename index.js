@@ -1292,6 +1292,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
     var comments = req.body.review_text;
     var status = req.body.flagged;
 
+    // Array.from(categoryList);
     var review_field = field.split(",");
 
     if (token) {
