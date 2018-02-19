@@ -798,8 +798,8 @@ app.get('/review/:id', function (req, res) {
                 var pack_name = pack.get("pack_name");
                 var pack_owner = pack.get("user_id");
                 var art = pack.get("art_work");
+                var pack_id = pack.get("objectId");
                 var _description = pack.get("pack_description");
-                var _owner = [];
 
                 //
                 // new Parse.Query("User").equalTo("objectId", pack_owner).find().then(function (user) {
