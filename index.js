@@ -769,7 +769,7 @@ app.post('/review_pack/:id', function (req, res) {
             }
             review.set("comments", comment);
             review.set("reviewer", reviewer);
-            review.set("id", id);
+            review.set("type_id", id);
             review.set("type", 0);
 
             return review.save();
