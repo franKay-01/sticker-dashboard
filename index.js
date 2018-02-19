@@ -1290,6 +1290,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
     var reviewer = req.cookies.userId;
     var field = req.body.review_field;
     var comments = req.body.review_text;
+    var status = req.body.flagged;
 
     var review_field = field.split(",");
 
