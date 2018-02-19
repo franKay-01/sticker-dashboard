@@ -777,7 +777,7 @@ app.post('/review_pack/:id', function (req, res) {
             console.log("PACK WAS SUCCESSFULLY REVIEWED");
             res.redirect('/pack/' + id);
         }, function (error) {
-            console.log("ERROR OCCURRED WHEN REVIEWING " + error.message)
+            console.log("ERROR OCCURRED WHEN REVIEWING " + error.message);
             res.redirect('/review/' + id);
         });
     }
