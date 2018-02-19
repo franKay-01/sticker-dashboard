@@ -761,7 +761,7 @@ app.post('/review_pack/:id', function (req, res) {
             return pack.save();
 
         }).then(function () {
-
+            console.log("CODE GOT HERE. STATUS "+status+" COMMENTS "+comment+" REVIEWER "+reviewer+" ID "+id);
             if (status === "2") {
                 review.set("approved", true);
             } else if (status === "1") {
@@ -769,7 +769,7 @@ app.post('/review_pack/:id', function (req, res) {
             }
             review.set("comments", comment);
             review.set("reviewer", reviewer);
-            review.set("id", toString(id));
+            review.set("id", id);
             review.set("type", 0);
 
             return review.save();
