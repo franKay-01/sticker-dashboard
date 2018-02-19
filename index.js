@@ -745,17 +745,17 @@ app.post('/review_pack/:id', function (req, res) {
     var comment = req.body.review_text;
     var status = req.body.approved;
 
-    var Reviews = new Parse.Object.extend(ReviewClass);
+    var Reviews = new Parse.Object.extend("Reviews");
     var review = new Reviews();
     review.set("comments", "Not approved");
     review.set("reviewer", "13sd0024");
-    review.set("id", "21");
+    review.set("type_id", "21");
     review.set("type", 0);
     review.save().then(function () {
         console.log("WORKED");
         res.redirect('/pack/'+id);
     }, function (error) {
-        console.log("ERROR "+error.message);
+        console.log("ERROR "+JSON.stringify(error));
         res.redirect('/review/'+id);
     });
 
