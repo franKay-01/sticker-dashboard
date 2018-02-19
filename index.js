@@ -1286,10 +1286,34 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
 app.post('/review_sticker/:id/:pack_id', function (req, res) {
     var token = req.cookies.token;
     var id = req.params.id;
-    var type = req.params.pack_id;
+    var pack_id = req.params.pack_id;
+    var reviewer = req.cookies.userId;
+    var field = req.body.review_field;
+    var comments = req.body.review_text;
+
+    var review_field = field.split(",");
 
     if (token) {
+        var Sticker_review = new Parse.Object.extend(ReviewClass);
+        var reviews = new Sticker_review();
 
+        if (status === "2") {
+            reviews.set("approved", true);
+        } else if (status === "1") {
+            reviews.set("approved", false);
+        }
+        reviews.set("comments", comments);
+        reviews.set("reviewer", reviewer);
+        reviews.set("type_id", id);
+        reviews.set("review_field", review_field);
+        reviews.set("type", 1);
+        reviews.save().then(function () {
+            console.log("STICKER REVIEWED");
+            res.redirect("/pack/"+pack_id);
+        }, function (error) {
+            console.log("STICKER REVIEW FAILED "+error.message);
+            res.redirect("/details/"+id+"/"+pack_id);
+        });
     }
 });
 
