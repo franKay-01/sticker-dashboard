@@ -454,6 +454,8 @@ app.get('/home', function (req, res) {
             _user = user;
             const limit = 3;
 
+            console.log("USER ID:" + user.id);
+
             return Parse.Promise.when(
                 new Parse.Query(PacksClass).equalTo("user_id", user.id).limit(limit).find(),
                 new Parse.Query(CategoryClass).limit(limit).find(),
