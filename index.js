@@ -447,17 +447,18 @@ app.get('/home', function (req, res) {
             _user = sessionToken.get("user");
             const limit = 3;
 
-            console.log("USER ID:" + _user.id);
-
             return Parse.Promise.when(
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(CategoryClass).limit(limit).find(),
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count()
-            )
+            );
 
         }).then(function (collection, categories, categoryLength, packLength, stickerLength) {
+
+            console.log("USER TYPE:" + _user.get("type"));
+            console.log("USER NAME:" + _user.get("name"));
 
             let _collection = [];
             let _categories = [];
