@@ -1,45 +1,55 @@
+//main imports
 let express = require('express');
 let ParseServer = require('parse-server').ParseServer;
-var S3Adapter = require('@parse/s3-files-adapter');
-let SimpleSendGridAdapter = require('parse-server-sendgrid-adapter');
-let path = require('path');
-let cors = require('cors');
 let Parse = require("parse/node").Parse; // import the module
+let S3Adapter = require('@parse/s3-files-adapter');
+let Mailgun = require('mailgun-js');
+
+//middleware for sessions and parsing forms
 let bodyParser = require('body-parser');
 let cookieParser = require('cookie-parser');
 let cookieSession = require('cookie-session');
+let cors = require('cors');
+let methodOverride = require('method-override');
+
+//for parsing location, directory and paths
+let path = require('path');
 let fs = require('fs');
 let multer = require('multer');
-let _ = require('underscore');
-let helper = require('./cloud/modules/helpers');
-let methodOverride = require('method-override');
 let download = require('image-downloader');
-let Mailgun = require('mailgun-js');
-let resolve = require('path').resolve;
 
-let config = require('./config.json');
-// let download = require('images-downloader').images;
+//utility module for filtering lists
+let _ = require('underscore');
 
-var errorMessage = "";
-var searchErrorMessage = "";
+//imported class
+let helper = require('./cloud/modules/helpers');
 
-//TODO use vars for class names
-//TODO change class names to make it more appropriate
-let CollectionClass = "Collection";
+//google app engine configuration
+//let config = require('./config.json');
+
+//TODO create method to handle errors aka handleError
+let errorMessage = "";
+let searchErrorMessage = "";
+
 let StickerClass = "Stickers";
 let CategoryClass = "Categories";
 let PacksClass = "Packs";
 let ReviewClass = "Reviews";
 
-let PENDING = 0;
-let REVIEW = 1;
-let APPROVED = 2;
+//const
+const PENDING = 0;
+const REVIEW = 1;
+const APPROVED = 2;
 
-let NORMAL = 2;
-let SUPER = 0;
-let _NORMAL = "2";
-let _SUPER = "0";
-// let PacksClass = "Packss";
+//TODO convert browser user type to integer
+const NORMAL = 2;
+const SUPER = 0;
+const _NORMAL = "2";
+const _SUPER = "0";
+
+const PARSE_PUBLIC_URL = "https://cryptic-waters-41617.herokuapp.com/public/";
+
+
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 // let databaseUri = config.DATABASE_URI; //for google
 
@@ -58,7 +68,7 @@ if (!databaseUri) {
 }
 
 
-var api = new ParseServer({
+let api = new ParseServer({
     //**** General Settings ****//
 
     databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
@@ -119,27 +129,12 @@ var api = new ParseServer({
         }
     },
     customPages: {
+        //TODO update urls to use const PARSE_PUBLIC_URL
         invalidLink: 'http://cryptic-waters-41617.herokuapp.com/public/templates/invalid_link.html',
         verifyEmailSuccess: 'http://cryptic-waters-41617.herokuapp.com/public/templates/email_verified.html',
         choosePassword: 'http://cryptic-waters-41617.herokuapp.com/public/templates/choose_password.html',
         passwordResetSuccess: 'http://cryptic-waters-41617.herokuapp.com/public/templates/password_reset_success.html'
-    }
-
-
-    // emailAdapter: SimpleSendGridAdapter({
-    //     apiKey: process.env.SENDGRID_API_KEY || "apikey",
-    //     fromAddress: process.env.EMAIL_FROM || "test@example.com"
-    // })
-
-    //**** File Storage ****//
-    /*filesAdapter: new S3Adapter(
-        "AKIAIK4H65MXJJMO7Q6A",
-        "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
-        "cyfa",
-        {
-            directAccess: true
-        }
-    )*/,
+    },
     filesAdapter:
         new S3Adapter({
             bucket: "cyfa",
@@ -151,7 +146,7 @@ var api = new ParseServer({
 // javascriptKey, restAPIKey, dotNetKey, clientKey
 
 
-var app = express();
+let app = express();
 
 app.use(cookieParser());
 app.use(cors());
@@ -163,11 +158,11 @@ app.use(bodyParser.urlencoded({
 app.use(methodOverride());
 
 
-app.use(cookieSession({
-    name: "session",
-    secret: "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
-    maxAge: 15724800000
-}));
+// app.use(cookieSession({
+//     name: "session",
+//     secret: "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
+//     maxAge: 15724800000
+// }));
 // app.use(cookieParser("A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK"));
 
 
