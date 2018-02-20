@@ -43,9 +43,7 @@ const APPROVED = 2;
 
 //TODO convert browser user type to integer
 const NORMAL_USER = 2;
-const SUPER = 0;
-const _NORMAL = "2";
-const _SUPER = "0";
+const SUPER_USER = 0;
 
 const PARSE_PUBLIC_URL = "https://cryptic-waters-41617.herokuapp.com/public/";
 
@@ -224,6 +222,15 @@ function getUser(token) {
         .include('user').first({sessionToken: token});
 }
 
+/*
+how to use this function parseInstance.setACL(getACL(user,true|false));
+* */
+function getACL(user,isPublicReadAccess){
+    let acl = new Parse.ACL(isPublicReadAccess);
+    acl.setPublicReadAccess(isPublicReadAccess);
+    return acl;
+}
+
 // Home Page
 app.get('/', function (req, res) {
 
@@ -355,7 +362,7 @@ app.post('/login', function (req, res) {
 
         if (userType === NORMAL_USER) {
             res.redirect("/home");
-        } else if (userType === SUPER) {
+        } else if (userType === SUPER_USER) {
             res.redirect("/admin_home");
         }
 
@@ -472,8 +479,6 @@ app.get('/home', function (req, res) {
 
             if (_user.get("type") === NORMAL_USER) {
 
-                console.log("NORMAL USER:");
-
                 res.render("pages/home", {
                     collections: _collection,
                     categoryLength: helper.leadingZero(categoryLength),
@@ -484,11 +489,11 @@ app.get('/home', function (req, res) {
                     user_name: _user.get("name"),
                     verified: _user.get("emailVerified")
                 });
-            } else if (_user.get("type") === SUPER) {
-
-                console.log("SUPER USER:");
+            } else if (_user.get("type") === SUPER_USER) {
 
                 res.redirect("/admin_home");
+            } else {
+                //TODO error message
             }
 
         }, function (error) {
