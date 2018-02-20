@@ -457,8 +457,7 @@ app.get('/home', function (req, res) {
 
         }).then(function (collection, categories, categoryLength, packLength, stickerLength) {
 
-            console.log("USER TYPE:" + _user.get("type"));
-            console.log("USER NAME:" + _user.get("name"));
+            console.log("COLLECTION:" + JSON.stringify(collection));
 
             let _collection = [];
             let _categories = [];
@@ -476,7 +475,6 @@ app.get('/home', function (req, res) {
             if (_user.get("type") === _NORMAL) {
                 res.render("pages/home", {
                     collections: _collection,
-                    categories: _categories,
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
