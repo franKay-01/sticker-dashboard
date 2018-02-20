@@ -435,7 +435,7 @@ app.get('/home', function (req, res) {
 
         new Parse.Query('_Session')
             .equalTo('sessionToken', token)
-            .include('user').first({useMasterKey:true}).then(function (user) {
+            .include('user').first({sessionToken:token}).then(function (user) {
             console.log("SESSION DATA: " + JSON.stringify(user));
         }, function (error) {
             console.log("SESSION DATA ERROR: " + JSON.stringify(error));
