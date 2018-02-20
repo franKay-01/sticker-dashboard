@@ -13,10 +13,10 @@
         <div><p class="pack_name_text"><%= item.get("pack_name") %></p></div>
 
     </a>
-    <% if (item.get("status") === "1"){ %>
+    <% if (item.get("status") === 1){ %>
     <span style="color: yellow">#In Review</span>
     <span style="color: rebeccapurple">#Not Approved</span>
-    <% } else if (item.get("status") === "2"){ %>
+    <% } else if (item.get("status") === 2){ %>
     <span style="color: greenyellow">#Approved</span>
     <% } %>
 </div>
