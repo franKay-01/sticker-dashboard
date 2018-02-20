@@ -219,15 +219,21 @@ app.use(mountPath, api);
 
 function getUser(token) {
 
+    console.log("GET USER FUNC");
+
     let promise = new Parse.Promise();
     new Parse.Query('_Session')
         .equalTo('sessionToken', token)
-        .include('user').first({sessionToken: token}).then(function (sessionToken) {
-        promise.resolve(sessionToken.get("user"))
-    }, function (error) {
-        promise.reject(error);
-    });
+        .include('user').first({sessionToken: token})
+        .then(function (sessionToken) {
+            console.log("GOT SESSSION TOKEN: " + JSON.stringify(sessionToken));
+            promise.resolve(sessionToken.get("user"))
+        }, function (error) {
+            console.log("ERROR SESSSION TOKEN: " + JSON.stringify(error));
+            promise.reject(error);
+        });
 
+    console.log("GOT TO THIS PROMISE");
     return promise;
 }
 
@@ -487,7 +493,7 @@ app.get('/home', function (req, res) {
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
                     //TODO change user_name to name
-                    user:_user,
+                    user: _user,
                     user_name: _user.get("name"),
                     verified: _user.get("emailVerified")
                 });
