@@ -104,9 +104,9 @@
 
             Parse.User.become(user.getSessionToken()).then((user) => {
 
-                console.log("PARSE USER BECOME: " +user);
+                setCookie("token", user.getSessionToken(), days)
 
-                let days = 30
+              /*  let days = 30
                 let type = user.get("type").toString();
                 let emailVerified = user.get("emailVerified").toString();
 
@@ -114,7 +114,7 @@
                 setCookie("email_verified", emailVerified, days);
                 setCookie("userId", user.id, days);
 
-                setCookie("token", user.getSessionToken(), days)
+
                 setCookie("username", user.getUsername(), days);
                 setCookie("name", user.get("name"), days);
 
@@ -125,7 +125,7 @@
                     setCookie('profile_image', "null");
                 }
                 console.log("USER TYPE "+ type);
-                console.log("EMAIL VERIFIED "+ emailVerified);
+                console.log("EMAIL VERIFIED "+ emailVerified);*/
                 document.location = "/home";
 
             }, error => {
