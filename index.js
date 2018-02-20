@@ -42,7 +42,7 @@ const REVIEW = 1;
 const APPROVED = 2;
 
 //TODO convert browser user type to integer
-const NORMAL = 2;
+const NORMAL_USER = 2;
 const SUPER = 0;
 const _NORMAL = "2";
 const _SUPER = "0";
@@ -157,7 +157,6 @@ app.use(bodyParser.urlencoded({
 
 app.use(methodOverride());
 
-
 // app.use(cookieSession({
 //     name: "session",
 //     secret: "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
@@ -167,7 +166,7 @@ app.use(methodOverride());
 
 
 // set a cookie
-app.use(function (req, res, next) {
+/*app.use(function (req, res, next) {
     // check if client sent cookie
     var cookie = req.cookies.cookieName;
     if (cookie === undefined) {
@@ -183,7 +182,7 @@ app.use(function (req, res, next) {
         console.log('cookie exists', cookie);
     }
     next(); // <-- important!
-});
+});*/
 
 
 app.all('*', function (req, res, next) {
@@ -204,7 +203,7 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 app.set('view engine', 'ejs');
 
 //uploaded file storage location
-var storage = multer.diskStorage({
+let storage = multer.diskStorage({
     destination: function (req, file, cb) {
         console.log("Dest " + JSON.stringify(file));
         cb(null, 'public/uploads')
@@ -214,21 +213,20 @@ var storage = multer.diskStorage({
     }
 });
 
-var upload = multer({storage: storage});
-var mountPath = process.env.PARSE_MOUNT || '/parse';
+let upload = multer({storage: storage});
+let mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 
 // Home Page
 app.get('/', function (req, res) {
 
-
-    var token = req.cookies.token;
+    let token = req.cookies.token;
 
     if (token) {
         res.redirect("/home");
     } else {
         //retrieve stickers to randomly display on the home page
-        new Parse.Query("Stickers").limit(40).find({sessionToken: token}).then(function (cards) {
+        new Parse.Query("Stickers").limit(40).find({useMasterKey: true}).then(function (cards) {
 
             cards = helper.shuffle(cards);
 
@@ -253,21 +251,22 @@ app.get('/', function (req, res) {
 });
 
 app.get('/sign_up', function (req, res) {
-    var message = "";
+    let message = "";
     res.render("pages/sign_up", {error: message});
 });
 
 app.post('/signup', function (req, res) {
-    var name = req.body.name_field;
-    var username = req.body.username;
-    var password = req.body.password;
+    //TODO change this to name
+    let name = req.body.name_field;
+    let username = req.body.username;
+    let password = req.body.password;
 
-    var user = new Parse.User();
+    let user = new Parse.User();
     user.set("name", name);
     user.set("username", username);
     user.set("password", password);
     user.set("email", username);
-    user.set("type", 2);
+    user.set("type", NORMAL_USER);
     user.set("image_set", false);
     user.set("facebook_handle", "");
     user.set("twitter_handle", "");
@@ -275,9 +274,11 @@ app.post('/signup', function (req, res) {
 
     user.signUp(null, {
         success: function (user) {
+
             res.cookie('username', user.getUsername());
             res.cookie('name', user.get("name"));
 
+            //TODO after sign up show first_time_signup page
             Parse.User.logIn(username, password).then(function (user) {
                 console.log("SESSIONS TOKEN " + user.getSessionToken());
                 res.cookie('token', user.getSessionToken());
@@ -299,7 +300,7 @@ app.post('/signup', function (req, res) {
         },
         error: function (user, error) {
             // Show the error message somewhere and let the user try again.
-            var message = "SignUp was unsuccessful. " + error.message;
+            let message = "SignUp was unsuccessful. " + error.message;
             res.render("pages/sign_up", {error: message});
         }
     });
@@ -330,7 +331,7 @@ app.post('/login', function (req, res) {
             res.cookie('profile_image', "null");
         }
 
-        var userType = user.get("type");
+        let userType = user.get("type");
         console.log("USER TYPE " + userType);
 
         // new Parse.Query('_Session')
@@ -345,7 +346,7 @@ app.post('/login', function (req, res) {
 
         errorMessage = "";
 
-        if (userType === NORMAL) {
+        if (userType === NORMAL_USER) {
             res.redirect("/home");
         } else if (userType === SUPER) {
             res.redirect("/admin_home");
@@ -432,7 +433,7 @@ app.get('/home', function (req, res) {
 
     if (token) {
 
-        new Parse.Query('_Session')
+        new Parse.Query('_User')
             .equalTo('sessionToken', token)
             .include('user').first().then(function (user) {
             console.log("SESSION DATA: " + JSON.stringify(user));
