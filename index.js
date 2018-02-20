@@ -219,22 +219,9 @@ app.use(mountPath, api);
 
 function getUser(token) {
 
-    console.log("GET USER FUNC");
-
-    let promise = new Parse.Promise();
-    new Parse.Query('_Session')
+    return new Parse.Query('_Session')
         .equalTo('sessionToken', token)
-        .include('user').first({sessionToken: token})
-        .then(function (sessionToken) {
-            console.log("GOT SESSSION TOKEN: " + JSON.stringify(sessionToken));
-            promise.resolve(sessionToken.get("user"))
-        }, function (error) {
-            console.log("ERROR SESSSION TOKEN: " + JSON.stringify(error));
-            promise.reject(error);
-        });
-
-    console.log("GOT TO THIS PROMISE");
-    return promise;
+        .include('user').first({sessionToken: token});
 }
 
 // Home Page
@@ -455,19 +442,19 @@ app.get('/home', function (req, res) {
 
         let _user = {};
 
-        getUser(token).then(function (user) {
+        getUser(token).then(function (sessionToken) {
 
-            _user = user;
+            _user = sessionToken.get("user");
             const limit = 3;
 
-            console.log("USER ID:" + user.id);
+            console.log("USER ID:" + _user.id);
 
             return Parse.Promise.when(
-                new Parse.Query(PacksClass).equalTo("user_id", user.id).limit(limit).find(),
+                new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(CategoryClass).limit(limit).find(),
                 new Parse.Query(CategoryClass).count(),
-                new Parse.Query(PacksClass).equalTo("user_id", user.id).count(),
-                new Parse.Query(StickerClass).equalTo("user_id", user.id).count()
+                new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
+                new Parse.Query(StickerClass).equalTo("user_id", _user.id).count()
             )
 
         }).then(function (collection, categories, categoryLength, packLength, stickerLength) {
