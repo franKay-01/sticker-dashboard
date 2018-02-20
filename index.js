@@ -433,7 +433,7 @@ app.get('/home', function (req, res) {
 
     if (token) {
 
-        new Parse.Query('_Session')
+        new Parse.Query('Session')
             .equalTo('sessionToken', token)
             .include('user').first().then(function (user) {
             console.log("SESSION DATA: " + JSON.stringify(user));
