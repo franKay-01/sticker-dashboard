@@ -457,8 +457,6 @@ app.get('/home', function (req, res) {
 
         }).then(function (collection, categories, categoryLength, packLength, stickerLength) {
 
-            console.log("COLLECTION:" + JSON.stringify(collection));
-
             let _collection = [];
             let _categories = [];
 
@@ -472,7 +470,10 @@ app.get('/home', function (req, res) {
 
             }
 
-            if (_user.get("type") === _NORMAL) {
+            if (_user.get("type") === NORMAL_USER) {
+
+                console.log("NORMAL USER:");
+
                 res.render("pages/home", {
                     collections: _collection,
                     categoryLength: helper.leadingZero(categoryLength),
@@ -483,7 +484,10 @@ app.get('/home', function (req, res) {
                     user_name: _user.get("name"),
                     verified: _user.get("emailVerified")
                 });
-            } else if (_user.get("type") === _SUPER) {
+            } else if (_user.get("type") === SUPER) {
+
+                console.log("SUPER USER:");
+
                 res.redirect("/admin_home");
             }
 
