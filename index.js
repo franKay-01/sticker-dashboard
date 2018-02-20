@@ -479,7 +479,7 @@ app.get('/home', function (req, res) {
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
                     //TODO change user_name to name
-                    user: _user,
+                   /* user: _user,*/
                     user_name: _user.get("name"),
                     verified: _user.get("emailVerified")
                 });
