@@ -1307,6 +1307,11 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
             }
             return sticker.save();
         }).then(function () {
+            if (status === "1") {
+                reviews.set("approved", true);
+            } else if (status === "2") {
+                reviews.set("approved", false);
+            }
             reviews.set("comments", comments);
             reviews.set("reviewer", reviewer);
             reviews.set("type_id", id);
