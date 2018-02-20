@@ -435,8 +435,8 @@ app.get('/home', function (req, res) {
 
         new Parse.Query('_Session')
             .equalTo('sessionToken', token)
-            .include('user').first({sessionToken:token}).then(function (user) {
-            console.log("USERNAME FROM SESSION: " + JSON.stringify(sessionToken.get("user").getUsername()));
+            .include('user').first({sessionToken:token}).then(function (sessionToken) {
+            console.log("USERNAME FROM SESSION: " + sessionToken.get("user").getUsername());
         }, function (error) {
             console.log("SESSION DATA ERROR: " + JSON.stringify(error));
         });
