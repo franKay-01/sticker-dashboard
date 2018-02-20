@@ -104,7 +104,7 @@
 
             Parse.User.become(user.getSessionToken()).then((user) => {
 
-                setCookie("token", user.getSessionToken(), days)
+                setCookie("token", user.getSessionToken(), 30)
 
               /*  let days = 30
                 let type = user.get("type").toString();
