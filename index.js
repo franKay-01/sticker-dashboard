@@ -716,13 +716,13 @@ app.post('/new_category', function (req, res) {
     var token = req.cookies.token;
     //TODO update naming conventions
     var categoryName = req.body.catname;
-
+    var category_name = categoryName.toLowerCase();
     if (token) {
 
         var Category = new Parse.Object.extend(CategoryClass);
         var categoryObject = new Category();
 
-        categoryObject.set("name", categoryName);
+        categoryObject.set("name", category_name);
         categoryObject.save().then(function () {
 
                 res.redirect("/categories");
