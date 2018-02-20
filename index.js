@@ -217,6 +217,20 @@ let upload = multer({storage: storage});
 let mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 
+function getUser(token) {
+
+    let promise = new Parse.Promise();
+    new Parse.Query('_Session')
+        .equalTo('sessionToken', token)
+        .include('user').first({sessionToken: token}).then(function (sessionToken) {
+        promise.resolve(sessionToken.get("user"))
+    }, function (error) {
+        promise.reject(error);
+    });
+
+    return promise;
+}
+
 // Home Page
 app.get('/', function (req, res) {
 
@@ -425,34 +439,30 @@ app.get('/admin_home', function (req, res) {
 app.get('/home', function (req, res) {
 
     let token = req.cookies.token;
-    let username = req.cookies.username;
-    let name = req.cookies.name;
-    let user_info = req.cookies.userId;
-    let isVerified = req.cookies.email_verified;
-    let userType = req.cookies.userType;
+    // let username = req.cookies.username;
+    // let name = req.cookies.name;
+    // let user_info = req.cookies.userId;
+    // let isVerified = req.cookies.email_verified;
+    // let userType = req.cookies.userType;
 
     if (token) {
 
-        new Parse.Query('_Session')
-            .equalTo('sessionToken', token)
-            .include('user').first({sessionToken:token}).then(function (sessionToken) {
-            console.log("USERNAME FROM SESSION: " + sessionToken.get("user").getUsername());
-        }, function (error) {
-            console.log("SESSION DATA ERROR: " + JSON.stringify(error));
-        });
+        let _user = {};
 
-        username = username.substring(0, username.indexOf('@'));
-        const limit = 3;
+        getUser(token).then(function (user) {
 
-        Parse.Promise.when(
-            new Parse.Query(PacksClass).equalTo("user_id", user_info).limit(limit).find(),
-            new Parse.Query(CategoryClass).limit(limit).find(),
-            //count all objects
-            //TODO have a stats class
-            new Parse.Query(CategoryClass).count(),
-            new Parse.Query(PacksClass).equalTo("user_id", user_info).count(),
-            new Parse.Query(StickerClass).equalTo("user_id", user_info).count()
-        ).then(function (collection, categories, categoryLength, packLength, stickerLength) {
+            _user = user;
+            const limit = 3;
+
+            return Parse.Promise.when(
+                new Parse.Query(PacksClass).equalTo("user_id", user.id).limit(limit).find(),
+                new Parse.Query(CategoryClass).limit(limit).find(),
+                new Parse.Query(CategoryClass).count(),
+                new Parse.Query(PacksClass).equalTo("user_id", user.id).count(),
+                new Parse.Query(StickerClass).equalTo("user_id", user.id).count()
+            )
+
+        }).then(function (collection, categories, categoryLength, packLength, stickerLength) {
 
             let _collection = [];
             let _categories = [];
@@ -467,29 +477,28 @@ app.get('/home', function (req, res) {
 
             }
 
-            console.log("REACHED FIRST SIDE " + userType);
-            if (userType === _NORMAL) {
+            if (_user.get("type") === _NORMAL) {
                 res.render("pages/home", {
                     collections: _collection,
                     categories: _categories,
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
-                    username: username,
-                    user_name: name,
-                    verified: isVerified
+                    //TODO change user_name to name
+                    user:_user,
+                    user_name: _user.get("name"),
+                    verified: _user.get("emailVerified")
                 });
-            } else if (userType === _SUPER) {
-                console.log("REACHED SECOND SIDE " + userType);
+            } else if (_user.get("type") === _SUPER) {
                 res.redirect("/admin_home");
             }
-
 
         }, function (error) {
             //TODO how to display error on home page
             console.log(JSON.stringify(error));
             res.redirect("/home");
         });
+
 
     } else {
         res.redirect("/");
@@ -741,7 +750,7 @@ app.post('/review_pack/:id', function (req, res) {
     var comment = req.body.review_text;
     var status = req.body.approved;
 
-    console.log("COMMENT " + comment + " STATUS " + status+ " ID "+id+" REVIEWER "+reviewer);
+    console.log("COMMENT " + comment + " STATUS " + status + " ID " + id + " REVIEWER " + reviewer);
     if (token) {
         var Reviews = new Parse.Object.extend("Reviews");
         var review = new Reviews();
@@ -757,7 +766,7 @@ app.post('/review_pack/:id', function (req, res) {
             return pack.save();
 
         }).then(function () {
-            console.log("CODE GOT HERE. STATUS "+status+" COMMENTS "+comment+" REVIEWER "+reviewer+" ID "+id);
+            console.log("CODE GOT HERE. STATUS " + status + " COMMENTS " + comment + " REVIEWER " + reviewer + " ID " + id);
             if (status === "2") {
                 review.set("approved", true);
             } else if (status === "1") {
@@ -1316,10 +1325,10 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
             reviews.set("type", 1);
             reviews.save().then(function () {
                 console.log("STICKER REVIEWED");
-                res.redirect("/pack/"+pack_id);
+                res.redirect("/pack/" + pack_id);
             }, function (error) {
-                console.log("STICKER REVIEW FAILED "+error.message);
-                res.redirect("/details/"+id+"/"+pack_id);
+                console.log("STICKER REVIEW FAILED " + error.message);
+                res.redirect("/details/" + id + "/" + pack_id);
             });
         })
 
