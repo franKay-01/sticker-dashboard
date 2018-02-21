@@ -529,21 +529,28 @@ app.post('/reset_password', function (req, res) {
 
 app.get('/reset_email', function (req, res) {
     var token = req.cookies.token;
-    var user_info = req.cookies.userId;
 
     if (token) {
-        new Parse.Query("User").equalTo("objectId", user_info).first().then(function (user) {
-            console.log("USER FROM RESET " + JSON.stringify(user) + " CURRENT USER " + Parse.User.current());
-            user.set("email", "test@gmail.com");
-            // user.set("username", "test@gmail.com");
-            return user.save();
-        }).then(function (result) {
-            console.log("EMAIL CHANGED SUCCESSFULLY " + JSON.stringify(result));
-            res.redirect("/");
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            new Parse.Query("User").equalTo("objectId", _user.id).first().then(function (user) {
+                console.log("USER FROM RESET " + JSON.stringify(user) + " CURRENT USER " + Parse.User.current());
+                user.set("email", "test@gmail.com");
+                // user.set("username", "test@gmail.com");
+                return user.save();
+            }).then(function (result) {
+                console.log("EMAIL CHANGED SUCCESSFULLY " + JSON.stringify(result));
+                res.redirect("/");
+            })
         }, function (error) {
-            console.log("EMAIL NOT CHANGED " + error.message);
-            res.redirect("/");
-        })
+            console.log("ERROR OCCURRED WHEN RESETTING EMAIL "+ error.message)
+        });
+
     }
 
 });
@@ -562,92 +569,98 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
     if (token) {
 
-        //TODO remove unused logs
-        new Parse.Query(PacksClass).equalTo("objectId", collectionId).first({sessionToken: token}).then(function (collection) {
+        let _user = {};
 
-            console.log("INSIDE COLLECTION");
-            stickerCollection = collection;
+        getUser(token).then(function (sessionToken) {
 
-            files.forEach(function (file) {
+            _user = sessionToken.get("user");
+            new Parse.Query(PacksClass).equalTo("objectId", collectionId).first({sessionToken: token}).then(function (collection) {
 
-                var fullName = file.originalname;
-                var stickerName = fullName.substring(0, fullName.length - 4);
+                console.log("INSIDE COLLECTION");
+                stickerCollection = collection;
 
-                var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-                // console.log("BITMAP FROM DERRYCK'S CODE " + JSON.stringify(bitmap));
-                //create our parse file
-                var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                // console.log("PARSEFILE " + JSON.stringify(parseFile) + " name " + stickerName + " collection " + JSON.stringify(collection));
-                var Sticker = new Parse.Object.extend(StickerClass);
-                var sticker = new Sticker();
-                sticker.set("stickerName", stickerName);
-                sticker.set("localName", stickerName);
-                sticker.set("uri", parseFile);
-                sticker.set("user_id", req.cookies.userId);
-                sticker.set("parent", collection);
-                sticker.set("flag", false);
-                sticker.set("archive", false);
-                sticker.set("sold", true);
+                files.forEach(function (file) {
 
-                stickerDetails.push(sticker);
-                fileDetails.push(file);
+                    var fullName = file.originalname;
+                    var stickerName = fullName.substring(0, fullName.length - 4);
 
-            });
+                    var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+                    // console.log("BITMAP FROM DERRYCK'S CODE " + JSON.stringify(bitmap));
+                    //create our parse file
+                    var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                    // console.log("PARSEFILE " + JSON.stringify(parseFile) + " name " + stickerName + " collection " + JSON.stringify(collection));
+                    var Sticker = new Parse.Object.extend(StickerClass);
+                    var sticker = new Sticker();
+                    sticker.set("stickerName", stickerName);
+                    sticker.set("localName", stickerName);
+                    sticker.set("uri", parseFile);
+                    sticker.set("user_id", _user.id);
+                    sticker.set("parent", collection);
+                    sticker.set("flag", false);
+                    sticker.set("archive", false);
+                    sticker.set("sold", true);
 
-            console.log("SAVE ALL OBJECTS AND FILE");
-            return Parse.Object.saveAll(stickerDetails);
+                    stickerDetails.push(sticker);
+                    fileDetails.push(file);
 
-        }).then(function (stickers) {
+                });
 
-            _.each(fileDetails, function (file) {
-                //Delete tmp fil after upload
-                var tempFile = file.path;
-                fs.unlink(tempFile, function (err) {
-                    if (err) {
-                        //TODO handle error code
-                        console.log("-------Could not del temp" + JSON.stringify(err));
+                console.log("SAVE ALL OBJECTS AND FILE");
+                return Parse.Object.saveAll(stickerDetails);
+
+            }).then(function (stickers) {
+
+                _.each(fileDetails, function (file) {
+                    //Delete tmp fil after upload
+                    var tempFile = file.path;
+                    fs.unlink(tempFile, function (err) {
+                        if (err) {
+                            //TODO handle error code
+                            console.log("-------Could not del temp" + JSON.stringify(err));
+                        }
+                        else {
+                            console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                        }
+                    });
+                });
+
+                _.each(stickers, function (sticker) {
+                    var collection_relation = stickerCollection.relation(PacksClass);
+                    collection_relation.add(sticker);
+                });
+
+                console.log("SAVE COLLECTION RELATION");
+                return stickerCollection.save();
+
+            }).then(function () {
+                console.log("EMAIL IS " + req.cookies.username);
+                var mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
+                var data = {
+                    //Specify email data
+                    from: process.env.EMAIL_FROM || "test@example.com",
+                    //The email to contact
+                    to: req.cookies.username,
+                    //Subject and text data
+                    subject: 'Stickers Uploaded',
+                    html: fs.readFileSync("./uploads/sticker_upload.html", "utf8")
+                }
+
+                mailgun.messages().send(data, function (error, body) {
+                    //If there is an error, render the error page
+                    if (error) {
+                        console.log("BIG BIG ERROR: ", error.message);
                     }
+                    //Else we can greet    and leave
                     else {
-                        console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                        //Here "submitted.jade" is the view file for this landing page
+                        //We pass the variable "email" from the url parameter in an object rendered by Jade
+                        console.log("EMAIL SENT" + body);
                     }
                 });
-            });
+                console.log("REDIRECT TO PACK COLLECTION");
+                res.redirect("/pack/" + collectionId);
 
-            _.each(stickers, function (sticker) {
-                var collection_relation = stickerCollection.relation(PacksClass);
-                collection_relation.add(sticker);
-            });
-
-            console.log("SAVE COLLECTION RELATION");
-            return stickerCollection.save();
-
-        }).then(function () {
-            console.log("EMAIL IS " + req.cookies.username);
-            var mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
-            var data = {
-                //Specify email data
-                from: process.env.EMAIL_FROM || "test@example.com",
-                //The email to contact
-                to: req.cookies.username,
-                //Subject and text data
-                subject: 'Stickers Uploaded',
-                html: fs.readFileSync("./uploads/sticker_upload.html", "utf8")
-            }
-
-            mailgun.messages().send(data, function (error, body) {
-                //If there is an error, render the error page
-                if (error) {
-                    console.log("BIG BIG ERROR: ", error.message);
-                }
-                //Else we can greet    and leave
-                else {
-                    //Here "submitted.jade" is the view file for this landing page
-                    //We pass the variable "email" from the url parameter in an object rendered by Jade
-                    console.log("EMAIL SENT" + body);
-                }
-            });
-            console.log("REDIRECT TO PACK COLLECTION");
-            res.redirect("/pack/" + collectionId);
+            })
 
         }, function (error) {
             console.log("BIG BIG ERROR" + error.message);
