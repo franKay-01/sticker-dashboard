@@ -388,7 +388,6 @@ app.get('/admin_home', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
-            const limit = 3;
 
             return Parse.Promise.when(
                 new Parse.Query(PacksClass).notEqualTo("status", PENDING).find(),
@@ -398,7 +397,7 @@ app.get('/admin_home', function (req, res) {
                 new Parse.Query(StickerClass).count()
             );
 
-        }).then(function () {
+        }).then(function (collection, categories, categoryLength, packLength, stickerLength) {
             let _collection = [];
             let _categories = [];
 
