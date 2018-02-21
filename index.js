@@ -762,7 +762,6 @@ app.post('/review_pack/:id', function (req, res) {
     var comment = req.body.review_text;
     var status = req.body.approved;
 
-    console.log("COMMENT " + comment + " STATUS " + status + " ID " + id + " REVIEWER " + reviewer);
     if (token) {
 
         let _user = {};
