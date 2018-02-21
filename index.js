@@ -380,24 +380,25 @@ app.post('/login', function (req, res) {
 app.get('/admin_home', function (req, res) {
 
     let token = req.cookies.token;
-    let username = req.cookies.username;
-    let name = req.cookies.name;
-    let isVerified = req.cookies.email_verified;
 
     if (token) {
 
-        username = username.substring(0, username.indexOf('@'));
+        let _user = {};
 
-        Parse.Promise.when(
-            new Parse.Query(PacksClass).notEqualTo("status", PENDING).find(),
-            new Parse.Query(CategoryClass).find(),
-            //count all objects
-            //TODO have a stats class
-            new Parse.Query(CategoryClass).count(),
-            new Parse.Query(PacksClass).count(),
-            new Parse.Query(StickerClass).count()
-        ).then(function (collection, categories, categoryLength, packLength, stickerLength) {
+        getUser(token).then(function (sessionToken) {
 
+            _user = sessionToken.get("user");
+            const limit = 3;
+
+            return Parse.Promise.when(
+                new Parse.Query(PacksClass).notEqualTo("status", PENDING).find(),
+                new Parse.Query(CategoryClass).find(),
+                new Parse.Query(CategoryClass).count(),
+                new Parse.Query(PacksClass).count(),
+                new Parse.Query(StickerClass).count()
+            );
+
+        }).then(function () {
             let _collection = [];
             let _categories = [];
 
@@ -421,15 +422,13 @@ app.get('/admin_home', function (req, res) {
                 packLength: helper.leadingZero(packLength),
                 stickerLength: helper.leadingZero(stickerLength),
                 username: username,
-                user_name: name,
-                verified: isVerified
+                user_name: _user.get("name"),
+                verified: _user.get("emailVerified")
             });
-
         }, function (error) {
-            //TODO how to display error on home page
-            console.log(JSON.stringify(error));
-            res.redirect("/home");
-        });
+            console.log("ERRR OCCURRED. ERROR MESSAGE: "+error.message);
+            res.redirect('/');
+        })
 
     } else {
         res.redirect("/");
