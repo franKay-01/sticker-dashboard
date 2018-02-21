@@ -1030,11 +1030,11 @@ app.get('/pack_collection', function (req, res) {
 
                 res.render("pages/pack_collection", {collections: collections});
 
-        });
+            });
 
-    }, function (error) {
-           console.log("ERROR "+error.message);
-           res.redirect("/");
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect("/");
         })
     }
 
@@ -1487,9 +1487,7 @@ app.post('/upload_dropbox_file', function (req, res) {
     fileUrl = req.body.fileUrl; // receive url from form
     name = name.substring(0, name.length - 4);
 
-
     if (token) {
-
 
         let _user = {};
 
@@ -1528,7 +1526,6 @@ app.post('/upload_dropbox_file', function (req, res) {
 
                             return sticker.save();
 
-
                         }).then(function (sticker) {
                         console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
                         var collection_relation = stickerCollection.relation(PacksClass);
@@ -1556,8 +1553,8 @@ app.post('/upload_dropbox_file', function (req, res) {
                 throw err;
             });
         }, function (error) {
-            console.log("SESSION INVALID "+error.message);
-            res.redirect("/pack/"+ coll_id);
+            console.log("SESSION INVALID " + error.message);
+            res.redirect("/pack/" + coll_id);
         });
 
     } else {
