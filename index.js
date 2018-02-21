@@ -1044,41 +1044,48 @@ app.get('/pack/:id', function (req, res) {
 
     var token = req.cookies.token;
     var coll_id = req.params.id;
-    var user = req.cookies.userType;
-    console.log("USER TYPE FOR PACK " + user);
+
     if (token) {
-        var collection = new Parse.Query(PacksClass);
-        collection.get(coll_id, {
-            success: function (collection) {
-                var coll_name = collection.get("pack_name");
-                var pack_status = collection.get("status");
-                //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
 
-                var col = collection.relation(PacksClass);
-                col.query().find().then(function (stickers) {
+        let _user = {};
 
-                    if (user === _SUPER) {
-                        res.render("pages/admin_pack", {
-                            stickers: stickers,
-                            id: coll_id,
-                            collectionName: coll_name,
-                            userType: user,
-                            status: pack_status
-                        });
-                    } else {
-                        res.render("pages/new_pack", {
-                            stickers: stickers,
-                            id: coll_id,
-                            collectionName: coll_name,
-                            userType: user,
-                            status: pack_status
-                        });
-                    }
+        getUser(token).then(function (sessionToken) {
 
-                }, function (error) {
-                    response.error("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
-                });
-            }
+            _user = sessionToken.get("user");
+            var collection = new Parse.Query(PacksClass);
+            collection.get(coll_id, {
+                success: function (collection) {
+                    var coll_name = collection.get("pack_name");
+                    var pack_status = collection.get("status");
+                    //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
+
+                    var col = collection.relation(PacksClass);
+                    col.query().find().then(function (stickers) {
+
+                        if (_user.get("type") === _SUPER) {
+                            res.render("pages/admin_pack", {
+                                stickers: stickers,
+                                id: coll_id,
+                                collectionName: coll_name,
+                                userType: user,
+                                status: pack_status
+                            });
+                        } else {
+                            res.render("pages/new_pack", {
+                                stickers: stickers,
+                                id: coll_id,
+                                collectionName: coll_name,
+                                userType: user,
+                                status: pack_status
+                            });
+                        }
+
+                    })
+                }
+            });
+        },  function (error) {
+            console.log("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
+            res.redirect("/");
         });
     }
     else {
