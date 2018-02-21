@@ -421,7 +421,6 @@ app.get('/admin_home', function (req, res) {
                 categoryLength: helper.leadingZero(categoryLength),
                 packLength: helper.leadingZero(packLength),
                 stickerLength: helper.leadingZero(stickerLength),
-                username: username,
                 user_name: _user.get("name"),
                 verified: _user.get("emailVerified")
             });
