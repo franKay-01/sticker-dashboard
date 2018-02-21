@@ -225,7 +225,7 @@ function getUser(token) {
 /*
 how to use this function parseInstance.setACL(getACL(user,true|false));
 * */
-function setACL(user,isPublicReadAccess){
+function setACL(user, isPublicReadAccess) {
     let acl = new Parse.ACL(isPublicReadAccess);
     acl.setPublicReadAccess(isPublicReadAccess);
     return acl;
@@ -424,7 +424,7 @@ app.get('/admin_home', function (req, res) {
                 verified: _user.get("emailVerified")
             });
         }, function (error) {
-            console.log("ERRR OCCURRED. ERROR MESSAGE: "+error.message);
+            console.log("ERRR OCCURRED. ERROR MESSAGE: " + error.message);
             res.redirect('/');
         })
 
@@ -482,7 +482,7 @@ app.get('/home', function (req, res) {
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
                     //TODO change user_name to name
-                   /* user: _user,*/
+                    /* user: _user,*/
                     user_name: _user.get("name"),
                     verified: _user.get("emailVerified")
                 });
@@ -548,7 +548,7 @@ app.get('/reset_email', function (req, res) {
                 res.redirect("/");
             })
         }, function (error) {
-            console.log("ERROR OCCURRED WHEN RESETTING EMAIL "+ error.message)
+            console.log("ERROR OCCURRED WHEN RESETTING EMAIL " + error.message)
         });
 
     }
@@ -1018,20 +1018,26 @@ app.get('/second_dashboard', function (req, res) {
 app.get('/pack_collection', function (req, res) {
 
     var token = req.cookies.token;
-    var user_info = req.cookies.userId;
 
     if (token) {
-        let query = new Parse.Query(PacksClass);
-        query.equalTo("user_id", user_info).find({sessionToken: token}).then(function (collections) {
+        let _user = {};
 
-            res.render("pages/pack_collection", {collections: collections});
+        getUser(token).then(function (sessionToken) {
 
-        }, function (error) {
-            console.log("Colll error" + JSON.stringify(error));
+            _user = sessionToken.get("user");
+            let query = new Parse.Query(PacksClass);
+            query.equalTo("user_id", _user.id).find({sessionToken: token}).then(function (collections) {
+
+                res.render("pages/pack_collection", {collections: collections});
 
         });
 
+    }, function (error) {
+           console.log("ERROR "+error.message);
+           res.redirect("/");
+        })
     }
+
     else {
         console.log("No Session Exists, log in");
         res.redirect("/");
@@ -1083,7 +1089,7 @@ app.get('/pack/:id', function (req, res) {
                     })
                 }
             });
-        },  function (error) {
+        }, function (error) {
             console.log("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
             res.redirect("/");
         });
@@ -1137,7 +1143,6 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
     var coll_name = req.body.coll_name;
     var pricing = parseInt(req.body.pricing);
     var version = parseInt(req.body.version);
-    var user_info = req.cookies.userId;
     var keywords = req.body.keyword;
 
     var _keywords = keywords.split(",");
@@ -1146,60 +1151,70 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
 
     if (token) {
 
-        var PackCollection = new Parse.Object.extend(PacksClass);
-        var pack = new PackCollection();
-        pack.set("pack_name", coll_name);
-        pack.set("pack_description", pack_description);
-        pack.set("user_id", user_info);
-        pack.set("status", PENDING);
-        pack.set("pricing", pricing);
-        pack.set("version", version);
-        pack.set("archive", false);
-        pack.set("keyword", _keywords);
-        pack.set("flag", false);
+        let _user = {};
 
-        if (files.length !== 0) {
-            files.forEach(function (file) {
-                var fullName = file.originalname;
-                var stickerName = fullName.substring(0, fullName.length - 4);
+        getUser(token).then(function (sessionToken) {
 
-                var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+            _user = sessionToken.get("user");
 
-                var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+            var PackCollection = new Parse.Object.extend(PacksClass);
+            var pack = new PackCollection();
+            pack.set("pack_name", coll_name);
+            pack.set("pack_description", pack_description);
+            pack.set("user_id", _user.id);
+            pack.set("status", PENDING);
+            pack.set("pricing", pricing);
+            pack.set("version", version);
+            pack.set("archive", false);
+            pack.set("keyword", _keywords);
+            pack.set("flag", false);
 
-                pack.set("art_work", parseFile);
+            if (files.length !== 0) {
+                files.forEach(function (file) {
+                    var fullName = file.originalname;
+                    var stickerName = fullName.substring(0, fullName.length - 4);
 
-            });
-        } else {
-            var fileUrl = "https://cryptic-waters-41617.herokuapp.com/public/assets/images/image-profile-placeholder.png";
-            var name = "image-profile-placeholder.png";
-            console.log("FILEURL " + fileUrl);
+                    var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
-            var options = {
-                url: fileUrl,
-                dest: __dirname + '/public/uploads/' + name
+                    var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+
+                    pack.set("art_work", parseFile);
+
+                });
+            } else {
+                var fileUrl = "https://cryptic-waters-41617.herokuapp.com/public/assets/images/image-profile-placeholder.png";
+                var name = "image-profile-placeholder.png";
+                console.log("FILEURL " + fileUrl);
+
+                var options = {
+                    url: fileUrl,
+                    dest: __dirname + '/public/uploads/' + name
+                }
+
+                download.image(options)
+                    .then(({filename, image}) => {
+                        bitmap = fs.readFileSync(filename, {encoding: 'base64'});
+                        var parseFile = new Parse.File(name, {base64: bitmap});
+                        pack.set("art_work", parseFile);
+                    }).then(function () {
+                    pack.save().then(function () {
+                        res.redirect('/pack/' + collection.id);
+                    }, function (error) {
+                        console.log("BIG ERROR " + error.message);
+                        res.redirect('/pack/' + collection.id);
+                    })
+                })
             }
 
-            download.image(options)
-                .then(({filename, image}) => {
-                    bitmap = fs.readFileSync(filename, {encoding: 'base64'});
-                    var parseFile = new Parse.File(name, {base64: bitmap});
-                    pack.set("art_work", parseFile);
-                }).then(function () {
-                pack.save().then(function () {
-                    res.redirect('/pack/' + collection.id);
-                }, function (error) {
-                    console.log("BIG ERROR " + error.message);
-                    res.redirect('/pack/' + collection.id);
-                })
-            })
-        }
+            pack.save().then(function (collection) {
 
-        pack.save().then(function (collection) {
+                res.redirect('/pack/' + collection.id);
 
-            res.redirect('/pack/' + collection.id);
-
-        });
+            });
+        }, function (error) {
+            console.log("ERROR OCCURRED WHEN ADDING NEW PACK " + error.message);
+            console.log('/');
+        })
     }
     else {
         res.redirect("/");
@@ -1213,16 +1228,21 @@ app.get('/details/:id/:coll_id', function (req, res) {
     var token = req.cookies.token;
     var id = req.params.id;
     var pack_ = req.params.coll_id;
-    var user = req.cookies.userType;
     var stickerDetail;
     var allCategories;
 
     if (token) {
+        let _user = {};
 
-        Parse.Promise.when(
-            new Parse.Query(StickerClass).equalTo("objectId", id).first(),
-            new Parse.Query(CategoryClass).find()
-        ).then(function (sticker, categories) {
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return Parse.Promise.when(
+                new Parse.Query(StickerClass).equalTo("objectId", id).first(),
+                new Parse.Query(CategoryClass).find());
+
+        }).then(function (sticker, categories) {
 
                 stickerDetail = sticker;
                 allCategories = categories;
@@ -1240,7 +1260,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
             console.log("CATEGORY NAMES " + categoryNames);
 
-            if (user === _SUPER) {
+            if (_user.get("type") === SUPER_USER) {
                 res.render("pages/admin_details", {
                     sticker: stickerDetail,
                     categoryNames: categoryNames,
@@ -1272,38 +1292,45 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
     var facebook = req.body.facebook;
     var twitter = req.body.twitter;
     var instagram = req.body.instagram;
-    var user_Id = req.cookies.userId;
     var imgChange = req.body.imgChange;
-    var _name = req.cookies.name;
     var file = req.file;
-    console.log("IMAGE CHANGED " + imgChange);
 
     if (token) {
-        new Parse.Query("User").equalTo("objectId", user_Id).first().then(function (user) {
-            var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-            var parseFile = new Parse.File(file.originalname, {base64: bitmap}, file.mimetype);
-            user.set("facebook_handle", facebook);
-            user.set("twitter_handle", twitter);
-            user.set("instagram_handle", instagram);
-            user.set("image", parseFile);
 
-            if (name !== _name) {
-                user.set("name", name);
-            }
+        let _user = {};
 
-            if (imgChange === 'true') {
-                var _bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-                var _parseFile = new Parse.File(file.originalname, {base64: _bitmap}, file.mimetype);
-                user.set("image", _parseFile);
-            }
+        getUser(token).then(function (sessionToken) {
 
-            return user.save({sessionToken: token});
-        }).then(function (result) {
-            console.log("USER UPDATED CORRECTLY");
-            res.redirect('/');
-        }, function (error) {
-            console.log("USER WAS NOT UPDATED " + error.message);
-            res.redirect('/');
+            _user = sessionToken.get("user");
+
+            new Parse.Query("User").equalTo("objectId", _user.id).first().then(function (user) {
+                var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+                var parseFile = new Parse.File(file.originalname, {base64: bitmap}, file.mimetype);
+                user.set("facebook_handle", facebook);
+                user.set("twitter_handle", twitter);
+                user.set("instagram_handle", instagram);
+                user.set("image", parseFile);
+
+                if (name !== _user.get("name")) {
+                    user.set("name", name);
+                }
+
+                if (imgChange === 'true') {
+                    var _bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+                    var _parseFile = new Parse.File(file.originalname, {base64: _bitmap}, file.mimetype);
+                    user.set("image", _parseFile);
+                }
+
+                return user.save({sessionToken: token});
+            }).then(function (result) {
+                console.log("USER UPDATED CORRECTLY");
+                res.redirect('/');
+
+
+            }, function (error) {
+                console.log("USER WAS NOT UPDATED " + error.message);
+                res.redirect('/');
+            });
         });
     }
 });
@@ -1312,7 +1339,6 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
     var token = req.cookies.token;
     var id = req.params.id;
     var pack_id = req.params.pack_id;
-    var reviewer = req.cookies.userId;
     var field = req.body.review_field;
     var comments = req.body.review_text;
     var status = req.body.flagged;
@@ -1321,38 +1347,43 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
     var review_field = field.split(",");
 
     if (token) {
-        var Sticker_review = new Parse.Object.extend(ReviewClass);
-        var reviews = new Sticker_review();
 
-        new Parse.Query(StickerClass).equalTo("objectId", id).first().then(function (sticker) {
-            if (status === "2") {
-                sticker.set("flag", true);
-            } else if (status === "1") {
-                sticker.set("flag", false);
-            }
-            return sticker.save();
-        }).then(function () {
-            if (status === "1") {
-                reviews.set("approved", true);
-            } else if (status === "2") {
-                reviews.set("approved", false);
-            }
-            reviews.set("comments", comments);
-            reviews.set("reviewer", reviewer);
-            reviews.set("type_id", id);
-            reviews.set("review_field", review_field);
+        let _user = {};
 
-            reviews.set("type", 1);
-            reviews.save().then(function () {
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+            var Sticker_review = new Parse.Object.extend(ReviewClass);
+            var reviews = new Sticker_review();
+
+            new Parse.Query(StickerClass).equalTo("objectId", id).first().then(function (sticker) {
+                if (status === "2") {
+                    sticker.set("flag", true);
+                } else if (status === "1") {
+                    sticker.set("flag", false);
+                }
+                return sticker.save();
+            }).then(function () {
+                if (status === "1") {
+                    reviews.set("approved", true);
+                } else if (status === "2") {
+                    reviews.set("approved", false);
+                }
+                reviews.set("comments", comments);
+                reviews.set("reviewer", _user.id);
+                reviews.set("type_id", id);
+                reviews.set("review_field", review_field);
+
+                reviews.set("type", 1);
+                return reviews.save();
+            }).then(function () {
                 console.log("STICKER REVIEWED");
                 res.redirect("/pack/" + pack_id);
             }, function (error) {
                 console.log("STICKER REVIEW FAILED " + error.message);
                 res.redirect("/details/" + id + "/" + pack_id);
             });
-        })
-
-
+        });
     }
 });
 
