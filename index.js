@@ -1062,7 +1062,7 @@ app.get('/pack/:id', function (req, res) {
                     var col = collection.relation(PacksClass);
                     col.query().find().then(function (stickers) {
 
-                        if (_user.get("type") === _SUPER) {
+                        if (_user.get("type") === SUPER_USER) {
                             res.render("pages/admin_pack", {
                                 stickers: stickers,
                                 id: coll_id,
