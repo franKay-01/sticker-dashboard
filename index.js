@@ -759,41 +759,48 @@ app.post('/review_pack/:id', function (req, res) {
 
     var token = req.cookies.token;
     var id = req.params.id;
-    var reviewer = req.cookies.userId;
     var comment = req.body.review_text;
     var status = req.body.approved;
 
     console.log("COMMENT " + comment + " STATUS " + status + " ID " + id + " REVIEWER " + reviewer);
     if (token) {
-        var Reviews = new Parse.Object.extend("Reviews");
-        var review = new Reviews();
 
-        new Parse.Query(PacksClass).equalTo("objectId", id).first().then(function (pack) {
-            console.log("PACK FROM REVIEW " + JSON.stringify(pack));
-            if (status === "2") {
-                pack.set("status", APPROVED);
-            } else if (status === "1") {
-                pack.set("status", REVIEW);
-            }
+        let _user = {};
 
-            return pack.save();
+        getUser(token).then(function (sessionToken) {
 
-        }).then(function () {
-            console.log("CODE GOT HERE. STATUS " + status + " COMMENTS " + comment + " REVIEWER " + reviewer + " ID " + id);
-            if (status === "2") {
-                review.set("approved", true);
-            } else if (status === "1") {
-                review.set("approved", false);
-            }
-            review.set("comments", comment);
-            review.set("reviewer", reviewer);
-            review.set("type_id", id);
-            review.set("type", 0);
+            _user = sessionToken.get("user");
 
-            return review.save();
-        }).then(function () {
-            console.log("PACK WAS SUCCESSFULLY REVIEWED");
-            res.redirect('/pack/' + id);
+            var Reviews = new Parse.Object.extend("Reviews");
+            var review = new Reviews();
+
+            new Parse.Query(PacksClass).equalTo("objectId", id).first().then(function (pack) {
+                console.log("PACK FROM REVIEW " + JSON.stringify(pack));
+                if (status === "2") {
+                    pack.set("status", APPROVED);
+                } else if (status === "1") {
+                    pack.set("status", REVIEW);
+                }
+
+                return pack.save();
+
+            }).then(function () {
+                console.log("CODE GOT HERE. STATUS " + status + " COMMENTS " + comment + " REVIEWER " + reviewer + " ID " + id);
+                if (status === "2") {
+                    review.set("approved", true);
+                } else if (status === "1") {
+                    review.set("approved", false);
+                }
+                review.set("comments", comment);
+                review.set("reviewer", _user.id);
+                review.set("type_id", id);
+                review.set("type", 0);
+
+                return review.save();
+            }).then(function () {
+                console.log("PACK WAS SUCCESSFULLY REVIEWED");
+                res.redirect('/pack/' + id);
+            });
         }, function (error) {
             console.log("ERROR OCCURRED WHEN REVIEWING " + error.message);
             res.redirect('/review/' + id);
@@ -845,17 +852,27 @@ app.get('/review/:id', function (req, res) {
 app.get('/user_profile', function (req, res) {
 
     var token = req.cookies.token;
-    var name = req.cookies.name;
-    var username = req.cookies.username;
-    var user_info = req.cookies.userId;
-    var _profile = req.cookies.profile_image;
-
-    console.log("IMAGE " + _profile);
 
     if (token) {
-        new Parse.Query("User").equalTo("objectId", user_info).find().then(function (user) {
+        let _user = {};
 
-            res.render("pages/profile", {username: name, email: username, profile: _profile});
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            if (_user.get("image_set") === true) {
+                res.render("pages/profile", {
+                    username: _user.get("name"),
+                    email: _user.get("username"),
+                    profile: _user.get("image")
+                });
+            } else {
+                res.render("pages/profile", {
+                    username: _user.get("name"),
+                    email: _user.get("username"),
+                    profile: "null"
+                });
+            }
 
         }, function (error) {
             console.log("ERROR ON PROFILE " + error.message);
@@ -876,7 +893,6 @@ app.post('/update_category', function (req, res) {
         var category = new Parse.Query("Categories");
         category.equalTo("objectId", currentId);
         category.first().then(function (category) {
-
                 category.set("name", newName);
                 return category.save();
             }
