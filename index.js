@@ -1076,7 +1076,6 @@ app.get('/pack/:id', function (req, res) {
                                 stickers: stickers,
                                 id: coll_id,
                                 collectionName: coll_name,
-                                userType:  _user.get("type"),
                                 status: pack_status
                             });
                         }
