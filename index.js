@@ -863,7 +863,7 @@ app.get('/user_profile', function (req, res) {
                 res.render("pages/profile", {
                     username: _user.get("name"),
                     email: _user.get("username"),
-                    profile: _user.get("image")
+                    profile: _user.get("image").url()
                 });
             } else {
                 res.render("pages/profile", {
