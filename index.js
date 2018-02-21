@@ -1052,6 +1052,7 @@ app.get('/pack/:id', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
+
             var collection = new Parse.Query(PacksClass);
             collection.get(coll_id, {
                 success: function (collection) {
@@ -1067,7 +1068,7 @@ app.get('/pack/:id', function (req, res) {
                                 stickers: stickers,
                                 id: coll_id,
                                 collectionName: coll_name,
-                                userType: user,
+                                userType: _user.get("type"),
                                 status: pack_status
                             });
                         } else {
@@ -1075,7 +1076,7 @@ app.get('/pack/:id', function (req, res) {
                                 stickers: stickers,
                                 id: coll_id,
                                 collectionName: coll_name,
-                                userType: user,
+                                userType:  _user.get("type"),
                                 status: pack_status
                             });
                         }
