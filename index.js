@@ -1076,14 +1076,14 @@ app.get('/pack/:id', function (req, res) {
             _user = sessionToken.get("user");
 
             var collection = new Parse.Query(PacksClass);
-            collection.get(coll_id,{useMasterKey:true},{
+            collection.get(coll_id,{
                 success: function (collection) {
                     var coll_name = collection.get("pack_name");
                     var pack_status = collection.get("status");
                     //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
 
                     var col = collection.relation(PacksClass);
-                    col.query().find().then(function (stickers) {
+                    col.query().find({useMasterKey: true}).then(function (stickers) {
 
                         if (_user.get("type") === SUPER_USER) {
                             res.render("pages/admin_pack", {
