@@ -226,7 +226,7 @@ function getUser(token) {
 how to use this function parseInstance.setACL(getACL(user,true|false));
 * */
 function setPermission(user, isPublicReadAccess) {
-    let acl = new Parse.ACL(isPublicReadAccess);
+    let acl = new Parse.ACL(user);
     acl.setPublicReadAccess(isPublicReadAccess);
     return acl;
 }
