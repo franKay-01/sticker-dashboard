@@ -225,7 +225,7 @@ function getUser(token) {
 /*
 how to use this function parseInstance.setACL(getACL(user,true|false));
 * */
-function setACL(user, isPublicReadAccess) {
+function setPermission(user, isPublicReadAccess) {
     let acl = new Parse.ACL(isPublicReadAccess);
     acl.setPublicReadAccess(isPublicReadAccess);
     return acl;
@@ -599,6 +599,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     sticker.set("flag", false);
                     sticker.set("archive", false);
                     sticker.set("sold", true);
+                    sticker.setACL(setPermission(_user,false));
 
                     stickerDetails.push(sticker);
                     fileDetails.push(file);
@@ -1183,6 +1184,8 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
             pack.set("archive", false);
             pack.set("keyword", _keywords);
             pack.set("flag", false);
+            pack.setACL(setPermission(_user,false));
+
 
             if (files.length !== 0) {
                 files.forEach(function (file) {
