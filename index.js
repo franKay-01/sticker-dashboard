@@ -1076,7 +1076,7 @@ app.get('/pack/:id', function (req, res) {
             _user = sessionToken.get("user");
 
             var collection = new Parse.Query(PacksClass);
-            collection.get(coll_id, {
+            collection.get(coll_id,{sessionToken: token}, {
                 success: function (collection) {
                     var coll_name = collection.get("pack_name");
                     var pack_status = collection.get("status");
