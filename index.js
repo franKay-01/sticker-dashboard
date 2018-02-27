@@ -1082,7 +1082,7 @@ app.get('/pack/:id', function (req, res) {
                     var pack_status = collection.get("status");
 
                     var col = collection.relation(PacksClass);
-                    col.query().find({sessionToken: token}).then(function (stickers) {
+                    col.query().find({useMasterKey:true}).then(function (stickers) {
 
                         res.render("pages/admin_pack", {
                             stickers: stickers,
@@ -1102,6 +1102,7 @@ app.get('/pack/:id', function (req, res) {
 
                     var col = collection.relation(PacksClass);
                     col.query().find({sessionToken: token}).then(function (stickers) {
+                        console.log("STICKERS FROM COLLECTION "+ JSON.stringify(stickers));
 
                         res.render("pages/new_pack", {
                             stickers: stickers,
