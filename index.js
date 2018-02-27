@@ -1086,7 +1086,7 @@ app.get('/pack/:id', function (req, res) {
                     return query.find({useMasterKey: true});
 
                 case NORMAL_USER:
-                    return query.find({sessionToken: token});
+                    return new Parse.Query(PacksClass).equalTo("objectId", coll_id).find({sessionToken: token});
 
             }
 
