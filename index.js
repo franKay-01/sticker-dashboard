@@ -1151,7 +1151,6 @@ app.get('/pack/:id', function (req, res) {
                 console.log("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
                 res.redirect("/");
             });
-        // })
     }
     else {
         //No session exists, log in
