@@ -1064,93 +1064,73 @@ app.get('/pack_collection', function (req, res) {
 //Displays all stickers belonging to a selected collection
 app.get('/pack/:id', function (req, res) {
 
-    var token = req.cookies.token;
-    var coll_id = req.params.id;
+    let token = req.cookies.token;
+    let coll_id = req.params.id;
 
     if (token) {
 
         let _user = {};
+        let type;
+        let pack_name;
+        let pack_status;
 
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
+            type = _user.get("type");
 
-            // if (_user.get("type") === SUPER_USER) {
-            //     new Parse.Query(PacksClass).equalTo("objectId", coll_id).find({useMasterKey:true}).then(function (collection) {
-            //         console.log("COLLECTION FROM PACK 1" + JSON.stringify(collection));
-            //         var coll_name = collection.get("pack_name");
-            //         var pack_status = collection.get("status");
-            //
-            //         var col = collection.relation(PacksClass);
-            //         col.query().find({useMasterKey:true}).then(function (stickers) {
-            //
-            //             res.render("pages/admin_pack", {
-            //                 stickers: stickers,
-            //                 id: coll_id,
-            //                 collectionName: coll_name,
-            //                 userType: _user.get("type"),
-            //                 status: pack_status
-            //             });
-            //
-            //         })
-            //     })
-            // } else {
-            //     new Parse.Query(PacksClass).equalTo("objectId", coll_id).find({sessionToken: token}).then(function (collection) {
-            //         console.log("COLLECTION FROM PACK 2" + JSON.stringify(collection));
-            //         var coll_name = collection.get("pack_name");
-            //         var pack_status = collection.get("status");
-            //
-            //         var col = collection.relation(PacksClass);
-            //         col.query().find({sessionToken: token}).then(function (stickers) {
-            //             console.log("STICKERS FROM COLLECTION "+ JSON.stringify(stickers));
-            //
-            //             res.render("pages/new_pack", {
-            //                 stickers: stickers,
-            //                 id: coll_id,
-            //                 collectionName: coll_name,
-            //                 status: pack_status
-            //             });
-            //
-            //         })
-            //     })
-            // }
+            let query = new Parse.Query(PacksClass).equalTo("objectId", coll_id);
 
+            switch (type) {
+                case SUPER_USER:
+                    return query.find({useMasterKey: true});
 
-                var collection = new Parse.Query(PacksClass);
-                collection.get(coll_id, {
-                    sessionToken: token,
-                    success: function (collection) {
-                        var coll_name = collection.get("pack_name");
-                        var pack_status = collection.get("status");
-                        //todo change the column 'collection' in Collection class to 'stickers' in parse dashboard
+                case NORMAL_USER:
+                    return query.find({sessionToken: token});
 
-                        var col = collection.relation(PacksClass);
-                        col.query().find({sessionToken: token}).then(function (stickers) {
+            }
 
-                            if (_user.get("type") === SUPER_USER) {
-                                res.render("pages/admin_pack", {
-                                    stickers: stickers,
-                                    id: coll_id,
-                                    collectionName: coll_name,
-                                    userType: _user.get("type"),
-                                    status: pack_status
-                                });
-                            } else {
-                                res.render("pages/new_pack", {
-                                    stickers: stickers,
-                                    id: coll_id,
-                                    collectionName: coll_name,
-                                    status: pack_status
-                                });
-                            }
+        }).then(function (collection) {
 
-                        })
+            pack_name = collection.get("pack_name");
+            pack_status = collection.get("status");
+            let col = collection.relation(PacksClass);
+
+            switch (type) {
+                case SUPER_USER:
+                    return col.query().find({useMasterKey: true});
+
+                case NORMAL_USER:
+                    return col.query().find({sessionToken: token});
+
+            }
+        }).then(function (stickers) {
+
+            switch (type) {
+                case SUPER_USER:
+                    res.render("pages/admin_pack", {
+                        stickers: stickers,
+                        id: coll_id,
+                        collectionName: pack_name,
+                        userType: _user.get("type"),
+                        status: pack_status
+                    });
+                    break;
+
+                case NORMAL_USER:
+                    res.render("pages/new_pack", {
+                        stickers: stickers,
+                        id: coll_id,
+                        collectionName: pack_name,
+                        status: pack_status
+                    });
+                    break;
                     }
-                });
-            }, function (error) {
-                console.log("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
-                res.redirect("/");
-            });
+
+        }, function (error) {
+            console.log("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
+            res.redirect("/");
+        })
     }
     else {
         //No session exists, log in
