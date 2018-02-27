@@ -1077,7 +1077,7 @@ app.get('/pack/:id', function (req, res) {
 
             if (_user.get("type") === SUPER_USER) {
                 new Parse.Query(PacksClass).equalTo("objectId", coll_id).find({useMasterKey:true}).then(function (collection) {
-                    console.log("COLLECTION FROM PACK " + JSON.stringify(collection));
+                    console.log("COLLECTION FROM PACK 1" + JSON.stringify(collection));
                     var coll_name = collection.get("pack_name");
                     var pack_status = collection.get("status");
 
@@ -1096,7 +1096,7 @@ app.get('/pack/:id', function (req, res) {
                 })
             } else {
                 new Parse.Query(PacksClass).equalTo("objectId", coll_id).find({sessionToken: token}).then(function (collection) {
-                    console.log("COLLECTION FROM PACK " + JSON.stringify(collection));
+                    console.log("COLLECTION FROM PACK 2" + JSON.stringify(collection));
                     var coll_name = collection.get("pack_name");
                     var pack_status = collection.get("status");
 
