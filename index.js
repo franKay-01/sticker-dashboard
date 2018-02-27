@@ -1076,7 +1076,7 @@ app.get('/pack/:id', function (req, res) {
             _user = sessionToken.get("user");
 
             if (_user.get("type") === SUPER_USER) {
-                new Parse.Query(PacksClass).equalTo("objectId", coll_id).get({useMasterKey:true}).then(function (collection) {
+                new Parse.Query(PacksClass).equalTo("objectId", coll_id).find({useMasterKey:true}).then(function (collection) {
                     console.log("COLLECTION FROM PACK " + JSON.stringify(collection));
                     var coll_name = collection.get("pack_name");
                     var pack_status = collection.get("status");
@@ -1093,12 +1093,9 @@ app.get('/pack/:id', function (req, res) {
                         });
 
                     })
-                }, function (error) {
-                    console.log("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
-                    res.redirect("/");
                 })
             } else {
-                new Parse.Query(PacksClass).equalTo("objectId", coll_id).get({sessionToken: token}).then(function (collection) {
+                new Parse.Query(PacksClass).equalTo("objectId", coll_id).find({sessionToken: token}).then(function (collection) {
                     console.log("COLLECTION FROM PACK " + JSON.stringify(collection));
                     var coll_name = collection.get("pack_name");
                     var pack_status = collection.get("status");
@@ -1114,9 +1111,6 @@ app.get('/pack/:id', function (req, res) {
                         });
 
                     })
-                }, function (error) {
-                    console.log("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
-                    res.redirect("/");
                 })
             }
 
