@@ -1090,11 +1090,12 @@ app.get('/pack/:id', function (req, res) {
 
             }
 
-        }).then(function (collection) {
+        }).then(function (pack) {
 
-            pack_name = collection.get("pack_name");
-            pack_status = collection.get("status");
-            let col = collection.relation(PacksClass);
+            console.log("USER PACK "+JSON.stringify(pack));
+            pack_name = pack.get("pack_name");
+            pack_status = pack.get("status");
+            let col = pack.relation(PacksClass);
 
             switch (type) {
                 case SUPER_USER:
