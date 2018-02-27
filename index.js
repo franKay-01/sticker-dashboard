@@ -1075,7 +1075,7 @@ app.get('/pack/:id', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            new Parse.Query(PacksClass).equalTo("objectId", coll_id).get({sessionToken: token}).then(function (collection) {
+            new Parse.Query(PacksClass).equalTo("objectId", coll_id).find({sessionToken: token}).then(function (collection) {
                 console.log("COLLECTION FROM PACK " + JSON.stringify(collection));
                 // }
 
