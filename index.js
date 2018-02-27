@@ -1092,7 +1092,9 @@ app.get('/pack/:id', function (req, res) {
 
         }).then(function (pack) {
 
-            console.log("USER PACK "+JSON.stringify(pack));
+            let pack_json = JSON.stringify(pack);
+            pack_json = JSON.parse(pack_json);
+            console.log("PACK NAME "+pack_json.pack_name);
             pack_name = pack.get("pack_name");
             pack_status = pack.get("status");
             let col = pack.relation(PacksClass);
