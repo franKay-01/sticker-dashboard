@@ -1083,10 +1083,10 @@ app.get('/pack/:id', function (req, res) {
 
             switch (type) {
                 case SUPER_USER:
-                    return query.find({useMasterKey: true});
+                    return query.first({useMasterKey: true});
 
                 case NORMAL_USER:
-                    return new Parse.Query(PacksClass).equalTo("objectId", coll_id).find({sessionToken: token});
+                    return query.first({sessionToken: token});
 
             }
 
