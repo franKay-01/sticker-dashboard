@@ -796,6 +796,7 @@ app.post('/review_pack/:id', function (req, res) {
                 review.set("reviewer", _user.id);
                 review.set("reviewer_name", _user.get("name"));
                 review.set("type_id", id);
+                review.set("review_field",[]);
                 review.set("type", 0);
 
                 return review.save();
