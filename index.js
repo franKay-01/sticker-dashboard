@@ -794,6 +794,7 @@ app.post('/review_pack/:id', function (req, res) {
                 }
                 review.set("comments", comment);
                 review.set("reviewer", _user.id);
+                review.set("reviewer_name", _user.get("name"));
                 review.set("type_id", id);
                 review.set("type", 0);
 
@@ -836,7 +837,7 @@ app.get('/review/:id', function (req, res) {
         pack.get(pack_id, {
             success: function (pack) {
                 var pack_name = pack.get("pack_name");
-                var pack_owner = pack.get("user_id");
+                var pack_owner = pack.get("user_name");
                 var art = pack.get("art_work");
                 var pack_id = pack.id;
                 var _description = pack.get("pack_description");
@@ -1219,6 +1220,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
             pack.set("pack_name", coll_name);
             pack.set("pack_description", pack_description);
             pack.set("user_id", _user.id);
+            pack.set("user_name", _user.get("name"));
             pack.set("status", PENDING);
             pack.set("pricing", pricing);
             pack.set("version", version);
@@ -1430,6 +1432,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
                 }
                 reviews.set("comments", comments);
                 reviews.set("reviewer", _user.id);
+                reviews.set("reviewer_name", _user.get("name"));
                 reviews.set("type_id", id);
                 reviews.set("review_field", review_field);
 
