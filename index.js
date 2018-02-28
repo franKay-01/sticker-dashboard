@@ -17,6 +17,7 @@ let path = require('path');
 let fs = require('fs');
 let multer = require('multer');
 let download = require('image-downloader');
+let resolve = require('path').resolve;
 
 //utility module for filtering lists
 let _ = require('underscore');
