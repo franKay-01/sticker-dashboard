@@ -1209,7 +1209,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
             pack.set("archive", false);
             pack.set("keyword", _keywords);
             pack.set("flag", false);
-          //  pack.setACL(setPermission(_user, false));
+            //  pack.setACL(setPermission(_user, false));
 
 
             if (files.length !== 0) {
