@@ -809,6 +809,22 @@ app.post('/review_pack/:id', function (req, res) {
     }
 });
 
+app.get('/review_collection', function (req, res) {
+    var token = req.cookies.token;
+
+    if (token){
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+            return new Parse.Query(ReviewClass).find();
+        }).then(function (review) {
+            res.send(JSON.stringify(review));
+            // res.render("pages/review_collection", {reviews: review})
+        })
+    }
+});
 
 app.get('/review/:id', function (req, res) {
 
