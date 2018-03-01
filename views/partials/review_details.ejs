@@ -29,16 +29,19 @@
             <% } %>
             <!--if new img has been uploaded, set value to true-->
             <label class="update_label">Reviewer's Name:</label> <input placeholder="Sticker Name" class="box_2"
-                                                                    name="stickerName"
-                                                                    value="<%= reviews.get("reviewer_name") %>" disabled>
+                                                                        name="Reviewer's Name"
+                                                                        value="<%= reviews.get("reviewer_name") %>"
+                                                                        disabled>
 
-            <label class="update_label">Comments :</label><textarea class="box_2 validate" name="comments" value="<%= reviews.get("comments")%>"></textarea>
+            <label class="update_label">Comments :</label><input class="box_2" name="comments"
+                                                                 value="<%= reviews.get("comments") %>" disabled>
             <label class="update_label">Status</label> <input placeholder="Sticker Name" class="box_2"
-                                               name="stickerName"
-                                               value="<%= reviews.get("approved") %>" disabled>
-            <label class="update_label">Field Reviewed</label> <input placeholder="Sticker Name" class="box_2"
                                                               name="stickerName"
-                                                              value="<%= reviews.get("review_field") %>" disabled>
+                                                              value="<%= reviews.get("approved") %>" disabled>
+            <label class="update_label">Field Reviewed</label> <input placeholder="No Fields Reveiwed" class="box_2"
+                                                                      name="stickerName"
+                                                                      value="<%= reviews.get("review_field") %>"
+                                                                      disabled>
 
         </div>
     </div>
