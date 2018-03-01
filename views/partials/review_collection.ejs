@@ -1,3 +1,6 @@
+<% if (reviews.length === 0){%>>
+
+<%} else {%>
 <% reviews.forEach(function(item, index) { %>
 
 <div class="medium-3 large-3 cell icons">
@@ -14,3 +17,5 @@
 </div>
 
 <% }); %>
+
+<%}%>
