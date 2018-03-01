@@ -812,7 +812,7 @@ app.post('/review_pack/:id', function (req, res) {
     }
 });
 
-app.get('/review_details/:id', function () {
+app.get('/review_details/:id', function (req, res) {
     let token = req.cookies.token;
     let review_id = req.params.id;
 
