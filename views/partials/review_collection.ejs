@@ -4,10 +4,10 @@
     <a href="/pack/<%= item.id %>">
         <% if (item.get("type") === 0){ %>
         <img style="width: 255px;margin-left: 30px;" src="/public/assets/images/review_sticker.png">
-        <div><p class="pack_name_text">Review on <%= item.get("pack_name") %></p></div>
+        <div><p class="pack_name_text">Review on &nbsp;<%= item.get("name") %> Sticker</p></div>
         <% } else {%>
         <img class="btn_pack_icon" src="/public/assets/images/packs.png">
-        <div><p class="pack_name_text"><%= item.get("pack_name") %></p></div>
+        <div><p class="pack_name_text">Review on &nbsp;<%= item.get("name") %> Pack</p></div>
         <%}%>
     </a>
 
