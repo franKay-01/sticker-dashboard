@@ -823,7 +823,7 @@ app.get('/review_details/:id', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            return new Parse.Query(ReviewClass).equalTo("objectId",review_id).find();
+            return new Parse.Query(ReviewClass).equalTo("objectId",review_id).first();
 
         }).then(function (review) {
             res.render("pages/review_details", {reviews: review});
