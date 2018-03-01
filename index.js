@@ -812,15 +812,25 @@ app.post('/review_pack/:id', function (req, res) {
     }
 });
 
-app.get('/review_details', function () {
-    var token = req.cookies.token;
+app.get('/review_details/:id', function () {
+    let token = req.cookies.token;
+    let review_id = req.params.id;
 
     if (token) {
         let _user = {};
 
         getUser(token).then(function (sessionToken) {
 
-        });
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(ReviewClass).equalTo("objectId",review_id).find();
+
+        }).then(function (review) {
+            res.render("pages/review_details", {reviews: review});
+        }, function (error) {
+            console.log("ERROR WHEN RETRIEVING REVIEW "+ error.message);
+            res.redirect('/review_collection');
+        })
     }
 });
 
