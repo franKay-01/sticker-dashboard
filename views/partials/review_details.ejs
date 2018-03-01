@@ -33,8 +33,7 @@
                                                                         value="<%= reviews.get("reviewer_name") %>"
                                                                         disabled>
 
-            <label class="update_label">Comments :</label><input class="box_2" name="comments"
-                                                                 value="<%= reviews.get("comments") %>" disabled>
+            <label class="update_label">Comments :</label><textarea class="box_2" name="comments" disabled><%= reviews.get("comments") %></textarea>
             <label class="update_label">Status</label> <input placeholder="Sticker Name" class="box_2"
                                                               name="stickerName"
                                                               value="<%= reviews.get("approved") %>" disabled>
