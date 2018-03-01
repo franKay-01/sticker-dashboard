@@ -826,6 +826,7 @@ app.get('/review_details/:id', function (req, res) {
             return new Parse.Query(ReviewClass).equalTo("objectId",review_id).first();
 
         }).then(function (review) {
+            console.log("REVIEWS "+JSON.stringify(review));
             res.render("pages/review_details", {reviews: review});
         }, function (error) {
             console.log("ERROR WHEN RETRIEVING REVIEW "+ error.message);
