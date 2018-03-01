@@ -782,6 +782,7 @@ app.post('/review_pack/:id', function (req, res) {
                 } else if (status === "1") {
                     pack.set("status", REVIEW);
                 }
+                review.set("name", pack.get("pack_name"));
 
                 return pack.save();
 
@@ -822,8 +823,8 @@ app.get('/review_collection', function (req, res) {
             _user = sessionToken.get("user");
             return new Parse.Query(ReviewClass).find();
         }).then(function (review) {
-            res.send(JSON.stringify(review));
-            // res.render("pages/review_collection", {reviews: review})
+            // res.send(JSON.stringify(review));
+            res.render("pages/review_collection", {reviews: review})
         })
     }
 });
@@ -1426,6 +1427,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
                 } else if (status === "1") {
                     sticker.set("flag", false);
                 }
+                reviews.set("name",sticker.get("stickerName"));
                 return sticker.save();
             }).then(function () {
                 if (status === "1") {
