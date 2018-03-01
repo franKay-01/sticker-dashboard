@@ -835,8 +835,8 @@ app.get('/review_collection', function (req, res) {
             _user = sessionToken.get("user");
             return new Parse.Query(ReviewClass).equalTo("onwer", _user.id).find();
         }).then(function (review) {
-            // res.send(JSON.stringify(review));
-            res.render("pages/review_collection", {reviews: review})
+            res.send(JSON.stringify(review));
+            // res.render("pages/review_collection", {reviews: review})
         })
     }
 });
