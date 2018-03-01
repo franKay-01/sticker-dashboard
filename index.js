@@ -783,7 +783,7 @@ app.post('/review_pack/:id', function (req, res) {
                     pack.set("status", REVIEW);
                 }
                 review.set("name", pack.get("pack_name"));
-
+                review.set("owner", pack.get("user_id"));
                 return pack.save();
 
             }).then(function () {
@@ -797,7 +797,7 @@ app.post('/review_pack/:id', function (req, res) {
                 review.set("reviewer", _user.id);
                 review.set("reviewer_name", _user.get("name"));
                 review.set("type_id", id);
-                review.set("review_field",[]);
+                review.set("review_field", []);
                 review.set("type", 0);
 
                 return review.save();
@@ -812,10 +812,22 @@ app.post('/review_pack/:id', function (req, res) {
     }
 });
 
+app.get('/review_details', function () {
+    var token = req.cookies.token;
+
+    if (token) {
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+        });
+    }
+});
+
 app.get('/review_collection', function (req, res) {
     var token = req.cookies.token;
 
-    if (token){
+    if (token) {
         let _user = {};
 
         getUser(token).then(function (sessionToken) {
@@ -1115,7 +1127,7 @@ app.get('/pack/:id', function (req, res) {
         }).then(function (pack) {
 
             console.log("PACK ID " + pack.id);
-            console.log("PACK NAME "+JSON.stringify(pack));
+            console.log("PACK NAME " + JSON.stringify(pack));
             pack_name = pack.get("pack_name");
             pack_status = pack.get("status");
             let col = pack.relation(PacksClass);
@@ -1149,7 +1161,7 @@ app.get('/pack/:id', function (req, res) {
                         status: pack_status
                     });
                     break;
-                    }
+            }
 
         }, function (error) {
             console.log("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
@@ -1427,7 +1439,9 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
                 } else if (status === "1") {
                     sticker.set("flag", false);
                 }
-                reviews.set("name",sticker.get("stickerName"));
+                reviews.set("name", sticker.get("stickerName"));
+                reviews.set("owner", pack.get("user_id"));
+
                 return sticker.save();
             }).then(function () {
                 if (status === "1") {
