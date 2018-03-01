@@ -1440,7 +1440,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
                     sticker.set("flag", false);
                 }
                 reviews.set("name", sticker.get("stickerName"));
-                reviews.set("owner", pack.get("user_id"));
+                reviews.set("owner", sticker.get("user_id"));
 
                 return sticker.save();
             }).then(function () {
