@@ -3,7 +3,7 @@
         <div class="medium-6 large-5 cell">
             <div class="droppableArea">
                 <div class="output" name="tfile"></div>
-                <% if (item.get("type") === 0){ %>
+                <% if (reviews.type === 0){ %>
 
                 <img style="width: 255px;margin-left: 30px;"
                      src="https://cryptic-waters-41617.herokuapp.com/public/assets/images/packs.png">
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="medium-6 large-5 cell">
-            <% if (item.get("type") === 0){ %>
+            <% if (reviews.type === 0){ %>
 
             <label class="update_label">Pack Name:</label> <input placeholder="Sticker Name" class="box_2"
                                                                   name="PackName"
