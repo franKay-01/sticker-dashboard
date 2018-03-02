@@ -128,11 +128,10 @@ let api = new ParseServer({
         }
     },
     customPages: {
-        //TODO update urls to use const PARSE_PUBLIC_URL
-        invalidLink: 'http://cryptic-waters-41617.herokuapp.com/public/templates/invalid_link.html',
-        verifyEmailSuccess: 'http://cryptic-waters-41617.herokuapp.com/public/templates/email_verified.html',
-        choosePassword: 'http://cryptic-waters-41617.herokuapp.com/public/templates/choose_password.html',
-        passwordResetSuccess: 'http://cryptic-waters-41617.herokuapp.com/public/templates/password_reset_success.html'
+        invalidLink: PARSE_PUBLIC_URL+'templates/invalid_link.html',
+        verifyEmailSuccess: PARSE_PUBLIC_URL+'templates/email_verified.html',
+        choosePassword: PARSE_PUBLIC_URL+'templates/choose_password.html',
+        passwordResetSuccess: PARSE_PUBLIC_URL+'templates/password_reset_success.html'
     },
     filesAdapter:
         new S3Adapter({
@@ -272,7 +271,7 @@ app.get('/sign_up', function (req, res) {
 
 app.post('/signup', function (req, res) {
     //TODO change this to name
-    let name = req.body.name_field;
+    let name = req.body.name;
     let username = req.body.username;
     let password = req.body.password;
 
