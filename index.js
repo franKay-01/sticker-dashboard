@@ -42,7 +42,6 @@ const PENDING = 0;
 const REVIEW = 1;
 const APPROVED = 2;
 
-//TODO convert browser user type to integer
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
 
@@ -270,7 +269,6 @@ app.get('/sign_up', function (req, res) {
 });
 
 app.post('/signup', function (req, res) {
-    //TODO change this to name
     let name = req.body.name;
     let username = req.body.username;
     let password = req.body.password;
@@ -348,8 +346,6 @@ app.post('/login', function (req, res) {
 
 
     }, function (error) {
-        //TODO render error message
-        //TODO handle errors
         console.log("ERROR WHEN LOGGIN IN " + error);
         errorMessage = error.message;
         res.redirect("/");
@@ -461,9 +457,7 @@ app.get('/home', function (req, res) {
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
-                    //TODO change user_name to name
-                    /* user: _user,*/
-                    user_name: _user.get("name"),
+                    name: _user.get("name"),
                     verified: _user.get("emailVerified")
                 });
             } else if (_user.get("type") === SUPER_USER) {
@@ -539,13 +533,11 @@ app.get('/reset_email', function (req, res) {
 app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
     var token = req.cookies.token;
-    //TODO from coll_id to collectionId in the ejs file
-    var collectionId = req.body.coll_id;
+    var collectionId = req.body.pack_id;
     var files = req.files;
     var fileDetails = [];
     var stickerDetails = [];
     var stickerCollection;
-    var stickers = [];
 
     if (token) {
 
@@ -565,10 +557,9 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     var stickerName = fullName.substring(0, fullName.length - 4);
 
                     var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-                    // console.log("BITMAP FROM DERRYCK'S CODE " + JSON.stringify(bitmap));
+
                     //create our parse file
                     var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                    // console.log("PARSEFILE " + JSON.stringify(parseFile) + " name " + stickerName + " collection " + JSON.stringify(collection));
                     var Sticker = new Parse.Object.extend(StickerClass);
                     var sticker = new Sticker();
                     sticker.set("stickerName", stickerName);
@@ -656,7 +647,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     }
 });
 
-//TODO update all route names to read name-name or name
 // FIND A SPECIFIC CATEGORY
 app.post('/find_category', function (req, res) {
 
@@ -713,8 +703,7 @@ app.get('/categories', function (req, res) {
 app.post('/new_category', function (req, res) {
 
     var token = req.cookies.token;
-    //TODO update naming conventions
-    var categoryName = req.body.catname;
+    var categoryName = req.body.category_name;
     var category_name = categoryName.toLowerCase();
     if (token) {
 
