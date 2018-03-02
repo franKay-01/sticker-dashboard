@@ -6,11 +6,11 @@
                 <% if (reviews.get("type") === 0){ %>
 
                 <img style="width: 255px;margin-left: 30px;"
-                     src="https://cryptic-waters-41617.herokuapp.com/public/assets/images/packs.png">
+                     src="<%= reviews.get("image")%>">
 
                 <% } else { %>
                 <img class="btn_pack_icon" style="height: 255px !important;"
-                     src="https://cryptic-waters-41617.herokuapp.com/public/assets/images/review_sticker.png">
+                     src="<%= reviews.get("image")%>">
 
                 <% } %>
             </div>
