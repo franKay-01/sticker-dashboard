@@ -128,10 +128,10 @@ let api = new ParseServer({
         }
     },
     customPages: {
-        invalidLink: PARSE_PUBLIC_URL+'templates/invalid_link.html',
-        verifyEmailSuccess: PARSE_PUBLIC_URL+'templates/email_verified.html',
-        choosePassword: PARSE_PUBLIC_URL+'templates/choose_password.html',
-        passwordResetSuccess: PARSE_PUBLIC_URL+'templates/password_reset_success.html'
+        invalidLink: PARSE_PUBLIC_URL + 'templates/invalid_link.html',
+        verifyEmailSuccess: PARSE_PUBLIC_URL + 'templates/email_verified.html',
+        choosePassword: PARSE_PUBLIC_URL + 'templates/choose_password.html',
+        passwordResetSuccess: PARSE_PUBLIC_URL + 'templates/password_reset_success.html'
     },
     filesAdapter:
         new S3Adapter({
@@ -289,28 +289,8 @@ app.post('/signup', function (req, res) {
     user.signUp(null, {
         success: function (user) {
 
-            res.cookie('username', user.getUsername());
-            res.cookie('name', user.get("name"));
+            res.redirect("/");
 
-            //TODO after sign up show first_time_signup page
-            Parse.User.logIn(username, password).then(function (user) {
-                console.log("SESSIONS TOKEN " + user.getSessionToken());
-                res.cookie('token', user.getSessionToken());
-                res.cookie('username', user.getUsername());
-                res.cookie('name', user.get("name"));
-                res.cookie('email_verified', user.get("emailVerified"));
-                res.cookie('userType', user.get("type"));
-                var status = user.get("image_set");
-                if (status === true) {
-                    res.cookie('profile_image', user.get("image").url());
-                } else {
-                    res.cookie('profile_image', "null");
-                }
-
-
-                console.log("USER GETS TOKEN : " + user.getSessionToken());
-                res.redirect("/home");
-            });
         },
         error: function (user, error) {
             // Show the error message somewhere and let the user try again.
@@ -823,13 +803,13 @@ app.get('/review_details/:id', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            return new Parse.Query(ReviewClass).equalTo("objectId",review_id).first();
+            return new Parse.Query(ReviewClass).equalTo("objectId", review_id).first();
 
         }).then(function (review) {
-            console.log("REVIEWS "+JSON.stringify(review));
+            console.log("REVIEWS " + JSON.stringify(review));
             res.render("pages/review_details", {reviews: review});
         }, function (error) {
-            console.log("ERROR WHEN RETRIEVING REVIEW "+ error.message);
+            console.log("ERROR WHEN RETRIEVING REVIEW " + error.message);
             res.redirect('/review_collection');
         })
     }
