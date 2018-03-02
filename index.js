@@ -782,6 +782,7 @@ app.post('/review_pack/:id', function (req, res) {
                 } else if (status === "1") {
                     pack.set("status", REVIEW);
                 }
+                review.set("image", pack.get("art_work").url());
                 review.set("name", pack.get("pack_name"));
                 review.set("owner", pack.get("user_id"));
                 return pack.save();
@@ -1450,6 +1451,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
                 } else if (status === "1") {
                     sticker.set("flag", false);
                 }
+                reviews.set("image", sticker.get("uri").url());
                 reviews.set("name", sticker.get("stickerName"));
                 reviews.set("owner", sticker.get("user_id"));
 
