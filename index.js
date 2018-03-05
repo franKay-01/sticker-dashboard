@@ -1339,21 +1339,22 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
             console.log("THIRD " + JSON.stringify(review));
 
             let review_fields = review.get("review_field");
-            // let review_field = review_fields.split(",");
-            console.log("REVIEWS " + review_fields);
-            for (let time = 0; time < review_field.length; time++) {
-                if (review_field[time] === "all") {
-                    all = review_field[time];
-                } else if (review_field[time] === "name") {
-                    name = review_field[time];
-                } else if (review_field[time] === "category") {
-                    category = review_field[time];
-                } else if (review_field[time] === "sticker") {
-                    sticker = review_field[time];
-                }
-            }
+            let review_field = review_fields.split(",");
+            console.log("REVIEWS " + review_field);
+            // for (let time = 0; time < review_field.length; time++) {
+            //     if (review_field[time] === "all") {
+            //         all = review_field[time];
+            //     } else if (review_field[time] === "name") {
+            //         name = review_field[time];
+            //     } else if (review_field[time] === "category") {
+            //         category = review_field[time];
+            //     } else if (review_field[time] === "sticker") {
+            //         sticker = review_field[time];
+            //     }
+            // }
 
-            res.send(all + " " + name + " " + category + " " + sticker + "" + review_field);
+            res.send(review_fields);
+            // res.send(all + " " + name + " " + category + " " + sticker + "" + review_field);
             // res.render("pages/edit_details", {
             //     sticker: stickerDetail,
             //     categoryNames: categoryNames,
