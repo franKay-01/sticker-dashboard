@@ -1334,9 +1334,9 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
                 categoryNames.push(category.get("name"))
             });
 
-            return new Parse.Query(ReviewClass).equalTo("objectId", review_id).find();
+            return new Parse.Query(ReviewClass).equalTo("objectId", review_id).first();
         }).then(function (review) {
-            console.log("THIRD");
+            console.log("THIRD " + JSON.stringify(review));
 
             let review_fields = review.get("review_field");
             let review_field = review_fields.split(",");
