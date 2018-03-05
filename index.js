@@ -1302,7 +1302,7 @@ app.get('/edit_details/:id/:pack_id/:review_id', function (req, res) {
     let pack_ = req.params.pack_id;
     let review_id = req.params.review_id;
     let field = req.body.field;
-    let review_field = pack_.split(",");
+    let review_field = review_id.split(",");
     let all;
     let name;
     let category;
