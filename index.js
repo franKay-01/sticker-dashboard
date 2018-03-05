@@ -753,6 +753,7 @@ app.post('/review_pack/:id', function (req, res) {
                 review.set("image", pack.get("art_work").url());
                 review.set("name", pack.get("pack_name"));
                 review.set("owner", pack.get("user_id"));
+                review.set("pack_id", pack.id);
                 return pack.save();
 
             }).then(function () {
@@ -1278,6 +1279,21 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
     }
 });
 
+app.get('/details_update/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+
+        });
+    }
+});
 
 //EDIT/STICKER DETAILS
 app.get('/details/:id/:coll_id', function (req, res) {
@@ -1422,7 +1438,13 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
                 reviews.set("image", sticker.get("uri").url());
                 reviews.set("name", sticker.get("stickerName"));
                 reviews.set("owner", sticker.get("user_id"));
+                let parent_info = sticker.get("parent");
 
+                parent_info.fetch({
+                    success: function(parent) {
+                        reviews.set("pack_id", parent.id);
+                    }
+                });
                 return sticker.save();
             }).then(function () {
                 if (status === "1") {
@@ -1451,7 +1473,6 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
 
 //Update Sticker
 app.post('/update/:id/:pid', function (req, res) {
-
 
     var token = req.cookies.token;
 
