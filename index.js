@@ -1301,9 +1301,6 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
     let id = req.params.id;
     let pack_ = req.params.pack_id;
     let review_id = req.params.review_id;
-    let field = req.body.review_field;
-    console.log("FIELD "+field);
-    // let review_field = field.split(",");
     let all;
     let name;
     let category;
@@ -1335,6 +1332,11 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
                 categoryNames.push(category.get("name"))
             });
 
+            return new Parse.Query(ReviewClass).equalTo("objectId", review_id).first();
+        }).then(function(review){
+            let review_fields = review.get("review_field");
+            let review_field = review_fields.split(",");
+            console.log("REVIEWS "+review_field);
             for (let time = 0; time < review_field.length; time ++){
                 if (review_field[time] === "all"){
                     all = review_field[time];
