@@ -1295,6 +1295,52 @@ app.get('/details_update/:id', function (req, res) {
     }
 });
 
+
+app.get('/edit_details/:id/:pack_id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let pack_ = req.params.pack_id;
+    let field = req.body.field;
+
+    if (token) {
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return Parse.Promise.when(
+                new Parse.Query(StickerClass).equalTo("objectId", id).first(),
+                new Parse.Query(CategoryClass).find());
+        }).then(function (sticker, categories) {
+
+                stickerDetail = sticker;
+                allCategories = categories;
+
+                var sticker_relation = sticker.relation(CategoryClass);
+                return sticker_relation.query().find();
+
+            }
+        ).then(function (stickerCategories) {
+
+            var categoryNames = [];
+            _.each(stickerCategories, function (category) {
+                categoryNames.push(category.get("name"))
+            });
+
+            res.render("pages/edit_details", {
+                sticker: stickerDetail,
+                categoryNames: categoryNames,
+                categories: allCategories,
+                pack_id: pack_,
+                field: field
+            });
+
+        })
+    }
+
+});
+
 //EDIT/STICKER DETAILS
 app.get('/details/:id/:coll_id', function (req, res) {
 

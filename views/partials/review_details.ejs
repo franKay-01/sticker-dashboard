@@ -1,56 +1,59 @@
-<div id="review_form">
-    <div class="grid-x grid-margin-x">
-        <div class="medium-6 large-5 cell">
-            <div class="droppableArea">
-                <div class="output" name="tfile"></div>
+<form action="/edit_details/<%= reviews.get("type_id") %>/<%= reviews.get("pack_id") %>">
+    <div id="review_form">
+        <div class="grid-x grid-margin-x">
+            <div class="medium-6 large-5 cell">
+                <div class="droppableArea">
+                    <div class="output" name="tfile"></div>
+                    <% if (reviews.get("type") === 0){ %>
+
+                    <img style="width: 255px;margin-left: 30px;"
+                         src="<%= reviews.get("image") %>">
+
+                    <% } else { %>
+                    <img class="btn_pack_icon" style="height: 255px !important;"
+                         src="<%= reviews.get("image") %>">
+
+                    <% } %>
+                </div>
+            </div>
+            <div class="medium-6 large-5 cell">
                 <% if (reviews.get("type") === 0){ %>
 
-                <img style="width: 255px;margin-left: 30px;"
-                     src="<%= reviews.get("image")%>">
-
+                <label class="update_label">Pack Name:</label> <input placeholder="Sticker Name" class="box_2"
+                                                                      name="PackName"
+                                                                      value="<%= reviews.get("name") %>" disabled>
                 <% } else { %>
-                <img class="btn_pack_icon" style="height: 255px !important;"
-                     src="<%= reviews.get("image")%>">
 
+                <label class="update_label">Sticker Name:</label> <input placeholder="Sticker Name" class="box_2"
+                                                                         name="stickerName"
+                                                                         value="<%= reviews.get("name") %>" disabled>
                 <% } %>
+                <!--if new img has been uploaded, set value to true-->
+                <label class="update_label">Reviewer's Name:</label> <input placeholder="Sticker Name" class="box_2"
+                                                                            name="Reviewer's Name"
+                                                                            value="<%= reviews.get("reviewer_name") %>"
+                                                                            disabled>
+
+                <label class="update_label">Comments :</label><textarea class="box_2" name="comments"
+                                                                        disabled><%= reviews.get("comments") %></textarea><br><br>
+                <% if (reviews.get("approved") === false){ %>
+                <label class="update_label">Status</label> <input placeholder="Sticker Name" class="box_2"
+                                                                  name="stickerName"
+                                                                  value="Not Approved" disabled>
+                <% } else { %>
+                <label class="update_label">Status</label> <input placeholder="Sticker Name" class="box_2"
+                                                                  name="stickerName"
+                                                                  value="Approved" disabled>
+                <% } %>
+
+                <label class="update_label">Field Reviewed</label> <input placeholder="No Fields Reveiwed" class="box_2"
+                                                                          name="field"
+                                                                          value="<%= reviews.get("review_field") %>"
+                                                                          disabled>
+
+                <a class="update" style="color: #41175f !important;"
+                   href="/details_update/<%= reviews.get("type_id") %>">Make Changes</a>
             </div>
         </div>
-        <div class="medium-6 large-5 cell">
-            <% if (reviews.get("type") === 0){ %>
-
-            <label class="update_label">Pack Name:</label> <input placeholder="Sticker Name" class="box_2"
-                                                                  name="PackName"
-                                                                  value="<%= reviews.get("name") %>" disabled>
-            <% } else { %>
-
-            <label class="update_label">Sticker Name:</label> <input placeholder="Sticker Name" class="box_2"
-                                                                     name="stickerName"
-                                                                     value="<%= reviews.get("name") %>" disabled>
-            <% } %>
-            <!--if new img has been uploaded, set value to true-->
-            <label class="update_label">Reviewer's Name:</label> <input placeholder="Sticker Name" class="box_2"
-                                                                        name="Reviewer's Name"
-                                                                        value="<%= reviews.get("reviewer_name") %>"
-                                                                        disabled>
-
-            <label class="update_label">Comments :</label><textarea class="box_2" name="comments"
-                                                                    disabled><%= reviews.get("comments") %></textarea><br><br>
-            <%if (reviews.get("approved") === false){%>
-            <label class="update_label">Status</label> <input placeholder="Sticker Name" class="box_2"
-                                                              name="stickerName"
-                                                              value="Not Approved" disabled>
-            <%} else {%>
-            <label class="update_label">Status</label> <input placeholder="Sticker Name" class="box_2"
-                                                              name="stickerName"
-                                                              value="Approved" disabled>
-            <%}%>
-
-            <label class="update_label">Field Reviewed</label> <input placeholder="No Fields Reveiwed" class="box_2"
-                                                                      name="stickerName"
-                                                                      value="<%= reviews.get("review_field") %>"
-                                                                      disabled>
-
-            <a class="update" href="/details_update/<%= reviews.get("type_id")%>">Update</a>
-        </div>
     </div>
-</div>
+</form>
