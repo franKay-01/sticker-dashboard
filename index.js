@@ -1296,11 +1296,17 @@ app.get('/details_update/:id', function (req, res) {
 });
 
 
-app.get('/edit_details/:id/:pack_id', function (req, res) {
+app.get('/edit_details/:id/:pack_id/:review_id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let pack_ = req.params.pack_id;
+    let review_id = req.params.review_id;
     let field = req.body.field;
+    let review_field = field.split(",");
+    let all;
+    let name;
+    let category;
+    let sticker;
 
     if (token) {
         let _user = {};
@@ -1328,15 +1334,31 @@ app.get('/edit_details/:id/:pack_id', function (req, res) {
                 categoryNames.push(category.get("name"))
             });
 
-            res.render("pages/edit_details", {
-                sticker: stickerDetail,
-                categoryNames: categoryNames,
-                categories: allCategories,
-                pack_id: pack_,
-                field: field
-            });
+            for (let time = 0; time < review_field.length; time ++){
+                if (review_field[time] === "all"){
+                    all = review_field[time];
+                }else if (review_field[time] === "name"){
+                    name = review_field[time];
+                }else if (review_field[time] === "category"){
+                    category = review_field[time];
+                }else if (review_field[time] === "sticker"){
+                    sticker = review_field[time];
+                }
+            }
 
-        })
+            res.send(all + " " + name + " "+category+" "+sticker);
+            // res.render("pages/edit_details", {
+            //     sticker: stickerDetail,
+            //     categoryNames: categoryNames,
+            //     categories: allCategories,
+            //     pack_id: pack_,
+            //     field: field
+            // });
+
+        }, function (error) {
+            console.log("ERROR "+error.message);
+            res.redirect('/review_details/'+review_id);
+        });
     }
 
 });
