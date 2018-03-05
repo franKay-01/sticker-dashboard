@@ -1448,8 +1448,8 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
                     }
                 });
 
-                console.log("PARENT "+parent.get("objectId"));
-                reviews.set("pack_id", sticker.get("parent").objectId);
+                // console.log("PARENT "+parent.get("objectId"));
+                // reviews.set("pack_id", sticker.get("parent").objectId);
 
                 return sticker.save();
             }).then(function () {
