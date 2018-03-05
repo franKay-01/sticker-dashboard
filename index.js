@@ -1306,6 +1306,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
     let category;
     let sticker;
 
+    console.log("REVIEW ID "+review_id);
     if (token) {
         let _user = {};
 
