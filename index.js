@@ -1301,7 +1301,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
     let id = req.params.id;
     let pack_ = req.params.pack_id;
     let review_id = req.params.review_id;
-    let field = req.body.field;
+    let field = req.body.review_field;
     console.log("FIELD "+field);
     // let review_field = field.split(",");
     let all;
