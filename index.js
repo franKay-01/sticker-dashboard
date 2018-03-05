@@ -1318,7 +1318,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
                 new Parse.Query(StickerClass).equalTo("objectId", id).first(),
                 new Parse.Query(CategoryClass).find());
         }).then(function (sticker, categories) {
-
+                console.log("FIRST");
                 stickerDetail = sticker;
                 allCategories = categories;
 
@@ -1327,6 +1327,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
 
             }
         ).then(function (stickerCategories) {
+            console.log("SECOND");
 
             let categoryNames = [];
             _.each(stickerCategories, function (category) {
@@ -1335,6 +1336,8 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
 
             return new Parse.Query(ReviewClass).equalTo("objectId", review_id).find();
         }).then(function (review) {
+            console.log("THIRD");
+
             let review_fields = review.get("review_field");
             let review_field = review_fields.split(",");
             console.log("REVIEWS " + review_field);
