@@ -1439,7 +1439,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
                 reviews.set("name", sticker.get("stickerName"));
                 reviews.set("owner", sticker.get("user_id"));
                 let parent = sticker.get("parent");
-                console.log("PARENT "+parent.objectId());
+                console.log("PARENT "+parent.get("objectId"));
                 reviews.set("pack_id", sticker.get("parent").objectId);
 
                 return sticker.save();
