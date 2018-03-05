@@ -1296,7 +1296,7 @@ app.get('/details_update/:id', function (req, res) {
 });
 
 
-app.get('/edit_details/:id/:pack_id/:review_id', function (req, res) {
+app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let pack_ = req.params.pack_id;
