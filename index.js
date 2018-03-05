@@ -1339,8 +1339,8 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
             console.log("THIRD " + JSON.stringify(review));
 
             let review_fields = review.get("review_field");
-            let review_field = review_fields.split(",");
-            console.log("REVIEWS " + review_field);
+            // let review_field = review_fields.split(",");
+            console.log("REVIEWS " + review_fields);
             for (let time = 0; time < review_field.length; time++) {
                 if (review_field[time] === "all") {
                     all = review_field[time];
