@@ -1332,24 +1332,24 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
                 categoryNames.push(category.get("name"))
             });
 
-            return new Parse.Query(ReviewClass).equalTo("objectId", review_id).first();
-        }).then(function(review){
+            return new Parse.Query(ReviewClass).equalTo("objectId", review_id).find();
+        }).then(function (review) {
             let review_fields = review.get("review_field");
             let review_field = review_fields.split(",");
-            console.log("REVIEWS "+review_field);
-            for (let time = 0; time < review_field.length; time ++){
-                if (review_field[time] === "all"){
+            console.log("REVIEWS " + review_field);
+            for (let time = 0; time < review_field.length; time++) {
+                if (review_field[time] === "all") {
                     all = review_field[time];
-                }else if (review_field[time] === "name"){
+                } else if (review_field[time] === "name") {
                     name = review_field[time];
-                }else if (review_field[time] === "category"){
+                } else if (review_field[time] === "category") {
                     category = review_field[time];
-                }else if (review_field[time] === "sticker"){
+                } else if (review_field[time] === "sticker") {
                     sticker = review_field[time];
                 }
             }
 
-            res.send(all + " " + name + " "+category+" "+sticker+ "" + review_field);
+            res.send(all + " " + name + " " + category + " " + sticker + "" + review_field);
             // res.render("pages/edit_details", {
             //     sticker: stickerDetail,
             //     categoryNames: categoryNames,
@@ -1359,8 +1359,8 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
             // });
 
         }, function (error) {
-            console.log("ERROR "+error.message);
-            res.redirect('/review_details/'+review_id);
+            console.log("ERROR " + error.message);
+            res.redirect('/review_details/' + review_id);
         });
     }
 
@@ -1512,7 +1512,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
 
                 let _pack = sticker.get("parent");
                 _pack.fetch({
-                    success: function(_pack) {
+                    success: function (_pack) {
 
                         reviews.set("pack_id", _pack.id);
 
