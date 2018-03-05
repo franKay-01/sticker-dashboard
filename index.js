@@ -1443,7 +1443,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
                 _pack.fetch({
                     success: function(_pack) {
                         console.log("PARENT "+ JSON.stringify(_pack));
-                        let pack_id = _pack.get("objectId");
+                        let pack_id = _pack.id;
                         console.log("ID "+ pack_id); // this one will work
                     }
                 });
