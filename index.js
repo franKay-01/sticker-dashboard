@@ -1438,14 +1438,8 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
                 reviews.set("image", sticker.get("uri").url());
                 reviews.set("name", sticker.get("stickerName"));
                 reviews.set("owner", sticker.get("user_id"));
-                let parent_info = sticker.get("parent");
-                console.log("PARENT "+ JSON.stringify(parent_info));
-                parent_info.fetch({
-                    success: function(parent) {
-                        console.log("PARENT "+ JSON.stringify(parent));
-                        reviews.set("pack_id", parent.get("objectId"));
-                    }
-                });
+                reviews.set("pack_id",  sticker.get("parent"));
+
                 return sticker.save();
             }).then(function () {
                 if (status === "1") {
