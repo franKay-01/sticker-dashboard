@@ -1438,7 +1438,16 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
                 reviews.set("image", sticker.get("uri").url());
                 reviews.set("name", sticker.get("stickerName"));
                 reviews.set("owner", sticker.get("user_id"));
-                let parent = sticker.get("parent");
+
+                let pack = sticker.get("parent");
+                pack.fetch({
+                    success: function(pack_id) {
+
+                        console.log("PARENT "+JSON.stringify(pack_id));
+                        let pack_id = pack_id.get("objectId");
+                        console.log("ID "+ pack_id); // this one will work
+                    }
+                });
                 console.log("PARENT "+parent.get("objectId"));
                 reviews.set("pack_id", sticker.get("parent").objectId);
 
