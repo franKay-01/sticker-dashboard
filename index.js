@@ -1442,7 +1442,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
 
                 parent_info.fetch({
                     success: function(parent) {
-                        reviews.set("pack_id", parent.get("objectId"));
+                        reviews.set("pack_id", parent.id);
                     }
                 });
                 return sticker.save();
