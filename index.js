@@ -1346,7 +1346,7 @@ app.get('/edit_details/:id/:pack_id/:review_id', function (req, res) {
                 }
             }
 
-            res.send(all + " " + name + " "+category+" "+sticker);
+            res.send(all + " " + name + " "+category+" "+sticker+ "" + review_field);
             // res.render("pages/edit_details", {
             //     sticker: stickerDetail,
             //     categoryNames: categoryNames,
