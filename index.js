@@ -1323,7 +1323,7 @@ app.get('/edit_details/:id/:pack_id', function (req, res) {
             }
         ).then(function (stickerCategories) {
 
-            var categoryNames = [];
+            let categoryNames = [];
             _.each(stickerCategories, function (category) {
                 categoryNames.push(category.get("name"))
             });
