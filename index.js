@@ -1439,10 +1439,10 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
                 reviews.set("name", sticker.get("stickerName"));
                 reviews.set("owner", sticker.get("user_id"));
                 let parent_info = sticker.get("parent");
-                console.log("PARENT "+parent_info);
+                console.log("PARENT "+ JSON.stringify(parent_info));
                 parent_info.fetch({
                     success: function(parent) {
-                        console.log("PARENT @ "+parent);
+                        console.log("PARENT @ "+ JSON.stringify(parent));
                         reviews.set("pack_id", parent.id);
                     }
                 });
