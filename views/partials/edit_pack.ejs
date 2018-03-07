@@ -21,14 +21,15 @@
                    name="stickerName"
                    value="<%= pack.get("keyword") %>">
             <label class="update_label">Archive</label>
-            <div class="switch">
-                <label>
-                    Off
-                    <input id="archive" type="checkbox">
-                    <span class="lever"></span>
-                    On
-                </label>
+            <div style="margin-bottom: 10px">
+                <input name="archive" type="radio" id="archive1" value="0"/>
+                <label for="archive1" class="_label">Yes</label>
+
+                <input name="archive" type="radio" id="archive2" value="1"/>
+                <label for="archive2" class="_label">No</label>
+
             </div>
+            <br>
 
         </div>
         <div class="medium-12 large-12 cell">
