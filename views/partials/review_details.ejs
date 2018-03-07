@@ -18,6 +18,11 @@
             </div>
             <div class="medium-6 large-5 cell">
                 <% if (reviews.get("type") === 0){ %>
+                <input type="text" name="type" value="0" style="display: none">
+                <%} else {%>
+                <input type="text" name="type" value="1" style="display: none">
+                <%}%>
+                <% if (reviews.get("type") === 0){ %>
 
                 <label class="update_label">Pack Name:</label> <input placeholder="Sticker Name" class="box_2"
                                                                       name="PackName"

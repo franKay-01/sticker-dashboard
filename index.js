@@ -1301,6 +1301,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
     let id = req.params.id;
     let pack_ = req.params.pack_id;
     let review_id = req.params.review_id;
+    let type = req.body.type;
     let categoryNames = [];
     let all;
     let name;
@@ -1311,64 +1312,68 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
     if (token) {
         let _user = {};
 
-        getUser(token).then(function (sessionToken) {
+        if (type === "1"){
+            getUser(token).then(function (sessionToken) {
 
-            _user = sessionToken.get("user");
+                _user = sessionToken.get("user");
 
-            return Parse.Promise.when(
-                new Parse.Query(StickerClass).equalTo("objectId", id).first(),
-                new Parse.Query(CategoryClass).find());
-        }).then(function (sticker, categories) {
-                console.log("FIRST");
-                stickerDetail = sticker;
-                allCategories = categories;
+                return Parse.Promise.when(
+                    new Parse.Query(StickerClass).equalTo("objectId", id).first(),
+                    new Parse.Query(CategoryClass).find());
+            }).then(function (sticker, categories) {
+                    console.log("FIRST");
+                    stickerDetail = sticker;
+                    allCategories = categories;
 
-                var sticker_relation = sticker.relation(CategoryClass);
-                return sticker_relation.query().find();
+                    var sticker_relation = sticker.relation(CategoryClass);
+                    return sticker_relation.query().find();
 
-            }
-        ).then(function (stickerCategories) {
-            console.log("SECOND");
-
-            _.each(stickerCategories, function (category) {
-                categoryNames.push(category.get("name"))
-            });
-
-            return new Parse.Query(ReviewClass).equalTo("objectId", review_id).first();
-        }).then(function (review) {
-            console.log("THIRD " + JSON.stringify(review));
-
-            let review_fields = review.get("review_field");
-            let review_field = Array.from(review_fields);
-            console.log("REVIEWS " + review_field);
-
-            for (let time = 0; time < review_field.length; time++) {
-                if (review_field[time] === "all") {
-                    all = review_field[time];
-                } else if (review_field[time] === "name") {
-                    name = review_field[time];
-                } else if (review_field[time] === "category") {
-                    category = review_field[time];
-                } else if (review_field[time] === "sticker") {
-                    sticker = review_field[time];
                 }
-            }
+            ).then(function (stickerCategories) {
+                console.log("SECOND");
 
-            res.render("pages/edit_details", {
-                sticker: stickerDetail,
-                categoryNames: categoryNames,
-                categories: allCategories,
-                pack_id: pack_,
-                all: all,
-                name: name,
-                sticker_details: sticker,
-                category: category
+                _.each(stickerCategories, function (category) {
+                    categoryNames.push(category.get("name"))
+                });
+
+                return new Parse.Query(ReviewClass).equalTo("objectId", review_id).first();
+            }).then(function (review) {
+                console.log("THIRD " + JSON.stringify(review));
+
+                let review_fields = review.get("review_field");
+                let review_field = Array.from(review_fields);
+                console.log("REVIEWS " + review_field);
+
+                for (let time = 0; time < review_field.length; time++) {
+                    if (review_field[time] === "all") {
+                        all = review_field[time];
+                    } else if (review_field[time] === "name") {
+                        name = review_field[time];
+                    } else if (review_field[time] === "category") {
+                        category = review_field[time];
+                    } else if (review_field[time] === "sticker") {
+                        sticker = review_field[time];
+                    }
+                }
+
+                res.render("pages/edit_details", {
+                    sticker: stickerDetail,
+                    categoryNames: categoryNames,
+                    categories: allCategories,
+                    pack_id: pack_,
+                    all: all,
+                    name: name,
+                    sticker_details: sticker,
+                    category: category
+                });
+
+            }, function (error) {
+                console.log("ERROR " + error.message);
+                res.redirect('/review_details/' + review_id);
             });
+        } else {
 
-        }, function (error) {
-            console.log("ERROR " + error.message);
-            res.redirect('/review_details/' + review_id);
-        });
+        }
     }
 
 });
