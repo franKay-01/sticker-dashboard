@@ -1301,6 +1301,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
     let id = req.params.id;
     let pack_ = req.params.pack_id;
     let review_id = req.params.review_id;
+    let categoryNames = [];
     let all;
     let name;
     let category;
@@ -1329,7 +1330,6 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
         ).then(function (stickerCategories) {
             console.log("SECOND");
 
-            let categoryNames = [];
             _.each(stickerCategories, function (category) {
                 categoryNames.push(category.get("name"))
             });
@@ -1354,15 +1354,16 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
                 }
             }
 
-            res.send(review_fields+" "+ all +" "+ name+ " "+category+" "+sticker);
-            // res.send(all + " " + name + " " + category + " " + sticker + "" + review_field);
-            // res.render("pages/edit_details", {
-            //     sticker: stickerDetail,
-            //     categoryNames: categoryNames,
-            //     categories: allCategories,
-            //     pack_id: pack_,
-            //     field: field
-            // });
+            res.render("pages/edit_details", {
+                sticker: stickerDetail,
+                categoryNames: categoryNames,
+                categories: allCategories,
+                pack_id: pack_,
+                all: all,
+                name: name,
+                sticker_details: sticker,
+                category: category
+            });
 
         }, function (error) {
             console.log("ERROR " + error.message);
