@@ -1378,7 +1378,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
 
                 return new Parse.Query(PacksClass).equalTo("objectId", id).first();
             }).then(function (pack) {
-                    res.render('"pages/edit_pack', {pack: pack});
+                    res.render("pages/edit_pack", {pack: pack});
                 }, function (error) {
                 console.log("ERROR " + error.message);
                 res.redirect('/review_details/' + review_id);
