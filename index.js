@@ -1356,7 +1356,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
                     }
                 }
 
-                res.render("pages/edit_details", {
+                res.render("pages/edit_sticker", {
                     sticker: stickerDetail,
                     categoryNames: categoryNames,
                     categories: allCategories,
@@ -1372,7 +1372,17 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
                 res.redirect('/review_details/' + review_id);
             });
         } else {
+            getUser(token).then(function (sessionToken) {
 
+                _user = sessionToken.get("user");
+
+                return new Parse.Query(PacksClass).equalTo("objectId", id).first();
+            }).then(function (pack) {
+                    res.render('"pages/edit_pack', {pack: pack});
+                }, function (error) {
+                console.log("ERROR " + error.message);
+                res.redirect('/review_details/' + review_id);
+            });
         }
     }
 

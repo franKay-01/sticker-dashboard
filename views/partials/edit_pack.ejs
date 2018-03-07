@@ -1,0 +1,44 @@
+<form id="detailsForm" action="/update/<%= sticker.id %>/<%= pack_id %>" method="post">
+    <div class="grid-x grid-margin-x">
+        <div class="medium-6 large-5 cell">
+            <div class="droppableArea">
+                <div class="output" name="tfile"></div>
+                <img id="im1" name="im1" style="width: 100%; height: 100%;" src="<%= pack.get("art_work").url() %>">
+            </div>
+        </div>
+
+        <div class="medium-6 large-5 cell">
+
+            <label class="update_label">Pack Name:</label>
+            <input placeholder="Sticker Name" class="box_2"
+                   name="stickerName"
+                   value="<%= pack.get("pack_name") %>">
+            <label class="update_label">Pack Name:</label>
+            <input placeholder="Sticker Name" class="box_2"
+                   name="stickerName"
+                   value="<%= pack.get("pack_description") %>">
+            <input placeholder="Sticker Name" class="box_2"
+                   name="stickerName"
+                   value="<%= pack.get("keyword") %>">
+            <label class="update_label">Archive</label>
+            <div class="switch">
+                <label>
+                    Off
+                    <input id="archive" type="checkbox">
+                    <span class="lever"></span>
+                    On
+                </label>
+            </div>
+
+        </div>
+        <div class="medium-12 large-12 cell">
+            <center>
+                <a href="/pack/<%= pack_id %>" class="cancel_btn">Cancel</a>
+                <button type="button" class="cancel_btn delbtn" data-id="<%= sticker.id %>"
+                        value="<%= sticker.get("name") %>">Delete
+                </button>
+                <button class="update" type="submit">Update</button>
+            </center>
+        </div>
+    </div>
+</form>
