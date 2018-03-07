@@ -1,4 +1,4 @@
-<form id="detailsForm" action="/update/<%= sticker.id %>/<%= pack_id %>" method="post">
+<form id="detailsForm" action="/update_pack/<%= pack.id %>" method="post">
     <div class="grid-x grid-margin-x">
         <div class="medium-6 large-5 cell">
             <div class="droppableArea">
@@ -11,7 +11,7 @@
 
             <label class="update_label">Pack Name:</label>
             <input placeholder="Sticker Name" class="box_2"
-                   name="stickerName"
+                   name="pack_name"
                    value="<%= pack.get("pack_name") %>">
             <label class="update_label">Pack Name:</label>
             <input placeholder="Sticker Name" class="box_2"

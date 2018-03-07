@@ -1388,6 +1388,31 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
 
 });
 
+
+app.post('/update_pack/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let name = req.body.pack_name;
+    let archive = req.body.archive;
+    let description = req.body.pack_description;
+    let keyword = req.body.keyword;
+
+    res.send(archive + " "+name+" "+description+" "+keyword);
+    // if (token){
+    //     let _user = {};
+    //
+    //     getUser(token).then(function (sessionToken) {
+    //
+    //         _user = sessionToken.get("user");
+    //
+    //         return new Parse.Query(PacksClass).equalTo("objectId", id).first();
+    //     }).then(function (pack) {
+    //         pack.set("name",name);
+    //
+    //     });
+    // }
+});
+
 //EDIT/STICKER DETAILS
 app.get('/details/:id/:coll_id', function (req, res) {
 
