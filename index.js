@@ -1396,22 +1396,37 @@ app.post('/update_pack/:id', function (req, res) {
     let archive = req.body.archive;
     let description = req.body.pack_description;
     let keyword = req.body.keyword;
+    let review_id = req.body.review_id;
 
     let key = keyword.split(",");
-    res.send(key + " "+archive);
-    // if (token){
-    //     let _user = {};
-    //
-    //     getUser(token).then(function (sessionToken) {
-    //
-    //         _user = sessionToken.get("user");
-    //
-    //         return new Parse.Query(PacksClass).equalTo("objectId", id).first();
-    //     }).then(function (pack) {
-    //         pack.set("name",name);
-    //
-    //     });
-    // }
+    if (token){
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(PacksClass).equalTo("objectId", id).first();
+        }).then(function (pack) {
+            pack.set("name",name);
+
+            if (archive === undefined || archive === "1"){
+                pack.set("archive", false);
+            }else if (archive === "0"){
+                pack.set("archive", true);
+            }
+            pack.set("pack_description", description);
+            pack.set("keyword", key);
+
+            return pack.save();
+
+        }).then(function (result) {
+            res.redirect('/review_details/'+review_id);
+        }, function (error) {
+            console.log("ERROR "+error.message);
+            res.redirect('/review_details/'+review_id);
+        });
+    }
 });
 
 //EDIT/STICKER DETAILS
