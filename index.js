@@ -1308,11 +1308,11 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
     let category;
     let sticker;
 
-    console.log("REVIEW ID "+review_id);
+    console.log("REVIEW ID " + review_id);
     if (token) {
         let _user = {};
 
-        if (type === "1"){
+        if (type === "1") {
             getUser(token).then(function (sessionToken) {
 
                 _user = sessionToken.get("user");
@@ -1378,8 +1378,8 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
 
                 return new Parse.Query(PacksClass).equalTo("objectId", id).first();
             }).then(function (pack) {
-                    res.render("pages/edit_pack", {pack: pack, review_id: review_id});
-                }, function (error) {
+                res.render("pages/edit_pack", {pack: pack, review_id: review_id});
+            }, function (error) {
                 console.log("ERROR " + error.message);
                 res.redirect('/review_details/' + review_id);
             });
@@ -1399,7 +1399,7 @@ app.post('/update_pack/:id', function (req, res) {
     let review_id = req.body.review_id;
 
     let key = keyword.split(",");
-    if (token){
+    if (token) {
         let _user = {};
 
         getUser(token).then(function (sessionToken) {
@@ -1408,11 +1408,11 @@ app.post('/update_pack/:id', function (req, res) {
 
             return new Parse.Query(PacksClass).equalTo("objectId", id).first();
         }).then(function (pack) {
-            pack.set("name",name);
+            pack.set("name", name);
 
-            if (archive === undefined || archive === "1"){
+            if (archive === undefined || archive === "1") {
                 pack.set("archive", false);
-            }else if (archive === "0"){
+            } else if (archive === "0") {
                 pack.set("archive", true);
             }
             pack.set("pack_description", description);
@@ -1421,10 +1421,10 @@ app.post('/update_pack/:id', function (req, res) {
             return pack.save();
 
         }).then(function (result) {
-            res.redirect('/review_details/'+review_id);
+            res.redirect('/review_details/' + review_id);
         }, function (error) {
-            console.log("ERROR "+error.message);
-            res.redirect('/review_details/'+review_id);
+            console.log("ERROR " + error.message);
+            res.redirect('/review_details/' + review_id);
         });
     }
 });
@@ -1609,7 +1609,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
 });
 
 //Update Sticker
-app.post('/update/:id/:pid',upload.array('art'), function (req, res) {
+app.post('/update/:id/:pid', function (req, res) {
 
     var token = req.cookies.token;
 
@@ -1619,9 +1619,7 @@ app.post('/update/:id/:pid',upload.array('art'), function (req, res) {
     var new_categories = req.body.categories;
     var stickerId = req.params.id;
     var packId = req.params.pid;
-    let files = req.files;
 
-    console.log("FILES FROM UPDATE "+files);
     var _listee = [];
 
     if (categoryList) {
@@ -1640,7 +1638,7 @@ app.post('/update/:id/:pid',upload.array('art'), function (req, res) {
 
     } else {
         console.log("1");
-        if (new_categories !== undefined){
+        if (new_categories !== undefined) {
             var category_new = Array.from(new_categories);
 
             _.each(category_new, function (category) {
