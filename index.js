@@ -1625,12 +1625,12 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
     if (token) {
         let _user = {};
 
-        if (category !== undefined){
+        if (category !== "undefined"){
             category_names = category.split(",");
             _category = category_names;
         }
 
-        if (categories !== undefined){
+        if (categories !== "undefined"){
             _category_names = category.split(",");
 
 
