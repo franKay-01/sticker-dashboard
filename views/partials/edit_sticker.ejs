@@ -28,11 +28,12 @@
         <% } %>
 
         <div class="medium-6 large-5 cell">
+            <input name="review_id" value="<%= review_id%> " style="display: none;">
             <% if (name === undefined){ %>
             <label class="update_label">Sticker Name:</label>
             <input placeholder="Sticker Name" class="box_2"
                    name="sticker_name"
-                   value="<%= sticker.get("stickerName") %>">
+                   value="<%= sticker.get("stickerName") %>" disabled>
             <% } else { %>
             <label class="update_label">Sticker Name:</label>
             <input placeholder="Sticker Name" class="box_2"

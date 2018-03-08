@@ -1364,7 +1364,8 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
                     all: all,
                     name: name,
                     sticker_details: sticker,
-                    category: category
+                    category: category,
+                    review_id:review_id
                 });
 
             }, function (error) {
@@ -1615,24 +1616,65 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
     let name = req.body.sticker_name;
     let category = req.body.category;
     let categories = req.body.categories;
+    let review_id = req. body.review_id;
     let files = req.files;
+    let _category = [];
+    let category_names;
+    let _category_names;
 
-    res.send(JSON.stringify(files) + " "+name+" "+category);
+    if (token) {
+        let _user = {};
 
-    // if (token) {
-    //     let _user = {};
-    //
-    //     getUser(token).then(function (sessionToken) {
-    //
-    //         _user = sessionToken.get("user");
-    //
-    //         return new Parse.Query(StickerClass).equalTo("objectId", id).first();
-    //     }).then(function (sticker) {
-    //
-    //
-    //
-    //     })
-    // }
+        if (category !== undefined){
+            category_names = category.split(",");
+            _category = category_names;
+        }
+
+        if (categories !== undefined){
+            _category_names = category.split(",");
+
+
+            _.each(category_names, function (category) {
+                _category.push(category);
+            });
+
+            _.each(_category_names, function (category) {
+                _category.push(category);
+            });
+        }
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(StickerClass).equalTo("objectId", id).first();
+        }).then(function (sticker) {
+
+            files.forEach(function (file) {
+
+                var fullName = file.originalname;
+                var stickerName = fullName.substring(0, fullName.length - 4);
+
+                var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                //create our parse file
+                var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+
+                sticker.set("uri", parseFile);
+                sticker.set("name", name);
+                sticker.set("categories", _category);
+
+                return sticker.save();
+
+            }).then(function (result) {
+                res.redirect('/pack/'+pid);
+            }, function (error) {
+                console.log("ERROR "+error.message);
+                res.redirect('/review_details/'+ review_id);
+            });
+
+        })
+    }
 
 });
 
