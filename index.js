@@ -1622,7 +1622,8 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
     let category_names;
     let _category_names;
 
-    console.log("CATEGORY "+category+" CATEGORIES "+categories);
+    _category_names = categories.split(",");
+    console.log("CATEGORY ARRAY "+_category_names+" CATEGORIES "+categories);
     if (token) {
         let _user = {};
 
@@ -1632,7 +1633,6 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
         }
 
         if (categories !== "undefined"){
-            _category_names = categories.split(",");
 
             _.each(_category_names, function (category) {
                 _category.push(category);
