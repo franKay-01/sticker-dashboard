@@ -802,6 +802,7 @@ app.get('/review_details/:id', function (req, res) {
             console.log("REVIEWS " + JSON.stringify(review));
             let type = review.get("type");
             if (type === 1){
+                console.log("TYPE "+type);
                 let id = review.get("type_id");
                 return new Parse.Query(StickerClass).equalTo("objectId", id).first();
             }else {
@@ -809,6 +810,7 @@ app.get('/review_details/:id', function (req, res) {
             }
 
         }).then(function (sticker) {
+            console.log("HERE WITH STICKER "+sticker);
             let sticker_url = sticker.get("uri").url();
             res.render("pages/review_details", {reviews: review, sticker_url: sticker_url});
 
