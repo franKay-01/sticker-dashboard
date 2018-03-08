@@ -1365,7 +1365,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
                     name: name,
                     sticker_details: sticker,
                     category: category,
-                    review_id:review_id
+                    review_id: review_id
                 });
 
             }, function (error) {
@@ -1616,29 +1616,29 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
     let name = req.body.sticker_name;
     let category = req.body.category;
     let categories = req.body.categories;
-    let review_id = req. body.review_id;
+    let review_id = req.body.review_id;
     let files = req.files;
     let _category = [];
     let category_names;
     let _category_names;
 
 
-    console.log("CATEGORY ARRAY "+_category_names+" CATEGORIES "+categories);
+    console.log("CATEGORY ARRAY " + _category_names + " CATEGORIES " + categories);
     if (token) {
         let _user = {};
 
-        if (category !== undefined){
+        if (category !== undefined) {
             category_names = Array.from(category);
             _category = category_names;
         }
 
-        if (categories !== undefined){
+        if (categories !== undefined) {
 
             _category_names = Array.from(categories);
 
-            if (_category.length !== 0){
+            if (_category.length !== 0) {
                 _category = _category.concat(_category_names);
-            }else {
+            } else {
                 _category = _category_names;
             }
         }
@@ -1661,21 +1661,18 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
                 var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
 
                 sticker.set("uri", parseFile);
-                sticker.set("name", name);
-                sticker.set("categories", _category);
 
-                return sticker.save();
 
-            }).then(function (result) {
-                res.redirect('/pack/'+pid);
-            }, function (error) {
-                console.log("ERROR "+error.message);
-                res.redirect('/review_details/'+ review_id);
             });
+            sticker.set("name", name);
+            sticker.set("categories", _category);
 
+            return sticker.save();
+        }).then(function (result) {
+            res.redirect('/pack/' + pid);
         }, function (error) {
-            console.log("ERROR "+error.message);
-            res.redirect('/review_details/'+ review_id);
+            console.log("ERROR " + error.message);
+            res.redirect('/review_details/' + review_id);
         });
     }
 
