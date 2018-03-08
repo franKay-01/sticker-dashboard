@@ -802,7 +802,6 @@ app.get('/review_details/:id', function (req, res) {
             console.log("REVIEWS " + JSON.stringify(review));
             let type = review.get("type");
             if (type === 1){
-                console.log("TYPE "+type);
                 let id = review.get("type_id");
                 return new Parse.Query(StickerClass).equalTo("objectId", id).first();
             }else {
@@ -810,15 +809,13 @@ app.get('/review_details/:id', function (req, res) {
             }
 
         }).then(function (sticker) {
-            console.log("HERE WITH STICKER "+ JSON.stringify(sticker));
             let sticker_url = sticker.get("uri").url();
-            console.log("STICKER IMAGE "+sticker_url);
-            res.render("pages/review_details", {reviews: review, sticker_url: sticker_url});
+            res.render("pages/review_details", {reviews: _review, sticker_url: sticker_url});
 
         }, function (error) {
             console.log("ERROR WHEN RETRIEVING REVIEW " + error.message);
             res.redirect('/review_collection');
-        })
+        });
     }
 });
 
