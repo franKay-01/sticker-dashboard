@@ -1614,6 +1614,7 @@ app.post('/update_sticker/:id/:pid', upload.single('im1'), function (req, res) {
     let pid = req.params.pid;
     let name = req.body.name;
     let category = req.body.category;
+    let categories = req.body.categories;
     let files = req.files;
 
     res.send(JSON.stringify(files) + " "+name+" "+category);
