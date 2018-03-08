@@ -788,6 +788,7 @@ app.get('/review_details/:id', function (req, res) {
 
     if (token) {
         let _user = {};
+        let _review = {};
 
         getUser(token).then(function (sessionToken) {
 
@@ -796,8 +797,21 @@ app.get('/review_details/:id', function (req, res) {
             return new Parse.Query(ReviewClass).equalTo("objectId", review_id).first();
 
         }).then(function (review) {
+            _review = review;
+
             console.log("REVIEWS " + JSON.stringify(review));
-            res.render("pages/review_details", {reviews: review});
+            let type = review.get("type");
+            if (type === 1){
+                let id = review.get("type_id");
+                return new Parse.Query(StickerClass).equalTo("objectId", id).first();
+            }else {
+                res.render("pages/review_details", {reviews: review});
+            }
+
+        }).then(function (sticker) {
+            let sticker_url = sticker.get("uri").url();
+            res.render("pages/review_details", {reviews: review, sticker_url: sticker_url});
+
         }, function (error) {
             console.log("ERROR WHEN RETRIEVING REVIEW " + error.message);
             res.redirect('/review_collection');
