@@ -810,8 +810,9 @@ app.get('/review_details/:id', function (req, res) {
             }
 
         }).then(function (sticker) {
-            console.log("HERE WITH STICKER "+sticker);
+            console.log("HERE WITH STICKER "+ JSON.stringify(sticker));
             let sticker_url = sticker.get("uri").url();
+            console.log("STICKER IMAGE "+sticker_url);
             res.render("pages/review_details", {reviews: review, sticker_url: sticker_url});
 
         }, function (error) {
