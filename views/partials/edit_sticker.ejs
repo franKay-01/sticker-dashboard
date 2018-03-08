@@ -1,4 +1,4 @@
-<form id="detailsForm" action="/update/<%= sticker.id %>/<%= pack_id %>" method="post">
+<form id="detailsForm" action="/update_sticker/<%= sticker.id %>/<%= pack_id %>" method="post">
     <div class="grid-x grid-margin-x">
         <% if (sticker_details === undefined){ %>
         <div class="medium-6 large-5 cell">
@@ -11,9 +11,17 @@
         <div class="medium-6 large-5 cell">
             <div class="droppableArea" style="border: solid; color: red;">
                 <div class="output" name="tfile"></div>
-                <!--<img id="im1" name="im1" style="width: 100%; height: 100%;" >-->
-                <input type="image" src="<%= sticker.get("uri").url() %>" style="width: 100%; height: 100%;"/>
-                <input type="file" id="my_file" name="new_sticker" style="display: none;" />
+                <img id="im1" name="im1" style="width: 100%; height: 100%;" src="<%= sticker.get("uri").url() %>">
+            </div>
+            <!--<input type="file" name="im1">-->
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span><i class="fa fa-file-o"></i></span>
+                    <input type="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
             </div>
         </div>
         <% } %>

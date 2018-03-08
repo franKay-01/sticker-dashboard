@@ -1608,6 +1608,33 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
     }
 });
 
+app.post('/update_sticker/:id/:pid', upload.single('im1'), function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let pid = req.params.pid;
+    let name = req.body.name;
+    let category = req.body.category;
+    let files = req.files;
+
+    res.send(JSON.stringify(files) + " "+name+" "+category);
+
+    // if (token) {
+    //     let _user = {};
+    //
+    //     getUser(token).then(function (sessionToken) {
+    //
+    //         _user = sessionToken.get("user");
+    //
+    //         return new Parse.Query(StickerClass).equalTo("objectId", id).first();
+    //     }).then(function (sticker) {
+    //
+    //
+    //
+    //     })
+    // }
+
+});
+
 //Update Sticker
 app.post('/update/:id/:pid', function (req, res) {
 
@@ -1650,9 +1677,16 @@ app.post('/update/:id/:pid', function (req, res) {
 
     if (token) {
 
-        Parse.Promise.when(
-            new Parse.Query(StickerClass).equalTo("objectId", stickerId).first(),
-        ).then(function (sticker) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(StickerClass).equalTo("objectId", stickerId).first();
+
+        }).then(function (sticker) {
 
             // var sticker_relation = sticker.relation(CategoryClass);
 
