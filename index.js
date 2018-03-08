@@ -1622,22 +1622,25 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
     let category_names;
     let _category_names;
 
-    _category_names = Array.from(categories);
+
     console.log("CATEGORY ARRAY "+_category_names+" CATEGORIES "+categories);
     if (token) {
         let _user = {};
 
         if (category !== undefined){
-            category_names = category.split(",");
+            category_names = Array.from(category);
             _category = category_names;
         }
 
         if (categories !== "undefined"){
 
-            _.each(_category_names, function (category) {
-                _category.push(category);
-            });
+            _category_names = Array.from(categories);
 
+            if (_category.length !== 0){
+                _category = _category.concat(_category_names);
+            }else {
+                _category = _category_names;
+            }
         }
 
         getUser(token).then(function (sessionToken) {
@@ -1670,7 +1673,10 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
                 res.redirect('/review_details/'+ review_id);
             });
 
-        })
+        }, function (error) {
+            console.log("ERROR "+error.message);
+            res.redirect('/review_details/'+ review_id);
+        });
     }
 
 });
