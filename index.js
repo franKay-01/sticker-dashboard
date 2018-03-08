@@ -1640,11 +1640,14 @@ app.post('/update/:id/:pid',upload.array('art'), function (req, res) {
 
     } else {
         console.log("1");
-        var category_new = Array.from(new_categories);
+        if (new_categories !== undefined){
+            var category_new = Array.from(new_categories);
 
-        _.each(category_new, function (category) {
-            _listee.push(category);
-        });
+            _.each(category_new, function (category) {
+                _listee.push(category);
+            });
+        }
+
     }
 
     if (token) {
