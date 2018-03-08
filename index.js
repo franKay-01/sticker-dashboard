@@ -1398,7 +1398,7 @@ app.post('/update_pack/:id', function (req, res) {
     let keyword = req.body.keyword;
 
     let key = keyword.split(",");
-    res.send(key);
+    res.send(key + " "+archive);
     // if (token){
     //     let _user = {};
     //
