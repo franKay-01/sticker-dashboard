@@ -1626,22 +1626,18 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
     if (token) {
         let _user = {};
 
-        if (category !== "undefined"){
+        if (category !== undefined){
             category_names = category.split(",");
             _category = category_names;
         }
 
         if (categories !== "undefined"){
-            _category_names = category.split(",");
-
-
-            _.each(category_names, function (category) {
-                _category.push(category);
-            });
+            _category_names = categories.split(",");
 
             _.each(_category_names, function (category) {
                 _category.push(category);
             });
+
         }
 
         getUser(token).then(function (sessionToken) {
