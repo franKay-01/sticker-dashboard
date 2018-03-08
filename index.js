@@ -1609,7 +1609,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
 });
 
 //Update Sticker
-app.post('/update/:id/:pid', function (req, res) {
+app.post('/update/:id/:pid',upload.array('art'), function (req, res) {
 
     var token = req.cookies.token;
 
@@ -1619,6 +1619,9 @@ app.post('/update/:id/:pid', function (req, res) {
     var new_categories = req.body.categories;
     var stickerId = req.params.id;
     var packId = req.params.pid;
+    let files = req.files;
+
+    console.log("FILES FROM UPDATE "+files);
     var _listee = [];
 
     if (categoryList) {
