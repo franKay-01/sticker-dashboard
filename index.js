@@ -1632,7 +1632,7 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
             _category = category_names;
         }
 
-        if (categories !== "undefined"){
+        if (categories !== undefined){
 
             _category_names = Array.from(categories);
 
