@@ -1622,6 +1622,7 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
     let category_names;
     let _category_names;
 
+    console.log("CATEGORY "+category+" CATEGORIES "+categories);
     if (token) {
         let _user = {};
 
