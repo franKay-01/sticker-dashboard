@@ -1612,7 +1612,7 @@ app.post('/update_sticker/:id/:pid', upload.single('im1'), function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let pid = req.params.pid;
-    let name = req.body.name;
+    let name = req.body.sticker_name;
     let category = req.body.category;
     let categories = req.body.categories;
     let files = req.files;
