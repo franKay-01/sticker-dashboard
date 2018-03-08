@@ -24,10 +24,11 @@
     <script>
         $(document).ready(function() {
             $('select').material_select();
-        });
 
-        $("input[type='image']").click(function() {
-            $("input[id='my_file']").click();
+            $("input[type='image']").click(function(event) {
+                event.preventDefault();
+                $("input[id='my_file']").click();
+            });
         });
     </script>
 </head>
