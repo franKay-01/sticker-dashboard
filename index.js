@@ -1213,11 +1213,11 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
     var pricing = parseInt(req.body.pricing);
     var version = parseInt(req.body.version);
     var keywords = req.body.keyword;
+    let _keywords = [];
 
-    if (keywords !== undefined) {
-        var _keywords = keywords.split(",");
+    if (keywords !== undefined || keywords !== "undefined") {
+         _keywords = Array.from(keywords);
     }
-
 
     console.log("FILE CONTENT " + files.length);
 
