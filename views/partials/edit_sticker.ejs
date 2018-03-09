@@ -1,7 +1,8 @@
-<form id="detailsForm" action="/update_sticker/<%= sticker.id %>/<%= pack_id %>" enctype="multipart/form-data" method="post">
+<form id="detailsForm" action="/update_sticker/<%= sticker.id %>/<%= pack_id %>" enctype="multipart/form-data"
+      method="post">
 
     <div class="grid-x grid-margin-x">
-        <% if (all === undefined){%>
+        <% if (all === undefined){ %>
         <% if (sticker_details === undefined){ %>
         <div class="medium-6 large-5 cell">
             <div class="droppableArea">
@@ -29,7 +30,7 @@
         <% } %>
 
         <div class="medium-6 large-5 cell">
-            <input name="review_id" value="<%= review_id%> " style="display: none;">
+            <input name="review_id" value="<%= review_id %> " style="display: none;">
             <% if (name === undefined){ %>
             <label class="update_label">Sticker Name:</label>
             <input placeholder="Sticker Name" class="box_2"
@@ -74,7 +75,7 @@
             </div>
             <% } %>
         </div>
-        <%} else {%>
+        <% } else { %>
         <div class="medium-6 large-5 cell">
             <div class="droppableArea" style="border: solid; color: red;">
                 <div class="output" name="tfile"></div>
@@ -98,29 +99,27 @@
                    style="border: solid;color: red; border-bottom: 3px red solid !important;"
                    value="<%= sticker.get("stickerName") %>">
 
+            <label class="update_label">Category:</label>
+            <input placeholder="category e.g funny, silly"
+                   id="categoryInput" name="category"
+                   style="border: solid;color: red; border-bottom: 3px red solid !important;"
+                   value="<%= sticker.get("categories") %>" disabled>
+            <input type="text" name="category_name" id="cat" style="display: none">
+
+            <div class="row">
+                <select class="input-field" name="categories[]" multiple>
+                    <option value="" disabled selected>&nbsp;Add Categories</option>
+                    <% if (categories.length === 0) { %>
+
+                    <% } else { %>
+                    <% categories.forEach(function(items) { %>
+                    <option value="<%= items.get("name") %>"><%= items.get("name") %></option>
+                    <% }) %>
+                    <% } %>
+                </select>
+            </div>
         </div>
-
-        <label class="update_label">Category:</label>
-        <input placeholder="category e.g funny, silly"
-               id="categoryInput" name="category"
-               style="border: solid;color: red; border-bottom: 3px red solid !important;"
-               value="<%= sticker.get("categories") %>" disabled>
-        <input type="text" name="category_name" id="cat" style="display: none">
-
-        <div class="row">
-            <select class="input-field" name="categories[]" multiple>
-                <option value="" disabled selected>&nbsp;Add Categories</option>
-                <% if (categories.length === 0) { %>
-
-                <% } else { %>
-                <% categories.forEach(function(items) { %>
-                <option value="<%= items.get("name") %>"><%= items.get("name") %></option>
-                <% }) %>
-                <% } %>
-            </select>
-        </div>
-
-        <%}%>
+        <% } %>
         <div class="medium-12 large-12 cell">
             <center>
                 <a href="/pack/<%= pack_id %>" class="cancel_btn">Cancel</a>
