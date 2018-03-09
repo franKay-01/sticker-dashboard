@@ -1214,7 +1214,10 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
     var version = parseInt(req.body.version);
     var keywords = req.body.keyword;
 
-    var _keywords = keywords.split(",");
+    if (keywords !== undefined) {
+        var _keywords = keywords.split(",");
+    }
+
 
     console.log("FILE CONTENT " + files.length);
 
