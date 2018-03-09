@@ -284,6 +284,12 @@ label{
     margin-right: 30px
 }
 
+.review_tab{
+    margin: 20px 60px !important;
+    width: 200px;
+    height: 200px
+}
+
 .delete_btn {
     height: 43px;
     font-size: 35px;
