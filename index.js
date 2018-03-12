@@ -1639,8 +1639,6 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
     let category_names;
     let _category_names;
 
-
-    console.log("CATEGORY ARRAY " + _category_names + " CATEGORIES " + categories);
     if (token) {
         let _user = {};
 
@@ -1732,7 +1730,6 @@ app.post('/update/:id/:pid', function (req, res) {
                 _listee.push(category);
             });
         }
-
     }
 
     if (token) {
@@ -1748,14 +1745,11 @@ app.post('/update/:id/:pid', function (req, res) {
 
         }).then(function (sticker) {
 
-            // var sticker_relation = sticker.relation(CategoryClass);
-
             sticker.set("stickerName", stickerName);
             sticker.set("localName", stickerName);
             sticker.set("categories", _listee);
 
             return sticker.save();
-
 
         }).then(function (sticker) {
 
@@ -1888,7 +1882,3 @@ var httpServer = require('http').createServer(app);
 httpServer.listen(port, function () {
     console.log('parse-server-example running on port ' + port + '.');
 });
-
-
-// This will enable the Live Query real-time server
-// ParseServer.createLiveQueryServer(httpServer);
