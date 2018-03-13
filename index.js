@@ -414,8 +414,9 @@ app.get('/stories/:id', function (req, res) {
             return new Parse.Query(StoryClass).equalTo("objectId", id).first();
 
         }).then(function (story) {
+            res.send("STORY DETAILS "+ story.get("pack_id"));
 
-            res.render("pages/story", {story: story});
+            // res.render("pages/story", {story: story});
 
         }, function (error) {
             console.log("ERROR "+ error.message);
