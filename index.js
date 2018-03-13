@@ -430,6 +430,7 @@ app.get('/admin_home', function (req, res) {
             }
 
             if (allPacks.length){
+                console.log("PACKS "+JSON.stringify(allPacks));
                 _allPacks = allPacks;
             }
 
