@@ -154,7 +154,17 @@ $(document).ready(function () {
         $('#signoutLink').fadeIn('fast');
     });
 
-    const btnAddCategory = $('#btnAddCategory');
+    $('#btnAddStory').on('click', function () {
+        $('#pageMask').fadeIn('fast');
+        $('#hiddenAddStoryForm').fadeIn('fast');
+        $('#logo').fadeOut('fast');
+        $('#searchCategory').fadeOut('fast');
+        $('#Welcome').fadeOut('fast');
+        $('#signoutLink').fadeOut('fast');
+        $('#opaqueDiv').fadeOut('fast');
+    });
+
+        const btnAddCategory = $('#btnAddCategory');
     //add button style
     btnAddCategory.on('mouseover', function () {
         $('.plus').attr('src', 'pluscolor.png');

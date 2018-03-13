@@ -36,6 +36,7 @@ let StickerClass = "Stickers";
 let CategoryClass = "Categories";
 let PacksClass = "Packs";
 let ReviewClass = "Reviews";
+let StoryClass = "Stories";
 
 //const
 const PENDING = 0;
@@ -353,6 +354,51 @@ app.post('/login', function (req, res) {
     });
 });
 
+
+app.post('/new_story', function (req, res) {
+    let token = req.cookies.token;
+    let title = req.body.title;
+    let summary = req.body.summary;
+    let pack_id = req.body.pack_id;
+    let body = req.body.story;
+    let keywords = req.body.keyword;
+    let _keywords = [];
+
+    if (keywords !== undefined || keywords !== "undefined") {
+        _keywords = Array.from(keywords);
+    }
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            let Stories = new Parse.Object.extend(StoryClass);
+            let story = new Stories();
+
+            story.set("title", title);
+            story.set("summary", summary);
+            story.set("pack_id", pack_id);
+            story.set("body", body);
+            story.set("keyword", _keywords);
+
+            return story.save();
+
+        }).then(function (story) {
+
+            res.redirect('/stories/' + story.id);
+
+        }, function (error) {
+            console.log("ERROR WHEN CREATING NEW STORY "+ error.message);
+            res.redirect('/admin_home');
+        });
+    }
+
+});
+
 app.get('/admin_home', function (req, res) {
 
     let token = req.cookies.token;
@@ -367,19 +413,24 @@ app.get('/admin_home', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(PacksClass).notEqualTo("status", PENDING).find(),
+                new Parse.Query(PacksClass).find(),
                 new Parse.Query(CategoryClass).find(),
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).count(),
                 new Parse.Query(StickerClass).count()
             );
 
-        }).then(function (collection, categories, categoryLength, packLength, stickerLength) {
+        }).then(function (collection, allPacks, categories, categoryLength, packLength, stickerLength) {
             let _collection = [];
             let _categories = [];
+            let _allPacks = [];
 
             if (collection.length) {
                 _collection = collection;
-                console.log("PACK INFO " + JSON.stringify(_collection));
+            }
+
+            if (allPacks.length){
+                _allPacks = allPacks;
             }
 
             if (categories.length) {
@@ -393,6 +444,7 @@ app.get('/admin_home', function (req, res) {
             res.render("pages/admin_home", {
                 collections: _collection,
                 categories: _categories,
+                allPacks: _allPacks,
                 categoryLength: helper.leadingZero(categoryLength),
                 packLength: helper.leadingZero(packLength),
                 stickerLength: helper.leadingZero(stickerLength),
