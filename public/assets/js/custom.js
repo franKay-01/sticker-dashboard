@@ -78,6 +78,16 @@ $(document).ready(function () {
             // $('#_addCategoryForm').fadeOut('fast');
         });
 
+        $('#btnCloseStory').on('click', function () {
+            $('#hiddenAddStoryForm').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
         //This is to reset a form and close it
         $('#btnCancel').on('click', function () {
             $('#hiddenCreateForm').fadeOut('fast');
@@ -154,7 +164,17 @@ $(document).ready(function () {
         $('#signoutLink').fadeIn('fast');
     });
 
-    const btnAddCategory = $('#btnAddCategory');
+    $('#btnAddStory').on('click', function () {
+        $('#pageMask').fadeIn('fast');
+        $('#hiddenAddStoryForm').fadeIn('fast');
+        $('#logo').fadeOut('fast');
+        $('#searchCategory').fadeOut('fast');
+        $('#Welcome').fadeOut('fast');
+        $('#signoutLink').fadeOut('fast');
+        $('#opaqueDiv').fadeOut('fast');
+    });
+
+        const btnAddCategory = $('#btnAddCategory');
     //add button style
     btnAddCategory.on('mouseover', function () {
         $('.plus').attr('src', 'pluscolor.png');

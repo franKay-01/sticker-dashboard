@@ -4,34 +4,26 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home - Cyfa</title>
+    <title>Packs - Cyfa</title>
 
     <% include ../partials/fav.ejs %>
+
     <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
 
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
-    <!--<script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js"></script>-->
-
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+
 </head>
 
 <body class="primary-background-color">
-<% if (verified === false) { %>
-<div class="medium-12 large-12">
-    <div class="verifiy_account">
-        <center>
-            Please verify your account. Click the <br> link proved in your email.
-        </center>
-    </div>
-</div>
-<% } %>
+
 <div class="grid-container">
-    <!-- Logo-->
+    <!-- Logo -->
     <div class="medium-12 large-12">
         <a href="/home">
             <img src="/public/assets/images/G_logo.png"
@@ -39,26 +31,26 @@
                  id="logo">
         </a>
         <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
+
     </div>
     <!-- End of logo-->
-
     <div id="pageMask"></div>
+
+    <!-- Hidden form for creating new packs-->
     <div id="hiddenCreateForm">
         <div class="medium-3 large-3 cell create_background">
-            <center>
-                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW PACK</div>
-            </center>
             <form id="pack_form" action="/new_pack" enctype="multipart/form-data" method="post">
                 <center>
+                    <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW PACK
+                    </div>
+
                     <input type="text" class="_pack common_pack_detail validate" placeholder="Pack name"
                            name="coll_name" required="" aria-required="true"><br>
                     <textarea class="_pack common_pack_detail validate" placeholder="Pack description"
                               name="pack_description" required="" aria-required="true"></textarea><br>
                     <input type="number" class="_pack common_pack_detail validate" placeholder="Pack Version"
                            name="version" required="" aria-required="true"><br>
-                    <label for="keyword">Seperate Tags with comma (,)</label>
-                    <input type="text" class="_pack common_pack_detail" placeholder="Smile,Angry,Sad" id="keyword"
-                           name="keyword">
+
                     <div style="margin-bottom: 10px">
                         <input name="pricing" type="radio" id="pricing1" value="0"/>
                         <label for="pricing1" class="_label">Free</label>
@@ -71,8 +63,13 @@
                     </div>
                     <br>
                     <input style="color: white;margin: 0px 130px;" id="art" name="art" type="file"><br>
+                    <!--<input type="checkbox" class="categoryOption" name="pricing">-->
 
-                    <br>
+
+                    <p>
+                        <!--<input type="text" class="_pack common_pack_detail validate" placeholder="Pack description"-->
+                        <!--name="coll_description" required="" aria-required="true">-->
+                        <br>
                 </center>
                 <span>
         <button type="submit" class="create">CREATE</button>
@@ -85,71 +82,33 @@
         </div>
     </div>
 
-    <span class="medium-12 large-12 welcome_post" id="Welcome"><b>Welcome <a href="/user_profile"
-                                                                             style="font-size: 45px;color: #af627f;"> <%= name %> </a></b></span>
+    <!-- End of form-->
+    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Review on <i style="color: #a46580"><%= reviews.get("name") %></i></b></span>
+
     <div class="grid-x grid-margin-x" id="opaqueDiv">
-        <!-- Card to display Stats of the database-->
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
-                <div class="stats">Stats</div>
-                <div class="_stickers"><%= stickerLength %> Stickers</div>
-                <div class="_stickers_packs"><%= packLength %> Packs</div>
-                <div class="_categories"><%= categoryLength %> Categories</div>
+                <div class="stats">Menu</div>
+                <div><a class="_stickers" href="/home">Home</a></div>
+                <div><a class="_categories" href="/pack_collection">Packs</a></div>
+                <div><a class="_stickers_packs" href="/review_collection">Reviews</a></div>
             </div>
         </div>
-        <!-- End of card-->
-
-        <!-- Card to create new packs and display existing packs-->
-        <div class="medium-3 large-3 cell icons">
-            <a href="#" id="showCreateForm">
-                <button class="create_button">
-                    <img src="/public/assets/images/icon-create-sticker-pack.png" srcset="/public/assets/images/icon-create-sticker-pack.png 2x,
-             /public/assets/images/icon-create-sticker-pack.png 3x" class="icon_create_sticker">
-                    <div class="create_new">CREATE NEW</div>
-                </button>
-            </a>
-            <div class="card_head_position">
-                <div class="recent_packs">Recent Packs</div>
-                <%- include('../partials/home_pack') %>
-            </div>
-        </div>
-
-        <div class="medium-3 large-3 cell icons">
-            <a class="_stickers_packs" href="/review_collection">
-                <img class="review_tab" src="/public/assets/images/review.png">
-                <div><p class="pack_name_text">Reviews</p></div>
-            </a>
-
-        </div>
-        <!-- End of card-->
-
-        <!--&lt;!&ndash; Card to create new categories and display existing categories&ndash;&gt;-->
-        <!--<div class="medium-3 large-3 cell icons">-->
-        <!--<a href="#" id="btnAddCategory">-->
-        <!--<button class="create_button">-->
-        <!--<img src="/public/assets/images/icon-category.png" srcset="/public/assets/images/icon-category.png 2x,-->
-        <!--/public/assets/images/icon-category.png 3x" class="icon_category">-->
-        <!--<div class="create_new">ADD CATEGORY</div>-->
-        <!--</button>-->
-        <!--</a>-->
-        <!--<div class="card_head_position">-->
-        <!--<div class="recent_category">Recent Category</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; End of card&ndash;&gt;-->
-        <div class="medium-12 large-12 cell">
-            <%- include('../partials/footer') %>
-        </div>
+        <%- include('../partials/review_details') %>
+        <%- include('../partials/footer') %>
     </div>
 </div>
 
-<!-- Compiled and minified JavaScript -->
+<!-- Body -->
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
+<!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
-<script type="text/javascript" src="/public/assets/js/custom.js">
-</script>
+<script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
 
 </body>
+
+
 </html>

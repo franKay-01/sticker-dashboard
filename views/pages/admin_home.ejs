@@ -16,7 +16,15 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script type = "text/javascript"
+            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+    </script>
 </head>
 
 <body class="primary-background-color">
@@ -42,6 +50,50 @@
     <!-- End of logo-->
     <div id="pageMask"></div>
 
+
+    <div id="hiddenAddStoryForm" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW STORY</div>
+            </center>
+            <form id="pack_form" action="/new_story" method="post">
+                <center>
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Story Title"
+                           name="title" required="" aria-required="true"><br>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Story Summary"
+                              name="summary" required="" aria-required="true"></textarea><br>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Story"
+                              name="story" required="" aria-required="true"></textarea><br>
+                    <br>
+                    <label for="keyword">Seperate Tags with comma (,)</label>
+                    <input type="text" class="_pack common_pack_detail" placeholder="Smile,Angry,Sad" id="keyword"
+                           name="keyword">
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field" name="pack_id">
+                            <option value="" disabled selected>&nbsp;Add Pack</option>
+                            <% if (allPacks.length === 0) { %>
+
+                            <% } else { %>
+                            <% allPacks.forEach(function(items) { %>
+                            <option value="<%= items.id %>"><%= items.get("pack_name") %></option>
+                            <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
+
+                    <br>
+                </center>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseStory" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+
+    </div>
     <!-- Start of hidden form -->
     <div id="hiddenAddCatForm" style="display: none">
         <div class="medium-3 large-3 cell create_background">
@@ -49,7 +101,7 @@
                 <center>
                     <div class="edit_labels medium-12 large-12">CREATE NEW CATEGORY</div>
                     <input type="text" class="_pack common_pack_detail validate" placeholder="Category Name"
-                           name="catname" required="" aria-required="true"/>
+                           name="category_name" required="" aria-required="true"/>
                     <br>
                 </center>
                 <span>
@@ -86,6 +138,14 @@
                 <%- include('../partials/home_category') %>
             </div>
         </div>
+        <div class="medium-3 large-3 cell icons">
+            <a href="#" id="btnAddStory">
+                <button>
+                    <img src="/public/assets/images/story.png">
+                    <div><p class="pack_name_text">Stories</p></div>
+                </button>
+            </a>
+        </div>
         <!-- End of card-->
         <% include ../partials/packs_for_admin %>
 
@@ -95,9 +155,8 @@
     </div>
 </div>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>-->
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/custom.js">
 </script>
