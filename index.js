@@ -406,6 +406,7 @@ app.get('/stories/:id', function (req, res) {
     if (token) {
 
         let _user = {};
+        let _story = {};
 
         getUser(token).then(function (sessionToken) {
 
@@ -414,14 +415,26 @@ app.get('/stories/:id', function (req, res) {
             return new Parse.Query(StoryClass).equalTo("objectId", id).first();
 
         }).then(function (story) {
-            res.send("STORY DETAILS "+ story.get("pack_id"));
 
-            // res.render("pages/story", {story: story});
+            _story = story;
+
+            return new Parse.Query(StickerClass).equalTo("objectId", story.get("pack_id"));
+
+        }).then(function (pack) {
+
+            let col = pack.relation(PacksClass);
+            return col.query().find();
+
+        }).then(function (stickers) {
+
+            res.render("pages/stories", {story: _story, stickers: stickers});
 
         }, function (error) {
-            console.log("ERROR "+ error.message);
-            req.redirect('/admin_home');
-        })
+
+            console.log("ERROR "+error.message);
+            res.redirect('/admin_home');
+
+        });
     }
 });
 

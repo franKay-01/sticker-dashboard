@@ -1,0 +1,34 @@
+<!-- Cards -->
+<% if (stickers.length === 0) { %>
+<div class="medium-3 large-3 cell icons">
+    <img src="/public/assets/images/broken.png" class="gbeja_notxt">
+    <div class="name_tag"><p class="sticker_name_text">Broken Link - Reload</p></div>
+</div>
+
+<% } else { %>
+
+    <div class="medium-6 large-5 cell">
+        <label class="update_label">Story Title:</label> <input placeholder="Story Title" class="box_2"
+                                                              name="title"
+                                                              value="<%= story.get("title") %>" disabled>
+        <label class="update_label">Keywords:</label> <input placeholder="Keywords " class="box_2"
+                                                              name="keyword"
+                                                              value="<%= story.get("keyword") %>" disabled>
+        <textarea class="_pack common_pack_detail validate" placeholder="Summary"
+                  name="pack_description" required="" aria-required="true"><%= story.get("summary")%></textarea><br>
+    </div>
+
+<% stickers.forEach(function(item, index) { %>
+<div class="medium-3 large-3 cell icons">
+    <a href="/details/<%= item.id %>/<%= id %>">
+        <img src="<%= item.get("uri").url() %>" class="gbeja_notxt">
+        <div class="name_tag"><p class="sticker_name_text"><%= item.get("stickerName") %></p></div>
+    </a>
+</div>
+
+<% }); %>
+<% } %>
+
+
+
+
