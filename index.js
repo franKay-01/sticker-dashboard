@@ -422,7 +422,7 @@ app.get('/stories/:id', function (req, res) {
 
         }).then(function (pack) {
             console.log("RELATIONS " + JSON.stringify(pack));
-            let col = pack.relation(PacksClass);
+            let col = pack.relation(StickerClass);
             return col.query().find();
 
         }).then(function (stickers) {
