@@ -392,6 +392,14 @@ label{
     margin-right: 20px;
 }
 
+#hiddenAddStoryForm{
+    display: none;
+    position: absolute;
+    margin: 0px 300px auto;
+    z-index: 9999;
+    top: 155px;
+}
+
 .home_pack_description {
     width: 135px;
     height: 32px;
