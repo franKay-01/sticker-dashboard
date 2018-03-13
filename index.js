@@ -365,7 +365,7 @@ app.post('/new_story', function (req, res) {
     let _keywords = [];
 
     if (keywords !== undefined || keywords !== "undefined") {
-        _keywords = Array.from(keywords);
+        _keywords = keywords.split(",");
     }
 
     if (token) {
@@ -397,6 +397,31 @@ app.post('/new_story', function (req, res) {
         });
     }
 
+});
+
+app.get('/stories/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(StoryClass).equalTo("objectId", id).first();
+
+        }).then(function (story) {
+
+            res.render("pages/story", {story: story});
+
+        }, function (error) {
+            console.log("ERROR "+ error.message);
+            req.redirect('/admin_home');
+        })
+    }
 });
 
 app.get('/admin_home', function (req, res) {
