@@ -78,6 +78,16 @@ $(document).ready(function () {
             // $('#_addCategoryForm').fadeOut('fast');
         });
 
+        $('#btnCloseStory').on('click', function () {
+            $('#hiddenAddStoryForm').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
         //This is to reset a form and close it
         $('#btnCancel').on('click', function () {
             $('#hiddenCreateForm').fadeOut('fast');
