@@ -61,6 +61,18 @@
                     <label for="keyword">Seperate Tags with comma (,)</label>
                     <input type="text" class="_pack common_pack_detail" placeholder="Smile,Angry,Sad" id="keyword"
                            name="keyword">
+                    <div class="row">
+                        <select class="input-field" name="categories[]" multiple>
+                            <option value="" disabled selected>&nbsp;Add Pack</option>
+                            <% if (allPacks.length === 0) { %>
+
+                            <% } else { %>
+                            <% allPacks.forEach(function(items) { %>
+                            <option value="<%= items.id %>"><%= items.get("pack_name") %></option>
+                            <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
 
                     <br>
                 </center>
