@@ -426,7 +426,7 @@ app.get('/stories/:id', function (req, res) {
             return col.query().find();
 
         }).then(function (stickers) {
-
+            console.log("STICKERS "+JSON.stringify(stickers));
             res.render("pages/stories", {story: _story, stickers: stickers});
 
         }, function (error) {
