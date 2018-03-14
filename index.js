@@ -418,7 +418,7 @@ app.get('/stories/:id', function (req, res) {
 
             _story = story;
 
-            return new Parse.Query(PacksClass).equalTo("objectId", story.get("pack_id"));
+            return new Parse.Query(PacksClass).equalTo("objectId", story.get("pack_id")).find();
 
         }).then(function (pack) {
             console.log("RELATIONS " + JSON.stringify(pack));
