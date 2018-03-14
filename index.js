@@ -421,14 +421,15 @@ app.get('/stories/:id', function (req, res) {
             return new Parse.Query(PacksClass).equalTo("objectId", story.get("pack_id")).first();
 
         }).then(function (pack) {
-            console.log("RELATIONS " + JSON.stringify(pack));
+
             let col = pack.relation(PacksClass);
             return col.query().find();
 
         }).then(function (stickers) {
-            console.log("STICKERS "+JSON.stringify(stickers));
+
             res.render("pages/stories", {
-                story: _story,
+                story: _story.id,
+                name: _story.get("title"),
                 stickers: stickers
             });
 
