@@ -453,7 +453,7 @@ app.post('/add_story_artwork/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(StoryClass).equalTo("objectId", story_id).find();
+            return new Parse.Query(StoryClass).equalTo("objectId", story_id).first();
 
         }).then(function (story) {
             id = story.id;
