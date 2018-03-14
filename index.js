@@ -476,6 +476,7 @@ app.post('/add_story_artwork/:id', function (req, res) {
 app.get('/story_details/:id', function (req, res) {
 
     let token = req.cookies.token;
+    let story_id = req.params.id;
 
     if (token) {
 
