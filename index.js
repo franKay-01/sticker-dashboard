@@ -499,11 +499,11 @@ app.get('/story_details/:id', function (req, res) {
 
         }).then(function (sticker) {
 
-            res.send(JSON.stringify(sticker));
-            // res. render("pages/story_details", {
-            //     story:_story,
-            //     sticker: sticker
-            // });
+            // res.send(JSON.stringify(sticker));
+            res. render("pages/story_details", {
+                story:_story,
+                sticker: sticker
+            });
         }, function (error) {
             console.log("ERROR "+error.message);
             res.redirect('/story_collection');
