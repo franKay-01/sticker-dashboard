@@ -33,7 +33,10 @@
     </div>
     <!-- End of logo -->
     <span class="medium-12 large-12 welcome_post"><b>Add Story Art Work</b></span>
-    <span style="float: right;"><a class="waves-effect waves-light btn">Add Image</a></span>
+    <form action="/add_story_artwork" method="post">
+        <span style="float: right;"><a class="waves-effect waves-light btn add-image-btn">Add Image</a></span>
+        <input type="hidden" class="sticker_id" name="sticker_id">
+    </form>
 
     <div class="grid-x grid-margin-x">
 
@@ -41,6 +44,8 @@
         <%- include('../partials/footer') %>
 
 </div>
+</div>
+
 <!-- Body -->
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
@@ -49,7 +54,13 @@
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
+    <script type="text/javascript">
+        $(".sticker-image").click(function(){
+            $(".sticker_id").val($(this).attr("data-id"));
+            $(".add-image-btn").val($(this).innerHTML("data-name") + " Add Image");
 
+        });
+    </script>
 </body>
 
 
