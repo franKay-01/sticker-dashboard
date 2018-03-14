@@ -11,8 +11,7 @@
     <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
 
     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"  type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
@@ -33,22 +32,18 @@
 
     </div>
     <!-- End of logo -->
-    <div class="medium-12 large-12">
-        <div class="medium-6 large-6 welcome_post" style="float:left;"><b>Add Story Art Work</b></div>
-        <div class="medium-6 large-6" style="float: right;">
-            <form action="/add_story_artwork" method="post">
-                <a class="waves-effect waves-light btn add-image-btn">Add Image</a>
-                <input type="hidden" class="sticker_id" name="sticker_id">
-            </form>
-        </div>
-    </div>
+    <span class="medium-12 large-12 welcome_post"><b>Add Story Art Work</b></span>
+    <form action="/add_story_artwork" method="post">
+        <span style="float: right;"><a class="waves-effect waves-light btn add-image-btn">Add Image</a></span>
+        <input type="hidden" class="sticker_id" name="sticker_id">
+    </form>
 
     <div class="grid-x grid-margin-x">
 
         <%- include('../partials/stories') %>
         <%- include('../partials/footer') %>
 
-    </div>
+</div>
 </div>
 
 <!-- Body -->
@@ -59,13 +54,13 @@
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
-<script type="text/javascript">
-    $(".sticker-image").click(function () {
-        $(".sticker_id").val($(this).attr("data-id"));
-        $(".add-image-btn").html("Add " + $(this).attr("data-name") + " Image");
+    <script type="text/javascript">
+        $(".sticker-image").click(function(){
+            $(".sticker_id").val($(this).attr("data-id"));
+            $(".add-image-btn").html("Add "+ $(this).attr("data-name") + " Image");
 
-    });
-</script>
+        });
+    </script>
 </body>
 
 
