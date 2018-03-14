@@ -7,17 +7,22 @@
 
 <% } else { %>
 
-    <div class="medium-7 large-8 cell">
-        <label class="update_label">Story Title:</label> <input placeholder="Story Title" class="box_2"
-                                                              name="title"
-                                                              value="<%= story.get("title") %>" disabled>
-        <label class="update_label">Keywords:</label> <input placeholder="Keywords " class="box_2"
-                                                              name="keyword"
-                                                              value="<%= story.get("keyword") %>" disabled>
-        <textarea class="validate" placeholder="Summary"
-                  name="pack_description" required="" aria-required="true"><%= story.get("summary")%></textarea><br>
-    </div>
-
+<div class="medium-7 large-8 cell">
+    <label class="update_label">Story Title:</label> <input placeholder="Story Title" class="box_2"
+                                                            name="title"
+                                                            value="<%= story.get("title") %>" disabled>
+    <label class="update_label">Keywords:</label> <input placeholder="Keywords " class="box_2"
+                                                         name="keyword"
+                                                         value="<%= story.get("keyword") %>" disabled>
+    <label class="update_label">Summary:</label>
+    <textarea class="validate" placeholder="Summary"
+              name="pack_description" required="" aria-required="true"
+              disabled><%= story.get("summary") %></textarea><br>
+</div>
+<center>
+    <hr>
+</center>
+<p> Select a Story Image</p>
 <% stickers.forEach(function(item, index) { %>
 <div class="medium-3 large-3 cell icons">
     <a href="/details/<%= item.id %>">
