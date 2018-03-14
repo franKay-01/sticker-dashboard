@@ -57,7 +57,7 @@
     <script type="text/javascript">
         $(".sticker-image").click(function(){
             $(".sticker_id").val($(this).attr("data-id"));
-            $(".add-image-btn").val($(this).innerHTML("data-name") + " Add Image");
+            $(".add-image-btn").innerHTML($(this).attr("data-name") + " Add Image");
 
         });
     </script>
