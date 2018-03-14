@@ -7,14 +7,14 @@
 
 <% } else { %>
 
-    <div class="medium-6 large-5 cell">
+    <div class="medium-9 large-9 cell">
         <label class="update_label">Story Title:</label> <input placeholder="Story Title" class="box_2"
                                                               name="title"
                                                               value="<%= story.get("title") %>" disabled>
         <label class="update_label">Keywords:</label> <input placeholder="Keywords " class="box_2"
                                                               name="keyword"
                                                               value="<%= story.get("keyword") %>" disabled>
-        <textarea class="_pack common_pack_detail validate" placeholder="Summary"
+        <textarea class="validate" placeholder="Summary"
                   name="pack_description" required="" aria-required="true"><%= story.get("summary")%></textarea><br>
     </div>
 
