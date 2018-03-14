@@ -484,14 +484,16 @@ app.get('/story_details/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(StoryClass).equalTo("objectId", story_id).first();
+            return new Parse.Query(StoryClass).equalTo("objectId", story_id).find();
 
         }).then(function (story) {
 
             _story = story;
 
             let id = story.get("art_work");
+
             return new Parse.Query(StickerClass).equalTo("objectId", id).first();
+
         }).then(function (sticker) {
 
             res. render("pages/story_details", {
