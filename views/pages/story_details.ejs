@@ -52,6 +52,8 @@
                 <label class="update_label">Summary:</label>
                 <textarea class="validate" placeholder="Summary"
                           name="pack_description" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
+
+                <button type="submit" class="waves-effect purple lighten-1 add-image-btn">EDIT STORY</button>
             </div>
         </form>
         <div class="medium-3 large-3 cell login_card">
@@ -77,13 +79,6 @@
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
-<script type="text/javascript">
-    $(".sticker-image").click(function () {
-        $(".sticker_id").val($(this).attr("data-id"));
-        $(".add-image-btn").html("Add " + $(this).attr("data-name") + " Image");
-
-    });
-</script>
 </body>
 
 
