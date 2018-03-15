@@ -558,8 +558,8 @@ app.get('/admin_home', function (req, res) {
                 _story = story;
 
                 _.each(_story, function (stories) {
-                    _story["title"] =  helper.truncateText(stories.get("title"),7);
-                    console.log("TRANCATED "+helper.truncateText(stories.get("title"),7));
+                    _story["title"] =  helper.text_truncate(stories.get("title"),7);
+                    console.log("TRANCATED "+helper.text_truncate(stories.get("title"),7));
                 });
 
             }
