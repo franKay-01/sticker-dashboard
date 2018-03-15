@@ -527,25 +527,25 @@ app.get('/admin_home', function (req, res) {
             return Parse.Promise.when(
                 new Parse.Query(PacksClass).notEqualTo("status", PENDING).find(),
                 new Parse.Query(PacksClass).find(),
+                new Parse.Query(StoryClass).find(),
                 new Parse.Query(CategoryClass).find(),
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).count(),
                 new Parse.Query(StickerClass).count()
             );
 
-        }).then(function (collection, allPacks, categories, categoryLength, packLength, stickerLength) {
+        }).then(function (collection, allPacks, story, categories, categoryLength, packLength, stickerLength) {
             let _collection = [];
             let _categories = [];
             let _allPacks = [];
+            let _story = [];
 
             if (collection.length) {
                 _collection = collection;
             }
 
             if (allPacks.length) {
-                console.log("PACKS " + JSON.stringify(allPacks) + " PACK LENGTH " + allPacks.length);
                 _allPacks = allPacks;
-                console.log("_ALL PACKS " + JSON.stringify(_allPacks));
             }
 
             if (categories.length) {
@@ -553,6 +553,9 @@ app.get('/admin_home', function (req, res) {
 
             }
 
+            if (story.length){
+                _story = story;
+            }
             // Parse.Cloud.run("stickerNumber").then(function () {
             // });
 
@@ -560,12 +563,14 @@ app.get('/admin_home', function (req, res) {
                 collections: _collection,
                 categories: _categories,
                 allPacks: _allPacks,
+                story: _story,
                 categoryLength: helper.leadingZero(categoryLength),
                 packLength: helper.leadingZero(packLength),
                 stickerLength: helper.leadingZero(stickerLength),
                 user_name: _user.get("name"),
                 verified: _user.get("emailVerified")
             });
+            
         }, function (error) {
             console.log("ERRR OCCURRED. ERROR MESSAGE: " + error.message);
             res.redirect('/');
