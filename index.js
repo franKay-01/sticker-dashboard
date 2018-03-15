@@ -523,12 +523,13 @@ app.get('/admin_home', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
+            let limit = 3;
 
             return Parse.Promise.when(
                 new Parse.Query(PacksClass).notEqualTo("status", PENDING).find(),
                 new Parse.Query(PacksClass).find(),
-                new Parse.Query(StoryClass).find(),
-                new Parse.Query(CategoryClass).find(),
+                new Parse.Query(StoryClass).limit(limit).find(),
+                new Parse.Query(CategoryClass).limit(limit).find(),
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).count(),
                 new Parse.Query(StickerClass).count()
