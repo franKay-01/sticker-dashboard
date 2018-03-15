@@ -567,26 +567,19 @@ app.get('/admin_home', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(PacksClass).notEqualTo("status", PENDING).find(),
-                new Parse.Query(PacksClass).find(),
-                new Parse.Query(StoryClass).limit(limit).find(),
                 new Parse.Query(CategoryClass).limit(limit).find(),
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).count(),
                 new Parse.Query(StickerClass).count()
             );
 
-        }).then(function (collection, allPacks, story, categories, categoryLength, packLength, stickerLength) {
+        }).then(function (collection, story, categories, categoryLength, packLength, stickerLength) {
             let _collection = [];
             let _categories = [];
-            let _allPacks = [];
             let _story = [];
 
             if (collection.length) {
                 _collection = collection;
-            }
-
-            if (allPacks.length) {
-                _allPacks = allPacks;
             }
 
             if (categories.length) {
@@ -594,17 +587,12 @@ app.get('/admin_home', function (req, res) {
 
             }
 
-            if (story.length){
-                _story = story;
-
-            }
             // Parse.Cloud.run("stickerNumber").then(function () {
             // });
 
             res.render("pages/admin_home", {
                 collections: _collection,
                 categories: _categories,
-                allPacks: _allPacks,
                 story: _story,
                 categoryLength: helper.leadingZero(categoryLength),
                 packLength: helper.leadingZero(packLength),
@@ -644,30 +632,37 @@ app.get('/home', function (req, res) {
             return Parse.Promise.when(
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(CategoryClass).limit(limit).find(),
+                new Parse.Query(StoryClass).limit(limit).find(),
+                new Parse.Query(PacksClass).find(),
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count()
             );
 
-        }).then(function (collection, categories, categoryLength, packLength, stickerLength) {
+        }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength) {
 
             let _collection = [];
-            let _categories = [];
 
             if (collection.length) {
                 _collection = collection;
 
             }
 
-            if (categories.length) {
-                _categories = categories;
+            if (story.length){
+                _story = story;
 
+            }
+
+            if (allPacks.length) {
+                _allPacks = allPacks;
             }
 
             if (_user.get("type") === NORMAL_USER) {
 
                 res.render("pages/home", {
                     collections: _collection,
+                    allPacks: _allPacks,
+                    story:_story,
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
