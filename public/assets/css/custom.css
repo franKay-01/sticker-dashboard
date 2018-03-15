@@ -1483,6 +1483,16 @@ fieldset {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
 }
 
+.story_form{
+    width: 67%;
+    background: white;
+    border-radius: 15px;
+    margin: 0px auto;
+    margin-bottom: 20px;
+    padding: 15px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
+}
+
 #review_form {
     width: 67%;
     background: white;
