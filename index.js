@@ -555,9 +555,10 @@ app.get('/admin_home', function (req, res) {
 
             if (story.length){
                 _story = story;
-                forEach(_story,s => {
-                    _story["title"] =  helper.truncateText(s.get("title"),15);
-                })
+
+                _.each(_story, function (stories) {
+                    _story["title"] =  helper.truncateText(stories.get("title"),15);
+                });
 
             }
             // Parse.Cloud.run("stickerNumber").then(function () {
