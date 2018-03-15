@@ -403,12 +403,18 @@ label{
 .home_pack_description {
     width: 135px;
     height: 32px;
-
     font-size: 26px;
     font-weight: 500;
     letter-spacing: -1.5px;
     text-align: left;
     color: #a46580;
+}
+
+.truncate_title{
+    white-space: nowrap;
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .home_pack_description:hover {

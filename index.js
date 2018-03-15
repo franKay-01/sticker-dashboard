@@ -556,12 +556,12 @@ app.get('/admin_home', function (req, res) {
 
             if (story.length){
                 _story = story;
-
-                _.each(_story, function (stories) {
-                    console.log("TRANCATED 1"+ _story["title"]);
-                    _story["title"] =  helper.text_truncate(stories.get("title"),15);
-                    console.log("TRANCATED 2"+ _story["title"]);
-                });
+                //
+                // _.each(_story, function (stories) {
+                //     console.log("TRANCATED 1"+ _story["title"]);
+                //     _story["title"] =  helper.text_truncate(stories.get("title"),15);
+                //     console.log("TRANCATED 2"+ _story["title"]);
+                // });
 
             }
             // Parse.Cloud.run("stickerNumber").then(function () {
