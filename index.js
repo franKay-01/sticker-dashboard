@@ -555,6 +555,10 @@ app.get('/admin_home', function (req, res) {
 
             if (story.length){
                 _story = story;
+                forEach(_story,s => {
+                    _story["title"] =  helper.truncateText(s.get("title"),15);
+                })
+
             }
             // Parse.Cloud.run("stickerNumber").then(function () {
             // });
@@ -570,7 +574,7 @@ app.get('/admin_home', function (req, res) {
                 user_name: _user.get("name"),
                 verified: _user.get("emailVerified")
             });
-            
+
         }, function (error) {
             console.log("ERRR OCCURRED. ERROR MESSAGE: " + error.message);
             res.redirect('/');
