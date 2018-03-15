@@ -1483,6 +1483,11 @@ fieldset {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
 }
 
+.add-image-btn{
+    font-size: 20px;
+    font-weight: 700;
+}
+
 .story_form{
     width: 67%;
     background: white;

@@ -53,7 +53,8 @@
                 <textarea class="validate" placeholder="Summary"
                           name="pack_description" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
 
-                <button type="submit" class="waves-effect purple lighten-1 add-image-btn">EDIT STORY</button>
+                <a href="/main_story/<%= story.id %>"><button class="waves-effect pink darken-4 btn add-image-btn">EDIT STORY</button></a>
+                <button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>
             </div>
         </form>
         <div class="medium-3 large-3 cell login_card">
