@@ -558,9 +558,9 @@ app.get('/admin_home', function (req, res) {
                 _story = story;
 
                 _.each(_story, function (stories) {
-                    console.log("TRANCATED "+ _story["title"]);
+                    console.log("TRANCATED 1"+ _story["title"]);
                     _story["title"] =  helper.text_truncate(stories.get("title"),15);
-                    console.log("TRANCATED "+ _story["title"]);
+                    console.log("TRANCATED 2"+ _story["title"]);
                 });
 
             }
