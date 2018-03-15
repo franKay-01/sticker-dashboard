@@ -412,8 +412,9 @@ label{
 
 .truncate_title{
     white-space: nowrap;
-    width: 100px;
+    width: 190px;
     overflow: hidden;
+    font-size: 30px !important;
     text-overflow: ellipsis;
 }
 
