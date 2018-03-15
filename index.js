@@ -654,7 +654,9 @@ app.get('/home', function (req, res) {
             }
 
             if (allPacks.length) {
+
                 _allPacks = allPacks;
+                console.log("PACKS "+JSON.stringify(_allPacks));
             }
 
             if (_user.get("type") === NORMAL_USER) {
