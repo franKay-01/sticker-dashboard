@@ -512,6 +512,46 @@ app.get('/story_details/:id', function (req, res) {
     }
 });
 
+app.post('/edit_story/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let title = req.body.title;
+    let keyword = req.body.keyword;
+    let summary = req.body.summary;
+    let _keyword = [];
+
+    if (keyword !== "undefined" || keyword !== undefined){
+        _keyword = keyword.split(",");
+    }
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(StoryClass).equalTo("objectId", id).first();
+
+        }).then(function (story) {
+
+            story.set("title", title);
+            story.set("keyword", _keyword);
+            story.set("summary", summary);
+
+            return story.save();
+        }).then(function () {
+
+            res.redirect('/story_details/'+id);
+
+        }, function (error) {
+
+            console.log("ERROR "+error.message);
+            res.redirect('/story_details/'+id);
+
+        })
+    }
+});
+
 app.get('/admin_home', function (req, res) {
 
     let token = req.cookies.token;

@@ -33,7 +33,7 @@
 
     </div>
     <!-- End of logo -->
-    <span class="medium-6 large-6 welcome_post"><b>Add Story Art Work</b></span>
+    <span class="medium-6 large-6 welcome_post"><b>Edit Story Details</b></span>
 
     <div class="grid-x grid-margin-x">
 
@@ -46,12 +46,12 @@
                 <label class="update_label">Story Title:</label> <input placeholder="Story Title" class="box_2"
                                                                         name="title"
                                                                         value="<%= story.get("title") %>" >
-                <label class="update_label">Keywords:</label> <input placeholder="Keywords " class="box_2"
+                <label class="update_label">Keywords (separate with comma):</label> <input placeholder="Keywords " class="box_2"
                                                                      name="keyword"
                                                                      value="<%= story.get("keyword") %>" >
                 <label class="update_label">Summary:</label>
                 <textarea class="validate" placeholder="Summary"
-                          name="pack_description" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
+                          name="summary" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
 
                 <a href="/main_story/<%= story.id %>" class="waves-effect pink darken-4 btn add-image-btn">EDIT STORY</a>
                 <button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>
