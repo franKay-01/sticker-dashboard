@@ -2,7 +2,7 @@
 <% if (story.length === 0) { %>
 <% } else { %>
 <% story.forEach(function(item) { %>
-<div class="home_pack_description"><%= item.get("name") %></div>
+<div class="home_pack_description"><%= item.get("title") %></div>
 <% }); %>
 <div><a class="view_all" href="/story_collection">View All</a></div>
 <% } %>
