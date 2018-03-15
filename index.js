@@ -640,7 +640,8 @@ app.get('/home', function (req, res) {
             );
 
         }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength) {
-
+            let _allPacks = [];
+            let _story = [];
             let _collection = [];
 
             if (collection.length) {
@@ -656,7 +657,7 @@ app.get('/home', function (req, res) {
             if (allPacks.length) {
 
                 _allPacks = allPacks;
-                console.log("PACKS "+JSON.stringify(_allPacks));
+
             }
 
             if (_user.get("type") === NORMAL_USER) {
