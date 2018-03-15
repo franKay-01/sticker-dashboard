@@ -393,7 +393,7 @@ app.post('/new_story', function (req, res) {
 
         }, function (error) {
             console.log("ERROR WHEN CREATING NEW STORY " + error.message);
-            res.redirect('/admin_home');
+            res.redirect('/');
         });
     }
 
@@ -435,7 +435,7 @@ app.get('/stories/:id', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/admin_home');
+            res.redirect('/');
 
         });
     }
