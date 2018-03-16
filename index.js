@@ -37,7 +37,7 @@ let CategoryClass = "Categories";
 let PacksClass = "Packs";
 let ReviewClass = "Reviews";
 let StoryClass = "Stories";
-let MainStoryClass = "MainStory";
+let MainStoryClass = "StoryBody";
 
 //const
 const PENDING = 0;
