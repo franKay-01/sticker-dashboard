@@ -37,6 +37,7 @@ let CategoryClass = "Categories";
 let PacksClass = "Packs";
 let ReviewClass = "Reviews";
 let StoryClass = "Stories";
+let MainStoryClass = "MainStory";
 
 //const
 const PENDING = 0;
@@ -363,7 +364,7 @@ app.post('/new_story', function (req, res) {
     let body = req.body.story;
     let keywords = req.body.keyword;
     let _keywords = [];
-
+    let story_id = "";
     if (keywords !== undefined || keywords !== "undefined") {
         _keywords = keywords.split(",");
     }
@@ -382,14 +383,23 @@ app.post('/new_story', function (req, res) {
             story.set("title", title);
             story.set("summary", summary);
             story.set("pack_id", pack_id);
-            story.set("body", body);
             story.set("keyword", _keywords);
 
             return story.save();
 
         }).then(function (story) {
+            let Main = new Parse.Object.extend(MainStoryClass);
+            let main = new Main();
 
-            res.redirect('/stories/' + story.id);
+            story_id = story.id;
+            main.set("story_id", story.id);
+            main.set("story", body);
+
+            return main.save();
+
+        }).then(function () {
+
+            res.redirect('/stories/' + story_id);
 
         }, function (error) {
             console.log("ERROR WHEN CREATING NEW STORY " + error.message);
@@ -500,12 +510,12 @@ app.get('/story_details/:id', function (req, res) {
         }).then(function (sticker) {
 
             // res.send(JSON.stringify(sticker));
-            res. render("pages/story_details", {
-                story:_story,
+            res.render("pages/story_details", {
+                story: _story,
                 sticker: sticker
             });
         }, function (error) {
-            console.log("ERROR "+error.message);
+            console.log("ERROR " + error.message);
             res.redirect('/story_collection');
         })
 
@@ -520,7 +530,7 @@ app.post('/edit_story/:id', function (req, res) {
     let summary = req.body.summary;
     let _keyword = [];
 
-    if (keyword !== "undefined" || keyword !== undefined){
+    if (keyword !== "undefined" || keyword !== undefined) {
         _keyword = keyword.split(",");
     }
     if (token) {
@@ -541,17 +551,34 @@ app.post('/edit_story/:id', function (req, res) {
             return story.save();
         }).then(function () {
 
-            res.redirect('/story_details/'+id);
+            res.redirect('/story_details/' + id);
 
         }, function (error) {
 
-            console.log("ERROR "+error.message);
-            res.redirect('/story_details/'+id);
+            console.log("ERROR " + error.message);
+            res.redirect('/story_details/' + id);
 
         })
     }
 });
 
+app.get('/main_story/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StoryClass).equalTo("objectId", id).find();
+
+        }).then(function (story) {
+
+        })
+    }
+});
 app.get('/admin_home', function (req, res) {
 
     let token = req.cookies.token;
@@ -649,7 +676,7 @@ app.get('/home', function (req, res) {
 
             }
 
-            if (story.length){
+            if (story.length) {
                 _story = story;
 
             }
@@ -665,7 +692,7 @@ app.get('/home', function (req, res) {
                 res.render("pages/home", {
                     collections: _collection,
                     allPacks: _allPacks,
-                    story:_story,
+                    story: _story,
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),

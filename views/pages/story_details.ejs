@@ -19,6 +19,11 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script>
+        document.getElementById("submit_story").onclick = function() {
+            document.getElementById("story_form").submit();
+        }
+    </script>
 </head>
 
 <body class="primary-background-color">
@@ -37,7 +42,7 @@
 
     <div class="grid-x grid-margin-x">
 
-        <form class="story_form" action="/edit_story/<%= story.id %>" method="post">
+        <form class="story_form" id="story_form" action="/edit_story/<%= story.id %>" method="post">
             <div class="medium-5 large-5 cell">
 
                 <center>
@@ -54,7 +59,8 @@
                           name="summary" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
 
                 <a href="/main_story/<%= story.id %>" class="waves-effect pink darken-4 btn add-image-btn">EDIT STORY</a>
-                <button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>
+                <a href="#" id="submit_story" class="waves-effect pink darken-4 btn add-image-btn">SAVE</a>
+                <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
             </div>
         </form>
         <div class="medium-3 large-3 cell login_card">
