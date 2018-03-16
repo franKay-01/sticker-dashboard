@@ -573,14 +573,15 @@ app.get('/main_story/:id/:title', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(MainStoryClass).equalTo("objectId", id).first();
+            return new Parse.Query(MainStoryClass).equalTo("story_id", id).first();
 
         }).then(function (story) {
 
             res.render("pages/story_page", {
                 story: story,
                 title: title
-            })
+            });
+
         }, function (error) {
             console.log("ERROR "+ error.message);
             res.redirect('/story_details/'+ id);
