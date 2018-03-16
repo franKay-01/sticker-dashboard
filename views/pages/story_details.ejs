@@ -20,8 +20,10 @@
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script>
-        document.getElementById("submit_story").onclick = function() {
-            document.getElementById("story_form").submit();
+        window.onload = function(){
+            document.getElementById("submit_story").onclick = function() {
+                document.getElementById("story_form").submit();
+            }
         }
     </script>
 </head>
