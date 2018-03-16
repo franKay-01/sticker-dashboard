@@ -573,7 +573,7 @@ app.get('/main_story/:id/:title', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(MainStoryClass).equalTo("objectId", id).find();
+            return new Parse.Query(MainStoryClass).equalTo("objectId", id).first();
 
         }).then(function (story) {
 
