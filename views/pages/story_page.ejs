@@ -44,23 +44,16 @@
 
     <div class="grid-x grid-margin-x">
 
-        <form class="story_form" id="story_form" action="/edit_story/<%= story.id %>" method="post">
+        <form class="story_form" id="story_form" action="/edit_main_story/<%= story.id %>" method="post">
             <div class="medium-5 large-5 cell">
 
-                <center>
-                    <img width="200px" height="200px" src="<%= sticker.get("uri").url()%>">
-                </center>
                 <label class="update_label">Story Title:</label> <input placeholder="Story Title" class="box_2"
                                                                         name="title"
                                                                         value="<%= story.get("title") %>" >
-                <label class="update_label">Keywords (separate with comma):</label> <input placeholder="Keywords " class="box_2"
-                                                                     name="keyword"
-                                                                     value="<%= story.get("keyword") %>" >
-                <label class="update_label">Summary:</label>
+                <label class="update_label">Story:</label>
                 <textarea class="validate" placeholder="Summary"
-                          name="summary" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
+                          name="summary" required="" aria-required="true"><%= story.get("story") %></textarea><br>
 
-                <a href="/main_story/<%= story.id %>/<%= story.get("title") %>" class="waves-effect pink darken-4 btn add-image-btn">EDIT STORY</a>
                 <a href="#" id="submit_story" class="waves-effect pink darken-4 btn add-image-btn">SAVE</a>
                 <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
             </div>

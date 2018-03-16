@@ -562,9 +562,10 @@ app.post('/edit_story/:id', function (req, res) {
     }
 });
 
-app.get('/main_story/:id', function (req, res) {
+app.get('/main_story/:id/:title', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
+    let title = req.params.title;
 
     if (token) {
 
@@ -572,13 +573,21 @@ app.get('/main_story/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(StoryClass).equalTo("objectId", id).find();
+            return new Parse.Query(MainStoryClass).equalTo("objectId", id).find();
 
         }).then(function (story) {
 
-        })
+            res.render("pages/story_page", {
+                story: story,
+                title: title
+            })
+        }, function (error) {
+            console.log("ERROR "+ error.message);
+            res.redirect('/story_details/'+ id);
+        });
     }
 });
+
 app.get('/admin_home', function (req, res) {
 
     let token = req.cookies.token;
