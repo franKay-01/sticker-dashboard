@@ -1488,6 +1488,13 @@ fieldset {
     font-weight: 700;
 }
 
+.awesome_font{
+    color: black;
+    font-size: 7rem;
+    margin-top: 50px;
+    margin-left: 50px
+}
+
 .medium-editor-toolbar-actions{
     display: block !important;
     background: black !important;
