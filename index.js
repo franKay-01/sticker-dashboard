@@ -593,7 +593,7 @@ app.post('/edit_main_story/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
-    let story = req.body.main_story;
+    let main_story = req.body.main_story;
 
     if (token){
         let _user = {};
@@ -606,7 +606,7 @@ app.post('/edit_main_story/:id', function (req, res) {
         }).then(function (story) {
 
             let story_id = story.get("story_id");
-            res.send(story_id)
+            res.send(story_id + "" +main_story);
             // story.set("story", story);
             //
             // return story.save();
