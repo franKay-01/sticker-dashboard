@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
+
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+    <script src="/public/assets/js/wyciwyg.js"></script>
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script>
         window.onload = function(){
@@ -51,7 +55,7 @@
                                                                         name="title"
                                                                         value="<%= title %>" >
                 <label class="update_label">Story:</label>
-                <textarea class="validate" style="height: 350px !important;" placeholder="Summary"
+                <textarea class="validate editable" style="height: 350px !important;" placeholder="Summary"
                           name="main_story" required="" aria-required="true"><%= story.get("story") %></textarea><br>
 
                 <a href="#" id="submit_story" class="waves-effect pink darken-4 btn add-image-btn">SAVE</a>
