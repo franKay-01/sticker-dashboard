@@ -483,6 +483,20 @@ app.post('/add_story_artwork/:id', function (req, res) {
     }
 });
 
+app.get('/story_catalogue', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            res.render("pages/story_catalogue");
+
+        });
+    }
+});
+
 app.get('/story_details/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -533,14 +547,14 @@ app.get('/story_collection', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             return Parse.Promise.when(
-             new Parse.Query(StoryClass).find(),
+                new Parse.Query(StoryClass).find(),
                 new Parse.Query(PacksClass).find());
 
         }).then(function (story, allPack) {
 
             res.render("pages/story_collection", {
                 story: story,
-                allPacks:allPack
+                allPacks: allPack
             })
         }, function (error) {
 
