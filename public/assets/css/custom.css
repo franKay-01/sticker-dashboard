@@ -1488,6 +1488,11 @@ fieldset {
     font-weight: 700;
 }
 
+.medium-editor-toolbar-actions{
+    display: block !important;
+    background: black !important;
+    color: white !important;
+}
 .story_form{
     width: 67%;
     background: white;
