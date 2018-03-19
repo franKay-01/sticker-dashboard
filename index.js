@@ -522,6 +522,30 @@ app.get('/story_details/:id', function (req, res) {
     }
 });
 
+app.get('/story_collection', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StoryClass).find();
+        }).then(function (story) {
+
+            res.render("pages/story_collection", {
+                story: story
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+        })
+    }
+});
+
 app.post('/edit_story/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
@@ -583,8 +607,8 @@ app.get('/main_story/:id/:title', function (req, res) {
             });
 
         }, function (error) {
-            console.log("ERROR "+ error.message);
-            res.redirect('/story_details/'+ id);
+            console.log("ERROR " + error.message);
+            res.redirect('/story_details/' + id);
         });
     }
 });
@@ -597,7 +621,7 @@ app.post('/edit_main_story/:id', function (req, res) {
     let title = req.body.title;
     let story_id = "";
 
-    if (token){
+    if (token) {
         let _user = {};
 
         getUser(token).then(function (sessionToken) {
@@ -615,12 +639,12 @@ app.post('/edit_main_story/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/main_story/'+ story_id +'/'+ title);
+            res.redirect('/main_story/' + story_id + '/' + title);
 
         }, function (error) {
 
             console.log("ERROR " + error.message)
-            res.redirect('/main_story/'+ story_id +'/'+ title);
+            res.redirect('/main_story/' + story_id + '/' + title);
         })
     }
 });
