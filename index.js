@@ -532,11 +532,15 @@ app.get('/story_collection', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(StoryClass).find();
-        }).then(function (story) {
+            return Parse.Promise.when(
+             new Parse.Query(StoryClass).find(),
+                new Parse.Query(PacksClass).find());
+
+        }).then(function (story, allPack) {
 
             res.render("pages/story_collection", {
-                story: story
+                story: story,
+                allPacks:allPack
             })
         }, function (error) {
 
