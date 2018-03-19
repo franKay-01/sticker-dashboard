@@ -589,6 +589,33 @@ app.get('/main_story/:id/:title', function (req, res) {
     }
 });
 
+app.post('/edit_main_story/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let story = req.body.main_story;
+
+    if (token){
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(MainStoryClass).equalTo("objectId", id).find();
+        }).then(function (story) {
+
+            let story_id = story.get("story_id");
+            res.send(story_id)
+            // story.set("story", story);
+            //
+            // return story.save();
+        }, function (error) {
+            res.send(error.message);
+        })
+    }
+});
+
 app.get('/admin_home', function (req, res) {
 
     let token = req.cookies.token;
