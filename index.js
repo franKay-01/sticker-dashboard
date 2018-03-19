@@ -602,7 +602,7 @@ app.post('/edit_main_story/:id', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            return new Parse.Query(MainStoryClass).equalTo("objectId", id).find();
+            return new Parse.Query(MainStoryClass).equalTo("objectId", id).first();
         }).then(function (story) {
 
             let story_id = story.get("story_id");
