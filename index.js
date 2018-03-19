@@ -594,6 +594,8 @@ app.post('/edit_main_story/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let main_story = req.body.main_story;
+    let title = req.body.title;
+    let story_id = "";
 
     if (token){
         let _user = {};
@@ -605,13 +607,20 @@ app.post('/edit_main_story/:id', function (req, res) {
             return new Parse.Query(MainStoryClass).equalTo("objectId", id).first();
         }).then(function (story) {
 
-            let story_id = story.get("story_id");
-            res.send(story_id + "" +main_story);
-            // story.set("story", story);
-            //
-            // return story.save();
+            story_id = story.get("story_id");
+
+            story.set("story", main_story);
+
+            return story.save();
+
+        }).then(function () {
+
+            res.redirect('/main_story/'+ story_id +'/'+ title);
+
         }, function (error) {
-            res.send(error.message);
+
+            console.log("ERROR " + error.message)
+            res.redirect('/main_story/'+ story_id +'/'+ title);
         })
     }
 });
