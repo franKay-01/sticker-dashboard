@@ -20,13 +20,13 @@
     <!--parse js-->
 
     <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
-    <script src="/public/assets/js/wyciwyg.js"></script>
-    <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css"
+          type="text/css" media="screen" charset="utf-8">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script>
-        window.onload = function(){
-            document.getElementById("submit_story").onclick = function() {
+        window.onload = function () {
+            document.getElementById("submit_story").onclick = function () {
                 document.getElementById("story_form").submit();
             }
         }
@@ -54,7 +54,7 @@
 
                 <label class="update_label">Story Title:</label> <input placeholder="Story Title" class="box_2"
                                                                         name="title"
-                                                                        value="<%= title %>" >
+                                                                        value="<%= title %>">
                 <label class="update_label">Story:</label>
                 <textarea class="validate editable" style="height: 350px !important;" placeholder="Summary"
                           name="main_story" required="" aria-required="true"><%= story.get("story") %></textarea><br>
@@ -86,7 +86,6 @@
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
+<script src="/public/assets/js/wyciwyg.js"></script>
 </body>
-
-
 </html>
