@@ -495,7 +495,7 @@ app.get('/story_catalogue', function (req, res) {
 
         }).then(function (stories) {
 
-            res.send(JSON.stringify(stories));
+            res.send("STORY "+JSON.stringify(stories));
 
             // res.render("pages/story_catalogue", {
             //
