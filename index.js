@@ -493,6 +493,9 @@ app.get('/story_catalogue', function (req, res) {
 
             res.render("pages/story_catalogue");
 
+        }, function (error) {
+            console.log("ERROR "+error.message);
+            res.redirect('/story_catalogue');
         });
     }
 });
