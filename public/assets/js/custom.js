@@ -90,6 +90,16 @@ $(document).ready(function () {
             // $('#_addCategoryForm').fadeOut('fast');
         });
 
+        $('#btnCloseCatalogue').on('click', function () {
+            $('#hiddenTextCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
         $('#btnCloseStory').on('click', function () {
             $('#hiddenAddStoryForm').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
