@@ -734,76 +734,76 @@ app.get('/home', function (req, res) {
     // let user_info = req.cookies.userId;
     // let isVerified = req.cookies.email_verified;
     // let userType = req.cookies.userType;
-res.send("HEHEHE");
-    // if (token) {
-    //
-    //     let _user = {};
-    //
-    //     getUser(token).then(function (sessionToken) {
-    //
-    //         _user = sessionToken.get("user");
-    //         const limit = 3;
-    //
-    //         return Parse.Promise.when(
-    //             new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
-    //             new Parse.Query(CategoryClass).limit(limit).find(),
-    //             new Parse.Query(StoryClass).limit(limit).find(),
-    //             new Parse.Query(PacksClass).find(),
-    //             new Parse.Query(CategoryClass).count(),
-    //             new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
-    //             new Parse.Query(StickerClass).equalTo("user_id", _user.id).count()
-    //         );
-    //
-    //     }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength) {
-    //         let _allPacks = [];
-    //         let _story = [];
-    //         let _collection = [];
-    //
-    //         if (collection.length) {
-    //             _collection = collection;
-    //
-    //         }
-    //
-    //         if (story.length) {
-    //             _story = story;
-    //
-    //         }
-    //
-    //         if (allPacks.length) {
-    //
-    //             _allPacks = allPacks;
-    //
-    //         }
-    //
-    //         if (_user.get("type") === NORMAL_USER) {
-    //
-    //             res.render("pages/home", {
-    //                 collections: _collection,
-    //                 allPacks: _allPacks,
-    //                 story: _story,
-    //                 categoryLength: helper.leadingZero(categoryLength),
-    //                 packLength: helper.leadingZero(packLength),
-    //                 stickerLength: helper.leadingZero(stickerLength),
-    //                 name: _user.get("name"),
-    //                 verified: _user.get("emailVerified")
-    //             });
-    //         } else if (_user.get("type") === SUPER_USER) {
-    //
-    //             res.redirect("/admin_home");
-    //         } else {
-    //             //TODO error message
-    //         }
-    //
-    //     }, function (error) {
-    //         //TODO how to display error on home page
-    //         console.log(JSON.stringify(error));
-    //         res.redirect("/home");
-    //     });
-    //
-    //
-    // } else {
-    //     res.redirect("/");
-    // }
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+            const limit = 3;
+
+            return Parse.Promise.when(
+                new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
+                new Parse.Query(CategoryClass).limit(limit).find(),
+                new Parse.Query(StoryClass).limit(limit).find(),
+                new Parse.Query(PacksClass).find(),
+                new Parse.Query(CategoryClass).count(),
+                new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
+                new Parse.Query(StickerClass).equalTo("user_id", _user.id).count()
+            );
+
+        }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength) {
+            let _allPacks = [];
+            let _story = [];
+            let _collection = [];
+
+            if (collection.length) {
+                _collection = collection;
+
+            }
+
+            if (story.length) {
+                _story = story;
+
+            }
+
+            if (allPacks.length) {
+
+                _allPacks = allPacks;
+
+            }
+
+            if (_user.get("type") === NORMAL_USER) {
+
+                res.render("pages/home", {
+                    collections: _collection,
+                    allPacks: _allPacks,
+                    story: _story,
+                    categoryLength: helper.leadingZero(categoryLength),
+                    packLength: helper.leadingZero(packLength),
+                    stickerLength: helper.leadingZero(stickerLength),
+                    name: _user.get("name"),
+                    verified: _user.get("emailVerified")
+                });
+            } else if (_user.get("type") === SUPER_USER) {
+
+                res.redirect("/admin_home");
+            } else {
+                //TODO error message
+            }
+
+        }, function (error) {
+            //TODO how to display error on home page
+            console.log(JSON.stringify(error));
+            res.redirect("/home");
+        });
+
+
+    } else {
+        res.redirect("/home");
+    }
 });
 
 app.get('/forget_password', function (req, res) {
