@@ -19,6 +19,28 @@ $(document).ready(function () {
 
         //show collection form
         //TODO convert id's to classes
+
+        $('.text_element').on('click', function () {
+            $('#hiddenTextCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
+
+        $('.image_element').on('click', function () {
+            $('#hiddenImageCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
+
+
         // This is to show a hidden form to create new packs
         $('#showCreateForm').on('click', function () {
             $('#hiddenCreateForm').fadeIn('fast');
@@ -76,6 +98,26 @@ $(document).ready(function () {
             $('#detailsForm').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
             // $('#_addCategoryForm').fadeOut('fast');
+        });
+
+        $('#btnCloseCatalogue').on('click', function () {
+            $('#hiddenTextCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
+        $('#btnCloseImgCatalouge').on('click', function () {
+            $('#hiddenImageCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
         });
 
         $('#btnCloseStory').on('click', function () {

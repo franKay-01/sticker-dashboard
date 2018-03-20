@@ -70,6 +70,19 @@ leadingZero = function (number) {
     }
 };
 
+text_truncate = function(str, length, ending) {
+    if (length == null) {
+        length = 100;
+    }
+    if (ending == null) {
+        ending = '...';
+    }
+    if (str.length > length) {
+        return str.substring(0, length - ending.length) + ending;
+    } else {
+        return str;
+    }
+};
 
 exports.truncateText = truncateText;
 exports.randomHash = randomHash;
@@ -78,3 +91,4 @@ exports.leadingZero = leadingZero;
 exports.hash = hash;
 exports.shuffle = shuffle;
 exports.getUsername = getUsername;
+exports.text_truncate = text_truncate;

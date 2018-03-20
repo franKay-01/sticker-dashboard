@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home - Cyfa</title>
+    <title>Home - G-Stickers</title>
 
     <% include ../partials/fav.ejs %>
     <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
@@ -50,50 +50,6 @@
     <!-- End of logo-->
     <div id="pageMask"></div>
 
-
-    <div id="hiddenAddStoryForm" style="display: none">
-        <div class="medium-3 large-3 cell create_background">
-            <center>
-                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW STORY</div>
-            </center>
-            <form id="pack_form" action="/new_story" method="post">
-                <center>
-                    <input type="text" class="_pack common_pack_detail validate" placeholder="Story Title"
-                           name="title" required="" aria-required="true"><br>
-                    <textarea class="_pack common_pack_detail validate" placeholder="Story Summary"
-                              name="summary" required="" aria-required="true"></textarea><br>
-                    <textarea class="_pack common_pack_detail validate" placeholder="Story"
-                              name="story" required="" aria-required="true"></textarea><br>
-                    <br>
-                    <label for="keyword">Seperate Tags with comma (,)</label>
-                    <input type="text" class="_pack common_pack_detail" placeholder="Smile,Angry,Sad" id="keyword"
-                           name="keyword">
-                    <div class="row" style="width: 450px !important;">
-                        <select class="input-field" name="pack_id">
-                            <option value="" disabled selected>&nbsp;Add Pack</option>
-                            <% if (allPacks.length === 0) { %>
-
-                            <% } else { %>
-                            <% allPacks.forEach(function(items) { %>
-                            <option value="<%= items.id %>"><%= items.get("pack_name") %></option>
-                            <% }) %>
-                            <% } %>
-                        </select>
-                    </div>
-
-                    <br>
-                </center>
-                <span>
-        <button type="submit" class="create">CREATE</button>
-        </span>
-                <span>
-        <button type="button" id="btnCloseStory" class="cancel">Cancel</button>
-         </span>
-
-            </form>
-        </div>
-
-    </div>
     <!-- Start of hidden form -->
     <div id="hiddenAddCatForm" style="display: none">
         <div class="medium-3 large-3 cell create_background">
@@ -137,14 +93,6 @@
                 <div class="recent_category">Recent Category</div>
                 <%- include('../partials/home_category') %>
             </div>
-        </div>
-        <div class="medium-3 large-3 cell icons">
-            <a href="#" id="btnAddStory">
-                <button>
-                    <img src="/public/assets/images/story.png">
-                    <div><p class="pack_name_text">Stories</p></div>
-                </button>
-            </a>
         </div>
         <!-- End of card-->
         <% include ../partials/packs_for_admin %>

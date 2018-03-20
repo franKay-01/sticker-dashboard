@@ -37,6 +37,7 @@ let CategoryClass = "Categories";
 let PacksClass = "Packs";
 let ReviewClass = "Reviews";
 let StoryClass = "Stories";
+let MainStoryClass = "StoryBody";
 
 //const
 const PENDING = 0;
@@ -363,7 +364,7 @@ app.post('/new_story', function (req, res) {
     let body = req.body.story;
     let keywords = req.body.keyword;
     let _keywords = [];
-
+    let story_id = "";
     if (keywords !== undefined || keywords !== "undefined") {
         _keywords = keywords.split(",");
     }
@@ -382,18 +383,27 @@ app.post('/new_story', function (req, res) {
             story.set("title", title);
             story.set("summary", summary);
             story.set("pack_id", pack_id);
-            story.set("body", body);
             story.set("keyword", _keywords);
 
             return story.save();
 
         }).then(function (story) {
+            let Main = new Parse.Object.extend(MainStoryClass);
+            let main = new Main();
 
-            res.redirect('/stories/' + story.id);
+            story_id = story.id;
+            main.set("story_id", story.id);
+            main.set("story", body);
+
+            return main.save();
+
+        }).then(function () {
+
+            res.redirect('/stories/' + story_id);
 
         }, function (error) {
-            console.log("ERROR WHEN CREATING NEW STORY "+ error.message);
-            res.redirect('/admin_home');
+            console.log("ERROR WHEN CREATING NEW STORY " + error.message);
+            res.redirect('/');
         });
     }
 
@@ -406,6 +416,7 @@ app.get('/stories/:id', function (req, res) {
     if (token) {
 
         let _user = {};
+        let _story = {};
 
         getUser(token).then(function (sessionToken) {
 
@@ -415,11 +426,254 @@ app.get('/stories/:id', function (req, res) {
 
         }).then(function (story) {
 
-            res.render("pages/story", {story: story});
+            _story = story;
+
+            return new Parse.Query(PacksClass).equalTo("objectId", story.get("pack_id")).first();
+
+        }).then(function (pack) {
+
+            let col = pack.relation(PacksClass);
+            return col.query().find();
+
+        }).then(function (stickers) {
+
+            res.render("pages/stories", {
+                story: _story.id,
+                stickers: stickers
+            });
 
         }, function (error) {
-            console.log("ERROR "+ error.message);
-            req.redirect('/admin_home');
+
+            console.log("ERROR " + error.message);
+            res.redirect('/');
+
+        });
+    }
+});
+
+app.post('/add_story_artwork/:id', function (req, res) {
+    let token = req.cookies.token;
+    let sticker_id = req.body.sticker_id;
+    let story_id = req.params.id;
+
+    if (token) {
+
+        let _user = {};
+        let id;
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StoryClass).equalTo("objectId", story_id).first();
+
+        }).then(function (story) {
+            id = story.id;
+            story.set("art_work", sticker_id);
+            return story.save();
+
+        }).then(function () {
+
+            res.redirect('/story_details/' + id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/stories/' + story_id);
+
+        });
+    }
+});
+
+app.get('/story_catalogue', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StoryClass).find();
+
+        }).then(function (stories) {
+
+            res.render("pages/story_catalogue", {
+
+                allStories: stories
+
+            });
+
+        }, function (error) {
+            console.log("ERROR "+error.message);
+            res.redirect('/story_catalogue');
+        });
+    }
+});
+
+app.get('/story_details/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let story_id = req.params.id;
+
+    if (token) {
+
+        let _user = {};
+        let _story = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StoryClass).equalTo("objectId", story_id).first();
+
+        }).then(function (story) {
+
+            _story = story;
+
+            let id = story.get("art_work");
+
+            console.log("ART_WORK " + id);
+
+            return new Parse.Query(StickerClass).equalTo("objectId", id).first();
+
+        }).then(function (sticker) {
+
+            // res.send(JSON.stringify(sticker));
+            res.render("pages/story_details", {
+                story: _story,
+                sticker: sticker
+            });
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/story_collection');
+        })
+
+    }
+});
+
+app.get('/story_collection', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            return Parse.Promise.when(
+                new Parse.Query(StoryClass).find(),
+                new Parse.Query(PacksClass).find());
+
+        }).then(function (story, allPack) {
+
+            res.render("pages/story_collection", {
+                story: story,
+                allPacks: allPack
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+        })
+    }
+});
+
+app.post('/edit_story/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let title = req.body.title;
+    let keyword = req.body.keyword;
+    let summary = req.body.summary;
+    let _keyword = [];
+
+    if (keyword !== "undefined" || keyword !== undefined) {
+        _keyword = keyword.split(",");
+    }
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(StoryClass).equalTo("objectId", id).first();
+
+        }).then(function (story) {
+
+            story.set("title", title);
+            story.set("keyword", _keyword);
+            story.set("summary", summary);
+
+            return story.save();
+        }).then(function () {
+
+            res.redirect('/story_details/' + id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/story_details/' + id);
+
+        })
+    }
+});
+
+app.get('/main_story/:id/:title', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let title = req.params.title;
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(MainStoryClass).equalTo("story_id", id).first();
+
+        }).then(function (story) {
+
+            res.render("pages/story_page", {
+                story: story,
+                title: title
+            });
+
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/story_details/' + id);
+        });
+    }
+});
+
+app.post('/edit_main_story/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let main_story = req.body.main_story;
+    let title = req.body.title;
+    let story_id = "";
+
+    if (token) {
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(MainStoryClass).equalTo("objectId", id).first();
+        }).then(function (story) {
+
+            story_id = story.get("story_id");
+
+            story.set("story", main_story);
+
+            return story.save();
+
+        }).then(function () {
+
+            res.redirect('/main_story/' + story_id + '/' + title);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message)
+            res.redirect('/main_story/' + story_id + '/' + title);
         })
     }
 });
@@ -435,29 +689,23 @@ app.get('/admin_home', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
+            let limit = 3;
 
             return Parse.Promise.when(
                 new Parse.Query(PacksClass).notEqualTo("status", PENDING).find(),
-                new Parse.Query(PacksClass).find(),
-                new Parse.Query(CategoryClass).find(),
+                new Parse.Query(CategoryClass).limit(limit).find(),
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).count(),
                 new Parse.Query(StickerClass).count()
             );
 
-        }).then(function (collection, allPacks, categories, categoryLength, packLength, stickerLength) {
+        }).then(function (collection, story, categories, categoryLength, packLength, stickerLength) {
             let _collection = [];
             let _categories = [];
-            let _allPacks = [];
+            let _story = [];
 
             if (collection.length) {
                 _collection = collection;
-            }
-
-            if (allPacks.length){
-                console.log("PACKS "+JSON.stringify(allPacks) + " PACK LENGTH "+allPacks.length);
-                _allPacks = allPacks;
-                console.log("_ALL PACKS "+JSON.stringify(_allPacks));
             }
 
             if (categories.length) {
@@ -471,13 +719,14 @@ app.get('/admin_home', function (req, res) {
             res.render("pages/admin_home", {
                 collections: _collection,
                 categories: _categories,
-                allPacks: _allPacks,
+                story: _story,
                 categoryLength: helper.leadingZero(categoryLength),
                 packLength: helper.leadingZero(packLength),
                 stickerLength: helper.leadingZero(stickerLength),
                 user_name: _user.get("name"),
                 verified: _user.get("emailVerified")
             });
+
         }, function (error) {
             console.log("ERRR OCCURRED. ERROR MESSAGE: " + error.message);
             res.redirect('/');
@@ -509,23 +758,31 @@ app.get('/home', function (req, res) {
             return Parse.Promise.when(
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(CategoryClass).limit(limit).find(),
+                new Parse.Query(StoryClass).limit(limit).find(),
+                new Parse.Query(PacksClass).find(),
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count()
             );
 
-        }).then(function (collection, categories, categoryLength, packLength, stickerLength) {
-
+        }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength) {
+            let _allPacks = [];
+            let _story = [];
             let _collection = [];
-            let _categories = [];
 
             if (collection.length) {
                 _collection = collection;
 
             }
 
-            if (categories.length) {
-                _categories = categories;
+            if (story.length) {
+                _story = story;
+
+            }
+
+            if (allPacks.length) {
+
+                _allPacks = allPacks;
 
             }
 
@@ -533,6 +790,8 @@ app.get('/home', function (req, res) {
 
                 res.render("pages/home", {
                     collections: _collection,
+                    allPacks: _allPacks,
+                    story: _story,
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
@@ -880,10 +1139,10 @@ app.get('/review_details/:id', function (req, res) {
 
             console.log("REVIEWS " + JSON.stringify(review));
             let type = review.get("type");
-            if (type === 1){
+            if (type === 1) {
                 let id = review.get("type_id");
                 return new Parse.Query(StickerClass).equalTo("objectId", id).first();
-            }else {
+            } else {
                 res.render("pages/review_details", {reviews: review});
             }
 
@@ -1295,7 +1554,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
     let _keywords = [];
 
     if (keywords !== undefined || keywords !== "undefined") {
-         _keywords = Array.from(keywords);
+        _keywords = Array.from(keywords);
     }
 
     console.log("FILE CONTENT " + files.length);

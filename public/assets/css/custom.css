@@ -403,12 +403,19 @@ label{
 .home_pack_description {
     width: 135px;
     height: 32px;
-
     font-size: 26px;
     font-weight: 500;
     letter-spacing: -1.5px;
     text-align: left;
     color: #a46580;
+}
+
+.truncate_title{
+    white-space: nowrap;
+    width: 190px;
+    overflow: hidden;
+    font-size: 30px !important;
+    text-overflow: ellipsis;
 }
 
 .home_pack_description:hover {
@@ -1472,6 +1479,48 @@ fieldset {
     background: white;
     border-radius: 15px;
     margin: 70px auto;
+    padding: 15px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
+}
+
+.add-image-btn{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.awesome_font{
+    color: black;
+    font-size: 5rem;
+    margin-top: 50px;
+    margin-left: 50px
+}
+
+#hiddenTextCatalouge{
+    display: none;
+    position: absolute;
+    margin: 0px 300px auto;
+    z-index: 9999;
+    top: 155px;
+}
+
+.awesome_font_img{
+    color: black;
+    font-size: 8rem;
+    margin-top: 50px;
+    margin-left: 95px;
+}
+
+.medium-editor-toolbar-actions{
+    display: block !important;
+    background: black !important;
+    color: white !important;
+}
+.story_form{
+    width: 67%;
+    background: white;
+    border-radius: 15px;
+    margin: 0px auto;
+    margin-bottom: 20px;
     padding: 15px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
 }

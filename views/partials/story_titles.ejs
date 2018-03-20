@@ -1,0 +1,15 @@
+
+<% if (story.length === 0) { %>
+
+<% } else { %>
+<% story.forEach(function(item) { %>
+<div class="truncate_title"><a class="home_pack_description" href="/story_details/<%= item.id %>"><%= item.get("title") %></a></div>
+<% }); %>
+<div><a class="view_all" href="/story_collection">View All</a></div>
+<% } %>
+
+
+
+
+
+

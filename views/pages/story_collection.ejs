@@ -37,53 +37,51 @@
     <div id="pageMask"></div>
 
     <!-- Hidden form for creating new packs-->
-    <div id="hiddenCreateForm">
+    <div id="hiddenAddStoryForm" style="display: none">
         <div class="medium-3 large-3 cell create_background">
-            <form id="pack_form" action="/new_pack" enctype="multipart/form-data" method="post">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW STORY</div>
+            </center>
+            <form id="pack_form" action="/new_story" method="post">
                 <center>
-                    <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW PACK
-                    </div>
-
-                    <input type="text" class="_pack common_pack_detail validate" placeholder="Pack name"
-                           name="coll_name" required="" aria-required="true"><br>
-                    <textarea class="_pack common_pack_detail validate" placeholder="Pack description"
-                              name="pack_description" required="" aria-required="true"></textarea><br>
-                    <input type="number" class="_pack common_pack_detail validate" placeholder="Pack Version"
-                           name="version" required="" aria-required="true"><br>
-
-                    <div style="margin-bottom: 10px">
-                        <input name="pricing" type="radio" id="pricing1" value="0"/>
-                        <label for="pricing1" class="_label">Free</label>
-
-                        <input name="pricing" type="radio" id="pricing2" value="1"/>
-                        <label for="pricing2" class="_label">Paid</label>
-
-                        <input name="pricing" type="radio" id="pricing3" value="2"/>
-                        <label for="pricing3" class="_label">Free/Paid</label>
-                    </div>
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Story Title"
+                           name="title" required="" aria-required="true"><br>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Story Summary"
+                              name="summary" required="" aria-required="true"></textarea><br>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Story"
+                              name="story" required="" aria-required="true"></textarea><br>
                     <br>
-                    <input style="color: white;margin: 0px 130px;" id="art" name="art" type="file"><br>
-                    <!--<input type="checkbox" class="categoryOption" name="pricing">-->
+                    <label for="keyword">Seperate Tags with comma (,)</label>
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Smile,Angry,Sad" id="keyword"
+                           name="keyword" required="" aria-required="true">
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate" name="pack_id" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Add Pack</option>
+                            <% if (allPacks.length === 0) { %>
 
+                            <% } else { %>
+                            <% allPacks.forEach(function(items) { %>
+                            <option value="<%= items.id %>"><%= items.get("pack_name") %></option>
+                            <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
 
-                    <p>
-                        <!--<input type="text" class="_pack common_pack_detail validate" placeholder="Pack description"-->
-                        <!--name="coll_description" required="" aria-required="true">-->
-                        <br>
+                    <br>
                 </center>
                 <span>
         <button type="submit" class="create">CREATE</button>
         </span>
                 <span>
-        <button type="button" id="btnCancel" class="cancel">Cancel</button>
+        <button type="button" id="btnCloseStory" class="cancel">Cancel</button>
          </span>
 
             </form>
         </div>
-    </div>
 
+    </div>
     <!-- End of form-->
-    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Review on <i style="color: #a46580"><%= reviews.get("name") %></i></b></span>
+    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>All Stories</b></span>
 
     <div class="grid-x grid-margin-x" id="opaqueDiv">
         <div class="medium-3 large-3 cell login_card">
@@ -93,10 +91,16 @@
                 <div><a class="_categories" href="/pack_collection">Packs</a></div>
                 <div><a class="_stickers_packs" href="/review_collection">Reviews</a></div>
                 <div><a class="_stickers_packs" href="/story_collection">Stories</a></div>
+                <div><a class="_stickers_packs" href="/story_catalogue">Catalogue</a></div>
 
             </div>
         </div>
-        <%- include('../partials/review_details') %>
+
+        <div class="medium-3 large-3 cell icons" id="btnAddStory">
+            <img class="Icon_create_sticker_pack" src="/public/assets/images/story.png">
+            <div class="create_new_pack">CREATE NEW STORY</div>
+        </div>
+        <% include ../partials/story_collection %>
         <%- include('../partials/footer') %>
     </div>
 </div>
