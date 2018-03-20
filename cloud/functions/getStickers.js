@@ -1,40 +1,35 @@
-var util = require("../modules/util");
+let util = require("../modules/util");
 var helpers = require("../modules/helpers");
 var _ = require('underscore');
 var stickers = require("../modules/stickers");
 
+
+let PacksClass = "Packs";
+
 Parse.Cloud.define("getStickers", function (req, res) {
 
     // var user = req.user;
+    return new Parse.Query(PacksClass).equalTo("objectId", "ASQQUE9Kie").first({useMasterKey: true})
+        .then(function (pack) {
 
-    stickers.getAll().then(function (stickers) {
+            let stickers = pack.relation(PacksClass);
+            return stickers.query().find({useMasterKey: true});
 
-        var sticker_relation = stickers.relation("Categories");
-        return sticker_relation.query().find();
+        }).then(function (stickers) {
 
-    }).then(function (stickerCategories) {
-
-        var categoryNames = [];
-        if (stickerCategories.length) {
-            _.each(stickerCategories, function (category) {
-                categoryNames.push(category.get("name"))
-            });
-        }
-
-        res.success(util.setResponseOk(stickers));
+            res.success(util.setResponseOk(stickers));
 
 
-    }, function (error) {
+        },function(error){
 
-        util.handleError(res, error);
-
-    });
+            util.handleError(res, error);
+        });
 
 });
 
 Parse.Cloud.define("getSticker", function (req, res) {
 
-    var stickerId = req.params.stickerId;
+    let stickerId = req.params.stickerId;
     // var user = req.user;
 
     stickers.findById(stickerId).then(function (badge) {
