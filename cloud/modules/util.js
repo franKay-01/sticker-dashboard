@@ -3,9 +3,11 @@
  * It basically serves as a middle on the server.
  */
 
-// moment module to help in date formatting
+// Include the Twilio Cloud Module to send sms messages
+var twilio = require("twilio")("AC6bad1c4bf8d48125709add2b8b0a5ce0", "33028731ba2e2bfb477a0709582a49f8");
 var moment = require('moment');
 
+//TODO update response errors
 var KEY_RESPONSE_CODE = "responseCode";
 var KEY_RESPONSE_MESSAGE = "responseMessage";
 var KEY_DATA = "data";
@@ -19,6 +21,18 @@ var HASH_ERROR = 4;
 var CONTACTS_ERROR = 5;
 var SETUP_USER_ERROR = 6;
 var USER_ERROR = 7;
+var GETTING_RECORDS_ERROR = 8;
+
+var CREATING_TEST_ERROR = 9;
+var CREATING_TASK_ERROR = 10;
+var CLASS_TYPE_ERROR = 11;
+
+var UPDATING_TEST_ERROR = 12;
+var UPDATING_TASK_ERROR = 13;
+
+var DELETING_TEST_ERROR = 14;
+var DELETING_TASKS_ERROR = 15;
+var GETTING_TASKS_ERROR = 16;
 
 /**
  * Creates a function to reject the given promise
@@ -52,9 +66,9 @@ Object.defineProperty(global, '__line', {
 });
 
 /*
-*  util.prettyLoggerJSON(error,
+ *  util.prettyLoggerJSON(error,
  util.prettyLoggerOptions("ALL BADGES ERROR"));
-* */
+ * */
 
 /**
  * a wrap around console.log to provide newlines for readability for cloud code logs
@@ -63,30 +77,30 @@ Object.defineProperty(global, '__line', {
  */
 prettyLogger = function (log, opt) {
 
-    if(process.env.VERBOSE === true){
+    if (process.env.VERBOSE === true) {
 
-    var name = "PRETTY LOGGER";
-    var newline = "";
+        var name = "PRETTY LOGGER";
+        var newline = "";
 
-    if (opt !== undefined) {
-        if (opt.name.length) {
-            name = opt.name;
+        if (opt !== undefined) {
+            if (opt.name.length) {
+                name = opt.name;
+            }
+            if (opt.newline) {
+                newline = "\n\n";
+            }
         }
-        if (opt.newline) {
-            newline = "\n\n";
-        }
-    }
 
-    var line = [
-        "\n\n/==================================== ",
-        name,
-        " - ",
-        moment(new Date().getTime()).format("MMMM DD, YYYY - hh:mm a"),
-        " - ",
-        " ====================================/\n\n"
-    ];
+        var line = [
+            "\n\n/==================================== ",
+            name,
+            " - ",
+            moment(new Date().getTime()).format("MMMM DD, YYYY - hh:mm a"),
+            " - ",
+            " ====================================/\n\n"
+        ];
 
-    return console.log(line.join("") + [" ", log, line.join(""), newline].join(""));
+        return console.log(line.join("") + [" ", log, line.join(""), newline].join(""));
 
     }
 };
@@ -193,6 +207,43 @@ handleError = function (res, error) {
                     error[KEY_RESPONSE_MESSAGE] = "User not found";
                     break;
 
+                case GETTING_RECORDS_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "No Records Found";
+                    break;
+
+                case GETTING_TASKS_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "No Tasks Found";
+                    break;
+
+                case CREATING_TEST_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "Error creating test";
+                    break;
+
+                case UPDATING_TEST_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "Error updating test";
+                    break;
+
+                case DELETING_TEST_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "Error deleting test or no test to delete";
+                    break;
+
+                case CREATING_TASK_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "Error creating task";
+                    break;
+
+                case UPDATING_TASK_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "Error updating task";
+                    break;
+
+                case DELETING_TASKS_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "Error deleting tasks or no tasks to delete";
+                    break;
+
+                case CLASS_TYPE_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "No class type was specified. Check parameters";
+                    break;
+
+
                 default :
                     error[KEY_RESPONSE_CODE] = UNKNOWN_ERROR;
                     error[KEY_RESPONSE_MESSAGE] = "Couldn't process request";
@@ -205,6 +256,46 @@ handleError = function (res, error) {
     }
 };
 
+sendSMS = function (number, message, callback) {
+
+    //send user confirmation code using twilio
+    twilio.sendSms({
+        from: "8128944274",
+        to: number,
+        body: message
+
+    }, function (error) {
+        if (error) {
+            // if number is invalid --> application level error
+            // if sending failed for valid number --> server level error
+            callback({
+                "responseCode": TEXT_MESSAGE_ERROR,
+                "responseMessage": "failed to send message"
+            });
+        } else {
+            console.log("message sent", __line);
+            callback(null);
+        }
+    });
+};
+
+sendValidationCode = function (number) {
+    var promise = new Parse.Promise();
+    //generate a random 4 number verification code
+    var code = Math.floor(1000 + Math.random() * 9000);
+    var message = "Your Cyfa validation code is " + code + ".";
+
+    console.log("Sending validation code");
+    sendSMS(number, message, function (err) {
+        if (err) {
+            promise.reject(err);
+        } else {
+            promise.resolve(code);
+        }
+    });
+
+    return promise;
+};
 
 exports.rejectPromise = rejectPromise;
 exports.handleError = handleError;
@@ -213,6 +304,7 @@ exports.setSuccess = setSuccess;
 exports.setErrorType = setErrorType;
 exports.setResponseOk = setResponseOk;
 exports.setResponse = setResponse;
+exports.sendValidationCode = sendValidationCode;
 exports.prettyLogger = prettyLogger;
 exports.prettyLoggerJSON = prettyLoggerJSON;
 exports.prettyLoggerOptions = prettyLoggerOptions;
@@ -228,5 +320,14 @@ exports.TOKEN_ERROR = TOKEN_ERROR;
 exports.HASH_ERROR = HASH_ERROR;
 exports.CONTACTS_ERROR = CONTACTS_ERROR;
 exports.SETUP_USER_ERROR = SETUP_USER_ERROR;
+exports.GETTING_RECORDS_ERROR = GETTING_RECORDS_ERROR;
+exports.GETTING_TASKS_ERROR = GETTING_TASKS_ERROR;
 exports.USER_ERROR = USER_ERROR;
+exports.CREATING_TEST_ERROR = CREATING_TEST_ERROR;
+exports.CREATING_TASK_ERROR = CREATING_TASK_ERROR;
+exports.UPDATING_TEST_ERROR = UPDATING_TEST_ERROR;
+exports.UPDATING_TASK_ERROR = UPDATING_TASK_ERROR;
+exports.DELETING_TEST_ERROR = DELETING_TEST_ERROR;
+exports.DELETING_TASKS_ERROR = DELETING_TASKS_ERROR;
+exports.CLASS_TYPE_ERROR = CLASS_TYPE_ERROR;
 exports.STATUS_OK = STATUS_OK;
