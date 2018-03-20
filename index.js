@@ -805,7 +805,7 @@ app.get('/home', function (req, res) {
 
 
     } else {
-        res.redirect("/home");
+        res.redirect("/");
     }
 });
 
