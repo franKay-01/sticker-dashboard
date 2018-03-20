@@ -491,7 +491,15 @@ app.get('/story_catalogue', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            res.render("pages/story_catalogue");
+            return new Parse.Query(StoryClass).find();
+
+        }).then(function (stories) {
+
+            res.render("pages/story_catalogue", {
+
+                allStories: stories
+
+            });
 
         }, function (error) {
             console.log("ERROR "+error.message);
