@@ -102,6 +102,15 @@ $(document).ready(function () {
 
         $('#btnCloseCatalogue').on('click', function () {
             $('#hiddenTextCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
+        $('#btnCloseImgCatalouge').on('click', function () {
             $('#hiddenImageCatalouge').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#logo').fadeIn('fast');
