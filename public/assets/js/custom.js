@@ -30,6 +30,16 @@ $(document).ready(function () {
             $('#pack_id').fadeOut('fast');
         });
 
+        $('.image_element').on('click', function () {
+            $('#hiddenImageCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
+
 
         // This is to show a hidden form to create new packs
         $('#showCreateForm').on('click', function () {
@@ -92,6 +102,7 @@ $(document).ready(function () {
 
         $('#btnCloseCatalogue').on('click', function () {
             $('#hiddenTextCatalouge').fadeOut('fast');
+            $('#hiddenImageCatalouge').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
