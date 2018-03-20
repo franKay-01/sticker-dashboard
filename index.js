@@ -495,11 +495,13 @@ app.get('/story_catalogue', function (req, res) {
 
         }).then(function (stories) {
 
-            res.render("pages/story_catalogue", {
+            res.send(JSON.stringify(stories));
 
-                allStories: stories
-
-            });
+            // res.render("pages/story_catalogue", {
+            //
+            //     allStories: stories
+            //
+            // });
 
         }, function (error) {
             console.log("ERROR "+error.message);
