@@ -1,5 +1,5 @@
 //used to retrieve all stickers
-//require("./functions/getStickers");
+require("./functions/getStickers");
 let StickerClass = "Stickers";
 let CategoryClass = "Categories";
 let StatsClass = "Stats";
