@@ -669,6 +669,8 @@ app.post('/new_catalogue_image/:id', upload.single('im1'), function (req, res) {
 
                 //create our parse file
                 var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                console.log("PARSEFILE "+JSON.stringify(parseFile));
+
                 var Artwork = new Parse.Object.extend(ArtWork);
                 var art = new Artwork();
 
@@ -684,6 +686,8 @@ app.post('/new_catalogue_image/:id', upload.single('im1'), function (req, res) {
 
                 catalogue.set("type", IMAGE);
                 catalogue.set("content", artwork.id);
+                catalogue.set("story_id", id);
+
 
                 return catalogue.save();
 
