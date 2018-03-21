@@ -651,7 +651,7 @@ app.get('/main_story/:id/:title', function (req, res) {
 app.post('/new_catalogue_image/:id', upload.array('im1[]'), function (req, res) {
 
     let token = req.cookies.token;
-    let files = req.file;
+    let files = req.files;
     let id = req.params.id;
 
     if (token) {
