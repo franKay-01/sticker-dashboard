@@ -681,6 +681,7 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
                 return art.save();
             }).then(function (artwork) {
 
+                console.log("ARTWORK "+artwork.id);
                 let Story = new Parse.Object.extend(StoryCatalogue);
                 let catalogue = new Story();
 
