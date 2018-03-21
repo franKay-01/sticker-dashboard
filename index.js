@@ -656,6 +656,8 @@ app.post('/new_catalogue_image/:id', upload.array('im1[]'), function (req, res) 
 
     if (token) {
 
+        console.log("FILES " + JSON.stringify(files));
+
         getUser(token).then(function (sessionToken) {
 
             files.forEach(function (file) {
