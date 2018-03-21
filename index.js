@@ -521,7 +521,7 @@ app.post('/add_catalogue_artwork/:id', function (req, res) {
             return catalogue.save();
         }).then(function () {
 
-            res.redirect('/story_details/'+story_id);
+            res.redirect('/story_catalogue/'+story_id);
 
         }, function (error) {
 
