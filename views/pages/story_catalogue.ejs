@@ -22,12 +22,6 @@
             src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            $('select').material_select();
-        });
-    </script>
-
 </head>
 
 <body class="primary-background-color">
@@ -51,26 +45,11 @@
             <center>
                 <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW STORY</div>
             </center>
-            <form id="pack_form" action="/new_catalogue" method="post">
+            <form id="pack_form" action="/new_catalogue/<%= story_id %>" method="post">
                 <center>
                     <label for="story_text">Add Text</label>
                     <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
-                              name="story_text" id="story_text" required="" aria-required="true"></textarea><br>
-                    <div class="row" style="width: 450px !important;">
-                        <select class="input-field validate" name="pack_id" required="" aria-required="true">
-                            <option value="" disabled selected>Select Story Line</option>
-                            <% if (allStories.length === 0) { %>
-
-                            <% } else { %>
-                            <% allStories.forEach(function(items) { %>
-                            <option value="<%= items.id %>"><%= items.get("title") %></option>
-                            <% }) %>
-                            <% } %>
-                        </select>
-                    </div>
-
-                    <br>
-                    <br>
+                              name="content" id="story_text" required="" aria-required="true"></textarea><br>
                 </center>
                 <span>
         <button type="submit" class="create">CREATE</button>
@@ -89,26 +68,77 @@
             <center>
                 <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW STORY</div>
             </center>
-            <form id="pack_form" action="/new_catalogue" method="post">
+            <form id="pack_form" action="/new_catalogue_image/<%= story_id %>" method="post">
                 <center>
                     <label for="story_text">Add Text</label>
                     <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
                               name="story_text" id="story_text" required="" aria-required="true"></textarea><br>
-                    <div class="row" style="width: 450px !important;">
-                        <select class="input-field validate" name="pack_id" required="" aria-required="true">
-                            <option value="" disabled selected>Select Story Line</option>
-                            <% if (allStories.length === 0) { %>
+                </center>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseImgCatalouge" class="cancel">Cancel</button>
+         </span>
 
-                            <% } else { %>
-                            <% allStories.forEach(function(items) { %>
-                            <option value="<%= items.id %>"><%= items.get("title") %></option>
-                            <% }) %>
-                            <% } %>
-                        </select>
-                    </div>
+            </form>
+        </div>
 
-                    <br>
-                    <br>
+    </div>
+
+    <div id="hiddenQuoteCatalouge" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW QUOTES</div>
+            </center>
+            <form id="pack_form" action="/new_catalogue/<%= story_id %>" method="post">
+                <center>
+                    <i class="fa fa-quote-left awesome_font" aria-hidden="true"></i>&nbsp;&nbsp;
+                    <i class="fa fa-quote-right awesome_font" aria-hidden="true"></i>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
+                              name="content" id="story_text" required="" aria-required="true"></textarea><br>
+                </center>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseImgCatalouge" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+
+    <div id="hiddenStickerCatalouge" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW STICKER</div>
+            </center>
+            <form id="pack_form" action="/new_catalogue/<%= story_id %>" method="post">
+                <center>
+                    <i class="fa fa-picture-o awesome_font_img" aria-hidden="true"></i>
+
+                </center>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseImgCatalouge" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+
+    </div>
+
+    <div id="hiddenDividerCatalouge" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW DIVIDER</div>
+            </center>
+            <form id="pack_form" action="/new_catalogue/<%= story_id %>" method="post">
+                <center>
+                    <img class="review_tab" src="/public/assets/images/divider.png">
                 </center>
                 <span>
         <button type="submit" class="create">CREATE</button>
@@ -132,8 +162,6 @@
                 <div><a class="_categories" href="/pack_collection">Packs</a></div>
                 <div><a class="_stickers_packs" href="/review_collection">Reviews</a></div>
                 <div><a class="_stickers_packs" href="/story_collection">Stories</a></div>
-                <div><a class="_stickers_packs" href="/story_catalogue">Catalogue</a></div>
-
             </div>
         </div>
 

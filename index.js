@@ -38,6 +38,7 @@ let PacksClass = "Packs";
 let ReviewClass = "Reviews";
 let StoryClass = "Stories";
 let MainStoryClass = "StoryBody";
+let StoryCatalogue = "StoryCatalogue";
 
 //const
 const PENDING = 0;
@@ -46,6 +47,12 @@ const APPROVED = 2;
 
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
+
+const TEXT = 0;
+const IMAGE = 1;
+const QUOTE = 2;
+const STICKER = 3;
+const DIVIDER = 4;
 
 const PARSE_PUBLIC_URL = "https://cryptic-waters-41617.herokuapp.com/public/";
 
@@ -483,21 +490,19 @@ app.post('/add_story_artwork/:id', function (req, res) {
     }
 });
 
-app.get('/story_catalogue', function (req, res) {
+app.get('/story_catalogue/:id', function (req, res) {
 
     let token = req.cookies.token;
+    let id = req.params.id;
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(StoryClass).find();
-
-        }).then(function (stories) {
 
             res.render("pages/story_catalogue", {
 
-                allStories: stories
+                story_id: id
 
             });
 
@@ -639,6 +644,36 @@ app.get('/main_story/:id/:title', function (req, res) {
             console.log("ERROR " + error.message);
             res.redirect('/story_details/' + id);
         });
+    }
+});
+
+app.post('/new_catalogue/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let content = req.body.content;
+
+    if (token){
+
+        getUser(token).then(function (sessionToken) {
+
+            let Story = new Parse.Object.extend(StoryCatalogue);
+            let catalogue = new Story();
+
+            catalogue.set("type", TEXT);
+            catalogue.set("content", content);
+            catalogue.set("story_id", id);
+
+            return catalogue.save();
+
+        }).then(function () {
+
+            res.redirect("/story_details/"+id);
+
+        }, function (error) {
+
+            console.log("ERROR "+error.message);
+            res.redirect("/story_catalogue/"+id);
+        })
     }
 });
 
@@ -1037,6 +1072,7 @@ app.get('/categories', function (req, res) {
         res.redirect("/");
     }
 });
+
 
 app.post('/new_category', function (req, res) {
 
