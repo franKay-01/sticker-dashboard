@@ -516,6 +516,7 @@ app.post('/add_catalogue_artwork/:id', function (req, res) {
 
             catalogue.set("content", sticker_id);
             catalogue.set("story_id", story_id);
+            catalogue.set("type", STICKER);
 
             return catalogue.save();
         }).then(function () {
