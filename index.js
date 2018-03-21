@@ -674,7 +674,7 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
                 var Artwork = new Parse.Object.extend(ArtWork);
                 var art = new Artwork();
 
-                art.set("name", fullName);
+                art.set("name", stickerName);
                 art.set("story_id", id);
                 art.set("uri", parseFile);
 
@@ -688,17 +688,11 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
                 catalogue.set("content", artwork.id);
                 catalogue.set("story_id", id);
 
-
                 return catalogue.save();
 
             }).then(function () {
 
                 res.redirect("/story_catalogue/"+id);
-
-            }, function (error) {
-
-                console.log("ERROR "+error.message);
-                res.redirect("/story_details/"+id);
 
             });
         }, function (error) {
