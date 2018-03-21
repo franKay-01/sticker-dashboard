@@ -39,6 +39,7 @@ let ReviewClass = "Reviews";
 let StoryClass = "Stories";
 let MainStoryClass = "StoryBody";
 let StoryCatalogue = "StoryCatalogue";
+let ArtWork = "ArtWork";
 
 //const
 const PENDING = 0;
@@ -647,6 +648,50 @@ app.get('/main_story/:id/:title', function (req, res) {
     }
 });
 
+app.post('/new_catalogue_image/:id', upload.array('im1[]'), function (req, res) {
+
+    let token = req.cookies.token;
+    let files = req.file;
+    let id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            files.forEach(function (file) {
+
+                var fullName = file.originalname;
+                var stickerName = fullName.substring(0, fullName.length - 4);
+
+                var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                //create our parse file
+                var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                var Artwork = new Parse.Object.extend(ArtWork);
+                var art = new Artwork();
+
+                art.set("name", fullName);
+                art.set("story_id", id);
+                art.set("uri", parseFile);
+
+                return art.save();
+            }).then(function () {
+
+                res.redirect("/story_catalogue/"+id);
+
+            }, function (error) {
+
+                console.log("ERROR "+error.message);
+                res.redirect("/story_details/"+id);
+
+            });
+        }, function (error) {
+            console.log("ERROR "+error.message);
+            res.redirect("/story_details/"+id);
+        })
+    }
+});
+
 app.post('/new_catalogue/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
@@ -660,7 +705,7 @@ app.post('/new_catalogue/:id', function (req, res) {
             let Story = new Parse.Object.extend(StoryCatalogue);
             let catalogue = new Story();
 
-            console.log("CATALOGUE TYPE "+type);
+            console.log("CATALOGUE TYPE " + type);
 
             switch (type) {
                 case TEXT:

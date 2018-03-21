@@ -30,6 +30,16 @@ $(document).ready(function () {
             $('#pack_id').fadeOut('fast');
         });
 
+        $('.sticker_element').on('click', function () {
+            $('#hiddenStickerCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
+
         $('.image_element').on('click', function () {
             $('#hiddenImageCatalouge').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
@@ -121,6 +131,16 @@ $(document).ready(function () {
 
         $('#btnCloseCatalogue').on('click', function () {
             $('#hiddenTextCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
+        $('#btnCloseStickerCatalouge').on('click', function () {
+            $('#hiddenStickerCatalouge').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');

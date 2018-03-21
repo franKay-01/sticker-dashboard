@@ -64,29 +64,6 @@
 
     </div>
 
-    <div id="hiddenImageCatalouge" class="hidden_forms" style="display: none">
-        <div class="medium-3 large-3 cell create_background">
-            <center>
-                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW STORY</div>
-            </center>
-            <form id="pack_form" action="/new_catalogue_image/<%= story_id %>" method="post">
-                <center>
-                    <label for="story_text">Add Text</label>
-                    <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
-                              name="story_text" id="story_text" required="" aria-required="true"></textarea><br>
-                </center>
-                <span>
-        <button type="submit" class="create">CREATE</button>
-        </span>
-                <span>
-        <button type="button" id="btnCloseImgCatalouge" class="cancel">Cancel</button>
-         </span>
-
-            </form>
-        </div>
-
-    </div>
-
     <div id="hiddenQuoteCatalouge" class="hidden_forms" style="display: none">
         <div class="medium-3 large-3 cell create_background">
             <center>
@@ -111,29 +88,6 @@
         </div>
     </div>
 
-    <div id="hiddenStickerCatalouge" class="hidden_forms" style="display: none">
-        <div class="medium-3 large-3 cell create_background">
-            <center>
-                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW STICKER</div>
-            </center>
-            <form id="pack_form" action="/new_catalogue/<%= story_id %>" method="post">
-                <center>
-                    <i class="fa fa-picture-o awesome_font_img" aria-hidden="true"></i>
-
-                </center>
-                <input name="style" value="sticker" hidden>
-                <span>
-        <button type="submit" class="create">CREATE</button>
-        </span>
-                <span>
-        <button type="button" id="btnCloseImgCatalouge" class="cancel">Cancel</button>
-         </span>
-
-            </form>
-        </div>
-
-    </div>
-
     <div id="hiddenDividerCatalouge" class="hidden_forms" style="display: none">
         <div class="medium-3 large-3 cell create_background">
             <center>
@@ -152,6 +106,58 @@
         </span>
                 <span>
         <button type="button" id="btnCloseDividerCatalouge" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+
+    </div>
+
+    <div id="hiddenImageCatalouge" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD IMAGE</div>
+            </center>
+            <form id="pack_form" action="/new_catalogue_image/<%= story_id %>" method="post" enctype="multipart/form-data">
+                <center>
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span><i class="fa fa-file-o"></i></span>
+                            <input type="file" name="im1">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div><br>
+                </center>
+                <span>
+        <button type="submit" class="create">ADD</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseImgCatalouge" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+
+    </div>
+
+    <div id="hiddenStickerCatalouge" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW STICKER</div>
+            </center>
+            <form id="pack_form" action="/new_catalogue/<%= story_id %>" method="post">
+                <center>
+                    <i class="fa fa-picture-o awesome_font_img" aria-hidden="true"></i>
+
+                </center>
+                <input name="style" value="sticker" hidden>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseStickerCatalouge" class="cancel">Cancel</button>
          </span>
 
             </form>
@@ -191,7 +197,7 @@
                 <div><p class="pack_name_text" style="margin-top: 50px">Quote</p></div>
             </a>
         </div>
-        <div class="medium-3 large-3 cell icons" id="sticker_element">
+        <div class="medium-3 large-3 cell icons sticker_element">
             <a href="#" id="sticker_element">
                 <i class="fa fa-picture-o awesome_font_img" aria-hidden="true"></i>
                 <div><p class="pack_name_text">Sticker</p></div>
