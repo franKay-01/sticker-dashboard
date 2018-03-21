@@ -660,6 +660,8 @@ app.post('/new_catalogue/:id', function (req, res) {
             let Story = new Parse.Object.extend(StoryCatalogue);
             let catalogue = new Story();
 
+            console.log("CATALOGUE TYPE "+type);
+
             switch (type) {
                 case TEXT:
                     catalogue.set("type", TEXT);
