@@ -1511,6 +1511,14 @@ fieldset {
     top: 155px;
 }
 
+#hiddenQuoteCatalouge{
+    display: none;
+    position: absolute;
+    margin: 0px 300px auto;
+    z-index: 9999;
+    top: 155px;
+}
+
 .awesome_font_img{
     color: black;
     font-size: 8rem;
