@@ -40,6 +40,15 @@ $(document).ready(function () {
             $('#pack_id').fadeOut('fast');
         });
 
+        $('.quote_element').on('click', function () {
+            $('#hiddenQuoteCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
 
         // This is to show a hidden form to create new packs
         $('#showCreateForm').on('click', function () {
@@ -112,6 +121,16 @@ $(document).ready(function () {
 
         $('#btnCloseImgCatalouge').on('click', function () {
             $('#hiddenImageCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
+        $('#btnCloseQuoteCatalouge').on('click', function () {
+            $('#hiddenQuoteCatalouge').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');

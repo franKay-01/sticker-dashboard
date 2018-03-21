@@ -667,12 +667,12 @@ app.post('/new_catalogue/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect("/story_details/"+id);
+            res.redirect("/story_catalogue/"+id);
 
         }, function (error) {
 
             console.log("ERROR "+error.message);
-            res.redirect("/story_catalogue/"+id);
+            res.redirect("/story_details/"+id);
         })
     }
 });
