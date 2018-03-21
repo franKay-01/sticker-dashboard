@@ -660,6 +660,9 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
+            var Artwork = new Parse.Object.extend(ArtWork);
+            var art = new Artwork();
+
             files.forEach(function (file) {
 
                 var fullName = file.originalname;
@@ -669,17 +672,17 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
 
                 //create our parse file
                 var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                console.log("PARSEFILE "+JSON.stringify(parseFile));
+                console.log("PARSEFILE " + JSON.stringify(parseFile));
 
-                var Artwork = new Parse.Object.extend(ArtWork);
-                var art = new Artwork();
 
                 art.set("name", stickerName);
                 art.set("story_id", id);
                 art.set("uri", parseFile);
 
-                return art.save();
-            }).then(function (artwork) {
+            });
+
+            return art.save();
+        }).then(function (artwork) {
 
                 console.log("ARTWORK "+artwork.id);
                 let Story = new Parse.Object.extend(StoryCatalogue);
@@ -693,9 +696,8 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
 
             }).then(function () {
 
-                res.redirect("/story_catalogue/"+id);
+            res.redirect("/story_catalogue/" + id);
 
-            });
         }, function (error) {
             console.log("ERROR "+error.message);
             res.redirect("/story_details/"+id);
