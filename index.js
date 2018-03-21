@@ -373,6 +373,7 @@ app.post('/new_story', function (req, res) {
     let keywords = req.body.keyword;
     let _keywords = [];
     let story_id = "";
+
     if (keywords !== undefined || keywords !== "undefined") {
         _keywords = keywords.split(",");
     }
@@ -417,6 +418,48 @@ app.post('/new_story', function (req, res) {
 
 });
 
+app.get('/new_catalogue_sticker/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+
+        let _user = {};
+        let _story = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(StoryClass).equalTo("objectId", id).first();
+
+        }).then(function (story) {
+
+            _story = story;
+
+            return new Parse.Query(PacksClass).equalTo("objectId", story.get("pack_id")).first();
+
+        }).then(function (pack) {
+
+            let col = pack.relation(PacksClass);
+            return col.query().find();
+
+        }).then(function (stickers) {
+
+            res.render("pages/catalogue_sticker", {
+                story: _story.id,
+                stickers: stickers
+            });
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/');
+
+        });
+    }
+});
+
 app.get('/stories/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
@@ -456,6 +499,35 @@ app.get('/stories/:id', function (req, res) {
             res.redirect('/');
 
         });
+    }
+});
+
+app.post('/add_catalogue_artwork/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let sticker_id = req.body.sticker_id;
+    let story_id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+            let Story = new Parse.Object.extend(StoryCatalogue);
+            let catalogue = new Story();
+
+            catalogue.set("content", sticker_id);
+            catalogue.set("story_id", story_id);
+
+            return catalogue.save();
+        }).then(function () {
+
+            res.redirect('/story_details/'+story_id);
+
+        }, function (error) {
+
+            console.log("ERROR "+error.message);
+            res.redirect('/story_details/'+story_id);
+
+        })
     }
 });
 
@@ -684,23 +756,23 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
             return art.save();
         }).then(function (artwork) {
 
-                console.log("ARTWORK "+artwork.id);
-                let Story = new Parse.Object.extend(StoryCatalogue);
-                let catalogue = new Story();
+            console.log("ARTWORK " + artwork.id);
+            let Story = new Parse.Object.extend(StoryCatalogue);
+            let catalogue = new Story();
 
-                catalogue.set("type", IMAGE);
-                catalogue.set("content", artwork.id);
-                catalogue.set("story_id", id);
+            catalogue.set("type", IMAGE);
+            catalogue.set("content", artwork.id);
+            catalogue.set("story_id", id);
 
-                return catalogue.save();
+            return catalogue.save();
 
-            }).then(function () {
+        }).then(function () {
 
             res.redirect("/story_catalogue/" + id);
 
         }, function (error) {
-            console.log("ERROR "+error.message);
-            res.redirect("/story_details/"+id);
+            console.log("ERROR " + error.message);
+            res.redirect("/story_details/" + id);
         })
     }
 });
