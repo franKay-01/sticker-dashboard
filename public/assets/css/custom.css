@@ -1495,31 +1495,7 @@ fieldset {
     margin-left: 50px
 }
 
-#hiddenTextCatalouge{
-    display: none;
-    position: absolute;
-    margin: 0px 300px auto;
-    z-index: 9999;
-    top: 155px;
-}
-
-#hiddenDividerCatalouge{
-    display: none;
-    position: absolute;
-    margin: 0px 300px auto;
-    z-index: 9999;
-    top: 155px;
-}
-
-#hiddenImageCatalouge{
-    display: none;
-    position: absolute;
-    margin: 0px 300px auto;
-    z-index: 9999;
-    top: 155px;
-}
-
-#hiddenQuoteCatalouge{
+.hidden_forms{
     display: none;
     position: absolute;
     margin: 0px 300px auto;
