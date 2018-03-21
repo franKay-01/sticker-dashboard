@@ -418,7 +418,7 @@ app.post('/new_story', function (req, res) {
 
 });
 
-app.get('/new_catalogue_sticker/:id', function (req, res) {
+app.post('/new_catalogue_sticker/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
 
