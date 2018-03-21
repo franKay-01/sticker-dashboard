@@ -48,11 +48,11 @@ const APPROVED = 2;
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
 
-const TEXT = "0";
-const IMAGE = "1";
-const QUOTE = "2";
-const STICKER = "3";
-const DIVIDER = "4";
+const TEXT = 0;
+const IMAGE = 1;
+const QUOTE = 2;
+const STICKER = 3;
+const DIVIDER = 4;
 
 const PARSE_PUBLIC_URL = "https://cryptic-waters-41617.herokuapp.com/public/";
 
@@ -651,7 +651,7 @@ app.post('/new_catalogue/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let content = req.body.content;
-    let type = req.body.style;
+    let type = parseInt(req.body.style);
 
     if (token) {
 
