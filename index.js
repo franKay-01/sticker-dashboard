@@ -48,11 +48,11 @@ const APPROVED = 2;
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
 
-const TEXT = 0;
-const IMAGE = 1;
-const QUOTE = 2;
-const STICKER = 3;
-const DIVIDER = 4;
+const TEXT = "0";
+const IMAGE = "1";
+const QUOTE = "2";
+const STICKER = "3";
+const DIVIDER = "4";
 
 const PARSE_PUBLIC_URL = "https://cryptic-waters-41617.herokuapp.com/public/";
 
@@ -507,7 +507,7 @@ app.get('/story_catalogue/:id', function (req, res) {
             });
 
         }, function (error) {
-            console.log("ERROR "+error.message);
+            console.log("ERROR " + error.message);
             res.redirect('/story_catalogue');
         });
     }
@@ -651,15 +651,29 @@ app.post('/new_catalogue/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let content = req.body.content;
+    let type = req.body.style;
 
-    if (token){
+    if (token) {
 
         getUser(token).then(function (sessionToken) {
 
             let Story = new Parse.Object.extend(StoryCatalogue);
             let catalogue = new Story();
 
-            catalogue.set("type", TEXT);
+            switch (type) {
+                case TEXT:
+                    catalogue.set("type", TEXT);
+                    break;
+
+                case QUOTE:
+                    catalogue.set("type", QUOTE);
+                    break;
+
+                case DIVIDER:
+                    catalogue.set("type", DIVIDER);
+                    break;
+            }
+
             catalogue.set("content", content);
             catalogue.set("story_id", id);
 
@@ -667,12 +681,12 @@ app.post('/new_catalogue/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect("/story_catalogue/"+id);
+            res.redirect("/story_catalogue/" + id);
 
         }, function (error) {
 
-            console.log("ERROR "+error.message);
-            res.redirect("/story_details/"+id);
+            console.log("ERROR " + error.message);
+            res.redirect("/story_details/" + id);
         })
     }
 });
@@ -943,7 +957,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     sticker.set("flag", false);
                     sticker.set("archive", false);
                     sticker.set("sold", true);
-                   // sticker.setACL(setPermission(_user, false));
+                    // sticker.setACL(setPermission(_user, false));
 
                     stickerDetails.push(sticker);
                     fileDetails.push(file);
