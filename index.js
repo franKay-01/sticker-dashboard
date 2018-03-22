@@ -33,6 +33,7 @@ let errorMessage = "";
 let searchErrorMessage = "";
 
 let StickerClass = "Stickers";
+let StickerOfDay = "Sticker";
 let CategoryClass = "Categories";
 let PacksClass = "Packs";
 let ReviewClass = "Reviews";
@@ -393,6 +394,8 @@ app.post('/new_story', function (req, res) {
             story.set("summary", summary);
             story.set("pack_id", pack_id);
             story.set("keyword", _keywords);
+            story.set("is_latest_story", false);
+            story.set("published", false);
 
             return story.save();
 
@@ -416,6 +419,32 @@ app.post('/new_story', function (req, res) {
         });
     }
 
+});
+
+app.get('/story_of_day', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StoryClass).find();
+
+        }).then(function (stories) {
+
+            res.render("pages/story_of_day", {
+
+                stories: stories
+
+            });
+
+        }, function (error) {
+
+            console.log("ERROR "+error.message);
+            res.redirect('/home');
+        })
+    }
 });
 
 app.post('/new_catalogue_sticker/:id', function (req, res) {
@@ -521,12 +550,12 @@ app.post('/add_catalogue_artwork/:id', function (req, res) {
             return catalogue.save();
         }).then(function () {
 
-            res.redirect('/story_catalogue/'+story_id);
+            res.redirect('/story_catalogue/' + story_id);
 
         }, function (error) {
 
-            console.log("ERROR "+error.message);
-            res.redirect('/story_details/'+story_id);
+            console.log("ERROR " + error.message);
+            res.redirect('/story_details/' + story_id);
 
         })
     }
@@ -1762,6 +1791,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
             pack.set("archive", false);
             pack.set("keyword", _keywords);
             pack.set("flag", false);
+            pack.set("published", false);
             //  pack.setACL(setPermission(_user, false));
 
 
