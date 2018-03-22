@@ -421,6 +421,42 @@ app.post('/new_story', function (req, res) {
 
 });
 
+app.post('/add_story_of_day', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.body.story_id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StoryClass).equalTo("is_lastest_story", true).first();
+
+        }).then(function (story) {
+
+            story.set("is_lastest_story", false);
+            return story.save();
+
+        }).then(function () {
+
+            return new Parse.Query(StoryClass).equalTo("objectId", id).first();
+
+        }).then(function (new_story) {
+
+            new_story.set("is_lastest_story", true);
+            return new_story.save();
+        }).then(function () {
+
+            res.redirect('/home');
+
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+
+        })
+    }
+});
+
 app.get('/story_of_day', function (req, res) {
 
     let token = req.cookies.token;
