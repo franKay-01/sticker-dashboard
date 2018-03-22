@@ -469,11 +469,21 @@ app.get('/story_of_day', function (req, res) {
 
         }).then(function (stories) {
 
-            res.render("pages/story_of_day", {
+            let art_work = [];
+            let i = 0;
 
-                stories: stories
+            _.each(stories, function (story) {
+                art_work[i] = story.get("art_work");
+                i++;
+            })
 
-            });
+            res.send(art_work);
+            // res.render("pages/story_of_day", {
+            //
+            //         stories: stories
+            //
+            //     });
+
 
         }, function (error) {
 
