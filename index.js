@@ -469,21 +469,11 @@ app.get('/story_of_day', function (req, res) {
 
         }).then(function (stories) {
 
-            let art_work = [];
-            let i = 0;
+            res.render("pages/story_of_day", {
 
-            _.each(stories, function (story) {
-                let sticker = new Parse.Query(StickerClass).equalTo("objectId", story.get("art_work")).first();
-                art_work[i] = sticker.get("uri");
-                i++;
-            })
+                    stories: stories
 
-            res.send(art_work);
-            // res.render("pages/story_of_day", {
-            //
-            //         stories: stories
-            //
-            //     });
+                });
 
 
         }, function (error) {
