@@ -473,7 +473,8 @@ app.get('/story_of_day', function (req, res) {
             let i = 0;
 
             _.each(stories, function (story) {
-                art_work[i] = story.get("art_work");
+                let sticker = new Parse.Query(StickerClass).equalTo("objectId", story.get("art_work")).first();
+                art_work[i] = sticker.get("art_work");
                 i++;
             })
 
