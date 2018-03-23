@@ -430,11 +430,11 @@ app.post('/add_story_of_day', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(StoryClass).equalTo("is_lastest_story", true).first();
+            return new Parse.Query(StoryClass).equalTo("is_latest_story", true).first();
 
         }).then(function (story) {
             res.send(JSON.stringify(story));
-            // story.set("is_lastest_story", false);
+            // story.set("is_latest_story", false);
             // return story.save();
 
         // }).then(function () {
@@ -443,7 +443,7 @@ app.post('/add_story_of_day', function (req, res) {
         //
         // }).then(function (new_story) {
         //
-        //     new_story.set("is_lastest_story", true);
+        //     new_story.set("is_latest_story", true);
         //     return new_story.save();
         // }).then(function () {
         //
