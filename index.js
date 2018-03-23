@@ -433,7 +433,7 @@ app.post('/add_story_of_day', function (req, res) {
             return new Parse.Query(StoryClass).equalTo("is_latest_story", true).first();
 
         }).then(function (story) {
-            if(story){
+            if (story) {
                 story.set("is_latest_story", false);
                 return story.save();
             }
@@ -450,13 +450,65 @@ app.post('/add_story_of_day', function (req, res) {
 
             res.redirect('/home');
 
-         }, function (error) {
+        }, function (error) {
             console.log("ERROR " + error.message);
             res.redirect('/home');
 
         })
     }
 });
+
+
+app.get('/sticker_of_day', function (req, res) {
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StickerClass).equalTo("sold", false).find();
+
+        }).then(function (stickers) {
+
+            res.render("pages/sticker_of_day", {
+                stickers: stickers
+            });
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+        })
+    }
+});
+
+app.post('/add_sticker_of_day', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.body.sticker_id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StickerOfDay).first();
+        }).then(function (sticker) {
+
+            sticker.set("sticker_id", id);
+
+            return sticker.save();
+        }).then(function () {
+
+            res.redirect('/home');
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/sticker_of_day');
+
+        });
+    }
+
+})
 
 app.get('/story_of_day', function (req, res) {
 
@@ -472,14 +524,14 @@ app.get('/story_of_day', function (req, res) {
 
             res.render("pages/story_of_day", {
 
-                    stories: stories
+                stories: stories
 
-                });
+            });
 
 
         }, function (error) {
 
-            console.log("ERROR "+error.message);
+            console.log("ERROR " + error.message);
             res.redirect('/home');
         })
     }
