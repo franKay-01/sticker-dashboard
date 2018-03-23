@@ -778,12 +778,19 @@ app.post('/edit_story/:id', function (req, res) {
     let id = req.params.id;
     let title = req.body.title;
     let keyword = req.body.keyword;
+    let color = req.body.color;
     let summary = req.body.summary;
     let _keyword = [];
+    let _color = [];
+
+    if (color !== "undefined" || color !== undefined) {
+        _color = color.split(",");
+    }
 
     if (keyword !== "undefined" || keyword !== undefined) {
         _keyword = keyword.split(",");
     }
+
     if (token) {
 
         let _user = {};
@@ -798,6 +805,7 @@ app.post('/edit_story/:id', function (req, res) {
             story.set("title", title);
             story.set("keyword", _keyword);
             story.set("summary", summary);
+            story.set("color", _color);
 
             return story.save();
         }).then(function () {
