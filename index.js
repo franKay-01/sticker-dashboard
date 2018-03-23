@@ -433,26 +433,23 @@ app.post('/add_story_of_day', function (req, res) {
             return new Parse.Query(StoryClass).equalTo("is_latest_story", true).first();
 
         }).then(function (story) {
-            if (story){
-                res.send(JSON.stringify(story));
-            }else {
-                res.send("EMPTY");
+            if(story){
+                story.set("is_latest_story", false);
+                return story.save();
             }
-            // story.set("is_latest_story", false);
-            // return story.save();
 
-        // }).then(function () {
-        //
-        //     return new Parse.Query(StoryClass).equalTo("objectId", id).first();
-        //
-        // }).then(function (new_story) {
-        //
-        //     new_story.set("is_latest_story", true);
-        //     return new_story.save();
-        // }).then(function () {
-        //
-        //     res.redirect('/home');
-        //
+        }).then(function () {
+
+            return new Parse.Query(StoryClass).equalTo("objectId", id).first();
+
+        }).then(function (new_story) {
+
+            new_story.set("is_latest_story", true);
+            return new_story.save();
+        }).then(function () {
+
+            res.redirect('/home');
+
          }, function (error) {
             console.log("ERROR " + error.message);
             res.redirect('/home');
