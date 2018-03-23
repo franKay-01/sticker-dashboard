@@ -433,7 +433,11 @@ app.post('/add_story_of_day', function (req, res) {
             return new Parse.Query(StoryClass).equalTo("is_latest_story", true).first();
 
         }).then(function (story) {
-            res.send(JSON.stringify(story));
+            if (story === null){
+                res.send("EMPTY");
+            }else {
+                res.send(JSON.stringify(story));
+            }
             // story.set("is_latest_story", false);
             // return story.save();
 
