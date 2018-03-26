@@ -378,46 +378,48 @@ app.post('/new_story', function (req, res) {
     if (keywords !== undefined || keywords !== "undefined") {
         _keywords = keywords.split(",");
     }
+    res.send("HI");
 
-    if (token) {
-
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            let Stories = new Parse.Object.extend(StoryClass);
-            let story = new Stories();
-
-            story.set("title", title);
-            story.set("summary", summary);
-            story.set("pack_id", pack_id);
-            story.set("keyword", _keywords);
-            story.set("is_latest_story", false);
-            story.set("published", false);
-
-            return story.save();
-
-        }).then(function (story) {
-            let Main = new Parse.Object.extend(MainStoryClass);
-            let main = new Main();
-
-            story_id = story.id;
-            main.set("story_id", story.id);
-            main.set("story", body);
-
-            return main.save();
-
-        }).then(function () {
-
-            res.redirect('/stories/' + story_id);
-
-        }, function (error) {
-            console.log("ERROR WHEN CREATING NEW STORY " + error.message);
-            res.redirect('/');
-        });
-    }
+    // if (token) {
+    //
+    //     let _user = {};
+    //
+    //     getUser(token).then(function (sessionToken) {
+    //
+    //         _user = sessionToken.get("user");
+    //
+    //         let Stories = new Parse.Object.extend(StoryClass);
+    //         let story = new Stories();
+    //
+    //         story.set("title", title);
+    //         story.set("summary", summary);
+    //         story.set("pack_id", pack_id);
+    //         story.set("keyword", _keywords);
+    //         story.set("is_latest_story", false);
+    //         story.set("published", false);
+    //         story.set("user_id", _user.id);
+    //
+    //         return story.save();
+    //
+    //     }).then(function (story) {
+    //         let Main = new Parse.Object.extend(MainStoryClass);
+    //         let main = new Main();
+    //
+    //         story_id = story.id;
+    //         main.set("story_id", story.id);
+    //         main.set("story", body);
+    //
+    //         return main.save();
+    //
+    //     }).then(function () {
+    //
+    //         res.redirect('/stories/' + story_id);
+    //
+    //     }, function (error) {
+    //         console.log("ERROR WHEN CREATING NEW STORY " + error.message);
+    //         res.redirect('/');
+    //     });
+    // }
 
 });
 
