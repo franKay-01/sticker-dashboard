@@ -378,48 +378,47 @@ app.post('/new_story', function (req, res) {
     if (keywords !== undefined || keywords !== "undefined") {
         _keywords = keywords.split(",");
     }
-    res.send("HI");
 
-    // if (token) {
-    //
-    //     let _user = {};
-    //
-    //     getUser(token).then(function (sessionToken) {
-    //
-    //         _user = sessionToken.get("user");
-    //
-    //         let Stories = new Parse.Object.extend(StoryClass);
-    //         let story = new Stories();
-    //
-    //         story.set("title", title);
-    //         story.set("summary", summary);
-    //         story.set("pack_id", pack_id);
-    //         story.set("keyword", _keywords);
-    //         story.set("is_latest_story", false);
-    //         story.set("published", false);
-    //         story.set("user_id", _user.id);
-    //
-    //         return story.save();
-    //
-    //     }).then(function (story) {
-    //         let Main = new Parse.Object.extend(MainStoryClass);
-    //         let main = new Main();
-    //
-    //         story_id = story.id;
-    //         main.set("story_id", story.id);
-    //         main.set("story", body);
-    //
-    //         return main.save();
-    //
-    //     }).then(function () {
-    //
-    //         res.redirect('/stories/' + story_id);
-    //
-    //     }, function (error) {
-    //         console.log("ERROR WHEN CREATING NEW STORY " + error.message);
-    //         res.redirect('/');
-    //     });
-    // }
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            let Stories = new Parse.Object.extend(StoryClass);
+            let story = new Stories();
+
+            story.set("title", title);
+            story.set("summary", summary);
+            story.set("pack_id", pack_id);
+            story.set("keyword", _keywords);
+            story.set("is_latest_story", false);
+            story.set("published", false);
+            story.set("user_id", _user.id);
+
+            return story.save();
+
+        }).then(function (story) {
+            let Main = new Parse.Object.extend(MainStoryClass);
+            let main = new Main();
+
+            story_id = story.id;
+            main.set("story_id", story.id);
+            main.set("story", body);
+
+            return main.save();
+
+        }).then(function () {
+
+            res.redirect('/stories/' + story_id);
+
+        }, function (error) {
+            console.log("ERROR WHEN CREATING NEW STORY " + error.message);
+            res.redirect('/');
+        });
+    }
 
 });
 
@@ -1051,11 +1050,6 @@ app.get('/admin_home', function (req, res) {
 app.get('/home', function (req, res) {
 
     let token = req.cookies.token;
-    // let username = req.cookies.username;
-    // let name = req.cookies.name;
-    // let user_info = req.cookies.userId;
-    // let isVerified = req.cookies.email_verified;
-    // let userType = req.cookies.userType;
 
     if (token) {
 
@@ -1097,24 +1091,26 @@ app.get('/home', function (req, res) {
 
             }
 
-            if (_user.get("type") === NORMAL_USER) {
+            res.send("HI");
 
-                res.render("pages/home", {
-                    collections: _collection,
-                    allPacks: _allPacks,
-                    story: _story,
-                    categoryLength: helper.leadingZero(categoryLength),
-                    packLength: helper.leadingZero(packLength),
-                    stickerLength: helper.leadingZero(stickerLength),
-                    name: _user.get("name"),
-                    verified: _user.get("emailVerified")
-                });
-            } else if (_user.get("type") === SUPER_USER) {
-
-                res.redirect("/admin_home");
-            } else {
-                //TODO error message
-            }
+            // if (_user.get("type") === NORMAL_USER) {
+            //
+            //     res.render("pages/home", {
+            //         collections: _collection,
+            //         allPacks: _allPacks,
+            //         story: _story,
+            //         categoryLength: helper.leadingZero(categoryLength),
+            //         packLength: helper.leadingZero(packLength),
+            //         stickerLength: helper.leadingZero(stickerLength),
+            //         name: _user.get("name"),
+            //         verified: _user.get("emailVerified")
+            //     });
+            // } else if (_user.get("type") === SUPER_USER) {
+            //
+            //     res.redirect("/admin_home");
+            // } else {
+            //     //TODO error message
+            // }
 
         }, function (error) {
             //TODO how to display error on home page
