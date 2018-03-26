@@ -24,11 +24,11 @@
         <td><%= item.get("email") %></td>
         <td><a href="/get_message/<%= item.get("message") %>" style="color: #a46580">Read</a></td>
         <td>
-            <% if (item.get("email") === "0"){%>
+            <% if (item.get("type") === "0"){%>
                 Illustrator
-            <%}else if (item.get("email") === "1"){%>
+            <%}else if (item.get("type") === "1"){%>
             Brand
-            <%}else if (item.get("email") === "2"){%>
+            <%}else if (item.get("type") === "2"){%>
             Website
             <%}%>
 
