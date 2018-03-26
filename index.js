@@ -470,7 +470,7 @@ app.get('/messages', function (req, res) {
             return new Parse.Query(MessageClass).find();
 
         }).then(function (message) {
-
+            console.log("MESSAGES "+JSON.stringify(message));
             res.render("pages/contact", {
                 contact: message
             })
