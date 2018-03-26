@@ -1082,10 +1082,6 @@ app.get('/home', function (req, res) {
             if (collection.length) {
                 _collection = collection;
 
-            }else {
-                console.log("COLLECTION "+JSON.stringify(collection));
-
-                _collection = [];
             }
 
             if (story.length) {
@@ -1097,14 +1093,6 @@ app.get('/home', function (req, res) {
 
                 _allPacks = allPacks;
 
-            }
-
-            if (!packLength.length){
-                packLength = 0;
-            }
-
-            if (!stickerLength.length){
-                stickerLength = 0;
             }
 
             if (_user.get("type") === NORMAL_USER) {
