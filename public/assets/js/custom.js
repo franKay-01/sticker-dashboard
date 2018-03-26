@@ -182,7 +182,7 @@ $(document).ready(function () {
         $('#btnCloseStory').on('click', function () {
             $('#hiddenAddStoryForm').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
-            $('#all_stories').fadeOut('fast');
+            $('#all_stories').fadeIn('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
@@ -269,6 +269,7 @@ $(document).ready(function () {
     $('#btnAddStory').on('click', function () {
         $('#pageMask').fadeIn('fast');
         $('#hiddenAddStoryForm').fadeIn('fast');
+        $('#all_stories').fadeOut('fast');
         $('#logo').fadeOut('fast');
         $('#searchCategory').fadeOut('fast');
         $('#Welcome').fadeOut('fast');
