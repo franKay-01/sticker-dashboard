@@ -6,7 +6,7 @@
 </div>
 
 <% } else { %>
-<div class="medium-7 large-7 cell">
+<div class="medium-8 large-8 cell">
 
 <table>
     <tr style="color: #a46580">
@@ -22,7 +22,7 @@
         <td><%= item.get("name") %></td>
         <td><%= item.get("subject") %></td>
         <td><%= item.get("email") %></td>
-        <td><a href="/get_message/<%= item.get("message") %>">Read</a></td>
+        <td><a href="/get_message/<%= item.get("message") %>" style="color: #a46580">Read</a></td>
         <td>
             <% if (item.get("email") === "0"){%>
                 Illustrator
