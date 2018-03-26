@@ -1080,8 +1080,11 @@ app.get('/home', function (req, res) {
             let _collection = [];
 
             if (collection.length) {
+                console.log("COLLECTION "+JSON.stringify(collection));
                 _collection = collection;
 
+            }else {
+                _collection = [];
             }
 
             if (story.length) {
