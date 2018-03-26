@@ -147,7 +147,9 @@
                 <div class="stats">Stats</div>
                 <div class="_stickers"><%= stickerLength %> Stickers</div>
                 <div class="_stickers_packs"><%= packLength %> Packs</div>
+                <div class="_categories"><%= storyLength %> Stories</div>
                 <div class="_categories"><%= categoryLength %> Categories</div>
+
             </div>
         </div>
         <!-- End of card-->
@@ -191,6 +193,7 @@
 
         </div>
 
+        <%if (storyLength !== 0){%>
         <div class="medium-3 large-3 cell icons">
             <a class="_stickers_packs" href="/story_of_day">
                 <img class="review_tab" src="/public/assets/images/story.png">
@@ -198,6 +201,9 @@
             </a>
 
         </div>
+        <%}%>
+
+        <%if (stickerLength !== 0){%>
 
         <div class="medium-3 large-3 cell icons">
             <a class="_stickers_packs" href="/sticker_of_day">
@@ -206,6 +212,7 @@
             </a>
 
         </div>
+        <%}%>
         <!-- End of card-->
 
         <div class="medium-12 large-12 cell">

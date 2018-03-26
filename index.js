@@ -1067,10 +1067,12 @@ app.get('/home', function (req, res) {
                 new Parse.Query(PacksClass).find(),
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
-                new Parse.Query(StickerClass).equalTo("user_id", _user.id).count()
+                new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
+                new Parse.Query(StoryClass).equalTo("user_id", _user.id).count()
+
             );
 
-        }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength) {
+        }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength, storyLength) {
             let _allPacks = [];
             let _story = [];
             let _collection = [];
@@ -1101,6 +1103,7 @@ app.get('/home', function (req, res) {
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
+                    storyLength: helper.leadingZero(storyLength),
                     name: _user.get("name"),
                     verified: _user.get("emailVerified")
                 });
