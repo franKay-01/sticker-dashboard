@@ -1,0 +1,43 @@
+<!-- Cards -->
+<% if (contact.length === 0) { %>
+<div class="medium-3 large-3 cell icons">
+    <img src="/public/assets/images/broken.png" class="gbeja_notxt">
+    <div class="name_tag"><p class="sticker_name_text">No Free Stickers - Reload</p></div>
+</div>
+
+<% } else { %>
+<table>
+    <tr>
+        <td> Name </td>
+        <td> Subject </td>
+        <td> Email </td>
+        <td> Message </td>
+        <td> Source </td>
+    </tr>
+
+    <% contact.forEach(function(item, index) { %>
+    <tr>
+        <td><% item.get("name") %></td>
+        <td><% item.get("subject") %></td>
+        <td><% item.get("email") %></td>
+        <td><a href="/get_message/<% item.get("name") %>">Read</a></td>
+        <td>
+            <% if (item.get("email") === 0){%>
+                Illustrator
+            <%}else if (item.get("email") === 1){%>
+            Brand
+            <%}else if (item.get("email") === 2){%>
+            Website
+            <%}%>
+
+        </td>
+
+    </tr>
+    <% }); %>
+
+</table>
+<% } %>
+
+
+
+

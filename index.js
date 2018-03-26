@@ -41,6 +41,7 @@ let StoryClass = "Stories";
 let MainStoryClass = "StoryBody";
 let StoryCatalogue = "StoryCatalogue";
 let ArtWork = "ArtWork";
+let MessageClass = "Contact";
 
 //const
 const PENDING = 0;
@@ -459,6 +460,27 @@ app.post('/add_story_of_day', function (req, res) {
     }
 });
 
+app.get('/messages', function (req, res) {
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(MessageClass).find();
+
+        }).then(function (message) {
+
+            res.render("pages/contact", {
+                contact: message
+            })
+
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+        })
+    }
+});
 
 app.get('/sticker_of_day', function (req, res) {
     let token = req.cookies.token;
@@ -1069,7 +1091,6 @@ app.get('/home', function (req, res) {
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StoryClass).equalTo("user_id", _user.id).count()
-
             );
 
         }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength, storyLength) {
