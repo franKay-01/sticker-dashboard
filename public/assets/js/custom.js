@@ -182,6 +182,7 @@ $(document).ready(function () {
         $('#btnCloseStory').on('click', function () {
             $('#hiddenAddStoryForm').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
+            $('#all_stories').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
