@@ -1080,10 +1080,11 @@ app.get('/home', function (req, res) {
             let _collection = [];
 
             if (collection.length) {
-                console.log("COLLECTION "+JSON.stringify(collection));
                 _collection = collection;
 
             }else {
+                console.log("COLLECTION "+JSON.stringify(collection));
+
                 _collection = [];
             }
 
@@ -1096,6 +1097,14 @@ app.get('/home', function (req, res) {
 
                 _allPacks = allPacks;
 
+            }
+
+            if (!packLength.length){
+                packLength = 0;
+            }
+
+            if (!stickerLength.length){
+                stickerLength = 0;
             }
 
             if (_user.get("type") === NORMAL_USER) {
