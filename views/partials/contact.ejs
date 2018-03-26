@@ -17,10 +17,10 @@
 
     <% contact.forEach(function(item, index) { %>
     <tr>
-        <td><% item.get("name") %></td>
-        <td><% item.get("subject") %></td>
-        <td><% item.get("email") %></td>
-        <td><a href="/get_message/<% item.get("name") %>">Read</a></td>
+        <td><%= item.get("name") %></td>
+        <td><%= item.get("subject") %></td>
+        <td><%= item.get("email") %></td>
+        <td><a href="/get_message/<%= item.get("name") %>">Read</a></td>
         <td>
             <% if (item.get("email") === 0){%>
                 Illustrator
