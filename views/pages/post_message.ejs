@@ -17,9 +17,9 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-    <script type = "text/javascript"
-            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 </head>
 
 <body class="primary-background-color">
@@ -51,28 +51,31 @@
             </div>
         </div>
 
-        <form id="signForm" method="post" action="/messages">
-            <br>
-            <input type="text" class="_signup_textbox" placeholder="Name" name="name">
-            <br>
-            <input type="email" class="_signup_textbox" placeholder="Email" name="email">
-            <br>
-            <input type="text" class="_signup_textbox" placeholder="Subject" name="subject">
-            <br>
-            <input type="text" class="_signup_textbox" placeholder="Message" name="message">
-            <br>
-            <div style="margin-bottom: 10px">
-                <input name="source" type="radio" id="source1" value="0"/>
-                <label for="source1" class="_label">Illustrator</label>
+        <div style="text-align: center;" class="sign_form">
 
-                <input name="source" type="radio" id="source2" value="1"/>
-                <label for="source2" class="_label">Brand</label>
+            <form id="signForm" method="post" action="/messages">
+                <br>
+                <input type="text" class="_signup_textbox" placeholder="Name" name="name">
+                <br>
+                <input type="email" class="_signup_textbox" placeholder="Email" name="email">
+                <br>
+                <input type="text" class="_signup_textbox" placeholder="Subject" name="subject">
+                <br>
+                <input type="text" class="_signup_textbox" placeholder="Message" name="message">
+                <br>
+                <div style="margin-bottom: 10px">
+                    <input name="source" type="radio" id="source1" value="0"/>
+                    <label for="source1" class="_label">Illustrator</label>
 
-                <input name="source" type="radio" id="source3" value="2"/>
-                <label for="source3" class="_label">Website</label>
-            </div>
-            <button type="submit" class="btnSignUp">Send Message</button>
-        </form>
+                    <input name="source" type="radio" id="source2" value="1"/>
+                    <label for="source2" class="_label">Brand</label>
+
+                    <input name="source" type="radio" id="source3" value="2"/>
+                    <label for="source3" class="_label">Website</label>
+                </div>
+                <button type="submit" class="btnSignUp">Send Message</button>
+            </form>
+        </div>
         <%- include('../partials/footer') %>
     </div>
 </div>
