@@ -22,7 +22,32 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <script src="/public/assets/js/functions.js"></script>
 
+   <style>
+       #message {
+           display:none;
+           background: #f1f1f1;
+           color: #000;
+           position: relative;
+           padding: 20px;
+           margin-top: 10px;
+       }
 
+       #message p {
+           padding: 10px 35px;
+           font-size: 18px;
+       }
+
+       /* Add a red text color and an "x" when the requirements are wrong */
+       .invalid {
+           color: red;
+       }
+
+       .invalid:before {
+           position: relative;
+           left: -35px;
+           content: "✖";
+       }
+   </style>
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
 
