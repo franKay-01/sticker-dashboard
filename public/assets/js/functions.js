@@ -13,6 +13,17 @@
             return false;
         }
 
+        if (form.name.value === ""){
+            alert("Error: Username cannot be blank!");
+            form.name.focus();
+            return false;
+        }
+
+        if (document.getElementById('terms_policy').checked !== true){
+            alert("Error: Username cannot be blank!");
+            return false;
+        }
+
         if(form.password.value !== "" && form.password.value === form.confirm_password.value) {
             if(form.password.value.length < 6) {
                 alert("Error: Password must contain at least six characters!");
