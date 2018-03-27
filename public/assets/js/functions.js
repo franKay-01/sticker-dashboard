@@ -43,25 +43,37 @@
                 document.getElementById("pwd").innerHTML = "Password must be different from Email";
                 form.password.focus();
                 return false;
+            }else {
+                document.getElementById("pwd").innerHTML = "";
             }
+
             re = /[0-9]/;
             if(!re.test(form.password.value)) {
                 document.getElementById("pwd").innerHTML = "Password must contain at least one number (0-9)";
                 form.password.focus();
                 return false;
+            }else {
+                document.getElementById("pwd").innerHTML = "";
             }
+
             re = /[a-z]/;
             if(!re.test(form.password.value)) {
                 document.getElementById("pwd").innerHTML = "Password must contain at least one lowercase letter (a-z)!";
                 form.password.focus();
                 return false;
+            }else {
+                document.getElementById("pwd").innerHTML = "";
             }
+
             re = /[A-Z]/;
             if(!re.test(form.password.value)) {
                 document.getElementById("pwd").innerHTML = "Password must contain at least one uppercase letter (A-Z)!";
                 form.password.focus();
                 return false;
+            }else {
+                document.getElementById("pwd").innerHTML = "";
             }
+
         } else if (form.password.value !== form.confirm_password.value){
             document.getElementById("confirm").innerHTML = "Please check that you've entered and confirmed your password!";
             form.confirm_password.focus();
