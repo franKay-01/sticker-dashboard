@@ -26,7 +26,7 @@
         }
 
         if (document.getElementById('terms_policy').checked !== true){
-            alert("Error: Username cannot be blank!");
+            alert("Error: Please click to show you accept the policy!");
             return false;
         }
 
