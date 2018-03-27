@@ -1469,7 +1469,7 @@ fieldset {
 
 .sign_form {
     width: 661px;
-    height: 572px;
+    /*height: 572px;*/
     border-radius: 18px;
     background-image: linear-gradient(to bottom, #d77255, #8651aa);
 }
