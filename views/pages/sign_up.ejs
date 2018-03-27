@@ -82,18 +82,18 @@
             <div style="text-align: center;" class="sign_form">
                 <form id="signForm" method="post" action="/signup">
                     <br>
-                    <input type="text" class="_signup_textbox" placeholder="Name" name="name" id="name_field">
+                    <input type="text" class="_signup_textbox" placeholder="Name" name="name" id="name_field" required>
                     <label for="name" id="nameField"></label>
                     <!--<p id="tool"></p>-->
                     <br>
-                    <input type="email" class="_signup_textbox" placeholder="Email" name="username" id="username">
+                    <input type="email" class="_signup_textbox" placeholder="Email" name="username" id="username" required>
                     <label for="username" id="user"></label>
                     <br>
 
-                    <input type="password" class="_signup_textbox" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    <input type="password" class="_signup_textbox" id="password" placeholder="Password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
 
-                    <input type="password" class="_signup_textbox" placeholder="Password" name="password" id="password">
+                    <input type="password" class="_signup_textbox" placeholder="Password" name="password" id="password" required>
                     <label for="confirm_password" id="pwd"></label>
 
                     <br>
@@ -139,7 +139,7 @@
 <script type="text/javascript" src="/public/assets/js/custom.js">
 </script>
 <script>
-    var myInput = document.getElementById("psw");
+    var myInput = document.getElementById("password");
     var letter = document.getElementById("letter");
     var capital = document.getElementById("capital");
     var number = document.getElementById("number");
