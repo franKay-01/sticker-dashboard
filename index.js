@@ -460,6 +460,28 @@ app.post('/add_story_of_day', function (req, res) {
     }
 });
 
+app.get('/send_message', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            res.render("pages/post_message");
+
+        }, function (error) {
+
+            res.redirect('/home');
+
+        })
+    }else {
+
+        res.redirect('/home');
+
+    }
+});
+
 app.post('/messages', function (req, res) {
 
     let token = req.cookies.token;
@@ -490,7 +512,7 @@ app.post('/messages', function (req, res) {
 
         }, function (error) {
 
-            console.log("ERROR "+error.message);
+            console.log("ERROR " + error.message);
             res.redirect('/home');
         })
     }
