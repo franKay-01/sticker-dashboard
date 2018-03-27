@@ -495,7 +495,7 @@ app.post('/messages', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            let Contact = new Parse.Query.extend(MessageClass);
+            let Contact = new Parse.Object.extend(MessageClass);
             let contact = new Contact();
 
             contact.set("name", name);
