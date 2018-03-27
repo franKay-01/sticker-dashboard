@@ -68,6 +68,10 @@
             return false;
         }
 
+        if (form.password.value === form.confirm_password.value){
+            document.getElementById("confirm").innerHTML = "";
+        }
+
         return true;
     }
 
