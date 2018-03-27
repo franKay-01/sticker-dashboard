@@ -2,13 +2,7 @@
     function checkForm(form)
     {
         if(form.name.value === "") {
-            alert("Error: Username cannot be blank!");
-            form.name.focus();
-            return false;
-        }
-        re = /^\w+$/;
-        if(!re.test(form.name.value)) {
-            alert("Error: Username must contain only letters, numbers and underscores!");
+            document.getElementById("nameField").innerHTML = "Username cannot be blank";
             form.name.focus();
             return false;
         }
@@ -20,52 +14,60 @@
         var truth = validateEmail(form.username.value);
 
         if (truth !== true){
-            alert("Error: Email is in-correct!");
+            document.getElementById("user").innerHTML = "Email Format is not correct";
             form.username.focus();
             return false;
+        }else {
+            document.getElementById("user").innerHTML = "";
+
         }
 
         if (document.getElementById('terms_policy').checked !== true){
-            alert("Error: Please click to show you accept the policy!");
+            document.getElementById("policy").innerHTML = "Please Read the policy and tick ✔";
             return false;
+        }else {
+            document.getElementById("policy").innerHTML = "";
+
         }
 
         if(form.password.value !== "" && form.password.value === form.confirm_password.value) {
-            if(form.password.value.length < 6) {
-                alert("Error: Password must contain at least six characters!");
+            if(form.password.value.length < 8) {
+                document.getElementById("pwd").innerHTML = "Password must contain at least eight (8) characters";
                 form.password.focus();
                 return false;
+            }else {
+                document.getElementById("pwd").innerHTML = "";
             }
+
             if(form.password.value === form.username.value) {
-                alert("Error: Password must be different from Username!");
+                document.getElementById("pwd").innerHTML = "Password must be different from Email";
                 form.password.focus();
                 return false;
             }
             re = /[0-9]/;
             if(!re.test(form.password.value)) {
-                alert("Error: password must contain at least one number (0-9)!");
+                document.getElementById("pwd").innerHTML = "Password must contain at least one number (0-9)";
                 form.password.focus();
                 return false;
             }
             re = /[a-z]/;
             if(!re.test(form.password.value)) {
-                alert("Error: password must contain at least one lowercase letter (a-z)!");
+                document.getElementById("pwd").innerHTML = "Password must contain at least one lowercase letter (a-z)!";
                 form.password.focus();
                 return false;
             }
             re = /[A-Z]/;
             if(!re.test(form.password.value)) {
-                alert("Error: password must contain at least one uppercase letter (A-Z)!");
+                document.getElementById("pwd").innerHTML = "Password must contain at least one uppercase letter (A-Z)!";
                 form.password.focus();
                 return false;
             }
         } else {
-            alert("Error: Please check that you've entered and confirmed your password!");
-            form.password.focus();
+            document.getElementById("confirm").innerHTML = "Please check that you've entered and confirmed your password!";
+            form.confirm_password.focus();
             return false;
         }
 
-        alert("You entered a valid password: " + form.password.value);
         return true;
     }
 
