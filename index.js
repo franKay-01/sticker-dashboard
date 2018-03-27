@@ -460,6 +460,43 @@ app.post('/add_story_of_day', function (req, res) {
     }
 });
 
+app.post('/messages', function (req, res) {
+
+    let token = req.cookies.token;
+    let name = req.body.name;
+    let subject = req.body.subject;
+    let email = req.body.email;
+    let message = req.body.message;
+    let source = req.body.source;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            let Contact = new Parse.Query.extend(MessageClass);
+            let contact = new Contact();
+
+            contact.set("name", name);
+            contact.set("subject", subject);
+            contact.set("email", email);
+            contact.set("message", message);
+            contact.set("source", source);
+
+            return contact.save();
+
+        }).then(function () {
+
+            res.redirect('/home');
+
+        }, function (error) {
+
+            console.log("ERROR "+error.message);
+            res.redirect('/home');
+        })
+    }
+
+});
+
 app.get('/messages', function (req, res) {
     let token = req.cookies.token;
 
@@ -470,7 +507,7 @@ app.get('/messages', function (req, res) {
             return new Parse.Query(MessageClass).find();
 
         }).then(function (message) {
-            console.log("MESSAGES "+JSON.stringify(message));
+            console.log("MESSAGES " + JSON.stringify(message));
             res.render("pages/contact", {
                 contact: message
             })
