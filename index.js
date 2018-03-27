@@ -502,7 +502,7 @@ app.post('/messages', function (req, res) {
             contact.set("subject", subject);
             contact.set("email", email);
             contact.set("message", message);
-            contact.set("source", source);
+            contact.set("type", source);
             contact.set("read", false);
 
             return contact.save();
