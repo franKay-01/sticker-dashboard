@@ -1,21 +1,27 @@
 
     function checkForm(form)
     {
-        if(form.username.value === "") {
+        if(form.name.value === "") {
             alert("Error: Username cannot be blank!");
-            form.username.focus();
+            form.name.focus();
             return false;
         }
         re = /^\w+$/;
-        if(!re.test(form.username.value)) {
+        if(!re.test(form.name.value)) {
             alert("Error: Username must contain only letters, numbers and underscores!");
-            form.username.focus();
+            form.name.focus();
             return false;
         }
 
-        if (form.name.value === ""){
-            alert("Error: Username cannot be blank!");
-            form.name.focus();
+        function validateEmail(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+        var truth = validateEmail(form.username.value);
+
+        if (truth !== true){
+            alert("Error: Email is in-correct!");
+            form.username.focus();
             return false;
         }
 
