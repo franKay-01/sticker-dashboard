@@ -489,7 +489,7 @@ app.post('/messages', function (req, res) {
     let subject = req.body.subject;
     let email = req.body.email;
     let message = req.body.message;
-    let source = req.body.source;
+    let source = parseInt(req.body.source);
 
     if (token) {
 
@@ -503,6 +503,7 @@ app.post('/messages', function (req, res) {
             contact.set("email", email);
             contact.set("message", message);
             contact.set("source", source);
+            contact.set("read", false);
 
             return contact.save();
 
