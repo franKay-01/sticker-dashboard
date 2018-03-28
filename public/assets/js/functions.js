@@ -152,7 +152,7 @@ function checkLogin() {
         document.getElementById("pwdd").innerHTML = "";
     }
 
-    return true;
+    document.getElementById("login_form").submit();// Form submission
 
 }
 
