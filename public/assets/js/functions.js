@@ -96,9 +96,23 @@ function capstTest(value) {
     return re.test(value);
 }
 
+function checkLogin() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+
+    var result = validateEmail(username);
+    if (result === true && numberTest(password) && alphabetTest(password) && capstTest(password) && password.length > 8){
+        alert("ALL CORRECT");
+    }else {
+        document.getElementById("username").innerHTML = "Please check that you've entered and confirmed your email!";
+        document.getElementById("password").innerHTML = "Please check that you've entered and confirmed your password!";
+
+    }
+
+}
 function checkSignUpEmail() {
-    var password = document.getElementById("forgotten_pwd").value;
-    var result = validateEmail(password);
+    var email = document.getElementById("forgotten_pwd").value;
+    var result = validateEmail(email);
 
     if (result !== true){
         document.getElementById("password").innerHTML = "Please check that you've entered and confirmed your email!";
