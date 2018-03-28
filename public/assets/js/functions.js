@@ -102,12 +102,16 @@ function checkLogin() {
 
     var result = validateEmail(username);
     if (result === true && numberTest(password) && alphabetTest(password) && capstTest(password) && password.length > 8){
-        alert("ALL CORRECT");
-    }else {
-        document.getElementById("username").innerHTML = "Please check that you've entered and confirmed your email!";
-        document.getElementById("password").innerHTML = "Please check that you've entered and confirmed your password!";
 
+    }else if (result !== true){
+        document.getElementById("username").innerHTML = "Please check that you've entered and confirmed your email!";
+        document.getElementById("password").innerHTML = "";
+
+    }else if(result === true && !numberTest(password) && !alphabetTest(password) && !capstTest(password) && password.length < 8){
+        document.getElementById("password").innerHTML = "Password must be a minimum of 8 characters, contain a number, lower case and upper case";
+        document.getElementById("username").innerHTML = "";
     }
+
 
 }
 function checkSignUpEmail() {
