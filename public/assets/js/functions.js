@@ -87,7 +87,7 @@ function validateEmail(email) {
 }
 
 function checkSignUpEmail() {
-    var password = document.getElementById("forgotten_password").value;
+    var password = document.getElementById("forgotten_pwd").value;
     var result = validateEmail(password);
     alert(result);
     if (result !== true){
