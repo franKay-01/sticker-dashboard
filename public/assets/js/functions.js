@@ -45,8 +45,7 @@ function checkForm(form) {
             document.getElementById("pwd").innerHTML = "";
         }
 
-        re = /[0-9]/;
-        if (!re.test(form.password.value)) {
+        if (!numberTest(form.password.value)) {
             document.getElementById("pwd").innerHTML = "Password must contain at least one number (0-9)";
             form.password.focus();
             return false;
@@ -54,8 +53,7 @@ function checkForm(form) {
             document.getElementById("pwd").innerHTML = "";
         }
 
-        re = /[a-z]/;
-        if (!re.test(form.password.value)) {
+        if (!alphabetTest(form.password.value)) {
             document.getElementById("pwd").innerHTML = "Password must contain at least one lowercase letter (a-z)!";
             form.password.focus();
             return false;
@@ -63,8 +61,7 @@ function checkForm(form) {
             document.getElementById("pwd").innerHTML = "";
         }
 
-        re = /[A-Z]/;
-        if (!re.test(form.password.value)) {
+        if (!capstTest(form.password.value)) {
             document.getElementById("pwd").innerHTML = "Password must contain at least one uppercase letter (A-Z)!";
             form.password.focus();
             return false;
@@ -84,6 +81,19 @@ function checkForm(form) {
 function validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
+}
+
+function numberTest(value) {
+    re = /[0-9]/;
+    return re.test(value);
+}
+function alphabetTest(value) {
+    re = /[a-z]/;
+    return re.test(value);
+}
+function capstTest(value) {
+    re = /[A-Z]/;
+    return re.test(value);
 }
 
 function checkSignUpEmail() {
