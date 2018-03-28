@@ -142,15 +142,17 @@
 
                 }, error => {
                     document.getElementById("error_card").innerText = error.message;
-                    $('#error_card').css('display','block');                })
+                    $('#error_card').show();
+                })
 
 
             }, (error) => {
                 document.getElementById("error_card").innerText = error.message;
-                $('#error_card').css('display','block');            })
+                $('#error_card').show();
+            })
         }else {
             document.getElementById("error_card").innerText = "Password or Email is wrong";
-            $('#error_card').css('display','block');
+            $('#error_card').show();
 
         }
 
