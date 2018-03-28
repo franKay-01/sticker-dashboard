@@ -88,6 +88,7 @@ function validateEmail(email) {
 
 function checkSignUpEmail(email) {
     var result = validateEmail(email);
+    alert(result);
     if (result !== true){
         document.getElementById("password").innerHTML = "Please check that you've entered and confirmed your email!";
         return false;
