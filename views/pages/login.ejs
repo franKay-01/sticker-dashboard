@@ -105,6 +105,8 @@
             values[this.name] = $(this).val();
         });
 
+        alert(values.username);
+
         Parse.Cloud.run("login", {
             username: values.username,
             password: values.password
