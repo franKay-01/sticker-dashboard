@@ -141,17 +141,17 @@
                     document.location = "/home";
 
                 }, error => {
-                    document.getElementById("error_card").innerText = JSON.stringify(error.message);
+                    document.getElementById("error_card").innerText = error.message.message;
                     $('#error_card').show();
                 })
 
 
             }, (error) => {
-                document.getElementById("error_card").innerText = JSON.stringify(error.message);
+                document.getElementById("error_card").innerText = error.message.message;
                 $('#error_card').show();
             })
         }else {
-            document.getElementById("error_card").innerText = "Password or Email is wrong";
+            document.getElementById("error_card").innerText = error.message.message;
             $('#error_card').show();
 
         }
