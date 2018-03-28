@@ -107,7 +107,7 @@ function checkLogin() {
     if (result === true) {
         document.getElementById("user").innerHTML = "";
     } else if (result !== true) {
-        document.getElementById("user").innerHTML = "Please check that you've entered and confirmed your email!";
+        document.getElementById("user").innerHTML = "Check that you've entered correct email!";
         document.getElementById("username").focus();
 
     }
