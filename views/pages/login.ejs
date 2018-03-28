@@ -34,13 +34,12 @@
         </a>
     </div>
     <!-- End of logo-->
-    <% if (error.length > 0) { %>
-    <div class="medium-12 large-12 error_card">
-        <div style="text-align: center;font-size: 20px;">
-            <%= error %>
+
+    <div class="medium-12 large-12 error_card" style="display: none">
+        <div style="text-align: center;font-size: 20px;" id="error_card">
+
         </div>
     </div>
-    <% } %>
     <span class="medium-12 large-12 welcome_post"><b>Welcome to Publisher</b></span>
     <div class="grid-x grid-margin-x">
         <div class="medium-3 large-3 cell login_card">
@@ -98,54 +97,62 @@
 
         e.preventDefault();
 
-        let $inputs = $('#login :input');
+        let results = checkLogin();
 
-        let values = {};
-        $inputs.each(function () {
-            values[this.name] = $(this).val();
-        });
+        if (results === true) {
+            let $inputs = $('#login :input');
 
-        alert(values.username);
+            let values = {};
+            $inputs.each(function () {
+                values[this.name] = $(this).val();
+            });
 
-        Parse.Cloud.run("login", {
-            username: values.username,
-            password: values.password
-        }).then(user => {
+            alert(values.username);
 
-            Parse.User.become(user.getSessionToken()).then((user) => {
+            Parse.Cloud.run("login", {
+                username: values.username,
+                password: values.password
+            }).then(user => {
 
-                setCookie("token", user.getSessionToken(), 30)
+                Parse.User.become(user.getSessionToken()).then((user) => {
 
-              /*  let days = 30
-                let type = user.get("type").toString();
-                let emailVerified = user.get("emailVerified").toString();
+                    setCookie("token", user.getSessionToken(), 30)
 
-                setCookie("userType", type, days);
-                setCookie("email_verified", emailVerified, days);
-                setCookie("userId", user.id, days);
+                    /*  let days = 30
+                      let type = user.get("type").toString();
+                      let emailVerified = user.get("emailVerified").toString();
+
+                      setCookie("userType", type, days);
+                      setCookie("email_verified", emailVerified, days);
+                      setCookie("userId", user.id, days);
 
 
-                setCookie("username", user.getUsername(), days);
-                setCookie("name", user.get("name"), days);
+                      setCookie("username", user.getUsername(), days);
+                      setCookie("name", user.get("name"), days);
 
-                let status = user.get("image_set");
-                if (status === true) {
-                    setCookie('profile_image', user.get("image").url());
-                } else {
-                    setCookie('profile_image', "null");
-                }
-                console.log("USER TYPE "+ type);
-                console.log("EMAIL VERIFIED "+ emailVerified);*/
-                document.location = "/home";
+                      let status = user.get("image_set");
+                      if (status === true) {
+                          setCookie('profile_image', user.get("image").url());
+                      } else {
+                          setCookie('profile_image', "null");
+                      }
+                      console.log("USER TYPE "+ type);
+                      console.log("EMAIL VERIFIED "+ emailVerified);*/
+                    document.location = "/home";
 
-            }, error => {
-                console.log("Not become:::" + error.message);
+                }, error => {
+                    console.log("Not become:::" + error.message);
+                })
+
+
+            }, (error) => {
+                console.log("error", error);
             })
+        }else {
+            document.getElementById("error_card").innerText = "Password or Email is wrong";
+            $('#error_card').css('display','block');
 
-
-        }, (error) => {
-            console.log("error", error);
-        })
+        }
 
     });
 </script>

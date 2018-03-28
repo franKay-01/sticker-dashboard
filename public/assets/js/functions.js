@@ -152,8 +152,7 @@ function checkLogin() {
         document.getElementById("pwdd").innerHTML = "";
     }
 
-    document.getElementById("login").submit();// Form submission
-
+    return true;
 }
 
 function checkSignUpEmail() {
