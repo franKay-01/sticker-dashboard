@@ -87,10 +87,12 @@ function numberTest(value) {
     re = /[0-9]/;
     return re.test(value);
 }
+
 function alphabetTest(value) {
     re = /[a-z]/;
     return re.test(value);
 }
+
 function capstTest(value) {
     re = /[A-Z]/;
     return re.test(value);
@@ -101,27 +103,63 @@ function checkLogin() {
     var password = document.getElementById("password").value;
 
     var result = validateEmail(username);
-    if (result === true && numberTest(password) && alphabetTest(password) && capstTest(password) && password.length > 8){
-        alert("ALL CORECT");
-    }else if (result !== true){
-        document.getElementById("username").innerHTML = "Please check that you've entered and confirmed your email!";
+    if (password < 8) {
+        document.getElementById("password").innerHTML = "Password must contain at least eight (8) characters";
+        document.getElementById("password").focus();
+        return false;
+    } else {
         document.getElementById("password").innerHTML = "";
+    }
 
-    }else if(result === true && !numberTest(password) && !alphabetTest(password) && !capstTest(password) && password.length < 8){
-        document.getElementById("password").innerHTML = "Password must be a minimum of 8 characters, contain a number, lower case and upper case";
+    if (username === password) {
+        document.getElementById("password").innerHTML = "Password must be different from Email";
+        document.getElementById("password").focus();
+        return false;
+    } else {
+        document.getElementById("password").innerHTML = "";
+    }
+
+    if (!numberTest(password)) {
+        document.getElementById("password").innerHTML = "Password must contain at least one number (0-9)";
+        document.getElementById("password").focus();
+        return false;
+    } else {
+        document.getElementById("password").innerHTML = "";
+    }
+
+    if (!alphabetTest(password)) {
+        document.getElementById("password").innerHTML = "Password must contain at least one lowercase letter (a-z)!";
+        document.getElementById("password").focus();
+        return false;
+    } else {
+        document.getElementById("password").innerHTML = "";
+    }
+
+    if (!capstTest(password)) {
+        document.getElementById("password").innerHTML = "Password must contain at least one uppercase letter (A-Z)!";
+        document.getElementById("password").focus();
+        return false;
+    } else {
+        document.getElementById("password").innerHTML = "";
+    }
+
+    if (result === true) {
         document.getElementById("username").innerHTML = "";
+    } else if (result !== true) {
+        document.getElementById("username").innerHTML = "Please check that you've entered and confirmed your email!";
     }
 
 
 }
+
 function checkSignUpEmail() {
     var email = document.getElementById("forgotten_pwd").value;
     var result = validateEmail(email);
 
-    if (result !== true){
+    if (result !== true) {
         document.getElementById("password").innerHTML = "Please check that you've entered and confirmed your email!";
         return false;
-    }else {
+    } else {
         document.getElementById("forgotten_form").submit();// Form submission
     }
 }
