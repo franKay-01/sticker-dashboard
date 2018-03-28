@@ -86,8 +86,8 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-function checkSignUpEmail(email) {
-    var result = validateEmail(email);
+function checkSignUpEmail(form) {
+    var result = validateEmail(form.forgotten_password.value);
     alert(result);
     if (result !== true){
         document.getElementById("password").innerHTML = "Please check that you've entered and confirmed your email!";
