@@ -104,43 +104,43 @@ function checkLogin() {
 
     var result = validateEmail(username);
     if (password < 8) {
-        document.getElementById("password").innerHTML = "Password must contain at least eight (8) characters";
+        document.getElementById("pwdd").innerHTML = "Password must contain at least eight (8) characters";
         document.getElementById("password").focus();
         return false;
     } else {
-        document.getElementById("password").innerHTML = "";
+        document.getElementById("pwdd").innerHTML = "";
     }
 
     if (username === password) {
-        document.getElementById("password").innerHTML = "Password must be different from Email";
+        document.getElementById("pwdd").innerHTML = "Password must be different from Email";
         document.getElementById("password").focus();
         return false;
     } else {
-        document.getElementById("password").innerHTML = "";
+        document.getElementById("pwdd").innerHTML = "";
     }
 
     if (!numberTest(password)) {
-        document.getElementById("password").innerHTML = "Password must contain at least one number (0-9)";
+        document.getElementById("pwdd").innerHTML = "Password must contain at least one number (0-9)";
         document.getElementById("password").focus();
         return false;
     } else {
-        document.getElementById("password").innerHTML = "";
+        document.getElementById("pwdd").innerHTML = "";
     }
 
     if (!alphabetTest(password)) {
-        document.getElementById("password").innerHTML = "Password must contain at least one lowercase letter (a-z)!";
+        document.getElementById("pwdd").innerHTML = "Password must contain at least one lowercase letter (a-z)!";
         document.getElementById("password").focus();
         return false;
     } else {
-        document.getElementById("password").innerHTML = "";
+        document.getElementById("pwdd").innerHTML = "";
     }
 
     if (!capstTest(password)) {
-        document.getElementById("password").innerHTML = "Password must contain at least one uppercase letter (A-Z)!";
+        document.getElementById("pwdd").innerHTML = "Password must contain at least one uppercase letter (A-Z)!";
         document.getElementById("password").focus();
         return false;
     } else {
-        document.getElementById("password").innerHTML = "";
+        document.getElementById("pwdd").innerHTML = "";
     }
 
     if (result === true) {
