@@ -102,7 +102,7 @@ function checkLogin() {
 
     var result = validateEmail(username);
     if (result === true && numberTest(password) && alphabetTest(password) && capstTest(password) && password.length > 8){
-
+        alert("ALL CORECT");
     }else if (result !== true){
         document.getElementById("username").innerHTML = "Please check that you've entered and confirmed your email!";
         document.getElementById("password").innerHTML = "";
