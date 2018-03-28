@@ -141,13 +141,13 @@
                     document.location = "/home";
 
                 }, error => {
-                    console.log("Not become:::" + error.message);
-                })
+                    document.getElementById("error_card").innerText = error.message;
+                    $('#error_card').css('display','block');                })
 
 
             }, (error) => {
-                console.log("error", error);
-            })
+                document.getElementById("error_card").innerText = error.message;
+                $('#error_card').css('display','block');            })
         }else {
             document.getElementById("error_card").innerText = "Password or Email is wrong";
             $('#error_card').css('display','block');
