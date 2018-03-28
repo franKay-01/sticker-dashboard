@@ -30,6 +30,10 @@
 
         }
 
+        if (form.password.value === form.confirm_password.value){
+            document.getElementById("confirm").innerHTML = "";
+        }
+
         if(form.password.value !== "" && form.password.value === form.confirm_password.value) {
             if(form.password.value.length < 8) {
                 document.getElementById("pwd").innerHTML = "Password must contain at least eight (8) characters";
@@ -78,8 +82,6 @@
             document.getElementById("confirm").innerHTML = "Please check that you've entered and confirmed your password!";
             form.confirm_password.focus();
             return false;
-        }else if (form.password.value === form.confirm_password.value){
-            document.getElementById("confirm").innerHTML = "";
         }
 
         return true;
