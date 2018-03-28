@@ -103,7 +103,16 @@ function checkLogin() {
     var password = document.getElementById("password").value;
 
     var result = validateEmail(username);
-    if (password < 8) {
+
+    if (result === true) {
+        document.getElementById("user").innerHTML = "";
+    } else if (result !== true) {
+        document.getElementById("user").innerHTML = "Please check that you've entered and confirmed your email!";
+        document.getElementById("username").focus();
+
+    }
+
+    if (password.length < 8) {
         document.getElementById("pwdd").innerHTML = "Password must contain at least eight (8) characters";
         document.getElementById("password").focus();
         return false;
@@ -142,13 +151,6 @@ function checkLogin() {
     } else {
         document.getElementById("pwdd").innerHTML = "";
     }
-
-    if (result === true) {
-        document.getElementById("username").innerHTML = "";
-    } else if (result !== true) {
-        document.getElementById("username").innerHTML = "Please check that you've entered and confirmed your email!";
-    }
-
 
 }
 
