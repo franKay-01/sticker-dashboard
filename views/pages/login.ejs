@@ -141,13 +141,13 @@
                     document.location = "/home";
 
                 }, error => {
-                    document.getElementById("error_card").innerText = error.message;
+                    document.getElementById("error_card").innerText = JSON.stringify(error.message);
                     $('#error_card').show();
                 })
 
 
             }, (error) => {
-                document.getElementById("error_card").innerText = error.message;
+                document.getElementById("error_card").innerText = JSON.stringify(error.message);
                 $('#error_card').show();
             })
         }else {
