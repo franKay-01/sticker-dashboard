@@ -89,12 +89,12 @@ function validateEmail(email) {
 function checkSignUpEmail() {
     var password = document.getElementById("forgotten_password").value;
     var result = validateEmail(password);
-    alert(password);
+    alert(result);
     if (result !== true){
         document.getElementById("password").innerHTML = "Please check that you've entered and confirmed your email!";
         return false;
     }else {
-        document.getElementById("forgotten_form").submit();// Form submission
+        document.getElementById("signForm").submit();// Form submission
     }
 }
 
