@@ -507,7 +507,7 @@ app.get('/advert_details/:id', function (req, res) {
                 _advert = advert;
             }
 
-            console.log("ADS "+JSON.stringify(advertImages));
+            console.log("ADS "+JSON.stringify(advert));
             if (advertImages.length){
                 _advertImage = advertImages
             }
