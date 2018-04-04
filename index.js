@@ -494,29 +494,19 @@ app.get('/advert_details/:id', function (req, res) {
         console.log("ID "+id);
         getUser(token).then(function (sessionToken) {
 
-            // return Parse.Promise.when(
-               return new Parse.Query(AdvertClass).equalTo("objectId", id).first();
-                // new Parse.Query(AdvertImageClass).equalTo("advert_id", id).find()
-            // );
+             return Parse.Promise.when(
+                new Parse.Query(AdvertClass).equalTo("objectId", id).first(),
+                new Parse.Query(AdvertImageClass).equalTo("advert_id", id).find()
+            );
 
-        }).then(function (advert) {
-
-            // let _advert = [];
-            // let _advertImage = [];
-            //
-            // if (advert.length){
-            //     _advert = advert;
-            // }
+        }).then(function (advert, advertImages) {
 
             console.log("ADS "+JSON.stringify(advert));
-            // if (advertImages.length){
-            //     _advertImage = advertImages
-            // }
 
             res.render("pages/advert_details", {
 
                 ad_details: advert,
-                // ad_images: _advertImage
+                ad_images: advertImages
             })
 
         }, function (error) {
