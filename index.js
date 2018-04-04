@@ -42,6 +42,8 @@ let MainStoryClass = "StoryBody";
 let StoryCatalogue = "StoryCatalogue";
 let ArtWork = "ArtWork";
 let MessageClass = "Contact";
+let AdvertClass = "Advert";
+let AdvertImageClass = "AdvertImages";
 
 //const
 const PENDING = 0;
@@ -475,11 +477,25 @@ app.get('/send_message', function (req, res) {
             res.redirect('/home');
 
         })
-    }else {
+    } else {
 
         res.redirect('/home');
 
     }
+});
+
+app.get('/adverts', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+
+        });
+    }
+
 });
 
 app.post('/messages', function (req, res) {
@@ -1147,16 +1163,18 @@ app.get('/home', function (req, res) {
                 new Parse.Query(CategoryClass).limit(limit).find(),
                 new Parse.Query(StoryClass).limit(limit).find(),
                 new Parse.Query(PacksClass).find(),
+                new Parse.Query(AdvertClass).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StoryClass).equalTo("user_id", _user.id).count()
             );
 
-        }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength, storyLength) {
+        }).then(function (collection, categories, story, allPacks, allAdverts, categoryLength, packLength, stickerLength, storyLength) {
             let _allPacks = [];
             let _story = [];
             let _collection = [];
+            let _allAdverts = [];
 
             if (collection.length) {
                 _collection = collection;
@@ -1169,11 +1187,12 @@ app.get('/home', function (req, res) {
             }
 
             if (allPacks.length) {
-
                 _allPacks = allPacks;
-
             }
 
+            if (allAdverts.length){
+                _allAdverts = allAdverts;
+            }
 
             if (_user.get("type") === NORMAL_USER) {
 
@@ -1181,6 +1200,7 @@ app.get('/home', function (req, res) {
                     collections: _collection,
                     allPacks: _allPacks,
                     story: _story,
+                    allAdverts: _allAdverts,
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
