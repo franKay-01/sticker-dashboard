@@ -493,12 +493,12 @@ app.get('/advert_details/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return Parse.Promise.when(
-                new Parse.Query(AdvertClass).equalTo("objectId", id).first(),
-                new Parse.Query(AdvertImageClass).equalTo("advert_id", id).find()
-            );
+            // return Parse.Promise.when(
+                new Parse.Query(AdvertClass).equalTo("objectId", id).first();
+                // new Parse.Query(AdvertImageClass).equalTo("advert_id", id).find()
+            // );
 
-        }).then(function (advert, advertImages) {
+        }).then(function (advert) {
 
             let _advert = [];
             let _advertImage = [];
@@ -507,15 +507,14 @@ app.get('/advert_details/:id', function (req, res) {
                 _advert = advert;
             }
 
-            console.log("ADS "+JSON.stringify(advert));
-            if (advertImages.length){
-                _advertImage = advertImages
-            }
+            // if (advertImages.length){
+            //     _advertImage = advertImages
+            // }
 
             res.render("pages/advert_details", {
 
                 ad_details: _advert,
-                ad_images: _advertImage
+                // ad_images: _advertImage
             })
 
         }, function (error) {

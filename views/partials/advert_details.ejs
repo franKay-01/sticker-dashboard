@@ -14,18 +14,10 @@
                    name="link"
                    value="<%= ad_details.get("link") %>">
         </div>
-        <div class="medium-12 large-12 cell">
-            <% if (ad_images.length === 0) { %>
 
-            <%} else {%>
-            <% ad_images.forEach(function(items) { %>
-            <img src="<%= items.get("uri").url()%>">
-            <%})%>
-            <%}%>
-        </div>
         <div class="medium-12 large-12 cell">
             <center>
-                <a href="/advert_details/<%= pack_id %>" class="cancel_btn">Cancel</a>
+                <a href="/advert_details/<%= ad_details.id %>" class="cancel_btn">Cancel</a>
                 <!--<button type="button" class="cancel_btn delbtn" data-id="<%= sticker.id %>"-->
                         <!--value="<%= sticker.get("name") %>">Delete</button>-->
                 <button class="update" type="submit">Update</button>
