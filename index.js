@@ -500,11 +500,22 @@ app.get('/advert_details/:id', function (req, res) {
 
         }).then(function (advert, advertImages) {
 
+            let _advert = [];
+            let _advertImage = [];
+
+            if (advert.length){
+                _advert = advert;
+            }
+
+            if (advertImages.length){
+                _advertImage = advertImages
+            }
             res.render("pages/advert_details", {
 
-                ad_details: advert,
-                ad_images: advertImages
+                ad_details: _advert,
+                ad_images: _advertImage
             })
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
