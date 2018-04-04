@@ -494,7 +494,7 @@ app.get('/advert_details/:id', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             return Parse.Promise.when(
-                new Parse.Query(AdvertClass).equalTo("objectId", id).find(),
+                new Parse.Query(AdvertClass).equalTo("objectId", id).first(),
                 new Parse.Query(AdvertImageClass).equalTo("advert_id", id).find()
             );
 
