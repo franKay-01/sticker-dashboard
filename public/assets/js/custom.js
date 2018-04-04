@@ -81,6 +81,17 @@ $(document).ready(function () {
             $('#pack_id').fadeOut('fast');
         });
 
+        $('.btnAddAdverts').on('click', function () {
+            $('#pageMask').fadeIn('fast');
+            $('#hiddenAddAdvertForm').fadeIn('fast');
+            $('#all_stories').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#searchCategory').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#opaqueDiv').fadeOut('fast');
+        });
+
         $('#addCategory').on('click', function () {
             $('#addCategoryForm').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
@@ -189,6 +200,17 @@ $(document).ready(function () {
             $('#opaqueDiv').fadeIn('fast');
             $('#pack_form')[0].reset();
         });
+
+        $('.btnCloseAd').on('click', function () {
+            $('#hiddenAddAdvertForm').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#all_stories').fadeIn('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        })
 
         //This is to reset a form and close it
         $('#btnCancel').on('click', function () {

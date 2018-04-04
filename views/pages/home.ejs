@@ -97,6 +97,33 @@
 
     </div>
 
+    <div id="hiddenAddAdvertForm" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW STORY</div>
+            </center>
+            <form id="pack_form" action="/new_advert" method="post">
+                <center>
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Advert Title"
+                           name="title" required="" aria-required="true"><br>
+                    < class="_pack common_pack_detail validate" placeholder="Description"
+                              name="summary" required="" aria-required="true"><br>
+                    <input class="_pack common_pack_detail validate" placeholder="Link to Advert"
+                              name="story" required="" aria-required="true"><br>
+                    <br>
+                </center>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" class="cancel btnCloseAd">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+
+    </div>
+
     <div id="hiddenCreateForm">
         <div class="medium-3 large-3 cell create_background">
             <center>
@@ -187,7 +214,7 @@
         </div>
 
         <div class="medium-3 large-3 cell icons">
-            <a href="#" id="btnAddAdverts">
+            <a href="#" class="btnAddAdverts">
                 <button class="create_button">
                     <center>
                         <i class="fa fa-bullhorn awesome_font_img" style="height: 120px; margin: -40px 10px auto;" aria-hidden="true"></i>
