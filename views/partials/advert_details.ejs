@@ -1,6 +1,5 @@
 <form id="detailsForm" action="/update_advert/<%= ad_details.id %>" method="post">
     <div class="grid-x grid-margin-x">
-        <div class="medium-8 large-8 cell">
             <label class="update_label">Advert Title:</label> <input placeholder="Title" class="box_2"
                                                                      name="title"
                                                                      value="<%= ad_details.get("title") %>">
@@ -41,5 +40,4 @@
                 <button class="update" type="submit">Update</button>
             </center>
         </div>
-    </div>
 </form>
