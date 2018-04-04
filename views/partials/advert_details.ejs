@@ -1,0 +1,35 @@
+<form id="detailsForm" action="/update_advert/<%= ad_details.id%>" method="post">
+    <div class="grid-x grid-margin-x">
+        <div class="medium-12 large-12 cell">
+            <label class="update_label">Advert Title:</label> <input placeholder="Title" class="box_2"
+                                                                     name="title"
+                                                                     value="<%= ad_details.get("title") %>">
+
+            <label class="update_label">AD Description:</label> <input placeholder="Local Name" class="box_2"
+                                                                   name="description"
+                                                                   value="<%= ad_details.get("description") %>">
+
+            <label class="update_label">Category:</label>
+            <input placeholder="https://google.com/ads"
+                   name="link"
+                   value="<%= ad_details.get("link") %>">
+        </div>
+        <div class="medium-12 large-12 cell">
+            <% if (ad_images.length === 0) { %>
+
+            <%} else {%>
+            <% ad_images.forEach(function(items) { %>
+            <img src="<%= items.get("uri").url()%>">
+            <%})%>
+            <%}%>
+        </div>
+        <div class="medium-12 large-12 cell">
+            <center>
+                <a href="/advert_details/<%= pack_id %>" class="cancel_btn">Cancel</a>
+                <!--<button type="button" class="cancel_btn delbtn" data-id="<%= sticker.id %>"-->
+                        <!--value="<%= sticker.get("name") %>">Delete</button>-->
+                <button class="update" type="submit">Update</button>
+            </center>
+        </div>
+    </div>
+</form>

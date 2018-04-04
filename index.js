@@ -484,6 +484,36 @@ app.get('/send_message', function (req, res) {
     }
 });
 
+app.get('/advert_details/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return Parse.Promise.when(
+                new Parse.Query(AdvertClass).equalTo("objectId", id).find(),
+                new Parse.Query(AdvertImageClass).equalTo("advert_id", id).find()
+            );
+
+        }).then(function (advert, advertImages) {
+
+            res.render("pages/advert_details", {
+
+                ad_details: advert,
+                ad_images: advertImages
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+        })
+
+    }
+});
+
 app.post('/new_advert', function (req, res) {
 
     let token = req.cookies.token;
