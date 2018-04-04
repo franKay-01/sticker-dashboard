@@ -433,12 +433,10 @@ label{
 .recent_packs {
     width: auto;
     height: 30px;
-
     font-size: 26px;
     font-weight: bold;
     letter-spacing: -1.5px;
     text-align: left;
-    margin-bottom: 20px;
     color: #3c3c3c;
 }
 
@@ -510,13 +508,11 @@ label{
 .recent_category {
     width: auto;
     height: 30px;
-
     font-size: 26px;
     font-weight: bold;
     letter-spacing: -1.5px;
     text-align: left;
     color: #3c3c3c;
-    margin-bottom: 20px;
 }
 
 .grid-container {
