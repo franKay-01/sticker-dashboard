@@ -507,9 +507,11 @@ app.get('/advert_details/:id', function (req, res) {
                 _advert = advert;
             }
 
+            console.log("ADS "+JSON.stringify(advertImages));
             if (advertImages.length){
                 _advertImage = advertImages
             }
+
             res.render("pages/advert_details", {
 
                 ad_details: _advert,
