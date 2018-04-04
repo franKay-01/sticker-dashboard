@@ -553,10 +553,8 @@ app.post('/new_advert', function (req, res) {
 
         }).then(function (advert) {
 
-            res.render("pages/add_advert_imaage", {
-                advert_id: advert.id,
-                advert_name: advert.get("title")
-            })
+            res.redirect('/advert_details/'+advert.id);
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
@@ -1938,8 +1936,6 @@ app.get('/pack/:id', function (req, res) {
 
         }).then(function (pack) {
 
-            console.log("PACK ID " + pack.id);
-            console.log("PACK NAME " + JSON.stringify(pack));
             pack_name = pack.get("pack_name");
             pack_status = pack.get("status");
             let col = pack.relation(PacksClass);
