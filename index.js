@@ -491,6 +491,7 @@ app.get('/advert_details/:id', function (req, res) {
 
     if (token) {
 
+        console.log("ID "+id);
         getUser(token).then(function (sessionToken) {
 
             // return Parse.Promise.when(
@@ -500,14 +501,14 @@ app.get('/advert_details/:id', function (req, res) {
 
         }).then(function (advert) {
 
-            let _advert = [];
-            let _advertImage = [];
+            // let _advert = [];
+            // let _advertImage = [];
+            //
+            // if (advert.length){
+            //     _advert = advert;
+            // }
 
-            if (advert.length){
-                _advert = advert;
-            }
-
-            console.log("ADS "+JSON.stringify(_advert));
+            console.log("ADS "+JSON.stringify(advert));
             // if (advertImages.length){
             //     _advertImage = advertImages
             // }
