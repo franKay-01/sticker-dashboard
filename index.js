@@ -484,15 +484,41 @@ app.get('/send_message', function (req, res) {
     }
 });
 
-app.get('/adverts', function (req, res) {
+app.post('/new_adverts', function (req, res) {
 
     let token = req.cookies.token;
+    let title = req.body.title;
+    let description = req.body.description;
+    let link = req.body.link;
 
     if (token) {
 
+        let _user = {};
+
         getUser(token).then(function (sessionToken) {
 
+            _user = sessionToken.get("user");
 
+            let Advert = new Parse.Object.extend(AdvertClass);
+            let advert = new Advert();
+
+            advert.set("title", title);
+            advert.set("description", description);
+            advert.set("link", link);
+            advert.set("user_id", _user.id);
+
+            return advert.save();
+
+        }).then(function (advert) {
+
+            res.render("pages/add_advert_imaage", {
+                advert_id: advert.id,
+                advert_name: advert.get("title")
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
         });
     }
 
@@ -1190,7 +1216,7 @@ app.get('/home', function (req, res) {
                 _allPacks = allPacks;
             }
 
-            if (allAdverts.length){
+            if (allAdverts.length) {
                 _allAdverts = allAdverts;
             }
 
