@@ -484,7 +484,7 @@ app.get('/send_message', function (req, res) {
     }
 });
 
-app.post('/new_adverts', function (req, res) {
+app.post('/new_advert', function (req, res) {
 
     let token = req.cookies.token;
     let title = req.body.title;
