@@ -515,7 +515,7 @@ app.get('/advert_details/:id', function (req, res) {
 
             res.render("pages/advert_details", {
 
-                ad_details: _advert,
+                ad_details: advert,
                 // ad_images: _advertImage
             })
 
