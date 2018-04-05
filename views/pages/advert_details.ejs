@@ -31,31 +31,14 @@
                 $(".adverts").trigger("click");
                 evt.preventDefault();
 
-                let selDiv = "";
+                var input = document.getElementById('adverts');
+                var output = document.getElementById('selectedFiles');
 
-                document.addEventListener("DOMContentLoaded", init, false);
-
-                function init() {
-                    document.querySelector('.adverts').addEventListener('change', handleFileSelect, false);
-                    selDiv = document.querySelector("#selectedFiles");
+                output.innerHTML = '<ul>';
+                for (var i = 0; i < input.files.length; ++i) {
+                    output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
                 }
-
-                function handleFileSelect(e) {
-
-                    if(!e.target.files) return;
-
-                    selDiv.innerHTML = "";
-
-                    var files = e.target.files;
-                    for(var i=0; i<files.length; i++) {
-                        var f = files[i];
-
-                        alert(f.name);
-                        selDiv.innerHTML += f.name + "<br/>";
-
-                    }
-
-                }
+                output.innerHTML += '</ul>';
 
             });
 

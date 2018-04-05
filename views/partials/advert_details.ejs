@@ -1,7 +1,7 @@
 <form id="review_form" action="/update_advert/<%= ad_details.id %>" method="post">
     <div style="float: right; font-size: 20px !important;" class="medium-12 large-12">
         <button type="submit" class="advert_image addImage"><i class="fa fa-camera-retro"></i> Add Image</button>
-        <input type="file" name="adverts" class="adverts" style="display: none" multiple/>
+        <input type="file" name="adverts" class="adverts" id="adverts" style="display: none" multiple/>
     </div>
     <div class="grid-x grid-margin-x" style="margin: 50px 40px auto">
         <label class="update_label">Advert Title:</label> <input placeholder="Title" class="box_2"
