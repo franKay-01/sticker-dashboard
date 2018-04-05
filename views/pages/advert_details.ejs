@@ -32,42 +32,20 @@
                 evt.preventDefault();
             });
 
-            // $("#adverts").change(function(){
-            //
-            //     var input = document.getElementById('adverts');
-            //     var output = document.getElementById('selectedFiles');
-            //
-            //     $('.heading').show();
-            //
-            //     alert("File "+JSON.stringify(input.files.item(0)));
-            //     output.innerHTML = '<ul>';
-            //     for (var i = 0; i < input.files.length; ++i) {
-            //         output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
-            //     }
-            //     output.innerHTML += '</ul>';
-            // });
+            $("#adverts").change(function(){
 
-            $("#adverts").change(function() {
-                readURL(this);
-            });
+                var input = document.getElementById('adverts');
+                var output = document.getElementById('selectedFiles');
 
-            function readURL(input) {
+                $('.heading').show();
 
-                $('#blah').show();
-
+                alert("File "+JSON.stringify(input.files.item(0)));
+                output.innerHTML = '<ul>';
                 for (var i = 0; i < input.files.length; ++i) {
-
-                        var reader = new FileReader();
-
-                        reader.onload = function (e) {
-                            $('#blah').attr('src', e.target.result);
-                        }
-
-                        reader.readAsDataURL(input.files[i]);
-
+                    output.innerHTML += '<li>' + "FILE NAME" + input.files.item(i).name + '</li>';
                 }
-            }
-
+                output.innerHTML += '</ul>';
+            });
 
         });
     </script>
