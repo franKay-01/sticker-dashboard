@@ -39,7 +39,6 @@
 
                 $('.heading').show();
 
-                alert("File "+JSON.stringify(input.files.item(0)));
                 output.innerHTML = '<ul>';
                 for (var i = 0; i < input.files.length; ++i) {
                     output.innerHTML += '<li>' + "FILE NAME: " +'<b style="color: #a46580">' + input.files.item(i).name +'<b>'+ '</li>';
