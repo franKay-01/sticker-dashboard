@@ -24,6 +24,10 @@
     <script>
         $(document).ready(function() {
             $('select').material_select();
+
+            $(".addImage").on("click", function() {
+                $(".adverts").trigger("click");
+            });
         });
     </script>
 </head>
