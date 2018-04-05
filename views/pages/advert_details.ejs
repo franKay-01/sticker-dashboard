@@ -29,16 +29,19 @@
 
             $(".addImage").on("click", function(evt) {
                 $(".adverts").trigger("click");
-                evt.preventDefault();
-
+                alert("HEre");
                 var input = document.getElementById('adverts');
                 var output = document.getElementById('selectedFiles');
 
                 output.innerHTML = '<ul>';
                 for (var i = 0; i < input.files.length; ++i) {
+                    alert(input.files.item(i).name);
                     output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
                 }
                 output.innerHTML += '</ul>';
+
+                evt.preventDefault();
+
 
             });
 
