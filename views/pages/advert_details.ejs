@@ -30,35 +30,35 @@
             $(".addImage").on("click", function(evt) {
                 $(".adverts").trigger("click");
                 evt.preventDefault();
-                $(".adverts").show();
 
+                let selDiv = "";
 
-            });
+                document.addEventListener("DOMContentLoaded", init, false);
 
-            let selDiv = "";
+                function init() {
+                    document.querySelector('.adverts').addEventListener('change', handleFileSelect, false);
+                    selDiv = document.querySelector("#selectedFiles");
+                }
 
-            document.addEventListener("DOMContentLoaded", init, false);
+                function handleFileSelect(e) {
 
-            function init() {
-                document.querySelector('.adverts').addEventListener('change', handleFileSelect, false);
-                selDiv = document.querySelector("#selectedFiles");
-            }
+                    if(!e.target.files) return;
 
-            function handleFileSelect(e) {
+                    selDiv.innerHTML = "";
 
-                if(!e.target.files) return;
+                    var files = e.target.files;
+                    for(var i=0; i<files.length; i++) {
+                        var f = files[i];
 
-                selDiv.innerHTML = "";
+                        selDiv.innerHTML += f.name + "<br/>";
 
-                var files = e.target.files;
-                for(var i=0; i<files.length; i++) {
-                    var f = files[i];
-
-                    selDiv.innerHTML += f.name + "<br/>";
+                    }
 
                 }
 
-            }
+            });
+
+
         });
     </script>
 </head>
