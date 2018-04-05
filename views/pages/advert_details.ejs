@@ -39,10 +39,8 @@
 
                 $('.heading').show();
 
-                alert(input.files.length+" zz");
                 output.innerHTML = '<ul>';
                 for (var i = 0; i < input.files.length; ++i) {
-                    alert(input.files.item(i).name);
                     output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
                 }
                 output.innerHTML += '</ul>';
