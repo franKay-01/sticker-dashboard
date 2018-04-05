@@ -30,12 +30,9 @@
             $(".addImage").on("click", function(evt) {
                 $(".adverts").trigger("click");
                 evt.preventDefault();
-
-                display();
             });
 
-            function display() {
-                alert("HEre");
+            $("#adverts").change(function(){
 
                 var input = document.getElementById('adverts');
                 var output = document.getElementById('selectedFiles');
@@ -47,7 +44,8 @@
                     output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
                 }
                 output.innerHTML += '</ul>';
-            }
+            });
+
 
         });
     </script>
