@@ -1528,6 +1528,13 @@ fieldset {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
 }
 
+#advert_form {
+    width: 67%;
+    background: none;
+    margin: 0px auto;
+    padding: 15px;
+}
+
 .drop {
     width: 50%;
     border-radius: 15px;

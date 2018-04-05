@@ -1,45 +1,48 @@
 <form id="review_form" action="/update_advert/<%= ad_details.id %>" method="post">
+    <div style="float: right">
+        <button type="submit" class="create addImage"><i class="fa fa-camera-retro fa-2x"></i> Add Image</button>
+        <input type="file" name="adverts" class="adverts" style="display: none" multiple/>
+    </div>
     <div class="grid-x grid-margin-x" style="margin: 30px 20px auto">
         <label class="update_label">Advert Title:</label> <input placeholder="Title" class="box_2"
-                                                                     name="title"
-                                                                     value="<%= ad_details.get("title") %>">
+                                                                 name="title"
+                                                                 value="<%= ad_details.get("title") %>">
 
-            <label class="update_label">AD Description:</label> <input placeholder="Local Name" class="box_2"
-                                                                       name="description"
-                                                                       value="<%= ad_details.get("description") %>">
+        <label class="update_label">AD Description:</label> <input placeholder="Local Name" class="box_2"
+                                                                   name="description"
+                                                                   value="<%= ad_details.get("description") %>">
 
-            <label class="update_label">Category:</label>
-            <input placeholder="https://google.com/ads"
-                   name="link" class="box_2"
-                   value="<%= ad_details.get("link") %>">
-            <div>
-                <% if (ad_images.length === 0) { %>
+        <label class="update_label">Category:</label>
+        <input placeholder="https://google.com/ads"
+               name="link" class="box_2"
+               value="<%= ad_details.get("link") %>">
+        <div>
+            <% if (ad_images.length === 0) { %>
 
-                <% } else { %>
-                <% ad_images.forEach(function(item, index) { %>
+            <% } else { %>
+            <% ad_images.forEach(function(item, index) { %>
 
-                <div class="medium-3 large-3 cell icons">
+            <div class="medium-3 large-3 cell icons">
 
-                    <img class="btn_pack_icon" src="<%= item.get("uri").url %>">
-
-                </div>
-
-                <% }); %>
-                <% } %>
+                <img class="btn_pack_icon" src="<%= item.get("uri").url %>">
 
             </div>
+
+            <% }); %>
+            <% } %>
+
         </div>
+    </div>
 
 
-        <div class="medium-12 large-12 cell">
-            <center>
-                <a href="/advert_details/<%= ad_details.id %>" class="cancel_btn">Cancel</a>
-                <button type="button" class="cancel_btn delbtn" data-id="<%= ad_details.id %>"
-                        value="<%= ad_details.id %>">Delete
-                </button>
-                <button class="update" type="submit">Update</button>
-            </center>
-        </div>
+    <div class="medium-12 large-12 cell">
+        <center>
+            <a href="/advert_details/<%= ad_details.id %>" class="cancel_btn">Cancel</a>
+            <button type="button" class="cancel_btn delbtn" data-id="<%= ad_details.id %>"
+                    value="<%= ad_details.id %>">Delete
+            </button>
+            <button class="update" type="submit">Update</button>
+        </center>
+    </div>
 </form>
-<button type="submit" class="create addImage"><i class="fa fa-camera-retro fa-4x"></i> Add Image</button>
-<input type="file" name="adverts" class="adverts" style="display: none" multiple/>
+
