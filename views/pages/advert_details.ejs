@@ -33,6 +33,7 @@
                 var input = document.getElementById('adverts');
                 var output = document.getElementById('selectedFiles');
 
+                alert(input.files.length+" zz");
                 output.innerHTML = '<ul>';
                 for (var i = 0; i < input.files.length; ++i) {
                     alert(input.files.item(i).name);
