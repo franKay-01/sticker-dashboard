@@ -20,17 +20,14 @@
                name="link" class="box_2"
                value="<%= ad_details.get("link") %>">
         <input type="text" name="is_link_change" id="is_link_change" hidden>
-        <div>
+        <div class="medium-12 large-12">
             <% if (ad_images.length === 0) { %>
 
             <% } else { %>
             <% ad_images.forEach(function(item, index) { %>
 
-            <div class="medium-3 large-3 cell icons">
 
                 <img class="btn_pack_icon" src="<%= item.get("uri").url() %>">
-
-            </div>
 
             <% }); %>
             <% } %>
