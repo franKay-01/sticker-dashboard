@@ -530,8 +530,8 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
     let is_description_change = req.body.is_description_change;
     let is_link_change = req.body.is_link_change;
     let _links = [];
-    var fileDetails = [];
-    var stickerDetails = [];
+    let fileDetails = [];
+    let stickerDetails = [];
 
     if (link !== undefined || link !== "undefined") {
         _links = Array.from(link);
@@ -564,9 +564,6 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
 
         }).then(function () {
 
-            let Advert_Image = new Parse.Object.extend(AdvertImageClass);
-            let advert_image = new Advert_Image();
-
             files.forEach(function (file) {
 
                 let fullName = file.originalname;
@@ -578,6 +575,8 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
                 let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
                 console.log("PARSEFILE " + JSON.stringify(parseFile));
 
+                let Advert_Image = new Parse.Object.extend(AdvertImageClass);
+                let advert_image = new Advert_Image();
 
                 advert_image.set("name", image_name);
                 advert_image.set("advert_id", id);
@@ -592,7 +591,9 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
 
         }).then(function (sticker) {
 
-            console.log("DELETING image" + JSON.stringify(stickerDetails));
+            console.log("STICKERS " + JSON.stringify(stickerDetails));
+            console.log("STICKER 2 " + JSON.stringify(sticker));
+
             _.each(fileDetails, function (file) {
                 //Delete tmp fil after upload
                 var tempFile = file.path;
