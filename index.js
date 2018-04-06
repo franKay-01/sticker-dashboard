@@ -593,6 +593,7 @@ app.post('/update_advert/:id', upload.array('adverts'), function (req, res) {
 
         }).then(function (sticker) {
 
+            console.log("DELETING image" + JSON.stringify(sticker));
             _.each(fileDetails, function (file) {
                 //Delete tmp fil after upload
                 var tempFile = file.path;
