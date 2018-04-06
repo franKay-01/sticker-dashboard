@@ -4,20 +4,20 @@
         <input type="file" name="adverts[]" class="adverts" id="adverts" style="display: none" multiple/>
     </div>
     <div class="grid-x grid-margin-x" style="margin: 50px 40px auto">
-        <label class="update_label">Advert Title:</label> <input placeholder="Title" class="box_2"
+        <label class="update_label">Advert Title:</label> <input placeholder="Title" class="box_2 advert_title"
                                                                  name="title"
-                                                                 value="<%= ad_details.get("title") %>" class="advert_title">
+                                                                 value="<%= ad_details.get("title") %>">
 
         <input type="text" name="is_title_change" id="is_title_change" value="false" hidden>
 
-        <label class="update_label">AD Description:</label> <input placeholder="Local Name" class="box_2"
+        <label class="update_label">AD Description:</label> <input placeholder="Local Name" class="box_2 advert_description"
                                                                    name="description"
                                                                    value="<%= ad_details.get("description") %>">
         <input type="text" name="is_description_change" id="is_description_change" value="false" hidden>
 
         <label class="update_label">Category:</label>
         <input placeholder="https://google.com/ads"
-               name="link" class="box_2"
+               name="link" class="box_2 advert_link"
                value="<%= ad_details.get("link") %>">
         <input type="text" name="is_link_change" id="is_link_change" value="false" hidden>
 
