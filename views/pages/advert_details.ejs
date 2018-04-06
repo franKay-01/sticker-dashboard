@@ -31,9 +31,11 @@
                 $(".adverts").trigger("click");
             });
 
-            $(".advert_title").change(function () {
-                document.getElementById("is_title_change").value = "true";
-            });
+            function changeTitle(element) {
+                if (element.value === "false"){
+                    document.getElementById("is_title_change").value = "true";
+                }
+            }
 
             $(".advert_description").change(function () {
                 document.getElementById("is_description_change").value = "true";
