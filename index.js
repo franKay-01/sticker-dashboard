@@ -567,28 +567,27 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
             let Advert_Image = new Parse.Object.extend(AdvertImageClass);
             let advert_image = new Advert_Image();
 
-            if (files) {
-                files.forEach(function (file) {
+            files.forEach(function (file) {
 
-                    let fullName = file.originalname;
-                    let image_name = fullName.substring(0, fullName.length - 4);
+                let fullName = file.originalname;
+                let image_name = fullName.substring(0, fullName.length - 4);
 
-                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+                let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
-                    //create our parse file
-                    let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
-                    console.log("PARSEFILE " + JSON.stringify(parseFile));
+                //create our parse file
+                let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
+                console.log("PARSEFILE " + JSON.stringify(parseFile));
 
 
-                    advert_image.set("name", image_name);
-                    advert_image.set("advert_id", id);
-                    advert_image.set("uri", parseFile);
+                advert_image.set("name", image_name);
+                advert_image.set("advert_id", id);
+                advert_image.set("uri", parseFile);
 
-                    stickerDetails.push(advert_image);
-                    fileDetails.push(file);
+                stickerDetails.push(advert_image);
+                fileDetails.push(file);
 
-                });
-            }
+            });
+
             return Parse.Object.saveAll(stickerDetails);
 
         }).then(function (sticker) {
@@ -613,7 +612,7 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/advert_details/'+ id);
+            res.redirect('/advert_details/' + id);
 
         }, function (error) {
 
