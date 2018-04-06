@@ -576,7 +576,7 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
                     //create our parse file
-                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                    let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
                     console.log("PARSEFILE " + JSON.stringify(parseFile));
 
 
@@ -608,6 +608,8 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
                     }
                 });
             });
+
+            return true;
 
         }).then(function () {
 
