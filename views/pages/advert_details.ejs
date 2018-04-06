@@ -32,6 +32,18 @@
                 evt.preventDefault();
             });
 
+            $(".advert_image").change(function () {
+                document.getElementById("is_title_change").value = "true";
+            });
+
+            $(".advert_description").change(function () {
+                document.getElementById("is_description_change").value = "true";
+            });
+
+            $(".advert_link").change(function () {
+                document.getElementById("is_link_change").value = "true";
+            });
+
             $("#adverts").change(function(){
 
                 var input = document.getElementById('adverts');

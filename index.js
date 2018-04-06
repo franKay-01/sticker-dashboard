@@ -491,17 +491,17 @@ app.get('/advert_details/:id', function (req, res) {
 
     if (token) {
 
-        console.log("ID "+id);
+        console.log("ID " + id);
         getUser(token).then(function (sessionToken) {
 
-             return Parse.Promise.when(
+            return Parse.Promise.when(
                 new Parse.Query(AdvertClass).equalTo("objectId", id).first(),
                 new Parse.Query(AdvertImageClass).equalTo("advert_id", id).find()
             );
 
         }).then(function (advert, advertImages) {
 
-            console.log("ADS "+JSON.stringify(advert));
+            console.log("ADS " + JSON.stringify(advert));
 
             res.render("pages/advert_details", {
 
@@ -518,12 +518,121 @@ app.get('/advert_details/:id', function (req, res) {
     }
 });
 
+app.post('/update_advert/:id', upload.array('adverts'), function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let files = req.files;
+    let title = req.body.title;
+    let description = req.body.description;
+    let link = req.body.link;
+    let is_title_change = req.body.is_title_change;
+    let is_description_change = req.body.is_description_change;
+    let is_link_change = req.body.is_link_change;
+    let _links = [];
+    var fileDetails = [];
+    var stickerDetails = [];
+
+    if (link !== undefined || link !== "undefined") {
+        _links = Array.from(link);
+    }
+
+    let TRUE = "true";
+
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(AdvertClass).equalTo("objectId", id).first();
+
+        }).then(function (advert) {
+
+            if (is_title_change === TRUE) {
+                advert.set("title", title);
+            }
+
+            if (is_description_change === TRUE) {
+                advert.set("description", description);
+            }
+
+            if (is_link_change === TRUE) {
+                advert.set("link", _links);
+            }
+
+            return advert.save();
+
+        }).then(function () {
+
+            let Advert_Image = new Parse.Object.extend(AdvertImageClass);
+            let advert_image = new Advert_Image();
+
+            if (files) {
+                files.forEach(function (file) {
+
+                    let fullName = file.originalname;
+                    let image_name = fullName.substring(0, fullName.length - 4);
+
+                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                    //create our parse file
+                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                    console.log("PARSEFILE " + JSON.stringify(parseFile));
+
+
+                    advert_image.set("name", image_name);
+                    advert_image.set("advert_id", id);
+                    advert_image.set("uri", parseFile);
+
+                    stickerDetails.push(advert_image);
+                    fileDetails.push(file);
+
+                });
+            }
+            return Parse.Object.saveAll(stickerDetails);
+
+        }).then(function (sticker) {
+
+            _.each(fileDetails, function (file) {
+                //Delete tmp fil after upload
+                var tempFile = file.path;
+                fs.unlink(tempFile, function (error) {
+                    if (error) {
+                        //TODO handle error code
+                        console.log("-------Could not del temp" + JSON.stringify(error));
+                    }
+                    else {
+                        console.log("-------Deleted All Files");
+
+                    }
+                });
+            });
+
+        }).then(function () {
+
+            res.redirect('/advert_details/'+ id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+
+        })
+    }
+
+});
+
 app.post('/new_advert', function (req, res) {
 
     let token = req.cookies.token;
     let title = req.body.title;
     let description = req.body.description;
     let link = req.body.link;
+    let _links = [];
+
+    if (link !== undefined || link !== "undefined") {
+        _links = Array.from(link);
+
+    }
 
     if (token) {
 
@@ -538,14 +647,14 @@ app.post('/new_advert', function (req, res) {
 
             advert.set("title", title);
             advert.set("description", description);
-            advert.set("link", link);
             advert.set("user_id", _user.id);
+            advert.set("link", _links);
 
             return advert.save();
 
         }).then(function (advert) {
 
-            res.redirect('/advert_details/'+advert.id);
+            res.redirect('/advert_details/' + advert.id);
 
         }, function (error) {
 
