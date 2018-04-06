@@ -8,18 +8,18 @@
                                                                  name="title"
                                                                  value="<%= ad_details.get("title") %>" class="advert_title">
 
-        <input type="text" name="is_title_change" id="is_title_change" hidden>
+        <input type="text" name="is_title_change" id="is_title_change" value="false" hidden>
 
         <label class="update_label">AD Description:</label> <input placeholder="Local Name" class="box_2"
                                                                    name="description"
                                                                    value="<%= ad_details.get("description") %>">
-        <input type="text" name="is_description_change" id="is_description_change" hidden>
+        <input type="text" name="is_description_change" id="is_description_change" value="false" hidden>
 
         <label class="update_label">Category:</label>
         <input placeholder="https://google.com/ads"
                name="link" class="box_2"
                value="<%= ad_details.get("link") %>">
-        <input type="text" name="is_link_change" id="is_link_change" hidden>
+        <input type="text" name="is_link_change" id="is_link_change" value="false" hidden>
 
         <label class="update_label">Attached Ad Images:</label>
         <div class="medium-12 large-12">
