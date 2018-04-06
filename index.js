@@ -518,7 +518,7 @@ app.get('/advert_details/:id', function (req, res) {
     }
 });
 
-app.post('/update_advert/:id', upload.array('adverts'), function (req, res) {
+app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
