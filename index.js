@@ -537,6 +537,8 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
         _links = Array.from(link);
     }
 
+    console.log("TRUE " + is_title_change+ " "+ is_link_change + " "+is_description_change);
+
     let TRUE = "true";
 
 
