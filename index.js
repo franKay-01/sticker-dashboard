@@ -1299,10 +1299,9 @@ app.get('/admin_home', function (req, res) {
                 new Parse.Query(StickerClass).count()
             );
 
-        }).then(function (collection, story, categories, categoryLength, packLength, stickerLength) {
+        }).then(function (collection, categories, categoryLength, packLength, stickerLength) {
             let _collection = [];
             let _categories = [];
-            let _story = [];
 
             if (collection.length) {
                 _collection = collection;
@@ -1319,7 +1318,6 @@ app.get('/admin_home', function (req, res) {
             res.render("pages/admin_home", {
                 collections: _collection,
                 categories: _categories,
-                story: _story,
                 categoryLength: helper.leadingZero(categoryLength),
                 packLength: helper.leadingZero(packLength),
                 stickerLength: helper.leadingZero(stickerLength),
@@ -1329,11 +1327,11 @@ app.get('/admin_home', function (req, res) {
 
         }, function (error) {
             console.log("ERRR OCCURRED. ERROR MESSAGE: " + error.message);
-            res.redirect('/');
+            res.redirect('/home');
         })
 
     } else {
-        res.redirect("/");
+        res.redirect("/home");
     }
 });
 
