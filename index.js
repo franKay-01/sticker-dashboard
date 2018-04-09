@@ -550,7 +550,7 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
     let stickerDetails = [];
 
     if (link !== undefined || link !== "undefined") {
-        _links = Array.from(link);
+        _links = link.split(",");
     }
 
     if (token) {
@@ -635,8 +635,7 @@ app.post('/new_advert', function (req, res) {
     let _links = [];
 
     if (link !== undefined || link !== "undefined") {
-        _links = Array.from(link);
-
+        _links = link.split(",");
     }
 
     if (token) {
