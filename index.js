@@ -294,9 +294,6 @@ app.post('/signup', function (req, res) {
     user.set("email", username);
     user.set("type", NORMAL_USER);
     user.set("image_set", false);
-    user.set("facebook_handle", "");
-    user.set("twitter_handle", "");
-    user.set("instagram_handle", "");
 
     user.signUp(null, {
         success: function (user) {
@@ -484,6 +481,30 @@ app.get('/send_message', function (req, res) {
     }
 });
 
+app.get('/advert_collection', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+           return new Parse.Query(AdvertClass).find();
+
+        }).then(function (adverts) {
+
+            res.render("pages/advert_collection", {
+                adverts: adverts
+            });
+
+        },function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+        })
+    }
+})
+
 app.get('/advert_details/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -491,7 +512,6 @@ app.get('/advert_details/:id', function (req, res) {
 
     if (token) {
 
-        console.log("ID " + id);
         getUser(token).then(function (sessionToken) {
 
             return Parse.Promise.when(
@@ -537,7 +557,7 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
         _links = Array.from(link);
     }
 
-    console.log("TRUE " + is_title_change+ " "+ is_link_change + " "+is_description_change);
+    console.log("TRUE " + is_title_change + " " + is_link_change + " " + is_description_change);
 
     let TRUE = "true";
 
