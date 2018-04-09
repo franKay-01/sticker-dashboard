@@ -489,7 +489,7 @@ app.get('/advert_collection', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-           return new Parse.Query(AdvertClass).find();
+            return new Parse.Query(AdvertClass).find();
 
         }).then(function (adverts) {
 
@@ -497,7 +497,7 @@ app.get('/advert_collection', function (req, res) {
                 adverts: adverts
             });
 
-        },function (error) {
+        }, function (error) {
 
             console.log("ERROR " + error.message);
             res.redirect('/home');
@@ -546,21 +546,12 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
     let title = req.body.title;
     let description = req.body.description;
     let link = req.body.link;
-    let is_title_change = req.body.is_title_change;
-    let is_description_change = req.body.is_description_change;
-    let is_link_change = req.body.is_link_change;
-    let _links = [];
     let fileDetails = [];
     let stickerDetails = [];
 
     if (link !== undefined || link !== "undefined") {
         _links = Array.from(link);
     }
-
-    console.log("TRUE " + is_title_change + " " + is_link_change + " " + is_description_change);
-
-    let TRUE = "true";
-
 
     if (token) {
 
@@ -570,17 +561,9 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
 
         }).then(function (advert) {
 
-            if (is_title_change === TRUE) {
-                advert.set("title", title);
-            }
-
-            if (is_description_change === TRUE) {
-                advert.set("description", description);
-            }
-
-            if (is_link_change === TRUE) {
-                advert.set("link", _links);
-            }
+            advert.set("title", title);
+            advert.set("description", description);
+            advert.set("link", _links);
 
             return advert.save();
 
@@ -612,9 +595,6 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
             return Parse.Object.saveAll(stickerDetails);
 
         }).then(function (sticker) {
-
-            console.log("STICKERS " + JSON.stringify(stickerDetails));
-            console.log("STICKER 2 " + JSON.stringify(sticker));
 
             _.each(fileDetails, function (file) {
                 //Delete tmp fil after upload
