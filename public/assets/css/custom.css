@@ -44,7 +44,7 @@ textarea {
     height: 5rem;
 }
 
-label{
+label {
     color: #ffffff !important;
 }
 
@@ -62,7 +62,7 @@ label{
     color: #f8c91c;
 }
 
-.select-dropdown{
+.select-dropdown {
     border: double !important;
 }
 
@@ -170,7 +170,7 @@ label{
     color: black;
 }
 
-.send_to_review{
+.send_to_review {
     color: #641f8c;
     border: solid;
     background: white;
@@ -284,7 +284,7 @@ label{
     margin-right: 30px
 }
 
-.review_tab{
+.review_tab {
     margin: 20px 60px !important;
     width: 200px;
     height: 200px
@@ -334,7 +334,7 @@ label{
     color: #ffffff;
 }
 
-.advert_image{
+.advert_image {
     height: 43px;
     font-weight: bold;
     letter-spacing: -2.1px;
@@ -401,7 +401,7 @@ label{
     margin-right: 20px;
 }
 
-#hiddenAddStoryForm{
+#hiddenAddStoryForm {
     display: none;
     position: absolute;
     margin: 0px 300px auto;
@@ -409,7 +409,7 @@ label{
     top: 155px;
 }
 
-#hiddenAddAdvertForm{
+#hiddenAddAdvertForm {
     display: none;
     position: absolute;
     margin: 0px 300px auto;
@@ -427,7 +427,7 @@ label{
     color: #a46580;
 }
 
-.truncate_title{
+.truncate_title {
     white-space: nowrap;
     width: 190px;
     overflow: hidden;
@@ -666,7 +666,7 @@ label{
     color: #ffffff;
 }
 
-.sign_up_label{
+.sign_up_label {
     height: 52px;
     font-size: 42px;
     font-weight: bold;
@@ -677,7 +677,7 @@ label{
     color: #919191;
 }
 
-.policy_label{
+.policy_label {
     height: 24px;
     font-size: 15px;
     font-weight: bold;
@@ -1218,7 +1218,7 @@ a {
     object-fit: contain;
 }
 
-._pack_icon{
+._pack_icon {
     width: 150px;
     height: 150px;
     object-fit: contain;
@@ -1226,7 +1226,7 @@ a {
     margin: 60px 80px auto;
 }
 
-.btn_admin_pack_icon{
+.btn_admin_pack_icon {
     width: 300px;
     height: 300px;
     object-fit: contain;
@@ -1484,19 +1484,19 @@ fieldset {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1), 0 7px 23px 0 rgba(0, 0, 0, 1);
 }
 
-.add-image-btn{
+.add-image-btn {
     font-size: 20px;
     font-weight: 700;
 }
 
-.awesome_font{
+.awesome_font {
     color: black;
     font-size: 5rem;
     margin-top: 50px;
     margin-left: 50px
 }
 
-.hidden_forms{
+.hidden_forms {
     display: none;
     position: absolute;
     margin: 0px 300px auto;
@@ -1504,19 +1504,20 @@ fieldset {
     top: 155px;
 }
 
-.awesome_font_img{
+.awesome_font_img {
     color: black;
-    font-size: 8rem;
+    font-size: 8rem !important;
     margin-top: 50px;
     margin-left: 95px;
 }
 
-.medium-editor-toolbar-actions{
+.medium-editor-toolbar-actions {
     display: block !important;
     background: black !important;
     color: white !important;
 }
-.story_form{
+
+.story_form {
     width: 67%;
     background: white;
     border-radius: 15px;
