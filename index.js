@@ -1621,10 +1621,11 @@ app.get('/categories', function (req, res) {
 app.post('/new_category', function (req, res) {
 
     var token = req.cookies.token;
-    var categoryName = toString(req.body.category_name);
+    var categoryName = JSON.stringify(req.body.category_name);
     let _categories = [];
     let categoryDetails = [];
 
+    console.log("STRINGS " + categoryName);
     if (categoryName !== undefined || categoryName !== "undefined") {
         _categories = Array.from(categoryName);
     }
