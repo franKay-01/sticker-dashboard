@@ -19,25 +19,22 @@
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-
-    <style>
-        ::-webkit-input-placeholder{
-            color: white;
-        }
-    </style>
     <script>
 
         $(document).ready(function () {
             $('select').material_select();
 
-            $('.chips-placeholder').material_chip({
-                placeholder: 'Enter a tag',
-                secondaryPlaceholder: '+Tag',
+            $('.chips').material_chip();
+
+            $('#categoryBtn').on('click', function () {
+
+                let chipsObjectValue = $('.chips').material_chip('data');
+
+                document.getElementById("category_names").value = chipsObjectValue;
             });
 
-            $('.chips').material_chip();
         });
-        
+
     </script>
 </head>
 
@@ -72,16 +69,17 @@
 
             <form id="pack_form" action="/new_category" method="post">
                 <center>
-                    <!--<div class="chips _pack common_pack_detail"></div>-->
+                    <div class="chips _pack common_pack_detail"></div>
 
-                    <div class="chips _pack common_pack_detail chips-placeholder"></div>
+                    <!--<div class="chips _pack common_pack_detail chips-placeholder"></div>-->
 
-                    <input type="text" class="_pack common_pack_detail validate" placeholder="Category Name"
-                           name="category_name" required="" aria-required="true"/>
+                    <!--<input type="text" class="_pack common_pack_detail validate" placeholder="Category Name"-->
+                           <!--name="category_name" required="" aria-required="true"/>-->
+                    <input type="text" name="category_names" id="category_names" hidden>
                     <br>
                 </center>
                 <span>
-        <button type="submit" class="create">CREATE</button>
+        <button type="submit" id="categoryBtn" class="create">CREATE</button>
         </span>
                 <span>
         <button type="button" id="btn_cancelAddCat" class="cancel">Cancel</button>
