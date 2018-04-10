@@ -1622,25 +1622,29 @@ app.post('/new_category', function (req, res) {
 
     var token = req.cookies.token;
     var categoryName = req.body.category_name;
-    var category_name = categoryName.toLowerCase();
-    if (token) {
 
-        var Category = new Parse.Object.extend(CategoryClass);
-        var categoryObject = new Category();
+    console.log(JSON.stringify("CATEGORY NAME " + categoryName));
 
-        categoryObject.set("name", category_name);
-        categoryObject.save().then(function () {
+    // var category_name = categoryName.toLowerCase();
 
-                res.redirect("/categories");
-            },
-            function (error) {
-                console.log("Not created" + error);
-                res.redirect("/");
-            });
-    }
-    else {
-        res.redirect("/");
-    }
+    // if (token) {
+    //
+    //     var Category = new Parse.Object.extend(CategoryClass);
+    //     var categoryObject = new Category();
+    //
+    //     categoryObject.set("name", category_name);
+    //     categoryObject.save().then(function () {
+    //
+    //             res.redirect("/categories");
+    //         },
+    //         function (error) {
+    //             console.log("Not created" + error);
+    //             res.redirect("/");
+    //         });
+    // }
+    // else {
+    //     res.redirect("/");
+    // }
 });
 
 app.post('/review_pack/:id', function (req, res) {
