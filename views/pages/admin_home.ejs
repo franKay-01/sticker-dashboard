@@ -16,44 +16,12 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-    <script type="text/javascript"
-            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
     <script>
         $(document).ready(function () {
             $('select').material_select();
-
-            var elem = document.querySelector('.chips');
-            var instance = M.Chips.init(elem, options);
-
-            // Or with jQuery
-
-            $('.chips').chips();
-            $('.chips-initial').chips({
-                data: [{
-                    tag: 'Apple',
-                }, {
-                    tag: 'Microsoft',
-                }, {
-                    tag: 'Google',
-                }],
-            });
-            $('.chips-placeholder').chips({
-                placeholder: 'Enter a tag',
-                secondaryPlaceholder: '+Tag',
-            });
-            $('.chips-autocomplete').chips({
-                autocompleteOptions: {
-                    data: {
-                        'Apple': null,
-                        'Microsoft': null,
-                        'Google': null
-                    },
-                    limit: Infinity,
-                    minLength: 1
-                }
-            });
         });
     </script>
 </head>
@@ -89,7 +57,7 @@
                     <div class="edit_labels medium-12 large-12">CREATE NEW CATEGORY</div>
                     <input type="text" class="_pack common_pack_detail validate" placeholder="Category Name"
                            name="category_name" required="" aria-required="true"/>
-                    <div class="chips chips-placeholder input-field">
+                    <div class="chips input-field">
                         <input class="input" placeholder="+Tags">
                     </div>
                     <br>
