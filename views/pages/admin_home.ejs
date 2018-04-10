@@ -30,7 +30,7 @@
 
                 let chipsObjectValue = $('.chips').material_chip('data');
 
-                document.getElementById("category_names").value = chipsObjectValue;
+                document.getElementById("category_names").value = chipsObjectValue.tag;
 
                 alert(JSON.stringify(document.getElementById("category_names").value));
 
