@@ -1629,7 +1629,7 @@ app.post('/new_category', function (req, res) {
         _categories = Array(categoryName);
     }
 
-    console.log("CATEGORY " + _categories);
+    console.log("CATEGORY " + JSON.stringify(_categories));
     _categories.forEach(function (category) {
 
         console.log("CATEGORY " + category)
