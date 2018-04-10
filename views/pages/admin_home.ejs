@@ -28,12 +28,15 @@
 
             $('#categoryBtn').on('click', function (event) {
 
+                let categories = [];
+
                 let chipsObjectValue = $('.chips').material_chip('data');
 
-                document.getElementById("category_names").value = chipsObjectValue.tag;
+                $.each(chipsObjectValue, function(key, value) {
+                    categories.push(value.tag);
+                })
 
-                alert(JSON.stringify(document.getElementById("category_names").value));
-
+                alert(categories.length);
                 event.preventDefault();
             });
 
@@ -79,7 +82,7 @@
 
                     <!--<input type="text" class="_pack common_pack_detail validate" placeholder="Category Name"-->
                            <!--name="category_name" required="" aria-required="true"/>-->
-                    <input type="text" name="category_names" id="category_names" hidden>
+                    <input type="text" name="category_names[]" id="category_names" hidden>
                     <br>
                 </center>
                 <span>
