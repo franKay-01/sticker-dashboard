@@ -10,20 +10,40 @@
     <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
 
     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-    <script type = "text/javascript"
-            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
-
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script>
-        $(document).ready(function() {
+
+        $(document).ready(function () {
             $('select').material_select();
+
+            $('.chips').material_chip();
+
+            $('#categoryBtn').on('click', function (event) {
+
+                let categories = [];
+
+                let chipsObjectValue = $('.chips').material_chip('data');
+
+                $.each(chipsObjectValue, function(key, value) {
+                    categories.push(value.tag);
+                })
+
+                document.getElementById("category_names").value = categories;
+
+                alert(document.getElementById("category_names").value);
+                event.preventDefault();
+            });
+
         });
+
     </script>
 </head>
 
@@ -53,15 +73,22 @@
     <!-- Start of hidden form -->
     <div id="hiddenAddCatForm" style="display: none">
         <div class="medium-3 large-3 cell create_background">
+            <div class="edit_labels medium-12 large-12">CREATE NEW CATEGORY</div>
+
+
             <form id="pack_form" action="/new_category" method="post">
                 <center>
-                    <div class="edit_labels medium-12 large-12">CREATE NEW CATEGORY</div>
-                    <input type="text" class="_pack common_pack_detail validate" placeholder="Category Name"
-                           name="category_name" required="" aria-required="true"/>
+                    <div class="chips _pack common_pack_detail"></div>
+
+                    <!--<div class="chips _pack common_pack_detail chips-placeholder"></div>-->
+
+                    <!--<input type="text" class="_pack common_pack_detail validate" placeholder="Category Name"-->
+                           <!--name="category_name" required="" aria-required="true"/>-->
+                    <input type="text" name="category_names[]" id="category_names" hidden>
                     <br>
                 </center>
                 <span>
-        <button type="submit" class="create">CREATE</button>
+        <button type="submit" id="categoryBtn" class="create">CREATE</button>
         </span>
                 <span>
         <button type="button" id="btn_cancelAddCat" class="cancel">Cancel</button>
@@ -70,7 +97,8 @@
         </div>
     </div>
     <!-- End of hidden form -->
-    <span class="medium-12 large-12 welcome_post" id="Welcome"><b>Welcome <a href="/user_profile" style="font-size: 45px;color: #af627f;"> <%= user_name %> </a></b></span>
+    <span class="medium-12 large-12 welcome_post" id="Welcome"><b>Welcome <a href="/user_profile"
+                                                                             style="font-size: 45px;color: #af627f;"> <%= user_name %> </a></b></span>
     <div class="grid-x grid-margin-x" id="opaqueDiv">
         <!-- Card to display Stats of the database-->
         <div class="medium-3 large-3 cell login_card">
