@@ -1625,7 +1625,11 @@ app.post('/new_category', function (req, res) {
     let _categories = [];
     let categoryDetails = [];
 
-    categoryName.forEach(function (category) {
+    if (categoryName !== undefined || categoryName !== "undefined") {
+        _categories = Array.from(categoryName)
+    }
+
+    _categories.forEach(function (category) {
 
         console.log("CATEGORY " + category)
 
