@@ -32,6 +32,10 @@
 
                 document.getElementById("category_names").value = chipsObjectValue;
 
+                $.each(chipsObjectValue, function(key, value) {
+                    alert(key + ": " + value.tag);
+                })
+
                 event.preventDefault();
             });
 
