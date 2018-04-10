@@ -1622,28 +1622,48 @@ app.post('/new_category', function (req, res) {
 
     var token = req.cookies.token;
     var categoryName = req.body.category_name;
+    let _categories = [];
+    let categoryDetails = [];
 
-    console.log(JSON.stringify("CATEGORY NAME " + categoryName));
+    if (categoryName !== undefined || categoryName !== "undefined") {
+        _categories = categoryName.split(",");
+    }
 
-    // var category_name = categoryName.toLowerCase();
+    _categories.forEach(function (category) {
 
-    // if (token) {
+        console.log("CATEGORY " + category)
+
+    });
+        // if (token) {
     //
-    //     var Category = new Parse.Object.extend(CategoryClass);
-    //     var categoryObject = new Category();
+    //     getUser(token).then(function (sessionToken) {
     //
-    //     categoryObject.set("name", category_name);
-    //     categoryObject.save().then(function () {
     //
-    //             res.redirect("/categories");
-    //         },
-    //         function (error) {
-    //             console.log("Not created" + error);
-    //             res.redirect("/");
-    //         });
+    //         for (let i = 0; i < _categories.length; i++) {
+    //             var Category = new Parse.Object.extend(CategoryClass);
+    //             var category = new Category();
+    //
+    //             category.set("name", category);
+    //             categoryDetails.push(category);
+    //
+    //         }
+    //
+    //         return Parse.Object.saveAll(categoryDetails);
+    //
+    //     }).then(function () {
+    //
+    //         res.redirect("/categories");
+    //
+    //     }, function (error) {
+    //
+    //         console.log("ERROR " + error.message);
+    //         res.redirect("/admin_home");
+    //
+    //     });
     // }
+    //
     // else {
-    //     res.redirect("/");
+    //     res.redirect("/admin_home");
     // }
 });
 
