@@ -21,9 +21,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
     <script>
+        
+        $(function () {
+            $('.chips-placeholder').material_chip({
+                placeholder: 'Enter a tag',
+                secondaryPlaceholder: '+Tag',
+            });
+
+            $('.chips').material_chip();
+        });
+
+
         $(document).ready(function () {
             $('select').material_select();
         });
+        
     </script>
 </head>
 
@@ -55,12 +67,9 @@
         <div class="medium-3 large-3 cell create_background">
             <div class="edit_labels medium-12 large-12">CREATE NEW CATEGORY</div>
 
-            <div class="container">
-                <div class="chip">
-                    <input class="input _pack common_pack_detail" placeholder="+Tags">
+            <div class="chips _pack common_pack_detail"></div>
+            <div class="chips _pack common_pack_detail chips-placeholder"></div>
 
-                </div>
-            </div>
             <form id="pack_form" action="/new_category" method="post">
                 <center>
                     <input type="text" class="_pack common_pack_detail validate" placeholder="Category Name"
