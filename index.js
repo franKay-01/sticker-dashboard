@@ -1627,7 +1627,7 @@ app.post('/new_category', function (req, res) {
 
     console.log("STRINGS " + categoryName);
     if (categoryName !== undefined || categoryName !== "undefined") {
-        _categories = Array.from(categoryName);
+        _categories =  categoryName.split(",");
     }
 
     console.log("CATEGORY " + JSON.stringify(_categories));
