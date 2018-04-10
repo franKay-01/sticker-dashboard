@@ -1631,43 +1631,37 @@ app.post('/new_category', function (req, res) {
         _categories =  categoryName.split(",");
     }
 
-    console.log("CATEGORY " + JSON.stringify(_categories));
-    _categories.forEach(function (category) {
+        if (token) {
 
-        console.log("CATEGORY " + category)
+        getUser(token).then(function (sessionToken) {
 
-    });
-        // if (token) {
-    //
-    //     getUser(token).then(function (sessionToken) {
-    //
-    //
-    //         for (let i = 0; i < _categories.length; i++) {
-    //             var Category = new Parse.Object.extend(CategoryClass);
-    //             var category = new Category();
-    //
-    //             category.set("name", category);
-    //             categoryDetails.push(category);
-    //
-    //         }
-    //
-    //         return Parse.Object.saveAll(categoryDetails);
-    //
-    //     }).then(function () {
-    //
-    //         res.redirect("/categories");
-    //
-    //     }, function (error) {
-    //
-    //         console.log("ERROR " + error.message);
-    //         res.redirect("/admin_home");
-    //
-    //     });
-    // }
-    //
-    // else {
-    //     res.redirect("/admin_home");
-    // }
+            _categories.forEach(function (category) {
+
+                var Category = new Parse.Object.extend(CategoryClass);
+                var new_category = new Category();
+
+                new_category.set("name", category);
+                categoryDetails.push(new_category);
+
+            })
+
+            return Parse.Object.saveAll(categoryDetails);
+
+        }).then(function () {
+
+            res.redirect("/categories");
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect("/admin_home");
+
+        });
+    }
+
+    else {
+        res.redirect("/admin_home");
+    }
 });
 
 app.post('/review_pack/:id', function (req, res) {
