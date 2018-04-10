@@ -1622,14 +1622,15 @@ app.post('/new_category', function (req, res) {
 
     var token = req.cookies.token;
     var categoryName = req.body.category_name;
-    let _categories = [];
+    let _categories = ['Fisj','Kosd','jdfkfk'];
     let categoryDetails = [];
 
+
     if (categoryName !== undefined || categoryName !== "undefined") {
-        _categories = Array(categoryName).split(",");
+        categoryDetails = Array(_categories).split(",");
     }
 
-    console.log("CATEGORY " + _categories);
+    console.log("CATEGORY " + categoryDetails);
     _categories.forEach(function (category) {
 
         console.log("CATEGORY " + category)
