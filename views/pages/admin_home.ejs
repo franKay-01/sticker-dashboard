@@ -26,11 +26,13 @@
 
             $('.chips').material_chip();
 
-            $('#categoryBtn').on('click', function () {
+            $('#categoryBtn').on('click', function (event) {
 
                 let chipsObjectValue = $('.chips').material_chip('data');
 
                 document.getElementById("category_names").value = chipsObjectValue;
+
+                event.preventDefault();
             });
 
         });
