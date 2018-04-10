@@ -25,10 +25,10 @@
         $(document).ready(function () {
             $('select').material_select();
 
-            $('.chips-placeholder').material_chip({
-                placeholder: 'Enter a tag',
-                secondaryPlaceholder: '+Tag',
-            });
+            // $('.chips-placeholder').material_chip({
+            //     placeholder: 'Enter a tag',
+            //     secondaryPlaceholder: '+Tag',
+            // });
 
             $('.chips').material_chip();
         });
@@ -64,11 +64,12 @@
         <div class="medium-3 large-3 cell create_background">
             <div class="edit_labels medium-12 large-12">CREATE NEW CATEGORY</div>
 
-            <div class="chips _pack common_pack_detail"></div>
-            <div class="chips _pack common_pack_detail chips-placeholder"></div>
+            <!--<div class="chips _pack common_pack_detail chips-placeholder"></div>-->
 
             <form id="pack_form" action="/new_category" method="post">
                 <center>
+                    <div class="chips _pack common_pack_detail"></div>
+
                     <input type="text" class="_pack common_pack_detail validate" placeholder="Category Name"
                            name="category_name" required="" aria-required="true"/>
                     <br>
