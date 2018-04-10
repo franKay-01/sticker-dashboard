@@ -1621,16 +1621,15 @@ app.get('/categories', function (req, res) {
 app.post('/new_category', function (req, res) {
 
     var token = req.cookies.token;
-    var categoryName = req.body.category_name;
-    let _categories = ['Fisj','Kosd','jdfkfk'];
+    var categoryName = toString(req.body.category_name);
+    let _categories = [];
     let categoryDetails = [];
 
-
     if (categoryName !== undefined || categoryName !== "undefined") {
-        categoryDetails = Array(_categories).split(",");
+        _categories = Array(categoryName);
     }
 
-    console.log("CATEGORY " + categoryDetails);
+    console.log("CATEGORY " + _categories);
     _categories.forEach(function (category) {
 
         console.log("CATEGORY " + category)
