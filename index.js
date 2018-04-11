@@ -1647,6 +1647,7 @@ app.post('/new_category', function (req, res) {
 
             });
 
+            console.log("ARRAY " + JSON.stringify(categoryDetails));
             return Parse.Object.saveAll(categoryDetails);
 
         }).then(function () {
