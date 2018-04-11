@@ -59,6 +59,8 @@ const QUOTE = 2;
 const STICKER = 3;
 const DIVIDER = 4;
 
+const CATEGORY_LIMIT = 1000;
+
 const PARSE_PUBLIC_URL = "https://cryptic-waters-41617.herokuapp.com/public/";
 
 
@@ -1603,7 +1605,7 @@ app.get('/categories', function (req, res) {
 
     if (token) {
 
-        new Parse.Query(CategoryClass).limit(1000).find().then(function (categories) {
+        new Parse.Query(CategoryClass).limit(CATEGORY_LIMIT).find().then(function (categories) {
 
                 let _categories = helper.chunks(categories, 4);
 
