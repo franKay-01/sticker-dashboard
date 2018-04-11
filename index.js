@@ -1611,6 +1611,8 @@ app.get('/categories', function (req, res) {
             },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
+                res.redirect("/");
+
             });
     } else {
         res.redirect("/");
@@ -1642,7 +1644,7 @@ app.post('/new_category', function (req, res) {
 
                 console.log("CATEGORY " + category);
 
-                new_category.set("name", category);
+                new_category.set("name", category.toLowerCase());
                 categoryDetails.push(new_category);
 
             });
