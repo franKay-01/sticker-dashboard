@@ -1621,25 +1621,46 @@ app.get('/categories', function (req, res) {
 app.post('/new_category', function (req, res) {
 
     var token = req.cookies.token;
-    var categoryName = req.body.category_name;
-    var category_name = categoryName.toLowerCase();
-    if (token) {
+    var categoryName = JSON.stringify(req.body.category_name);
+    let _categories = [];
+    let categoryDetails = [];
 
-        var Category = new Parse.Object.extend(CategoryClass);
-        var categoryObject = new Category();
-
-        categoryObject.set("name", category_name);
-        categoryObject.save().then(function () {
-
-                res.redirect("/categories");
-            },
-            function (error) {
-                console.log("Not created" + error);
-                res.redirect("/");
-            });
+    categoryName = categoryName.substring(2, categoryName.length - 2);
+    console.log("STRINGS " + categoryName);
+    if (categoryName !== undefined || categoryName !== "undefined") {
+        _categories =  categoryName.split(",");
     }
+
+        if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            _categories.forEach(function (category) {
+
+                var Category = new Parse.Object.extend(CategoryClass);
+                var new_category = new Category();
+
+                new_category.set("name", category);
+                categoryDetails.push(new_category);
+
+            })
+
+            return Parse.Object.saveAll(categoryDetails);
+
+        }).then(function () {
+
+            res.redirect("/categories");
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect("/admin_home");
+
+        });
+    }
+
     else {
-        res.redirect("/");
+        res.redirect("/admin_home");
     }
 });
 
