@@ -12,6 +12,7 @@ let cookieSession = require('cookie-session');
 let cors = require('cors');
 let methodOverride = require('method-override');
 
+
 //for parsing location, directory and paths
 let path = require('path');
 let fs = require('fs');
@@ -24,6 +25,7 @@ let _ = require('underscore');
 
 //imported class
 let helper = require('./cloud/modules/helpers');
+let type = require('./cloud/modules/type');
 
 //google app engine configuration
 //let config = require('./config.json');
@@ -45,6 +47,7 @@ let MessageClass = "Contact";
 let AdvertClass = "Advert";
 let AdvertImageClass = "AdvertImages";
 
+//TODO replace all with new* types
 //const
 const PENDING = 0;
 const REVIEW = 1;
@@ -255,6 +258,9 @@ app.get('/', function (req, res) {
         res.redirect("/home");
     } else {
         //retrieve stickers to randomly display on the home page
+        //TODO EksXNOeVKj
+        //.equalTo("objectId", "EksXNOeVKj")
+        //TODO mimi get stickers
         new Parse.Query("Stickers").limit(40).find().then(function (cards) {
 
             cards = helper.shuffle(cards);
@@ -1273,7 +1279,7 @@ app.get('/admin_home', function (req, res) {
             let limit = 3;
 
             return Parse.Promise.when(
-                new Parse.Query(PacksClass).notEqualTo("status", PENDING).find(),
+                new Parse.Query(PacksClass).notEqualTo("status", type.PACK_STATUS.pending).find(),
                 new Parse.Query(CategoryClass).limit(limit).find(),
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).count(),
@@ -1605,7 +1611,7 @@ app.get('/categories', function (req, res) {
 
     if (token) {
 
-        new Parse.Query(CategoryClass).limit(CATEGORY_LIMIT).find().then(function (categories) {
+        new Parse.Query(CategoryClass).limit(CATEGORY_LIMIT).ascending().find().then(function (categories) {
 
                 let _categories = helper.chunks(categories, 4);
 
