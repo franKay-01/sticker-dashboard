@@ -1642,14 +1642,11 @@ app.post('/new_category', function (req, res) {
                 var Category = new Parse.Object.extend(CategoryClass);
                 var new_category = new Category();
 
-                console.log("CATEGORY " + category);
-
                 new_category.set("name", category.toLowerCase());
                 categoryDetails.push(new_category);
 
             });
 
-            console.log("ARRAY " + JSON.stringify(categoryDetails));
             return Parse.Object.saveAll(categoryDetails);
 
         }).then(function (result) {
