@@ -1626,7 +1626,7 @@ app.post('/new_category', function (req, res) {
     let categoryDetails = [];
 
     categoryName = categoryName.substring(2, categoryName.length - 2);
-    console.log("STRINGS " + categoryName);
+
     if (categoryName !== undefined || categoryName !== "undefined") {
         _categories =  categoryName.split(",");
     }
@@ -1640,10 +1640,12 @@ app.post('/new_category', function (req, res) {
                 var Category = new Parse.Object.extend(CategoryClass);
                 var new_category = new Category();
 
+                console.log("CATEGORY " + category);
+
                 new_category.set("name", category);
                 categoryDetails.push(new_category);
 
-            })
+            });
 
             return Parse.Object.saveAll(categoryDetails);
 
