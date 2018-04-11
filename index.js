@@ -59,6 +59,8 @@ const QUOTE = 2;
 const STICKER = 3;
 const DIVIDER = 4;
 
+const CATEGORY_LIMIT = 1000;
+
 const PARSE_PUBLIC_URL = "https://cryptic-waters-41617.herokuapp.com/public/";
 
 
@@ -1603,7 +1605,7 @@ app.get('/categories', function (req, res) {
 
     if (token) {
 
-        new Parse.Query(CategoryClass).find().then(function (categories) {
+        new Parse.Query(CategoryClass).limit(CATEGORY_LIMIT).find().then(function (categories) {
 
                 let _categories = helper.chunks(categories, 4);
 
@@ -1611,6 +1613,8 @@ app.get('/categories', function (req, res) {
             },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
+                res.redirect("/");
+
             });
     } else {
         res.redirect("/");
@@ -1626,7 +1630,7 @@ app.post('/new_category', function (req, res) {
     let categoryDetails = [];
 
     categoryName = categoryName.substring(2, categoryName.length - 2);
-    console.log("STRINGS " + categoryName);
+
     if (categoryName !== undefined || categoryName !== "undefined") {
         _categories =  categoryName.split(",");
     }
@@ -1640,14 +1644,16 @@ app.post('/new_category', function (req, res) {
                 var Category = new Parse.Object.extend(CategoryClass);
                 var new_category = new Category();
 
-                new_category.set("name", category);
+                new_category.set("name", category.toLowerCase());
                 categoryDetails.push(new_category);
 
-            })
+            });
 
             return Parse.Object.saveAll(categoryDetails);
 
-        }).then(function () {
+        }).then(function (result) {
+
+            console.log("RESULTS " + JSON.stringify(result));
 
             res.redirect("/categories");
 
