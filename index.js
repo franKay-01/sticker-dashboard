@@ -1605,9 +1605,9 @@ app.get('/categories', function (req, res) {
 
         new Parse.Query(CategoryClass).find().then(function (categories) {
 
-                let _categories = helper.chunks(categories, 5);
+                // let _categories = helper.chunks(categories, 4);
 
-                res.render("pages/categories", {categories: _categories});
+                res.render("pages/categories", {categories: categories});
             },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
