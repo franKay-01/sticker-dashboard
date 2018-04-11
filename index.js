@@ -1603,11 +1603,11 @@ app.get('/categories', function (req, res) {
 
     if (token) {
 
-        new Parse.Query(CategoryClass).find().then(function (categories) {
+        new Parse.Query(CategoryClass).limit(1000).find().then(function (categories) {
 
-                // let _categories = helper.chunks(categories, 4);
-                res.send(categories);
-                // res.render("pages/categories", {categories: categories});
+                let _categories = helper.chunks(categories, 4);
+
+                res.render("pages/categories", {categories: _categories});
             },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
