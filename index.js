@@ -1651,7 +1651,7 @@ app.post('/new_category', function (req, res) {
 
         }).then(function (result) {
 
-            console.log("RESULTS " + result);
+            console.log("RESULTS " + JSON.stringify(result));
 
             res.redirect("/categories");
 
