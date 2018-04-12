@@ -42,7 +42,7 @@ Parse.Cloud.define("message", function (req, res) {
 
     contact.save({useMasterKey:true}).then(function () {
 
-        res.success();
+        res.success(util.setSuccess());
 
     }, function (error) {
 
