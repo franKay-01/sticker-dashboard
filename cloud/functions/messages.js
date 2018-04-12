@@ -10,9 +10,12 @@ Parse.Cloud.define("message", function (req, res) {
     let subject = req.params.subject;
     let email = req.params.email;
     let message = req.params.message;
-    let type = req.params.type;
+    let type = String(req.params.type).toLowerCase();
 
-    switch(String(type).toLowerCase()){
+    console.log("CHECKING TYPE "+ type);
+    console.log("_ TYPE "+ _type.MESSAGES.visitor);
+
+ /*   switch(type){
 
         case "visitor" :
             type = _type.MESSAGES.visitor;
@@ -26,9 +29,9 @@ Parse.Cloud.define("message", function (req, res) {
             type = _type.MESSAGES.brand;
             break;
 
-    }
+    }*/
 
-    console.log("CHECKING TYPE "+ type);
+
     res.success(util.setSuccess());
 
    /* let Contact = new Parse.Object.extend(ContactClass);
