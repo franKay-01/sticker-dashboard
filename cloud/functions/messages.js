@@ -12,10 +12,7 @@ Parse.Cloud.define("message", function (req, res) {
     let message = req.params.message;
     let type = String(req.params.type).toLowerCase();
 
-    console.log("CHECKING TYPE "+ type);
-    console.log("_ TYPE "+ JSON.stringify(_type.MESSAGES.visitor));
-
- /*   switch(type){
+    switch (type) {
 
         case "visitor" :
             type = _type.MESSAGES.visitor;
@@ -29,12 +26,9 @@ Parse.Cloud.define("message", function (req, res) {
             type = _type.MESSAGES.brand;
             break;
 
-    }*/
+    }
 
-
-    res.success(util.setSuccess());
-
-   /* let Contact = new Parse.Object.extend(ContactClass);
+    let Contact = new Parse.Object.extend(ContactClass);
     let contact = new Contact();
 
     contact.set("name", name);
@@ -42,9 +36,9 @@ Parse.Cloud.define("message", function (req, res) {
     contact.set("email", email);
     contact.set("message", message);
     contact.set("type", type);
-    contact.set("read", false);*/
+    contact.set("read", false);
 
-   /* contact.save({useMasterKey:true}).then(function () {
+    contact.save({useMasterKey: true}).then(function () {
 
         res.success(util.setSuccess());
 
@@ -52,6 +46,6 @@ Parse.Cloud.define("message", function (req, res) {
 
         //TODO add error messages for
         util.handleError(res, error);
-    })*/
+    })
 
 });
