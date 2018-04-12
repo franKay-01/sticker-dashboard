@@ -13,7 +13,7 @@ Parse.Cloud.define("message", function (req, res) {
     let type = String(req.params.type).toLowerCase();
 
     console.log("CHECKING TYPE "+ type);
-    console.log("_ TYPE "+ _type.MESSAGES.visitor);
+    console.log("_ TYPE "+ JSON.stringify(_type.MESSAGES));
 
  /*   switch(type){
 
