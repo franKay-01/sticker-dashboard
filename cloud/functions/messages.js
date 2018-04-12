@@ -26,11 +26,12 @@ Parse.Cloud.define("message", function (req, res) {
             type = _type.MESSAGES.brand;
             break;
 
-
-
     }
 
-    let Contact = new Parse.Object.extend(ContactClass);
+    console.log("CHECKING TYPE "+ type);
+    res.success(util.setSuccess());
+
+   /* let Contact = new Parse.Object.extend(ContactClass);
     let contact = new Contact();
 
     contact.set("name", name);
@@ -38,9 +39,9 @@ Parse.Cloud.define("message", function (req, res) {
     contact.set("email", email);
     contact.set("message", message);
     contact.set("type", type);
-    contact.set("read", false);
+    contact.set("read", false);*/
 
-    contact.save({useMasterKey:true}).then(function () {
+   /* contact.save({useMasterKey:true}).then(function () {
 
         res.success(util.setSuccess());
 
@@ -48,6 +49,6 @@ Parse.Cloud.define("message", function (req, res) {
 
         //TODO add error messages for
         util.handleError(res, error);
-    })
+    })*/
 
 });
