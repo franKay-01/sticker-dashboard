@@ -1,6 +1,6 @@
 let util = require("../modules/util");
 let helpers = require("../modules/helpers");
-let type = require("../modules/type");
+let _type = require("../modules/type");
 
 let ContactClass = "Contact";
 
@@ -15,15 +15,15 @@ Parse.Cloud.define("message", function (req, res) {
     switch(String(type).toLowerCase()){
 
         case "visitor" :
-            type = type.MESSAGES.visitor;
+            type = _type.MESSAGES.visitor;
             break;
 
         case "creator" :
-            type = type.MESSAGES.creator;
+            type = _type.MESSAGES.creator;
             break;
 
         case "brand" :
-            type = type.MESSAGES.brand;
+            type = _type.MESSAGES.brand;
             break;
 
 
