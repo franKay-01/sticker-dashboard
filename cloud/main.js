@@ -1,9 +1,14 @@
 //used to retrieve all stickers
 require("./functions/getStickers");
+require("./functions/messages");
+
+
 let StickerClass = "Stickers";
 let CategoryClass = "Categories";
 let StatsClass = "Stats";
 let PacksClass = "Packs";
+
+
 var _stickers = 0;
 var _packs = 0;
 var _categories = 0;
