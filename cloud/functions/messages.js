@@ -38,7 +38,7 @@ Parse.Cloud.define("message", function (req, res) {
     contact.set("type", type);
     contact.set("read", false);
 
-    contact.save({useMasterKey: true}).then(function () {
+    contact.save().then(function () {
 
         res.success(util.setSuccess());
 
