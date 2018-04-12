@@ -26,6 +26,8 @@ Parse.Cloud.define("message", function (req, res) {
             type = type.MESSAGES.brand;
             break;
 
+
+
     }
 
     let Contact = new Parse.Object.extend(MessageClass);
