@@ -12,7 +12,7 @@ Parse.Cloud.define("message", function (req, res) {
     let message = req.params.message;
     let type = parseInt(req.params.type);
 
-    switch(type.toLowerCase()){
+    switch(String(type).toLowerCase()){
 
         case "visitor" :
             type = type.MESSAGES.visitor;
