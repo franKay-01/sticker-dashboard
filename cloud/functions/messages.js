@@ -2,7 +2,7 @@ let util = require("../modules/util");
 let helpers = require("../modules/helpers");
 let type = require("../modules/type");
 
-let MessageClass = "messages";
+let ContactClass = "Contact";
 
 Parse.Cloud.define("message", function (req, res) {
 
@@ -10,7 +10,7 @@ Parse.Cloud.define("message", function (req, res) {
     let subject = req.params.subject;
     let email = req.params.email;
     let message = req.params.message;
-    let type = parseInt(req.params.type);
+    let type = req.params.type;
 
     switch(String(type).toLowerCase()){
 
@@ -30,7 +30,7 @@ Parse.Cloud.define("message", function (req, res) {
 
     }
 
-    let Contact = new Parse.Object.extend(MessageClass);
+    let Contact = new Parse.Object.extend(ContactClass);
     let contact = new Contact();
 
     contact.set("name", name);
