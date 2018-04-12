@@ -1,5 +1,5 @@
 //TODO investgate how to auto add numbers
-let type = {
+type = {
     MESSAGES: {
         visitor: 0,
         creator: 1,
