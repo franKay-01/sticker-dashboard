@@ -270,12 +270,10 @@ app.get('/', function (req, res) {
             console.log("PACK " + JSON.stringify(pack));
 
             let col = pack.relation(PacksClass);
-            return col.query().find();
+            return col.query().limit(40).find();
 
         }).then(function (stickers) {
             console.log("STICKERS " + JSON.stringify(stickers));
-
-            stickers = stickers.limit(40);
 
             stickers = helper.shuffle(stickers);
 
