@@ -262,11 +262,10 @@ app.get('/', function (req, res) {
         //.equalTo("objectId", "EksXNOeVKj")
         //TODO mimi get stickers
 
-        getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(PacksClass).equalTo("objectId", "EksXNOeVKj").first();
+            return new Parse.Query(PacksClass).equalTo("objectId", "EksXNOeVKj").first()
 
-        }).then(function (pack) {
+                .then(function (pack) {
 
             console.log("PACK " + JSON.stringify(pack));
 
