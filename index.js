@@ -269,7 +269,7 @@ app.get('/', function (req, res) {
             }).then(function (pack) {
 
                 let col = pack.relation(PacksClass);
-                return col.query().find({sessionToken: token});
+                return col.query().find();
 
             }).then(function (stickers) {
 
