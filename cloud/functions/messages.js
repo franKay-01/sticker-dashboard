@@ -2,7 +2,7 @@ let util = require("../modules/util");
 let helpers = require("../modules/helpers");
 let type = require("../modules/type");
 
-let MessageClass = "messages";
+let MessageClass = "Contact";
 
 Parse.Cloud.define("message", function (req, res) {
 
