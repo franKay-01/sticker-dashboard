@@ -2426,7 +2426,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(StickerClass).equalTo("objectId", id).first(),
-                new Parse.Query(CategoryClass).find());
+                new Parse.Query(CategoryClass).ascending("name").find());
 
         }).then(function (sticker, categories) {
 
@@ -2444,20 +2444,20 @@ app.get('/details/:id/:coll_id', function (req, res) {
             //     categoryNames.push(category.get("name"))
             // });
 
-            // console.log("CATEGORY NAMES " + categoryNames);
+            console.log("CATEGORY NAMES " + categoryNames);
 
             if (_user.get("type") === SUPER_USER) {
                 res.render("pages/admin_details", {
                     sticker: stickerDetail,
                     // categoryNames: categoryNames.sort(),
-                    categories: allCategories.sort(),
+                    categories: allCategories,
                     pack_id: pack_
                 });
             } else {
                 res.render("pages/details", {
                     sticker: stickerDetail,
                     // categoryNames: categoryNames.sort(),
-                    categories: allCategories.sort(),
+                    categories: allCategories,
                     pack_id: pack_
                 });
             }
