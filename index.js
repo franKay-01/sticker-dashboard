@@ -277,6 +277,7 @@ app.get('/', function (req, res) {
 
             stickers = helper.shuffle(stickers);
 
+            stickers = stickers.slice(0, 3);
 
             if (errorMessage === "") {
                 res.render("pages/login", {stickers: stickers, error: []});
