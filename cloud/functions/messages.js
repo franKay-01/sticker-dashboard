@@ -1,8 +1,8 @@
 let util = require("../modules/util");
 let helpers = require("../modules/helpers");
-let type = require("../modules/type");
+let _type = require("../modules/type");
 
-let MessageClass = "Contact";
+let ContactClass = "Contact";
 
 Parse.Cloud.define("message", function (req, res) {
 
@@ -10,27 +10,25 @@ Parse.Cloud.define("message", function (req, res) {
     let subject = req.params.subject;
     let email = req.params.email;
     let message = req.params.message;
-    let type = parseInt(req.params.type);
+    let type = String(req.params.type).toLowerCase();
 
-    switch(String(type).toLowerCase()){
+    switch (type) {
 
         case "visitor" :
-            type = type.MESSAGES.visitor;
+            type = _type.MESSAGES.visitor;
             break;
 
         case "creator" :
-            type = type.MESSAGES.creator;
+            type = _type.MESSAGES.creator;
             break;
 
         case "brand" :
-            type = type.MESSAGES.brand;
+            type = _type.MESSAGES.brand;
             break;
-
-
 
     }
 
-    let Contact = new Parse.Object.extend(MessageClass);
+    let Contact = new Parse.Object.extend(ContactClass);
     let contact = new Contact();
 
     contact.set("name", name);
@@ -40,7 +38,7 @@ Parse.Cloud.define("message", function (req, res) {
     contact.set("type", type);
     contact.set("read", false);
 
-    contact.save({useMasterKey:true}).then(function () {
+    contact.save().then(function () {
 
         res.success(util.setSuccess());
 
