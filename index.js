@@ -2434,30 +2434,30 @@ app.get('/details/:id/:coll_id', function (req, res) {
                 allCategories = categories;
 
                 var sticker_relation = sticker.relation(CategoryClass);
-                return sticker_relation.query().ascending("name").find();
+                return sticker_relation.query().find();
 
             }
         ).then(function (stickerCategories) {
 
-            var categoryNames = [];
-            _.each(stickerCategories, function (category) {
-                categoryNames.push(category.get("name"))
-            });
+            // var categoryNames = [];
+            // _.each(stickerCategories, function (category) {
+            //     categoryNames.push(category.get("name"))
+            // });
 
-            console.log("CATEGORY NAMES " + categoryNames);
+            // console.log("CATEGORY NAMES " + categoryNames);
 
             if (_user.get("type") === SUPER_USER) {
                 res.render("pages/admin_details", {
                     sticker: stickerDetail,
-                    categoryNames: categoryNames,
-                    categories: allCategories,
+                    // categoryNames: categoryNames.sort(),
+                    categories: allCategories.sort(),
                     pack_id: pack_
                 });
             } else {
                 res.render("pages/details", {
                     sticker: stickerDetail,
-                    categoryNames: categoryNames,
-                    categories: allCategories,
+                    // categoryNames: categoryNames.sort(),
+                    categories: allCategories.sort(),
                     pack_id: pack_
                 });
             }
