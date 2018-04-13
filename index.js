@@ -261,7 +261,11 @@ app.get('/', function (req, res) {
         //TODO EksXNOeVKj
         //.equalTo("objectId", "EksXNOeVKj")
         //TODO mimi get stickers
-        new Parse.Query(PacksClass).equalTo("objectId", "EksXNOeVKj").limit(40).find().then(function (stickers) {
+        new Parse.Query(PacksClass).equalTo("objectId", "EksXNOeVKj").first().then(function (pack) {
+
+            let col = pack.relation(PacksClass);
+            let stickers = col.query().find();
+            stickers = stickers.limit(40);
 
             stickers = helper.shuffle(stickers);
 
