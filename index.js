@@ -261,25 +261,32 @@ app.get('/', function (req, res) {
         //TODO EksXNOeVKj
         //.equalTo("objectId", "EksXNOeVKj")
         //TODO mimi get stickers
-        new Parse.Query(PacksClass).equalTo("objectId", "EksXNOeVKj").first().then(function (pack) {
 
-            let col = pack.relation(PacksClass);
-            let stickers = col.query().find();
-            stickers = stickers.limit(40);
+        getUser(token).then(function (sessionToken) {
 
-            stickers = helper.shuffle(stickers);
+            new Parse.Query(PacksClass).equalTo("objectId", "EksXNOeVKj").first().then(function (pack) {
 
-            //render 3 stickers on the page
-            stickers = stickers.slice(0, 3);
+            }).then(function (pack) {
 
-            if (errorMessage === "") {
-                res.render("pages/login", {stickers: stickers, error: []});
+                let col = pack.relation(PacksClass);
+                return col.query().find({sessionToken: token});
 
-            } else {
+            }).then(function (stickers) {
 
-                res.render("pages/login", {stickers: stickers, error: errorMessage});
+                stickers = stickers.limit(40);
 
-            }
+                stickers = helper.shuffle(stickers);
+
+
+                if (errorMessage === "") {
+                    res.render("pages/login", {stickers: stickers, error: []});
+
+                } else {
+
+                    res.render("pages/login", {stickers: stickers, error: errorMessage});
+
+                }
+            });
 
         }, function (error) {
 
