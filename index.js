@@ -261,19 +261,19 @@ app.get('/', function (req, res) {
         //TODO EksXNOeVKj
         //.equalTo("objectId", "EksXNOeVKj")
         //TODO mimi get stickers
-        new Parse.Query("Stickers").limit(40).find().then(function (cards) {
+        new Parse.Query(PacksClass).equalTo("objectId", "EksXNOeVKj").limit(40).find().then(function (stickers) {
 
-            cards = helper.shuffle(cards);
+            stickers = helper.shuffle(stickers);
 
             //render 3 stickers on the page
-            cards = cards.slice(0, 3);
+            stickers = stickers.slice(0, 3);
 
             if (errorMessage === "") {
-                res.render("pages/login", {stickers: cards, error: []});
+                res.render("pages/login", {stickers: stickers, error: []});
 
             } else {
 
-                res.render("pages/login", {stickers: cards, error: errorMessage});
+                res.render("pages/login", {stickers: stickers, error: errorMessage});
 
             }
 
