@@ -2434,7 +2434,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
                 allCategories = categories;
 
                 var sticker_relation = sticker.relation(CategoryClass);
-                return sticker_relation.query().find();
+                return sticker_relation.query().ascending("name").find();
 
             }
         ).then(function (stickerCategories) {
