@@ -272,6 +272,7 @@ app.get('/', function (req, res) {
                 return col.query().find();
 
             }).then(function (stickers) {
+                console.log("STICKERS " + JSON.stringify(stickers));
 
                 stickers = stickers.limit(40);
 
