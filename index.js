@@ -2433,6 +2433,8 @@ app.get('/details/:id/:coll_id', function (req, res) {
                 stickerDetail = sticker;
                 allCategories = categories;
 
+                console.log("CATEGORIES " + JSON.stringify(allCategories));
+
                 var sticker_relation = sticker.relation(CategoryClass);
                 return sticker_relation.query().find();
 
