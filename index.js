@@ -268,6 +268,8 @@ app.get('/', function (req, res) {
 
         }).then(function (pack) {
 
+            console.log("PACK " + JSON.stringify(pack));
+
             let col = pack.relation(PacksClass);
             return col.query().find();
 
