@@ -264,37 +264,37 @@ app.get('/', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            new Parse.Query(PacksClass).equalTo("objectId", "EksXNOeVKj").first().then(function (pack) {
+            return new Parse.Query(PacksClass).equalTo("objectId", "EksXNOeVKj").first();
 
-            }).then(function (pack) {
+        }).then(function (pack) {
 
-                let col = pack.relation(PacksClass);
-                return col.query().find();
+            let col = pack.relation(PacksClass);
+            return col.query().find();
 
-            }).then(function (stickers) {
-                console.log("STICKERS " + JSON.stringify(stickers));
+        }).then(function (stickers) {
+            console.log("STICKERS " + JSON.stringify(stickers));
 
-                stickers = stickers.limit(40);
+            stickers = stickers.limit(40);
 
-                stickers = helper.shuffle(stickers);
+            stickers = helper.shuffle(stickers);
 
 
-                if (errorMessage === "") {
-                    res.render("pages/login", {stickers: stickers, error: []});
+            if (errorMessage === "") {
+                res.render("pages/login", {stickers: stickers, error: []});
 
-                } else {
+            } else {
 
-                    res.render("pages/login", {stickers: stickers, error: errorMessage});
+                res.render("pages/login", {stickers: stickers, error: errorMessage});
 
-                }
-            });
-
+            }
         }, function (error) {
 
             res.render("pages/login", {stickers: []});
 
         });
+
     }
+
 });
 
 app.get('/sign_up', function (req, res) {
@@ -1649,10 +1649,10 @@ app.post('/new_category', function (req, res) {
     categoryName = categoryName.substring(2, categoryName.length - 2);
 
     if (categoryName !== undefined || categoryName !== "undefined") {
-        _categories =  categoryName.split(",");
+        _categories = categoryName.split(",");
     }
 
-        if (token) {
+    if (token) {
 
         getUser(token).then(function (sessionToken) {
 
