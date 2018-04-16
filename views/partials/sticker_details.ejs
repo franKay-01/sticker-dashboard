@@ -9,7 +9,7 @@
         <div class="medium-6 large-5 cell">
             <label class="update_label">Sticker Name:</label><br>
             <input placeholder="Sticker Name" class="box_2" name="stickerName"
-                   style="width: 100%;margin-top: 10px; margin-bottom: 10px;"
+                   style="width: 100%; margin-bottom: 15px;"
                    value="<%= sticker.get("stickerName") %>">
 
             <!--if new img has been uploaded, set value to true-->
@@ -17,17 +17,18 @@
 
             <label class="update_label">Local Name:</label><br>
             <input placeholder="Local Name" class="box_2" name="localname"
-                   style="width: 100%;margin-top: 10px; margin-bottom: 10px;"
+                   style="width: 100%; margin-bottom: 10px;"
                    value="<%= sticker.get("localName") %>">
 
             <label class="update_label">Category:</label><br>
             <input placeholder="category e.g funny, silly"
                    id="categoryInput" name="category"
-                   style="width: 100%;margin-top: 10px; margin-bottom: 10px;"
+                   style="width: 100%; margin-bottom: 10px;"
                    value="<%= sticker.get("categories") %>" disabled>
             <input type="text" name="category_name" id="cat" style="display: none">
 
-            <br><br><br>
+            <br>
+            <label class="update_label">Select Category:</label><br>
             <select class="selectpicker" data-live-search="true" name="categories[]" multiple>
                 <% if (categories.length === 0) { %>
 
