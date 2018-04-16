@@ -24,35 +24,6 @@
                    value="<%= sticker.get("categories") %>" disabled>
             <input type="text" name="category_name" id="cat" style="display: none">
 
-            <div id="name-to-send" class="selectpicker" data-live="true">
-                <button data-id="prov" type="button" class="btn btn-lg btn-block btn-default dropdown-toggle">
-                    <span class="placeholder">Choose an option</span>
-                    <span class="caret"></span>
-                </button>
-                <div class="dropdown-menu">
-                    <div class="live-filtering">
-                        <label class="sr-only" for="input-bts-ex-4">Search in the list</label>
-                        <div class="search-box">
-                            <input type="text" class="form-control hint" tabindex="-1" />
-                            <input type="text" placeholder="Search in the list" id="input-bts-ex-4" class="form-control live-search" tabindex="1" />
-                        </div>
-                        <a href="#" class="fa fa-times hide filter-clear"><span class="sr-only">Clear filter</span></a>
-                        <div class="list-to-filter">
-                            <ul class="list-unstyled">
-                                <li class="filter-item items" data-filter="item 1" data-value="1">item 1</li>
-                                <li class="filter-item items" data-filter="item 2" data-value="2">item 2</li>
-                                <li class="filter-item items" data-filter="item 3" data-value="3">item 3</li>
-                                <li class="filter-item items" data-filter="item 4" data-value="4">item 4</li>
-                                <li class="filter-item items" data-filter="item 5" data-value="5">item 5</li>
-                            </ul>
-                            <div class="no-search-results">
-                                <div class="alert alert-warning" role="alert"><i class="fa fa-warning margin-right-sm"></i>No entry for <strong>'<span></span>'</strong> was found.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <input type="hidden" name="name-to-send" value="">
-            </div>
 
             <div class = "row">
                 <select class = "input-field" name="categories[]" multiple>
