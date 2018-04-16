@@ -2436,9 +2436,9 @@ app.get('/details/:id/:coll_id', function (req, res) {
                 allCategories = categories;
                 selectedCategories = sticker.get("categories");
 
-                if (selectedCategories){
-                    selectedCategories = Array.from(selectedCategories);
-                }
+                // if (selectedCategories){
+                //     selectedCategories = Array.from(selectedCategories);
+                // }
 
                 console.log("SELECTED " + selectedCategories);
 
