@@ -2676,7 +2676,7 @@ app.post('/update/:id/:pid', function (req, res) {
 
     var _listee = [];
 
-    if (categoryList) {
+    if (new_categories) {
 
         if (new_categories !== undefined) {
             var category_new = Array.from(new_categories);
