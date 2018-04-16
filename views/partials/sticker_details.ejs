@@ -34,14 +34,12 @@
 
                 <% } else { %>
                 <% categories.forEach(function(items) { %>
-                <% console.log("Selected "+selected)%>
+                <% let name = items.get("name").toString() %>
                 <% selected.forEach(function(select){%>
-                <% if (select !== items.get("name")) {%>
-                <option value="<%= items.get("name") %>"><%= items.get("name") %></option>
-                <%console.log("not selected"+ items.get("name"))%>
-                <%}else {%>
+                <% if (select === name) {%>
                 <option value="<%= items.get("name") %>" selected><%= items.get("name") %></option>
-                <%console.log("selected" + items.get("name"))%>
+                <%}else {%>
+                <option value="<%= items.get("name") %>" ><%= items.get("name") %></option>
                 <%}%>
                 <%})%>
                 <% }) %>
