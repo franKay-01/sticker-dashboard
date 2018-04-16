@@ -263,35 +263,35 @@ app.get('/', function (req, res) {
         //TODO mimi get stickers
 
 
-            return new Parse.Query(PacksClass).equalTo("objectId", "EksXNOeVKj").first()
+        return new Parse.Query(PacksClass).equalTo("objectId", "EksXNOeVKj").first()
 
-                .then(function (pack) {
+            .then(function (pack) {
 
-            console.log("PACK " + JSON.stringify(pack));
+                console.log("PACK " + JSON.stringify(pack));
 
-            let col = pack.relation(PacksClass);
-            return col.query().limit(40).find();
+                let col = pack.relation(PacksClass);
+                return col.query().limit(40).find();
 
-        }).then(function (stickers) {
-            console.log("STICKERS " + JSON.stringify(stickers));
+            }).then(function (stickers) {
+                console.log("STICKERS " + JSON.stringify(stickers));
 
-            stickers = helper.shuffle(stickers);
+                stickers = helper.shuffle(stickers);
 
-            stickers = stickers.slice(0, 3);
+                stickers = stickers.slice(0, 3);
 
-            if (errorMessage === "") {
-                res.render("pages/login", {stickers: stickers, error: []});
+                if (errorMessage === "") {
+                    res.render("pages/login", {stickers: stickers, error: []});
 
-            } else {
+                } else {
 
-                res.render("pages/login", {stickers: stickers, error: errorMessage});
+                    res.render("pages/login", {stickers: stickers, error: errorMessage});
 
-            }
-        }, function (error) {
+                }
+            }, function (error) {
 
-            res.render("pages/login", {stickers: []});
+                res.render("pages/login", {stickers: []});
 
-        });
+            });
 
     }
 
@@ -2129,6 +2129,32 @@ app.get('/pack/:id', function (req, res) {
     }
 });
 
+app.get('/edit_pack_details/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let pack_id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(PacksClass).equalTo("objectId", pack_id).first();
+
+        }).then(function (pack) {
+
+            res.render("pages/pack_details", {
+               pack_details: pack
+            });
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect("/pack/" + pack_id);
+        })
+    }else {
+        res.redirect('/');
+    }
+});
 
 // Add Stickers Version 1
 app.get('/add_stickers/:id/:pack_name', function (req, res) {
@@ -2474,7 +2500,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
         }, function (err) {
             //TODO handle error code
             console.log("Error Loading-----------------------" + JSON.stringify(err));
-            res.redirect("/pack/"+pack_);
+            res.redirect("/pack/" + pack_);
 
         });
     }
@@ -2712,12 +2738,12 @@ app.post('/update/:id/:pid', function (req, res) {
         }).then(function (sticker) {
 
             console.log("STICKER UPDATED" + JSON.stringify(sticker));
-            res.redirect("/details/" + stickerId +"/"+packId);
+            res.redirect("/details/" + stickerId + "/" + packId);
 
         }, function (error) {
 
             console.log("SERVER ERROR " + error.message);
-            res.redirect("/details/" + stickerId +"/"+packId);
+            res.redirect("/details/" + stickerId + "/" + packId);
 
         });
 
