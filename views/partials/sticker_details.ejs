@@ -32,11 +32,18 @@
             <select class="selectpicker" data-live-search="true" name="categories[]" multiple>
                 <% if (categories.length === 0) { %>
 
-                <%} else {%>
+                <% } else { %>
                 <% categories.forEach(function(items) { %>
-                <option value="<%= items.get("name")%>"><%= items.get("name")%></option>
-                <%})%>
+                <% selected.forEach(function(select){%>
+                <% if (select === items.get("name")) {%>
+                <option value="<%= items.get("name") %>"><%= items.get("name") % selected></option>
+                <%}else {%>
+                <option value="<%= items.get("name") %>"><%= items.get("name") %></option>
+
                 <%}%>
+                <%})%>
+                <% }) %>
+                <% } %>
             </select>
 
 
@@ -45,7 +52,8 @@
             <center>
                 <a href="/pack/<%= pack_id %>" class="cancel_btn">Cancel</a>
                 <button type="button" class="cancel_btn delbtn" data-id="<%= sticker.id %>"
-                        value="<%= sticker.get("name") %>">Delete</button>
+                        value="<%= sticker.get("name") %>">Delete
+                </button>
                 <button class="update" type="submit">Update</button>
             </center>
         </div>

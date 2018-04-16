@@ -2465,7 +2465,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
             } else {
                 res.render("pages/details", {
                     sticker: stickerDetail,
-                    // categoryNames: categoryNames.sort(),
+                    selected: selectedCategories,
                     categories: allCategories,
                     pack_id: pack_
                 });
