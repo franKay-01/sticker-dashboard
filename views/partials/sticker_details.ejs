@@ -35,11 +35,12 @@
                 <% } else { %>
                 <% categories.forEach(function(items) { %>
                 <% let name = items.get("name").toString() %>
+                <option value="<%= items.get("name") %>" ><%= items.get("name") %></option>
                 <% selected.forEach(function(select){%>
                 <% if (select === name) {%>
 
                 <%}else {%>
-                <option value="<%= items.get("name") %>" ><%= items.get("name") %></option>
+
                 <%}%>
                 <%})%>
                 <% }) %>
