@@ -2417,6 +2417,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
     let stickerDetail;
     let allCategories;
     let selectedCategories;
+    let selectCategoryArray = [];
 
     if (token) {
         let _user = {};
@@ -2435,9 +2436,9 @@ app.get('/details/:id/:coll_id', function (req, res) {
                 allCategories = categories;
                 selectedCategories = sticker.get("categories");
 
-                // if (selectedCategories){
-                //     selectedCategories = selectedCategories.split(",");
-                // }
+                if (selectedCategories){
+                    selectedCategories = Array.from(selectedCategories);
+                }
 
                 console.log("SELECTED " + selectedCategories);
 
