@@ -35,18 +35,24 @@
                 <% } else { %>
                 <% categories.forEach(function(items) { %>
                 <% let name = items.get("name").toString() %>
-                <option value="<%= items.get("name") %>" ><%= items.get("name") %></option>
-                <% selected.forEach(function(select){%>
-                <% if (select === name) {%>
-                <option value="<%= items.get("name") %>" selected ><%= items.get("name") %></option>
+                <% let isSelected = false %>
+                <% selected.forEach(function(select){ %>
+                <% if (select === name) { %>
+                <% isSelected = true %>
+                <option value="<%= items.get("name") %>" selected><%= items.get("name") %></option>
+                <% } %>
+                <% }) %>
+                <% if(isSelected){ %>
+                <% isSelected = false %>
+                <% return %>
+                <% } %>
+                <option value="<%= items.get("name") %>"><%= items.get("name") %></option>
 
-                <%}%>
-                <%})%>
                 <% }) %>
                 <% } %>
             </select>
 
-            <input name="pack_id" value="<%= pack_id%>" hidden>
+            <input name="pack_id" value="<%= pack_id %>" hidden>
 
         </div>
         <div class="medium-12 large-12 cell">
