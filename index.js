@@ -2670,7 +2670,6 @@ app.post('/update/:id/:pid', function (req, res) {
 
     //input fields from form
     var stickerName = req.body.stickerName;
-    var categoryList = req.body.category_name;
     var new_categories = req.body.categories;
     var stickerId = req.params.id;
     var packId = req.params.pid;
@@ -2679,20 +2678,6 @@ app.post('/update/:id/:pid', function (req, res) {
 
     if (categoryList) {
 
-        console.log("2");
-        var category = Array.from(categoryList);
-        var new_category = Array.from(new_categories);
-
-        _.each(category, function (category) {
-            _listee.push(category);
-        });
-
-        _.each(new_category, function (category) {
-            _listee.push(category);
-        });
-
-    } else {
-        console.log("1");
         if (new_categories !== undefined) {
             var category_new = Array.from(new_categories);
 
