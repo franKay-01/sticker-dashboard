@@ -2411,11 +2411,12 @@ app.post('/update_pack/:id', function (req, res) {
 //EDIT/STICKER DETAILS
 app.get('/details/:id/:coll_id', function (req, res) {
 
-    var token = req.cookies.token;
-    var id = req.params.id;
-    var pack_ = req.params.coll_id;
-    var stickerDetail;
-    var allCategories;
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let pack_ = req.params.coll_id;
+    let stickerDetail;
+    let allCategories;
+    let selectedCategories;
 
     if (token) {
         let _user = {};
@@ -2432,8 +2433,13 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
                 stickerDetail = sticker;
                 allCategories = categories;
+                selectedCategories = sticker.get("categories");
 
-                console.log("CATEGORIES " + JSON.stringify(allCategories));
+                if (selectedCategories){
+                    selectedCategories = selectedCategories.split(",");
+                }
+
+                console.log("SELECTED " + selectedCategories);
 
                 var sticker_relation = sticker.relation(CategoryClass);
                 return sticker_relation.query().find();
