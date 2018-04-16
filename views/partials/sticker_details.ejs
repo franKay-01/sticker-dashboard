@@ -38,8 +38,7 @@
                 <option value="<%= items.get("name") %>" ><%= items.get("name") %></option>
                 <% selected.forEach(function(select){%>
                 <% if (select === name) {%>
-
-                <%}else {%>
+                <option value="<%= items.get("name") %>" selected ><%= items.get("name") %></option>
 
                 <%}%>
                 <%})%>
