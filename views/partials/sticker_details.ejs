@@ -34,6 +34,7 @@
 
                 <% } else { %>
                 <% categories.forEach(function(items) { %>
+                <% console.log("Selected "+selected)%>
                 <% selected.forEach(function(select){%>
                 <% if (select !== items.get("name")) {%>
                 <option value="<%= items.get("name") %>"><%= items.get("name") %></option>
