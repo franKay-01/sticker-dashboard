@@ -2467,12 +2467,15 @@ app.get('/details/:id/:coll_id', function (req, res) {
                     sticker: stickerDetail,
                     selected: selectedCategories,
                     categories: allCategories,
-                    pack_id: pack_
+                    pack_id: pack_,
+                    id: id
                 });
             }
         }, function (err) {
             //TODO handle error code
             console.log("Error Loading-----------------------" + JSON.stringify(err));
+            res.redirect("/pack/"+pack_);
+
         });
     }
     else {
@@ -2709,12 +2712,12 @@ app.post('/update/:id/:pid', function (req, res) {
         }).then(function (sticker) {
 
             console.log("STICKER UPDATED" + JSON.stringify(sticker));
-            res.redirect("/pack/" + packId);
+            res.redirect("/details/" + stickerId +"/"+packId);
 
         }, function (error) {
 
             console.log("SERVER ERROR " + error.message);
-            res.redirect("/pack/" + packId);
+            res.redirect("/details/" + stickerId +"/"+packId);
 
         });
 
