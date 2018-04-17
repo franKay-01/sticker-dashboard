@@ -315,8 +315,8 @@ app.post('/signup', function (req, res) {
     user.set("type", NORMAL_USER);
     user.set("image_set", false);
 
-    let Profile = new Parse.Object.extend(Profile);
-    let profile = new Profile();
+    let user_profile = new Parse.Object.extend(Profile);
+    let profile = new user_profile();
 
     user.signUp(null, {
         success: function (user) {
