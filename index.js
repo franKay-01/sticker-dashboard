@@ -46,6 +46,7 @@ let ArtWork = "ArtWork";
 let MessageClass = "Contact";
 let AdvertClass = "Advert";
 let AdvertImageClass = "AdvertImages";
+let Profile = "Profile";
 
 //TODO replace all with new* types
 //const
@@ -311,14 +312,22 @@ app.post('/signup', function (req, res) {
     user.set("name", name);
     user.set("username", username);
     user.set("password", password);
-    user.set("email", username);
     user.set("type", NORMAL_USER);
     user.set("image_set", false);
+
+    let Profile = new Parse.Object.extend(Profile);
+    let profile = new Profile();
 
     user.signUp(null, {
         success: function (user) {
 
-            res.redirect("/");
+            profile.set("user_id", user.id);
+            profile.set("email", username);
+
+            profile.save().then(function () {
+                res.redirect("/");
+            });
+
 
         },
         error: function (user, error) {
