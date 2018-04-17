@@ -789,6 +789,14 @@ label {
     background-color: #fff;
 }
 
+.font-weight-bold{
+    width: 100%;
+    height: 52px;
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -2.5px;
+}
+
 ._forgot_password {
     height: 52px;
 
