@@ -333,6 +333,7 @@ app.post('/signup', function (req, res) {
         error: function (user, error) {
             // Show the error message somewhere and let the user try again.
             let message = "SignUp was unsuccessful. " + error.message;
+           console.log("SignUp was unsuccessful. " + JSON.stringify(error));
             res.render("pages/sign_up", {error: message});
         }
     });
