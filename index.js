@@ -318,7 +318,7 @@ app.post('/signup', function (req, res) {
     let user_profile = new Parse.Object.extend(Profile);
     let profile = new user_profile();
 
-    user.signUp(null, {
+    user.signUp({useMasterKey: true}, {
         success: function (user) {
 
             profile.set("user_id", user.id);
