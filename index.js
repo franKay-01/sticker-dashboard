@@ -1365,14 +1365,22 @@ app.get('/home', function (req, res) {
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
-                new Parse.Query(StoryClass).equalTo("user_id", _user.id).count()
+                new Parse.Query(StoryClass).equalTo("user_id", _user.id).count(),
+                new Parse.Query(PacksClass).notEqualTo("status", type.PACK_STATUS.pending).find()
             );
 
-        }).then(function (collection, categories, story, allPacks, allAdverts, categoryLength, packLength, stickerLength, storyLength) {
+        }).then(function (collection, categories, story, allPacks, allAdverts, categoryLength,
+                          packLength, stickerLength, storyLength, publishPacks) {
+
             let _allPacks = [];
             let _story = [];
             let _collection = [];
             let _allAdverts = [];
+            let _publishPacks = [];
+
+            if (publishPacks.length) {
+                _publishPacks = publishPacks;
+            }
 
             if (collection.length) {
                 _collection = collection;
@@ -1408,9 +1416,24 @@ app.get('/home', function (req, res) {
                 });
             } else if (_user.get("type") === SUPER_USER) {
 
-                res.redirect("/admin_home");
+                res.render("pages/admin_home", {
+                    collections: _collection,
+                    allPacks: _allPacks,
+                    story: _story,
+                    allAdverts: _allAdverts,
+                    publishPack: _publishPacks,
+                    categories: _categories,
+                    categoryLength: helper.leadingZero(categoryLength),
+                    packLength: helper.leadingZero(packLength),
+                    stickerLength: helper.leadingZero(stickerLength),
+                    storyLength: helper.leadingZero(storyLength),
+                    user_name: _user.get("name"),
+                    verified: _user.get("emailVerified")
+                });
             } else {
                 //TODO error message
+                console.log(JSON.stringify(error));
+                res.redirect("/");
             }
 
         }, function (error) {
@@ -2212,7 +2235,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
     let _keywords = [];
 
     if (keywords !== undefined || keywords !== "undefined") {
-        _keywords = Array.from(keywords);
+        _keywords = keywords.split(",");
     }
 
     console.log("FILE CONTENT " + files.length);
