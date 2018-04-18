@@ -7,7 +7,7 @@ let ContactClass = "Contact";
 Parse.Cloud.define("message", function (req, res) {
 
     let name = req.params.name;
-    let subject = req.params.subject;
+   // let subject = req.params.subject;
     let email = req.params.email;
     let message = req.params.message;
     let type = String(req.params.type).toLowerCase();
@@ -32,7 +32,7 @@ Parse.Cloud.define("message", function (req, res) {
     let contact = new Contact();
 
     contact.set("name", name);
-    contact.set("subject", subject);
+    //contact.set("subject", subject);
     contact.set("email", email);
     contact.set("message", message);
     contact.set("type", type);
