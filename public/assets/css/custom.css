@@ -537,7 +537,8 @@ label {
     border-radius: 15px;
     position: relative;
     background-color: white;
-    box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
+    /*box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);*/
+    box-shadow: rgb(197, 197, 197) 0 0 40px;
 }
 
 .user_profile {
