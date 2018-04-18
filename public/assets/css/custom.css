@@ -192,7 +192,7 @@ label {
     width: 726px;
     /*height: 414px;*/
     border-radius: 15px;
-    background-image: linear-gradient(to bottom, #d77255, #8651aa);
+    background-image: linear-gradient(to bottom, #df5A34, #814ea4);
 }
 
 .card_head_position {
@@ -360,7 +360,7 @@ label {
     margin-right: 10px;
     border-radius: 15px;
     margin-bottom: 15px;
-    background-image: linear-gradient(to bottom, #d77255, #8651aa);
+    background-image: linear-gradient(to bottom, #df5A34, #814ea4);
     box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
 }
 
@@ -372,7 +372,7 @@ label {
     margin-bottom: 15px;
     color: white;
     margin-top: 20px !important;
-    background-image: linear-gradient(to bottom, #d77255, #8651aa);
+    background-image: linear-gradient(to bottom, #df5A34, #814ea4);
     box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);
 }
 
@@ -420,7 +420,7 @@ label {
 .home_pack_description {
     width: 135px;
     height: 32px;
-    font-size: 26px;
+    font-size: 20px;
     font-weight: 500;
     letter-spacing: -1.5px;
     text-align: left;
@@ -502,8 +502,7 @@ label {
 .view_all {
     width: 76px;
     height: 25px;
-
-    font-size: 21px;
+    font-size: 16px;
     font-weight: 500;
     letter-spacing: -1.2px;
     text-align: left;
@@ -1472,7 +1471,7 @@ fieldset {
     width: 661px;
     /*height: 572px;*/
     border-radius: 18px;
-    background-image: linear-gradient(to bottom, #d77255, #8651aa);
+    background-image: linear-gradient(to bottom, #df5A34, #814ea4);
 }
 
 #detailsForm {
