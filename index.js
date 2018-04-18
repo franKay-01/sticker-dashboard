@@ -1286,69 +1286,6 @@ app.post('/edit_main_story/:id', function (req, res) {
     }
 });
 
-app.get('/admin_home', function (req, res) {
-
-    let token = req.cookies.token;
-
-    if (token) {
-
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-            let limit = 3;
-
-            return Parse.Promise.when(
-                new Parse.Query(PacksClass).notEqualTo("status", type.PACK_STATUS.pending).find(),
-                new Parse.Query(CategoryClass).limit(limit).find(),
-                new Parse.Query(AdvertClass).limit(limit).find(),
-                new Parse.Query(CategoryClass).count(),
-                new Parse.Query(PacksClass).count(),
-                new Parse.Query(StickerClass).count()
-            );
-
-        }).then(function (collection, categories, adverts, categoryLength, packLength, stickerLength) {
-            let _collection = [];
-            let _categories = [];
-
-            if (collection.length) {
-                _collection = collection;
-            }
-
-            if (categories.length) {
-                _categories = categories;
-
-            }
-
-            if (adverts.length) {
-                _allAdverts = adverts;
-            }
-
-            // Parse.Cloud.run("stickerNumber").then(function () {
-            // });
-
-            res.render("pages/admin_home", {
-                collections: _collection,
-                categories: _categories,
-                allAdverts: _allAdverts,
-                categoryLength: helper.leadingZero(categoryLength),
-                packLength: helper.leadingZero(packLength),
-                stickerLength: helper.leadingZero(stickerLength),
-                user_name: _user.get("name"),
-                verified: _user.get("emailVerified")
-            });
-
-        }, function (error) {
-            console.log("ERRR OCCURRED. ERROR MESSAGE: " + error.message);
-            res.redirect('/home');
-        })
-
-    } else {
-        res.redirect("/home");
-    }
-});
-
 app.get('/home', function (req, res) {
 
     let token = req.cookies.token;
@@ -1719,13 +1656,13 @@ app.post('/new_category', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect("/admin_home");
+            res.redirect("/home");
 
         });
     }
 
     else {
-        res.redirect("/admin_home");
+        res.redirect("/home");
     }
 });
 
