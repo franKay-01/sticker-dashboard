@@ -420,7 +420,7 @@ label {
 .home_pack_description {
     width: 135px;
     height: 32px;
-    font-size: 26px;
+    font-size: 20px;
     font-weight: 500;
     letter-spacing: -1.5px;
     text-align: left;
@@ -502,8 +502,7 @@ label {
 .view_all {
     width: 76px;
     height: 25px;
-
-    font-size: 21px;
+    font-size: 16px;
     font-weight: 500;
     letter-spacing: -1.2px;
     text-align: left;
