@@ -1373,11 +1373,10 @@ app.get('/home', function (req, res) {
                 new Parse.Query(StoryClass).equalTo("user_id", _user.id).count()
             );
 
-        }).then(function (collection, categories, story, allPacks, allAdverts, categoryLength, packLength, stickerLength, storyLength) {
+        }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength, storyLength) {
             let _allPacks = [];
             let _story = [];
             let _collection = [];
-            let _allAdverts = [];
 
             if (collection.length) {
                 _collection = collection;
