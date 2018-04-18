@@ -1430,10 +1430,12 @@ app.get('/home', function (req, res) {
                     collection: _published,
                     categories: _categories,
                     allAdverts: _allAds,
+                    allPacks: _allPacks,
                     story: _story,
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
+                    storyLength: helper.leadingZero(storyLength),
                     user_name: _user.get("name"),
                     verified: _user.get("emailVerified")
                 });
