@@ -1370,13 +1370,23 @@ app.get('/home', function (req, res) {
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
-                new Parse.Query(StoryClass).equalTo("user_id", _user.id).count()
+                new Parse.Query(StoryClass).equalTo("user_id", _user.id).count(),
+                new Parse.Query(PacksClass).notEqualTo("status", type.PACK_STATUS.pending).find(),
+                new Parse.Query(AdvertClass).limit(limit).find(),
+
             );
 
-        }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength, storyLength) {
+        }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength, storyLength, publishPacks, allAdverts) {
             let _allPacks = [];
             let _story = [];
             let _collection = [];
+            let _published = [];
+            let _allAds = [];
+            let _categories = [];
+
+            if (categories.length){
+                _categories = categories
+            }
 
             if (collection.length) {
                 _collection = collection;
@@ -1390,6 +1400,14 @@ app.get('/home', function (req, res) {
 
             if (allPacks.length) {
                 _allPacks = allPacks;
+            }
+
+            if (allAdverts.length) {
+                _allAds = allAdverts;
+            }
+
+            if (publishPacks.length){
+                _published = publishPacks;
             }
 
             if (_user.get("type") === NORMAL_USER) {
@@ -1407,7 +1425,18 @@ app.get('/home', function (req, res) {
                 });
             } else if (_user.get("type") === SUPER_USER) {
 
-                res.redirect("/admin_home");
+                res.render("pages/admin_home", {
+                    collections: _published,
+                    categories: _categories,
+                    allAdverts: _allAds,
+                    categoryLength: helper.leadingZero(categoryLength),
+                    packLength: helper.leadingZero(packLength),
+                    stickerLength: helper.leadingZero(stickerLength),
+                    user_name: _user.get("name"),
+                    verified: _user.get("emailVerified")
+                });
+
+                // res.redirect("/admin_home");
             } else {
                 //TODO error message
             }
