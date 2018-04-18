@@ -1426,7 +1426,8 @@ app.get('/home', function (req, res) {
             } else if (_user.get("type") === SUPER_USER) {
 
                 res.render("pages/admin_home", {
-                    collections: _published,
+                    collections: _collection,
+                    collection: _published,
                     categories: _categories,
                     allAdverts: _allAds,
                     categoryLength: helper.leadingZero(categoryLength),
