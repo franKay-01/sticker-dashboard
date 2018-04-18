@@ -1435,6 +1435,7 @@ app.get('/home', function (req, res) {
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
+                    storyLength: helper.leadingZero(storyLength),
                     user_name: _user.get("name"),
                     verified: _user.get("emailVerified")
                 });
