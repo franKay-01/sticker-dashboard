@@ -1430,6 +1430,7 @@ app.get('/home', function (req, res) {
                     collection: _published,
                     categories: _categories,
                     allAdverts: _allAds,
+                    story: _story,
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
