@@ -1302,12 +1302,13 @@ app.get('/admin_home', function (req, res) {
             return Parse.Promise.when(
                 new Parse.Query(PacksClass).notEqualTo("status", type.PACK_STATUS.pending).find(),
                 new Parse.Query(CategoryClass).limit(limit).find(),
+                new Parse.Query(AdvertClass).limit(limit).find(),
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).count(),
                 new Parse.Query(StickerClass).count()
             );
 
-        }).then(function (collection, categories, categoryLength, packLength, stickerLength) {
+        }).then(function (collection, categories, adverts, categoryLength, packLength, stickerLength) {
             let _collection = [];
             let _categories = [];
 
@@ -1320,12 +1321,17 @@ app.get('/admin_home', function (req, res) {
 
             }
 
+            if (adverts.length) {
+                _allAdverts = adverts;
+            }
+
             // Parse.Cloud.run("stickerNumber").then(function () {
             // });
 
             res.render("pages/admin_home", {
                 collections: _collection,
                 categories: _categories,
+                allAdverts: _allAdverts,
                 categoryLength: helper.leadingZero(categoryLength),
                 packLength: helper.leadingZero(packLength),
                 stickerLength: helper.leadingZero(stickerLength),
@@ -1361,7 +1367,6 @@ app.get('/home', function (req, res) {
                 new Parse.Query(CategoryClass).limit(limit).find(),
                 new Parse.Query(StoryClass).limit(limit).find(),
                 new Parse.Query(PacksClass).find(),
-                new Parse.Query(AdvertClass).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
@@ -1388,17 +1393,12 @@ app.get('/home', function (req, res) {
                 _allPacks = allPacks;
             }
 
-            if (allAdverts.length) {
-                _allAdverts = allAdverts;
-            }
-
             if (_user.get("type") === NORMAL_USER) {
 
                 res.render("pages/home", {
                     collections: _collection,
                     allPacks: _allPacks,
                     story: _story,
-                    allAdverts: _allAdverts,
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
