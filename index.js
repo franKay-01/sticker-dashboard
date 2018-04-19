@@ -1288,8 +1288,6 @@ app.get('/home', function (req, res) {
 
         let _user = {};
 
-        story = jU3SwZUJYl
-
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
