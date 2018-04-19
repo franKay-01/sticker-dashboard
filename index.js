@@ -1348,6 +1348,7 @@ app.get('/home', function (req, res) {
                 _published = publishPacks;
             }
 
+            console.log("LATEST ID " + latestSticker.get("latest_id"));
             return Parse.Promise.when(
                 new Parse.Query(StickerClass).equalTo("objectId", latestSticker.get("latest_id")).first()
                 // new Parse.Query(StickerClass).equalTo("objectId", latestStory.get("latest_id")).first()
