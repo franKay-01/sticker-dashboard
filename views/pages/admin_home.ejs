@@ -276,10 +276,10 @@
         </div>
         <!-- End of card-->
         <% if (storyLength !== "00"){ %>
-        <% if (story.get("is_latest_story") === true){%>
+        <% if (artwork){%>
         <div class="medium-3 large-3 cell icons">
             <a class="_stickers_packs" href="/sticker_of_day">
-                <img class="review_tab" src="<%= story.get("uri").url()%>">
+                <img class="review_tab" src="<%= artwork.get("uri").url()%>">
                 <div><p class="pack_name_text">Sticker of The Day</p></div>
             </a>
 

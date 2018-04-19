@@ -1294,6 +1294,12 @@ app.get('/home', function (req, res) {
     if (token) {
 
         let _user = {};
+        let _allPacks = [];
+        let _story = [];
+        let _collection = [];
+        let _published = [];
+        let _allAds = [];
+        let _categories = [];
 
         getUser(token).then(function (sessionToken) {
 
@@ -1311,15 +1317,12 @@ app.get('/home', function (req, res) {
                 new Parse.Query(StoryClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(PacksClass).notEqualTo("status", type.PACK_STATUS.pending).find(),
                 new Parse.Query(AdvertClass).limit(limit).find(),
+                new Parse.Query(StoryClass).equalTo("is_lastest_story", true).first()
             );
 
-        }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength, storyLength, publishPacks, allAdverts) {
-            let _allPacks = [];
-            let _story = [];
-            let _collection = [];
-            let _published = [];
-            let _allAds = [];
-            let _categories = [];
+        }).then(function (collection, categories, story, allPacks, categoryLength,
+                          packLength, stickerLength, storyLength, publishPacks, allAdverts, lastest) {
+
 
             if (categories.length) {
                 _categories = categories
@@ -1347,6 +1350,9 @@ app.get('/home', function (req, res) {
                 _published = publishPacks;
             }
 
+            return new Parse.Query(ArtWork).equalTo("story_id", lastest.id).first();
+
+        }).then(function (artwork) {
             if (_user.get("type") === NORMAL_USER) {
 
                 res.render("pages/home", {
@@ -1369,6 +1375,7 @@ app.get('/home', function (req, res) {
                     allAdverts: _allAds,
                     allPacks: _allPacks,
                     story: _story,
+                    artwork: artwork,
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
@@ -1381,8 +1388,7 @@ app.get('/home', function (req, res) {
             } else {
                 //TODO error message
             }
-
-        }, function (error) {
+            }, function (error) {
             //TODO how to display error on home page
             console.log(JSON.stringify(error));
             res.redirect("/home");
