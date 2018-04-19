@@ -1294,13 +1294,6 @@ app.get('/home', function (req, res) {
     if (token) {
 
         let _user = {};
-        let _allPacks = [];
-        let _story = [];
-        let _collection = [];
-        let _published = [];
-        let _allAds = [];
-        let _categories = [];
-        let art = [];
 
         getUser(token).then(function (sessionToken) {
 
@@ -1317,11 +1310,16 @@ app.get('/home', function (req, res) {
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StoryClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(PacksClass).notEqualTo("status", type.PACK_STATUS.pending).find(),
-                new Parse.Query(AdvertClass).limit(limit).find(),
-                new Parse.Query(StoryClass).notEqualTo("is_latest_story", false).first()
+                new Parse.Query(AdvertClass).limit(limit).find()
             );
 
-        }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength, storyLength, publishPacks, allAdverts, latestStory) {
+        }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength, storyLength, publishPacks, allAdverts) {
+            let _allPacks = [];
+            let _story = [];
+            let _collection = [];
+            let _published = [];
+            let _allAds = [];
+            let _categories = [];
 
             if (categories.length) {
                 _categories = categories
@@ -1349,17 +1347,6 @@ app.get('/home', function (req, res) {
                 _published = publishPacks;
             }
 
-            if (latestStory) {
-                return new Parse.Query(ArtWork).equalTo("story_id", latestStory.id);
-            }else {
-                return 1;
-            }
-
-        }).then(function (sticker) {
-            if (sticker !== 1){
-                art = sticker;
-            }
-
             if (_user.get("type") === NORMAL_USER) {
 
                 res.render("pages/home", {
@@ -1382,7 +1369,6 @@ app.get('/home', function (req, res) {
                     allAdverts: _allAds,
                     allPacks: _allPacks,
                     story: _story,
-                    artwork: art,
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
