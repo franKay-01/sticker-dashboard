@@ -276,7 +276,7 @@
         </div>
         <!-- End of card-->
         <% if (storyLength !== "00"){ %>
-        <% if (artwork){%>
+        <% if (artwork) {%>
         <div class="medium-3 large-3 cell icons">
             <a class="_stickers_packs" href="/sticker_of_day">
                 <img class="review_tab" src="<%= artwork.get("uri").url()%>">
@@ -284,17 +284,17 @@
             </a>
 
         </div>
+
         <%} else {%>
         <div class="medium-3 large-3 cell icons">
-            <a class="_stickers_packs" href="/story_of_day">
-                <p class="recent_labels">No story is set</p>
-                <div><p class="pack_name_text">Story of The Day</p></div>
+            <a class="_stickers_packs" href="/sticker_of_day">
+                <p class="recent_labels">No Sticker is set</p>
+                <div><p class="pack_name_text">Sticker of The Day</p></div>
             </a>
 
         </div>
         <%}%>
-        <% } %>
-
+        <%}%>
         <% if (stickerLength !== "00"){ %>
         <div class="medium-3 large-3 cell icons">
             <a class="_stickers_packs" href="/sticker_of_day">
