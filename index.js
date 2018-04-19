@@ -1291,8 +1291,6 @@ app.get('/home', function (req, res) {
 
     let token = req.cookies.token;
 
-    res.send("HI");
-
     if (token) {
 
         let _user = {};
