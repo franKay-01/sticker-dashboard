@@ -961,12 +961,21 @@ app.post('/add_story_artwork/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(StoryClass).equalTo("objectId", story_id).first();
+            return Parse.Promise.when(
+                new Parse.Query(StickerClass).equalTo("objectId", sticker_id).first(),
+                new Parse.Query(StoryClass).equalTo("objectId", story_id).first());
 
-        }).then(function (story) {
+        }).then(function (sticker, story) {
             id = story.id;
-            story.set("art_work", sticker_id);
-            return story.save();
+
+            let Artwork = new Parse.Query.extend(ArtWork);
+            let artwork = new Artwork();
+
+            artwork.set("name", sticker.get("name"));
+            artwork.set("story_id", id);
+            artwork.set("uri", sticker.get("uri"));
+
+            return artwork.save();
 
         }).then(function () {
 
