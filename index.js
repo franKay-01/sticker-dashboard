@@ -333,7 +333,7 @@ app.post('/signup', function (req, res) {
         error: function (user, error) {
             // Show the error message somewhere and let the user try again.
             let message = "SignUp was unsuccessful. " + error.message;
-           console.log("SignUp was unsuccessful. " + JSON.stringify(error));
+            console.log("SignUp was unsuccessful. " + JSON.stringify(error));
             res.render("pages/sign_up", {error: message});
         }
     });
@@ -971,7 +971,7 @@ app.post('/add_story_artwork/:id', function (req, res) {
             let Artwork = new Parse.Object.extend(ArtWork);
             let artwork = new Artwork();
 
-            artwork.set("name", sticker.get("name"));
+            artwork.set("name", sticker.get("stickerName"));
             artwork.set("story_id", id);
             artwork.set("uri", sticker.get("uri"));
 
@@ -1025,24 +1025,18 @@ app.get('/story_details/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(StoryClass).equalTo("objectId", story_id).first();
-
-        }).then(function (story) {
+            return Parse.Promise.when(
+                new Parse.Query(StoryClass).equalTo("objectId", story_id).first(),
+                new Parse.Query(ArtWork).equalTo("story_id", story_id).first());
+        }).then(function (story, sticker) {
 
             _story = story;
-
-            let id = story.get("art_work");
-
-            console.log("ART_WORK " + id);
-
-            return new Parse.Query(StickerClass).equalTo("objectId", id).first();
-
-        }).then(function (sticker) {
 
             res.render("pages/story_details", {
                 story: _story,
                 sticker: sticker
             });
+
         }, function (error) {
             console.log("ERROR " + error.message);
             res.redirect('/story_collection');
@@ -1317,7 +1311,6 @@ app.get('/home', function (req, res) {
                 new Parse.Query(StoryClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(PacksClass).notEqualTo("status", type.PACK_STATUS.pending).find(),
                 new Parse.Query(AdvertClass).limit(limit).find(),
-
             );
 
         }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength, storyLength, publishPacks, allAdverts) {
@@ -1328,7 +1321,7 @@ app.get('/home', function (req, res) {
             let _allAds = [];
             let _categories = [];
 
-            if (categories.length){
+            if (categories.length) {
                 _categories = categories
             }
 
@@ -1350,7 +1343,7 @@ app.get('/home', function (req, res) {
                 _allAds = allAdverts;
             }
 
-            if (publishPacks.length){
+            if (publishPacks.length) {
                 _published = publishPacks;
             }
 
@@ -2129,7 +2122,7 @@ app.get('/edit_pack_details/:id', function (req, res) {
         }).then(function (pack) {
 
             res.render("pages/pack_details", {
-               pack_details: pack
+                pack_details: pack
             });
 
         }, function (error) {
@@ -2137,7 +2130,7 @@ app.get('/edit_pack_details/:id', function (req, res) {
             console.log("ERROR " + error.message);
             res.redirect("/pack/" + pack_id);
         })
-    }else {
+    } else {
         res.redirect('/');
     }
 });
