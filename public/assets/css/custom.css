@@ -463,6 +463,18 @@ label {
     color: #c47462;
 }
 
+.title{
+    height: 24px;
+    font-size: 20px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1.2px;
+    text-align: center;
+    color: #ffffff;
+}
+
 .create_button {
     width: 230px;
     height: 60px;
@@ -472,7 +484,6 @@ label {
 
 .upload {
     height: 43px;
-
     font-size: 35px;
     font-weight: bold;
     letter-spacing: -2.1px;
