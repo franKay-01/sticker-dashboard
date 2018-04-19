@@ -1290,6 +1290,13 @@ app.get('/home', function (req, res) {
 
         let _user = {};
 
+        let _allPacks = [];
+        let _story = [];
+        let _collection = [];
+        let _published = [];
+        let _allAds = [];
+        let _categories = [];
+
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
@@ -1305,16 +1312,15 @@ app.get('/home', function (req, res) {
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StoryClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(PacksClass).notEqualTo("status", type.PACK_STATUS.pending).find(),
-                new Parse.Query(AdvertClass).limit(limit).find()
+                new Parse.Query(AdvertClass).limit(limit).find(),
+                new Parse.Query(Latest).equalTo("objectId", "H9c8hykNqO").first(),
+                new Parse.Query(Latest).equalTo("objectId", "jU3SwZUJYl").first()
+
             );
 
-        }).then(function (collection, categories, story, allPacks, categoryLength, packLength, stickerLength, storyLength, publishPacks, allAdverts) {
-            let _allPacks = [];
-            let _story = [];
-            let _collection = [];
-            let _published = [];
-            let _allAds = [];
-            let _categories = [];
+        }).then(function (collection, categories, story, allPacks, categoryLength, packLength,
+                          stickerLength, storyLength, publishPacks, allAdverts, latestSticker, latestStory) {
+
 
             if (categories.length) {
                 _categories = categories
@@ -1342,6 +1348,12 @@ app.get('/home', function (req, res) {
                 _published = publishPacks;
             }
 
+            return Parse.Promise.when(
+                new Parse.Query(StickerClass).equalTo("objectId", latestSticker).first(),
+                new Parse.Query(StickerClass).equalTo("objectId", latestStory).first(),
+            );
+
+        }).then(function (latestSticker, latestStory) {
             if (_user.get("type") === NORMAL_USER) {
 
                 res.render("pages/home", {
@@ -1364,6 +1376,8 @@ app.get('/home', function (req, res) {
                     allAdverts: _allAds,
                     allPacks: _allPacks,
                     story: _story,
+                    latestStory: latestStory,
+                    latestSticker: latestSticker,
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
@@ -1376,7 +1390,6 @@ app.get('/home', function (req, res) {
             } else {
                 //TODO error message
             }
-
         }, function (error) {
             //TODO how to display error on home page
             console.log(JSON.stringify(error));

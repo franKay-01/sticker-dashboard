@@ -204,24 +204,25 @@
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">Update</div>
             <a href="/sticker_of_day">
-            <button id="showCreateForm" class="create_button">
-                <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp; Sticker of the Day</p>
-            </button>
+                <button id="showCreateForm" class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp; Sticker of the Day
+                    </p>
+                </button>
             </a>
             <a href="/story_of_day">
-            <button id="btnAddStory" class="create_button">
-                <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;Story of the Day</p>
-            </button>
+                <button id="btnAddStory" class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;Story of the Day</p>
+                </button>
             </a>
             <a href="#">
-            <button id="btnAddCategory" class="create_button">
-                <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;Packs in Review</p>
-            </button>
+                <button id="btnAddCategory" class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;Packs in Review</p>
+                </button>
             </a>
             <a href="#">
-            <button id="btnAddAdverts" class="create_button">
-                <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;Stories in Review</p>
-            </button>
+                <button id="btnAddAdverts" class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;Stories in Review</p>
+                </button>
             </a>
             <br>
 
@@ -277,20 +278,19 @@
         <!-- End of card-->
         <% if (storyLength !== "00"){ %>
         <div class="medium-3 large-3 cell icons">
-            <a class="_stickers_packs" href="/sticker_of_day">
-                <!--<img class="review_tab" src="">-->
+            <a class="_stickers_packs" href="/story_of_day">
+                <img class="review_tab" src="<%= latestStory.get("uri").url() %>">
                 <div><p class="pack_name_text">Latest Story</p></div>
             </a>
 
         </div>
 
-        <%} %>
-
+        <% } %>
 
         <% if (stickerLength !== "00"){ %>
         <div class="medium-3 large-3 cell icons">
             <a class="_stickers_packs" href="/sticker_of_day">
-                <p class="recent_labels">No Sticker is set</p>
+                <img class="review_tab" src="<%= latestSticker.get("uri").url() %>">
                 <div><p class="pack_name_text">Sticker of The Day</p></div>
             </a>
 
