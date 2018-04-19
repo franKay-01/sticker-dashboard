@@ -491,7 +491,7 @@ label {
 .review_tab_bottom{
     position: absolute;
     bottom: 0;
-    margin-bottom: 15px;
+    margin-bottom: 15px !important;
 }
 
 .create_button {
