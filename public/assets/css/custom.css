@@ -471,8 +471,21 @@ label {
     font-stretch: normal;
     line-height: normal;
     letter-spacing: -1.2px;
-    text-align: center;
+    text-align: left;
     color: #ffffff;
+    margin-top: 10px;
+}
+
+.none{
+    height: 24px;
+    font-size: 20px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1.2px;
+    text-align: left;
+    color: #c5c5c5;
 }
 
 .create_button {
