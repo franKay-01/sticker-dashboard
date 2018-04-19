@@ -35,7 +35,6 @@ let errorMessage = "";
 let searchErrorMessage = "";
 
 let StickerClass = "Stickers";
-let StickerOfDay = "Sticker";
 let CategoryClass = "Categories";
 let PacksClass = "Packs";
 let ReviewClass = "Reviews";
@@ -47,6 +46,8 @@ let MessageClass = "Contact";
 let AdvertClass = "Advert";
 let AdvertImageClass = "AdvertImages";
 let Profile = "Profile";
+let Latest = "Latest";
+
 
 //TODO replace all with new* types
 //const
@@ -452,6 +453,7 @@ app.post('/new_story', function (req, res) {
 
 });
 
+//TODO merge add_sticker_of_day and add_story_of_the_day
 app.post('/add_story_of_day', function (req, res) {
 
     let token = req.cookies.token;
@@ -461,22 +463,13 @@ app.post('/add_story_of_day', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(StoryClass).equalTo("is_latest_story", true).first();
+            return new Parse.Query(Latest).equalTo("latest_id", "jU3SwZUJYl").first();
 
-        }).then(function (story) {
-            if (story) {
-                story.set("is_latest_story", false);
-                return story.save();
-            }
+        }).then(function (latest) {
 
-        }).then(function () {
+            latest.set("latest_id", id);
+            return latest.save();
 
-            return new Parse.Query(StoryClass).equalTo("objectId", id).first();
-
-        }).then(function (new_story) {
-
-            new_story.set("is_latest_story", true);
-            return new_story.save();
         }).then(function () {
 
             res.redirect('/home');
@@ -787,13 +780,13 @@ app.post('/add_sticker_of_day', function (req, res) {
     if (token) {
 
         getUser(token).then(function (sessionToken) {
+            return new Parse.Query(Latest).equalTo("latest_id", "H9c8hykNqO").first();
+        }).then(function (latest) {
 
-            return new Parse.Query(StickerOfDay).first();
-        }).then(function (sticker) {
+            latest.set("latest_id", id);
 
-            sticker.set("sticker_id", id);
+            return latest.save();
 
-            return sticker.save();
         }).then(function () {
 
             res.redirect('/home');
@@ -1294,6 +1287,8 @@ app.get('/home', function (req, res) {
     if (token) {
 
         let _user = {};
+
+        story = jU3SwZUJYl
 
         getUser(token).then(function (sessionToken) {
 
