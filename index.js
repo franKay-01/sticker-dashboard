@@ -968,7 +968,7 @@ app.post('/add_story_artwork/:id', function (req, res) {
         }).then(function (sticker, story) {
             id = story.id;
 
-            let Artwork = new Parse.Query.extend(ArtWork);
+            let Artwork = new Parse.Object.extend(ArtWork);
             let artwork = new Artwork();
 
             artwork.set("name", sticker.get("name"));
