@@ -1349,8 +1349,8 @@ app.get('/home', function (req, res) {
             }
 
             return Parse.Promise.when(
-                new Parse.Query(StickerClass).equalTo("objectId", latestSticker.id).first(),
-                new Parse.Query(StickerClass).equalTo("objectId", latestStory.id).first(),
+                new Parse.Query(StickerClass).equalTo("objectId", latestSticker.get("latest_id")).first(),
+                new Parse.Query(StickerClass).equalTo("objectId", latestStory.get("latest_id")).first()
             );
 
         }).then(function (latestSticker, latestStory) {
