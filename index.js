@@ -1349,11 +1349,11 @@ app.get('/home', function (req, res) {
             }
 
             return Parse.Promise.when(
-                new Parse.Query(StickerClass).equalTo("objectId", latestSticker.get("latest_id")).first(),
-                new Parse.Query(StickerClass).equalTo("objectId", latestStory.get("latest_id")).first()
+                new Parse.Query(StickerClass).equalTo("objectId", latestSticker.get("latest_id")).first()
+                // new Parse.Query(StickerClass).equalTo("objectId", latestStory.get("latest_id")).first()
             );
 
-        }).then(function (latestSticker, latestStory) {
+        }).then(function (latestSticker) {
             if (_user.get("type") === NORMAL_USER) {
 
                 res.render("pages/home", {
@@ -1376,7 +1376,7 @@ app.get('/home', function (req, res) {
                     allAdverts: _allAds,
                     allPacks: _allPacks,
                     story: _story,
-                    latestStory: latestStory,
+                    // latestStory: latestStory,
                     latestSticker: latestSticker,
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
