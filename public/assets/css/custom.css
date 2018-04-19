@@ -11,8 +11,7 @@ a {
 button,
 button:focus,
 button:active {
-    border: none;
-    background: none;
+    background-color: #a46580 !important;
     outline: none;
     padding: 0;
 }
@@ -454,13 +453,14 @@ label {
 .create_new {
     height: 43px;
     font-size: 35px;
-    font-weight: bold;
+    font-weight: 800;
     font-style: normal;
     font-stretch: normal;
     line-height: normal;
     letter-spacing: -2.1px;
     text-align: left;
     color: #c47462;
+    margin: 20px 15px auto;
 }
 
 .title{
@@ -479,6 +479,7 @@ label {
     width: 230px;
     height: 60px;
     border-radius: 10.8px;
+    margin: 10px 20px auto;
     background-color: #a46580;
 }
 
