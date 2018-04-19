@@ -703,7 +703,6 @@ app.post('/messages', function (req, res) {
 
     let token = req.cookies.token;
     let name = req.body.name;
-    let subject = req.body.subject;
     let email = req.body.email;
     let message = req.body.message;
     let source = parseInt(req.body.source);
@@ -716,7 +715,6 @@ app.post('/messages', function (req, res) {
             let contact = new Contact();
 
             contact.set("name", name);
-            contact.set("subject", subject);
             contact.set("email", email);
             contact.set("message", message);
             contact.set("type", source);
