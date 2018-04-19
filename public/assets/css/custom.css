@@ -488,6 +488,12 @@ label {
     color: #c5c5c5;
 }
 
+.review_tab_bottom{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 15px;
+}
+
 .create_button {
     width: 230px;
     height: 60px;
