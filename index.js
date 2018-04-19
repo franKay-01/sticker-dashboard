@@ -463,7 +463,7 @@ app.post('/add_story_of_day', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(Latest).equalTo("latest_id", "jU3SwZUJYl").first();
+            return new Parse.Query(Latest).equalTo("objectId", "jU3SwZUJYl").first();
 
         }).then(function (latest) {
 
@@ -780,7 +780,9 @@ app.post('/add_sticker_of_day', function (req, res) {
     if (token) {
 
         getUser(token).then(function (sessionToken) {
-            return new Parse.Query(Latest).equalTo("latest_id", "H9c8hykNqO").first();
+
+            return new Parse.Query(Latest).equalTo("objectId", "H9c8hykNqO").first();
+
         }).then(function (latest) {
 
             latest.set("latest_id", id);
