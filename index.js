@@ -1321,10 +1321,12 @@ app.get('/home', function (req, res) {
 
         }).then(function (stickerImage, storyImage, storyBody) {
 
-            console.log("STICKER IMAGE " + stickerImage.url);
+            _stickerImage = stickerImage.get("uri");
+            console.log("STICKER IMAGE " + _stickerImage.url);
 
             if (stickerImage){
                 _stickerImage = stickerImage.get("uri").url();
+
             }
 
             if (storyImage){
