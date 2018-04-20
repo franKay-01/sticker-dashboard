@@ -1419,7 +1419,7 @@ app.get('/home', function (req, res) {
 
         }, function (error) {
             //TODO how to display error on home page
-            console.log(JSON.stringify(error));
+            console.log("ERROR ON HOME " + error.message);
             res.redirect("/home");
         });
 
