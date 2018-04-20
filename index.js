@@ -1321,6 +1321,8 @@ app.get('/home', function (req, res) {
 
         }).then(function (stickerImage, storyImage, storyBody) {
 
+            console.log("STICKER IMAGE " + JSON.stringify(stickerImage));
+
             if (stickerImage){
                 _stickerImage = stickerImage.get("uri").url();
             }
@@ -1333,7 +1335,6 @@ app.get('/home', function (req, res) {
                 _storyBody = storyBody;
             }
 
-            console.log("STICKER IMAGE " + JSON.stringify(_storyImage));
 
             return Parse.Promise.when(
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
