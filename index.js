@@ -1321,15 +1321,15 @@ app.get('/home', function (req, res) {
 
         }).then(function (stickerImage, storyImage, storyBody) {
 
-            if (stickerImage.length){
+            if (stickerImage){
                 _stickerImage = stickerImage;
             }
 
-            if (storyImage.length){
+            if (storyImage){
                 _storyImage = storyImage;
             }
 
-            if (storyBody.length){
+            if (storyBody){
                 _storyBody = storyBody;
             }
 
