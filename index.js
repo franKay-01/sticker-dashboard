@@ -1314,7 +1314,7 @@ app.get('/home', function (req, res) {
 
         }).then(function (sticker, story) {
 
-            return Parse.Query(
+            return Parse.Query.when(
                 new Parse.Query(ArtWork).equalTo("object_id", sticker.id).first(),
                 new Parse.Query(ArtWork).equalTo("object_id", story.id).first(),
                 new Parse.Query(StoryClass).equalTo("objectId", story.id).first()
