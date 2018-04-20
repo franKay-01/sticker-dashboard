@@ -1296,9 +1296,9 @@ app.get('/home', function (req, res) {
         let _published = [];
         let _allAds = [];
         let _categories = [];
-        let _stickerImage ;
-        let _storyImage ;
-        let _storyBody ;
+        let _stickerImage;
+        let _storyImage;
+        let _storyBody;
         const limit = 3;
 
 
@@ -1321,22 +1321,13 @@ app.get('/home', function (req, res) {
 
         }).then(function (stickerImage, storyImage, storyBody) {
 
-            let image;
-            let _image;
+            _stickerImage = stickerImage.get("uri");
+            _stickerImage = _stickerImage.url();
 
-            if (stickerImage){
-                image = stickerImage.get("uri");
-                _stickerImage = image.url();
-            }
+            _storyImage = storyImage.get("uri");
+            _storyImage = _storyImage.url();
 
-            if (storyImage){
-                _image = storyImage.get("uri");
-                _storyImage = _image.url();
-            }
-
-            if (storyBody){
-                _storyBody = storyBody;
-            }
+            _storyBody = storyBody;
 
 
             return Parse.Promise.when(
@@ -1350,7 +1341,6 @@ app.get('/home', function (req, res) {
                 new Parse.Query(StoryClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(PacksClass).notEqualTo("status", type.PACK_STATUS.pending).find(),
                 new Parse.Query(AdvertClass).limit(limit).find()
-
             );
 
         }).then(function (collection, categories, story, allPacks, categoryLength, packLength,
