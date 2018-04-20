@@ -1313,6 +1313,7 @@ app.get('/home', function (req, res) {
 
         }).then(function (sticker, story) {
 
+            console.log("STICKER IMAGE " + sticker.get("latest_id"));
             return Parse.Promise.when(
                 new Parse.Query(ArtWork).equalTo("object_id", sticker.get("latest_id")).first(),
                 new Parse.Query(ArtWork).equalTo("object_id", story.get("latest_id")).first(),
@@ -1320,6 +1321,8 @@ app.get('/home', function (req, res) {
             );
 
         }).then(function (stickerImage, storyImage, storyBody) {
+
+            console.log("STICKER IMAGE " + JSON.stringify(stickerImage));
 
             if (stickerImage.length){
                 _stickerImage = stickerImage;
