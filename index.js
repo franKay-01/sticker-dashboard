@@ -1333,7 +1333,7 @@ app.get('/home', function (req, res) {
                 _storyBody = storyBody;
             }
 
-            console.log("STICKER IMAGE " + JSON.stringify(_stickerImage));
+            console.log("STICKER IMAGE " + JSON.stringify(_storyImage));
 
             return Parse.Promise.when(
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
