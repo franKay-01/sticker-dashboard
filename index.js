@@ -1296,9 +1296,9 @@ app.get('/home', function (req, res) {
         let _published = [];
         let _allAds = [];
         let _categories = [];
-        let _stickerImage = {};
-        let _storyImage = {};
-        let _storyBody = {};
+        let _stickerImage ;
+        let _storyImage ;
+        let _storyBody ;
         const limit = 3;
 
 
