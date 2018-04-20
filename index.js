@@ -1321,11 +1321,10 @@ app.get('/home', function (req, res) {
 
         }).then(function (stickerImage, storyImage, storyBody) {
 
-            console.log("STORY " + JSON.stringify(storyImage));
             _stickerImage = stickerImage.get("uri");
             // _stickerImage = _stickerImage.url();
 
-            _storyImage = storyImage.get("uri");
+            _storyImage = storyImage.get("sticker");
             // _storyImage = _storyImage.url();
 
             _storyBody = storyBody;
