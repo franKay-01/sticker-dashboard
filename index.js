@@ -1313,7 +1313,7 @@ app.get('/home', function (req, res) {
 
         }).then(function (sticker, story) {
 
-            console.log("STICKER IMAGE " + sticker.get("latest_id"));
+            console.log("STICKER IMAGE " + JSON.stringify(sticker));
             return Parse.Promise.when(
                 new Parse.Query(ArtWork).equalTo("object_id", sticker.get("latest_id")).first(),
                 new Parse.Query(ArtWork).equalTo("object_id", story.get("latest_id")).first(),
