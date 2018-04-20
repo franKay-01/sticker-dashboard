@@ -1321,8 +1321,6 @@ app.get('/home', function (req, res) {
 
         }).then(function (stickerImage, storyImage, storyBody) {
 
-            console.log("STICKER IMAGE " + JSON.stringify(stickerImage));
-
             if (stickerImage.length){
                 _stickerImage = stickerImage;
             }
