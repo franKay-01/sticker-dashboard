@@ -1306,32 +1306,32 @@ app.get('/home', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            return Parse.Promise.when(
-                new Parse.Query(Latest).equalTo("objectId", "H9c8hykNqO").first(),
-                new Parse.Query(Latest).equalTo("objectId", "jU3SwZUJYl").first()
-            );
-
-        }).then(function (sticker, story) {
-
-            return Parse.Promise.when(
-                new Parse.Query(ArtWork).equalTo("object_id", sticker.id).first(),
-                new Parse.Query(ArtWork).equalTo("object_id", story.id).first(),
-                new Parse.Query(StoryClass).equalTo("objectId", story.id).first()
-            );
-
-        }).then(function (stickerImage, storyImage, storyBody) {
-
-            if (stickerImage.length){
-                _stickerImage = stickerImage;
-            }
-
-            if (storyImage.length){
-                _storyImage = storyImage;
-            }
-
-            if (storyBody.length){
-                _storyBody = storyBody;
-            }
+        //     return Parse.Promise.when(
+        //         new Parse.Query(Latest).equalTo("objectId", "H9c8hykNqO").first(),
+        //         new Parse.Query(Latest).equalTo("objectId", "jU3SwZUJYl").first()
+        //     );
+        //
+        // }).then(function (sticker, story) {
+        //
+        //     return Parse.Promise.when(
+        //         new Parse.Query(ArtWork).equalTo("object_id", sticker.id).first(),
+        //         new Parse.Query(ArtWork).equalTo("object_id", story.id).first(),
+        //         new Parse.Query(StoryClass).equalTo("objectId", story.id).first()
+        //     );
+        //
+        // }).then(function (stickerImage, storyImage, storyBody) {
+        //
+        //     if (stickerImage.length){
+        //         _stickerImage = stickerImage;
+        //     }
+        //
+        //     if (storyImage.length){
+        //         _storyImage = storyImage;
+        //     }
+        //
+        //     if (storyBody.length){
+        //         _storyBody = storyBody;
+        //     }
 
             return Parse.Promise.when(
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
@@ -1399,9 +1399,9 @@ app.get('/home', function (req, res) {
                     allAdverts: _allAds,
                     allPacks: _allPacks,
                     story: _story,
-                    latestSticker: _stickerImage,
-                    latestStory: _storyImage,
-                    storyBody: _storyBody,
+                    // latestSticker: _stickerImage,
+                    // latestStory: _storyImage,
+                    // storyBody: _storyBody,
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
