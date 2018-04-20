@@ -1313,13 +1313,10 @@ app.get('/home', function (req, res) {
 
         }).then(function (sticker, story) {
 
-            console.log("STICKER ID " + sticker.id);
-            console.log("STORY ID " + story.id);
-
             return Parse.Promise.when(
-                new Parse.Query(ArtWork).equalTo("object_id", sticker.id).first(),
-                new Parse.Query(ArtWork).equalTo("object_id", story.id).first(),
-                new Parse.Query(StoryClass).equalTo("objectId", story.id).first()
+                new Parse.Query(ArtWork).equalTo("object_id", sticker.get("latest_id")).first(),
+                new Parse.Query(ArtWork).equalTo("object_id", story.get("latest_id")).first(),
+                new Parse.Query(StoryClass).equalTo("objectId", story.get("latest_id")).first()
             );
 
         }).then(function (stickerImage, storyImage, storyBody) {
