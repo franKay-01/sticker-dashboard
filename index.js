@@ -1022,7 +1022,7 @@ app.get('/story_details/:id', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(StoryClass).equalTo("objectId", story_id).first(),
-                new Parse.Query(ArtWork).equalTo("story_id", story_id).first());
+                new Parse.Query(ArtWork).equalTo("object_id", story_id).first());
         }).then(function (story, sticker) {
 
             _story = story;
