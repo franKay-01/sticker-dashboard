@@ -1322,7 +1322,7 @@ app.get('/home', function (req, res) {
         }).then(function (stickerImage, storyImage, storyBody) {
 
             _stickerImage = stickerImage.get("uri");
-            console.log("STICKER IMAGE " + _stickerImage.url);
+            console.log("STICKER IMAGE " + _stickerImage.url());
 
             if (stickerImage){
                 _stickerImage = stickerImage.get("uri").url();
