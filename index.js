@@ -1322,11 +1322,11 @@ app.get('/home', function (req, res) {
         }).then(function (stickerImage, storyImage, storyBody) {
 
             if (stickerImage){
-                _stickerImage = stickerImage;
+                _stickerImage = stickerImage.get("uri").url();
             }
 
             if (storyImage){
-                _storyImage = storyImage;
+                _storyImage = storyImage.get("uri").url();
             }
 
             if (storyBody){
