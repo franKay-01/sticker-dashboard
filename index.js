@@ -1306,6 +1306,7 @@ app.get('/home', function (req, res) {
 
             _user = sessionToken.get("user");
 
+            console.log("AM AT 1");
 
             return Parse.Promise.when(
                 new Parse.Query(Latest).equalTo("objectId", "H9c8hykNqO").first(),
@@ -1314,6 +1315,8 @@ app.get('/home', function (req, res) {
 
         }).then(function (sticker, story) {
 
+            console.log("AM AT 2");
+
             return Parse.Query.when(
                 new Parse.Query(ArtWork).equalTo("object_id", sticker.id).first(),
                 new Parse.Query(ArtWork).equalTo("object_id", story.id).first(),
@@ -1321,6 +1324,8 @@ app.get('/home', function (req, res) {
             );
 
         }).then(function (stickerImage, storyImage, storyBody) {
+
+            console.log("AM AT 3");
 
             if (stickerImage.length){
                 _stickerImage = stickerImage;
@@ -1350,6 +1355,8 @@ app.get('/home', function (req, res) {
 
         }).then(function (collection, categories, story, allPacks, categoryLength, packLength,
                           stickerLength, storyLength, publishPacks, allAdverts) {
+
+            console.log("AM AT 4");
 
 
             if (categories.length) {
