@@ -27,11 +27,11 @@
     <script>
         $(document).ready(function () {
 
-            let date = document.getElementById("created").innerHTML;
+            let date = document.getElementsByClassName("created").innerHTML;
 
             let date_created = moment(date).format('LL');
 
-            document.getElementById("created_at").innerHTML = date_created;
+            document.getElementsByClassName("created_at").innerHTML = date_created;
         });
     </script>
 </head>
