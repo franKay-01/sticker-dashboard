@@ -6,11 +6,9 @@
 </div>
 
 <% } else { %>
-<div>
 <% contact.forEach(function(item, index) { %>
-
-<%if (item.get("read") === false){%>
-<div class="medium-3 large-3 cell">
+<% if (item.get("read") === false){ %>
+<div class="medium-3 large-3 cell icons">
     <div>
         <p><%= item.get("createdAt") %></p>
         <p style="float: right; color: #0D47A1"><i class="fa fa-circle" aria-hidden="true"></i></p>
@@ -41,10 +39,8 @@
     </div>
     <a href="/get_message/<%= item.get("message") %>" style="color: #a46580">Read</a>
 </div>
-<%} %>
+<% } %>
 <% }); %>
-
-</div>
 <% } %>
 
 
