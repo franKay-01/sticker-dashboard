@@ -6,9 +6,16 @@
 </div>
 
 <% } else { %>
+<div id="message_t" style="display: block">
 <% contact.forEach(function(item, index) { %>
+
+<%if (item.get("read") === false){%>
 <div class="medium-3 large-3 cell">
 
+    <div>
+        <p><%= item.get("createdAt") %></p>
+        <p style="float: right; color: #0D47A1"><i class="fa fa-circle" aria-hidden="true"></i></p>
+    </div>
     <div>
         <p>From</p>
         <%= item.get("name") %>
@@ -28,18 +35,55 @@
         <% }else if (item.get("type") === 2){ %>
         Website
         <% } %>
-
     </div>
     <div>
+        <p>Email</p>
         <%= item.get("email") %>
-
     </div>
-
-
-
     <a href="/get_message/<%= item.get("message") %>" style="color: #a46580">Read</a>
 </div>
+<%} %>
 <% }); %>
+</div>
+<div id="message_f" style="display: block">
+    <% contact.forEach(function(item, index) { %>
+
+    <%if (item.get("read") === true){%>
+    <div class="medium-3 large-3 cell">
+
+        <div>
+            <p><%= item.get("createdAt") %></p>
+            <p style="float: right; color: slategrey"><i class="fa fa-circle" aria-hidden="true"></i></p>
+        </div>
+        <div>
+            <p>From</p>
+            <%= item.get("name") %>
+        </div>
+
+        <div>
+            <p>Subject</p>
+            <%= item.get("subject") %>
+
+        </div>
+        <div>
+            <p>Type</p>
+            <% if (item.get("type") === 0){ %>
+            Illustrator
+            <% }else if (item.get("type") === 1){ %>
+            Brand
+            <% }else if (item.get("type") === 2){ %>
+            Website
+            <% } %>
+        </div>
+        <div>
+            <p>Email</p>
+            <%= item.get("email") %>
+        </div>
+        <a href="/get_message/<%= item.get("message") %>" style="color: #a46580">Read</a>
+    </div>
+    <%} %>
+    <% }); %>
+</div>
 <% } %>
 
 
