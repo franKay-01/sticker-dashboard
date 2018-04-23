@@ -438,6 +438,18 @@ label {
     color: #402631;
 }
 
+.title_of_the_day {
+    height: 30px;
+    font-size: 25px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1.5px;
+    text-align: left;
+    color: #8c52a3;
+}
+
 .recent_labels {
     height: 32px;
     font-size: 26px;
@@ -956,6 +968,32 @@ a {
     color: #002b5c;
     text-align: center;
     padding-top: 10px
+}
+
+.story_title{
+    height: 32px;
+    font-size: 26px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.23;
+    letter-spacing: 0.4px;
+    text-align: left;
+    color: #0a3463;
+}
+
+.story_summary{
+    width: 272px;
+    height: 57px;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #002b5c;
 }
 
 .pack_name_text {
