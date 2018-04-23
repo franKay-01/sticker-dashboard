@@ -29,7 +29,7 @@
 
             let date = $('#created').val();
 
-            let date_created = moment(date).format('MM-DD-YYYY');
+            let date_created = moment(date,'DD/MM/YYYY').format('YYYY-MM-DD[T]HH:mm:ss');
 
             document.getElementById("created_at").innerHTML = date_created;
         });
