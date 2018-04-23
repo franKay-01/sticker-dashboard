@@ -16,17 +16,17 @@
         <!--<p style="float: right; color: #0D47A1"><i class="fa fa-circle" aria-hidden="true"></i></p>-->
     </div>
     <div>
-        <p>From</p>
+        <p class="indication">From</p>
         <%= item.get("name") %>
     </div>
 
     <div>
-        <p>Subject</p>
+        <p class="indication">Subject</p>
         <%= item.get("subject") %>
 
     </div>
     <div>
-        <p>Type</p>
+        <p class="indication">Type</p>
         <% if (item.get("type") === 0){ %>
         Illustrator
         <% }else if (item.get("type") === 1){ %>
@@ -36,7 +36,7 @@
         <% } %>
     </div>
     <div>
-        <p>Email</p>
+        <p class="indication">Email</p>
         <%= item.get("email") %>
     </div>
     <a href="/get_message/<%= item.get("message") %>" style="color: #a46580">Read</a>

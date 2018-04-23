@@ -433,6 +433,18 @@ label {
     text-overflow: ellipsis;
 }
 
+.indication{
+    height: 24px;
+    font-size: 20px;
+    font-weight: 700;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1.2px;
+    text-align: left;
+    color: #3c3c3c;
+}
+
 .truncate_story_title{
     white-space: nowrap;
     width: 270px;
