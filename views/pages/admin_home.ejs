@@ -278,12 +278,14 @@
         <!-- End of card-->
         <% if (latestStory){ %>
         <div class="medium-3 large-3 cell icons">
+            <!--<center>-->
             <div class="title_of_the_day">Story of the Day</div>
+            <!--</center>-->
             <a class="_stickers_packs" href="/story_of_day">
                 <img src="<%= latestStory.url() %>" width="200px" height="200px">
                 <div>
                     <div class="story_title"><%= storyBody.get("title")%></div>
-                    <div class="story_summary"> <%= storyBody.get("summary")%></div>
+                    <div class="story_summary truncate_summary"> <%= storyBody.get("summary")%></div>
                 </div>
             </a>
 

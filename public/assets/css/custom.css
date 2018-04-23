@@ -430,7 +430,14 @@ label {
     white-space: nowrap;
     width: 190px;
     overflow: hidden;
-    /*font-size: 30px !important;*/
+    text-overflow: ellipsis;
+}
+
+.truncate_summary{
+    white-space: nowrap;
+    width: 280px;
+    height: 50px;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 
@@ -446,7 +453,7 @@ label {
     font-stretch: normal;
     line-height: normal;
     letter-spacing: -1.5px;
-    text-align: left;
+    text-align: center;
     color: #8c52a3;
 }
 
@@ -980,12 +987,12 @@ a {
     letter-spacing: 0.4px;
     text-align: left;
     color: #0a3463;
+    margin: 20px 15px auto;
 }
 
 .story_summary{
     width: 272px;
     height: 57px;
-    font-family: Montserrat;
     font-size: 15px;
     font-weight: 300;
     font-style: normal;
