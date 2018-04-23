@@ -17,9 +17,9 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-    <script type = "text/javascript"
-            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 </head>
 
 <body class="primary-background-color">
@@ -53,7 +53,20 @@
             </div>
         </div>
 
-        <% include ../partials/contact %>
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">Filter</div>
+                <button id="showCreateForm" class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;READ</p>
+                </button>
+                <button id="btnAddStory" class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;UNREAD</p>
+                </button>
+                <button id="btnAddCategory" class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;SHOW ALL</p>
+                </button>
+        </div>
+
+        <% include ../partials/messages %>
         <%- include('../partials/footer') %>
     </div>
 </div>

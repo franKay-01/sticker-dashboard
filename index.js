@@ -738,8 +738,8 @@ app.get('/messages', function (req, res) {
             return new Parse.Query(MessageClass).find();
 
         }).then(function (message) {
-            console.log("MESSAGES " + JSON.stringify(message));
-            res.render("pages/contact", {
+
+            res.render("pages/messages", {
                 contact: message
             })
 
@@ -748,6 +748,26 @@ app.get('/messages', function (req, res) {
             res.redirect('/home');
         })
     }
+});
+
+app.get('/single_message/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(MessageClass).equalTo("objectId", id).first();
+
+        }).then(function (message) {
+            res.render("pages/single_message", {
+                message: message
+            })
+        })
+    }
+
 });
 
 app.get('/sticker_of_day', function (req, res) {
@@ -1300,6 +1320,7 @@ app.get('/home', function (req, res) {
         let _published = [];
         let _allAds = [];
         let _categories = [];
+        let _messages = [];
         let _stickerImage;
         let _storyImage;
         let _storyBody;
@@ -1347,11 +1368,12 @@ app.get('/home', function (req, res) {
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StoryClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(PacksClass).notEqualTo("status", type.PACK_STATUS.pending).find(),
-                new Parse.Query(AdvertClass).limit(limit).find()
+                new Parse.Query(AdvertClass).limit(limit).find(),
+                new Parse.Query(MessageClass).limit(limit).find()
             );
 
         }).then(function (collection, categories, story, allPacks, categoryLength, packLength,
-                          stickerLength, storyLength, publishPacks, allAdverts) {
+                          stickerLength, storyLength, publishPacks, allAdverts, allMessages) {
 
 
             if (categories.length) {
@@ -1366,6 +1388,10 @@ app.get('/home', function (req, res) {
             if (story.length) {
                 _story = story;
 
+            }
+
+            if (allMessages.length) {
+                _messages = allMessages;
             }
 
             if (allPacks.length) {
@@ -1406,6 +1432,7 @@ app.get('/home', function (req, res) {
                     latestStory: _storyImage,
                     storyBody: _storyBody,
                     stickerName: _stickerName,
+                    messages: _messages,
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
