@@ -9,10 +9,15 @@
     <a href="/story_details/<%= item.id %>">
 
         <img class="btn_pack_icon" src="<%= art.get("sticker").url()%>">
-        <div><p class="pack_name_text"><%= item.get("title") %></p></div>
-
+        <div class="story_title"><%= item.get("title") %></div>
+        <div class="story_summary truncate_summary"> <%= item.get("summary") %></div>
     </a>
 
+    <a href="/story_catalogue/<%= item.id%>">
+        <button class="create_button review_tab_bottom add_catalogue" style="background: transparent !important;">
+            <p class="title"> Add Story Item</p>
+        </button>
+    </a>
 </div>
 <%}%>
 <% }); %>

@@ -1859,6 +1859,17 @@ tr #titles {
     color: #c47462;
 }
 
+.add_catalogue{
+    font-size: 25px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1.5px;
+    text-align: left;
+    color: #af627f;
+}
+
 #hiddenAddCatForm {
     display: none;
     position: absolute;
