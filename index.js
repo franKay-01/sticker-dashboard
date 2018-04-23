@@ -1299,6 +1299,7 @@ app.get('/home', function (req, res) {
         let _stickerImage;
         let _storyImage;
         let _storyBody;
+        let _stickerName;
         const limit = 3;
 
 
@@ -1323,6 +1324,8 @@ app.get('/home', function (req, res) {
 
             _stickerImage = stickerImage.get("uri");
             // _stickerImage = _stickerImage.url();
+
+            _stickerName = stickerImage.get("stickerName");
 
             _storyImage = storyImage.get("sticker");
             // _storyImage = _storyImage.url();
@@ -1398,6 +1401,7 @@ app.get('/home', function (req, res) {
                     latestSticker: _stickerImage,
                     latestStory: _storyImage,
                     storyBody: _storyBody,
+                    stickerName: _stickerName,
                     categoryLength: helper.leadingZero(categoryLength),
                     packLength: helper.leadingZero(packLength),
                     stickerLength: helper.leadingZero(stickerLength),
