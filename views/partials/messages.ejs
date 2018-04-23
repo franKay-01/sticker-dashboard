@@ -11,35 +11,37 @@
 
 <% if (item.get("read") === false){ %>
 <div class="medium-3 large-3 cell icons">
+    <div style="margin: 20px">
     <div>
         <p class="created_at"><%= date %> <i class="fa fa-circle" style="color: #0D47A1;float: right" aria-hidden="true"></i></p>
         <!--<p style="float: right; color: #0D47A1"><i class="fa fa-circle" aria-hidden="true"></i></p>-->
     </div>
     <div>
         <p class="indication">From</p>
-        <%= item.get("name") %>
+        <p class="main_content"><%= item.get("name") %></p>
     </div>
 
     <div>
         <p class="indication">Subject</p>
-        <%= item.get("subject") %>
+        <p class="main_content"><%= item.get("subject") %></p>
 
     </div>
     <div>
         <p class="indication">Type</p>
         <% if (item.get("type") === 0){ %>
-        Illustrator
+        <p class="main_content"> Illustrator</p>
         <% }else if (item.get("type") === 1){ %>
-        Brand
+        <p class="main_content">Brand</p>
         <% }else if (item.get("type") === 2){ %>
-        Website
+        <p class="main_content">Website</p>
         <% } %>
     </div>
     <div>
         <p class="indication">Email</p>
-        <%= item.get("email") %>
+        <p class="main_content"><%= item.get("email") %></p>
     </div>
     <a href="/get_message/<%= item.get("message") %>" style="color: #a46580">Read</a>
+</div>
 </div>
 <% } %>
 <% }); %>
