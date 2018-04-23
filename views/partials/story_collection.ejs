@@ -2,14 +2,18 @@
 
 <% story.forEach(function(item, index) { %>
 
+<% artwork.forEach(function (art, index) { %>
+
+<% if (art.get("object_id") === item.id){%>
 <div class="medium-3 large-3 cell icons">
     <a href="/story_details/<%= item.id %>">
 
-        <img class="btn_pack_icon" src="/public/assets/images/stories.png">
+        <img class="btn_pack_icon" src="<%= art.get("sticker").url()%>">
         <div><p class="pack_name_text"><%= item.get("title") %></p></div>
 
     </a>
 
 </div>
-
+<%}%>
+<% }); %>
 <% }); %>

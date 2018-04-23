@@ -1052,13 +1052,17 @@ app.get('/story_collection', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(StoryClass).find(),
-                new Parse.Query(PacksClass).find());
+                new Parse.Query(PacksClass).find(),
+                new Parse.Query(ArtWork).find()
+            );
 
-        }).then(function (story, allPack) {
+
+        }).then(function (story, allPack, artwork) {
 
             res.render("pages/story_collection", {
                 story: story,
-                allPacks: allPack
+                allPacks: allPack,
+                artWork: artwork
             })
         }, function (error) {
 
