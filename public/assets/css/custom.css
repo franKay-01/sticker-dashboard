@@ -434,7 +434,6 @@ label {
 }
 
 .truncate_summary{
-    white-space: nowrap;
     height: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
