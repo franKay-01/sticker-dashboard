@@ -433,6 +433,13 @@ label {
     text-overflow: ellipsis;
 }
 
+.truncate_story_title{
+    white-space: nowrap;
+    width: 270px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .truncate_summary{
     height: 100px;
     overflow: hidden;
