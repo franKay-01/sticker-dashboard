@@ -435,7 +435,7 @@ label {
 
 .truncate_summary{
     white-space: nowrap;
-    height: 50px;
+    height: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -985,11 +985,11 @@ a {
     letter-spacing: 0.4px;
     text-align: left;
     color: #0a3463;
+    margin-left: 15px;
 }
 
 .story_summary{
-    width: 272px;
-    height: 57px;
+    height: 100px;
     font-size: 15px;
     font-weight: 300;
     font-style: normal;
@@ -998,11 +998,11 @@ a {
     letter-spacing: normal;
     text-align: left;
     color: #002b5c;
+    margin-left: 15px;
 }
 
 .pack_name_text {
     height: 39px;
-
     font-size: 32px;
     font-weight: 600;
     letter-spacing: -1.9px;
