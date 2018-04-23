@@ -1062,7 +1062,7 @@ app.get('/story_collection', function (req, res) {
             res.render("pages/story_collection", {
                 story: story,
                 allPacks: allPack,
-                artWork: artwork
+                arts: artwork
             })
         }, function (error) {
 
