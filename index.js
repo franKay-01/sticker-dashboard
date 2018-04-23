@@ -11,6 +11,7 @@ let cookieParser = require('cookie-parser');
 let cookieSession = require('cookie-session');
 let cors = require('cors');
 let methodOverride = require('method-override');
+let moment = require('moment');
 
 
 //for parsing location, directory and paths
@@ -730,6 +731,9 @@ app.post('/messages', function (req, res) {
 
 app.get('/messages', function (req, res) {
     let token = req.cookies.token;
+    let _messages = [];
+    let _dates = [];
+    let counter = 0;
 
     if (token) {
 
@@ -739,8 +743,19 @@ app.get('/messages', function (req, res) {
 
         }).then(function (message) {
 
+            _messages = message;
+
+            _.each(message, function (date) {
+
+                _dates[counter] = moment(date.get("createdAt")).format('LL');
+
+                counter ++;
+
+            });
+
             res.render("pages/messages", {
-                contact: message
+                contact: message,
+                dates:_dates
             })
 
         }, function (error) {
