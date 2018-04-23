@@ -23,6 +23,14 @@
     <script type="text/javascript"
             src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/locale/af.js"></script>
+    <script>
+        let date = document.getElementById("created").val;
+
+        let date_created = moment(date,'MM-DD-YYYY');
+
+        document.getElementById("created_at").innerHTML = date_created;
+    </script>
 </head>
 
 <body class="primary-background-color">

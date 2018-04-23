@@ -10,7 +10,8 @@
 <% if (item.get("read") === false){ %>
 <div class="medium-3 large-3 cell icons">
     <div>
-        <p><%= item.get("createdAt") %></p>
+        <p id="created_at"></p>
+        <p id="created" hidden><%= item.get("createdAt") %></p>
         <p style="float: right; color: #0D47A1"><i class="fa fa-circle" aria-hidden="true"></i></p>
     </div>
     <div>
