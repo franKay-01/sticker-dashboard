@@ -20,11 +20,11 @@
 
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-    <script type = "text/javascript"
-            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('select').material_select();
         });
     </script>
@@ -50,7 +50,8 @@
     <div id="hiddenAddStoryForm" style="display: none">
         <div class="medium-3 large-3 cell create_background">
             <center>
-                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW STORY</div>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW STORY
+                </div>
             </center>
             <form id="pack_form" action="/new_story" method="post">
                 <center>
@@ -62,7 +63,8 @@
                               name="story" required="" aria-required="true"></textarea><br>
                     <br>
                     <label for="keyword">Seperate Tags with comma (,)</label>
-                    <input type="text" class="_pack common_pack_detail validate" placeholder="Smile,Angry,Sad" id="keyword"
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Smile,Angry,Sad"
+                           id="keyword"
                            name="keyword" required="" aria-required="true">
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="pack_id" required="" aria-required="true">
@@ -105,12 +107,11 @@
         </div>
 
         <div class="medium-3 large-3 cell icons">
-
-        <button id="btnAddStory" class="create_button">
             <div class="create_new">Create New</div>
 
-            <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;Story</p>
-        </button>
+            <button id="btnAddStory" class="create_button">
+                <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;Story</p>
+            </button>
         </div>
         <% include ../partials/story_collection %>
         <%- include('../partials/footer') %>
