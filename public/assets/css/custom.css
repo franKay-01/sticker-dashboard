@@ -435,7 +435,6 @@ label {
 
 .truncate_summary{
     white-space: nowrap;
-    width: 280px;
     height: 50px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -455,6 +454,7 @@ label {
     letter-spacing: -1.5px;
     text-align: center;
     color: #8c52a3;
+    margin: 20px 15px auto;
 }
 
 .recent_labels {
@@ -967,11 +967,9 @@ a {
 }
 
 .sticker_name_text {
-
     font-size: 16px;
     font-weight: bold;
     letter-spacing: -0.9px;
-    text-align: left;
     color: #002b5c;
     text-align: center;
     padding-top: 10px
@@ -979,7 +977,7 @@ a {
 
 .story_title{
     height: 32px;
-    font-size: 26px;
+    font-size: 23px;
     font-weight: 600;
     font-style: normal;
     font-stretch: normal;
@@ -987,7 +985,6 @@ a {
     letter-spacing: 0.4px;
     text-align: left;
     color: #0a3463;
-    margin: 20px 15px auto;
 }
 
 .story_summary{
