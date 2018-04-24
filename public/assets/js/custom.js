@@ -22,21 +22,42 @@ $(document).ready(function () {
 
         $('#read').on('click', function () {
             // $('#not_read').
-           $('.not_read').style.visibility = "hidden";
-            $('.read_all').style.display = 'block';
+            var not_read = document.getElementsByClassName('not_read');
+            for (var i = 0; i < not_read.length; i++) {
+                not_read[i].style.visibility = "hidden";
+            }
+
+            var read = document.getElementsByClassName('not_read');
+            for (var i = 0; i < read.length; i++) {
+                read[i].style.display = "block";
+            }
         });
 
         $('#unread').on('click', function () {
-            $('.not_read').style.display = 'block';
-            $('.read_all').style.visibility = "hidden";
+            var not_read = document.getElementsByClassName('not_read');
+            for (var i = 0; i < not_read.length; i++) {
+                not_read[i].style.display = "block";
+            }
+
+            var read = document.getElementsByClassName('not_read');
+            for (var i = 0; i < read.length; i++) {
+                read[i].style.visibility = "hidden";
+            }
         });
 
         $('#show_all').on('click', function () {
-            $('.not_read').style.display = 'block';
-            $('.read_all').style.display = 'block';
+            var not_read = document.getElementsByClassName('not_read');
+            for (var i = 0; i < not_read.length; i++) {
+                not_read[i].style.display = "block";
+            }
+
+            var read = document.getElementsByClassName('not_read');
+            for (var i = 0; i < read.length; i++) {
+                read[i].style.display = "hidden";
+            }
         });
 
-            $('.text_element').on('click', function () {
+        $('.text_element').on('click', function () {
             $('#hiddenTextCatalouge').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
             $('#opaqueDiv').fadeOut('fast');
