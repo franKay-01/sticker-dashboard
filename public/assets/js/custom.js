@@ -24,7 +24,7 @@ $(document).ready(function () {
             // $('#not_read').
             var not_read = document.getElementsByClassName('not_read');
             for (var i = 0; i < not_read.length; i++) {
-                not_read[i].style.visibility = "hidden";
+                not_read[i].style.display = "none";
             }
 
             var read = document.getElementsByClassName('not_read');
@@ -41,7 +41,7 @@ $(document).ready(function () {
 
             var read = document.getElementsByClassName('not_read');
             for (var i = 0; i < read.length; i++) {
-                read[i].style.visibility = "hidden";
+                read[i].style.display = "none";
             }
         });
 
@@ -53,7 +53,7 @@ $(document).ready(function () {
 
             var read = document.getElementsByClassName('not_read');
             for (var i = 0; i < read.length; i++) {
-                read[i].style.display = "hidden";
+                read[i].style.display = "block";
             }
         });
 
