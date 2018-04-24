@@ -739,7 +739,7 @@ app.get('/messages', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(MessageClass).find();
+            return new Parse.Query(MessageClass).ascending().find();
 
         }).then(function (message) {
 
