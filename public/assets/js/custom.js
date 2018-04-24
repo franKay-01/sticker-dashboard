@@ -8,7 +8,7 @@ $(document).ready(function () {
         $('#_addCategoryForm').on('submit', function () {
             var checkboxes = document.getElementsByName("categoryList");
             // loop over them all
-            for (var i=0; i<checkboxes.length; i++) {
+            for (var i = 0; i < checkboxes.length; i++) {
                 // And stick the checked ones onto an array...
                 if (checkboxes[i].checked) {
                     checkboxesChecked.push(checkboxes[i].value);
@@ -20,7 +20,23 @@ $(document).ready(function () {
         //show collection form
         //TODO convert id's to classes
 
-        $('.text_element').on('click', function () {
+        $('#read').on('click', function () {
+            // $('#not_read').
+            document.getElementById('not_read').style.display = 'none';
+            document.getElementById('read_all').style.display = 'block';
+        });
+
+        $('#unread').on('click', function () {
+            document.getElementById('not_read').style.display = 'block';
+            document.getElementById('read_all').style.display = 'none';
+        });
+
+        $('#show_all').on('click', function () {
+            document.getElementById('not_read').style.display = 'block';
+            document.getElementById('read_all').style.display = 'block';
+        });
+
+            $('.text_element').on('click', function () {
             $('#hiddenTextCatalouge').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
             $('#opaqueDiv').fadeOut('fast');
@@ -250,8 +266,8 @@ $(document).ready(function () {
             return $(this).val();
         }).get().join(",");
 
-        console.log("selected categories "+ string);
-      //  alert("E is "+string);
+        console.log("selected categories " + string);
+        //  alert("E is "+string);
         $('#categoryInput').val(string);
         $('#cat').val(ids);
     });
@@ -299,7 +315,7 @@ $(document).ready(function () {
         $('#opaqueDiv').fadeOut('fast');
     });
 
-        const btnAddCategory = $('#btnAddCategory');
+    const btnAddCategory = $('#btnAddCategory');
     //add button style
     btnAddCategory.on('mouseover', function () {
         $('.plus').attr('src', 'pluscolor.png');
@@ -381,7 +397,6 @@ $(document).ready(function () {
         $('#opaqueDiv').fadeIn('fast');
         $('#pack_form')[0].reset();
     });
-
 
 
 });
