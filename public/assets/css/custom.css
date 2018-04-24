@@ -16,20 +16,13 @@ button:active {
     padding: 0;
 }
 
-/*hr {*/
-/*clear: both !important;*/
-/*max-width: 75rem !important;*/
-/*height: 0 !important;*/
-/*margin: 0rem auto !important;*/
-/*border-top: 0 !important;*/
-/*border-right: 0 !important;*/
-/*border-bottom: 2px solid #a46580 !important;*/
-/*border-left: 0 !important;*/
-/*}*/
-
 hr {
     background-color: #fff;
     border-top: 2px solid #8c8b8b;
+}
+
+table tbody tr:nth-child(even){
+    background-color: white !important;
 }
 
 td, th {

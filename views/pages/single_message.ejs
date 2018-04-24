@@ -77,11 +77,10 @@
                     </tr>
                 </table>
                 <hr>
-                <textarea class="validate" placeholder="Summary"
-                          name="summary" required="" aria-required="true"><%= message.get("message") %></textarea><br>
+                <br>
+                <textarea class="validate" name="summary" style="border: none;"><%= message.get("message") %></textarea><br>
 
-                <a href="/main_story/<%= message.id %>"
-                   class="waves-effect pink darken-4 btn add-image-btn">EDIT STORY</a>
+                <a href="#" style="float: right; bottom: 0px" class="view_message"> REPLY </a>
                 <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
             </div>
         </div>
