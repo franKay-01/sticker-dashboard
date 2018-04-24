@@ -22,8 +22,6 @@ $(document).ready(function () {
 
         $('#read').on('click', function () {
             // $('#not_read').
-            document.getElementById("circle_o").style.display = 'none';
-            document.getElementById("circle").style.display = 'block';
             document.getElementById("circle").style.color = '#c3bfb7';
             var not_read = document.getElementsByClassName('not_read');
             for (var i = 0; i < not_read.length; i++) {
@@ -37,8 +35,6 @@ $(document).ready(function () {
         });
 
         $('#unread').on('click', function () {
-            document.getElementById("circle_o").style.display = 'none';
-            document.getElementById("circle").style.display = 'block';
             document.getElementById("circle").style.color = '#0D47A1';
 
             var not_read = document.getElementsByClassName('not_read');
@@ -53,9 +49,7 @@ $(document).ready(function () {
         });
 
         $('#show_all').on('click', function () {
-            document.getElementById("circle").style.display = 'none';
-            document.getElementById("circle_o").style.display = 'block';
-            document.getElementById("circle_o").style.color = 'black';
+            document.getElementById("circle").style.color = 'black';
 
             var not_read = document.getElementsByClassName('not_read');
             for (var i = 0; i < not_read.length; i++) {
