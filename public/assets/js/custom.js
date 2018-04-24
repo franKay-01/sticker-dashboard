@@ -22,13 +22,13 @@ $(document).ready(function () {
 
         $('#read').on('click', function () {
             // $('#not_read').
-           $('.not_read').style.display = 'none';
-           $('.read_all').style.display = 'block';
+           $('.not_read').style.visibility = "hidden";
+            $('.read_all').style.display = 'block';
         });
 
         $('#unread').on('click', function () {
             $('.not_read').style.display = 'block';
-            $('.read_all').style.display = 'none';
+            $('.read_all').style.visibility = "hidden";
         });
 
         $('#show_all').on('click', function () {
