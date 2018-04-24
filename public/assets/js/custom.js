@@ -23,36 +23,36 @@ $(document).ready(function () {
         $('#read').on('click', function () {
             // $('#not_read').
             var not_read = document.getElementsByClassName('not_read');
-            for (var i = 0; i < not_read.length; i++) {
+            for (var i = 0; i <= not_read.length; i++) {
                 not_read[i].style.display = "none";
             }
 
             var read = document.getElementsByClassName('not_read');
-            for (var i = 0; i < read.length; i++) {
+            for (var i = 0; i <= read.length; i++) {
                 read[i].style.display = "block";
             }
         });
 
         $('#unread').on('click', function () {
             var not_read = document.getElementsByClassName('not_read');
-            for (var i = 0; i < not_read.length; i++) {
+            for (var i = 0; i <= not_read.length; i++) {
                 not_read[i].style.display = "block";
             }
 
             var read = document.getElementsByClassName('not_read');
-            for (var i = 0; i < read.length; i++) {
+            for (var i = 0; i <= read.length; i++) {
                 read[i].style.display = "none";
             }
         });
 
         $('#show_all').on('click', function () {
             var not_read = document.getElementsByClassName('not_read');
-            for (var i = 0; i < not_read.length; i++) {
+            for (var i = 0; i <= not_read.length; i++) {
                 not_read[i].style.display = "block";
             }
 
             var read = document.getElementsByClassName('not_read');
-            for (var i = 0; i < read.length; i++) {
+            for (var i = 0; i <= read.length; i++) {
                 read[i].style.display = "block";
             }
         });
