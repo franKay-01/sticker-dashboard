@@ -22,6 +22,7 @@ $(document).ready(function () {
 
         $('#read').on('click', function () {
             // $('#not_read').
+            document.getElementById("circle").style.color = '#c3bfb7';
             var not_read = document.getElementsByClassName('not_read');
             for (var i = 0; i < not_read.length; i++) {
                 not_read[i].style.display = "none";
@@ -34,6 +35,8 @@ $(document).ready(function () {
         });
 
         $('#unread').on('click', function () {
+            document.getElementById("circle").style.color = '#0D47A1';
+
             var not_read = document.getElementsByClassName('not_read');
             for (var i = 0; i < not_read.length; i++) {
                 not_read[i].style.display = "block";
