@@ -778,10 +778,9 @@ app.get('/single_message/:id', function (req, res) {
 
         }).then(function (message) {
 
-            res.send(message);
-            // res.render("pages/single_message", {
-            //     message: message
-            // });
+            res.render("pages/single_message", {
+                message: message
+            });
 
         }, function (error) {
             console.log("ERROR " + error.message);
