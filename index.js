@@ -777,10 +777,15 @@ app.get('/single_message/:id', function (req, res) {
             return new Parse.Query(MessageClass).equalTo("objectId", id).first();
 
         }).then(function (message) {
+
             res.render("pages/single_message", {
                 message: message
-            })
-        })
+            });
+
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+        });
     }
 
 });
