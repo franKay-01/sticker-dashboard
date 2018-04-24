@@ -32,7 +32,7 @@
     </div>
     <div>
         <div class="indication">Email</div>
-        <p class="main_content"><%= item.get("email") %></p>
+        <p class="main_content truncate_title"><%= item.get("email") %></p>
     </div>
     <a href="/get_message/<%= item.id %>" class="view_message">VIEW MESSAGE</a>
 </div>
@@ -59,7 +59,7 @@
         </div>
         <div>
             <div class="indication">Email</div>
-            <div class="main_content truncate_title"><%= item.get("email") %></div>
+            <p class="main_content truncate_title"><%= item.get("email") %></p>
         </div>
         <a href="/get_message/<%= item.id %>" class="view_message">VIEW MESSAGE</a>
     </div>
