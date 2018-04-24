@@ -749,13 +749,13 @@ app.get('/messages', function (req, res) {
 
                 _dates[counter] = moment(date.get("createdAt")).format('LL');
 
-                counter ++;
+                counter++;
 
             });
 
             res.render("pages/messages", {
                 contact: message,
-                dates:_dates
+                dates: _dates
             })
 
         }, function (error) {

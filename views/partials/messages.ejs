@@ -34,7 +34,7 @@
         <div class="indication">Email</div>
         <p class="main_content truncate_story_title"><%= item.get("email") %></p>
     </div>
-    <a href="/get_message/<%= item.id %>" class="view_message">VIEW MESSAGE</a>
+    <a href="/single_message/<%= item.id %>" class="view_message">VIEW MESSAGE</a>
 </div>
 </div>
 <% } else if (item.get("read") === true){%>
@@ -61,7 +61,7 @@
             <div class="indication">Email</div>
             <p class="main_content truncate_story_title"><%= item.get("email") %></p>
         </div>
-        <a href="/get_message/<%= item.id %>" class="view_message">VIEW MESSAGE</a>
+        <a href="/single_message/<%= item.id %>" class="view_message">VIEW MESSAGE</a>
     </div>
 </div>
 <%}%>
