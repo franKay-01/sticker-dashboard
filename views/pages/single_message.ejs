@@ -80,7 +80,7 @@
                 <br>
                 <textarea class="validate" name="summary" style="border: none;"><%= message.get("message") %></textarea><br>
 
-                <a href="mailto:psyphertxt@gmail.com" style="float: right; margin-top: 50px !important;" class="view_message"> REPLY </a>
+                <a href="mailto:<%= message.get("email") %>" style="float: right; margin-top: 50px !important;" class="view_message"> REPLY </a>
                 <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
             </div>
         </div>
