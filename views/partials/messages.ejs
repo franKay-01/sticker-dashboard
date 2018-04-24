@@ -34,7 +34,7 @@
         <p class="indication">Email</p>
         <p class="main_content"><%= item.get("email") %></p>
     </div>
-    <a href="/get_message/<%= item.get("message") %>" style="color: #a46580">Read</a>
+    <a href="/get_message/<%= item.id %>" class="view_message">VIEW MESSAGE</a>
 </div>
 </div>
 <% } else if (item.get("read") === true){%>
@@ -61,7 +61,7 @@
             <p class="indication">Email</p>
             <p class="main_content"><%= item.get("email") %></p>
         </div>
-        <a href="/get_message/<%= item.get("message") %>" style="color: #a46580">Read</a>
+        <a href="/get_message/<%= item.id %>" class="view_message">VIEW MESSAGE</a>
     </div>
 </div>
 <%}%>
