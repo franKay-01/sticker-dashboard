@@ -22,18 +22,18 @@ $(document).ready(function () {
 
         $('#read').on('click', function () {
             // $('#not_read').
-            document.getElementsByClassName('not_read').style.display = 'none';
-            document.getElementsByClassName('read_all').style.display = 'block';
+           $('.not_read').style.display = 'none';
+           $('.read_all').style.display = 'block';
         });
 
         $('#unread').on('click', function () {
-            document.getElementsByClassName('not_read').style.display = 'block';
-            document.getElementsByClassName('read_all').style.display = 'none';
+            $('.not_read').style.display = 'block';
+            $('.read_all').style.display = 'none';
         });
 
         $('#show_all').on('click', function () {
-            document.getElementsByClassName('not_read').style.display = 'block';
-            document.getElementsByClassName('read_all').style.display = 'block';
+            $('.not_read').style.display = 'block';
+            $('.read_all').style.display = 'block';
         });
 
             $('.text_element').on('click', function () {
