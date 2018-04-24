@@ -56,27 +56,26 @@
 
         <div class="story_form">
             <div class="medium-5 large-5 cell">
-                <table>
+                <table class="highlight">
                     <tr>
-                        <td><p class="indication">From</p></td>
-                        <td><p class="indication">Type</p></td>
-                        <td><p class="indication">Email</p></td>
+                        <td><p class="indication" style="font-size: 18px !important;">From</p></td>
+                        <td><p class="indication" style="font-size: 18px !important;">Type</p></td>
+                        <td><p class="indication" style="font-size: 18px !important;">Email</p></td>
                     </tr>
                     <tr>
-                        <td><p class="main_content"><%= message.get("name") %></p></td>
+                        <td><p class="main_content" style="font-size: 18px !important;"><%= message.get("name") %></p></td>
                         <td>
                             <% if (message.get("type") === 0){ %>
-                            <p class="main_content"> Illustrator</p>
+                            <p class="main_content" style="font-size: 18px !important;"> Illustrator</p>
                             <% }else if (message.get("type") === 1){ %>
-                            <p class="main_content">Brand</p>
+                            <p class="main_content" style="font-size: 18px !important;">Brand</p>
                             <% }else if (message.get("type") === 2){ %>
-                            <p class="main_content">Website</p>
+                            <p class="main_content" style="font-size: 18px !important;">Website</p>
                             <% } %>
                         </td>
-                        <td><p class="main_content"><%= message.get("email") %></p></td>
+                        <td><p class="main_content" style="font-size: 18px !important;"><%= message.get("email") %></p></td>
                     </tr>
                 </table>
-                <br>
                 <hr>
                 <textarea class="validate" placeholder="Summary"
                           name="summary" required="" aria-required="true"><%= message.get("message") %></textarea><br>
