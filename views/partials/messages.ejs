@@ -17,11 +17,11 @@
         <p class="created_at"><%= dates[counter] %> <i class="fa fa-circle" style="color: #0D47A1;float: right" aria-hidden="true"></i></p>
     </div>
     <div>
-        <p class="indication">From</p>
+        <div class="indication">From</div>
         <p class="main_content"><%= item.get("name") %></p>
     </div>
     <div>
-        <p class="indication">Type</p>
+        <div class="indication">Type</div>
         <% if (item.get("type") === 0){ %>
         <p class="main_content"> Illustrator</p>
         <% }else if (item.get("type") === 1){ %>
@@ -31,7 +31,7 @@
         <% } %>
     </div>
     <div>
-        <p class="indication">Email</p>
+        <div class="indication">Email</div>
         <p class="main_content"><%= item.get("email") %></p>
     </div>
     <a href="/get_message/<%= item.id %>" class="view_message">VIEW MESSAGE</a>
@@ -44,11 +44,11 @@
             <p class="created_at"><%= dates[counter] %> <i class="fa fa-circle" style="color: #c3bfb7;float: right" aria-hidden="true"></i></p>
         </div>
         <div>
-            <p class="indication">From</p>
+            <div class="indication">From</div>
             <p class="main_content"><%= item.get("name") %></p>
         </div>
         <div>
-            <p class="indication">Type</p>
+            <div class="indication">Type</div>
             <% if (item.get("type") === 0){ %>
             <p class="main_content"> Illustrator</p>
             <% }else if (item.get("type") === 1){ %>
@@ -58,7 +58,7 @@
             <% } %>
         </div>
         <div>
-            <p class="indication">Email</p>
+            <div class="indication">Email</div>
             <p class="main_content truncate_title"><%= item.get("email") %></p>
         </div>
         <a href="/get_message/<%= item.id %>" class="view_message">VIEW MESSAGE</a>
