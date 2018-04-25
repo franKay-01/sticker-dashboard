@@ -1429,7 +1429,6 @@ app.get('/home', function (req, res) {
 
             _storyBody = storyBody;
 
-
             return Parse.Promise.when(
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(CategoryClass).limit(limit).find(),
@@ -1513,22 +1512,38 @@ app.get('/home', function (req, res) {
                     verified: _user.get("emailVerified")
                 });
 
-                // res.redirect("/admin_home");
-            } else {
-                //TODO error message
             }
 
 
         }, function (error) {
             //TODO how to display error on home page
             console.log("ERROR ON HOME " + error.message);
-            res.redirect("/messages");
+            //TODO check for empty values
+            res.render("pages/admin_home",{
+                collections: [],
+                collection: [],
+                categories: [],
+                allAdverts: [],
+                allPacks: [],
+                story: _story,
+                latestSticker: {},
+                latestStory: {},
+                storyBody: {},
+                stickerName: "",
+                messages: [],
+                categoryLength: 0,
+                packLength: 0,
+                stickerLength: 0,
+                storyLength: 0,
+                user_name: "",
+                verified: ""
+            });
         });
 
 
     } else {
         console.log("BACK TO LOGIN ");
-        res.redirect("/messages");
+        res.redirect("/");
     }
 });
 
