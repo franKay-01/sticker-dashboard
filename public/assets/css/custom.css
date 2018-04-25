@@ -518,6 +518,7 @@ label {
 
 .size{
     font-size: 14px !important;
+    margin: 0 10px auto !important;
 }
 
 .title{
