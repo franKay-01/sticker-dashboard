@@ -49,14 +49,6 @@ let AdvertImageClass = "AdvertImages";
 let Profile = "Profile";
 let Latest = "Latest";
 
-
-//TODO replace all with new* types
-//const
-const PENDING = 0;
-const REVIEW = 1;
-const APPROVED = 2;
-const REJECTED = 3;
-
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
 
@@ -1775,9 +1767,9 @@ app.post('/review_pack/:id', function (req, res) {
             new Parse.Query(PacksClass).equalTo("objectId", id).first().then(function (pack) {
                 console.log("PACK FROM REVIEW " + JSON.stringify(pack));
                 if (status === "2") {
-                    pack.set("status", APPROVED);
+                    pack.set("status", type.PACK_STATUS.approved);
                 } else if (status === "1") {
-                    pack.set("status", REVIEW);
+                    pack.set("status", type.PACK_STATUS.rejected);
                 }
                 review.set("image", pack.get("art_work").url());
                 review.set("name", pack.get("pack_name"));
@@ -1848,8 +1840,9 @@ app.get('/review_details/:id', function (req, res) {
     }
 });
 
-app.get('/review_collection', function (req, res) {
+app.get('/review_collection/:id', function (req, res) {
     var token = req.cookies.token;
+    let id = req.params.id;
 
     if (token) {
         let _user = {};
@@ -1857,7 +1850,13 @@ app.get('/review_collection', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
-            return new Parse.Query(ReviewClass).equalTo("owner", _user.id).find();
+
+            var query = new Parse.Query(ReviewClass);
+            query.equalTo('owner', _user.id); // Set our channel
+            query.equalTo('type', id);
+
+            return query.find();
+
         }).then(function (review) {
             // res.send(JSON.stringify(review));
             res.render("pages/review_collection", {reviews: review})
@@ -2252,7 +2251,7 @@ app.get('/send_for_review/:id', function (req, res) {
 
     if (token) {
         new Parse.Query(PacksClass).equalTo("objectId", pack_id).first().then(function (pack) {
-            pack.set("status", REVIEW);
+            pack.set("status", type.PACK_STATUS.review);
             return pack.save();
         }).then(function () {
             console.log("PACK SUBMITTED FOR REVIEW");
@@ -2296,7 +2295,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
             pack.set("pack_description", pack_description);
             pack.set("user_id", _user.id);
             pack.set("user_name", _user.get("name"));
-            pack.set("status", PENDING);
+            pack.set("status", type.PACK_STATUS.pending);
             pack.set("pricing", pricing);
             pack.set("version", version);
             pack.set("archive", false);

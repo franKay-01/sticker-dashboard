@@ -7,7 +7,8 @@ exports.MESSAGES = {
 exports.PACK_STATUS = {
     pending: 0,
     review: 1,
-    approved: 2
+    approved: 2,
+    rejected:3
 };
 
 exports.USER = {
