@@ -58,6 +58,9 @@ const QUOTE = 2;
 const STICKER = 3;
 const DIVIDER = 4;
 
+const PACK = 0;
+const STORY = 1;
+
 const CATEGORY_LIMIT = 1000;
 
 //TODO investigate email template server url links
@@ -307,8 +310,8 @@ app.get('/', function (req, res) {
                 render__([], "");
             }
 
-        }, function(error){
-            render__([],error.message)
+        }, function (error) {
+            render__([], error.message)
         });
 
     }
@@ -1341,6 +1344,39 @@ app.post('/edit_main_story/:id', function (req, res) {
     }
 });
 
+app.get('/review_items/:type', function (req, res) {
+
+    let token = req.cookies.token;
+    let type = req.params.type;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            switch (type) {
+                case PACK:
+                    return new Parse.Query(PacksClass).equalTo("status", type.PACK_STATUS.review).find();
+                case STORY:
+                    return new Parse.Query(StoryClass).equalTo("status", type.PACK_STATUS.review).find()
+
+            }
+        }).then(function (review) {
+
+            res.render("pages/review_collection", {
+
+                collection: review
+
+            });
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+
+        });
+
+    }
+});
+
 app.get('/home', function (req, res) {
 
     let token = req.cookies.token;
@@ -1402,7 +1438,6 @@ app.get('/home', function (req, res) {
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StoryClass).equalTo("user_id", _user.id).count(),
-                // new Parse.Query(PacksClass).notEqualTo("status", type.PACK_STATUS.pending).find(),
                 new Parse.Query(AdvertClass).limit(limit).find(),
                 new Parse.Query(MessageClass).limit(limit).find()
             );
