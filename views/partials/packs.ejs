@@ -8,8 +8,10 @@
         <img style="width: 255px;margin-left: 30px;" src="<%= item.get("art_work").url() %>">
         <div><p class="pack_name_text"><%= item.get("pack_name") %></p></div>
         <% } else {%>
-        <img class="btn_pack_icon" src="<%= item.get("art_work").url() %>">
-        <div><p class="pack_name_text"><%= item.get("pack_name") %></p></div>
+            <center>
+                <img src="<%= latestSticker.url() %>" style="height: 250px">
+            </center>
+            <div class="name_tag"><p class="pack_name_text"><%= stickerName %></p></div>
         <%}%>
     </a>
 
