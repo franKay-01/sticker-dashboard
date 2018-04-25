@@ -1,4 +1,5 @@
 <!-- Cards -->
+<% if (locals.collections) { %>
 <% if (collections.length === 0) { %>
       <p class="none">None</p>
 <% } else { %>
@@ -6,6 +7,9 @@
 <div class="truncate_title"><a class="home_pack_description" href="/pack/<%= item.id %>"><%= item.get("pack_name") %></a></div>
 <% }); %>
 <div><a class="view_all" href="/pack_collection">View All</a></div>
+<% } %>
+<% } else { %>
+<p class="none">None</p>
 <% } %>
 
 

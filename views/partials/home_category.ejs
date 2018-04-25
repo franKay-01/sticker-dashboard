@@ -1,4 +1,5 @@
 <!-- Cards -->
+<% if (locals.categories) { %>
 <% if (categories.length === 0) { %>
 <p class="none">None</p>
 <% } else { %>
@@ -6,6 +7,9 @@
 <div class="home_pack_description"><%= item.get("name") %></div>
 <% }); %>
 <div><a class="view_all" href="/categories">View All</a></div>
+<% } %>
+<% } else { %>
+<p class="none">None</p>
 <% } %>
 
 
