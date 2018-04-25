@@ -1544,6 +1544,11 @@ app.get('/home', function (req, res) {
             console.log("ERROR ON HOME " + error.message);
             //TODO check for empty values
             res.render("pages/admin_home",{
+                collections: _collection,
+                categories: _categories,
+                allAdverts: _allAds,
+                allPacks: _allPacks,
+                story: _story,
                 categoryLength: 0,
                 packLength: 0,
                 stickerLength: 0,
