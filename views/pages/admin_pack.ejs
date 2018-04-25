@@ -66,18 +66,33 @@
             </a>
         </div>
         <!-- End of card-->
+
         <div class="medium-3 large-3 cell icons">
-            <img class="_pack_icon" src="/public/assets/images/create-sticker-icon.png">
-            <div><p class="new_sticker">NEW STICKER</p></div>
-            <a class="from_computer" href="/add_stickers/<%= id %>/<%= collectionName %>">From Computer</a><br>
-            <a class="dropbox_upload" href="/upload_page/<%= id %>/<%= collectionName %>">Dropbox Upload</a>
+            <div class="create_new">New Sticker</div>
+            <div class="options">Options</div>
+            <a href="/add_stickers/<%= id %>/<%= collectionName %>">
+                <button class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; From Computer
+                    </p>
+                </button>
+            </a>
+
+            <a href="/upload_page/<%= id %>/<%= collectionName %>">
+                <button class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; Dropbox Upload
+                    </p>
+                </button>
+            </a>
+
         </div>
+
         <!-- End of card -->
 
         <% include ../partials/sticker_cards %>
         <%- include('../partials/footer') %>
         <div id="toast_message">When Uploading ensure there's stable connection.<br>
-            If after uploading you can't see the images, just give it time..</div>
+            If after uploading you can't see the images, just give it time..
+        </div>
     </div>
 
 </div>
