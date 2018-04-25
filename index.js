@@ -70,7 +70,7 @@ const CATEGORY_LIMIT = 1000;
 
 //TODO investigate email template server url links
 const PARSE_SERVER_URL = process.env.SERVER_URL;
-const PARSE_PUBLIC_URL = process.env.SERVER_URL.replace('parse','public/');
+const PARSE_PUBLIC_URL = process.env.SERVER_URL.replace('parse', 'public/');
 
 
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
@@ -283,19 +283,30 @@ app.get('/', function (req, res) {
 
                 stickers = helper.shuffle(stickers);
 
-                stickers = stickers.slice(0, 3);
 
+                const render__ = (_stickers, _error) => {
+                    res.render("pages/login",
+                        {
+                            stickers: _stickers,
+                            appId: process.env.APP_ID,
+                            serverURL: PARSE_SERVER_URL,
+                            error: _error
+                        });
+                };
+
+                stickers = stickers.slice(0, 3);
+                //TODO merge render objects
                 if (errorMessage === "") {
-                    res.render("pages/login", {stickers: stickers, error: []});
+                    render__(stickers,"");
 
                 } else {
-
-                    res.render("pages/login", {stickers: stickers, error: errorMessage});
+                    render__(stickers,errorMessage);
+                    // res.render("pages/login", {stickers: stickers, error: errorMessage});
 
                 }
             }, function (error) {
 
-                res.render("pages/login", {stickers: []});
+                render__(stickers,"");
 
             });
 
@@ -2173,8 +2184,8 @@ app.get('/pack/:id', function (req, res) {
                     res.render("pages/admin_pack", {
                         stickers: stickers,
                         id: coll_id,
-                        art:pack_art,
-                        published:pack_publish,
+                        art: pack_art,
+                        published: pack_publish,
                         collectionName: pack_name,
                         userType: _user.get("type"),
                         status: pack_status
@@ -2186,7 +2197,7 @@ app.get('/pack/:id', function (req, res) {
                         stickers: stickers,
                         id: coll_id,
                         art: pack_art,
-                        published:pack_publish,
+                        published: pack_publish,
                         collectionName: pack_name,
                         status: pack_status
                     });
