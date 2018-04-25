@@ -1902,11 +1902,12 @@ app.get('/review_collection', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            return new Parse.Query(ReviewClass).equalTo('owner', _user.id); // Set our channel
+            return new Parse.Query(ReviewClass).equalTo('owner', _user.id).find(); // Set our channel
 
         }).then(function (review) {
             // res.send(JSON.stringify(review));
-            res.render("pages/review_collection", {reviews: review})
+            res.render("pages/review_collection", {reviews: review});
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
