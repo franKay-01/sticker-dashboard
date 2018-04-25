@@ -1551,8 +1551,6 @@ app.get('/home', function (req, res) {
                 story: [],
                 allPacks: [],
                 stickerName: "",
-                latestStory: null,
-                latestSticker, null,
                 messages: [],
                 categoryLength: 0,
                 packLength: 0,
