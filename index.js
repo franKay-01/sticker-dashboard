@@ -55,6 +55,7 @@ let Latest = "Latest";
 const PENDING = 0;
 const REVIEW = 1;
 const APPROVED = 2;
+const REJECTED = 3;
 
 const NORMAL_USER = 2;
 const SUPER_USER = 0;

@@ -86,6 +86,38 @@
 
         </div>
 
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">Status</div>
+
+            <% if (status === 0 && stickers.length !== 0){ %>
+
+            <a href="/send_for_review/<%= id %>" class="send_to_review">
+                <button class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; SUBMIT FOR
+                        REVIEW
+                    </p>
+                </button>
+            </a>
+
+            <% } %>
+
+            <button class="create_button" disabled>
+                <p class="title">&nbsp; <i class="fa fa-circle size" style="color: yellow" aria-hidden="true"></i> &nbsp; From Computer
+                </p>
+            </button>
+
+            <button class="create_button">
+                <p class="title">&nbsp; <i class="fa fa-circle size" style="color: red" aria-hidden="true"></i> &nbsp; Dropbox Upload
+                </p>
+            </button>
+
+            <button class="create_button">
+                <p class="title">&nbsp; <i class="fa fa-circle size" style="color: #0f9d58" aria-hidden="true"></i> &nbsp; Dropbox Upload
+                </p>
+            </button>
+
+        </div>
+
         <!-- End of card -->
 
         <% include ../partials/sticker_cards %>
