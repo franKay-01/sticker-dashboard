@@ -1452,7 +1452,8 @@ app.get('/home', function (req, res) {
             _stickerImage = stickerImage.get("uri");
             // _stickerImage = _stickerImage.url();
 
-            _stickerName = stickerImage.get("stickerName");
+            //TODO update sticker image to _latestSticker
+            _stickerImage['stickerName'] = stickerImage.get("stickerName");
 
             _storyImage = storyImage.get("sticker");
             // _storyImage = _storyImage.url();
@@ -1544,14 +1545,6 @@ app.get('/home', function (req, res) {
             console.log("ERROR ON HOME " + error.message);
             //TODO check for empty values
             res.render("pages/admin_home",{
-                collections: [],
-                collection: [],
-                categories: [],
-                allAdverts: [],
-                story: [],
-                allPacks: [],
-                stickerName: "",
-                messages: [],
                 categoryLength: 0,
                 packLength: 0,
                 stickerLength: 0,
