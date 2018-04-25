@@ -1376,23 +1376,22 @@ app.post('/edit_main_story/:id', function (req, res) {
 app.get('/review_items/:type', function (req, res) {
 
     let token = req.cookies.token;
-    let type = req.params.type;
-
-    console.log("TYPE "+type);
+    let status = parseInt(req.params.type);
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            switch (type) {
+            switch (status) {
                 case PACK:
                     return new Parse.Query(PacksClass).equalTo("status", type.PACK_STATUS.review).find();
                 case STORY:
-                    return new Parse.Query(StoryClass).equalTo("status", type.PACK_STATUS.review).find()
+                    return new Parse.Query(StoryClass).equalTo("status", type.PACK_STATUS.review).find();
 
             }
         }).then(function (review) {
 
+            console.log("REVIEWS " + JSON.stringify(review));
             res.render("pages/review_collection", {
 
                 collection: review
@@ -1927,7 +1926,7 @@ app.get('/review_details/:id', function (req, res) {
     }
 });
 
-app.get('/review_collection/:id', function (req, res) {
+app.get('/review_collection', function (req, res) {
     var token = req.cookies.token;
     let id = req.params.id;
 
@@ -1938,16 +1937,18 @@ app.get('/review_collection/:id', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            var query = new Parse.Query(ReviewClass);
-            query.equalTo('owner', _user.id); // Set our channel
-            query.equalTo('type', id);
-
-            return query.find();
+            return new Parse.Query(ReviewClass).equalTo('owner', _user.id).find(); // Set our channel
 
         }).then(function (review) {
             // res.send(JSON.stringify(review));
-            res.render("pages/review_collection", {reviews: review})
-        })
+            res.render("pages/review_collection", {reviews: review});
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+
+        });
     }
 });
 
