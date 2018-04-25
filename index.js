@@ -1418,7 +1418,6 @@ app.get('/home', function (req, res) {
         let _allPacks = [];
         let _story = [];
         let _collection = [];
-        let _published = [];
         let _allAds = [];
         let _categories = [];
         let _messages = [];
@@ -1436,8 +1435,6 @@ app.get('/home', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
-
-            console.log("1 QUER_____");
 
             return Parse.Promise.when(
                 new Parse.Query(LatestClass).equalTo("objectId", "H9c8hykNqO").first(),
@@ -1467,8 +1464,6 @@ app.get('/home', function (req, res) {
             _packLength = helper.leadingZero(packLength);
             _stickerLength = helper.leadingZero(stickerLength);
             _storyLength = helper.leadingZero(storyLength);
-
-            console.log("2 QUER_____");
 
             return Parse.Promise.when(
                 new Parse.Query(StickerClass).equalTo("objectId", sticker.get("latest_id")).first(),
