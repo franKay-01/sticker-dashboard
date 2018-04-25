@@ -69,8 +69,8 @@ const DIVIDER = 4;
 const CATEGORY_LIMIT = 1000;
 
 //TODO investigate email template server url links
-const PARSE_PUBLIC_URL = process.env.SERVER_URL + '/public/';
-const PARSE_SERVER_URL = process.env.SERVER_URL + '/parse';
+const PARSE_SERVER_URL = process.env.SERVER_URL;
+const PARSE_PUBLIC_URL = process.env.SERVER_URL.replace('parse','public/');
 
 
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
