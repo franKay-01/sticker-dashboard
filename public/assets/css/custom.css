@@ -60,9 +60,8 @@ label {
 #not_approved{
     visibility: hidden;
     min-width: 250px;
-    margin-left: -165px;
-    background-color: #333;
-    /*background-image: linear-gradient(to bottom, #d77255, #8651aa);*/
+    margin-left: -265px;
+    background-color: #f30909;
     color: #fff;
     text-align: center;
     border-radius: 25px;
@@ -70,8 +69,7 @@ label {
     position: fixed;
     z-index: 1;
     left: 50%;
-    opacity: 0.5;
-    bottom: 30px;
+    opacity: 0.7;
     font-size: 17px;
 }
 
