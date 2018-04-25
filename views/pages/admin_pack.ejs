@@ -91,7 +91,7 @@
 
             <% if (status === 0 && stickers.length !== 0){ %>
 
-            <a href="/send_for_review/<%= id %>" class="send_to_review">
+            <a href="/send_for_review/<%= id %>">
                 <button class="create_button">
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; SUBMIT FOR
                         REVIEW
@@ -102,17 +102,17 @@
             <% } %>
 
             <button class="create_button" disabled>
-                <p class="title">&nbsp; <i class="fa fa-circle size" style="color: yellow" aria-hidden="true"></i> &nbsp; From Computer
+                <p class="title">&nbsp; <i class="fa fa-circle size" style="color: yellow" aria-hidden="true"></i> &nbsp; IN REVIEW
                 </p>
             </button>
 
             <button class="create_button">
-                <p class="title">&nbsp; <i class="fa fa-circle size" style="color: red" aria-hidden="true"></i> &nbsp; Dropbox Upload
+                <p class="title">&nbsp; <i class="fa fa-circle size" style="color: red" aria-hidden="true"></i> &nbsp; REJECTED
                 </p>
             </button>
 
             <button class="create_button">
-                <p class="title">&nbsp; <i class="fa fa-circle size" style="color: #0f9d58" aria-hidden="true"></i> &nbsp; Dropbox Upload
+                <p class="title">&nbsp; <i class="fa fa-circle size" style="color: #0f9d58" aria-hidden="true"></i> &nbsp;APPROVED
                 </p>
             </button>
 
