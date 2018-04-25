@@ -57,6 +57,28 @@ label {
     border: double !important;
 }
 
+#not_approved{
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -265px;
+    background-color: #f30909;
+    color: #fff;
+    text-align: center;
+    border-radius: 25px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    opacity: 0.7;
+    font-size: 17px;
+}
+
+#not_approved.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
 #toast_message {
     visibility: hidden;
     min-width: 250px;

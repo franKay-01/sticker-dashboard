@@ -52,6 +52,10 @@
     <!-- End of logo -->
     <span class="medium-12 large-12 welcome_post"><b><%= collectionName %> Sticker Pack</b></span>
     <div class="grid-x grid-margin-x">
+
+        <div id="not_approved">
+            THIS PACK HAS NOT BEEN APPROVED. THUS YOU CAN NOT PUBLISH
+        </div>
         <!-- Card for displaying navigation links-->
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
@@ -143,6 +147,7 @@
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">
                 Publishing
+
             </div>
 
             <% if (status === 2){ %>
@@ -181,9 +186,7 @@
         <div id="toast_message">When Uploading ensure there's stable connection.<br>
             If after uploading you can't see the images, just give it time..
         </div>
-        <div id="not_approved">
-            THIS PACK HAS NOT BEEN APPROVED. THUS YOU CAN NOT PUBLISH
-        </div>
+
     </div>
 
 </div>
