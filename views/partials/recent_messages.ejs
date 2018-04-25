@@ -1,8 +1,5 @@
-
 <% if (messages.length === 0) { %>
-
 <p class="none">None</p>
-
 <% } else { %>
 <% messages.forEach(function(item) { %>
 <div class="truncate_title"><a class="home_pack_description" href="/single_message/<%= item.id %>"><%= item.get("email") %></a></div>

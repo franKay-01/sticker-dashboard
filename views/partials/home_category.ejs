@@ -1,5 +1,6 @@
 <!-- Cards -->
 <% if (categories.length === 0) { %>
+<p class="none">None</p>
 <% } else { %>
 <% categories.forEach(function(item) { %>
 <div class="home_pack_description"><%= item.get("name") %></div>

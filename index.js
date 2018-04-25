@@ -1549,16 +1549,14 @@ app.get('/home', function (req, res) {
                 categories: [],
                 allAdverts: [],
                 allPacks: [],
-                story: ,
-                storyBody: {},
                 stickerName: "",
                 messages: [],
                 categoryLength: 0,
                 packLength: 0,
                 stickerLength: 0,
                 storyLength: 0,
-                user_name: "",
-                verified: ""
+                user_name: _user.get("name"),
+                verified: _user.get("emailVerified")
             });
         });
 
