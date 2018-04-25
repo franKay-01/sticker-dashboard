@@ -304,7 +304,7 @@ app.get('/', function (req, res) {
         //TODO mimi get stickers
 
 
-        return new Parse.Query(PacksClass).equalTo("objectId", "EksXNOeVKj").first().then(function (pack) {
+        return new Parse.Query(PacksClass).equalTo("objectId", process.env.DEFAULT_PACK).first().then(function (pack) {
 
             if (pack) {
 
