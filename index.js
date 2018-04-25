@@ -1891,7 +1891,7 @@ app.get('/review_details/:id', function (req, res) {
     }
 });
 
-app.get('/review_collection/:id', function (req, res) {
+app.get('/review_collection', function (req, res) {
     var token = req.cookies.token;
     let id = req.params.id;
 
@@ -1902,11 +1902,7 @@ app.get('/review_collection/:id', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            var query = new Parse.Query(ReviewClass);
-            query.equalTo('owner', _user.id); // Set our channel
-            query.equalTo('type', id);
-
-            return query.find();
+            return new Parse.Query(ReviewClass).equalTo('owner', _user.id); // Set our channel
 
         }).then(function (review) {
             // res.send(JSON.stringify(review));
