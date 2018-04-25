@@ -27,6 +27,14 @@
                 x.className = x.className.replace("show", "");
             }, 3000);
         }
+
+        function not_approved() {
+            var x = document.getElementById("not_approved")
+            x.className = "show";
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        }
     </script>
 </head>
 
@@ -147,7 +155,7 @@
             </a>
 
             <% } else {%>
-            <a href="#">
+            <a onclick="not_approved()">
                 <button class="create_button">
                     <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
                     </p>
@@ -172,6 +180,9 @@
         <%- include('../partials/footer') %>
         <div id="toast_message">When Uploading ensure there's stable connection.<br>
             If after uploading you can't see the images, just give it time..
+        </div>
+        <div id="not_approved">
+            THIS PACK HAS NOT BEEN APPROVED. THUS YOU CAN NOT PUBLISH
         </div>
     </div>
 
