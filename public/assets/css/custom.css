@@ -531,7 +531,8 @@ label {
 .pack_edit_button{
     position: absolute;
     bottom: 0;
-    margin-bottom: 30px;
+    margin: 0 35px auto !important;
+    margin-bottom: 30px !important;
 }
 
 .title{
