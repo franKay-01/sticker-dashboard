@@ -1349,6 +1349,8 @@ app.get('/review_items/:type', function (req, res) {
     let token = req.cookies.token;
     let type = req.params.type;
 
+    console.log("TYPE "+type);
+
     if (token) {
 
         getUser(token).then(function (sessionToken) {
