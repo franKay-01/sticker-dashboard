@@ -297,7 +297,7 @@ app.get('/', function (req, res) {
                 stickers = stickers.slice(0, 3);
                 //TODO merge render objects
                 if (errorMessage === "") {
-                    render__(stickers,"");
+                    render__(stickers,[]);
 
                 } else {
                     render__(stickers,errorMessage);
