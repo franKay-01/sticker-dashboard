@@ -1907,7 +1907,12 @@ app.get('/review_collection', function (req, res) {
         }).then(function (review) {
             // res.send(JSON.stringify(review));
             res.render("pages/review_collection", {reviews: review})
-        })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+
+        });
     }
 });
 
