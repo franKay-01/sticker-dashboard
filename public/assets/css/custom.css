@@ -254,6 +254,11 @@ label {
     margin: 0 15px auto;
 }
 
+.button_background{
+    background-color: #f1f1f1 !important;
+    color: black !important;
+}
+
 .new_sticker {
     height: 37px;
     font-size: 30px;
