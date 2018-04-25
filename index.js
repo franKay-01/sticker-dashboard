@@ -1347,9 +1347,7 @@ app.post('/edit_main_story/:id', function (req, res) {
 app.get('/review_items/:type', function (req, res) {
 
     let token = req.cookies.token;
-    let type = req.params.type;
-
-    console.log("TYPE "+type);
+    let type = parseInt(req.params.type);
 
     if (token) {
 
