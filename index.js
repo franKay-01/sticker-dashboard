@@ -239,7 +239,7 @@ let upload = multer({storage: storage});
 let mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 
-function getUser(token) {
+const getUser = token => {
 
     return new Parse.Query('_Session')
         .equalTo('sessionToken', token)
@@ -272,7 +272,15 @@ app.get('/', function (req, res) {
     };
 
     if (token) {
-        res.redirect("/home");
+
+        getUser(token).then(sessionToken => {
+
+            _user = sessionToken.get("user");
+
+            res.redirect("/home");
+
+        });
+
     } else {
         //retrieve stickers to randomly display on the home page
         //TODO EksXNOeVKj
@@ -550,7 +558,7 @@ app.get('/advert_collection', function (req, res) {
             res.redirect('/home');
         })
     }
-})
+});
 
 app.get('/advert_details/:id', function (req, res) {
 
@@ -864,7 +872,7 @@ app.post('/add_sticker_of_day', function (req, res) {
         });
     }
 
-})
+});
 
 app.get('/story_of_day', function (req, res) {
 
@@ -1498,6 +1506,7 @@ app.get('/home', function (req, res) {
 
 
     } else {
+        console.log("BACK TO LOGIN ");
         res.redirect("/");
     }
 });
