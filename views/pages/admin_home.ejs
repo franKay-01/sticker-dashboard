@@ -102,12 +102,14 @@
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="pack_id" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Add Pack</option>
+                            <% if (locals.allPacks) { %>
                             <% if (allPacks.length === 0) { %>
 
                             <% } else { %>
                             <% allPacks.forEach(function(items) { %>
                             <option value="<%= items.id %>"><%= items.get("pack_name") %></option>
                             <% }) %>
+                            <% } %>
                             <% } %>
                         </select>
                     </div>
