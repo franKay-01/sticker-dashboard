@@ -1426,6 +1426,10 @@ app.get('/home', function (req, res) {
         let _storyImage;
         let _storyBody;
         let _stickerName;
+        let _categoryLength = 0;
+        let _packLength = 0;
+        let _stickerLength = 0;
+        let _storyLength = 0;
         const limit = 3;
 
 
@@ -1448,7 +1452,7 @@ app.get('/home', function (req, res) {
                 new Parse.Query(MessageClass).limit(limit).find()
             );
 
-        }).then(function (sticker, latestStory,collection, categories, story, allPacks, categoryLength, packLength,
+        }).then(function (sticker, latestStory, collection, categories, story, allPacks, categoryLength, packLength,
                           stickerLength, storyLength, allAdverts, allMessages) {
 
             _categories = categories;
@@ -1457,6 +1461,10 @@ app.get('/home', function (req, res) {
             _messages = allMessages;
             _allPacks = allPacks;
             _allAds = allAdverts;
+            _categoryLength = helper.leadingZero(categoryLength);
+            _packLength = helper.leadingZero(packLength);
+            _stickerLength = helper.leadingZero(stickerLength);
+            _storyLength = helper.leadingZero(storyLength);
 
             return Parse.Promise.when(
                 new Parse.Query(StickerClass).equalTo("objectId", sticker.get("latest_id")).first(),
@@ -1490,15 +1498,15 @@ app.get('/home', function (req, res) {
             //     new Parse.Query(MessageClass).limit(limit).find()
             // );
 
-        // }).then(function (collection, categories, story, allPacks, categoryLength, packLength,
-        //                   stickerLength, storyLength, allAdverts, allMessages) {
-        //
-        //     _categories = categories;
-        //     _collection = collection;
-        //     _story = story;
-        //     _messages = allMessages;
-        //     _allPacks = allPacks;
-        //     _allAds = allAdverts;
+            // }).then(function (collection, categories, story, allPacks, categoryLength, packLength,
+            //                   stickerLength, storyLength, allAdverts, allMessages) {
+            //
+            //     _categories = categories;
+            //     _collection = collection;
+            //     _story = story;
+            //     _messages = allMessages;
+            //     _allPacks = allPacks;
+            //     _allAds = allAdverts;
 
 
             if (_user.get("type") === NORMAL_USER) {
@@ -1507,10 +1515,10 @@ app.get('/home', function (req, res) {
                     collections: _collection,
                     allPacks: _allPacks,
                     story: _story,
-                    categoryLength: helper.leadingZero(categoryLength),
-                    packLength: helper.leadingZero(packLength),
-                    stickerLength: helper.leadingZero(stickerLength),
-                    storyLength: helper.leadingZero(storyLength),
+                    categoryLength: _categoryLength,
+                    packLength: _packLength,
+                    stickerLength: _stickerLength,
+                    storyLength: _storyLength,
                     name: _user.get("name"),
                     verified: _user.get("emailVerified")
                 });
@@ -1548,10 +1556,10 @@ app.get('/home', function (req, res) {
                 allAdverts: _allAds,
                 allPacks: _allPacks,
                 story: _story,
-                categoryLength: 0,
-                packLength: 0,
-                stickerLength: 0,
-                storyLength: 0,
+                categoryLength: _categoryLength,
+                packLength: _packLength,
+                stickerLength: _stickerLength,
+                storyLength: _storyLength,
                 user_name: _user.get("name"),
                 verified: _user.get("emailVerified")
             });
