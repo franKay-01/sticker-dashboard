@@ -42,12 +42,12 @@ let ReviewClass = "Reviews";
 let StoryClass = "Stories";
 let MainStoryClass = "StoryBody";
 let StoryCatalogue = "StoryCatalogue";
-let ArtWork = "ArtWork";
+let ArtWorkClass = "ArtWork";
 let MessageClass = "Contact";
 let AdvertClass = "Advert";
 let AdvertImageClass = "AdvertImages";
 let Profile = "Profile";
-let Latest = "Latest";
+let LatestClass = "Latest";
 
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
@@ -511,7 +511,7 @@ app.post('/add_story_of_day', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(Latest).equalTo("objectId", "jU3SwZUJYl").first();
+            return new Parse.Query(LatestClass).equalTo("objectId", "jU3SwZUJYl").first();
 
         }).then(function (latest) {
 
@@ -868,7 +868,7 @@ app.post('/add_sticker_of_day', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(Latest).equalTo("objectId", "H9c8hykNqO").first();
+            return new Parse.Query(LatestClass).equalTo("objectId", "H9c8hykNqO").first();
 
         }).then(function (latest) {
 
@@ -1050,7 +1050,7 @@ app.post('/add_story_artwork/:id', function (req, res) {
         }).then(function (sticker, story) {
             id = story.id;
 
-            let Artwork = new Parse.Object.extend(ArtWork);
+            let Artwork = new Parse.Object.extend(ArtWorkClass);
             let artwork = new Artwork();
 
             artwork.set("name", sticker.get("stickerName"));
@@ -1109,7 +1109,7 @@ app.get('/story_details/:id', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(StoryClass).equalTo("objectId", story_id).first(),
-                new Parse.Query(ArtWork).equalTo("object_id", story_id).first());
+                new Parse.Query(ArtWorkClass).equalTo("object_id", story_id).first());
         }).then(function (story, sticker) {
 
             _story = story;
@@ -1140,7 +1140,7 @@ app.get('/story_collection', function (req, res) {
             return Parse.Promise.when(
                 new Parse.Query(StoryClass).find(),
                 new Parse.Query(PacksClass).find(),
-                new Parse.Query(ArtWork).find()
+                new Parse.Query(ArtWorkClass).find()
             );
 
 
@@ -1246,7 +1246,7 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            var Artwork = new Parse.Object.extend(ArtWork);
+            var Artwork = new Parse.Object.extend(ArtWorkClass);
             var art = new Artwork();
 
             files.forEach(function (file) {
@@ -1434,16 +1434,34 @@ app.get('/home', function (req, res) {
             _user = sessionToken.get("user");
 
             return Parse.Promise.when(
-                new Parse.Query(Latest).equalTo("objectId", "H9c8hykNqO").first(),
-                new Parse.Query(Latest).equalTo("objectId", "jU3SwZUJYl").first()
+                new Parse.Query(LatestClass).equalTo("objectId", "H9c8hykNqO").first(),
+                new Parse.Query(LatestClass).equalTo("objectId", "jU3SwZUJYl").first(),
+                new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
+                new Parse.Query(CategoryClass).limit(limit).find(),
+                new Parse.Query(StoryClass).limit(limit).find(),
+                new Parse.Query(PacksClass).find(),
+                new Parse.Query(CategoryClass).count(),
+                new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
+                new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
+                new Parse.Query(StoryClass).equalTo("user_id", _user.id).count(),
+                new Parse.Query(AdvertClass).limit(limit).find(),
+                new Parse.Query(MessageClass).limit(limit).find()
             );
 
-        }).then(function (sticker, story) {
+        }).then(function (sticker, latestStory,collection, categories, story, allPacks, categoryLength, packLength,
+                          stickerLength, storyLength, allAdverts, allMessages) {
+
+            _categories = categories;
+            _collection = collection;
+            _story = story;
+            _messages = allMessages;
+            _allPacks = allPacks;
+            _allAds = allAdverts;
 
             return Parse.Promise.when(
                 new Parse.Query(StickerClass).equalTo("objectId", sticker.get("latest_id")).first(),
-                new Parse.Query(ArtWork).equalTo("object_id", story.get("latest_id")).first(),
-                new Parse.Query(StoryClass).equalTo("objectId", story.get("latest_id")).first()
+                new Parse.Query(ArtWorkClass).equalTo("object_id", latestStory.get("latest_id")).first(),
+                new Parse.Query(StoryClass).equalTo("objectId", latestStory.get("latest_id")).first()
             );
 
         }).then(function (stickerImage, storyImage, storyBody) {
@@ -1459,48 +1477,29 @@ app.get('/home', function (req, res) {
 
             _storyBody = storyBody;
 
-            return Parse.Promise.when(
-                new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
-                new Parse.Query(CategoryClass).limit(limit).find(),
-                new Parse.Query(StoryClass).limit(limit).find(),
-                new Parse.Query(PacksClass).find(),
-                new Parse.Query(CategoryClass).count(),
-                new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
-                new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
-                new Parse.Query(StoryClass).equalTo("user_id", _user.id).count(),
-                new Parse.Query(AdvertClass).limit(limit).find(),
-                new Parse.Query(MessageClass).limit(limit).find()
-            );
+            // return Parse.Promise.when(
+            //     new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
+            //     new Parse.Query(CategoryClass).limit(limit).find(),
+            //     new Parse.Query(StoryClass).limit(limit).find(),
+            //     new Parse.Query(PacksClass).find(),
+            //     new Parse.Query(CategoryClass).count(),
+            //     new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
+            //     new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
+            //     new Parse.Query(StoryClass).equalTo("user_id", _user.id).count(),
+            //     new Parse.Query(AdvertClass).limit(limit).find(),
+            //     new Parse.Query(MessageClass).limit(limit).find()
+            // );
 
-        }).then(function (collection, categories, story, allPacks, categoryLength, packLength,
-                          stickerLength, storyLength, allAdverts, allMessages) {
+        // }).then(function (collection, categories, story, allPacks, categoryLength, packLength,
+        //                   stickerLength, storyLength, allAdverts, allMessages) {
+        //
+        //     _categories = categories;
+        //     _collection = collection;
+        //     _story = story;
+        //     _messages = allMessages;
+        //     _allPacks = allPacks;
+        //     _allAds = allAdverts;
 
-
-            if (categories.length) {
-                _categories = categories
-            }
-
-            if (collection.length) {
-                _collection = collection;
-
-            }
-
-            if (story.length) {
-                _story = story;
-
-            }
-
-            if (allMessages.length) {
-                _messages = allMessages;
-            }
-
-            if (allPacks.length) {
-                _allPacks = allPacks;
-            }
-
-            if (allAdverts.length) {
-                _allAds = allAdverts;
-            }
 
             if (_user.get("type") === NORMAL_USER) {
 
@@ -1543,7 +1542,7 @@ app.get('/home', function (req, res) {
             //TODO how to display error on home page
             console.log("ERROR ON HOME " + error.message);
             //TODO check for empty values
-            res.render("pages/admin_home",{
+            res.render("pages/admin_home", {
                 collections: _collection,
                 categories: _categories,
                 allAdverts: _allAds,
