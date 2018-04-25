@@ -521,6 +521,19 @@ label {
     margin: 0 10px auto !important;
 }
 
+.pack_artwork{
+    height: 250px !important;
+    object-fit: contain;
+    display: block;
+    margin: 10px 40px auto !important;
+}
+
+.pack_edit_button{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 30px;
+}
+
 .title{
     height: 24px;
     font-size: 20px;
