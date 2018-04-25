@@ -254,8 +254,8 @@ label {
     margin: 0 15px auto;
 }
 
-.button_background{
-    background-color: #f1f1f1 !important;
+.button_font{
+    font-size: 15px !important;
     color: black !important;
 }
 
