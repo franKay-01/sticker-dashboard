@@ -1402,13 +1402,13 @@ app.get('/home', function (req, res) {
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StoryClass).equalTo("user_id", _user.id).count(),
-                new Parse.Query(PacksClass).notEqualTo("status", type.PACK_STATUS.pending).find(),
+                // new Parse.Query(PacksClass).notEqualTo("status", type.PACK_STATUS.pending).find(),
                 new Parse.Query(AdvertClass).limit(limit).find(),
                 new Parse.Query(MessageClass).limit(limit).find()
             );
 
         }).then(function (collection, categories, story, allPacks, categoryLength, packLength,
-                          stickerLength, storyLength, publishPacks, allAdverts, allMessages) {
+                          stickerLength, storyLength, allAdverts, allMessages) {
 
 
             if (categories.length) {
@@ -1437,10 +1437,6 @@ app.get('/home', function (req, res) {
                 _allAds = allAdverts;
             }
 
-            if (publishPacks.length) {
-                _published = publishPacks;
-            }
-
             if (_user.get("type") === NORMAL_USER) {
 
                 res.render("pages/home", {
@@ -1458,7 +1454,6 @@ app.get('/home', function (req, res) {
 
                 res.render("pages/admin_home", {
                     collections: _collection,
-                    collection: _published,
                     categories: _categories,
                     allAdverts: _allAds,
                     allPacks: _allPacks,
