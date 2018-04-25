@@ -260,6 +260,7 @@ app.get('/', function (req, res) {
 
     let token = req.cookies.token;
 
+    //utility render__ function to appending appId and serverURL
     const render__ = (_stickers, _error) => {
         res.render("pages/login",
             {
@@ -292,11 +293,8 @@ app.get('/', function (req, res) {
                 console.log("STICKERS " + JSON.stringify(stickers));
 
                 stickers = helper.shuffle(stickers);
-
-
-
-
                 stickers = stickers.slice(0, 3);
+
                 //TODO merge render objects
                 if (errorMessage === "") {
                     render__(stickers,[]);
