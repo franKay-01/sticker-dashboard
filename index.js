@@ -280,16 +280,23 @@ app.get('/', function (req, res) {
         //TODO mimi get stickers
 
 
-        return new Parse.Query(PacksClass).equalTo("objectId", "EksXNOeVKj").first()
+        return new Parse.Query(PacksClass).equalTo("objectId", "EksXNOeVKj").first().then(function (pack) {
 
-            .then(function (pack) {
+            if (pack) {
 
                 console.log("PACK " + JSON.stringify(pack));
 
                 let col = pack.relation(PacksClass);
                 return col.query().limit(40).find();
 
-            }).then(function (stickers) {
+            } else {
+                return []
+            }
+
+        }).then(function (stickers) {
+
+            if (stickers.length) {
+
                 console.log("STICKERS " + JSON.stringify(stickers));
 
                 stickers = helper.shuffle(stickers);
@@ -297,22 +304,24 @@ app.get('/', function (req, res) {
 
                 //TODO merge render objects
                 if (errorMessage === "") {
-                    render__(stickers,[]);
+                    render__(stickers, []);
 
                 } else {
-                    render__(stickers,errorMessage);
+                    render__(stickers, errorMessage);
                     // res.render("pages/login", {stickers: stickers, error: errorMessage});
-
                 }
-            }, function (error) {
 
-                render__(stickers,"");
+            } else {
+                render__([], "");
+            }
 
-            });
+        }, function(error){
+            render__([],error.message)
+        });
 
     }
 
-});
+})
 
 app.get('/sign_up', function (req, res) {
     let message = "";
