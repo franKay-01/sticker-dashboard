@@ -68,14 +68,16 @@ const DIVIDER = 4;
 
 const CATEGORY_LIMIT = 1000;
 
-const PARSE_PUBLIC_URL = "https://cryptic-waters-41617.herokuapp.com/public/";
+//TODO investigate email template server url links
+const PARSE_PUBLIC_URL = process.env.SERVER_URL + '/public/';
+const PARSE_SERVER_URL = process.env.SERVER_URL + '/parse';
 
 
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 // let databaseUri = config.DATABASE_URI; //for google
 
-Parse.initialize("d55f9778-9269-40c2-84a2-e0caaf2ad87a");
-Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
+Parse.initialize(process.env.APP_ID);
+Parse.serverURL = PARSE_SERVER_URL + '/';
 
 /* for google
 // Parse.initialize(config.APP_ID);
@@ -94,7 +96,7 @@ let api = new ParseServer({
 
     databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
     cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
-    serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
+    serverURL: PARSE_SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
     // serverURL: config.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
 
     //**** Security Settings ****//

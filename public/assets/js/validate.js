@@ -1,4 +1,5 @@
 Parse.initialize("d55f9778-9269-40c2-84a2-e0caaf2ad87a");
+//TODO decide on a way to switch to different environments
 Parse.serverURL = 'https://cryptic-waters-41617.herokuapp.com/parse/';
 
 
