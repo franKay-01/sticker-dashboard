@@ -260,6 +260,16 @@ app.get('/', function (req, res) {
 
     let token = req.cookies.token;
 
+    const render__ = (_stickers, _error) => {
+        res.render("pages/login",
+            {
+                stickers: _stickers,
+                appId: process.env.APP_ID,
+                serverURL: PARSE_SERVER_URL,
+                error: _error
+            });
+    };
+
     if (token) {
         res.redirect("/home");
     } else {
@@ -284,15 +294,7 @@ app.get('/', function (req, res) {
                 stickers = helper.shuffle(stickers);
 
 
-                const render__ = (_stickers, _error) => {
-                    res.render("pages/login",
-                        {
-                            stickers: _stickers,
-                            appId: process.env.APP_ID,
-                            serverURL: PARSE_SERVER_URL,
-                            error: _error
-                        });
-                };
+
 
                 stickers = stickers.slice(0, 3);
                 //TODO merge render objects
