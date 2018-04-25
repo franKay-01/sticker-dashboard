@@ -1347,17 +1347,17 @@ app.post('/edit_main_story/:id', function (req, res) {
 app.get('/review_items/:type', function (req, res) {
 
     let token = req.cookies.token;
-    let type = parseInt(req.params.type);
+    let status = parseInt(req.params.type);
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            switch (type) {
+            switch (status) {
                 case PACK:
                     return new Parse.Query(PacksClass).equalTo("status", type.PACK_STATUS.review).find();
                 case STORY:
-                    return new Parse.Query(StoryClass).equalTo("status", type.PACK_STATUS.review).find()
+                    return new Parse.Query(StoryClass).equalTo("status", type.PACK_STATUS.review).find();
 
             }
         }).then(function (review) {
