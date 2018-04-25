@@ -1548,6 +1548,7 @@ app.get('/home', function (req, res) {
                 collection: [],
                 categories: [],
                 allAdverts: [],
+                story: [],
                 allPacks: [],
                 stickerName: "",
                 messages: [],
