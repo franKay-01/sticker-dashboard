@@ -43,7 +43,7 @@
     </div>
     <!-- End of logo -->
     <span class="medium-12 large-12 welcome_post"><b><%= collectionName %> Sticker Pack</b></span>
-    <div class="grid-x grid-margin-x">
+    < class="grid-x grid-margin-x">
         <!-- Card for displaying navigation links-->
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
@@ -56,10 +56,18 @@
             </div>
         </div>
         <!-- End of card-->
+        <div class="medium-3 large-3 cell icons">
+            <img class="_pack_icon" src="/public/assets/images/create-sticker-icon.png">
+            <div><p class="new_sticker">NEW STICKER</p></div>
+            <a class="from_computer" href="/add_stickers/<%= id %>/<%= collectionName %>">From Computer</a><br>
+            <a class="dropbox_upload" href="/upload_page/<%= id %>/<%= collectionName %>">Dropbox Upload</a>
+        </div>
+        <!-- End of card -->
 
-        <% include ../partials/sticker_card_admin %>
+        <% include ../partials/sticker_cards %>
         <%- include('../partials/footer') %>
-
+        <div id="toast_message">When Uploading ensure there's stable connection.<br>
+            If after uploading you can't see the images, just give it time..</div>
     </div>
 
 </div>
