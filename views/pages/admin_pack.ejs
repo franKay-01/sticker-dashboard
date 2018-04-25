@@ -115,21 +115,55 @@
 
             <% } %>
 
-            <button class="create_button" style="background-color: #f1f1f1 !important;">
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
                 <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: yellow" aria-hidden="true"></i> &nbsp; IN REVIEW
                 </p>
             </button>
 
-            <button class="create_button" style="background-color: #f1f1f1 !important;">
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
                 <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: red" aria-hidden="true"></i> &nbsp; REJECTED
                 </p>
             </button>
 
-            <button class="create_button" style="background-color: #f1f1f1 !important;">
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
                 <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #0f9d58" aria-hidden="true"></i> &nbsp;APPROVED
                 </p>
             </button>
 
+        </div>
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">
+                Publishing
+            </div>
+
+            <% if (status === 2){ %>
+
+            <a href="/publish_pack/<%= id %>">
+                <button class="create_button">
+                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
+                    </p>
+                </button>
+            </a>
+
+            <% } else {%>
+            <a href="#">
+                <button class="create_button">
+                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
+                    </p>
+                </button>
+            </a>
+            <%}%>
+
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: yellow" aria-hidden="true"></i> &nbsp; UNPUBLISHED
+                </p>
+            </button>
+
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #0f9d58" aria-hidden="true"></i> &nbsp; PUBLISHED
+                </p>
+            </button>
         </div>
 
         <!-- End of card -->
