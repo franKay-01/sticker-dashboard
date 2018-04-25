@@ -126,6 +126,33 @@
 
     </div>
 
+    <div id="hiddenAddAdvertForm" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW STORY</div>
+            </center>
+            <form id="pack_form" action="/new_advert" method="post">
+                <center>
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Advert Title"
+                           name="title" required="" aria-required="true"><br>
+                    <input class="_pack common_pack_detail validate" placeholder="Description"
+                           name="description" required="" aria-required="true"><br>
+                    <input class="_pack common_pack_detail validate" placeholder="Link to Advert"
+                           name="link" required="" aria-required="true"><br>
+                    <br>
+                </center>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" class="cancel btnCloseAd">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+
+    </div>
+
     <div id="hiddenCreateForm">
         <div class="medium-3 large-3 cell create_background">
             <center>
@@ -213,7 +240,7 @@
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Story of the Day</p>
                 </button>
             </a>
-            <a href="#">
+            <a href="/review_items/0">
                 <button class="create_button">
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Packs in Review</p>
                 </button>
@@ -249,7 +276,7 @@
                 <%- include('../partials/story_titles') %>
             </div>
 
-            <a href="#">
+            <a href="/review_colelction">
                 <button class="create_button review_tab_bottom">
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;REVIEWS</p>
                 </button>
@@ -317,7 +344,6 @@
             </div>
         </div>
 
-        <% include ../partials/packs_for_admin %>
 
         <div class="medium-12 large-12 cell">
             <%- include('../partials/footer') %>

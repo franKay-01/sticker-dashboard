@@ -49,14 +49,6 @@ let AdvertImageClass = "AdvertImages";
 let Profile = "Profile";
 let Latest = "Latest";
 
-
-//TODO replace all with new* types
-//const
-const PENDING = 0;
-const REVIEW = 1;
-const APPROVED = 2;
-const REJECTED = 3;
-
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
 
@@ -65,6 +57,9 @@ const IMAGE = 1;
 const QUOTE = 2;
 const STICKER = 3;
 const DIVIDER = 4;
+
+const PACK = 0;
+const STORY = 1;
 
 const CATEGORY_LIMIT = 1000;
 
@@ -344,8 +339,8 @@ app.get('/', function (req, res) {
                 render__([], "");
             }
 
-        }, function(error){
-            render__([],error.message)
+        }, function (error) {
+            render__([], error.message)
         });
 
     }
@@ -1378,6 +1373,41 @@ app.post('/edit_main_story/:id', function (req, res) {
     }
 });
 
+app.get('/review_items/:type', function (req, res) {
+
+    let token = req.cookies.token;
+    let type = req.params.type;
+
+    console.log("TYPE "+type);
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            switch (type) {
+                case PACK:
+                    return new Parse.Query(PacksClass).equalTo("status", type.PACK_STATUS.review).find();
+                case STORY:
+                    return new Parse.Query(StoryClass).equalTo("status", type.PACK_STATUS.review).find()
+
+            }
+        }).then(function (review) {
+
+            res.render("pages/review_collection", {
+
+                collection: review
+
+            });
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+
+        });
+
+    }
+});
+
 app.get('/home', function (req, res) {
 
     let token = req.cookies.token;
@@ -1438,13 +1468,12 @@ app.get('/home', function (req, res) {
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StoryClass).equalTo("user_id", _user.id).count(),
-                new Parse.Query(PacksClass).notEqualTo("status", type.PACK_STATUS.pending).find(),
                 new Parse.Query(AdvertClass).limit(limit).find(),
                 new Parse.Query(MessageClass).limit(limit).find()
             );
 
         }).then(function (collection, categories, story, allPacks, categoryLength, packLength,
-                          stickerLength, storyLength, publishPacks, allAdverts, allMessages) {
+                          stickerLength, storyLength, allAdverts, allMessages) {
 
 
             if (categories.length) {
@@ -1473,10 +1502,6 @@ app.get('/home', function (req, res) {
                 _allAds = allAdverts;
             }
 
-            if (publishPacks.length) {
-                _published = publishPacks;
-            }
-
             if (_user.get("type") === NORMAL_USER) {
 
                 res.render("pages/home", {
@@ -1494,7 +1519,6 @@ app.get('/home', function (req, res) {
 
                 res.render("pages/admin_home", {
                     collections: _collection,
-                    collection: _published,
                     categories: _categories,
                     allAdverts: _allAds,
                     allPacks: _allPacks,
@@ -1838,9 +1862,9 @@ app.post('/review_pack/:id', function (req, res) {
             new Parse.Query(PacksClass).equalTo("objectId", id).first().then(function (pack) {
                 console.log("PACK FROM REVIEW " + JSON.stringify(pack));
                 if (status === "2") {
-                    pack.set("status", APPROVED);
+                    pack.set("status", type.PACK_STATUS.approved);
                 } else if (status === "1") {
-                    pack.set("status", REVIEW);
+                    pack.set("status", type.PACK_STATUS.rejected);
                 }
                 review.set("image", pack.get("art_work").url());
                 review.set("name", pack.get("pack_name"));
@@ -1911,8 +1935,9 @@ app.get('/review_details/:id', function (req, res) {
     }
 });
 
-app.get('/review_collection', function (req, res) {
+app.get('/review_collection/:id', function (req, res) {
     var token = req.cookies.token;
+    let id = req.params.id;
 
     if (token) {
         let _user = {};
@@ -1920,7 +1945,13 @@ app.get('/review_collection', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
-            return new Parse.Query(ReviewClass).equalTo("owner", _user.id).find();
+
+            var query = new Parse.Query(ReviewClass);
+            query.equalTo('owner', _user.id); // Set our channel
+            query.equalTo('type', id);
+
+            return query.find();
+
         }).then(function (review) {
             // res.send(JSON.stringify(review));
             res.render("pages/review_collection", {reviews: review})
@@ -2315,7 +2346,7 @@ app.get('/send_for_review/:id', function (req, res) {
 
     if (token) {
         new Parse.Query(PacksClass).equalTo("objectId", pack_id).first().then(function (pack) {
-            pack.set("status", REVIEW);
+            pack.set("status", type.PACK_STATUS.review);
             return pack.save();
         }).then(function () {
             console.log("PACK SUBMITTED FOR REVIEW");
@@ -2359,7 +2390,7 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
             pack.set("pack_description", pack_description);
             pack.set("user_id", _user.id);
             pack.set("user_name", _user.get("name"));
-            pack.set("status", PENDING);
+            pack.set("status", type.PACK_STATUS.pending);
             pack.set("pricing", pricing);
             pack.set("version", version);
             pack.set("archive", false);
