@@ -2128,6 +2128,7 @@ app.get('/pack/:id', function (req, res) {
         let type;
         let pack_name;
         let pack_status;
+        let artwork;
 
         getUser(token).then(function (sessionToken) {
 
@@ -2149,6 +2150,7 @@ app.get('/pack/:id', function (req, res) {
 
             pack_name = pack.get("pack_name");
             pack_status = pack.get("status");
+            pack_art = pack.get("art_work").url();
             let col = pack.relation(PacksClass);
 
             switch (type) {
@@ -2166,6 +2168,7 @@ app.get('/pack/:id', function (req, res) {
                     res.render("pages/admin_pack", {
                         stickers: stickers,
                         id: coll_id,
+                        art:pack_art,
                         collectionName: pack_name,
                         userType: _user.get("type"),
                         status: pack_status
@@ -2176,6 +2179,7 @@ app.get('/pack/:id', function (req, res) {
                     res.render("pages/new_pack", {
                         stickers: stickers,
                         id: coll_id,
+                        art: pack_art,
                         collectionName: pack_name,
                         status: pack_status
                     });
