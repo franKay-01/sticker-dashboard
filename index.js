@@ -2824,8 +2824,6 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
             pack.set("pack_description", description);
             pack.set("keyword", _keywords);
             pack.set("archive", archive);
-            pack.set("flag", false);
-            pack.set("published", false);
 
             if (files.length !== 0) {
                 files.forEach(function (file) {
