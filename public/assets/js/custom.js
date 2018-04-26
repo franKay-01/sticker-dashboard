@@ -5,6 +5,12 @@ $(document).ready(function () {
         var checkboxesChecked = [];
 
 
+        $('#slider').on('change', function () {
+
+            alert(document.getElementById("slider").value);
+
+        });
+
         $('#_addCategoryForm').on('submit', function () {
             var checkboxes = document.getElementsByName("categoryList");
             // loop over them all
