@@ -2801,7 +2801,6 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
     let id = req.params.id;
     let keywords = req.body.keyword;
     let description = req.body.description;
-    let pack_name = req.body.pack_name;
     let _keywords = [];
 
 
@@ -2817,10 +2816,8 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
         }).then(function (pack) {
 
-            pack.set("pack_name", pack_name);
             pack.set("pack_description", description);
-            pack.set("pricing", pricing);
-            pack.set("version", version);
+            pack.set("keyword", _keywords);
             pack.set("archive", false);
             pack.set("flag", false);
             pack.set("published", false);

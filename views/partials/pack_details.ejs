@@ -27,18 +27,18 @@
                       name="description" required="" aria-required="true">
                 <%= pack_details.get("pack_description") %>
             </textarea><br>
-            <label for="keyword">Seperate Tags with comma (,)</label>
+            <label for="keyword" style="color: #a46580">Seperate Tags with comma (,)</label>
             <input type="text" class="box_2 validate" placeholder="Smile,Angry,Sad" id="keyword"
                    name="keyword">
 
             <label for="flip-1">Archive:</label>
-            <div class="switch">
-                <label>
-                    Off
-                    <input type="checkbox" id="slider">
-                    <span class="lever"></span>
-                    On
-                </label>
+            <div style="margin-bottom: 10px">
+                <input name="archive" type="radio" id="archive1" value="0"/>
+                <label for="archive1" class="_label">Yes</label>
+
+                <input name="archive" type="radio" id="archive2" value="1"/>
+                <label for="archive2" class="_label">No</label>
+
             </div>
 
             <% if (pack_details.get("art_work") === "undefined" || pack_details.get("art_work") === undefined){ %>
