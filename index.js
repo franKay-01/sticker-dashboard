@@ -2804,6 +2804,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
     let description = req.body.description;
     let _keywords = [];
 
+    console.log("KEYWORD " + keywords+ " ARCHIVE "+ archive + " DESCRIPTION "+description);
 
     if (keywords !== undefined || keywords !== "undefined") {
         _keywords = keywords.split(",");
