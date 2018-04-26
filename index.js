@@ -2812,6 +2812,10 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
     if (archive === undefined || archive === "undefined"){
         archive = false;
+    } else if (archive === 1 || archive === "1"){
+        archive = true;
+    }else if (archive === 0 || archive === "0"){
+        archive = false;
     }
 
     if (token) {
@@ -2826,14 +2830,14 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
             pack.set("keyword", _keywords);
             pack.set("archive", archive);
 
-            if (files.length !== 0) {
+            if (files !== undefined) {
                 files.forEach(function (file) {
-                    var fullName = file.originalname;
-                    var stickerName = fullName.substring(0, fullName.length - 4);
+                    let fullName = file.originalname;
+                    let stickerName = fullName.substring(0, fullName.length - 4);
 
-                    var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
-                    var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
 
                     pack.set("art_work", parseFile);
 
