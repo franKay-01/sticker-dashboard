@@ -1,4 +1,4 @@
-<form id="detailsForm" action="/pack_update/<%= pack_details.id %>"  method="post">
+<form id="detailsForm" action="/pack_update/<%= pack_details.id %>" method="post">
     <div class="grid-x grid-margin-x">
         <div class="medium-6 large-5 cell">
             <div class="droppableArea">
@@ -23,8 +23,7 @@
             <input type="hidden" id="imgChange" name="imgChange" value="false">
 
             <label class="update_label">Pack Decsription:</label>
-            <textarea class="box_2 validate"
-                      name="description" required="" aria-required="true">
+            <textarea class="box_2 validate" name="description" required="" aria-required="true">
                 <%= pack_details.get("pack_description") %>
             </textarea><br>
             <label for="keyword" style="color: #a46580 !important;">Seperate Tags with comma (,)</label>

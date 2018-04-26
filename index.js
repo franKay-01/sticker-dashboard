@@ -2822,6 +2822,30 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
             pack.set("flag", false);
             pack.set("published", false);
 
+            if (files.length !== 0) {
+                files.forEach(function (file) {
+                    var fullName = file.originalname;
+                    var stickerName = fullName.substring(0, fullName.length - 4);
+
+                    var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                    var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+
+                    pack.set("art_work", parseFile);
+
+                });
+            }
+
+            return pack.save();
+
+        }).then(function (pack) {
+
+            res.redirect('/pack/'+pack.id);
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/pack/'+id);
+
         })
     }
 
