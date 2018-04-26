@@ -2809,6 +2809,10 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
         _keywords = keywords.split(",");
     }
 
+    if (archive === undefined || archive === "undefined"){
+        archive = false;
+    }
+
     if (token) {
 
         getUser(token).then(function (sessionToken) {
@@ -2845,7 +2849,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/pack/'+id);
+            res.redirect('/edit_pack_details/'+id);
 
         })
     }
