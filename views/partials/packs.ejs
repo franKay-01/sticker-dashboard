@@ -12,7 +12,7 @@
     <a href="/pack/<%= item.id %>">
         <% if (item.get("art_work") === "undefined" || item.get("art_work") === undefined){ %>
         <center>
-            <p class="none"><b>No Artwork</b></p>
+            <p class="none" style="margin: 95px"><b>No Artwork</b></p>
         </center>
         <div class="name_tag"><p class="pack_name_text"><%= item.get("pack_name") %></p></div>
         <% } else {%>
