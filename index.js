@@ -2369,7 +2369,7 @@ app.post('/new_pack', function (req, res) {
             pack.set("published", false);
             //  pack.setACL(setPermission(_user, false));
 
-           return pack.save();
+            return pack.save();
 
         }).then(function (collection) {
 
@@ -2790,6 +2790,42 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
             console.log("ERROR " + error.message);
             res.redirect('/review_details/' + review_id);
         });
+    }
+
+});
+
+app.post('/pack_update/:id', upload.array('art'), function (req, res) {
+
+    let token = req.cookies.token;
+    let files = req.files;
+    let id = req.params.id;
+    let keywords = req.body.keyword;
+    let description = req.body.description;
+    let pack_name = req.body.pack_name;
+    let _keywords = [];
+
+
+    if (keywords !== undefined || keywords !== "undefined") {
+        _keywords = keywords.split(",");
+    }
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(PacksClass).equalTo("objectId", id).first();
+
+        }).then(function (pack) {
+
+            pack.set("pack_name", pack_name);
+            pack.set("pack_description", description);
+            pack.set("pricing", pricing);
+            pack.set("version", version);
+            pack.set("archive", false);
+            pack.set("flag", false);
+            pack.set("published", false);
+
+        })
     }
 
 });
