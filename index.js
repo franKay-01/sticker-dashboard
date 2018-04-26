@@ -2800,6 +2800,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
     let files = req.files;
     let id = req.params.id;
     let keywords = req.body.keyword;
+    let archive = req.body.archive;
     let description = req.body.description;
     let _keywords = [];
 
@@ -2818,7 +2819,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
             pack.set("pack_description", description);
             pack.set("keyword", _keywords);
-            pack.set("archive", false);
+            pack.set("archive", archive);
             pack.set("flag", false);
             pack.set("published", false);
 
