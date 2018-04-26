@@ -2225,7 +2225,7 @@ app.get('/pack/:id', function (req, res) {
 
             pack_name = pack.get("pack_name");
             pack_status = pack.get("status");
-            pack_art = pack.get("art_work").url();
+            pack_art = pack.get("art_work");
             pack_publish = pack.get("published");
 
             let col = pack.relation(PacksClass);
