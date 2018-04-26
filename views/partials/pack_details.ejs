@@ -3,7 +3,7 @@
         <div class="medium-6 large-5 cell">
             <div class="droppableArea">
                 <div class="output" name="tfile"></div>
-                <% if (art === "undefined" || art === undefined){ %>
+                <% if (pack_details.get("art_work") === "undefined" || pack_details.get("art_work") === undefined){ %>
                 center>
                 <p class="none" style="margin: 145px 90px auto;"><b>No Artwork</b></p>
                 </center>
@@ -37,7 +37,7 @@
                 <option value="on">On</option>
             </select>
 
-            <% if (art === "undefined" || art === undefined){ %>
+            <% if (pack_details.get("art_work") === "undefined" || pack_details.get("art_work") === undefined){ %>
 
             <label class="update_label">Add Pack Artwork:</label>
             <input style="color: white;margin: 0px 130px;" id="art" name="art" type="file"><br>
