@@ -32,10 +32,14 @@
                    name="keyword">
 
             <label for="flip-1">Archive:</label>
-            <select name="flip-1" id="flip-1" data-role="slider">
-                <option value="off">Off</option>
-                <option value="on">On</option>
-            </select>
+            <div class="switch">
+                <label>
+                    Off
+                    <input type="checkbox" id="slider" onchange="showValue()">
+                    <span class="lever"></span>
+                    On
+                </label>
+            </div>
 
             <% if (pack_details.get("art_work") === "undefined" || pack_details.get("art_work") === undefined){ %>
 
