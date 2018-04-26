@@ -2804,7 +2804,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
     let description = req.body.description;
     let _keywords = [];
 
-    console.log("KEYWORD " + keywords+ " ARCHIVE "+ archive + " DESCRIPTION "+description);
+    console.log("FILES " + JSON.stringify(files));
 
     if (keywords !== undefined || keywords !== "undefined") {
         _keywords = keywords.split(",");
@@ -2830,7 +2830,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
             pack.set("keyword", _keywords);
             pack.set("archive", archive);
 
-            if (files !== undefined) {
+            if (files !== undefined || files !== "undefined") {
                 files.forEach(function (file) {
                     let fullName = file.originalname;
                     let stickerName = fullName.substring(0, fullName.length - 4);
