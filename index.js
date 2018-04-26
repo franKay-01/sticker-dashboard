@@ -2337,20 +2337,13 @@ app.get('/send_for_review/:id', function (req, res) {
 });
 
 // creating new packs
-app.post('/new_pack', upload.array('art'), function (req, res) {
+app.post('/new_pack', function (req, res) {
 
     var token = req.cookies.token;
-    var files = req.files;
     var pack_description = req.body.pack_description;
     var coll_name = req.body.coll_name;
     var pricing = parseInt(req.body.pricing);
     var version = parseInt(req.body.version);
-    var keywords = req.body.keyword;
-    let _keywords = [];
-
-    if (keywords !== undefined || keywords !== "undefined") {
-        _keywords = keywords.split(",");
-    }
 
     console.log("FILE CONTENT " + files.length);
 
@@ -2372,54 +2365,16 @@ app.post('/new_pack', upload.array('art'), function (req, res) {
             pack.set("pricing", pricing);
             pack.set("version", version);
             pack.set("archive", false);
-            pack.set("keyword", _keywords);
             pack.set("flag", false);
             pack.set("published", false);
             //  pack.setACL(setPermission(_user, false));
 
+           return pack.save();
 
-            if (files.length !== 0) {
-                files.forEach(function (file) {
-                    var fullName = file.originalname;
-                    var stickerName = fullName.substring(0, fullName.length - 4);
+        }).then(function (collection) {
 
-                    var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+            res.redirect('/pack/' + collection.id);
 
-                    var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-
-                    pack.set("art_work", parseFile);
-
-                });
-            } else {
-                var fileUrl = "https://cryptic-waters-41617.herokuapp.com/public/assets/images/image-profile-placeholder.png";
-                var name = "image-profile-placeholder.png";
-                console.log("FILEURL " + fileUrl);
-
-                var options = {
-                    url: fileUrl,
-                    dest: __dirname + '/public/uploads/' + name
-                }
-
-                download.image(options)
-                    .then(({filename, image}) => {
-                        bitmap = fs.readFileSync(filename, {encoding: 'base64'});
-                        var parseFile = new Parse.File(name, {base64: bitmap});
-                        pack.set("art_work", parseFile);
-                    }).then(function () {
-                    pack.save().then(function () {
-                        res.redirect('/pack/' + collection.id);
-                    }, function (error) {
-                        console.log("BIG ERROR " + error.message);
-                        res.redirect('/pack/' + collection.id);
-                    })
-                })
-            }
-
-            pack.save().then(function (collection) {
-
-                res.redirect('/pack/' + collection.id);
-
-            });
         }, function (error) {
             console.log("ERROR OCCURRED WHEN ADDING NEW PACK " + error.message);
             console.log('/');
