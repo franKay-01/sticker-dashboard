@@ -2345,8 +2345,6 @@ app.post('/new_pack', function (req, res) {
     var pricing = parseInt(req.body.pricing);
     var version = parseInt(req.body.version);
 
-    console.log("FILE CONTENT " + files.length);
-
     if (token) {
 
         let _user = {};
