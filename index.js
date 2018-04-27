@@ -298,11 +298,6 @@ app.get('/', function (req, res) {
         });
 
     } else {
-        //retrieve stickers to randomly display on the home page
-        //TODO EksXNOeVKj
-        //.equalTo("objectId", "EksXNOeVKj")
-        //TODO mimi get stickers
-
 
         return new Parse.Query(PacksClass).equalTo("objectId", process.env.DEFAULT_PACK).first().then(function (pack) {
 
@@ -502,20 +497,30 @@ app.post('/new_story', function (req, res) {
 });
 
 //TODO merge add_sticker_of_day and add_story_of_the_day
-app.post('/add_story_of_day', function (req, res) {
+app.post('/latest_element/:type', function (req, res) {
 
     let token = req.cookies.token;
-    let id = req.body.story_id;
+    let type = req.params.type;
+    let id = req.body.element_id;
+
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
+            switch (type) {
+                case "sticker":
+                    return new Parse.Query(LatestClass).equalTo("objectId", "H9c8hykNqO").first();
 
-            return new Parse.Query(LatestClass).equalTo("objectId", "jU3SwZUJYl").first();
+                case "story":
+                    return new Parse.Query(LatestClass).equalTo("objectId", "jU3SwZUJYl").first();
+
+            }
 
         }).then(function (latest) {
 
+
             latest.set("latest_id", id);
+
             return latest.save();
 
         }).then(function () {
@@ -523,12 +528,48 @@ app.post('/add_story_of_day', function (req, res) {
             res.redirect('/home');
 
         }, function (error) {
-            console.log("ERROR " + error.message);
-            res.redirect('/home');
 
-        })
+            console.log("ERROR " + error.message);
+            switch (type) {
+                case "sticker":
+                    res.redirect('/sticker_of_day');
+
+                case "story":
+                    res.redirect('/story_of_day');
+            }
+
+        });
     }
+
 });
+
+// app.post('/add_story_of_day', function (req, res) {
+//
+//     let token = req.cookies.token;
+//     let id = req.body.story_id;
+//
+//     if (token) {
+//
+//         getUser(token).then(function (sessionToken) {
+//
+//             return new Parse.Query(LatestClass).equalTo("objectId", "jU3SwZUJYl").first();
+//
+//         }).then(function (latest) {
+//
+//             latest.set("latest_id", id);
+//             return latest.save();
+//
+//         }).then(function () {
+//
+//             res.redirect('/home');
+//
+//         }, function (error) {
+//             console.log("ERROR " + error.message);
+//             res.redirect('/home');
+//
+//         })
+//     }
+// });
 
 app.get('/send_message', function (req, res) {
 
@@ -857,37 +898,6 @@ app.get('/sticker_of_day', function (req, res) {
             res.redirect('/home');
         })
     }
-});
-
-app.post('/add_sticker_of_day', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.body.sticker_id;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(LatestClass).equalTo("objectId", "H9c8hykNqO").first();
-
-        }).then(function (latest) {
-
-            latest.set("latest_id", id);
-
-            return latest.save();
-
-        }).then(function () {
-
-            res.redirect('/home');
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/sticker_of_day');
-
-        });
-    }
-
 });
 
 app.get('/story_of_day', function (req, res) {
