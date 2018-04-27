@@ -890,6 +890,7 @@ app.get('/story_of_day', function (req, res) {
 
             _.each(artwork, function (artworks) {
                 art[counter] = artworks.get("sticker").url();
+                counter++;
             });
 
             res.render("pages/story_of_day", {
