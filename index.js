@@ -543,34 +543,6 @@ app.post('/latest_element/:type', function (req, res) {
 
 });
 
-// app.post('/add_story_of_day', function (req, res) {
-//
-//     let token = req.cookies.token;
-//     let id = req.body.story_id;
-//
-//     if (token) {
-//
-//         getUser(token).then(function (sessionToken) {
-//
-//             return new Parse.Query(LatestClass).equalTo("objectId", "jU3SwZUJYl").first();
-//
-//         }).then(function (latest) {
-//
-//             latest.set("latest_id", id);
-//             return latest.save();
-//
-//         }).then(function () {
-//
-//             res.redirect('/home');
-//
-//         }, function (error) {
-//             console.log("ERROR " + error.message);
-//             res.redirect('/home');
-//
-//         })
-//     }
-// });
-
 app.get('/send_message', function (req, res) {
 
     let token = req.cookies.token;
@@ -903,18 +875,27 @@ app.get('/sticker_of_day', function (req, res) {
 app.get('/story_of_day', function (req, res) {
 
     let token = req.cookies.token;
+    let art = [];
+    let counter = 0;
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(StoryClass).find();
+            return Parse.Promise.when(
+                new Parse.Query(StoryClass).find(),
+                new Parse.Query(ArtWorkClass).find()
+            )
+        }).then(function (stories, artwork) {
 
-        }).then(function (stories) {
+            _.each(artwork, function (artworks) {
+                art[counter] = artworks.get("sticker").url();
+            });
 
             res.render("pages/story_of_day", {
 
-                stories: stories
+                stories: stories,
+                artwork: art
 
             });
 
@@ -2818,11 +2799,11 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
         _keywords = keywords.split(",");
     }
 
-    if (archive === undefined || archive === "undefined"){
+    if (archive === undefined || archive === "undefined") {
         archive = false;
-    } else if (archive === 1 || archive === "1"){
+    } else if (archive === 1 || archive === "1") {
         archive = true;
-    }else if (archive === 0 || archive === "0"){
+    } else if (archive === 0 || archive === "0") {
         archive = false;
     }
 
@@ -2856,11 +2837,11 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
         }).then(function (pack) {
 
-            res.redirect('/pack/'+pack.id);
+            res.redirect('/pack/' + pack.id);
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/edit_pack_details/'+id);
+            res.redirect('/edit_pack_details/' + id);
 
         })
     }
