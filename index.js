@@ -875,8 +875,6 @@ app.get('/sticker_of_day', function (req, res) {
 app.get('/story_of_day', function (req, res) {
 
     let token = req.cookies.token;
-    let art = [];
-    let counter = 0;
 
     if (token) {
 
@@ -888,15 +886,10 @@ app.get('/story_of_day', function (req, res) {
             )
         }).then(function (stories, artwork) {
 
-            _.each(artwork, function (artworks) {
-                art[counter] = artworks.get("sticker").url();
-                counter++;
-            });
-
             res.render("pages/story_of_day", {
 
                 stories: stories,
-                artwork: art
+                artwork: artwork
 
             });
 
