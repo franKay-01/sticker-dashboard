@@ -8,7 +8,7 @@
 <% } else { %>
 <% stories.forEach(function(item, index) { %>
 <div class="medium-3 large-3 cell icons story_card" data-id="<%= item.id %>" data-name="<%= item.get("title") %>">
-    <% artwork.forEach(function (sticker, index) {
+    <% artwork.forEach(function (sticker, index) {%>
     <% if (sticker.get("object_id") === item.id){ %>
     <img src="<%= sticker.get("sticker").url() %>" class="gbeja_notxt">
     <% } %>
