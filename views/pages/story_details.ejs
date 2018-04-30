@@ -21,7 +21,7 @@
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5.js"></script>
+    <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
     <script>
         $(document).ready(function () {
             document.getElementById("submit_story").onclick = function () {
@@ -58,7 +58,12 @@
                     First Color
                 </p>
 
-            Click here: <input class="color" value="66ff00">
+            <button class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}">
+                Pick text color
+            </button>
+
+            HEX value: <input id="chosen-value" value="000000">
+
 
 
             <form id="pack_form" action="/set_color/<%= story.id %>" method="post">
