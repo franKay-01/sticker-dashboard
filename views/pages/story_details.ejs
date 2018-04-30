@@ -17,15 +17,31 @@
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" media="screen" type="text/css" href="/public/assets/colorpicker/css/colorpicker.css" />
+
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-    <script src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
+    <script type="text/javascript" src="/public/assets/colorpicker/js/colorpicker.js"></script>
     <script>
         window.onload = function () {
             document.getElementById("submit_story").onclick = function () {
                 document.getElementById("story_form").submit();
             }
+
+            $('#colorpickerField1').ColorPicker({
+                onSubmit: function(hsb, hex, rgb, el) {
+                    $(el).val(hex);
+                    $(el).ColorPickerHide();
+                },
+                onBeforeShow: function () {
+                    $(this).ColorPickerSetColor(this.value);
+                }
+            })
+                .bind('keyup', function(){
+                    $(this).ColorPickerSetColor(this.value);
+                });
         }
+
     </script>
 
 </head>
@@ -53,18 +69,8 @@
                 <p class="create_new">
                     First Color
                 </p>
-            <button
-                    class="jscolor {valueElement:null,value:'66ccff'}"
-                    style="border:2px solid black">
-                Pick a color
-            </button>                <p class="create_new">
-                    Second Color
-                </p>
-            <button
-                    class="jscolor {valueElement:null,value:'66ccff'}"
-                    style="border:2px solid black">
-                Pick a color
-            </button>
+            <input type="text" maxlength="6" size="6" id="colorpickerField1" value="00ff00">
+
             <form id="pack_form" action="/set_color/<%= story.id %>" method="post">
 
                 <span>
