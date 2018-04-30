@@ -26,6 +26,24 @@ $(document).ready(function () {
         //show collection form
         //TODO convert id's to classes
 
+        $('#change_color').on('click', function () {
+            $('#addColorScheme').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('.welcome_post').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+        });
+
+        $('#btnCloseColorScheme').on('click', function () {
+            $('#addColorScheme').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#logo').fadeIn('fast');
+            $('.welcome_post').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+        });
+
         $('#read').on('click', function () {
             // $('#not_read').
             document.getElementById("circle").style.color = '#c3bfb7';

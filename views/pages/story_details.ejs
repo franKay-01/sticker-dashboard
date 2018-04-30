@@ -19,6 +19,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script src="/public/js/jscolor-2.0.5/jscolor.js"></script>
     <script>
         window.onload = function(){
             document.getElementById("submit_story").onclick = function() {
@@ -26,6 +27,7 @@
             }
         }
     </script>
+
 </head>
 
 <body class="primary-background-color">
@@ -39,6 +41,37 @@
         <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
 
     </div>
+
+    <div id="pageMask"></div>
+
+    <div id="addColorScheme" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell icons">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD COLOR SCHEME
+                </div>
+            </center>
+            <form id="pack_form" action="/set_color/<%= story.id %>" method="post">
+                <p class="create_new">
+                    First Color
+                </p>
+                <input name="color2" type="hidden" id="color_value">
+                <button class="jscolor {valueElement: 'color_value'}">Pick a color</button>
+                <p class="create_new">
+                    Second Color
+                </p>
+                <input name="color2" type="hidden" id="color_value">
+                <button class="jscolor {valueElement: 'color_value'}">Pick a color</button>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseColorScheme" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+
+    </div>
     <!-- End of logo -->
     <span class="medium-6 large-6 welcome_post"><b>Edit Story Details</b></span>
 
@@ -50,8 +83,6 @@
                 <div><a class="_categories" href="/pack_collection">Packs</a></div>
                 <div><a class="_stickers_packs" href="/review_collection">Reviews</a></div>
                 <div><a class="_stickers_packs" href="/story_collection">Stories</a></div>
-                <div><a class="_stickers_packs" href="/story_catalogue/<%= story.id %>">Create Catalogue</a></div>
-
             </div>
         </div>
         <form class="story_form" id="story_form" action="/edit_story/<%= story.id %>" method="post">
@@ -71,12 +102,15 @@
                 <label class="update_label">Keywords (separate with comma):</label> <input placeholder="Keywords " class="box_2"
                                                                      name="keyword" style="width: 60% !important;"
                                                                      value="<%= story.get("keyword") %>" >
-                <label class="update_label">Edit Color Scheme:</label> <input placeholder="#ff4d4d,#8080ff " class="box_2"
-                                                                                           name="color" style="width: 60% !important;"
-                                                                                           value="<%= story.get("color") %>" >
                 <label class="update_label">Summary:</label>
                 <textarea class="validate" placeholder="Summary" style="width: 60% !important;"
                           name="summary" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
+
+                <label class="update_label">Edit Color Scheme:</label> <input placeholder="#ff4d4d,#8080ff " class="box_2"
+                                                                                           name="color" style="width: 60% !important;"
+                                                                                           value="<%= story.get("color") %>" >
+                <a href="#" id="change_color" class="preview">Edit Color</a><br>
+
 
                 <a href="#" id="submit_story" class="preview">Save Changes</a><br>
                 <a href="/main_story/<%= story.id %>/<%= story.get("title") %>" class="preview">Edit Main Story</a>
