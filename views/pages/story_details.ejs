@@ -54,13 +54,13 @@
 
             </div>
         </div>
-        <form class="story_form medium-5 large-5 cell" id="story_form" action="/edit_story/<%= story.id %>" method="post">
+        <form class="story_form" id="story_form" action="/edit_story/<%= story.id %>" method="post">
             <a href="#" style="float: right">
-                <button class="create_button review_tab_bottom add_catalogue" style="background: transparent !important;">
+                <button class="create_button add_catalogue" style="background: transparent !important;">
                     <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> PREVIEW STORY</p>
                 </button>
             </a>
-            <div>
+            <div class="medium-5 large-5 cell">
 
                 <center>
                     <img width="200px" height="200px" src="<%= sticker.get("sticker").url()%>">
