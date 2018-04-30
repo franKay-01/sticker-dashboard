@@ -60,12 +60,17 @@
                 <p class="create_new">
                     First Color
                 </p>
-
             <button class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}">
                 Pick text color
             </button>
 
-            HEX value: <input id="chosen-value" value="000000">
+            <p id="hex">HEX value:</p> <input id="chosen-value" value="000000">
+
+            <script>
+                function setTextColor(picker) {
+                    document.getElementById("hex").style.color = '#' + picker.toString()
+                }
+            </script>
 
 
 
@@ -134,18 +139,6 @@
                 <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
             </div>
         </form>
-
-        <button class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}">
-            Pick text color
-        </button>
-
-        <p id="hex">HEX value:</p> <input id="chosen-value" value="000000">
-
-        <script>
-            function setTextColor(picker) {
-                document.getElementById("hex").style.color = '#' + picker.toString()
-            }
-        </script>
 
         <%- include('../partials/footer') %>
 
