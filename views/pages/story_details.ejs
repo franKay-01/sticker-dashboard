@@ -50,19 +50,20 @@
                 <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD COLOR SCHEME
                 </div>
             </center>
-            <form id="pack_form" action="/set_color/<%= story.id %>" method="post">
                 <p class="create_new">
                     First Color
                 </p>
                 <input name="color2" type="hidden" id="color_value">
-                <button type="button" class="jscolor {valueElement: 'color_value'}">Pick a color</button>
+                <button class="jscolor {valueElement: 'color_value'}">Pick a color</button>
                 <p class="create_new">
                     Second Color
                 </p>
                 <input name="color2" type="hidden" id="color_value">
-                <button type="button" class="jscolor {valueElement: 'color_value'}">Pick a color</button>
+                <button class="jscolor {valueElement: 'color_value'}">Pick a color</button>
+            <form id="pack_form" action="/set_color/<%= story.id %>" method="post">
+
                 <span>
-                    <br>
+
         <button type="submit" class="create">CREATE</button>
         </span>
                 <span>
