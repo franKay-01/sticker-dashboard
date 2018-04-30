@@ -22,11 +22,11 @@
 		Pick text color
 	</button>
 
-	HEX value: <input id="chosen-value" value="000000">
+	<p id="hex">HEX value:</p> <input id="chosen-value" value="000000">
 
 	<script>
 	function setTextColor(picker) {
-		document.getElementsByTagName('body')[0].style.color = '#' + picker.toString()
+		document.getElementById("hex").style.color = '#' + picker.toString()
 	}
 	</script>
 

@@ -135,6 +135,18 @@
             </div>
         </form>
 
+        <button class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}">
+            Pick text color
+        </button>
+
+        <p id="hex">HEX value:</p> <input id="chosen-value" value="000000">
+
+        <script>
+            function setTextColor(picker) {
+                document.getElementById("hex").style.color = '#' + picker.toString()
+            }
+        </script>
+
         <%- include('../partials/footer') %>
 
     </div>
