@@ -43,7 +43,17 @@
     <span class="medium-6 large-6 welcome_post"><b>Edit Story Details</b></span>
 
     <div class="grid-x grid-margin-x">
+        <div class="medium-3 large-3 cell login_card">
+            <div class="card_head_position">
+                <div class="stats">Menu</div>
+                <div><a class="_stickers" href="/home">Home</a></div>
+                <div><a class="_categories" href="/pack_collection">Packs</a></div>
+                <div><a class="_stickers_packs" href="/review_collection">Reviews</a></div>
+                <div><a class="_stickers_packs" href="/story_collection">Stories</a></div>
+                <div><a class="_stickers_packs" href="/story_catalogue/<%= story.id %>">Create Catalogue</a></div>
 
+            </div>
+        </div>
         <form class="story_form" id="story_form" action="/edit_story/<%= story.id %>" method="post">
             <div class="medium-5 large-5 cell">
 
@@ -67,18 +77,14 @@
                 <a href="#" id="submit_story" class="waves-effect pink darken-4 btn add-image-btn">SAVE</a>
                 <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
             </div>
-        </form>
-        <div class="medium-3 large-3 cell login_card">
-            <div class="card_head_position">
-                <div class="stats">Menu</div>
-                <div><a class="_stickers" href="/home">Home</a></div>
-                <div><a class="_categories" href="/pack_collection">Packs</a></div>
-                <div><a class="_stickers_packs" href="/review_collection">Reviews</a></div>
-                <div><a class="_stickers_packs" href="/story_collection">Stories</a></div>
-                <div><a class="_stickers_packs" href="/story_catalogue/<%= story.id %>">Create Catalogue</a></div>
-
+            <div class="medium-2 large-2 cell">
+                <a href="#">
+                    <button class="create_button review_tab_bottom add_catalogue" style="background: transparent !important;">
+                        <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> PREVIEW STORY</p>
+                    </button>
+                </a>
             </div>
-        </div>
+        </form>
 
         <%- include('../partials/footer') %>
 
