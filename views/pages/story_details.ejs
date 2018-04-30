@@ -28,18 +28,20 @@
                 document.getElementById("story_form").submit();
             }
 
-            $('#colorpickerField1').ColorPicker({
-                onSubmit: function(hsb, hex, rgb, el) {
-                    $(el).val(hex);
-                    $(el).ColorPickerHide();
+            $('#colorSelector').ColorPicker({
+                color: '#0000ff',
+                onShow: function (colpkr) {
+                    $(colpkr).fadeIn(500);
+                    return false;
                 },
-                onBeforeShow: function () {
-                    $(this).ColorPickerSetColor(this.value);
+                onHide: function (colpkr) {
+                    $(colpkr).fadeOut(500);
+                    return false;
+                },
+                onChange: function (hsb, hex, rgb) {
+                    $('#colorSelector div').css('backgroundColor', '#' + hex);
                 }
-            })
-                .bind('keyup', function(){
-                    $(this).ColorPickerSetColor(this.value);
-                });
+            });
         }
 
     </script>
@@ -69,7 +71,8 @@
                 <p class="create_new">
                     First Color
                 </p>
-            <input type="text" maxlength="6" size="6" id="colorpickerField1" value="00ff00">
+            <div id="colorSelector"><div style="background-color: #0000ff"></div></div>
+
 
             <form id="pack_form" action="/set_color/<%= story.id %>" method="post">
 
