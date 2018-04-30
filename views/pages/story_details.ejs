@@ -65,17 +65,17 @@
                 <center>
                     <img width="200px" height="200px" src="<%= sticker.get("sticker").url()%>">
                 </center>
-                <label class="update_label">Story Title:</label> <input placeholder="Story Title" class="box_2"
+                <label class="update_label">Story Title:</label> <input placeholder="Story Title" style="width: 60% !important;" class="box_2"
                                                                         name="title"
                                                                         value="<%= story.get("title") %>" >
                 <label class="update_label">Keywords (separate with comma):</label> <input placeholder="Keywords " class="box_2"
-                                                                     name="keyword"
+                                                                     name="keyword" style="width: 60% !important;"
                                                                      value="<%= story.get("keyword") %>" >
-                <label class="update_label">Color Scheme for card (separate with comma):</label> <input placeholder="#ff4d4d,#8080ff " class="box_2"
-                                                                                           name="color"
+                <label class="update_label">Edit Color Scheme:</label> <input placeholder="#ff4d4d,#8080ff " class="box_2"
+                                                                                           name="color" style="width: 60% !important;"
                                                                                            value="<%= story.get("color") %>" >
                 <label class="update_label">Summary:</label>
-                <textarea class="validate" placeholder="Summary"
+                <textarea class="validate" placeholder="Summary" style="width: 60% !important;"
                           name="summary" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
 
                 <a href="/main_story/<%= story.id %>/<%= story.get("title") %>" class="waves-effect pink darken-4 btn add-image-btn">EDIT STORY</a>
