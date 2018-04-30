@@ -57,7 +57,7 @@
         <form class="story_form" id="story_form" action="/edit_story/<%= story.id %>" method="post">
             <a href="#" style="float: right">
                 <button class="create_button add_catalogue" style="background: transparent !important;">
-                    <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> PREVIEW STORY</p>
+                    <p class="preview"> PREVIEW STORY</p>
                 </button>
             </a>
             <div class="medium-5 large-5 cell">
@@ -78,8 +78,8 @@
                 <textarea class="validate" placeholder="Summary" style="width: 60% !important;"
                           name="summary" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
 
-                <a href="/main_story/<%= story.id %>/<%= story.get("title") %>" class="waves-effect pink darken-4 btn add-image-btn">EDIT STORY</a>
-                <a href="#" id="submit_story" class="waves-effect pink darken-4 btn add-image-btn">SAVE</a>
+                <a href="/main_story/<%= story.id %>/<%= story.get("title") %>" class="preview">EDIT STORY</a>
+                <a href="#" id="submit_story" class="preview">SAVE</a>
                 <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
             </div>
         </form>
