@@ -18,9 +18,9 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-    <script type = "text/javascript"
-            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
 </head>
 
@@ -43,7 +43,8 @@
     <div id="hiddenTextCatalouge" class="hidden_forms" style="display: none">
         <div class="medium-3 large-3 cell create_background">
             <center>
-                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW STORY</div>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW STORY
+                </div>
             </center>
             <form id="pack_form" action="/new_catalogue/<%= story_id %>" method="post">
                 <center>
@@ -118,7 +119,8 @@
             <center>
                 <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD IMAGE</div>
             </center>
-            <form id="pack_form" action="/new_catalogue_image/<%= story_id %>" method="post" enctype="multipart/form-data">
+            <form id="pack_form" action="/new_catalogue_image/<%= story_id %>" method="post"
+                  enctype="multipart/form-data">
                 <center>
                     <div class="file-field input-field">
                         <div class="btn">
@@ -128,7 +130,8 @@
                         <div class="file-path-wrapper">
                             <input class="file-path validate" type="text">
                         </div>
-                    </div><br>
+                    </div>
+                    <br>
                 </center>
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -149,7 +152,8 @@
             </center>
             <form id="pack_form" action="/new_catalogue_sticker/<%= story_id %>" method="post">
                 <center>
-                    <i class="fa fa-picture-o" style="color: white; font-size: 7rem;margin-bottom: 20px" aria-hidden="true"></i>
+                    <i class="fa fa-picture-o" style="color: white; font-size: 7rem;margin-bottom: 20px"
+                       aria-hidden="true"></i>
 
                 </center>
                 <input name="style" value="sticker" hidden>
@@ -178,36 +182,28 @@
             </div>
         </div>
 
-        <div class="medium-3 large-3 cell icons text_element">
-            <a href="#" id="text_element">
-                <i class="fa fa-text-width awesome_font_img" aria-hidden="true"></i>
-                <div><p class="pack_name_text">Text</p></div>
-            </a>
-        </div>
-        <div class="medium-3 large-3 cell icons image_element">
-            <a href="#" id="image_element">
-                <i class="fa fa-file-image-o awesome_font_img" aria-hidden="true"></i>
-                <div><p class="pack_name_text">Image</p></div>
-            </a>
-        </div>
-        <div class="medium-3 large-3 cell icons quote_element">
-            <a href="#" id="quote_element">
-                <i class="fa fa-quote-left awesome_font" aria-hidden="true"></i>&nbsp;&nbsp;
-                <i class="fa fa-quote-right awesome_font" aria-hidden="true"></i>
-                <div><p class="pack_name_text" style="margin-top: 50px">Quote</p></div>
-            </a>
-        </div>
-        <div class="medium-3 large-3 cell icons sticker_element">
-            <a href="#" id="sticker_element">
-                <i class="fa fa-picture-o awesome_font_img" aria-hidden="true"></i>
-                <div><p class="pack_name_text">Sticker</p></div>
-            </a>
-        </div>
-        <div class="medium-3 large-3 cell icons divider_element">
-            <a href="#" id="divider_element">
-                <img class="review_tab" src="/public/assets/images/divider.png">
-                <div><p class="pack_name_text" style="margin-top: -50px;">Divider</p></div>
-            </a>
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">Update</div>
+            <button class="create_button" id="text_element">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; Sticker of the Day
+                </p>
+            </button>
+            <button class="create_button" id="image_element">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Story of the Day</p>
+            </button>
+
+            <button class="create_button" id="quote_element">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Packs in Review</p>
+            </button>
+
+            <button class="create_button" id="sticker_element">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Stories in Review</p>
+            </button>
+
+            <button class="create_button" id="divider_element">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Stories in Review</p>
+            </button>
+
         </div>
 
         <%- include('../partials/footer') %>
