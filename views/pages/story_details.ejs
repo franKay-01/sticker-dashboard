@@ -21,8 +21,8 @@
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script src="/public/js/jscolor-2.0.5/jscolor.js"></script>
     <script>
-        window.onload = function(){
-            document.getElementById("submit_story").onclick = function() {
+        window.onload = function () {
+            document.getElementById("submit_story").onclick = function () {
                 document.getElementById("story_form").submit();
             }
         }
@@ -55,13 +55,14 @@
                     First Color
                 </p>
                 <input name="color2" type="hidden" id="color_value">
-                <button class="jscolor {valueElement: 'color_value'}">Pick a color</button>
+                <a class="jscolor {valueElement: 'color_value'}">Pick a color</a>
                 <p class="create_new">
                     Second Color
                 </p>
                 <input name="color2" type="hidden" id="color_value">
-                <button class="jscolor {valueElement: 'color_value'}">Pick a color</button>
+                <a class="jscolor {valueElement: 'color_value'}">Pick a color</a>
                 <span>
+                    <br>
         <button type="submit" class="create">CREATE</button>
         </span>
                 <span>
@@ -75,7 +76,7 @@
     <!-- End of logo -->
     <span class="medium-6 large-6 welcome_post"><b>Edit Story Details</b></span>
 
-    <div class="grid-x grid-margin-x">
+    <div class="grid-x grid-margin-x story">
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
                 <div class="stats">Menu</div>
@@ -94,21 +95,26 @@
             <div class="medium-5 large-5 cell">
 
                 <center>
-                    <img width="200px" height="200px" src="<%= sticker.get("sticker").url()%>">
+                    <img width="200px" height="200px" src="<%= sticker.get("sticker").url() %>">
                 </center>
-                <label class="update_label">Story Title:</label> <input placeholder="Story Title" style="width: 60% !important;" class="box_2"
+                <label class="update_label">Story Title:</label> <input placeholder="Story Title"
+                                                                        style="width: 60% !important;" class="box_2"
                                                                         name="title"
-                                                                        value="<%= story.get("title") %>" >
-                <label class="update_label">Keywords (separate with comma):</label> <input placeholder="Keywords " class="box_2"
-                                                                     name="keyword" style="width: 60% !important;"
-                                                                     value="<%= story.get("keyword") %>" >
+                                                                        value="<%= story.get("title") %>">
+                <label class="update_label">Keywords (separate with comma):</label> <input placeholder="Keywords "
+                                                                                           class="box_2"
+                                                                                           name="keyword"
+                                                                                           style="width: 60% !important;"
+                                                                                           value="<%= story.get("keyword") %>">
                 <label class="update_label">Summary:</label>
                 <textarea class="validate" placeholder="Summary" style="width: 60% !important;"
                           name="summary" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
 
-                <label class="update_label">Edit Color Scheme:</label> <input placeholder="#ff4d4d,#8080ff " class="box_2"
-                                                                                           name="color" style="width: 60% !important;"
-                                                                                           value="<%= story.get("color") %>" >
+                <label class="update_label">Edit Color Scheme:</label> <input placeholder="#ff4d4d,#8080ff "
+                                                                              class="box_2"
+                                                                              name="color"
+                                                                              style="width: 60% !important;"
+                                                                              value="<%= story.get("color") %>">
                 <a href="#" id="change_color" class="preview">Edit Color</a><br>
 
 

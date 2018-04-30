@@ -30,6 +30,7 @@ $(document).ready(function () {
             $('#addColorScheme').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
             $('#opaqueDiv').fadeOut('fast');
+            $('.story').fadeOut('fast');
             $('#logo').fadeOut('fast');
             $('.welcome_post').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
@@ -39,6 +40,7 @@ $(document).ready(function () {
             $('#addColorScheme').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#opaqueDiv').fadeIn('fast');
+            $('.story').fadeIn('fast');
             $('#logo').fadeIn('fast');
             $('.welcome_post').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
