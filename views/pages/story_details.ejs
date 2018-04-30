@@ -53,13 +53,18 @@
                 <p class="create_new">
                     First Color
                 </p>
-                <input name="color2" type="hidden" id="color_value">
-                <button class="jscolor {valueElement: 'color_value'}">Pick a color</button>
-                <p class="create_new">
+            <button
+                    class="jscolor {valueElement:null,value:'66ccff'}"
+                    style="border:2px solid black">
+                Pick a color
+            </button>                <p class="create_new">
                     Second Color
                 </p>
-                <input name="color2" type="hidden" id="color_value">
-                <button class="jscolor {valueElement: 'color_value'}">Pick a color</button>
+            <button
+                    class="jscolor {valueElement:null,value:'66ccff'}"
+                    style="border:2px solid black">
+                Pick a color
+            </button>
             <form id="pack_form" action="/set_color/<%= story.id %>" method="post">
 
                 <span>
