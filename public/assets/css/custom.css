@@ -561,6 +561,19 @@ label {
     margin: 0 10px auto !important;
 }
 
+#color_button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
 .pack_artwork{
     height: 250px !important;
     object-fit: contain;
