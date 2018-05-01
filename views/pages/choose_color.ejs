@@ -60,15 +60,10 @@
         </div>
         <form class="story_form" id="story_color" action="/set_story_color/<%= story_id %>" method="post">
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
-            <button class="jscolor {valueElement:'valueInput', styleElement:'styleInput'} {onFineChange:'update(this)'}">
+            <button class="jscolor {valueElement:'valueInput', styleElement:'rect'}">
                 Click here to pick a color
             </button>
-            <script>
-                function update(jscolor) {
-                    // 'jscolor' instance can be used as a string
-                    document.getElementById('rect').style.backgroundColor = '#' + jscolor
-                }
-            </script>
+
             <span><i id="rect" class="fa fa-circle size" aria-hidden="true"></i></span>
             <button class="create_button" id="submit_color"><i class="fa fa-circle size" aria-hidden="true"></i>Submit Changes</button>
         </form>
