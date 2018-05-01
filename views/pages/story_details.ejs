@@ -87,7 +87,7 @@
                           name="summary" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
 
                 <label class="update_label">Edit Color Scheme:</label>
-                <%if (color !== "undefined" || color !== undefined){%>
+                <%if (color){%>
                 <p  style="color: <%= story.get("color")[0] %>"><i class="fa fa-circle fa-5x" aria-hidden="true"></i></p>
                 <p style="color:<%= story.get("color")[1] %>"><i class="fa fa-circle fa-5x" aria-hidden="true"></i></p>
                 <%} else {%>
