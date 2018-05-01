@@ -1101,6 +1101,8 @@ app.get('/story_details/:id', function (req, res) {
 
             if (_story.get("color") !== "undefined" || _story.get("color") !== undefined) {
                 color = _story.get("color");
+            }else {
+                color = [];
             }
             res.render("pages/story_details", {
                 story: _story,
