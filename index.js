@@ -1089,7 +1089,7 @@ app.get('/story_details/:id', function (req, res) {
 
         let _user = {};
         let _story = {};
-
+        let color = [];
         getUser(token).then(function (sessionToken) {
 
             return Parse.Promise.when(
@@ -1099,14 +1099,43 @@ app.get('/story_details/:id', function (req, res) {
 
             _story = story;
 
+            if (_story.get("color") !== "undefined" || _story.get("color") !== undefined) {
+                color = _story.get("color");
+            }
             res.render("pages/story_details", {
                 story: _story,
-                sticker: sticker
+                sticker: sticker,
+                color: color
             });
 
         }, function (error) {
             console.log("ERROR " + error.message);
             res.redirect('/story_collection');
+        })
+
+    }
+});
+
+app.get('/change_color/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StoryClass).equalTo("objectId", id).first();
+
+        }).then(function (story) {
+
+            res.render("pages/choose_color", {
+                story_id: story.id
+            });
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/story_details/'+story.id);
         })
 
     }

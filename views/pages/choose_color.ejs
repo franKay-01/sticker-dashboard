@@ -24,12 +24,8 @@
     <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
     <script>
         $(document).ready(function () {
-            document.getElementById("submit_story").onclick = function () {
+            document.getElementById("submit_color").onclick = function () {
                 document.getElementById("story_form").submit();
-            }
-
-            function setTextColor(picker) {
-                document.getElementsByTagName('body')[0].style.color = '#' + picker.toString()
             }
         });
 
@@ -63,45 +59,13 @@
             </div>
         </div>
         <form class="story_form" id="story_form" action="/edit_story/<%= story.id %>" method="post">
-            <a href="#" style="float: right">
-                <button class="create_button add_catalogue" style="background: transparent !important;">
-                    <p class="preview"> PREVIEW STORY</p>
-                </button>
-            </a>
-            <div class="medium-5 large-5 cell">
+            <button
+                    class="jscolor {valueElement:null,value:'66ccff'}"
+                    style="border:2px solid black">
+                Pick a color
+            </button>
 
-                <center>
-                    <img width="200px" height="200px" src="<%= sticker.get("sticker").url() %>">
-                </center>
-                <label class="update_label">Story Title:</label> <input placeholder="Story Title"
-                                                                        style="width: 60% !important;" class="box_2"
-                                                                        name="title"
-                                                                        value="<%= story.get("title") %>">
-                <label class="update_label">Keywords (separate with comma):</label> <input placeholder="Keywords "
-                                                                                           class="box_2"
-                                                                                           name="keyword"
-                                                                                           style="width: 60% !important;"
-                                                                                           value="<%= story.get("keyword") %>">
-                <label class="update_label">Summary:</label>
-                <textarea class="validate" placeholder="Summary" style="width: 60% !important;"
-                          name="summary" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
-
-                <label class="update_label">Edit Color Scheme:</label>
-                <%if (color.length !== 0){%>
-                <p  style="color: <%= story.get("color") %>"><i class="fa fa-circle fa-5x" aria-hidden="true"></i></p>
-                <p style="color:<%= story.get("color") %>"><i class="fa fa-circle fa-5x" aria-hidden="true"></i></p>
-                <%} else {%>
-                <p  style="color: black"><i class="fa fa-circle fa-5x" aria-hidden="true"></i></p>
-                <p style="color: black"><i class="fa fa-circle fa-5x" aria-hidden="true"></i></p>
-                <%}%>
-                <a href="/change_color/<%= story.id %>" class="preview">Edit Color</a><br>
-
-
-                <a href="#" id="submit_story" class="preview">Save Changes</a><br>
-                <a href="/main_story/<%= story.id %>/<%= story.get("title") %>" class="preview">Edit Main Story</a>
-
-                <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
-            </div>
+            <button class="create_button" id="submit_color"><i class="fa fa-circle size" aria-hidden="true"></i>Submit Changes</button>
         </form>
 
         <%- include('../partials/footer') %>
