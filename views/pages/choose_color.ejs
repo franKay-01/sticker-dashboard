@@ -59,12 +59,14 @@
             </div>
         </div>
         <form class="story_form" id="story_color" action="/set_story_color/<%= story_id %>" method="post">
-            <button
-                    class="jscolor {valueElement:null,value:'66ccff'}"
-                    style="border:2px solid black">
-                Pick a color
-            </button>
-
+            <input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">
+            <script>
+                function update(jscolor) {
+                    // 'jscolor' instance can be used as a string
+                    document.getElementById('rect').style.backgroundColor = '#' + jscolor
+                }
+            </script>
+            <span><i id="rect" class="fa fa-circle size" aria-hidden="true"></i></span>
             <button class="create_button" id="submit_color"><i class="fa fa-circle size" aria-hidden="true"></i>Submit Changes</button>
         </form>
 
