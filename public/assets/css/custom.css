@@ -573,18 +573,26 @@ label {
     text-align: center;
     cursor: pointer;
     white-space: nowrap;
+    width: 18%;
+    height: 50px;
+    border-radius: 50px;
 }
 
 #color_button_2{
     border: none;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    padding: 8px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background-color: inherit;
+    text-align: center;
     cursor: pointer;
+    white-space: nowrap;
+    width: 18%;
+    height: 50px;
+    border-radius: 50px;
 }
 
 .pack_artwork{
@@ -642,6 +650,17 @@ label {
     width: 230px;
     border-radius: 10.8px;
     margin: 10px 20px auto;
+    background-color: #a46580;
+}
+
+.submit_color{
+    width: 230px;
+    height: 50px;
+    color: white;
+    border-radius: 10.8px;
+    margin: 100px 20px auto;
+    font-size: 16px;
+    font-weight: 700;
     background-color: #a46580;
 }
 
