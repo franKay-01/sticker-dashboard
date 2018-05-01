@@ -89,11 +89,12 @@
                 <label class="update_label">Edit Color Scheme:</label>
                 <%if (color){%>
                 <span  style="color: <%= story.get("color")[0] %>"><i class="fa fa-circle fa-5x" aria-hidden="true"></i></span>
-                <span style="color:<%= story.get("color")[1] %>"><i class="fa fa-circle fa-5x" aria-hidden="true"></i></span>
+                <span style="color:<%= story.get("color")[1] %>;margin-left: -30px;"><i class="fa fa-circle fa-5x" aria-hidden="true"></i></span>
                 <%} else {%>
                 <span  style="color: black"><i class="fa fa-circle fa-5x" aria-hidden="true"></i></span>
-                <span style="color: black"><i class="fa fa-circle fa-5x" aria-hidden="true"></i></span>
+                <span style="color: black;margin-left: -30px;"><i class="fa fa-circle fa-5x" aria-hidden="true"></i></span>
                 <%}%>
+                <br>
                 <a href="/change_color/<%= story.id %>" class="preview">Edit Color</a><br>
 
 
