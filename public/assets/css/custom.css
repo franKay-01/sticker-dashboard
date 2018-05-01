@@ -11,7 +11,7 @@ a {
 button,
 button:focus,
 button:active {
-    background-color: #a46580 !important;
+    background-color: #a46580;
     outline: none;
     padding: 0;
 }
