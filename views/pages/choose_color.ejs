@@ -63,17 +63,25 @@
             <div class="create_new">First Color</div>
 
             <div style="margin:0px 15px auto;">
-            <button id="color_button" style=" border-radius: 50%;" class="jscolor {styleElement:'color_button'}">
 
-            </button>
+            <button id="color_button" style=" border-radius: 50%;" value="cc66ff" class="jscolor {onFineChange:'update(this)'}"></button>
+
+                <script>
+                    function update(jscolor) {
+                        // 'jscolor' instance can be used as a string
+                        document.getElementById('color_button').style.backgroundColor = '#' + jscolor
+                    }
+                </script>
 
             </div>
             <div class="create_new">Second Color</div>
 
             <div style=" margin:0px 15px auto;">
-                <button id="color_button_2" style=" border-radius: 50%;" class="jscolor {styleElement:'color_button_2'}">
+                <button id="color_button_2" style=" border-radius: 50%;" class="jscolor {valueElement:'valueInput2', styleElement:'color_button_2'}">
 
                 </button>
+
+                <input id="valueInput2" value="010502" hidden><br>
 
             </div>
 
