@@ -60,13 +60,28 @@
         </div>
         <form class="medium-3 large-3 cell icons" id="story_color" action="/set_story_color/<%= story_id %>" method="post">
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
-            <div>
-            <button id="color_button" style="color: black;border-radius: 50%;" class="jscolor {valueElement:'valueInput', styleElement:'color_button'}">
+            <div class="create_new">First Color</div>
+
+            <div style="margin: 20px 15px auto;">
+            <button id="color_button" style=" border-radius: 50%;" class="jscolor {valueElement:'valueInput', styleElement:'color_button'}">
 
             </button>
 
-            <button class="create_button" id="submit_color"><i class="fa fa-circle size" aria-hidden="true"></i>Submit Changes</button>
+                <input id="valueInput" value="010502" hidden><br>
+
             </div>
+            <div class="create_new">Second Color</div>
+
+            <div style=" margin: 20px 15px auto;">
+                <button id="color_button_2" style=" border-radius: 50%;" class="jscolor {valueElement:'valueInput2', styleElement:'color_button_2'}">
+
+                </button>
+
+                <input id="valueInput2" value="010502" hidden><br>
+
+            </div>
+            <button class="create_button" id="submit_color"><i class="fa fa-circle size" aria-hidden="true"></i>Submit Changes</button>
+
         </form>
 
         <%- include('../partials/footer') %>
