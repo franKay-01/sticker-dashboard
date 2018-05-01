@@ -59,7 +59,10 @@
             </div>
         </div>
         <form class="story_form" id="story_color" action="/set_story_color/<%= story_id %>" method="post">
-            <input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">
+            <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
+            <button class="jscolor {valueElement:'valueInput', styleElement:'styleInput'} {onFineChange:'update(this)'}">
+                Click here to pick a color
+            </button>
             <script>
                 function update(jscolor) {
                     // 'jscolor' instance can be used as a string
