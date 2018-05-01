@@ -562,8 +562,7 @@ label {
 }
 
 #color_button{
-    background-color: #4CAF50; /* Green */
-    border: none;
+    border: solid;
     color: white;
     padding: 20px;
     text-align: center;
