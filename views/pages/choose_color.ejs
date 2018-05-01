@@ -58,13 +58,17 @@
                 <div><a class="_stickers_packs" href="/story_collection">Stories</a></div>
             </div>
         </div>
-        <form class="medium-3 large-3 cell icons" id="story_color" action="/set_story_color/<%= story_id %>" method="post">
+        <form class="medium-3 large-3 cell icons" id="story_color" action="/set_story_color/<%= story_id %>"
+              method="post">
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
             <div class="create_new">First Color</div>
 
             <div style="margin:0px 15px auto;">
+                <!--<button id="color_button" style="border-radius: 50%;" class="jscolor {styleElement:'color_button'}">-->
 
-            <button id="color_button" style=" border-radius: 50%;" value="cc66ff" class="jscolor {onFineChange:'update(this)'}"></button>
+                <button id="color_button" class="jscolor {onFineChange:'update(this)'}" value="cc66ff">
+
+                </button>
 
                 <script>
                     function update(jscolor) {
@@ -77,7 +81,8 @@
             <div class="create_new">Second Color</div>
 
             <div style=" margin:0px 15px auto;">
-                <button id="color_button_2" style=" border-radius: 50%;" class="jscolor {valueElement:'valueInput2', styleElement:'color_button_2'}">
+                <button id="color_button_2" style=" border-radius: 50%;"
+                        class="jscolor {valueElement:'valueInput2', styleElement:'color_button_2'}">
 
                 </button>
 
@@ -85,7 +90,9 @@
 
             </div>
 
-            <button class="create_button" id="submit_color"><i class="fa fa-circle size" aria-hidden="true"></i>Submit Changes</button>
+            <button class="create_button" id="submit_color"><i class="fa fa-circle size" aria-hidden="true"></i>Submit
+                Changes
+            </button>
 
         </form>
 
