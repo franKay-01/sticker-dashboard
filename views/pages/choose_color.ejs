@@ -25,7 +25,7 @@
     <script>
         $(document).ready(function () {
             document.getElementById("submit_color").onclick = function () {
-                document.getElementById("story_form").submit();
+                document.getElementById("story_color").submit();
             }
         });
 
@@ -58,7 +58,7 @@
                 <div><a class="_stickers_packs" href="/story_collection">Stories</a></div>
             </div>
         </div>
-        <form class="story_form" id="story_form" action="/edit_story/<%= story.id %>" method="post">
+        <form class="story_form" id="story_color" action="/set_story_color/<%= story_id %>" method="post">
             <button
                     class="jscolor {valueElement:null,value:'66ccff'}"
                     style="border:2px solid black">
