@@ -60,12 +60,14 @@
         </div>
         <form class="medium-3 large-3 cell icons" id="story_color" action="/set_story_color/<%= story_id %>" method="post">
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
-            <button class="jscolor {valueElement:'valueInput', styleElement:'rect'}">
-                <i class="fa fa-circle size" aria-hidden="true"></i>
+            <div>
+            <button style="color: black; background-color: #0a3463" class="jscolor {valueElement:'valueInput', styleElement:'rect'}">
+                Click here to pick a color
             </button>
 
             <span><i id="rect" class="fa fa-circle size" aria-hidden="true"></i></span>
             <button class="create_button" id="submit_color"><i class="fa fa-circle size" aria-hidden="true"></i>Submit Changes</button>
+            </div>
         </form>
 
         <%- include('../partials/footer') %>
