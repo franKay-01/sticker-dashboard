@@ -1453,7 +1453,7 @@ app.get('/review_items/:type', function (req, res) {
             console.log("REVIEWS " + JSON.stringify(review));
             res.render("pages/review_collection", {
 
-                collection: review
+                reviews: review
 
             });
         }, function (error) {
