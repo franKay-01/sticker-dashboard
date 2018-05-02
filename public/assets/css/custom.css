@@ -365,6 +365,7 @@ label {
     float: right;
     margin-right: 50px;
     color: #ffffff;
+    background-color: transparent !important;
 }
 
 .advert_image {
