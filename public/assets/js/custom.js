@@ -129,7 +129,7 @@ $(document).ready(function () {
             $('#pack_id').fadeOut('fast');
         });
 
-        $('.btnAddAdverts').on('click', function () {
+        $('#btnAddAdverts').on('click', function () {
             $('#pageMask').fadeIn('fast');
             $('#hiddenAddAdvertForm').fadeIn('fast');
             $('#all_stories').fadeOut('fast');
