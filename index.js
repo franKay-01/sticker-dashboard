@@ -1532,7 +1532,7 @@ app.get('/home', function (req, res) {
 
         }).then(function (latestSticker, storyImage, storyBody) {
 
-            _latestSticker = latestSticker.get("uri");
+            _latestSticker = latestSticker.get("uri").url();
             _latestSticker['stickerName'] = latestSticker.get("stickerName");
 
             //TODO change this to uri
