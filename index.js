@@ -496,7 +496,6 @@ app.post('/new_story', function (req, res) {
 
 });
 
-//TODO merge add_sticker_of_day and add_story_of_the_day
 app.post('/latest_element/:type', function (req, res) {
 
     let token = req.cookies.token;
@@ -1537,7 +1536,7 @@ app.get('/home', function (req, res) {
             _latestSticker['stickerName'] = latestSticker.get("stickerName");
 
             //TODO change this to uri
-            _storyImage = storyImage.get("sticker");
+            _storyImage = storyImage.get("sticker").url();
 
             _storyBody = storyBody;
 
