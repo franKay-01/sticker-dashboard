@@ -1157,7 +1157,7 @@ app.post('/set_story_color/:id', function (req, res) {
         color_1 = hash.concat(color_1);
         color_2 = hash.concat(color_2);
 
-        let colors = [color_1,color_2];
+        let colors = [color_1, color_2];
 
         let _user = {};
 
@@ -1174,12 +1174,12 @@ app.post('/set_story_color/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/story_details/'+ id);
+            res.redirect('/story_details/' + id);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story_details/'+ id);
+            res.redirect('/story_details/' + id);
 
         });
 
@@ -1432,30 +1432,24 @@ app.post('/edit_main_story/:id', function (req, res) {
     }
 });
 
-app.get('/review_items/:type', function (req, res) {
+app.get('/packs_in_review', function (req, res) {
 
     let token = req.cookies.token;
-    let status = parseInt(req.params.type);
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            switch (status) {
-                case PACK:
-                    return new Parse.Query(PacksClass).equalTo("status", type.PACK_STATUS.review).find();
-                case STORY:
-                    return new Parse.Query(StoryClass).equalTo("status", type.PACK_STATUS.review).find();
+            new Parse.Query(PacksClass).equalTo("status", type.PACK_STATUS.review).find()
 
-            }
-        }).then(function (review) {
+        }).then(function (pack) {
 
-            console.log("REVIEWS " + JSON.stringify(review));
-            res.render("pages/review_collection", {
+            res.render("pages/packs_for_admin", {
 
-                reviews: review
+                collection: pack
 
             });
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
