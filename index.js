@@ -1104,6 +1104,8 @@ app.get('/story_details/:id', function (req, res) {
             } else {
                 color = [];
             }
+            console.log("COLOR " + color[0]);
+
             res.render("pages/story_details", {
                 story: _story,
                 sticker: sticker,
