@@ -1152,15 +1152,13 @@ app.post('/set_story_color/:id', function (req, res) {
     let color_1 = req.body.color1;
     let color_2 = req.body.color2;
     let hash = "#";
-    let hash_2 = "#";
-
 
     if (token) {
 
-        hash =+ color_1;
-        hash_2 =+ color_2;
+        color_1 = hash.concat(color_1);
+        color_2 = hash.concat(color_2);
 
-        let colors = [hash,hash_2];
+        let colors = [color_1,color_2];
 
         let _user = {};
 
