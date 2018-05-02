@@ -1550,7 +1550,9 @@ app.get('/home', function (req, res) {
                     stickerLength: _stickerLength,
                     storyLength: _storyLength,
                     name: _user.get("name"),
-                    verified: _user.get("emailVerified")
+                    verified: _user.get("emailVerified"),
+                    error_message: "null"
+
                 });
 
             } else if (_user.get("type") === SUPER_USER) {
@@ -1571,7 +1573,9 @@ app.get('/home', function (req, res) {
                     stickerLength: _stickerLength,
                     storyLength: _storyLength,
                     user_name: _user.get("name"),
-                    verified: _user.get("emailVerified")
+                    verified: _user.get("emailVerified"),
+                    error_message: "null"
+
                 });
 
             }
