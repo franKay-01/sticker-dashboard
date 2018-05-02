@@ -1526,7 +1526,7 @@ app.get('/home', function (req, res) {
 
         }).then(function (latestSticker, storyImage, storyBody) {
 
-            _latestSticker = latestSticker.get("uri").url();
+            _latestSticker = latestSticker.get("uri");
             _latestSticker['stickerName'] = latestSticker.get("stickerName");
 
             _storyImage = storyImage.get("sticker").url();
