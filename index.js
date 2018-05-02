@@ -1535,7 +1535,6 @@ app.get('/home', function (req, res) {
             _latestSticker = latestSticker.get("uri").url();
             _latestSticker['stickerName'] = latestSticker.get("stickerName");
 
-            //TODO change this to uri
             _storyImage = storyImage.get("sticker").url();
 
             _storyBody = storyBody;
@@ -1593,7 +1592,8 @@ app.get('/home', function (req, res) {
                 stickerLength: _stickerLength,
                 storyLength: _storyLength,
                 user_name: _user.get("name"),
-                verified: _user.get("emailVerified")
+                verified: _user.get("emailVerified"),
+                error_message: error.message
             });
         });
 

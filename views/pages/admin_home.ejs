@@ -192,6 +192,13 @@
         </div>
     </div>
     <!-- End of hidden form -->
+    <%if (error_message) {%>
+    <div class="medium-12 large-12 error_card" id="error_card" style="display: block">
+        <div style="text-align: center;font-size: 20px;">
+            <%= error_message%>
+        </div>
+    </div>
+    <%}%>
     <span class="medium-12 large-12 welcome_post" id="Welcome"><b>Welcome <a href="/user_profile"
                                                                              style="font-size: 45px;color: #af627f;"> <%= user_name %> </a></b></span>
     <div class="grid-x grid-margin-x" id="opaqueDiv">
