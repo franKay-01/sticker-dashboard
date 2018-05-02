@@ -1582,9 +1582,9 @@ app.get('/home', function (req, res) {
 
 
         }, function (error) {
-            //TODO how to display error on home page
+
             console.log("ERROR ON HOME " + error.message);
-            //TODO check for empty values
+
             res.render("pages/admin_home", {
                 collections: _collection,
                 categories: _categories,
