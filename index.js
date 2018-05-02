@@ -1149,11 +1149,16 @@ app.post('/set_story_color/:id', function (req, res) {
     let id = req.params.id;
     let color_1 = req.body.color1;
     let color_2 = req.body.color2;
+    let hash = "#";
+    let hash_2 = "#";
 
 
     if (token) {
 
-        let colors = [color_1,color_2];
+        hash =+ color_1;
+        hash_2 =+ color_2;
+
+        let colors = [hash,hash_2];
 
         let _user = {};
 
