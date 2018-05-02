@@ -1440,7 +1440,7 @@ app.get('/packs_in_review', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            new Parse.Query(PacksClass).equalTo("status", type.PACK_STATUS.review).find()
+           return new Parse.Query(PacksClass).equalTo("status", type.PACK_STATUS.review).find();
 
         }).then(function (pack) {
 
