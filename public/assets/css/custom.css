@@ -312,7 +312,8 @@ label {
     letter-spacing: -2.1px;
     text-align: left;
     color: #a46580;
-    margin-right: 30px
+    margin-right: 30px;
+    background-color: transparent !important;
 }
 
 .review_tab {
@@ -340,6 +341,7 @@ label {
     float: right;
     margin-right: 30px;
     color: #ffffff;
+    background-color: transparent !important;
 }
 
 .add {

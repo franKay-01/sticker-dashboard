@@ -1101,7 +1101,7 @@ app.get('/story_details/:id', function (req, res) {
 
             if (_story.get("color") !== "undefined" || _story.get("color") !== undefined) {
                 color = _story.get("color");
-            }else {
+            } else {
                 color = [];
             }
             res.render("pages/story_details", {
@@ -1137,8 +1137,47 @@ app.get('/change_color/:id', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story_details/'+story.id);
+            res.redirect('/story_details/' + story.id);
         })
+
+    }
+});
+
+app.post('/set_story_color/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let color_1 = req.body.color1;
+    let color_2 = req.body.color2;
+
+
+    if (token) {
+
+        let colors = [color_1,color_2];
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StoryClass).equalTo("objectId", id).first();
+
+
+        }).then(function (story) {
+
+            story.set("color", colors);
+
+            return story.save();
+
+        }).then(function () {
+
+            res.redirect('/story_details/'+ id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/story_details/'+ id);
+
+        });
 
     }
 });
