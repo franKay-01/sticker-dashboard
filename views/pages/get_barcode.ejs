@@ -56,7 +56,7 @@
         <% if (barcodes.length === 0){ %>
 
         <% } else { %>
-        <% reviews.forEach(function(item, index) { %>
+        <% barcodes.forEach(function(item, index) { %>
         <input id="bar_name" value="<% item.get("name") %>" hidden>
         <svg id="barcode"></svg>
 
