@@ -63,7 +63,7 @@
 
         <% } else { %>
         <% barcodes.forEach(function(item, index) { %>
-        <button onclick="show(<%= item.get("name") %>)"></button>
+        <a class="_stickers_packs" href="#" onclick="show(<%= item.get("name") %>)">Click for Barcode</a>
         <input id="bar_name" value="<%= item.get("name") %>" hidden>
         <svg id="<%= item.get("name") %>" hidden=""></svg>
 
