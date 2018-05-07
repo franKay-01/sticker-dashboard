@@ -26,7 +26,7 @@
 
         function show_barcode(name) {
 
-            JsBarcode(name, name.value, {
+            JsBarcode(name, name, {
 
                 displayValue: false
 
@@ -59,9 +59,12 @@
 
         <% } else { %>
         <% barcodes.forEach(function(item, index) { %>
-        <a class="_stickers_packs" href="#" onclick="show_barcode(<%= item.get("name") %>)">Click for Barcode</a>
+        <div class="medium-6 large-6">
+
+        <a class="_stickers_packs" style="color: rebeccapurple;" href="#" onclick="show_barcode(<%= item.get("name") %>)"><%= item.get("name")%></a>
         <input id="bar_name" value="<%= item.get("name") %>" hidden>
         <svg id="<%= item.get("name") %>" hidden></svg>
+        </div>
 
         <% }); %>
         <% } %>
