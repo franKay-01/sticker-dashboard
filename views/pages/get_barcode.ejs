@@ -27,7 +27,7 @@
 
             let name = document.getElementById("bar_name").value;
             // name = JSON.stringify(name);
-            JsBarcode("#barcode", name, {
+            JsBarcode(name, name, {
 
                 displayValue: false
             });
@@ -58,7 +58,7 @@
         <% } else { %>
         <% barcodes.forEach(function(item, index) { %>
         <input id="bar_name" value="<%= item.get("name") %>" hidden>
-        <svg id="barcode"></svg>
+        <svg id="<%= item.get("name") %>" ></svg>
 
         <% }); %>
         <% } %>
