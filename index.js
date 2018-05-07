@@ -1765,14 +1765,15 @@ app.post('/create_barcode', function (req, res) {
 
             console.log("BARCODE COUNT"+barcode_count);
 
-            let Barcode = new Parse.Object.extend(Barcode);
-            let barcode = new Barcode();
             let psyhertxt = "psyhertxt";
 
             let name_of_card = psyhertxt.concat(card_name);
 
 
             _.each(number, function () {
+
+                let Barcode = new Parse.Object.extend(Barcode);
+                let barcode = new Barcode();
 
                 barcode_count = barcode_count ++;
                 name_of_card = name_of_card.concat(barcode_count);
