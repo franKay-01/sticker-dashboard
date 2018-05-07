@@ -23,22 +23,16 @@
     <script src="/public/assets/js/jsbarcode.js"></script>
 
     <script>
-        $(document).ready(function () {
 
-            let name = document.getElementById("bar_name").value;
+        function show_barcode(name) {
 
-            function show(name) {
+            JsBarcode(name, name, {
 
-                JsBarcode(name, name, {
+                displayValue: false
 
-                    displayValue: false
+            });
+        }
 
-                });
-            }
-            // name = JSON.stringify(name);
-
-
-        });
     </script>
 </head>
 
@@ -63,7 +57,7 @@
 
         <% } else { %>
         <% barcodes.forEach(function(item, index) { %>
-        <a class="_stickers_packs" href="#" onclick="show(<%= item.get("name") %>)">Click for Barcode</a>
+        <a class="_stickers_packs" href="#" onclick="show_barcode(<%= item.get("name") %>)">Click for Barcode</a>
         <input id="bar_name" value="<%= item.get("name") %>" hidden>
         <svg id="<%= item.get("name") %>" hidden=""></svg>
 
