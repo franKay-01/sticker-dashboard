@@ -20,9 +20,16 @@
     <script src="/public/assets/js/jsbarcode.js"></script>
 
     <script>
-        JsBarcode("#barcode", "Hi!");
-        // or with jQuery
-        $("#barcode").JsBarcode("Hi!");
+        $(document).ready(function () {
+
+            JsBarcode("#barcode", "1234", {
+                format: "pharmacode",
+                lineColor: "#0aa",
+                width: 4,
+                height: 40,
+                displayValue: false
+            });
+        });
     </script>
 </head>
 
@@ -44,10 +51,7 @@
     <div class="grid-x grid-margin-x" id="opaqueDiv">
 
         <svg id="barcode"></svg>
-        <!-- or -->
-        <canvas id="canvas"></canvas>
-        <!-- or -->
-        <img id="barcode"/>
+
         <%- include('../partials/footer') %>
     </div>
 </div>
