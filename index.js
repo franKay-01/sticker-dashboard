@@ -1812,6 +1812,8 @@ app.get('/get_barcodes', function (req, res) {
 
         }).then(function (barcode) {
 
+            console.log("BARCODES " + barcode);
+
             res.render("pages/get_barcode", {
                 barcodes: barcode
             });
