@@ -25,7 +25,8 @@
     <script>
         $(document).ready(function () {
 
-            JsBarcode("#barcode", "Hi world!", {
+            let name = document.getElementById("bar_name")
+            JsBarcode("#barcode", name, {
 
                 displayValue: false
 
@@ -52,8 +53,15 @@
 
     <div class="grid-x grid-margin-x" id="opaqueDiv">
 
+        <% if (barcodes.length === 0){ %>
+
+        <% } else { %>
+        <% reviews.forEach(function(item, index) { %>
+        <input id="bar_name" value="<% item.get("name") %>" hidden>
         <svg id="barcode"></svg>
 
+        <% }); %>
+        <% } %>
         <%- include('../partials/footer') %>
     </div>
 </div>

@@ -1743,6 +1743,8 @@ app.get('/create_barcode', function (req, res) {
             res.render("pages/create_barcode");
 
         });
+    }else {
+        res.redirect('/');
     }
 
 });
@@ -1767,7 +1769,7 @@ app.post('/create_barcode', function (req, res) {
 
             let name_of_card = psyhertxt.concat(card_name);
 
-            for (let i = 0; i < number; i ++){
+            for (let i = 0; i < number; i++) {
 
                 let Barcodes = new Parse.Object.extend(Barcode);
                 let barcode = new Barcodes();
@@ -1792,6 +1794,32 @@ app.post('/create_barcode', function (req, res) {
             res.redirect('/create_barcode');
         })
 
+    }else {
+        res.redirect('/')
+    }
+
+});
+
+app.get('/get_barcodes', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(Barcode).find();
+
+        }).then(function (barcode) {
+
+            res.render("pages/get_barcode", {
+                barcodes: barcode
+            });
+
+        })
+
+    } else {
+        res.redirect('/');
     }
 
 });
