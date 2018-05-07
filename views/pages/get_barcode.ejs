@@ -25,12 +25,12 @@
     <script>
         $(document).ready(function () {
 
-            let data = JSON.stringify(document.getElementById("bar_name"));
+            let name = document.getElementById("bar_name");
+            name = JSON.stringify(name);
+            JsBarcode("#barcode", name, {
 
-            JsBarcode(data, 'text', {
                 displayValue: false
             });
-
 
         });
     </script>
@@ -56,9 +56,11 @@
         <% if (barcodes.length === 0){ %>
 
         <% } else { %>
-        <input id="bar_name" value="<% barcodes %>" hidden>
+        <% barcodes.forEach(function(item, index) { %>
+        <input id="bar_name" value="<% item.get("name") %>" hidden>
         <svg id="barcode"></svg>
 
+        <% }); %>
         <% } %>
         <%- include('../partials/footer') %>
     </div>
