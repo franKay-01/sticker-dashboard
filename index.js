@@ -1767,13 +1767,12 @@ app.post('/create_barcode', function (req, res) {
 
             let name_of_card = psyhertxt.concat(card_name);
 
-
             for (let i = 0; i < number; i ++){
 
                 let Barcodes = new Parse.Object.extend(Barcode);
                 let barcode = new Barcodes();
 
-                interger = interger++;
+                interger =+ interger;
                 let name = name_of_card.concat(interger);
 
                 barcode.set("name", name);
