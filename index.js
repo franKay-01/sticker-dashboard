@@ -14,7 +14,6 @@ let methodOverride = require('method-override');
 let moment = require('moment');
 
 
-
 //for parsing location, directory and paths
 let path = require('path');
 let fs = require('fs');
@@ -49,6 +48,7 @@ let AdvertClass = "Advert";
 let AdvertImageClass = "AdvertImages";
 let Profile = "Profile";
 let LatestClass = "Latest";
+let Barcode = "Barcodes";
 
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
@@ -1734,20 +1734,76 @@ app.get('/reset_email', function (req, res) {
 
 app.get('/create_barcode', function (req, res) {
 
-    res.render("pages/create_barcode");
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            res.render("pages/create_barcode");
+
+        });
+    }
 
 });
 
+app.post('/create_barcode', function (req, res) {
+
+    let token = req.cookies.token;
+    let number = req.body.barcode_amount;
+    let card_name = req.body.barcode_name;
+    let barcodes = [];
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(Barcode).count();
+
+        }).then(function (barcode_count) {
+
+            let Barcode = new Parse.Object.extend(Barcode);
+            let barcode = new Barcode();
+            let psyhertxt = "psyhertxt";
+
+            let name_of_card = psyhertxt.concat(card_name);
+
+
+            _.each(number, function () {
+
+                barcode_count = barcode_count ++;
+                name_of_card = name_of_card.concat(barcode_count);
+
+                barcode.set("name", name_of_card);
+                barcodes.push(barcode);
+
+            });
+
+            return Parse.Object.saveAll(barcodes);
+
+        }).then(function () {
+
+            res.redirect('/get_barcodes');
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/create_barcode');
+        })
+
+    }
+
+});
 
 //UPLOAD MULTIPLE STICKERS
 app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
-    var token = req.cookies.token;
-    var collectionId = req.body.pack_id;
-    var files = req.files;
-    var fileDetails = [];
-    var stickerDetails = [];
-    var stickerCollection;
+    let token = req.cookies.token;
+    let collectionId = req.body.pack_id;
+    let files = req.files;
+    let fileDetails = [];
+    let stickerDetails = [];
+    let stickerCollection;
 
     if (token) {
 
@@ -1756,6 +1812,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
+
             new Parse.Query(PacksClass).equalTo("objectId", collectionId).first({sessionToken: token}).then(function (collection) {
 
                 console.log("INSIDE COLLECTION");
@@ -1763,15 +1820,15 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 files.forEach(function (file) {
 
-                    var fullName = file.originalname;
-                    var stickerName = fullName.substring(0, fullName.length - 4);
+                    let fullName = file.originalname;
+                    let stickerName = fullName.substring(0, fullName.length - 4);
 
-                    var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
                     //create our parse file
-                    var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                    var Sticker = new Parse.Object.extend(StickerClass);
-                    var sticker = new Sticker();
+                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                    let Sticker = new Parse.Object.extend(StickerClass);
+                    let sticker = new Sticker();
                     sticker.set("stickerName", stickerName);
                     sticker.set("localName", stickerName);
                     sticker.set("uri", parseFile);
@@ -1794,7 +1851,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 _.each(fileDetails, function (file) {
                     //Delete tmp fil after upload
-                    var tempFile = file.path;
+                    let tempFile = file.path;
                     fs.unlink(tempFile, function (err) {
                         if (err) {
                             //TODO handle error code
@@ -1807,7 +1864,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 });
 
                 _.each(stickers, function (sticker) {
-                    var collection_relation = stickerCollection.relation(PacksClass);
+                    let collection_relation = stickerCollection.relation(PacksClass);
                     collection_relation.add(sticker);
                 });
 
@@ -1816,8 +1873,8 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
             }).then(function () {
                 console.log("EMAIL IS " + req.cookies.username);
-                var mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
-                var data = {
+                let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
+                let data = {
                     //Specify email data
                     from: process.env.EMAIL_FROM || "test@example.com",
                     //The email to contact
@@ -1860,12 +1917,12 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 // FIND A SPECIFIC CATEGORY
 app.post('/find_category', function (req, res) {
 
-    var token = req.cookies.token;
-    var categoryName = req.body.searchCategory;
+    let token = req.cookies.token;
+    let categoryName = req.body.searchCategory;
 
     if (token) {
 
-        var searchCategory = new Parse.Query(CategoryClass);
+        let searchCategory = new Parse.Query(CategoryClass);
         searchCategory.equalTo("name", categoryName);
         searchCategory.first().then(function (category) {
 
@@ -1892,7 +1949,7 @@ app.post('/find_category', function (req, res) {
 
 //SELECT CATEGORIES PAGE
 app.get('/categories', function (req, res) {
-    var token = req.cookies.token;
+    let token = req.cookies.token;
 
     if (token) {
 
@@ -1915,8 +1972,8 @@ app.get('/categories', function (req, res) {
 
 app.post('/new_category', function (req, res) {
 
-    var token = req.cookies.token;
-    var categoryName = JSON.stringify(req.body.category_name);
+    let token = req.cookies.token;
+    let categoryName = JSON.stringify(req.body.category_name);
     let _categories = [];
     let categoryDetails = [];
 
@@ -1932,8 +1989,8 @@ app.post('/new_category', function (req, res) {
 
             _categories.forEach(function (category) {
 
-                var Category = new Parse.Object.extend(CategoryClass);
-                var new_category = new Category();
+                let Category = new Parse.Object.extend(CategoryClass);
+                let new_category = new Category();
 
                 new_category.set("name", category.toLowerCase());
                 categoryDetails.push(new_category);
@@ -1963,10 +2020,10 @@ app.post('/new_category', function (req, res) {
 
 app.post('/review_pack/:id', function (req, res) {
 
-    var token = req.cookies.token;
-    var id = req.params.id;
-    var comment = req.body.review_text;
-    var status = req.body.approved;
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let comment = req.body.review_text;
+    let status = req.body.approved;
 
     if (token) {
 
@@ -1976,8 +2033,8 @@ app.post('/review_pack/:id', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            var Reviews = new Parse.Object.extend("Reviews");
-            var review = new Reviews();
+            let Reviews = new Parse.Object.extend("Reviews");
+            let review = new Reviews();
 
             new Parse.Query(PacksClass).equalTo("objectId", id).first().then(function (pack) {
                 console.log("PACK FROM REVIEW " + JSON.stringify(pack));
@@ -2469,7 +2526,7 @@ app.get('/send_for_review/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-           return new Parse.Query(PacksClass).equalTo("objectId", pack_id).first();
+            return new Parse.Query(PacksClass).equalTo("objectId", pack_id).first();
 
         }).then(function (pack) {
 
@@ -2487,7 +2544,7 @@ app.get('/send_for_review/:id', function (req, res) {
             res.redirect('/pack/' + pack_id);
 
         });
-    }else {
+    } else {
         res.redirect('/');
     }
 });
@@ -2649,7 +2706,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
 
             });
         }
-    }else {
+    } else {
         res.redirect('/')
     }
 
@@ -2694,7 +2751,7 @@ app.post('/update_pack/:id', function (req, res) {
             console.log("ERROR " + error.message);
             res.redirect('/review_details/' + review_id);
         });
-    }else {
+    } else {
         res.redirect('/');
     }
 });
@@ -2821,7 +2878,7 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
                 res.redirect('/');
             });
         });
-    }else {
+    } else {
         res.redirect('/');
     }
 });
@@ -2895,7 +2952,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
 
             });
         });
-    }else {
+    } else {
         res.redirect('/');
     }
 });
@@ -2964,7 +3021,7 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
             console.log("ERROR " + error.message);
             res.redirect('/review_details/' + review_id);
         });
-    }else {
+    } else {
         res.redirect('/');
     }
 
@@ -3029,7 +3086,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
             res.redirect('/edit_pack_details/' + id);
 
         })
-    }else {
+    } else {
         res.redirect('/');
     }
 

@@ -20,6 +20,19 @@
     <script type="text/javascript"
             src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script src="/public/assets/js/jsbarcode.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            JsBarcode("#barcode", "Hi world!", {
+
+                displayValue: false
+
+            });
+
+        });
+    </script>
 </head>
 
 <body class="primary-background-color">
@@ -39,16 +52,7 @@
 
     <div class="grid-x grid-margin-x" id="opaqueDiv">
 
-        <div class="medium-3 large-3 cell icons">
-
-        <form action="/create_barcode" method="post" >
-            <input type="text" name="barcode_name">
-
-            <input type="number" name="barcode_amount">
-
-            <input type="submit" value="SUBMIT">
-        </form>
-        </div>
+        <svg id="barcode"></svg>
 
         <%- include('../partials/footer') %>
     </div>
