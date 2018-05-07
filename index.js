@@ -1774,9 +1774,9 @@ app.post('/create_barcode', function (req, res) {
                 let barcode = new Barcodes();
 
                 interger = interger++;
-                name_of_card = name_of_card.concat(interger);
+                let name = name_of_card.concat(interger);
 
-                barcode.set("name", name_of_card);
+                barcode.set("name", name);
                 barcodes.push(barcode);
 
             }
