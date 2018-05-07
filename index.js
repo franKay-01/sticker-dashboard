@@ -1762,7 +1762,7 @@ app.post('/create_barcode', function (req, res) {
 
 
         }).then(function (barcode_count) {
-            let interger = barcode_count;
+            let interger = parseInt(barcode_count);
             let psyhertxt = "psyhertxt";
 
             let name_of_card = psyhertxt.concat(card_name);
