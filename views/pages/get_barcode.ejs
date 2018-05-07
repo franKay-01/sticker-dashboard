@@ -27,7 +27,7 @@
         function show_barcode(event) {
 
             // .attr("data-id")
-            let name = $(event.target.getAttribute("data-name"));
+            let name = event.target.getAttribute("data-name");
             alert(name);
             // JsBarcode(name, name, {
             //
