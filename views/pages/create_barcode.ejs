@@ -41,14 +41,16 @@
 
         <div class="medium-3 large-3 cell icons">
 
-        <form action="/create_barcode" method="post" >
+            <form action="/create_barcode" method="post">
 
-            <input type="text" name="barcode_name">
+                <div class="create_new">
+                    <input type="text" class="box_2" name="barcode_name">
 
-            <input type="number" name="barcode_amount">
+                    <input type="number" class="box_2" name="barcode_amount">
 
-            <input type="submit" value="SUBMIT">
-        </form>
+                    <button type="submit" class="create">CREATE</button>
+                </div>
+            </form>
         </div>
 
         <%- include('../partials/footer') %>
