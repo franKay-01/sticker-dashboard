@@ -1763,14 +1763,14 @@ app.post('/create_barcode', function (req, res) {
 
         }).then(function (barcode_count) {
 
-            console.log("BARCODE COUNT"+barcode_count);
+            console.log("BARCODE COUNT"+barcode_count + " NAME " + card_name + " AMOUNT " + number);
 
             let psyhertxt = "psyhertxt";
 
             let name_of_card = psyhertxt.concat(card_name);
 
 
-            _.each(number, function () {
+            for (let i = 0; i < number; i ++){
 
                 let Barcode = new Parse.Object.extend(Barcode);
                 let barcode = new Barcode();
@@ -1781,7 +1781,7 @@ app.post('/create_barcode', function (req, res) {
                 barcode.set("name", name_of_card);
                 barcodes.push(barcode);
 
-            });
+            }
 
             return Parse.Object.saveAll(barcodes);
 
