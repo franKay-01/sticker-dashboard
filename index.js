@@ -1760,7 +1760,10 @@ app.post('/create_barcode', function (req, res) {
 
             return new Parse.Query(Barcode).count();
 
+
         }).then(function (barcode_count) {
+
+            console.log("BARCODE COUNT"+barcode_count);
 
             let Barcode = new Parse.Object.extend(Barcode);
             let barcode = new Barcode();
