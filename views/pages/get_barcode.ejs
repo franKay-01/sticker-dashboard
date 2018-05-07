@@ -26,7 +26,7 @@
 
         function show_barcode(name) {
 
-            alert(name);
+            alert(JSON.stringify(name) + " STRING " + String(name));
             JsBarcode(name, JSON.stringify(name), {
 
                 displayValue: false
