@@ -14,6 +14,7 @@ let methodOverride = require('method-override');
 let moment = require('moment');
 
 
+
 //for parsing location, directory and paths
 let path = require('path');
 let fs = require('fs');
@@ -1730,6 +1731,13 @@ app.get('/reset_email', function (req, res) {
     }
 
 });
+
+app.get('/create_barcode', function (req, res) {
+
+    res.render("pages/create_barcode");
+
+});
+
 
 //UPLOAD MULTIPLE STICKERS
 app.post('/uploads', upload.array('im1[]'), function (req, res) {
