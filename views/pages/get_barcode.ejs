@@ -31,6 +31,8 @@
                 displayValue: false
 
             });
+
+            name.style.display = "block";
         }
 
     </script>
@@ -59,7 +61,7 @@
         <% barcodes.forEach(function(item, index) { %>
         <a class="_stickers_packs" href="#" onclick="show_barcode(<%= item.get("name") %>)">Click for Barcode</a>
         <input id="bar_name" value="<%= item.get("name") %>" hidden>
-        <svg id="<%= item.get("name") %>" hidden=""></svg>
+        <svg id="<%= item.get("name") %>" hidden></svg>
 
         <% }); %>
         <% } %>
