@@ -592,6 +592,7 @@ app.get('/advert_collection', function (req, res) {
 
                     if (advert.id === image.get("advert_id")){
                         _adverts.push({advert:advert, image:image.get("uri").url()})
+                        console.log("ADVERTS "+ _adverts);
                     }else {
                         _adverts.push({advert:advert, image:""})
 
