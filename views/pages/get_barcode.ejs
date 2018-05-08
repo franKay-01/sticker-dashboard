@@ -28,8 +28,10 @@
 
             // .attr("data-id")
             let name = event.target.getAttribute("data-name");
-
-            JsBarcode(name, name, {
+            let bar = "#";
+            let id = bar.concat(name);
+            alert(id);
+            JsBarcode(id, name, {
 
                 displayValue: false
 
