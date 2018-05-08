@@ -53,6 +53,7 @@
             });
 
             $(id).css("display", "block");
+            $()
 
         }
 
@@ -80,7 +81,7 @@
             <% if (barcodes.length === 0){ %>
 
             <% } else { %>
-            <table style="width: 800px;">
+            <table style="width: 1200px;">
                 <% barcodes.forEach(function(item, index) { %>
                 <tr>
 
@@ -96,7 +97,7 @@
                     </td>
                     <td>
                         <a class="_stickers_packs" style="color: #a46580" onclick="close_barcode(event)"
-                           data-name="<%= name %>">Close</a>
+                           data-name="<%= name %>" hidden>Close</a>
                     </td>
                     <!--</div>-->
                 </tr>
