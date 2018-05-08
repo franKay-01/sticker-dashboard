@@ -574,7 +574,7 @@ app.get('/send_message', function (req, res) {
 app.get('/advert_collection', function (req, res) {
 
     let token = req.cookies.token;
-
+    let _adverts = [];
     if (token) {
 
         getUser(token).then(function (sessionToken) {
@@ -582,13 +582,26 @@ app.get('/advert_collection', function (req, res) {
             return Parse.Promise.when(
                 new Parse.Query(AdvertClass).find(),
                 new Parse.Query(AdvertImageClass).find()
-        );
+            );
 
         }).then(function (adverts, ad_images) {
 
+            _.each(adverts, function (advert) {
+
+                _.find(ad_images, function (image) {
+
+                    if (advert.id === image.get("advert_id")){
+                        _adverts.push({advert:advert, image:image.get("uri").url()})
+                    }else {
+                        _adverts.push({advert:advert, image:""})
+
+                    }
+                })
+            });
+
             res.render("pages/advert_collection", {
-                adverts: adverts,
-                ad_images: ad_images
+                adverts: _adverts
+                // ad_images: ad_images
             });
 
         }, function (error) {
@@ -1747,7 +1760,7 @@ app.get('/create_barcode', function (req, res) {
             res.render("pages/create_barcode");
 
         });
-    }else {
+    } else {
         res.redirect('/');
     }
 
@@ -1798,7 +1811,7 @@ app.post('/create_barcode', function (req, res) {
             res.redirect('/create_barcode');
         })
 
-    }else {
+    } else {
         res.redirect('/')
     }
 
