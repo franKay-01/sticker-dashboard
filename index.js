@@ -618,7 +618,7 @@ app.get('/advert_collection', function (req, res) {
             });
 
             res.render("pages/advert_collection", {
-                adverts: _adverts
+                adverts: ad
                 // ad_images: ad_images
             });
         }, function (error) {
