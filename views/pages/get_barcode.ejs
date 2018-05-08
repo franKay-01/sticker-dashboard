@@ -28,14 +28,14 @@
 
             // .attr("data-id")
             let name = event.target.getAttribute("data-name");
-            alert(name);
-            // JsBarcode(name, name, {
-            //
-            //     displayValue: false
-            //
-            // });
-            //
-            // name.style.display = "block";
+
+            JsBarcode(name, name, {
+
+                displayValue: false
+
+            });
+
+            name.style.display = "block";
         }
 
     </script>
@@ -64,7 +64,7 @@
         <% barcodes.forEach(function(item, index) { %>
         <div class="medium-6 large-6">
             <% let name = item.get("name") %>
-            <a class="_stickers_packs" onclick="show_barcode(event)" data-name="<%= name %>">check</a>
+            <a class="_stickers_packs" style="color: #a46580" onclick="show_barcode(event)" data-name="<%= name %>">check</a>
 
             <input id="bar_name" value="<%= item.get("name") %>" hidden>
             <svg id="<%= item.get("name") %>" hidden></svg>
