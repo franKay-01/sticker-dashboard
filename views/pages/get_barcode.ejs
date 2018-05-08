@@ -24,13 +24,28 @@
 
     <script>
 
+        function close_barcode(event) {
+
+            // .attr("data-id")
+            let name = event.target.getAttribute("data-name");
+            let bar = "#";
+            let id = bar.concat(name);
+            JsBarcode(id, name, {
+
+                displayValue: false
+
+            });
+
+            $(id).css("display", "none");
+
+        }
+
         function show_barcode(event) {
 
             // .attr("data-id")
             let name = event.target.getAttribute("data-name");
             let bar = "#";
             let id = bar.concat(name);
-            alert(id);
             JsBarcode(id, name, {
 
                 displayValue: false
@@ -78,6 +93,10 @@
                     <td>
                     <input id="bar_name" value="<%= item.get("name") %>" hidden>
                     <svg id="<%= item.get("name") %>" hidden></svg>
+                    </td>
+                    <td>
+                        <a class="_stickers_packs" style="color: #a46580" onclick="close_barcode(event)"
+                           data-name="<%= name %>">Close</a>
                     </td>
                     <!--</div>-->
                 </tr>
