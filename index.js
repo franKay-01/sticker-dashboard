@@ -575,52 +575,41 @@ app.get('/advert_collection', function (req, res) {
 
     let token = req.cookies.token;
     let _adverts = [];
-
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-                return new Parse.Query(AdvertClass).find();
+            return Parse.Promise.when(
+                new Parse.Query(AdvertClass).find(),
+                new Parse.Query(AdvertImageClass).find(),
+            );
 
             //query adverts Class
             //returns an array of adverts
             //query advertImage Class that contains id of advert_id
             //return the first item
 
-        }).then(function (adverts) {
+        }).then(function (adverts, ad_images) {
 
-            _adverts = adverts;
-            let _ids = [];
-            _.each(adverts, advert => {
-                _ids.push(advert.id)
-            });
-
-           return new Parse.Query(AdvertImageClass).containedIn("advert_id", _ids).find();
-
-
-        }).then(function (ad_images) {
-
-            let ad = [];
-            console.log("AD IMAGES " + JSON.stringify(ad_images));
-
-            _.each(_adverts, function (advert) {
-
-                _.find(ad_images, function (image) {
-
-                    if (advert.id === image.get("advert_id")){
-                        ad.push({advert:advert, image:image.get("uri").url()})
-
-                    }else {
-                        ad.push({advert:advert, image:""})
-
-                    }
-                })
-            });
+            // _.each(adverts, function (advert) {
+            //
+            //     _.find(ad_images, function (image) {
+            //
+            //         if (advert.id === image.get("advert_id")) {
+            //             _adverts.push({advert: advert, image: image.get("uri").url()})
+            //             console.log("ADVERTS ID " + advert.id + " IMAGE " + image.get("uri").url());
+            //         } else {
+            //             _adverts.push({advert: advert, image: ""})
+            //
+            //         }
+            //     })
+            // });
 
             res.render("pages/advert_collection", {
-                adverts: ad
-                // ad_images: ad_images
+                adverts: adverts,
+                ad_images: ad_images
             });
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
