@@ -595,7 +595,7 @@ app.get('/advert_collection', function (req, res) {
                 _ids.push(advert.id)
             });
 
-           return new Parse.Query(AdvertImageClass).containsIn("advert_id", _ids);
+           return new Parse.Query(AdvertImageClass).containedIn("advert_id", _ids);
 
 
         }).then(function (ad_images) {
