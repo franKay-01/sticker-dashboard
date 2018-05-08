@@ -592,7 +592,7 @@ app.get('/advert_collection', function (req, res) {
 
             });
 
-            console.log("ARRAY " + ad_image);
+            console.log("ARRAY " + JSON.stringify(ad_image));
 
             res.render("pages/advert_collection", {
                 adverts: adverts
