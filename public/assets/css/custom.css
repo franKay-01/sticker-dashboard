@@ -368,6 +368,13 @@ label {
     background-color: transparent !important;
 }
 
+.search_button{
+    font-size:36px;
+    color: #8651aa;
+    float: left;
+    background-color: transparent !important;
+}
+
 .advert_image {
     height: 43px;
     font-weight: bold;
@@ -2078,10 +2085,13 @@ tr #titles {
 .catbtn {
     float: right;
     margin-right: 10px;
+    background-color: transparent; !important;
+
 }
 
 .catbtn_2 {
     float: right;
+    background-color: transparent; !important;
 }
 
 .mainrow {
