@@ -601,7 +601,7 @@ app.get('/advert_collection', function (req, res) {
         }).then(function (ad_images) {
 
             let ad = [];
-            console.log("AD IMAGES " + ad_images);
+            console.log("AD IMAGES " + JSON.stringify(ad_images));
 
             _.each(_adverts, function (advert) {
 
