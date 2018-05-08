@@ -375,6 +375,7 @@ label {
     text-align: left;
     float: right;
     margin-right: 50px;
+    background-color: transparent !important;
 }
 
 ._stickers {
