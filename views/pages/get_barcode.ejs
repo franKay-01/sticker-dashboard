@@ -65,16 +65,25 @@
             <% if (barcodes.length === 0){ %>
 
             <% } else { %>
-            <% barcodes.forEach(function(item, index) { %>
-            <div class="medium-6 large-6">
-                <% let name = item.get("name") %>
-                <a class="_stickers_packs" style="color: #a46580" onclick="show_barcode(event)" data-name="<%= name %>">check</a>
+            <table>
+                <% barcodes.forEach(function(item, index) { %>
+                <tr>
 
-                <input id="bar_name" value="<%= item.get("name") %>" hidden>
-                <svg id="<%= item.get("name") %>" hidden></svg>
-            </div>
+                    <!--<div class="medium-6 large-6">-->
+                    <% let name = item.get("name") %>
+                    <td>
+                    <a class="_stickers_packs" style="color: #a46580" onclick="show_barcode(event)"
+                       data-name="<%= name %>"><%= name %></a>
+                    </td>
+                    <td>
+                    <input id="bar_name" value="<%= item.get("name") %>" hidden>
+                    <svg id="<%= item.get("name") %>" hidden></svg>
+                    </td>
+                    <!--</div>-->
+                </tr>
 
-            <% }); %>
+                <% }); %>
+            </table>
             <% } %>
             <%- include('../partials/footer') %>
         </div>
