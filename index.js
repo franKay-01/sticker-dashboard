@@ -574,6 +574,8 @@ app.get('/send_message', function (req, res) {
 app.get('/advert_collection', function (req, res) {
 
     let token = req.cookies.token;
+    let counter = 0;
+    let ad_image = [];
 
     if (token) {
 
@@ -583,8 +585,18 @@ app.get('/advert_collection', function (req, res) {
 
         }).then(function (adverts) {
 
+            _.each(adverts, function (advert) {
+
+                let image = new Parse.Query(AdvertImageClass).equalTo("advert_id", advert.id).first();
+                ad_image.push(image);
+
+            });
+
+            console.log("ARRAY " + ad_image);
+
             res.render("pages/advert_collection", {
                 adverts: adverts
+                // ad_images: ad_image
             });
 
         }, function (error) {
