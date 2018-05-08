@@ -7,9 +7,9 @@
 
 <div class="medium-3 large-3 cell icons">
     <a href="/advert_details/<%= item.id %>">
-        <% if (items.image !== ""){ %>
+        <% if (item.image !== ""){ %>
         <center>
-            <img src="<%= items.image %>" style="height: 250px">
+            <img src="<%= item.image %>" style="height: 250px">
         </center>
         <div class="name_tag"><p class="pack_name_text"><%= item.get("title") %></p></div>
         <% } else {%>
