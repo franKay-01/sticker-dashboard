@@ -574,29 +574,21 @@ app.get('/send_message', function (req, res) {
 app.get('/advert_collection', function (req, res) {
 
     let token = req.cookies.token;
-    let counter = 0;
-    let ad_image = [];
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(AdvertClass).find();
+            return Parse.Promise.when(
+                new Parse.Query(AdvertClass).find(),
+                new Parse.Query(AdvertImageClass).find()
+        );
 
-        }).then(function (adverts) {
-
-            _.each(adverts, function (advert) {
-
-                let image = new Parse.Query(AdvertImageClass).equalTo("advert_id", advert.id).first();
-                ad_image.push(image);
-
-            });
-
-            console.log("ARRAY " + JSON.stringify(ad_image));
+        }).then(function (adverts, ad_images) {
 
             res.render("pages/advert_collection", {
-                adverts: adverts
-                // ad_images: ad_image
+                adverts: adverts,
+                ad_images: ad_images
             });
 
         }, function (error) {
