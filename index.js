@@ -621,7 +621,7 @@ app.get('/advert_collection', function (req, res) {
                 adverts: _adverts
                 // ad_images: ad_images
             });
-        }), function (error) {
+        }, function (error) {
 
             console.log("ERROR " + error.message);
             res.redirect('/home');
