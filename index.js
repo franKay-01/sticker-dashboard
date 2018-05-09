@@ -600,10 +600,13 @@ app.get('/advert_collection', function (req, res) {
                         }
                     } else {
                         _adverts.push({advert: advert, image: ""})
+                        console.log("ADVERT ID ELSE " + + advert.id + " IMAGE " + image.get("uri").url())
 
                     }
+
                 })
             });
+
 
             res.render("pages/advert_collection", {
                 adverts: _adverts
