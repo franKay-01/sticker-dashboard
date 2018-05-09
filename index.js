@@ -607,6 +607,9 @@ app.get('/advert_collection', function (req, res) {
                     if (advert.id !== _advert.advert.advert_id) {
                         advertWithNoImages.push({advert: advert, image: ""});
                         console.log("ADVERTS ID " + advert.id);
+                    }else {
+                        console.log("ADVERT LENGTH " + adverts.length);
+
                     }
                 });
             });
