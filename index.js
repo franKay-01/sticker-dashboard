@@ -117,7 +117,6 @@ let api = new ParseServer({
     /* The public URL of your app */
     // This will appear in the link that is used to verify email addresses and reset passwords.
     /* Set the mount path as it is in serverURL */
-    //TODO add append parse if necessary
     publicServerURL: process.env.SERVER_URL || 'http://localhost:1337/parse',
     /* This will appear in the subject and body of the emails that are sent */
 
@@ -322,7 +321,6 @@ app.get('/', function (req, res) {
                 stickers = helper.shuffle(stickers);
                 stickers = stickers.slice(0, 3);
 
-                //TODO merge render objects
                 if (errorMessage === "") {
                     render__(stickers, []);
 
@@ -591,23 +589,24 @@ app.get('/advert_collection', function (req, res) {
 
         }).then(function (adverts, ad_images) {
 
-            // _.each(adverts, function (advert) {
-            //
-            //     _.find(ad_images, function (image) {
-            //
-            //         if (advert.id === image.get("advert_id")) {
-            //             _adverts.push({advert: advert, image: image.get("uri").url()})
-            //             console.log("ADVERTS ID " + advert.id + " IMAGE " + image.get("uri").url());
-            //         } else {
-            //             _adverts.push({advert: advert, image: ""})
-            //
-            //         }
-            //     })
-            // });
+            _.each(adverts, function (advert) {
+
+                _.find(ad_images, function (image) {
+
+                    if (advert.id === image.get("advert_id")) {
+                        if (image.get("type") === 0 ){
+                            _adverts.push({advert: advert, image: image.get("uri").url()})
+                            console.log("ADVERTS ID " + advert.id + " IMAGE " + image.get("uri").url());
+                        }
+                    } else {
+                        _adverts.push({advert: advert, image: ""})
+
+                    }
+                })
+            });
 
             res.render("pages/advert_collection", {
-                adverts: adverts,
-                ad_images: ad_images
+                adverts: _adverts
             });
 
         }, function (error) {
@@ -723,6 +722,7 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
                 fs.unlink(tempFile, function (error) {
                     if (error) {
                         //TODO handle error code
+                        //TODO add job to do deletion of tempFiles
                         console.log("-------Could not del temp" + JSON.stringify(error));
                     }
                     else {
@@ -2886,7 +2886,6 @@ app.get('/details/:id/:coll_id', function (req, res) {
                 });
             }
         }, function (err) {
-            //TODO handle error code
             console.log("Error Loading-----------------------" + JSON.stringify(err));
             res.redirect("/pack/" + pack_);
 
@@ -3215,7 +3214,6 @@ app.post('/update/:id/:pid', function (req, res) {
 
     } else {
 
-        //TODO handle error code
         console.log("No session found[[[[[[");
         res.redirect("/pack/" + packId);
 
