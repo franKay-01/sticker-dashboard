@@ -590,7 +590,7 @@ app.get('/advert_collection', function (req, res) {
         }).then(function (adverts, ad_images) {
 
             var mergedList = _.map(adverts, function(item){
-                return _.extend(item, _.findWhere(ad_images, { id: item.id }));
+                return _.extend(item, _.findWhere(ad_images, { advert_id: item.id }));
             });
 
             _.each(mergedList, function (list){
@@ -610,7 +610,7 @@ app.get('/advert_collection', function (req, res) {
                             // console.log("ADVERTS ID " + advert.id + " IMAGE " + image.get("uri").url());
                         }
                     } else {
-                        _adverts.push({advert: advert, image: ""})
+                        _adverts.push({advert: advert, image: ""});
                         console.log("ADVERT ID ELSE " + advert.id + " IMAGE " + image.get("uri").url())
 
                     }
