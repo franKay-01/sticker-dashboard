@@ -610,9 +610,13 @@ app.get('/advert_collection', function (req, res) {
                 });
             });
 
+            let joinArray = _.zip(advertWithNoImages,_adverts);
+            _.each(joinArray, advert => {
+                console.log("MERGER " + JSON.stringify(advert));
+            });
 
             res.render("pages/advert_collection", {
-                adverts: _.zip(advertWithNoImages,_adverts)
+                adverts: _adverts
             });
 
         }, function (error) {
