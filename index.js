@@ -589,38 +589,20 @@ app.get('/advert_collection', function (req, res) {
 
         }).then(function (adverts, ad_images) {
 
-            var mergedList = _.map(ad_images, function(item){
-                return _.extend(item, _.findWhere(adverts, { id: item.advert_id }));
-            });
-
-            _.each(mergedList, function (list){
-
-                console.log("MERGED "+ JSON.stringify(list));
-
-            });
-
-
-            _.each(ad_images, function (image){
-
-                _.each(adverts, function (advert) {
-
-                    if (advert.id === image.get("advert_id")) {
-                        if (image.get("type") === 0 ){
-                            _adverts.push({advert: advert, image: image.get("uri").url()})
-                            // console.log("ADVERTS ID " + advert.id + " IMAGE " + image.get("uri").url());
-                        }
-                    } else {
-                        _adverts.push({advert: advert, image: ""});
-                        console.log("ADVERT ID ELSE " + advert.id + " IMAGE " + image.get("uri").url())
-
-                    }
-
-                });
-            });
-
-            // _.each(adverts, function (advert) {
+            // var mergedList = _.map(ad_images, function(item){
+            //     return _.extend(item, _.findWhere(adverts, { id: item.advert_id }));
+            // });
             //
-            //     _.find(ad_images, function (image) {
+            // _.each(mergedList, function (list){
+            //
+            //     console.log("MERGED "+ JSON.stringify(list));
+            //
+            // });
+
+
+            // _.each(ad_images, function (image){
+            //
+            //     _.each(adverts, function (advert) {
             //
             //         if (advert.id === image.get("advert_id")) {
             //             if (image.get("type") === 0 ){
@@ -628,13 +610,32 @@ app.get('/advert_collection', function (req, res) {
             //                 // console.log("ADVERTS ID " + advert.id + " IMAGE " + image.get("uri").url());
             //             }
             //         } else {
-            //             _adverts.push({advert: advert, image: ""})
+            //             _adverts.push({advert: advert, image: ""});
             //             console.log("ADVERT ID ELSE " + advert.id + " IMAGE " + image.get("uri").url())
             //
             //         }
             //
             //     });
             // });
+
+            _.each(adverts, function (advert) {
+
+                _.find(ad_images, function (image) {
+
+                    if (advert.id === image.get("advert_id")) {
+                        if (image.get("type") === 0 ){
+                            _adverts.push({advert: advert, image: image.get("uri").url()})
+                            // console.log("ADVERTS ID " + advert.id + " IMAGE " + image.get("uri").url());
+                        }
+                    }
+                        // else {
+                    //     _adverts.push({advert: advert, image: ""})
+                    //     console.log("ADVERT ID ELSE " + advert.id + " IMAGE " + image.get("uri").url())
+                    //
+                    // }
+
+                });
+            });
 
 
             res.render("pages/advert_collection", {
