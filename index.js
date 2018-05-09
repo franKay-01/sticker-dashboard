@@ -582,64 +582,37 @@ app.get('/advert_collection', function (req, res) {
                 new Parse.Query(AdvertImageClass).find(),
             );
 
-            //query adverts Class
-            //returns an array of adverts
-            //query advertImage Class that contains id of advert_id
-            //return the first item
-
         }).then(function (adverts, ad_images) {
-
-            // var mergedList = _.map(ad_images, function(item){
-            //     return _.extend(item, _.findWhere(adverts, { id: item.advert_id }));
-            // });
-            //
-            // _.each(mergedList, function (list){
-            //
-            //     console.log("MERGED "+ JSON.stringify(list));
-            //
-            // });
-
-
-            // _.each(ad_images, function (image){
-            //
-            //     _.each(adverts, function (advert) {
-            //
-            //         if (advert.id === image.get("advert_id")) {
-            //             if (image.get("type") === 0 ){
-            //                 _adverts.push({advert: advert, image: image.get("uri").url()})
-            //                 // console.log("ADVERTS ID " + advert.id + " IMAGE " + image.get("uri").url());
-            //             }
-            //         } else {
-            //             _adverts.push({advert: advert, image: ""});
-            //             console.log("ADVERT ID ELSE " + advert.id + " IMAGE " + image.get("uri").url())
-            //
-            //         }
-            //
-            //     });
-            // });
 
             _.each(adverts, function (advert) {
 
-                _.find(ad_images, function (image) {
+                _.each(ad_images, function (image) {
 
                     if (advert.id === image.get("advert_id")) {
-                        if (image.get("type") === 0 ){
+                        if (image.get("type") === 0) {
                             _adverts.push({advert: advert, image: image.get("uri").url()})
                             // console.log("ADVERTS ID " + advert.id + " IMAGE " + image.get("uri").url());
                         }
                     }
-                        // else {
-                    //     _adverts.push({advert: advert, image: ""})
-                    //     console.log("ADVERT ID ELSE " + advert.id + " IMAGE " + image.get("uri").url())
-                    //
-                    // }
 
+                });
+            });
+
+            //take _adverts[1,2,3,4].advert.id
+            //compare it to advert.id
+            //save all adverts which doesn't match _adverts[1,2,3,4].advert.id
+            let advertWithNoImages = [];
+            _.each(adverts, advert => {
+                _.each(_adverts, _advert => {
+                    if (advert.id !== _advert.advert.advert_id) {
+                        advertWithNoImages.push({advert: advert, image: ""})
+                    }
                 });
             });
 
 
             res.render("pages/advert_collection", {
-                adverts: _adverts
+                adverts: _.zip(advertWithNoImages,_adverts)
             });
 
         }, function (error) {
@@ -1250,7 +1223,7 @@ app.get('/change_color/:id', function (req, res) {
             if (story.get("color") !== "undefined" || story.get("color") !== undefined) {
 
                 color = story.get("color");
-            }else {
+            } else {
                 color = [];
             }
 
