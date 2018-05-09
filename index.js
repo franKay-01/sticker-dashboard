@@ -589,6 +589,17 @@ app.get('/advert_collection', function (req, res) {
 
         }).then(function (adverts, ad_images) {
 
+            var mergedList = _.map(adverts, function(item){
+                return _.extend(item, _.findWhere(ad_images, { id: item.id }));
+            });
+
+            _.each(mergedList, function (list){
+
+                console.log("MERGED "+ JSON.stringify(list));
+
+            });
+
+
             _.each(ad_images, function (image){
 
                 _.each(adverts, function (advert) {
