@@ -604,7 +604,7 @@ app.get('/advert_collection', function (req, res) {
             let advertWithNoImages = [];
             _.each(adverts, advert => {
                 _.each(_adverts, _advert => {
-                    if (advert.id !== _advert.advert.advert_id) {
+                    if (advert.id !== _advert.advert.id) {
                         advertWithNoImages.push({advert: advert, image: ""});
                         console.log("ADVERTS ID " + advert.id);
                     }else {
