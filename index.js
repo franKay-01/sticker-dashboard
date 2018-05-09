@@ -1214,7 +1214,7 @@ app.get('/change_color/:id', function (req, res) {
 
         }).then(function (story) {
 
-            if (_story.get("color") !== "undefined" || _story.get("color") !== undefined) {
+            if (story.get("color") !== "undefined" || story.get("color") !== undefined) {
 
                 color = story.get("color");
             }else {
