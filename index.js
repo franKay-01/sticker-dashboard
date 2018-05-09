@@ -605,15 +605,16 @@ app.get('/advert_collection', function (req, res) {
             _.each(adverts, advert => {
                 _.each(_adverts, _advert => {
                     if (advert.id !== _advert.advert.advert_id) {
-                        advertWithNoImages.push({advert: advert, image: ""})
+                        advertWithNoImages.push({advert: advert, image: ""});
+                        console.log("ADVERTS ID " + advert.id);
                     }
                 });
             });
 
-            let joinArray = _.zip(advertWithNoImages,_adverts);
-            _.each(joinArray, advert => {
-                console.log("MERGER " + JSON.stringify(advert));
-            });
+            // let joinArray = _.zip(advertWithNoImages,_adverts);
+            // _.each(joinArray, advert => {
+            //     console.log("MERGER " + JSON.stringify(advert));
+            // });
 
             res.render("pages/advert_collection", {
                 adverts: _adverts
