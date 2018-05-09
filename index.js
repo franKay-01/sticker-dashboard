@@ -624,7 +624,7 @@ app.get('/advert_collection', function (req, res) {
 
                     if (advert.id === image.get("advert_id")) {
                         if (image.get("type") === 0 ){
-                            _adverts.push({advert: advert, image: image.get("uri").url()})
+                            _adverts.push({advert: advert.toJSON(), image: image.get("uri").url()})
                             // console.log("ADVERTS ID " + advert.id + " IMAGE " + image.get("uri").url());
                         }
                     }
