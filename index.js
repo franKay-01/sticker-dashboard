@@ -1204,6 +1204,7 @@ app.get('/change_color/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
+    let color = [];
 
     if (token) {
 
@@ -1213,9 +1214,18 @@ app.get('/change_color/:id', function (req, res) {
 
         }).then(function (story) {
 
+            if (_story.get("color") !== "undefined" || _story.get("color") !== undefined) {
+
+                color = story.get("color");
+            }else {
+                color = [];
+            }
+
             res.render("pages/choose_color", {
-                story_id: story.id
+                story: story,
+                color: color
             });
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
