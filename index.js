@@ -1241,6 +1241,8 @@ app.post('/set_story_color/:id', function (req, res) {
         color_1 = hash.concat(color_1);
         color_2 = hash.concat(color_2);
 
+        console.log("COLOR " + color_2);
+
         let colors = [color_1, color_2];
 
         let _user = {};
