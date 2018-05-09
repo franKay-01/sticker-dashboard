@@ -606,7 +606,7 @@ app.get('/advert_collection', function (req, res) {
                 _.each(_adverts, _advert => {
                     if (advert.id === _advert.advert.id) {
                         advertWithNoImages.push({advert: advert, image: ""});
-                        console.log("ADVERTS ID " + advert.id);
+                        //console.log("ADVERTS ID " + advert.id);
                     }else {
                         console.log("ADVERT LENGTH " + adverts.length);
 
