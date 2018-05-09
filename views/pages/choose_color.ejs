@@ -50,7 +50,7 @@
                 <div><a class="_stickers_packs" href="/story_collection">Stories</a></div>
             </div>
         </div>
-        <form class="medium-3 large-3 cell icons" id="story_color" action="/set_story_color/<%= story_id %>" method="post">
+        <form class="medium-3 large-3 cell icons" id="story_color" action="/set_story_color/<%= story.id %>" method="post">
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
             <div class="create_new">First Color</div>
 
@@ -71,8 +71,8 @@
                 <input name="color2" type="hidden" id="color_value_1" value="<%= story.get("color")[1] %>">
                 <button id="color_button" class="jscolor {valueElement: 'color_value_1'}"></button>
                 <%} else {%>
-                <input name="color1" type="hidden" id="color_value" value="99cc00">
-                <button id="color_button" class="jscolor {valueElement: 'color_value'}"></button>
+                <input name="color2" type="hidden" id="color_value_1" value="99cc00">
+                <button id="color_button" class="jscolor {valueElement: 'color_value_1'}"></button>
                 <%}%>
 
             </div>
