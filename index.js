@@ -598,12 +598,7 @@ app.get('/advert_collection', function (req, res) {
                 });
             });
 
-            //take _adverts[1,2,3,4].advert.id
-            //compare it to advert.id
-            //save all adverts which doesn't match _adverts[1,2,3,4].advert.id
-
-
-            let advertWithNoImages = [];
+                    let advertWithNoImages = [];
             // _.each(adverts, advert => {
                     // if (advert.id !== _adverts[counter].advert.id) {
                     //     advertWithNoImages.push({advert: advert, image: ""});
@@ -618,6 +613,8 @@ app.get('/advert_collection', function (req, res) {
 
                             adverts.splice(i, 1);
                             console.log("SPLICED************");
+                        }else {
+                            return
                         }
                     }
                 }
