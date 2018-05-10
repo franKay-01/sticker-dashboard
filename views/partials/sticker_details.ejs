@@ -29,14 +29,14 @@
                 <% categories.forEach(function(items) { %>
                 <% let name = items.get("name").toString() %>
                 <% let isSelected = false %>
-                <%if (selected){%>
+                <% if (selected){ %>
                 <% selected.forEach(function(select){ %>
                 <% if (select === name) { %>
                 <% isSelected = true %>
                 <option value="<%= items.get("name") %>" selected><%= items.get("name") %></option>
                 <% } %>
                 <% }) %>
-                <%}%>
+                <% } %>
                 <% if(isSelected){ %>
                 <% isSelected = false %>
                 <% return %>
@@ -50,7 +50,7 @@
             <br>
             <input placeholder="category e.g funny, silly"
                    id="categoryInput" class="box_2" name="category"
-                   style="width: 100%; margin-bottom: 25px;margin-top: 25px; background-color: transparent !important;"
+                   style="width: 100%; margin-bottom: 25px;margin-top: 25px; background-color: transparent !important;text-shadow: 0 0 5px rgba(0,0,0,0.5);"
                    value="<%= sticker.get("categories") %>" disabled>
             <input type="text" name="category_name" id="cat" style="display: none">
 
