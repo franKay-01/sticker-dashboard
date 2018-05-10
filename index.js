@@ -609,16 +609,16 @@ app.get('/advert_collection', function (req, res) {
                     if (adverts[i].get("title") === _adverts[j].advert.get("title")) {
                         console.log("SPLICED ITEM " + JSON.stringify(adverts[i]));
 
-                       spliced.push(i);
+                        adverts.splice(i, 1);
+                        spliced.push(i);
                         console.log("SPLICED************");
                     }
                 }
             }
 
-            // adverts.splice(i, 1);
 
 
-            console.log("REMOVED ELEMENT " + JSON.stringify(spliced));
+            console.log("REMOVED ELEMENT " + JSON.stringify(adverts));
 
             // let joinArray = _.zip(advertWithNoImages,_adverts);
             // _.each(joinArray, advert => {
