@@ -1619,7 +1619,7 @@ app.get('/home', function (req, res) {
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(CategoryClass).limit(limit).find(),
                 new Parse.Query(StoryClass).limit(limit).find(),
-                new Parse.Query(PacksClass).find(),
+                new Parse.Query(PacksClass).equalTo("user_id", _user.id).find(),
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
