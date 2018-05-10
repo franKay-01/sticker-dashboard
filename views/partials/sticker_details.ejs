@@ -36,12 +36,14 @@
                 <% categories.forEach(function(items) { %>
                 <% let name = items.get("name").toString() %>
                 <% let isSelected = false %>
+                <%if (selected.length !== 0){%>
                 <% selected.forEach(function(select){ %>
                 <% if (select === name) { %>
                 <% isSelected = true %>
                 <option value="<%= items.get("name") %>" selected><%= items.get("name") %></option>
                 <% } %>
                 <% }) %>
+                <%}%>
                 <% if(isSelected){ %>
                 <% isSelected = false %>
                 <% return %>
