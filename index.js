@@ -601,16 +601,26 @@ app.get('/advert_collection', function (req, res) {
             //take _adverts[1,2,3,4].advert.id
             //compare it to advert.id
             //save all adverts which doesn't match _adverts[1,2,3,4].advert.id
-            let advertWithNoImages = [];
-            _.each(adverts, advert => {
-                _.each(_adverts, _advert => {
-                    if (advert.id === _advert.advert.id) {
-                        advertWithNoImages.push({advert: advert, image: ""});
-                        //console.log("ADVERTS ID " + advert.id);
-                    }else {
-                        console.log("ADVERT LENGTH " + adverts.length);
 
+
+            let counter = 0;
+            _.each(adverts, advert => {
+                let advert_id = advert.id;
+                _.each(_adverts, _advert => {
+
+                    var index = advert.indexOf(_advert.advert.id);
+                    if (index > -1) {
+                        advert.splice(index, 1);
                     }
+
+                    console.log("NEW ARRAY " + JSON.stringify(advert));
+                    // if (advert.id === _advert.advert.id) {
+                    //     advertWithNoImages.push({advert: advert, image: ""});
+                    //     //console.log("ADVERTS ID " + advert.id);
+                    // }else {
+                    //     console.log("ADVERT LENGTH " + adverts.length);
+                    //
+                    // }
                 });
             });
 
