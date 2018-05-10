@@ -601,26 +601,29 @@ app.get('/advert_collection', function (req, res) {
             //take _adverts[1,2,3,4].advert.id
             //compare it to advert.id
             //save all adverts which doesn't match _adverts[1,2,3,4].advert.id
-            let counter = _adverts.length;
-            console.log("COUNTER " + counter);
-            counter = counter - 1;
+
+
             let advertWithNoImages = [];
-            _.each(adverts, advert => {
+            // _.each(adverts, advert => {
                     // if (advert.id !== _adverts[counter].advert.id) {
                     //     advertWithNoImages.push({advert: advert, image: ""});
-                        removedAd = advert.filter(function(el) {
-                            return el.id !== _adverts[counter].advert.id;
-                        });
 
-                       counter = counter - 1;
+                for (i = adverts.length - 1; i >= 0; i -= 1) {
+                    for(j = _adverts.length -1; j >= 0; j -= 1) {
+                        if (adverts[i] === _adverts[j]) {
+                            adverts.splice(i, 1);
+                        }
+                    }
+                }
+
                         //console.log("ADVERTS ID " + advert.id);
                     // }else {
                     //     console.log("ADVERT LENGTH " + adverts.length);
                     //
                     // }
-                });
+                // });
 
-            console.log("REMOVED ELEMENT " + JSON.stringify(removedAd));
+            console.log("REMOVED ELEMENT " + JSON.stringify(adverts));
 
             // let joinArray = _.zip(advertWithNoImages,_adverts);
             // _.each(joinArray, advert => {
