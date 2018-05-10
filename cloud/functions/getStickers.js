@@ -60,7 +60,7 @@ Parse.Cloud.define("getStory", function (req, res) {
     ).then(function (story, sticker, storyCatalogue) {
 
         data.story = story;
-        data.artwork = sticker;
+        data.sticker = sticker;
 
         data.stories = [];
         if(storyCatalogue.length){
