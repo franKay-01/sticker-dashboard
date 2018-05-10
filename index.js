@@ -598,8 +598,8 @@ app.get('/advert_collection', function (req, res) {
                 });
             });
 
-            let counter = adverts.length - 1;
-            for (i = counter; i >= 0; i = i - 1) {
+            let spliced = [];
+            for (i = adverts.length - 1; i >= 0; i = i - 1) {
                 console.log("ADVERTS " + JSON.stringify(adverts[i]));
 
                 for (j = _adverts.length - 1; j >= 0; j = j - 1) {
@@ -607,7 +607,7 @@ app.get('/advert_collection', function (req, res) {
                     if (adverts[i].get("title") === _adverts[j].advert.get("title")) {
                         console.log("SPLICED ITEM " + JSON.stringify(adverts[i]));
 
-                        adverts.splice(i, 1);
+                       spliced.push(i);
                         console.log("SPLICED************");
                     } else {
                         return
@@ -615,8 +615,10 @@ app.get('/advert_collection', function (req, res) {
                 }
             }
 
+            // adverts.splice(i, 1);
 
-            console.log("REMOVED ELEMENT " + JSON.stringify(adverts));
+
+            console.log("REMOVED ELEMENT " + JSON.stringify(spliced));
 
             // let joinArray = _.zip(advertWithNoImages,_adverts);
             // _.each(joinArray, advert => {
