@@ -1176,6 +1176,7 @@ app.get('/story_details/:id', function (req, res) {
         let _user = {};
         let _story = {};
         let color = [];
+
         getUser(token).then(function (sessionToken) {
 
             return Parse.Promise.when(
@@ -1434,7 +1435,7 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
 
                 art.set("name", stickerName);
                 art.set("story_id", id);
-                art.set("uri", parseFile);
+                art.set("sticker", parseFile);
 
             });
 
