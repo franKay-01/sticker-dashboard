@@ -19,7 +19,7 @@ Parse.Cloud.define("getStickers", function (req, res) {
 
             res.success(util.setResponseOk(stickers));
 
-        },function(error){
+        }, function (error) {
 
             util.handleError(res, error);
         });
@@ -40,6 +40,45 @@ Parse.Cloud.define("getSticker", function (req, res) {
         util.handleError(res, error);
 
     });
+
+});
+
+Parse.Cloud.define("getStory", function (req, res) {
+
+    let StoryClass = "Stories";
+    let ArtWorkClass = "ArtWork";
+    let StoryCatalogue = "StoryCatalogue";
+
+    let storyId = req.params.storyId;
+    let data = {};
+
+    Parse.Promise.when(
+        new Parse.Query(StoryClass).equalTo("objectId", storyId).first(),
+        new Parse.Query(ArtWorkClass).equalTo("object_id", storyId).first(),
+        new Parse.Query(StoryCatalogue).equalTo("story_id", storyId).find()
+
+    ).then(function (story, sticker, storyCatalogue) {
+
+        data.story = story;
+        data.sticker = sticker;
+
+        data.stories = [];
+        if(storyCatalogue.length){
+            data.stories = storyCatalogue;
+        }
+
+        data.color = [];
+        if (story.get("color") !== "undefined" || story.get("color") !== undefined) {
+            data.color = story.get("color");
+        }
+
+        res.success(util.setResponseOk(data));
+
+    }, function (error) {
+
+        util.handleError(res, error);
+
+    })
 
 });
 
