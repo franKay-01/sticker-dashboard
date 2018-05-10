@@ -17,15 +17,8 @@
 
             <label class="update_label">Local Name:</label><br>
             <input placeholder="Local Name" class="box_2" name="localname"
-                   style="width: 100%; margin-bottom: 10px;"
+                   style="width: 100%; margin-bottom: 25px;"
                    value="<%= sticker.get("localName") %>">
-
-            <label class="update_label">Category:</label><br>
-            <input placeholder="category e.g funny, silly"
-                   id="categoryInput" name="category"
-                   style="width: 100%; margin-bottom: 10px;"
-                   value="<%= sticker.get("categories") %>" disabled>
-            <input type="text" name="category_name" id="cat" style="display: none">
 
             <br>
             <label class="update_label">Select Category:</label><br>
@@ -53,6 +46,12 @@
                 <% }) %>
                 <% } %>
             </select>
+
+            <input placeholder="category e.g funny, silly"
+                   id="categoryInput" class="box_2" name="category"
+                   style="width: 100%; margin-bottom: 25px;"
+                   value="<%= sticker.get("categories") %>" disabled>
+            <input type="text" name="category_name" id="cat" style="display: none">
 
         </div>
         <div class="medium-12 large-12 cell" style="margin-top: 30px">
