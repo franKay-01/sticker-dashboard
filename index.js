@@ -602,7 +602,7 @@ app.get('/advert_collection', function (req, res) {
             // for (i = adverts.length - 1; i >= 0; i = i - 1) {
             for (i = 0; i < adverts.length; i = i + 1) {
                 console.log("ADVERTS " + JSON.stringify(adverts[i]));
-                for (i = 0; i < _adverts.length; i = i + 1) {
+                for (j = 0; j < _adverts.length; j = j + 1) {
 
                 // for (j = _adverts.length - 1; j >= 0; j = j - 1) {
                     console.log("ADVERTS_ " + JSON.stringify(_adverts[j]));
