@@ -610,8 +610,9 @@ app.get('/advert_collection', function (req, res) {
 
                 for (i = adverts.length - 1; i >= 0; i -= 1) {
                     for(j = _adverts.length -1; j >= 0; j -= 1) {
-                        if (adverts[i].id === _adverts[j].advert.id) {
+                        if (adverts[i].get("title") === _adverts[j].advert.get("title")) {
                             adverts.splice(i, 1);
+                            console.log("SPLICED************");
                         }
                     }
                 }
