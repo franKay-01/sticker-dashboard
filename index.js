@@ -609,7 +609,10 @@ app.get('/advert_collection', function (req, res) {
                     //     advertWithNoImages.push({advert: advert, image: ""});
 
                 for (i = adverts.length - 1; i >= 0; i = i - 1) {
+                    console.log("ADVERTS " + adverts[i]);
+
                     for(j = _adverts.length -1; j >= 0; j = j - 1) {
+                        console.log("ADVERTS_ " + _adverts[i]);
                         if (adverts[i].get("title") === _adverts[j].advert.get("title")) {
                             adverts.splice(i, 1);
                             console.log("SPLICED************");
