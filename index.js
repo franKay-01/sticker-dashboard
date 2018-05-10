@@ -1076,7 +1076,7 @@ app.post('/add_catalogue_artwork/:id', function (req, res) {
 
             catalogue.set("content", sticker_id);
             catalogue.set("story_id", story_id);
-            catalogue.set("type", STICKER);
+            catalogue.set("type", type.CATALOGUE.sticker);
 
             return catalogue.save();
 
@@ -1445,7 +1445,7 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
             let Story = new Parse.Object.extend(StoryCatalogue);
             let catalogue = new Story();
 
-            catalogue.set("type", IMAGE);
+            catalogue.set("type", type.CATALOGUE.image);
             catalogue.set("content", artwork.id);
             catalogue.set("story_id", id);
 
@@ -1482,15 +1482,15 @@ app.post('/new_catalogue/:id', function (req, res) {
 
             switch (type) {
                 case TEXT:
-                    catalogue.set("type", TEXT);
+                    catalogue.set("type", type.CATALOGUE.text);
                     break;
 
                 case QUOTE:
-                    catalogue.set("type", QUOTE);
+                    catalogue.set("type", type.CATALOGUE.quote);
                     break;
 
                 case DIVIDER:
-                    catalogue.set("type", DIVIDER);
+                    catalogue.set("type", type.CATALOGUE.divider);
                     break;
             }
 
