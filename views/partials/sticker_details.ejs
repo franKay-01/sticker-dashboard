@@ -48,11 +48,14 @@
             </select>
 
             <br>
-            <input placeholder="category e.g funny, silly"
-                   id="categoryInput" class="box_2" name="category"
-                   style="width: 100%; margin-bottom: 25px;margin-top: 25px; background-color: transparent !important;text-shadow: 0 0 5px rgba(0,0,0,0.5);"
-                   value="<%= sticker.get("categories") %>" disabled>
-            <input type="text" name="category_name" id="cat" style="display: none">
+            <div style="opacity: 0.5; filter: alpha(opacity=50);">
+                <input placeholder="category e.g funny, silly"
+                       id="categoryInput" class="box_2" name="category"
+                       style="width: 100%; margin-bottom: 25px;margin-top: 25px; background-color: transparent !important;"
+                       value="<%= sticker.get("categories") %>" disabled>
+                <input type="text" name="category_name" id="cat" style="display: none">
+            </div>
+
 
         </div>
         <div class="medium-12 large-12 cell" style="margin-top: 30px">
