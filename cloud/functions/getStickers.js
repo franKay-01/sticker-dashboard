@@ -59,21 +59,12 @@ Parse.Cloud.define("getStory", function (req, res) {
 
     ).then(function (story, sticker, storyCatalogue) {
 
-        data.story.title = story.get("title");
-        data.story.summary = story.get("summary");
-        data.story.id = story.id;
-
-        data.sticker["name"] = sticker.get("name");
-        data.sticker["url"] = sticker.get("sticker").url();
+        data.story = story;
+        data.artwork = sticker;
 
         data.stories = [];
         if(storyCatalogue.length){
             data.stories = storyCatalogue;
-        }
-
-        data.story.color = [];
-        if (story.get("color") !== "undefined" || story.get("color") !== undefined) {
-            data.story.color = story.get("color");
         }
 
         res.success(util.setResponseOk(data));
