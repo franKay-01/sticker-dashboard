@@ -2881,14 +2881,14 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
             // console.log("CATEGORY NAMES " + categoryNames);
 
-            if (_user.get("type") === SUPER_USER) {
-                res.render("pages/admin_details", {
-                    sticker: stickerDetail,
-                    // categoryNames: categoryNames.sort(),
-                    categories: allCategories,
-                    pack_id: pack_
-                });
-            } else {
+            // if (_user.get("type") === SUPER_USER) {
+            //     res.render("pages/admin_details", {
+            //         sticker: stickerDetail,
+            //         // categoryNames: categoryNames.sort(),
+            //         categories: allCategories,
+            //         pack_id: pack_
+            //     });
+            // } else {
                 res.render("pages/details", {
                     sticker: stickerDetail,
                     selected: selectedCategories,
@@ -2896,7 +2896,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
                     pack_id: pack_,
                     id: id
                 });
-            }
+            // }
         }, function (err) {
             console.log("Error Loading-----------------------" + JSON.stringify(err));
             res.redirect("/pack/" + pack_);
