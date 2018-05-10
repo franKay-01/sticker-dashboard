@@ -616,17 +616,9 @@ app.get('/advert_collection', function (req, res) {
                 }
             }
 
-
-
-            console.log("REMOVED ELEMENT " + JSON.stringify(adverts));
-
-            // let joinArray = _.zip(advertWithNoImages,_adverts);
-            // _.each(joinArray, advert => {
-            //     console.log("MERGER " + JSON.stringify(advert));
-            // });
-
             res.render("pages/advert_collection", {
-                adverts: _adverts
+                adverts: _adverts,
+                _adverts:adverts
             });
 
         }, function (error) {
