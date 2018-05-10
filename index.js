@@ -614,9 +614,10 @@ app.get('/advert_collection', function (req, res) {
                     for(j = _adverts.length -1; j >= 0; j = j - 1) {
                         console.log("ADVERTS_ " + JSON.stringify(_adverts[j]));
                         if (adverts[i].get("title") === _adverts[j].advert.get("title")) {
+                            console.log("SPLICED ITEM " + JSON.stringify(adverts[i]));
+
                             adverts.splice(i, 1);
                             console.log("SPLICED************");
-                            console.log("SPLICED ITEM " + JSON.stringify(adverts[i]));
                         }
                     }
                 }
