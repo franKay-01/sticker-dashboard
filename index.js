@@ -609,8 +609,6 @@ app.get('/advert_collection', function (req, res) {
 
                        spliced.push(i);
                         console.log("SPLICED************");
-                    } else {
-                        return
                     }
                 }
             }
