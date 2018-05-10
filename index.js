@@ -602,6 +602,7 @@ app.get('/advert_collection', function (req, res) {
             //compare it to advert.id
             //save all adverts which doesn't match _adverts[1,2,3,4].advert.id
             let counter = _adverts.length;
+            console.log("COUNTER " + counter);
             counter = counter - 1;
             let advertWithNoImages = [];
             _.each(adverts, advert => {
