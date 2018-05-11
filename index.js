@@ -1616,7 +1616,7 @@ app.get('/home', function (req, res) {
             _user = sessionToken.get("user");
 
             if (_user.get("type") === MK_TEAM){
-                res.redirect('/get_barcodes');
+                res.redirect('/get_barcode');
             }
 
             return Parse.Promise.when(
