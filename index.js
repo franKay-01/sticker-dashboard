@@ -1848,9 +1848,11 @@ app.post('/create_barcode', function (req, res) {
 
 });
 
-app.get('/get_barcodes', function (req, res) {
+app.get('/get_barcodes/:id', function (req, res) {
 
+    let id = req.params.id;
 
+    if (id === "MK2018"){
     var Barcodes = Parse.Object.extend(Barcode);
     var barcodes = new Parse.Query(Barcodes);
     barcodes.find({
@@ -1865,6 +1867,9 @@ app.get('/get_barcodes', function (req, res) {
             res.redirect('/get_barcodes');
         }
     });
+    }else {
+        res.send("YOU DON'T HAVE PERMISSION");
+    }
 
     //     getUser(token).then(function (sessionToken) {
     //
