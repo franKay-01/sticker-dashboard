@@ -123,6 +123,9 @@ $(document).ready(function () {
             $('#pageMask').fadeIn('fast');
             $('#hiddenAddAdvertImageForm').fadeIn('fast');
             $('#logo').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+            $('#login_card').fadeOut('fast');
+            $('#review_form').fadeOut('fast');
             $('#Welcome').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
             $('#opaqueDiv').fadeOut('fast');
@@ -136,6 +139,8 @@ $(document).ready(function () {
             $('#logo').fadeOut('fast');
             $('#Welcome').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
+            $('#login_card').fadeOut('fast');
+            $('#review_form').fadeOut('fast');
             $('#pack_id').fadeOut('fast');
         });
 

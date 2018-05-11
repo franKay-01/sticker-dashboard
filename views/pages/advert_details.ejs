@@ -70,20 +70,19 @@
             <form id="pack_form" action="/update_advert_image/<%= ad_details.id %>" method="post">
                 <center>
 
-                    <select>
+                    <select style="width: 200px !important;">
                         <option value="" disabled selected>Choose your platform</option>
                         <option value="0">Android</option>
                         <option value="1">IOS</option>
                         <option value="2">Web</option>
                     </select>
-                    <label>Materialize Select</label>
 
                     <button type="button" class="advert_image addImage"><i class="fa fa-camera-retro"></i> Add Image</button>
                     <input type="file" name="adverts[]" class="adverts" id="adverts" style="display: none"/>
 
                     <label class="update_label">Link:</label>
                     <input placeholder="https://google.com/ads"
-                           name="link" class="box_2 advert_link"
+                           name="link" class="_pack common_pack_detail validate"
                            value="<%= ad_details.get("link") %>">
 
                 </center>
