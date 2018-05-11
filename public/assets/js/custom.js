@@ -124,7 +124,7 @@ $(document).ready(function () {
             $('#hiddenAddAdvertImageForm').fadeIn('fast');
             $('#logo').fadeOut('fast');
             $('#pack_id').fadeOut('fast');
-            $('#login_card').fadeOut('fast');
+            $('.login_card').fadeOut('fast');
             $('#review_form').fadeOut('fast');
             $('#Welcome').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
@@ -145,12 +145,15 @@ $(document).ready(function () {
         });
 
         $('#btn_cancelAdImage').on('click', function () {
-            $('#hiddenAddAdvertImageForm').fadeOut('fast');
+            $('#hiddenCreateForm').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
+            $('#opaqueDiv').fadeIn('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
-            $('#opaqueDiv').fadeIn('fast');
+            $('.login_card').fadeIn('fast');
+            $('#review_form').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
         });
 
         $('#btnAddAdverts').on('click', function () {

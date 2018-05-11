@@ -18,20 +18,20 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-    <script type = "text/javascript"
-            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
     </script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('select').material_select();
 
-            $(".addImage").on("click", function(evt) {
+            $(".addImage").on("click", function (evt) {
                 $(".adverts").trigger("click");
             });
 
-            $("#adverts").change(function(){
+            $("#adverts").change(function () {
 
                 var input = document.getElementById('adverts');
                 var output = document.getElementById('selectedFiles');
@@ -40,7 +40,7 @@
 
                 output.innerHTML = '<ul>';
                 for (var i = 0; i < input.files.length; ++i) {
-                    output.innerHTML += '<li>' + "FILE NAME: " +'<b style="color: #a46580">' + input.files.item(i).name +'<b>'+ '</li>';
+                    output.innerHTML += '<li>' + "FILE NAME: " + '<b style="color: #a46580">' + input.files.item(i).name + '<b>' + '</li>';
                 }
                 output.innerHTML += '</ul>';
             });
@@ -68,27 +68,34 @@
 
 
             <form id="pack_form" action="/update_advert_image/<%= ad_details.id %>" method="post">
-                <center>
+                <div style="width: 200px !important;">
+                    <center>
 
-                    <select style="width: 200px !important;">
-                        <option value="" disabled selected>Choose your platform</option>
-                        <option value="0">Android</option>
-                        <option value="1">IOS</option>
-                        <option value="2">Web</option>
-                    </select>
+                        <select style="width: 200px !important;">
+                            <option value="" disabled selected>Choose your platform</option>
+                            <option value="0">Android</option>
+                            <option value="1">IOS</option>
+                            <option value="2">Web</option>
+                        </select>
 
-                    <button type="button" class="advert_image addImage"><i class="fa fa-camera-retro"></i> Add Image</button>
-                    <input type="file" name="adverts[]" class="adverts" id="adverts" style="display: none"/>
+                        <button type="button" class="advert_image addImage"><i class="fa fa-camera-retro"></i> Add Image
+                        </button>
+                        <input type="file" name="adverts[]" class="adverts" id="adverts" style="display: none"/>
 
-                    <label class="update_label">Link:</label>
-                    <input placeholder="https://google.com/ads"
-                           name="link" class="_pack common_pack_detail validate"
-                           value="<%= ad_details.get("link") %>">
+                        <label class="update_label">Link:</label>
+                        <input placeholder="https://google.com/ads"
+                               name="link" class="_pack common_pack_detail validate"
+                               value="<%= ad_details.get("link") %>">
 
-                </center>
-                <div style="color: whitesmoke" class="heading medium-12 large-12" hidden>You are adding the following images as Advert Images: </div>
-                <div id="selectedFiles" class="medium-12 large-12"></div>
+                    </center>
+
+                    <div style="color: whitesmoke" class="heading medium-12 large-12" hidden>You are adding the
+                        following images as Advert Images:
+                    </div>
+                    <div id="selectedFiles" class="medium-12 large-12"></div>
+                </div>
                 <span>
+
         <button type="submit" id="categoryBtn" class="create">CREATE</button>
         </span>
                 <span>
@@ -98,22 +105,23 @@
         </div>
     </div>
     <center>
-        <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Edit <i style="color: #a46580"><%= ad_details.get("title") %></i> Ad</b></span>
+        <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Edit <i
+                        style="color: #a46580"><%= ad_details.get("title") %></i> Ad</b></span>
     </center>
 
     <!--End of logo-->
     <div class="grid-x grid-margin-x">
 
-    <div class="medium-3 large-3 cell login_card">
-        <div class="card_head_position">
-            <div class="stats">Menu</div>
-            <div><a class="_stickers" href="/home">Home</a></div>
-            <div><a class="_categories" href="/categories">Packs</a></div>
-            <div><a class="_stickers_packs" href="/advert_collection">Adverts</a></div>
+        <div class="medium-3 large-3 cell login_card">
+            <div class="card_head_position">
+                <div class="stats">Menu</div>
+                <div><a class="_stickers" href="/home">Home</a></div>
+                <div><a class="_categories" href="/categories">Packs</a></div>
+                <div><a class="_stickers_packs" href="/advert_collection">Adverts</a></div>
 
+            </div>
         </div>
-    </div>
-    <% include ../partials/advert_details %>
+        <% include ../partials/advert_details %>
     </div>
 </div>
 </body>
