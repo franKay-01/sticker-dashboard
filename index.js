@@ -604,7 +604,7 @@ app.get('/advert_collection', function (req, res) {
                 console.log("ADVERTS " + JSON.stringify(adverts[i]));
                 for (j = 0; j < _adverts.length; j = j + 1) {
 
-                // for (j = _adverts.length - 1; j >= 0; j = j - 1) {
+                    // for (j = _adverts.length - 1; j >= 0; j = j - 1) {
                     console.log("ADVERTS_ " + JSON.stringify(_adverts[j]));
                     if (adverts[i].get("title") === _adverts[j].advert.get("title")) {
                         console.log("SPLICED ITEM " + JSON.stringify(adverts[i]));
@@ -618,7 +618,7 @@ app.get('/advert_collection', function (req, res) {
 
             res.render("pages/advert_collection", {
                 adverts: _adverts,
-                _adverts:adverts
+                _adverts: adverts
             });
 
         }, function (error) {
@@ -1850,12 +1850,39 @@ app.post('/create_barcode', function (req, res) {
 
 app.get('/get_barcodes', function (req, res) {
 
-            let barcode = new Parse.Query(Barcode).find();
 
+    var Barcodes = Parse.Object.extend(Barcode);
+    var barcodes = new Parse.Query(Barcodes);
+    barcodes.find({
 
+        success: function (bars) {
             res.render("pages/get_barcode", {
-                barcodes: barcode
+                barcodes: bars
             });
+        },
+        error: function (error) {
+            console.log("Error: " + error.code + " " + error.message);
+            res.redirect('/get_barcodes');
+        }
+    });
+
+    //     getUser(token).then(function (sessionToken) {
+    //
+    //         return new Parse.Query(Barcode).find();
+    //
+    //     }).then(function (barcode) {
+    //
+    //         console.log("BARCODES " + JSON.stringify(barcode));
+    //
+    //         res.render("pages/get_barcode", {
+    //             barcodes: barcode
+    //         });
+    //
+    //     })
+    //
+    // } else {
+    //     res.redirect('/');
+    // }
 
 });
 
@@ -2875,13 +2902,13 @@ app.get('/details/:id/:coll_id', function (req, res) {
             //         pack_id: pack_
             //     });
             // } else {
-                res.render("pages/details", {
-                    sticker: stickerDetail,
-                    selected: selectedCategories,
-                    categories: allCategories,
-                    pack_id: pack_,
-                    id: id
-                });
+            res.render("pages/details", {
+                sticker: stickerDetail,
+                selected: selectedCategories,
+                categories: allCategories,
+                pack_id: pack_,
+                id: id
+            });
             // }
         }, function (err) {
             console.log("Error Loading-----------------------" + JSON.stringify(err));
