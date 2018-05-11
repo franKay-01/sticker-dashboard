@@ -52,6 +52,7 @@ let Barcode = "Barcodes";
 
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
+const MK_TEAM = 1;
 
 const TEXT = 0;
 const IMAGE = 1;
@@ -1614,6 +1615,10 @@ app.get('/home', function (req, res) {
 
             _user = sessionToken.get("user");
 
+            if (_user.get("type") === MK_TEAM){
+                res.redirect('/get_barcodes');
+            }
+
             return Parse.Promise.when(
                 new Parse.Query(LatestClass).equalTo("objectId", "H9c8hykNqO").first(),
                 new Parse.Query(LatestClass).equalTo("objectId", "jU3SwZUJYl").first(),
@@ -1848,27 +1853,33 @@ app.post('/create_barcode', function (req, res) {
 
 });
 
-app.get('/get_barcodes/:id', function (req, res) {
+app.get('/get_barcodes', function (req, res) {
 
-    let id = req.params.id;
+    let token = req.cookies.token;
 
-    if (id === "MK2018"){
-    var Barcodes = Parse.Object.extend(Barcode);
-    var barcodes = new Parse.Query(Barcodes);
-    barcodes.find({
+    if (token){
+        getUser(token).then(function (sessionToken) {
 
-        success: function (bars) {
-            res.render("pages/get_barcode", {
-                barcodes: bars
+            var Barcodes = Parse.Object.extend(Barcode);
+            var barcodes = new Parse.Query(Barcodes);
+            barcodes.find({
+
+                success: function (bars) {
+                    res.render("pages/get_barcode", {
+                        barcodes: bars
+                    });
+                },
+                error: function (error) {
+                    console.log("Error: " + error.code + " " + error.message);
+                    res.redirect('/get_barcodes/');
+                }
             });
-        },
-        error: function (error) {
-            console.log("Error: " + error.code + " " + error.message);
-            res.redirect('/get_barcodes');
-        }
-    });
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/');
+        })
     }else {
-        res.send("YOU DON'T HAVE PERMISSION");
+        res.redirect("/");
     }
 
     //     getUser(token).then(function (sessionToken) {
