@@ -1850,27 +1850,12 @@ app.post('/create_barcode', function (req, res) {
 
 app.get('/get_barcodes', function (req, res) {
 
-    let token = req.cookies.token;
+            let barcode = new Parse.Query(Barcode).find();
 
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(Barcode).find();
-
-        }).then(function (barcode) {
-
-            console.log("BARCODES " + JSON.stringify(barcode));
 
             res.render("pages/get_barcode", {
                 barcodes: barcode
             });
-
-        })
-
-    } else {
-        res.redirect('/');
-    }
 
 });
 
