@@ -145,7 +145,7 @@ $(document).ready(function () {
         });
 
         $('#btn_cancelAdImage').on('click', function () {
-            $('#hiddenCreateForm').fadeOut('fast');
+            $('#hiddenAddAdvertImageForm').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#opaqueDiv').fadeIn('fast');
             $('#logo').fadeIn('fast');
