@@ -118,6 +118,16 @@ $(document).ready(function () {
             $('#pack_id').fadeOut('fast');
         });
 
+
+        $('#showAdImageForm').on('click', function () {
+            $('#pageMask').fadeIn('fast');
+            $('#hiddenAddAdvertImageForm').fadeIn('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#opaqueDiv').fadeOut('fast');
+        });
+
         // This is to show a hidden form to create new packs
         $('#showCreateForm').on('click', function () {
             $('#hiddenCreateForm').fadeIn('fast');
@@ -127,6 +137,15 @@ $(document).ready(function () {
             $('#Welcome').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
             $('#pack_id').fadeOut('fast');
+        });
+
+        $('#btn_cancelAdImage').on('click', function () {
+            $('#hiddenAddAdvertImageForm').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
         });
 
         $('#btnAddAdverts').on('click', function () {
@@ -258,7 +277,7 @@ $(document).ready(function () {
             $('#signoutLink').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
             $('#pack_form')[0].reset();
-        })
+        });
 
         //This is to reset a form and close it
         $('#btnCancel').on('click', function () {

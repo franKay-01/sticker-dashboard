@@ -671,16 +671,17 @@ app.get('/advert_details/:id', function (req, res) {
     }
 });
 
-app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
+app.post('/update_advert_image/:id', upload.array('adverts[]'), function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
     let files = req.files;
-    let title = req.body.title;
-    let description = req.body.description;
+    let type = req.body.type;
     let link = req.body.link;
     let fileDetails = [];
     let stickerDetails = [];
+
+    let ad_image = {};
 
     if (link !== undefined || link !== "undefined") {
         _links = link.split(",");
@@ -689,18 +690,6 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
     if (token) {
 
         getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(AdvertClass).equalTo("objectId", id).first();
-
-        }).then(function (advert) {
-
-            advert.set("title", title);
-            advert.set("description", description);
-            advert.set("link", _links);
-
-            return advert.save();
-
-        }).then(function () {
 
             files.forEach(function (file) {
 
@@ -727,8 +716,9 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
 
             return Parse.Object.saveAll(stickerDetails);
 
-        }).then(function (sticker) {
+        }).then(function (advert_image) {
 
+            ad_image = advert_image;
             _.each(fileDetails, function (file) {
                 //Delete tmp fil after upload
                 var tempFile = file.path;
@@ -745,7 +735,52 @@ app.post('/update_advert/:id', upload.array('adverts[]'), function (req, res) {
                 });
             });
 
-            return true;
+            return true
+
+        }).then(function () {
+
+            ad_image.set("link", _links);
+            ad_image.set("type", type);
+
+            return ad_image.save();
+
+        }).then(function () {
+
+            res.redirect('/advert_details/' + id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/advert_details/' + id);
+
+        })
+
+    }else {
+        res.redirect('/');
+    }
+
+
+});
+
+app.post('/update_advert/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let title = req.body.title;
+    let description = req.body.description;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(AdvertClass).equalTo("objectId", id).first();
+
+        }).then(function (advert) {
+
+            advert.set("title", title);
+            advert.set("description", description);
+
+            return advert.save();
 
         }).then(function () {
 
@@ -1615,7 +1650,7 @@ app.get('/home', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            if (_user.get("type") === MK_TEAM){
+            if (_user.get("type") === MK_TEAM) {
                 res.redirect('/get_barcode');
             }
 
@@ -1857,7 +1892,7 @@ app.get('/get_barcodes', function (req, res) {
 
     let token = req.cookies.token;
 
-    if (token){
+    if (token) {
         getUser(token).then(function (sessionToken) {
 
             var Barcodes = Parse.Object.extend(Barcode);
@@ -1878,7 +1913,7 @@ app.get('/get_barcodes', function (req, res) {
             console.log("ERROR " + error.message);
             res.redirect('/');
         })
-    }else {
+    } else {
         res.redirect("/");
     }
 

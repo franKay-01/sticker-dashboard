@@ -62,6 +62,42 @@
 
     </div>
     <div id="pageMask"></div>
+    <div id="hiddenAddAdvertImageForm" style="display: none">
+        <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
+            <div class="edit_labels medium-12 large-12">ADD ADVERT IMAGE</div>
+
+
+            <form id="pack_form" action="/update_advert_image/<%= ad_details.id %>" method="post">
+                <center>
+
+                    <select>
+                        <option value="" disabled selected>Choose your platform</option>
+                        <option value="0">Android</option>
+                        <option value="1">IOS</option>
+                        <option value="2">Web</option>
+                    </select>
+                    <label>Materialize Select</label>
+
+                    <button type="button" class="advert_image addImage"><i class="fa fa-camera-retro"></i> Add Image</button>
+                    <input type="file" name="adverts[]" class="adverts" id="adverts" style="display: none"/>
+
+                    <label class="update_label">Link:</label>
+                    <input placeholder="https://google.com/ads"
+                           name="link" class="box_2 advert_link"
+                           value="<%= ad_details.get("link") %>">
+
+                </center>
+                <div style="color: whitesmoke" class="heading medium-12 large-12" hidden>You are adding the following images as Advert Images: </div>
+                <div id="selectedFiles" class="medium-12 large-12"></div>
+                <span>
+        <button type="submit" id="categoryBtn" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btn_cancelAdImage" class="cancel">Cancel</button>
+         </span>
+            </form>
+        </div>
+    </div>
     <center>
         <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Edit <i style="color: #a46580"><%= ad_details.get("title") %></i> Ad</b></span>
     </center>
