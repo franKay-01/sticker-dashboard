@@ -85,19 +85,20 @@
 
                         <button type="button" style="color: white" class="advert_image addImage"><i class="fa fa-camera-retro"></i> Add Image
                         </button>
-                        <input type="file" name="adverts[]" class="adverts" id="adverts" style="display: none"/>
+                        <input type="file" name="adverts[]" class="adverts" id="adverts" style="display: none"/><br><br>
 
                         <label class="update_label" style="color: white !important;margin-left: 140px;">Link:</label>
                         <input placeholder="https://google.com/ads"
                                name="link" class="_pack common_pack_detail validate"
-                               value="<%= ad_details.get("link") %>">
+                               value="<%= ad_details.get("link") %>" required>
 
+                        <div style="color: whitesmoke" class="heading medium-12 large-12" hidden>You are adding the
+                            following images as Advert Images:
+                        </div>
+                        <div id="selectedFiles" class="medium-12 large-12"></div>
                     </center>
 
-                    <div style="color: whitesmoke" class="heading medium-12 large-12" hidden>You are adding the
-                        following images as Advert Images:
-                    </div>
-                    <div id="selectedFiles" class="medium-12 large-12"></div>
+
                 </div>
                 <span>
 
