@@ -73,7 +73,7 @@
 
                     <center>
 
-                        <select class="_pack common_pack_detail">
+                        <select class="_pack common_pack_detail" style="border-bottom: 0 !important;">
                             <option value="" disabled selected>Choose your platform</option>
                             <option value="0">Android</option>
                             <option value="1">IOS</option>
@@ -84,7 +84,7 @@
                         </button>
                         <input type="file" name="adverts[]" class="adverts" id="adverts" style="display: none"/>
 
-                        <label class="update_label" style="color: white">Link:</label>
+                        <label class="update_label" style="color: white !important;margin-left: 140px;">Link:</label>
                         <input placeholder="https://google.com/ads"
                                name="link" class="_pack common_pack_detail validate"
                                value="<%= ad_details.get("link") %>">
