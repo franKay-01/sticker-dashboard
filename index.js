@@ -687,12 +687,12 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
         getUser(token).then(function (sessionToken) {
 
-            // files.forEach(function (file) {
+            files.forEach(function (file) {
 
-                let fullName = files.originalname;
+                let fullName = file.originalname;
                 let image_name = fullName.substring(0, fullName.length - 4);
 
-                let bitmap = fs.readFileSync(files.path, {encoding: 'base64'});
+                let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
                 //create our parse file
                 let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
@@ -705,13 +705,12 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
                 advert_image.set("advert_id", id);
                 advert_image.set("uri", parseFile);
 
-                // stickerDetails.push(advert_image);
-                // fileDetails.push(file);
+                stickerDetails.push(advert_image);
+                fileDetails.push(file);
 
-            // });
+            });
 
-            // return Parse.Object.saveAll(stickerDetails);
-            return advert_image.save();
+            return Parse.Object.saveAll(stickerDetails);
 
         }).then(function (advert_image) {
 
@@ -727,9 +726,9 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
         }).then(function () {
 
-            // _.each(fileDetails, function (file) {
+            _.each(fileDetails, function (file) {
                 //Delete tmp fil after upload
-                var tempFile = files.path;
+                var tempFile = file.path;
                 fs.unlink(tempFile, function (error) {
                     if (error) {
                         //TODO handle error code
@@ -741,7 +740,7 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
                     }
                 });
-            // });
+            });
 
             return true
 
