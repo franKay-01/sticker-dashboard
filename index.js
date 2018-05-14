@@ -722,7 +722,7 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
             advert_image.set("link", _links);
             advert_image.set("type", type);
 
-            return ad_image.save();
+            return advert_image.save();
 
 
         }).then(function () {
