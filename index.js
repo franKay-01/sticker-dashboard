@@ -714,15 +714,18 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
         }).then(function (advert_image) {
 
-            console.log("ADVERT DETAILS " + JSON.stringify(advert_image));
-            return new Parse.Query(AdvertImageClass).equalTo("objectId", advert_image.id).first();
+            advert_image.set("links", link);
+            advert_image.set("type", type);
 
-        }).then(function (advert) {
+            return advert_image.save();
+        //
+        //     console.log("ADVERT DETAILS " + JSON.stringify(advert_image));
+        //     return new Parse.Query(AdvertImageClass).equalTo("objectId", advert_image.id).first();
+        //
+        // }).then(function (advert) {
+        //
+        //
 
-            advert.set("links", link);
-            advert.set("type", type);
-
-            return advert.save();
 
         }).then(function () {
 
