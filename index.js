@@ -679,7 +679,7 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
     let type = parseInt(req.body.type);
     let link = req.body.link;
     let fileDetails = [];
-    let stickerDetails = [];
+    let advertDetails = [];
 
     console.log("TYPE " + JSON.stringify(type) + " LINK " + JSON.stringify(link));
 
@@ -704,25 +704,15 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
                 advert_image.set("name", image_name);
                 advert_image.set("advert_id", id);
                 advert_image.set("uri", parseFile);
+                advert_image.set("links", link);
+                advert_image.set("type", type);
 
-                stickerDetails.push(advert_image);
+                advertDetails.push(advert_image);
                 fileDetails.push(file);
 
             });
 
-            return Parse.Object.saveAll(stickerDetails);
-
-        }).then(function (advert_image) {
-
-            console.log("ADVERT DETAILS " + JSON.stringify(advert_image.get("objectId")));
-            return new Parse.Query(AdvertImageClass).equalTo("objectId", advert_image.id).first();
-
-        }).then(function (advert) {
-
-            advert.set("links", link);
-            advert.set("type", type);
-
-            return advert.save();
+            return Parse.Object.saveAll(advertDetails);
 
         }).then(function () {
 
