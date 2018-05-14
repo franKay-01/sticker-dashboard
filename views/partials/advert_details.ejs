@@ -1,6 +1,7 @@
 <form id="review_form" action="/update_advert/<%= ad_details.id %>" method="post" enctype="multipart/form-data">
     <div style="float: right; font-size: 20px !important;" class="medium-12 large-12">
-        <a href="#" id="showAdImageForm" class="cancel_btn">Add Image</a>
+        <a href="#" id="showAdImageForm" class="cancel_btn" style="font-size: 25px !important;"><i
+                    class="fa fa-camera-retro"></i>Add Image</a>
 
     </div>
     <div class="grid-x grid-margin-x" style="margin: 50px 40px auto">
@@ -8,7 +9,8 @@
                                                                  name="title"
                                                                  value="<%= ad_details.get("title") %>">
 
-        <label class="update_label">AD Description:</label> <input placeholder="Local Name" class="box_2 advert_description"
+        <label class="update_label">AD Description:</label> <input placeholder="Local Name"
+                                                                   class="box_2 advert_description"
                                                                    name="description"
                                                                    value="<%= ad_details.get("description") %>">
 
@@ -18,10 +20,12 @@
 
             <% if (ad_images.length === 0) { %>
 
+            <p class="none" style="margin: 145px 90px auto;"><b>No Artwork</b></p>
+
             <% } else { %>
             <% ad_images.forEach(function(item, index) { %>
 
-                <img class="btn_pack_icon" src="<%= item.get("uri").url() %>">
+            <img class="btn_pack_icon" src="<%= item.get("uri").url() %>">
 
             <% }); %>
             <% } %>
@@ -34,9 +38,6 @@
     <div class="medium-12 large-12 cell">
         <center>
             <a href="/advert_details/<%= ad_details.id %>" class="cancel_btn">Cancel</a>
-            <button type="button" class="cancel_btn delbtn" data-id="<%= ad_details.id %>"
-                    value="<%= ad_details.id %>">Delete
-            </button>
             <button class="update" type="submit">Update</button>
         </center>
     </div>
