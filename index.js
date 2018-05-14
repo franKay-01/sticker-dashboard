@@ -671,7 +671,7 @@ app.get('/advert_details/:id', function (req, res) {
     }
 });
 
-app.post('/update_advert_image/:id', upload.array('adverts[]'), function (req, res) {
+app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
@@ -682,6 +682,8 @@ app.post('/update_advert_image/:id', upload.array('adverts[]'), function (req, r
     let stickerDetails = [];
 
     let ad_image = {};
+
+    console.log("FILE " + JSON.stringify(files));
 
     if (link !== undefined || link !== "undefined") {
         _links = link.split(",");
