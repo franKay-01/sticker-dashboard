@@ -680,10 +680,9 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
     let link = req.body.link;
     let fileDetails = [];
     let stickerDetails = [];
-
     let ad_image = {};
 
-    console.log("FILE " + JSON.stringify(files));
+    console.log("TYPE " + JSON.stringify(type) + " LINK " + JSON.stringify(link));
 
     if (link !== undefined || link !== "undefined") {
         _links = link.split(",");

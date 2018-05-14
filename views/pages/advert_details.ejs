@@ -75,7 +75,7 @@
 
                         <label class="update_label" style="color: white !important;margin-left: 140px;">Select Platform:</label>
                         <div style="width: 450px !important;">
-                        <select>
+                        <select name="type" required="">
                             <option value="" disabled selected>Choose your platform</option>
                             <option value="0">Android</option>
                             <option value="1">IOS</option>
@@ -85,7 +85,7 @@
 
                         <button type="button" style="color: white" class="advert_image addImage"><i class="fa fa-camera-retro"></i> Add Image
                         </button>
-                        <input type="file" name="adverts" class="adverts" id="adverts" style="display: none"/><br><br>
+                        <input type="file" name="adverts" class="adverts" id="adverts" style="display: none" required/><br><br>
 
                         <label class="update_label" style="color: white !important;margin-left: 140px;">Link:</label>
                         <input placeholder="https://google.com/ads"
