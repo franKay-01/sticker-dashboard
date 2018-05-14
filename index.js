@@ -718,6 +718,8 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
         }).then(function (advert) {
 
+            console.log("ADVERT " + JSON.stringify(advert) + " LINK " + link + " TYPE " + type);
+
             advert.set("link", link);
             advert.set("type", type);
 
