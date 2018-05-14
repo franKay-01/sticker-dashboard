@@ -676,7 +676,7 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
     let token = req.cookies.token;
     let id = req.params.id;
     let files = req.files;
-    let type = req.body.type;
+    let type = parseInt(req.body.type);
     let link = req.body.link;
     let fileDetails = [];
     let stickerDetails = [];
@@ -719,7 +719,14 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
         }).then(function (advert_image) {
 
-            ad_image = advert_image;
+            advert_image.set("link", _links);
+            advert_image.set("type", type);
+
+            return ad_image.save();
+
+
+        }).then(function () {
+
             _.each(fileDetails, function (file) {
                 //Delete tmp fil after upload
                 var tempFile = file.path;
@@ -737,13 +744,6 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
             });
 
             return true
-
-        }).then(function () {
-
-            ad_image.set("link", _links);
-            ad_image.set("type", type);
-
-            return ad_image.save();
 
         }).then(function () {
 
