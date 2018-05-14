@@ -719,7 +719,7 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
         }).then(function (advert_image) {
 
-            return new Parse.Query(AdvertImageClass).equalTo("objectId", advert_image.id);
+            return new Parse.Query(AdvertImageClass).equalTo("objectId", advert_image.id).first();
 
         }).then(function (advert) {
 
