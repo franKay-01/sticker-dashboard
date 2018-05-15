@@ -454,30 +454,30 @@ app.get('/role', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            var role = new Parse.Role("Administrator", setPublicReadAccess(true));
-            role.getUsers().add(_user);
+            // var roleACL = new Parse.ACL();
+            // roleACL.setPublicReadAccess(true);
+            // var role = new Parse.Role("Administrator", roleACL);
+            // role.getUsers().add(_user);
+            //
+            // return role.save();
 
-            return role.save();
+            var queryRole = new Parse.Query(Parse.Role);
+            queryRole.equalTo('name', 'Administrator');
+            queryRole.first({
+                success: function (admin) {
+                    console.log("ADMIN " + JSON.stringify(admin));
 
-            // var queryRole = new Parse.Query(Parse.Role);
-            // queryRole.equalTo('name', 'Administrator');
-            // queryRole.first({
-            //     success: function (admin) {
-            //         console.log("ADMIN " + JSON.stringify(admin));
-            //
-            //         var roleACL = new Parse.ACL();
-            //         roleACL.setPublicReadAccess(true);
-            //
-            //         var adminRelation = new Parse.Relation(roles, 'users');
-            //
-            //         queryRole.getUsers().add(_user);
-            //         return queryRole.save();
-            //     },
-            //     error: function (error) {
-            //         res.send("ROLE FAILED " + error.message);
-            //
-            //     }
-            // });
+                    var adminRelation = admin.Relation('users');
+
+                    adminRelation.add(_user);
+
+                    return admin.save();
+                },
+                error: function (error) {
+                    res.send("ROLE FAILED " + error.message);
+
+                }
+            });
 
             // var roleACL = new Parse.ACL();
             // roleACL.setPublicReadAccess(true);
