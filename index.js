@@ -467,7 +467,7 @@ app.get('/role', function (req, res) {
                 success: function (admin) {
                     console.log("ADMIN " + JSON.stringify(admin));
 
-                    var adminRelation = admin.Relation('users');
+                    var adminRelation = admin.Relation('User');
 
                     adminRelation.add(_user);
 
