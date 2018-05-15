@@ -454,21 +454,27 @@ app.get('/role', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            var roleACL = new Parse.ACL();
-            roleACL.setPublicReadAccess(true);
-            var role = new Parse.Role("Administrator", roleACL);
-            role.getUsers().add(_user);
-            role.getRoles().add(roleACL);
+            // var roleACL = new Parse.ACL();
+            // roleACL.setPublicReadAccess(true);
+            // var role = new Parse.Role("Administrator", roleACL);
+            // role.getUsers().add(_user);
+            // role.getRoles().add(roleACL);
+            //
+            // return role.save();
 
-            return role.save();
+            var admin = new Parse.Role("Administrator");
 
+            console.log("ADMIN " + JSON.stringify(admin));
+
+            admin.getUsers().add(_user);
+            return admin.save();
             // var roleACL = new Parse.ACL();
             // roleACL.setPublicReadAccess(true);
             // var role = new Parse.Role("Administrator", roleACL);
             // role.save();
 
-        }).then(function (role) {
-            res.send("ROLE COMPLETE " + JSON.stringify(role));
+        }).then(function (admin) {
+            res.send("ROLE COMPLETE " + JSON.stringify(admin));
 
         }, function (error) {
             res.send("ROLE FAILED " + error.message);
