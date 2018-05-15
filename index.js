@@ -385,7 +385,7 @@ app.post('/signup', function (req, res) {
 
 });
 
-app.post('/test_acl/:id/:text', function (req, res) {
+app.get('/test_acl/:id/:text', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
@@ -417,6 +417,9 @@ app.post('/test_acl/:id/:text', function (req, res) {
         }).then(function (test) {
 
             res.send("TEST COMPLETE " + JSON.stringify(test));
+        }, function (error) {
+            res.send("TEST FAILED " + error.message);
+
         })
 
     }
