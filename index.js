@@ -385,6 +385,44 @@ app.post('/signup', function (req, res) {
 
 });
 
+app.post('/test_acl/:id/:text', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let text = req.params.text;
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user")
+            let Test = new Parse.Object.extend("Test");
+            let test = new Test();
+
+            test.set("text_id", id);
+            test.set("text", text);
+
+            let ACL = new Parse.ACL();
+            ACL.setReadAccess(_user.id, true);
+            ACL.setWriteAccess(_user.id, true);
+
+
+            test.setACL(ACL);
+
+            return test.save();
+
+
+        }).then(function (test) {
+
+            res.send("TEST COMPLETE " + JSON.stringify(test));
+        })
+
+    }
+});
+
+
 //login the user in using Parse
 app.post('/login', function (req, res) {
 
@@ -745,7 +783,7 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
         })
 
-    }else {
+    } else {
         res.redirect('/');
     }
 
