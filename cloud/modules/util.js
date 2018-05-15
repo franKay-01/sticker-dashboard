@@ -34,6 +34,8 @@ var DELETING_TEST_ERROR = 14;
 var DELETING_TASKS_ERROR = 15;
 var GETTING_TASKS_ERROR = 16;
 
+let STORY_PREVIEW_ERROR = 17;
+
 /**
  * Creates a function to reject the given promise
  * @param p
@@ -244,6 +246,11 @@ handleError = function (res, error) {
                     break;
 
 
+                case STORY_PREVIEW_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "Story wasn't found";
+                    break;
+
+
                 default :
                     error[KEY_RESPONSE_CODE] = UNKNOWN_ERROR;
                     error[KEY_RESPONSE_MESSAGE] = "Couldn't process request";
@@ -330,4 +337,5 @@ exports.UPDATING_TASK_ERROR = UPDATING_TASK_ERROR;
 exports.DELETING_TEST_ERROR = DELETING_TEST_ERROR;
 exports.DELETING_TASKS_ERROR = DELETING_TASKS_ERROR;
 exports.CLASS_TYPE_ERROR = CLASS_TYPE_ERROR;
+exports.STORY_PREVIEW_ERROR = STORY_PREVIEW_ERROR;
 exports.STATUS_OK = STATUS_OK;
