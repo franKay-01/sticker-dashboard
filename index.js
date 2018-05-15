@@ -392,7 +392,7 @@ app.get('/get_acl', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query("Test").find();
+            return new Parse.Query("Test").find({token:sessionToken});
 
         }).then(function (test) {
             res.send("TEST RESULTS " + JSON.stringify(test));
