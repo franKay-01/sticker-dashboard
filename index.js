@@ -464,6 +464,8 @@ app.get('/role', function (req, res) {
 
             var admin = new Parse.Role("Administrator");
 
+            console.log("ADMIN " + JSON.stringify(admin));
+
             admin.getUsers().add(_user);
             return admin.save();
             // var roleACL = new Parse.ACL();
