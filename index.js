@@ -462,12 +462,21 @@ app.get('/role', function (req, res) {
             //
             // return role.save();
 
-            var admin = new Parse.Role("Administrator");
+            var queryRole = new Parse.Query(Parse.Role);
+            queryRole.equalTo('name', 'Administrator');
+            queryRole.first({
+                success: function (admin) {
+                    console.log("ADMIN " + JSON.stringify(admin));
 
-            console.log("ADMIN " + JSON.stringify(admin));
+                    queryRole.getUsers().add(_user);
+                    return queryRole.save();
+                },
+                error: function (error) {
+                    res.send("ROLE FAILED " + error.message);
 
-            admin.getUsers().add(_user);
-            return admin.save();
+                }
+            });
+
             // var roleACL = new Parse.ACL();
             // roleACL.setPublicReadAccess(true);
             // var role = new Parse.Role("Administrator", roleACL);
