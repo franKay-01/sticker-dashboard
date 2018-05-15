@@ -385,6 +385,23 @@ app.post('/signup', function (req, res) {
 
 });
 
+app.get('/get_acl', function (req, res) {
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query("Test").find();
+
+        }).then(function (test) {
+            res.send("TEST RESULTS " + JSON.stringify(test));
+        }, function (error) {
+            res.send("TEST FAILED " + error.message);
+        })
+    }
+});
+
 app.get('/test_acl/:id/:text', function (req, res) {
 
     let token = req.cookies.token;
