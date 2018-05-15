@@ -393,7 +393,7 @@ app.get('/get_acl', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             console.log("SESSION " + JSON.stringify(sessionToken));
-            return new Parse.Query("Test").find({sessionToken:sessionToken.get("sessionToken")});
+            return new Parse.Query("Test").find({sessionToken: sessionToken.get("sessionToken")});
 
         }).then(function (test) {
             res.send("TEST RESULTS " + JSON.stringify(test));
@@ -422,6 +422,7 @@ app.get('/test_acl/:id/:text', function (req, res) {
             test.set("text_id", id);
             test.set("text", text);
 
+
             let ACL = new Parse.ACL();
             ACL.setReadAccess(_user.id, true);
             ACL.setWriteAccess(_user.id, true);
@@ -442,6 +443,34 @@ app.get('/test_acl/:id/:text', function (req, res) {
 
     }
 });
+
+app.get('/role', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            var roleACL = new Parse.ACL();
+            roleACL.setPublicReadAccess(true);
+            var role = new Parse.Role("Administrator", roleACL);
+            role.getUsers().add(_user);
+            role.getRoles().add(roleACL);
+
+            return role.save();
+
+        }).then(function (role) {
+            res.send("ROLE COMPLETE " + JSON.stringify(role));
+
+        }, function (error) {
+            res.send("ROLE FAILED " + error.message);
+
+        })
+    }
+})
 
 
 //login the user in using Parse
