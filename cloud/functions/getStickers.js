@@ -56,18 +56,26 @@ Parse.Cloud.define("getStory", function (req, res) {
         new Parse.Query(StoryClass).equalTo("objectId", storyId).first(),
         new Parse.Query(ArtWorkClass).equalTo("object_id", storyId).first(),
         new Parse.Query(StoryCatalogue).equalTo("story_id", storyId).find()
-
     ).then(function (story, sticker, storyCatalogue) {
 
-        data.story = story;
-        data.sticker = sticker;
+        if (story && sticker && storyCatalogue) {
 
-        data.stories = [];
-        if(storyCatalogue.length){
-            data.stories = storyCatalogue;
+
+            data.story = story;
+            data.sticker = sticker;
+
+            data.stories = [];
+            if (storyCatalogue.length) {
+                data.stories = storyCatalogue;
+            }
+
+            res.success(util.setResponseOk(data));
+
+        } else {
+
+            util.handleError(res, util.setErrorType(util.STORY_PREVIEW_ERROR));
+
         }
-
-        res.success(util.setResponseOk(data));
 
     }, function (error) {
 
