@@ -63,8 +63,13 @@
                     <li class="list-group-item">
                         Sell Sticker
                         <div class="material-switch pull-right">
+                            <% if (sticker.get("sold") === true){%>
+                            <input id="switch_status" onchange="checkStatus()" name="switch_status" type="checkbox" checked/>
+                            <label for="switch_status" class="label-primary"></label>
+                            <%} else if (sticker.get("sold") === false) {%>
                             <input id="switch_status" onchange="checkStatus()" name="switch_status" type="checkbox"/>
                             <label for="switch_status" class="label-primary"></label>
+                            <%}%>
                         </div>
                     </li>
                     <input name="sticker_status" id="sticker_status" hidden>
