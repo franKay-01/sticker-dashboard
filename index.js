@@ -3282,6 +3282,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
     let keywords = req.body.keyword;
     let archive = req.body.archive;
     let description = req.body.description;
+    let _sessionToken = {};
     let _keywords = [];
 
     if (keywords !== undefined || keywords !== "undefined") {
@@ -3300,6 +3301,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
+            _sessionToken = sessionToken.get("sessionToken");
             return new Parse.Query(PacksClass).equalTo("objectId", id).first({sessionToken: sessionToken.get("sessionToken")});
 
         }).then(function (pack) {
@@ -3322,7 +3324,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
                 });
             }
 
-            return pack.save({sessionToken: sessionToken.get("sessionToken")});
+            return pack.save({sessionToken: _sessionToken});
 
         }).then(function (pack) {
 
