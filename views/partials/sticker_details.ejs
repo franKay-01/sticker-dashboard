@@ -56,12 +56,12 @@
                 <input type="text" name="category_name" id="cat" style="display: none">
             </div>
 
-            <label class="update_label">YES or NO:</label><br>
+            <label class="update_label">Status of Sticker:</label><br>
 
             <div class="row">
                 <ul class="list-group">
                     <li class="list-group-item">
-                        Bootstrap Switch Primary
+                        Sell Sticker
                         <div class="material-switch pull-right">
                             <input id="switch_status" onchange="checkStatus()" name="switch_status" type="checkbox"/>
                             <label for="switch_status" class="label-primary"></label>
@@ -71,10 +71,8 @@
                     <script>
                         function checkStatus() {
                             if(document.getElementById('switch_status').checked) {
-                                alert("CHECKED");
                                 document.getElementById('sticker_status').value = 1;
                             } else {
-                                alert("NOT CHECKED");
                                 document.getElementById('sticker_status').value = 0;
                             }
                         }
