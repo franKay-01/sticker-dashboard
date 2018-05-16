@@ -426,6 +426,7 @@ app.get('/test_acl/:id/:text', function (req, res) {
             let ACL = new Parse.ACL();
             ACL.setReadAccess(_user.id, true);
             ACL.setWriteAccess(_user.id, true);
+            ACL.setPublicReadAccess(true);
 
 
             test.setACL(ACL);
