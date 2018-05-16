@@ -3299,12 +3299,18 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
     if (token) {
 
+        let _user = {};
+
         getUser(token).then(function (sessionToken) {
 
+            _user = sessionToken.get("user");
             _sessionToken = sessionToken.get("sessionToken");
             return new Parse.Query(PacksClass).equalTo("objectId", id).first({sessionToken: _sessionToken});
 
         }).then(function (pack) {
+
+            let answer = pack.getWriteAccess(_user.id);
+            res.send(answer);
 
             pack.set("pack_description", description);
             pack.set("keyword", _keywords);
