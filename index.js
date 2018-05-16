@@ -1606,7 +1606,7 @@ app.post('/new_catalogue/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let content = req.body.content;
-    let type = parseInt(req.body.style);
+    let _type = parseInt(req.body.style);
 
     if (token) {
 
@@ -1615,9 +1615,7 @@ app.post('/new_catalogue/:id', function (req, res) {
             let Story = new Parse.Object.extend(StoryCatalogue);
             let catalogue = new Story();
 
-            console.log("CATALOGUE TYPE " + type);
-
-            switch (type) {
+            switch (_type) {
                 case TEXT:
                     catalogue.set("type", type.CATALOGUE.text);
                     break;
