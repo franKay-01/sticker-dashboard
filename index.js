@@ -3284,6 +3284,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
     let description = req.body.description;
     let _sessionToken = {};
     let _keywords = [];
+    let fileDetails =[];
 
     if (keywords !== undefined || keywords !== "undefined") {
         _keywords = keywords.split(",");
@@ -3309,35 +3310,52 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
         }).then(function (pack) {
 
-            let ACL = new Parse.ACL();
 
-            let answer = pack.getReadAccess(_user.id);
-            res.send(answer);
-        //
-        //     pack.set("pack_description", description);
-        //     pack.set("keyword", _keywords);
-        //     pack.set("archive", archive);
-        //
-        //     if (files !== undefined || files !== "undefined") {
-        //         files.forEach(function (file) {
-        //             let fullName = file.originalname;
-        //             let stickerName = fullName.substring(0, fullName.length - 4);
-        //
-        //             let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-        //
-        //             let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-        //
-        //             pack.set("art_work", parseFile);
-        //
-        //         });
-        //     }
-        //
-        //     return pack.save({sessionToken: _sessionToken});
-        //
-        // }).then(function (pack) {
-        //
-        //     res.redirect('/pack/' + pack.id);
-        //
+            pack.set("pack_description", description);
+            pack.set("keyword", _keywords);
+            pack.set("archive", archive);
+
+            if (files !== undefined || files !== "undefined") {
+                files.forEach(function (file) {
+                    let fullName = file.originalname;
+                    let stickerName = fullName.substring(0, fullName.length - 4);
+
+                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+
+                    pack.set("art_work", parseFile);
+                    fileDetails.push(file);
+
+                });
+            }
+
+            return pack.save({sessionToken: _sessionToken});
+
+        }).then(function (pack) {
+
+            _.each(fileDetails, function (file) {
+                //Delete tmp fil after upload
+                var tempFile = file.path;
+                fs.unlink(tempFile, function (error) {
+                    if (error) {
+                        //TODO handle error code
+                        //TODO add job to do deletion of tempFiles
+                        console.log("-------Could not del temp" + JSON.stringify(error));
+                    }
+                    else {
+                        console.log("-------Deleted All Files");
+
+                    }
+                });
+            });
+
+            return true;
+
+        }).then(function () {
+
+            res.redirect('/pack/' + id);
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
