@@ -3300,7 +3300,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(PacksClass).equalTo("objectId", id).first();
+            return new Parse.Query(PacksClass).equalTo("objectId", id).first({sessionToken: sessionToken.get("sessionToken")});
 
         }).then(function (pack) {
 
