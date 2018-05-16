@@ -69,10 +69,11 @@
                     </li>
                     <input name="sticker_status" id="sticker_status" value="1" hidden>
                     <script>
-                        if ($('#switch_status').is(':checked')) {
-                            $('#sticker_status').val(0);
+                        if(document.getElementById('switch_status').checked) {
+                            document.getElementById('sticker_status').value = 1;
+                        } else {
+                            document.getElementById('sticker_status').value = 0;
                         }
-
                     </script>
                 </ul>
 
