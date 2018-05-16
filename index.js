@@ -3336,20 +3336,21 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 //Update Sticker
 app.post('/update/:id/:pid', function (req, res) {
 
-    var token = req.cookies.token;
+    let token = req.cookies.token;
 
     //input fields from form
-    var stickerName = req.body.stickerName;
-    var new_categories = req.body.categories;
-    var stickerId = req.params.id;
-    var packId = req.params.pid;
+    let stickerName = req.body.stickerName;
+    let new_categories = req.body.categories;
+    let stickerId = req.params.id;
+    let packId = req.params.pid;
+    let sticker_status = req.body.sticker_status;
 
-    var _listee = [];
+    let _listee = [];
 
     if (new_categories) {
 
         if (new_categories !== undefined) {
-            var category_new = Array.from(new_categories);
+            let category_new = Array.from(new_categories);
 
             _.each(category_new, function (category) {
                 _listee.push(category);
@@ -3358,7 +3359,6 @@ app.post('/update/:id/:pid', function (req, res) {
     }
 
     if (token) {
-
 
         let _user = {};
 
@@ -3373,7 +3373,11 @@ app.post('/update/:id/:pid', function (req, res) {
             sticker.set("stickerName", stickerName);
             sticker.set("localName", stickerName);
             sticker.set("categories", _listee);
-
+            if (sticker_status === 1){
+                sticker.set("sold", true);
+            }else if (sticker_status === 0){
+                sticker.set("sold", false);
+            }
             return sticker.save();
 
         }).then(function (sticker) {
