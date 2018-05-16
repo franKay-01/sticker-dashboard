@@ -58,21 +58,17 @@
 
             <label class="update_label">YES or NO:</label><br>
 
-            <input id="TheCheckBox" type="checkbox" data-off-text="False" data-on-text="True" checked="false" class="BSswitch">
-
-            <label id="label-toggle-switch">Click on this Text to change the switch state</label>
-            <div class="label-toggle-switch make-switch">
-                <input type="checkbox" checked />
+            <div class="row">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        Bootstrap Switch Primary
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionPrimary" class="label-primary"></label>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <script>
-                $('#label-toggle-switch').on('click', function(e, data) {
-                    $('.label-toggle-switch').bootstrapSwitch('toggleState');
-                });
-                $('.label-toggle-switch').on('switch-change', function (e, data) {
-                    alert(data.value);
-                });
-            </script>
-
         </div>
         <div class="medium-12 large-12 cell" style="margin-top: 30px">
             <center>
