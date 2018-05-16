@@ -3322,7 +3322,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
                 });
             }
 
-            return pack.save();
+            return pack.save({sessionToken: sessionToken.get("sessionToken")});
 
         }).then(function (pack) {
 
