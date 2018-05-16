@@ -2799,6 +2799,7 @@ app.post('/new_pack', function (req, res) {
     var pricing = parseInt(req.body.pricing);
     var version = parseInt(req.body.version);
 
+    console.log("PACK NAME " + coll_name+ " DESCRIPTION "+pack_description);
     if (token) {
 
         let _user = {};
