@@ -67,11 +67,13 @@
                             <label for="switch_status" class="label-primary"></label>
                         </div>
                     </li>
-                    <input name="sticker_status" id="sticker_status" value="1" hidden>
+                    <input name="sticker_status" id="sticker_status" hidden>
                     <script>
                         if(document.getElementById('switch_status').checked) {
+                            alert("CHECKED");
                             document.getElementById('sticker_status').value = 1;
                         } else {
+                            alert("NOT CHECKED");
                             document.getElementById('sticker_status').value = 0;
                         }
                     </script>
