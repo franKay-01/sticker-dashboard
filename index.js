@@ -3311,7 +3311,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
             let ACL = new Parse.ACL();
 
-            let answer = ACL.getReadAccess(_user.id);
+            let answer = pack.getReadAccess(_user.id);
             res.send(answer);
         //
         //     pack.set("pack_description", description);
