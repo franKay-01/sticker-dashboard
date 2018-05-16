@@ -2819,7 +2819,13 @@ app.post('/new_pack', function (req, res) {
             pack.set("archive", false);
             pack.set("flag", false);
             pack.set("published", false);
-            //  pack.setACL(setPermission(_user, false));
+
+            let ACL = new Parse.ACL();
+            ACL.setReadAccess(_user.id, true);
+            ACL.setWriteAccess(_user.id, true);
+            ACL.setPublicReadAccess(true);
+
+            pack.setACL(ACL);
 
             return pack.save();
 
