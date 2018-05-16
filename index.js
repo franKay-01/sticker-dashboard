@@ -3309,7 +3309,9 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
         }).then(function (pack) {
 
-            let answer = pack.getWriteAccess(_user.id);
+            let ACL = new Parse.ACL();
+
+            let answer = ACL.getWriteAccess(_user.id);
             res.send(answer);
         //
         //     pack.set("pack_description", description);
