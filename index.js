@@ -3373,9 +3373,9 @@ app.post('/update/:id/:pid', function (req, res) {
             sticker.set("stickerName", stickerName);
             sticker.set("localName", stickerName);
             sticker.set("categories", _listee);
-            if (sticker_status === 1){
+            if (sticker_status === "1"){
                 sticker.set("sold", true);
-            }else if (sticker_status === 0){
+            }else if (sticker_status === "0"){
                 sticker.set("sold", false);
             }
             return sticker.save();
