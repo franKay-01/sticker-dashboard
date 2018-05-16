@@ -3311,35 +3311,35 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
             let answer = pack.getWriteAccess(_user.id);
             res.send(answer);
-
-            pack.set("pack_description", description);
-            pack.set("keyword", _keywords);
-            pack.set("archive", archive);
-
-            if (files !== undefined || files !== "undefined") {
-                files.forEach(function (file) {
-                    let fullName = file.originalname;
-                    let stickerName = fullName.substring(0, fullName.length - 4);
-
-                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-
-                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-
-                    pack.set("art_work", parseFile);
-
-                });
-            }
-
-            return pack.save({sessionToken: _sessionToken});
-
-        }).then(function (pack) {
-
-            res.redirect('/pack/' + pack.id);
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/edit_pack_details/' + id);
+        //
+        //     pack.set("pack_description", description);
+        //     pack.set("keyword", _keywords);
+        //     pack.set("archive", archive);
+        //
+        //     if (files !== undefined || files !== "undefined") {
+        //         files.forEach(function (file) {
+        //             let fullName = file.originalname;
+        //             let stickerName = fullName.substring(0, fullName.length - 4);
+        //
+        //             let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+        //
+        //             let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+        //
+        //             pack.set("art_work", parseFile);
+        //
+        //         });
+        //     }
+        //
+        //     return pack.save({sessionToken: _sessionToken});
+        //
+        // }).then(function (pack) {
+        //
+        //     res.redirect('/pack/' + pack.id);
+        //
+        // }, function (error) {
+        //
+        //     console.log("ERROR " + error.message);
+        //     res.redirect('/edit_pack_details/' + id);
 
         })
     } else {
