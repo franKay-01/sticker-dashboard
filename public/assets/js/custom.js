@@ -310,26 +310,26 @@ $(document).ready(function () {
         }
     });
 
-    $checks = $(":checkbox");
-    var categories = String($('#category').val()).split(",");
-    for (var i = 0; i < categories.length; i++) {
-        $('input:checkbox[data-name="' + categories[i] + '"]').prop('checked', true);
-    }
-
-    $checks.on('change', function (e) {
-        var string = $checks.filter(":checked").map(function (i, v) {
-            return $(this).attr("data-name");
-        }).get().join(", ");
-
-        var ids = $checks.filter(":checked").map(function (i, v) {
-            return $(this).val();
-        }).get().join(",");
-
-        console.log("selected categories " + string);
-        //  alert("E is "+string);
-        $('#categoryInput').val(string);
-        $('#cat').val(ids);
-    });
+    // $checks = $(":checkbox");
+    // var categories = String($('#category').val()).split(",");
+    // for (var i = 0; i < categories.length; i++) {
+    //     $('input:checkbox[data-name="' + categories[i] + '"]').prop('checked', true);
+    // }
+    //
+    // $checks.on('change', function (e) {
+    //     var string = $checks.filter(":checked").map(function (i, v) {
+    //         return $(this).attr("data-name");
+    //     }).get().join(", ");
+    //
+    //     var ids = $checks.filter(":checked").map(function (i, v) {
+    //         return $(this).val();
+    //     }).get().join(",");
+    //
+    //     console.log("selected categories " + string);
+    //     //  alert("E is "+string);
+    //     $('#categoryInput').val(string);
+    //     $('#cat').val(ids);
+    // });
 
     //show/hide edit form button
     // $('#editbtn1').each(function () {
