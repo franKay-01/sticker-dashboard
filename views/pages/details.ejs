@@ -18,15 +18,27 @@
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.css">
     <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/public/assets/css/bootstrap-switch.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
+    <script src="/public/assets/js/bootstrap-switch.js"></script>
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script type = "text/javascript"
             src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!--<script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('.BSswitch').bootstrapSwitch('state', true);
+
+            $('#CheckBoxValue').val($("#TheCheckBox").bootstrapSwitch('state'));
+
+        });
+
+    </script>
 </head>
 
 <body class="primary-background-color">
