@@ -60,11 +60,18 @@
 
             <input id="TheCheckBox" type="checkbox" data-off-text="False" data-on-text="True" checked="false" class="BSswitch">
 
-            <div id="mySwitch" class="make-switch has-switch">
-                <div class="switch-on switch-animate">
-                    <input type="checkbox" checked=""><span class="switch-left">ON</span><label>&nbsp;</label><span class="switch-right">OFF</span>
-                </div>
+            <label id="label-toggle-switch">Click on this Text to change the switch state</label>
+            <div class="label-toggle-switch make-switch">
+                <input type="checkbox" checked />
             </div>
+            <script>
+                $('#label-toggle-switch').on('click', function(e, data) {
+                    $('.label-toggle-switch').bootstrapSwitch('toggleState');
+                });
+                $('.label-toggle-switch').on('switch-change', function (e, data) {
+                    alert(data.value);
+                });
+            </script>
 
         </div>
         <div class="medium-12 large-12 cell" style="margin-top: 30px">
