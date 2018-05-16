@@ -63,19 +63,22 @@
                     <li class="list-group-item">
                         Bootstrap Switch Primary
                         <div class="material-switch pull-right">
-                            <input id="switch_status" name="switch_status" type="checkbox"/>
+                            <input id="switch_status" onchange="checkStatus()" name="switch_status" type="checkbox"/>
                             <label for="switch_status" class="label-primary"></label>
                         </div>
                     </li>
                     <input name="sticker_status" id="sticker_status" hidden>
                     <script>
-                        if(document.getElementById('switch_status').checked) {
-                            alert("CHECKED");
-                            document.getElementById('sticker_status').value = 1;
-                        } else {
-                            alert("NOT CHECKED");
-                            document.getElementById('sticker_status').value = 0;
+                        function checkStatus() {
+                            if(document.getElementById('switch_status').checked) {
+                                alert("CHECKED");
+                                document.getElementById('sticker_status').value = 1;
+                            } else {
+                                alert("NOT CHECKED");
+                                document.getElementById('sticker_status').value = 0;
+                            }
                         }
+
                     </script>
                 </ul>
 
