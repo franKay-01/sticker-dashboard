@@ -2822,8 +2822,8 @@ app.post('/new_pack', function (req, res) {
             pack.set("published", false);
 
             let ACL = new Parse.ACL();
-            ACL.setReadAccess(_user.id, true);
-            ACL.setWriteAccess(_user.id, true);
+            ACL.setReadAccess(_user, true);
+            ACL.setWriteAccess(_user, true);
             ACL.setPublicReadAccess(true);
 
             pack.setACL(ACL);
@@ -3302,7 +3302,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             _sessionToken = sessionToken.get("sessionToken");
-            return new Parse.Query(PacksClass).equalTo("objectId", id).first({sessionToken: sessionToken.get("sessionToken")});
+            return new Parse.Query(PacksClass).equalTo("objectId", id).first({sessionToken: _sessionToken});
 
         }).then(function (pack) {
 
@@ -3329,6 +3329,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
         }).then(function (pack) {
 
             res.redirect('/pack/' + pack.id);
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
