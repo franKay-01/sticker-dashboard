@@ -2719,7 +2719,7 @@ app.get('/edit_pack_details/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(PacksClass).equalTo("objectId", pack_id).first();
+            return new Parse.Query(PacksClass).equalTo("objectId", pack_id).first({sessionToken:sessionToken.get("sessionToken")});
 
         }).then(function (pack) {
 
