@@ -63,11 +63,18 @@
                     <li class="list-group-item">
                         Bootstrap Switch Primary
                         <div class="material-switch pull-right">
-                            <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox"/>
-                            <label for="someSwitchOptionPrimary" class="label-primary"></label>
+                            <input id="switch_status" name="switch_status" type="checkbox"/>
+                            <label for="switch_status" class="label-primary"></label>
                         </div>
                     </li>
                 </ul>
+                <input name="sticker_status" id="sticker_status" value="1" hidden>
+                <script>
+                    if ($('#switch_status').is(':checked')) {
+                        $('#sticker_status').val(0);
+                    }
+
+                </script>
             </div>
         </div>
         <div class="medium-12 large-12 cell" style="margin-top: 30px">
