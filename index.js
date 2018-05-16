@@ -2822,8 +2822,8 @@ app.post('/new_pack', function (req, res) {
             pack.set("published", false);
 
             let ACL = new Parse.ACL();
-            ACL.setReadAccess(_user, true);
-            ACL.setWriteAccess(_user, true);
+            ACL.setReadAccess(_user.id, true);
+            ACL.setWriteAccess(_user.id, true);
             ACL.setPublicReadAccess(true);
 
             pack.setACL(ACL);
@@ -3311,7 +3311,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
             let ACL = new Parse.ACL();
 
-            let answer = ACL.getWriteAccess(_user.id);
+            let answer = ACL.getReadAccess(_user.id);
             res.send(answer);
         //
         //     pack.set("pack_description", description);
