@@ -40,54 +40,32 @@
     </div>
     <!-- End of logo-->
     <div id="pageMask"></div>
-    <div id="hiddenAddAdvertImageForm" style="display: none">
+
+    <div id="hiddenAddAdvertForm" style="display: none">
         <div class="medium-3 large-3 cell create_background">
-            <div class="edit_labels medium-12 large-12">ADD ADVERT IMAGE</div>
-
-
-            <form id="pack_form" action="/update_advert_image/<%= _adverts.id %>" method="post" enctype="multipart/form-data">
-                <!--<div style="width: 200px !important;">-->
-                <div >
-
-                    <center>
-
-                        <label class="update_label" style="color: white !important;margin-left: 140px;">Select Platform:</label>
-                        <div style="width: 450px !important;">
-                            <select name="type" required="">
-                                <option value="" disabled selected>Choose your platform</option>
-                                <option value="0">Android</option>
-                                <option value="1">IOS</option>
-                                <option value="2">Web</option>
-                            </select>
-                        </div>
-
-                        <button type="button" style="color: white" class="advert_image addImage"><i class="fa fa-camera-retro"></i> Add Image
-                        </button>
-                        <input type="file" name="adverts" class="adverts" id="adverts" style="display: none" required/><br><br>
-
-                        <label class="update_label" style="color: white !important;margin-left: 140px;">Link:</label>
-                        <input placeholder="https://google.com/ads"
-                               name="link" class="_pack common_pack_detail validate"
-                               value="<%= ad_details.get("link") %>" required>
-
-                        <div style="color: whitesmoke" class="heading medium-12 large-12" hidden>You are adding the
-                            following images as Advert Images:
-                        </div>
-                        <div id="selectedFiles" class="medium-12 large-12"></div>
-                    </center>
-
-
-                </div>
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW ADVERT</div>
+            </center>
+            <form id="pack_form" action="/new_advert" method="post">
+                <center>
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Advert Title"
+                           name="title" required="" aria-required="true"><br>
+                    <input class="_pack common_pack_detail validate" placeholder="Description"
+                           name="description" required="" aria-required="true">
+                    <br>
+                </center>
                 <span>
-
-        <button type="submit" id="categoryBtn" class="create">CREATE</button>
+        <button type="submit" class="create">CREATE</button>
         </span>
                 <span>
-        <button type="button" id="btn_cancelAdImage" class="cancel">Cancel</button>
+        <button type="button" class="cancel btnCloseAd">Cancel</button>
          </span>
+
             </form>
         </div>
+
     </div>
+
     <span class="medium-12 large-12 welcome_post" id="all_stories"><b>All Adverts</b></span>
 
     <div class="grid-x grid-margin-x" id="opaqueDiv">

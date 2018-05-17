@@ -702,8 +702,9 @@ app.get('/advert_collection', function (req, res) {
 
                     if (advert.id === image.get("advert_id")) {
                         if (image.get("type") === 0) {
-                            _adverts.push({advert: advert, image: image.get("uri").url()})
-                            // console.log("ADVERTS ID " + advert.id + " IMAGE " + image.get("uri").url());
+                            _adverts.push({
+                                advert: advert,
+                                image: image.get("uri").url()})
                         }
                     }
 
@@ -711,13 +712,12 @@ app.get('/advert_collection', function (req, res) {
             });
 
             let spliced = [];
-            // for (i = adverts.length - 1; i >= 0; i = i - 1) {
             for (i = 0; i < adverts.length; i = i + 1) {
+
                 console.log("ADVERTS " + JSON.stringify(adverts[i]));
+
                 for (j = 0; j < _adverts.length; j = j + 1) {
 
-                    // for (j = _adverts.length - 1; j >= 0; j = j - 1) {
-                    console.log("ADVERTS_ " + JSON.stringify(_adverts[j]));
                     if (adverts[i].get("title") === _adverts[j].advert.get("title")) {
                         console.log("SPLICED ITEM " + JSON.stringify(adverts[i]));
 
