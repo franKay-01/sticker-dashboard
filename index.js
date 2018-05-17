@@ -808,7 +808,8 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
             _.each(advert, function (adverts) {
                 if (adverts.get("type") === 0){
-                    res.send("YOU CANT CREATE NEW ADVERTS");
+                    advertMessage = "ADVERT under category already exist";
+                    res.redirect('/advert_details/' + id);
                 }
             });
 
@@ -863,6 +864,7 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
         }).then(function () {
 
+            advertMessage = "";
             res.redirect('/advert_details/' + id);
 
         }, function (error) {
@@ -901,6 +903,7 @@ app.post('/update_advert/:id', function (req, res) {
 
         }).then(function () {
 
+            advertMessage = "";
             res.redirect('/advert_details/' + id);
 
         }, function (error) {
@@ -942,6 +945,7 @@ app.post('/new_advert', function (req, res) {
 
         }).then(function (advert) {
 
+            advertMessage = "";
             res.redirect('/advert_details/' + advert.id);
 
         }, function (error) {
