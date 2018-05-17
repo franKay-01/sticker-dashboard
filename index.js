@@ -795,6 +795,7 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
     let link = req.body.link;
     let fileDetails = [];
     let advertDetails = [];
+    let existing = [];
 
     console.log("TYPE " + JSON.stringify(type) + " LINK " + JSON.stringify(link));
 
@@ -802,71 +803,75 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
         getUser(token).then(function (sessionToken) {
 
-            var AdvertClass = Parse.Object.extend(AdvertImageClass);
-            let advert = new Parse.Query(AdvertClass);
-            advert.equalTo("advert_id", id);
-            advert.equalTo("type", type);
-
-            return advert.find();
+            return new Parse.Query(AdvertImageClass).equalTo("advert_id", id).find();
 
         }).then(function (advert) {
 
-            res.send(JSON.stringify(advert));
+            _.each(advert, function (adverts) {
+                if (adverts.get("type") === type){
+                    existing.push(type);
+                }
+            });
 
-        //     files.forEach(function (file) {
-        //
-        //         let fullName = file.originalname;
-        //         let image_name = fullName.substring(0, fullName.length - 4);
-        //
-        //         let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-        //
-        //         //create our parse file
-        //         let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
-        //         console.log("PARSEFILE " + JSON.stringify(parseFile));
-        //
-        //         let Advert_Image = new Parse.Object.extend(AdvertImageClass);
-        //         let advert_image = new Advert_Image();
-        //
-        //         advert_image.set("name", image_name);
-        //         advert_image.set("advert_id", id);
-        //         advert_image.set("uri", parseFile);
-        //         advert_image.set("links", link);
-        //         advert_image.set("type", type);
-        //
-        //         advertDetails.push(advert_image);
-        //         fileDetails.push(file);
-        //
-        //     });
-        //
-        //     return Parse.Object.saveAll(advertDetails);
-        //
-        // }).then(function () {
-        //
-        //     if (fileDetails.length) {
-        //         _.each(fileDetails, function (file) {
-        //             //Delete tmp fil after upload
-        //             var tempFile = file.path;
-        //             fs.unlink(tempFile, function (error) {
-        //                 if (error) {
-        //                     //TODO handle error code
-        //                     //TODO add job to do deletion of tempFiles
-        //                     console.log("-------Could not del temp" + JSON.stringify(error));
-        //                 }
-        //                 else {
-        //                     console.log("-------Deleted All Files");
-        //
-        //                 }
-        //             });
-        //         });
-        //     }
-        //
-        //     return true
+            if (existing.length !== 0){
+                advertMessage = "ADVERT under category already exist";
+                res.redirect('/advert_details/' + id);
+            }else {
+                files.forEach(function (file) {
 
-        // }).then(function () {
-        //
-        //     advertMessage = "";
-        //     res.redirect('/advert_details/' + id);
-        //
+                    let fullName = file.originalname;
+                    let image_name = fullName.substring(0, fullName.length - 4);
+
+                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                    //create our parse file
+                    let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
+                    console.log("PARSEFILE " + JSON.stringify(parseFile));
+
+                    let Advert_Image = new Parse.Object.extend(AdvertImageClass);
+                    let advert_image = new Advert_Image();
+
+                    advert_image.set("name", image_name);
+                    advert_image.set("advert_id", id);
+                    advert_image.set("uri", parseFile);
+                    advert_image.set("links", link);
+                    advert_image.set("type", type);
+
+                    advertDetails.push(advert_image);
+                    fileDetails.push(file);
+
+                });
+
+                return Parse.Object.saveAll(advertDetails);
+            }
+
+        }).then(function () {
+
+            if (fileDetails.length) {
+                _.each(fileDetails, function (file) {
+                    //Delete tmp fil after upload
+                    var tempFile = file.path;
+                    fs.unlink(tempFile, function (error) {
+                        if (error) {
+                            //TODO handle error code
+                            //TODO add job to do deletion of tempFiles
+                            console.log("-------Could not del temp" + JSON.stringify(error));
+                        }
+                        else {
+                            console.log("-------Deleted All Files");
+
+                        }
+                    });
+                });
+            }
+
+            return true
+
+        }).then(function () {
+
+            advertMessage = "";
+            res.redirect('/advert_details/' + id);
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
