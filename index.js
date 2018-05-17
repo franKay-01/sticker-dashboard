@@ -1267,19 +1267,16 @@ app.post('/add_story_artwork/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return Parse.Promise.when(
-                new Parse.Query(StickerClass).equalTo("objectId", sticker_id).first(),
-                new Parse.Query(StoryClass).equalTo("objectId", story_id).first());
+            return new Parse.Query(StoryClass).equalTo("objectId", story_id).first();
 
-        }).then(function (sticker, story) {
+        }).then(function (story) {
             id = story.id;
 
             let Artwork = new Parse.Object.extend(ArtWorkClass);
             let artwork = new Artwork();
 
-            artwork.set("name", sticker.get("stickerName"));
             artwork.set("object_id", id);
-            artwork.set("sticker", sticker.get("uri"));
+            artwork.set("sticker", sticker_id);
 
             return artwork.save();
 
@@ -1352,11 +1349,15 @@ app.get('/story_details/:id', function (req, res) {
             } else {
                 color = [];
             }
-            console.log("COLOR " + JSON.stringify(color));
+
+            return new Parse.Query(StickerClass).equalTo("objectId", sticker.get("sticker")).first();
+
+
+        }).then(function (_sticker) {
 
             res.render("pages/story_details", {
                 story: _story,
-                sticker: sticker,
+                sticker: _sticker,
                 color: color
             });
 
@@ -1464,6 +1465,10 @@ app.get('/story_collection', function (req, res) {
     if (token) {
 
         let _user = {};
+        let _story = [];
+        let _allPack =[];
+        let artWork = [];
+        let _allArtwork = [];
 
         getUser(token).then(function (sessionToken) {
 
@@ -1478,10 +1483,25 @@ app.get('/story_collection', function (req, res) {
 
         }).then(function (story, allPack, artwork) {
 
+            _story = story;
+            _allPack = allPack;
+            _allArtwork = artwork;
+
+            _.each(artwork, function (artworks) {
+
+                let art = new Parse.Query(StickerClass).equalTo("objectId", artworks.get("sticker")).first();
+                artWork.push(art);
+
+            });
+
+            return artWork;
+
+        }).then(function (_artwork) {
             res.render("pages/story_collection", {
-                story: story,
-                allPacks: allPack,
-                arts: artwork
+                story: _story,
+                allPacks: _allPack,
+                arts: _artwork,
+                _allArtwork: _allArtwork
             })
         }, function (error) {
 
