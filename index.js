@@ -813,6 +813,7 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
                 }
             });
 
+            console.log("EXISTING LENGTH " + existing.length);
             if (existing.length !== 0){
                 advertMessage = "ADVERT under category already exist";
                 res.redirect('/advert_details/' + id);
