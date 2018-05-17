@@ -841,21 +841,23 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
         }).then(function () {
 
-            _.each(fileDetails, function (file) {
-                //Delete tmp fil after upload
-                var tempFile = file.path;
-                fs.unlink(tempFile, function (error) {
-                    if (error) {
-                        //TODO handle error code
-                        //TODO add job to do deletion of tempFiles
-                        console.log("-------Could not del temp" + JSON.stringify(error));
-                    }
-                    else {
-                        console.log("-------Deleted All Files");
+            if (fileDetails.length) {
+                _.each(fileDetails, function (file) {
+                    //Delete tmp fil after upload
+                    var tempFile = file.path;
+                    fs.unlink(tempFile, function (error) {
+                        if (error) {
+                            //TODO handle error code
+                            //TODO add job to do deletion of tempFiles
+                            console.log("-------Could not del temp" + JSON.stringify(error));
+                        }
+                        else {
+                            console.log("-------Deleted All Files");
 
-                    }
+                        }
+                    });
                 });
-            });
+            }
 
             return true
 
