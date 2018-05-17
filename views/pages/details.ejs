@@ -54,11 +54,12 @@
                 <div class="edit_labels medium-12 large-12">DELETE STICKER</div>
                 <img src="<%= sticker.get("uri").url() %>" style="height: 250px;margin-top: -50px;"/>
                 <br>
-                <span>
-                 <button type="button" class="cancel closeDelete">Cancel</button>
-                </span>
+
                 <span>
                     <a href="/delete_sticker/<%= sticker.id %>/<%= pack_id %>" class="delete_btn">Delete</a>
+                </span>
+                <span>
+                 <button type="button" class="cancel closeDelete">Cancel</button>
                 </span>
             </center>
 
