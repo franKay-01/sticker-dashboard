@@ -1445,9 +1445,11 @@ app.get('/story_collection', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
+            _user = sessionToken.get("user");
+
             return Parse.Promise.when(
                 new Parse.Query(StoryClass).find(),
-                new Parse.Query(PacksClass).find(),
+                new Parse.Query(PacksClass).equalTo("user_id", _user.id).find(),
                 new Parse.Query(ArtWorkClass).find()
             );
 
