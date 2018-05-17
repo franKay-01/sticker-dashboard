@@ -812,8 +812,6 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
                 }
             });
 
-        }).then(function () {
-
             files.forEach(function (file) {
 
                 let fullName = file.originalname;
