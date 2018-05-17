@@ -906,12 +906,6 @@ app.post('/new_advert', function (req, res) {
     let token = req.cookies.token;
     let title = req.body.title;
     let description = req.body.description;
-    let link = req.body.link;
-    let _links = [];
-
-    if (link !== undefined || link !== "undefined") {
-        _links = link.split(",");
-    }
 
     if (token) {
 
@@ -927,7 +921,6 @@ app.post('/new_advert', function (req, res) {
             advert.set("title", title);
             advert.set("description", description);
             advert.set("user_id", _user.id);
-            advert.set("link", _links);
 
             return advert.save();
 
