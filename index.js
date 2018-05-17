@@ -802,21 +802,16 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
         getUser(token).then(function (sessionToken) {
 
-            var Advert = Parse.Object.extend(AdvertImageClass);
-            var advert = new Parse.Query(Advert);
-            advert.equalTo("advert_id", id);
-            advert.containedIn("type", [type]);
+            return new Parse.Query(AdvertImageClass).equalTo("advert_id", id).find();
 
-            advert.find({
-                success: function() {
-                    advertMessage = "You Already Have a ADVERT for the medium selected";
-                    res.redirect('/advert_details/' + id);
-                },
-                error: function () {
-                    advertMessage = "";
-                    return true;
+        }).then(function (advert) {
+
+            _.each(advert, function (adverts) {
+                if (adverts.get("type") === 0){
+                    res.send("YOU CANT CREATE NEW ADVERTS");
                 }
-                });
+            });
+
         }).then(function () {
 
             files.forEach(function (file) {
