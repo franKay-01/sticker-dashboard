@@ -843,6 +843,8 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
                 });
 
+                advertMessage = "";
+
                 return Parse.Object.saveAll(advertDetails);
             }
 
