@@ -344,6 +344,16 @@ label {
     background-color: transparent !important;
 }
 
+._cancel {
+    height: 43px;
+    font-size: 35px;
+    font-weight: 500;
+    letter-spacing: -2.1px;
+    text-align: left;
+    margin-right: 30px;
+    color: #ffffff;
+    background-color: transparent !important;
+}
 .add {
     /*width: 105px;*/
     height: 43px;
