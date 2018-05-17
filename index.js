@@ -50,6 +50,7 @@ let AdvertImageClass = "AdvertImages";
 let Profile = "Profile";
 let LatestClass = "Latest";
 let Barcode = "Barcodes";
+let Links = "Links";
 
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
@@ -705,7 +706,8 @@ app.get('/advert_collection', function (req, res) {
                         if (image.get("type") === 0) {
                             _adverts.push({
                                 advert: advert,
-                                image: image.get("uri").url()})
+                                image: image.get("uri").url()
+                            })
                         }
                     }
 
@@ -808,16 +810,16 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
         }).then(function (advert) {
 
             _.each(advert, function (adverts) {
-                if (adverts.get("type") === type){
+                if (adverts.get("type") === type) {
                     existing.push(type);
                 }
             });
 
             console.log("EXISTING LENGTH " + existing.length);
-            if (existing.length){
+            if (existing.length) {
                 advertMessage = "ADVERT under category already exist";
                 res.redirect('/advert_details/' + id);
-            }else {
+            } else {
                 files.forEach(function (file) {
 
                     let fullName = file.originalname;
@@ -2469,27 +2471,31 @@ app.get('/review/:id', function (req, res) {
 app.get('/user_profile', function (req, res) {
 
     let token = req.cookies.token;
+    let _user = {};
+    let _profile = {};
 
     if (token) {
-        let _user = {};
 
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
 
-            if (_user.get("image_set") === true) {
-                res.render("pages/profile", {
-                    username: _user.get("name"),
-                    email: _user.get("username"),
-                    profile: _user.get("image").url()
-                });
-            } else {
-                res.render("pages/profile", {
-                    username: _user.get("name"),
-                    email: _user.get("username"),
-                    profile: "null"
-                });
-            }
+            return new Parse.Query(Profile).equalTo("user_id", _user.id).first();
+
+        }).then(function (profile) {
+
+            _profile = profile;
+
+            return new Parse.Query(Links).equalTo("object_id", profile.id).find();
+
+        }).then(function (links) {
+
+            res.render("pages/profile", {
+                username: _user.get("name"),
+                email: _user.get("username"),
+                profile: _profile,
+                links: links
+            });
 
         }, function (error) {
             console.log("ERROR ON PROFILE " + error.message);
@@ -2821,7 +2827,7 @@ app.post('/new_pack', function (req, res) {
     var pricing = parseInt(req.body.pricing);
     var version = parseInt(req.body.version);
 
-    console.log("PACK NAME " + coll_name+ " DESCRIPTION "+pack_description);
+    console.log("PACK NAME " + coll_name + " DESCRIPTION " + pack_description);
     if (token) {
 
         let _user = {};
@@ -3305,7 +3311,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
     let archive = req.body.archive;
     let description = req.body.description;
     let _keywords = [];
-    let fileDetails =[];
+    let fileDetails = [];
 
     if (keywords !== undefined || keywords !== "undefined") {
         _keywords = keywords.split(",");
@@ -3425,9 +3431,9 @@ app.post('/update/:id/:pid', function (req, res) {
             sticker.set("stickerName", stickerName);
             sticker.set("localName", stickerName);
             sticker.set("categories", _listee);
-            if (sticker_status === "1"){
+            if (sticker_status === "1") {
                 sticker.set("sold", true);
-            }else if (sticker_status === "0"){
+            } else if (sticker_status === "0") {
                 sticker.set("sold", false);
             }
             return sticker.save();

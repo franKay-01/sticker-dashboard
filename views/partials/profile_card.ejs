@@ -1,7 +1,7 @@
 <!-- Cards -->
 <form id="detailsForm" action="/update_user" enctype="multipart/form-data" method="post">
     <div class="grid-x grid-margin-x">
-        <% if (profile === "null") {%>
+        <% if (profile.get("image") === "undefined" || profile.get("image") === undefined) {%>
         <div class="medium-6 large-5 cell">
             <div class="drop" style="height: 200px">
                 <div class="cont">
