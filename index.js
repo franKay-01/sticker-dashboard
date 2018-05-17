@@ -802,16 +802,16 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(AdvertImageClass).equalTo("advert_id", id).find();
+            let Advert = new Parse.Query(AdvertImageClass);
+            let advert = new Advert()
+            advert.equalTo("advert_id", id);
+            advert.equalTo("type", type);
+
+            return advert.find();
 
         }).then(function (advert) {
 
-            _.each(advert, function (adverts) {
-                if (adverts.get("type") === 0){
-                    advertMessage = "ADVERT under category already exist";
-                    res.redirect('/advert_details/' + id);
-                }
-            });
+            res.send(JSON.stringify(advert));
 
             files.forEach(function (file) {
 
