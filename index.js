@@ -764,7 +764,7 @@ app.get('/advert_details/:id', function (req, res) {
 
         }).then(function (advert, advertImages) {
 
-            console.log("ADS " + JSON.stringify(advert));
+            console.log("ADVERT MESSAGE " + advertMessage);
 
             res.render("pages/advert_details", {
 
@@ -870,7 +870,6 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
         }).then(function () {
 
-            advertMessage = "";
             res.redirect('/advert_details/' + id);
 
         }, function (error) {
