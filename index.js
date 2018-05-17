@@ -802,8 +802,8 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
         getUser(token).then(function (sessionToken) {
 
-            let Advert = new Parse.Query(AdvertImageClass);
-            let advert = new Advert()
+            var AdvertClass = Parse.Object.extend(AdvertImageClass);
+            let advert = new Parse.Query(AdvertClass);
             advert.equalTo("advert_id", id);
             advert.equalTo("type", type);
 
@@ -862,11 +862,11 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
         //
         //     return true
 
-        }).then(function () {
-
-            advertMessage = "";
-            res.redirect('/advert_details/' + id);
-
+        // }).then(function () {
+        //
+        //     advertMessage = "";
+        //     res.redirect('/advert_details/' + id);
+        //
         }, function (error) {
 
             console.log("ERROR " + error.message);
