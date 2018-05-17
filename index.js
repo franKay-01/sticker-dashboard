@@ -34,6 +34,7 @@ let type = require('./cloud/modules/type');
 //TODO create method to handle errors aka handleError
 let errorMessage = "";
 let searchErrorMessage = "";
+let advertMessage = "";
 
 let StickerClass = "Stickers";
 let CategoryClass = "Categories";
@@ -728,9 +729,11 @@ app.get('/advert_collection', function (req, res) {
                 }
             }
 
+            advertMessage = "";
+
             res.render("pages/advert_collection", {
                 adverts: _adverts,
-                _adverts: adverts
+                _adverts: adverts,
             });
 
         }, function (error) {
@@ -766,7 +769,8 @@ app.get('/advert_details/:id', function (req, res) {
             res.render("pages/advert_details", {
 
                 ad_details: advert,
-                ad_images: advertImages
+                ad_images: advertImages,
+                advertMessage: advertMessage
             })
 
         }, function (error) {
@@ -797,6 +801,23 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
     if (token) {
 
         getUser(token).then(function (sessionToken) {
+
+            var Advert = Parse.Object.extend(AdvertImageClass);
+            var advert = new Parse.Query(Advert);
+            advert.equalTo("advert_id", id);
+            advert.containedIn("type", [type]);
+
+            advert.find({
+                success: function() {
+                    advertMessage = "You Already Have a ADVERT for the medium selected";
+                    res.redirect('/advert_details/' + id);
+                },
+                error: function () {
+                    advertMessage = "";
+                    return true;
+                }
+                });
+        }).then(function () {
 
             files.forEach(function (file) {
 

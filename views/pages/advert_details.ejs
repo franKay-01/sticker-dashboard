@@ -61,6 +61,13 @@
         <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
 
     </div>
+    <%if (advertMessage !== ""){%>
+    <div class="medium-12 large-12 error_card" id="error_card" style="display: block">
+        <div style="text-align: center;font-size: 20px;">
+            <%= advertMessage %>
+        </div>
+    </div>
+    <%}%>
     <div id="pageMask"></div>
 
     <div id="hiddenAddAdvertImageForm" style="display: none">
