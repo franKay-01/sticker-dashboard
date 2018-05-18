@@ -48,6 +48,7 @@ Parse.Cloud.define("getStory", function (req, res) {
     let StoryClass = "Stories";
     let ArtWorkClass = "ArtWork";
     let StoryCatalogue = "StoryCatalogue";
+    let StickerClass = "Stickers";
     let _story = {};
     let _storyCatalogue = [];
 
