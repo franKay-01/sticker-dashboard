@@ -1469,6 +1469,7 @@ app.get('/story_collection', function (req, res) {
     if (token) {
 
         let _user = {};
+        let art = {};
         let _story = [];
         let _allPack =[];
         let artWork = [];
@@ -1494,7 +1495,8 @@ app.get('/story_collection', function (req, res) {
 
             _.each(artworks, function (artworks) {
 
-                let art = new Parse.Query(StickerClass).equalTo("objectId", artworks.get("sticker")).first();
+                art = new Parse.Query(StickerClass).equalTo("objectId", artworks.get("sticker")).first();
+                console.log("ART " + JSON.stringify(art));
                 artWork.push({artwork: artWork, image: art.get("uri").url()});
 
             });
