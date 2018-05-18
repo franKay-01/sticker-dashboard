@@ -1102,6 +1102,10 @@ app.get('/story_of_day', function (req, res) {
 
     let token = req.cookies.token;
     let arts = [];
+    let _stories = [];
+    let artWork = [];
+    let _allArtwork = [];
+    let combined = [];
     if (token) {
 
         getUser(token).then(function (sessionToken) {
@@ -1110,16 +1114,40 @@ app.get('/story_of_day', function (req, res) {
                 new Parse.Query(StoryClass).find(),
                 new Parse.Query(ArtWorkClass).find()
             )
-        }).then(function (stories, artwork) {
+        }).then(function (stories, artworks) {
 
-            _.each(artwork, function (artworks) {
+            _stories = stories;
+            _allArtwork = artworks;
 
-            })
+            _.each(artworks, function (artwork) {
+
+                artWork.push(artwork.get("sticker"));
+
+            });
+
+            return new Parse.Query(StickerClass).containedIn("objectId", artWork).find();
+
+        }).then(function (stickers) {
+
+            _.each(_allArtwork, function (artworks) {
+
+                _.each(stickers, function (sticker) {
+
+                    if (artworks.get("sticker") === sticker.id){
+
+                        combined.push({
+
+                            story: artworks.get("object_id"),
+                            image: sticker.get("uri").url()
+                        });
+                    }
+                })
+            });
 
             res.render("pages/story_of_day", {
 
-                stories: stories,
-                artwork: artwork
+                stories: _stories,
+                artworks: combined
 
             });
 
@@ -1489,7 +1517,6 @@ app.get('/story_collection', function (req, res) {
 
         }).then(function (story, allPack, artworks) {
 
-            console.log("HERE");
             _story = story;
             _allPack = allPack;
             _allArtwork = artworks;
@@ -1504,8 +1531,6 @@ app.get('/story_collection', function (req, res) {
 
         }).then(function (stickers) {
 
-            console.log("STICKERS " + JSON.stringify(stickers));
-
             _.each(_allArtwork, function (artworks) {
                 
                 _.each(stickers, function (sticker) {
@@ -1519,8 +1544,6 @@ app.get('/story_collection', function (req, res) {
                     }
                 })
             });
-
-            console.log("ARRAY " + JSON.stringify(combined));
 
             res.render("pages/story_collection", {
                 story: _story,
