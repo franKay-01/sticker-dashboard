@@ -1778,6 +1778,7 @@ app.get('/home', function (req, res) {
         let _allAds = [];
         let _categories = [];
         let _messages = [];
+        let sticker_id;
         let _latestSticker;
         let _storyImage;
         let _storyBody;
@@ -1837,9 +1838,13 @@ app.get('/home', function (req, res) {
             _latestSticker = latestSticker.get("uri");
             _latestSticker['stickerName'] = latestSticker.get("stickerName");
 
-            _storyImage = storyImage.get("sticker").url();
-
             _storyBody = storyBody;
+
+            sticker_id = storyImage.get("sticker");
+
+            return new Parse.Query(StickerClass).equalTo("objectId", sticker_id).first();
+
+        }).then(function (sticker) {
 
             if (_user.get("type") === NORMAL_USER) {
 
@@ -1866,7 +1871,7 @@ app.get('/home', function (req, res) {
                     allPacks: _allPacks,
                     story: _story,
                     latestSticker: _latestSticker,
-                    latestStory: _storyImage,
+                    latestStory: sticker,
                     storyBody: _storyBody,
                     stickerName: _stickerName,
                     messages: _messages,
@@ -1881,7 +1886,6 @@ app.get('/home', function (req, res) {
                 });
 
             }
-
 
         }, function (error) {
 
