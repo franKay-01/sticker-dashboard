@@ -311,7 +311,7 @@
             <!--</center>-->
             <a class="_stickers_packs" href="/story_of_day">
                 <center>
-                    <img src="<%= latestStory %>" width="200px" height="200px">
+                    <img src="<%= latestStory.get("uri").url() %>" width="200px" height="200px">
                 </center>
                 <div>
                     <div class="story_title truncate_story_title"><%= storyBody.get("title") %></div>
