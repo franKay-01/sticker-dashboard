@@ -22,7 +22,22 @@
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
+    <script>
 
+        function addcolor() {
+            let color_1 = document.getElementById("color_value").value;
+            let color_2 = document.getElementById("color_value_1").value;
+
+            var c = document.getElementById("preview");
+            var ctx = c.getContext("2d");
+            var my_gradient = ctx.createLinearGradient(0, 0, 0, 170);
+            my_gradient.addColorStop(0, color_1);
+            my_gradient.addColorStop(1, color_2);
+            ctx.fillStyle = my_gradient;
+            ctx.fillRect(20, 20, 150, 100);
+        }
+
+    </script>
 </head>
 
 <body class="primary-background-color">
@@ -54,30 +69,31 @@
 
             </div>
         </div>
-        <form class="medium-3 large-3 cell icons" id="story_color" action="/set_story_color/<%= story.id %>" method="post">
+        <form class="medium-3 large-3 cell icons" id="story_color" action="/set_story_color/<%= story.id %>"
+              method="post">
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
             <div class="create_new">First Color</div>
 
             <div style="margin:0px 15px auto;">
-                <%if (color){%>
-                <input name="color1" type="hidden" id="color_value" value="<%= story.get("color")[0] %>">
+                <% if (color){ %>
+                <input name="color1" type="hidden" onchange="addcolor()" id="color_value" value="<%= story.get("color")[0] %>">
                 <button id="color_button" class="jscolor {valueElement: 'color_value'}"></button>
 
-                <%} else {%>
-                <input name="color1" type="hidden" id="color_value" value="99cc00">
+                <% } else { %>
+                <input name="color1" type="hidden" onchange="addcolor()" id="color_value" value="99cc00">
                 <button id="color_button" class="jscolor {valueElement: 'color_value'}"></button>
-                <%}%>
+                <% } %>
             </div>
             <div class="create_new">Second Color</div>
 
             <div style=" margin:0px 15px auto;">
-                <%if (color){%>
+                <% if (color){ %>
                 <input name="color2" type="hidden" id="color_value_1" value="<%= story.get("color")[1] %>">
                 <button id="color_button" class="jscolor {valueElement: 'color_value_1'}"></button>
-                <%} else {%>
+                <% } else { %>
                 <input name="color2" type="hidden" id="color_value_1" value="99cc00">
                 <button id="color_button" class="jscolor {valueElement: 'color_value_1'}"></button>
-                <%}%>
+                <% } %>
 
             </div>
 
@@ -86,6 +102,9 @@
             </button>
 
         </form>
+        <div class="medium-3 large-3 cell icons" id="preview">
+
+        </div>
 
         <%- include('../partials/footer') %>
 
