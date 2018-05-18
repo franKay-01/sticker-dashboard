@@ -1500,7 +1500,7 @@ app.get('/story_collection', function (req, res) {
 
             });
 
-           return new Parse.Query(StickerClass).containedIn("objectId", artWork);
+           return new Parse.Query(StickerClass).containedIn("objectId", artWork).find();
 
         }).then(function (stickers) {
 
