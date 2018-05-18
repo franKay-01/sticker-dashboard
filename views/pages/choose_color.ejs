@@ -27,6 +27,10 @@
         function addcolor() {
             let color_1 = document.getElementById("color_value").value;
             let color_2 = document.getElementById("color_value_1").value;
+            let hash = "#";
+
+            color_1 = hash.concat(color_1);
+            color_2 = hash.concat(color_2);
 
             var c = document.getElementById("preview");
             var ctx = c.getContext("2d");
@@ -76,7 +80,8 @@
 
             <div style="margin:0px 15px auto;">
                 <% if (color){ %>
-                <input name="color1" type="hidden" onchange="addcolor()" id="color_value" value="<%= story.get("color")[0] %>">
+                <input name="color1" type="hidden" onchange="addcolor()" id="color_value"
+                       value="<%= story.get("color")[0] %>">
                 <button id="color_button" class="jscolor {valueElement: 'color_value'}"></button>
 
                 <% } else { %>
