@@ -1101,7 +1101,7 @@ app.get('/sticker_of_day', function (req, res) {
 app.get('/story_of_day', function (req, res) {
 
     let token = req.cookies.token;
-
+    let arts = [];
     if (token) {
 
         getUser(token).then(function (sessionToken) {
@@ -1111,6 +1111,10 @@ app.get('/story_of_day', function (req, res) {
                 new Parse.Query(ArtWorkClass).find()
             )
         }).then(function (stories, artwork) {
+
+            _.each(artwork, function (artworks) {
+
+            })
 
             res.render("pages/story_of_day", {
 
@@ -1494,13 +1498,13 @@ app.get('/story_collection', function (req, res) {
 
             });
 
-            return artWork;
+            return true;
 
-        }).then(function (_artwork) {
+        }).then(function () {
             res.render("pages/story_collection", {
                 story: _story,
                 allPacks: _allPack,
-                arts: _artwork,
+                arts: artWork,
                 _allArtwork: _allArtwork
             })
         }, function (error) {

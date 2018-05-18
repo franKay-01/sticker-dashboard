@@ -4,7 +4,7 @@
 
 <% _allArtwork.forEach(function (art, index) { %>
 
-<% if (_allArtwork.get("object_id") === item.id){%>
+<% if (art.get("object_id") === item.id){%>
 <div class="medium-3 large-3 cell icons">
     <a href="/story_details/<%= item.id %>">
 
