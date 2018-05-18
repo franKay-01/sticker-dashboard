@@ -1517,7 +1517,9 @@ app.get('/story_collection', function (req, res) {
                     }
                 })
             });
-            
+
+            console.log("ARRAY " + JSON.stringify(combined));
+
             res.render("pages/story_collection", {
                 story: _story,
                 allPacks: _allPack,
