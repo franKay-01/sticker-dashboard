@@ -1485,13 +1485,14 @@ app.get('/story_collection', function (req, res) {
             );
 
 
-        }).then(function (story, allPack, artwork) {
+        }).then(function (story, allPack, artworks) {
 
+            console.log("HERE");
             _story = story;
             _allPack = allPack;
-            _allArtwork = artwork;
+            _allArtwork = artworks;
 
-            _.each(artwork, function (artworks) {
+            _.each(artworks, function (artworks) {
 
                 let art = new Parse.Query(StickerClass).equalTo("objectId", artworks.get("sticker")).first();
                 artWork.push({artwork: artWork, image: art.get("uri").url()});
