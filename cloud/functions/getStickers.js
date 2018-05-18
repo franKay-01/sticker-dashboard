@@ -70,7 +70,6 @@ Parse.Cloud.define("getStory", function (req, res) {
 
         if (_story && sticker && _storyCatalogue) {
 
-
             data.story = _story;
             data.sticker = sticker;
 
