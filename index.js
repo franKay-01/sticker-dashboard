@@ -1474,6 +1474,7 @@ app.get('/story_collection', function (req, res) {
         let _allPack =[];
         let artWork = [];
         let _allArtwork = [];
+        let combined = [];
 
         getUser(token).then(function (sessionToken) {
 
@@ -1493,22 +1494,35 @@ app.get('/story_collection', function (req, res) {
             _allPack = allPack;
             _allArtwork = artworks;
 
-            _.each(artworks, function (artworks) {
+            _.each(artworks, function (artwork) {
 
-                art = new Parse.Query(StickerClass).equalTo("objectId", artworks.get("sticker")).first();
                 console.log("ART " + JSON.stringify(art));
-                artWork.push({artwork: artWork, image: art.get("uri").url()});
+                artWork.push(artwork.get("sticker"));
 
             });
 
-            console.log("ARRAY SIZE  " + artWork.length);
-            return true;
+           return Parse.Query(StickerClass).containedIn("objectId", artWork);
 
-        }).then(function () {
+        }).then(function (stickers) {
+            
+            _.each(_allArtwork, function (artworks) {
+                
+                _.each(stickers, function (sticker) {
+
+                    if (artworks.get("sticker") === sticker.id){
+
+                        combined.push({
+                            story: artworks.get("object_id"),
+                            image: sticker.get("uri").url()
+                        });
+                    }
+                })
+            });
+            
             res.render("pages/story_collection", {
                 story: _story,
                 allPacks: _allPack,
-                arts: artWork
+                arts: combined
             })
         }, function (error) {
 
