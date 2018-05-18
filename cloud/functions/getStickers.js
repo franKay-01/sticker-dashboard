@@ -48,6 +48,8 @@ Parse.Cloud.define("getStory", function (req, res) {
     let StoryClass = "Stories";
     let ArtWorkClass = "ArtWork";
     let StoryCatalogue = "StoryCatalogue";
+    let _story = {};
+    let _storyCatalogue = [];
 
     let storyId = req.params.storyId;
     let data = {};
@@ -58,15 +60,22 @@ Parse.Cloud.define("getStory", function (req, res) {
         new Parse.Query(StoryCatalogue).equalTo("story_id", storyId).find()
     ).then(function (story, sticker, storyCatalogue) {
 
-        if (story && sticker && storyCatalogue) {
+        _story = story;
+        _storyCatalogue = storyCatalogue;
+
+        return new Parse.Query(StickerClass).equalTo("objectId", sticker.get("sticker")).first();
+
+    }).then(function (sticker) {
+
+        if (_story && sticker && _storyCatalogue) {
 
 
-            data.story = story;
+            data.story = _story;
             data.sticker = sticker;
 
             data.stories = [];
-            if (storyCatalogue.length) {
-                data.stories = storyCatalogue;
+            if (_storyCatalogue.length) {
+                data.stories = _storyCatalogue;
             }
 
             res.success(util.setResponseOk(data));
