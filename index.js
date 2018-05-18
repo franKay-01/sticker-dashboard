@@ -1496,12 +1496,11 @@ app.get('/story_collection', function (req, res) {
 
             _.each(artworks, function (artwork) {
 
-                console.log("ART " + JSON.stringify(art));
                 artWork.push(artwork.get("sticker"));
 
             });
 
-           return Parse.Query(StickerClass).containedIn("objectId", artWork);
+           return new Parse.Query(StickerClass).containedIn("objectId", artWork);
 
         }).then(function (stickers) {
             
