@@ -1494,7 +1494,7 @@ app.get('/story_collection', function (req, res) {
             _.each(artwork, function (artworks) {
 
                 let art = new Parse.Query(StickerClass).equalTo("objectId", artworks.get("sticker")).first();
-                artWork.push(art);
+                artWork.push({artwork: artWork, image: art.get("uri").url()});
 
             });
 
@@ -1504,8 +1504,7 @@ app.get('/story_collection', function (req, res) {
             res.render("pages/story_collection", {
                 story: _story,
                 allPacks: _allPack,
-                arts: artWork,
-                _allArtwork: _allArtwork
+                arts: artWork
             })
         }, function (error) {
 
