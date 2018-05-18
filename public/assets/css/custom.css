@@ -675,6 +675,13 @@ label {
     margin-bottom: 15px !important;
 }
 
+.check_color{
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 90px !important;
+    margin-left: 20px;
+}
+
 .create_button {
     width: 230px;
     border-radius: 10.8px;
