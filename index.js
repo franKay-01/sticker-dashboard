@@ -1498,6 +1498,7 @@ app.get('/story_collection', function (req, res) {
 
             });
 
+            console.log("ARRAY SIZE  " + artWork.length);
             return true;
 
         }).then(function () {
