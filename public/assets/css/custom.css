@@ -1812,7 +1812,7 @@ fieldset {
     border-width: 5px;
     border: hidden;
     height: 400px;
-    box-shadow: rgb(197, 197, 197) 0 0 40px;
+    box-shadow: 0 0 20px 0 rgb(249, 243, 243), 0 7px 23px 0 rgb(148, 142, 142);;
 }
 
 .drop_profile {
