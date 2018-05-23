@@ -1950,7 +1950,7 @@ app.get('/home', function (req, res) {
                 storyLength: _storyLength,
                 user_name: _user.get("name"),
                 verified: _user.get("emailVerified"),
-                error_message: error.message
+                error_message: "null"
             });
         });
 
