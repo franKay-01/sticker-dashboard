@@ -3149,7 +3149,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
             //         pack_id: pack_
             //     });
             // } else {
-            res.render("pages/details", {
+            res.render("pages/sticker_details", {
                 sticker: stickerDetail,
                 selected: selectedCategories,
                 categories: allCategories,
