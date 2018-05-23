@@ -2727,7 +2727,7 @@ app.get('/pack_collection', function (req, res) {
 app.get('/pack/:id', function (req, res) {
 
     let token = req.cookies.token;
-    let coll_id = req.params.id;
+    let pack_id = req.params.id;
 
     if (token) {
 
@@ -2742,7 +2742,7 @@ app.get('/pack/:id', function (req, res) {
             _user = sessionToken.get("user");
             type = _user.get("type");
 
-            let query = new Parse.Query(PacksClass).equalTo("objectId", coll_id);
+            let query = new Parse.Query(PacksClass).equalTo("objectId", pack_id);
 
             switch (type) {
                 case SUPER_USER:
@@ -2755,7 +2755,6 @@ app.get('/pack/:id', function (req, res) {
 
         }).then(function (pack) {
 
-            pack_name = pack.get("pack_name");
             pack_status = pack.get("status");
             pack_art = pack.get("art_work");
             pack_publish = pack.get("published");
@@ -2776,10 +2775,9 @@ app.get('/pack/:id', function (req, res) {
                 case SUPER_USER:
                     res.render("pages/admin_pack", {
                         stickers: stickers,
-                        id: coll_id,
+                        id: pack_id,
                         art: pack_art,
                         published: pack_publish,
-                        collectionName: pack_name,
                         userType: _user.get("type"),
                         status: pack_status
                     });
@@ -2788,10 +2786,9 @@ app.get('/pack/:id', function (req, res) {
                 case NORMAL_USER:
                     res.render("pages/new_pack", {
                         stickers: stickers,
-                        id: coll_id,
+                        id: pack_id,
                         art: pack_art,
                         published: pack_publish,
-                        collectionName: pack_name,
                         status: pack_status
                     });
                     break;
@@ -2836,16 +2833,19 @@ app.get('/edit_pack_details/:id', function (req, res) {
 });
 
 // Add Stickers Version 1
-app.get('/add_stickers/:id/:pack_name', function (req, res) {
+app.get('/add_stickers/:id', function (req, res) {
 
     var token = req.cookies.token;
-    var coll_id = req.params.id;
-    var col_name = req.params.pack_name;
+    var pack_id = req.params.id;
 
     if (token) {
         getUser(token).then(function (sessionToken) {
 
-            res.render("pages/add_sticker", {id: coll_id, coll_name: col_name});
+            return new Parse.Query(PacksClass).equalTo("objectId", pack_id).first();
+
+        }).then(function (pack) {
+
+            res.render("pages/add_sticker", {id: pack.id, pack_name: pack.get("pack_name")});
 
         }, function (error) {
             res.redirect("/");
@@ -3520,16 +3520,20 @@ app.post('/update/:id/:pid', function (req, res) {
     }
 });
 
-app.get('/upload_page/:id/:pack_name', function (req, res) {
+app.get('/upload_page/:id', function (req, res) {
 
     var token = req.cookies.token;
-    var coll_id = req.params.id;
-    var col_name = req.params.pack_name;
+    var pack_id = req.params.id;
 
     if (token) {
         getUser(token).then(function (sessionToken) {
 
-            res.render("pages/upload", {id: coll_id, coll_name: col_name});
+            return new Parse.Query(PacksClass).equalTo("objectId", pack_id).first();
+
+        }).then(function (pack) {
+
+            res.render("pages/upload", {id: pack_id, pack_name: pack.get("pack_name")});
+
 
         }, function (error) {
             res.redirect('/');
