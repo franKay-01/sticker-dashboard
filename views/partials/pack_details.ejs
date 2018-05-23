@@ -23,15 +23,14 @@
             <input type="hidden" id="imgChange" name="imgChange" value="false">
 
             <label class="update_label">Pack Decsription:</label>
-            <textarea class="box_2 validate" name="description" required="" aria-required="true" style="margin-bottom: 30px !important;">
-                <%= pack_details.get("pack_description") %>
+            <textarea class="box_2 validate" name="description" required="" aria-required="true" style="margin-bottom: 30px !important;"><%= pack_details.get("pack_description") %>
             </textarea><br>
             <label for="keyword" style="color: #a46580 !important;">Seperate Tags with comma (,)</label>
             <input type="text" class="box_2 validate" value="<%= pack_details.get("keyword") %>" placeholder="Smile,Angry,Sad" id="keyword"
                    name="keyword" style="margin-bottom: 30px !important;">
 
             <label class="update_label">Archive:</label>
-            <div style="margin-bottom: 10px">
+            <div style="margin-bottom: 20px">
                 <input name="archive" type="radio" id="archive1" value="1"/>
                 <label for="archive1" class="_label" style="color: #a46580 !important;">Yes</label>
 
@@ -40,12 +39,9 @@
 
             </div>
 
-            <% if (pack_details.get("art_work") === "undefined" || pack_details.get("art_work") === undefined){ %>
 
             <label class="update_label">Add Pack Artwork:</label>
             <input style="color: #a46580;" id="art" name="art" type="file"><br>
-
-            <% } %>
 
         </div>
         <div class="medium-12 large-12 cell">

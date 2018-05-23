@@ -2898,7 +2898,6 @@ app.post('/new_pack', function (req, res) {
     var pricing = parseInt(req.body.pricing);
     var version = parseInt(req.body.version);
 
-    console.log("PACK NAME " + coll_name + " DESCRIPTION " + pack_description);
     if (token) {
 
         let _user = {};
@@ -2919,13 +2918,6 @@ app.post('/new_pack', function (req, res) {
             pack.set("archive", false);
             pack.set("flag", false);
             pack.set("published", false);
-
-            let ACL = new Parse.ACL();
-            ACL.setReadAccess(_user.id, true);
-            ACL.setWriteAccess(_user.id, true);
-            ACL.setPublicReadAccess(true);
-
-            pack.setACL(ACL);
 
             return pack.save();
 

@@ -707,6 +707,7 @@ label {
     letter-spacing: -2.1px;
     text-align: left;
     color: #a46580;
+    background-color: transparent !important;
 }
 
 .update {
@@ -1928,13 +1929,13 @@ fieldset {
 
 .clear {
     height: 43px;
-
     font-size: 35px;
     font-weight: 300;
     letter-spacing: -2.1px;
     text-align: left;
     color: #35302f;
-    margin-right: 25px
+    margin-right: 25px;
+    background-color: transparent !important;
 }
 
 .text_size {
