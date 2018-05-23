@@ -2151,7 +2151,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
             new Parse.Query(PacksClass).equalTo("objectId", collectionId).first({sessionToken: token}).then(function (collection) {
 
-                console.log("INSIDE COLLECTION");
                 stickerCollection = collection;
 
                 files.forEach(function (file) {
@@ -2172,7 +2171,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     sticker.set("parent", collection);
                     sticker.set("flag", false);
                     sticker.set("archive", false);
-                    sticker.set("sold", true);
+                    sticker.set("sold", false);
                     // sticker.setACL(setPermission(_user, false));
 
                     stickerDetails.push(sticker);
