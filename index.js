@@ -2758,6 +2758,7 @@ app.get('/pack/:id', function (req, res) {
             pack_status = pack.get("status");
             pack_art = pack.get("art_work");
             pack_publish = pack.get("published");
+            pack_name = pack.get("pack_name");
 
             let col = pack.relation(PacksClass);
 
@@ -2778,6 +2779,7 @@ app.get('/pack/:id', function (req, res) {
                         id: pack_id,
                         art: pack_art,
                         published: pack_publish,
+                        pack_name:pack_name,
                         userType: _user.get("type"),
                         status: pack_status
                     });
@@ -2787,6 +2789,7 @@ app.get('/pack/:id', function (req, res) {
                     res.render("pages/new_pack", {
                         stickers: stickers,
                         id: pack_id,
+                        pack_name:pack_name,
                         art: pack_art,
                         published: pack_publish,
                         status: pack_status
