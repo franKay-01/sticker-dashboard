@@ -42,7 +42,7 @@ let PacksClass = "Packs";
 let ReviewClass = "Reviews";
 let StoryClass = "Stories";
 let MainStoryClass = "StoryBody";
-let StoryCatalogue = "StoryCatalogue";
+let StoryItem = "StoryItem";
 let ArtWorkClass = "ArtWork";
 let MessageClass = "Contact";
 let AdvertClass = "Advert";
@@ -1262,7 +1262,7 @@ app.post('/add_catalogue_artwork/:id', function (req, res) {
     if (token) {
 
         getUser(token).then(function (sessionToken) {
-            let Story = new Parse.Object.extend(StoryCatalogue);
+            let Story = new Parse.Object.extend(StoryItem);
             let catalogue = new Story();
 
             catalogue.set("content", sticker_id);
@@ -1671,7 +1671,7 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
         }).then(function (artwork) {
 
             console.log("ARTWORK " + artwork.id);
-            let Story = new Parse.Object.extend(StoryCatalogue);
+            let Story = new Parse.Object.extend(StoryItem);
             let catalogue = new Story();
 
             catalogue.set("type", type.CATALOGUE.image);
@@ -1704,7 +1704,7 @@ app.post('/new_catalogue/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            let Story = new Parse.Object.extend(StoryCatalogue);
+            let Story = new Parse.Object.extend(StoryItem);
             let catalogue = new Story();
 
             switch (_type) {
