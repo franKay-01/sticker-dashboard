@@ -1,6 +1,7 @@
 //used to retrieve all stickers
 require("./functions/getStickers");
 require("./functions/messages");
+require("./functions/api.v1");
 
 
 let StickerClass = "Stickers";
