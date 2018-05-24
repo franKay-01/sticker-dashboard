@@ -23,10 +23,23 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
         }).then(function (stickerList) {
 
-            let stickerObjects = [];
-            _.map(stickerList,function(stickers){
-                if(stickers.length !== 0){
-                stickerObjects.push(stickers)
+            /*
+            preview:[url],
+            stickers[{}]
+            name:
+            description
+            sold:bool
+            * */
+            let PackList = [];
+            _.map(stickerList, function (stickers) {
+                if (stickers.length !== 0) {
+
+                    _.map(stickers, sticker => {
+                        console.log("sticker parent");
+                        console.log(JSON.stringify(sticker.get("parent")));
+                    });
+
+                    stickerObjects.push(stickers)
                 }
             });
 
