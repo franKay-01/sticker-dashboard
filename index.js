@@ -3593,6 +3593,9 @@ app.post('/upload_dropbox_file', function (req, res) {
                             sticker.set("user_id", _user.id);
                             sticker.set("uri", parseFile);
                             sticker.set("parent", pack);
+                            sticker.set("flag", false);
+                            sticker.set("archive", false);
+                            sticker.set("sold", false);
 
                             return sticker.save();
 
