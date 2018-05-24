@@ -381,10 +381,7 @@ app.post('/signup', function (req, res) {
                 let Link = new Parse.Object.extend(Links);
                 let link = new Link();
 
-                link.set("user_id", user.id);
-                link.set("facebook", "");
-                link.set("twitter", "");
-                link.set("instagram", "");
+                link.set("object_id", user.id);
 
                 link.save().then(function () {
                     res.redirect('/');
@@ -3200,6 +3197,8 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
     var file = req.file;
     let profile_info = [];
 
+    console.log("FILE " + JSON.stringify(file));
+
     if (token) {
 
         let _user = {};
@@ -3211,6 +3210,8 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
             return new Parse.Query(Profile).equalTo("user_id", _user.id).first();
 
         }).then(function (profile) {
+
+            console.log("PROFILE " + JSON.stringify(profile));
 
             if (file) {
                 file.forEach(function (file) {
