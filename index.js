@@ -3185,7 +3185,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
     }
 });
 
-app.post('/update_user', upload.single('im1'), function (req, res) {
+app.post('/update_user', upload.array('im1'), function (req, res) {
 
     var token = req.cookies.token;
     let email = req.body.email;
