@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard - G-Stickers</title>
+    <title>Dropbox Upload - G-Stickers</title>
 
     <% include ../partials/fav.ejs %>
 
@@ -41,7 +41,7 @@
     <div class="grid-x grid-margin-x">
         <div class="medium-12 large-12 cell">
             <!-- Form to add stickers from dropbox -->
-            <form action="/upload_dropbox_file" method="post" id="detailsForm">
+            <form action="/upload_dropbox_file" method="post">
                 <div class="wrapper">
                     <div class="drop">
                         <img src="/public/assets/images/dropbox.png" class="image_upload" onclick="dropbox()">
@@ -54,7 +54,7 @@
                 <input type="text" style="display: none" name="fileUrl" id="fileUrl">
                 <input type="text" style="display: none;" name="fileName" id="fileName">
                 <input type="text" style="display: none;" name="file" id="fileType">
-                <input type="hidden" name="coll_id" style="display: none" value="<%= id %>"/>
+                <input type="hidden" name="pack_id" style="display: none" value="<%= id %>"/>
                 <center>
       <span>
         <button type="button" class="upload" id="btnClearAddForm"><a href="/pack/<%= id %>" class="clear">Cancel</a></button>

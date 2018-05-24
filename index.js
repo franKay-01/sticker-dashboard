@@ -369,6 +369,7 @@ app.post('/signup', function (req, res) {
 
             profile.set("user_id", user.id);
             profile.set("email", username);
+            profile.set("gender", )
 
             profile.save().then(function () {
                 res.redirect("/");
@@ -1133,7 +1134,7 @@ app.get('/story_of_day', function (req, res) {
 
                 _.each(stickers, function (sticker) {
 
-                    if (artworks.get("sticker") === sticker.id){
+                    if (artworks.get("sticker") === sticker.id) {
 
                         combined.push({
 
@@ -1499,7 +1500,7 @@ app.get('/story_collection', function (req, res) {
         let _user = {};
         let art = {};
         let _story = [];
-        let _allPack =[];
+        let _allPack = [];
         let artWork = [];
         let _allArtwork = [];
         let combined = [];
@@ -1527,15 +1528,15 @@ app.get('/story_collection', function (req, res) {
 
             });
 
-           return new Parse.Query(StickerClass).containedIn("objectId", artWork).find();
+            return new Parse.Query(StickerClass).containedIn("objectId", artWork).find();
 
         }).then(function (stickers) {
 
             _.each(_allArtwork, function (artworks) {
-                
+
                 _.each(stickers, function (sticker) {
 
-                    if (artworks.get("sticker") === sticker.id){
+                    if (artworks.get("sticker") === sticker.id) {
 
                         combined.push({
                             story: artworks.get("object_id"),
@@ -2135,7 +2136,7 @@ app.get('/get_barcodes', function (req, res) {
 app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
     let token = req.cookies.token;
-    let collectionId = req.body.pack_id;
+    let pack_id = req.body.pack_id;
     let files = req.files;
     let fileDetails = [];
     let stickerDetails = [];
@@ -2149,7 +2150,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
             _user = sessionToken.get("user");
 
-            new Parse.Query(PacksClass).equalTo("objectId", collectionId).first({sessionToken: token}).then(function (collection) {
+            new Parse.Query(PacksClass).equalTo("objectId", pack_id).first({sessionToken: token}).then(function (collection) {
 
                 stickerCollection = collection;
 
@@ -2232,7 +2233,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     }
                 });
                 console.log("REDIRECT TO PACK COLLECTION");
-                res.redirect("/pack/" + collectionId);
+                res.redirect("/pack/" + pack_id);
 
             })
 
@@ -2525,13 +2526,13 @@ app.get('/review/:id', function (req, res) {
                 },
                 error: function (error) {
                     console.log("ERROR " + error.message);
-                    res.redirect('/pack_collection');
+                    res.redirect('/packs');
                 }
 
             });
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/pack_collection');
+            res.redirect('/packs');
         });
     } else {
         res.redirect('/');
@@ -2693,7 +2694,7 @@ app.get('/logout', function (req, res) {
 });
 
 // Collection Dashboard
-app.get('/pack_collection', function (req, res) {
+app.get('/packs', function (req, res) {
 
     var token = req.cookies.token;
 
@@ -2706,7 +2707,7 @@ app.get('/pack_collection', function (req, res) {
             let query = new Parse.Query(PacksClass);
             query.equalTo("user_id", _user.id).find({sessionToken: token}).then(function (collections) {
 
-                res.render("pages/pack_collection", {collections: collections});
+                res.render("pages/packs", {collections: collections});
 
             });
 
@@ -2779,7 +2780,7 @@ app.get('/pack/:id', function (req, res) {
                         id: pack_id,
                         art: pack_art,
                         published: pack_publish,
-                        pack_name:pack_name,
+                        pack_name: pack_name,
                         userType: _user.get("type"),
                         status: pack_status
                     });
@@ -2789,7 +2790,7 @@ app.get('/pack/:id', function (req, res) {
                     res.render("pages/new_pack", {
                         stickers: stickers,
                         id: pack_id,
-                        pack_name:pack_name,
+                        pack_name: pack_name,
                         art: pack_art,
                         published: pack_publish,
                         status: pack_status
@@ -3553,8 +3554,8 @@ app.post('/upload_dropbox_file', function (req, res) {
     var name;
     var fileUrl;
     var token = req.cookies.token;
-    var coll_id = req.body.coll_id;
-    var stickerCollection;
+    var pack_id = req.body.pack_id;
+    var stickerPack;
 
     name = req.body.fileName;
     fileUrl = req.body.fileUrl; // receive url from form
@@ -3574,36 +3575,37 @@ app.post('/upload_dropbox_file', function (req, res) {
 
             download.image(options)
                 .then(({filename, image}) => {
-                    console.log('FILE SAVED TO ', filename);
+
                     bitmap = fs.readFileSync(filename, {encoding: 'base64'});
 
-                    var collection = new Parse.Query(PacksClass);
-                    collection.equalTo("objectId", coll_id)
+                    var pack = new Parse.Query(PacksClass);
+                    pack.equalTo("objectId", pack_id)
                         .first({sessionToken: token})
-                        .then(function (collection) {
-                            console.log("BITMAP PASSED BY FILE " + bitmap);
-                            console.log("NAME " + name + " collection " + JSON.stringify(collection));
-                            stickerCollection = collection;
-                            var parseFile = new Parse.File(name, {base64: bitmap});
-                            console.log("PARSEFILE " + JSON.stringify(parseFile) + " name " + name + " collection " + JSON.stringify(collection));
+                        .then(function (pack) {
 
+                            stickerPack = pack;
+
+                            var parseFile = new Parse.File(name, {base64: bitmap});
                             var Sticker = new Parse.Object.extend(StickerClass);
                             var sticker = new Sticker();
+
                             sticker.set("stickerName", name);
                             sticker.set("localName", name);
                             sticker.set("user_id", _user.id);
                             sticker.set("uri", parseFile);
-                            sticker.set("parent", collection);
-
-                            console.log("LOG BEFORE SAVING STICKER");
+                            sticker.set("parent", pack);
+                            sticker.set("flag", false);
+                            sticker.set("archive", false);
+                            sticker.set("sold", false);
 
                             return sticker.save();
 
                         }).then(function (sticker) {
-                        console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
-                        var collection_relation = stickerCollection.relation(PacksClass);
-                        collection_relation.add(sticker);
-                        console.log("LOG BEFORE SAVING STICKER COLLECTION");
+
+                        var pack_relation = stickerPack.relation(PacksClass);
+
+                        pack_relation.add(sticker);
+
                         fs.unlink(filename, function (err) {
                             if (err) {
                                 //TODO handle error code
@@ -3611,28 +3613,28 @@ app.post('/upload_dropbox_file', function (req, res) {
                             }
                         });
 
-                        return stickerCollection.save();
+                        return stickerPack.save();
 
                     }).then(function () {
 
                         console.log("REDIRECT TO DASHBOARD");
-                        res.redirect("/pack/" + coll_id);
+                        res.redirect("/pack/" + pack_id);
 
                     }, function (error) {
                         console.log("BIG BIG ERROR" + error.message);
-                        res.redirect("/pack/" + coll_id);
+                        res.redirect("/pack/" + pack_id);
                     });
                 }).catch((err) => {
                 throw err;
             });
         }, function (error) {
             console.log("SESSION INVALID " + error.message);
-            res.redirect("/pack/" + coll_id);
+            res.redirect("/pack/" + pack_id);
         });
 
     } else {
 
-        res.redirect("/pack/" + coll_id);
+        res.redirect("/pack/" + pack_id);
 
     }
 
