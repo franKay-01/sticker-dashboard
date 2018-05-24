@@ -21,10 +21,10 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
             //  return stickers.query().find({useMasterKey: true});
 
-        }).then(function () {
+        }).then(function (stickerList) {
 
             let stickerObjects = [];
-            _.map(arguments,function(stickers){
+            _.map(stickerList,function(stickers){
                 if(stickers.length !== 0){
                 stickerObjects.push(stickers)
                 }
