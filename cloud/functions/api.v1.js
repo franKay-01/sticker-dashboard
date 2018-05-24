@@ -17,9 +17,14 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
             //  return stickers.query().find({useMasterKey: true});
 
-        }).then(function (stickers) {
+        }).then(function () {
 
-            res.success(util.setResponseOk(stickers));
+            let stickerObjects = [];
+            _.map(arguments,function(stickers){
+                stickerObjects.push({stickers:stickers})
+            });
+
+            res.success(util.setResponseOk(stickerObjects));
 
         }, function (error) {
 
