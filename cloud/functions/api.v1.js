@@ -47,12 +47,23 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
                 _.map(stickerList, function (stickers) {
 
+                    console.log("Sticker List");
+
                     if (stickers.length !== 0) {
+
+                        console.log("Sticker Length");
                         //todo choose five stickers for preview
 
                         let _stickers = [];
                         _.map(stickers, sticker => {
+
+                            console.log("Stickers");
+                            console.log(stickers.length);
+
                             if (pack.id === sticker.get("parent").id) {
+
+                                console.log("Matches Parent");
+
                                 _stickers.push(sticker)
                             }
 
