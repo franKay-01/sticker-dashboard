@@ -3216,6 +3216,8 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
             if (file) {
                 file.forEach(function (file) {
 
+                    console.log("FILE INFO " + JSON.stringify(file));
+
                     let fullName = file.originalname;
 
                     let image_name = fullName.substring(0, fullName.length - 4);
