@@ -50,13 +50,20 @@ Parse.Cloud.define("getPacks", function (req, res) {
                     if (stickers.length !== 0) {
                         //todo choose five stickers for preview
 
-                        if (pack.id === stickers.get("parent").id) {
-                            packItem.stickers = [];
-                            packItem.stickers = stickers;
-                            stickerObjects.push(packItem);
-                            console.log("stickers");
-                            console.log(JSON.stringify(packItem));
-                        }
+                        let _stickers = [];
+                        _.map(stickers, sticker => {
+                            if (pack.id === sticker.get("parent").id) {
+                                _stickers.push(sticker)
+                            }
+
+                        });
+
+                        packItem.stickers = [];
+                        packItem.stickers = _stickers;
+                        stickerObjects.push(packItem);
+                        console.log("stickers");
+                        console.log(JSON.stringify(packItem));
+
                     }
                 });
             });
