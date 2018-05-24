@@ -25,12 +25,12 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
             let stickerObjects = [];
             _.map(arguments,function(stickers){
-                if(stickers.length){
+                if(stickers.length !== 0){
                 stickerObjects.push(stickers)
                 }
             });
 
-            res.success(util.setResponseOk(arguments));
+            res.success(util.setResponseOk(stickerObjects));
 
         }, function (error) {
 
