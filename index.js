@@ -369,6 +369,7 @@ app.post('/signup', function (req, res) {
 
             profile.set("user_id", user.id);
             profile.set("email", username);
+            profile.set("gender", )
 
             profile.save().then(function () {
                 res.redirect("/");
