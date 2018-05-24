@@ -6,8 +6,12 @@ let PacksClass = "Packs";
 
 Parse.Cloud.define("getPacks", function (req, res) {
 
+    let _packs = [];
+
     return new Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).find({useMasterKey: true})
         .then(function (packs) {
+
+            _packs = packs;
 
             let promises = _.map(packs, function (pack) {
                 return pack.relation(PacksClass).query().find({useMasterKey: true});
@@ -21,7 +25,9 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
             let stickerObjects = [];
             _.map(arguments,function(stickers){
-                stickerObjects.push({stickers:stickers})
+                if(stickers.length){
+                stickerObjects.push(stickers)
+                }
             });
 
             res.success(util.setResponseOk(stickerObjects));
