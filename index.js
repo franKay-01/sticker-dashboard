@@ -3194,10 +3194,8 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
     var twitter = req.body.twitter;
     var instagram = req.body.instagram;
     var imgChange = req.body.imgChange;
-    var file = req.files;
+    var image = req.files;
     let profile_info = [];
-
-    console.log("FILE " + JSON.stringify(file));
 
     if (token) {
 
@@ -3213,8 +3211,8 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
 
             console.log("PROFILE " + JSON.stringify(profile));
 
-            if (file) {
-                file.forEach(function (file) {
+            if (image) {
+                image.forEach(function (file) {
 
                     console.log("FILE INFO " + file.path);
 
