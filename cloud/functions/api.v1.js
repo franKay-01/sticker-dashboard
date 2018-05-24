@@ -30,7 +30,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
             description
             sold:bool
             * */
-            let PackList = [];
+            let stickerObjects = [];
             _.map(stickerList, function (stickers) {
                 if (stickers.length !== 0) {
 
