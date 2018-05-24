@@ -2135,7 +2135,7 @@ app.get('/get_barcodes', function (req, res) {
 app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
     let token = req.cookies.token;
-    let collectionId = req.body.pack_id;
+    let pack_id = req.body.pack_id;
     let files = req.files;
     let fileDetails = [];
     let stickerDetails = [];
@@ -2149,7 +2149,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
             _user = sessionToken.get("user");
 
-            new Parse.Query(PacksClass).equalTo("objectId", collectionId).first({sessionToken: token}).then(function (collection) {
+            new Parse.Query(PacksClass).equalTo("objectId", pack_id).first({sessionToken: token}).then(function (collection) {
 
                 stickerCollection = collection;
 
@@ -2232,7 +2232,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     }
                 });
                 console.log("REDIRECT TO PACK COLLECTION");
-                res.redirect("/pack/" + collectionId);
+                res.redirect("/pack/" + pack_id);
 
             })
 
@@ -3553,8 +3553,8 @@ app.post('/upload_dropbox_file', function (req, res) {
     var name;
     var fileUrl;
     var token = req.cookies.token;
-    var coll_id = req.body.coll_id;
-    var stickerCollection;
+    var pack_id = req.body.pack_id;
+    var stickerPack;
 
     name = req.body.fileName;
     fileUrl = req.body.fileUrl; // receive url from form
@@ -3574,36 +3574,34 @@ app.post('/upload_dropbox_file', function (req, res) {
 
             download.image(options)
                 .then(({filename, image}) => {
-                    console.log('FILE SAVED TO ', filename);
+
                     bitmap = fs.readFileSync(filename, {encoding: 'base64'});
 
-                    var collection = new Parse.Query(PacksClass);
-                    collection.equalTo("objectId", coll_id)
+                    var pack = new Parse.Query(PacksClass);
+                    pack.equalTo("objectId", pack_id)
                         .first({sessionToken: token})
-                        .then(function (collection) {
-                            console.log("BITMAP PASSED BY FILE " + bitmap);
-                            console.log("NAME " + name + " collection " + JSON.stringify(collection));
-                            stickerCollection = collection;
-                            var parseFile = new Parse.File(name, {base64: bitmap});
-                            console.log("PARSEFILE " + JSON.stringify(parseFile) + " name " + name + " collection " + JSON.stringify(collection));
+                        .then(function (pack) {
 
+                            stickerPack = pack;
+
+                            var parseFile = new Parse.File(name, {base64: bitmap});
                             var Sticker = new Parse.Object.extend(StickerClass);
                             var sticker = new Sticker();
+
                             sticker.set("stickerName", name);
                             sticker.set("localName", name);
                             sticker.set("user_id", _user.id);
                             sticker.set("uri", parseFile);
-                            sticker.set("parent", collection);
-
-                            console.log("LOG BEFORE SAVING STICKER");
+                            sticker.set("parent", pack);
 
                             return sticker.save();
 
                         }).then(function (sticker) {
-                        console.log("STICKER FROM PARSEFILE " + JSON.stringify(sticker));
-                        var collection_relation = stickerCollection.relation(PacksClass);
-                        collection_relation.add(sticker);
-                        console.log("LOG BEFORE SAVING STICKER COLLECTION");
+
+                        var pack_relation = stickerPack.relation(PacksClass);
+
+                        pack_relation.add(sticker);
+
                         fs.unlink(filename, function (err) {
                             if (err) {
                                 //TODO handle error code
@@ -3611,28 +3609,28 @@ app.post('/upload_dropbox_file', function (req, res) {
                             }
                         });
 
-                        return stickerCollection.save();
+                        return stickerPack.save();
 
                     }).then(function () {
 
                         console.log("REDIRECT TO DASHBOARD");
-                        res.redirect("/pack/" + coll_id);
+                        res.redirect("/pack/" + pack_id);
 
                     }, function (error) {
                         console.log("BIG BIG ERROR" + error.message);
-                        res.redirect("/pack/" + coll_id);
+                        res.redirect("/pack/" + pack_id);
                     });
                 }).catch((err) => {
                 throw err;
             });
         }, function (error) {
             console.log("SESSION INVALID " + error.message);
-            res.redirect("/pack/" + coll_id);
+            res.redirect("/pack/" + pack_id);
         });
 
     } else {
 
-        res.redirect("/pack/" + coll_id);
+        res.redirect("/pack/" + pack_id);
 
     }
 
