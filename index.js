@@ -1133,7 +1133,7 @@ app.get('/story_of_day', function (req, res) {
 
                 _.each(stickers, function (sticker) {
 
-                    if (artworks.get("sticker") === sticker.id){
+                    if (artworks.get("sticker") === sticker.id) {
 
                         combined.push({
 
@@ -1499,7 +1499,7 @@ app.get('/story_collection', function (req, res) {
         let _user = {};
         let art = {};
         let _story = [];
-        let _allPack =[];
+        let _allPack = [];
         let artWork = [];
         let _allArtwork = [];
         let combined = [];
@@ -1527,15 +1527,15 @@ app.get('/story_collection', function (req, res) {
 
             });
 
-           return new Parse.Query(StickerClass).containedIn("objectId", artWork).find();
+            return new Parse.Query(StickerClass).containedIn("objectId", artWork).find();
 
         }).then(function (stickers) {
 
             _.each(_allArtwork, function (artworks) {
-                
+
                 _.each(stickers, function (sticker) {
 
-                    if (artworks.get("sticker") === sticker.id){
+                    if (artworks.get("sticker") === sticker.id) {
 
                         combined.push({
                             story: artworks.get("object_id"),
@@ -2779,7 +2779,7 @@ app.get('/pack/:id', function (req, res) {
                         id: pack_id,
                         art: pack_art,
                         published: pack_publish,
-                        pack_name:pack_name,
+                        pack_name: pack_name,
                         userType: _user.get("type"),
                         status: pack_status
                     });
@@ -2789,7 +2789,7 @@ app.get('/pack/:id', function (req, res) {
                     res.render("pages/new_pack", {
                         stickers: stickers,
                         id: pack_id,
-                        pack_name:pack_name,
+                        pack_name: pack_name,
                         art: pack_art,
                         published: pack_publish,
                         status: pack_status
