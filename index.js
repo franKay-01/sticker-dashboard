@@ -370,7 +370,11 @@ app.post('/signup', function (req, res) {
 
             profile.set("user_id", user.id);
             profile.set("email", username);
-            profile.set("gender", gender);
+            if(gender !== "undefined" || gender !== undefined) {
+                profile.set("gender", gender);
+            }else {
+                profile.set("gender", "null");
+            }
 
             profile.save().then(function () {
 
@@ -3212,6 +3216,7 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
                 file.forEach(function (file) {
 
                     let fullName = file.originalname;
+                    console.log("FULLNAME " + fullName);
                     let image_name = fullName.substring(0, fullName.length - 4);
 
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
