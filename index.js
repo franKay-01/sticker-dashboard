@@ -3194,7 +3194,7 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
     var twitter = req.body.twitter;
     var instagram = req.body.instagram;
     var imgChange = req.body.imgChange;
-    var file = req.file;
+    var file = req.files;
     let profile_info = [];
 
     console.log("FILE " + JSON.stringify(file));
