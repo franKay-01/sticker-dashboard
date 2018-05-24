@@ -2525,13 +2525,13 @@ app.get('/review/:id', function (req, res) {
                 },
                 error: function (error) {
                     console.log("ERROR " + error.message);
-                    res.redirect('/pack_collection');
+                    res.redirect('/packs');
                 }
 
             });
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/pack_collection');
+            res.redirect('/packs');
         });
     } else {
         res.redirect('/');
@@ -2693,7 +2693,7 @@ app.get('/logout', function (req, res) {
 });
 
 // Collection Dashboard
-app.get('/pack_collection', function (req, res) {
+app.get('/packs', function (req, res) {
 
     var token = req.cookies.token;
 
@@ -2706,7 +2706,7 @@ app.get('/pack_collection', function (req, res) {
             let query = new Parse.Query(PacksClass);
             query.equalTo("user_id", _user.id).find({sessionToken: token}).then(function (collections) {
 
-                res.render("pages/pack_collection", {collections: collections});
+                res.render("pages/packs", {collections: collections});
 
             });
 
