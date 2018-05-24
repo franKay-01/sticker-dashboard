@@ -1,7 +1,7 @@
 <!-- Cards -->
 <form id="detailsForm" action="/update_user" enctype="multipart/form-data" method="post">
     <div class="grid-x grid-margin-x">
-        <% if (profile.get("image") === "undefined" || profile.get("image") === undefined) {%>
+        <% if (profile.get("uri") === "undefined" || profile.get("uri") === undefined) {%>
         <div class="medium-6 large-5 cell">
             <div class="drop" style="height: 200px">
                 <div class="cont">
@@ -19,7 +19,7 @@
         <div class="medium-6 large-5 cell">
             <div class="droppableArea">
                 <div class="output" name="tfile"></div>
-                <img class="user_profile" src="<%= profile %>">
+                <img class="user_profile" src="<%= profile.get("uri").url() %>">
             </div>
 
             <input type="text" value="true" name="imgChange" hidden>
