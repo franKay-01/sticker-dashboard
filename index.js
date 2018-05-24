@@ -353,6 +353,7 @@ app.post('/signup', function (req, res) {
     let name = req.body.name;
     let username = req.body.username;
     let password = req.body.password;
+    let gender = req.body.gender;
 
     let user = new Parse.User();
     user.set("name", name);
@@ -369,10 +370,22 @@ app.post('/signup', function (req, res) {
 
             profile.set("user_id", user.id);
             profile.set("email", username);
-            profile.set("gender", )
+            profile.set("gender", gender);
 
             profile.save().then(function () {
-                res.redirect("/");
+
+                let Link = new Parse.Object.extend(Links);
+                let link = new Link();
+
+                link.set("user_id", user.id);
+                link.set("facebook", "");
+                link.set("twitter", "");
+                link.set("instagram", "");
+
+                link.save().then(function () {
+                    res.redirect('/');
+                })
+
             });
 
 
@@ -3175,12 +3188,13 @@ app.get('/details/:id/:coll_id', function (req, res) {
 app.post('/update_user', upload.single('im1'), function (req, res) {
 
     var token = req.cookies.token;
-    var name = req.body.name;
+    let email = req.body.email;
     var facebook = req.body.facebook;
     var twitter = req.body.twitter;
     var instagram = req.body.instagram;
     var imgChange = req.body.imgChange;
     var file = req.file;
+    let profile_info = [];
 
     if (token) {
 
@@ -3190,35 +3204,69 @@ app.post('/update_user', upload.single('im1'), function (req, res) {
 
             _user = sessionToken.get("user");
 
-            new Parse.Query("User").equalTo("objectId", _user.id).first().then(function (user) {
-                var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-                var parseFile = new Parse.File(file.originalname, {base64: bitmap}, file.mimetype);
-                user.set("facebook_handle", facebook);
-                user.set("twitter_handle", twitter);
-                user.set("instagram_handle", instagram);
-                user.set("image", parseFile);
+            return new Parse.Query(Profile).equalTo("user_id", _user.id).first();
 
-                if (name !== _user.get("name")) {
-                    user.set("name", name);
-                }
+        }).then(function (profile) {
 
-                if (imgChange === 'true') {
-                    var _bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-                    var _parseFile = new Parse.File(file.originalname, {base64: _bitmap}, file.mimetype);
-                    user.set("image", _parseFile);
-                }
+            if (file) {
+                file.forEach(function (file) {
 
-                return user.save({sessionToken: token});
-            }).then(function (result) {
-                console.log("USER UPDATED CORRECTLY");
-                res.redirect('/');
+                    let fullName = file.originalname;
+                    let image_name = fullName.substring(0, fullName.length - 4);
 
+                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
-            }, function (error) {
-                console.log("USER WAS NOT UPDATED " + error.message);
-                res.redirect('/');
-            });
-        });
+                    //create our parse file
+                    let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
+
+                    profile.set("uri", parseFile);
+                    profile.set("email", email);
+                    // sticker.setACL(setPermission(_user, false));
+
+                    profile_info.push(profile);
+                });
+            } else {
+
+                profile.set("email", email);
+                return profile.save()
+
+            }
+
+            return Parse.Object.saveAll(profile_info);
+            
+        }).then(function (saved_profile) {
+
+            if (profile_info.length) {
+                _.each(profile_info, function (file) {
+                    //Delete tmp fil after upload
+                    let tempFile = file.path;
+                    fs.unlink(tempFile, function (err) {
+                        if (err) {
+                            //TODO handle error code
+                            console.log("-------Could not del temp" + JSON.stringify(err));
+                        }
+                        else {
+                            console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                        }
+                    });
+                });
+            }
+            return new Parse.Query(Links).equalTo("user_id", _user.id).first();
+
+        }).then(function (links) {
+
+            links.set("facebook", facebook);
+            links.set("twitter", twitter);
+            links.set("instagram", instagram);
+
+            return links.save();
+        }).then(function () {
+            res.redirect('/user_profile');
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/user_profile');
+        })
     } else {
         res.redirect('/');
     }
