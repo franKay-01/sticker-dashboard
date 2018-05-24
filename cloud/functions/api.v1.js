@@ -58,7 +58,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
                         _.map(stickers, sticker => {
 
                             console.log("Stickers");
-                            console.log(stickers.length);
+                            console.log(JSON.stringify(stickers));
 
                             if (pack.id === sticker.get("parent").id) {
 
