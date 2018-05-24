@@ -23,3 +23,9 @@ exports.STORY_ITEM = {
     sticker: 3,
     divider: 4
 };
+
+exports.PACK_TYPE = {
+    standard: 0,
+    themed: 1,
+    curated: 2
+};
