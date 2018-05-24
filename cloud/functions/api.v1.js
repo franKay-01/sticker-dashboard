@@ -30,23 +30,31 @@ Parse.Cloud.define("getPacks", function (req, res) {
             description
             sold:bool
             * */
+
             let stickerObjects = [];
-            _.map(stickerList, function (stickers) {
-                if (stickers.length !== 0) {
 
-                    _.map(_packs, pack => {
-                        console.log("pack id");
-                        console.log(pack.id);
-                    });
+            //todo check if pack is published
+            //todo check if pack has not been archived
+            _.map(_packs, pack => {
 
-                    _.map(stickers, sticker => {
-                        console.log("sticker parent id");
-                        console.log(sticker.get("parent").id);
-                    });
+                let packItem = {};
+                packItem.name = pack.get("pack_name");
+                packItem.description = pack.get("pack_description");
+                packItem.description = pack.get("art_work");
 
-                    stickerObjects.push(stickers)
-                }
+                _.map(stickerList, function (stickers) {
+
+                    if (stickers.length !== 0) {
+                        //todo choose five stickers for preview
+
+                        if (pack.id === stickers.get("parent").id)
+                            packItem.stickers = [];
+                        packItem.stickers = stickers;
+                        stickerObjects.push(packItem)
+                    }
+                });
             });
+
 
             res.success(util.setResponseOk(stickerObjects));
 
