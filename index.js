@@ -382,10 +382,7 @@ app.post('/signup', function (req, res) {
                 let Link = new Parse.Object.extend(Links);
                 let link = new Link();
 
-                link.set("user_id", user.id);
-                link.set("facebook", "");
-                link.set("twitter", "");
-                link.set("instagram", "");
+                link.set("object_id", user.id);
 
                 link.save().then(function () {
                     res.redirect('/');
@@ -3198,7 +3195,7 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
     var twitter = req.body.twitter;
     var instagram = req.body.instagram;
     var imgChange = req.body.imgChange;
-    var file = req.file;
+    var image = req.files;
     let profile_info = [];
 
     if (token) {
@@ -3213,11 +3210,15 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
 
         }).then(function (profile) {
 
-            if (file) {
-                file.forEach(function (file) {
+            console.log("PROFILE " + JSON.stringify(profile));
+
+            if (image) {
+                image.forEach(function (file) {
+
+                    console.log("FILE INFO " + file.path);
 
                     let fullName = file.originalname;
-                    console.log("FULLNAME " + fullName);
+
                     let image_name = fullName.substring(0, fullName.length - 4);
 
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
