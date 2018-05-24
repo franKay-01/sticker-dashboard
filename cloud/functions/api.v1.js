@@ -42,6 +42,9 @@ Parse.Cloud.define("getPacks", function (req, res) {
                 packItem.description = pack.get("pack_description");
                 packItem.artwork = pack.get("art_work").url();
 
+                console.log("packItem");
+                console.log(JSON.stringify(packItem));
+
                 _.map(stickerList, function (stickers) {
 
                     if (stickers.length !== 0) {
@@ -50,14 +53,16 @@ Parse.Cloud.define("getPacks", function (req, res) {
                         if (pack.id === stickers.get("parent").id) {
                             packItem.stickers = [];
                             packItem.stickers = stickers;
-                            stickerObjects.push(packItem)
+                            stickerObjects.push(packItem);
+                            console.log("stickers");
+                            console.log(JSON.stringify(packItem));
                         }
                     }
                 });
             });
 
 
-            res.success(util.setResponseOk(stickerObjects));
+            res.success(util.setResponseOk(""));
 
         }, function (error) {
 
