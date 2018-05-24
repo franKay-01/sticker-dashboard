@@ -7,6 +7,6 @@ let PacksClass = "Packs";
 
 Parse.Cloud.define("v1/getStickers", function (req, res) {
 
-
+    res.success(util.setResponseOk("sdfs"));
 
 });
