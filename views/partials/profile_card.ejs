@@ -1,13 +1,21 @@
 <!-- Cards -->
 <form id="detailsForm" action="/update_user" enctype="multipart/form-data" method="post">
     <div class="grid-x grid-margin-x">
-        <% if (profile.get("image") === "undefined" || profile.get("image") === undefined) { %>
+        <% if (profile.get("image") === "undefined" || profile.get("image") === undefined) {%>
         <div class="medium-6 large-5 cell">
+            <div class="drop" style="height: 200px">
+                <div class="cont">
+                    <i class="fa fa-cloud-upload"></i>
+                    <div class="tit">
+                        Drag & Drop || CLICK
+                    </div>
+                </div>
 
-            <input id="files" name="im1" type="file"/>
-
+                <output id="filesList"></output>
+                <input id="files" name="im1" type="file"/>
+            </div>
         </div>
-        <% } else { %>
+        <%} else {%>
         <div class="medium-6 large-5 cell">
             <div class="droppableArea">
                 <div class="output" name="tfile"></div>
@@ -16,27 +24,21 @@
 
             <input type="text" value="true" name="imgChange" hidden>
         </div>
-        <% } %>
+        <%}%>
         <div class="medium-6 large-5 cell">
-            <label class="update_label">Name:</label> <input placeholder="Sticker Name" class="box_2" name="name"
-                                                             value="<%= username %>">
+            <label class="update_label">Name:</label> <input placeholder="Sticker Name" class="box_2" name="name" value="<%= username %>">
 
             <!--if new img has been uploaded, set value to true-->
             <input type="hidden" id="imgChange" name="imgChange" value="false">
 
-            <label class="update_label">Email:</label> <input placeholder="Local Name" class="box_2" name="email"
-                                                              value="<%= email %>" readonly><br>
+            <label class="update_label">Email:</label> <input placeholder="Local Name" class="box_2" name="email" value="<%= email %>" readonly><br>
             <hr>
-            <div> Social Media Handles</div>
-            <br>
-            <label style="color: #a46580 !important;"><i class="fa fa-facebook-square fa-2x prefix"
-                                                         aria-hidden="true"></i> &nbsp; <b>Facebook</b></label>
+            <div> Social Media Handles</div><br>
+            <label style="color: #a46580 !important;"><i class="fa fa-facebook-square fa-2x prefix" aria-hidden="true"></i> &nbsp; <b>Facebook</b></label>
             <input id="icon_prefix" type="text" placeholder="@G-stickers" name="facebook" class="box_2">
-            <label style="color: #a46580 !important"><i class="fa fa-twitter-square fa-2x prefix"
-                                                        aria-hidden="true"></i> &nbsp; <b>Twitter</b></label>
+            <label style="color: #a46580 !important"><i class="fa fa-twitter-square fa-2x prefix" aria-hidden="true"></i> &nbsp; <b>Twitter</b></label>
             <input id="icon_prefix" type="text" placeholder="@G-stickers" name="twitter" class="box_2">
-            <label style="color: #a46580 !important"><i class="fa fa-instagram fa-2x prefix" aria-hidden="true"></i>
-                &nbsp; <b>Instagram</b></label>
+            <label style="color: #a46580 !important"><i class="fa fa-instagram fa-2x prefix" aria-hidden="true"></i> &nbsp; <b>Instagram</b></label>
             <input id="icon_prefix" type="text" placeholder="@G-stickers" name="instagram" class="box_2">
         </div>
 

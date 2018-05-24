@@ -3217,7 +3217,7 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
                 file.forEach(function (file) {
 
                     let fullName = file.originalname;
-                    console.log("FULLNAME " + fullName);
+
                     let image_name = fullName.substring(0, fullName.length - 4);
 
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
