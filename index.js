@@ -3442,7 +3442,25 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
             sticker.set("categories", _category);
 
             return sticker.save();
+
         }).then(function (result) {
+
+            _.each(files, function (file) {
+                //Delete tmp fil after upload
+                var tempFile = file.path;
+                fs.unlink(tempFile, function (error) {
+                    if (error) {
+                        //TODO handle error code
+                        //TODO add job to do deletion of tempFiles
+                        console.log("-------Could not del temp" + JSON.stringify(error));
+                    }
+                    else {
+                        console.log("-------Deleted All Files");
+
+                    }
+                });
+            });
+
             res.redirect('/pack/' + pid);
         }, function (error) {
             console.log("ERROR " + error.message);
