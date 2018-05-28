@@ -101,7 +101,8 @@ let api = new ParseServer({
     //**** Security Settings ****//
     // allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
 
-    appId: process.env.APP_ID || 'myAppId', //For heroku
+    appId: process.env.APP_ID || 'myAppId', //For heroku,
+   //  clientKey: process.env.CLIENT_KEY || 'clientKey',
     // appId: config.APP_ID || 'myAppId', //For google
 
     masterKey: process.env.MASTER_KEY || 'myMasterKey', //Add your master key here. Keep it secret! //For heroku
