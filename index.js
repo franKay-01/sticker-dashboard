@@ -3227,6 +3227,8 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
     var instagram = req.body.instagram;
     var imgChange = req.body.imgChange;
     var image = req.files;
+    let type = req.body.type;
+    let handle = req.body.handles;
     let profile_info = [];
 
     if (token) {
@@ -3293,17 +3295,25 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
 
         }).then(function (links) {
 
-            links.set("facebook", facebook);
-            links.set("twitter", twitter);
-            links.set("instagram", instagram);
+            if (type && handle){
+                links.set("type", type);
+                links.set("link", handle);
 
-            return links.save();
+                return links.save();
+            }else {
+                res.redirect('/user_profile');
+
+            }
+
         }).then(function () {
+
             res.redirect('/user_profile');
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
             res.redirect('/user_profile');
+
         })
     } else {
         res.redirect('/');
