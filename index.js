@@ -103,7 +103,7 @@ let api = new ParseServer({
     // allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
 
     appId: process.env.APP_ID || 'myAppId', //For heroku,
-   //  clientKey: process.env.CLIENT_KEY || 'clientKey',
+    //  clientKey: process.env.CLIENT_KEY || 'clientKey',
     // appId: config.APP_ID || 'myAppId', //For google
 
     masterKey: process.env.MASTER_KEY || 'myMasterKey', //Add your master key here. Keep it secret! //For heroku
@@ -372,9 +372,9 @@ app.post('/signup', function (req, res) {
 
             profile.set("user_id", user.id);
             profile.set("email", username);
-            if(gender !== "undefined" || gender !== undefined) {
+            if (gender !== "undefined" || gender !== undefined) {
                 profile.set("gender", gender);
-            }else {
+            } else {
                 profile.set("gender", "null");
             }
 
@@ -670,7 +670,7 @@ app.post('/latest_element/:type', function (req, res) {
                     break;
             }
 
-           return selected.save();
+            return selected.save();
 
         }).then(function () {
 
@@ -1165,7 +1165,7 @@ app.get('/story_of_day', function (req, res) {
                 });
 
                 return new Parse.Query(StickerClass).containedIn("objectId", artWork).find();
-            }else {
+            } else {
                 res.render("pages/story_of_day", {
 
                     stories: [],
@@ -3220,16 +3220,13 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
 app.post('/update_user', upload.array('im1'), function (req, res) {
 
-    var token = req.cookies.token;
+    let token = req.cookies.token;
     let email = req.body.email;
-    var facebook = req.body.facebook;
-    var twitter = req.body.twitter;
-    var instagram = req.body.instagram;
-    var imgChange = req.body.imgChange;
-    var image = req.files;
+    let image = req.files;
     let type = req.body.type;
     let handle = req.body.handles;
     let profile_info = [];
+    let link_length = [];
 
     if (token) {
 
@@ -3273,7 +3270,7 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
             }
 
             return Parse.Object.saveAll(profile_info);
-            
+
         }).then(function (saved_profile) {
 
             if (profile_info.length) {
@@ -3291,16 +3288,40 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
                     });
                 });
             }
-            return new Parse.Query(Links).equalTo("objectId", _user.id).first();
+            return new Parse.Query(Links).equalTo("objectId", _user.id).find();
 
         }).then(function (links) {
 
-            if (type && handle){
-                links.set("type", type);
-                links.set("link", handle);
+            if (type && handle) {
+                if (links) {
+                    _.each(links, function (_link) {
+
+                        if (_link.get("type", type)) {
+
+                            links.set("link", handle);
+                            link_length.push(1);
+
+                        }
+
+                    });
+
+                    if (link_length.length === 0) {
+
+                        let Link = new Parse.Object.extend(Links);
+                        let link = new Link();
+
+                        link.set("object", _user.id);
+                        link.set("type", type);
+                        link.set("link", handle);
+
+                    }
+
+                }
 
                 return links.save();
-            }else {
+
+            } else {
+
                 res.redirect('/user_profile');
 
             }
