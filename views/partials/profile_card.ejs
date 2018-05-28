@@ -37,20 +37,34 @@
             <hr>
             <div> Social Media Handles</div>
             <br>
+            <% links.forEach(function(items) { %>
+
+            <%if (items.get("type") === 0){%>
             <label style="color: #00b0ff !important;"><i class="fa fa-facebook-square fa-2x prefix"
                                                          aria-hidden="true"></i> &nbsp; <b>Facebook</b></label>
-            <input id="icon_prefix" type="text" placeholder="@G-stickers" name="facebook" value="" class="box_2">
+            <input id="icon_prefix" type="text" placeholder="@G-stickers" name="facebook" value="<%= items.get("link")%>" class="box_2">
+
+            <%}%>
+
+            <%if (items.get("type") === 1){%>
 
             <label style="color: #00b0ff !important"><i class="fa fa-twitter-square fa-2x prefix"
                                                         aria-hidden="true"></i> &nbsp; <b>Twitter</b></label>
-            <input id="icon_prefix" type="text" placeholder="@G-stickers" name="twitter" value="" class="box_2">
+            <input id="icon_prefix" type="text" placeholder="@G-stickers" name="twitter" value="<%= items.get("link")%>" class="box_2">
+
+            <%}%>
+
+            <%if (items.get("type") === 2){%>
 
             <label style="color: #a46580 !important"><i class="fa fa-instagram fa-2x prefix" aria-hidden="true"></i>
                 &nbsp; <b>Instagram</b></label>
-            <input id="icon_prefix" type="text" placeholder="@G-stickers" value="" name="instagram" class="box_2">
+            <input id="icon_prefix" type="text" placeholder="@G-stickers" value="<%= items.get("link")%>" name="instagram" class="box_2">
+            <%}%>
+            <% }) %>
 
-
-            <button class="update" onclick="reveal()" type="button" style="font-size: 17px !important;">Add/Update Handle</button>
+            <button class="update" onclick="reveal()" type="button" style="font-size: 17px !important;">Add/Update
+                Handle
+            </button>
 
             <script>
                 function reveal() {
@@ -67,10 +81,10 @@
                     <option value="1">Twitter</option>
                     <option value="2">Instagram</option>
                 </select>
-                <input id="icon_prefix" type="text" style="width: 300px !important;" placeholder="Handle" name="handles" class="box_2">
+                <input id="icon_prefix" type="text" style="width: 300px !important;" placeholder="Handle" name="handles"
+                       class="box_2">
             </div>
         </div>
-
 
 
         <div class="medium-12 large-12 cell">
