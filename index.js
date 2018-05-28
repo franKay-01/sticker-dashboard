@@ -3301,6 +3301,7 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
                             links.set("link", handle);
                             link_length.push(1);
 
+                            return links.save();
                         }
 
                     });
@@ -3320,7 +3321,6 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
 
                 }
 
-                return links.save();
 
             } else {
 
