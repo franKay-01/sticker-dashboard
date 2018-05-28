@@ -1865,13 +1865,13 @@ app.get('/home', function (req, res) {
                 new Parse.Query(LatestClass).equalTo("objectId", "jU3SwZUJYl").first(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(CategoryClass).limit(limit).find(),
-                new Parse.Query(StoryClass).limit(limit).find(),
+                new Parse.Query(StoryClass).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).find(),
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StoryClass).equalTo("user_id", _user.id).count(),
-                new Parse.Query(AdvertClass).limit(limit).find(),
+                new Parse.Query(AdvertClass).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(MessageClass).limit(limit).find()
             );
 
@@ -3257,7 +3257,7 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
                     });
                 });
             }
-            return new Parse.Query(Links).equalTo("user_id", _user.id).first();
+            return new Parse.Query(Links).equalTo("objectId", _user.id).first();
 
         }).then(function (links) {
 
