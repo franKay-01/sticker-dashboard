@@ -3315,6 +3315,8 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
                         link.set("type", type);
                         link.set("link", handle);
 
+                        return link.save();
+
                     }
 
                 }
