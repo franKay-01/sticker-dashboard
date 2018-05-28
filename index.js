@@ -2603,7 +2603,7 @@ app.get('/user_profile', function (req, res) {
 
             _profile = profile;
 
-            return new Parse.Query(Links).equalTo("object_id", profile.id).find();
+            return new Parse.Query(Links).equalTo("object_id", profile.get("user_id")).find();
 
         }).then(function (links) {
 
