@@ -3288,7 +3288,7 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
                     });
                 });
             }
-            return new Parse.Query(Links).equalTo("objectId", _user.id).find();
+            return new Parse.Query(Links).equalTo("object_id", _user.id).find();
 
         }).then(function (links) {
 
