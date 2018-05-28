@@ -51,6 +51,7 @@ let Profile = "Profile";
 let LatestClass = "Latest";
 let Barcode = "Barcodes";
 let Links = "Links";
+let PreviouslySelected = "PreviouslySelected";
 
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
@@ -655,6 +656,24 @@ app.post('/latest_element/:type', function (req, res) {
 
         }).then(function () {
 
+            let Selected = new Parse.Object.extend(PreviouslySelected);
+            let selected = new Selected();
+
+            switch (type) {
+                case "sticker":
+                    selected.set("type", 0);
+                    selected.set("object_id", id);
+                    break;
+                case "story":
+                    selected.set("type", 1);
+                    selected.set("object_id", id);
+                    break;
+            }
+
+           return selected.save();
+
+        }).then(function () {
+
             res.redirect('/home');
 
         }, function (error) {
@@ -1117,17 +1136,20 @@ app.get('/sticker_of_day', function (req, res) {
 app.get('/story_of_day', function (req, res) {
 
     let token = req.cookies.token;
-    let arts = [];
     let _stories = [];
     let artWork = [];
     let _allArtwork = [];
     let combined = [];
+    let _user = {};
+
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
+            _user = sessionToken.get("user");
+
             return Parse.Promise.when(
-                new Parse.Query(StoryClass).find(),
+                new Parse.Query(StoryClass).eqaulTo("user_id", _user.id).find(),
                 new Parse.Query(ArtWorkClass).find()
             )
         }).then(function (stories, artworks) {
@@ -1135,13 +1157,22 @@ app.get('/story_of_day', function (req, res) {
             _stories = stories;
             _allArtwork = artworks;
 
-            _.each(artworks, function (artwork) {
+            if (_stories) {
+                _.each(artworks, function (artwork) {
 
-                artWork.push(artwork.get("sticker"));
+                    artWork.push(artwork.get("sticker"));
 
-            });
+                });
 
-            return new Parse.Query(StickerClass).containedIn("objectId", artWork).find();
+                return new Parse.Query(StickerClass).containedIn("objectId", artWork).find();
+            }else {
+                res.render("pages/story_of_day", {
+
+                    stories: [],
+                    artworks: []
+
+                });
+            }
 
         }).then(function (stickers) {
 
