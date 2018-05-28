@@ -1149,7 +1149,7 @@ app.get('/story_of_day', function (req, res) {
             _user = sessionToken.get("user");
 
             return Parse.Promise.when(
-                new Parse.Query(StoryClass).eqaulTo("user_id", _user.id).find(),
+                new Parse.Query(StoryClass).equalTo("user_id", _user.id).find(),
                 new Parse.Query(ArtWorkClass).find()
             )
         }).then(function (stories, artworks) {
