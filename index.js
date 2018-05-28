@@ -3223,7 +3223,7 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
     let token = req.cookies.token;
     let email = req.body.email;
     let image = req.files;
-    let type = req.body.type;
+    let type = parseInt(req.body.type);
     let handle = req.body.handles;
     let profile_info = [];
     let link_length = [];
