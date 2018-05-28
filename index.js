@@ -3296,7 +3296,7 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
                 if (links) {
                     _.each(links, function (_link) {
 
-                        if (_link.get("type", type)) {
+                        if (_link.get("type") === type) {
 
                             _link.set("link", handle);
                             link_length.push(1);
