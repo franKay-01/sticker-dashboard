@@ -2607,12 +2607,13 @@ app.get('/user_profile', function (req, res) {
 
         }).then(function (links) {
 
-            res.render("pages/profile", {
-                username: _user.get("name"),
-                email: _user.get("username"),
-                profile: _profile,
-                links: links
-            });
+            res.send(JSON.stringify(links));
+            // res.render("pages/profile", {
+            //     username: _user.get("name"),
+            //     email: _user.get("username"),
+            //     profile: _profile,
+            //     links: links
+            // });
 
         }, function (error) {
             console.log("ERROR ON PROFILE " + error.message);
