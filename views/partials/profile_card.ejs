@@ -48,27 +48,30 @@
             <label style="color: #a46580 !important"><i class="fa fa-instagram fa-2x prefix" aria-hidden="true"></i>
                 &nbsp; <b>Instagram</b></label>
             <input id="icon_prefix" type="text" placeholder="@G-stickers" name="instagram" class="box_2">
+
+
+            <button class="update" onclick="reveal()" type="button">Update</button>
+
+            <script>
+                function reveal() {
+
+                    document.getElementById("handles").style.display = "block";
+
+                }
+            </script>
+
+            <div id="handles" style="width: 450px !important;" hidden>
+                <select name="type" required="">
+                    <option value="" disabled selected>Choose your platform</option>
+                    <option value="0">Facebook</option>
+                    <option value="1">Twitter</option>
+                    <option value="2">Instagram</option>
+                </select>
+                <input id="icon_prefix" type="text" placeholder="Handle" name="handle" class="box_2">
+            </div>
         </div>
 
-        <button class="update" onclick="reveal()" type="button">Update</button>
 
-        <script>
-            function reveal() {
-
-                document.getElementById("handles").style.display = "block";
-
-            }
-        </script>
-
-        <div id="handles" hidden>
-            <select name="type" required="">
-                <option value="" disabled selected>Choose your platform</option>
-                <option value="0">Facebook</option>
-                <option value="1">Twitter</option>
-                <option value="2">Instagram</option>
-            </select>
-            <input id="icon_prefix" type="text" placeholder="Handle" name="handle" class="box_2">
-        </div>
 
         <div class="medium-12 large-12 cell">
             <center>
