@@ -31,25 +31,18 @@ Parse.Cloud.define("getPacks", function (req, res) {
             sold:bool
             * */
 
-            console.log("Stickers----------------");
-            console.log(JSON.stringify(stickerList));
-            console.log("Sticker Length ----------------");
-            console.log(stickerList.length);
-
             let stickerObjects = [];
 
             //todo check if pack is published
             //todo check if pack has not been archived
             _.map(_packs, pack => {
 
-
-
                 let packItem = {};
                 packItem.name = pack.get("pack_name");
                 packItem.description = pack.get("pack_description");
-                packItem.artwork = pack.get("art_work").url();
+                packItem.artwork = pack.get("art_work");
 
-                console.log("packItem art_work " + pack.get("art_work").url());
+                console.log("packItem art_work ");
 
                 // _.map(stickerList, function (stickers) {
                 //
