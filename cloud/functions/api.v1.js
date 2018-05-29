@@ -48,7 +48,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
                 console.log("packItem");
                 console.log(JSON.stringify(packItem));
 
-                _.map(stickerList, function (stickers) {
+                _.map(stickerList[0], function (stickers) {
 
                     console.log("Sticker List");
 
