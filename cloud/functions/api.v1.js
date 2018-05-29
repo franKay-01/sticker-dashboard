@@ -42,10 +42,13 @@ Parse.Cloud.define("getPacks", function (req, res) {
             //todo check if pack has not been archived
             _.map(_packs, pack => {
 
-                console.log("packItem map");
+
 
                 let packItem = {};
                 packItem.name = pack.get("pack_name");
+
+                console.log("packItem pack_name");
+
                 packItem.description = pack.get("pack_description");
                 packItem.artwork = pack.get("art_work").url();
 
