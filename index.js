@@ -3293,12 +3293,12 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
         }).then(function (links) {
 
             if (type && handle) {
+                console.log("TYPE " + type);
                 if (links) {
                     _.each(links, function (_link) {
 
                         if (_link.get("type") === type) {
 
-                            console.log("TYPE " + type);
                             _link.set("link", handle);
                             link_length.push(1);
 
