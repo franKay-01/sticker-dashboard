@@ -76,11 +76,11 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
                         packItem.stickers = [];
                         packItem.stickers = _stickers;
-                        stickerObjects.push(packItem);
-                        console.log("stickers");
 
                     }
                 });
+
+                stickerObjects.push(packItem);
 
             });
 
