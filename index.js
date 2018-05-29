@@ -2862,7 +2862,7 @@ app.get('/publish_pack/:id', function (req, res) {
 
         }).then(function (pack) {
 
-            pack.set("publish", true);
+            pack.set("published", true);
 
             return pack.save();
 

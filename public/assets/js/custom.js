@@ -187,7 +187,7 @@ $(document).ready(function () {
             $('#pageMask').fadeIn('fast');
             $('#askPermission').fadeIn('fast');
             $('#logo').fadeOut('fast');
-            $('#welcome_post').fadeOut('fast');
+            $('.welcome_post').fadeOut('fast');
             $('#Welcome').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
             $('#opaqueDiv').fadeOut('fast');
@@ -198,7 +198,7 @@ $(document).ready(function () {
             $('#askPermission').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
-            $('#welcome_post').fadeIn('fast');
+            $('.welcome_post').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
         });
