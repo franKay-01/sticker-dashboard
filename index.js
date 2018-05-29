@@ -3305,7 +3305,7 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
                         let Link = new Parse.Object.extend(Links);
                         let link = new Link();
 
-                        link.set("object", _user.id);
+                        link.set("object_id", _user.id);
                         link.set("type", type);
                         link.set("link", handle);
 
@@ -3317,7 +3317,7 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
                     let Link = new Parse.Object.extend(Links);
                     let link = new Link();
 
-                    link.set("object", _user.id);
+                    link.set("object_id", _user.id);
                     link.set("type", type);
                     link.set("link", handle);
 
