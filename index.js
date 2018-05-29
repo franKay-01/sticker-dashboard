@@ -2872,6 +2872,7 @@ app.get('/publish_pack/:id', function (req, res) {
 
         }, function (error) {
 
+            console.log("ERROR " + error.message);
             res.redirect("/pack/" + pack_id);
 
         })
