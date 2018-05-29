@@ -40,48 +40,48 @@ Parse.Cloud.define("getPacks", function (req, res) {
                 let packItem = {};
                 packItem.name = pack.get("pack_name");
                 packItem.description = pack.get("pack_description");
+
+
                 let _artwork = pack.get("art_work");
                 if(_artwork) {
                      packItem.artwork = _artwork.url();
+                }else{
+                    packItem.artwork = "";
                 }
 
 
-                console.log("packItem art_work " + packItem.artwork);
+                _.map(stickerList, function (stickers) {
 
-                // _.map(stickerList, function (stickers) {
-                //
-                //     console.log("Sticker List");
-                //
-                //     if (stickers.length !== 0) {
-                //
-                //         console.log("Sticker Length");
-                //         //todo choose five stickers for preview
-                //
-                //         let _stickers = [];
-                //         _.map(stickers, sticker => {
-                //
-                //             console.log("Stickers");
-                //             console.log(JSON.stringify(stickers));
-                //
-                //             if (pack.id === sticker.get("parent").id) {
-                //
-                //                 console.log("Matches Parent");
-                //
-                //                 _stickers.push(sticker)
-                //             }
-                //
-                //         });
-                //
-                //         packItem.stickers = [];
-                //         packItem.stickers = _stickers;
-                //         stickerObjects.push(packItem);
-                //         console.log("stickers");
-                //         console.log(JSON.stringify(packItem));
-                //
-                //     }
-                // });
+                    console.log("Sticker List");
 
-                stickerObjects.push(packItem);
+                    if (stickers.length) {
+
+                        console.log("Sticker Length");
+                        //todo choose five stickers for preview
+
+                        let _stickers = [];
+                        _.map(stickers, sticker => {
+
+                            console.log("Stickers");
+                            console.log(JSON.stringify(stickers));
+
+                            if (pack.id === sticker.get("parent").id) {
+
+                                console.log("Matches Parent");
+
+                                _stickers.push(sticker)
+                            }
+
+                        });
+
+                        packItem.stickers = [];
+                        packItem.stickers = _stickers;
+                        stickerObjects.push(packItem);
+                        console.log("stickers");
+
+                    }
+                });
+
             });
 
 
