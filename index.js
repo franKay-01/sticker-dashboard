@@ -380,14 +380,7 @@ app.post('/signup', function (req, res) {
 
             profile.save().then(function () {
 
-                let Link = new Parse.Object.extend(Links);
-                let link = new Link();
-
-                link.set("object_id", user.id);
-
-                link.save().then(function () {
-                    res.redirect('/');
-                })
+                res.redirect('/');
 
             });
 
@@ -3320,6 +3313,15 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
 
                     }
 
+                }else {
+                    let Link = new Parse.Object.extend(Links);
+                    let link = new Link();
+
+                    link.set("object", _user.id);
+                    link.set("type", type);
+                    link.set("link", handle);
+
+                    return link.save();
                 }
 
 

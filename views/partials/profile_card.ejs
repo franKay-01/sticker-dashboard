@@ -37,6 +37,7 @@
             <hr>
             <div> Social Media Handles</div>
             <br>
+            <% if (links.length > 0) {%>
             <% links.forEach(function(items) { %>
 
             <%if (items.get("type") === 1){%>
@@ -61,6 +62,14 @@
             <input id="icon_prefix" type="text" placeholder="@G-stickers" value="<%= items.get("link")%>" name="instagram" class="box_2">
             <%}%>
             <% }) %>
+
+            <%} else {%>
+
+            <center>
+                <p class="none"><b>No Social Media Handle. Click below to add</b></p>
+            </center>
+
+           <%}%>
 
             <button class="update" onclick="reveal()" type="button" style="font-size: 17px !important;">Add/Update
                 Handle
