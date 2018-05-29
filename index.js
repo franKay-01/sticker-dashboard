@@ -3602,7 +3602,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/pack/' + id);
+            res.redirect('/edit_pack_details/' + id);
 
         }, function (error) {
 
