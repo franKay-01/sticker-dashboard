@@ -2848,6 +2848,40 @@ app.get('/pack/:id', function (req, res) {
     }
 });
 
+
+app.get('/publish_pack/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let pack_id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(PacksClass).equalTo("objectId", pack_id).first();
+
+        }).then(function (pack) {
+
+            pack.set("publish", true);
+
+            return pack.save();
+
+        }).then(function () {
+
+            res.redirect("/pack/" + pack_id);
+
+        }, function (error) {
+
+            res.redirect("/pack/" + pack_id);
+
+        })
+    }else {
+        res.redirect('/');
+    }
+
+});
+
+
 app.get('/edit_pack_details/:id', function (req, res) {
 
     let token = req.cookies.token;
