@@ -50,38 +50,40 @@ Parse.Cloud.define("getPacks", function (req, res) {
                 console.log("packItem");
                 console.log(JSON.stringify(packItem));
 
-                _.map(stickerList, function (stickers) {
+                // _.map(stickerList, function (stickers) {
+                //
+                //     console.log("Sticker List");
+                //
+                //     if (stickers.length !== 0) {
+                //
+                //         console.log("Sticker Length");
+                //         //todo choose five stickers for preview
+                //
+                //         let _stickers = [];
+                //         _.map(stickers, sticker => {
+                //
+                //             console.log("Stickers");
+                //             console.log(JSON.stringify(stickers));
+                //
+                //             if (pack.id === sticker.get("parent").id) {
+                //
+                //                 console.log("Matches Parent");
+                //
+                //                 _stickers.push(sticker)
+                //             }
+                //
+                //         });
+                //
+                //         packItem.stickers = [];
+                //         packItem.stickers = _stickers;
+                //         stickerObjects.push(packItem);
+                //         console.log("stickers");
+                //         console.log(JSON.stringify(packItem));
+                //
+                //     }
+                // });
 
-                    console.log("Sticker List");
-
-                    if (stickers.length !== 0) {
-
-                        console.log("Sticker Length");
-                        //todo choose five stickers for preview
-
-                        let _stickers = [];
-                        _.map(stickers, sticker => {
-
-                            console.log("Stickers");
-                            console.log(JSON.stringify(stickers));
-
-                            if (pack.id === sticker.get("parent").id) {
-
-                                console.log("Matches Parent");
-
-                                _stickers.push(sticker)
-                            }
-
-                        });
-
-                        packItem.stickers = [];
-                        packItem.stickers = _stickers;
-                        stickerObjects.push(packItem);
-                        console.log("stickers");
-                        console.log(JSON.stringify(packItem));
-
-                    }
-                });
+                stickerObjects.push(packItem);
             });
 
 
