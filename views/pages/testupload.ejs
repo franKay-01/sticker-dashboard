@@ -67,7 +67,7 @@
                             var file = e.target;
                             $("<span class=\"pip\">" +
                                 "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
-                                "<br/><span class=\"remove\">Remove image</span>" +
+                                "<br/><span class=\"remove\" id=\"clearBtn\">Remove image</span>" +
                                 "</span>").insertAfter("#files");
                             $(".remove").click(function () {
                                 $(this).parent(".pip").remove();
@@ -130,4 +130,7 @@
     </div>
 </div>
 </body>
+<script type="text/javascript" src="/public/assets/js/custom.js"></script>
+
+
 </html>
