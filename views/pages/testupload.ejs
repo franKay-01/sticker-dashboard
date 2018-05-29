@@ -1,74 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Stickers - G-Stickers</title>
+
+    <% include ../partials/fav.ejs %>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
+    </style>
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<style>
-    input[type="file"] {
-        display: block;
-    }
-    .imageThumb {
-        max-height: 75px;
-        border: 2px solid;
-        padding: 1px;
-        cursor: pointer;
-    }
-    .pip {
-        display: inline-block;
-        margin: 10px 10px 0 0;
-    }
-    .remove {
-        display: block;
-        background: #444;
-        border: 1px solid black;
-        color: white;
-        text-align: center;
-        cursor: pointer;
-    }
-    .remove:hover {
-        background: white;
-        color: black;
-    }
-</style>
-</head>
-<body>
-<div class="field" align="left">
-    <h3>Upload your images</h3>
-    <input type="file" id="files" name="files[]" multiple />
-</div>
-<script>
-    $(document).ready(function() {
-        if (window.File && window.FileList && window.FileReader) {
-            $("#files").on("change", function(e) {
-                var files = e.target.files,
-                    filesLength = files.length;
-                for (var i = 0; i < filesLength; i++) {
-                    var f = files[i]
-                    var fileReader = new FileReader();
-                    fileReader.onload = (function(e) {
-                        var file = e.target;
-                        $("<span class=\"pip\">" +
-                            "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
-                            "<br/><span class=\"remove\">Remove image</span>" +
-                            "</span>").insertAfter("#files");
-                        $(".remove").click(function(){
-                            $(this).parent(".pip").remove();
-                        });
-
-                        // Old code here
-                        /*$("<img></img>", {
-                          class: "imageThumb",
-                          src: e.target.result,
-                          title: file.name + " | Click to remove"
-                        }).insertAfter("#files").click(function(){$(this).remove();});*/
-
-                    });
-                    fileReader.readAsDataURL(f);
-                }
-            });
-        } else {
-            alert("Your browser doesn't support to File API")
+    <style>
+        input[type="file"] {
+            display: block;
         }
-    });
-</script>
+
+        .imageThumb {
+            max-height: 75px;
+            border: 2px solid;
+            padding: 1px;
+            cursor: pointer;
+        }
+
+        .pip {
+            display: inline-block;
+            margin: 10px 10px 0 0;
+        }
+
+        .remove {
+            display: block;
+            background: #444;
+            border: 1px solid black;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .remove:hover {
+            background: white;
+            color: black;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            if (window.File && window.FileList && window.FileReader) {
+                $("#files").on("change", function (e) {
+                    var files = e.target.files,
+                        filesLength = files.length;
+                    for (var i = 0; i < filesLength; i++) {
+                        var f = files[i]
+                        var fileReader = new FileReader();
+                        fileReader.onload = (function (e) {
+                            var file = e.target;
+                            $("<span class=\"pip\">" +
+                                "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+                                "<br/><span class=\"remove\">Remove image</span>" +
+                                "</span>").insertAfter("#files");
+                            $(".remove").click(function () {
+                                $(this).parent(".pip").remove();
+                            });
+
+                            // Old code here
+                            /*$("<img></img>", {
+                              class: "imageThumb",
+                              src: e.target.result,
+                              title: file.name + " | Click to remove"
+                            }).insertAfter("#files").click(function(){$(this).remove();});*/
+
+                        });
+                        fileReader.readAsDataURL(f);
+                    }
+                });
+            } else {
+                alert("Your browser doesn't support to File API")
+            }
+        });
+    </script>
+</head>
+<body class="primary-background-color">
+
+<div class="grid-container">
+    <!-- Logo-->
+    <div class="medium-12 large-12">
+        <a href="/home">
+            <img src="/public/assets/images/G_logo.png"
+                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
+        </a>
+        <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
+    </div>
+    <!-- End of Logo-->
+    <span class="medium-12 large-12 welcome_post"><b><%= pack_name %> Sticker Pack</b></span>
+
+    <!--Drag n Drop Form-->
+    <br>
+    <div class="grid-x grid-margin-x">
+        <div class="medium-12 large-12 cell">
+            <!-- Form to add stickers from computer-->
+            <form action="/uploads" enctype="multipart/form-data" method="post">
+
+                <div class="field" align="left">
+                    <h3>Upload your images</h3>
+                    <input type="file" id="files" name="img[]" multiple/>
+                </div>
+                <button type="button" class="clear" id="btnClearAddForm"><a href="/pack/<%= id %>"
+                                                                            class="clear">Back</a></button>
+                </span>
+                <span>
+        <button type="submit" class="upload">Upload</button>
+        </span>
+
+                <input type="hidden" name="pack_id" style="display: none" value="<%= id %>"/>
+            </form>
+            <!-- End of form-->
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+</div>
 </body>
 </html>

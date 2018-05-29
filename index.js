@@ -2875,6 +2875,24 @@ app.get('/edit_pack_details/:id', function (req, res) {
     }
 });
 
+
+app.get("/test_upload/:id", function (req, res) {
+    var token = req.cookies.token;
+    var pack_id = req.params.id;
+
+    if (token) {
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(PacksClass).equalTo("objectId", pack_id).first();
+
+        }).then(function (pack) {
+
+            res.render("pages/testupload", {id: pack.id, pack_name: pack.get("pack_name")});
+
+        })
+    }
+});
+
 // Add Stickers Version 1
 app.get('/add_stickers/:id', function (req, res) {
 
@@ -2889,8 +2907,6 @@ app.get('/add_stickers/:id', function (req, res) {
         }).then(function (pack) {
 
             res.render("pages/add_sticker", {id: pack.id, pack_name: pack.get("pack_name")});
-
-            // res.render("pages/testupload");
 
         }, function (error) {
             res.redirect("/");
@@ -3315,7 +3331,7 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
 
                     }
 
-                }else {
+                } else {
                     let Link = new Parse.Object.extend(Links);
                     let link = new Link();
 
