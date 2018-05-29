@@ -2849,10 +2849,11 @@ app.get('/pack/:id', function (req, res) {
 });
 
 
-app.get('/publish_pack/:id', function (req, res) {
+app.get('/publish_pack/:id/:state', function (req, res) {
 
     let token = req.cookies.token;
     let pack_id = req.params.id;
+    let state = req.params.state;
 
     if (token) {
 
@@ -2862,7 +2863,12 @@ app.get('/publish_pack/:id', function (req, res) {
 
         }).then(function (pack) {
 
-            pack.set("published", true);
+            if (state === "publish") {
+                pack.set("published", true);
+            }else if (state === "unpublish"){
+                pack.set("published", false);
+
+            }
 
             return pack.save();
 

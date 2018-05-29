@@ -48,7 +48,19 @@
         <a href="#" id="cancelPermission" class="edit_labels" style="margin: 200px !important;">
             NO
         </a>
-        <a href="/publish_pack/<%= id %>" class="edit_labels">
+        <a href="/publish_pack/<%= id %>/publish" class="edit_labels">
+            YES
+        </a>
+    </div>
+</div>
+
+<div id="removePublish" style="display: none">
+    <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
+        <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
+        <a href="#" id="cancelPublish" class="edit_labels" style="margin: 200px !important;">
+            NO
+        </a>
+        <a href="/unpublish_pack/<%= id %>/unpublish" class="edit_labels">
             YES
         </a>
     </div>
@@ -187,12 +199,22 @@
             </div>
 
             <!-- <%# if (status === 2){ %>-->
+            <% if (published === false){%>
             <a href="#" id="showPermission">
                 <button class="create_button">
                     <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
                     </p>
                 </button>
             </a>
+            <%} else if (published === true){%>
+            <a href="#" id="removePublished">
+                <button class="create_button">
+                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; UNPUBLISH
+                    </p>
+                </button>
+            </a>
+
+            <%}%>
 
             <!--<%# } else {%>-->
             <!--<a onclick="not_approved()">-->

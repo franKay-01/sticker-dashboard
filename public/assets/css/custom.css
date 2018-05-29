@@ -2067,6 +2067,14 @@ tr #titles {
     top: 204px;
 }
 
+#removePublish{
+    display: none;
+    position: absolute;
+    margin-left: 300px;
+    z-index: 9999;
+    top: 204px;
+}
+
 #hiddenCreateCategoryForm {
     display: none;
     position: absolute;
