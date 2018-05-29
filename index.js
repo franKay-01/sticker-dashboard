@@ -3243,8 +3243,6 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
 
         }).then(function (profile) {
 
-            console.log("PROFILE " + JSON.stringify(profile));
-
             if (image) {
                 image.forEach(function (file) {
 
@@ -3327,6 +3325,7 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
 
             } else {
 
+                console.log("TYPE AND HANDLE NOT PRESENT");
                 res.redirect('/user_profile');
 
             }
