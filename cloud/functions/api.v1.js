@@ -85,7 +85,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
             // });
 
 
-            res.success(util.setResponseOk(stickerList[0]));
+            res.success(util.setResponseOk(stickerList));
 
         }, function (error) {
 
