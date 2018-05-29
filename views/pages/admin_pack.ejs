@@ -45,17 +45,17 @@
 <div id="askPermission" style="display: none">
     <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
         <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
-        <a href="#" id="cancelPermission">
+        <a href="#" id="cancelPermission" class="edit_labels" style="margin: 200px !important;">
             NO
         </a>
-        <a href="/publish_pack/<%= id %>">
+        <a href="/publish_pack/<%= id %>" class="edit_labels">
             YES
         </a>
     </div>
 </div>
 <div class="grid-container">
     <!-- Logo -->
-    <div class="medium-12 large-12">
+    <div class="medium-12 large-12" id="logo">
         <a href="/home">
             <img src="/public/assets/images/G_logo.png"
                  srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
