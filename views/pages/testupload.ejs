@@ -1,79 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link type="text/css" rel="stylesheet" href="https://www.plupload.com/css/bootstrap.css" media="screen"/>
-    <link type="text/css" rel="stylesheet" href="https://www.plupload.com/css/font-awesome.min.css" media="screen"/>
-    <link type="text/css" rel="stylesheet" href="https://www.plupload.com/css/my.css" media="screen"/>
-    <link type="text/css" rel="stylesheet" href="https://www.plupload.com/css/prettify.css" media="screen"/>
-    <link type="text/css" rel="stylesheet" href="https://www.plupload.com/css/shCore.css" media="screen"/>
-    <link type="text/css" rel="stylesheet" href="https://www.plupload.com/css/shCoreEclipse.css" media="screen"/>
-    <link type="text/css" rel="stylesheet"
-          href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.min.css"
-          media="screen"/>
-    <link type="text/css" rel="stylesheet"
-          href="https://www.plupload.com/plupload/js/jquery.ui.plupload/css/jquery.ui.plupload.css" media="screen"/>
-
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300|Bree+Serif"
-          rel="stylesheet" type="text/css">
-
-    <script type="text/javascript"
-            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<style>
+    input[type="file"] {
+        display: block;
+    }
+    .imageThumb {
+        max-height: 75px;
+        border: 2px solid;
+        padding: 1px;
+        cursor: pointer;
+    }
+    .pip {
+        display: inline-block;
+        margin: 10px 10px 0 0;
+    }
+    .remove {
+        display: block;
+        background: #444;
+        border: 1px solid black;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+    }
+    .remove:hover {
+        background: white;
+        color: black;
+    }
+</style>
 </head>
 <body>
-<div id="uploader">
-        <p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
+<div class="field" align="left">
+    <h3>Upload your images</h3>
+    <input type="file" id="files" name="files[]" multiple />
 </div>
- 
-<script type="text/javascript">
-    // Initialize the widget when the DOM is ready
-    $(document).ready(function () {
-        $("#uploader").plupload({
-            // General settings
-            runtimes: 'html5,flash,silverlight,html4',
-            url: "/examples/upload",
+<script>
+    $(document).ready(function() {
+        if (window.File && window.FileList && window.FileReader) {
+            $("#files").on("change", function(e) {
+                var files = e.target.files,
+                    filesLength = files.length;
+                for (var i = 0; i < filesLength; i++) {
+                    var f = files[i]
+                    var fileReader = new FileReader();
+                    fileReader.onload = (function(e) {
+                        var file = e.target;
+                        $("<span class=\"pip\">" +
+                            "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+                            "<br/><span class=\"remove\">Remove image</span>" +
+                            "</span>").insertAfter("#files");
+                        $(".remove").click(function(){
+                            $(this).parent(".pip").remove();
+                        });
 
-            // Maximum file size
-            max_file_size: '2mb',
+                        // Old code here
+                        /*$("<img></img>", {
+                          class: "imageThumb",
+                          src: e.target.result,
+                          title: file.name + " | Click to remove"
+                        }).insertAfter("#files").click(function(){$(this).remove();});*/
 
-            chunk_size: '1mb',
-
-            // Resize images on clientside if we can
-            resize: {
-                width: 200,
-                height: 200,
-                quality: 90,
-                crop: true // crop to exact dimensions
-            },
-
-            // Specify what files to browse for
-            filters: [
-                {title: "Image files", extensions: "jpg,gif,png"},
-                {title: "Zip files", extensions: "zip,avi"}
-            ],
-
-            // Rename files by clicking on their titles
-            rename: true,
-
-            // Sort files
-            sortable: true,
-
-            // Enable ability to drag'n'drop files onto the widget (currently only HTML5 supports that)
-            dragdrop: true,
-
-            // Views to activate
-            views: {
-                list: true,
-                thumbs: true, // Show thumbs
-                active: 'thumbs'
-            },
-
-            // Flash settings
-            flash_swf_url: '/plupload/js/Moxie.swf',
-
-            // Silverlight settings
-            silverlight_xap_url: '/plupload/js/Moxie.xap'
-        });
+                    });
+                    fileReader.readAsDataURL(f);
+                }
+            });
+        } else {
+            alert("Your browser doesn't support to File API")
+        }
     });
 </script>
 </body>
