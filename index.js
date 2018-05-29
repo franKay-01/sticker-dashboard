@@ -2888,9 +2888,9 @@ app.get('/add_stickers/:id', function (req, res) {
 
         }).then(function (pack) {
 
-            // res.render("pages/add_sticker", {id: pack.id, pack_name: pack.get("pack_name")});
+            res.render("pages/add_sticker", {id: pack.id, pack_name: pack.get("pack_name")});
 
-            res.render("pages/testupload");
+            // res.render("pages/testupload");
 
         }, function (error) {
             res.redirect("/");
