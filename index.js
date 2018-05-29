@@ -3228,6 +3228,9 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
     let profile_info = [];
     let link_length = [];
 
+    console.log("TYPE " + type + " HNDLE " + handle);
+
+
     if (token) {
 
         let _user = {};
@@ -3293,7 +3296,6 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
         }).then(function (links) {
 
             if (type && handle) {
-                console.log("TYPE " + type);
                 if (links) {
                     _.each(links, function (_link) {
 
