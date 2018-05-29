@@ -40,9 +40,10 @@ Parse.Cloud.define("getPacks", function (req, res) {
                 let packItem = {};
                 packItem.name = pack.get("pack_name");
                 packItem.description = pack.get("pack_description");
+                let _artwork = pack.get("art_work");
               //  packItem.artwork = pack.get("art_work");
 
-                console.log("packItem art_work ");
+                console.log("packItem art_work " + _artwork);
 
                 // _.map(stickerList, function (stickers) {
                 //
