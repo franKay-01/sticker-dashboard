@@ -183,6 +183,24 @@ $(document).ready(function () {
             $("#image_id").remove();
         });
 
+        $('#showPermission').on('click', function () {
+            $('#pageMask').fadeIn('fast');
+            $('#askPermission').fadeIn('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#opaqueDiv').fadeOut('fast');
+        });
+
+        $('#cancelPermission').on('click', function () {
+            $('#pageMask').fadeOut('fast');
+            $('#askPermission').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+        });
+
         //close/hide form
         $('#closeSign').on('click', function () {
             $('#hiddenCreateForm').fadeOut('fast');

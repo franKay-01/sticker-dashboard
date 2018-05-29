@@ -39,6 +39,20 @@
 </head>
 
 <body class="primary-background-color" onload="myFunction()">
+<div id="pageMask"></div>
+
+<!-- Start of hidden form -->
+<div id="askPermission" style="display: none">
+    <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
+        <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
+        <a href="#" id="cancelPermission">
+            NO
+        </a>
+        <a href="/publish_pack/<%= id %>">
+            YES
+        </a>
+    </div>
+</div>
 <div class="grid-container">
     <!-- Logo -->
     <div class="medium-12 large-12">
@@ -51,7 +65,7 @@
     </div>
     <!-- End of logo -->
     <span class="medium-12 large-12 welcome_post"><b><%= pack_name %> Sticker Pack</b></span>
-    <div class="grid-x grid-margin-x">
+    <div class="grid-x grid-margin-x" id="opaqueDiv">
 
         <div id="not_approved">
             THIS PACK HAS NOT BEEN APPROVED. THUS YOU CAN NOT PUBLISH
@@ -172,23 +186,22 @@
                 <%}%>
             </div>
 
-            <% if (status === 2){ %>
-
-            <a href="/publish_pack/<%= id %>">
+            <!-- <%# if (status === 2){ %>-->
+            <a href="#" id="showPermission">
                 <button class="create_button">
                     <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
                     </p>
                 </button>
             </a>
 
-            <% } else {%>
-            <a onclick="not_approved()">
-                <button class="create_button">
-                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
-                    </p>
-                </button>
-            </a>
-            <%}%>
+            <!--<%# } else {%>-->
+            <!--<a onclick="not_approved()">-->
+                <!--<button class="create_button">-->
+                    <!--<p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH-->
+                    <!--</p>-->
+                <!--</button>-->
+            <!--</a>-->
+            <!--<%#}%>-->
 
             <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
                 <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #f8ab1c" aria-hidden="true"></i> &nbsp; UNPUBLISHED
