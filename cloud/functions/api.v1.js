@@ -32,7 +32,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
             * */
 
             console.log("Stickers----------------");
-            console.log(JSON.stringify(stickerList));
+            console.log(JSON.stringify(stickerList[0]));
 
             let stickerObjects = [];
 
