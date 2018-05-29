@@ -18,77 +18,75 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <style>
-        input[type="file"] {
-            display: block;
-        }
-
-        .imageThumb {
-            max-height: 75px;
-            border: 2px solid;
-            padding: 1px;
-            cursor: pointer;
-        }
-
-        .pip {
-            display: inline-block;
-            margin: 10px 10px 0 0;
-        }
-
-        .remove {
-            display: block;
-            background: #444;
-            border: 1px solid black;
-            color: white;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .remove:hover {
-            background: white;
-            color: black;
+        #selectedFiles img {
+            max-width: 200px;
+            max-height: 200px;
+            float: left;
+            margin-bottom:10px;
         }
     </style>
     <script>
+        var selDiv = "";
+        var storedFiles = [];
 
-        $(document).ready(function () {
-            if (window.File && window.FileList && window.FileReader) {
-                $("#files").on("change", function (e) {
-                    var files = e.target.files,
-                        filesLength = files.length;
-                    for (var i = 0; i < filesLength; i++) {
-                        var f = files[i]
-                        var fileReader = new FileReader();
-                        fileReader.onload = (function (e) {
-                            var file = e.target;
-                            $("<span class=\"pip\">" +
-                                "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
-                                "<br/><span class=\"remove\">Remove image</span>" +
-                                "</span>").insertAfter("#files");
-                            $(".remove").click(function () {
-                                $(this).parent(".pip").remove();
-                            });
+        $(document).ready(function() {
+            $("#files").on("change", handleFileSelect);
 
-                            // Old code here
-                            /*$("<img></img>", {
-                              class: "imageThumb",
-                              src: e.target.result,
-                              title: file.name + " | Click to remove"
-                            }).insertAfter("#files").click(function(){$(this).remove();});*/
+            selDiv = $("#selectedFiles");
 
-                        });
-                        fileReader.readAsDataURL(f);
-                    }
-                });
-            } else {
-                alert("Your browser doesn't support to File API")
-            }
+            $("body").on("click", ".fa-trash", removeFile);
         });
+
+        function handleFileSelect(e) {
+            var files = e.target.files;
+            var filesArr = Array.prototype.slice.call(files);
+            filesArr.forEach(function(f) {
+
+                var ext = f.name.split('.').pop();
+                var icon = "";
+                switch (ext) {
+                    case 'png':
+                        icon = "fa fa-file-photo-o";
+                        break;
+                    case 'txt':
+                        icon = "fa fa-file-text-o";
+                        break;
+                    default:
+                        icon = "fa fa-file";
+
+
+                }
+
+                storedFiles.push(f);
+                var html = "<div><i class='" + icon + "'></i><span class=name>" + f.name + "</span> <i class='fa fa-trash'></i> <br clear=\"left\"/></div>";
+                selDiv.append(html);
+
+
+            });
+
+        }
+
+        function removeFile(e) {
+            var ele = $(e.target).parent().find(".name")[0]
+            var file = ele.innerText;
+            for(var i=0;i<storedFiles.length;i++) {
+                if(storedFiles[i].name === file) {
+                    storedFiles.splice(i,1);
+                    break;
+                }
+            }
+            $(this).parent().remove();
+            console.log(storedFiles);
+        }
+
     </script>
 </head>
 <body class="primary-background-color">
@@ -112,11 +110,11 @@
             <!-- Form to add stickers from computer-->
             <form action="/uploads" enctype="multipart/form-data" method="post">
 
-                <div class="field" align="left">
-                    <h3>Upload your images</h3>
-                    <input type="file" id="files" name="im1[]" multiple/>
-                </div>
-                <button type="button" class="clear" id="btnClearAddForm"><a href="/pack/<%= id %>"
+                    Files: <input type="file" id="files" name="files" multiple><br/>
+
+                    <div id="selectedFiles"></div>
+
+                    <button type="button" class="clear" id="btnClearAddForm"><a href="/pack/<%= id %>"
                                                                             class="clear">Back</a></button>
                 </span>
                 <span>
