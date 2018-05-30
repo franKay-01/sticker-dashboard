@@ -1425,7 +1425,7 @@ app.get('/story_details/:id', function (req, res) {
                 colors = story.get("color");
             } else {
                 //use system default
-                colors = ["#df5A34","#814ea4"];
+                colors = ["#df5A34", "#814ea4"];
             }
 
             return new Parse.Query(StickerClass).equalTo("objectId", sticker.get("sticker")).first();
@@ -1470,12 +1470,12 @@ app.get('/change_color/:id', function (req, res) {
                 color = story.get("color");
             } else {
                 //use system default
-                colors = ["#df5A34","#814ea4"];
+                colors = ["#df5A34", "#814ea4"];
             }
 
             res.render("pages/choose_color", {
                 story: story,
-                colors:colors
+                colors: colors
             });
 
         }, function (error) {
@@ -1490,6 +1490,67 @@ app.get('/change_color/:id', function (req, res) {
     }
 });
 
+
+app.post('/edit_item/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let content = req.body.content;
+    let story_id = req.body.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StoryItem).equalTo("objectId", id).first();
+
+        }).then(function (story_item) {
+
+            story_item.set("content", content);
+            return story_item.save();
+
+        }).then(function () {
+
+            res.redirect('/all_story_item/'+ story_id);
+
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/edit_story_item/'+ id + "/"+ story_id);
+        })
+    }else {
+        res.redirect('/');
+    }
+});
+
+app.get('/edit_story_item/:id/:story_id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let story_id = req.params.story_id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StoryItem).equalTo("objectId", id).first();
+
+        }).then(function (story_item) {
+
+            res.render("pages/edit_story_item", {
+                story_item: story_item,
+                story_id: story_id
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/story_catalogue/'+ story_id);
+        })
+    }else {
+        res.redirect('/');
+    }
+
+});
+
 app.get('/all_story_item/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -1500,7 +1561,7 @@ app.get('/all_story_item/:id', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             return new Parse.Query(StoryItem).equalTo("story_id", id).find();
-            
+
         }).then(function (story_item) {
 
             // res.send(JSON.stringify(story_item));
@@ -1514,7 +1575,7 @@ app.get('/all_story_item/:id', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story_details/'+id)
+            res.redirect('/story_details/' + id)
         })
     }
 });
@@ -1585,7 +1646,7 @@ app.get('/stories', function (req, res) {
             _user = sessionToken.get("user");
 
             return Parse.Promise.when(
-                new Parse.Query(StoryClass).equalTo("user_id",_user.id).find(),
+                new Parse.Query(StoryClass).equalTo("user_id", _user.id).find(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).find(),
                 new Parse.Query(ArtWorkClass).find()
             );
