@@ -51,6 +51,7 @@ let Profile = "Profile";
 let LatestClass = "Latest";
 let Barcode = "Barcodes";
 let Links = "Links";
+let PreviouslySelected = "PreviouslySelected";
 
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
@@ -102,7 +103,7 @@ let api = new ParseServer({
     // allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
 
     appId: process.env.APP_ID || 'myAppId', //For heroku,
-   //  clientKey: process.env.CLIENT_KEY || 'clientKey',
+    //  clientKey: process.env.CLIENT_KEY || 'clientKey',
     // appId: config.APP_ID || 'myAppId', //For google
 
     masterKey: process.env.MASTER_KEY || 'myMasterKey', //Add your master key here. Keep it secret! //For heroku
@@ -371,22 +372,15 @@ app.post('/signup', function (req, res) {
 
             profile.set("user_id", user.id);
             profile.set("email", username);
-            if(gender !== "undefined" || gender !== undefined) {
+            if (gender !== "undefined" || gender !== undefined) {
                 profile.set("gender", gender);
-            }else {
+            } else {
                 profile.set("gender", "null");
             }
 
             profile.save().then(function () {
 
-                let Link = new Parse.Object.extend(Links);
-                let link = new Link();
-
-                link.set("object_id", user.id);
-
-                link.save().then(function () {
-                    res.redirect('/');
-                })
+                res.redirect('/');
 
             });
 
@@ -655,6 +649,24 @@ app.post('/latest_element/:type', function (req, res) {
 
         }).then(function () {
 
+            let Selected = new Parse.Object.extend(PreviouslySelected);
+            let selected = new Selected();
+
+            switch (type) {
+                case "sticker":
+                    selected.set("type", 0);
+                    selected.set("object_id", id);
+                    break;
+                case "story":
+                    selected.set("type", 1);
+                    selected.set("object_id", id);
+                    break;
+            }
+
+            return selected.save();
+
+        }).then(function () {
+
             res.redirect('/home');
 
         }, function (error) {
@@ -703,12 +715,16 @@ app.get('/advert_collection', function (req, res) {
 
     let token = req.cookies.token;
     let _adverts = [];
+    let _user = {};
+
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
+            _user = sessionToken.get("user");
+
             return Parse.Promise.when(
-                new Parse.Query(AdvertClass).find(),
+                new Parse.Query(AdvertClass).equalTo("user_id", _user.id).find(),
                 new Parse.Query(AdvertImageClass).find(),
             );
 
@@ -1117,17 +1133,20 @@ app.get('/sticker_of_day', function (req, res) {
 app.get('/story_of_day', function (req, res) {
 
     let token = req.cookies.token;
-    let arts = [];
     let _stories = [];
     let artWork = [];
     let _allArtwork = [];
     let combined = [];
+    let _user = {};
+
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
+            _user = sessionToken.get("user");
+
             return Parse.Promise.when(
-                new Parse.Query(StoryClass).find(),
+                new Parse.Query(StoryClass).equalTo("user_id", _user.id).find(),
                 new Parse.Query(ArtWorkClass).find()
             )
         }).then(function (stories, artworks) {
@@ -1135,13 +1154,22 @@ app.get('/story_of_day', function (req, res) {
             _stories = stories;
             _allArtwork = artworks;
 
-            _.each(artworks, function (artwork) {
+            if (_stories) {
+                _.each(artworks, function (artwork) {
 
-                artWork.push(artwork.get("sticker"));
+                    artWork.push(artwork.get("sticker"));
 
-            });
+                });
 
-            return new Parse.Query(StickerClass).containedIn("objectId", artWork).find();
+                return new Parse.Query(StickerClass).containedIn("objectId", artWork).find();
+            } else {
+                res.render("pages/story_of_day", {
+
+                    stories: [],
+                    artworks: []
+
+                });
+            }
 
         }).then(function (stickers) {
 
@@ -1866,13 +1894,13 @@ app.get('/home', function (req, res) {
                 new Parse.Query(LatestClass).equalTo("objectId", "jU3SwZUJYl").first(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(CategoryClass).limit(limit).find(),
-                new Parse.Query(StoryClass).limit(limit).find(),
+                new Parse.Query(StoryClass).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).find(),
                 new Parse.Query(CategoryClass).count(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StickerClass).equalTo("user_id", _user.id).count(),
                 new Parse.Query(StoryClass).equalTo("user_id", _user.id).count(),
-                new Parse.Query(AdvertClass).limit(limit).find(),
+                new Parse.Query(AdvertClass).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(MessageClass).limit(limit).find()
             );
 
@@ -2572,7 +2600,7 @@ app.get('/user_profile', function (req, res) {
 
             _profile = profile;
 
-            return new Parse.Query(Links).equalTo("object_id", profile.id).find();
+            return new Parse.Query(Links).equalTo("object_id", profile.get("user_id")).find();
 
         }).then(function (links) {
 
@@ -2824,6 +2852,47 @@ app.get('/pack/:id', function (req, res) {
     }
 });
 
+
+app.get('/publish_pack/:id/:state', function (req, res) {
+
+    let token = req.cookies.token;
+    let pack_id = req.params.id;
+    let state = req.params.state;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(PacksClass).equalTo("objectId", pack_id).first();
+
+        }).then(function (pack) {
+
+            if (state === "publish") {
+                pack.set("published", true);
+            }else if (state === "unpublish"){
+                pack.set("published", false);
+
+            }
+
+            return pack.save();
+
+        }).then(function () {
+
+            res.redirect("/pack/" + pack_id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect("/pack/" + pack_id);
+
+        })
+    }else {
+        res.redirect('/');
+    }
+
+});
+
+
 app.get('/edit_pack_details/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -2848,6 +2917,24 @@ app.get('/edit_pack_details/:id', function (req, res) {
         })
     } else {
         res.redirect('/');
+    }
+});
+
+
+app.get("/test_upload/:id", function (req, res) {
+    var token = req.cookies.token;
+    var pack_id = req.params.id;
+
+    if (token) {
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(PacksClass).equalTo("objectId", pack_id).first();
+
+        }).then(function (pack) {
+
+            res.render("pages/testupload", {id: pack.id, pack_name: pack.get("pack_name")});
+
+        })
     }
 });
 
@@ -3189,14 +3276,16 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
 app.post('/update_user', upload.array('im1'), function (req, res) {
 
-    var token = req.cookies.token;
+    let token = req.cookies.token;
     let email = req.body.email;
-    var facebook = req.body.facebook;
-    var twitter = req.body.twitter;
-    var instagram = req.body.instagram;
-    var imgChange = req.body.imgChange;
-    var image = req.files;
+    let image = req.files;
+    let type = parseInt(req.body.type);
+    let handle = req.body.handles;
     let profile_info = [];
+    let link_length = [];
+
+    console.log("TYPE " + type + " HNDLE " + handle);
+
 
     if (token) {
 
@@ -3209,8 +3298,6 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
             return new Parse.Query(Profile).equalTo("user_id", _user.id).first();
 
         }).then(function (profile) {
-
-            console.log("PROFILE " + JSON.stringify(profile));
 
             if (image) {
                 image.forEach(function (file) {
@@ -3240,7 +3327,7 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
             }
 
             return Parse.Object.saveAll(profile_info);
-            
+
         }).then(function (saved_profile) {
 
             if (profile_info.length) {
@@ -3258,21 +3345,65 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
                     });
                 });
             }
-            return new Parse.Query(Links).equalTo("user_id", _user.id).first();
+            return new Parse.Query(Links).equalTo("object_id", _user.id).find();
 
         }).then(function (links) {
 
-            links.set("facebook", facebook);
-            links.set("twitter", twitter);
-            links.set("instagram", instagram);
+            if (type && handle) {
+                if (links.length !== 0) {
+                    _.each(links, function (_link) {
 
-            return links.save();
+                        if (_link.get("type") === type) {
+
+                            _link.set("link", handle);
+                            link_length.push(1);
+
+                            return _link.save();
+                        }
+
+                    });
+
+                    if (link_length.length === 0) {
+
+                        let Link = new Parse.Object.extend(Links);
+                        let link = new Link();
+
+                        link.set("object_id", _user.id);
+                        link.set("type", type);
+                        link.set("link", handle);
+
+                        return link.save();
+
+                    }
+
+                } else {
+                    let Link = new Parse.Object.extend(Links);
+                    let link = new Link();
+
+                    link.set("object_id", _user.id);
+                    link.set("type", type);
+                    link.set("link", handle);
+
+                    return link.save();
+                }
+
+
+            } else {
+
+                console.log("TYPE AND HANDLE NOT PRESENT");
+                res.redirect('/user_profile');
+
+            }
+
         }).then(function () {
+
             res.redirect('/user_profile');
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
             res.redirect('/user_profile');
+
         })
     } else {
         res.redirect('/');
@@ -3411,7 +3542,25 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
             sticker.set("categories", _category);
 
             return sticker.save();
+
         }).then(function (result) {
+
+            _.each(files, function (file) {
+                //Delete tmp fil after upload
+                var tempFile = file.path;
+                fs.unlink(tempFile, function (error) {
+                    if (error) {
+                        //TODO handle error code
+                        //TODO add job to do deletion of tempFiles
+                        console.log("-------Could not del temp" + JSON.stringify(error));
+                    }
+                    else {
+                        console.log("-------Deleted All Files");
+
+                    }
+                });
+            });
+
             res.redirect('/pack/' + pid);
         }, function (error) {
             console.log("ERROR " + error.message);
@@ -3498,7 +3647,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/pack/' + id);
+            res.redirect('/edit_pack_details/' + id);
 
         }, function (error) {
 

@@ -183,6 +183,47 @@ $(document).ready(function () {
             $("#image_id").remove();
         });
 
+
+        $('#removePublished').on('click', function () {
+            $('#pageMask').fadeIn('fast');
+            $('#removePublish').fadeIn('fast');
+            $('#logo').fadeOut('fast');
+            $('.welcome_post').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#opaqueDiv').fadeOut('fast');
+        });
+
+        $('#cancelPublish').on('click', function () {
+            $('#pageMask').fadeOut('fast');
+            $('#removePublish').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('.welcome_post').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+        })
+
+        $('#showPermission').on('click', function () {
+            $('#pageMask').fadeIn('fast');
+            $('#askPermission').fadeIn('fast');
+            $('#logo').fadeOut('fast');
+            $('.welcome_post').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#opaqueDiv').fadeOut('fast');
+        });
+
+        $('#cancelPermission').on('click', function () {
+            $('#pageMask').fadeOut('fast');
+            $('#askPermission').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('.welcome_post').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+        });
+
         //close/hide form
         $('#closeSign').on('click', function () {
             $('#hiddenCreateForm').fadeOut('fast');
