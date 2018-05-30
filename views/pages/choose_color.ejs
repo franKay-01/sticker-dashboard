@@ -78,7 +78,7 @@
             <div class="create_new">First Color</div>
 
             <div style="margin:0px 15px auto;">
-                <% if (color){ %>
+                <% if (story.get("color") !== "undefined" || story.get("color") !== undefined){ %>
                 <input name="color1" type="hidden" id="color_value"
                        value="<%= story.get("color")[0] %>">
                 <button id="color_button" class="jscolor {valueElement: 'color_value'}"></button>
@@ -91,7 +91,7 @@
             <div class="create_new">Second Color</div>
 
             <div style=" margin:0px 15px auto;">
-                <% if (color){ %>
+                <% if (story.get("color") !== "undefined" || story.get("color") !== undefined){ %>
                 <input name="color2" type="hidden" id="color_value_1" value="<%= story.get("color")[1] %>">
                 <button id="color_button" class="jscolor {valueElement: 'color_value_1'}"></button>
                 <% } else { %>
