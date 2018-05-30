@@ -23,7 +23,8 @@ exports.STORY_ITEM = {
     sticker: 3,
     divider: 4,
     italic: 5,
-    bold: 6
+    bold: 6,
+    advert:7
 };
 
 exports.PACK_TYPE = {
