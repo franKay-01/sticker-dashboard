@@ -21,7 +21,9 @@ exports.STORY_ITEM = {
     image: 1,
     quote: 2,
     sticker: 3,
-    divider: 4
+    divider: 4,
+    italic: 5,
+    bold: 6
 };
 
 exports.PACK_TYPE = {
