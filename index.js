@@ -715,12 +715,16 @@ app.get('/advert_collection', function (req, res) {
 
     let token = req.cookies.token;
     let _adverts = [];
+    let _user = {};
+
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
+            _user = sessionToken.get("user");
+
             return Parse.Promise.when(
-                new Parse.Query(AdvertClass).find(),
+                new Parse.Query(AdvertClass).equalTo("user_id", _user.id).find(),
                 new Parse.Query(AdvertImageClass).find(),
             );
 
