@@ -1487,6 +1487,34 @@ app.get('/change_color/:id', function (req, res) {
     }
 });
 
+app.get('/all_story_item/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StoryItem).equalTo("story_id", id).find();
+            
+        }).then(function (story_item) {
+
+            res.send(JSON.stringify(story_item));
+
+            // res.render("pages/story_items", {
+            //
+            //     story_item: story_item
+            //
+            // });
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/story_details/'+id)
+        })
+    }
+});
+
 app.post('/set_story_color/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -1553,7 +1581,7 @@ app.get('/story_collection', function (req, res) {
             _user = sessionToken.get("user");
 
             return Parse.Promise.when(
-                new Parse.Query(StoryClass).find(),
+                new Parse.Query(StoryClass).equalTo("user_id",_user.id).find(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).find(),
                 new Parse.Query(ArtWorkClass).find()
             );
@@ -2877,7 +2905,7 @@ app.get('/publish_pack/:id/:state', function (req, res) {
 
             if (state === "publish") {
                 pack.set("published", true);
-            }else if (state === "unpublish"){
+            } else if (state === "unpublish") {
                 pack.set("published", false);
 
             }
@@ -2894,7 +2922,7 @@ app.get('/publish_pack/:id/:state', function (req, res) {
             res.redirect("/pack/" + pack_id);
 
         })
-    }else {
+    } else {
         res.redirect('/');
     }
 

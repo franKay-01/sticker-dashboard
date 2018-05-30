@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pack Collection - G-Stickers</title>
+
+    <% include ../partials/fav.ejs %>
+
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
+</head>
+
+<body class="primary-background-color">
+<div class="grid-container">
+    <!-- Logo -->
+    <div class="medium-12 large-12" id="logo">
+        <a href="/home">
+            <img src="/public/assets/images/G_logo.png"
+                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
+        </a>
+        <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
+
+    </div>
+
+    <!-- End of logo -->
+    <span class="medium-6 large-6 welcome_post"><b>Edit Story Details</b></span>
+
+    <div class="grid-x grid-margin-x story">
+        <div class="medium-3 large-3 cell login_card">
+            <div class="card_head_position">
+                <div class="stats">Menu</div>
+                <div><a class="_stickers" href="/home">Home</a></div>
+                <div><a class="_categories" href="/packs">Packs</a></div>
+                <div><a class="_stickers_packs" href="/review_collection">Reviews</a></div>
+                <div><a class="_stickers_packs" href="/story_collection">Stories</a></div>
+                <div><a class="_stickers_packs" href="/categories">Categories</a></div>
+                <div><a class="_stickers_packs" href="/advert_collection">Adverts</a></div>
+
+            </div>
+        </div>
+
+        <div class="story_form">
+            <form id="story_form" action="/edit_story/<%= story_item.id %>" method="post">
+
+                <div class="medium-5 large-5 cell">
+
+                    <center>
+                        <img width="200px" height="200px" src="<%= sticker.get("uri").url() %>">
+                    </center>
+                    <label class="update_label">Story Title:</label> <input placeholder="Story Title"
+                                                                            style="width: 60% !important;" class="box_2"
+                                                                            name="title"
+                                                                            value="<%= story.get("title") %>">
+                    <label class="update_label">Keywords (separate with comma):</label> <input placeholder="Keywords "
+                                                                                               class="box_2"
+                                                                                               name="keyword"
+                                                                                               style="width: 60% !important;"
+                                                                                               value="<%= story.get("keyword") %>">
+                    <label class="update_label">Summary:</label>
+                    <textarea class="validate" placeholder="Summary" style="width: 60% !important;"
+                              name="summary" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
+
+                    <label class="update_label">Edit Color Scheme:</label>
+                    <% if (color){ %>
+                    <span style="color: <%= story.get("color")[0] %>"><i class="fa fa-circle fa-5x"
+                                                                         aria-hidden="true"></i></span>
+                    <span style="color:<%= story.get("color")[1] %>;margin-left: -30px;"><i class="fa fa-circle fa-5x"
+                                                                                            aria-hidden="true"></i></span>
+                    <% } else { %>
+                    <span style="color: black"><i class="fa fa-circle fa-5x" aria-hidden="true"></i></span>
+                    <span style="color: darkred;margin-left: -30px;"><i class="fa fa-circle fa-5x"
+                                                                        aria-hidden="true"></i></span>
+                    <% } %>
+                    <br>
+                    <a href="/change_color/<%= story.id %>" class="preview">Edit Color</a><br>
+                    <br>
+
+                    <a href="#" id="submit_story" class="preview">Save Changes</a><br>
+                    <a href="/main_story/<%= story.id %>/<%= story.get("title") %>" class="preview">Edit Main Story</a>
+
+                    <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
+                </div>
+            </form>
+        </div>
+
+        <%- include('../partials/footer') %>
+
+    </div>
+</div>
+
+<!-- Body -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js"></script>
+<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+</body>
+
+
+</html>
