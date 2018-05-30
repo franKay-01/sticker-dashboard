@@ -98,7 +98,6 @@ Parse.Cloud.define("getStories", function (req, res) {
     return Parse.Promise.when(
         new Parse.Query(StoriesClass).equalTo("user_id", process.env.ADMIN).find({useMasterKey: true}),
         new Parse.Query(ArtWorkClass).find()
-
     ).then((stories, artworks) => {
 
         _stories = stories;
@@ -116,24 +115,13 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     }).then(stickers => {
 
-        // parseData.id = response.data.story.id;
-        // parseData.title = response.data.story.get("title");
-        // parseData.color = response.data.story.get("color");
-        // parseData.summary = response.data.story.get("summary");
-        // parseData.name = response.data.sticker.get("stickerName");
-        // parseData.url = response.data.sticker.get("uri").url();
-        // let stories  = [];
-        // response.data.stories.map(story => {
-        //     stories.push({id:story.id,type:story.get("type"),content:story.get("content")})
-        // });
-
         _.each(_stories, function (story) {
 
             let _story = {};
             _story.id = story.id;
             _story.title = story.get("title");
             _story.color = story.get("color");
-            _story.color = story.get("summary");
+            _story.summary = story.get("summary");
 
             _.each(_artworks, function (artwork) {
 
@@ -142,8 +130,8 @@ Parse.Cloud.define("getStories", function (req, res) {
                     if (artwork.get("sticker") === sticker.id) {
 
                         _story.stickerName = sticker.get("stickerName");
-                        if(sticker.get("uri")){
-                        _story.stickerUrl = sticker.get("uri").url();
+                        if (sticker.get("uri")) {
+                            _story.stickerUrl = sticker.get("uri").url();
                         } else {
                             _story.stickerUrl = "";
                         }
