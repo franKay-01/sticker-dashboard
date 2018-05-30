@@ -1463,16 +1463,16 @@ app.get('/change_color/:id', function (req, res) {
 
         }).then(function (story) {
 
-            if (story.get("color") !== "undefined" || story.get("color") !== undefined) {
-
-                color = story.get("color");
-            } else {
-                color = [];
-            }
+            // if (story.get("color") !== "undefined" || story.get("color") !== undefined) {
+            //
+            //     color = story.get("color");
+            // } else {
+            //     color = [];
+            // }
 
             res.render("pages/choose_color", {
-                story: story,
-                color: color
+                story: story
+                // color: color
             });
 
         }, function (error) {
@@ -1911,7 +1911,7 @@ app.get('/home', function (req, res) {
             _collection = collection;
             _story = story;
             _messages = allMessages;
-            _allPacks = collection;
+            _allPacks = allPacks;
             _allAds = allAdverts;
             _categoryLength = helper.leadingZero(categoryLength);
             _packLength = helper.leadingZero(packLength);
