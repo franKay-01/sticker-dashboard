@@ -1911,7 +1911,7 @@ app.get('/home', function (req, res) {
             _collection = collection;
             _story = story;
             _messages = allMessages;
-            _allPacks = collection;
+            _allPacks = allPacks;
             _allAds = allAdverts;
             _categoryLength = helper.leadingZero(categoryLength);
             _packLength = helper.leadingZero(packLength);
