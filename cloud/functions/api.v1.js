@@ -106,6 +106,7 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         _.each(artworks, artwork => {
 
+            //TODO add type:Number=[short story, comic etc] to story
             //TODO update sticker to stickerId
             stickerIds.push(artwork.get("sticker"));
 
@@ -132,6 +133,7 @@ Parse.Cloud.define("getStories", function (req, res) {
             _story.id = story.id;
             _story.title = story.get("title");
             _story.color = story.get("color");
+            _story.color = story.get("summary");
 
             _.each(_artworks, function (artwork) {
 
@@ -140,7 +142,11 @@ Parse.Cloud.define("getStories", function (req, res) {
                     if (artwork.get("sticker") === sticker.id) {
 
                         _story.stickerName = sticker.get("stickerName");
+                        if(sticker.get("uri")){
                         _story.stickerUrl = sticker.get("uri").url();
+                        } else {
+                            _story.stickerUrl = "";
+                        }
                     }
                 })
             });
