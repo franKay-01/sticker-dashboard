@@ -1463,16 +1463,17 @@ app.get('/change_color/:id', function (req, res) {
 
         }).then(function (story) {
 
-            // if (story.get("color") !== "undefined" || story.get("color") !== undefined) {
-            //
-            //     color = story.get("color");
-            // } else {
-            //     color = [];
-            // }
+            let colors = story.get("color");
+            if (colors) {
+                color = story.get("color");
+            } else {
+                //use system default
+                colors = ["#df5A34","#814ea4"];
+            }
 
             res.render("pages/choose_color", {
-                story: story
-                // color: color
+                story: story,
+                colors:colors
             });
 
         }, function (error) {

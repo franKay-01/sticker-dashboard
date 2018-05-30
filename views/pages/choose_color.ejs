@@ -77,28 +77,16 @@
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
             <div class="create_new">First Color</div>
 
-            <div style="margin:0px 15px auto;">
-                <% if (story.get("color") !== "undefined" || story.get("color") !== undefined){ %>
+            <div style="margin:0 15px auto;">
                 <input name="color1" type="hidden" id="color_value"
-                       value="<%= story.get("color")[0] %>">
+                       value="<%= color[0] %>">
                 <button id="color_button" class="jscolor {valueElement: 'color_value'}"></button>
-
-                <% } else { %>
-                <input name="color1" type="hidden" id="color_value" value="99cc00">
-                <button id="color_button" class="jscolor {valueElement: 'color_value'}"></button>
-                <% } %>
             </div>
             <div class="create_new">Second Color</div>
 
             <div style=" margin:0px 15px auto;">
-                <% if (story.get("color") !== "undefined" || story.get("color") !== undefined){ %>
-                <input name="color2" type="hidden" id="color_value_1" value="<%= story.get("color")[1] %>">
+                <input name="color2" type="hidden" id="color_value_1" value="<%= color[1] %>">
                 <button id="color_button" class="jscolor {valueElement: 'color_value_1'}"></button>
-                <% } else { %>
-                <input name="color2" type="hidden" id="color_value_1" value="99cc00">
-                <button id="color_button" class="jscolor {valueElement: 'color_value_1'}"></button>
-                <% } %>
-
             </div>
 
             <button type="button" class="check_color add_catalogue" onclick="addcolor()" style="background: transparent !important;">
@@ -110,7 +98,7 @@
             </button>
 
         </form>
-        <canvas style="background-image: linear-gradient(to bottom, <%= story.get("color")[0] %>, <%= story.get("color")[1] %>);" class="medium-3 large-3 cell icons" id="preview">
+        <canvas style="background-image: linear-gradient(to bottom, <%= color[0] %>, <%= color[1] %>);" class="medium-3 large-3 cell icons" id="preview">
 
         </canvas>
 
