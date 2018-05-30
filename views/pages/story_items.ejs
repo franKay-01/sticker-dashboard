@@ -67,25 +67,25 @@
                           name="review_text" required="" aria-required="true">
                     <%= item.get("content") %>
                 </textarea>
-                <a href="/edit_story_item/<%= item.id %>/text" class="preview">Edit Text</a><br>
+                <a href="/edit_story_item/<%= item.id %>/text" class="preview">Edit Text</a><br><br>
                 <%} else if (item.get("type") === 2){%>
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true">
                     <%= item.get("content") %>
                 </textarea>
-                <a href="/edit_story_item/<%= item.id %>/quote" class="preview">Edit Quote</a><br>
+                <a href="/edit_story_item/<%= item.id %>/quote" class="preview">Edit Quote</a><br><br>
                 <%} else if (item.get("type") === 5){%>
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true">
                     <%= item.get("content") %>
                 </textarea>
-                <a href="/edit_story_item/<%= item.id %>/quote" class="preview">Edit Italic</a><br>
+                <a href="/edit_story_item/<%= item.id %>/quote" class="preview">Edit Italic</a><br><br>
                 <%}else if (item.get("type") === 6){%>
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true">
                     <%= item.get("content") %>
                 </textarea>
-                <a href="/edit_story_item/<%= item.id %>/quote" class="preview">Edit Bold</a><br>
+                <a href="/edit_story_item/<%= item.id %>/quote" class="preview">Edit Bold</a><br><br>
                 <%}%>
                 <%})%>
                 <%}%>
