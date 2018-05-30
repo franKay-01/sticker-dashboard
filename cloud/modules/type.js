@@ -32,3 +32,7 @@ exports.PACK_TYPE = {
     themed: 1,
     curated: 2
 };
+
+exports.DEFAULT = {
+    color: ["#df5A34","#814ea4"]
+};

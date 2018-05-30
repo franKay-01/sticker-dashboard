@@ -1425,7 +1425,7 @@ app.get('/story_details/:id', function (req, res) {
                 colors = story.get("color");
             } else {
                 //use system default
-                colors = ["#df5A34","#814ea4"];
+                colors = type.DEFAULT.color;
             }
 
             return new Parse.Query(StickerClass).equalTo("objectId", sticker.get("sticker")).first();
@@ -1470,7 +1470,7 @@ app.get('/change_color/:id', function (req, res) {
                 color = story.get("color");
             } else {
                 //use system default
-                colors = ["#df5A34","#814ea4"];
+                colors = type.DEFAULT.color
             }
 
             res.render("pages/choose_color", {

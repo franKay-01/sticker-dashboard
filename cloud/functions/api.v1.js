@@ -1,5 +1,6 @@
 let util = require("../modules/util");
 let helpers = require("../modules/helpers");
+let type = require("../modules/type");
 let _ = require('underscore');
 
 let PacksClass = "Packs";
@@ -120,8 +121,14 @@ Parse.Cloud.define("getStories", function (req, res) {
             let _story = {};
             _story.id = story.id;
             _story.title = story.get("title");
-            _story.color = story.get("color");
             _story.summary = story.get("summary");
+
+            let colors = story.get("color");
+            if (colors) {
+                _story.colors = colors
+            } else {
+                _story.colors = type.DEFAULT.color
+            }
 
             _.each(_artworks, function (artwork) {
 
@@ -152,20 +159,3 @@ Parse.Cloud.define("getStories", function (req, res) {
     });
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
