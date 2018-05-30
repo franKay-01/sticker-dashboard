@@ -1407,7 +1407,7 @@ app.get('/story_details/:id', function (req, res) {
 
         let _user = {};
         let _story = {};
-        let color = [];
+        let colors = [];
 
         getUser(token).then(function (sessionToken) {
 
@@ -1420,10 +1420,12 @@ app.get('/story_details/:id', function (req, res) {
 
             _story = story;
 
-            if (_story.get("color") !== "undefined" || _story.get("color") !== undefined) {
-                color = _story.get("color");
+            colors = story.get("color");
+            if (colors) {
+                colors = story.get("color");
             } else {
-                color = [];
+                //use system default
+                colors = ["#df5A34","#814ea4"];
             }
 
             return new Parse.Query(StickerClass).equalTo("objectId", sticker.get("sticker")).first();
@@ -1434,7 +1436,7 @@ app.get('/story_details/:id', function (req, res) {
             res.render("pages/story_details", {
                 story: _story,
                 sticker: _sticker,
-                color: color
+                colors: colors
             });
 
         }, function (error) {
@@ -1463,16 +1465,17 @@ app.get('/change_color/:id', function (req, res) {
 
         }).then(function (story) {
 
-            // if (story.get("color") !== "undefined" || story.get("color") !== undefined) {
-            //
-            //     color = story.get("color");
-            // } else {
-            //     color = [];
-            // }
+            let colors = story.get("color");
+            if (colors) {
+                color = story.get("color");
+            } else {
+                //use system default
+                colors = ["#df5A34","#814ea4"];
+            }
 
             res.render("pages/choose_color", {
-                story: story
-                // color: color
+                story: story,
+                colors:colors
             });
 
         }, function (error) {
