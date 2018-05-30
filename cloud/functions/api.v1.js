@@ -3,6 +3,7 @@ let helpers = require("../modules/helpers");
 let _ = require('underscore');
 
 let PacksClass = "Packs";
+//let PacksClass = "Packs";
 
 Parse.Cloud.define("getPacks", function (req, res) {
 
@@ -13,8 +14,8 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
             _packs = packs;
             let promises = [];
-             _.map(packs, function (pack) {
-                 promises.push(pack.relation(PacksClass).query().find({useMasterKey: true}));
+            _.map(packs, function (pack) {
+                promises.push(pack.relation(PacksClass).query().find({useMasterKey: true}));
             });
 
             return Parse.Promise.when(promises);
@@ -43,38 +44,29 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
 
                 let _artwork = pack.get("art_work");
-                if(_artwork) {
-                     packItem.artwork = _artwork.url();
-                }else{
+                if (_artwork) {
+                    packItem.artwork = _artwork.url();
+                } else {
                     packItem.artwork = "";
                 }
 
-
                 _.map(stickerList, function (stickers) {
-
-                    console.log("Sticker List");
 
                     if (stickers.length) {
 
-                        console.log("Sticker Length");
                         //todo choose five stickers for preview
 
                         let _stickers = [];
                         _.map(stickers, sticker => {
 
-                            console.log("Stickers");
-                            console.log(JSON.stringify(stickers));
-
                             if (pack.id === sticker.get("parent").id) {
 
-                                console.log("Matches Parent");
 
                                 _stickers.push(sticker)
                             }
 
                         });
 
-                        packItem.stickers = [];
                         packItem.stickers = _stickers;
 
                     }
@@ -93,3 +85,31 @@ Parse.Cloud.define("getPacks", function (req, res) {
         });
 
 });
+
+Parse.Cloud.define("getStories", function (req, res) {
+
+    return new Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).find({useMasterKey: true})
+        .then(packs => {
+
+
+
+        });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
