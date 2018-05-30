@@ -1752,16 +1752,24 @@ app.post('/new_catalogue/:id', function (req, res) {
             let catalogue = new Story();
 
             switch (_type) {
-                case TEXT:
+                case type.STORY_ITEM.text:
                     catalogue.set("type", type.STORY_ITEM.text);
                     break;
 
-                case QUOTE:
+                case type.STORY_ITEM.quote:
                     catalogue.set("type", type.STORY_ITEM.quote);
                     break;
 
-                case DIVIDER:
+                case type.STORY_ITEM.divider:
                     catalogue.set("type", type.STORY_ITEM.divider);
+                    break;
+
+                case type.STORY_ITEM.italic:
+                    catalogue.set("type", type.STORY_ITEM.italic);
+                    break;
+
+                case type.STORY_ITEM.bold:
+                    catalogue.set("type", type.STORY_ITEM.bold);
                     break;
             }
 

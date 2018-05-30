@@ -89,6 +89,58 @@
         </div>
     </div>
 
+    <div id="hiddenItalicCatalouge" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW ITALIC</div>
+            </center>
+            <form id="pack_form" action="/new_catalogue/<%= story_id %>" method="post">
+                <center>
+                    <i class="fa fa-italic" style="color: white; font-size: 3rem" aria-hidden="true"></i>
+                    <br><br>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
+                              name="content" id="story_text" required="" aria-required="true"></textarea><br>
+                </center>
+
+                <input name="style" value="5" hidden>
+
+                <span>
+        <button type="submit" class="create">ADD</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseItalicCatalouge" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+
+    <div id="hiddenBoldCatalouge" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW BOLD</div>
+            </center>
+            <form id="pack_form" action="/new_catalogue/<%= story_id %>" method="post">
+                <center>
+                    <i class="fa fa-italic" style="color: white; font-size: 3rem" aria-hidden="true"></i>
+                    <br><br>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
+                              name="content" id="story_text" required="" aria-required="true"></textarea><br>
+                </center>
+
+                <input name="style" value="6" hidden>
+
+                <span>
+        <button type="submit" class="create">ADD</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseBoldCatalouge" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+
     <div id="hiddenDividerCatalouge" class="hidden_forms" style="display: none">
         <div class="medium-3 large-3 cell create_background">
             <center>
@@ -111,7 +163,6 @@
 
             </form>
         </div>
-
     </div>
 
     <div id="hiddenImageCatalouge" class="hidden_forms" style="display: none">
@@ -186,16 +237,22 @@
 
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">Create New</div>
+
             <button class="create_button text_element">
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Text
                 </p>
             </button>
+
             <button class="create_button image_element">
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Image</p>
             </button>
 
             <button class="create_button quote_element">
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Quote</p>
+            </button>
+
+            <button class="create_button italic_element">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Italic</p>
             </button>
 
         </div>
@@ -208,6 +265,10 @@
             </button>
 
             <button class="create_button divider_element">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Divider</p>
+            </button>
+
+            <button class="create_button bold_element">
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Divider</p>
             </button>
         </div>

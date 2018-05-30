@@ -108,6 +108,16 @@ $(document).ready(function () {
             $('#pack_id').fadeOut('fast');
         });
 
+        $('.bold_element').on('click', function () {
+            $('#hiddenBoldCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
+
         $('.quote_element').on('click', function () {
             $('#hiddenQuoteCatalouge').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
@@ -118,6 +128,15 @@ $(document).ready(function () {
             $('#pack_id').fadeOut('fast');
         });
 
+        $('.italic_element').on('click', function () {
+            $('#hiddenItalicCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
 
         $('#showAdImageForm').on('click', function () {
             $('#pageMask').fadeIn('fast');
@@ -299,6 +318,26 @@ $(document).ready(function () {
 
         $('#btnCloseQuoteCatalouge').on('click', function () {
             $('#hiddenQuoteCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
+        $('#btnCloseItalicCatalouge').on('click', function () {
+            $('#hiddenItalicCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
+        $('#btnCloseBoldCatalouge').on('click', function () {
+            $('#hiddenBoldCatalouge').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
