@@ -22,19 +22,6 @@
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
-    <script>
-        $(document).ready(function () {
-            document.getElementById("submit_story").onclick = function () {
-                document.getElementById("story_form").submit();
-            }
-
-            function setTextColor(picker) {
-                document.getElementsByTagName('body')[0].style.color = '#' + picker.toString()
-            }
-        });
-
-    </script>
-
 </head>
 
 <body class="primary-background-color">
@@ -63,18 +50,11 @@
                 <div><a class="_stickers_packs" href="/categories">Categories</a></div>
                 <div><a class="_stickers_packs" href="/advert_collection">Adverts</a></div>
 
-                <div style="margin-top: 60px;"><a class="_stickers_packs" href="/story_catalogue/<%= story.id %>">Add
-                        Story Item</a></div>
             </div>
         </div>
 
         <div class="story_form">
-            <a target="_blank" href="https://sticker-website.herokuapp.com/story-<%= story.id %>" style="float: right">
-                <button class="create_button add_catalogue" style="background: transparent !important;">
-                    <p class="preview"> PREVIEW STORY</p>
-                </button>
-            </a>
-            <form id="story_form" action="/edit_story/<%= story.id %>" method="post">
+            <form id="story_form" action="/edit_story/<%= story_item.id %>" method="post">
 
                 <div class="medium-5 large-5 cell">
 
@@ -95,11 +75,16 @@
                               name="summary" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
 
                     <label class="update_label">Edit Color Scheme:</label>
-                    <span style="color: <%= colors[0] %>"><i class="fa fa-circle fa-5x"
+                    <% if (color){ %>
+                    <span style="color: <%= story.get("color")[0] %>"><i class="fa fa-circle fa-5x"
                                                                          aria-hidden="true"></i></span>
-                    <span style="color:<%= colors[1] %>;margin-left: -30px;"><i class="fa fa-circle fa-5x"
+                    <span style="color:<%= story.get("color")[1] %>;margin-left: -30px;"><i class="fa fa-circle fa-5x"
                                                                                             aria-hidden="true"></i></span>
-
+                    <% } else { %>
+                    <span style="color: black"><i class="fa fa-circle fa-5x" aria-hidden="true"></i></span>
+                    <span style="color: darkred;margin-left: -30px;"><i class="fa fa-circle fa-5x"
+                                                                        aria-hidden="true"></i></span>
+                    <% } %>
                     <br>
                     <a href="/change_color/<%= story.id %>" class="preview">Edit Color</a><br>
                     <br>
