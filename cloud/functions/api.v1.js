@@ -96,8 +96,9 @@ Parse.Cloud.define("getStories", function (req, res) {
     let stickerObjects = [];
 
     return Parse.Promise.when(
-        new Parse.Query(StoriesClass).find("user_id", process.env.ADMIN).find({useMasterKey: true}),
+        new Parse.Query(StoriesClass).equalTo("user_id", process.env.ADMIN).find({useMasterKey: true}),
         new Parse.Query(ArtWorkClass).find()
+
     ).then((stories, artworks) => {
 
         _stories = stories;
@@ -110,7 +111,7 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         });
 
-        return new Parse.Query(StickersClass).containedIn("objectId", stickerIds).find();
+        return new Parse.Query(StickersClass).containedIn("objectId", stickerIds).find({useMasterKey: true});
 
     }).then(stickers => {
 
