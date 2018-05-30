@@ -1503,13 +1503,13 @@ app.get('/all_story_item/:id', function (req, res) {
             
         }).then(function (story_item) {
 
-            res.send(JSON.stringify(story_item));
+            // res.send(JSON.stringify(story_item));
 
-            // res.render("pages/story_items", {
-            //
-            //     story_item: story_item
-            //
-            // });
+            res.render("pages/story_items", {
+
+                story_item: story_item
+
+            });
         }, function (error) {
 
             console.log("ERROR " + error.message);

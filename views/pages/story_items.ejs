@@ -54,52 +54,45 @@
         </div>
 
         <div class="story_form">
-            <form id="story_form" action="/edit_story/<%= story_item.id %>" method="post">
+            <div class="medium-5 large-5 cell">
+                <%if (story_item.length === 0) {%>
+                <p class="none"><b>No Story Item</b></p>
+                <%} else {%>
+                <% story_item.forEach(function(item, index) { %>
 
-                <div class="medium-5 large-5 cell">
-
-                    <center>
-                        <img width="200px" height="200px" src="<%= sticker.get("uri").url() %>">
-                    </center>
-                    <label class="update_label">Story Title:</label> <input placeholder="Story Title"
-                                                                            style="width: 60% !important;" class="box_2"
-                                                                            name="title"
-                                                                            value="<%= story.get("title") %>">
-                    <label class="update_label">Keywords (separate with comma):</label> <input placeholder="Keywords "
-                                                                                               class="box_2"
-                                                                                               name="keyword"
-                                                                                               style="width: 60% !important;"
-                                                                                               value="<%= story.get("keyword") %>">
-                    <label class="update_label">Summary:</label>
-                    <textarea class="validate" placeholder="Summary" style="width: 60% !important;"
-                              name="summary" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
-
-                    <label class="update_label">Edit Color Scheme:</label>
-                    <% if (color){ %>
-                    <span style="color: <%= story.get("color")[0] %>"><i class="fa fa-circle fa-5x"
-                                                                         aria-hidden="true"></i></span>
-                    <span style="color:<%= story.get("color")[1] %>;margin-left: -30px;"><i class="fa fa-circle fa-5x"
-                                                                                            aria-hidden="true"></i></span>
-                    <% } else { %>
-                    <span style="color: black"><i class="fa fa-circle fa-5x" aria-hidden="true"></i></span>
-                    <span style="color: darkred;margin-left: -30px;"><i class="fa fa-circle fa-5x"
-                                                                        aria-hidden="true"></i></span>
-                    <% } %>
-                    <br>
-                    <a href="/change_color/<%= story.id %>" class="preview">Edit Color</a><br>
-                    <br>
-
-                    <a href="#" id="submit_story" class="preview">Save Changes</a><br>
-                    <a href="/main_story/<%= story.id %>/<%= story.get("title") %>" class="preview">Edit Main Story</a>
-
-                    <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
-                </div>
-            </form>
+                <%if (item.get("type") === 0){%>
+                <textarea class="box_2 validate" placeholder="Review description"
+                          name="review_text" required="" aria-required="true">
+                    <%= item.get("content") %>
+                </textarea><br>
+                <a href="/edit_story_item/<%= item.id %>/text" class="preview">Edit Text</a><br>
+                <%} else if (item.get("type") === 2){%>
+                <textarea class="box_2 validate" placeholder="Review description"
+                          name="review_text" required="" aria-required="true">
+                    <%= item.get("content") %>
+                </textarea>
+                <a href="/edit_story_item/<%= item.id %>/quote" class="preview">Edit Quote</a><br>
+                <%} else if (item.get("type") === 5){%>
+                <textarea class="box_2 validate" placeholder="Review description"
+                          name="review_text" required="" aria-required="true">
+                    <%= item.get("content") %>
+                </textarea>
+                <a href="/edit_story_item/<%= item.id %>/quote" class="preview">Edit Italic</a><br>
+                <%}else if (item.get("type") === 6){%>
+                <textarea class="box_2 validate" placeholder="Review description"
+                          name="review_text" required="" aria-required="true">
+                    <%= item.get("content") %>
+                </textarea>
+                <a href="/edit_story_item/<%= item.id %>/quote" class="preview">Edit Bold</a><br>
+                <%}%>
+                <%})%>
+                <%}%>
+            </div>
         </div>
-
-        <%- include('../partials/footer') %>
-
     </div>
+
+    <%- include('../partials/footer') %>
+
 </div>
 
 <!-- Body -->
