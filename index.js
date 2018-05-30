@@ -1507,7 +1507,8 @@ app.get('/all_story_item/:id', function (req, res) {
 
             res.render("pages/story_items", {
 
-                story_item: story_item
+                story_item: story_item,
+                story_id: id
 
             });
         }, function (error) {
