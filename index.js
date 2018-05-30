@@ -609,7 +609,7 @@ app.post('/new_story', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/stories/' + story_id);
+            res.redirect('/story/' + story_id);
 
         }, function (error) {
             console.log("ERROR WHEN CREATING NEW STORY " + error.message);
@@ -1252,7 +1252,7 @@ app.post('/new_catalogue_sticker/:id', function (req, res) {
     }
 });
 
-app.get('/stories/:id', function (req, res) {
+app.get('/story/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
 
@@ -1280,7 +1280,7 @@ app.get('/stories/:id', function (req, res) {
 
         }).then(function (stickers) {
 
-            res.render("pages/stories", {
+            res.render("pages/story", {
                 story: _story.id,
                 stickers: stickers
             });
@@ -1363,7 +1363,7 @@ app.post('/add_story_artwork/:id', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/stories/' + story_id);
+            res.redirect('/story/' + story_id);
 
         });
     } else {
@@ -1441,7 +1441,7 @@ app.get('/story_details/:id', function (req, res) {
 
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/story_collection');
+            res.redirect('/stories');
         })
 
     } else {
@@ -1565,7 +1565,7 @@ app.post('/set_story_color/:id', function (req, res) {
     }
 });
 
-app.get('/story_collection', function (req, res) {
+app.get('/stories', function (req, res) {
 
     let token = req.cookies.token;
 
@@ -1620,7 +1620,7 @@ app.get('/story_collection', function (req, res) {
                 })
             });
 
-            res.render("pages/story_collection", {
+            res.render("pages/stories", {
                 story: _story,
                 allPacks: _allPack,
                 arts: combined
