@@ -80,6 +80,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
             });
 
+            //TODO properly handle error
             res.success(util.setResponseOk(stickerObjects));
 
         }, function (error) {
@@ -88,6 +89,69 @@ Parse.Cloud.define("getPacks", function (req, res) {
         });
 
 });
+
+Parse.Cloud.define("getStory", function (req, res) {
+
+    let StoryClass = "Stories";
+    let ArtWorkClass = "ArtWork";
+    let StoryItems = "StoryItem";
+    let StickerClass = "Stickers";
+    let _story = {};
+    let _storyItems = [];
+
+    let storyId = req.params.storyId;
+
+    Parse.Promise.when(
+        new Parse.Query(StoryClass).equalTo("objectId", storyId).first(),
+        new Parse.Query(ArtWorkClass).equalTo("object_id", storyId).first(),
+        new Parse.Query(StoryItems).equalTo("story_id", storyId).find()
+    ).then(function (story, sticker, storyItems) {
+
+        _story = story;
+        _storyItems = storyItems;
+
+        return new Parse.Query(StickerClass).equalTo("objectId", sticker.get("sticker")).first();
+
+    }).then(function (sticker) {
+
+        if (_story && sticker && _storyItems) {
+
+          /*  _story.id = story.id;
+            _story.title = story.get("title");
+            _story.summary = story.get("summary");*/
+            let story = {};
+            story.id = _story.id;
+            story.title = _story.get("title");
+            story.summary = _story.get("summary");
+            story.stickerName = sticker.get("stickerName");
+
+            if (sticker.get("uri")) {
+                story.stickerUrl = sticker.get("uri").url();
+            } else {
+                story.stickerUrl = "";
+            }
+
+            story.items = [];
+            if (_storyItems.length) {
+                story.items = _storyItems;
+            }
+
+            res.success(util.setResponseOk(story));
+
+        } else {
+
+            util.handleError(res, util.setErrorType(util.STORY_PREVIEW_ERROR));
+
+        }
+
+    }, function (error) {
+
+        util.handleError(res, error);
+
+    })
+
+});
+
 
 Parse.Cloud.define("getStories", function (req, res) {
 
