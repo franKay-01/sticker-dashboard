@@ -131,9 +131,16 @@ Parse.Cloud.define("getStory", function (req, res) {
                 story.stickerUrl = "";
             }
 
-            story.items = [];
+            let colors = _story.get("color");
+            if (colors) {
+                story.colors = colors
+            } else {
+                story.colors = type.DEFAULT.color
+            }
+
+            story.stories = [];
             if (_storyItems.length) {
-                story.items = _storyItems;
+                story.stories = _storyItems;
             }
 
             res.success(util.setResponseOk(story));
