@@ -116,9 +116,9 @@ Parse.Cloud.define("getStory", function (req, res) {
 
         if (_story && sticker && _storyItems) {
 
-          /*  _story.id = story.id;
-            _story.title = story.get("title");
-            _story.summary = story.get("summary");*/
+            /*  _story.id = story.id;
+              _story.title = story.get("title");
+              _story.summary = story.get("summary");*/
             let story = {};
             story.id = _story.id;
             story.title = _story.get("title");
@@ -140,7 +140,11 @@ Parse.Cloud.define("getStory", function (req, res) {
 
             story.stories = [];
             if (_storyItems.length) {
-                story.stories = _storyItems;
+                let storyItem = [];
+                _.each(_storyItems, storyItem => {
+                    storyItem.push({content: storyItem.get("content"), title: storyItem.get("type")})
+                });
+                story.stories = storyItem;
             }
 
             res.success(util.setResponseOk(story));
