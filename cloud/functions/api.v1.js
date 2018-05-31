@@ -142,7 +142,7 @@ Parse.Cloud.define("getStory", function (req, res) {
             if (_storyItems.length) {
                 let storyItem = [];
                 _.each(_storyItems, storyItem => {
-                    storyItem.push({content: storyItem.get("content"), title: storyItem.get("type")})
+                    storyItem.push({content: storyItem.get("content"), type: storyItem.get("type")})
                 });
                 story.stories = storyItem;
             }
