@@ -112,19 +112,12 @@ Parse.Cloud.define("getStory", function (req, res) {
         _story = story;
         _storyItems = storyItems;
 
-        console.log("STORY QUERY " + JSON.stringify(story));
-
         return new Parse.Query(StickersClass).equalTo("objectId", sticker.get("sticker")).first({useMasterKey: true});
 
     }).then(function (sticker) {
 
-        console.log("STICKER QUERY ");
-
         if (_story && sticker && _storyItems) {
 
-            /*  _story.id = story.id;
-              _story.title = story.get("title");
-              _story.summary = story.get("summary");*/
             let story = {};
             story.id = _story.id;
             story.title = _story.get("title");
@@ -144,18 +137,15 @@ Parse.Cloud.define("getStory", function (req, res) {
                 story.colors = type.DEFAULT.color
             }
 
-            story.stories = [];
+          //  story.stories = [];
 
             if (_storyItems.length) {
                 let _stories = [];
                 _.each(_storyItems, storyItem => {
-                    _stories.push({id: storyItem.id,content: storyItem.get("content"), type: storyItem.get("type")});
-                    console.log("macbook " + _stories)
+                    _stories.push({id: storyItem.id, content: storyItem.get("content"), type: storyItem.get("type")});
                 });
                 story.stories = _stories;
             }
-
-            console.log("STORY DATA " + JSON.stringify(_storyItems));
 
             res.success(util.setResponseOk(story));
 
@@ -166,8 +156,6 @@ Parse.Cloud.define("getStory", function (req, res) {
         }
 
     }, function (error) {
-
-        console.log("STORY ERROR " + JSON.stringify(error));
 
         util.handleError(res, error);
 
@@ -181,7 +169,7 @@ Parse.Cloud.define("getStories", function (req, res) {
     let _stories = [];
     let stickerIds = [];
     let _artworks = [];
-    let stickerObjects = [];
+    let storyList = [];
 
     return Parse.Promise.when(
         new Parse.Query(StoriesClass).equalTo("user_id", process.env.ADMIN).find({useMasterKey: true}),
@@ -233,11 +221,11 @@ Parse.Cloud.define("getStories", function (req, res) {
                 })
             });
 
-            stickerObjects.push(_story);
+            storyList.push(_story);
 
         });
 
-        res.success(util.setResponseOk(stickerObjects));
+        res.success(util.setResponseOk(storyList));
 
     }, error => {
 
