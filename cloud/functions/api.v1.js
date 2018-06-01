@@ -107,12 +107,16 @@ Parse.Cloud.define("getStory", function (req, res) {
         new Parse.Query(StoryItemClass).equalTo("story_id", storyId).find({useMasterKey: true})
     ).then(function (story, sticker, storyItems) {
 
+        console.log("STORY QUERY ");
+
         _story = story;
         _storyItems = storyItems;
 
         return new Parse.Query(StickerClass).equalTo("objectId", sticker.get("sticker")).first({useMasterKey: true});
 
     }).then(function (sticker) {
+
+        console.log("STICKER QUERY ");
 
         if (_story && sticker && _storyItems) {
 
@@ -139,7 +143,7 @@ Parse.Cloud.define("getStory", function (req, res) {
             }
 
 
-            console.log("STORY " + JSON.stringify(story));
+            console.log("STORY DATA "+ JSON.stringify(story));
 
             story.stories = [];
             if (_storyItems.length) {
@@ -159,6 +163,8 @@ Parse.Cloud.define("getStory", function (req, res) {
         }
 
     }, function (error) {
+
+        console.log("STORY ERROR " + JSON.stringify(error));
 
         util.handleError(res, error);
 
