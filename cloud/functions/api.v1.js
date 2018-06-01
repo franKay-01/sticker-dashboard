@@ -90,6 +90,12 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
 });
 
+Parse.Cloud.define("getPack", function (req, res) {
+
+    let packId = req.params.packId;
+
+});
+
 Parse.Cloud.define("getStory", function (req, res) {
 
     let _story = {};
@@ -140,16 +146,14 @@ Parse.Cloud.define("getStory", function (req, res) {
 
             story.stories = [];
 
-            // if (_storyItems.length) {
-            //
-            //
-            //
-            //     let storyItem = [];
-            //     _.each(_storyItems, storyItem => {
-            //         storyItem.push({content: storyItem.get("content"), type: storyItem.get("type")})
-            //     });
-            //     story.stories = storyItem;
-            // }
+            if (_storyItems.length) {
+                let storyItem = [];
+                _.each(_storyItems, storyItem => {
+                 //   storyItem.push({content: storyItem.get("content"), type: storyItem.get("type")})
+                    console.log("content " + storyItem.get("content"))
+                });
+                story.stories = storyItem;
+            }
 
             console.log("STORY DATA " + JSON.stringify(_storyItems));
 
