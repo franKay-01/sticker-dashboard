@@ -5,7 +5,7 @@ let _ = require('underscore');
 
 let PacksClass = "Packs";
 let StoriesClass = "Stories";
-let StoryItem = "StoryItem";
+let StoryItemClass = "StoryItem";
 let ArtWorkClass = "ArtWork";
 let StickersClass = "Stickers";
 
@@ -92,25 +92,25 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
 Parse.Cloud.define("getStory", function (req, res) {
 
-    let StoryClass = "Stories";
-    let ArtWorkClass = "ArtWork";
-    let StoryItems = "StoryItem";
-    let StickerClass = "Stickers";
+    // let StoryClass = "Stories";
+    // let ArtWorkClass = "ArtWork";
+    // let StoryItems = "StoryItem";
+    // let StickerClass = "Stickers";
     let _story = {};
     let _storyItems = [];
 
     let storyId = req.params.storyId;
 
     Parse.Promise.when(
-        new Parse.Query(StoryClass).equalTo("objectId", storyId).first(),
-        new Parse.Query(ArtWorkClass).equalTo("object_id", storyId).first(),
-        new Parse.Query(StoryItems).equalTo("story_id", storyId).find()
+        new Parse.Query(StoriesClass).equalTo("objectId", storyId).first({useMasterKey: true}),
+        new Parse.Query(ArtWorkClass).equalTo("object_id", storyId).first({useMasterKey: true}),
+        new Parse.Query(StoryItemClass).equalTo("story_id", storyId).find({useMasterKey: true})
     ).then(function (story, sticker, storyItems) {
 
         _story = story;
         _storyItems = storyItems;
 
-        return new Parse.Query(StickerClass).equalTo("objectId", sticker.get("sticker")).first();
+        return new Parse.Query(StickerClass).equalTo("objectId", sticker.get("sticker")).first({useMasterKey: true});
 
     }).then(function (sticker) {
 
@@ -137,6 +137,9 @@ Parse.Cloud.define("getStory", function (req, res) {
             } else {
                 story.colors = type.DEFAULT.color
             }
+
+
+            console.log("STORY " + JSON.stringify(story));
 
             story.stories = [];
             if (_storyItems.length) {
