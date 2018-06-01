@@ -138,9 +138,6 @@ Parse.Cloud.define("getStory", function (req, res) {
                 story.colors = type.DEFAULT.color
             }
 
-
-            console.log("STORY DATA "+ JSON.stringify(story));
-
             story.stories = [];
             if (_storyItems.length) {
                 let storyItem = [];
@@ -149,6 +146,8 @@ Parse.Cloud.define("getStory", function (req, res) {
                 });
                 story.stories = storyItem;
             }
+
+            console.log("STORY DATA "+ JSON.stringify(story));
 
             res.success(util.setResponseOk(story));
 
