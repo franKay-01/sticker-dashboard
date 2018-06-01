@@ -108,7 +108,7 @@ Parse.Cloud.define("getStory", function (req, res) {
 
         console.log("STORY QUERY "+ JSON.stringify(story));
 
-        return new Parse.Query(StickerClass).equalTo("objectId", sticker.get("sticker")).first({useMasterKey: true});
+        return new Parse.Query(StickersClass).equalTo("objectId", sticker.get("sticker")).first({useMasterKey: true});
 
     }).then(function (sticker) {
 
