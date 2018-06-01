@@ -147,12 +147,12 @@ Parse.Cloud.define("getStory", function (req, res) {
             story.stories = [];
 
             if (_storyItems.length) {
-                let storyItem = [];
+                let _stories = [];
                 _.each(_storyItems, storyItem => {
-                 //   storyItem.push({content: storyItem.get("content"), type: storyItem.get("type")})
-                    console.log("macbook " + storyItem.get("type"))
+                    _stories.push({content: storyItem.get("content"), type: storyItem.get("type")});
+                    console.log("macbook " + _stories)
                 });
-                story.stories = storyItem;
+                story.stories = _stories;
             }
 
             console.log("STORY DATA " + JSON.stringify(_storyItems));
