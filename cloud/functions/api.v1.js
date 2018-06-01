@@ -147,6 +147,7 @@ Parse.Cloud.define("getStory", function (req, res) {
                 story.stories = _stories;
             }
 
+
             res.success(util.setResponseOk(story));
 
         } else {
