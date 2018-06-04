@@ -2397,9 +2397,11 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     stats = snapshot.val().stickers;
 
                     console.log("STATS " + stats);
+
+                    return stats;
                 });
 
-                return stats;
+
 
             }).then(function (stats) {
 
