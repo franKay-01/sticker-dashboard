@@ -2292,7 +2292,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     let fileDetails = [];
     let stickerDetails = [];
     let stickerCollection;
-    let stats;
+    let value = [];
 
     if (token) {
 
@@ -2394,14 +2394,16 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 statsRef.on("value", function(snapshot, prevChildKey) {
 
-                    stats = snapshot.val().stickers;
+                    let stats = snapshot.val().stickers;
+
+                    value.push(stats);
 
                 });
 
-                 if (stats){
+                 if (value.length){
 
                     statsRef.update({
-                        stickers: stats + 1
+                        stickers: value[0] + 1
                     }, function (error) {
                         if (error) {
                             console.log("Data could not be saved." + error);
