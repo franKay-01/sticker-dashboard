@@ -2394,7 +2394,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 var statsRef = ref.child("/g-stickers");
 
                 statsRef.update({
-                    categories: 3,
+                    categories: 5,
                     packs: 5,
                     stickers: 7
                 }, function (error) {
