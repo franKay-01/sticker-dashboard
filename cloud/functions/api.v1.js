@@ -17,8 +17,6 @@ Parse.Cloud.define("getPacks", function (req, res) {
     return new Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId","hB39Hhb16O").find({useMasterKey: true})
         .then(function (packs) {
 
-            console.log("Packs INFORMATION");
-
             _packs = packs;
             let promises = [];
             _.map(packs, function (pack) {
@@ -47,8 +45,6 @@ Parse.Cloud.define("getPacks", function (req, res) {
             //todo check if pack has not been archived
             _.map(_packs, pack => {
 
-                console.log("pack  INFORMATION_THREE " + JSON.stringify(pack));
-
                 let packItem = {};
                 packItem.name = pack.get("pack_name");
                 packItem.description = pack.get("pack_description");
@@ -72,8 +68,6 @@ Parse.Cloud.define("getPacks", function (req, res) {
                             if (pack.id === sticker.get("parent").id) {
 
                                 _stickers.push({id:sticker.id,url:sticker.get("uri").url()});
-
-                                console.log("INFORMATION_FOUR " + JSON.stringify(_stickers));
                             }
 
                         });
@@ -83,6 +77,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
                     }
                 });
 
+                console.log("INFORMATION_FIVE " + JSON.stringify(packItem));
                 stickerObjects.push(packItem);
 
             });
