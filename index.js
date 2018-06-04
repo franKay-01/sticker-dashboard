@@ -271,7 +271,7 @@ let serviceAccount = require('./g-stickers-3dc7b52f4925.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: 'https://gstickers-stats.firebaseio.com'
+    databaseURL: 'https://g-stickers.firebaseio.com'
 });
 
 /*
@@ -2365,7 +2365,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     //Specify email data
                     from: process.env.EMAIL_FROM || "test@example.com",
                     //The email to contact
-                    to: req.cookies.username,
+                    to: _user.get("username"),
                     //Subject and text data
                     subject: 'Stickers Uploaded',
                     html: fs.readFileSync("./uploads/sticker_upload.html", "utf8")
@@ -2385,9 +2385,12 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 });
 
                 let db = admin.database();
-                // let ref = db.ref("server/saving-data/fireblog");
+                let ref = db.ref("server/saving-data/fireblog");
 
-                usersRef.child("gstickers-stats").update({
+
+                var usersRef = ref.child("g-stickers");
+
+                usersRef.update({
                     categories: 3,
                     packs: 5,
                     stickers: 7
