@@ -2385,22 +2385,24 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 });
 
                 let db = admin.database();
+
+                // change this to shorter folder
                 let ref = db.ref("server/saving-data/fireblog");
 
                 let statsRef = ref.child("/gstickers-e4668");
 
-                // let number = [];
-                //
-                // ref.on("value", function(snapshot, prevChildKey) {
-                //
-                //     let stats = snapshot.val();
-                //
-                //     console.log(JSON.stringify("STATS"+stats));
-                //     if (stats){
-                //         number.push(stats);
-                //     }
-                //
-                // });
+                let number = [];
+
+                ref.on("value", function(snapshot, prevChildKey) {
+
+                    let stats = snapshot.val();
+
+                    console.log(JSON.stringify("STATS "+stats));
+                    if (stats){
+                        number.push(stats);
+                    }
+
+                });
 
                 // if (number.length){
 
