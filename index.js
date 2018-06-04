@@ -2392,6 +2392,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
 
                 let statsRef = ref.child("/g-stickers");
+
                 let number = [];
 
                 ref.on("value", function(snapshot, prevChildKey) {
