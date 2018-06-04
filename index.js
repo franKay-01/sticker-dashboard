@@ -271,7 +271,10 @@ let serviceAccount = require('./g-stickers-3dc7b52f4925.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: 'https://g-stickers.firebaseio.com'
+    databaseURL: 'https://g-stickers.firebaseio.com',
+    databaseAuthVariableOverride: {
+        uid: "my-admin"
+    }
 });
 
 /*
@@ -2388,7 +2391,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 let ref = db.ref("server/saving-data/fireblog");
 
 
-                var statsRef = ref.child("g-stickers");
+                var statsRef = ref.child("/g-stickers");
                 var stats = statsRef.push();
 
                 stats.update({
