@@ -2404,6 +2404,8 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
             }).then(function () {
 
                 if (stats) {
+                    stats = stats + 1;
+
                     statsRef.update({
                         stickers: stats
                     }, function (error) {
