@@ -2417,6 +2417,22 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     });
                 // }
 
+                var dimensions = {
+                    gender: 'm',
+                    source: 'web',
+                    dayType: 'weekend'
+                };
+
+                Parse.Analytics.track('/uploads', dimensions, function (track) {
+
+                    console.log("SUCCESS TRACK");
+
+                }, function (error) {
+
+                    console.log("TRACK ERROR " + error.message)
+                });
+
+
 
                 console.log("REDIRECT TO PACK COLLECTION");
                 res.redirect("/pack/" + pack_id);
