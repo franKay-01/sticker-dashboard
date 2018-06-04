@@ -2401,9 +2401,11 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 });
 
                  if (value.length){
+                    console.log("HERE");
+                    let result = value[0] + 1;
 
                     statsRef.update({
-                        stickers: value[0] + 1
+                        stickers: result
                     }, function (error) {
                         if (error) {
                             console.log("Data could not be saved." + error);
