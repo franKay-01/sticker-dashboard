@@ -267,7 +267,7 @@ const getUser = token => {
         .include('user').first({sessionToken: token});
 }
 
-let serviceAccount = require('./gstickers-e4668-firebase-adminsdk-s4jya-36f278f5f3');
+let serviceAccount = require('./gstickers-e4668-firebase-adminsdk-s4jya-36f278f5f3.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
