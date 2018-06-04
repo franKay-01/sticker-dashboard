@@ -73,7 +73,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
                                 _stickers.push({id:sticker.id,url:sticker.get("uri").url()});
 
-                                console.log("Stickers " + JSON.stringify(_stickers));
+                                console.log("INFORMATION_FOUR " + JSON.stringify(_stickers));
                             }
 
                         });
