@@ -2404,6 +2404,9 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
             }).then(function (stats) {
 
                 if (stats) {
+
+                    console.log("STATS 2 " + stats);
+
                     stats = stats + 1;
 
                     statsRef.update({
