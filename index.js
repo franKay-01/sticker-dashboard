@@ -2397,7 +2397,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     if (error) {
                         console.log("Data could not be saved." + error);
                     } else {
-                        console.log("Data saved successfully.");
+                        console.log("Data saved successfully");
                     }
                 });
 
