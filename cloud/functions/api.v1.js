@@ -37,8 +37,6 @@ Parse.Cloud.define("getPacks", function (req, res) {
             sold:bool
             * */
 
-
-
             let stickerObjects = [];
 
             //todo check if pack is published
@@ -56,16 +54,9 @@ Parse.Cloud.define("getPacks", function (req, res) {
                     packItem.artwork = "";
                 }
 
-                console.log("INFORMATION_SIX " + JSON.stringify(stickerList));
-
                 _.map(stickerList, function (stickers) {
 
-
-                    console.log("INFORMATION_SEVEN " + JSON.stringify(stickers));
-
                     if (stickers.length) {
-
-                        //todo choose five stickers for preview
 
                         let _stickers = [];
                         _.map(stickers, sticker => {
@@ -77,12 +68,12 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
                         });
 
+                        console.log("INFORMATION_NINE " + JSON.stringify(_stickers));
                         packItem.previews = _stickers;
 
                     }
                 });
 
-                console.log("INFORMATION_FIVE " + JSON.stringify(packItem));
                 stickerObjects.push(packItem);
 
             });
