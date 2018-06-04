@@ -2302,6 +2302,13 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
             _user = sessionToken.get("user");
 
+            let db = admin.database();
+
+            // change this to shorter folder
+            let ref = db.ref("server/saving-data/fireblog");
+
+            let statsRef = ref.child("/gstickers-e4668");
+
             new Parse.Query(PacksClass).equalTo("objectId", pack_id).first({sessionToken: token}).then(function (collection) {
 
                 stickerCollection = collection;
@@ -2385,48 +2392,30 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     }
                 });
 
-                let db = admin.database();
-
-                // change this to shorter folder
-                let ref = db.ref("server/saving-data/fireblog");
-
-                let statsRef = ref.child("/gstickers-e4668");
-
                 statsRef.on("value", function (snapshot, prevChildKey) {
 
                     let stats = snapshot.val().stickers;
 
-                    stats = stats + 1;
-
-                    statsRef.update({
-                        stickers: stats
-                    }, function (error) {
-                        if (error) {
-                            console.log("Data could not be saved." + error);
-                        } else {
-                            console.log("Data saved successfully");
-                        }
-                    });
-
+                    value.push(stats);
 
                 });
 
+                return true;
 
-                // var dimensions = {
-                //     gender: 'm',
-                //     source: 'web',
-                //     dayType: 'weekend'
-                // };
-                //
-                // Parse.Analytics.track('/uploads', dimensions, function (track) {
-                //
-                //     console.log("SUCCESS TRACK");
-                //
-                // }, function (error) {
-                //
-                //     console.log("TRACK ERROR " + error.message)
-                // });
+            }).then(function () {
 
+
+                let number = value[0] + 1;
+
+                statsRef.update({
+                    stickers: number
+                }, function (error) {
+                    if (error) {
+                        console.log("Data could not be saved." + error);
+                    } else {
+                        console.log("Data saved successfully");
+                    }
+                });
 
                 console.log("REDIRECT TO PACK COLLECTION");
                 res.redirect("/pack/" + pack_id);
