@@ -2393,11 +2393,12 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 let number = [];
 
-                ref.on("value", function(snapshot, prevChildKey) {
+                statsRef.on("value", function(snapshot, prevChildKey) {
 
                     let stats = snapshot.val();
 
                     console.log(JSON.stringify("STATS "+stats));
+
                     if (stats){
                         number.push(stats);
                     }
@@ -2417,20 +2418,20 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     });
                 // }
 
-                var dimensions = {
-                    gender: 'm',
-                    source: 'web',
-                    dayType: 'weekend'
-                };
-
-                Parse.Analytics.track('/uploads', dimensions, function (track) {
-
-                    console.log("SUCCESS TRACK");
-
-                }, function (error) {
-
-                    console.log("TRACK ERROR " + error.message)
-                });
+                // var dimensions = {
+                //     gender: 'm',
+                //     source: 'web',
+                //     dayType: 'weekend'
+                // };
+                //
+                // Parse.Analytics.track('/uploads', dimensions, function (track) {
+                //
+                //     console.log("SUCCESS TRACK");
+                //
+                // }, function (error) {
+                //
+                //     console.log("TRACK ERROR " + error.message)
+                // });
 
 
 
