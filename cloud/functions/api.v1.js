@@ -137,8 +137,6 @@ Parse.Cloud.define("getStory", function (req, res) {
                 story.colors = type.DEFAULT.color
             }
 
-          //  story.stories = [];
-
             if (_storyItems.length) {
                 let _stories = [];
                 _.each(_storyItems, storyItem => {
@@ -146,6 +144,7 @@ Parse.Cloud.define("getStory", function (req, res) {
                 });
                 story.stories = _stories;
             }
+
 
             res.success(util.setResponseOk(story));
 
@@ -156,6 +155,38 @@ Parse.Cloud.define("getStory", function (req, res) {
         }
 
     }, function (error) {
+
+        util.handleError(res, error);
+
+    })
+
+});
+
+Parse.Cloud.define("getStoryItems", function (req, res) {
+
+    let storyId = req.params.storyId;
+
+    Parse.Promise.when(
+        new Parse.Query(StoryItemClass).equalTo("story_id", storyId).find({useMasterKey: true})
+    ).then(storyItems => {
+
+        let _storyItems = [];
+
+        if (storyItems.length) {
+
+            _.each(storyItems, storyItem => {
+                _storyItems.push({id: storyItem.id, content: storyItem.get("content"), type: storyItem.get("type")});
+            });
+
+            res.success(util.setResponseOk(_storyItems));
+
+        } else {
+
+            //TODO write proper error type
+            util.handleError(res, util.setErrorType(util.STORY_PREVIEW_ERROR));
+        }
+
+    }, error => {
 
         util.handleError(res, error);
 

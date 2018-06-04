@@ -140,22 +140,23 @@ setErrorType = function (type) {
 };
 
 setSuccess = function () {
-    var success = {};
+    let success = {};
     success[KEY_RESPONSE_CODE] = RESPONSE_OK;
     return success;
 };
 
 setResponse = function (data, validate, errorType) {
-    var success = {};
+    let success = {};
     success[KEY_RESPONSE_CODE] = validate ? RESPONSE_OK : errorType;
     success[KEY_DATA] = data;
     return success;
 };
 
 setResponseOk = function (data) {
-    var success = {};
+    let success = {};
     success[KEY_RESPONSE_CODE] = RESPONSE_OK;
     success[KEY_DATA] = data;
+    console.log("SUCCESS SERVER RESPONSE " + JSON.stringify(success));
     return success;
 };
 

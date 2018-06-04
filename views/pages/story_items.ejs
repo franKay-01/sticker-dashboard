@@ -76,6 +76,7 @@
                 </textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Quote</a><br><br>
                 <%} else if (item.get("type") === 5){%>
+                <!--<div class="someCSSClass">fontAwesomeQuote <h2></h2> fontAwesomeQuote</div>-->
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true">
                     <%= item.get("content") %>
