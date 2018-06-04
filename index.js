@@ -2292,6 +2292,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     let fileDetails = [];
     let stickerDetails = [];
     let stickerCollection;
+    let stats;
 
     if (token) {
 
@@ -2391,25 +2392,16 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 let statsRef = ref.child("/gstickers-e4668");
 
-                let number = [];
-
                 statsRef.on("value", function(snapshot, prevChildKey) {
 
-                    let stats = snapshot.val().stickers;
-
-                    console.log("STATS "+ JSON.stringify(stats));
-
-                    if (stats){
-                        number.push(stats);
-                    }
-
+                    stats = snapshot.val().stickers;
 
                 });
 
-                // if (number.length){
+                 if (stats){
 
                     statsRef.update({
-                        stickers: 9
+                        stickers: stats + 1
                     }, function (error) {
                         if (error) {
                             console.log("Data could not be saved." + error);
@@ -2417,7 +2409,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                             console.log("Data saved successfully");
                         }
                     });
-                // }
+                 }
 
                 // var dimensions = {
                 //     gender: 'm',
