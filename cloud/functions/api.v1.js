@@ -56,7 +56,12 @@ Parse.Cloud.define("getPacks", function (req, res) {
                     packItem.artwork = "";
                 }
 
+                console.log("INFORMATION_SIX " + JSON.stringify(stickerList));
+
                 _.map(stickerList, function (stickers) {
+
+
+                    console.log("INFORMATION_SEVEN " + JSON.stringify(stickers));
 
                     if (stickers.length) {
 
