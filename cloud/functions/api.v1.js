@@ -39,13 +39,15 @@ Parse.Cloud.define("getPacks", function (req, res) {
             sold:bool
             * */
 
-            console.log("Stickers  INFORMATION_TWO");
+
 
             let stickerObjects = [];
 
             //todo check if pack is published
             //todo check if pack has not been archived
             _.map(_packs, pack => {
+
+                console.log("pack  INFORMATION_THREE " + JSON.stringify(pack));
 
                 let packItem = {};
                 packItem.name = pack.get("pack_name");
