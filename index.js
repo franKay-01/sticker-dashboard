@@ -2395,7 +2395,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 statsRef.on("value", function(snapshot, prevChildKey) {
 
-                    let stats = snapshot.val();
+                    let stats = snapshot.val().stickers;
 
                     console.log("STATS "+ JSON.stringify(stats));
 
@@ -2403,7 +2403,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                         number.push(stats);
                     }
 
-                    console.log("NUMBER OF STICKERS " + number[0].stickers);
 
                 });
 
