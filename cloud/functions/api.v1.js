@@ -71,14 +71,14 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
                             if (pack.id === sticker.get("parent").id) {
 
-                                _stickers.push({id:sticker.id,url:sticker.get("url").url()});
+                                _stickers.push({id:sticker.id,url:sticker.get("uri").url()});
 
                                 console.log("Stickers " + JSON.stringify(_stickers));
                             }
 
                         });
 
-                        packItem.preview = _stickers;
+                        packItem.previews = _stickers;
 
                     }
                 });
