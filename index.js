@@ -267,14 +267,11 @@ const getUser = token => {
         .include('user').first({sessionToken: token});
 }
 
-let serviceAccount = require('./g-stickers-3dc7b52f4925.json');
+let serviceAccount = require('./gstickers-e4668-firebase-adminsdk-s4jya-36f278f5f3');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: 'https://g_stickers.firebaseio.com',
-    databaseAuthVariableOverride: {
-        uid: "my-admin"
-    }
+    databaseURL: "https://gstickers-e4668.firebaseio.com"
 });
 
 /*
@@ -2391,7 +2388,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 let ref = db.ref("server/saving-data/fireblog");
 
 
-                let statsRef = ref.child("/g_stickers");
+                let statsRef = ref.child("/gstickers-e4668");
 
                 let number = [];
 
@@ -2399,7 +2396,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                     let stats = snapshot.val();
 
-                    console.log(JSON.stringify("STATS"+stats.g_stickers));
+                    console.log(JSON.stringify("STATS"+stats));
                     if (stats){
                         number.push(stats);
                     }
