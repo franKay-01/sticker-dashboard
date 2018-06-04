@@ -39,6 +39,8 @@ Parse.Cloud.define("getPacks", function (req, res) {
             sold:bool
             * */
 
+            console.log("Stickers  INFORMATION_TWO");
+
             let stickerObjects = [];
 
             //todo check if pack is published
