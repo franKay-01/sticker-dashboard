@@ -2389,23 +2389,23 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 let statsRef = ref.child("/gstickers-e4668");
 
-                let number = [];
+                // let number = [];
+                //
+                // ref.on("value", function(snapshot, prevChildKey) {
+                //
+                //     let stats = snapshot.val();
+                //
+                //     console.log(JSON.stringify("STATS"+stats));
+                //     if (stats){
+                //         number.push(stats);
+                //     }
+                //
+                // });
 
-                ref.on("value", function(snapshot, prevChildKey) {
-
-                    let stats = snapshot.val();
-
-                    console.log(JSON.stringify("STATS"+stats));
-                    if (stats){
-                        number.push(stats);
-                    }
-
-                });
-
-                if (number.length){
+                // if (number.length){
 
                     statsRef.update({
-                        stickers: number[0] + 1
+                        stickers: 9
                     }, function (error) {
                         if (error) {
                             console.log("Data could not be saved." + error);
@@ -2413,7 +2413,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                             console.log("Data saved successfully");
                         }
                     });
-                }
+                // }
 
 
                 console.log("REDIRECT TO PACK COLLECTION");
