@@ -17,10 +17,12 @@ Parse.Cloud.define("getPacks", function (req, res) {
     return new Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId","hB39Hhb16O").find({useMasterKey: true})
         .then(function (packs) {
 
+            console.log("Packs INFORMATION");
+
             _packs = packs;
             let promises = [];
             _.map(packs, function (pack) {
-                promises.push(pack.relation(PacksClass).limit(5).query().find({useMasterKey: true}));
+                promises.push(pack.relation(PacksClass).query().limit(5).find({useMasterKey: true}));
             });
 
             return Parse.Promise.when(promises);
