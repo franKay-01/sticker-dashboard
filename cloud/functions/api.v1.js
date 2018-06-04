@@ -175,7 +175,7 @@ Parse.Cloud.define("getStoryItems", function (req, res) {
         if (storyItems.length) {
 
             _.each(storyItems, storyItem => {
-                _storyItems.push({id: storyItem.id, content: storyItem.get("content"), type: storyItem.get("type")});
+                _storyItems.push({id: storyItem.id, content: storyItem.get("content"), type: parseInt(storyItem.get("type"))});
             });
 
             res.success(util.setResponseOk(_storyItems));
@@ -193,7 +193,6 @@ Parse.Cloud.define("getStoryItems", function (req, res) {
     })
 
 });
-
 
 Parse.Cloud.define("getStories", function (req, res) {
 
