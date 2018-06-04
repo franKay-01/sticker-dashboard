@@ -2387,7 +2387,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 let db = admin.database();
                 let ref = db.ref("server/saving-data/fireblog");
 
-
                 let statsRef = ref.child("/gstickers-e4668");
 
                 let number = [];
