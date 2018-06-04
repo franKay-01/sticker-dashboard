@@ -2403,7 +2403,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                         number.push(stats);
                     }
 
-                    console.log("NUMBER OF STICKERS " + number[0].sticker);
+                    console.log("NUMBER OF STICKERS " + number[0].stickers);
 
                 });
 
