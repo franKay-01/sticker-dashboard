@@ -2392,6 +2392,13 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     }
                 });
 
+                let content = 0;
+                statsRef.on("value", function (snap) {
+                    content = snap.val(); // Keep the local user object synced with the Firebase userRef
+                });
+
+
+                console.log("CONTENT " + content);
 
                 statsRef.update({
                     stickers: 1
