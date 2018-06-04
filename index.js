@@ -2399,9 +2399,9 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     console.log("STATS " + stats);
                 });
 
-                return true;
+                return stats;
 
-            }).then(function () {
+            }).then(function (stats) {
 
                 if (stats) {
                     stats = stats + 1;
