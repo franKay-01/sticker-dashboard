@@ -2391,10 +2391,18 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 let ref = db.ref("server/saving-data/fireblog");
 
 
-                var statsRef = ref.child("/g-stickers");
+                let statsRef = ref.child("/g-stickers");
+                let number = [];
+
+                ref.on(statsRef, function(snapshot, prevChildKey) {
+                    let stats = snapshot.val();
+
+                    number.push(stats.sticker);
+
+                });
 
                 statsRef.update({
-                    stickers: 8
+                    stickers: number[0] + 1
                 }, function (error) {
                     if (error) {
                         console.log("Data could not be saved." + error);
