@@ -2398,18 +2398,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                     console.log("STATS " + stats);
 
-                    return stats;
-                });
-
-
-
-            }).then(function (stats) {
-
-                if (stats) {
-
-                    console.log("STATS 2 " + stats);
-
-                    stats = stats + 1;
 
                     statsRef.update({
                         stickers: stats
@@ -2418,12 +2406,14 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                             console.log("Data could not be saved." + error);
                         } else {
                             console.log("Data saved successfully");
+                            res.redirect("/pack/" + pack_id);
                         }
                     });
-                }
+                });
 
                 console.log("REDIRECT TO PACK COLLECTION");
                 res.redirect("/pack/" + pack_id);
+
 
             })
 
