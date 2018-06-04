@@ -2396,21 +2396,27 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 let number = [];
 
                 ref.on("value", function(snapshot, prevChildKey) {
-                    let stats = snapshot.val();
+                    let stats = snapshot.val().sticker;
 
-                    number.push(stats.sticker);
-
-                });
-
-                statsRef.update({
-                    stickers: number[0] + 1
-                }, function (error) {
-                    if (error) {
-                        console.log("Data could not be saved." + error);
-                    } else {
-                        console.log("Data saved successfully");
+                    if (stats){
+                        number.push(stats);
                     }
+
                 });
+
+                if (number.length){
+
+                    statsRef.update({
+                        stickers: number[0] + 1
+                    }, function (error) {
+                        if (error) {
+                            console.log("Data could not be saved." + error);
+                        } else {
+                            console.log("Data saved successfully");
+                        }
+                    });
+                }
+
 
                 console.log("REDIRECT TO PACK COLLECTION");
                 res.redirect("/pack/" + pack_id);
