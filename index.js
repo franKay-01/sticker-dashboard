@@ -2359,7 +2359,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 return stickerCollection.save();
 
             }).then(function () {
-                console.log("EMAIL IS " + req.cookies.username);
+
                 let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
                 let data = {
                     //Specify email data
@@ -2388,9 +2388,10 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 let ref = db.ref("server/saving-data/fireblog");
 
 
-                var usersRef = ref.child("g-stickers");
+                var statsRef = ref.child("g-stickers");
+                var stats = statsRef.push();
 
-                usersRef.update({
+                stats.update({
                     categories: 3,
                     packs: 5,
                     stickers: 7
