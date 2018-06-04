@@ -12,7 +12,7 @@ let cookieSession = require('cookie-session');
 let cors = require('cors');
 let methodOverride = require('method-override');
 let moment = require('moment');
-
+let admin = require('firebase-admin');
 
 //for parsing location, directory and paths
 let path = require('path');
@@ -266,6 +266,16 @@ const getUser = token => {
         .equalTo('sessionToken', token)
         .include('user').first({sessionToken: token});
 }
+
+let serviceAccount = require('./g-stickers-3dc7b52f4925.json');
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: 'https://g-stickers.firebaseio.com',
+    databaseAuthVariableOverride: {
+        uid: "my-admin"
+    }
+});
 
 /*
 how to use this function parseInstance.setACL(getACL(user,true|false));
@@ -2352,13 +2362,13 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 return stickerCollection.save();
 
             }).then(function () {
-                console.log("EMAIL IS " + req.cookies.username);
+
                 let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
                 let data = {
                     //Specify email data
                     from: process.env.EMAIL_FROM || "test@example.com",
                     //The email to contact
-                    to: req.cookies.username,
+                    to: _user.get("username"),
                     //Subject and text data
                     subject: 'Stickers Uploaded',
                     html: fs.readFileSync("./uploads/sticker_upload.html", "utf8")
@@ -2376,6 +2386,25 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                         console.log("EMAIL SENT" + body);
                     }
                 });
+
+                let db = admin.database();
+                let ref = db.ref("server/saving-data/fireblog");
+
+
+                var statsRef = ref.child("/g-stickers");
+
+                statsRef.update({
+                    categories: 5,
+                    packs: 5,
+                    stickers: 7
+                }, function (error) {
+                    if (error) {
+                        console.log("Data could not be saved." + error);
+                    } else {
+                        console.log("Data saved successfully");
+                    }
+                });
+
                 console.log("REDIRECT TO PACK COLLECTION");
                 res.redirect("/pack/" + pack_id);
 
