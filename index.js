@@ -2292,7 +2292,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     let fileDetails = [];
     let stickerDetails = [];
     let stickerCollection;
-    let value = [];
+    let stats;
 
     if (token) {
 
@@ -2394,28 +2394,26 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 statsRef.on("value", function (snapshot, prevChildKey) {
 
-                    let stats = snapshot.val().stickers;
+                    stats = snapshot.val().stickers;
 
-                    value.push(stats);
-
+                    console.log("STATS " + stats);
                 });
 
                 return true;
 
             }).then(function () {
 
-
-                let number = value[0] + 1;
-
-                statsRef.update({
-                    stickers: number
-                }, function (error) {
-                    if (error) {
-                        console.log("Data could not be saved." + error);
-                    } else {
-                        console.log("Data saved successfully");
-                    }
-                });
+                if (stats) {
+                    statsRef.update({
+                        stickers: stats
+                    }, function (error) {
+                        if (error) {
+                            console.log("Data could not be saved." + error);
+                        } else {
+                            console.log("Data saved successfully");
+                        }
+                    });
+                }
 
                 console.log("REDIRECT TO PACK COLLECTION");
                 res.redirect("/pack/" + pack_id);
