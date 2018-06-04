@@ -2400,7 +2400,9 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 });
 
-                 if (value.length){
+                console.log("VALUE " + value.length);
+
+                 if (value.length > 0){
                     console.log("HERE");
                     let result = value[0] + 1;
 
