@@ -2398,6 +2398,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                     console.log("STATS " + stats);
 
+                    stats = stats + 1;
 
                     statsRef.update({
                         stickers: stats
