@@ -2394,7 +2394,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
 
                 statsRef.update({
-                    stickers: stickers + 1
+                    stickers: 1
                 }, function (error) {
                     if (error) {
                         console.log("Data could not be saved." + error);
