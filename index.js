@@ -1518,13 +1518,13 @@ app.post('/edit_item/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/all_story_item/'+ story_id);
+            res.redirect('/all_story_item/' + story_id);
 
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/edit_story_item/'+ id + "/"+ story_id);
+            res.redirect('/edit_story_item/' + id + "/" + story_id);
         })
-    }else {
+    } else {
         res.redirect('/');
     }
 });
@@ -1550,9 +1550,9 @@ app.get('/edit_story_item/:id/:story_id', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story_catalogue/'+ story_id);
+            res.redirect('/story_catalogue/' + story_id);
         })
-    }else {
+    } else {
         res.redirect('/');
     }
 
@@ -2392,24 +2392,14 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 let statsRef = ref.child("/gstickers-e4668");
 
-                statsRef.on("value", function(snapshot, prevChildKey) {
+                statsRef.on("value", function (snapshot, prevChildKey) {
 
                     let stats = snapshot.val().stickers;
 
-                    console.log("STATS " + stats);
-
-                    value.push(stats);
-
-                });
-
-                console.log("VALUE " + value.length);
-
-                 if (value.length > 0){
-                    console.log("HERE");
-                    let result = value[0] + 1;
+                    stats = stats + 1;
 
                     statsRef.update({
-                        stickers: result
+                        stickers: stats
                     }, function (error) {
                         if (error) {
                             console.log("Data could not be saved." + error);
@@ -2417,7 +2407,10 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                             console.log("Data saved successfully");
                         }
                     });
-                 }
+
+
+                });
+
 
                 // var dimensions = {
                 //     gender: 'm',
@@ -2433,7 +2426,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 //
                 //     console.log("TRACK ERROR " + error.message)
                 // });
-
 
 
                 console.log("REDIRECT TO PACK COLLECTION");
