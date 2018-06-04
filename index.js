@@ -2392,25 +2392,17 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     }
                 });
 
-                statsRef.on("value", function (snapshot, prevChildKey) {
 
-                    stats = snapshot.val().stickers;
-
-                    console.log("STATS " + stats);
-
-                    stats = stats + 1;
-
-                    statsRef.update({
-                        stickers: stats
-                    }, function (error) {
-                        if (error) {
-                            console.log("Data could not be saved." + error);
-                        } else {
-                            console.log("Data saved successfully");
-                            res.redirect("/pack/" + pack_id);
-                        }
-                    });
+                statsRef.update({
+                    stickers: stickers + 1
+                }, function (error) {
+                    if (error) {
+                        console.log("Data could not be saved." + error);
+                    } else {
+                        console.log("Data saved successfully");
+                    }
                 });
+
 
                 console.log("REDIRECT TO PACK COLLECTION");
                 res.redirect("/pack/" + pack_id);
