@@ -12,7 +12,7 @@ let cookieSession = require('cookie-session');
 let cors = require('cors');
 let methodOverride = require('method-override');
 let moment = require('moment');
-
+let firebase = require("firebase");
 
 //for parsing location, directory and paths
 let path = require('path');
@@ -266,6 +266,15 @@ const getUser = token => {
         .equalTo('sessionToken', token)
         .include('user').first({sessionToken: token});
 }
+
+let admin = require('firebase-admin');
+
+let serviceAccount = require('./g-stickers-3dc7b52f4925.json');
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: 'https://gstickers-stats.firebaseio.com'
+});
 
 /*
 how to use this function parseInstance.setACL(getACL(user,true|false));
@@ -2376,6 +2385,22 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                         console.log("EMAIL SENT" + body);
                     }
                 });
+
+                let db = admin.database();
+                // let ref = db.ref("server/saving-data/fireblog");
+
+                usersRef.child("gstickers-stats").update({
+                    categories: 3,
+                    packs: 5,
+                    stickers: 7
+                }, function (error) {
+                    if (error) {
+                        console.log("Data could not be saved." + error);
+                    } else {
+                        console.log("Data saved successfully.");
+                    }
+                });
+
                 console.log("REDIRECT TO PACK COLLECTION");
                 res.redirect("/pack/" + pack_id);
 
