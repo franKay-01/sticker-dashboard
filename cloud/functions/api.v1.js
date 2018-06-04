@@ -13,13 +13,14 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
     let _packs = [];
 
-    return new Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).find({useMasterKey: true})
+    //TODO use default pack env variable
+    return new Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId","hB39Hhb16O").find({useMasterKey: true})
         .then(function (packs) {
 
             _packs = packs;
             let promises = [];
             _.map(packs, function (pack) {
-                promises.push(pack.relation(PacksClass).query().find({useMasterKey: true}));
+                promises.push(pack.relation(PacksClass).limit(5).query().find({useMasterKey: true}));
             });
 
             return Parse.Promise.when(promises);
@@ -46,7 +47,6 @@ Parse.Cloud.define("getPacks", function (req, res) {
                 packItem.name = pack.get("pack_name");
                 packItem.description = pack.get("pack_description");
 
-
                 let _artwork = pack.get("art_work");
                 if (_artwork) {
                     packItem.artwork = _artwork.url();
@@ -65,13 +65,14 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
                             if (pack.id === sticker.get("parent").id) {
 
+                                _stickers.push({id:sticker.id,url:sticker.get("url").url()});
 
-                                _stickers.push(sticker)
+                                console.log("Stickers " + JSON.stringify(_stickers));
                             }
 
                         });
 
-                        packItem.stickers = _stickers;
+                        packItem.preview = _stickers;
 
                     }
                 });
@@ -175,7 +176,11 @@ Parse.Cloud.define("getStoryItems", function (req, res) {
         if (storyItems.length) {
 
             _.each(storyItems, storyItem => {
-                _storyItems.push({id: storyItem.id, content: storyItem.get("content"), type: parseInt(storyItem.get("type"))});
+                _storyItems.push({
+                    id: storyItem.id,
+                    content: storyItem.get("content"),
+                    type: parseInt(storyItem.get("type"))
+                });
             });
 
             res.success(util.setResponseOk(_storyItems));
