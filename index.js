@@ -2397,7 +2397,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 ref.on("value", function(snapshot, prevChildKey) {
                     console.log("SNAPSHOT "+ JSON.stringify(snapshot.val()));
-                    let stats = snapshot.val().sticker;
+                    let stats = snapshot.val().g-stickers.sticker;
 
                     if (stats){
                         number.push(stats);
