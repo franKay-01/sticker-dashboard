@@ -2397,7 +2397,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                     let stats = snapshot.val();
 
-                    console.log(JSON.stringify("STATS "+stats));
+                    console.log("STATS "+ JSON.stringify(stats));
 
                     if (stats){
                         number.push(stats);
