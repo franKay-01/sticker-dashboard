@@ -12,7 +12,7 @@ let cookieSession = require('cookie-session');
 let cors = require('cors');
 let methodOverride = require('method-override');
 let moment = require('moment');
-let firebase = require("firebase");
+let admin = require('firebase-admin');
 
 //for parsing location, directory and paths
 let path = require('path');
@@ -266,8 +266,6 @@ const getUser = token => {
         .equalTo('sessionToken', token)
         .include('user').first({sessionToken: token});
 }
-
-let admin = require('firebase-admin');
 
 let serviceAccount = require('./g-stickers-3dc7b52f4925.json');
 
