@@ -1571,8 +1571,7 @@ app.get('/all_story_item/:id', function (req, res) {
 
         }).then(function (story_item) {
 
-            // res.send(JSON.stringify(story_item));
-
+            console.log("CONTENT " + JSON.stringify(story_item));
             res.render("pages/story_items", {
 
                 story_item: story_item,
@@ -2429,43 +2428,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
         res.redirect("/");
 
-    }
-});
-
-app.get('/firebase/:content/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let content = parseInt(req.params.content);
-    let pack_id = req.params.id;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            let db = admin.database();
-
-            // change this to shorter folder
-            let ref = db.ref("server/saving-data/fireblog");
-
-            let statsRef = ref.child("/gstickers-e4668");
-
-            content = content + 1;
-
-            statsRef.update('value', function (snap) {
-                stickers: content
-
-            }).then((snap) => {
-
-                res.redirect('/pack/'+ pack_id);
-            })
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/')
-        })
     }
 });
 
