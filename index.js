@@ -3006,7 +3006,7 @@ app.get('/publish/:id/:state/:type', function (req, res) {
                     return new Parse.Query(PacksClass).equalTo("objectId", id).first();
 
                 case "story":
-                    return new Parse.Query(StoryClass).equalTo("objectId", pack_id).first();
+                    return new Parse.Query(StoryClass).equalTo("objectId", id).first();
 
             }
 
@@ -3019,7 +3019,7 @@ app.get('/publish/:id/:state/:type', function (req, res) {
 
             }
 
-            return pack.save();
+            return object.save();
 
         }).then(function () {
 
