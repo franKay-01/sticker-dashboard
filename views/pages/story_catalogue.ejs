@@ -24,7 +24,7 @@
 
     <script>
 
-        counter = function() {
+        function counter() {
             let value = $('#count').val();
 
             if (value.length === 0) {
@@ -36,13 +36,12 @@
             let wordCount = value.trim().replace(regex, ' ').split(' ').length;
 
             $('#wordCount').html(wordCount);
+        }
 
-        };
-
-        $(document).ready(function() {
-            $('#count').change(counter);
-
-        });
+        // $(document).ready(function() {
+        //     $('#count').change(counter);
+        //
+        // });
     </script>
 </head>
 
@@ -71,7 +70,7 @@
             <form id="pack_form" action="/new_catalogue/<%= story_id %>" method="post">
                 <center>
                     <i class="fa fa-text-width" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
-                    <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
+                    <textarea class="_pack common_pack_detail validate" onchange="counter()" placeholder="Add Text"
                               name="content" id="story_text count" required="" aria-required="true"></textarea><br>
                     Words: <span id="wordCount">0</span><br/>
                 </center>
@@ -97,7 +96,7 @@
                 <center>
                     <i class="fa fa-quote-left" style="color: white; font-size: 3rem" aria-hidden="true"></i>&nbsp;&nbsp;
                     <i class="fa fa-quote-right" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
-                    <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
+                    <textarea class="_pack common_pack_detail validate" onchange="counter()" placeholder="Add Text"
                               name="content" id="story_text count" required="" aria-required="true"></textarea><br>
                     Words: <span id="wordCount">0</span><br/>
                 </center>
@@ -122,7 +121,7 @@
                 <center>
                     <i class="fa fa-italic" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <br><br>
-                    <textarea class="_pack common_pack_detail validate " placeholder="Add Text"
+                    <textarea class="_pack common_pack_detail validate" onchange="counter()" placeholder="Add Text"
                               name="content" id="story_text count" required="" aria-required="true"></textarea><br>
                     Words: <span id="wordCount">0</span><br/>
                 </center>
@@ -149,7 +148,7 @@
                 <center>
                     <i class="fa fa-bold" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <br><br>
-                    <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
+                    <textarea class="_pack common_pack_detail validate" onchange="counter()" placeholder="Add Text"
                               name="content" id="story_text count" required="" aria-required="true"></textarea><br>
                     Words: <span id="wordCount">0</span><br/>
                 </center>
