@@ -283,6 +283,7 @@ $(document).ready(function () {
             $('#Welcome').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
             $('#pack_form')[0].reset();
         });
 
@@ -293,6 +294,7 @@ $(document).ready(function () {
             $('#Welcome').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
             $('#pack_form')[0].reset();
         });
 
@@ -312,6 +314,7 @@ $(document).ready(function () {
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
             $('#pack_form')[0].reset();
         });
@@ -321,6 +324,7 @@ $(document).ready(function () {
             $('#pageMask').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
             $('#pack_form')[0].reset();
@@ -333,6 +337,7 @@ $(document).ready(function () {
             $('#Welcome').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
             $('#pack_form')[0].reset();
         });
 
@@ -342,6 +347,7 @@ $(document).ready(function () {
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
             $('#pack_form')[0].reset();
         });
