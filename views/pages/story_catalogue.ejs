@@ -22,6 +22,28 @@
             src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
+    <script>
+
+        counter = function() {
+            let value = $('#text').val();
+
+            if (value.length === 0) {
+                $('#wordCount').html(0);
+                return;
+            }
+
+            let regex = /\s+/gi;
+            let wordCount = value.trim().replace(regex, ' ').split(' ').length;
+
+            $('#wordCount').html(wordCount);
+
+        };
+
+        $(document).ready(function() {
+            $('.count').change(counter);
+
+        });
+    </script>
 </head>
 
 <body class="primary-background-color">
@@ -49,8 +71,9 @@
             <form id="pack_form" action="/new_catalogue/<%= story_id %>" method="post">
                 <center>
                     <i class="fa fa-text-width" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
-                    <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
+                    <textarea class="_pack common_pack_detail validate count" placeholder="Add Text"
                               name="content" id="story_text" required="" aria-required="true"></textarea><br>
+                    <input name="count" id="wordCount" style="float: right">
                 </center>
                 <input name="style" value="0" hidden>
                 <span>
@@ -74,8 +97,10 @@
                 <center>
                     <i class="fa fa-quote-left" style="color: white; font-size: 3rem" aria-hidden="true"></i>&nbsp;&nbsp;
                     <i class="fa fa-quote-right" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
-                    <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
+                    <textarea class="_pack common_pack_detail validate count" placeholder="Add Text"
                               name="content" id="story_text" required="" aria-required="true"></textarea><br>
+                    <input name="count" id="wordCount" style="float: right">
+
                 </center>
                 <input name="style" value="2" hidden>
                 <span>
@@ -98,8 +123,10 @@
                 <center>
                     <i class="fa fa-italic" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <br><br>
-                    <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
+                    <textarea class="_pack common_pack_detail validate count" placeholder="Add Text"
                               name="content" id="story_text" required="" aria-required="true"></textarea><br>
+                    <input name="count" id="wordCount" style="float: right">
+
                 </center>
 
                 <input name="style" value="5" hidden>
@@ -124,8 +151,10 @@
                 <center>
                     <i class="fa fa-bold" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <br><br>
-                    <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
+                    <textarea class="_pack common_pack_detail validate count" placeholder="Add Text"
                               name="content" id="story_text" required="" aria-required="true"></textarea><br>
+                    <input name="count" id="wordCount" style="float: right">
+
                 </center>
 
                 <input name="style" value="6" hidden>
