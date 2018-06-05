@@ -2392,14 +2392,11 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     }
                 });
 
-                statsRef.on("value").then((snap) => {
-
-
-                    let content = snap.val().stickers; // Keep the local user object synced with the Firebase userRef
-
+                statsRef.on('value', function (snap) {
+                    let content = snap.val().stickers;
                     res.redirect('/firebase/' + content + '/' + pack_id);
+                });
 
-                })
             }, function (error) {
 
                 console.log("BIG BIG ERROR" + error.message);
