@@ -295,7 +295,7 @@ Parse.Cloud.define("getStickers", function (req, res) {
 
                     let _sticker = {};
                     _sticker.id = sticker.id;
-                    _sticker.stickerName = sticker.get("stickerName");
+                    _sticker.name = sticker.get("stickerName");
                     _sticker.categories = sticker.get("categories");
 
                     let sold = Boolean(sticker.get("sold"));
