@@ -2392,11 +2392,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     }
                 });
 
-                return true;
-
-
-            }).then(function () {
-
                 statsRef.on("value").then((snap) => {
 
 
@@ -2405,12 +2400,15 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     res.redirect('/firebase/' + content + '/' + pack_id);
 
                 })
+            }, function (error) {
+
+                console.log("BIG BIG ERROR" + error.message);
+                res.redirect("/pack/"+pack_id);
 
             })
-
         }, function (error) {
             console.log("BIG BIG ERROR" + error.message);
-            res.redirect("/add_stickers");
+            res.redirect("/pack/"+pack_id);
         });
 
 
