@@ -39,9 +39,11 @@
         };
 
         $(document).ready(function() {
-            $('#element').on("change", function (evt) {
-                counter();
-            });
+            // $('#element').on("change", function (evt) {
+            //     counter();
+            // });
+
+            $('#element').change(counter);
 
 
         });
