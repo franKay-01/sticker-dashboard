@@ -31,17 +31,18 @@
 
                 $('#wordCount').html(0);
                 return;
+            }else {
+                let regex = /\s+/gi;
+                let wordCount = value.trim().replace(regex, ' ').split(' ').length;
+                $('#wordCount').html(wordCount);
             }
         };
 
-        let regex = /\s+/gi;
-        let wordCount = value.trim().replace(regex, ' ').split(' ').length;
-
-
-        $('#wordCount').html(wordCount);
-
         $(document).ready(function() {
-            $('#element').change(counter);
+            $('#element').on("change", function (evt) {
+                counter();
+            });
+
 
         });
     </script>
