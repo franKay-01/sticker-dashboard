@@ -2394,32 +2394,32 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 // statsRef.on('value', function (snap) {
 
-                    statsRef.transaction(function(sticker) {
-                        if (sticker) {
-                            if (sticker.stickers) {
-                                sticker.stickers++;
-                            }
+                statsRef.transaction(function (sticker) {
+                    if (sticker) {
+                        if (sticker.stickers) {
+                            sticker.stickers++;
                         }
+                    }
 
-                        return sticker
-                    });
+                    return sticker
+                });
                 //     let content = snap.val().stickers;
                 //     res.redirect('/firebase/' + content + '/' + pack_id);
                 // });
 
             }).then(function (sticker) {
 
-                res.redirect('/pack/'+ pack_id);
+                res.redirect('/pack/' + pack_id);
 
             }, function (error) {
 
                 console.log("BIG BIG ERROR" + error.message);
-                res.redirect("/pack/"+pack_id);
+                res.redirect("/pack/" + pack_id);
 
             })
         }, function (error) {
             console.log("BIG BIG ERROR" + error.message);
-            res.redirect("/pack/"+pack_id);
+            res.redirect("/pack/" + pack_id);
         });
 
 
@@ -3010,12 +3010,12 @@ app.get('/publish/:id/:state/:type', function (req, res) {
 
             }
 
-        }).then(function (pack) {
+        }).then(function (object) {
 
             if (state === "publish") {
-                pack.set("published", true);
+                object.set("published", true);
             } else if (state === "unpublish") {
-                pack.set("published", false);
+                object.set("published", false);
 
             }
 
@@ -3023,12 +3023,29 @@ app.get('/publish/:id/:state/:type', function (req, res) {
 
         }).then(function () {
 
-            res.redirect("/pack/" + pack_id);
+            switch (type) {
+                case "pack":
+                    res.redirect("/pack/" + id);
+                    return;
+
+                case "story":
+                    res.redirect("/story_details/"+id);
+                    return;
+            }
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect("/pack/" + pack_id);
+
+            switch (type) {
+                case "pack":
+                    res.redirect("/pack/" + id);
+                    return;
+
+                case "story":
+                    res.redirect("/story_details/"+id);
+                    return;
+            }
 
         })
     } else {
