@@ -44,6 +44,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
             _.map(_packs, pack => {
 
                 let packItem = {};
+                packItem.id = pack.id;
                 packItem.name = pack.get("pack_name");
                 packItem.description = pack.get("pack_description");
 
@@ -63,7 +64,6 @@ Parse.Cloud.define("getPacks", function (req, res) {
                         _.map(stickers, sticker => {
 
                             if (pack.id === sticker.get("parent").id) {
-
                                 _stickers.push({id:sticker.id,url:sticker.get("uri").url()});
                             }
 
