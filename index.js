@@ -2392,28 +2392,34 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     }
                 });
 
+                return true;
+
+
+            }).then(function () {
+
                 let content = 0;
-                statsRef.on("value", function (snap) {
-                    content = snap.val(); // Keep the local user object synced with the Firebase userRef
-                });
+                statsRef.on("value").then(function (snap) {
+                    content = snap.val().stickers; // Keep the local user object synced with the Firebase userRef
+                    return content;
 
+                }).then(function (content) {
 
-                console.log("CONTENT " + content);
+                   return statsRef.update({
+                        stickers: content + 1
+                    });
 
-                statsRef.update({
-                    stickers: 1
-                }, function (error) {
-                    if (error) {
-                        console.log("Data could not be saved." + error);
-                    } else {
-                        console.log("Data saved successfully");
+                }).then(function (final) {
+
+                    if (final){
+                        console.log("REDIRECT TO PACK COLLECTION");
+                        res.redirect("/pack/" + pack_id);
+
                     }
-                });
 
-
-                console.log("REDIRECT TO PACK COLLECTION");
-                res.redirect("/pack/" + pack_id);
-
+                }, function (error) {
+                    console.log("ERROR " + error.message);
+                    res.redirect("/pack/" + pack_id);
+                })
 
             })
 
