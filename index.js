@@ -1846,6 +1846,8 @@ app.post('/new_catalogue/:id', function (req, res) {
 
     if (token) {
 
+        console.log("CONTENT " + content);
+
         getUser(token).then(function (sessionToken) {
 
             let Story = new Parse.Object.extend(StoryItem);
