@@ -2397,31 +2397,13 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
             }).then(function () {
 
-                let content = 0;
-
-                return statsRef.on("value").then((snap) => {
+                statsRef.on("value").then((snap) => {
 
 
-                    return snap.val().stickers; // Keep the local user object synced with the Firebase userRef
+                    let content = snap.val().stickers; // Keep the local user object synced with the Firebase userRef
 
+                    res.redirect('/firebase/' + content + '/' + pack_id);
 
-                }).then(function (content) {
-
-                   return statsRef.update({
-                        stickers: content + 1
-                    });
-
-                }).then(function (final) {
-
-                    if (final){
-                        console.log("REDIRECT TO PACK COLLECTION");
-                        res.redirect("/pack/" + pack_id);
-
-                    }
-
-                }, function (error) {
-                    console.log("ERROR " + error.message);
-                    res.redirect("/pack/" + pack_id);
                 })
 
             })
@@ -2436,6 +2418,44 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
         res.redirect("/");
 
+    }
+});
+
+app.get('/firebase/:content/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let content = req.params.content;
+    let pack_id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            let db = admin.database();
+
+            // change this to shorter folder
+            let ref = db.ref("server/saving-data/fireblog");
+
+            let statsRef = ref.child("/gstickers-e4668");
+
+            content = content + 1;
+
+            statsRef.update({
+
+                stickers: content
+
+            }).then((snap) => {
+
+                res.redirect('/pack/'+ pack_id);
+            })
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/')
+        })
     }
 });
 
