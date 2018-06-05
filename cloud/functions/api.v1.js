@@ -9,12 +9,16 @@ let StoryItemClass = "StoryItem";
 let ArtWorkClass = "ArtWork";
 let StickersClass = "Stickers";
 
+//TODO remove all archived items
+//TODO remove all flagged items
+//TODO write pagination function for editing stickers
+
 Parse.Cloud.define("getPacks", function (req, res) {
 
     let _packs = [];
 
     //TODO use default pack env variable
-    return new Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId","hB39Hhb16O").find({useMasterKey: true})
+    return new Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId", "hB39Hhb16O").find({useMasterKey: true})
         .then(function (packs) {
 
             _packs = packs;
@@ -64,7 +68,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
                         _.map(stickers, sticker => {
 
                             if (pack.id === sticker.get("parent").id) {
-                                _stickers.push({id:sticker.id,url:sticker.get("uri").url()});
+                                _stickers.push({id: sticker.id, url: sticker.get("uri").url()});
                             }
 
                         });
@@ -265,5 +269,66 @@ Parse.Cloud.define("getStories", function (req, res) {
         util.handleError(res, error);
 
     });
+
+});
+
+
+Parse.Cloud.define("getStickers", function (req, res) {
+
+    let packId = req.params.packId;
+
+    // var user = req.user;
+    return new Parse.Query(PacksClass).equalTo("objectId", packId).first({useMasterKey: true})
+        .then(function (pack) {
+
+            let stickers = pack.relation(PacksClass);
+            return stickers.query().find({useMasterKey: true});
+
+        }).then(function (stickers) {
+
+            if (stickers.length) {
+
+                let stickerPaidList = [];
+                let stickerFreeList = [];
+
+                _.each(stickers, sticker => {
+
+                    let _sticker = {};
+                    _sticker.id = sticker.id;
+                    _sticker.stickerName = sticker.get("stickerName");
+                    _sticker.categories = sticker.get("categories");
+
+                    let sold = Boolean(sticker.get("sold"));
+
+                    if((sold === "true") || (sold === true)){
+                        _sticker.sold = true;
+                        stickerPaidList.push(_sticker)
+                    }else{
+                        _sticker.sold = false;
+                        stickerFreeList.push(_sticker)
+                    }
+
+                    if (sticker.get("uri")) {
+                        _sticker.url = sticker.get("uri").url();
+                    } else {
+                        _sticker.url = "";
+                    }
+
+                });
+
+                res.success(util.setResponseOk({paid:stickerPaidList,free:stickerFreeList}));
+
+            } else {
+
+                //TODO write proper error type
+                util.handleError(res, util.setErrorType(util.STORY_PREVIEW_ERROR));
+            }
+
+            res.success(util.setResponseOk(stickers));
+
+        }, function (error) {
+
+            util.handleError(res, error);
+        });
 
 });
