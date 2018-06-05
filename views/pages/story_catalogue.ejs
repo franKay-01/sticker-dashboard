@@ -24,8 +24,10 @@
 
     <script>
 
-        function counter() {
-            let value = $('#count').val();
+        function counter(element) {
+            let type = "#";
+            type = type.concat(element);
+            let value = document.getElementById(element).value;
 
             if (value.length === 0) {
                 $('#wordCount').html(0);
@@ -70,7 +72,7 @@
             <form id="pack_form" action="/new_catalogue/<%= story_id %>" method="post">
                 <center>
                     <i class="fa fa-text-width" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
-                    <textarea class="_pack common_pack_detail validate" onchange="counter()" placeholder="Add Text"
+                    <textarea class="_pack common_pack_detail validate" onchange="counter(story_text)" placeholder="Add Text"
                               name="content" id="story_text" required="" aria-required="true"></textarea><br>
                     Words: <span id="wordCount">0</span><br/>
                 </center>
@@ -96,8 +98,8 @@
                 <center>
                     <i class="fa fa-quote-left" style="color: white; font-size: 3rem" aria-hidden="true"></i>&nbsp;&nbsp;
                     <i class="fa fa-quote-right" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
-                    <textarea class="_pack common_pack_detail validate" onchange="counter()" placeholder="Add Text"
-                              name="content" id="story_text" required="" aria-required="true"></textarea><br>
+                    <textarea class="_pack common_pack_detail validate" onchange="counter(story_quote)" placeholder="Add Text"
+                              name="content" id="story_quote" required="" aria-required="true"></textarea><br>
                     Words: <span id="wordCount">0</span><br/>
                 </center>
                 <input name="style" value="2" hidden>
@@ -121,8 +123,8 @@
                 <center>
                     <i class="fa fa-italic" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <br><br>
-                    <textarea class="_pack common_pack_detail validate" onchange="counter()" placeholder="Add Text"
-                              name="content" id="story_text" required="" aria-required="true"></textarea><br>
+                    <textarea class="_pack common_pack_detail validate" onchange="counter(story_italic)" placeholder="Add Text"
+                              name="content" id="story_italic" required="" aria-required="true"></textarea><br>
                     Words: <span id="wordCount">0</span><br/>
                 </center>
 
@@ -148,8 +150,8 @@
                 <center>
                     <i class="fa fa-bold" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <br><br>
-                    <textarea class="_pack common_pack_detail validate" onchange="counter()" placeholder="Add Text"
-                              name="content" id="story_text" required="" aria-required="true"></textarea><br>
+                    <textarea class="_pack common_pack_detail validate" onchange="counter(story_bold)" placeholder="Add Text"
+                              name="content" id="story_bold" required="" aria-required="true"></textarea><br>
                     Words: <span id="wordCount">0</span><br/>
                 </center>
 
