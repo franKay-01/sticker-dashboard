@@ -2990,17 +2990,25 @@ app.get('/pack/:id', function (req, res) {
 });
 
 
-app.get('/publish_pack/:id/:state', function (req, res) {
+app.get('/publish/:id/:state/:type', function (req, res) {
 
     let token = req.cookies.token;
-    let pack_id = req.params.id;
+    let id = req.params.id;
     let state = req.params.state;
+    let type = req.params.type;
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(PacksClass).equalTo("objectId", pack_id).first();
+            switch (type) {
+                case "pack":
+                    return new Parse.Query(PacksClass).equalTo("objectId", id).first();
+
+                case "story":
+                    return new Parse.Query(StoryClass).equalTo("objectId", pack_id).first();
+
+            }
 
         }).then(function (pack) {
 
