@@ -1571,7 +1571,6 @@ app.get('/all_story_item/:id', function (req, res) {
 
         }).then(function (story_item) {
 
-            console.log("CONTENT " + JSON.stringify(story_item));
             res.render("pages/story_items", {
 
                 story_item: story_item,

@@ -107,6 +107,23 @@
                     <a href="#" id="submit_story" class="preview">Save Changes</a><br>
                     <a href="/main_story/<%= story.id %>/<%= story.get("title") %>" class="preview">Edit Main Story</a>
 
+                    <br><br>
+                    <% if (story.get("published") === false){%>
+                    <a href="#" id="showPermission">
+                        <button class="create_button">
+                            <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
+                            </p>
+                        </button>
+                    </a>
+                    <%} else if (story.get("published") === true){%>
+                    <a href="#" id="removePublished">
+                        <button class="create_button">
+                            <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; UNPUBLISH
+                            </p>
+                        </button>
+                    </a>
+
+                    <%}%>
                     <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
                 </div>
             </form>
