@@ -2392,10 +2392,24 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     }
                 });
 
-                statsRef.on('value', function (snap) {
-                    let content = snap.val().stickers;
-                    res.redirect('/firebase/' + content + '/' + pack_id);
-                });
+                // statsRef.on('value', function (snap) {
+
+                    statsRef.transaction(function(sticker) {
+                        if (sticker) {
+                            if (sticker.stickers) {
+                                sticker.stickers++;
+                            }
+                        }
+
+                        return sticker
+                    });
+                //     let content = snap.val().stickers;
+                //     res.redirect('/firebase/' + content + '/' + pack_id);
+                // });
+
+            }).then(function (sticker) {
+
+                res.redirect('/pack/'+ pack_id);
 
             }, function (error) {
 
@@ -2419,7 +2433,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 app.get('/firebase/:content/:id', function (req, res) {
 
     let token = req.cookies.token;
-    let content = req.params.content;
+    let content = parseInt(req.params.content);
     let pack_id = req.params.id;
 
     if (token) {
@@ -2437,8 +2451,7 @@ app.get('/firebase/:content/:id', function (req, res) {
 
             content = content + 1;
 
-            statsRef.update({
-
+            statsRef.update('value', function (snap) {
                 stickers: content
 
             }).then((snap) => {
