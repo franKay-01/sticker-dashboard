@@ -3418,27 +3418,28 @@ app.get('/details/:id/:coll_id', function (req, res) {
             //         pack_id: pack_
             //     });
             // } else {
-            const AWS = require('aws-sdk');
+            // const AWS = require('aws-sdk');
+            //
+            // const s3 = new AWS.S3();
+            // AWS.config.update({
+            //     accessKeyId: 'AKIAINM7RXYLJVMDEMLQ',
+            //     secretAccessKey: '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'
+            // });
+            //
+            //
+            // const myBucket = 'cyfa';
+            // let name = stickerDetail.get("uri").name();
+            //
+            // const key = name;
+            // const signedUrlExpireSeconds = 60 * 5;
+            //
+            // const url = s3.getSignedUrl('getObject', {
+            //     Bucket: myBucket,
+            //     Key: key,
+            //     Expires: signedUrlExpireSeconds
+            // });
 
-            const s3 = new AWS.S3();
-            AWS.config.update({
-                accessKeyId: 'AKIAINM7RXYLJVMDEMLQ',
-                secretAccessKey: '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'
-            });
-
-
-            const myBucket = 'cyfa';
-            let name = stickerDetail.get("uri").name();
-
-            const key = name;
-            const signedUrlExpireSeconds = 60 * 5;
-
-            const url = s3.getSignedUrl('getObject', {
-                Bucket: myBucket,
-                Key: key,
-                Expires: signedUrlExpireSeconds
-            });
-
+            let url = "https://cyfa.s3.amazonaws.com/cd74f21daf62a3c93d784167e50dc11d_I_don_hit_notxt.png?AWSAccessKeyId=AKIAIK4H65MXJJMO7Q6A&Expires=1528302755&Signature=lZqhQMLC6pi2Fgz1udtgMJwLe70%3D";
 
             res.render("pages/sticker_details", {
                 sticker: stickerDetail,
