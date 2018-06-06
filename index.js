@@ -3432,7 +3432,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
             let name = stickerDetail.get("uri").name();
             const myKey = bucket.concat(name);
             console.log("KEY " + myKey);
-            const key = myKey;
+            const key = name;
             const signedUrlExpireSeconds = 60 * 5;
 
             const url = s3.getSignedUrl('getObject', {
