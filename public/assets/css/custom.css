@@ -103,6 +103,30 @@ label {
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
+#pack_message {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -165px;
+    background-color: #333;
+    /*background-image: linear-gradient(to bottom, #d77255, #8651aa);*/
+    color: #fff;
+    text-align: center;
+    border-radius: 25px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    opacity: 0.5;
+    /*bottom: 30px;*/
+    font-size: 17px;
+}
+
+#pack_message.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
 @-webkit-keyframes fadein {
     from {
         bottom: 0;
@@ -2280,4 +2304,9 @@ tr #titles {
     margin: 0px 300px auto;
     z-index: 9999;
     top: 204px;
+}
+
+input:disabled, input[readonly], textarea:disabled, textarea[readonly] {
+    background-color: #fffefe !important;
+    cursor: not-allowed !important;
 }

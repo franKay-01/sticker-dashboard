@@ -267,14 +267,11 @@ const getUser = token => {
         .include('user').first({sessionToken: token});
 }
 
-let serviceAccount = require('./g-stickers-3dc7b52f4925.json');
+let serviceAccount = require('./gstickers-e4668-firebase-adminsdk-s4jya-36f278f5f3.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: 'https://g-stickers.firebaseio.com',
-    databaseAuthVariableOverride: {
-        uid: "my-admin"
-    }
+    databaseURL: "https://gstickers-e4668.firebaseio.com"
 });
 
 /*
@@ -1521,13 +1518,13 @@ app.post('/edit_item/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/all_story_item/'+ story_id);
+            res.redirect('/all_story_item/' + story_id);
 
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/edit_story_item/'+ id + "/"+ story_id);
+            res.redirect('/edit_story_item/' + id + "/" + story_id);
         })
-    }else {
+    } else {
         res.redirect('/');
     }
 });
@@ -1553,9 +1550,9 @@ app.get('/edit_story_item/:id/:story_id', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story_catalogue/'+ story_id);
+            res.redirect('/story_catalogue/' + story_id);
         })
-    }else {
+    } else {
         res.redirect('/');
     }
 
@@ -1573,8 +1570,6 @@ app.get('/all_story_item/:id', function (req, res) {
             return new Parse.Query(StoryItem).equalTo("story_id", id).find();
 
         }).then(function (story_item) {
-
-            // res.send(JSON.stringify(story_item));
 
             res.render("pages/story_items", {
 
@@ -1848,6 +1843,8 @@ app.post('/new_catalogue/:id', function (req, res) {
     let _type = parseInt(req.body.style);
 
     if (token) {
+
+        console.log("CONTENT " + content);
 
         getUser(token).then(function (sessionToken) {
 
@@ -2295,6 +2292,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     let fileDetails = [];
     let stickerDetails = [];
     let stickerCollection;
+    let stats;
 
     if (token) {
 
@@ -2303,6 +2301,13 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
+
+            let db = admin.database();
+
+            // change this to shorter folder
+            let ref = db.ref("server/saving-data/fireblog");
+
+            let statsRef = ref.child("/gstickers-e4668");
 
             new Parse.Query(PacksClass).equalTo("objectId", pack_id).first({sessionToken: token}).then(function (collection) {
 
@@ -2324,6 +2329,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     sticker.set("uri", parseFile);
                     sticker.set("user_id", _user.id);
                     sticker.set("parent", collection);
+                    sticker.set("description", "");
                     sticker.set("flag", false);
                     sticker.set("archive", false);
                     sticker.set("sold", false);
@@ -2387,32 +2393,34 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     }
                 });
 
-                let db = admin.database();
-                let ref = db.ref("server/saving-data/fireblog");
+                // statsRef.on('value', function (snap) {
 
-
-                var statsRef = ref.child("/g-stickers");
-
-                statsRef.update({
-                    categories: 5,
-                    packs: 5,
-                    stickers: 7
-                }, function (error) {
-                    if (error) {
-                        console.log("Data could not be saved." + error);
-                    } else {
-                        console.log("Data saved successfully");
+                statsRef.transaction(function (sticker) {
+                    if (sticker) {
+                        if (sticker.stickers) {
+                            sticker.stickers++;
+                        }
                     }
-                });
 
-                console.log("REDIRECT TO PACK COLLECTION");
+                    return sticker
+                });
+                //     let content = snap.val().stickers;
+                //     res.redirect('/firebase/' + content + '/' + pack_id);
+                // });
+
+            }).then(function (sticker) {
+
+                res.redirect('/pack/' + pack_id);
+
+            }, function (error) {
+
+                console.log("BIG BIG ERROR" + error.message);
                 res.redirect("/pack/" + pack_id);
 
             })
-
         }, function (error) {
             console.log("BIG BIG ERROR" + error.message);
-            res.redirect("/add_stickers");
+            res.redirect("/pack/" + pack_id);
         });
 
 
@@ -2983,37 +2991,62 @@ app.get('/pack/:id', function (req, res) {
 });
 
 
-app.get('/publish_pack/:id/:state', function (req, res) {
+app.get('/publish/:id/:state/:type', function (req, res) {
 
     let token = req.cookies.token;
-    let pack_id = req.params.id;
+    let id = req.params.id;
     let state = req.params.state;
+    let type = req.params.type;
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(PacksClass).equalTo("objectId", pack_id).first();
+            switch (type) {
+                case "pack":
+                    return new Parse.Query(PacksClass).equalTo("objectId", id).first();
 
-        }).then(function (pack) {
-
-            if (state === "publish") {
-                pack.set("published", true);
-            } else if (state === "unpublish") {
-                pack.set("published", false);
+                case "story":
+                    return new Parse.Query(StoryClass).equalTo("objectId", id).first();
 
             }
 
-            return pack.save();
+        }).then(function (object) {
+
+            if (state === "publish") {
+                object.set("published", true);
+            } else if (state === "unpublish") {
+                object.set("published", false);
+
+            }
+
+            return object.save();
 
         }).then(function () {
 
-            res.redirect("/pack/" + pack_id);
+            switch (type) {
+                case "pack":
+                    res.redirect("/pack/" + id);
+                    return;
+
+                case "story":
+                    res.redirect("/story_details/"+id);
+                    return;
+            }
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect("/pack/" + pack_id);
+
+            switch (type) {
+                case "pack":
+                    res.redirect("/pack/" + id);
+                    return;
+
+                case "story":
+                    res.redirect("/story_details/"+id);
+                    return;
+            }
 
         })
     } else {
@@ -3802,6 +3835,7 @@ app.post('/update/:id/:pid', function (req, res) {
     let stickerId = req.params.id;
     let packId = req.params.pid;
     let sticker_status = req.body.sticker_status;
+    let description = req.body.description;
 
     let _listee = [];
 
@@ -3836,6 +3870,8 @@ app.post('/update/:id/:pid', function (req, res) {
             } else if (sticker_status === "0") {
                 sticker.set("sold", false);
             }
+            sticker.set("description", description);
+
             return sticker.save();
 
         }).then(function (sticker) {

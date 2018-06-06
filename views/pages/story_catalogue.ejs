@@ -22,6 +22,36 @@
             src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
+    <script>
+
+        counter = function() {
+            let value = $('#element').val();
+
+            if (value.length === 0) {
+
+                $('#wordCount').html(0);
+                return;
+            }else {
+                let regex = /\s+/gi;
+                let wordCount = value.trim().replace(regex, ' ').split(' ').length;
+                $('#wordCount').html(wordCount);
+            }
+        };
+
+        $(document).ready(function() {
+            // $('#element').on("change", function (evt) {
+            //     counter();
+            // });
+
+            $('#element').change(counter);
+            $('#element').keypress(counter);
+            $('#element').keydown(counter);
+            $('#element').keyup(counter);
+            $('#element').blur(counter);
+            $('#element').focus(counter);
+
+        });
+    </script>
 </head>
 
 <body class="primary-background-color">
@@ -43,14 +73,15 @@
     <div id="hiddenTextCatalouge" class="hidden_forms" style="display: none">
         <div class="medium-3 large-3 cell create_background">
             <center>
-                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW STORY
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW TEXT
                 </div>
             </center>
             <form id="pack_form" action="/new_catalogue/<%= story_id %>" method="post">
                 <center>
                     <i class="fa fa-text-width" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
                     <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
-                              name="content" id="story_text" required="" aria-required="true"></textarea><br>
+                              name="content" id="element" required="" aria-required="true"></textarea><br>
+                    Words: <span id="wordCount">0</span><br/>
                 </center>
                 <input name="style" value="0" hidden>
                 <span>
@@ -75,7 +106,8 @@
                     <i class="fa fa-quote-left" style="color: white; font-size: 3rem" aria-hidden="true"></i>&nbsp;&nbsp;
                     <i class="fa fa-quote-right" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
                     <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
-                              name="content" id="story_text" required="" aria-required="true"></textarea><br>
+                              name="content" id="element" required="" aria-required="true"></textarea><br>
+                    Words: <span id="wordCount">0</span><br/>
                 </center>
                 <input name="style" value="2" hidden>
                 <span>
@@ -99,7 +131,8 @@
                     <i class="fa fa-italic" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <br><br>
                     <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
-                              name="content" id="story_text" required="" aria-required="true"></textarea><br>
+                              name="content" id="element" required="" aria-required="true"></textarea><br>
+                    Words: <span id="wordCount">0</span><br/>
                 </center>
 
                 <input name="style" value="5" hidden>
@@ -125,7 +158,8 @@
                     <i class="fa fa-bold" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <br><br>
                     <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
-                              name="content" id="story_text" required="" aria-required="true"></textarea><br>
+                              name="content" id="element" required="" aria-required="true"></textarea><br>
+                    Words: <span id="wordCount">0</span><br/>
                 </center>
 
                 <input name="style" value="6" hidden>
@@ -220,7 +254,7 @@
 
     </div>
 
-    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Story Catalogue</b></span>
+    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Story Items</b></span>
 
     <div class="grid-x grid-margin-x" id="opaqueDiv">
         <div class="medium-3 large-3 cell login_card">

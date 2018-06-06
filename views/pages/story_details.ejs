@@ -38,6 +38,31 @@
 </head>
 
 <body class="primary-background-color">
+<div id="pageMask"></div>
+
+<div id="askPermission" style="display: none">
+    <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
+        <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
+        <a href="#" id="cancelPermission" class="edit_labels" style="margin: 200px !important;">
+            NO
+        </a>
+        <a href="/publish/<%= story.id %>/publish/story" class="edit_labels">
+            YES
+        </a>
+    </div>
+</div>
+
+<div id="removePublish" style="display: none">
+    <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
+        <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
+        <a href="#" id="cancelPublish" class="edit_labels" style="margin: 200px !important;">
+            NO
+        </a>
+        <a href="/publish/<%= story.id %>/unpublish/story" class="edit_labels">
+            YES
+        </a>
+    </div>
+</div>
 <div class="grid-container">
     <!-- Logo -->
     <div class="medium-12 large-12" id="logo">
@@ -52,7 +77,7 @@
     <!-- End of logo -->
     <span class="medium-6 large-6 welcome_post"><b>Edit Story Details</b></span>
 
-    <div class="grid-x grid-margin-x story">
+    <div class="grid-x grid-margin-x story" id="opaqueDiv">
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
                 <div class="stats">Menu</div>
@@ -74,6 +99,24 @@
                     <p class="preview"> PREVIEW STORY</p>
                 </button>
             </a>
+
+            <% if (story.get("published") === false){%>
+            <a href="#" id="showPermission">
+                <button class="create_button">
+                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
+                    </p>
+                </button>
+            </a>
+            <%} else if (story.get("published") === true){%>
+            <a href="#" id="removePublished">
+                <button class="create_button">
+                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; UNPUBLISH
+                    </p>
+                </button>
+            </a>
+
+            <%}%>
+            <br><br>
             <form id="story_form" action="/edit_story/<%= story.id %>" method="post">
 
                 <div class="medium-5 large-5 cell">
@@ -106,6 +149,8 @@
 
                     <a href="#" id="submit_story" class="preview">Save Changes</a><br>
                     <a href="/main_story/<%= story.id %>/<%= story.get("title") %>" class="preview">Edit Main Story</a>
+
+                    <br><br>
 
                     <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
                 </div>
