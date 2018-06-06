@@ -3418,6 +3418,24 @@ app.get('/details/:id/:coll_id', function (req, res) {
             //         pack_id: pack_
             //     });
             // } else {
+            const AWS = require('aws-sdk');
+
+            const s3 = new AWS.S3();
+            AWS.config.update({accessKeyId: 'AKIAINM7RXYLJVMDEMLQ', secretAccessKey: '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'});
+
+
+            const myBucket = 'cyfa';
+            const myKey = 'VUEG22l8/pfbtHFin4agKjk0eHddiB5UyWuL8TXX';
+            const signedUrlExpireSeconds = 60 * 5;
+
+            const url = s3.getSignedUrl('getObject', {
+                Bucket: myBucket,
+                Key: myKey,
+                Expires: signedUrlExpireSeconds
+            });
+
+            console.log("URL IMAGE " + url);
+
             res.render("pages/sticker_details", {
                 sticker: stickerDetail,
                 selected: selectedCategories,
