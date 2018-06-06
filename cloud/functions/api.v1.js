@@ -249,7 +249,7 @@ Parse.Cloud.define("getStories", function (req, res) {
                 _.each(stickers, function (sticker) {
 
                     if (artwork.get("sticker") === sticker.id) {
-
+                        console.log("ARTWORK STICKER " + artwork.get("sticker") + " " + "STICKER " + sticker.id);
                         _story.stickerName = sticker.get("stickerName");
                         if (sticker.get("uri")) {
                             _story.stickerUrl = sticker.get("uri").url();
@@ -302,10 +302,10 @@ Parse.Cloud.define("getStickers", function (req, res) {
 
                     let sold = Boolean(sticker.get("sold"));
 
-                    if((sold === "true") || (sold === true)){
+                    if ((sold === "true") || (sold === true)) {
                         _sticker.sold = true;
                         stickerPaidList.push(_sticker)
-                    }else{
+                    } else {
                         _sticker.sold = false;
                         stickerFreeList.push(_sticker)
                     }
@@ -318,7 +318,7 @@ Parse.Cloud.define("getStickers", function (req, res) {
 
                 });
 
-                res.success(util.setResponseOk({paid:stickerPaidList,free:stickerFreeList}));
+                res.success(util.setResponseOk({paid: stickerPaidList, free: stickerFreeList}));
 
             } else {
 
