@@ -244,6 +244,8 @@ Parse.Cloud.define("getStories", function (req, res) {
 
             _.each(_artworks, function (artwork) {
 
+                _story.stickerName = "";
+                _story.stickerUrl = "";
                 _.each(stickers, function (sticker) {
 
                     if (artwork.get("sticker") === sticker.id) {
