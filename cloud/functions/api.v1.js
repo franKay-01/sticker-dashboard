@@ -73,7 +73,6 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
                         });
 
-                        console.log("INFORMATION_NINE " + JSON.stringify(_stickers));
                         packItem.previews = _stickers;
 
                     }
@@ -247,8 +246,8 @@ Parse.Cloud.define("getStories", function (req, res) {
                 _.each(stickers, function (sticker) {
 
                     if (artwork.get("sticker") === sticker.id && artwork.get("object_id") === story.id) {
+
                         _story.stickerName = sticker.get("stickerName");
-                        console.log("STICKY ARTWORK  " + sticker.get("stickerName"));
                         if (sticker.get("uri")) {
                             _story.stickerUrl = sticker.get("uri").url();
                         } else {
@@ -298,7 +297,7 @@ Parse.Cloud.define("getStickers", function (req, res) {
                     _sticker.name = sticker.get("stickerName");
                     _sticker.categories = sticker.get("categories");
 
-                    let sold = Boolean(sticker.get("sold"));
+                    let sold = sticker.get("sold");
 
                     if ((sold === "true") || (sold === true)) {
                         _sticker.sold = true;
