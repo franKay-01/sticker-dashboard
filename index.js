@@ -3030,7 +3030,7 @@ app.get('/publish/:id/:state/:type', function (req, res) {
                     return;
 
                 case "story":
-                    res.redirect("/story_details/"+id);
+                    res.redirect("/story_details/" + id);
                     return;
             }
 
@@ -3044,7 +3044,7 @@ app.get('/publish/:id/:state/:type', function (req, res) {
                     return;
 
                 case "story":
-                    res.redirect("/story_details/"+id);
+                    res.redirect("/story_details/" + id);
                     return;
             }
 
@@ -3421,34 +3421,21 @@ app.get('/details/:id/:coll_id', function (req, res) {
             const AWS = require('aws-sdk');
 
             const s3 = new AWS.S3();
-            AWS.config.update({accessKeyId: 'AKIAINM7RXYLJVMDEMLQ', secretAccessKey: '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'});
+            AWS.config.update({
+                accessKeyId: 'AKIAINM7RXYLJVMDEMLQ',
+                secretAccessKey: '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'
+            });
 
 
             const myBucket = 'cyfa';
-            const myKey = './key.txt';
+            const bucket = 'cyfa/';
+            const myKey = bucket.concat(stickerDetail.get("uri").name);
             const signedUrlExpireSeconds = 60 * 5;
 
             const url = s3.getSignedUrl('getObject', {
                 Bucket: myBucket,
                 Key: myKey,
                 Expires: signedUrlExpireSeconds
-            });
-
-            var params = {
-                Bucket: "cyfa"
-            };
-
-            s3.getBucketPolicy(params, function(err, data) {
-                if (err) {
-                    console.log(err, err.stack);
-                } // an error occurred
-                else
-                    console.log(" DATA "+ JSON.stringify(data));           // successful response
-                /*
-                data = {
-                 Policy: "{\"Version\":\"2008-10-17\",\"Id\":\"LogPolicy\",\"Statement\":[{\"Sid\":\"Enables the log delivery group to publish logs to your bucket \",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"111122223333\"},\"Action\":[\"s3:GetBucketAcl\",\"s3:GetObjectAcl\",\"s3:PutObject\"],\"Resource\":[\"arn:aws:s3:::policytest1/*\",\"arn:aws:s3:::policytest1\"]}]}"
-                }
-                */
             });
 
             console.log("URL IMAGE " + url + " STICKER " + JSON.stringify(stickerDetail.get("uri")));
