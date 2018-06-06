@@ -2305,3 +2305,8 @@ tr #titles {
     z-index: 9999;
     top: 204px;
 }
+
+input:disabled, input[readonly], textarea:disabled, textarea[readonly] {
+    background-color: #fffefe !important;
+    cursor: not-allowed !important;
+}
