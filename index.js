@@ -3451,7 +3451,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
                 */
             });
 
-            console.log("URL IMAGE " + url);
+            console.log("URL IMAGE " + url + " STICKER " + JSON.stringify(stickerDetail.get("uri")));
 
             res.render("pages/sticker_details", {
                 sticker: stickerDetail,
