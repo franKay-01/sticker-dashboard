@@ -3418,6 +3418,9 @@ app.get('/details/:id/:coll_id', function (req, res) {
             //         pack_id: pack_
             //     });
             // } else {
+
+
+            //TODO how to catch error when time expires
             // const AWS = require('aws-sdk');
             //
             // const s3 = new AWS.S3();
@@ -3438,15 +3441,14 @@ app.get('/details/:id/:coll_id', function (req, res) {
             //     Key: key,
             //     Expires: signedUrlExpireSeconds
             // });
-
-            let url = "https://cyfa.s3.amazonaws.com/cd74f21daf62a3c93d784167e50dc11d_I_don_hit_notxt.png?AWSAccessKeyId=AKIAIK4H65MXJJMO7Q6A&Expires=1528302755&Signature=lZqhQMLC6pi2Fgz1udtgMJwLe70%3D";
+            //
 
             res.render("pages/sticker_details", {
                 sticker: stickerDetail,
                 selected: selectedCategories,
                 categories: allCategories,
                 pack_id: pack_,
-                uri: url,
+                // uri: url,
                 id: id
             });
             // }

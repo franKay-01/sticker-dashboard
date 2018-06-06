@@ -3,7 +3,7 @@
         <div class="medium-6 large-5 cell">
             <div class="droppableArea">
                 <div class="output" name="tfile"></div>
-                <img id="im1" name="im1" style="width: 100%; height: 100%;" src="<%= uri %>">
+                <img id="im1" name="im1" style="width: 100%; height: 100%;" src="<%= sticker.get("uri").url() %>">
             </div>
             <script>
                 $('img').mousedown(function (e) {
