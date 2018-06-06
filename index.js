@@ -3031,7 +3031,7 @@ app.get('/publish/:id/:state/:type', function (req, res) {
                     return;
 
                 case "story":
-                    res.redirect("/story_details/"+id);
+                    res.redirect("/story_details/" + id);
                     return;
             }
 
@@ -3045,7 +3045,7 @@ app.get('/publish/:id/:state/:type', function (req, res) {
                     return;
 
                 case "story":
-                    res.redirect("/story_details/"+id);
+                    res.redirect("/story_details/" + id);
                     return;
             }
 
@@ -3419,11 +3419,37 @@ app.get('/details/:id/:coll_id', function (req, res) {
             //         pack_id: pack_
             //     });
             // } else {
+
+
+            //TODO how to catch error when time expires (Check APIs)
+            // const AWS = require('aws-sdk');
+            //
+            // const s3 = new AWS.S3();
+            // AWS.config.update({
+            //     accessKeyId: 'AKIAINM7RXYLJVMDEMLQ',
+            //     secretAccessKey: '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'
+            // });
+            //
+            //
+            // const myBucket = 'cyfa';
+            // let name = stickerDetail.get("uri").name();
+            //
+            // const key = name;
+            // const signedUrlExpireSeconds = 60 * 5;
+            //
+            // const url = s3.getSignedUrl('getObject', {
+            //     Bucket: myBucket,
+            //     Key: key,
+            //     Expires: signedUrlExpireSeconds
+            // });
+            //
+
             res.render("pages/sticker_details", {
                 sticker: stickerDetail,
                 selected: selectedCategories,
                 categories: allCategories,
                 pack_id: pack_,
+                // uri: url,
                 id: id
             });
             // }

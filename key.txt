@@ -1,0 +1,2 @@
+accessKeyId:AKIAINM7RXYLJVMDEMLQ
+secretAccessKey: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
