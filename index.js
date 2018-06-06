@@ -1999,8 +1999,8 @@ app.get('/home', function (req, res) {
             }
 
             return Parse.Promise.when(
-                new Parse.Query(LatestClass).equalTo("objectId", "H9c8hykNqO").first(),
-                new Parse.Query(LatestClass).equalTo("objectId", "jU3SwZUJYl").first(),
+                new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STICKER).first(),
+                new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STORY).first(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(CategoryClass).limit(limit).find(),
                 new Parse.Query(StoryClass).equalTo("user_id", _user.id).limit(limit).find(),
