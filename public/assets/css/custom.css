@@ -104,7 +104,7 @@ label {
 }
 
 #pack_message {
-    visibility: visible;
+    visibility: hidden;
     min-width: 250px;
     margin-left: -165px;
     background-color: #333;
@@ -117,7 +117,7 @@ label {
     z-index: 1;
     left: 50%;
     opacity: 0.5;
-    bottom: 30px;
+    /*bottom: 30px;*/
     font-size: 17px;
 }
 
