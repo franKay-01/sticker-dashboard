@@ -3835,6 +3835,7 @@ app.post('/update/:id/:pid', function (req, res) {
     let stickerId = req.params.id;
     let packId = req.params.pid;
     let sticker_status = req.body.sticker_status;
+    let description = req.body.description;
 
     let _listee = [];
 
@@ -3869,6 +3870,8 @@ app.post('/update/:id/:pid', function (req, res) {
             } else if (sticker_status === "0") {
                 sticker.set("sold", false);
             }
+            sticker.set("description", description);
+
             return sticker.save();
 
         }).then(function (sticker) {
