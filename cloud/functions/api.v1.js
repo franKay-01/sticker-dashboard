@@ -228,22 +228,6 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     }).then(stickers => {
 
-        let stickerList = [];
-
-        _.each(_artworks, function (artwork) {
-
-            _.each(stickers, function (sticker) {
-
-                if (artwork.get("sticker") === sticker.id) {
-                    stickerList.push({
-                        id: sticker.id,
-                        stickerName: sticker.get("stickerName"),
-                        stickerUrl: sticker.get("uri").url()
-                    });
-                }
-            })
-        });
-
         _.each(_stories, function (story) {
 
             let _story = {};
@@ -258,7 +242,23 @@ Parse.Cloud.define("getStories", function (req, res) {
                 _story.colors = type.DEFAULT.color
             }
 
+            _.each(_artworks, function (artwork) {
 
+                _story.stickerName = "";
+                _story.stickerUrl = "";
+                _.each(stickers, function (sticker) {
+
+                    if (artwork.get("sticker") === sticker.id && artwork.get("object_id") === story.id) {
+                        _story.stickerName = sticker.get("stickerName");
+                        console.log("STICKY ARTWORK  " + sticker.get("stickerName"));
+                        if (sticker.get("uri")) {
+                            _story.stickerUrl = sticker.get("uri").url();
+                        } else {
+                            _story.stickerUrl = "";
+                        }
+                    }
+                })
+            });
 
             storyList.push(_story);
 
