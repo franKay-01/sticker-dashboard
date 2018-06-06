@@ -2329,6 +2329,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     sticker.set("uri", parseFile);
                     sticker.set("user_id", _user.id);
                     sticker.set("parent", collection);
+                    sticker.set("description", "");
                     sticker.set("flag", false);
                     sticker.set("archive", false);
                     sticker.set("sold", false);
