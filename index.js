@@ -3425,7 +3425,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
 
             const myBucket = 'cyfa';
-            const myKey = 'VUEG22l8/pfbtHFin4agKjk0eHddiB5UyWuL8TXX';
+            const myKey = './key.txt';
             const signedUrlExpireSeconds = 60 * 5;
 
             const url = s3.getSignedUrl('getObject', {
