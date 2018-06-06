@@ -28,6 +28,14 @@
             }, 3000);
         }
 
+        function packSize() {
+            var x = document.getElementById("pack_message")
+            x.className = "show";
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        }
+
         function not_approved() {
             var x = document.getElementById("not_approved")
             x.className = "show";
@@ -200,12 +208,21 @@
 
             <!-- <%# if (status === 2){ %>-->
             <% if (published === false){%>
+            <%if ( stickers.length > 10){%>
+            <a href="#" onclick="packSize()">
+                <button class="create_button">
+                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
+                    </p>
+                </button>
+            </a>
+            <%}else {%>
             <a href="#" id="showPermission">
                 <button class="create_button">
                     <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
                     </p>
                 </button>
             </a>
+            <%}%>
             <%} else if (published === true){%>
             <a href="#" id="removePublished">
                 <button class="create_button">
@@ -243,6 +260,8 @@
         <div id="toast_message">When Uploading ensure there's stable connection.<br>
             If after uploading you can't see the images, just give it time..
         </div>
+
+        <div id="pack_message">Packs need to contain at least 10 stickers to PUBLISH</div>
 
     </div>
 
