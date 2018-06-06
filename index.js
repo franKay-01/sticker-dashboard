@@ -3429,7 +3429,8 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
             const myBucket = 'cyfa';
             const bucket = 'cyfa/';
-            const myKey = bucket.concat(stickerDetail.get("uri").name);
+            let name = stickerDetail.get("uri").name();
+            const myKey = bucket.concat(name);
             console.log("KEY " + myKey);
             const key = myKey;
             const signedUrlExpireSeconds = 60 * 5;
