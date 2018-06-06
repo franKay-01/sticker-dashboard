@@ -681,9 +681,11 @@ app.post('/latest_element/:type', function (req, res) {
             switch (type) {
                 case "sticker":
                     res.redirect('/sticker_of_day');
+                    break;
 
                 case "story":
                     res.redirect('/story_of_day');
+                    break;
             }
 
         });
