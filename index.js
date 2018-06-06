@@ -3428,10 +3428,8 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
 
             const myBucket = 'cyfa';
-            const bucket = 'cyfa/';
             let name = stickerDetail.get("uri").name();
-            const myKey = bucket.concat(name);
-            console.log("KEY " + myKey);
+
             const key = name;
             const signedUrlExpireSeconds = 60 * 5;
 
@@ -3441,13 +3439,13 @@ app.get('/details/:id/:coll_id', function (req, res) {
                 Expires: signedUrlExpireSeconds
             });
 
-            console.log("URL IMAGE " + url + " STICKER " + JSON.stringify(stickerDetail.get("uri")));
 
             res.render("pages/sticker_details", {
                 sticker: stickerDetail,
                 selected: selectedCategories,
                 categories: allCategories,
                 pack_id: pack_,
+                uri: url,
                 id: id
             });
             // }
