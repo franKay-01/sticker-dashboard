@@ -66,23 +66,23 @@
                 <%if (item.get("type") === 0){%>
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true" disabled><%= item.get("content") %></textarea>
-                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Text</a><br><br>
+                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Text</a><br><br><br>
                 <%} else if (item.get("type") === 2){%>
 
                 <i class="fa fa-quote-left" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i>
-                <i style="color: #a46580; font-size: 20px"><%= item.get("content") %></i>
-                <i class="fa fa-quote-right" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i><br><br>
-                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Quote</a><br><br>
+                <b style="color: #a46580; font-size: 20px"><%= item.get("content") %></b>
+                <i class="fa fa-quote-right" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i><br>
+                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Quote</a><br><br><br>
 
                 <%} else if (item.get("type") === 5){%>
                 <!--<div class="someCSSClass">fontAwesomeQuote <h2></h2> fontAwesomeQuote</div>-->
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
-                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Italic</a><br><br>
+                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Italic</a><br><br><br>
                 <%}else if (item.get("type") === 6){%>
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
-                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Bold</a><br><br>
+                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Bold</a><br><br><br>
                 <%}%>
                 <%})%>
                 <%}%>
