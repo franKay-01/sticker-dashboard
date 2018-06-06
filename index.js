@@ -640,15 +640,14 @@ app.post('/latest_element/:type', function (req, res) {
         getUser(token).then(function (sessionToken) {
             switch (type) {
                 case "sticker":
-                    return new Parse.Query(LatestClass).equalTo("objectId", "H9c8hykNqO").first();
+                    return new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STICKER).first();
 
                 case "story":
-                    return new Parse.Query(LatestClass).equalTo("objectId", "jU3SwZUJYl").first();
+                    return new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STORY).first();
 
             }
 
         }).then(function (latest) {
-
 
             latest.set("latest_id", id);
 
