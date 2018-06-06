@@ -3430,11 +3430,13 @@ app.get('/details/:id/:coll_id', function (req, res) {
             const myBucket = 'cyfa';
             const bucket = 'cyfa/';
             const myKey = bucket.concat(stickerDetail.get("uri").name);
+            console.log("KEY " + myKey);
+            const key = myKey;
             const signedUrlExpireSeconds = 60 * 5;
 
             const url = s3.getSignedUrl('getObject', {
                 Bucket: myBucket,
-                Key: myKey,
+                Key: key,
                 Expires: signedUrlExpireSeconds
             });
 
