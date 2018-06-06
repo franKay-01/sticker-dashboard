@@ -3434,6 +3434,23 @@ app.get('/details/:id/:coll_id', function (req, res) {
                 Expires: signedUrlExpireSeconds
             });
 
+            var params = {
+                Bucket: "cyfa"
+            };
+
+            s3.getBucketPolicy(params, function(err, data) {
+                if (err) {
+                    console.log(err, err.stack);
+                } // an error occurred
+                else
+                    console.log(" DATA "+ JSON.stringify(data));           // successful response
+                /*
+                data = {
+                 Policy: "{\"Version\":\"2008-10-17\",\"Id\":\"LogPolicy\",\"Statement\":[{\"Sid\":\"Enables the log delivery group to publish logs to your bucket \",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"111122223333\"},\"Action\":[\"s3:GetBucketAcl\",\"s3:GetObjectAcl\",\"s3:PutObject\"],\"Resource\":[\"arn:aws:s3:::policytest1/*\",\"arn:aws:s3:::policytest1\"]}]}"
+                }
+                */
+            });
+
             console.log("URL IMAGE " + url);
 
             res.render("pages/sticker_details", {
