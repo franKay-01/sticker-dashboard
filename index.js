@@ -2345,6 +2345,20 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     sticker.set("flag", false);
                     sticker.set("archive", false);
                     sticker.set("sold", false);
+
+                    const imagemin = require('imagemin');
+                    const imageminJpegtran = require('imagemin-jpegtran');
+                    const imageminPngquant = require('imagemin-pngquant');
+
+                    imagemin(parseFile, 'build/images', {
+                        plugins: [
+                            imageminJpegtran(),
+                            imageminPngquant({quality: '65-80'})
+                        ]
+                    }).then(files => {
+                        console.log("COMPRESSED "+ JSON.stringify(files));
+                        //=> [{data: <Buffer 89 50 4e …>, path: 'build/images/foo.jpg'}, …]
+                    });
                     // sticker.setACL(setPermission(_user, false));
 
                     stickerDetails.push(sticker);
