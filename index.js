@@ -908,13 +908,13 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
             }
 
             let LINKS = new Parse.Object.extend(Links);
-            let link = new LINKS();
+            let links = new LINKS();
 
-            link.set("link", link);
-            link.set("object_id", id);
-            link.set("type", type);
+            links.set("link", link);
+            links.set("object_id", id);
+            links.set("type", type);
 
-            return link.save();
+            return links.save();
 
         }).then(function (links) {
 
