@@ -640,15 +640,14 @@ app.post('/latest_element/:type', function (req, res) {
         getUser(token).then(function (sessionToken) {
             switch (type) {
                 case "sticker":
-                    return new Parse.Query(LatestClass).equalTo("objectId", "H9c8hykNqO").first();
+                    return new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STICKER).first();
 
                 case "story":
-                    return new Parse.Query(LatestClass).equalTo("objectId", "jU3SwZUJYl").first();
+                    return new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STORY).first();
 
             }
 
         }).then(function (latest) {
-
 
             latest.set("latest_id", id);
 
@@ -682,9 +681,11 @@ app.post('/latest_element/:type', function (req, res) {
             switch (type) {
                 case "sticker":
                     res.redirect('/sticker_of_day');
+                    break;
 
                 case "story":
                     res.redirect('/story_of_day');
+                    break;
             }
 
         });
@@ -2009,8 +2010,8 @@ app.get('/home', function (req, res) {
             }
 
             return Parse.Promise.when(
-                new Parse.Query(LatestClass).equalTo("objectId", "H9c8hykNqO").first(),
-                new Parse.Query(LatestClass).equalTo("objectId", "jU3SwZUJYl").first(),
+                new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STICKER).first(),
+                new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STORY).first(),
                 new Parse.Query(PacksClass).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(CategoryClass).limit(limit).find(),
                 new Parse.Query(StoryClass).equalTo("user_id", _user.id).limit(limit).find(),
