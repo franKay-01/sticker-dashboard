@@ -2350,7 +2350,10 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     const imageminJpegtran = require('imagemin-jpegtran');
                     const imageminPngquant = require('imagemin-pngquant');
 
-                    imagemin(parseFile, 'build/images', {
+                    let filename = [];
+                    filename.push(parseFile);
+
+                    imagemin(filename, 'build/images', {
                         plugins: [
                             imageminJpegtran(),
                             imageminPngquant({quality: '65-80'})
