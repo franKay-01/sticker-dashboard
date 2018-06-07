@@ -40,14 +40,14 @@
             <% if (links.length > 0) {%>
             <% links.forEach(function(items) { %>
 
-            <%if (items.get("type") === 1){%>
+            <%if (items.get("type") === 4){%>
             <label style="color: #00b0ff !important;"><i class="fa fa-facebook-square fa-2x prefix"
                                                          aria-hidden="true"></i> &nbsp; <b>Facebook</b></label>
             <input id="icon_prefix" type="text" placeholder="@G-stickers" name="facebook" value="<%= items.get("link")%>" class="box_2">
 
             <%}%>
 
-            <%if (items.get("type") === 2){%>
+            <%if (items.get("type") === 5){%>
 
             <label style="color: #00b0ff !important"><i class="fa fa-twitter-square fa-2x prefix"
                                                         aria-hidden="true"></i> &nbsp; <b>Twitter</b></label>
@@ -55,7 +55,7 @@
 
             <%}%>
 
-            <%if (items.get("type") === 3){%>
+            <%if (items.get("type") === 6){%>
 
             <label style="color: #a46580 !important"><i class="fa fa-instagram fa-2x prefix" aria-hidden="true"></i>
                 &nbsp; <b>Instagram</b></label>

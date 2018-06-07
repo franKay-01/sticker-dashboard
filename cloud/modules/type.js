@@ -16,6 +16,16 @@ exports.USER = {
     normal: 2
 };
 
+exports.LINKS = {
+    android: 0,
+    ios: 1,
+    web: 2,
+    telephone: 3,
+    facebook: 4,
+    twitter: 5,
+    instagram: 6
+}
+
 exports.STORY_ITEM = {
     text: 0,
     image: 1,

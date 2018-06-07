@@ -838,8 +838,6 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
     let advertDetails = [];
     let existing = [];
 
-    console.log("TYPE " + JSON.stringify(type) + " LINK " + JSON.stringify(link));
-
     if (token) {
 
         getUser(token).then(function (sessionToken) {
@@ -876,7 +874,6 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
                     advert_image.set("name", image_name);
                     advert_image.set("advert_id", id);
                     advert_image.set("uri", parseFile);
-                    advert_image.set("links", link);
                     advert_image.set("type", type);
 
                     advertDetails.push(advert_image);
@@ -909,11 +906,25 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
                 });
             }
 
-            return true
+            let LINKS = new Parse.Object.extend(Links);
+            let link = new LINKS();
 
-        }).then(function () {
+            link.set("link", link);
+            link.set("object_id", id);
+            link.set("type", type);
 
-            res.redirect('/advert_details/' + id);
+            return link.save();
+
+        }).then(function (links) {
+
+            if (links){
+
+                res.redirect('/advert_details/' + id);
+
+            }else {
+                advertMessage = "ADVERT LINK could not be saved";
+                res.redirect('/advert_details/' + id);
+            }
 
         }, function (error) {
 
