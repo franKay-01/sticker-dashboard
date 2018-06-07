@@ -2351,6 +2351,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     const imageminPngquant = require('imagemin-pngquant');
 
                     let filename = [];
+                    console.log("PARSEFILE " + JSON.stringify(parseFile));
                     filename.push(parseFile);
 
                     imagemin(filename, 'build/images', {
