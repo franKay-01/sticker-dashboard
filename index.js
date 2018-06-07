@@ -2352,15 +2352,15 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                     let filename = [];
                     console.log("PARSEFILE " + JSON.stringify(parseFile.name()) + " MIME " + file.mimetype );
+                    let name = parseFile.name();
                     if (file.mimetype === "image/png") {
-                        parseFile = parseFile.concat(".png");
+                        name = name.concat(".png");
                     }else if (file.mimetype === "image/jpg" || file.mimetype === "image/jpeg"){
-                        parseFile = parseFile.concat(".jpg");
-
+                        name = name.concat(".jpg");
                     }
                     filename.push(parseFile);
 
-                    imagemin(filename, 'build/images', {
+                    imagemin(name, 'build/images', {
                         plugins: [
                             imageminJpegtran(),
                             imageminPngquant({quality: '65-80'})
