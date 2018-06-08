@@ -2333,6 +2333,15 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
                     //create our parse file
+                    let gm = require('gm');
+
+                    gm(file.path)
+                        .resize(50, 50)
+                        .autoOrient()
+                        .write(writeStream, function (err) {
+                            if (!err) console.log(' hooray! ');
+                        });
+
                     let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                     let Sticker = new Parse.Object.extend(StickerClass);
                     let sticker = new Sticker();
@@ -2346,18 +2355,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     sticker.set("archive", false);
                     sticker.set("sold", false);
                     // sticker.setACL(setPermission(_user, false));
-
-                    console.log("FILE PATH " + file.path);
-                    sharp(file.path)
-                        .resize(100)
-                        .toBuffer()
-                        .then( data =>{
-                            console.log("DATA " + JSON.stringify(data));
-                        } )
-                .catch( err => {
-                    console.log("ERROR " + err.message);
-
-                } );
 
                     stickerDetails.push(sticker);
                     fileDetails.push(file);

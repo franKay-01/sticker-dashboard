@@ -22,6 +22,7 @@
     "express": "~4.11.x",
     "fine-uploader": "^5.14.5",
     "firebase-admin": "^5.12.1",
+    "gm": "^1.23.1",
     "image-downloader": "^3.3.0",
     "images-downloader": "*",
     "jsbarcode": "^3.9.0",
