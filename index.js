@@ -2347,6 +2347,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     sticker.set("sold", false);
                     // sticker.setACL(setPermission(_user, false));
 
+                    console.log("BITMAP " + JSON.stringify(bitmap));
                     sharp(bitmap)
                         .resize(100)
                         .toBuffer()
