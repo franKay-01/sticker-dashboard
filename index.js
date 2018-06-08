@@ -13,6 +13,7 @@ let cors = require('cors');
 let methodOverride = require('method-override');
 let moment = require('moment');
 let admin = require('firebase-admin');
+let sharp = require('sharp');
 
 //for parsing location, directory and paths
 let path = require('path');
@@ -2304,7 +2305,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     let fileDetails = [];
     let stickerDetails = [];
     let stickerCollection;
-    let stats;
 
     if (token) {
 
@@ -2346,6 +2346,17 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     sticker.set("archive", false);
                     sticker.set("sold", false);
                     // sticker.setACL(setPermission(_user, false));
+
+                    sharp(parseFile)
+                        .resize(100)
+                        .toBuffer()
+                        .then( data =>{
+                            console.log("DATA " + JSON.stringify(data));
+                        } )
+                .catch( err => {
+                    console.log("ERROR " + JSON.stringify(err));
+
+                } );
 
                     stickerDetails.push(sticker);
                     fileDetails.push(file);
@@ -2393,19 +2404,15 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 }
 
                 mailgun.messages().send(data, function (error, body) {
-                    //If there is an error, render the error page
                     if (error) {
                         console.log("BIG BIG ERROR: ", error.message);
                     }
-                    //Else we can greet    and leave
                     else {
-                        //Here "submitted.jade" is the view file for this landing page
-                        //We pass the variable "email" from the url parameter in an object rendered by Jade
+
                         console.log("EMAIL SENT" + body);
                     }
                 });
 
-                // statsRef.on('value', function (snap) {
 
                 statsRef.transaction(function (sticker) {
                     if (sticker) {
@@ -2416,9 +2423,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                     return sticker
                 });
-                //     let content = snap.val().stickers;
-                //     res.redirect('/firebase/' + content + '/' + pack_id);
-                // });
+
 
             }).then(function (sticker) {
 
