@@ -2335,12 +2335,11 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     //create our parse file
                     let gm = require('gm');
 
-                    gm(file.path)
-                        .resize(50, 50)
-                        .autoOrient()
-                        .write(writeStream, function (err) {
-                            if (!err){ console.log(' hooray! ');}else {console.log("ERROR " + err.message)}
-                        });
+                    gm(bitmap).resize(40, 50, "!").then(function (file) {
+                        console.log("FILES " + file);
+                    }, function (error) {
+                        console.log("ERROR " + error.message);
+                    })
 
                     let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                     let Sticker = new Parse.Object.extend(StickerClass);
