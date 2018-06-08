@@ -2335,11 +2335,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     //create our parse file
                     let gm = require('gm');
 
-                    gm(bitmap).resize(40, 50, "!").then(function (file) {
-                        console.log("FILES " + file);
-                    }, function (error) {
-                        console.log("ERROR " + error.message);
-                    })
 
                     let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                     let Sticker = new Parse.Object.extend(StickerClass);
@@ -2364,6 +2359,8 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 return Parse.Object.saveAll(stickerDetails);
 
             }).then(function (stickers) {
+
+                console.log("STICKERS " + JSON.stringify(stickers));
 
                 _.each(fileDetails, function (file) {
                     //Delete tmp fil after upload
