@@ -2348,7 +2348,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     // sticker.setACL(setPermission(_user, false));
 
                     console.log("FILE PATH " + file.path);
-                    sharp(bitmap)
+                    sharp(file.path)
                         .resize(100)
                         .toBuffer()
                         .then( data =>{
