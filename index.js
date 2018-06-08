@@ -2339,7 +2339,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                         .resize(50, 50)
                         .autoOrient()
                         .write(writeStream, function (err) {
-                            if (!err) console.log(' hooray! ');
+                            if (!err){ console.log(' hooray! ');}else {console.log("ERROR " + err.message)}
                         });
 
                     let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
