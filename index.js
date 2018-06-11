@@ -2305,7 +2305,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     let fileDetails = [];
     let stickerDetails = [];
     let stickerCollection;
-    let preview_file = {};
+    let preview_file;
 
     if (token) {
 
