@@ -24,6 +24,7 @@
     "firebase-admin": "^5.12.1",
     "image-downloader": "^3.3.0",
     "images-downloader": "*",
+    "jimp": "^0.2.28",
     "jsbarcode": "^3.9.0",
     "kerberos": "~0.0.x",
     "mailgun-js": "^0.14.2",

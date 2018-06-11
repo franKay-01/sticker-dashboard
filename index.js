@@ -2305,6 +2305,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     let fileDetails = [];
     let stickerDetails = [];
     let stickerCollection;
+    let path;
 
     if (token) {
 
@@ -2327,6 +2328,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 files.forEach(function (file) {
 
+                    path = file.path;
                     let fullName = file.originalname;
                     let stickerName = fullName.substring(0, fullName.length - 4);
 
@@ -2363,19 +2365,28 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 _.each(stickers, function (sticker) {
 
 
-                    let image = JSON.stringify(sticker.get("uri").name());
+                    let image = JSON.stringify(sticker.get("uri").url());
 
                     console.log("STICKER " + image);
 
-                    sharp(image)
-                        .resize(200)
-                        .toBuffer()
-                        .then( data =>
-                        console.log("DATA " + JSON.stringify(data))
-                        )
-                .catch( err =>
-                    console.log("DATA " + err.message)
-                );
+                //     sharp(image)
+                //         .resize(200)
+                //         .toBuffer()
+                //         .then( data =>
+                //         console.log("DATA " + JSON.stringify(data))
+                //         )
+                // .catch( err =>
+                //     console.log("DATA " + err.message)
+                // );
+
+                    var Jimp = require("jimp")
+                        Jimp.read(image, function(err,img){
+                            if (err) throw err;
+                            img.resize(32, 32).getBase64( Jimp.AUTO , function(e,img64){
+                                if(e)throw e
+                                console.log("BASE 64 : " + img64 );
+                            });
+                        });
 
                 });
 
