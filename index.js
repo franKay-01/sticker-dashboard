@@ -2534,6 +2534,7 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
                         });
                     }).then(function (sticker) {
 
+                        console.log("STICKER EDITED " + sticker);
                         preview_file = sticker;
 
                     }, function (error) {
