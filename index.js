@@ -2296,6 +2296,39 @@ app.get('/get_barcodes', function (req, res) {
 
 });
 
+
+//JIMP
+// Jimp.read(file.path, function (err, img) {
+//     console.log("JIMP READ");
+//
+//     if (!err) {
+//         console.log("JIMP RESIZE");
+//
+//         img.resize(32, 32).getBase64(Jimp.AUTO, function (e, img64) {
+//             if (!e) {
+//                 console.log("BASE 64 : " + img64);
+//
+//                 let parsePreviewFile = new Parse.File(stickerName, {base64: img64});
+//
+//                 console.log("PREVIEW PARSEFILE " + JSON.stringify(parsePreviewFile));
+//
+//                 // sticker.set("preview", parsePreviewFile);
+//                 preview_file = parsePreviewFile;
+//
+//                 console.log("PREVIEW CREATED");
+//
+//             }else{
+//                 console.log("JIMP ERROR");
+//             }
+//
+//
+//         });
+//     }else{
+//         console.log("JIMP READ ERROR");
+//     }
+// });
+
+
 //UPLOAD MULTIPLE STICKERS
 app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
@@ -2331,53 +2364,17 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     let Sticker = new Parse.Object.extend(StickerClass);
                     let sticker = new Sticker();
 
-                    console.log("CREATE STICKER ");
-
                     let fullName = file.originalname;
                     let stickerName = fullName.substring(0, fullName.length - 4);
 
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
-                    console.log("CREATED BITMAP");
-
-                    Jimp.read(file.path, function (err, img) {
-                        console.log("JIMP READ");
-
-                        if (!err) {
-                            console.log("JIMP RESIZE");
-
-                            img.resize(32, 32).getBase64(Jimp.AUTO, function (e, img64) {
-                            if (!e) {
-                            console.log("BASE 64 : " + img64);
-
-                            let parsePreviewFile = new Parse.File(stickerName, {base64: img64});
-
-                                console.log("PREVIEW PARSEFILE " + JSON.stringify(parsePreviewFile));
-
-                                // sticker.set("preview", parsePreviewFile);
-                                preview_file = parsePreviewFile;
-
-                                console.log("PREVIEW CREATED");
-
-                            }else{
-                                console.log("JIMP ERROR");
-                            }
-
-
-                        });
-                        }else{
-                            console.log("JIMP READ ERROR");
-                        }
-                    });
-
                     //create our parse file
-                    console.log("PREVIEW OBTAINED " + JSON.stringify(preview_file));
-
                     let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                     sticker.set("stickerName", stickerName);
                     sticker.set("localName", stickerName);
                     sticker.set("uri", parseFile);
-                    sticker.set("preview", preview_file);
+                    // sticker.set("preview", preview_file);
                     sticker.set("user_id", _user.id);
                     sticker.set("parent", collection);
                     sticker.set("description", "");
