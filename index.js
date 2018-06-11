@@ -2340,7 +2340,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                     console.log("CREATED BITMAP");
 
-                    Jimp.read(file, function (err, img) {
+                    Jimp.read(file.path, function (err, img) {
                         console.log("JIMP READ");
 
                         if (!err) {
