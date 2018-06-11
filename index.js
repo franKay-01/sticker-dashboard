@@ -2333,8 +2333,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
                     //create our parse file
-                    let gm = require('gm');
-
 
                     let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                     let Sticker = new Parse.Object.extend(StickerClass);
