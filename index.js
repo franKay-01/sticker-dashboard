@@ -918,11 +918,11 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
         }).then(function (links) {
 
-            if (links){
+            if (links) {
 
                 res.redirect('/advert_details/' + id);
 
-            }else {
+            } else {
                 advertMessage = "ADVERT LINK could not be saved";
                 res.redirect('/advert_details/' + id);
             }
@@ -2304,6 +2304,10 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     let fileDetails = [];
     let stickerDetails = [];
     let stickerCollection;
+    let sticker_name = [];
+    let mime = [];
+    let sticker_files = [];
+    let preview_files = [];
 
     if (token) {
 
@@ -2331,6 +2335,8 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
+                    sticker_name.push(stickerName);
+                    mime.push(file.mimetype);
                     //create our parse file
 
                     let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
@@ -2357,37 +2363,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
             }).then(function (stickers) {
 
-
-                _.each(stickers, function (sticker) {
-
-
-                    console.log("STICKERS ID " + sticker.id);
-
-                    let image = sticker.get("uri").url();
-
-                    console.log("STICKER " + image);
-
-                //     sharp(image)
-                //         .resize(200)
-                //         .toBuffer()
-                //         .then( data =>
-                //         console.log("DATA " + JSON.stringify(data))
-                //         )
-                // .catch( err =>
-                //     console.log("DATA " + err.message)
-                // );
-
-                    var Jimp = require("jimp");
-
-                        Jimp.read(image, function(err,img){
-                            if (err) throw err;
-                            img.resize(32, 32).getBase64( Jimp.AUTO , function(e,img64){
-                                if(e)throw e
-                                console.log("BASE 64 : " + img64 );
-                            });
-                        });
-
-                });
+                sticker_files = stickers;
 
                 _.each(fileDetails, function (file) {
                     //Delete tmp fil after upload
@@ -2434,7 +2410,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     }
                 });
 
-
                 statsRef.transaction(function (sticker) {
                     if (sticker) {
                         if (sticker.stickers) {
@@ -2448,7 +2423,43 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
             }).then(function (sticker) {
 
-                res.redirect('/pack/' + pack_id);
+                let counter = 0;
+                _.each(sticker_files, function (sticker) {
+
+                    let sticker_id = sticker.id;
+
+                    let image = sticker.get("uri").url();
+
+                    let Jimp = require("jimp");
+
+                    Jimp.read(image, function (err, img) {
+                        if (err) throw err;
+                        img.resize(32, 32).getBase64(Jimp.AUTO, function (e, img64) {
+                            if (e) throw e
+                            console.log("BASE 64 : " + img64);
+
+                            let parseFile = new Parse.File(sticker_name[counter], {base64: bitmap}, mime[counter]);
+
+                            let newPreview = new Parse.Query(StickerClass).eqaulTo("objectId", sticker_id).first();
+                            let preview = new newPreview();
+
+                            preview.set("preview", parseFile);
+
+                            preview_files.push(preview);
+
+                        });
+                    });
+
+                    counter = counter + 1;
+
+                });
+
+                return Parse.Object.saveAll(preview_files);
+
+
+            }).then(function () {
+
+                res.redirect("/pack/" + pack_id);
 
             }, function (error) {
 
