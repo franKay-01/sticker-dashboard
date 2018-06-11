@@ -2373,7 +2373,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                     sticker.set("stickerName", stickerName);
                     sticker.set("localName", stickerName);
-                    sticker.set("uri", parseFile);
+                    // sticker.set("uri", parseFile);
                     sticker.set("user_id", _user.id);
                     sticker.set("parent", collection);
                     sticker.set("description", "");
