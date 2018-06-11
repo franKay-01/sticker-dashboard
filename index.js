@@ -2330,22 +2330,30 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     let Sticker = new Parse.Object.extend(StickerClass);
                     let sticker = new Sticker();
 
+                    console.log("CREATE STICKER ");
+
                     let fullName = file.originalname;
                     let stickerName = fullName.substring(0, fullName.length - 4);
 
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
+                    console.log("CREATED BITMAP");
+
                     Jimp.read(file.path, function (err, img) {
+                        console.log("JIMP READ");
 
                         if (!err) {
+                            console.log("JIMP RESIZE");
 
-                        img.resize(32, 32).getBase64(Jimp.AUTO, function (e, img64) {
+                            img.resize(32, 32).getBase64(Jimp.AUTO, function (e, img64) {
                             if (!e) {
                             console.log("BASE 64 : " + img64);
 
-                            let parsePreviewFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                            let parsePreviewFile = new Parse.File(stickerName, {base64: img64}, file.mimetype);
 
                             sticker.set("preview", parsePreviewFile);
+
+                                console.log("PREVIEW CREATED");
 
                             }else{
                                 console.log("JIMP ERROR");
