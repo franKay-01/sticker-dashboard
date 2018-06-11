@@ -13,7 +13,6 @@ let cors = require('cors');
 let methodOverride = require('method-override');
 let moment = require('moment');
 let admin = require('firebase-admin');
-let sharp = require('sharp');
 
 //for parsing location, directory and paths
 let path = require('path');
