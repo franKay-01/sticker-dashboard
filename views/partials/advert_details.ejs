@@ -1,9 +1,5 @@
 <form id="review_form" action="/update_advert/<%= ad_details.id %>" method="post" enctype="multipart/form-data">
-    <div style="float: right; font-size: 20px !important;" class="medium-12 large-12">
-        <a href="#" id="showAdImageForm" class="cancel_btn" style="font-size: 25px !important;color: #560c82 !important;"> <i
-                    class="fa fa-camera-retro"></i> </a>
 
-    </div>
     <div class="grid-x grid-margin-x" style="margin: 50px 40px auto">
         <label class="update_label">Advert Title:</label> <input placeholder="Title" class="box_2 advert_title"
                                                                  name="title"
@@ -30,6 +26,9 @@
             <% }); %>
             <% } %>
 
+            <a href="#" id="showAdImageForm" class="cancel_btn" style="font-size: 25px !important;color: #560c82 !important;">
+                <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Artwork</p>
+            </a>
         </div>
 
     </div>
