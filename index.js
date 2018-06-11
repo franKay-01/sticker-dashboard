@@ -2516,13 +2516,24 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
                     //JIMP
                     Jimp.read(file.path).then(function (image) {
 
-                        return image.resize(32, 32).getBase64(Jimp.AUTO);
+                        return image.resize(32, 32).getBase64(Jimp.AUTO, function (e, img64) {
+                            if (!e) {
+                                console.log("BASE 64 : " + img64);
 
+                                let parsePreviewFile = new Parse.File(stickerName, {base64: img64});
+
+                                console.log("PREVIEW PARSEFILE " + JSON.stringify(parsePreviewFile));
+
+                                // sticker.set("preview", parsePreviewFile);
+                                return parsePreviewFile;
+
+                            } else {
+                                console.log("JIMP ERROR");
+                            }
+
+
+                        });
                     }).then(function (sticker) {
-
-                        let parsePreviewFile = new Parse.File(stickerName, {base64: sticker});
-
-                        console.log("PREVIEW PARSEFILE " + JSON.stringify(parsePreviewFile));
 
                         console.log("STICKER EDITED " + sticker);
                         preview_file = sticker;
