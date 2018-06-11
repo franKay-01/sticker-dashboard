@@ -2379,7 +2379,8 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 //     console.log("DATA " + err.message)
                 // );
 
-                    var Jimp = require("jimp")
+                    var Jimp = require("jimp");
+
                         Jimp.read(image, function(err,img){
                             if (err) throw err;
                             img.resize(32, 32).getBase64( Jimp.AUTO , function(e,img64){
