@@ -2369,7 +2369,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                         console.log("DATA " + JSON.stringify(data))
                         )
                 .catch( err =>
-                    console.log("DATA " + err.message);
+                    console.log("DATA " + err.message)
                 );
 
                 });
