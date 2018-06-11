@@ -2351,7 +2351,9 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                             let parsePreviewFile = new Parse.File(stickerName, {base64: img64}, file.mimetype);
 
-                            sticker.set("preview", parsePreviewFile);
+                                console.log("PREVIEW PARSEFILE " + JSON.stringify(parsePreviewFile));
+
+                                sticker.set("preview", parsePreviewFile);
 
                                 console.log("PREVIEW CREATED");
 
