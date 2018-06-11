@@ -2426,8 +2426,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 let counter = 0;
                 _.each(sticker_files, function (sticker) {
 
-                    let sticker_id = sticker.id;
-
                     let image = sticker.get("uri").url();
 
                     let Jimp = require("jimp");
@@ -2442,12 +2440,9 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                             let parseFile = new Parse.File(sticker_name[counter], {base64: img64} , mime[counter]);
 
-                            let newPreview = new Parse.Query(StickerClass).equalTo("objectId", sticker_id).first();
-                            let preview = new newPreview();
+                            sticker.set("preview", parseFile);
 
-                            preview.set("preview", parseFile);
-
-                            preview_files.push(preview);
+                            preview_files.push(sticker);
 
                         });
                     });
