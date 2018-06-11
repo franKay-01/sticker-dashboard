@@ -2440,9 +2440,9 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                             if (e) throw e
                             console.log("BASE 64 : " + img64);
 
-                            let parseFile = new Parse.File(sticker_name[counter], img64, mime[counter]);
+                            let parseFile = new Parse.File(sticker_name[counter], {base64: img64} , mime[counter]);
 
-                            let newPreview = new Parse.Query(StickerClass).eqaulTo("objectId", sticker_id).first();
+                            let newPreview = new Parse.Query(StickerClass).equalTo("objectId", sticker_id).first();
                             let preview = new newPreview();
 
                             preview.set("preview", parseFile);
