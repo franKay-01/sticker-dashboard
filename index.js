@@ -2304,7 +2304,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     let fileDetails = [];
     let stickerDetails = [];
     let stickerCollection;
-    let path;
 
     if (token) {
 
@@ -2327,7 +2326,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 files.forEach(function (file) {
 
-                    path = file.path;
                     let fullName = file.originalname;
                     let stickerName = fullName.substring(0, fullName.length - 4);
 
@@ -2359,7 +2357,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
             }).then(function (stickers) {
 
-                console.log("STICKERS " + JSON.stringify(stickers));
+                console.log("STICKERS " + stickers.id);
 
                 _.each(stickers, function (sticker) {
 
