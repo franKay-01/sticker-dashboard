@@ -2362,6 +2362,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 _.each(stickers, function (sticker) {
 
+                    console.log("STICKER " + sticker.get("uri").url());
                     sharp(sticker.get("uri").url())
                         .resize(200)
                         .toBuffer()
