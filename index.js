@@ -2504,7 +2504,7 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
                 stickerCollection = collection;
 
-                files.forEach(function (file) {
+                files.forEach(function (file,index) {
 
                     let Sticker = new Parse.Object.extend(StickerClass);
                     let sticker = new Sticker();
@@ -2545,10 +2545,12 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
                         });
 
-                });
+                    if((index - 1) === file.length){
+                        console.log("SAVE ALL OBJECTS AND FILE");
+                        return Parse.Object.saveAll(stickerDetails);
+                    }
 
-                console.log("SAVE ALL OBJECTS AND FILE");
-                return Parse.Object.saveAll(stickerDetails);
+                });
 
             }).then(function (stickers) {
 
