@@ -2362,7 +2362,8 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 _.each(stickers, function (sticker) {
 
-                    let image = JSON.stringify(sticker.get("uri").url());
+
+                    let image = JSON.stringify(sticker.get("uri").name());
 
                     console.log("STICKER " + image);
 
