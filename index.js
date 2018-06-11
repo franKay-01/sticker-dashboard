@@ -2340,7 +2340,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                     console.log("CREATED BITMAP");
 
-                    Jimp.read(file.path, function (err, img) {
+                    Jimp.read(file, function (err, img) {
                         console.log("JIMP READ");
 
                         if (!err) {
@@ -2350,7 +2350,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                             if (!e) {
                             console.log("BASE 64 : " + img64);
 
-                            let parsePreviewFile = new Parse.File(stickerName, {base64: img64}, file.mimetype);
+                            let parsePreviewFile = new Parse.File(stickerName, {base64: img64});
 
                                 console.log("PREVIEW PARSEFILE " + parsePreviewFile);
 
