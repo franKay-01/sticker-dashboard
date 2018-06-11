@@ -18,6 +18,7 @@ let Jimp = require("jimp");
 //for parsing location, directory and paths
 let path = require('path');
 let fs = require('fs');
+let gm = require('gm').subClass({imageMagick: true});
 let multer = require('multer');
 let download = require('image-downloader');
 let resolve = require('path').resolve;
@@ -2513,52 +2514,31 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
-                    //JIMP
-                    Jimp.read(file.path).then(function (image) {
+                    gm(file.path)
+                        .resize(200, 200)
+                        .write('public/uploads/'+stickerName, function (err) {
+                            if (!err)
+                                console.log('done '+ stickerName);
 
-                        return image.resize(32, 32).getBase64(Jimp.AUTO, function (e, img64) {
-                            if (!e) {
-                                console.log("BASE 64 : " + img64);
+                            //create our parse file
+                            let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                            let parsePreviewFile = fs.readFileSync('public/uploads/'+stickerName, {encoding: 'base64'});
+                            sticker.set("stickerName", stickerName);
+                            sticker.set("localName", stickerName);
+                            sticker.set("uri", parseFile);
+                            sticker.set("preview", parsePreviewFile);
+                            sticker.set("user_id", _user.id);
+                            sticker.set("parent", collection);
+                            sticker.set("description", "");
+                            sticker.set("flag", false);
+                            sticker.set("archive", false);
+                            sticker.set("sold", false);
+                            // sticker.setACL(setPermission(_user, false));
 
-                                let parsePreviewFile = new Parse.File(stickerName, {base64: img64});
-
-                                console.log("PREVIEW PARSEFILE " + JSON.stringify(parsePreviewFile));
-
-                                // sticker.set("preview", parsePreviewFile);
-                                return parsePreviewFile;
-
-                            } else {
-                                console.log("JIMP ERROR");
-                            }
-
+                            stickerDetails.push(sticker);
+                            fileDetails.push(file);
 
                         });
-                    }).then(function (sticker) {
-
-                        console.log("STICKER EDITED " + sticker);
-                        preview_file = sticker;
-
-                    }, function (error) {
-
-                        console.log("ERROR JIMP " + error.message);
-                    });
-
-                    //create our parse file
-                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                    sticker.set("stickerName", stickerName);
-                    sticker.set("localName", stickerName);
-                    sticker.set("uri", parseFile);
-                    sticker.set("preview", preview_file);
-                    sticker.set("user_id", _user.id);
-                    sticker.set("parent", collection);
-                    sticker.set("description", "");
-                    sticker.set("flag", false);
-                    sticker.set("archive", false);
-                    sticker.set("sold", false);
-                    // sticker.setACL(setPermission(_user, false));
-
-                    stickerDetails.push(sticker);
-                    fileDetails.push(file);
 
                 });
 
@@ -2600,7 +2580,7 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
                     //Subject and text data
                     subject: 'Stickers Uploaded',
                     html: fs.readFileSync("./uploads/sticker_upload.html", "utf8")
-                }
+                };
 
                 mailgun.messages().send(data, function (error, body) {
                     if (error) {
