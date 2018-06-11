@@ -2520,9 +2520,11 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
                             if (!err)
                                 console.log('done '+ stickerName);
 
+                            let bitmapPreview = fs.readFileSync('public/uploads/'+stickerName, {encoding: 'base64'});
+
                             //create our parse file
                             let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                            let parsePreviewFile = fs.readFileSync('public/uploads/'+stickerName, {encoding: 'base64'});
+                            let parsePreviewFile = new Parse.File(stickerName, {base64: bitmapPreview});
                             sticker.set("stickerName", stickerName);
                             sticker.set("localName", stickerName);
                             sticker.set("uri", parseFile);
