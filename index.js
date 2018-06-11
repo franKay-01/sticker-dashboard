@@ -2525,6 +2525,9 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
                             //create our parse file
                             let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                             let parsePreviewFile = new Parse.File(stickerName, {base64: bitmapPreview});
+
+                            console.log("PARSIFY"+JSON.stringify(parsePreviewFile));
+
                             sticker.set("stickerName", stickerName);
                             sticker.set("localName", stickerName);
                             sticker.set("uri", parseFile);
