@@ -2545,7 +2545,7 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
                         });
 
-                    if((index - 1) === file.length){
+                    if((index - 1) === files.length){
                         console.log("SAVE ALL OBJECTS AND FILE");
                         return Parse.Object.saveAll(stickerDetails);
                     }
