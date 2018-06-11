@@ -2440,6 +2440,8 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                             let parseFile = new Parse.File(sticker_name[counter], {base64: img64} , mime[counter]);
 
+                            console.log("PARSE FILE " + JSON.stringify(parseFile));
+
                             sticker.set("preview", parseFile);
 
                             preview_files.push(sticker);
@@ -2454,8 +2456,9 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 return Parse.Object.saveAll(preview_files);
 
 
-            }).then(function () {
+            }).then(function (stickers) {
 
+                console.log("SAVED STICKERS " + JSON.stringify(stickers));
                 res.redirect("/pack/" + pack_id);
 
             }, function (error) {
