@@ -13,6 +13,7 @@ let cors = require('cors');
 let methodOverride = require('method-override');
 let moment = require('moment');
 let admin = require('firebase-admin');
+let Jimp = require("jimp");
 
 //for parsing location, directory and paths
 let path = require('path');
@@ -2304,10 +2305,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     let fileDetails = [];
     let stickerDetails = [];
     let stickerCollection;
-    let sticker_name = [];
-    let mime = [];
-    let sticker_files = [];
-    let preview_files = [];
 
     if (token) {
 
@@ -2330,18 +2327,40 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 files.forEach(function (file) {
 
+                    let Sticker = new Parse.Object.extend(StickerClass);
+                    let sticker = new Sticker();
+
                     let fullName = file.originalname;
                     let stickerName = fullName.substring(0, fullName.length - 4);
 
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
-                    sticker_name.push(stickerName);
-                    mime.push(file.mimetype);
+                    Jimp.read(file.path, function (err, img) {
+
+                        if (!err) {
+
+                        img.resize(32, 32).getBase64(Jimp.AUTO, function (e, img64) {
+                            if (!e) {
+                            console.log("BASE 64 : " + img64);
+
+                            let parsePreviewFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+
+                            sticker.set("preview", parsePreviewFile);
+
+                            }else{
+                                console.log("JIMP ERROR");
+                            }
+
+
+                        });
+                        }else{
+                            console.log("JIMP READ ERROR");
+                        }
+                    });
+
                     //create our parse file
 
                     let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                    let Sticker = new Parse.Object.extend(StickerClass);
-                    let sticker = new Sticker();
                     sticker.set("stickerName", stickerName);
                     sticker.set("localName", stickerName);
                     sticker.set("uri", parseFile);
@@ -2362,8 +2381,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 return Parse.Object.saveAll(stickerDetails);
 
             }).then(function (stickers) {
-
-                sticker_files = stickers;
 
                 _.each(fileDetails, function (file) {
                     //Delete tmp fil after upload
@@ -2421,41 +2438,8 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                 });
 
 
-            }).then(function (sticker) {
-
-                _.each(sticker_files, function (sticker) {
-
-                    let image = sticker.get("uri").url();
-
-                    let Jimp = require("jimp");
-
-                    console.log("FILES NEEDED " + sticker_name[counter] + " " + mime[counter]);
-
-                    Jimp.read(image, function (err, img) {
-                        if (err) throw err;
-                        img.resize(32, 32).getBase64(Jimp.AUTO, function (e, img64) {
-                            if (e) throw e
-                            console.log("BASE 64 : " + img64);
-
-                            let parseFile = new Parse.File(sticker.get("name"), {base64: img64});
-
-                            console.log("PARSE FILE " + JSON.stringify(parseFile));
-
-                            sticker.set("preview", parseFile);
-
-                            preview_files.push(sticker);
-
-                        });
-                    });
-
-                });
-
-                return Parse.Object.saveAll(preview_files);
-
-
             }).then(function (stickers) {
 
-                console.log("SAVED STICKERS " + JSON.stringify(stickers));
                 res.redirect("/pack/" + pack_id);
 
             }, function (error) {
