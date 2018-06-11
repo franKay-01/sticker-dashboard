@@ -2444,13 +2444,13 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
             }, function (error) {
 
-                console.log("BIG BIG ERROR" + error.message);
+                console.log("BIG BIG ERROR" + JSON.stringify(error));
                 res.redirect("/pack/" + pack_id);
 
             })
         }, function (error) {
             console.log("BIG BIG ERROR" + error.message);
-            res.redirect("/pack/" + pack_id);
+            res.redirect("/");
         });
 
 
