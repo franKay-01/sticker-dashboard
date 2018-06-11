@@ -2423,7 +2423,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
             }).then(function (sticker) {
 
-                let counter = 0;
                 _.each(sticker_files, function (sticker) {
 
                     let image = sticker.get("uri").url();
@@ -2438,7 +2437,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                             if (e) throw e
                             console.log("BASE 64 : " + img64);
 
-                            let parseFile = new Parse.File(sticker_name[counter], {base64: img64} , mime[counter]);
+                            let parseFile = new Parse.File(sticker.get("name"), {base64: img64});
 
                             console.log("PARSE FILE " + JSON.stringify(parseFile));
 
@@ -2448,8 +2447,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                         });
                     });
-
-                    counter = counter + 1;
 
                 });
 
