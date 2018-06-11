@@ -2359,6 +2359,20 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 console.log("STICKERS " + JSON.stringify(stickers));
 
+                _.each(stickers, function (sticker) {
+
+                    sharp(sticker.get("uri").url())
+                        .resize(200)
+                        .toBuffer()
+                        .then( data =>
+                        console.log("DATA " + JSON.stringify(data))
+                        )
+                .catch( err =>
+                    console.log("DATA " + err.message);
+                );
+
+                });
+
                 _.each(fileDetails, function (file) {
                     //Delete tmp fil after upload
                     let tempFile = file.path;
