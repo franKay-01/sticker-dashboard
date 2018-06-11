@@ -2305,6 +2305,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     let fileDetails = [];
     let stickerDetails = [];
     let stickerCollection;
+    let preview_file = {};
 
     if (token) {
 
@@ -2353,7 +2354,8 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                                 console.log("PREVIEW PARSEFILE " + parsePreviewFile);
 
-                                sticker.set("preview", parsePreviewFile);
+                                // sticker.set("preview", parsePreviewFile);
+                                preview_file = parsePreviewFile;
 
                                 console.log("PREVIEW CREATED");
 
@@ -2374,7 +2376,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     sticker.set("stickerName", stickerName);
                     sticker.set("localName", stickerName);
                     sticker.set("uri", parseFile);
-                    // sticker.set("preview", parseFile);
+                    sticker.set("preview", preview_file);
                     sticker.set("user_id", _user.id);
                     sticker.set("parent", collection);
                     sticker.set("description", "");
