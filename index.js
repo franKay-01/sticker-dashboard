@@ -2357,10 +2357,11 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
             }).then(function (stickers) {
 
-                console.log("STICKERS " + stickers.id);
 
                 _.each(stickers, function (sticker) {
 
+
+                    console.log("STICKERS ID " + sticker.id);
 
                     let image = sticker.get("uri").url();
 
