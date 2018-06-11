@@ -2432,6 +2432,8 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                     let Jimp = require("jimp");
 
+                    console.log("FILES NEEDED " + sticker_name[counter] + " " + mime[counter]);
+
                     Jimp.read(image, function (err, img) {
                         if (err) throw err;
                         img.resize(32, 32).getBase64(Jimp.AUTO, function (e, img64) {
