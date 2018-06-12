@@ -107,24 +107,37 @@ Parse.Cloud.define("getFeed", function (req, res) {
     //getting adverts
 
     let feed = {};
+    let _sticker;
+    let _story;
 
     Parse.Promise.when(
-        new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STICKER).first(),
-        new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STORY).first()
+        new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STICKER).first({useMasterKey: true}),
+        new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STORY).first({useMasterKey: true})
+
     ).then((sticker, story) => {
 
         return Parse.Promise.when(
-            new Parse.Query(StickersClass).equalTo("objectId", sticker.get("latest_id")).first(),
-            new Parse.Query(StoriesClass).equalTo("objectId", story.get("latest_id")).first(),
-            new Parse.Query(ArtWorkClass).equalTo("object_id", story.get("latest_id")).first()
+            new Parse.Query(StickersClass).equalTo("objectId", sticker.get("latest_id")).first({useMasterKey: true}),
+            new Parse.Query(StoriesClass).equalTo("objectId", story.get("latest_id")).first({useMasterKey: true}),
+            new Parse.Query(ArtWorkClass).equalTo("object_id", story.get("latest_id")).first({useMasterKey: true}),
         );
 
-    }).then((sticker, story, artwork) => {
+    }).then((sticker, story, storyArtwork) => {
 
-        return new Parse.Query(StickersClass).equalTo("objectId", artwork.get("sticker")).first();
+        _sticker = sticker;
+        _story = story;
 
-    }).then(sticker => {
+        return Parse.Promise.when(
+            new Parse.Query(StickersClass).equalTo("objectId", storyArtwork.get("sticker")).first({useMasterKey: true}),
+            new Parse.Query(StoryItemClass).equalTo("story_id", story.id).find({useMasterKey: true})
+        );
 
+    }).then((sticker,storyItems) => {
+
+        feed.stickerOfDay = createsticker(_sticker);
+        feed.latestStory = createStory(_story,sticker,storyItems);
+
+        res.success(util.setResponseOk(feed));
 
 
     }, error => {
