@@ -1244,7 +1244,7 @@ app.get('/find_stickers/:name', function (req, res) {
 
         }).then(function (stickers) {
 
-            res.send("STICKERS " + stickers);
+            res.send("STICKERS " + JSON.stringify(stickers));
         }, function (error) {
 
             console.log("ERROR " + error.message);
