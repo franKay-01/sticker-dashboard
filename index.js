@@ -1228,6 +1228,35 @@ app.get('/story_of_day', function (req, res) {
     }
 });
 
+app.get('/find_stickers/:name', function (req, res) {
+
+    let token = req.cookies.token;
+    let name = req.params.name;
+    let field = [];
+
+    if (token) {
+
+        field.push(name);
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StickerClass).containedIn("categories", field).find();
+
+        }).then(function (stickers) {
+
+            res.send("STICKERS " + stickers);
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/categories');
+        })
+    }else {
+        res.redirect('/');
+    }
+
+});
+
+
 app.post('/new_catalogue_sticker/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
@@ -2504,7 +2533,7 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
                 stickerCollection = collection;
 
-                files.forEach(function (file,index) {
+                files.forEach(function (file, index) {
 
                     let Sticker = new Parse.Object.extend(StickerClass);
                     let sticker = new Sticker();
@@ -2516,17 +2545,17 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
                     gm(file.path)
                         .resize(200, 200)
-                        .write('public/uploads/'+stickerName, function (err) {
+                        .write('public/uploads/' + stickerName, function (err) {
                             if (!err)
-                                console.log('done '+ stickerName);
+                                console.log('done ' + stickerName);
 
-                            let bitmapPreview = fs.readFileSync('public/uploads/'+stickerName, {encoding: 'base64'});
+                            let bitmapPreview = fs.readFileSync('public/uploads/' + stickerName, {encoding: 'base64'});
 
                             //create our parse file
                             let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                             let parsePreviewFile = new Parse.File(stickerName, {base64: bitmapPreview});
 
-                            console.log("PARSIFY"+JSON.stringify(parsePreviewFile));
+                            console.log("PARSIFY" + JSON.stringify(parsePreviewFile));
 
                             sticker.set("stickerName", stickerName);
                             sticker.set("localName", stickerName);
@@ -2545,7 +2574,7 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
                         });
 
-                    if((index - 1) === files.length){
+                    if ((index - 1) === files.length) {
                         console.log("SAVE ALL OBJECTS AND FILE");
                         return Parse.Object.saveAll(stickerDetails);
                     }
