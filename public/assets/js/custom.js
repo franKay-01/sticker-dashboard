@@ -221,7 +221,27 @@ $(document).ready(function () {
             $('#Welcome').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
-        })
+        });
+
+        $('#remove_story').on('click', function () {
+            $('#pageMask').fadeIn('fast');
+            $('.remove_story').fadeIn('fast');
+            $('#logo').fadeOut('fast');
+            $('.welcome_post').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#opaqueDiv').fadeOut('fast');
+        });
+
+        $('#cancel_delete').on('click', function () {
+            $('#pageMask').fadeOut('fast');
+            $('.remove_story').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('.welcome_post').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+        });
 
         $('#showPermission').on('click', function () {
             $('#pageMask').fadeIn('fast');

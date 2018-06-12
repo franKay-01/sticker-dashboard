@@ -52,6 +52,18 @@
     </div>
 </div>
 
+<div class="remove_story" style="display: none">
+    <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
+        <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
+        <a href="#" id="cancel_delete" class="edit_labels" style="margin: 200px !important;">
+            NO
+        </a>
+        <a href="/remove_story/<%= story.id %>" class="edit_labels">
+            YES
+        </a>
+    </div>
+</div>
+
 <div id="removePublish" style="display: none">
     <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
         <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
@@ -89,54 +101,65 @@
                     <div><a class="_stickers_packs" href="/categories">Categories</a></div>
                     <div><a class="_stickers_packs" href="/advert_collection">Adverts</a></div>
 
-                    <div style="margin-top: 60px;"><a class="_stickers_packs" href="/story_catalogue/<%= story.id %>">Add Story Item</a></div>
+                    <div style="margin-top: 60px;"><a class="_stickers_packs" href="/story_catalogue/<%= story.id %>">Add
+                            Story Item</a></div>
                 </div>
             </div>
             <div class="icons">
                 <div class="create_new">
                     Publishing
-                    <%if (story.get("published") === false){%>
-                    <i class="fa fa-circle" id="circle" style="color: #f8ab1c;float: right;font-size: 15px;margin-top: 10px;" aria-hidden="true"></i>
-                    <%} else if (story.get("published") === true){%>
-                    <i class="fa fa-circle" id="circle" style="color: #7ed321;float: right;font-size: 15px;margin-top: 10px;" aria-hidden="true"></i>
-                    <%}%>
+                    <% if (story.get("published") === false){ %>
+                    <i class="fa fa-circle" id="circle"
+                       style="color: #f8ab1c;float: right;font-size: 15px;margin-top: 10px;" aria-hidden="true"></i>
+                    <% } else if (story.get("published") === true){ %>
+                    <i class="fa fa-circle" id="circle"
+                       style="color: #7ed321;float: right;font-size: 15px;margin-top: 10px;" aria-hidden="true"></i>
+                    <% } %>
                 </div>
 
                 <!-- <%# if (status === 2){ %>-->
-                <% if (story.get("published") === false){%>
+                <% if (story.get("published") === false){ %>
 
                 <a href="#" id="showPermission">
                     <button class="create_button">
-                        <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
+                        <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
+                                                                                       aria-hidden="true"></i> &nbsp;
+                            PUBLISH
                         </p>
                     </button>
                 </a>
-                <%} else if (story.get("published") === true){%>
+                <% } else if (story.get("published") === true){ %>
                 <a href="#" id="removePublished">
                     <button class="create_button">
-                        <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; UNPUBLISH
+                        <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
+                                                                                       aria-hidden="true"></i> &nbsp;
+                            UNPUBLISH
                         </p>
                     </button>
                 </a>
 
-                <%}%>
+                <% } %>
 
                 <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
-                    <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #f8ab1c" aria-hidden="true"></i> &nbsp; UNPUBLISHED
+                    <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #f8ab1c"
+                                                           aria-hidden="true"></i> &nbsp; UNPUBLISHED
                     </p>
                 </button>
 
                 <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
-                    <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #7ed321" aria-hidden="true"></i> &nbsp; PUBLISHED
+                    <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #7ed321"
+                                                           aria-hidden="true"></i> &nbsp; PUBLISHED
                     </p>
                 </button>
-
-                <a href="/remove_story/<%= story.id %>">
-                    <button class="create_button" style="background-color: #f1f1f1 !important;">
-                        <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred" aria-hidden="true"></i> &nbsp; DELETE
-                        </p>
-                    </button>
-                </a>
+            </div>
+            <div class="icons">
+                <div class="create_new" id="remove_story">
+                        <button class="create_button" style="background-color: #f1f1f1 !important;">
+                            <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
+                                                                   aria-hidden="true"></i> &nbsp; DELETE
+                            </p>
+                        </button>
+                </div>
             </div>
 
         </div>
@@ -170,9 +193,9 @@
 
                     <label class="update_label">Edit Color Scheme:</label>
                     <span style="color: <%= colors[0] %>"><i class="fa fa-circle fa-5x"
-                                                                         aria-hidden="true"></i></span>
+                                                             aria-hidden="true"></i></span>
                     <span style="color:<%= colors[1] %>;margin-left: -30px;"><i class="fa fa-circle fa-5x"
-                                                                                            aria-hidden="true"></i></span>
+                                                                                aria-hidden="true"></i></span>
 
                     <br>
                     <a href="/change_color/<%= story.id %>" class="preview">Edit Color</a><br>
