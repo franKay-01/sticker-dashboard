@@ -3035,6 +3035,52 @@ app.get('/delete_sticker/:id/:pid', function (req, res) {
 
 });
 
+app.post('/remove_story', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.body.id;
+    let _user = {};
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(StoryClass).equalTo("objectId", id).first();
+
+        }).then(function (story) {
+
+            if (_user.id === story.get("user_id")){
+                story.destroy({
+                    success: function (object) {
+                        console.log("removed" + JSON.stringify(object));
+                        res.redirect("/stories");
+                    },
+                    error: function (error) {
+                        console.log("Could not remove" + error);
+                        res.redirect("/stories");
+
+                    }
+                });
+            }else {
+
+                res.redirect("/stories");
+
+            }
+
+        }, function (error) {
+
+            console.log("ERROR "+error);
+            res.redirect("/categories");
+
+        })
+    }else {
+        res.redirect('/');
+    }
+});
+
+
 app.post('/remove_category', function (req, res) {
 
     let token = req.cookies.token;
@@ -3060,7 +3106,7 @@ app.post('/remove_category', function (req, res) {
                 });
             },
             function (error) {
-                console.error(error);
+                console.log("ERROR "+error);
                 res.redirect("/categories");
 
             });
