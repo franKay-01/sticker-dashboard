@@ -1434,16 +1434,13 @@ app.get('/story_catalogue/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return Parse.Promise.when(
-                new Parse.Query(StoryItem).equalTo("story_id", id).first(),
-                new Parse.Query(StoryClass).equalTo("objectId", id).first()
-        );
+             return new Parse.Query(StoryClass).equalTo("objectId", id).first()
 
-        }).then(function (story_item, story) {
+        }).then(function (story) {
 
             res.render("pages/story_catalogue", {
 
-                story_id: story_item.id,
+                story_id: story.id,
                 name: story.get("title")
 
             });
