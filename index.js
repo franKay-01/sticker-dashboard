@@ -3035,10 +3035,10 @@ app.get('/delete_sticker/:id/:pid', function (req, res) {
 
 });
 
-app.post('/remove_story', function (req, res) {
+app.get('/remove_story/:id', function (req, res) {
 
     let token = req.cookies.token;
-    let id = req.body.id;
+    let id = req.params.id;
     let _user = {};
 
     if (token) {
