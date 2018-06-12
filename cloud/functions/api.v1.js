@@ -8,17 +8,141 @@ let StoriesClass = "Stories";
 let StoryItemClass = "StoryItem";
 let ArtWorkClass = "ArtWork";
 let StickersClass = "Stickers";
+let LatestClass = "Latest";
 
 //TODO remove all archived items
 //TODO remove all flagged items
 //TODO write pagination function for editing stickers
+//TODO remove repeated code for creating stories/stickers
+
+let createsticker = sticker => {
+    let _sticker = {};
+    _sticker.id = sticker.id;
+    _sticker.name = sticker.get("stickerName");
+    _sticker.categories = sticker.get("categories");
+
+    if (sticker.get("uri")) {
+        _sticker.url = sticker.get("uri").url();
+    } else {
+        _sticker.url = "";
+    }
+
+    return _sticker;
+};
+
+let createPack = (pack, stickerList) => {
+
+    let _pack = {};
+    _pack.id = pack.id;
+    _pack.name = pack.get("pack_name");
+    _pack.description = pack.get("pack_description");
+
+    let _artwork = pack.get("art_work");
+    if (_artwork) {
+        _pack.artwork = _artwork.url();
+    } else {
+        _pack.artwork = "";
+    }
+
+    let _stickers = [];
+    _.map(stickerList, function (stickers) {
+
+        if (stickers.length) {
+
+            _.map(stickers, sticker => {
+
+                if (pack.id === sticker.get("parent").id) {
+                    _stickers.push({id: sticker.id, url: sticker.get("uri").url()});
+                }
+
+            });
+
+            _pack.previews = _stickers;
+
+        }
+    });
+
+    return _pack;
+
+};
+
+let createStory = (story, sticker, storyItem) => {
+
+    let _story = {};
+    _story.id = story.id;
+    _story.title = story.get("title");
+    _story.summary = story.get("summary");
+    _story.stickerName = sticker.get("stickerName");
+
+    if (sticker.get("uri")) {
+        _story.stickerUrl = sticker.get("uri").url();
+    } else {
+        _story.stickerUrl = "";
+    }
+
+    let colors = story.get("color");
+    if (colors) {
+        _story.colors = colors
+    } else {
+        _story.colors = type.DEFAULT.color
+    }
+
+    if (storyItem.length) {
+        let _stories = [];
+        _.each(storyItem, storyItem => {
+            _stories.push({id: storyItem.id, content: storyItem.get("content"), type: storyItem.get("type")});
+        });
+        _story.stories = _stories;
+    }
+
+    return _story;
+
+};
+
+Parse.Cloud.define("getFeed", function (req, res) {
+    //getting latest story
+    //getting sticker of the day
+    //getting limited stickers
+    //getting limited categories
+    //getting adverts
+
+    let feed = {};
+
+    Parse.Promise.when(
+        new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STICKER).first(),
+        new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STORY).first()
+    ).then((sticker, story) => {
+
+        return Parse.Promise.when(
+            new Parse.Query(StickersClass).equalTo("objectId", sticker.get("latest_id")).first(),
+            new Parse.Query(StoriesClass).equalTo("objectId", story.get("latest_id")).first(),
+            new Parse.Query(ArtWorkClass).equalTo("object_id", story.get("latest_id")).first()
+        );
+
+    }).then((sticker, story, artwork) => {
+
+        return new Parse.Query(StickersClass).equalTo("objectId", artwork.get("sticker")).first();
+
+    }).then(sticker => {
+
+
+
+    }, error => {
+        util.handleError(res, error);
+    })
+
+});
+
+Parse.Cloud.define("getCategories", function (req, res) {
+
+});
 
 Parse.Cloud.define("getPacks", function (req, res) {
 
     let _packs = [];
 
     //TODO use default pack env variable
-    return new Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId", "hB39Hhb16O").find({useMasterKey: true})
+    return new Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId", process.env.DEFAULT_PACK).find({useMasterKey: true})
         .then(function (packs) {
 
             _packs = packs;
