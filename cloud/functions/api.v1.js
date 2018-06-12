@@ -142,23 +142,29 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
     }).then(packs => {
 
+        console.log("PACKIFY DATA");
         _packs = packs;
         let promises = [];
         _.map(packs, function (pack) {
             promises.push(pack.relation(PacksClass).query().limit(5).find({useMasterKey: true}));
         });
 
+        console.log("PACKIFY DATA TWO");
         return Parse.Promise.when(promises);
 
     }).then(stickerList =>{
 
         let packList = [];
 
+        console.log("PACKIFY DATA THREE");
+
         _.map(_packs, pack => {
             packList.push(createPack(pack,stickerList))
         });
 
         feed.packs = packList;
+
+        console.log("PACKIFY DATA FOUR");
 
         res.success(util.setResponseOk(feed));
 
