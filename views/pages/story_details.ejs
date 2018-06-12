@@ -96,9 +96,9 @@
                 <div class="create_new">
                     Publishing
                     <%if (story.get("published") === false){%>
-                    <i class="fa fa-circle" id="circle" style="color: #f8ab1c;float: right;font-size: 15px;" aria-hidden="true"></i>
+                    <i class="fa fa-circle" id="circle" style="color: #f8ab1c;float: right;font-size: 15px;margin-top: 10px;" aria-hidden="true"></i>
                     <%} else if (story.get("published") === true){%>
-                    <i class="fa fa-circle" id="circle" style="color: #7ed321;float: right;font-size: 15px;" aria-hidden="true"></i>
+                    <i class="fa fa-circle" id="circle" style="color: #7ed321;float: right;font-size: 15px;margin-top: 10px;" aria-hidden="true"></i>
                     <%}%>
                 </div>
 
@@ -140,23 +140,6 @@
                     <p class="preview"> PREVIEW STORY</p>
                 </button>
             </a>
-
-            <% if (story.get("published") === false){%>
-            <a href="#" id="showPermission">
-                <button class="create_button">
-                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
-                    </p>
-                </button>
-            </a>
-            <%} else if (story.get("published") === true){%>
-            <a href="#" id="removePublished">
-                <button class="create_button">
-                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; UNPUBLISH
-                    </p>
-                </button>
-            </a>
-
-            <%}%>
             <br><br>
             <form id="story_form" action="/edit_story/<%= story.id %>" method="post">
 
