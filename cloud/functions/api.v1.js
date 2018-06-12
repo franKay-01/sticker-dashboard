@@ -144,7 +144,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
         console.log("STICKIFY DATA");
 
-        return Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId", process.env.DEFAULT_PACK).limit(2).ascending().find({useMasterKey: true})
+        return Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId", process.env.DEFAULT_PACK).find({useMasterKey: true})
 
     }).then(packs => {
 
