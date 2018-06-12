@@ -1253,7 +1253,7 @@ app.get('/find_stickers/:name', function (req, res) {
             console.log("ERROR " + error.message);
             res.redirect('/categories');
         })
-    }else {
+    } else {
         res.redirect('/');
     }
 
@@ -3051,11 +3051,11 @@ app.get('/remove_story/:id', function (req, res) {
 
         }).then(function (story) {
 
-            if (_user.id === story.get("user_id")){
+            if (_user.id === story.get("user_id")) {
                 story.destroy({
                     success: function (object) {
                         console.log("removed" + JSON.stringify(object));
-                        res.redirect("/stories");
+                        res.redirect("/remove_story_items/" + id);
                     },
                     error: function (error) {
                         console.log("Could not remove" + error);
@@ -3063,7 +3063,7 @@ app.get('/remove_story/:id', function (req, res) {
 
                     }
                 });
-            }else {
+            } else {
 
                 res.redirect("/stories");
 
@@ -3071,15 +3071,51 @@ app.get('/remove_story/:id', function (req, res) {
 
         }, function (error) {
 
-            console.log("ERROR "+error);
+            console.log("ERROR " + error);
             res.redirect("/categories");
 
         })
-    }else {
+    } else {
         res.redirect('/');
     }
 });
 
+app.get('/remove_story_items/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StoryItem).equalTo("story_id", id).find();
+
+        }).then(function (stories) {
+
+            if (stories.length > 0) {
+
+                return Parse.Object.destroyAll(stories);
+
+            } else {
+                res.redirect('/stories');
+            }
+
+        }).then(function (success) {
+
+            if (success) {
+                res.redirect('/stories');
+            }
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/stories');
+        })
+
+    } else {
+        res.redirect('/');
+    }
+});
 
 app.post('/remove_category', function (req, res) {
 
@@ -3106,7 +3142,7 @@ app.post('/remove_category', function (req, res) {
                 });
             },
             function (error) {
-                console.log("ERROR "+error);
+                console.log("ERROR " + error);
                 res.redirect("/categories");
 
             });
