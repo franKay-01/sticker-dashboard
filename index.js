@@ -3653,12 +3653,12 @@ app.post('/update_pack/:id', function (req, res) {
 });
 
 //EDIT/STICKER DETAILS
-app.get('/details/:id/:coll_id/:stickers', function (req, res) {
+app.get('/details/:id/:coll_id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
     let pack_ = req.params.coll_id;
-    let stickers = req.params.stickers;
+    // let stickers = req.params.stickers;
     let stickerDetail;
     let allCategories;
     let selectedCategories;
@@ -3666,7 +3666,7 @@ app.get('/details/:id/:coll_id/:stickers', function (req, res) {
 
     if (token) {
         let _user = {};
-        console.log("STICKERS " + JSON.stringify(stickers));
+        // console.log("STICKERS " + JSON.stringify(stickers));
 
         getUser(token).then(function (sessionToken) {
 
