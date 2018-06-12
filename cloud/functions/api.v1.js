@@ -117,6 +117,8 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
     ).then((sticker, story) => {
 
+        console.log("STICKIFY ZERO");
+
         return Parse.Promise.when(
             new Parse.Query(StickersClass).equalTo("objectId", sticker.get("latest_id")).first({useMasterKey: true}),
             new Parse.Query(StoriesClass).equalTo("objectId", story.get("latest_id")).first({useMasterKey: true}),
@@ -128,6 +130,8 @@ Parse.Cloud.define("getFeed", function (req, res) {
         _sticker = sticker;
         _story = story;
 
+        console.log("STICKIFY ONE");
+
         return Parse.Promise.when(
             new Parse.Query(StickersClass).equalTo("objectId", storyArtwork.get("sticker")).first({useMasterKey: true}),
             new Parse.Query(StoryItemClass).equalTo("story_id", story.id).find({useMasterKey: true})
@@ -137,6 +141,8 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
         feed.stickerOfDay = createsticker(_sticker);
         feed.latestStory = createStory(_story,sticker,storyItems);
+
+        console.log("STICKIFY DATA");
 
         return Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId", process.env.DEFAULT_PACK).limit(2).ascending().find({useMasterKey: true})
 
