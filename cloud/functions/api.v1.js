@@ -140,7 +140,6 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
         return Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId", process.env.DEFAULT_PACK).limit(2).ascending().find({useMasterKey: true})
 
-
     }).then(packs => {
 
         _packs = packs;
@@ -154,8 +153,6 @@ Parse.Cloud.define("getFeed", function (req, res) {
     }).then(stickerList =>{
 
         let packList = [];
-
-        feed.packs = createPack();
 
         _.map(_packs, pack => {
             packList.push(createPack(pack,stickerList))
