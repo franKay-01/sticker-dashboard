@@ -151,9 +151,8 @@
                                                            aria-hidden="true"></i> &nbsp; PUBLISHED
                     </p>
                 </button>
-                <br>
-                <br>
-                <button class="create_button" id="remove_story" style="background-color: #f1f1f1 !important;">
+
+                <button class="create_button" id="" style="background-color: #f1f1f1 !important;">
                     <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
                                                            aria-hidden="true"></i> &nbsp; DELETE
                     </p>
@@ -201,6 +200,8 @@
 
                     <a href="#" id="submit_story" class="preview">Save Changes</a><br>
                     <a href="/main_story/<%= story.id %>/<%= story.get("title") %>" class="preview">Edit Main Story</a>
+                    <br><br>
+                    <a href="#" id="remove_story" style="color: darkred" class="preview">Delete</a>
 
                     <br><br>
 
