@@ -89,9 +89,47 @@
                     <div><a class="_stickers_packs" href="/categories">Categories</a></div>
                     <div><a class="_stickers_packs" href="/advert_collection">Adverts</a></div>
 
-                    <div style="margin-top: 60px;"><a class="_stickers_packs" href="/story_catalogue/<%= story.id %>">Add
-                            Story Item</a></div>
+                    <div style="margin-top: 60px;"><a class="_stickers_packs" href="/story_catalogue/<%= story.id %>">Add Story Item</a></div>
                 </div>
+            </div>
+            <div class="icons">
+                <div class="create_new">
+                    Publishing
+                    <%if (story.get("published") === false){%>
+                    <i class="fa fa-circle" id="circle" style="color: #f8ab1c;float: right;font-size: 15px;" aria-hidden="true"></i>
+                    <%} else if (story.get("published") === true){%>
+                    <i class="fa fa-circle" id="circle" style="color: #7ed321;float: right;font-size: 15px;" aria-hidden="true"></i>
+                    <%}%>
+                </div>
+
+                <!-- <%# if (status === 2){ %>-->
+                <% if (story.get("published") === false){%>
+
+                <a href="#" id="showPermission">
+                    <button class="create_button">
+                        <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
+                        </p>
+                    </button>
+                </a>
+                <%} else if (story.get("published") === true){%>
+                <a href="#" id="removePublished">
+                    <button class="create_button">
+                        <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; UNPUBLISH
+                        </p>
+                    </button>
+                </a>
+
+                <%}%>
+
+                <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                    <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #f8ab1c" aria-hidden="true"></i> &nbsp; UNPUBLISHED
+                    </p>
+                </button>
+
+                <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                    <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #7ed321" aria-hidden="true"></i> &nbsp; PUBLISHED
+                    </p>
+                </button>
             </div>
 
         </div>
