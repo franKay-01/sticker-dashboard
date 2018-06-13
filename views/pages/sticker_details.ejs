@@ -36,62 +36,57 @@
 
 <body class="primary-background-color">
 <div class="container">
-    <div class="grid-x grid-margin-x">
 
-        <!-- Logo -->
-        <div class="medium-12 large-12">
-            <a href="/home">
-                <img src="/public/assets/images/G_logo.png"
-                     srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
-                     id="logo">
-            </a>
-            <a id="signoutLink" style="font-weight: bold !important;" onclick="logoutUser()"><b
-                        class="font-weight-bold">LOGOUT</b></a>
+    <!-- Logo -->
+    <div class="medium-12 large-12">
+        <a href="/home">
+            <img src="/public/assets/images/G_logo.png"
+                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
+                 id="logo">
+        </a>
+        <a id="signoutLink" style="font-weight: bold !important;" onclick="logoutUser()"><b class="font-weight-bold">LOGOUT</b></a>
 
-        </div>
-        <div id="pageMask"></div>
-        <div id="deleteForm" style="display: none">
-            <div class="medium-3 large-3 cell create_background">
-                <center>
-                    <div class="edit_labels medium-12 large-12">DELETE STICKER</div>
-                    <img src="<%= sticker.get("uri").url() %>" style="height: 250px;margin-top: -50px;"/>
-                    <br>
+    </div>
+    <div id="pageMask"></div>
+    <div id="deleteForm" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12">DELETE STICKER</div>
+                <img src="<%= sticker.get("uri").url() %>" style="height: 250px;margin-top: -50px;"/>
+                <br>
 
-                    <span>
+                <span>
                  <button type="button" class="_cancel closeDelete">Cancel</button>
                 </span>
-                    <span>
+                <span>
                     <a href="/delete_sticker/<%= sticker.id %>/<%= pack_id %>" class="delete_btn">Delete</a>
                 </span>
-                </center>
+            </center>
 
-            </div>
         </div>
-        <center>
+    </div>
+    <center>
         <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Edit <i
                         style="color: #a46580"><%= sticker.get("stickerName") %></i> Sticker</b></span>
-        </center>
+    </center>
 
-        <span class="medium-2 large-2">
-            <% if (first !== undefined || first !== "undefined"){ %>
-            <a href="/details/<%= first %>/<%= pack_id %>"><i style="color: #a46580 !important;" class="fa fa-reply"
-                                                              aria-hidden="true"></i></a>
-            <% } %>
-        </span>
-        <span class="medium-8 large-8">
+    <span class="medium-2 large-2">
+        <% if (first !== undefined || first !== "undefined"){ %>
+        <a href="/details/<%= first %>/<%= pack_id %>"><i style="color: #a46580 !important;" class="fa fa-reply" aria-hidden="true"></i></a>
+        <% } %>
+    </span>
+    <span class="medium-8 large-8">
 
-            <% include ../partials/sticker_details %>
+        <% include ../partials/sticker_details %>
 
-        </span>
+    </span>
 
-        <span class="medium-2 large-2">
+    <span class="medium-2 large-2">
 
     <a href="/details/<%= second %>/<%= pack_id %>"><i style="color: #a46580 !important;" class="fa fa-share" aria-hidden="true"></i></a>
 
     </span>
-    </div>
 </div>
-
 </body>
 <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>-->
