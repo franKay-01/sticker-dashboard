@@ -4382,7 +4382,7 @@ app.get('/download/json/:className/', function (req, res) {
     new Parse.Query(className).limit(2000).include("text").find().then((items) => {
         let _text =  [];
         _.each(items,item => {
-           _text.push(item.get("text"));
+           _text.push({"text":item.get("text")});
         });
          res.write(JSON.stringify(_text))
     })
