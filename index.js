@@ -3770,11 +3770,11 @@ app.get('/details/:id/:coll_id', function (req, res) {
             });
 
             if (first.length > 0){
-                first_sticker = stickers[first];
+                first_sticker = stickers[first].id;
             }
 
             if (second.length > 0){
-                second_sticker = stickers[second];
+                second_sticker = stickers[second].id;
             }
             res.render("pages/sticker_details", {
                 sticker: stickerDetail,
