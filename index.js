@@ -2511,6 +2511,7 @@ app.post('/find_category', function (req, res) {
 });
 
 
+//TODO put all experiments in a seperate js file and require
 app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
     let token = req.cookies.token;
@@ -4390,7 +4391,6 @@ app.get('/download/json/:className/', function (req, res) {
 });
 
 
-
 app.get('/upload/json/:className/:fileName', function (req, res) {
 
     //delete all items in the database
@@ -4403,11 +4403,24 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
 
         let rawdata = fs.readFileSync('public/json/categories.json');
         let categories = JSON.parse(rawdata);
-        console.log("RAW DATA " + JSON.stringify(categories));
-        res.send("okay");
 
+        let categoryList = [];
+        categories.forEach(function (category) {
+
+            let Category = new Parse.Object.extend(CategoryClass);
+            let _category = new Category();
+
+            _category.set("name", category.name.toLowerCase());
+            categoryList.push(_category);
+
+        });
+
+        return Parse.Object.saveAll(categoryList);
+
+    }).then(categories => {
+        res.send("saved")
     }, error => {
-        res.send("error" + JSON.stringify(error))
+        res.send(JSON.stringify(error))
     });
 
 
