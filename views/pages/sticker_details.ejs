@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet"
@@ -77,32 +78,39 @@
 
     </center>
 
-    <table>
+    <center>
+
+    <table style="margin-left: 35px !important;">
         <tr>
+            <td>
+                <% if (first !== "undefined"){ %>
+                <a style="color: #a46580 !important; margin-left: 10px" href="/details/<%= first %>/<%= pack_id %>"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                <% } else{%>
+                <a style="color: #a46580 !important; margin-left: 10px" class="isDisabled" href="#"><i class="fa fa-reply" aria-hidden="true"></i></a>
 
-    <td>
-        <% if (first !== undefined || first !== "undefined"){ %>
-        <a style="color: #a46580 !important;" href="/details/<%= first %>/<%= pack_id %>"><i class="fa fa-reply"
-                                                                                             aria-hidden="true"></i></a>
-        <% } %>
+                <%}%>
+            </td>
+            <td>
 
-    </td>
-    <td>
+                <% include ../partials/sticker_details %>
 
-        <% include ../partials/sticker_details %>
+            </td>
 
-    </td>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <% if (second !== "undefined"){ %>
 
-    <td>
-        <% if (first !== undefined || first !== "undefined"){ %>
+                <a style="color: #a46580 !important;margin-left: -10px" href="/details/<%= second %>/<%= pack_id %>"><i class="fa fa-share" aria-hidden="true"></i></a>
 
-        <a style="color: #a46580 !important;" href="/details/<%= second %>/<%= pack_id %>"><i class="fa fa-share" aria-hidden="true"></i></a>
-        <% } %>
+                <% } else{%>
+                <a style="color: #a46580 !important; margin-left: -10px" class="isDisabled" href="#"><i class="fa fa-share" aria-hidden="true"></i></a>
 
-    </td>
+                <%}%>
+
+            </td>
         </tr>
     </table>
-
+    </center>
 </div>
 </body>
 <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->

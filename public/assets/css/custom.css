@@ -22,7 +22,13 @@ hr {
 }
 
 table tbody tr:nth-child(even){
+    border: none !important;
     background-color: white !important;
+}
+
+table tbody, table tfoot, table thead{
+    border: none !important;
+    background-color: #fefefe !important;
 }
 
 td, th {
@@ -30,6 +36,7 @@ td, th {
     text-align: left !important;
     vertical-align: middle !important;
     max-width: 150px !important;
+    border: none !important;
 }
 
 textarea {
@@ -77,6 +84,13 @@ label {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+.isDisabled {
+    color: currentColor;
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: none;
 }
 
 #toast_message {
@@ -1757,6 +1771,14 @@ fieldset {
 
 #detailsForm {
     width: 67%;
+    background: white;
+    border-radius: 15px;
+    margin: 70px auto;
+    padding: 15px;
+    box-shadow: rgb(197, 197, 197) 0 0 40px;
+}
+
+#stickerForm{
     background: white;
     border-radius: 15px;
     margin: 70px auto;

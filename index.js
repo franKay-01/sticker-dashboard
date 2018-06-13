@@ -3599,10 +3599,15 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
             if (first.length > 0) {
                 first_sticker = stickers[first].id;
+            }else {
+                first_sticker = "undefined";
             }
 
             if (second.length > 0) {
                 second_sticker = stickers[second].id;
+            }else {
+                second_sticker = "undefined";
+
             }
 
             console.log("FIRST " + first_sticker + " SECOND " + second_sticker);
