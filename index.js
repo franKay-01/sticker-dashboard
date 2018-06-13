@@ -4398,8 +4398,8 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
     new Parse.Query(className).limit(1000).find().then((items) => {
         return Parse.Object.destroyAll(items);
     }).then(() => {
-        let jsonObject = JSON.parse(fs.readFileSync('public/json/'+fileName, 'utf8'));
-        res.send(JSON.stringify(jsonObject))
+     //   let jsonObject = JSON.parse(fs.readFileSync('public/json/'+fileName, 'utf8'));
+        res.send("okay")
     });
 
 
