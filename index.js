@@ -3662,7 +3662,10 @@ app.get('/details/:id/:coll_id', function (req, res) {
     let stickerDetail;
     let allCategories;
     let selectedCategories;
-    let selectCategoryArray = [];
+    let _pack = [];
+    let first = [];
+    let second = [];
+    let sticker_items = [];
 
     if (token) {
         let _user = {};
@@ -3674,13 +3677,20 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(StickerClass).equalTo("objectId", id).first(),
-                new Parse.Query(CategoryClass).ascending("name").find());
+                new Parse.Query(CategoryClass).ascending("name").find(),
+                new Parse.Query(PacksClass).equalTo("objectId", pack_).first()
+            );
 
-        }).then(function (sticker, categories) {
+        }).then(function (sticker, categories, pack) {
 
                 stickerDetail = sticker;
                 allCategories = categories;
+                _pack = pack;
                 selectedCategories = sticker.get("categories");
+
+                //packs with coll_id
+                //id is also available in that pack
+            //loop through all stickers id === sticker.id
 
                 // if (selectedCategories){
                 //     selectedCategories = Array.from(selectedCategories);
@@ -3733,16 +3743,42 @@ app.get('/details/:id/:coll_id', function (req, res) {
             //     Expires: signedUrlExpireSeconds
             // });
             //
+            let col = _pack.relation(PacksClass);
+            return col.query().find({sessionToken: token});
 
-            res.render("pages/sticker_details", {
-                sticker: stickerDetail,
-                selected: selectedCategories,
-                categories: allCategories,
-                pack_id: pack_,
-                // uri: url,
-                id: id
-            });
             // }
+        }).then(function (stickers) {
+
+            sticker_items = stickers;
+            _.each(stickers, function (sticker, index) {
+
+                if (sticker.id === id){
+                    if (index === 0){
+
+                        second.push(index + 1);
+
+                    }else if (index === sticker.length -1){
+                        first.push(index - 1);
+                    }else {
+                        first.push(index - 1);
+                        second.push(index + 1);
+                    }
+
+                }
+
+            });
+
+            res.send("FIRST " + JSON.stringify(first) + " SECOND " + JSON.stringify(second));
+
+            // res.render("pages/sticker_details", {
+            //     sticker: stickerDetail,
+            //     selected: selectedCategories,
+            //     categories: allCategories,
+            //     pack_id: pack_,
+            //     // uri: url,
+            //     id: id
+            // });
+
         }, function (err) {
             console.log("Error Loading-----------------------" + JSON.stringify(err));
             res.redirect("/pack/" + pack_);
