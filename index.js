@@ -4395,12 +4395,14 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
     let fileName = req.params.fileName;
     let className = req.params.className;
 
-    var readJson = (path, cb) => {
+    let readJson = (path, cb) => {
         fs.readFile(require.resolve(path), (err, data) => {
-            if (err)
+            if (err) {
+                console.log("ERROR in FUNCTION");
                 cb(err);
-            else
+            } else {
                 cb(null, JSON.parse(data))
+            }
         })
     };
 
@@ -4408,6 +4410,7 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
         return Parse.Object.destroyAll(items);
     }).then(() => {
         readJson("./public/json/categories.json", data => {
+            console.log("ERROR in CALL");
             res.send(JSON.stringify(data))
         })
     }, error => {
