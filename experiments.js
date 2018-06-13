@@ -1,4 +1,7 @@
-app.get('/download/json/:className/', function (req, res) {
+let express = require('express');
+let router = express.Router();
+
+router.get('/download/json/:className/', function (req, res) {
 
     //delete all items in the database
     let className = req.params.className;
@@ -14,7 +17,7 @@ app.get('/download/json/:className/', function (req, res) {
 });
 
 
-app.get('/upload/json/:className/:fileName', function (req, res) {
+router.get('/upload/json/:className/:fileName', function (req, res) {
 
     //delete all items in the database
     let fileName = req.params.fileName;
@@ -49,9 +52,9 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
 
 });
 
-app.get("/test_upload/:id", function (req, res) {
-    var token = req.cookies.token;
-    var pack_id = req.params.id;
+router.get("/test_upload/:id", function (req, res) {
+    let token = req.cookies.token;
+    let pack_id = req.params.id;
 
     if (token) {
         getUser(token).then(function (sessionToken) {
@@ -68,7 +71,7 @@ app.get("/test_upload/:id", function (req, res) {
 
 
 //TODO put all experiments in a seperate js file and require
-app.post('/upload_test', upload.array('im1[]'), function (req, res) {
+router.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
     let token = req.cookies.token;
     let pack_id = req.body.pack_id;
@@ -227,3 +230,5 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
     }
 });
+
+module.exports = router;

@@ -286,7 +286,7 @@ function setPermission(user, isPublicReadAccess) {
 }
 
 //contains code for testing and validating new functionality
-require('experiments');
+//let experiments = require('experiments');
 
 // Home Page
 app.get('/', function (req, res) {
