@@ -66,19 +66,18 @@
         </div>
     </div>
     <center>
-        <span class="medium-2 large-2">
+
+        <span class="medium-12 large-12 welcome_post" id="pack_id">
             <% if (first !== undefined || first !== "undefined"){ %>
-               <a style="color: #a46580 !important;" href="/details/<%= first %>/<%= pack_id %>"><i class="fa fa-reply"
-                                                                 aria-hidden="true"></i></a>
+            <a style="color: #a46580 !important;" href="/details/<%= first %>/<%= pack_id %>"><i class="fa fa-reply"
+                                                                                                 aria-hidden="true"></i></a>
             <% } %>
+
+            <b>Edit <i style="color: #a46580"><%= sticker.get("stickerName") %></i> Sticker</b>
+                    <a style="color: #a46580 !important;" href="/details/<%= second %>/<%= pack_id %>"><i class="fa fa-share" aria-hidden="true"></i></a>
+
         </span>
 
-        <span class="medium-8 large-8 welcome_post" id="pack_id"><b>Edit <i
-                        style="color: #a46580"><%= sticker.get("stickerName") %></i> Sticker</b></span>
-        <span class="medium-2 large-2">
-            <a style="color: #a46580 !important;" href="/details/<%= second %>/<%= pack_id %>"><i class="fa fa-share"
-                                                       aria-hidden="true"></i></a>
-        </span>
     </center>
 
     <% include ../partials/sticker_details %>
