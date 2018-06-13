@@ -3776,6 +3776,9 @@ app.get('/details/:id/:coll_id', function (req, res) {
             if (second.length > 0){
                 second_sticker = stickers[second].id;
             }
+
+            console.log("FIRST " + first_sticker + " SECOND " + second_sticker);
+
             res.render("pages/sticker_details", {
                 sticker: stickerDetail,
                 selected: selectedCategories,
