@@ -16,17 +16,19 @@
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">-->
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.css">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap2/bootstrap-switch.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap2/bootstrap-switch.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/public/assets/css/switch.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.js"></script>
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-    <script type = "text/javascript"
-            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!--<script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.js"></script>
@@ -63,22 +65,19 @@
         </div>
     </div>
     <center>
-    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Edit <i style="color: #a46580"><%= sticker.get("stickerName") %></i> Sticker</b></span>
+        <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Edit <i
+                        style="color: #a46580"><%= sticker.get("stickerName") %></i> Sticker</b></span>
     </center>
 
-    <div class="medium-1 large-1">
-        <% if (first !== undefined || first !== "undefined"){%>
-        <a href="/details/<%= first %>/<%= pack_id %>"><i style="color: #a46580" class="fa fa-reply" aria-hidden="true"></i></a>
-        <%}%>
-    </div>
+    <% if (first !== undefined || first !== "undefined"){ %>
+    <a href="/details/<%= first %>/<%= pack_id %>"><i style="color: #a46580 !important;" class="fa fa-reply" aria-hidden="true"></i></a>
+    <% } %>
 
     <% include ../partials/sticker_details %>
 
-    <div class="medium-1 large-1">
-        <% if (second !== undefined || second !== "undefined"){%>
-        <a href="/details/<%= second %>/<%= pack_id %>"><i style="color: #a46580" class="fa fa-share" aria-hidden="true"></i></a>
-        <%}%>
-    </div>
+    <% if (second !== undefined || second !== "undefined"){ %>
+    <a href="/details/<%= second %>/<%= pack_id %>"><i style="color: #a46580 !important;" class="fa fa-share" aria-hidden="true"></i></a>
+    <% } %>
 
 </div>
 </body>
