@@ -70,21 +70,33 @@
     <center>
 
         <span class="medium-12 large-12 welcome_post" id="pack_id">
-            <% if (first !== undefined || first !== "undefined"){ %>
-            <a style="color: #a46580 !important;" href="/details/<%= first %>/<%= pack_id %>"><i class="fa fa-reply"
-                                                                                                 aria-hidden="true"></i></a>
-            <% } %>
 
             <b>Edit <i style="color: #a46580"><%= sticker.get("stickerName") %></i> Sticker</b>
-
-            <a style="color: #a46580 !important;" href="/details/<%= second %>/<%= pack_id %>"><i class="fa fa-share" aria-hidden="true"></i></a>
 
         </span>
 
     </center>
 
-    <% include ../partials/sticker_details %>
+    <span class="medium-2 large-2">
+        <% if (first !== undefined || first !== "undefined"){ %>
+        <a style="color: #a46580 !important;" href="/details/<%= first %>/<%= pack_id %>"><i class="fa fa-reply"
+                                                                                             aria-hidden="true"></i></a>
+        <% } %>
 
+    </span>
+    <span class="medium-2 large-2">
+
+        <% include ../partials/sticker_details %>
+
+    </span>
+
+    <span class="medium-2 large-2">
+        <% if (first !== undefined || first !== "undefined"){ %>
+
+        <a style="color: #a46580 !important;" href="/details/<%= second %>/<%= pack_id %>"><i class="fa fa-share" aria-hidden="true"></i></a>
+        <% } %>
+
+    </span>
 </div>
 </body>
 <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
