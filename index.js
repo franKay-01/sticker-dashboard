@@ -4377,8 +4377,8 @@ app.post('/upload_dropbox_file', function (req, res) {
 app.get('/upload/json/:className/:fileName', function (req, res) {
 
     //delete all items in the database
-    let fileName = req.body.fileName;
-    let className = req.body.className;
+    let fileName = req.params.fileName;
+    let className = req.params.className;
 
     new Parse.Query(className).limit(2000).find().then((items) => {
         return Parse.Object.destroyAll(items);
