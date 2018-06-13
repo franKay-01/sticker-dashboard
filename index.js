@@ -4407,7 +4407,7 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
     new Parse.Query(className).limit(1000).find().then((items) => {
         return Parse.Object.destroyAll(items);
     }).then(() => {
-        readJson("public/json/categories.json", data => {
+        readJson("./public/json/categories.json", data => {
             res.send(JSON.stringify(data))
         })
     }, error => {
