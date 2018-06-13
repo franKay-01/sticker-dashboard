@@ -26,6 +26,11 @@ table tbody tr:nth-child(even){
     background-color: white !important;
 }
 
+table tbody, table tfoot, table thead{
+    border: none !important;
+    background-color: #fefefe !important;
+}
+
 td, th {
     display: table-cell !important;
     text-align: left !important;
