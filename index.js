@@ -3751,7 +3751,6 @@ app.get('/details/:id/:coll_id', function (req, res) {
             // }
         }).then(function (stickers) {
 
-            sticker_items = stickers;
             _.each(stickers, function (sticker, index) {
 
                 if (sticker.id === id){
@@ -3770,23 +3769,23 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
             });
 
-            res.send("FIRST " + JSON.stringify(stickers[first]) + " SECOND " + JSON.stringify(sticker_items[second]));
+            if (first.length > 0){
+                first_sticker = stickers[first];
+            }
 
-            // if (first.length > 0){
-            //     first_sticker = sticker_items[first];
-            // }
-            //
-            // if (second.length > 0){
-            //     second_sticker = sticker_items[]
-            // }
-            // res.render("pages/sticker_details", {
-            //     sticker: stickerDetail,
-            //     selected: selectedCategories,
-            //     categories: allCategories,
-            //     pack_id: pack_,
-            //     // uri: url,
-            //     id: id
-            // });
+            if (second.length > 0){
+                second_sticker = stickers[second];
+            }
+            res.render("pages/sticker_details", {
+                sticker: stickerDetail,
+                selected: selectedCategories,
+                categories: allCategories,
+                pack_id: pack_,
+                first: first_sticker,
+                second: second_sticker,
+                // uri: url,
+                id: id
+            });
 
         }, function (err) {
             console.log("Error Loading-----------------------" + JSON.stringify(err));
