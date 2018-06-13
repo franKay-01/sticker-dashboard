@@ -45,9 +45,6 @@
 
     </div>
     <div id="pageMask"></div>
-    <center>
-    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Edit <i style="color: #a46580"><%= sticker.get("stickerName") %></i> Sticker</b></span>
-    </center>
     <div id="deleteForm" style="display: none">
         <div class="medium-3 large-3 cell create_background">
             <center>
@@ -65,8 +62,23 @@
 
         </div>
     </div>
+    <center>
+    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Edit <i style="color: #a46580"><%= sticker.get("stickerName") %></i> Sticker</b></span>
+    </center>
+
+    <div class="medium-1 large-1">
+        <% if (first !== ""){%>
+        <a href="/details/<%= first %>/<%= pack_id %>"><i style="color: #a46580" class="fa fa-share" aria-hidden="true"></i></a>
+        <%}%>
+    </div>
 
     <% include ../partials/sticker_details %>
+
+    <div class="medium-1 large-1">
+        <% if (second !== ""){%>
+        <a href="/details/<%= second %>/<%= pack_id %>"><i style="color: #a46580" class="fa fa-share" aria-hidden="true"></i></a>
+        <%}%>
+    </div>
 
 </div>
 </body>
