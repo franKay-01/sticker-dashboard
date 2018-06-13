@@ -4380,11 +4380,11 @@ app.get('/download/json/:className/', function (req, res) {
     let className = req.params.className;
 
     new Parse.Query(className).find().then((items) => {
-        let _text =  [];
-        _.each(items,item => {
-           _text.push({"name":item.get("name")});
+        let _text = [];
+        _.each(items, item => {
+            _text.push({"name": item.get("name")});
         });
-         res.send(JSON.stringify(_text))
+        res.send(JSON.stringify(_text))
     })
 
 });
@@ -4395,12 +4395,23 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
     let fileName = req.params.fileName;
     let className = req.params.className;
 
+    var readJson = (path, cb) => {
+        fs.readFile(require.resolve(path), (err, data) => {
+            if (err)
+                cb(err);
+            else
+                cb(null, JSON.parse(data))
+        })
+    };
+
     new Parse.Query(className).limit(1000).find().then((items) => {
         return Parse.Object.destroyAll(items);
     }).then(() => {
-       let jsonObject = require("public/json/categories");
-       console.log(JSON.stringify(jsonObject));
-        res.send("okay");
+        readJson("public/json/categories.json", data => {
+            res.send(JSON.stringify(data))
+        })
+    }, error => {
+        res.send(JSON.stringify(error))
     });
 
 
