@@ -1228,6 +1228,38 @@ app.get('/story_of_day', function (req, res) {
     }
 });
 
+app.get('/find_stickers/:name', function (req, res) {
+
+    let token = req.cookies.token;
+    let name = req.params.name;
+    let field = [];
+
+    if (token) {
+
+        field.push(name);
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StickerClass).containedIn("categories", field).find();
+
+        }).then(function (stickers) {
+
+            res.render("pages/associated_stickers", {
+                stickers: stickers,
+                name: name
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/categories');
+        })
+    } else {
+        res.redirect('/');
+    }
+
+});
+
+
 app.post('/new_catalogue_sticker/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
@@ -1402,10 +1434,14 @@ app.get('/story_catalogue/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
+             return new Parse.Query(StoryClass).equalTo("objectId", id).first()
+
+        }).then(function (story) {
 
             res.render("pages/story_catalogue", {
 
-                story_id: id
+                story_id: story.id,
+                name: story.get("title")
 
             });
 
@@ -2504,7 +2540,7 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
                 stickerCollection = collection;
 
-                files.forEach(function (file,index) {
+                files.forEach(function (file, index) {
 
                     let Sticker = new Parse.Object.extend(StickerClass);
                     let sticker = new Sticker();
@@ -2516,17 +2552,17 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
                     gm(file.path)
                         .resize(200, 200)
-                        .write('public/uploads/'+stickerName, function (err) {
+                        .write('public/uploads/' + stickerName, function (err) {
                             if (!err)
-                                console.log('done '+ stickerName);
+                                console.log('done ' + stickerName);
 
-                            let bitmapPreview = fs.readFileSync('public/uploads/'+stickerName, {encoding: 'base64'});
+                            let bitmapPreview = fs.readFileSync('public/uploads/' + stickerName, {encoding: 'base64'});
 
                             //create our parse file
                             let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                             let parsePreviewFile = new Parse.File(stickerName, {base64: bitmapPreview});
 
-                            console.log("PARSIFY"+JSON.stringify(parsePreviewFile));
+                            console.log("PARSIFY" + JSON.stringify(parsePreviewFile));
 
                             sticker.set("stickerName", stickerName);
                             sticker.set("localName", stickerName);
@@ -2545,7 +2581,7 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
                         });
 
-                    if((index - 1) === files.length){
+                    if ((index - 1) === files.length) {
                         console.log("SAVE ALL OBJECTS AND FILE");
                         return Parse.Object.saveAll(stickerDetails);
                     }
@@ -3003,6 +3039,88 @@ app.get('/delete_sticker/:id/:pid', function (req, res) {
 
 });
 
+app.get('/remove_story/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let _user = {};
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(StoryClass).equalTo("objectId", id).first();
+
+        }).then(function (story) {
+
+            if (_user.id === story.get("user_id")) {
+                story.destroy({
+                    success: function (object) {
+                        console.log("removed" + JSON.stringify(object));
+                        res.redirect("/remove_story_items/" + id);
+                    },
+                    error: function (error) {
+                        console.log("Could not remove" + error);
+                        res.redirect("/stories");
+
+                    }
+                });
+            } else {
+
+                res.redirect("/stories");
+
+            }
+
+        }, function (error) {
+
+            console.log("ERROR " + error);
+            res.redirect("/categories");
+
+        })
+    } else {
+        res.redirect('/');
+    }
+});
+
+app.get('/remove_story_items/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(StoryItem).equalTo("story_id", id).find();
+
+        }).then(function (stories) {
+
+            if (stories.length > 0) {
+
+                return Parse.Object.destroyAll(stories);
+
+            } else {
+                res.redirect('/stories');
+            }
+
+        }).then(function (success) {
+
+            if (success) {
+                res.redirect('/stories');
+            }
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/stories');
+        })
+
+    } else {
+        res.redirect('/');
+    }
+});
+
 app.post('/remove_category', function (req, res) {
 
     let token = req.cookies.token;
@@ -3028,7 +3146,7 @@ app.post('/remove_category', function (req, res) {
                 });
             },
             function (error) {
-                console.error(error);
+                console.log("ERROR " + error);
                 res.redirect("/categories");
 
             });
@@ -3540,13 +3658,20 @@ app.get('/details/:id/:coll_id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let pack_ = req.params.coll_id;
+    // let stickers = req.params.stickers;
     let stickerDetail;
     let allCategories;
     let selectedCategories;
-    let selectCategoryArray = [];
+    let _pack = [];
+    let first = [];
+    let second = [];
+    let sticker_items = [];
+    let first_sticker;
+    let second_sticker;
 
     if (token) {
         let _user = {};
+        // console.log("STICKERS " + JSON.stringify(stickers));
 
         getUser(token).then(function (sessionToken) {
 
@@ -3554,13 +3679,20 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(StickerClass).equalTo("objectId", id).first(),
-                new Parse.Query(CategoryClass).ascending("name").find());
+                new Parse.Query(CategoryClass).ascending("name").find(),
+                new Parse.Query(PacksClass).equalTo("objectId", pack_).first()
+            );
 
-        }).then(function (sticker, categories) {
+        }).then(function (sticker, categories, pack) {
 
                 stickerDetail = sticker;
                 allCategories = categories;
+                _pack = pack;
                 selectedCategories = sticker.get("categories");
+
+                //packs with coll_id
+                //id is also available in that pack
+            //loop through all stickers id === sticker.id
 
                 // if (selectedCategories){
                 //     selectedCategories = Array.from(selectedCategories);
@@ -3613,16 +3745,51 @@ app.get('/details/:id/:coll_id', function (req, res) {
             //     Expires: signedUrlExpireSeconds
             // });
             //
+            let col = _pack.relation(PacksClass);
+            return col.query().find({sessionToken: token});
+
+            // }
+        }).then(function (stickers) {
+
+            _.each(stickers, function (sticker, index) {
+
+                if (sticker.id === id){
+                    if (index === 0){
+
+                        second.push(index + 1);
+
+                    }else if (index === sticker.length -1){
+                        first.push(index - 1);
+                    }else {
+                        first.push(index - 1);
+                        second.push(index + 1);
+                    }
+
+                }
+
+            });
+
+            if (first.length > 0){
+                first_sticker = stickers[first].id;
+            }
+
+            if (second.length > 0){
+                second_sticker = stickers[second].id;
+            }
+
+            console.log("FIRST " + first_sticker + " SECOND " + second_sticker);
 
             res.render("pages/sticker_details", {
                 sticker: stickerDetail,
                 selected: selectedCategories,
                 categories: allCategories,
                 pack_id: pack_,
+                first: first_sticker,
+                second: second_sticker,
                 // uri: url,
                 id: id
             });
-            // }
+
         }, function (err) {
             console.log("Error Loading-----------------------" + JSON.stringify(err));
             res.redirect("/pack/" + pack_);

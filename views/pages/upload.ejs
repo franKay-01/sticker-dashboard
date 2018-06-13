@@ -55,9 +55,9 @@
                 <input type="text" style="display: none;" name="fileName" id="fileName">
                 <input type="text" style="display: none;" name="file" id="fileType">
                 <input type="hidden" name="pack_id" style="display: none" value="<%= id %>"/>
-                <center>
+                <center style="margin-top: -50px !important;">
       <span>
-        <button type="button" class="upload" id="btnClearAddForm"><a href="/pack/<%= id %>" class="clear">Cancel</a></button>
+        <button type="button" class="upload" id="btnClearAddForm"><a href="/pack/<%= id %>" class="clear">Back</a></button>
       </span><!--<span>
         <button type="button" id="clearBtn"><a href="#" class="clear">Clear</a></button>
       </span>-->
@@ -69,6 +69,8 @@
             <!-- End of form -->
         </div>
     </div>
+    <%- include('../partials/footer') %>
+
 </div>
 </body>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
