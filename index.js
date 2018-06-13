@@ -4374,6 +4374,17 @@ app.post('/upload_dropbox_file', function (req, res) {
 
 });
 
+app.get('/download/json/:className/', function (req, res) {
+
+    //delete all items in the database
+    let className = req.params.className;
+
+    new Parse.Query(className).limit(2000).find().then((items) => {
+         res.write(JSON.stringify(items))
+    })
+
+});
+
 app.get('/upload/json/:className/:fileName', function (req, res) {
 
     //delete all items in the database
@@ -4383,6 +4394,7 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
     new Parse.Query(className).limit(2000).find().then((items) => {
         return Parse.Object.destroyAll(items);
     }).then(() => {
+        let jsonObject = JSON.parse(fs.readFileSync('public/json/'+fileName, 'utf8'));
         res.redirect('/');
     });
 

@@ -1,4 +1,4 @@
-{"_id":"03VQxojY7Y","name":"horns","_created_at":{"$date":"2018-04-09T16:05:20.926Z"},"_updated_at":{"$date":"2018-04-09T16:05:20.926Z"}}
+[{"_id":"03VQxojY7Y","name":"horns","_created_at":{"$date":"2018-04-09T16:05:20.926Z"},"_updated_at":{"$date":"2018-04-09T16:05:20.926Z"}}
 {"_id":"0kBYbwfO3I","name":"grimacing","_created_at":{"$date":"2018-04-09T15:49:11.263Z"},"_updated_at":{"$date":"2018-04-09T15:49:11.263Z"}}
 {"_id":"0q4FKYO1xA","name":"girl","_created_at":{"$date":"2018-04-09T16:05:43.303Z"},"_updated_at":{"$date":"2018-04-09T16:05:43.303Z"}}
 {"_id":"1hr8WRiSRQ","name":"boy","_created_at":{"$date":"2018-04-09T16:05:33.796Z"},"_updated_at":{"$date":"2018-04-09T16:05:33.796Z"}}
@@ -94,4 +94,4 @@
 {"_id":"xZX8UfNXVI","name":"angry","_created_at":{"$date":"2018-04-09T15:51:52.014Z"},"_updated_at":{"$date":"2018-04-09T15:51:52.014Z"}}
 {"_id":"xl4OshW3UJ","name":"hugging","_created_at":{"$date":"2018-04-09T15:03:01.331Z"},"_updated_at":{"$date":"2018-04-09T15:03:01.331Z"}}
 {"_id":"yhlg4iKY3M","name":"head","_created_at":{"$date":"2018-04-09T15:48:51.464Z"},"_updated_at":{"$date":"2018-04-09T15:48:51.464Z"}}
-{"_id":"zwSBpxCtGN","name":"female","_created_at":{"$date":"2018-04-09T15:56:42.996Z"},"_updated_at":{"$date":"2018-04-09T15:56:42.996Z"}}
+{"_id":"zwSBpxCtGN","name":"female","_created_at":{"$date":"2018-04-09T15:56:42.996Z"},"_updated_at":{"$date":"2018-04-09T15:56:42.996Z"}}]
