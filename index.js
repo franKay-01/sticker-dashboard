@@ -4389,7 +4389,7 @@ app.get('/download/json/:className/', function (req, res) {
 
 });
 
-app.get('/upload/json/:className/:fileName', function (req, res) {
+app.post('/upload/json/:className/:fileName', function (req, res) {
 
     //delete all items in the database
     let fileName = req.params.fileName;
