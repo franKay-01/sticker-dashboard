@@ -4399,7 +4399,8 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
         return Parse.Object.destroyAll(items);
     }).then(() => {
        let jsonObject = require("public/json/categories");
-        res.send(JSON.stringify(jsonObject));
+       console.log(JSON.stringify(jsonObject));
+        res.send("okay");
     });
 
 
