@@ -3666,6 +3666,8 @@ app.get('/details/:id/:coll_id', function (req, res) {
     let first = [];
     let second = [];
     let sticker_items = [];
+    let first_sticker;
+    let second_sticker;
 
     if (token) {
         let _user = {};
@@ -3768,8 +3770,15 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
             });
 
-            res.send("FIRST " + JSON.stringify(sticker_items[first]) + " SECOND " + JSON.stringify(sticker_items[second]));
+            res.send("FIRST " + JSON.stringify(stickers[first]) + " SECOND " + JSON.stringify(sticker_items[second]));
 
+            // if (first.length > 0){
+            //     first_sticker = sticker_items[first];
+            // }
+            //
+            // if (second.length > 0){
+            //     second_sticker = sticker_items[]
+            // }
             // res.render("pages/sticker_details", {
             //     sticker: stickerDetail,
             //     selected: selectedCategories,
