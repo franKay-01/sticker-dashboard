@@ -15,7 +15,7 @@ let LatestClass = "Latest";
 //TODO write pagination function for editing stickers
 //TODO remove repeated code for creating stories/stickers
 
-let createsticker = sticker => {
+let createSticker = sticker => {
     let _sticker = {};
     _sticker.id = sticker.id;
     _sticker.name = sticker.get("stickerName");
@@ -120,8 +120,6 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
         _packs = packs;
 
-        console.log("STICKIFY ZERO");
-
         return Parse.Promise.when(
             new Parse.Query(StickersClass).equalTo("objectId", sticker.get("latest_id")).first({useMasterKey: true}),
             new Parse.Query(StoriesClass).equalTo("objectId", story.get("latest_id")).first({useMasterKey: true}),
@@ -133,8 +131,6 @@ Parse.Cloud.define("getFeed", function (req, res) {
         _sticker = sticker;
         _story = story;
 
-        console.log("STICKIFY ONE");
-
         return Parse.Promise.when(
             new Parse.Query(StickersClass).equalTo("objectId", storyArtwork.get("sticker")).first({useMasterKey: true}),
             new Parse.Query(StoryItemClass).equalTo("story_id", story.id).find({useMasterKey: true})
@@ -142,32 +138,24 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
     }).then((sticker,storyItems) => {
 
-        feed.stickerOfDay = createsticker(_sticker);
+        feed.stickerOfDay = createSticker(_sticker);
         feed.latestStory = createStory(_story,sticker,storyItems);
-
-        console.log("PACKIFY DATA");
 
         let promises = [];
         _.map(_packs, function (pack) {
             promises.push(pack.relation(PacksClass).query().limit(5).find({useMasterKey: true}));
         });
-
-        console.log("PACKIFY DATA TWO");
         return Parse.Promise.when(promises);
 
     }).then(stickerList =>{
 
         let packList = [];
 
-        console.log("PACKIFY DATA THREE");
-
         _.map(_packs, pack => {
             packList.push(createPack(pack,stickerList))
         });
 
         feed.packs = packList;
-
-        console.log("PACKIFY DATA FOUR");
 
         res.success(util.setResponseOk(feed));
 
