@@ -1434,7 +1434,7 @@ app.get('/story_catalogue/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-             return new Parse.Query(StoryClass).equalTo("objectId", id).first()
+            return new Parse.Query(StoryClass).equalTo("objectId", id).first()
 
         }).then(function (story) {
 
@@ -3692,7 +3692,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
                 //packs with coll_id
                 //id is also available in that pack
-            //loop through all stickers id === sticker.id
+                //loop through all stickers id === sticker.id
 
                 // if (selectedCategories){
                 //     selectedCategories = Array.from(selectedCategories);
@@ -3753,14 +3753,14 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
             _.each(stickers, function (sticker, index) {
 
-                if (sticker.id === id){
-                    if (index === 0){
+                if (sticker.id === id) {
+                    if (index === 0) {
 
                         second.push(index + 1);
 
-                    }else if (index === sticker.length -1){
+                    } else if (index === sticker.length - 1) {
                         first.push(index - 1);
-                    }else {
+                    } else {
                         first.push(index - 1);
                         second.push(index + 1);
                     }
@@ -3769,11 +3769,11 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
             });
 
-            if (first.length > 0){
+            if (first.length > 0) {
                 first_sticker = stickers[first].id;
             }
 
-            if (second.length > 0){
+            if (second.length > 0) {
                 second_sticker = stickers[second].id;
             }
 
@@ -4374,13 +4374,24 @@ app.post('/upload_dropbox_file', function (req, res) {
 
 });
 
-app.get('/upload/json/file', function (req, res) {
+app.get('/upload/json/:className/:fileName', function (req, res) {
+
+    //delete all items in the database
+    let fileName = req.body.fileName;
+    let className = req.body.className;
+
+    new Parse.Query(className).limit(2000).find().then((items) => {
+        return Parse.Object.destroyAll(items);
+    }).then(() => {
+        res.redirect('/');
+    });
+
 
 });
 
 
-var port = process.env.PORT || 1337;
-var httpServer = require('http').createServer(app);
+let port = process.env.PORT || 1337;
+let httpServer = require('http').createServer(app);
 httpServer.listen(port, function () {
     console.log('parse-server-example running on port ' + port + '.');
 });
