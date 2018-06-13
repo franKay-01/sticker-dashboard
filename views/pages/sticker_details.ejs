@@ -77,26 +77,32 @@
 
     </center>
 
-    <span class="medium-2 large-2">
+    <table>
+        <tr>
+
+    <td>
         <% if (first !== undefined || first !== "undefined"){ %>
         <a style="color: #a46580 !important;" href="/details/<%= first %>/<%= pack_id %>"><i class="fa fa-reply"
                                                                                              aria-hidden="true"></i></a>
         <% } %>
 
-    </span>
-    <span class="medium-2 large-2">
+    </td>
+    <td>
 
         <% include ../partials/sticker_details %>
 
-    </span>
+    </td>
 
-    <span class="medium-2 large-2">
+    <td>
         <% if (first !== undefined || first !== "undefined"){ %>
 
         <a style="color: #a46580 !important;" href="/details/<%= second %>/<%= pack_id %>"><i class="fa fa-share" aria-hidden="true"></i></a>
         <% } %>
 
-    </span>
+    </td>
+        </tr>
+    </table>
+
 </div>
 </body>
 <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
