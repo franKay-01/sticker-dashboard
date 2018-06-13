@@ -81,8 +81,7 @@
     <table style="margin-left: 70px !important; ">
         <tr>
             <td>
-                <% if (first !== ""){ %>
-                <p style="color: yellow">ID: <%= first %></p>
+                <% if (first !== " "){ %>
                 <a style="color: #a46580 !important;" href="/details/<%= first %>/<%= pack_id %>"><i class="fa fa-reply" aria-hidden="true"></i></a>
                 <% } %>
 
@@ -94,7 +93,7 @@
             </td>
 
             <td>
-                <% if (second !== ""){ %>
+                <% if (second !== " "){ %>
 
                 <a style="color: #a46580 !important;" href="/details/<%= second %>/<%= pack_id %>"><i class="fa fa-share" aria-hidden="true"></i></a>
 

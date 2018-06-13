@@ -1765,6 +1765,14 @@ fieldset {
     box-shadow: rgb(197, 197, 197) 0 0 40px;
 }
 
+#stickerForm{
+    background: white;
+    border-radius: 15px;
+    margin: 70px auto;
+    padding: 15px;
+    box-shadow: rgb(197, 197, 197) 0 0 40px;
+}
+
 .add-image-btn {
     font-size: 20px;
     font-weight: 700;
