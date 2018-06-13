@@ -4384,7 +4384,7 @@ app.get('/download/json/:className/', function (req, res) {
         _.each(items,item => {
            _text.push({"text":item.get("text")});
         });
-         res.write(JSON.stringify(_text))
+         res.send(JSON.stringify(_text))
     })
 
 });
