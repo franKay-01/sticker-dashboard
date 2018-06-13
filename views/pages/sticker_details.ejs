@@ -83,7 +83,7 @@
     <table>
         <tr>
             <td>
-                <% if (first !== "undefined"){ %>
+                <% if (first === "undefined" || first === undefined){ %>
                 <a style="color: #a46580 !important;" href="/details/<%= first %>/<%= pack_id %>"><i class="fa fa-reply" aria-hidden="true"></i></a>
                 <% } %>
 
@@ -95,7 +95,8 @@
             </td>
 
             <td>
-                <% if (second !== " "){ %>
+                &nbsp;&nbsp;
+                <% if (second !== "undefined" || second !== undefined){ %>
 
                 <a style="color: #a46580 !important;" href="/details/<%= second %>/<%= pack_id %>"><i class="fa fa-share" aria-hidden="true"></i></a>
 
