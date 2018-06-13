@@ -4399,7 +4399,7 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
         return Parse.Object.destroyAll(items);
     }).then(() => {
         let jsonObject = JSON.parse(fs.readFileSync('public/json/'+fileName, 'utf8'));
-        res.redirect('/');
+        res.send(JSON.stringify(jsonObject))
     });
 
 
