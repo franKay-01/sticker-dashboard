@@ -4395,7 +4395,7 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
     let fileName = req.params.fileName;
     let className = req.params.className;
 
-    new Parse.Query(className).limit(2000).find().then((items) => {
+    new Parse.Query(className).limit(1000).find().then((items) => {
         return Parse.Object.destroyAll(items);
     }).then(() => {
         let jsonObject = JSON.parse(fs.readFileSync('public/json/'+fileName, 'utf8'));
