@@ -4409,7 +4409,7 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
     new Parse.Query(className).limit(1000).find().then((items) => {
         return Parse.Object.destroyAll(items);
     }).then(() => {
-        readJson("./public/json/categories.json", data => {
+        readJson("/public/json/categories.json", data => {
             console.log("ERROR in CALL");
             res.send(JSON.stringify(data))
         })
