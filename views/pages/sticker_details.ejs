@@ -67,7 +67,7 @@
     </center>
 
     <div class="medium-1 large-1">
-        <% if (first !== ""){%>
+        <% if (first !== undefined || first !== "undefined"){%>
         <a href="/details/<%= first %>/<%= pack_id %>"><i style="color: #a46580" class="fa fa-reply" aria-hidden="true"></i></a>
         <%}%>
     </div>
@@ -75,7 +75,7 @@
     <% include ../partials/sticker_details %>
 
     <div class="medium-1 large-1">
-        <% if (second !== ""){%>
+        <% if (second !== undefined || second !== "undefined"){%>
         <a href="/details/<%= second %>/<%= pack_id %>"><i style="color: #a46580" class="fa fa-share" aria-hidden="true"></i></a>
         <%}%>
     </div>
