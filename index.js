@@ -171,7 +171,6 @@ let api = new ParseServer({
 
 
 let app = express();
-let experiments = require('experiments');
 
 app.use(cookieParser());
 app.use(cors());
@@ -258,9 +257,6 @@ function setPermission(user, isPublicReadAccess) {
     acl.setPublicReadAccess(isPublicReadAccess);
     return acl;
 }
-
-//contains code for testing and validating new functionality
-//let experiments = require('experiments');
 
 // Home Page
 app.get('/', function (req, res) {
@@ -4183,6 +4179,7 @@ app.post('/upload_dropbox_file', function (req, res) {
 
 
 /*====================================== Experiments ============================*/
+
 app.get('/download/json/:className/', function (req, res) {
 
     //delete all items in the database
@@ -4252,7 +4249,6 @@ app.get("/test_upload/:id", function (req, res) {
 });
 
 
-//TODO put all experiments in a seperate js file and require
 app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
     let token = req.cookies.token;
