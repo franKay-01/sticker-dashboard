@@ -4403,7 +4403,7 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
 
         let rawdata = fs.readFileSync('public/json/categories.json');
         let categories = JSON.parse(rawdata);
-        console.log("RAW DATA " + categories);
+        console.log("RAW DATA " + JSON.stringify(categories));
         res.send("okay");
 
     }, error => {
