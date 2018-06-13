@@ -3461,11 +3461,11 @@ app.get('/details/:id/:coll_id', function (req, res) {
     let allCategories;
     let selectedCategories;
     let _pack = [];
-    let first = [];
-    let second = [];
+    let previous = [];
+    let next = [];
     let sticker_items = [];
-    let first_sticker;
-    let second_sticker;
+    let previous_sticker;
+    let next_sticker;
 
     if (token) {
         let _user = {};
@@ -3554,41 +3554,39 @@ app.get('/details/:id/:coll_id', function (req, res) {
                 if (sticker.id === id) {
                     if (index === 0) {
 
-                        second.push(index + 1);
+                        next.push(index + 1);
 
                     } else if (index === stickers.length - 1) {
-                        first.push(index - 1);
+                        previous.push(index - 1);
                     } else {
-                        first.push(index - 1);
-                        second.push(index + 1);
+                        previous.push(index - 1);
+                        next.push(index + 1);
                     }
 
                 }
 
             });
 
-            if (first.length > 0) {
-                first_sticker = stickers[first].id;
+            if (previous.length > 0) {
+                previous_sticker = stickers[previous].id;
             }else {
-                first_sticker = "undefined";
+                previous_sticker = "undefined";
             }
 
-            if (second.length > 0) {
-                second_sticker = stickers[second].id;
+            if (next.length > 0) {
+                next_sticker = stickers[next].id;
             }else {
-                second_sticker = "undefined";
+                next_sticker = "undefined";
 
             }
-
-            console.log("FIRST " + first_sticker + " SECOND " + second_sticker);
 
             res.render("pages/sticker_details", {
                 sticker: stickerDetail,
                 selected: selectedCategories,
                 categories: allCategories,
                 pack_id: pack_,
-                first: first_sticker,
-                second: second_sticker,
+                previous: previous_sticker,
+                next: next_sticker,
                 // uri: url,
                 id: id
             });
