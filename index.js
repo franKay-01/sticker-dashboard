@@ -2697,7 +2697,7 @@ app.get('/categories', function (req, res) {
 app.post('/new_category', function (req, res) {
 
     let token = req.cookies.token;
-    let categoryName = JSON.stringify(req.body.category_name);
+    let categoryName = JSON.stringify(req.body.categoryName);
     let _categories = [];
     let categoryDetails = [];
 
