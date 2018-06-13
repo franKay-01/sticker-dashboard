@@ -84,7 +84,7 @@
         <tr>
             <td>
                 <% if (first === "undefined" || first === undefined){ %>
-                <a style="color: #a46580 !important;" href="/details/<%= first %>/<%= pack_id %>"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                <a style="color: #a46580 !important; margin-left: 10px" href="/details/<%= first %>/<%= pack_id %>"><i class="fa fa-reply" aria-hidden="true"></i></a>
                 <% } %>
 
             </td>
@@ -95,10 +95,10 @@
             </td>
 
             <td>
-                &nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <% if (second !== "undefined" || second !== undefined){ %>
 
-                <a style="color: #a46580 !important;" href="/details/<%= second %>/<%= pack_id %>"><i class="fa fa-share" aria-hidden="true"></i></a>
+                <a style="color: #a46580 !important;margin-left: -10px" href="/details/<%= second %>/<%= pack_id %>"><i class="fa fa-share" aria-hidden="true"></i></a>
 
                 <% } %>
 
