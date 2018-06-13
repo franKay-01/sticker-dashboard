@@ -80,10 +80,10 @@
 
     <center>
 
-    <table>
+    <table style="margin-left: 35px !important;">
         <tr>
             <td>
-                <% if (first === "undefined" || first === undefined){ %>
+                <% if (first !== "undefined"){ %>
                 <a style="color: #a46580 !important; margin-left: 10px" href="/details/<%= first %>/<%= pack_id %>"><i class="fa fa-reply" aria-hidden="true"></i></a>
                 <% } %>
 
@@ -96,7 +96,7 @@
 
             <td>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <% if (second !== "undefined" || second !== undefined){ %>
+                <% if (second !== "undefined"){ %>
 
                 <a style="color: #a46580 !important;margin-left: -10px" href="/details/<%= second %>/<%= pack_id %>"><i class="fa fa-share" aria-hidden="true"></i></a>
 
