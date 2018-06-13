@@ -171,6 +171,7 @@ let api = new ParseServer({
 
 
 let app = express();
+let experiments = require('experiments');
 
 app.use(cookieParser());
 app.use(cors());
@@ -181,33 +182,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(methodOverride());
 
-// app.use(cookieSession({
-//     name: "session",
-//     secret: "A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK",
-//     maxAge: 15724800000
-// }));
-// app.use(cookieParser("A85CCq3+X8c7pBHg6EOdvIL3YzPuvNyPwG8wvyNK"));
-
-
-// set a cookie
-/*app.use(function (req, res, next) {
-    // check if client sent cookie
-    var cookie = req.cookies.cookieName;
-    if (cookie === undefined) {
-        // no: set a new cookie
-        var randomNumber = Math.random().toString();
-        randomNumber = randomNumber.substring(2, randomNumber.length);
-        res.cookie('cookieName', randomNumber, {maxAge: 900000, httpOnly: true});
-        console.log('cookie created successfully');
-        console.log("COOKIE " + randomNumber);
-    }
-    else {
-        // yes, cookie was already present
-        console.log('cookie exists', cookie);
-    }
-    next(); // <-- important!
-});*/
-
+app.use('/',experiments);
 app.use('/', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
