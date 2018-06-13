@@ -4389,30 +4389,23 @@ app.get('/download/json/:className/', function (req, res) {
 
 });
 
+
+
 app.get('/upload/json/:className/:fileName', function (req, res) {
 
     //delete all items in the database
     let fileName = req.params.fileName;
     let className = req.params.className;
 
-    let readJson = (path, cb) => {
-        fs.readFile(require.resolve(path), (err, data) => {
-            if (err) {
-                console.log("ERROR in FUNCTION");
-                cb(err);
-            } else {
-                cb(null, JSON.parse(data))
-            }
-        })
-    };
-
     new Parse.Query(className).limit(1000).find().then((items) => {
         return Parse.Object.destroyAll(items);
     }).then(() => {
-        readJson("/public/json/categories.json", data => {
-            console.log("ERROR in CALL");
-            res.send(data)
-        })
+
+        let rawdata = fs.readFileSync('public/json/categories.json');
+        let categories = JSON.parse(rawdata);
+        console.log("RAW DATA " + categories);
+        res.send("okay");
+
     }, error => {
         res.send("error" + JSON.stringify(error))
     });
