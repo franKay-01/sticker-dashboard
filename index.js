@@ -4379,7 +4379,7 @@ app.get('/download/json/:className/', function (req, res) {
     //delete all items in the database
     let className = req.params.className;
 
-    new Parse.Query(className).limit(2000).find().then((items) => {
+    new Parse.Query(className).find().then((items) => {
         let _text =  [];
         _.each(items,item => {
            _text.push({"text":item.get("text")});
