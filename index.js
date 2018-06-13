@@ -4411,7 +4411,7 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
     }).then(() => {
         readJson("/public/json/categories.json", data => {
             console.log("ERROR in CALL");
-            res.send(JSON.stringify(data))
+            res.send(data)
         })
     }, error => {
         res.send("error" + JSON.stringify(error))
