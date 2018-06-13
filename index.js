@@ -4398,7 +4398,7 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
     new Parse.Query(className).limit(1000).find().then((items) => {
         return Parse.Object.destroyAll(items);
     }).then(() => {
-       let jsonObject = JSON.parse(fs.readFileSync('public/json/'+fileName, 'utf8'));
+       let jsonObject = require("public/json/categories");
         res.send(JSON.stringify(jsonObject));
     });
 
