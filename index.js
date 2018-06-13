@@ -4379,8 +4379,12 @@ app.get('/download/json/:className/', function (req, res) {
     //delete all items in the database
     let className = req.params.className;
 
-    new Parse.Query(className).limit(2000).select("text").find().then((items) => {
-         res.write(JSON.stringify(items))
+    new Parse.Query(className).find().then((items) => {
+        let _text =  [];
+        _.each(items,item => {
+           _text.push({"name":item.get("name")});
+        });
+         res.send(JSON.stringify(_text))
     })
 
 });
@@ -4391,7 +4395,7 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
     let fileName = req.params.fileName;
     let className = req.params.className;
 
-    new Parse.Query(className).limit(2000).select("text").find().then((items) => {
+    new Parse.Query(className).limit(2000).find().then((items) => {
         return Parse.Object.destroyAll(items);
     }).then(() => {
         let jsonObject = JSON.parse(fs.readFileSync('public/json/'+fileName, 'utf8'));
