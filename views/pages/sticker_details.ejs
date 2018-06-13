@@ -78,10 +78,11 @@
 
     </center>
 
-    <table style="margin-left: 70px !important; ">
+    <center>
+    <table>
         <tr>
             <td>
-                <% if (first !== " "){ %>
+                <% if (first !== "undefined"){ %>
                 <a style="color: #a46580 !important;" href="/details/<%= first %>/<%= pack_id %>"><i class="fa fa-reply" aria-hidden="true"></i></a>
                 <% } %>
 
@@ -102,6 +103,7 @@
             </td>
         </tr>
     </table>
+    </center>
 </div>
 </body>
 <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->

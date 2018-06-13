@@ -31,6 +31,7 @@ td, th {
     text-align: left !important;
     vertical-align: middle !important;
     max-width: 150px !important;
+    border: none !important;
 }
 
 textarea {
