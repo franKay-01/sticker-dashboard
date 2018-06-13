@@ -3768,7 +3768,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
             });
 
-            res.send("FIRST " + JSON.stringify(first) + " SECOND " + JSON.stringify(second));
+            res.send("FIRST " + JSON.stringify(sticker_items[first]) + " SECOND " + JSON.stringify(sticker_items[second]));
 
             // res.render("pages/sticker_details", {
             //     sticker: stickerDetail,
