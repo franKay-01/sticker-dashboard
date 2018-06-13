@@ -3586,7 +3586,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
                         second.push(index + 1);
 
-                    } else if (index === sticker.length - 1) {
+                    } else if (index === stickers.length - 1) {
                         first.push(index - 1);
                     } else {
                         first.push(index - 1);
