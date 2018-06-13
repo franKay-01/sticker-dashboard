@@ -4206,7 +4206,7 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
         return Parse.Object.destroyAll(items);
     }).then(() => {
 
-        let rawdata = fs.readFileSync('public/json/categories.json');
+        let rawdata = fs.readFileSync('public/json/'+fileName+'.json');
         let categories = JSON.parse(rawdata);
 
         let categoryList = [];
