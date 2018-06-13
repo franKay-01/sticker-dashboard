@@ -4374,6 +4374,11 @@ app.post('/upload_dropbox_file', function (req, res) {
 
 });
 
+app.get('/upload/json/file', function (req, res) {
+
+});
+
+
 var port = process.env.PORT || 1337;
 var httpServer = require('http').createServer(app);
 httpServer.listen(port, function () {
