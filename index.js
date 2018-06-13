@@ -4414,7 +4414,7 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
             res.send(JSON.stringify(data))
         })
     }, error => {
-        res.send(JSON.stringify(error))
+        res.send("error" + JSON.stringify(error))
     });
 
 
