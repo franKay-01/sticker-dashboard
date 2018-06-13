@@ -15,7 +15,7 @@ let LatestClass = "Latest";
 //TODO write pagination function for editing stickers
 //TODO remove repeated code for creating stories/stickers
 
-let createsticker = sticker => {
+let createSticker = sticker => {
     let _sticker = {};
     _sticker.id = sticker.id;
     _sticker.name = sticker.get("stickerName");
@@ -107,25 +107,57 @@ Parse.Cloud.define("getFeed", function (req, res) {
     //getting adverts
 
     let feed = {};
+    let _sticker;
+    let _story;
+    let _packs;
 
     Parse.Promise.when(
-        new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STICKER).first(),
-        new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STORY).first()
-    ).then((sticker, story) => {
+        new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STICKER).first({useMasterKey: true}),
+        new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STORY).first({useMasterKey: true}),
+        new Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId", process.env.DEFAULT_PACK).limit(2).find({useMasterKey: true})
+
+    ).then((sticker, story,packs) => {
+
+        _packs = packs;
 
         return Parse.Promise.when(
-            new Parse.Query(StickersClass).equalTo("objectId", sticker.get("latest_id")).first(),
-            new Parse.Query(StoriesClass).equalTo("objectId", story.get("latest_id")).first(),
-            new Parse.Query(ArtWorkClass).equalTo("object_id", story.get("latest_id")).first()
+            new Parse.Query(StickersClass).equalTo("objectId", sticker.get("latest_id")).first({useMasterKey: true}),
+            new Parse.Query(StoriesClass).equalTo("objectId", story.get("latest_id")).first({useMasterKey: true}),
+            new Parse.Query(ArtWorkClass).equalTo("object_id", story.get("latest_id")).first({useMasterKey: true}),
         );
 
-    }).then((sticker, story, artwork) => {
+    }).then((sticker, story, storyArtwork) => {
 
-        return new Parse.Query(StickersClass).equalTo("objectId", artwork.get("sticker")).first();
+        _sticker = sticker;
+        _story = story;
 
-    }).then(sticker => {
+        return Parse.Promise.when(
+            new Parse.Query(StickersClass).equalTo("objectId", storyArtwork.get("sticker")).first({useMasterKey: true}),
+            new Parse.Query(StoryItemClass).equalTo("story_id", story.id).find({useMasterKey: true})
+        );
 
+    }).then((sticker,storyItems) => {
 
+        feed.stickerOfDay = createSticker(_sticker);
+        feed.latestStory = createStory(_story,sticker,storyItems);
+
+        let promises = [];
+        _.map(_packs, function (pack) {
+            promises.push(pack.relation(PacksClass).query().limit(5).find({useMasterKey: true}));
+        });
+        return Parse.Promise.when(promises);
+
+    }).then(stickerList =>{
+
+        let packList = [];
+
+        _.map(_packs, pack => {
+            packList.push(createPack(pack,stickerList))
+        });
+
+        feed.packs = packList;
+
+        res.success(util.setResponseOk(feed));
 
     }, error => {
         util.handleError(res, error);
