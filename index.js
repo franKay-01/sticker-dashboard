@@ -1,5 +1,6 @@
 //main imports
 let express = require('express');
+let ejs = require('ejs');
 let ParseServer = require('parse-server').ParseServer;
 let Parse = require("parse/node").Parse; // import the module
 let S3Adapter = require('@parse/s3-files-adapter');
