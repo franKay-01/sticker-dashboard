@@ -4241,7 +4241,7 @@ app.post('/newsletter/email', function (req, res) {
 
     function subscriptionTemplate(id) {
 
-        let file = fs.readFileSync('./views/pages/newsletter_updates.ejs', 'ascii');
+        let file = fs.readFileSync('./views/pages/newsletter_email.ejs', 'ascii');
 
         return ejs.render(file, { id: id });
     }
