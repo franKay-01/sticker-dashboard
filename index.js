@@ -3586,7 +3586,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
                 categories: allCategories,
                 pack_id: pack_,
                 previous: previous_sticker,
-                second: next_sticker,
+                next: next_sticker,
                 // uri: url,
                 id: id
             });
