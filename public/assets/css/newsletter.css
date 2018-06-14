@@ -1,18 +1,4 @@
 
-@font-face {
-    font-family: 'Montserrat';
-    src: url('../../../newsletter/fonts/Montserrat-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Montserrat-SemiBold';
-    src: url('../../../newsletter/fonts/Montserrat-SemiBold.ttf') format('truetype');
-    font-weight: 600;
-    font-style: bold;
-}
-
 
 
 body {
@@ -40,7 +26,8 @@ body {
   text-align: center;
   color: #fff;
   padding-bottom: 30px;
-  font-family: 'Montserrat-SemiBold', sans-serif;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .content-section {
@@ -62,7 +49,8 @@ body {
 #download-text h5 {
   text-align: center;
   font-size: 1.6rem;
-  font-family: 'Montserrat-SemiBold', sans-serif;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
 }
 
 #download-img img {
@@ -73,7 +61,8 @@ body {
 }
 
 #share-story {
-  font-family: 'Montserrat-SemiBold', sans-serif;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .download-badge {
@@ -89,8 +78,8 @@ body {
 }
 
 .semi-bold {
-  font-weight: bold;
-  font-family: 'Montserrat-SemiBold', sans-serif;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .text-center {
@@ -163,18 +152,21 @@ body {
 /* Newsletter Styles //////////////////////////////////////////////////////// */
 
 #newsletter h1{
-  font-family: 'Montserrat-SemiBold', sans-serif;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
   color: #8952a7;
 }
 
 #newsletter h2{
-  font-family: 'Montserrat-SemiBold', sans-serif;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
   color: #a46580;
   font-size: 1.6rem;
 }
 
 #newsletter h3{
-  font-family: 'Montserrat-SemiBold', sans-serif;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
   /* color: #8952a7; */
 }
 
