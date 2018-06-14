@@ -6,6 +6,7 @@ let _ = require('underscore');
 let PacksClass = "Packs";
 let StoriesClass = "Stories";
 let StoryItemClass = "StoryItem";
+let CategoriesClass = "Categories";
 let ArtWorkClass = "ArtWork";
 let StickersClass = "Stickers";
 let LatestClass = "Latest";
@@ -110,15 +111,18 @@ Parse.Cloud.define("getFeed", function (req, res) {
     let _sticker;
     let _story;
     let _packs;
+    let _categories;
 
     Parse.Promise.when(
         new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STICKER).first({useMasterKey: true}),
         new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STORY).first({useMasterKey: true}),
-        new Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId", process.env.DEFAULT_PACK).limit(2).find({useMasterKey: true})
+        new Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId", process.env.DEFAULT_PACK).limit(2).find({useMasterKey: true}),
+        new Parse.Query(CategoriesClass).limit(30).find()
 
-    ).then((sticker, story,packs) => {
+    ).then((sticker, story,packs,categories) => {
 
         _packs = packs;
+        _categories = categories;
 
         return Parse.Promise.when(
             new Parse.Query(StickersClass).equalTo("objectId", sticker.get("latest_id")).first({useMasterKey: true}),
@@ -156,6 +160,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
         });
 
         feed.packs = packList;
+        feed.categories = _categories;
 
         res.success(util.setResponseOk(feed));
 
