@@ -54,7 +54,7 @@ let LatestClass = "Latest";
 let Barcode = "Barcodes";
 let Links = "Links";
 let PreviouslySelected = "PreviouslySelected";
-let NewsLetter = "NewsLetter";
+let NewsLetterClass = "NewsLetter";
 
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
@@ -4240,7 +4240,7 @@ app.post('/newsletter/email', function (req, res) {
 
     if (email){
 
-        new Parse.Query(NewsLetter).equalTo("email", email).first().then(function (newsletter) {
+        new Parse.Query(NewsLetterClass).equalTo("email", email).first().then(function (newsletter) {
 
             if (newsletter){
                 if (newsletter.get("subscribe") === false){
@@ -4249,7 +4249,7 @@ app.post('/newsletter/email', function (req, res) {
                     // page to tell user they already subscribed
                 }
             }else {
-                let NewsLetter = new Parse.Object.extend(NewsLetter);
+                let NewsLetter = new Parse.Object.extend(NewsLetterClass);
                 let newsletter = new NewsLetter();
 
                 newsletter.set("email", email);
