@@ -4355,6 +4355,8 @@ app.get('/newsletter/update', function (req, res) {
         new Parse.Query(ArtWorkClass).equalTo("object_id", 'qRNKDvid5z').first()
     ).then(function (newsletters, story, sticker) {
 
+        console.log("COLLECTED ALL DATA");
+
         _newsletters = newsletters;
         _story = story;
 
@@ -4373,6 +4375,7 @@ app.get('/newsletter/update', function (req, res) {
 
     }).then(function (sticker, storyItems) {
 
+        console.log("COLLECTED ALL DATA 2");
 
         _.each(_newsletters, function (newsletter) {
 
@@ -4391,6 +4394,8 @@ app.get('/newsletter/update', function (req, res) {
 
 
     }).then(function (htmlString) {
+
+        console.log("COLLECTED ALL DATA 3");
 
         let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
         let data = {
