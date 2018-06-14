@@ -4266,6 +4266,7 @@ app.post('/newsletter/email', function (req, res) {
                 console.log("AFTER FILE");
 
                 let htmlString = ejs.render(file, { id: newsletter.id });
+                console.log("STRING " + htmlString);
 
 
                 let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
