@@ -4349,7 +4349,7 @@ app.get('/newsletter/update', function (req, res) {
     let emails = [];
     let colors;
 
-    Parse.Promise.when(
+    return Parse.Promise.when(
         new Parse.Query(NewsLetterClass).equalTo("subscribe", true).find(),
         new Parse.Query(StoryClass).equalTo("objectId", 'qRNKDvid5z').first(),
         new Parse.Query(ArtWorkClass).equalTo("object_id", 'qRNKDvid5z').first()
