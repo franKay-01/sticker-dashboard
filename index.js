@@ -4239,6 +4239,13 @@ app.post('/newsletter/email', function (req, res) {
 
     let email = req.body.email;
 
+    function subscriptionTemplate(id) {
+
+        let file = fs.readFileSync('./views/pages/newsletter_updates.ejs', 'ascii');
+
+         ejs.render(file, { id: id });
+    }
+
     if (email){
 
         new Parse.Query(NewsLetterClass).equalTo("email", email).first().then(function (newsletter) {
@@ -4246,7 +4253,9 @@ app.post('/newsletter/email', function (req, res) {
             if (newsletter){
                 if (newsletter.get("subscribe") === false){
 
-                    res.redirect('/newsletter/update/' + newsletter.id);
+                    return subscriptionTemplate(newsletter.id);
+
+                    // res.redirect('/newsletter/update/' + newsletter.id);
 
                 }else if (newsletter.get("subscribe") === true){
 
@@ -4264,15 +4273,13 @@ app.post('/newsletter/email', function (req, res) {
             }
         }).then(function (newsletter) {
 
-            if (newsletter){
+            if (newsletter.id){
 
-                console.log("BEFORE FILE");
-               let file = fs.readFileSync('./views/pages/newsletter_updates.ejs', 'ascii');
-                console.log("FILE " + file);
-
-                return ejs.render(file, { id: newsletter.id });
+                return subscriptionTemplate(newsletter.id);
 
             }
+
+            return newsletter;
 
         }).then(function (htmlString) {
 
