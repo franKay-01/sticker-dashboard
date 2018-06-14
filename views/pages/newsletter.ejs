@@ -72,65 +72,59 @@
         </div>
         <!-- End of Quote -->
 
+        <%} else if (item.get("type") === 4){%>
+
+        <!-- Divider -->
+        <div class="small-12 grid-x">
+            <div class="small-1"></div>
+            <div class="small-10">
+                <div class="divider purple-text"></div>
+            </div>
+            <div class="small-1"></div>
+        </div>
+        <!-- End of Divider -->
         <!-- 5 is ITALICS-->
-        <%} else if (item.get("type") === 5){%>
-        <!--<div class="someCSSClass">fontAwesomeQuote <h2></h2> fontAwesomeQuote</div>-->
-        <textarea class="box_2 validate" placeholder="Review description"
-                  name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
+
+        <%}else if (item.get("type") === 5){%>
+
+        <!-- Content-Section-One -->
+        <div class="small-12 grid-x">
+            <div class="medium-1 hide-for-small"></div>
+            <div class="medium-10 small-12">
+                <div class="content-section padding-top gray-text">
+                    <p>
+                        <i>
+                            <%= item.get("content") %>
+                        </i>
+                    </p>
+
+                </div>
+            </div>
+            <div class="medium-1 hide-for-small"></div>
+        </div>
+        <!-- End of Content-Section-One -->
         <!-- 6 is BOLD-->
-        <%}else if (item.get("type") === 6){%>
-        <textarea class="box_2 validate" placeholder="Review description"
-                  name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
+
+        <%} else if (item.get("type") === 6){%>
+        <!-- Content-Section-One -->
+        <div class="small-12 grid-x">
+            <div class="medium-1 hide-for-small"></div>
+            <div class="medium-10 small-12">
+                <div class="content-section padding-top gray-text">
+                    <p>
+                        <strong>
+                            <%= item.get("content") %>
+                        </strong>
+                    </p>
+
+                </div>
+            </div>
+            <div class="medium-1 hide-for-small"></div>
+        </div>
+        <!-- End of Content-Section-One -->
         <%}%>
         <%})%>
         <%}%>
-
-
-
-      <!-- Divider -->
-      <div class="small-12 grid-x">
-        <div class="small-1"></div>
-        <div class="small-10">
-          <div class="divider purple-text"></div>
-        </div>
-        <div class="small-1"></div>
-      </div>
-      <!-- End of Divider -->
-
-
-
-      <!-- Content-Section-Two -->
-      <div class="small-12 grid-x">
-        <div class="medium-1 hide-for-small"></div>
-        <div class="medium-10 small-12">
-          <div class="content-section padding-top gray-text">
-            <p>
-              I know I am chubby small. I have some flesh covering my cheekbones
-              and that is really no fault of mine. My father is Ga and my mother
-              is Fante. So if you combine these two genes, the resultant genotype
-              should look something like FF which is very fat. I don’t just mean
-              very fat, I mean very very fat. In fact let me add one more very.
-              Very very very fat like those Chinese fat people that look like one
-              very large ball of fufu. But look at me, does it look like I am
-              that fat?
-            </p>
-
-            <p>
-              That doesn’t mean I am sitting down for my genes to fully express
-              themselves. No way! That is why I hit the gym every morning except
-              for Sunday’s 'cos even
-            </p>
-
-            <br/>
-
-            <p>
-              God rested on the seventh day?
-            </p>
-          </div>
-        </div>
-        <div class="medium-1 hide-for-small"></div>
-      </div>
-      <!-- End of Content-Section-Two -->
 
       <!-- Share & Download -->
       <div class="small-12 grid-x">
