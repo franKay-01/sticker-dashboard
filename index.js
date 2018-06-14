@@ -4206,7 +4206,7 @@ app.get('/newsletter/:id', function (req, res) {
 
         _story = story;
 
-        colors = story.get("color");
+        let colors = story.get("color");
         if (colors) {
             colors = story.get("color");
         } else {
@@ -4214,8 +4214,8 @@ app.get('/newsletter/:id', function (req, res) {
             colors = type.DEFAULT.color;
         }
 
-       return Parse.Promise.when(
-          new Parse.Query(StickerClass).equalTo("objectId", sticker.get("sticker")).first(),
+        return Parse.Promise.when(
+            new Parse.Query(StickerClass).equalTo("objectId", sticker.get("sticker")).first(),
             new Parse.Query(StoryItem).equalTo("story_id", _story.id).find()
         )
 
@@ -4244,21 +4244,21 @@ app.post('/newsletter/email', function (req, res) {
 
         let file = fs.readFileSync('./views/pages/newsletter_email.ejs', 'ascii');
 
-        return ejs.render(file, { id: id, serverURL: SERVER_URL });
+        return ejs.render(file, {id: id, serverURL: SERVER_URL});
     }
 
-    if (email){
+    if (email) {
 
         new Parse.Query(NewsLetterClass).equalTo("email", email).first().then(function (newsletter) {
 
-            if (newsletter){
-                if (newsletter.get("subscribe") === false){
+            if (newsletter) {
+                if (newsletter.get("subscribe") === false) {
 
                     return subscriptionTemplate(newsletter.id);
 
                     // res.redirect('/newsletter/update/' + newsletter.id);
 
-                }else if (newsletter.get("subscribe") === true){
+                } else if (newsletter.get("subscribe") === true) {
 
                     res.render("pages/newsletter_already_subscribed");
 
@@ -4274,7 +4274,7 @@ app.post('/newsletter/email', function (req, res) {
             }
         }).then(function (newsletter) {
 
-            if (newsletter.id){
+            if (newsletter.id) {
 
                 return subscriptionTemplate(newsletter.id);
 
@@ -4335,10 +4335,93 @@ app.get('/newsletter/update/:id', function (req, res) {
         res.render("pages/newsletter_updates");
     }, function (error) {
 
-        console.log("ERROR "+error.message);
+        console.log("ERROR " + error.message);
 
     })
 });
+
+
+app.get('/newsletter/update', function (req, res) {
+
+    let _newsletters;
+    let _story;
+    let emails = [];
+    let colors;
+
+    when(
+        new Parse.Query(NewsLetterClass).equalTo("subscribe", true).find(),
+        new Parse.Query(StoryClass).equalTo("objectId", 'qRNKDvid5z').first(),
+        new Parse.Query(ArtWorkClass).equalTo("object_id", 'qRNKDvid5z').first()
+    ).then(function (newsletters, story, sticker) {
+
+        _newsletters = newsletters;
+        _story = story;
+
+         colors = story.get("color");
+        if (colors) {
+            colors = story.get("color");
+        } else {
+            //use system default
+            colors = type.DEFAULT.color;
+        }
+
+        return Parse.Promise.when(
+            new Parse.Query(StickerClass).equalTo("objectId", sticker.get("sticker")).first(),
+            new Parse.Query(StoryItem).equalTo("story_id", _story.id).find()
+        )
+
+    }).then(function (sticker, storyItems) {
+
+
+        _.each(_newsletters, function (newsletter) {
+
+            emails.push(newsletter.get("email"));
+
+            let file = fs.readFileSync('./views/pages/newsletter_story.ejs', 'ascii');
+
+            return ejs.render(file, {
+                story: _story,
+                sticker: sticker,
+                colors: colors,
+                storyItems: storyItems
+            });
+
+        });
+
+
+    }).then(function (htmlString) {
+
+        let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
+        let data = {
+            //Specify email data
+            from: process.env.EMAIL_FROM || "test@example.com",
+            //The email to contact
+            to: emails,
+            //Subject and text data
+            subject: 'G-Stickers Newsletter Subscription',
+            // html: fs.readFileSync("./uploads/newsletter_email.ejs", "utf8"),
+            html: htmlString
+
+        }
+
+        mailgun.messages().send(data, function (error, body) {
+            if (error) {
+                console.log("BIG BIG ERROR: ", error.message);
+            }
+            else {
+
+                console.log("EMAIL SENT" + body);
+            }
+        });
+        // TODO display type of update before changing subscription to true
+        res.send("EMAIL SENT");
+    }, function (error) {
+
+        console.log("ERROR " + error.message);
+
+    })
+});
+
 
 app.get('/upload/json/:className/:fileName', function (req, res) {
 
