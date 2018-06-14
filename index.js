@@ -4261,8 +4261,11 @@ app.post('/newsletter/email', function (req, res) {
 
             if (newsletter){
 
+                console.log("BEFORE FILE");
                let file = fs.readFileSync('./views/pages/newsletter_updates.ejs', 'ascii');
-               let htmlString = ejs.render(file, { id: newsletter.id });
+                console.log("AFTER FILE");
+
+                let htmlString = ejs.render(file, { id: newsletter.id });
 
 
                 let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
