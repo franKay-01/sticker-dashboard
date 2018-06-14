@@ -184,7 +184,7 @@
                 <!-- Download-Text -->
                 <div id="download-text" class="small-12 padding-top">
                     <h5>
-                        Download GhanaTok to get the "<span class="purple-text">Sad Face</span>" Sticker now
+                        Download GhanaTok to get the "<span class="purple-text"><%= sticker.get("stickerName") %></span>" Sticker now
                     </h5>
                 </div>
 
@@ -192,7 +192,7 @@
                 <div class="small-12 grid-x">
                     <div class="small-1 medium-2"></div>
                     <div id="download-img" class="small-10 medium-8">
-                        <img src="../../public/assets/images/newsletter/banner.png" alt="Banner">
+                        <img src="<%= sticker.get("uri").url() %>" alt="Banner">
                     </div>
                     <div class="small-1 medium-2"></div>
 
