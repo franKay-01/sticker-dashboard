@@ -4261,6 +4261,10 @@ app.post('/newsletter/email', function (req, res) {
 
             if (newsletter){
 
+               let file = fs.readFileSync('pages/newsletter_updates.ejs', 'ascii');
+               let htmlString = ejs.render(file, { id: newsletter.id });
+
+
                 let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
                 let data = {
                     //Specify email data
@@ -4269,8 +4273,9 @@ app.post('/newsletter/email', function (req, res) {
                     to: email,
                     //Subject and text data
                     subject: 'G-Stickers Newsletter Subscription',
-                    html: fs.readFileSync("./uploads/newsletter_email.html", "utf8"),
-                    id: newsletter.id,
+                    // html: fs.readFileSync("./uploads/newsletter_email.html", "utf8"),
+                    html: htmlString
+
                 }
 
                 mailgun.messages().send(data, function (error, body) {
