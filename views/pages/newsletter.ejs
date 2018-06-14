@@ -28,29 +28,64 @@
 
     <div class="grid-container grid-x">
 
-      <!-- Content-Section-One -->
-      <div class="small-12 grid-x">
-        <div class="medium-1 hide-for-small"></div>
-        <div class="medium-10 small-12">
-          <div class="content-section padding-top gray-text">
-            <p>
-              So, yesterday, someone actually called me fat. Yes, a whole me, FAT!
-            </p>
+        <%if (story_item.length === 0) {%>
+        <p class="none" style="margin: 100px 300px auto;"><b>No Story Item</b></p>
+        <%} else {%>
+        <% story_item.forEach(function(item, index) { %>
+        <!-- 0 is TEXT-->
+        <%if (item.get("type") === 0){%>
+        <!-- Content-Section-One -->
+        <div class="small-12 grid-x">
+            <div class="medium-1 hide-for-small"></div>
+            <div class="medium-10 small-12">
+                <div class="content-section padding-top gray-text">
+                    <p>
+                        <%= item.get("content") %>
+                    </p>
 
-            <p>
-              <strong>Hmm…</strong>
-            </p>
-
-            <p>
-              I am coming. Let me gather myself because the way my heart is beating,
-              I will say something and it will become something that is there.
-              So you, it’s okay.
-            </p>
-          </div>
+                </div>
+            </div>
+            <div class="medium-1 hide-for-small"></div>
         </div>
-        <div class="medium-1 hide-for-small"></div>
-      </div>
-      <!-- End of Content-Section-One -->
+        <!-- End of Content-Section-One -->
+
+        <!-- 2 is QUOTE-->
+        <%} else if (item.get("type") === 2){%>
+
+        <!-- Quote -->
+        <div class="small-12 grid-x">
+            <div class="small-1"></div>
+            <div class="quote-area small-10 grid-x">
+                <div class="quote-area-begin small-1">
+                    <img src="../../public/assets/images/newsletter/quote-begin.png" alt="Begin Quote">
+                </div>
+                <div class="quote-area-content purple-text semi-bold small-10">
+                    <p>
+                        <%= item.get("content") %>
+                    </p>
+                </div>
+                <div class="quote-area-end small-1">
+                    <img src="../../public/assets/images/newsletter/quote-end.png" alt="End Quote">
+                </div>
+            </div>
+            <div class="small-1"></div>
+        </div>
+        <!-- End of Quote -->
+
+        <!-- 5 is ITALICS-->
+        <%} else if (item.get("type") === 5){%>
+        <!--<div class="someCSSClass">fontAwesomeQuote <h2></h2> fontAwesomeQuote</div>-->
+        <textarea class="box_2 validate" placeholder="Review description"
+                  name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
+        <!-- 6 is BOLD-->
+        <%}else if (item.get("type") === 6){%>
+        <textarea class="box_2 validate" placeholder="Review description"
+                  name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
+        <%}%>
+        <%})%>
+        <%}%>
+
+
 
       <!-- Divider -->
       <div class="small-12 grid-x">
@@ -62,26 +97,7 @@
       </div>
       <!-- End of Divider -->
 
-      <!-- Quote -->
-      <div class="small-12 grid-x">
-        <div class="small-1"></div>
-        <div class="quote-area small-10 grid-x">
-          <div class="quote-area-begin small-1">
-            <img src="../../public/assets/images/newsletter/quote-begin.png" alt="Begin Quote">
-          </div>
-          <div class="quote-area-content purple-text semi-bold small-10">
-            <p>
-              That was when he called me… he called me… hmm. He called me…
-              This thing is difficult to say. The guy called me… OBOLO.
-            </p>
-          </div>
-          <div class="quote-area-end small-1">
-            <img src="../../public/assets/images/newsletter/quote-end.png" alt="End Quote">
-          </div>
-        </div>
-        <div class="small-1"></div>
-      </div>
-      <!-- End of Quote -->
+
 
       <!-- Content-Section-Two -->
       <div class="small-12 grid-x">
