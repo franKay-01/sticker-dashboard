@@ -75,7 +75,7 @@ const CATEGORY_LIMIT = 1000;
 //TODO investigate email template server url links
 const PARSE_SERVER_URL = process.env.SERVER_URL;
 const PARSE_PUBLIC_URL = process.env.SERVER_URL.replace('parse', 'public/');
-const SERVER_URL = process.env.SERVER_URL.replace('parse', ' ');
+const SERVER_URL = process.env.SERVER_URL.replace('parse', '');
 
 
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
