@@ -4266,7 +4266,7 @@ app.post('/newsletter/email', function (req, res) {
                let file = fs.readFileSync('./views/pages/newsletter_updates.ejs', 'ascii');
                 console.log("FILE " + file);
 
-                return ejs.renderFile(file, { id: newsletter.id });
+                return ejs.render(file, { id: newsletter.id });
 
             }
 
