@@ -3186,8 +3186,6 @@ app.get('/edit_pack_details/:id', function (req, res) {
 });
 
 
-
-
 // Add Stickers Version 1
 app.get('/add_stickers/:id', function (req, res) {
 
@@ -3461,11 +3459,11 @@ app.get('/details/:id/:coll_id', function (req, res) {
     let allCategories;
     let selectedCategories;
     let _pack = [];
-    let first = [];
-    let second = [];
+    let previous = [];
+    let next = [];
     let sticker_items = [];
-    let first_sticker;
-    let second_sticker;
+    let previous_sticker;
+    let next_sticker;
 
     if (token) {
         let _user = {};
@@ -3554,41 +3552,39 @@ app.get('/details/:id/:coll_id', function (req, res) {
                 if (sticker.id === id) {
                     if (index === 0) {
 
-                        second.push(index + 1);
+                        next.push(index + 1);
 
-                    } else if (index === sticker.length - 1) {
-                        first.push(index - 1);
+                    } else if (index === stickers.length - 1) {
+                        previous.push(index - 1);
                     } else {
-                        first.push(index - 1);
-                        second.push(index + 1);
+                        previous.push(index - 1);
+                        next.push(index + 1);
                     }
 
                 }
 
             });
 
-            if (first.length > 0) {
-                first_sticker = stickers[first].id;
-            }else {
-                first_sticker = "undefined";
+            if (previous.length > 0) {
+                previous_sticker = stickers[previous].id;
+            } else {
+                previous_sticker = "undefined";
             }
 
-            if (second.length > 0) {
-                second_sticker = stickers[second].id;
-            }else {
-                second_sticker = "undefined";
+            if (next.length > 0) {
+                next_sticker = stickers[next].id;
+            } else {
+                next_sticker = "undefined";
 
             }
-
-            console.log("FIRST " + first_sticker + " SECOND " + second_sticker);
 
             res.render("pages/sticker_details", {
                 sticker: stickerDetail,
                 selected: selectedCategories,
                 categories: allCategories,
                 pack_id: pack_,
-                first: first_sticker,
-                second: second_sticker,
+                previous: previous_sticker,
+                next: next_sticker,
                 // uri: url,
                 id: id
             });
@@ -4086,7 +4082,6 @@ app.get('/upload_page/:id', function (req, res) {
 });
 
 app.post('/upload_dropbox_file', function (req, res) {
-
     var bitmap;
     var name;
     var fileUrl;
@@ -4195,6 +4190,49 @@ app.get('/download/json/:className/', function (req, res) {
 
 });
 
+app.get('/newsletter/:id', function (req, res) {
+
+    //delete all items in the database
+    let storyId = req.params.id;
+    let _story;
+
+    Parse.Promise.when(
+        new Parse.Query(StoryClass).equalTo("objectId", storyId).first(),
+        new Parse.Query(ArtWorkClass).equalTo("object_id", storyId).first()
+    ).then(function (story, sticker) {
+
+        _story = story;
+
+        colors = story.get("color");
+        if (colors) {
+            colors = story.get("color");
+        } else {
+            //use system default
+            colors = type.DEFAULT.color;
+        }
+
+       return Parse.Promise.when(
+          new Parse.Query(StickerClass).equalTo("objectId", sticker.get("sticker")).first(),
+            new Parse.Query(StoryItem).equalTo("story_id", _story.id).find()
+        )
+
+
+    }).then(function (sticker, storyItems) {
+
+        res.render("pages/newsletter", {
+            story: _story,
+            sticker: sticker,
+            colors: colors,
+            storyItems: storyItems
+        });
+
+    }, function (error) {
+        console.log("ERROR " + error.message);
+        res.redirect('/stories');
+    })
+
+});
+
 
 app.get('/upload/json/:className/:fileName', function (req, res) {
 
@@ -4206,7 +4244,7 @@ app.get('/upload/json/:className/:fileName', function (req, res) {
         return Parse.Object.destroyAll(items);
     }).then(() => {
 
-        let rawdata = fs.readFileSync('public/json/'+fileName+'.json');
+        let rawdata = fs.readFileSync('public/json/' + fileName + '.json');
         let categories = JSON.parse(rawdata);
 
         let categoryList = [];

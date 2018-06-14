@@ -45,7 +45,7 @@ function handleFileSelect(evt) {
         reader.onload = (function(theFile) {
             return function(e) {
  
-                //preview images in drag n drop area
+                //preview newsletter in drag n drop area
                 // let counter = Math.floor(Math.random() * Math.floor(1000));
                 let span = document.createElement('span');
                 // span.innerHTML = ['<img class="thumb" name="im1" " id="image_id',counter,'" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');

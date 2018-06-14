@@ -1,0 +1,191 @@
+
+
+
+body {
+  margin: 0;
+  background: #fff;
+  height: auto;
+}
+
+#bannerPattern {
+  background-image: url('../../../newsletter/svg/background-pattern.svg');
+}
+
+#bannerImg {
+  background-image: linear-gradient(to bottom, #df5a34, #8651aa);
+}
+
+#bannerImg img {
+  width: 30%;
+  padding-top: 30px;
+  margin: auto;
+  display: block;
+}
+
+#bannerImg h1 {
+  text-align: center;
+  color: #fff;
+  padding-bottom: 30px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.content-section {
+  margin: auto;
+  /* padding-bottom: 3rem; */
+}
+
+.content-section p {
+  font-size: 1.4rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.divider {
+  border-bottom-style: solid;
+  border-width: 2px;
+  margin: 3rem 5rem;
+}
+
+#download-text h5 {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#download-img img {
+  width: 100%;
+  padding-top: 30px;
+  margin: auto;
+  display: block;
+}
+
+#share-story {
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.download-badge {
+  padding: 1rem;
+}
+
+.purple-text {
+  color: #753b89;
+}
+
+.gray-text {
+  color: #4f4f4f;
+}
+
+.semi-bold {
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.padding-top {
+  padding-top: 3rem;
+}
+
+.lightPinkBg {
+  background-color: #FFF9FE;
+}
+
+.deepPinkBg {
+  background-color: #FDEDFB;
+}
+
+/* Quote Styles //////////////////////////////////////////////////////////////*/
+
+.quote-area {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.quote-area-begin {
+  /* width: 10%; */
+  height: auto;
+}
+
+.quote-area-begin img {
+  width: 80%;
+  /* padding-top: 30px; */
+  display: block;
+}
+
+.quote-area-content {
+  /* width: 80%; */
+  height: auto;
+}
+
+.quote-area-content p {
+  /* font-size: 1.8rem; */
+  font-size: 2.2rem;
+}
+
+.quote-area-end {
+  /* width: 10%; */
+  height: auto;
+  position: relative;
+
+  display: block;
+  min-height: 170px;
+  /* min-height: 200px; */
+}
+
+.quote-area-end img {
+  width: 30%;
+  padding-top: 100px;
+  margin: auto;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/* End Of Quote Styles ///////////////////////////////////////////////////////*/
+
+/* Newsletter Styles //////////////////////////////////////////////////////// */
+
+#newsletter h1{
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  color: #8952a7;
+}
+
+#newsletter h2{
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  color: #a46580;
+  font-size: 1.6rem;
+}
+
+#newsletter h3{
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  /* color: #8952a7; */
+}
+
+#submit-btn {
+  float: right;
+  background-color: #8952a7;
+  border-radius: 10px;
+  padding-left:  30px;
+  padding-right: 30px;
+}
+
+#continue-btn {
+  /* float: right; */
+  display: block;
+  margin: 20px auto;
+  background-color: #8952a7;
+  border-radius: 10px;
+  padding-left:  30px;
+  padding-right: 30px;
+}
+
+/* End Of Newsletter Styles ///////////////////////////////////////////////// */
