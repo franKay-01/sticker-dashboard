@@ -4266,34 +4266,36 @@ app.post('/newsletter/email', function (req, res) {
                let file = fs.readFileSync('./views/pages/newsletter_updates.ejs', 'ascii');
                 console.log("FILE " + file);
 
-                let htmlString = ejs.renderFile(file, { id: newsletter.id });
-                console.log("STRING " + htmlString);
+                return ejs.renderFile(file, { id: newsletter.id });
 
-
-                let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
-                let data = {
-                    //Specify email data
-                    from: process.env.EMAIL_FROM || "test@example.com",
-                    //The email to contact
-                    to: email,
-                    //Subject and text data
-                    subject: 'G-Stickers Newsletter Subscription',
-                    // html: fs.readFileSync("./uploads/newsletter_email.html", "utf8"),
-                    html: htmlString
-
-                }
-
-                mailgun.messages().send(data, function (error, body) {
-                    if (error) {
-                        console.log("BIG BIG ERROR: ", error.message);
-                    }
-                    else {
-
-                        console.log("EMAIL SENT" + body);
-                    }
-                });
-                res.render("pages/newsletter_subscribe");
             }
+
+        }).then(function (htmlString) {
+
+            let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
+            let data = {
+                //Specify email data
+                from: process.env.EMAIL_FROM || "test@example.com",
+                //The email to contact
+                to: email,
+                //Subject and text data
+                subject: 'G-Stickers Newsletter Subscription',
+                // html: fs.readFileSync("./uploads/newsletter_email.html", "utf8"),
+                html: htmlString
+
+            }
+
+            mailgun.messages().send(data, function (error, body) {
+                if (error) {
+                    console.log("BIG BIG ERROR: ", error.message);
+                }
+                else {
+
+                    console.log("EMAIL SENT" + body);
+                }
+            });
+
+            res.render("pages/newsletter_subscribe");
 
         }, function (error) {
 
