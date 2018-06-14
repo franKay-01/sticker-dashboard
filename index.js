@@ -54,6 +54,7 @@ let LatestClass = "Latest";
 let Barcode = "Barcodes";
 let Links = "Links";
 let PreviouslySelected = "PreviouslySelected";
+let NewsLetter = "NewsLetter";
 
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
@@ -4233,6 +4234,65 @@ app.get('/newsletter/:id', function (req, res) {
 
 });
 
+app.post('/newsletter/email', function (req, res) {
+
+    let email = req.body.email;
+
+    if (email){
+
+        new Parse.Query(NewsLetter).equalTo("email", email).first().then(function (newsletter) {
+
+            if (newsletter){
+                if (newsletter.get("subscribe") === false){
+                    //send email to subscribe
+                }else if (newsletter.get("subscribe") === true){
+                    // page to tell user they already subscribed
+                }
+            }else {
+                let NewsLetter = new Parse.Object.extend(NewsLetter);
+                let newsletter = new NewsLetter();
+
+                newsletter.set("email", email);
+                newsletter.set("subscribe", false);
+
+                return newsletter.save();
+            }
+        }).then(function (newsletter) {
+
+            if (newsletter){
+
+                let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
+                let data = {
+                    //Specify email data
+                    from: process.env.EMAIL_FROM || "test@example.com",
+                    //The email to contact
+                    to: email,
+                    //Subject and text data
+                    subject: 'G-Stickers Newsletter Subscription',
+                    html: fs.readFileSync("./uploads/newsletter_email.html", "utf8")
+                }
+
+                mailgun.messages().send(data, function (error, body) {
+                    if (error) {
+                        console.log("BIG BIG ERROR: ", error.message);
+                    }
+                    else {
+
+                        console.log("EMAIL SENT" + body);
+                    }
+                });
+                res.render("pages/newsletter_subscribe");
+            }
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('')
+        })
+
+
+    }
+});
 
 app.get('/upload/json/:className/:fileName', function (req, res) {
 
