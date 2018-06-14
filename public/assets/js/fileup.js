@@ -60,7 +60,7 @@
                 document.getElementById('imgChange').value = 'true';
             }
             else {
-                alert("only images!!!!!");
+                alert("only newsletter!!!!!");
                 output.preventDefault();
             }
             var fname = document.getElementById('filename');
