@@ -4269,7 +4269,8 @@ app.post('/newsletter/email', function (req, res) {
                     to: email,
                     //Subject and text data
                     subject: 'G-Stickers Newsletter Subscription',
-                    html: fs.readFileSync("./uploads/newsletter_email.html", "utf8")
+                    html: fs.readFileSync("./uploads/newsletter_email.html", "utf8"),
+                    id: newsletter.id,
                 }
 
                 mailgun.messages().send(data, function (error, body) {
