@@ -4243,7 +4243,7 @@ app.post('/newsletter/email', function (req, res) {
 
         let file = fs.readFileSync('./views/pages/newsletter_updates.ejs', 'ascii');
 
-         ejs.render(file, { id: id });
+        return ejs.render(file, { id: id });
     }
 
     if (email){
