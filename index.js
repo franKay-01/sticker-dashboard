@@ -4245,11 +4245,15 @@ app.post('/newsletter/email', function (req, res) {
 
             if (newsletter){
                 if (newsletter.get("subscribe") === false){
-                    //send email to subscribe
+
+                    res.redirect('/newsletter/update/' + newsletter.id);
+
                 }else if (newsletter.get("subscribe") === true){
-                    // page to tell user they already subscribed
+
+                    res.render("pages/newsletter_already_subscribed");
+
                 }
-            }else {
+            } else {
                 let NewsLetter = new Parse.Object.extend(NewsLetterClass);
                 let newsletter = new NewsLetter();
 
@@ -4280,7 +4284,7 @@ app.post('/newsletter/email', function (req, res) {
                 to: email,
                 //Subject and text data
                 subject: 'G-Stickers Newsletter Subscription',
-                // html: fs.readFileSync("./uploads/newsletter_email.html", "utf8"),
+                // html: fs.readFileSync("./uploads/newsletter_email.ejs", "utf8"),
                 html: htmlString
 
             }
@@ -4305,6 +4309,27 @@ app.post('/newsletter/email', function (req, res) {
 
 
     }
+});
+
+app.get('/newsletter/update/:id', function (req, res) {
+
+    let id = req.params.id;
+
+    return new Parse.Query(NewsLetterClass).equalTo("objectId", id).first().then(function (newsletter) {
+
+        newsletter.set("subscribe", true);
+
+        return newsletter.save();
+
+    }).then(function () {
+
+        // TODO display type of update before changing subscription to true
+        res.render("pages/newsletter_updates");
+    }, function (error) {
+
+        console.log("ERROR "+error.message);
+
+    })
 });
 
 app.get('/upload/json/:className/:fileName', function (req, res) {
