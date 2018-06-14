@@ -28,10 +28,10 @@
 
     <div class="grid-container grid-x">
 
-        <%if (story_item.length === 0) {%>
+        <%if (storyItems.length === 0) {%>
         <p class="none" style="margin: 100px 300px auto;"><b>No Story Item</b></p>
         <%} else {%>
-        <% story_item.forEach(function(item, index) { %>
+        <% storyItems.forEach(function(item, index) { %>
         <!-- 0 is TEXT-->
         <%if (item.get("type") === 0){%>
         <!-- Content-Section-One -->
