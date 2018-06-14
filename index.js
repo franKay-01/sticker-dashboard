@@ -3586,7 +3586,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
                 categories: allCategories,
                 pack_id: pack_,
                 previous: previous_sticker,
-                next: next_sticker,
+                second: next_sticker,
                 // uri: url,
                 id: id
             });
@@ -4082,7 +4082,7 @@ app.get('/upload_page/:id', function (req, res) {
     }
 
 });
-
+p
 app.post('/upload_dropbox_file', function (req, res) {
 
     var bitmap;
