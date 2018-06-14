@@ -4082,9 +4082,8 @@ app.get('/upload_page/:id', function (req, res) {
     }
 
 });
-p
-app.post('/upload_dropbox_file', function (req, res) {
 
+app.post('/upload_dropbox_file', function (req, res) {
     var bitmap;
     var name;
     var fileUrl;
