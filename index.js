@@ -4333,6 +4333,7 @@ app.get('/newsletter/update/:id', function (req, res) {
 
         // TODO display type of update before changing subscription to true
         res.render("pages/newsletter_updates");
+
     }, function (error) {
 
         console.log("ERROR " + error.message);
@@ -4348,7 +4349,7 @@ app.get('/newsletter/update', function (req, res) {
     let emails = [];
     let colors;
 
-    when(
+    Parse.Promise.when(
         new Parse.Query(NewsLetterClass).equalTo("subscribe", true).find(),
         new Parse.Query(StoryClass).equalTo("objectId", 'qRNKDvid5z').first(),
         new Parse.Query(ArtWorkClass).equalTo("object_id", 'qRNKDvid5z').first()
