@@ -315,7 +315,7 @@ exports.page = (items, id) => {
 
     if (items.length > 0) {
 
-        let i = items.findIndex(item.id === id);
+        let i = items.findIndex(item => item.id === id);
 
         i = i + 1; // increase i by one
         i = i % items.length; // if we've gone too high, start from `0` again
