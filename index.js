@@ -184,7 +184,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(methodOverride());
 
-app.use(require("routes/newsletter"));
+app.use(require("./routes/newsletter"));
 
 app.use('/', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
