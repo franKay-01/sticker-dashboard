@@ -4144,7 +4144,7 @@ app.post('/upload_dropbox_file', function (req, res) {
 
 /*====================================== NEWSLETTER ============================*/
 
-app.get('/newsletter/:storyId', function (req, res) {
+app.get('/newsletter/story/:storyId', function (req, res) {
 
     //delete all items in the database
     let storyId = req.params.storyId;
@@ -4332,15 +4332,15 @@ app.get('/newsletter/send/story', function (req, res) {
 
             emails.push(newsletter.get("email"));
 
-            let file = fs.readFileSync('./views/pages/newsletter_story.ejs', 'ascii');
+        });
 
-            return ejs.render(file, {
-                story: _story,
-                sticker: sticker,
-                colors: colors,
-                storyItems: storyItems
-            });
+        let file = fs.readFileSync('./views/pages/newsletter_story.ejs', 'ascii');
 
+        return ejs.render(file, {
+            story: _story,
+            sticker: sticker,
+            colors: colors,
+            storyItems: storyItems
         });
 
 
