@@ -315,17 +315,26 @@ exports.page = (items, id) => {
 
     if (items.length > 0) {
 
-        let item = items.find((item,i) => {
+        items.find((item, i) => {
 
-            if(item.id === id )
-            return {
-                index:i
+            if (item.id === id) {
+
+                i = i + 1; // increase i by one
+                i = i % items.length; // if we've gone too high, start from `0` again
+                _page.next = items[i].id; // give us back the item of where we are now
+
+                if (i === 0) { // i would become 0
+                    i = items.length; // so put it at the other end of the array
+                }
+                i = i - 1; // decrease by one
+                _page.previous = items[i].id; // give us back the item of where we are now
+
+
             }
+
         });
-        console.log("PAGE______________" + JSON.stringify(item));
 
     }
-
 
     return _page
 };
