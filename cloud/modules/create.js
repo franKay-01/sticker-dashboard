@@ -21,7 +21,7 @@ exports.Category = category => {
     _category.id = category.id;
     _category.name = category.get("name");
     let emoji = category.get("emoji");
-    if (_category.emoji) {
+    if (category.emoji) {
         _category.emoji = emoji;
     } else {
         _category.emoji = "";

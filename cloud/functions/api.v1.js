@@ -24,7 +24,6 @@ const DEFAULT_PACK = process.env.DEFAULT_PACK;
 //TODO remove repeated code for creating stories/stickers
 //TODO properly handle errors
 
-
 Parse.Cloud.define("getFeed", function (req, res) {
 
     let feed = {};
@@ -37,7 +36,8 @@ Parse.Cloud.define("getFeed", function (req, res) {
         new Parse.Query(LatestClass).equalTo("objectId", LATEST_STICKER).first({useMasterKey: true}),
         new Parse.Query(LatestClass).equalTo("objectId", LATEST_STORY).first({useMasterKey: true}),
         new Parse.Query(PacksClass).equalTo("user_id", ADMIN).notEqualTo("objectId", DEFAULT_PACK).limit(2).find({useMasterKey: true}),
-        new Parse.Query(CategoriesClass).limit(30).find()
+        new Parse.Query(CategoriesClass).ascending().limit(30).find()
+
     ).then((sticker, story, packs, categories) => {
 
         _packs = packs;
@@ -90,14 +90,16 @@ Parse.Cloud.define("getFeed", function (req, res) {
         res.success(util.setResponseOk(feed));
 
     }, error => {
+
         util.handleError(res, error);
+
     })
 
 });
 
 Parse.Cloud.define("getCategories", function (req, res) {
 
-    new Parse.Query(CategoriesClass).limit(1000).find().then(categories => {
+    new Parse.Query(CategoriesClass).ascending().limit(1000).find().then(categories => {
 
         let categoryList = [];
 
