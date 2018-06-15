@@ -2619,7 +2619,7 @@ app.get('/review_details/:id', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            return new Parse.Query(_class.Review).equalTo("objectId", review_id).first();
+            return new Parse.Query(_class.Reviews).equalTo("objectId", review_id).first();
 
         }).then(function (review) {
             _review = review;
@@ -2658,7 +2658,7 @@ app.get('/review_collection', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            return new Parse.Query(_class.Review).equalTo('owner', _user.id).find(); // Set our channel
+            return new Parse.Query(_class.Reviews).equalTo('owner', _user.id).find(); // Set our channel
 
         }).then(function (review) {
             // res.send(JSON.stringify(review));
@@ -3336,7 +3336,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
                     categoryNames.push(category.get("name"))
                 });
 
-                return new Parse.Query(_class.Review).equalTo("objectId", review_id).first();
+                return new Parse.Query(_class.Reviews).equalTo("objectId", review_id).first();
 
             }).then(function (review) {
 
@@ -3701,7 +3701,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
-            let Sticker_review = new Parse.Object.extend(_class.Review);
+            let Sticker_review = new Parse.Object.extend(_class.Reviews);
             let reviews = new Sticker_review();
 
             new Parse.Query(_class.Stickers).equalTo("objectId", id).first().then(function (sticker) {
@@ -4361,17 +4361,12 @@ app.get('/newsletter/send/story', function (req, res) {
 
         };
 
-        mailgun.messages().send(data, function (error, body) {
-            if (error) {
-                console.log("BIG BIG ERROR: ", error.message);
-            }
-            else {
+        return mailgun.messages().send(data);
 
-                console.log("EMAIL SENT" + body);
-            }
-        });
-        // TODO display type of update before changing subscription to true
+    }).then(() => {
+
         res.send("EMAIL SENT");
+
     }, function (error) {
 
         console.log("ERROR " + error.message);
