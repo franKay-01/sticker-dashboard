@@ -4347,7 +4347,7 @@ app.get('/newsletter/send/story', function (req, res) {
 
         return mailgun.messages().send({
             from: process.env.EMAIL_FROM || "test@example.com",
-            to: "evans.attafuah@gmail.com",
+            to: emails.toString(),
             subject: _story.get("title"),
             html: htmlString
 
