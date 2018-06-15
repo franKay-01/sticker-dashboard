@@ -3524,9 +3524,6 @@ app.get('/details/:stickerId/:packId', function (req, res) {
             // }
         }).then(function (stickers) {
 
-
-            console.log("STICKERS");
-
             let page = util.page(stickers,stickerId);
 
             res.render("pages/sticker_details", {
