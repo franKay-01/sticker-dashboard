@@ -4314,9 +4314,7 @@ app.get('/newsletter/send/story', function (req, res) {
         _story = story;
 
         colors = story.get("color");
-        if (colors) {
-            colors = story.get("color");
-        } else {
+        if (!colors) {
             //use system default
             colors = type.DEFAULT.color;
         }
@@ -4348,7 +4346,7 @@ app.get('/newsletter/send/story', function (req, res) {
 
     }).then(function (htmlString) {
 
-        console.log("COLLECTED ALL DATA 3");
+        console.log("COLLECTED ALL DATA 3 " + htmlString);
 
         let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
         let data = {
