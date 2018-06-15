@@ -213,7 +213,7 @@ app.all('*',  (req, res, next) => {
 app.all('/',  (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    var schema = req.headers["x-forwarded-proto"];
+    let schema = req.headers["x-forwarded-proto"];
 
     if (schema === "https") {
         req.connection.encrypted = true;
@@ -245,7 +245,7 @@ const getUser = token => {
     return new Parse.Query('_Session')
         .equalTo('sessionToken', token)
         .include('user').first({sessionToken: token});
-}
+};
 
 let serviceAccount = require('./gstickers-e4668-firebase-adminsdk-s4jya-36f278f5f3.json');
 
