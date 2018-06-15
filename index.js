@@ -4345,22 +4345,13 @@ app.get('/newsletter/send/story', function (req, res) {
 
     }).then(function (htmlString) {
 
-        console.log("COLLECTED ALL DATA 3 " + htmlString);
-
-
-        let data = {
-            //Specify email data
+        return mailgun.messages().send({
             from: process.env.EMAIL_FROM || "test@example.com",
-            //The email to contact
-            to: emails,
-            //Subject and text data
-            subject: 'G-Stickers Newsletter Subscription',
-            // html: fs.readFileSync("./uploads/newsletter_email.ejs", "utf8"),
+            to: "evans.attafuah@gmail.com",
+            subject: _story.get("title"),
             html: htmlString
 
-        };
-
-        return mailgun.messages().send(data);
+        });
 
     }).then(() => {
 
