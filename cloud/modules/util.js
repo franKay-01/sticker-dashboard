@@ -319,7 +319,6 @@ exports.page = (items, id) => {
 
             if(item.id === id )
             return {
-                item:item,
                 index:i
             }
         });
