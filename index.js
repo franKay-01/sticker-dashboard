@@ -30,7 +30,7 @@ let _ = require('underscore');
 //imported class
 let helper = require('./cloud/modules/helpers');
 let type = require('./cloud/modules/type');
-let _class = require('/cloud/modules/classNames');
+let _class = require('./cloud/modules/classNames');
 
 //google app engine configuration
 //let config = require('./config.json');
