@@ -3453,7 +3453,6 @@ app.get('/details/:stickerId/:packId', function (req, res) {
 
     if (token) {
         let _user = {};
-        // console.log("STICKERS " + JSON.stringify(stickers));
 
         getUser(token).then(function (sessionToken) {
 
@@ -3524,6 +3523,9 @@ app.get('/details/:stickerId/:packId', function (req, res) {
 
             // }
         }).then(function (stickers) {
+
+
+            console.log("STICKERS");
 
             let page = util.page(stickers,stickerId);
 

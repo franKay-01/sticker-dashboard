@@ -316,10 +316,15 @@ exports.page = (items, id) => {
     if (items.length > 0) {
 
         _.each(items, function (item, i) {
+            console.log("EACH");
 
             if (item.id === id) {
 
+                console.log("FOUND ID");
+
                 let _default = {next: items[0].id, previous: items[0].id};
+
+                console.log("DEFAULT");
 
                 //if we have just one item
                 i === 0 && items.length === 1 ?
@@ -327,17 +332,23 @@ exports.page = (items, id) => {
                     :
                     _page = _default;
 
+                console.log("ZERO INDEX");
+
                 //if index is the first item
                 i === 0 ?
                     _page = {next: items[i + 1].id, previous: items[items.length - 1].id}
                     :
                     _page = {next: items[i + 1].id, previous: items[i - 1].id};
 
+                console.log("ZERO INDEX TWO");
+
                 //if index is the last item
                 i === items.length - 1 ?
                     _page = {next: items[0].id, previous: items[i - 1].id}
                     :
                     _page = {next: items[i + 1].id, previous: items[i - 1].id};
+
+                console.log("FINAL INDEX");
 
             }
 

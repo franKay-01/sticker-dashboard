@@ -30,7 +30,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STICKER).first({useMasterKey: true}),
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STORY).first({useMasterKey: true}),
         new Parse.Query(_class.Packs).equalTo("user_id", ADMIN).notEqualTo("objectId", DEFAULT_PACK).limit(2).find({useMasterKey: true}),
-        new Parse.Query(_class.Categories).ascending().limit(30).find()
+        new Parse.Query(_class.Categories).ascending("name").limit(30).find()
 
     ).then((sticker, story, packs, categories) => {
 
@@ -93,7 +93,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
 Parse.Cloud.define("getCategories", function (req, res) {
 
-    new Parse.Query(_class.Categories).ascending().limit(1000).find().then(categories => {
+    new Parse.Query(_class.Categories).ascending("name").limit(1000).find().then(categories => {
 
         let categoryList = [];
 
