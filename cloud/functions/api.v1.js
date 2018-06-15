@@ -31,6 +31,21 @@ let createSticker = sticker => {
     return _sticker;
 };
 
+let createCategory = category => {
+
+    let _category = {};
+    _category.id = category.id;
+    _category.name = category.get("name");
+    let emoji = category.get("emoji");
+    if (_category.emoji) {
+        _category.emoji = emoji;
+    } else {
+        _category.emoji = "";
+    }
+
+    return _category;
+};
+
 let createPack = (pack, stickerList) => {
 
     let _pack = {};
@@ -118,8 +133,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
         new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STORY).first({useMasterKey: true}),
         new Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId", process.env.DEFAULT_PACK).limit(2).find({useMasterKey: true}),
         new Parse.Query(CategoriesClass).limit(30).find()
-
-    ).then((sticker, story,packs,categories) => {
+    ).then((sticker, story, packs, categories) => {
 
         _packs = packs;
         _categories = categories;
@@ -140,10 +154,10 @@ Parse.Cloud.define("getFeed", function (req, res) {
             new Parse.Query(StoryItemClass).equalTo("story_id", story.id).find({useMasterKey: true})
         );
 
-    }).then((sticker,storyItems) => {
+    }).then((sticker, storyItems) => {
 
         feed.stickerOfDay = createSticker(_sticker);
-        feed.latestStory = createStory(_story,sticker,storyItems);
+        feed.latestStory = createStory(_story, sticker, storyItems);
 
         let promises = [];
         _.map(_packs, function (pack) {
@@ -151,12 +165,12 @@ Parse.Cloud.define("getFeed", function (req, res) {
         });
         return Parse.Promise.when(promises);
 
-    }).then(stickerList =>{
+    }).then(stickerList => {
 
         let packList = [];
 
         _.map(_packs, pack => {
-            packList.push(createPack(pack,stickerList))
+            packList.push(createPack(pack, stickerList))
         });
 
         feed.packs = packList;
