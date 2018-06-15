@@ -4144,10 +4144,10 @@ app.post('/upload_dropbox_file', function (req, res) {
 
 /*====================================== NEWSLETTER ============================*/
 
-app.get('/newsletter/:id', function (req, res) {
+app.get('/newsletter/:storyId', function (req, res) {
 
     //delete all items in the database
-    let storyId = req.params.id;
+    let storyId = req.params.storyId;
     let _story;
     let colors;
 
@@ -4213,6 +4213,7 @@ app.post('/newsletter/email', function (req, res) {
 
                 }
             } else {
+
                 let NewsLetter = new Parse.Object.extend(_class.NewsLetter);
                 let newsletter = new NewsLetter();
 
@@ -4221,6 +4222,7 @@ app.post('/newsletter/email', function (req, res) {
 
                 return newsletter.save();
             }
+
         }).then(function (newsletter) {
 
             if (newsletter.id) {
@@ -4301,9 +4303,9 @@ app.get('/newsletter/update', function (req, res) {
     let colors;
 
     return Parse.Promise.when(
-        new Parse.Query(NewsLetter).equalTo("subscribe", true).find(),
-        new Parse.Query(Stories).equalTo("objectId", 'qRNKDvid5z').first(),
-        new Parse.Query(ArtWork).equalTo("object_id", 'qRNKDvid5z').first()
+        new Parse.Query(_class.NewsLetter).equalTo("subscribe", true).find(),
+        new Parse.Query(_class.Stories).equalTo("objectId", 'qRNKDvid5z').first(),
+        new Parse.Query(_class.ArtWork).equalTo("object_id", 'qRNKDvid5z').first()
     ).then(function (newsletters, story, sticker) {
 
         console.log("COLLECTED ALL DATA");
@@ -4320,8 +4322,8 @@ app.get('/newsletter/update', function (req, res) {
         }
 
         return Parse.Promise.when(
-            new Parse.Query(Sticker).equalTo("objectId", sticker.get("sticker")).first(),
-            new Parse.Query(StoryItems).equalTo("story_id", _story.id).find()
+            new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("sticker")).first(),
+            new Parse.Query(_class.StoryItems).equalTo("story_id", _story.id).find()
         )
 
     }).then(function (sticker, storyItems) {
