@@ -327,7 +327,7 @@ exports.page = (items, id) => {
                 console.log("DEFAULT");
 
                 //if we have just one item
-                i === 0 && items.length === 1 ?
+                i === 0 && items.length === 1 || items.length - 1 === 1 ?
                     _page = _default
                     :
                     _page = _default;
