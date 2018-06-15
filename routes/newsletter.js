@@ -1,9 +1,9 @@
 let express = require('express');
 let router = express.Router();
 
-router.use(function timeLog(req, res, next) {
-    next();
-});
+// router.use(function timeLog(req, res, next) {
+//     next();
+// });
 
 router.get('/newsletter/:id', function (req, res) {
 
