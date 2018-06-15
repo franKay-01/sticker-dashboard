@@ -13,7 +13,8 @@ exports.PACK_STATUS = {
 
 exports.USER = {
     "super": 0,
-    normal: 2
+    normal: 2,
+    team:3
 };
 
 exports.LINKS = {
@@ -24,7 +25,7 @@ exports.LINKS = {
     facebook: 4,
     twitter: 5,
     instagram: 6
-}
+};
 
 exports.STORY_ITEM = {
     text: 0,

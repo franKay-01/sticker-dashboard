@@ -1,5 +1,7 @@
 let express = require('express');
 let router = express.Router();
+let _class = require("../cloud/modules/classNames");
+let type = require("../cloud/modules/type");
 
 // router.use(function timeLog(req, res, next) {
 //     next();
@@ -10,25 +12,24 @@ router.get('/newsletter/:id', function (req, res) {
     //delete all items in the database
     let storyId = req.params.id;
     let _story;
+    let colors;
 
     Parse.Promise.when(
-        new Parse.Query(StoryClass).equalTo("objectId", storyId).first(),
-        new Parse.Query(ArtWorkClass).equalTo("object_id", storyId).first()
+        new Parse.Query(_class.Story).equalTo("objectId", storyId).first(),
+        new Parse.Query(_class.ArtWork).equalTo("object_id", storyId).first()
     ).then(function (story, sticker) {
 
         _story = story;
 
-        let colors = story.get("color");
-        if (colors) {
-            colors = story.get("color");
-        } else {
+        colors = story.get("color");
+        if (!colors) {
             //use system default
             colors = type.DEFAULT.color;
         }
 
         return Parse.Promise.when(
-            new Parse.Query(StickerClass).equalTo("objectId", sticker.get("sticker")).first(),
-            new Parse.Query(StoryItem).equalTo("story_id", _story.id).find()
+            new Parse.Query(_class.Sticker).equalTo("objectId", sticker.get("sticker")).first(),
+            new Parse.Query(_class.StoryItem).equalTo("story_id", _story.id).find()
         )
 
     }).then(function (sticker, storyItems) {
@@ -60,7 +61,7 @@ router.post('/newsletter/email', function (req, res) {
 
     if (email) {
 
-        new Parse.Query(NewsLetterClass).equalTo("email", email).first().then(function (newsletter) {
+        new Parse.Query(_class.NewsLetter).equalTo("email", email).first().then(function (newsletter) {
 
             if (newsletter) {
                 if (newsletter.get("subscribe") === false) {
@@ -75,7 +76,7 @@ router.post('/newsletter/email', function (req, res) {
 
                 }
             } else {
-                let NewsLetter = new Parse.Object.extend(NewsLetterClass);
+                let NewsLetter = new Parse.Object.extend(_class.NewsLetter);
                 let newsletter = new NewsLetter();
 
                 newsletter.set("email", email);
@@ -136,7 +137,7 @@ router.get('/newsletter/update/:id', function (req, res) {
 
     let id = req.params.id;
 
-    return new Parse.Query(NewsLetterClass).equalTo("objectId", id).first().then(function (newsletter) {
+    return new Parse.Query(_class.NewsLetter).equalTo("objectId", id).first().then(function (newsletter) {
 
         newsletter.set("subscribe", true);
 
@@ -163,9 +164,9 @@ router.get('/newsletter/update', function (req, res) {
     let colors;
 
     return Parse.Promise.when(
-        new Parse.Query(NewsLetterClass).equalTo("subscribe", true).find(),
-        new Parse.Query(StoryClass).equalTo("objectId", 'qRNKDvid5z').first(),
-        new Parse.Query(ArtWorkClass).equalTo("object_id", 'qRNKDvid5z').first()
+        new Parse.Query(NewsLetter).equalTo("subscribe", true).find(),
+        new Parse.Query(Story).equalTo("objectId", 'qRNKDvid5z').first(),
+        new Parse.Query(ArtWork).equalTo("object_id", 'qRNKDvid5z').first()
     ).then(function (newsletters, story, sticker) {
 
         console.log("COLLECTED ALL DATA");
@@ -182,7 +183,7 @@ router.get('/newsletter/update', function (req, res) {
         }
 
         return Parse.Promise.when(
-            new Parse.Query(StickerClass).equalTo("objectId", sticker.get("sticker")).first(),
+            new Parse.Query(Sticker).equalTo("objectId", sticker.get("sticker")).first(),
             new Parse.Query(StoryItem).equalTo("story_id", _story.id).find()
         )
 
