@@ -4303,8 +4303,8 @@ app.get('/newsletter/send/story', function (req, res) {
 
     return Parse.Promise.when(
         new Parse.Query(_class.NewsLetter).equalTo("subscribe", true).find(),
-        new Parse.Query(_class.Stories).equalTo("objectId", 'qRNKDvid5z').first(),
-        new Parse.Query(_class.ArtWork).equalTo("object_id", 'qRNKDvid5z').first()
+        new Parse.Query(_class.Stories).equalTo("objectId", 'VcTBweB2Mz').first(),
+        new Parse.Query(_class.ArtWork).equalTo("object_id", 'VcTBweB2Mz').first()
     ).then(function (newsletters, story, sticker) {
 
         console.log("COLLECTED ALL DATA");
