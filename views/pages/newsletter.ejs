@@ -22,7 +22,7 @@
         <div id="bannerPattern">
             <div class="small-12">
                 <img src="<%= sticker.get("uri").url() %>" alt="Banner">
-                <h1>I Burnt his Jollof</h1>
+                <h1><%= story.get("title") %></h1>
             </div>
         </div>
     </div>
@@ -231,11 +231,14 @@
             </div>
             <div class="medium-6 small-12">
 
-                <label><h2>Please enter your email</h2>
-                    <input type="text" placeholder="Your Email">
-                </label>
+                <form method="post" action="/newsletter/email">
+                    <label><h2>Please enter your email</h2>
+                        <input type="email" placeholder="Your Email" name="email">
+                    </label>
 
-                <input id="submit-btn" type="submit" class="button" value="Submit">
+                    <input id="submit-btn" type="submit" class="button" value="Submit">
+
+                </form>
 
                 <!-- <label for="exampleFileUpload" class="button">Submit</label>
                 <input type="submit" id="exampleFileUpload" class="show-for-sr"> -->
