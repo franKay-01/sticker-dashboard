@@ -4295,7 +4295,7 @@ app.get('/newsletter/update/:id', function (req, res) {
 });
 
 
-app.get('/newsletter/update', function (req, res) {
+app.get('/newsletter/send/story', function (req, res) {
 
     let _newsletters;
     let _story;
