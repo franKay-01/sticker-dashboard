@@ -247,7 +247,7 @@ handleError = function (res, error) {
 
 
                 case STORY_PREVIEW_ERROR :
-                    error[KEY_RESPONSE_MESSAGE] = "Story wasn't found";
+                    error[KEY_RESPONSE_MESSAGE] = "Stories wasn't found";
                     break;
 
 

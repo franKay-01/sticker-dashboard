@@ -167,7 +167,8 @@ app.use(bodyParser.urlencoded({
 
 app.use(methodOverride());
 
-app.use(require("./routes/newsletter"));
+//TODO seperation of concerns
+//app.use(require("./routes/newsletter"));
 
 app.use('/', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -554,7 +555,7 @@ app.post('/new_story', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            let Stories = new Parse.Object.extend(_class.Story);
+            let Stories = new Parse.Object.extend(_class.Stories);
             let story = new Stories();
 
             story.set("title", title);
@@ -696,7 +697,7 @@ app.get('/advert_collection', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(_class.Advert).equalTo("user_id", _user.id).find(),
-                new Parse.Query(_class.AdvertImage).find(),
+                new Parse.Query(_class.AdvertImages).find(),
             );
 
         }).then(function (adverts, ad_images) {
@@ -764,7 +765,7 @@ app.get('/advert_details/:id', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(_class.Advert).equalTo("objectId", id).first(),
-                new Parse.Query(_class.AdvertImage).equalTo("advert_id", id).find()
+                new Parse.Query(_class.AdvertImages).equalTo("advert_id", id).find()
             );
 
         }).then(function (advert, advertImages) {
@@ -806,7 +807,7 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.AdvertImage).equalTo("advert_id", id).find();
+            return new Parse.Query(_class.AdvertImages).equalTo("advert_id", id).find();
 
         }).then(function (advert) {
 
@@ -832,7 +833,7 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
                     let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
                     console.log("PARSEFILE " + JSON.stringify(parseFile));
 
-                    let Advert_Image = new Parse.Object.extend(_class.AdvertImage);
+                    let Advert_Image = new Parse.Object.extend(_class.AdvertImages);
                     let advert_image = new Advert_Image();
 
                     advert_image.set("name", image_name);
@@ -1094,7 +1095,7 @@ app.get('/sticker_of_day', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Sticker).equalTo("sold", false).find();
+            return new Parse.Query(_class.Stickers).equalTo("sold", false).find();
 
         }).then(function (stickers) {
 
@@ -1128,7 +1129,7 @@ app.get('/story_of_day', function (req, res) {
             _user = sessionToken.get("user");
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Story).equalTo("user_id", _user.id).find(),
+                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).find(),
                 new Parse.Query(_class.ArtWork).find()
             )
         }).then(function (stories, artworks) {
@@ -1143,7 +1144,7 @@ app.get('/story_of_day', function (req, res) {
 
                 });
 
-                return new Parse.Query(_class.Sticker).containedIn("objectId", artWork).find();
+                return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
             } else {
                 res.render("pages/story_of_day", {
 
@@ -1201,7 +1202,7 @@ app.get('/find_stickers/:name', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Sticker).containedIn("categories", field).find();
+            return new Parse.Query(_class.Stickers).containedIn("categories", field).find();
 
         }).then(function (stickers) {
 
@@ -1234,7 +1235,7 @@ app.post('/new_catalogue_sticker/:id', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            return new Parse.Query(_class.Story).equalTo("objectId", id).first();
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
 
         }).then(function (story) {
 
@@ -1279,7 +1280,7 @@ app.get('/story/:id', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            return new Parse.Query(_class.Story).equalTo("objectId", id).first();
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
 
         }).then(function (story) {
 
@@ -1320,7 +1321,7 @@ app.post('/add_catalogue_artwork/:id', function (req, res) {
     if (token) {
 
         getUser(token).then(function (sessionToken) {
-            let Story = new Parse.Object.extend(_class.StoryItem);
+            let Story = new Parse.Object.extend(_class.StoryItems);
             let catalogue = new Story();
 
             catalogue.set("content", sticker_id);
@@ -1357,7 +1358,7 @@ app.post('/add_story_artwork/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Story).equalTo("objectId", story_id).first();
+            return new Parse.Query(_class.Stories).equalTo("objectId", story_id).first();
 
         }).then(function (story) {
             id = story.id;
@@ -1395,7 +1396,7 @@ app.get('/story_catalogue/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Story).equalTo("objectId", id).first()
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first()
 
         }).then(function (story) {
 
@@ -1430,7 +1431,7 @@ app.get('/story_details/:id', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Story).equalTo("objectId", story_id).first(),
+                new Parse.Query(_class.Stories).equalTo("objectId", story_id).first(),
                 new Parse.Query(_class.ArtWork).equalTo("object_id", story_id).first()
             );
 
@@ -1446,7 +1447,7 @@ app.get('/story_details/:id', function (req, res) {
                 colors = type.DEFAULT.color;
             }
 
-            return new Parse.Query(_class.Sticker).equalTo("objectId", sticker.get("sticker")).first();
+            return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("sticker")).first();
 
 
         }).then(function (_sticker) {
@@ -1479,7 +1480,7 @@ app.get('/change_color/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Story).equalTo("objectId", id).first();
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
 
         }).then(function (story) {
 
@@ -1520,7 +1521,7 @@ app.post('/edit_item/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.StoryItem).equalTo("objectId", id).first();
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
 
         }).then(function (story_item) {
 
@@ -1550,7 +1551,7 @@ app.get('/edit_story_item/:id/:story_id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.StoryItem).equalTo("objectId", id).first();
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
 
         }).then(function (story_item) {
 
@@ -1578,7 +1579,7 @@ app.get('/all_story_item/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.StoryItem).equalTo("story_id", id).find();
+            return new Parse.Query(_class.StoryItems).equalTo("story_id", id).find();
 
         }).then(function (story_item) {
 
@@ -1617,7 +1618,7 @@ app.post('/set_story_color/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Story).equalTo("objectId", id).first();
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
 
 
         }).then(function (story) {
@@ -1662,7 +1663,7 @@ app.get('/stories', function (req, res) {
             _user = sessionToken.get("user");
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Story).equalTo("user_id", _user.id).find(),
+                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).find(),
                 new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find(),
                 new Parse.Query(_class.ArtWork).find()
             );
@@ -1680,7 +1681,7 @@ app.get('/stories', function (req, res) {
 
             });
 
-            return new Parse.Query(_class.Sticker).containedIn("objectId", artWork).find();
+            return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
 
         }).then(function (stickers) {
 
@@ -1733,7 +1734,7 @@ app.post('/edit_story/:id', function (req, res) {
         getUser(token).then(function (sessionToken) {
             _user = sessionToken.get("user");
 
-            return new Parse.Query(_class.Story).equalTo("objectId", id).first();
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
 
         }).then(function (story) {
 
@@ -1824,7 +1825,7 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
         }).then(function (artwork) {
 
             console.log("ARTWORK " + artwork.id);
-            let Story = new Parse.Object.extend(_class.StoryItem);
+            let Story = new Parse.Object.extend(_class.StoryItems);
             let catalogue = new Story();
 
             catalogue.set("type", type.STORY_ITEM.image);
@@ -1859,7 +1860,7 @@ app.post('/new_catalogue/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            let Story = new Parse.Object.extend(_class.StoryItem);
+            let Story = new Parse.Object.extend(_class.StoryItems);
             let story = new Story();
 
             switch (_type) {
@@ -2012,13 +2013,13 @@ app.get('/home', function (req, res) {
                 new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first(),
                 new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
                 new Parse.Query(_class.Packs).equalTo("user_id", _user.id).limit(limit).find(),
-                new Parse.Query(_class.Category).limit(limit).find(),
-                new Parse.Query(_class.Story).equalTo("user_id", _user.id).limit(limit).find(),
+                new Parse.Query(_class.Categories).limit(limit).find(),
+                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find(),
-                new Parse.Query(_class.Category).count(),
+                new Parse.Query(_class.Categories).count(),
                 new Parse.Query(_class.Packs).equalTo("user_id", _user.id).count(),
-                new Parse.Query(_class.Sticker).equalTo("user_id", _user.id).count(),
-                new Parse.Query(_class.Story).equalTo("user_id", _user.id).count(),
+                new Parse.Query(_class.Stickers).equalTo("user_id", _user.id).count(),
+                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).count(),
                 new Parse.Query(_class.Advert).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(_class.Message).limit(limit).find()
             );
@@ -2038,9 +2039,9 @@ app.get('/home', function (req, res) {
             _storyLength = helper.leadingZero(storyLength);
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Sticker).equalTo("objectId", sticker.get("latest_id")).first(),
+                new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("latest_id")).first(),
                 new Parse.Query(_class.ArtWork).equalTo("object_id", latestStory.get("latest_id")).first(),
-                new Parse.Query(_class.Story).equalTo("objectId", latestStory.get("latest_id")).first()
+                new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("latest_id")).first()
             );
 
         }).then(function (latestSticker, storyImage, storyBody) {
@@ -2052,7 +2053,7 @@ app.get('/home', function (req, res) {
 
             sticker_id = storyImage.get("sticker");
 
-            return new Parse.Query(_class.Sticker).equalTo("objectId", sticker_id).first();
+            return new Parse.Query(_class.Stickers).equalTo("objectId", sticker_id).first();
 
         }).then(function (sticker) {
 
@@ -2327,7 +2328,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                 files.forEach(function (file) {
 
-                    let Sticker = new Parse.Object.extend(_class.Sticker);
+                    let Sticker = new Parse.Object.extend(_class.Stickers);
                     let sticker = new Sticker();
 
                     let fullName = file.originalname;
@@ -2446,7 +2447,7 @@ app.post('/find_category', function (req, res) {
 
     if (token) {
 
-        let searchCategory = new Parse.Query(_class.Category);
+        let searchCategory = new Parse.Query(_class.Categories);
         searchCategory.equalTo("name", categoryName);
         searchCategory.first().then(function (category) {
 
@@ -2478,7 +2479,7 @@ app.get('/categories', function (req, res) {
 
     if (token) {
 
-        new Parse.Query(_class.Category).limit(CATEGORY_LIMIT).ascending().find().then(function (categories) {
+        new Parse.Query(_class.Categories).limit(CATEGORY_LIMIT).ascending().find().then(function (categories) {
 
                 let _categories = helper.chunks(categories, 4);
 
@@ -2514,7 +2515,7 @@ app.post('/new_category', function (req, res) {
 
             _categories.forEach(function (category) {
 
-                let Category = new Parse.Object.extend(_class.Category);
+                let Category = new Parse.Object.extend(_class.Categories);
                 let new_category = new Category();
 
                 new_category.set("name", category.toLowerCase());
@@ -2626,7 +2627,7 @@ app.get('/review_details/:id', function (req, res) {
             let type = review.get("type");
             if (type === 1) {
                 let id = review.get("type_id");
-                return new Parse.Query(_class.Sticker).equalTo("objectId", id).first();
+                return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
             } else {
                 res.render("pages/review_details", {reviews: review});
             }
@@ -2814,7 +2815,7 @@ app.get('/delete_sticker/:id/:pid', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Sticker).equalTo("objectId", id).first();
+            return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
 
         }).then(function (_sticker) {
                 _sticker.destroy({
@@ -2852,7 +2853,7 @@ app.get('/remove_story/:id', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            return new Parse.Query(_class.Story).equalTo("objectId", id).first();
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
 
         }).then(function (story) {
 
@@ -2894,7 +2895,7 @@ app.get('/remove_story_items/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.StoryItem).equalTo("story_id", id).find();
+            return new Parse.Query(_class.StoryItems).equalTo("story_id", id).find();
 
         }).then(function (stories) {
 
@@ -2931,7 +2932,7 @@ app.post('/remove_category', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Category).equalTo("objectId", id).first();
+            return new Parse.Query(_class.Categories).equalTo("objectId", id).first();
 
         }).then(function (category) {
                 category.destroy({
@@ -3097,7 +3098,7 @@ app.get('/publish/:id/:state/:type', function (req, res) {
                     return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
 
                 case "story":
-                    return new Parse.Query(_class.Story).equalTo("objectId", id).first();
+                    return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
 
             }
 
@@ -3315,8 +3316,8 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
                 _user = sessionToken.get("user");
 
                 return Parse.Promise.when(
-                    new Parse.Query(_class.Sticker).equalTo("objectId", id).first(),
-                    new Parse.Query(_class.Category).find()
+                    new Parse.Query(_class.Stickers).equalTo("objectId", id).first(),
+                    new Parse.Query(_class.Categories).find()
                 );
 
             }).then(function (sticker, categories) {
@@ -3324,7 +3325,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
                     stickerDetail = sticker;
                     allCategories = categories;
 
-                    let sticker_relation = sticker.relation(_class.Category);
+                    let sticker_relation = sticker.relation(_class.Categories);
                     return sticker_relation.query().find();
 
                 }
@@ -3463,8 +3464,8 @@ app.get('/details/:id/:coll_id', function (req, res) {
             _user = sessionToken.get("user");
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Sticker).equalTo("objectId", id).first(),
-                new Parse.Query(_class.Category).ascending("name").find(),
+                new Parse.Query(_class.Stickers).equalTo("objectId", id).first(),
+                new Parse.Query(_class.Categories).ascending("name").find(),
                 new Parse.Query(_class.Packs).equalTo("objectId", pack_).first()
             );
 
@@ -3485,7 +3486,7 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
                 console.log("SELECTED " + selectedCategories);
 
-                var sticker_relation = sticker.relation(_class.Category);
+                var sticker_relation = sticker.relation(_class.Categories);
                 return sticker_relation.query().find();
 
             }
@@ -3745,7 +3746,7 @@ app.post('/review_sticker/:id/:pack_id', function (req, res) {
             let Sticker_review = new Parse.Object.extend(_class.Review);
             let reviews = new Sticker_review();
 
-            new Parse.Query(_class.Sticker).equalTo("objectId", id).first().then(function (sticker) {
+            new Parse.Query(_class.Stickers).equalTo("objectId", id).first().then(function (sticker) {
                 if (status === "2") {
                     sticker.set("flag", true);
                 } else if (status === "1") {
@@ -3835,7 +3836,7 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
 
             _user = sessionToken.get("user");
 
-            return new Parse.Query(_class.Sticker).equalTo("objectId", id).first();
+            return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
 
         }).then(function (sticker) {
 
@@ -4010,7 +4011,7 @@ app.post('/update/:id/:pid', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            return new Parse.Query(_class.Sticker).equalTo("objectId", stickerId).first();
+            return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first();
 
         }).then(function (sticker) {
 
@@ -4107,7 +4108,7 @@ app.post('/upload_dropbox_file', function (req, res) {
                             stickerPack = pack;
 
                             let parseFile = new Parse.File(name, {base64: bitmap});
-                            let Sticker = new Parse.Object.extend(_class.Sticker);
+                            let Sticker = new Parse.Object.extend(_class.Stickers);
                             let sticker = new Sticker();
 
                             sticker.set("stickerName", name);
@@ -4162,6 +4163,246 @@ app.post('/upload_dropbox_file', function (req, res) {
 });
 
 
+/*====================================== NewsLetter ============================*/
+
+app.get('/newsletter/:id', function (req, res) {
+
+    //delete all items in the database
+    let storyId = req.params.id;
+    let _story;
+    let colors;
+
+    Parse.Promise.when(
+        new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
+        new Parse.Query(_class.ArtWork).equalTo("object_id", storyId).first()
+    ).then(function (story, sticker) {
+
+        _story = story;
+
+        colors = story.get("color");
+        if (!colors) {
+            //use system default
+            colors = type.DEFAULT.color;
+        }
+
+        return Parse.Promise.when(
+            new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("sticker")).first(),
+            new Parse.Query(_class.StoryItems).equalTo("story_id", _story.id).find()
+        )
+
+    }).then(function (sticker, storyItems) {
+
+        res.render("pages/newsletter", {
+            story: _story,
+            sticker: sticker,
+            colors: colors,
+            storyItems: storyItems
+        });
+
+    }, function (error) {
+        console.log("ERROR " + error.message);
+        res.redirect('/stories');
+    })
+
+});
+
+app.post('/newsletter/email', function (req, res) {
+
+    let email = req.body.email;
+
+    function subscriptionTemplate(id) {
+
+        let file = fs.readFileSync('./views/pages/newsletter_email.ejs', 'ascii');
+
+        return ejs.render(file, {id: id, serverURL: SERVER_URL});
+    }
+
+    if (email) {
+
+        new Parse.Query(_class.NewsLetter).equalTo("email", email).first().then(function (newsletter) {
+
+            if (newsletter) {
+                if (newsletter.get("subscribe") === false) {
+
+                    return subscriptionTemplate(newsletter.id);
+
+                    // res.redirect('/newsletter/update/' + newsletter.id);
+
+                } else if (newsletter.get("subscribe") === true) {
+
+                    res.render("pages/newsletter_already_subscribed");
+
+                }
+            } else {
+                let NewsLetter = new Parse.Object.extend(_class.NewsLetter);
+                let newsletter = new NewsLetter();
+
+                newsletter.set("email", email);
+                newsletter.set("subscribe", false);
+
+                return newsletter.save();
+            }
+        }).then(function (newsletter) {
+
+            if (newsletter.id) {
+
+                return subscriptionTemplate(newsletter.id);
+
+            }
+
+            return newsletter;
+
+        }).then(function (htmlString) {
+
+            //TODO create a mailgun function and expose changing params
+            let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
+            let data = {
+                //Specify email data
+                from: process.env.EMAIL_FROM || "test@example.com",
+                //The email to contact
+                to: email,
+                //Subject and text data
+                subject: 'G-Stickers Newsletter Subscription',
+                // html: fs.readFileSync("./uploads/newsletter_email.ejs", "utf8"),
+                html: htmlString
+
+            };
+
+            //TODO use promises
+            mailgun.messages().send(data, function (error, body) {
+                if (error) {
+                    console.log("BIG BIG ERROR: ", error.message);
+                }
+                else {
+
+                    console.log("EMAIL SENT" + body);
+                }
+            });
+
+            res.render("pages/newsletter_subscribe");
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('')
+        })
+
+
+    }
+});
+
+app.get('/newsletter/update/:id', function (req, res) {
+
+    let id = req.params.id;
+
+    return new Parse.Query(_class.NewsLetter).equalTo("objectId", id).first().then(function (newsletter) {
+
+        newsletter.set("subscribe", true);
+
+        return newsletter.save();
+
+    }).then(function () {
+
+        // TODO display type of update before changing subscription to true
+        res.render("pages/newsletter_updates");
+
+    }, function (error) {
+
+        console.log("ERROR " + error.message);
+
+    })
+});
+
+
+app.get('/newsletter/update', function (req, res) {
+
+    let _newsletters;
+    let _story;
+    let emails = [];
+    let colors;
+
+    return Parse.Promise.when(
+        new Parse.Query(NewsLetter).equalTo("subscribe", true).find(),
+        new Parse.Query(Stories).equalTo("objectId", 'qRNKDvid5z').first(),
+        new Parse.Query(ArtWork).equalTo("object_id", 'qRNKDvid5z').first()
+    ).then(function (newsletters, story, sticker) {
+
+        console.log("COLLECTED ALL DATA");
+
+        _newsletters = newsletters;
+        _story = story;
+
+        colors = story.get("color");
+        if (colors) {
+            colors = story.get("color");
+        } else {
+            //use system default
+            colors = type.DEFAULT.color;
+        }
+
+        return Parse.Promise.when(
+            new Parse.Query(Sticker).equalTo("objectId", sticker.get("sticker")).first(),
+            new Parse.Query(StoryItems).equalTo("story_id", _story.id).find()
+        )
+
+    }).then(function (sticker, storyItems) {
+
+        console.log("COLLECTED ALL DATA 2");
+
+        _.each(_newsletters, function (newsletter) {
+
+            emails.push(newsletter.get("email"));
+
+            let file = fs.readFileSync('./views/pages/newsletter_story.ejs', 'ascii');
+
+            return ejs.render(file, {
+                story: _story,
+                sticker: sticker,
+                colors: colors,
+                storyItems: storyItems
+            });
+
+        });
+
+
+    }).then(function (htmlString) {
+
+        console.log("COLLECTED ALL DATA 3");
+
+        let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
+        let data = {
+            //Specify email data
+            from: process.env.EMAIL_FROM || "test@example.com",
+            //The email to contact
+            to: emails,
+            //Subject and text data
+            subject: 'G-Stickers Newsletter Subscription',
+            // html: fs.readFileSync("./uploads/newsletter_email.ejs", "utf8"),
+            html: htmlString
+
+        };
+
+        mailgun.messages().send(data, function (error, body) {
+            if (error) {
+                console.log("BIG BIG ERROR: ", error.message);
+            }
+            else {
+
+                console.log("EMAIL SENT" + body);
+            }
+        });
+        // TODO display type of update before changing subscription to true
+        res.send("EMAIL SENT");
+    }, function (error) {
+
+        console.log("ERROR " + error.message);
+
+    })
+});
+
+
+/*====================================== NewsLetter ============================*/
+
 /*====================================== Experiments ============================*/
 
 
@@ -4214,7 +4455,7 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
                 files.forEach(function (file, index) {
 
-                    let Sticker = new Parse.Object.extend(_class.Sticker);
+                    let Sticker = new Parse.Object.extend(_class.Stickers);
                     let sticker = new Sticker();
 
                     let fullName = file.originalname;
