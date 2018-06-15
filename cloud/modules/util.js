@@ -1,5 +1,4 @@
 /**
- * Module for creating temperature needed implementations.
  * It basically serves as a middle on the server.
  */
 

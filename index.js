@@ -4178,21 +4178,6 @@ app.post('/upload_dropbox_file', function (req, res) {
 
 /*====================================== Experiments ============================*/
 
-app.get('/download/json/:className/', function (req, res) {
-
-    //delete all items in the database
-    let className = req.params.className;
-
-    new Parse.Query(className).find().then((items) => {
-        let _text = [];
-        _.each(items, item => {
-            _text.push({"name": item.get("name")});
-        });
-        res.send(JSON.stringify(_text))
-    })
-
-});
-
 app.get('/newsletter/:id', function (req, res) {
 
     //delete all items in the database
@@ -4284,6 +4269,7 @@ app.post('/newsletter/email', function (req, res) {
 
         }).then(function (htmlString) {
 
+            //TODO create a mailgun function and expose changing params
             let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
             let data = {
                 //Specify email data
@@ -4295,8 +4281,9 @@ app.post('/newsletter/email', function (req, res) {
                 // html: fs.readFileSync("./uploads/newsletter_email.ejs", "utf8"),
                 html: htmlString
 
-            }
+            };
 
+            //TODO use promises
             mailgun.messages().send(data, function (error, body) {
                 if (error) {
                     console.log("BIG BIG ERROR: ", error.message);
@@ -4428,41 +4415,6 @@ app.get('/newsletter/update', function (req, res) {
     })
 });
 
-
-app.get('/upload/json/:className/:fileName', function (req, res) {
-
-    //delete all items in the database
-    let fileName = req.params.fileName;
-    let className = req.params.className;
-
-    new Parse.Query(className).limit(1000).find().then((items) => {
-        return Parse.Object.destroyAll(items);
-    }).then(() => {
-
-        let rawdata = fs.readFileSync('public/json/' + fileName + '.json');
-        let categories = JSON.parse(rawdata);
-
-        let categoryList = [];
-        categories.forEach(function (category) {
-
-            let Category = new Parse.Object.extend(CategoryClass);
-            let _category = new Category();
-
-            _category.set("name", category.name.toLowerCase());
-            categoryList.push(_category);
-
-        });
-
-        return Parse.Object.saveAll(categoryList);
-
-    }).then(categories => {
-        res.send("saved")
-    }, error => {
-        res.send(JSON.stringify(error))
-    });
-
-
-});
 
 app.get("/test_upload/:id", function (req, res) {
     let token = req.cookies.token;
