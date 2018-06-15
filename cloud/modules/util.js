@@ -335,6 +335,7 @@ exports.page = (items, id) => {
 
     }
 
+    console.log("PAGE______________"+JSON.stringify(_page));
     return _page
 };
 

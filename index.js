@@ -3450,8 +3450,6 @@ app.get('/details/:stickerId/:packId', function (req, res) {
     let _categories;
     let selectedCategories;
     let _pack = [];
-    let previousId;
-    let nextId;
 
     if (token) {
         let _user = {};
