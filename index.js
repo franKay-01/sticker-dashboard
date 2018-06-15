@@ -61,6 +61,8 @@ const PARSE_SERVER_URL = process.env.SERVER_URL;
 const PARSE_PUBLIC_URL = process.env.SERVER_URL.replace('parse', 'public/');
 const SERVER_URL = process.env.SERVER_URL.replace('parse', '');
 
+let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
+
 
 let databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 // let databaseUri = config.DATABASE_URI; //for google
@@ -2385,7 +2387,6 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
             }).then(function () {
 
-                let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
                 let data = {
                     //Specify email data
                     from: process.env.EMAIL_FROM || "test@example.com",
@@ -2394,7 +2395,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     //Subject and text data
                     subject: 'Stickers Uploaded',
                     html: fs.readFileSync("./uploads/sticker_upload.html", "utf8")
-                }
+                };
 
                 mailgun.messages().send(data, function (error, body) {
                     if (error) {
@@ -4235,8 +4236,6 @@ app.post('/newsletter/email', function (req, res) {
 
         }).then(function (htmlString) {
 
-            //TODO create a mailgun function and expose changing params
-            let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
             let data = {
                 //Specify email data
                 from: process.env.EMAIL_FROM || "test@example.com",
@@ -4249,7 +4248,7 @@ app.post('/newsletter/email', function (req, res) {
 
             };
 
-            //TODO use promises
+            //TODO update to use promises
             mailgun.messages().send(data, function (error, body) {
                 if (error) {
                     console.log("BIG BIG ERROR: ", error.message);
@@ -4348,7 +4347,7 @@ app.get('/newsletter/send/story', function (req, res) {
 
         console.log("COLLECTED ALL DATA 3 " + htmlString);
 
-        let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
+
         let data = {
             //Specify email data
             from: process.env.EMAIL_FROM || "test@example.com",
@@ -4503,7 +4502,6 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
             }).then(function () {
 
-                let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
                 let data = {
                     //Specify email data
                     from: process.env.EMAIL_FROM || "test@example.com",
