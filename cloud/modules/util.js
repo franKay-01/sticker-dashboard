@@ -315,24 +315,17 @@ exports.page = (items, id) => {
 
     if (items.length > 0) {
 
-        let i = items.findIndex(item => item.id === id);
+        let [n,p] = items.findIndex(item => item.id === id);
 
-        (() => {
-            i = i + 1; // increase i by one
-            i = i % items.length; // if we've gone too high, start from `0` again
-            _page.next = items[i].id; // give us back the item of where we are now
-        })();
+        n = n + 1; // increase i by one
+        n = n % items.length; // if we've gone too high, start from `0` again
+        _page.next = items[n].id; // give us back the item of where we are now
 
-        (() => {
-            if (i === 0) { // i would become 0
-                i = items.length; // so put it at the other end of the array
-            }
-            i = i - 1; // decrease by one
-            _page.previous = items[i].id;
-        })();
-
-
-        // give us back the item of where we are now
+        if (p === 0) { // i would become 0
+            p = items.length; // so put it at the other end of the array
+        }
+        p = p - 1; // decrease by one
+        _page.previous = items[p].id; // give us back the item of where we are now
 
     }
 
