@@ -3443,8 +3443,8 @@ app.post('/update_pack/:id', function (req, res) {
 app.get('/details/:stickerId/:packId', function (req, res) {
 
     let token = req.cookies.token;
-    let id = req.params.id;
-    let pack_ = req.params.coll_id;
+    let stickerId = req.params.stickerId;
+    let packId = req.params.packId;
     // let stickers = req.params.stickers;
     let _sticker;
     let _categories;
@@ -3462,9 +3462,9 @@ app.get('/details/:stickerId/:packId', function (req, res) {
             _user = sessionToken.get("user");
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Stickers).equalTo("objectId", id).first(),
+                new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first(),
                 new Parse.Query(_class.Categories).ascending("name").find(),
-                new Parse.Query(_class.Packs).equalTo("objectId", pack_).first()
+                new Parse.Query(_class.Packs).equalTo("objectId", packId).first()
             );
 
         }).then(function (sticker, categories, pack) {
@@ -3527,22 +3527,22 @@ app.get('/details/:stickerId/:packId', function (req, res) {
             // }
         }).then(function (stickers) {
 
-            let page = util.page(stickers,id);
+            let page = util.page(stickers,stickerId);
 
             res.render("pages/sticker_details", {
                 sticker: _sticker,
                 selected: selectedCategories,
                 categories: _categories,
-                pack_id: pack_,
+                pack_id: packId,
                 next: page.next,
                 previous: page.previous,
                 // uri: url,
-                id: id
+                id: stickerId
             });
 
         }, function (err) {
             console.log("Error Loading-----------------------" + JSON.stringify(err));
-            res.redirect("/pack/" + pack_);
+            res.redirect("/pack/" + packId);
 
         });
     }
