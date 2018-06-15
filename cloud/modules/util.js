@@ -320,14 +320,14 @@ exports.page = (items, id) => {
             if (item.id === id) {
 
                 //if index is the first item
-                i === 0 ? _page = {next: items[i + 1], previous: items[items.length - 1]}
+                i === 0 ? _page = {next: items[i + 1].id, previous: items[items.length - 1].id}
                     :
-                    _page = {next: items[i + 1], previous: items[i - 1]};
+                    _page = {next: items[i + 1].id, previous: items[i - 1].id};
 
                 //if index is the last item
-                i === items.length - 1 ? _page = {next: items[0], previous: items[i - 1]}
+                i === items.length - 1 ? _page = {next: items[0].id, previous: items[i - 1].id}
                     :
-                    _page = {next: items[i + 1], previous: items[i - 1]};
+                    _page = {next: items[i + 1].id, previous: items[i - 1].id};
 
             }
 
