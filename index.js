@@ -31,6 +31,7 @@ let _ = require('underscore');
 let helper = require('./cloud/modules/helpers');
 let type = require('./cloud/modules/type');
 let _class = require('./cloud/modules/classNames');
+let util = require('./cloud/modules/util');
 
 //google app engine configuration
 //let config = require('./config.json');
@@ -182,7 +183,7 @@ app.use('/', (req, res, next) => {
     next();
 });
 
-app.all('*',  (req, res, next) => {
+app.all('*', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -194,7 +195,7 @@ app.all('*',  (req, res, next) => {
     next();
 });
 
-app.all('/',  (req, res, next) => {
+app.all('/', (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     let schema = req.headers["x-forwarded-proto"];
@@ -3439,21 +3440,18 @@ app.post('/update_pack/:id', function (req, res) {
 });
 
 //EDIT/STICKER DETAILS
-app.get('/details/:id/:coll_id', function (req, res) {
+app.get('/details/:stickerId/:packId', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
     let pack_ = req.params.coll_id;
     // let stickers = req.params.stickers;
-    let stickerDetail;
-    let allCategories;
+    let _sticker;
+    let _categories;
     let selectedCategories;
     let _pack = [];
-    let previous = [];
-    let next = [];
-    let sticker_items = [];
-    let previous_sticker;
-    let next_sticker;
+    let previousId;
+    let nextId;
 
     if (token) {
         let _user = {};
@@ -3471,22 +3469,14 @@ app.get('/details/:id/:coll_id', function (req, res) {
 
         }).then(function (sticker, categories, pack) {
 
-                stickerDetail = sticker;
-                allCategories = categories;
+                _sticker = sticker;
+                _categories = categories;
                 _pack = pack;
                 selectedCategories = sticker.get("categories");
 
-                //packs with coll_id
-                //id is also available in that pack
-                //loop through all stickers id === sticker.id
-
-                // if (selectedCategories){
-                //     selectedCategories = Array.from(selectedCategories);
-                // }
-
                 console.log("SELECTED " + selectedCategories);
 
-                var sticker_relation = sticker.relation(_class.Categories);
+                let sticker_relation = sticker.relation(_class.Categories);
                 return sticker_relation.query().find();
 
             }
@@ -3537,44 +3527,15 @@ app.get('/details/:id/:coll_id', function (req, res) {
             // }
         }).then(function (stickers) {
 
-            _.each(stickers, function (sticker, index) {
-
-                if (sticker.id === id) {
-                    if (index === 0) {
-
-                        next.push(index + 1);
-
-                    } else if (index === stickers.length - 1) {
-                        previous.push(index - 1);
-                    } else {
-                        previous.push(index - 1);
-                        next.push(index + 1);
-                    }
-
-                }
-
-            });
-
-            if (previous.length > 0) {
-                previous_sticker = stickers[previous].id;
-            } else {
-                previous_sticker = "undefined";
-            }
-
-            if (next.length > 0) {
-                next_sticker = stickers[next].id;
-            } else {
-                next_sticker = "undefined";
-
-            }
+            let page = util.page(stickers,id);
 
             res.render("pages/sticker_details", {
-                sticker: stickerDetail,
+                sticker: _sticker,
                 selected: selectedCategories,
-                categories: allCategories,
+                categories: _categories,
                 pack_id: pack_,
-                previous: previous_sticker,
-                next: next_sticker,
+                next: page.next,
+                previous: page.previous,
                 // uri: url,
                 id: id
             });

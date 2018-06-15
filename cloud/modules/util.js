@@ -5,6 +5,7 @@
 // Include the Twilio Cloud Module to send sms messages
 var twilio = require("twilio")("AC6bad1c4bf8d48125709add2b8b0a5ce0", "33028731ba2e2bfb477a0709582a49f8");
 var moment = require('moment');
+var _ = require('underscore');
 
 //TODO update response errors
 var KEY_RESPONSE_CODE = "responseCode";
@@ -302,6 +303,39 @@ sendValidationCode = function (number) {
     });
 
     return promise;
+};
+
+exports.page = (items, id) => {
+
+    //TODO include key in params when expansion is needed
+    let _page = {
+        next: "",
+        previous: ""
+    };
+
+    if (items.length > 0) {
+
+        _.each(items, function (item, i) {
+
+            if (item.id === id) {
+
+                //if index is the first item
+                i === 0 ? _page = {next: items[i + 1], previous: items[items.length - 1]}
+                    :
+                    _page = {next: items[i + 1], previous: items[i - 1]};
+
+                //if index is the last item
+                i === items.length - 1 ? _page = {next: items[0], previous: items[i - 1]}
+                    :
+                    _page = {next: items[i + 1], previous: items[i - 1]};
+
+            }
+
+        });
+
+    }
+
+    return _page
 };
 
 exports.rejectPromise = rejectPromise;
