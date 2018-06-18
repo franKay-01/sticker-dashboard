@@ -99,7 +99,7 @@ exports.Story = (story, sticker, storyItem) => {
 
 };
 
-exports.Adverts = (adverts, links,advertImages) => {
+exports.Adverts = (adverts, links, advertImages) => {
 
     let _advert = {};
 
@@ -111,21 +111,22 @@ exports.Adverts = (adverts, links,advertImages) => {
         _advert.buttonAction = advert.get("buttonAction");
 
         _.each(links, link => {
+
             if (advert.id === link.get("object_id")) {
 
                 const _link = link.get("link");
 
                 switch (link.get("type")) {
                     case type.LINKS.android :
-                        _advert.android = {link:_link};
+                        _advert.android = {link: _link};
                         break;
 
                     case type.LINKS.ios :
-                        _advert.ios = {link:_link};
+                        _advert.ios = {link: _link};
                         break;
 
                     case type.LINKS.web :
-                        _advert.web = {link:_link};
+                        _advert.web = {link: _link};
                         break;
                 }
             }
@@ -133,20 +134,23 @@ exports.Adverts = (adverts, links,advertImages) => {
 
         _.each(advertImages, advertImage => {
 
-            const uri = advertImage.get("uri").url();
+            if (advert.id === advertImage.get("advert_id")) {
 
-            switch (advertImage.get("type")) {
-                case type.LINKS.android :
-                    _advert.android = {imageUri:uri};
-                    break;
+                const uri = advertImage.get("uri").url();
 
-                case type.LINKS.ios :
-                    _advert.ios = {imageUri:uri};
-                    break;
+                switch (advertImage.get("type")) {
+                    case type.LINKS.android :
+                        _advert.android = {imageUri: uri};
+                        break;
 
-                case type.LINKS.web :
-                    _advert.web = {imageUri:uri};
-                    break;
+                    case type.LINKS.ios :
+                        _advert.ios = {imageUri: uri};
+                        break;
+
+                    case type.LINKS.web :
+                        _advert.web = {imageUri: uri};
+                        break;
+                }
             }
 
         });
