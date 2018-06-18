@@ -1,4 +1,5 @@
 const _ = require('underscore');
+const type = require('./type');
 
 exports.Sticker = sticker => {
     let _sticker = {};
@@ -116,7 +117,7 @@ exports.Adverts = (advert, links, advertImages) => {
 
             console.log("SWITCHIFY LINK MATCH");
 
-            switch (link.get("type")) {
+            switch (parseInt(link.get("type"))) {
                 case type.LINKS.android :
                     console.log("SWITCHIFY ANDROID");
                     _advert.android = {link: _link};
