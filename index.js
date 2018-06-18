@@ -1520,6 +1520,7 @@ app.get('/change_color/:id', function (req, res) {
 
         }).then(function (story, art) {
 
+            console.log("ART " + JSON.stringify(art));
             _story = story;
              colors = story.get("color");
             if (colors) {
