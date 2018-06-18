@@ -4155,6 +4155,7 @@ app.get('/newsletter/story/:storyId', function (req, res) {
     let _story;
     let colors;
 
+
     Parse.Promise.when(
         new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
         new Parse.Query(_class.ArtWork).equalTo("object_id", storyId).first()
@@ -4163,6 +4164,7 @@ app.get('/newsletter/story/:storyId', function (req, res) {
         _story = story;
 
         colors = story.get("color");
+
         if (!colors) {
             //use system default
             colors = type.DEFAULT.color;
