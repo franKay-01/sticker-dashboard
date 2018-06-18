@@ -1534,6 +1534,7 @@ app.get('/change_color/:id', function (req, res) {
 
         }).then(function (sticker) {
 
+            console.log("STICKER " + JSON.stringify(sticker));
             res.render("pages/choose_color", {
                 story: _story,
                 colors: colors,
