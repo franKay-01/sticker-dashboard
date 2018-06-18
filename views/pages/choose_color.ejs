@@ -24,6 +24,16 @@
     <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
     <script>
 
+        window.onload = function() {
+            var c = document.getElementById("preview");
+            var ctx = c.getContext("2d");
+
+            let img = document.getElementById("image");
+
+            ctx.drawImage(img, 10, 10, 50, 50);
+
+        }
+
         function addcolor() {
             let color_1 = document.getElementById("color_value").value;
             let color_2 = document.getElementById("color_value_1").value;
@@ -33,14 +43,13 @@
             color_2 = hash.concat(color_2);
 
             var c = document.getElementById("preview");
-            let img = document.getElementById("image");
+
             var ctx = c.getContext("2d");
             var my_gradient = ctx.createLinearGradient(0, 0, 0, 170);
             my_gradient.addColorStop(0, color_1);
             my_gradient.addColorStop(1, color_2);
             ctx.fillStyle = my_gradient;
             ctx.fillRect(0, 0, 300, 400);
-            ctx.drawImage(img,10,10);
         }
 
     </script>
