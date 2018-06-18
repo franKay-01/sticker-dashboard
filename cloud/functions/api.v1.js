@@ -40,8 +40,6 @@ Parse.Cloud.define("getFeed", function (req, res) {
         _categories = categories;
         _adverts = adverts;
 
-        console.log("ADVERTIFY ",JSON.stringify(_adverts));
-
         return Parse.Promise.when(
             new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("latest_id")).first({useMasterKey: true}),
             new Parse.Query(_class.Stories).equalTo("objectId", story.get("latest_id")).first({useMasterKey: true}),
@@ -57,8 +55,6 @@ Parse.Cloud.define("getFeed", function (req, res) {
         _.each(_adverts, advert => {
             advertIds.push(advert.id)
         });
-
-        console.log("LINKISH ",JSON.stringify(advertIds));
 
         return Parse.Promise.when(
             new Parse.Query(_class.Stickers).equalTo("objectId", storyArtwork.get("sticker")).first({useMasterKey: true}),

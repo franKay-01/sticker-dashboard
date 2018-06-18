@@ -108,7 +108,11 @@ exports.Adverts = (advert, links, advertImages) => {
     _advert.description = advert.get("description");
     _advert.buttonAction = advert.get("buttonAction");
 
+    console.log("LINKISH ",JSON.stringify(links));
+
     _.each(links, link => {
+
+        console.log("LINKISHEEEEE ",JSON.stringify(link));
 
         if (advert.id === link.get("object_id")) {
 
