@@ -26,6 +26,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
     let _packs;
     let _categories;
     let _adverts;
+    let advertList = [];
 
     Parse.Promise.when(
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STICKER).first({useMasterKey: true}),
@@ -66,12 +67,13 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
     }).then((sticker, storyItems, advertImages, links) => {
 
-        console.log("LINKIFY ",JSON.stringify(links));
-        console.log("IMAGEFY ",JSON.stringify(advertImages));
 
         feed.stickerOfDay = create.Sticker(_sticker);
         feed.latestStory = create.Story(_story, sticker, storyItems);
-        feed.adverts = create.Adverts(_adverts, advertImages, links);
+
+        _.each(_adverts, advert => {
+            advertList.push(create.Adverts(advert, advertImages, links));
+        });
 
         let promises = [];
         _.map(_packs, function (pack) {
@@ -95,6 +97,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
         feed.packs = packList;
         feed.categories = categoryList;
+        feed.adverts = advertList;
 
         res.success(util.setResponseOk(feed));
 

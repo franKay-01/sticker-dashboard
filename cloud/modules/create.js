@@ -99,61 +99,58 @@ exports.Story = (story, sticker, storyItem) => {
 
 };
 
-exports.Adverts = (adverts, links, advertImages) => {
+exports.Adverts = (advert, links, advertImages) => {
 
     let _advert = {};
 
-    _.each(adverts, advert => {
+    _advert.id = advert.id;
+    _advert.title = advert.get("title");
+    _advert.description = advert.get("description");
+    _advert.buttonAction = advert.get("buttonAction");
 
-        _advert.id = advert.id;
-        _advert.title = advert.get("title");
-        _advert.description = advert.get("description");
-        _advert.buttonAction = advert.get("buttonAction");
+    _.each(links, link => {
 
-        _.each(links, link => {
+        if (advert.id === link.get("object_id")) {
 
-            if (advert.id === link.get("object_id")) {
+            const _link = link.get("link");
 
-                const _link = link.get("link");
+            switch (link.get("type")) {
+                case type.LINKS.android :
+                    _advert.android = {link: _link};
+                    break;
 
-                switch (link.get("type")) {
-                    case type.LINKS.android :
-                        _advert.android = {link: _link};
-                        break;
+                case type.LINKS.ios :
+                    _advert.ios = {link: _link};
+                    break;
 
-                    case type.LINKS.ios :
-                        _advert.ios = {link: _link};
-                        break;
-
-                    case type.LINKS.web :
-                        _advert.web = {link: _link};
-                        break;
-                }
+                case type.LINKS.web :
+                    _advert.web = {link: _link};
+                    break;
             }
-        });
+        }
+    });
 
-        _.each(advertImages, advertImage => {
+    _.each(advertImages, advertImage => {
 
-            if (advert.id === advertImage.get("advert_id")) {
+        if (advert.id === advertImage.get("advert_id")) {
 
-                const uri = advertImage.get("uri").url();
+            const uri = advertImage.get("uri").url();
 
-                switch (advertImage.get("type")) {
-                    case type.LINKS.android :
-                        _advert.android = {imageUri: uri};
-                        break;
+            switch (advertImage.get("type")) {
+                case type.LINKS.android :
+                    _advert.android = {imageUri: uri};
+                    break;
 
-                    case type.LINKS.ios :
-                        _advert.ios = {imageUri: uri};
-                        break;
+                case type.LINKS.ios :
+                    _advert.ios = {imageUri: uri};
+                    break;
 
-                    case type.LINKS.web :
-                        _advert.web = {imageUri: uri};
-                        break;
-                }
+                case type.LINKS.web :
+                    _advert.web = {imageUri: uri};
+                    break;
             }
+        }
 
-        });
     });
 
     return _advert;
