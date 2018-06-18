@@ -1169,7 +1169,6 @@ app.get('/story_of_day', function (req, res) {
                     if (artworks.get("sticker") === sticker.id) {
 
                         combined.push({
-
                             story: artworks.get("object_id"),
                             image: sticker.get("uri").url()
                         });
