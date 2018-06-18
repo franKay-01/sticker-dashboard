@@ -971,6 +971,7 @@ app.post('/new_advert', function (req, res) {
     let token = req.cookies.token;
     let title = req.body.title;
     let description = req.body.description;
+    let action = req.body.action;
 
     if (token) {
 
@@ -986,6 +987,7 @@ app.post('/new_advert', function (req, res) {
             advert.set("title", title);
             advert.set("description", description);
             advert.set("user_id", _user.id);
+            advert.set("buttonAction", action);
 
             return advert.save();
 
