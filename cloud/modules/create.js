@@ -153,26 +153,26 @@ exports.Adverts = (advert, links, advertImages) => {
             switch (parseInt(advertImage.get("type"))) {
                 case type.LINKS.android :
                     if (_advert.android)
-                        _advert.android.imageUri = uri;
+                        _advert.android.imageUrl = uri;
                     else
                         _advert.android = {};
-                    _advert.android.imageUri = uri;
+                    _advert.android.imageUrl = uri;
                     break;
 
                 case type.LINKS.ios :
                     if (_advert.ios)
-                        _advert.ios.imageUri = uri;
+                        _advert.ios.imageUrl = uri;
                     else
                         _advert.ios = {};
-                    _advert.ios.imageUri = uri;
+                    _advert.ios.imageUrl = uri;
                     break;
 
                 case type.LINKS.web :
-                    if (_advert.ios)
-                        _advert.ios.imageUri = uri;
+                    if (_advert.web)
+                        _advert.web.imageUrl = uri;
                     else
                         _advert.web = {};
-                    _advert.web.imageUri = uri;
+                    _advert.web.imageUrl = uri;
                     break;
             }
         }
