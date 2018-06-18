@@ -112,6 +112,8 @@ exports.Adverts = (advert, links, advertImages) => {
 
         if (advert.id === link.get("object_id")) {
 
+            console.log("SWITCHIFY LINK MATCH");
+
             const _link = link.get("link");
 
             switch (link.get("type")) {
@@ -136,6 +138,8 @@ exports.Adverts = (advert, links, advertImages) => {
     _.each(advertImages, advertImage => {
 
         if (advert.id === advertImage.get("advert_id")) {
+
+            console.log("SWITCHIFY IMAGE MATCH");
 
             const uri = advertImage.get("uri").url();
 
