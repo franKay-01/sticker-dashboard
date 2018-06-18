@@ -33,12 +33,14 @@
             color_2 = hash.concat(color_2);
 
             var c = document.getElementById("preview");
+            let img = document.getElementById("image");
             var ctx = c.getContext("2d");
             var my_gradient = ctx.createLinearGradient(0, 0, 0, 170);
             my_gradient.addColorStop(0, color_1);
             my_gradient.addColorStop(1, color_2);
             ctx.fillStyle = my_gradient;
             ctx.fillRect(0, 0, 300, 400);
+            ctx.drawImage(img,10,10);
         }
 
     </script>
@@ -101,9 +103,9 @@
         </form>
         <canvas style="background-image: linear-gradient(to bottom, <%= colors[0] %>, <%= colors[1] %>);"
                 class="medium-3 large-3 cell icons" id="preview">
-            <img src="<%= sticker.get("uri").url() %>" width="200px" height="200px">
 
         </canvas>
+        <img src="<%= sticker.get("uri").url() %>" width="200px" height="200px" id="image" hidden>
 
         <%- include('../partials/footer') %>
 
