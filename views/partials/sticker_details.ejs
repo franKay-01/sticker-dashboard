@@ -1,13 +1,12 @@
 <form id="stickerForm" style="    margin-left: -140px !important;" action="/update/<%= sticker.id %>/<%= pack_id %>" method="post">
-    <!--<div class="grid-x grid-margin-x">-->
-        <!--<div class="medium-6 large-5 cell">-->
-        <div class="col-sm-6">
+    <div class="grid-x grid-margin-x">
+        <div class="medium-6 large-5 cell">
             <div class="droppableArea">
                 <div class="output" name="tfile"></div>
                 <img id="im1" name="im1" style="width: 100%; height: 100%;" src="<%= sticker.get("uri").url() %>">
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="medium-6 large-5 cell">
             <label class="update_label">Sticker Name:</label><br>
             <input placeholder="Sticker Name" class="box_2" name="stickerName"
                    style="width: 100%; margin-bottom: 25px;"
@@ -86,8 +85,7 @@
             <input placeholder="Sticker Description" class="box_2" name="description"
                    style="width: 100%; margin-bottom: 25px;" value="<%= sticker.get("description") %>"/>
         </div>
-        <!--<div class="medium-12 large-12 cell" style="margin-top: 30px">-->
-        <div class="col-sm-12" style="margin-top: 30px">
+        <div class="medium-12 large-12 cell" style="margin-top: 30px">
             <center>
                 <a href="/pack/<%= pack_id %>" class="cancel_btn">Back</a>
                 <button type="button" class="cancel_btn delbtn" data-id="<%= sticker.id %>"
@@ -96,5 +94,5 @@
                 <button class="update" type="submit">Update</button>
             </center>
         </div>
-    <!--</div>-->
+    </div>
 </form>

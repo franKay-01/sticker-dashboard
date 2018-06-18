@@ -81,54 +81,55 @@
     <center>
 
 
-        <div class="row">
-            <div class="col">
-                <% if (previous !== ""){ %>
-                <a style="color: #dd3c36 !important; margin-left: 10px"
-                   href="/details/<%= previous %>/<%= pack_id %>"><i style="font-size: 6rem;" class="fa fa-reply"
-                                                                     aria-hidden="true"></i></a>
-                <% } %>
-            </div>
-            <div class="col-6">
-                <% include ../partials/sticker_details %>
-            </div>
-            <div class="col">
-                <% if (next !== ""){ %>
+        <!--<div class="row">-->
+            <!--<div class="col">-->
+                <!--<%# if (previous !== ""){ %>-->
+                <!--<a style="color: #dd3c36 !important; margin-left: 10px"-->
+                   <!--href="/details/<%#= previous %>/<%#= pack_id %>"><i style="font-size: 6rem;" class="fa fa-reply"-->
+                                                                     <!--aria-hidden="true"></i></a>-->
+                <!--<%# } %>-->
+            <!--</div>-->
+            <!--<div class="col-6">-->
+                <!--<%# include ../partials/sticker_details %>-->
+            <!--</div>-->
+            <!--<div class="col">-->
+                <!--<%# if (next !== ""){ %>-->
 
-                <a style="color: #dd3c36 !important;margin-left: -30px" href="/details/<%= next %>/<%= pack_id %>"><i
-                            style="font-size: 6rem;" class="fa fa-share" aria-hidden="true"></i></a>
+                <!--<a style="color: #dd3c36 !important;margin-left: -30px" href="/details/<%#= next %>/<%#= pack_id %>"><i-->
+                            <!--style="font-size: 6rem;" class="fa fa-share" aria-hidden="true"></i></a>-->
 
-                <% } %>
-            </div>
-        </div>
-        <!--<table style="margin-left: 35px !important;">-->
-        <!--<tr>-->
-        <!--<td>-->
-        <!--<%# if (previous !== ""){ %>-->
-        <!--<a style="color: #dd3c36 !important; margin-left: 10px" href="/details/<%#= previous %>/<%#= pack_id %>"><i style="font-size: 6rem;" class="fa fa-reply" aria-hidden="true"></i></a>-->
-        <!--<%# } %>-->
+                <!--<%# } %>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <table style="margin-left: 35px !important;">
+        <tr>
+        <td>
+        <% if (previous !== ""){ %>
+        <a style="color: #dd3c36 !important; margin-left: 10px" href="/details/<%= previous %>/<%= pack_id %>"><i style="font-size: 6rem;" class="fa fa-reply" aria-hidden="true"></i></a>
+        <% } %>
 
 
-        <!--</td>-->
-        <!--<td>-->
+        </td>
+        <td>
 
-        <!--<%# include ../partials/sticker_details %>-->
+        <% include ../partials/sticker_details %>
 
-        <!--</td>-->
+        </td>
 
-        <!--<td>-->
-        <!--&nbsp;&nbsp;&nbsp;&nbsp;-->
-        <!--&nbsp;&nbsp;&nbsp;&nbsp;-->
-        <!--&nbsp;&nbsp;&nbsp;&nbsp;-->
-        <!--<%# if (next !== ""){ %>-->
+        <td>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <% if (next !== ""){ %>
 
-        <!--<a style="color: #dd3c36 !important;margin-left: -30px" href="/details/<%#= next %>/<%#= pack_id %>"><i style="font-size: 6rem;" class="fa fa-share" aria-hidden="true"></i></a>-->
+        <a style="color: #dd3c36 !important;margin-left: -30px" href="/details/<%= next %>/<%= pack_id %>"><i style="font-size: 6rem;" class="fa fa-share" aria-hidden="true"></i></a>
 
-        <!--<%# } %>-->
+        <% } %>
 
-        <!--</td>-->
-        <!--</tr>-->
-        <!--</table>-->
+        </td>
+        </tr>
+        </table>
     </center>
 </div>
 </body>
