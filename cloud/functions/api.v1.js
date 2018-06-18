@@ -58,6 +58,8 @@ Parse.Cloud.define("getFeed", function (req, res) {
             advertIds.push(advert.id)
         });
 
+        console.log("LINKISH ",JSON.stringify(advertIds));
+
         return Parse.Promise.when(
             new Parse.Query(_class.Stickers).equalTo("objectId", storyArtwork.get("sticker")).first({useMasterKey: true}),
             new Parse.Query(_class.StoryItems).equalTo("story_id", story.id).find({useMasterKey: true}),
@@ -66,7 +68,6 @@ Parse.Cloud.define("getFeed", function (req, res) {
         );
 
     }).then((sticker, storyItems, advertImages, links) => {
-
 
         feed.stickerOfDay = create.Sticker(_sticker);
         feed.latestStory = create.Story(_story, sticker, storyItems);
