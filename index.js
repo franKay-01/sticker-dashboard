@@ -699,7 +699,7 @@ app.get('/advert_collection', function (req, res) {
             _user = sessionToken.get("user");
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Advert).equalTo("user_id", _user.id).find(),
+                new Parse.Query(_class.Adverts).equalTo("user_id", _user.id).find(),
                 new Parse.Query(_class.AdvertImages).find(),
             );
 
@@ -770,7 +770,7 @@ app.get('/advert_details/:id', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Advert).equalTo("objectId", id).first(),
+                new Parse.Query(_class.Adverts).equalTo("objectId", id).first(),
                 new Parse.Query(_class.AdvertImages).equalTo("advert_id", id).find()
             );
 
@@ -922,7 +922,7 @@ app.post('/update_advert/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Advert).equalTo("objectId", id).first();
+            return new Parse.Query(_class.Adverts).equalTo("objectId", id).first();
 
         }).then(function (advert) {
 
@@ -964,7 +964,7 @@ app.post('/new_advert', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            let Advert = new Parse.Object.extend(_class.Advert);
+            let Advert = new Parse.Object.extend(_class.Adverts);
             let advert = new Advert();
 
             advert.set("title", title);
@@ -2026,7 +2026,7 @@ app.get('/home', function (req, res) {
                 new Parse.Query(_class.Packs).equalTo("user_id", _user.id).count(),
                 new Parse.Query(_class.Stickers).equalTo("user_id", _user.id).count(),
                 new Parse.Query(_class.Stories).equalTo("user_id", _user.id).count(),
-                new Parse.Query(_class.Advert).equalTo("user_id", _user.id).limit(limit).find(),
+                new Parse.Query(_class.Adverts).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(_class.Message).limit(limit).find()
             );
 

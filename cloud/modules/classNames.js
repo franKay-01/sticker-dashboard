@@ -11,7 +11,7 @@ exports.ArtWork = "ArtWork";
 //TODO Update to Messages
 exports.Message = "Contact";
 //TODO update to Adverts
-exports.Advert = "Advert";
+exports.Adverts = "Adverts";
 exports.AdvertImages = "AdvertImages";
 //TODO rename to Profiles
 exports.Profile = "Profile";
