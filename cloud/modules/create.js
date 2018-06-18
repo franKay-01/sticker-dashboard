@@ -116,15 +116,18 @@ exports.Adverts = (advert, links, advertImages) => {
 
             switch (link.get("type")) {
                 case type.LINKS.android :
-                    _advert.androidLink = _link;
+                    console.log("SWITCHIFY ANDROID");
+                    _advert.android = {link: _link};
                     break;
 
                 case type.LINKS.ios :
-                    _advert.iosLink = _link;
+                    console.log("SWITCHIFY IOS");
+                    _advert.ios = {link: _link};
                     break;
 
                 case type.LINKS.web :
-                    _advert.webLink = _link;
+                    console.log("SWITCHIFY WEB");
+                    _advert.web = {link: _link};
                     break;
             }
         }
@@ -136,17 +139,20 @@ exports.Adverts = (advert, links, advertImages) => {
 
             const uri = advertImage.get("uri").url();
 
-            switch (advertImage.get("type")) {
+            switch (parseInt(advertImage.get("type"))) {
                 case type.LINKS.android :
-                    _advert.androidImageUrl = uri;
+                    console.log("SWITCHIFY ANDROID IMAGE");
+                    _advert.android = {imageUri: uri};
                     break;
 
                 case type.LINKS.ios :
-                    _advert.iosImageUrl = uri;
+                    console.log("SWITCHIFY IOS IMAGE");
+                    _advert.ios = {imageUri: uri};
                     break;
 
                 case type.LINKS.web :
-                    _advert.webImageUrl = uri;
+                    console.log("SWITCHIFY WEB IMAGE");
+                    _advert.web = {imageUri: uri};
                     break;
             }
         }
