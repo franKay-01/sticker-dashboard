@@ -4198,15 +4198,16 @@ app.get('/newsletter/:id', function (req, res) {
     //delete all items in the database
     let storyId = req.params.id;
     let _story;
+    let colors;
 
-    Parse.Promise.when(
+    return Parse.Promise.when(
         new Parse.Query(StoryClass).equalTo("objectId", storyId).first(),
         new Parse.Query(ArtWorkClass).equalTo("object_id", storyId).first()
     ).then(function (story, sticker) {
 
         _story = story;
 
-        let colors = story.get("color");
+        colors = story.get("color");
         if (colors) {
             colors = story.get("color");
         } else {
@@ -4323,7 +4324,7 @@ app.get('/newsletter/update/:id', function (req, res) {
 
     let id = req.params.id;
 
-    return new Parse.Query(NewsLetterClass).equalTo("objectId", id).first().then(function (newsletter) {
+     new Parse.Query(NewsLetterClass).equalTo("objectId", id).first().then(function (newsletter) {
 
         newsletter.set("subscribe", true);
 
