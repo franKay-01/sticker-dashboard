@@ -1506,16 +1506,22 @@ app.get('/change_color/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let color = [];
+    let _story = [];
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
+                new Parse.Query(_class.ArtWork).equalTo("object_id", id).first()
 
-        }).then(function (story) {
+        );
 
-            let colors = story.get("color");
+        }).then(function (story, art) {
+
+            _story = story;
+             colors = story.get("color");
             if (colors) {
                 color = story.get("color");
             } else {
@@ -1523,11 +1529,15 @@ app.get('/change_color/:id', function (req, res) {
                 colors = type.DEFAULT.color
             }
 
-            res.render("pages/choose_color", {
-                story: story,
-                colors: colors
-            });
+            return new Parse.Query(_class.Stickers).equalTo("objectId", art.get("sticker")).first();
 
+        }).then(function (sticker) {
+
+            res.render("pages/choose_color", {
+                story: _story,
+                colors: colors,
+                sticker: sticker
+            });
         }, function (error) {
 
             console.log("ERROR " + error.message);

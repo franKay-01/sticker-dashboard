@@ -89,7 +89,8 @@
                 <button id="color_button" class="jscolor {valueElement: 'color_value_1'}"></button>
             </div>
 
-            <button type="button" class="check_color add_catalogue" onclick="addcolor()" style="background: transparent !important;">
+            <button type="button" class="check_color add_catalogue" onclick="addcolor()"
+                    style="background: transparent !important;">
                 <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Change Color</p>
             </button>
 
@@ -98,7 +99,9 @@
             </button>
 
         </form>
-        <canvas style="background-image: linear-gradient(to bottom, <%= colors[0] %>, <%= colors[1] %>);" class="medium-3 large-3 cell icons" id="preview">
+        <canvas style="background-image: linear-gradient(to bottom, <%= colors[0] %>, <%= colors[1] %>);"
+                class="medium-3 large-3 cell icons" id="preview">
+            <img src="<%= sticker.get("url").url() %>" width="200px" height="200px">
 
         </canvas>
 
