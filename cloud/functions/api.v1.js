@@ -69,7 +69,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
         feed.latestStory = create.Story(_story, sticker, storyItems);
 
         _.each(_adverts, advert => {
-            advertList.push(create.Adverts(advert, advertImages, links));
+            advertList.push(create.Adverts(advert, links, advertImages));
         });
 
         let promises = [];
