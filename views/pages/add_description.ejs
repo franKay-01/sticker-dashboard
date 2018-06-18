@@ -50,24 +50,6 @@
         <a id="signoutLink" style="font-weight: bold !important;" onclick="logoutUser()"><b class="font-weight-bold">LOGOUT</b></a>
 
     </div>
-    <div id="pageMask"></div>
-    <div id="deleteForm" style="display: none">
-        <div class="medium-3 large-3 cell create_background">
-            <center>
-                <div class="edit_labels medium-12 large-12">DELETE STICKER</div>
-                <img src="<%= sticker.get("uri").url() %>" style="height: 250px;margin-top: -50px;"/>
-                <br>
-
-                <span>
-                 <button type="button" class="_cancel closeDelete">Cancel</button>
-                </span>
-                <span>
-                    <a href="/delete_sticker/<%= sticker.id %>/<%= pack_id %>" class="delete_btn">Delete</a>
-                </span>
-            </center>
-
-        </div>
-    </div>
     <center>
 
         <span class="col s12 welcome_post" id="pack_id">
@@ -80,36 +62,35 @@
 
     <center>
 
-        <table>
-        <tr>
-        <td width="10%">
-        <% if (previous !== ""){ %>
-        <a style="color: #dd3c36 !important; margin-left: 10px" href="/details/<%= previous %>/<%= pack_id %>">
-            <i style="font-size: 6rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
-        <% } %>
+        <form id="stickerForm" action="/add_sticker_description/<%= sticker.id %>" method="post">
+            <div class="grid-x grid-margin-x">
+                <div class="medium-6 large-5 cell">
+                    <div class="droppableArea">
+                        <div class="output" name="tfile"></div>
+                        <img id="im1" name="im1" style="width: 100%; height: 100%;" src="<%= sticker.get("uri").url() %>">
+                    </div>
+                </div>
+                <div class="medium-6 large-5 cell">
+                    <label class="update_label">Sticker Name:</label><br>
+                    <input placeholder="Sticker Name" class="box_2" name="stickerName"
+                           style="width: 100%; margin-bottom: 25px;"
+                           value="<%= sticker.get("stickerName") %>" disabled>
 
+                    <!--if new img has been uploaded, set value to true-->
+                    <label class="update_label">Description:</label><br>
+                    <input placeholder="Sticker Description" class="box_2" name="description"
+                           style="width: 100%; margin-bottom: 25px;" value="<%= sticker.get("description") %>"/>
+                </div>
+                <div class="medium-12 large-12 cell" style="margin-top: 30px">
+                    <center>
+                        <a href="/home" class="cancel_btn">Back Home</a>
 
-        </td>
-        <td width="80%">
+                        <button class="update" type="submit">Update</button>
+                    </center>
+                </div>
+            </div>
+        </form>
 
-        <% include ../partials/sticker_details %>
-
-        </td>
-
-        <td width="10%">
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <% if (next !== ""){ %>
-
-        <a style="color: #dd3c36 !important;margin-left: -30px" href="/details/<%= next %>/<%= pack_id %>">
-            <i style="font-size: 6rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
-
-        <% } %>
-
-        </td>
-        </tr>
-        </table>
     </center>
     <%- include('../partials/footer') %>
 

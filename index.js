@@ -640,8 +640,24 @@ app.post('/latest_element/:type', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/home');
+            switch (type) {
+                case "sticker":
+                    return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
+                case "story":
+                    res.redirect('/home');
 
+            }
+
+
+        }).then(function (sticker) {
+
+            if (sticker.get("description") === "") {
+                res.render("page/add_description", {
+                    sticker: sticker
+                })
+            } else {
+                res.redirect('/home');
+            }
         }, function (error) {
 
             console.log("ERROR " + error.message);
@@ -1093,18 +1109,28 @@ app.get('/single_message/:id', function (req, res) {
 app.get('/sticker_of_day', function (req, res) {
 
     let token = req.cookies.token;
+    let _user = {};
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Stickers).equalTo("sold", false).find();
+            _user = sessionToken.get("user");
+
+            var query = new Parse.Query(Comment);
+            query.doesNotMatchQuery("post", innerQuery);
+
+            let query = new Parse.Query(_class.Stickers);
+            query.equalTo("sold", false);
+            query.equalTo("user_id", _user.id);
+            return query.find();
 
         }).then(function (stickers) {
 
             res.render("pages/sticker_of_day", {
                 stickers: stickers
             });
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
@@ -3525,7 +3551,7 @@ app.get('/details/:stickerId/:packId', function (req, res) {
             // }
         }).then(function (stickers) {
 
-            let page = util.page(stickers,stickerId);
+            let page = util.page(stickers, stickerId);
 
             res.render("pages/sticker_details", {
                 sticker: _sticker,
@@ -3932,6 +3958,39 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
         })
     } else {
         res.redirect('/');
+    }
+
+});
+
+
+app.post('/add_sticker_description/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let stickerId = req.params.id;
+    let description = req.body.description;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first();
+
+        }).then(function (sticker) {
+
+            sticker.set("description", description);
+
+            return sticker.save();
+
+        }).then(function () {
+
+            res.redirect('/home');
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+
+        })
     }
 
 });
