@@ -1,11 +1,11 @@
 /**
- * Module for creating temperature needed implementations.
  * It basically serves as a middle on the server.
  */
 
 // Include the Twilio Cloud Module to send sms messages
 var twilio = require("twilio")("AC6bad1c4bf8d48125709add2b8b0a5ce0", "33028731ba2e2bfb477a0709582a49f8");
 var moment = require('moment');
+var _ = require('underscore');
 
 //TODO update response errors
 var KEY_RESPONSE_CODE = "responseCode";
@@ -248,7 +248,7 @@ handleError = function (res, error) {
 
 
                 case STORY_PREVIEW_ERROR :
-                    error[KEY_RESPONSE_MESSAGE] = "Story wasn't found";
+                    error[KEY_RESPONSE_MESSAGE] = "Stories wasn't found";
                     break;
 
 
@@ -303,6 +303,34 @@ sendValidationCode = function (number) {
     });
 
     return promise;
+};
+
+exports.page = (items, id) => {
+
+    //TODO include key in params when expansion is needed
+    let _page = {
+        next: "",
+        previous: ""
+    };
+
+    if (items.length > 0) {
+
+        let n = items.findIndex(item => item.id === id);
+        let p = n;
+
+        n = n + 1; // increase i by one
+        n = n % items.length; // if we've gone too high, start from `0` again
+        _page.next = items[n].id; // give us back the item of where we are now
+
+        if (p === 0) { // i would become 0
+            p = items.length; // so put it at the other end of the array
+        }
+        p = p - 1; // decrease by one
+        _page.previous = items[p].id; // give us back the item of where we are now
+
+    }
+
+    return _page
 };
 
 exports.rejectPromise = rejectPromise;

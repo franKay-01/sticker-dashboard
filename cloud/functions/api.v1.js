@@ -2,128 +2,45 @@ let util = require("../modules/util");
 let helpers = require("../modules/helpers");
 let type = require("../modules/type");
 let _ = require('underscore');
+let create = require("../modules/create");
+let _class = require("../modules/classNames");
 
-let PacksClass = "Packs";
-let StoriesClass = "Stories";
-let StoryItemClass = "StoryItem";
-let ArtWorkClass = "ArtWork";
-let StickersClass = "Stickers";
-let LatestClass = "Latest";
+
+//environment cars
+const LATEST_STICKER = process.env.LATEST_STICKER;
+const LATEST_STORY = process.env.LATEST_STORY;
+const ADMIN = process.env.ADMIN;
+const DEFAULT_PACK = process.env.DEFAULT_PACK;
 
 //TODO remove all archived items
 //TODO remove all flagged items
 //TODO write pagination function for editing stickers
 //TODO remove repeated code for creating stories/stickers
-
-let createSticker = sticker => {
-    let _sticker = {};
-    _sticker.id = sticker.id;
-    _sticker.name = sticker.get("stickerName");
-    _sticker.categories = sticker.get("categories");
-
-    if (sticker.get("uri")) {
-        _sticker.url = sticker.get("uri").url();
-    } else {
-        _sticker.url = "";
-    }
-
-    return _sticker;
-};
-
-let createPack = (pack, stickerList) => {
-
-    let _pack = {};
-    _pack.id = pack.id;
-    _pack.name = pack.get("pack_name");
-    _pack.description = pack.get("pack_description");
-
-    let _artwork = pack.get("art_work");
-    if (_artwork) {
-        _pack.artwork = _artwork.url();
-    } else {
-        _pack.artwork = "";
-    }
-
-    let _stickers = [];
-    _.map(stickerList, function (stickers) {
-
-        if (stickers.length) {
-
-            _.map(stickers, sticker => {
-
-                if (pack.id === sticker.get("parent").id) {
-                    _stickers.push({id: sticker.id, url: sticker.get("uri").url()});
-                }
-
-            });
-
-            _pack.previews = _stickers;
-
-        }
-    });
-
-    return _pack;
-
-};
-
-let createStory = (story, sticker, storyItem) => {
-
-    let _story = {};
-    _story.id = story.id;
-    _story.title = story.get("title");
-    _story.summary = story.get("summary");
-    _story.stickerName = sticker.get("stickerName");
-
-    if (sticker.get("uri")) {
-        _story.stickerUrl = sticker.get("uri").url();
-    } else {
-        _story.stickerUrl = "";
-    }
-
-    let colors = story.get("color");
-    if (colors) {
-        _story.colors = colors
-    } else {
-        _story.colors = type.DEFAULT.color
-    }
-
-    if (storyItem.length) {
-        let _stories = [];
-        _.each(storyItem, storyItem => {
-            _stories.push({id: storyItem.id, content: storyItem.get("content"), type: storyItem.get("type")});
-        });
-        _story.stories = _stories;
-    }
-
-    return _story;
-
-};
+//TODO properly handle errors
 
 Parse.Cloud.define("getFeed", function (req, res) {
-    //getting latest story
-    //getting sticker of the day
-    //getting limited stickers
-    //getting limited categories
-    //getting adverts
 
     let feed = {};
     let _sticker;
     let _story;
     let _packs;
+    let _categories;
 
     Parse.Promise.when(
-        new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STICKER).first({useMasterKey: true}),
-        new Parse.Query(LatestClass).equalTo("objectId", process.env.LATEST_STORY).first({useMasterKey: true}),
-        new Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId", process.env.DEFAULT_PACK).limit(2).find({useMasterKey: true})
+        new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STICKER).first({useMasterKey: true}),
+        new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STORY).first({useMasterKey: true}),
+        new Parse.Query(_class.Packs).equalTo("user_id", ADMIN).notEqualTo("objectId", DEFAULT_PACK).limit(2).find({useMasterKey: true}),
+        new Parse.Query(_class.Categories).ascending("name").limit(30).find()
 
-    ).then((sticker, story,packs) => {
+    ).then((sticker, story, packs, categories) => {
 
         _packs = packs;
+        _categories = categories;
 
         return Parse.Promise.when(
-            new Parse.Query(StickersClass).equalTo("objectId", sticker.get("latest_id")).first({useMasterKey: true}),
-            new Parse.Query(StoriesClass).equalTo("objectId", story.get("latest_id")).first({useMasterKey: true}),
-            new Parse.Query(ArtWorkClass).equalTo("object_id", story.get("latest_id")).first({useMasterKey: true}),
+            new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("latest_id")).first({useMasterKey: true}),
+            new Parse.Query(_class.Stories).equalTo("objectId", story.get("latest_id")).first({useMasterKey: true}),
+            new Parse.Query(_class.ArtWork).equalTo("object_id", story.get("latest_id")).first({useMasterKey: true}),
         );
 
     }).then((sticker, story, storyArtwork) => {
@@ -132,40 +49,63 @@ Parse.Cloud.define("getFeed", function (req, res) {
         _story = story;
 
         return Parse.Promise.when(
-            new Parse.Query(StickersClass).equalTo("objectId", storyArtwork.get("sticker")).first({useMasterKey: true}),
-            new Parse.Query(StoryItemClass).equalTo("story_id", story.id).find({useMasterKey: true})
+            new Parse.Query(_class.Stickers).equalTo("objectId", storyArtwork.get("sticker")).first({useMasterKey: true}),
+            new Parse.Query(_class.StoryItems).equalTo("story_id", story.id).find({useMasterKey: true})
         );
 
-    }).then((sticker,storyItems) => {
+    }).then((sticker, storyItems) => {
 
-        feed.stickerOfDay = createSticker(_sticker);
-        feed.latestStory = createStory(_story,sticker,storyItems);
+        feed.stickerOfDay = create.Sticker(_sticker);
+        feed.latestStory = create.Story(_story, sticker, storyItems);
 
         let promises = [];
         _.map(_packs, function (pack) {
-            promises.push(pack.relation(PacksClass).query().limit(5).find({useMasterKey: true}));
+            promises.push(pack.relation(_class.Packs).query().limit(5).find({useMasterKey: true}));
         });
+
         return Parse.Promise.when(promises);
 
-    }).then(stickerList =>{
+    }).then(stickerList => {
 
         let packList = [];
+        let categoryList = [];
 
         _.map(_packs, pack => {
-            packList.push(createPack(pack,stickerList))
+            packList.push(create.Pack(pack, stickerList))
+        });
+
+        _.map(_categories, category => {
+            categoryList.push(create.Category(category))
         });
 
         feed.packs = packList;
+        feed.categories = categoryList;
 
         res.success(util.setResponseOk(feed));
 
     }, error => {
+
         util.handleError(res, error);
+
     })
 
 });
 
 Parse.Cloud.define("getCategories", function (req, res) {
+
+    new Parse.Query(_class.Categories).ascending("name").limit(1000).find().then(categories => {
+
+        let categoryList = [];
+
+        _.map(categories, category => {
+            categoryList.push(create.Category(category))
+        });
+
+        res.success(util.setResponseOk(categoryList));
+
+    }, error => {
+        util.handleError(res, error);
+    })
 
 });
 
@@ -174,72 +114,29 @@ Parse.Cloud.define("getPacks", function (req, res) {
     let _packs = [];
 
     //TODO use default pack env variable
-    return new Parse.Query(PacksClass).equalTo("user_id", process.env.ADMIN).notEqualTo("objectId", process.env.DEFAULT_PACK).find({useMasterKey: true})
+    return new Parse.Query(_class.Packs).equalTo("user_id", ADMIN).notEqualTo("objectId", DEFAULT_PACK).find({useMasterKey: true})
         .then(function (packs) {
 
             _packs = packs;
             let promises = [];
             _.map(packs, function (pack) {
-                promises.push(pack.relation(PacksClass).query().limit(5).find({useMasterKey: true}));
+                promises.push(pack.relation(_class.Packs).query().limit(5).find({useMasterKey: true}));
             });
 
             return Parse.Promise.when(promises);
 
-            //  return stickers.query().find({useMasterKey: true});
-
         }).then(function (stickerList) {
 
-            /*
-            preview:[url],
-            stickers[{}]
-            name:
-            description
-            sold:bool
-            * */
+            let packList = [];
 
-            let stickerObjects = [];
-
-            //todo check if pack is published
-            //todo check if pack has not been archived
+            //TODO check if pack is published
+            //TODO check if pack has not been archived
             _.map(_packs, pack => {
-
-                let packItem = {};
-                packItem.id = pack.id;
-                packItem.name = pack.get("pack_name");
-                packItem.description = pack.get("pack_description");
-
-                let _artwork = pack.get("art_work");
-                if (_artwork) {
-                    packItem.artwork = _artwork.url();
-                } else {
-                    packItem.artwork = "";
-                }
-
-                let _stickers = [];
-                _.map(stickerList, function (stickers) {
-
-                    if (stickers.length) {
-
-
-                        _.map(stickers, sticker => {
-
-                            if (pack.id === sticker.get("parent").id) {
-                                _stickers.push({id: sticker.id, url: sticker.get("uri").url()});
-                            }
-
-                        });
-
-                        packItem.previews = _stickers;
-
-                    }
-                });
-
-                stickerObjects.push(packItem);
-
+                packList.push(create.Pack(pack,stickerList));
             });
 
             //TODO properly handle error
-            res.success(util.setResponseOk(stickerObjects));
+            res.success(util.setResponseOk(packList));
 
         }, function (error) {
 
@@ -262,15 +159,15 @@ Parse.Cloud.define("getStory", function (req, res) {
     let storyId = req.params.storyId;
 
     Parse.Promise.when(
-        new Parse.Query(StoriesClass).equalTo("objectId", storyId).first({useMasterKey: true}),
-        new Parse.Query(ArtWorkClass).equalTo("object_id", storyId).first({useMasterKey: true}),
-        new Parse.Query(StoryItemClass).equalTo("story_id", storyId).find({useMasterKey: true})
+        new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey: true}),
+        new Parse.Query(_class.ArtWork).equalTo("object_id", storyId).first({useMasterKey: true}),
+        new Parse.Query(_class.StoryItems).equalTo("story_id", storyId).find({useMasterKey: true})
     ).then(function (story, sticker, storyItems) {
 
         _story = story;
         _storyItems = storyItems;
 
-        return new Parse.Query(StickersClass).equalTo("objectId", sticker.get("sticker")).first({useMasterKey: true});
+        return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("sticker")).first({useMasterKey: true});
 
     }).then(function (sticker) {
 
@@ -295,6 +192,7 @@ Parse.Cloud.define("getStory", function (req, res) {
                 story.colors = type.DEFAULT.color
             }
 
+            //TODO add storyItem to create.js
             if (_storyItems.length) {
                 let _stories = [];
                 _.each(_storyItems, storyItem => {
@@ -325,7 +223,7 @@ Parse.Cloud.define("getStoryItems", function (req, res) {
     let storyId = req.params.storyId;
 
     Parse.Promise.when(
-        new Parse.Query(StoryItemClass).equalTo("story_id", storyId).find({useMasterKey: true})
+        new Parse.Query(_class.StoryItems).equalTo("story_id", storyId).find({useMasterKey: true})
     ).then(storyItems => {
 
         let _storyItems = [];
@@ -364,8 +262,9 @@ Parse.Cloud.define("getStories", function (req, res) {
     let storyList = [];
 
     return Parse.Promise.when(
-        new Parse.Query(StoriesClass).equalTo("user_id", process.env.ADMIN).find({useMasterKey: true}),
-        new Parse.Query(ArtWorkClass).find()
+        new Parse.Query(_class.Stories).equalTo("user_id", ADMIN).find({useMasterKey: true}),
+        new Parse.Query(_class.StoryItems).find()
+
     ).then((stories, artworks) => {
 
         _stories = stories;
@@ -379,7 +278,7 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         });
 
-        return new Parse.Query(StickersClass).containedIn("objectId", stickerIds).find({useMasterKey: true});
+        return new Parse.Query(_class.Stickers).containedIn("objectId", stickerIds).find({useMasterKey: true});
 
     }).then(stickers => {
 
@@ -433,10 +332,10 @@ Parse.Cloud.define("getStickers", function (req, res) {
     let packId = req.params.packId;
 
     // var user = req.user;
-    return new Parse.Query(PacksClass).equalTo("objectId", packId).first({useMasterKey: true})
+    return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
         .then(function (pack) {
 
-            let stickers = pack.relation(PacksClass);
+            let stickers = pack.relation(_class.Packs);
             return stickers.query().find({useMasterKey: true});
 
         }).then(function (stickers) {
