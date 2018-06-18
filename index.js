@@ -652,7 +652,7 @@ app.post('/latest_element/:type', function (req, res) {
         }).then(function (sticker) {
 
             if (sticker.get("description") === "") {
-                res.render("page/add_description", {
+                res.render("pages/add_description", {
                     sticker: sticker
                 })
             } else {
