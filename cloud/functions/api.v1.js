@@ -64,6 +64,9 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
     }).then((sticker, storyItems, advertImages, links) => {
 
+        console.log("LINKIFY ",JSON.stringify(links));
+        console.log("IMAGEFY ",JSON.stringify(advertImages));
+
         feed.stickerOfDay = create.Sticker(_sticker);
         feed.latestStory = create.Story(_story, sticker, storyItems);
         feed.adverts = create.Adverts(_adverts, advertImages, links);
