@@ -710,6 +710,9 @@ app.get('/advert_collection', function (req, res) {
                 _.each(ad_images, function (image) {
 
                     if (advert.id === image.get("advert_id")) {
+
+                        //TODO modify query to group types
+                        //TODO use type constants from types JS e.g type.LINKS.android
                         if (image.get("type") === 0) {
                             _adverts.push({
                                 advert: advert,
@@ -722,11 +725,11 @@ app.get('/advert_collection', function (req, res) {
             });
 
             let spliced = [];
-            for (i = 0; i < adverts.length; i = i + 1) {
+            for (let i = 0; i < adverts.length; i = i + 1) {
 
                 console.log("ADVERTS " + JSON.stringify(adverts[i]));
 
-                for (j = 0; j < _adverts.length; j = j + 1) {
+                for (let j = 0; j < _adverts.length; j = j + 1) {
 
                     if (adverts[i].get("title") === _adverts[j].advert.get("title")) {
                         console.log("SPLICED ITEM " + JSON.stringify(adverts[i]));
@@ -4305,6 +4308,7 @@ app.get('/newsletter/send/story', function (req, res) {
         new Parse.Query(_class.NewsLetter).equalTo("subscribe", true).find(),
         new Parse.Query(_class.Stories).equalTo("objectId", 'VcTBweB2Mz').first(),
         new Parse.Query(_class.ArtWork).equalTo("object_id", 'VcTBweB2Mz').first()
+
     ).then(function (newsletters, story, sticker) {
 
         console.log("COLLECTED ALL DATA");
