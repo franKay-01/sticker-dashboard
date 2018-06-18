@@ -115,49 +115,64 @@ exports.Adverts = (advert, links, advertImages) => {
 
             const _link = link.get("link");
 
-            console.log("SWITCHIFY LINK MATCH");
-
             switch (parseInt(link.get("type"))) {
                 case type.LINKS.android :
-                    console.log("SWITCHIFY ANDROID");
-                    _advert.android = {link: _link};
+                    if (_advert.android)
+                        _advert.android.link = _link;
+                    else
+                        _advert.android = {};
+                    _advert.android.link = _link;
                     break;
 
                 case type.LINKS.ios :
-                    console.log("SWITCHIFY IOS");
-                    _advert.ios = {link: _link};
+                    if (_advert.ios)
+                        _advert.ios.link = _link;
+                    else
+                        _advert.ios = {};
+                    _advert.ios.link = _link;
                     break;
 
                 case type.LINKS.web :
-                    console.log("SWITCHIFY WEB");
-                    _advert.web = {link: _link};
+                    if (_advert.web)
+                        _advert.web.link = _link;
+                    else
+                        _advert.web = {};
+                    _advert.web.link = _link;
                     break;
             }
         }
     });
 
+    //TODO optimise ios specific objects
     _.each(advertImages, advertImage => {
 
         if (advert.id === advertImage.get("advert_id")) {
-
-            console.log("SWITCHIFY IMAGE MATCH");
 
             const uri = advertImage.get("uri").url();
 
             switch (parseInt(advertImage.get("type"))) {
                 case type.LINKS.android :
-                    console.log("SWITCHIFY ANDROID IMAGE");
-                    _advert.android = {imageUri: uri};
+                    if (_advert.android)
+                        _advert.android.imageUri = uri;
+                    else
+                        _advert.android = {};
+                    _advert.android.imageUri = uri;
                     break;
 
                 case type.LINKS.ios :
-                    console.log("SWITCHIFY IOS IMAGE");
-                    _advert.ios = {imageUri: uri};
+                    if (_advert.ios)
+                        _advert.ios.imageUri = uri;
+                    else
+                        _advert.ios = {};
+                    _advert.ios.imageUri = uri;
                     break;
 
                 case type.LINKS.web :
-                    console.log("SWITCHIFY WEB IMAGE");
-                    _advert.web = {imageUri: uri};
+                    if (_advert.ios)
+                        _advert.ios.imageUri = uri;
+                    else
+                        _advert.web = {};
+                    _advert.web.imageUri = uri;
                     break;
             }
         }
