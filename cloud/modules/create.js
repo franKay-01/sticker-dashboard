@@ -116,15 +116,15 @@ exports.Adverts = (advert, links, advertImages) => {
 
             switch (link.get("type")) {
                 case type.LINKS.android :
-                    _advert.android = {link: _link};
+                    _advert.androidLink = _link;
                     break;
 
                 case type.LINKS.ios :
-                    _advert.ios = {link: _link};
+                    _advert.iosLink = _link;
                     break;
 
                 case type.LINKS.web :
-                    _advert.web = {link: _link};
+                    _advert.webLink = _link;
                     break;
             }
         }
@@ -138,15 +138,15 @@ exports.Adverts = (advert, links, advertImages) => {
 
             switch (advertImage.get("type")) {
                 case type.LINKS.android :
-                    _advert.android = {imageUri: uri};
+                    _advert.androidImageUrl = uri;
                     break;
 
                 case type.LINKS.ios :
-                    _advert.ios = {imageUri: uri};
+                    _advert.iosImageUrl = uri;
                     break;
 
                 case type.LINKS.web :
-                    _advert.web = {imageUri: uri};
+                    _advert.webImageUrl = uri;
                     break;
             }
         }
