@@ -2080,6 +2080,7 @@ app.get('/home', function (req, res) {
 
             _latestSticker = latestSticker.get("uri");
             _latestSticker['stickerName'] = latestSticker.get("stickerName");
+            _latestSticker['description'] = latestSticker.get("description");
 
             _storyBody = storyBody;
 
