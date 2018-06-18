@@ -1120,9 +1120,6 @@ app.get('/sticker_of_day', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            var query = new Parse.Query(Comment);
-            query.doesNotMatchQuery("post", innerQuery);
-
             let query = new Parse.Query(_class.Stickers);
             query.equalTo("sold", false);
             query.equalTo("user_id", _user.id);
