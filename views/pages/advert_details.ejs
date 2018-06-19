@@ -75,6 +75,7 @@
             <div class="edit_labels medium-12 large-12">ADD ADVERT IMAGE</div>
 
             <form id="pack_form" action="/update/advert/link/<%= ad_details.id %>" method="post">
+                <center>
                 <label class="update_label" style="color: white !important;margin-left: 140px;">Select
                     Platform:</label>
                 <div style="width: 450px !important;">
@@ -88,6 +89,7 @@
                 <label class="update_label" style="color: white !important;margin-left: 140px;">Link:</label>
                 <input placeholder="https://google.com/ads"
                        name="link" class="_pack common_pack_detail validate" required>
+                </center>
 
                 <span>
                     <button type="submit" id="categoryBtn" class="create">CREATE</button>
@@ -95,7 +97,6 @@
                 <span>
                     <button type="button" id="btn_cancelAdLink" class="cancel">Cancel</button>
                 </span>
-
             </form>
 
         </div>
