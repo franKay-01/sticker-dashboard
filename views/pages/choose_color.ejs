@@ -30,7 +30,6 @@
 
             let img = document.getElementById("image");
 
-            ctx.drawImage(img, 0, 0);
             ctx.scale(0.5, 0.5);
             ctx.drawImage(img, 0, 0);
 
@@ -118,7 +117,11 @@
         </form>
         <canvas style="background-image: linear-gradient(to bottom, <%= colors[0] %>, <%= colors[1] %>);"
                 class="medium-5 large-5 cell image_canvas" id="preview">
-
+            <div>
+                <h1>
+                    HELLO
+                </h1>
+            </div>
         </canvas>
         <img src="<%= sticker.get("uri").url() %>" width="200px" height="200px" id="image" hidden>
 
