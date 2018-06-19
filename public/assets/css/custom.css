@@ -813,6 +813,18 @@ label {
     box-shadow: rgb(197, 197, 197) 0 0 40px;
 }
 
+.image_canvas {
+    width: 500px !important;
+    height: 400px !important;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    position: relative;
+    background-color: white;
+    /*box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);*/
+    box-shadow: rgb(197, 197, 197) 0 0 40px;
+}
+
 .user_profile {
     margin-right: 10px;
     margin-bottom: 15px;
