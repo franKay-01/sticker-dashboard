@@ -102,6 +102,8 @@ exports.Story = (story, sticker, storyItem) => {
 
 exports.Adverts = (advert, links, advertImages) => {
 
+
+    //TODO add mobile to types
     let _advert = {};
 
     _advert.id = advert.id;

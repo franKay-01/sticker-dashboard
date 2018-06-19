@@ -279,6 +279,7 @@ Parse.Cloud.define("getStories", function (req, res) {
     return Parse.Promise.when(
         new Parse.Query(_class.Stories).equalTo("user_id", ADMIN).find({useMasterKey: true}),
         new Parse.Query(_class.ArtWork).find()
+
     ).then((stories, artworks) => {
 
         _stories = stories;
