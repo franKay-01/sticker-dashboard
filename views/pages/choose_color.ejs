@@ -30,8 +30,9 @@
 
             let img = document.getElementById("image");
 
+            var scaled_img=scaleIt(img,0.50);
             ctx.imageSmoothingEnabled = false;
-            ctx.drawImage(img, 0, 0, 200, 200);
+            ctx.drawImage(scaled_img, 0, 0, 200, 200);
 
         }
 
