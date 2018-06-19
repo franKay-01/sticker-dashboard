@@ -837,7 +837,6 @@ app.post('/update/advert/link/:id', function (req, res) {
 
             if (existing.length > 0) {
 
-                advertMessage = "ADVERT under category already exist";
                 res.redirect('/advert_details/' + id);
 
             } else {
@@ -887,7 +886,7 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
         }).then(function (advert) {
 
             if (advert) {
-                advertMessage = "ADVERT under category already exist";
+                // advertMessage = "ADVERT under category already exist";
                 res.redirect('/advert_details/' + id);
             } else {
                 files.forEach(function (file) {
