@@ -825,7 +825,7 @@ app.post('/update/advert/link/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Links).equalTo("advert_id", id).find();
+            return new Parse.Query(_class.Links).equalTo("object_id", id).find();
 
         }).then(function (links) {
 
