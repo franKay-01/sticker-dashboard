@@ -846,7 +846,7 @@ app.post('/update/advert/link/:id', function (req, res) {
                 let links = new Links();
 
                 links.set("type", type);
-                links.set("object_id", advert.id);
+                links.set("object_id", id);
                 links.set("link", link);
 
                 return links.save();
