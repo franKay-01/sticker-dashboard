@@ -150,6 +150,18 @@ $(document).ready(function () {
             $('#opaqueDiv').fadeOut('fast');
         });
 
+        $('#showAdLinkForm').on('click', function () {
+            $('#pageMask').fadeIn('fast');
+            $('#hiddenAddAdvertLinks').fadeIn('fast');
+            $('#logo').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+            $('.login_card').fadeOut('fast');
+            $('#review_form').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#opaqueDiv').fadeOut('fast');
+        });
+
         // This is to show a hidden form to create new packs
         $('#showCreateForm').on('click', function () {
             $('#hiddenCreateForm').fadeIn('fast');
@@ -165,6 +177,18 @@ $(document).ready(function () {
 
         $('#btn_cancelAdImage').on('click', function () {
             $('#hiddenAddAdvertImageForm').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('.login_card').fadeIn('fast');
+            $('#review_form').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
+        });
+
+        $('#btn_cancelAdLink').on('click', function () {
+            $('#hiddenAddAdvertLinks').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#opaqueDiv').fadeIn('fast');
             $('#logo').fadeIn('fast');

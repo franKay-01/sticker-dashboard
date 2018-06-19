@@ -787,17 +787,15 @@ app.get('/advert_details/:id', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(_class.Advert).equalTo("objectId", id).first(),
-                new Parse.Query(_class.AdvertImages).equalTo("advert_id", id).find()
+                new Parse.Query(_class.AdvertImages).equalTo("advert_id", id).first()
             );
 
-        }).then(function (advert, advertImages) {
-
-            console.log("ADVERT MESSAGE " + advertMessage);
+        }).then(function (advert, advertImage) {
 
             res.render("pages/advert_details", {
 
                 ad_details: advert,
-                ad_images: advertImages,
+                ad_images: advertImage,
                 advertMessage: advertMessage
             })
 
@@ -814,22 +812,20 @@ app.get('/advert_details/:id', function (req, res) {
     }
 });
 
-app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res) {
+
+app.post('/update/advert/link/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
-    let files = req.files;
     let type = parseInt(req.body.type);
     let link = req.body.link;
-    let fileDetails = [];
-    let advertDetails = [];
     let existing = [];
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.AdvertImages).equalTo("advert_id", id).find();
+            return new Parse.Query(_class.Links).equalTo("advert_id", id).find();
 
         }).then(function (advert) {
 
@@ -839,8 +835,58 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
                 }
             });
 
-            console.log("EXISTING LENGTH " + existing.length);
-            if (existing.length) {
+            if (existing.length > 0) {
+
+                advertMessage = "ADVERT under category already exist";
+                res.redirect('/advert_details/' + id);
+
+            } else {
+
+                let Links = new Parse.Object.extend(_class.Links);
+                let links = new Links();
+
+                links.set("type", type);
+                links.set("object_id", advert.id);
+                links.set("link", link);
+
+                return links.save();
+            }
+
+        }).then(function (link) {
+
+            res.redirect('/advert_details/' + id);
+
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/advert_details/' + id);
+
+        })
+    } else {
+
+        res.redirect('/');
+
+    }
+});
+
+app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let files = req.files;
+    let fileDetails = [];
+    let advertDetails = [];
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.AdvertImages).equalTo("advert_id", id).first();
+
+        }).then(function (advert) {
+
+            if (advert) {
                 advertMessage = "ADVERT under category already exist";
                 res.redirect('/advert_details/' + id);
             } else {
@@ -861,7 +907,6 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
                     advert_image.set("name", image_name);
                     advert_image.set("advert_id", id);
                     advert_image.set("uri", parseFile);
-                    advert_image.set("type", type);
 
                     advertDetails.push(advert_image);
                     fileDetails.push(file);
@@ -893,25 +938,8 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
                 });
             }
 
-            let LINKS = new Parse.Object.extend(_class.Links);
-            let links = new LINKS();
+            res.redirect('/advert_details/' + id);
 
-            links.set("link", link);
-            links.set("object_id", id);
-            links.set("type", type);
-
-            return links.save();
-
-        }).then(function (links) {
-
-            if (links) {
-
-                res.redirect('/advert_details/' + id);
-
-            } else {
-                advertMessage = "ADVERT LINK could not be saved";
-                res.redirect('/advert_details/' + id);
-            }
 
         }, function (error) {
 
@@ -1515,14 +1543,13 @@ app.get('/change_color/:id', function (req, res) {
             return Parse.Promise.when(
                 new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
                 new Parse.Query(_class.ArtWork).equalTo("object_id", id).first()
-
-        );
+            );
 
         }).then(function (story, art) {
 
             console.log("ART " + JSON.stringify(art));
             _story = story;
-             colors = story.get("color");
+            colors = story.get("color");
             if (colors) {
                 color = story.get("color");
             } else {
@@ -4380,7 +4407,6 @@ app.get('/newsletter/send/story', function (req, res) {
         new Parse.Query(_class.NewsLetter).equalTo("subscribe", true).find(),
         new Parse.Query(_class.Stories).equalTo("objectId", 'VcTBweB2Mz').first(),
         new Parse.Query(_class.ArtWork).equalTo("object_id", 'VcTBweB2Mz').first()
-
     ).then(function (newsletters, story, sticker) {
 
         console.log("COLLECTED ALL DATA");
