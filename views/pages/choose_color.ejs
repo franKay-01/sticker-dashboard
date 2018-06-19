@@ -24,17 +24,6 @@
     <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
     <script>
 
-        // window.onload = function() {
-        //     // var c = document.getElementById("preview");
-        //     // var ctx = c.getContext("2d");
-        //
-        //     let img = document.getElementById("image");
-        //
-        //     // ctx.scale(0.5, 0.5);
-        //     // ctx.drawImage(img, 0, 0);
-        //
-        // }
-
         function addcolor() {
             let color_1 = document.getElementById("color_value").value;
             let color_2 = document.getElementById("color_value_1").value;
@@ -43,20 +32,9 @@
             color_1 = hash.concat(color_1);
             color_2 = hash.concat(color_2);
 
-            // var c = document.getElementById("preview");
-             let img = document.getElementById("image");
-            //
-            // var ctx = c.getContext("2d");
-            // var my_gradient = ctx.createLinearGradient(0, 0, 0, 170);
-            // my_gradient.addColorStop(0, color_1);
-            // my_gradient.addColorStop(1, color_2);
-            // ctx.fillStyle = my_gradient;
-            // ctx.imageSmoothingEnabled = false;
-            // ctx.fillRect(0, 0, 300, 400);
-            // ctx.drawImage(img, 0, 0, 200, 200);
+            let img = document.getElementById("image");
 
-            img.style.backgroundImage = 'linear-gradient('+color_1 +','+ color_2+')';
-
+            img.style.backgroundImage = 'linear-gradient(' + color_1 + ',' + color_2 + ')';
 
         }
 
@@ -118,21 +96,15 @@
             </button>
 
         </form>
-        <!--<canvas style="background-image: linear-gradient(to bottom, <%#= colors[0] %>, <%#= colors[1] %>);"-->
-                <!--class="medium-5 large-5 cell image_canvas" id="preview">-->
-            <!--<div>-->
-                <!--<h1>-->
-                    <!--HELLO-->
-                <!--</h1>-->
-            <!--</div>-->
-        <!--</canvas>-->
-        <div id="image" class="medium-3 large-3 cell icons" style="background-image: linear-gradient(to bottom, <%= colors[0] %>, <%= colors[1] %>);">
+
+        <div id="image" class="medium-3 large-3 cell icons"
+             style="background-image: linear-gradient(to bottom, <%= colors[0] %>, <%= colors[1] %>);">
 
             <img class="gbeja_notxt" src="<%= sticker.get("uri").url() %>" width="200px" height="200px">
-            <div style="color: #ffffff !important;font-weight: 800 !important;" class="story_summary truncate_summary"> <%= story.get("title") %></div>
+            <div style="color: #ffffff !important;font-weight: 800 !important;"
+                 class="story_summary truncate_summary"> <%= story.get("title") %></div>
 
         </div>
-
 
 
         <%- include('../partials/footer') %>
