@@ -827,10 +827,10 @@ app.post('/update/advert/link/:id', function (req, res) {
 
             return new Parse.Query(_class.Links).equalTo("advert_id", id).find();
 
-        }).then(function (advert) {
+        }).then(function (links) {
 
-            _.each(advert, function (adverts) {
-                if (adverts.get("type") === type) {
+            _.each(links, function (link) {
+                if (link.get("type") === type) {
                     existing.push(type);
                 }
             });
