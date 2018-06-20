@@ -4523,7 +4523,7 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
                 .resize(100, 100)
                 .write('public/uploads/' + image_name + getMimeType(file.mimetype), function (err) {
                     if (!err) {
-                        filePreviews.push();
+                        filePreviews.push(image_name);
                         if (index === files.length - 1) {
                             promise.resolve(filePreviews);
                         } else {
