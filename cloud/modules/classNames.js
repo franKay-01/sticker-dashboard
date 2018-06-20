@@ -4,6 +4,7 @@ exports.Packs = "Packs";
 exports.Reviews = "Reviews";
 exports.Stories = "Stories";
 exports.StoryBody = "StoryBody";
+exports.Assets = "Assets";
 //TODO Update to StoryItems
 exports.StoryItems = "StoryItem";
 //TODO update to Artwork

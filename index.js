@@ -1867,36 +1867,31 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            var Artwork = new Parse.Object.extend(_class.ArtWork);
-            var art = new Artwork();
-
-            files.forEach(function (file) {
-
-                var fullName = file.originalname;
-                var stickerName = fullName.substring(0, fullName.length - 4);
-
-                var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-
-                //create our parse file
-                var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                console.log("PARSEFILE " + JSON.stringify(parseFile));
+            let Asset = new Parse.Object.extend(_class.Assets);
+            let asset = new Asset();
 
 
-                art.set("name", stickerName);
-                art.set("story_id", id);
-                art.set("sticker", parseFile);
+            let fullName = files[0].originalname;
+            let stickerName = fullName.substring(0, fullName.length - 4);
 
-            });
+            let bitmap = fs.readFileSync(file[0].path, {encoding: 'base64'});
 
-            return art.save();
-        }).then(function (artwork) {
+            //create our parse file
+            let parseFile = new Parse.File(stickerName, {base64: bitmap}, file[0].mimetype);
 
-            console.log("ARTWORK " + artwork.id);
+            asset.set("name", stickerName);
+            asset.set("story_id", id);
+            asset.set("sticker", parseFile);
+
+            return asset.save();
+
+        }).then(function (image) {
+
             let Story = new Parse.Object.extend(_class.StoryItems);
             let catalogue = new Story();
 
             catalogue.set("type", type.STORY_ITEM.image);
-            catalogue.set("content", artwork.id);
+            catalogue.set("content", image.id);
             catalogue.set("story_id", id);
 
             return catalogue.save();
@@ -1906,8 +1901,10 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
             res.redirect("/story_catalogue/" + id);
 
         }, function (error) {
+
             console.log("ERROR " + error.message);
             res.redirect("/story_details/" + id);
+
         })
     } else {
         res.redirect('/');
@@ -2414,9 +2411,9 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     let parseFilePreview = "";
 
                     _.map(_previews, preview => {
-                        if(stickerName === preview.name) {
-                        bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
-                        parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview},preview.mimetype);
+                        if (stickerName === preview.name) {
+                            bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
+                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
                         }
                     });
 
@@ -2426,13 +2423,14 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     sticker.set("stickerName", stickerName);
                     sticker.set("localName", stickerName);
                     sticker.set("uri", parseFile);
-                     sticker.set("preview", parseFilePreview);
+                    sticker.set("preview", parseFilePreview);
                     sticker.set("user_id", _user.id);
                     sticker.set("parent", collection);
                     sticker.set("description", "");
                     sticker.set("flag", false);
                     sticker.set("archive", false);
                     sticker.set("sold", false);
+                    sticker.set("version", collection.get("version"));
                     // sticker.setACL(setPermission(_user, false));
 
                     stickerDetails.push(sticker);
