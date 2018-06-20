@@ -1873,10 +1873,10 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
             let fullName = files[0].originalname;
             let stickerName = fullName.substring(0, fullName.length - 4);
 
-            let bitmap = fs.readFileSync(file[0].path, {encoding: 'base64'});
+            let bitmap = fs.readFileSync(files[0].path, {encoding: 'base64'});
 
             //create our parse file
-            let parseFile = new Parse.File(stickerName, {base64: bitmap}, file[0].mimetype);
+            let parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
 
             asset.set("uri", parseFile);
 
