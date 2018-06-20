@@ -1,4 +1,5 @@
 const _ = require('underscore');
+const type = require('./type');
 
 exports.Sticker = sticker => {
     let _sticker = {};
@@ -97,4 +98,87 @@ exports.Story = (story, sticker, storyItem) => {
 
     return _story;
 
+};
+
+exports.Adverts = (advert, links, advertImages) => {
+
+    //TODO add mobile to types
+    let _advert = {};
+
+    _advert.id = advert.id;
+    _advert.title = advert.get("title");
+    _advert.description = advert.get("description");
+    _advert.buttonAction = advert.get("buttonAction");
+
+    _.each(links, link => {
+
+        if (advert.id === link.get("object_id")) {
+
+            const _link = link.get("link");
+
+            switch (parseInt(link.get("type"))) {
+                case type.LINKS.android :
+                    if (_advert.android)
+                        _advert.android.link = _link;
+                    else
+                        _advert.android = {};
+                    _advert.android.link = _link;
+                    break;
+
+                case type.LINKS.ios :
+                    if (_advert.ios)
+                        _advert.ios.link = _link;
+                    else
+                        _advert.ios = {};
+                    _advert.ios.link = _link;
+                    break;
+
+                case type.LINKS.web :
+                    if (_advert.web)
+                        _advert.web.link = _link;
+                    else
+                        _advert.web = {};
+                    _advert.web.link = _link;
+                    break;
+            }
+        }
+    });
+
+    //TODO optimise ios specific objects
+    _.each(advertImages, advertImage => {
+
+        if (advert.id === advertImage.get("advert_id")) {
+
+            const uri = advertImage.get("uri").url();
+
+            switch (parseInt(advertImage.get("type"))) {
+                case type.LINKS.android :
+                    if (_advert.android)
+                        _advert.android.imageUrl = uri;
+                    else
+                        _advert.android = {};
+                    _advert.android.imageUrl = uri;
+                    break;
+
+                case type.LINKS.ios :
+                    if (_advert.ios)
+                        _advert.ios.imageUrl = uri;
+                    else
+                        _advert.ios = {};
+                    _advert.ios.imageUrl = uri;
+                    break;
+
+                case type.LINKS.web :
+                    if (_advert.web)
+                        _advert.web.imageUrl = uri;
+                    else
+                        _advert.web = {};
+                    _advert.web.imageUrl = uri;
+                    break;
+            }
+        }
+
+    });
+
+    return _advert;
 };

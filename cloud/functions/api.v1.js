@@ -25,17 +25,20 @@ Parse.Cloud.define("getFeed", function (req, res) {
     let _story;
     let _packs;
     let _categories;
+    let _adverts;
+    let advertList = [];
 
     Parse.Promise.when(
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STICKER).first({useMasterKey: true}),
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STORY).first({useMasterKey: true}),
         new Parse.Query(_class.Packs).equalTo("user_id", ADMIN).notEqualTo("objectId", DEFAULT_PACK).limit(2).find({useMasterKey: true}),
-        new Parse.Query(_class.Categories).ascending("name").limit(30).find()
-
-    ).then((sticker, story, packs, categories) => {
+        new Parse.Query(_class.Categories).ascending("name").limit(30).find(),
+        new Parse.Query(_class.Adverts).find()
+    ).then((sticker, story, packs, categories, adverts) => {
 
         _packs = packs;
         _categories = categories;
+        _adverts = adverts;
 
         return Parse.Promise.when(
             new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("latest_id")).first({useMasterKey: true}),
@@ -47,16 +50,27 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
         _sticker = sticker;
         _story = story;
+        let advertIds = [];
+
+        _.each(_adverts, advert => {
+            advertIds.push(advert.id)
+        });
 
         return Parse.Promise.when(
             new Parse.Query(_class.Stickers).equalTo("objectId", storyArtwork.get("sticker")).first({useMasterKey: true}),
-            new Parse.Query(_class.StoryItems).equalTo("story_id", story.id).find({useMasterKey: true})
+            new Parse.Query(_class.StoryItems).equalTo("story_id", story.id).find({useMasterKey: true}),
+            new Parse.Query(_class.AdvertImages).containedIn("advert_id", advertIds).find({useMasterKey: true}),
+            new Parse.Query(_class.Links).containedIn("object_id", advertIds).find({useMasterKey: true})
         );
 
-    }).then((sticker, storyItems) => {
+    }).then((sticker, storyItems, advertImages, links) => {
 
         feed.stickerOfDay = create.Sticker(_sticker);
         feed.latestStory = create.Story(_story, sticker, storyItems);
+
+        _.each(_adverts, advert => {
+            advertList.push(create.Adverts(advert, links, advertImages));
+        });
 
         let promises = [];
         _.map(_packs, function (pack) {
@@ -80,6 +94,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
         feed.packs = packList;
         feed.categories = categoryList;
+        feed.adverts = advertList;
 
         res.success(util.setResponseOk(feed));
 
@@ -132,7 +147,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
             //TODO check if pack is published
             //TODO check if pack has not been archived
             _.map(_packs, pack => {
-                packList.push(create.Pack(pack,stickerList));
+                packList.push(create.Pack(pack, stickerList));
             });
 
             //TODO properly handle error
@@ -263,7 +278,7 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     return Parse.Promise.when(
         new Parse.Query(_class.Stories).equalTo("user_id", ADMIN).find({useMasterKey: true}),
-        new Parse.Query(_class.StoryItems).find()
+        new Parse.Query(_class.ArtWork).find()
 
     ).then((stories, artworks) => {
 
