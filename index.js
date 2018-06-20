@@ -4504,15 +4504,15 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
             gm(files[0].path)
                 .resize(100, 100)
-                .write('public/uploads/' + image_name + ".png", function (err) {
-                    if (!err)
-                        console.log('done ' + image_name);
+                .write('public/uploads/' + image_name + ".png").then(function (err) {
+                if (!err)
+                    console.log('done ' + image_name);
 
-                   // let bitmapPreview = fs.readFileSync('public/uploads/' + stickerName, {encoding: 'base64'});
+                // let bitmapPreview = fs.readFileSync('public/uploads/' + stickerName, {encoding: 'base64'});
 
-                    res.send("public/uploads/" + image_name)
+                res.send("public/uploads/" + image_name)
 
-                });
+            });
      //   });
 
 
