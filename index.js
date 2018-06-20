@@ -2373,7 +2373,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
     let fileDetails = [];
     let stickerDetails = [];
     let stickerCollection;
-    let preview_file;
+    let _previews = [];
 
     if (token) {
 
@@ -2390,7 +2390,13 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
             let statsRef = ref.child("/gstickers-e4668");
 
-            new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first({sessionToken: token}).then(function (collection) {
+            util.thumbnail(files).then(previews => {
+
+                _previews = previews;
+
+                return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first({sessionToken: token});
+
+            }).then(function (collection) {
 
                 stickerCollection = collection;
 
@@ -2404,12 +2410,23 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
+                    let bitmapPreview;
+                    let parseFilePreview = "";
+
+                    _.map(_previews, preview => {
+                        if(stickerName === preview.name) {
+                        bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
+                        parseFilePreview = new Parse.File(stickerName, {base64: bitmap});
+                        }
+                    });
+
+
                     //create our parse file
                     let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                     sticker.set("stickerName", stickerName);
                     sticker.set("localName", stickerName);
                     sticker.set("uri", parseFile);
-                    // sticker.set("preview", preview_file);
+                     sticker.set("preview", parseFilePreview);
                     sticker.set("user_id", _user.id);
                     sticker.set("parent", collection);
                     sticker.set("description", "");
@@ -4496,48 +4513,6 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
     let preview_file;
 
     let filePreviews = [];
-
-    function getMimeType(mimeType) {
-        switch (mimeType) {
-            case "image/jpg" || "image/jpeg" :
-                return ".jpeg";
-
-            case "image/png" :
-                return ".png";
-
-
-        }
-
-        return ".png";
-    }
-
-    function thumbnail(files) {
-
-        let promise = new Parse.Promise();
-        files.forEach(function (file, index) {
-
-            let fullName = file.originalname;
-            let image_name = fullName.substring(0, fullName.length - 4);
-
-            gm(file.path)
-                .resize(100, 100)
-                .write('public/uploads/' + image_name + getMimeType(file.mimetype), function (err) {
-                    if (!err) {
-                        filePreviews.push(image_name);
-                        if (index === files.length - 1) {
-                            promise.resolve(filePreviews);
-                        } else {
-                            if (index === files.length - 1) {
-                                promise.reject(err);
-                            }
-                        }
-                    }
-
-                });
-        });
-
-        return promise;
-    }
 
     if (token) {
         thumbnail(files).then(previews => {

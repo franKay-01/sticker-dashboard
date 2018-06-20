@@ -6,6 +6,7 @@
 var twilio = require("twilio")("AC6bad1c4bf8d48125709add2b8b0a5ce0", "33028731ba2e2bfb477a0709582a49f8");
 var moment = require('moment');
 var _ = require('underscore');
+let gm = require('gm').subClass({imageMagick: true});
 
 //TODO update response errors
 var KEY_RESPONSE_CODE = "responseCode";
@@ -333,6 +334,48 @@ exports.page = (items, id) => {
     return _page
 };
 
+let getMimeType = mimeType => {
+    switch (mimeType) {
+        case "image/jpg" || "image/jpeg" :
+            return ".jpeg";
+
+        case "image/png" :
+            return ".png";
+
+
+    }
+
+    return ".png";
+};
+
+exports.thumbnail = files => {
+
+    let promise = new Parse.Promise();
+    files.forEach(function (file, index) {
+
+        let fullName = file.originalname;
+        let image_name = fullName.substring(0, fullName.length - 4);
+
+        gm(file.path)
+            .resize(100, 100)
+            .write('public/uploads/' + image_name + getMimeType(file.mimetype), function (err) {
+                if (!err) {
+                    filePreviews.push({name:image_name,path:'public/uploads/' + image_name + getMimeType(file.mimetype)});
+                    if (index === files.length - 1) {
+                        promise.resolve(filePreviews);
+                    } else {
+                        if (index === files.length - 1) {
+                            promise.reject(err);
+                        }
+                    }
+                }
+
+            });
+    });
+
+    return promise;
+};
+
 exports.rejectPromise = rejectPromise;
 exports.handleError = handleError;
 exports.setError = setError;
@@ -343,7 +386,7 @@ exports.setResponse = setResponse;
 exports.sendValidationCode = sendValidationCode;
 exports.prettyLogger = prettyLogger;
 exports.prettyLoggerJSON = prettyLoggerJSON;
-exports.prettyLoggerOptions = prettyLoggerOptions;
+exports.getMimeType = getMimeType;
 
 //make error messages and codes as public vars
 exports.KEY_RESPONSE_CODE = KEY_RESPONSE_CODE;
