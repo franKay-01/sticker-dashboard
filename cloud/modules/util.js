@@ -362,7 +362,13 @@ exports.thumbnail = files => {
             .resize(150, 150)
             .write('public/uploads/' + image_name + getMimeType(file.mimetype), function (err) {
                 if (!err) {
-                    filePreviews.push({name:image_name,path:'public/uploads/' + image_name + getMimeType(file.mimetype)});
+                    filePreviews.push(
+                        {
+                            name: image_name,
+                            path: 'public/uploads/' + image_name + getMimeType(file.mimetype),
+                            mimetype: file.mimetype
+
+                        });
                     if (index === files.length - 1) {
                         promise.resolve(filePreviews);
                     } else {
