@@ -357,7 +357,7 @@ exports.thumbnail = files => {
         let image_name = fullName.substring(0, fullName.length - 4);
 
         gm(file.path)
-            .resize(100, 100)
+            .resize(150, 150)
             .write('public/uploads/' + image_name + getMimeType(file.mimetype), function (err) {
                 if (!err) {
                     filePreviews.push({name:image_name,path:'public/uploads/' + image_name + getMimeType(file.mimetype)});
