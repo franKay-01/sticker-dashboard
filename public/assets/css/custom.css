@@ -354,6 +354,16 @@ label {
     background-color: transparent !important;
 }
 
+.show_btn {
+    height: 43px;
+    font-size: 35px;
+    font-weight: 500;
+    letter-spacing: -2.1px;
+    text-align: left;
+    color: #a46580;
+    background-color: transparent !important;
+}
+
 .review_tab {
     margin: 20px 60px !important;
     width: 200px;
@@ -508,6 +518,14 @@ label {
 }
 
 #hiddenAddAdvertImageForm {
+    display: none;
+    position: absolute;
+    margin: 0px 300px auto;
+    z-index: 9999;
+    top: 155px;
+}
+
+#hiddenAddAdvertLinks {
     display: none;
     position: absolute;
     margin: 0px 300px auto;
@@ -803,6 +821,18 @@ label {
 
 .icons {
     width: 300px !important;
+    height: 400px !important;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    position: relative;
+    background-color: white;
+    /*box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);*/
+    box-shadow: rgb(197, 197, 197) 0 0 40px;
+}
+
+.image_canvas {
+    width: 500px !important;
     height: 400px !important;
     margin-right: 10px;
     margin-bottom: 15px;

@@ -640,8 +640,24 @@ app.post('/latest_element/:type', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/home');
+            switch (type) {
+                case "sticker":
+                    return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
+                case "story":
+                    res.redirect('/home');
 
+            }
+
+
+        }).then(function (sticker) {
+
+            if (sticker.get("description") === "") {
+                res.render("pages/add_description", {
+                    sticker: sticker
+                })
+            } else {
+                res.redirect('/home');
+            }
         }, function (error) {
 
             console.log("ERROR " + error.message);
@@ -774,14 +790,12 @@ app.get('/advert_details/:id', function (req, res) {
                 new Parse.Query(_class.AdvertImages).equalTo("advert_id", id).find()
             );
 
-        }).then(function (advert, advertImages) {
-
-            console.log("ADVERT MESSAGE " + advertMessage);
+        }).then(function (advert, advertImage) {
 
             res.render("pages/advert_details", {
 
                 ad_details: advert,
-                ad_images: advertImages,
+                ad_images: advertImage,
                 advertMessage: advertMessage
             })
 
@@ -798,34 +812,81 @@ app.get('/advert_details/:id', function (req, res) {
     }
 });
 
-app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res) {
+
+app.post('/update/advert/link/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
-    let files = req.files;
     let type = parseInt(req.body.type);
     let link = req.body.link;
-    let fileDetails = [];
-    let advertDetails = [];
     let existing = [];
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.AdvertImages).equalTo("advert_id", id).find();
+            return new Parse.Query(_class.Links).equalTo("object_id", id).find();
 
-        }).then(function (advert) {
+        }).then(function (links) {
 
-            _.each(advert, function (adverts) {
-                if (adverts.get("type") === type) {
+            _.each(links, function (link) {
+                if (link.get("type") === type) {
                     existing.push(type);
                 }
             });
 
-            console.log("EXISTING LENGTH " + existing.length);
-            if (existing.length) {
-                advertMessage = "ADVERT under category already exist";
+            if (existing.length > 0) {
+
+                res.redirect('/advert_details/' + id);
+
+            } else {
+
+                let Links = new Parse.Object.extend(_class.Links);
+                let links = new Links();
+
+                links.set("type", type);
+                links.set("object_id", id);
+                links.set("link", link);
+
+                return links.save();
+            }
+
+        }).then(function (link) {
+
+            res.redirect('/advert_details/' + id);
+
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/advert_details/' + id);
+
+        })
+    } else {
+
+        res.redirect('/');
+
+    }
+});
+
+app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let files = req.files;
+    let fileDetails = [];
+    let advertDetails = [];
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.AdvertImages).equalTo("advert_id", id).first();
+
+        }).then(function (advert) {
+
+            if (advert) {
+                // advertMessage = "ADVERT under category already exist";
                 res.redirect('/advert_details/' + id);
             } else {
                 files.forEach(function (file) {
@@ -845,7 +906,6 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
                     advert_image.set("name", image_name);
                     advert_image.set("advert_id", id);
                     advert_image.set("uri", parseFile);
-                    advert_image.set("type", type);
 
                     advertDetails.push(advert_image);
                     fileDetails.push(file);
@@ -877,25 +937,8 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
                 });
             }
 
-            let LINKS = new Parse.Object.extend(_class.Links);
-            let links = new LINKS();
+            res.redirect('/advert_details/' + id);
 
-            links.set("link", link);
-            links.set("object_id", id);
-            links.set("type", type);
-
-            return links.save();
-
-        }).then(function (links) {
-
-            if (links) {
-
-                res.redirect('/advert_details/' + id);
-
-            } else {
-                advertMessage = "ADVERT LINK could not be saved";
-                res.redirect('/advert_details/' + id);
-            }
 
         }, function (error) {
 
@@ -955,6 +998,7 @@ app.post('/new_advert', function (req, res) {
     let token = req.cookies.token;
     let title = req.body.title;
     let description = req.body.description;
+    let action = req.body.action;
 
     if (token) {
 
@@ -970,6 +1014,7 @@ app.post('/new_advert', function (req, res) {
             advert.set("title", title);
             advert.set("description", description);
             advert.set("user_id", _user.id);
+            advert.set("buttonAction", action);
 
             return advert.save();
 
@@ -1096,18 +1141,25 @@ app.get('/single_message/:id', function (req, res) {
 app.get('/sticker_of_day', function (req, res) {
 
     let token = req.cookies.token;
+    let _user = {};
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Stickers).equalTo("sold", false).find();
+            _user = sessionToken.get("user");
+
+            let query = new Parse.Query(_class.Stickers);
+            query.equalTo("sold", false);
+            query.equalTo("user_id", _user.id);
+            return query.find();
 
         }).then(function (stickers) {
 
             res.render("pages/sticker_of_day", {
                 stickers: stickers
             });
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
@@ -1480,16 +1532,22 @@ app.get('/change_color/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let color = [];
+    let _story = [];
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
+                new Parse.Query(_class.ArtWork).equalTo("object_id", id).first()
+            );
 
-        }).then(function (story) {
+        }).then(function (story, art) {
 
-            let colors = story.get("color");
+            console.log("ART " + JSON.stringify(art));
+            _story = story;
+            colors = story.get("color");
             if (colors) {
                 color = story.get("color");
             } else {
@@ -1497,11 +1555,15 @@ app.get('/change_color/:id', function (req, res) {
                 colors = type.DEFAULT.color
             }
 
-            res.render("pages/choose_color", {
-                story: story,
-                colors: colors
-            });
+            return new Parse.Query(_class.Stickers).equalTo("objectId", art.get("sticker")).first();
 
+        }).then(function (sticker) {
+
+            res.render("pages/choose_color", {
+                story: _story,
+                colors: colors,
+                sticker: sticker
+            });
         }, function (error) {
 
             console.log("ERROR " + error.message);
@@ -2053,6 +2115,7 @@ app.get('/home', function (req, res) {
 
             _latestSticker = latestSticker.get("uri");
             _latestSticker['stickerName'] = latestSticker.get("stickerName");
+            _latestSticker['description'] = latestSticker.get("description");
 
             _storyBody = storyBody;
 
@@ -3527,7 +3590,7 @@ app.get('/details/:stickerId/:packId', function (req, res) {
             // }
         }).then(function (stickers) {
 
-            let page = util.page(stickers,stickerId);
+            let page = util.page(stickers, stickerId);
 
             res.render("pages/sticker_details", {
                 sticker: _sticker,
@@ -3938,6 +4001,39 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
 });
 
+
+app.post('/add_sticker_description/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let stickerId = req.params.id;
+    let description = req.body.description;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first();
+
+        }).then(function (sticker) {
+
+            sticker.set("description", description);
+
+            return sticker.save();
+
+        }).then(function () {
+
+            res.redirect('/home');
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+
+        })
+    }
+
+});
+
 //Update Sticker
 app.post('/update/:id/:pid', function (req, res) {
 
@@ -4309,7 +4405,6 @@ app.get('/newsletter/send/story', function (req, res) {
         new Parse.Query(_class.NewsLetter).equalTo("subscribe", true).find(),
         new Parse.Query(_class.Stories).equalTo("objectId", 'VcTBweB2Mz').first(),
         new Parse.Query(_class.ArtWork).equalTo("object_id", 'VcTBweB2Mz').first()
-
     ).then(function (newsletters, story, sticker) {
 
         console.log("COLLECTED ALL DATA");

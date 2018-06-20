@@ -14,21 +14,23 @@
         <label class="update_label">Attached Ad Images:</label>
         <div class="medium-12 large-12">
 
-            <% if (ad_images.length === 0) { %>
+            <% if (!ad_images) { %>
 
             <p class="none"><b>No Artwork</b></p>
 
             <% } else { %>
-            <% ad_images.forEach(function(item, index) { %>
 
-            <img class="btn_pack_icon" src="<%= item.get("uri").url() %>">
+            <img class="btn_pack_icon" src="<%= ad_images.get("uri").url() %>">
 
-            <% }); %>
             <% } %>
 
-            <a href="#" id="showAdImageForm" class="cancel_btn" style="font-size: 25px !important;color: #560c82 !important;">
+            <a href="#" id="showAdImageForm" class="show_btn" style="font-size: 25px !important;color: #560c82 !important;">
                 <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Artwork</p>
             </a>
+            <a href="#" id="showAdLinkForm" class="show_btn" style="font-size: 25px !important;color: #560c82 !important;">
+                <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Links</p>
+            </a>
+
         </div>
 
     </div>

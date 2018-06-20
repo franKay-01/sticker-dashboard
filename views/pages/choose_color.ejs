@@ -32,13 +32,10 @@
             color_1 = hash.concat(color_1);
             color_2 = hash.concat(color_2);
 
-            var c = document.getElementById("preview");
-            var ctx = c.getContext("2d");
-            var my_gradient = ctx.createLinearGradient(0, 0, 0, 170);
-            my_gradient.addColorStop(0, color_1);
-            my_gradient.addColorStop(1, color_2);
-            ctx.fillStyle = my_gradient;
-            ctx.fillRect(0, 0, 300, 400);
+            let img = document.getElementById("image");
+
+            img.style.backgroundImage = 'linear-gradient(' + color_1 + ',' + color_2 + ')';
+
         }
 
     </script>
@@ -89,7 +86,8 @@
                 <button id="color_button" class="jscolor {valueElement: 'color_value_1'}"></button>
             </div>
 
-            <button type="button" class="check_color add_catalogue" onclick="addcolor()" style="background: transparent !important;">
+            <button type="button" class="check_color add_catalogue" onclick="addcolor()"
+                    style="background: transparent !important;">
                 <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Change Color</p>
             </button>
 
@@ -98,9 +96,16 @@
             </button>
 
         </form>
-        <canvas style="background-image: linear-gradient(to bottom, <%= colors[0] %>, <%= colors[1] %>);" class="medium-3 large-3 cell icons" id="preview">
 
-        </canvas>
+        <div id="image" class="medium-3 large-3 cell icons"
+             style="background-image: linear-gradient(to bottom, <%= colors[0] %>, <%= colors[1] %>);">
+
+            <img class="gbeja_notxt" src="<%= sticker.get("uri").url() %>" width="200px" height="200px">
+            <div style="color: #ffffff !important;font-weight: 800 !important;"
+                 class="story_summary truncate_summary"> <%= story.get("title") %></div>
+
+        </div>
+
 
         <%- include('../partials/footer') %>
 

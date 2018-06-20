@@ -140,6 +140,23 @@
                     <input class="_pack common_pack_detail validate" placeholder="Description"
                            name="description" required="" aria-required="true">
                     <br>
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate" name="action" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Add Action Button</option>
+                            <option value="FIND OUT MORE">FIND OUT MORE</option>
+                            <option value="INSTALL NOW">INSTALL NOW</option>
+                            <option value="FREE">FREE</option>
+                            <option value="FREE DOWNLOAD">FREE DOWNLOAD</option>
+                            <option value="DOWNLOAD">DOWNLOAD</option>
+                            <option value="DONWNLOAD NOW">DOWNLOAD NOW</option>
+                            <option value="BUY">BUY</option>
+                            <option value="BUY NOW">BUY NOW</option>
+                            <option value="PURCHASE">PURCHASE</option>
+                            <option value="PLAY">PLAY</option>
+                            <option value="PLAY NOW">PLAY NOW</option>
+
+                        </select>
+                    </div>
                 </center>
                 <span>
         <button type="submit" class="create">CREATE</button>
@@ -328,9 +345,11 @@
             <div class="title_of_the_day">Sticker of the Day</div>
             <a class="_stickers_packs" href="/sticker_of_day">
                 <center>
-                    <img src="<%= latestSticker.url() %>" style="height: 250px">
+                    <img src="<%= latestSticker.url() %>" width="200px" height="200px">
                 </center>
-                <div class="name_tag"><p class="pack_name_text"><%= latestSticker.stickerName %></p></div>
+                <!--<div class="name_tag"><p class="pack_name_text"><%#= latestSticker.stickerName %></p></div>-->
+                <div style="text-align: center !important;" class="story_title truncate_story_title"><%= latestSticker.stickerName %></div>
+                <div class="story_summary truncate_summary"> <%= latestSticker.description %></div>
             </a>
 
         </div>
