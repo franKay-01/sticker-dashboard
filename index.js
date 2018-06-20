@@ -2416,7 +2416,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     _.map(_previews, preview => {
                         if(stickerName === preview.name) {
                         bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
-                        parseFilePreview = new Parse.File(stickerName, {base64: bitmap});
+                        parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview});
                         }
                     });
 
