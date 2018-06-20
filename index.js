@@ -2936,23 +2936,17 @@ app.get('/remove_story/:id', function (req, res) {
 
         }).then(function (story) {
 
-            if (_user.id === story.get("user_id")) {
-                story.destroy({
-                    success: function (object) {
-                        console.log("removed" + JSON.stringify(object));
-                        res.redirect("/remove_story_items/" + id);
-                    },
-                    error: function (error) {
-                        console.log("Could not remove" + error);
-                        res.redirect("/stories");
+            story.destroy({
+                success: function (object) {
+                    console.log("removed" + JSON.stringify(object));
+                    res.redirect('/stories');
+                },
+                error: function (error) {
+                    console.log("Could not remove" + error);
+                    res.redirect("/stories");
 
-                    }
-                });
-            } else {
-
-                res.redirect("/stories");
-
-            }
+                }
+            });
 
         }, function (error) {
 
@@ -2989,7 +2983,9 @@ app.get('/remove_story_items/:id', function (req, res) {
         }).then(function (success) {
 
             if (success) {
-                res.redirect('/stories');
+
+                res.redirect("/remove_story/" + id);
+
             }
         }, function (error) {
 
