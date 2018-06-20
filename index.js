@@ -4502,7 +4502,7 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
             let fullName = files[0].originalname;
             let image_name = fullName.substring(0, fullName.length - 4);
 
-            gm(file[0].path)
+            gm(files[0].path)
                 .resize(200, 200)
                 .write('public/uploads/' + image_name, function (err) {
                     if (!err)
