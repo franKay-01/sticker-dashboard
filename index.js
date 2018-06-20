@@ -1900,7 +1900,7 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect("/story_details/" + id);
+            res.redirect("/story_catalogue/" + id);
 
         })
     } else {
