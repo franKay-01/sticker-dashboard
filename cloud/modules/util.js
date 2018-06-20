@@ -351,6 +351,8 @@ let getMimeType = mimeType => {
 exports.thumbnail = files => {
 
     let promise = new Parse.Promise();
+    let filePreviews = [];
+
     files.forEach(function (file, index) {
 
         let fullName = file.originalname;
