@@ -1881,7 +1881,7 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
 
             asset.set("name", stickerName);
             asset.set("story_id", id);
-            asset.set("sticker", parseFile);
+            asset.set("uri", parseFile);
 
             return asset.save();
 
