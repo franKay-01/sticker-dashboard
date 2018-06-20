@@ -1870,7 +1870,6 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
             let Asset = new Parse.Object.extend(_class.Assets);
             let asset = new Asset();
 
-
             let fullName = files[0].originalname;
             let stickerName = fullName.substring(0, fullName.length - 4);
 
@@ -1879,8 +1878,6 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
             //create our parse file
             let parseFile = new Parse.File(stickerName, {base64: bitmap}, file[0].mimetype);
 
-            asset.set("name", stickerName);
-            asset.set("story_id", id);
             asset.set("uri", parseFile);
 
             return asset.save();
