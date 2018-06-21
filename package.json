@@ -24,7 +24,6 @@
     "firebase-admin": "^5.12.1",
     "image-downloader": "^3.3.0",
     "images-downloader": "*",
-    "jimp": "^0.2.28",
     "jsbarcode": "^3.9.0",
     "kerberos": "~0.0.x",
     "mailgun-js": "^0.14.2",
@@ -40,7 +39,9 @@
     "twilio": "^2.9.0",
     "underscore": "^1.8.3",
     "url-to-image": "^1.0.0",
-    "gm": "^1.23.1"
+    "gm": "^1.23.1",
+    "google-auth-library": "^0.10.0",
+    "googleapis": "^20.1.0"
   },
   "scripts": {
     "start": "node index.js"

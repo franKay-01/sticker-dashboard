@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "gsticker-market-place",
+  "private_key_id": "af496b307683b13ff2f139c3b61b11e19901d41b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCMFfpy32pH3x9b\nShBuQS5Z1kliyjja8xhdNaCH/MjDVkc4tjPV4DNFpQEaFPhNsutZLWY5c/5ni/YJ\nGJ1bhkTHtqkMPyWJ9vAbBR/hJ8ob3oFA129V2xQzGwbPYEw/cfJHjroj0W461m3H\nEQYdWRwsDz3L3vfhKaAEXpkqrbCzgxsc3welVJgwzQR9k0hKqS+MUegaXY1cyQmN\n4Mo8jQXafmctZlSQPnaVsV8SY57h7tl54yr3rL2NC2O64UZ13jtQcHDlxvzJ69ow\n2ml67V1eoioT1LDoXdm7xWdkU981ImmCfqGsLJ8k6hwWK8wqCNaI3XBYswWSkCDf\nsxkciyI1AgMBAAECggEABdgM4KntVx45wqcuVEsn0ducqCBjis7FX24TSlkDTxLU\nWctQEkYOHYOqrhnd2e/y3X+FWjQ6krtGAk8ikWTijapTFw2zVTQWBCqMj+oHBm6b\n2cajAGPpTdB80j3kMGligBW2MjRUcuPrJHjTVnoXMMdZ/p1Inf4MjOIdZahlTLfF\nphtb+S+yNTh+3mmXS5ZsTIVZRtd3weHDNbCJ5bS0P++7PkLKAF4JZw0vkhmrcm7+\nBwKynOPvGJ/FPRRyTcGxMZirK+zJ7eD0onqk1DTmbx61EPcbEkxkm4h6cwJ5uKaV\ncraxBl+3LjH/6mnalyZ1kZn8FQbdvRpCK4kR9B4LAQKBgQDBK0lTL+Ajj88rVOZf\nYes5vgzP6+LNzgjhg8VB9O84a+IooNLRleyRZFZ0lyBD6L9qdW3Dr/HwVKQ34P6p\nTNMih2HNHIAVLe0P/RegplwdEQaM/z0M7DmEL/CMESVQMQhg2pD9LXfvMnn/9TWj\nLsB94nET9j6Dw1GKm8sT4SCFIQKBgQC5ppTyxOOQckuOuiRqk+85IpM0oQUV81w9\nEK+D8xnHwQLyJKM3xhFO5jRHn0pTqP3zawPzxbZO8ng50RzpvD0yUicZti3S8m6K\n9Reu6EGZ0ScdBHiM0a50o+NHPb8QUKrJDKrPp6YfMc/7gT2aj7DGwo5JYB56UlWw\ngKdFusLmlQKBgQCYbdLvrNC+3yVIeTdMvxUCPKEZlXckldfWNMf8kw4ORLty+e1B\n63+A/19lozeXvtsFY+KYz4cn8XKgkZADApd9IL2hQEMl81alDj+NypjXau7zZhnD\nz8hXMgksTf9Wt0p4OyC8WBvTCc7RlqqbuTG2ZHB8owyTpxX6PZPTfQvPYQKBgQC2\nzcTU1/KMBT9JJxk8qLZiOB1jMTpkxuEIcCmjb/jurKtN662b+biJTDwmWj9B6aFF\n0xZtLz24tyCTLcmejfBkYGiH9M9ia71VrsjHPYN7BmvRMtnRL5bs24OsXqyIUCYb\nGhIHrzjwdogpSrVyQBL9ZA3fSno4UGJ4DfanvqKzkQKBgGPksoPmNSLOiSmkCI2b\nNVHqxkeAhewt/VC1GuBv2bp8oIBVvGUrJsqVXxHzCileXTBzQS3p9Rti0rj22EGn\n6ZXIcIO1ZJpyebvI+gsK+qdnz9m8jriKUdTsiMydPKoqLYrdmnkQ9m63l5EVM5c3\neZJU72vrLJNkan6d7Hn/b8ZV\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-cw7vq@gsticker-market-place.iam.gserviceaccount.com",
+  "client_id": "111990423136414820448",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-cw7vq%40gsticker-market-place.iam.gserviceaccount.com"
+}
