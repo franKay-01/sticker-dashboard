@@ -564,7 +564,7 @@ app.post('/new_story', function (req, res) {
             story.set("summary", summary);
             story.set("pack_id", pack_id);
             story.set("keyword", _keywords);
-            story.set("is_latest_story", false);
+            // story.set("is_latest_story", false);
             story.set("published", false);
             story.set("user_id", _user.id);
             story.set("status", 0);
@@ -1730,7 +1730,7 @@ app.get('/stories', function (req, res) {
             _user = sessionToken.get("user");
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).find(),
+                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).descending("createdAt").find(),
                 new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find(),
                 new Parse.Query(_class.ArtWork).find()
             );
@@ -2059,8 +2059,7 @@ app.get('/home', function (req, res) {
         let _packLength = 0;
         let _stickerLength = 0;
         let _storyLength = 0;
-        const limit = 3;
-
+        const limit = 5;
 
         getUser(token).then(function (sessionToken) {
 
@@ -2075,7 +2074,7 @@ app.get('/home', function (req, res) {
                 new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
                 new Parse.Query(_class.Packs).equalTo("user_id", _user.id).limit(limit).find(),
                 new Parse.Query(_class.Categories).limit(limit).find(),
-                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).limit(limit).find(),
+                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).descending("createdAt").limit(limit).find(),
                 new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find(),
                 new Parse.Query(_class.Categories).count(),
                 new Parse.Query(_class.Packs).equalTo("user_id", _user.id).count(),
