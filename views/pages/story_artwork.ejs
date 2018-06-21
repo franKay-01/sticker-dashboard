@@ -37,7 +37,7 @@
     <span class="medium-6 large-6" style="float: right;">
     <form action="/add_story_artwork/<%= story %>" method="post">
         <button type="submit" class="waves-effect waves-light btn add-story-btn" disabled>ADD STORY</button>
-        <input type="hidden" class="sticker_id" name="element_id">
+        <input type="hidden" class="sticker_id" name="sticker_id">
     </form>
     </span>
 
@@ -59,7 +59,7 @@
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
 <script type="text/javascript">
     $(".sticker-image").click(function () {
-        $(".story_id").val($(this).attr("data-id"));
+        $(".sticker_id").val($(this).attr("data-id"));
         $(".add-story-btn").html("Make " + $(this).attr("data-name") + " Artwork");
         $('.add-story-btn').removeAttr('disabled');
 

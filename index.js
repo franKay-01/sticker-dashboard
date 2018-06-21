@@ -567,6 +567,7 @@ app.post('/new_story', function (req, res) {
             story.set("is_latest_story", false);
             story.set("published", false);
             story.set("user_id", _user.id);
+            story.set("status", 0);
 
             return story.save();
 
