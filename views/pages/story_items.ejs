@@ -66,7 +66,8 @@
                 <%if (item.get("type") === 0){%>
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true" disabled><%= item.get("content") %></textarea>
-                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Text</a><br><br><br>
+                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Text</a>&nbsp;&nbsp;
+                <a href="#" class="preview">Edit Text</a><br><br><br>
                 <%} else if (item.get("type") === 2){%>
 
                 <i class="fa fa-quote-left" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i>
