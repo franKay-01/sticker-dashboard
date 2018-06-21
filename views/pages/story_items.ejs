@@ -50,7 +50,7 @@
         <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
             <div class="edit_labels medium-12 large-12">CHANGE STORY TYPE</div>
 
-            <form id="pack_form" action="/new_category" method="post">
+            <form id="pack_form" action="/change_story_type/" method="post">
                 <center>
                     <input name="storyItemId" class="storyItemId" hidden>
                     <input type="text" class="_pack common_pack_detail validate common" placeholder="Story Item Content"
@@ -87,12 +87,11 @@
                         if (value === "0" || value === "2" || value === "5" || value === "6"){
                             $('.common').removeAttr('hidden');
                             $('.image').attr("hidden", "hidden");
-                        }else if (value === "1"){
+                        }else if (value === "1") {
                             $('.image').removeAttr('hidden');
                             $('.common').attr("hidden", "hidden");
 
                         }
-
                     });
 
                 </script>
