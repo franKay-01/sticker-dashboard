@@ -1867,36 +1867,28 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            var Artwork = new Parse.Object.extend(_class.ArtWork);
-            var art = new Artwork();
+            let Asset = new Parse.Object.extend(_class.Assets);
+            let asset = new Asset();
 
-            files.forEach(function (file) {
+            let fullName = files[0].originalname;
+            let stickerName = fullName.substring(0, fullName.length - 4);
 
-                var fullName = file.originalname;
-                var stickerName = fullName.substring(0, fullName.length - 4);
+            let bitmap = fs.readFileSync(files[0].path, {encoding: 'base64'});
 
-                var bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+            //create our parse file
+            let parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
 
-                //create our parse file
-                var parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                console.log("PARSEFILE " + JSON.stringify(parseFile));
+            asset.set("uri", parseFile);
 
+            return asset.save();
 
-                art.set("name", stickerName);
-                art.set("story_id", id);
-                art.set("sticker", parseFile);
+        }).then(function (image) {
 
-            });
-
-            return art.save();
-        }).then(function (artwork) {
-
-            console.log("ARTWORK " + artwork.id);
             let Story = new Parse.Object.extend(_class.StoryItems);
             let catalogue = new Story();
 
             catalogue.set("type", type.STORY_ITEM.image);
-            catalogue.set("content", artwork.id);
+            catalogue.set("content", image.id);
             catalogue.set("story_id", id);
 
             return catalogue.save();
@@ -1906,8 +1898,10 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
             res.redirect("/story_catalogue/" + id);
 
         }, function (error) {
+
             console.log("ERROR " + error.message);
-            res.redirect("/story_details/" + id);
+            res.redirect("/story_catalogue/" + id);
+
         })
     } else {
         res.redirect('/');
@@ -2414,9 +2408,9 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     let parseFilePreview = "";
 
                     _.map(_previews, preview => {
-                        if(stickerName === preview.name) {
-                        bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
-                        parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview},preview.mimetype);
+                        if (stickerName === preview.name) {
+                            bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
+                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
                         }
                     });
 
@@ -2426,13 +2420,14 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
                     sticker.set("stickerName", stickerName);
                     sticker.set("localName", stickerName);
                     sticker.set("uri", parseFile);
-                     sticker.set("preview", parseFilePreview);
+                    sticker.set("preview", parseFilePreview);
                     sticker.set("user_id", _user.id);
                     sticker.set("parent", collection);
                     sticker.set("description", "");
                     sticker.set("flag", false);
                     sticker.set("archive", false);
                     sticker.set("sold", false);
+                    sticker.set("version", collection.get("version"));
                     // sticker.setACL(setPermission(_user, false));
 
                     stickerDetails.push(sticker);
@@ -2941,23 +2936,17 @@ app.get('/remove_story/:id', function (req, res) {
 
         }).then(function (story) {
 
-            if (_user.id === story.get("user_id")) {
-                story.destroy({
-                    success: function (object) {
-                        console.log("removed" + JSON.stringify(object));
-                        res.redirect("/remove_story_items/" + id);
-                    },
-                    error: function (error) {
-                        console.log("Could not remove" + error);
-                        res.redirect("/stories");
+            story.destroy({
+                success: function (object) {
+                    console.log("removed" + JSON.stringify(object));
+                    res.redirect('/stories');
+                },
+                error: function (error) {
+                    console.log("Could not remove" + error);
+                    res.redirect("/stories");
 
-                    }
-                });
-            } else {
-
-                res.redirect("/stories");
-
-            }
+                }
+            });
 
         }, function (error) {
 
@@ -2994,7 +2983,9 @@ app.get('/remove_story_items/:id', function (req, res) {
         }).then(function (success) {
 
             if (success) {
-                res.redirect('/stories');
+
+                res.redirect("/remove_story/" + id);
+
             }
         }, function (error) {
 
