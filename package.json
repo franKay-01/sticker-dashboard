@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jawache/parse-server-example"
+    "url": "https://git.heroku.com/cryptic-waters-41617.git"
   },
   "license": "MIT",
   "dependencies": {

@@ -14,7 +14,6 @@ let cors = require('cors');
 let methodOverride = require('method-override');
 let moment = require('moment');
 let admin = require('firebase-admin');
-let Jimp = require("jimp");
 
 //for parsing location, directory and paths
 let path = require('path');
