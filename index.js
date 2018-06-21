@@ -651,7 +651,7 @@ app.post('/latest_element/:type', function (req, res) {
 
         }).then(function (sticker) {
 
-            if (sticker.get("description") === "") {
+            if (sticker.get("description") === "" || sticker.get("description") === undefined) {
                 res.render("pages/add_description", {
                     sticker: sticker
                 })
