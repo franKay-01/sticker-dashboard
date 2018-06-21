@@ -1351,7 +1351,7 @@ app.get('/story/:id', function (req, res) {
 
         }).then(function (stickers) {
 
-            res.render("pages/story", {
+            res.render("partials/story", {
                 story: _story.id,
                 stickers: stickers
             });
