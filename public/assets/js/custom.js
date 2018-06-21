@@ -194,6 +194,7 @@ $(document).ready(function () {
             $("#logo").fadeOut('fast');
             $(".welcome_post").fadeOut('fast');
             $(".story").fadeOut('fast');
+            $("#foot").fadeOut('fast');
         });
 
         $('#btn_cancelAdLink').on('click', function () {

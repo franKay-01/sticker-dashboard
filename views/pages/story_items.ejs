@@ -55,7 +55,7 @@
                 <center>
                     <label>Select The Change you want</label>
 
-                    <input name="storyItemId" class="storyItemId">
+                    <input name="storyItemId" class="storyItemId" hidden>
                     <input type="text" class="_pack common_pack_detail validate" placeholder="Story Item Content"
                            name="text_element" required="" aria-required="true" hidden><br>
                     <div style="width: 450px !important;">
@@ -151,8 +151,10 @@
             </div>
         </div>
     </div>
+    <div id="foot">
+        <%- include('../partials/footer') %>
 
-    <%- include('../partials/footer') %>
+    </div>
 
 </div>
 
