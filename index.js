@@ -2059,8 +2059,7 @@ app.get('/home', function (req, res) {
         let _packLength = 0;
         let _stickerLength = 0;
         let _storyLength = 0;
-        const limit = 6;
-
+        const limit = 5;
 
         getUser(token).then(function (sessionToken) {
 
