@@ -2072,7 +2072,7 @@ app.get('/home', function (req, res) {
             return Parse.Promise.when(
                 new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first(),
                 new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
-                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).limit(limit).find(),
+                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).descending("createdAt").limit(limit).find(),
                 new Parse.Query(_class.Categories).limit(limit).find(),
                 new Parse.Query(_class.Stories).equalTo("user_id", _user.id).descending("createdAt").limit(limit).find(),
                 new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find(),
