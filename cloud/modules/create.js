@@ -5,6 +5,7 @@ exports.Sticker = sticker => {
     let _sticker = {};
     _sticker.id = sticker.id;
     _sticker.name = sticker.get("stickerName");
+    _sticker.description = sticker.get("description");
     _sticker.categories = sticker.get("categories");
 
     if (sticker.get("uri")) {
