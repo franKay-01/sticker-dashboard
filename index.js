@@ -564,7 +564,7 @@ app.post('/new_story', function (req, res) {
             story.set("summary", summary);
             story.set("pack_id", pack_id);
             story.set("keyword", _keywords);
-            story.set("is_latest_story", false);
+            // story.set("is_latest_story", false);
             story.set("published", false);
             story.set("user_id", _user.id);
 
