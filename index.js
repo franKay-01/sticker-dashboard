@@ -1730,7 +1730,7 @@ app.get('/stories', function (req, res) {
             _user = sessionToken.get("user");
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).ascending("createdAt").find(),
+                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).descending("createdAt").find(),
                 new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find(),
                 new Parse.Query(_class.ArtWork).find()
             );
