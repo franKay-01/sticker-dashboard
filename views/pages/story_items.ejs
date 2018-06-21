@@ -20,8 +20,13 @@
 
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
+    <script src="/public/assets/js/custom.js"></script>
+    <script src="/public/assets/js/tag.js"></script>
+
 </head>
 
 <body class="primary-background-color">
@@ -51,8 +56,10 @@
                     <label>Select The Change you want</label>
 
                     <input name="storyItemId" class="storyItemId">
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Story Item Content"
+                           name="text_element" required="" aria-required="true" hidden><br>
                     <div style="width: 450px !important;">
-                        <select name="type" required="">
+                        <select name="type" required="" id="stickerSelect">
                             <option value="" disabled selected>Choose new Type</option>
                             <option value="0">TEXT</option>
                             <option value="1">IMAGE</option>
@@ -61,11 +68,21 @@
                             <option value="4">DIVIDER</option>
                             <option value="5">ITALIC</option>
                             <option value="6">BOLD</option>
-                            <option value="7">ADVERT</option>
                         </select>
                     </div>
 
+                <script>
+                    $("#stickerSelect").change(function(){
 
+                        let value = $('#stickerSelect').val();
+                        if (value === "0" || value === "2" || value === "5" || value === "6"){
+                            $('.common_pack_detail').removeAttr('hidden');
+                        }
+
+                    });
+
+
+                </script>
                 </center>
                 <span>
         <button type="submit" id="categoryBtn" class="create">CREATE</button>
@@ -141,9 +158,9 @@
 
 <!-- Body -->
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
 <!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>-->
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
