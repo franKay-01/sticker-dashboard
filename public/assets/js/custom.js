@@ -187,6 +187,15 @@ $(document).ready(function () {
             $('#pack_id').fadeIn('fast');
         });
 
+        $(".change").click(function () {
+            $(".storyItemId").val($(this).attr("data-id"));
+            $("#hiddenChangeType").fadeIn('fast');
+            $("#pageMask").fadeIn('fast');
+            $("#logo").fadeOut('fast');
+            $(".welcome_post").fadeOut('fast');
+            $(".story").fadeOut('fast');
+        });
+
         $('#btn_cancelAdLink').on('click', function () {
             $('#hiddenAddAdvertLinks').fadeOut('fast');
             $('#pageMask').fadeOut('fast');

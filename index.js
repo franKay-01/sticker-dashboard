@@ -786,7 +786,7 @@ app.get('/advert_details/:id', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(_class.Adverts).equalTo("objectId", id).first(),
-                new Parse.Query(_class.AdvertImages).equalTo("advert_id", id).find()
+                new Parse.Query(_class.AdvertImages).equalTo("advert_id", id).first()
             );
 
         }).then(function (advert, advertImage) {

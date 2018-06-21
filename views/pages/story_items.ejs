@@ -41,7 +41,7 @@
     <div id="pageMask"></div>
 
     <!-- Start of hidden form -->
-    <div id="hiddenAddCatForm" style="display: none">
+    <div id="hiddenChangeType" style="display: none">
         <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
             <div class="edit_labels medium-12 large-12">CREATE NEW CATEGORY</div>
 
@@ -51,6 +51,19 @@
                     <label>Select The Change you want</label>
 
                     <input name="storyItemId" class="storyItemId">
+                    <div style="width: 450px !important;">
+                        <select name="type" required="">
+                            <option value="" disabled selected>Choose new Type</option>
+                            <option value="0">TEXT</option>
+                            <option value="1">IMAGE</option>
+                            <option value="2">QUOTE</option>
+                            <option value="3">STICKER</option>
+                            <option value="4">DIVIDER</option>
+                            <option value="5">ITALIC</option>
+                            <option value="6">BOLD</option>
+                            <option value="7">ADVERT</option>
+                        </select>
+                    </div>
 
 
                 </center>
@@ -134,10 +147,5 @@
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
-<script type="text/javascript">
-    $(".change").click(function () {
-        $(".storyItemId").val($(this).attr("data-id"));
-    });
-</script>
 </body>
 </html>
