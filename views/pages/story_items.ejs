@@ -48,7 +48,7 @@
     <!-- Start of hidden form -->
     <div id="hiddenChangeType" style="display: none">
         <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
-            <div class="edit_labels medium-12 large-12">CREATE NEW CATEGORY</div>
+            <div class="edit_labels medium-12 large-12">CHANGE STORY TYPE</div>
 
 
             <form id="pack_form" action="/new_category" method="post">
@@ -56,8 +56,20 @@
                     <label>Select The Change you want</label>
 
                     <input name="storyItemId" class="storyItemId" hidden>
-                    <input type="text" class="_pack common_pack_detail validate" placeholder="Story Item Content"
+                    <input type="text" class="_pack common_pack_detail validate common" placeholder="Story Item Content"
                            name="text_element" required="" aria-required="true" hidden><br>
+                    <center class="image" hidden>
+                        <div class="file-field input-field">
+                            <div class="btn">
+                                <span><i class="fa fa-file-o"></i></span>
+                                <input type="file" name="im1">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+                        <br>
+                    </center>
                     <div style="width: 450px !important;">
                         <select name="type" required="" id="stickerSelect">
                             <option value="" disabled selected>Choose new Type</option>
@@ -76,7 +88,12 @@
 
                         let value = $('#stickerSelect').val();
                         if (value === "0" || value === "2" || value === "5" || value === "6"){
-                            $('.common_pack_detail').removeAttr('hidden');
+                            $('.common').removeAttr('hidden');
+                            $('.image').attr("hidden", "hidden");
+                        }else if (value === "1"){
+                            $('.image').removeAttr('hidden');
+                            $('.common').attr("hidden", "hidden");
+
                         }
 
                     });
@@ -88,7 +105,7 @@
         <button type="submit" id="categoryBtn" class="create">CREATE</button>
         </span>
                 <span>
-        <button type="button" id="btn_cancelAddCat" class="cancel">Cancel</button>
+        <button type="button" id="btn_cancelChangeType" class="cancel">Cancel</button>
          </span>
             </form>
         </div>

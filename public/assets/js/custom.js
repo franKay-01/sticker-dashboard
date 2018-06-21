@@ -197,6 +197,15 @@ $(document).ready(function () {
             $("#foot").fadeOut('fast');
         });
 
+        $(".btn_cancelChangeType").click(function () {
+            $("#hiddenChangeType").fadeOut('fast');
+            $("#pageMask").fadeOut('fast');
+            $("#logo").fadeIn('fast');
+            $(".welcome_post").fadeIn('fast');
+            $(".story").fadeIn('fast');
+            $("#foot").fadeIn('fast');
+        });
+
         $('#btn_cancelAdLink').on('click', function () {
             $('#hiddenAddAdvertLinks').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
