@@ -26,6 +26,7 @@
 
 <body class="primary-background-color">
 <div class="grid-container">
+
     <!-- Logo -->
     <div class="medium-12 large-12" id="logo">
         <a href="/home">
@@ -37,6 +38,44 @@
     </div>
 
     <!-- End of logo -->
+    <div id="pageMask"></div>
+
+    <!-- Start of hidden form -->
+    <div id="hiddenChangeType" style="display: none">
+        <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
+            <div class="edit_labels medium-12 large-12">CREATE NEW CATEGORY</div>
+
+
+            <form id="pack_form" action="/new_category" method="post">
+                <center>
+                    <label>Select The Change you want</label>
+
+                    <input name="storyItemId" class="storyItemId">
+                    <div style="width: 450px !important;">
+                        <select name="type" required="">
+                            <option value="" disabled selected>Choose new Type</option>
+                            <option value="0">TEXT</option>
+                            <option value="1">IMAGE</option>
+                            <option value="2">QUOTE</option>
+                            <option value="3">STICKER</option>
+                            <option value="4">DIVIDER</option>
+                            <option value="5">ITALIC</option>
+                            <option value="6">BOLD</option>
+                            <option value="7">ADVERT</option>
+                        </select>
+                    </div>
+
+
+                </center>
+                <span>
+        <button type="submit" id="categoryBtn" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btn_cancelAddCat" class="cancel">Cancel</button>
+         </span>
+            </form>
+        </div>
+    </div>
     <span class="medium-6 large-6 welcome_post"><b>Edit Story Details</b></span>
 
     <div class="grid-x grid-margin-x story">
@@ -67,23 +106,28 @@
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true" disabled><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Text</a>&nbsp;&nbsp;
-                <a href="#" class="preview">Edit Text</a><br><br><br>
+                <a href="#" class="preview change" data-id="<%= item.id%>">Change Type</a><br><br><br>
                 <%} else if (item.get("type") === 2){%>
 
                 <i class="fa fa-quote-left" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i>
                 <b style="color: #a46580; font-size: 20px"><%= item.get("content") %></b>
                 <i class="fa fa-quote-right" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i><br>
-                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Quote</a><br><br><br>
+                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Quote</a>&nbsp;&nbsp;
+                <a href="#" class="preview change" data-id="<%= item.id%>">Change Type</a><br><br><br>
 
                 <%} else if (item.get("type") === 5){%>
                 <!--<div class="someCSSClass">fontAwesomeQuote <h2></h2> fontAwesomeQuote</div>-->
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
-                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Italic</a><br><br><br>
+                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Italic</a>&nbsp;&nbsp;
+                <a href="#" class="preview change" data-id="<%= item.id%>">Change Type</a><br><br><br>
+
                 <%}else if (item.get("type") === 6){%>
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
-                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Bold</a><br><br><br>
+                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Bold</a>&nbsp;&nbsp;
+                <a href="#" class="preview change" data-id="<%= item.id%>">Change Type</a><br><br><br>
+
                 <%}%>
                 <%})%>
                 <%}%>
@@ -104,6 +148,4 @@
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
 </body>
-
-
 </html>

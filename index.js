@@ -567,6 +567,7 @@ app.post('/new_story', function (req, res) {
             // story.set("is_latest_story", false);
             story.set("published", false);
             story.set("user_id", _user.id);
+            story.set("status", 0);
 
             return story.save();
 
@@ -786,7 +787,7 @@ app.get('/advert_details/:id', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(_class.Adverts).equalTo("objectId", id).first(),
-                new Parse.Query(_class.AdvertImages).equalTo("advert_id", id).find()
+                new Parse.Query(_class.AdvertImages).equalTo("advert_id", id).first()
             );
 
         }).then(function (advert, advertImage) {
@@ -1351,7 +1352,7 @@ app.get('/story/:id', function (req, res) {
 
         }).then(function (stickers) {
 
-            res.render("pages/story", {
+            res.render("pages/story_artwork", {
                 story: _story.id,
                 stickers: stickers
             });
