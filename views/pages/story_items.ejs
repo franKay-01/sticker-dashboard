@@ -50,7 +50,8 @@
         <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
             <div class="edit_labels medium-12 large-12">CHANGE STORY TYPE</div>
 
-            <form id="type_form" action="/change_story_type/<%= story_id %>" method="post" enctype="multipart/form-data">
+            <form id="type_form" action="/change_story_type/<%= story_id %>" method="post"
+                  enctype="multipart/form-data">
                 <center>
                     <input name="storyItemId" class="storyItemId" hidden>
                     <input name="storyItemType" class="storyItemType" hidden>
@@ -72,7 +73,8 @@
                         <img style="margin-top: -120px;" src="/public/assets/images/divider.png">
                     </center>
                     <center class="sticker" hidden>
-                        <i class="fa fa-picture-o" style="color: #590a5d; font-size: 7rem;margin-bottom: 20px; margin-top: -50px"
+                        <i class="fa fa-picture-o"
+                           style="color: #590a5d; font-size: 7rem;margin-bottom: 20px; margin-top: -50px"
                            aria-hidden="true"></i>
                     </center>
 
@@ -86,37 +88,38 @@
                             <option value="4">DIVIDER</option>
                             <option value="5">ITALIC</option>
                             <option value="6">BOLD</option>
+                            <option value="8">BOLD & ITALIC</option>
                         </select>
                     </div>
 
-                <script>
-                    $("#stickerSelect").change(function(){
+                    <script>
+                        $("#stickerSelect").change(function () {
 
-                        let value = $('#stickerSelect').val();
-                        $(".storyItemType").val(value);
+                            let value = $('#stickerSelect').val();
+                            $(".storyItemType").val(value);
 
-                        if (value === "0" || value === "2" || value === "5" || value === "6"){
-                            $('.common').removeAttr('hidden');
-                            $('.image').attr("hidden", "hidden");
-                            $('.image_divider').attr("hidden","hidden");
-                        }else if (value === "1") {
-                            $('.image').removeAttr('hidden');
-                            $('.common').attr("hidden", "hidden");
-                            $('.image_divider').attr("hidden","hidden");
+                            if (value === "0" || value === "2" || value === "5" || value === "6" || value === "8") {
+                                $('.common').removeAttr('hidden');
+                                $('.image').attr("hidden", "hidden");
+                                $('.image_divider').attr("hidden", "hidden");
+                            } else if (value === "1") {
+                                $('.image').removeAttr('hidden');
+                                $('.common').attr("hidden", "hidden");
+                                $('.image_divider').attr("hidden", "hidden");
 
-                        }else if (value === "4"){
-                            $('.image_divider').removeAttr('hidden');
-                            $('.common').attr("hidden", "hidden");
-                            $('.image').attr("hidden", "hidden");
-                        }else if (value === "3"){
-                            $('.sticker').removeAttr('hidden');
-                            $('.common').attr("hidden", "hidden");
-                            $('.image').attr("hidden", "hidden");
-                            $('.image_divider').attr("hidden","hidden");
-                        }
-                    });
+                            } else if (value === "4") {
+                                $('.image_divider').removeAttr('hidden');
+                                $('.common').attr("hidden", "hidden");
+                                $('.image').attr("hidden", "hidden");
+                            } else if (value === "3") {
+                                $('.sticker').removeAttr('hidden');
+                                $('.common').attr("hidden", "hidden");
+                                $('.image').attr("hidden", "hidden");
+                                $('.image_divider').attr("hidden", "hidden");
+                            }
+                        });
 
-                </script>
+                    </script>
                 </center>
             </form>
         </div>
@@ -148,40 +151,52 @@
         <div class="story_form">
             <div class="medium-5 large-5 cell">
 
-                <%if (story_item.length === 0) {%>
+                <% if (story_item.length === 0) { %>
                 <p class="none" style="margin: 100px 300px auto;"><b>No Story Item</b></p>
-                <%} else {%>
+                <% } else { %>
                 <% story_item.forEach(function(item, index) { %>
 
-                <%if (item.get("type") === 0){%>
+                <% if (item.get("type") === 0){ %>
                 <textarea class="box_2 validate" placeholder="Review description"
-                          name="review_text" required="" aria-required="true" disabled><%= item.get("content") %></textarea>
+                          name="review_text" required="" aria-required="true"
+                          disabled><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Text</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-id="<%= item.id%>">Change Type</a><br><br><br>
-                <%} else if (item.get("type") === 2){%>
+                <a href="#" class="preview change" data-name="text" data-id="<%= item.id %>">Change Type</a><br><br><br>
+                <% } else if (item.get("type") === 1){ %>
+                <% if (images.length > 0){ %>
+                <% images.forEach(function(image, index) { %>
+
+                <img src="<%= image.get("uri").url() %>" class="gbeja_notxt">
+                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Image</a>&nbsp;&nbsp;
+                <a href="#" class="preview change" data-name="image" data-id="<%= item.id %>">Change Type</a><br><br><br>
+                <% }) %>
+                <% } %>
+                <% } else if (item.get("type") === 2){ %>
 
                 <i class="fa fa-quote-left" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i>
                 <b style="color: #a46580; font-size: 20px"><%= item.get("content") %></b>
                 <i class="fa fa-quote-right" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i><br>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Quote</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-id="<%= item.id%>">Change Type</a><br><br><br>
+                <a href="#" class="preview change" data-name="quote" data-id="<%= item.id %>">Change
+                    Type</a><br><br><br>
 
-                <%} else if (item.get("type") === 5){%>
+                <% } else if (item.get("type") === 5){ %>
                 <!--<div class="someCSSClass">fontAwesomeQuote <h2></h2> fontAwesomeQuote</div>-->
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Italic</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-id="<%= item.id%>">Change Type</a><br><br><br>
+                <a href="#" class="preview change" data-name="italic" data-id="<%= item.id %>">Change
+                    Type</a><br><br><br>
 
-                <%}else if (item.get("type") === 6){%>
+                <% }else if (item.get("type") === 6){ %>
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Bold</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-id="<%= item.id%>">Change Type</a><br><br><br>
+                <a href="#" class="preview change" data-name="bold" data-id="<%= item.id %>">Change Type</a><br><br><br>
 
-                <%}%>
-                <%})%>
-                <%}%>
+                <% } %>
+                <% }) %>
+                <% } %>
             </div>
         </div>
     </div>

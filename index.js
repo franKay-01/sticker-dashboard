@@ -1641,6 +1641,11 @@ app.get('/all_story_item/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
+    let image_array = [];
+    let sticker_array = [];
+    let _storyItem;
+    let _images = [];
+    let _stickers = [];
 
     if (token) {
 
@@ -1650,10 +1655,51 @@ app.get('/all_story_item/:id', function (req, res) {
 
         }).then(function (story_item) {
 
+            _storyItem = story_item;
+
+            _.each(story_item, function (item) {
+                if (item.get("type") === type.STORY_ITEM.image) {
+                    image_array.push(item.get("content"));
+                } else if (item.get("type") === type.STORY_ITEM.sticker) {
+                    sticker_array.push(item.get("content"));
+                }
+            });
+
+            if (image_array.length > 0){
+                return new Parse.Query(_class.Assets).containedIn("objectId", image_array).find();
+
+            }else {
+                return true;
+            }
+
+        }).then(function (image) {
+
+            if (image.length > 0){
+                _images = image;
+            }
+
+
+            if (sticker_array.length > 0){
+                return new Parse.Query(_class.Stickers).containedIn("objectId", sticker_array).find();
+
+            }else {
+                return true;
+            }
+
+        }).then(function (stickers) {
+
+            if (stickers){
+
+                _stickers = stickers;
+
+            }
+
             res.render("pages/story_items", {
 
-                story_item: story_item,
-                story_id: id
+                story_item: _storyItem,
+                story_id: id,
+                stickers: _stickers,
+                images: _images
 
             });
         }, function (error) {
@@ -1877,21 +1923,22 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
         }).then(function (storyItem) {
 
             if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
-                storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic){
+                storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
+                storyItemType === type.STORY_ITEM.italicBold) {
 
                 storyItem.set("type", storyItemType);
                 storyItem.set("content", content);
 
                 return storyItem.save();
-            }else if(type === type.STORY_ITEM.divider){
+            } else if (type === type.STORY_ITEM.divider) {
 
                 storyItem.set("type", storyItemType);
                 storyItem.set("content", "");
 
                 return storyItem.save();
-            }else if (type === type.STORY_ITEM.image){
+            } else if (type === type.STORY_ITEM.image) {
 
-                if (files){
+                if (files) {
                     let Asset = new Parse.Object.extend(_class.Assets);
                     let asset = new Asset();
 
@@ -1910,12 +1957,12 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
             }
         }).then(function () {
 
-            res.redirect('/all_story_item/'+storyId);
+            res.redirect('/all_story_item/' + storyId);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/all_story_item/'+storyId);
+            res.redirect('/all_story_item/' + storyId);
 
         })
 
@@ -2011,6 +2058,10 @@ app.post('/new_catalogue/:id', function (req, res) {
 
                 case type.STORY_ITEM.bold:
                     story.set("type", type.STORY_ITEM.bold);
+                    break;
+
+                case type.STORY_ITEM.italicBold:
+                    story.set("type", type.STORY_ITEM.italicBold);
                     break;
             }
 

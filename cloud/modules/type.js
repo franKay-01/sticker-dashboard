@@ -36,7 +36,7 @@ exports.STORY_ITEM = {
     italic: 5,
     bold: 6,
     advert:7,
-    ItalicBold:8
+    italicBold:8
 };
 
 exports.PACK_TYPE = {

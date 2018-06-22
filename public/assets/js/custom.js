@@ -118,6 +118,16 @@ $(document).ready(function () {
             $('#pack_id').fadeOut('fast');
         });
 
+        $('.italicBold_element').on('click', function () {
+            $('#hiddenBoldItalicsCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
+
         $('.quote_element').on('click', function () {
             $('#hiddenQuoteCatalouge').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
@@ -415,6 +425,17 @@ $(document).ready(function () {
 
         $('#btnCloseBoldCatalouge').on('click', function () {
             $('#hiddenBoldCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
+        $('#btnCloseItalicBoldCatalouge').on('click', function () {
+            $('#hiddenBoldItalicsCatalouge').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
