@@ -188,7 +188,6 @@ $(document).ready(function () {
         });
 
         $(".change").click(function () {
-            $(".storyItemId").val($(this).attr("data-id"));
             $("#hiddenChangeType").fadeIn('fast');
             $("#pageMask").fadeIn('fast');
             $("#logo").fadeOut('fast');
