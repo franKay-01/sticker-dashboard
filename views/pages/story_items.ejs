@@ -67,9 +67,14 @@
                         </div>
                         <br>
                     </center>
-                    <center class="divider" hidden>
-                        <img class="review_tab" src="/public/assets/images/divider.png">
+                    <center class="image_divider" hidden>
+                        <img style="margin-top: -120px;" src="/public/assets/images/divider.png">
                     </center>
+                    <center class="sticker" hidden>
+                        <i class="fa fa-picture-o" style="color: white; font-size: 7rem;margin-bottom: 20px"
+                           aria-hidden="true"></i>
+                    </center>
+
                     <div style="width: 450px !important;">
                         <select name="type" required="" id="stickerSelect">
                             <option value="" disabled selected>Choose new Type</option>
@@ -87,20 +92,24 @@
                     $("#stickerSelect").change(function(){
 
                         let value = $('#stickerSelect').val();
-                        alert(value);
                         if (value === "0" || value === "2" || value === "5" || value === "6"){
                             $('.common').removeAttr('hidden');
                             $('.image').attr("hidden", "hidden");
-                            $('.divider').attr("hidden","hidden");
+                            $('.image_divider').attr("hidden","hidden");
                         }else if (value === "1") {
                             $('.image').removeAttr('hidden');
                             $('.common').attr("hidden", "hidden");
-                            $('.divider').attr("hidden","hidden");
+                            $('.image_divider').attr("hidden","hidden");
 
                         }else if (value === "4"){
-                            $('.divider').removeAttr('hidden');
+                            $('.image_divider').removeAttr('hidden');
                             $('.common').attr("hidden", "hidden");
                             $('.image').attr("hidden", "hidden");
+                        }else if (value === "3"){
+                            $('.sticker').removeAttr('hidden');
+                            $('.common').attr("hidden", "hidden");
+                            $('.image').attr("hidden", "hidden");
+                            $('.image_divider').attr("hidden","hidden");
                         }
                     });
 
@@ -109,7 +118,7 @@
             </form>
         </div>
         <span>
-        <button type="submit" id="btnSubmitStoryItem" style="margin-top: 20px;" class="create">CREATE</button>
+        <button type="submit" id="btnSubmitStoryItem" style="margin-top: 20px;" class="create">CHANGE</button>
         </span>
         <span>
         <button type="button" id="btn_cancelChangeType" style="margin-top: 20px;" class="cancel">Cancel</button>

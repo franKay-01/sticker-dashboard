@@ -210,6 +210,8 @@ $(document).ready(function () {
             $("#foot").fadeIn('fast');
             $('.common').attr("hidden", "hidden");
             $('.image').attr("hidden", "hidden");
+            $('.image_divider').attr("hidden", "hidden");
+            $('.sticker').attr("hidden", "hidden");
             $('#pack_form')[0].reset();
 
         });
