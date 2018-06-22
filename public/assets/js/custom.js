@@ -221,7 +221,7 @@ $(document).ready(function () {
             $('.image').attr("hidden", "hidden");
             $('.image_divider').attr("hidden", "hidden");
             $('.sticker').attr("hidden", "hidden");
-            $('#pack_form')[0].reset();
+            $('#type_form')[0].reset();
 
         });
 

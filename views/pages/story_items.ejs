@@ -97,7 +97,7 @@
 
                             let value = $('#stickerSelect').val();
                             $(".storyItemType").val(value);
-                            $(".common").val($(this).attr("data-name"));
+                            $(".common").html($(this).attr("data-name"));
 
                             if (value === "0" || value === "2" || value === "5" || value === "6" || value === "8") {
                                 $('.common').removeAttr('hidden');
@@ -219,7 +219,7 @@
 <script>
     $(".change").click(function () {
         $(".storyItemId").val($(this).attr("data-id"));
-        $(".common").val($(this).attr("data-name"));
+        $(".common").html($(this).attr("data-name"));
     })
 </script>
 </body>
