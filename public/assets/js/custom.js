@@ -197,7 +197,11 @@ $(document).ready(function () {
             $("#foot").fadeOut('fast');
         });
 
-        $("#btn_cancelChangeType").click(function () {
+        $("#btnSubmitStoryItem").on('click', function () {
+            $( "#type_form" ).submit();
+        });
+
+        $("#btn_cancelChangeType").on('click',function () {
             $("#hiddenChangeType").fadeOut('fast');
             $("#pageMask").fadeOut('fast');
             $("#logo").fadeIn('fast');
