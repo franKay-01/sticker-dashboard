@@ -1868,6 +1868,8 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
     if (token) {
 
+        console.log("ID " + id);
+
         getUser(token).then(function (sessionToken) {
 
             return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
