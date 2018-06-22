@@ -1863,19 +1863,12 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
     let files = req.files;
     let id = req.body.storyItemId;
     let storyId = req.params.storyId;
-    let type = parseInt(req.body.storyItemType);
+    let storyItemType = parseInt(req.body.storyItemType);
     let content = req.body.text_element;
 
     if (token) {
 
-            // <option value="0">TEXT</option>
-            // <option value="2">QUOTE</option>
-            // <option value="4">DIVIDER</option>
-            // <option value="5">ITALIC</option>
-            // <option value="6">BOLD</option>
-
-        // <option value="1">IMAGE</option>
-        // <option value="3">STICKER</option>
+          console.log("ITEMS " + storyItemType + " C " + content+ " ID " + id);
 
 
         getUser(token).then(function (sessionToken) {
@@ -1884,38 +1877,38 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
         }).then(function (storyItem) {
 
-            if (type === type.STORY_ITEM.text || type === type.STORY_ITEM.quote ||
-                type === type.STORY_ITEM.bold || type === type.STORY_ITEM.italic){
-
-                storyItem.set("type", type);
-                storyItem.set("content", content);
-
-                return storyItem.save();
-            }else if(type === type.STORY_ITEM.divider){
-
-                storyItem.set("type", type);
-                storyItem.set("content", "");
-
-                return storyItem.save();
-            }else if (type === type.STORY_ITEM.image){
-
-                if (files){
-                    let Asset = new Parse.Object.extend(_class.Assets);
-                    let asset = new Asset();
-
-                    let fullName = files[0].originalname;
-                    let stickerName = fullName.substring(0, fullName.length - 4);
-
-                    let bitmap = fs.readFileSync(files[0].path, {encoding: 'base64'});
-
-                    //create our parse file
-                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
-
-                    asset.set("uri", parseFile);
-
-                    return asset.save();
-                }
-            }
+            // if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
+            //     storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic){
+            //
+            //     storyItem.set("type", storyItemType);
+            //     storyItem.set("content", content);
+            //
+            //     return storyItem.save();
+            // }else if(type === type.STORY_ITEM.divider){
+            //
+            //     storyItem.set("type", storyItemType);
+            //     storyItem.set("content", "");
+            //
+            //     return storyItem.save();
+            // }else if (type === type.STORY_ITEM.image){
+            //
+            //     if (files){
+            //         let Asset = new Parse.Object.extend(_class.Assets);
+            //         let asset = new Asset();
+            //
+            //         let fullName = files[0].originalname;
+            //         let stickerName = fullName.substring(0, fullName.length - 4);
+            //
+            //         let bitmap = fs.readFileSync(files[0].path, {encoding: 'base64'});
+            //
+            //         //create our parse file
+            //         let parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
+            //
+            //         asset.set("uri", parseFile);
+            //
+            //         return asset.save();
+            //     }
+            // }
         }).then(function () {
 
             res.redirect('/all_story_item/'+storyId);
