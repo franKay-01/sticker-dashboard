@@ -93,7 +93,6 @@
                     $("#stickerSelect").change(function(){
 
                         let value = $('#stickerSelect').val();
-                        $(".storyItemId").val($(this).attr("data-id"));
                         $(".storyItemType").val(value);
 
                         if (value === "0" || value === "2" || value === "5" || value === "6"){
