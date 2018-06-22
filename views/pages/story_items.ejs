@@ -97,6 +97,7 @@
 
                             let value = $('#stickerSelect').val();
                             $(".storyItemType").val(value);
+                            $(".common").val($(this).attr("data-name"));
 
                             if (value === "0" || value === "2" || value === "5" || value === "6" || value === "8") {
                                 $('.common').removeAttr('hidden');
@@ -161,7 +162,7 @@
                           name="review_text" required="" aria-required="true"
                           disabled><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Text</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-name="text" data-id="<%= item.id %>">Change Type</a><br><br><br>
+                <a href="#" class="preview change" data-name="<%= item.get("content") %>" data-id="<%= item.id %>">Change Type</a><br><br><br>
                 <% } else if (item.get("type") === 1){ %>
                 <% if (images.length > 0){ %>
                 <% images.forEach(function(image, index) { %>
@@ -177,7 +178,7 @@
                 <b style="color: #a46580; font-size: 20px"><%= item.get("content") %></b>
                 <i class="fa fa-quote-right" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i><br>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Quote</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-name="quote" data-id="<%= item.id %>">Change
+                <a href="#" class="preview change" data-name="<%= item.get("content") %>" data-id="<%= item.id %>">Change
                     Type</a><br><br><br>
 
                 <% } else if (item.get("type") === 5){ %>
@@ -185,14 +186,14 @@
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Italic</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-name="italic" data-id="<%= item.id %>">Change
+                <a href="#" class="preview change" data-name="<%= item.get("content") %>" data-id="<%= item.id %>">Change
                     Type</a><br><br><br>
 
                 <% }else if (item.get("type") === 6){ %>
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Bold</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-name="bold" data-id="<%= item.id %>">Change Type</a><br><br><br>
+                <a href="#" class="preview change" data-name="<%= item.get("content") %>" data-id="<%= item.id %>">Change Type</a><br><br><br>
 
                 <% } %>
                 <% }) %>
@@ -218,6 +219,7 @@
 <script>
     $(".change").click(function () {
         $(".storyItemId").val($(this).attr("data-id"));
+        $(".common").val($(this).attr("data-name"));
     })
 </script>
 </body>
