@@ -14,6 +14,7 @@ const DEFAULT_PACK = process.env.DEFAULT_PACK;
 
 //TODO remove all archived items
 //TODO remove all flagged items
+//TODO only send published items
 //TODO write pagination function for editing stickers
 //TODO remove repeated code for creating stories/stickers
 //TODO properly handle errors
@@ -74,7 +75,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
         let promises = [];
         _.map(_packs, function (pack) {
-            promises.push(pack.relation(_class.Packs).query().limit(5).find({useMasterKey: true}));
+            promises.push(pack.relation(_class.Packs).query().limit(4).find({useMasterKey: true}));
         });
 
         return Parse.Promise.when(promises);
