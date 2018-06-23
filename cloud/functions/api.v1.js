@@ -75,7 +75,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
         let promises = [];
         _.map(_packs, function (pack) {
-            promises.push(pack.relation(_class.Packs).query().limit(4).find({useMasterKey: true}));
+            promises.push(pack.relation(_class.Packs).query().limit(5).find({useMasterKey: true}));
         });
 
         return Parse.Promise.when(promises);
@@ -136,7 +136,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
             _packs = packs;
             let promises = [];
             _.map(packs, function (pack) {
-                promises.push(pack.relation(_class.Packs).query().limit(5).find({useMasterKey: true}));
+                promises.push(pack.relation(_class.Packs).query().limit(4).find({useMasterKey: true}));
             });
 
             return Parse.Promise.when(promises);
