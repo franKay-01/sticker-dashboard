@@ -220,7 +220,7 @@
     $(".change").click(function () {
         let $this = $(this);
 
-        alert($this);
+        alert(JSON.stringify($this));
         $(".storyItemId").val($(this).attr("data-id"));
         $('.common').val($this.val());
     })
