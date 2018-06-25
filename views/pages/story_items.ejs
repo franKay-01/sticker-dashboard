@@ -219,7 +219,7 @@
 <script>
     $(".change").click(function () {
 
-        alert(JSON.stringify($(this).attr("data-name")));
+        alert($(this).attr("data-name"));
         $(".storyItemId").val($(this).attr("data-id"));
         $('.common').val($(this).attr("data-name"));
     })
