@@ -28,15 +28,13 @@
     <script src="/public/assets/js/tag.js"></script>
 
     <script>
-
-        let content;
         $(".change").click(function () {
 
-            content = $(this).attr("data-name");
-            alert(content);
+
+            alert($(this).attr("data-name"));
 
             $(".storyItemId").val($(this).attr("data-id"));
-            $('.common').val(content);
+            $('.common').val($(this).attr("data-name"));
         })
 
         $("#stickerSelect").change(function () {
