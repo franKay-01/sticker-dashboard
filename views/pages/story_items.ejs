@@ -28,29 +28,22 @@
     <script src="/public/assets/js/tag.js"></script>
 
     <script>
-        
-        function getContent(event) {
-            let contentType = event.target.getAttribute("data-name");
-            // $(".common").val(contentType);
-            $(".common").html(contentType);
-            alert(contentType);
 
-        }
-        // $(".change").click(function () {
-        //
-        //
-        //     alert($(this).attr("data-name"));
-        //
-        //     $(".storyItemId").val($(this).attr("data-id"));
-        //     $('.common').val($(this).attr("data-name"));
-        // })
+        $(".change").click(function () {
+
+
+            alert($(this).attr("data-name"));
+
+            $(".storyItemId").val($(this).attr("data-id"));
+            $('.common').val($(this).attr("data-name"));
+        })
 
         $("#stickerSelect").change(function () {
 
             let value = $('#stickerSelect').val();
             alert(value);
             $(".storyItemType").val(value);
-            // $(".common").val($(this).attr("data-name"));
+            $(".common").val($(this).attr("data-name"));
 
             if (value === "0" || value === "2" || value === "5" || value === "6" || value === "8") {
                 $('.common').removeAttr('hidden');
@@ -179,7 +172,7 @@
                           name="review_text" required="" aria-required="true"
                           disabled><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Text</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" onclick="getContent(event)" data-name="<%= item.get("content") %>" data-id="<%= item.id %>">Change Type</a><br><br><br>
+                <a href="#" class="preview change" data-name="<%= item.get("content") %>" data-id="<%= item.id %>">Change Type</a><br><br><br>
                 <% } else if (item.get("type") === 1){ %>
                 <% if (images.length > 0){ %>
                 <% images.forEach(function(image, index) { %>
