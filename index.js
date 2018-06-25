@@ -1912,6 +1912,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
     let previousForm = req.params.content;
     let storyItemType = parseInt(req.body.storyItemType);
     let content = req.body.text_element;
+    let _storyItem = [];
 
     if (token) {
 
@@ -1920,6 +1921,8 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
             return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
 
         }).then(function (storyItem) {
+
+            _storyItem = storyItem;
 
             if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
                 storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
@@ -1956,8 +1959,27 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
             }
         }).then(function () {
 
-            res.redirect('/all_story_item/' + storyId);
+            if (previousForm === "image"){
 
+                return new Parse.Query(_class.Assets).equalTo("objectId", _storyItem.get("content")).first();
+
+            }else {
+                res.redirect('/all_story_item/' + storyId);
+
+            }
+
+        }).then(function (image) {
+            image.destroy({
+                    success: function (object) {
+                        console.log("removed" + JSON.stringify(object));
+                        res.redirect('/all_story_item/' + storyId);
+                    },
+                    error: function (error) {
+                        console.log("Could not remove" + error);
+                        res.redirect('/all_story_item/' + storyId);
+
+                    }
+            })
         }, function (error) {
 
             console.log("ERROR " + error.message);
