@@ -176,7 +176,7 @@
                           name="review_text" required="" aria-required="true"
                           disabled><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Text</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" onclick="getContent(this)" data-name="<%= item.get("content") %>" data-id="<%= item.id %>">Change Type</a><br><br><br>
+                <a href="#" class="preview change" onclick="getContent(event)" data-name="<%= item.get("content") %>" data-id="<%= item.id %>">Change Type</a><br><br><br>
                 <% } else if (item.get("type") === 1){ %>
                 <% if (images.length > 0){ %>
                 <% images.forEach(function(image, index) { %>
