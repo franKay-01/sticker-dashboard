@@ -29,8 +29,8 @@
 
     <script>
         
-        function getContent(content) {
-            let contentType = content.target.getAttribute("data-content");
+        function getContent(event) {
+            let contentType = event.target.getAttribute("data-name");
             alert(contentType);
 
         }
@@ -176,14 +176,14 @@
                           name="review_text" required="" aria-required="true"
                           disabled><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Text</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" onclick="getContent(this)" data-content="<%= item.get("content") %>" data-id="<%= item.id %>">Change Type</a><br><br><br>
+                <a href="#" class="preview change" onclick="getContent(this)" data-name="<%= item.get("content") %>" data-id="<%= item.id %>">Change Type</a><br><br><br>
                 <% } else if (item.get("type") === 1){ %>
                 <% if (images.length > 0){ %>
                 <% images.forEach(function(image, index) { %>
 
                 <img src="<%= image.get("uri").url() %>" class="gbeja_notxt">
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Image</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-content="image" data-id="<%= item.id %>">Change Type</a><br><br><br>
+                <a href="#" class="preview change" data-name="image" data-id="<%= item.id %>">Change Type</a><br><br><br>
                 <% }) %>
                 <% } %>
                 <% } else if (item.get("type") === 2){ %>
@@ -192,7 +192,7 @@
                 <b style="color: #a46580; font-size: 20px"><%= item.get("content") %></b>
                 <i class="fa fa-quote-right" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i><br>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Quote</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-content="<%= item.get("content") %>" data-id="<%= item.id %>">Change
+                <a href="#" class="preview change" data-name="<%= item.get("content") %>" data-id="<%= item.id %>">Change
                     Type</a><br><br><br>
 
                 <% } else if (item.get("type") === 5){ %>
@@ -200,14 +200,14 @@
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Italic</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-content="<%= item.get("content") %>" data-id="<%= item.id %>">Change
+                <a href="#" class="preview change" data-name="<%= item.get("content") %>" data-id="<%= item.id %>">Change
                     Type</a><br><br><br>
 
                 <% }else if (item.get("type") === 6){ %>
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Bold</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-content="<%= item.get("content") %>" data-id="<%= item.id %>">Change Type</a><br><br><br>
+                <a href="#" class="preview change" data-name="<%= item.get("content") %>" data-id="<%= item.id %>">Change Type</a><br><br><br>
 
                 <% } %>
                 <% }) %>
