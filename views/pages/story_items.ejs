@@ -29,9 +29,11 @@
 
     <script>
 
-        let content = $(this).attr("data-name");
-        alert(content);
+        let content;
         $(".change").click(function () {
+
+            content = $(this).attr("data-name");
+            alert(content);
 
             $(".storyItemId").val($(this).attr("data-id"));
             $('.common').val(content);
