@@ -101,7 +101,6 @@
                             $(".common").html($(this).attr("data-name"));
 
                             if (value === "0" || value === "2" || value === "5" || value === "6" || value === "8") {
-                                alert(content);
                                 $('.common').removeAttr('hidden');
                                 $('.image').attr("hidden", "hidden");
                                 $('.image_divider').attr("hidden", "hidden");
@@ -220,10 +219,7 @@
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
 <script>
     $(".change").click(function () {
-
         $(".storyItemId").val($(this).attr("data-id"));
-        content = "HI";
-        $('.common').val($(this).attr("data-name"));
     });
 </script>
 </body>
