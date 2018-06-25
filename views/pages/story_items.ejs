@@ -26,6 +26,9 @@
     <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
     <script src="/public/assets/js/custom.js"></script>
     <script src="/public/assets/js/tag.js"></script>
+    <script>
+        let content = "";
+    </script>
 </head>
 
 <body class="primary-background-color">
@@ -98,6 +101,7 @@
                             $(".common").val($(this).attr("data-name"));
 
                             if (value === "0" || value === "2" || value === "5" || value === "6" || value === "8") {
+                                alert(content);
                                 $('.common').removeAttr('hidden');
                                 $('.image').attr("hidden", "hidden");
                                 $('.image_divider').attr("hidden", "hidden");
@@ -218,6 +222,7 @@
     $(".change").click(function () {
 
         $(".storyItemId").val($(this).attr("data-id"));
+        content = "HI";
         $('.common').val($(this).attr("data-name"));
     });
 </script>
