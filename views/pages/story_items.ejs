@@ -31,6 +31,8 @@
         
         function getContent(event) {
             let contentType = event.target.getAttribute("data-name");
+            // $(".common").val(contentType);
+            $(".common").html(contentType);
             alert(contentType);
 
         }
