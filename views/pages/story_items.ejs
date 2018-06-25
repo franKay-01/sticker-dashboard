@@ -218,11 +218,10 @@
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
 <script>
     $(".change").click(function () {
-        let $this = $(this);
 
-        alert(JSON.stringify($this.val()));
+        alert(JSON.stringify($(this).attr("data-name"));
         $(".storyItemId").val($(this).attr("data-id"));
-        $('.common').val($this.val());
+        $('.common').val($(this).attr("data-name"));
     })
 </script>
 </body>
