@@ -1909,12 +1909,11 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
     let files = req.files;
     let id = req.body.storyItemId;
     let storyId = req.params.storyId;
+    let previousForm = req.params.content;
     let storyItemType = parseInt(req.body.storyItemType);
     let content = req.body.text_element;
 
     if (token) {
-
-        console.log("ID " + id);
 
         getUser(token).then(function (sessionToken) {
 
@@ -1924,19 +1923,19 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
             if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
                 storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
-                storyItemType === type.STORY_ITEM.italicBold) {
+                storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sticker ) {
 
                 storyItem.set("type", storyItemType);
                 storyItem.set("content", content);
 
                 return storyItem.save();
-            } else if (type === type.STORY_ITEM.divider) {
+            } else if (storyItemType === type.STORY_ITEM.divider) {
 
                 storyItem.set("type", storyItemType);
                 storyItem.set("content", "");
 
                 return storyItem.save();
-            } else if (type === type.STORY_ITEM.image) {
+            } else if (storyItemType === type.STORY_ITEM.image) {
 
                 if (files) {
                     let Asset = new Parse.Object.extend(_class.Assets);
