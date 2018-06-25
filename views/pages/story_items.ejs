@@ -27,6 +27,44 @@
     <script src="/public/assets/js/custom.js"></script>
     <script src="/public/assets/js/tag.js"></script>
 
+    <script>
+
+        let content = $(this).attr("data-name");
+        alert(content);
+        $(".change").click(function () {
+
+            $(".storyItemId").val($(this).attr("data-id"));
+            $('.common').val(content);
+        })
+
+        $("#stickerSelect").change(function () {
+
+            let value = $('#stickerSelect').val();
+            $(".storyItemType").val(value);
+            $(".common").val($(this).attr("data-name"));
+
+            if (value === "0" || value === "2" || value === "5" || value === "6" || value === "8") {
+                $('.common').removeAttr('hidden');
+                $('.image').attr("hidden", "hidden");
+                $('.image_divider').attr("hidden", "hidden");
+            } else if (value === "1") {
+                $('.image').removeAttr('hidden');
+                $('.common').attr("hidden", "hidden");
+                $('.image_divider').attr("hidden", "hidden");
+
+            } else if (value === "4") {
+                $('.image_divider').removeAttr('hidden');
+                $('.common').attr("hidden", "hidden");
+                $('.image').attr("hidden", "hidden");
+            } else if (value === "3") {
+                $('.sticker').removeAttr('hidden');
+                $('.common').attr("hidden", "hidden");
+                $('.image').attr("hidden", "hidden");
+                $('.image_divider').attr("hidden", "hidden");
+            }
+        });
+
+    </script>
 </head>
 
 <body class="primary-background-color">
@@ -91,36 +129,6 @@
                             <option value="8">BOLD & ITALIC</option>
                         </select>
                     </div>
-
-                    <script>
-                        $("#stickerSelect").change(function () {
-
-                            let value = $('#stickerSelect').val();
-                            $(".storyItemType").val(value);
-                            $(".common").val($(this).attr("data-name"));
-
-                            if (value === "0" || value === "2" || value === "5" || value === "6" || value === "8") {
-                                $('.common').removeAttr('hidden');
-                                $('.image').attr("hidden", "hidden");
-                                $('.image_divider').attr("hidden", "hidden");
-                            } else if (value === "1") {
-                                $('.image').removeAttr('hidden');
-                                $('.common').attr("hidden", "hidden");
-                                $('.image_divider').attr("hidden", "hidden");
-
-                            } else if (value === "4") {
-                                $('.image_divider').removeAttr('hidden');
-                                $('.common').attr("hidden", "hidden");
-                                $('.image').attr("hidden", "hidden");
-                            } else if (value === "3") {
-                                $('.sticker').removeAttr('hidden');
-                                $('.common').attr("hidden", "hidden");
-                                $('.image').attr("hidden", "hidden");
-                                $('.image_divider').attr("hidden", "hidden");
-                            }
-                        });
-
-                    </script>
                 </center>
             </form>
         </div>
@@ -216,13 +224,5 @@
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
-<script>
-    $(".change").click(function () {
-
-        alert($(this).attr("data-name"));
-        $(".storyItemId").val($(this).attr("data-id"));
-        $('.common').val($(this).attr("data-name"));
-    })
-</script>
 </body>
 </html>
