@@ -48,8 +48,9 @@
         $("#stickerSelect").change(function () {
 
             let value = $('#stickerSelect').val();
+            alert(value);
             $(".storyItemType").val(value);
-            $(".common").val($(this).attr("data-name"));
+            // $(".common").val($(this).attr("data-name"));
 
             if (value === "0" || value === "2" || value === "5" || value === "6" || value === "8") {
                 $('.common').removeAttr('hidden');
