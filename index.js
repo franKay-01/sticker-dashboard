@@ -1913,6 +1913,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
     let storyItemType = parseInt(req.body.storyItemType);
     let content = req.body.text_element;
     let _storyItem = [];
+    let storyContent;
 
     if (token) {
 
@@ -1923,6 +1924,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
         }).then(function (storyItem) {
 
             _storyItem = storyItem;
+            storyContent = storyItem.get("content");
 
             if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
                 storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
@@ -1970,11 +1972,8 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
             }
         }).then(function () {
-            console.log("STORY ITEM " + JSON.stringify(_storyItem));
-            console.log("PREVIOUS " + previousForm);
 
-                //Delete tmp fil after upload
-            if (files) {
+            if (files.length > 0) {
                 let tempFile = files[0].path;
                 fs.unlink(tempFile, function (err) {
                     if (err) {
@@ -1989,7 +1988,8 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
             if (previousForm === "image"){
 
-                return new Parse.Query(_class.Assets).equalTo("objectId", _storyItem.get("content")).first();
+                console.log("INSIDE IMAGE" + storyContent + " STORY " + _storyItem.get("content"));
+                return new Parse.Query(_class.Assets).equalTo("objectId", storyContent).first();
 
             }else {
                 res.redirect('/all_story_item/' + storyId);
