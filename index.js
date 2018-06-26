@@ -1970,6 +1970,8 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
             }
         }).then(function () {
+            console.log("STORY ITEM " + JSON.stringify(_storyItem));
+            console.log("PREVIOUS " + previousForm);
 
             if (previousForm === "image"){
 
