@@ -1969,8 +1969,6 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
                 return true;
 
             }
-
-
         }).then(function () {
 
             if (previousForm === "image"){
