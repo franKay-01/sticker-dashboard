@@ -1915,6 +1915,8 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
     let _storyItem = [];
     let storyContent;
 
+    console.log("TYPE " + storyItemType);
+
     if (token) {
 
         getUser(token).then(function (sessionToken) {
@@ -1987,8 +1989,6 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
                     }
                 });
             }
-
-            console.log("PREVIOUS " + previousForm + " image");
 
             if (previousForm === type.STORY_ITEM.image) {
 
