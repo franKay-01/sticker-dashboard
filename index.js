@@ -1930,7 +1930,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
             if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
                 storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
-                storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sticker) {
+                storyItemType === type.STORY_ITEM.italicBold) {
 
                 storyItem.set("type", storyItemType);
                 storyItem.set("content", content);
