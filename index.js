@@ -1986,6 +1986,8 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
                 });
             }
 
+            console.log("PREVIOUS " + previousForm + " image");
+
             if (previousForm === "image"){
 
                 console.log("INSIDE IMAGE" + storyContent + " STORY " + _storyItem.get("content"));
