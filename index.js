@@ -1914,6 +1914,8 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
     let content = req.body.text_element;
     let _storyItem = [];
 
+    console.log("PREVIOUS " + JSON.stringify(previousForm));
+
     if (token) {
 
         getUser(token).then(function (sessionToken) {
