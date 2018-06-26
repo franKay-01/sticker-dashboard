@@ -295,9 +295,29 @@ $(document).ready(function () {
             $('#opaqueDiv').fadeOut('fast');
         });
 
+        $('#remove_story_item').on('click', function () {
+            $('#pageMask').fadeIn('fast');
+            $('.remove_story_item').fadeIn('fast');
+            $('#logo').fadeOut('fast');
+            $('.welcome_post').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#opaqueDiv').fadeOut('fast');
+        });
+
         $('#cancel_delete').on('click', function () {
             $('#pageMask').fadeOut('fast');
             $('.remove_story').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('.welcome_post').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+        });
+
+        $('#cancel_remove').on('click', function () {
+            $('#pageMask').fadeOut('fast');
+            $('.remove_story_item').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('.welcome_post').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
