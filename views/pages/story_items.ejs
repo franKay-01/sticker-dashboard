@@ -161,6 +161,9 @@
                 <% if (story_item.length === 0) { %>
                 <p class="none" style="margin: 100px 300px auto;"><b>No Story Item</b></p>
                 <% } else { %>
+                <% let imageCounter = images.length %>
+                <% let stickerCounter = stickers.length %>
+
                 <% story_item.forEach(function(item, index) { %>
 
                 <% if (item.get("type") === 0){ %>
@@ -168,15 +171,18 @@
                           name="review_text" required="" aria-required="true"
                           disabled><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Text</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-content="0" data-name="<%= item.get("content") %>" data-id="<%= item.id %>">Change Type</a><br><br><br>
+                <a href="#" class="preview change" data-content="0" data-name="<%= item.get("content") %>"
+                   data-id="<%= item.id %>">Change Type</a><br><br><br>
                 <% } else if (item.get("type") === 1){ %>
                 <% if (images.length > 0){ %>
-                <% images.forEach(function(image, index) { %>
 
-                <img src="<%= image.get("uri").url() %>" class="gbeja_notxt">
+                <img src="<%= images[imageCounter].get("uri").url() %>" class="gbeja_notxt">
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Image</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-content="1" data-name="" data-id="<%= item.id %>">Change Type</a><br><br><br>
-                <% }) %>
+                <a href="#" class="preview change" data-content="1" data-name="" data-id="<%= item.id %>">Change
+                    Type</a><br><br><br>
+
+                <%  imageCounter = imageCounter + 1 %>
+
                 <% } %>
                 <% } else if (item.get("type") === 2){ %>
 
@@ -184,17 +190,18 @@
                 <b style="color: #a46580; font-size: 20px"><%= item.get("content") %></b>
                 <i class="fa fa-quote-right" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i><br>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Quote</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-content="2" data-name="<%= item.get("content") %>" data-id="<%= item.id %>">Change
+                <a href="#" class="preview change" data-content="2" data-name="<%= item.get("content") %>"
+                   data-id="<%= item.id %>">Change
                     Type</a><br><br><br>
                 <% } else if (item.get("type") === 3){ %>
                 <% if (stickers.length > 0){ %>
 
-                <% stickers.forEach(function(sticker, index) { %>
-
-                <img src="<%= sticker.get("uri").url() %>" class="gbeja_notxt">
+                <img src="<%= stickers[stickerCounter].get("uri").url() %>" class="gbeja_notxt">
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Image</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-content="3" data-name="" data-id="<%= item.id %>">Change Type</a><br><br><br>
-                <% }) %>
+                <a href="#" class="preview change" data-content="3" data-name="" data-id="<%= item.id %>">Change
+                    Type</a><br><br><br>
+
+                <%  stickerCounter = stickerCounter + 1 %>
 
                 <% } %>
 
@@ -203,14 +210,16 @@
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Italic</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-content="5" data-name="<%= item.get("content") %>" data-id="<%= item.id %>">Change
+                <a href="#" class="preview change" data-content="5" data-name="<%= item.get("content") %>"
+                   data-id="<%= item.id %>">Change
                     Type</a><br><br><br>
 
                 <% }else if (item.get("type") === 6){ %>
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Bold</a>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-content="6" data-name="<%= item.get("content") %>" data-id="<%= item.id %>">Change Type</a><br><br><br>
+                <a href="#" class="preview change" data-content="6" data-name="<%= item.get("content") %>"
+                   data-id="<%= item.id %>">Change Type</a><br><br><br>
 
                 <% } %>
                 <% }) %>
