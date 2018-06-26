@@ -1914,6 +1914,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
     let content = req.body.text_element;
     let _storyItem = [];
     let storyContent;
+    let _storyId;
 
     console.log("TYPE " + storyItemType);
 
@@ -1927,6 +1928,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
             _storyItem = storyItem;
             storyContent = storyItem.get("content");
+            _storyId = storyItem.get("story_id");
 
             if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
                 storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
@@ -1960,7 +1962,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
                     return asset.save();
                 }
             } else if (storyItemType === type.STORY_ITEM.sticker) {
-                res.redirect('/change_sticker/' + storyContent);
+                res.redirect('/change_sticker/' + _storyId);
             }
         }).then(function (asset) {
 
