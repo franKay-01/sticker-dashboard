@@ -1962,7 +1962,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
                     return asset.save();
                 }
             } else if (storyItemType === type.STORY_ITEM.sticker) {
-                res.redirect('/change_sticker/' + _storyId);
+                res.redirect('/change_sticker/' + _storyId +'/'+id);
             }
         }).then(function (asset) {
 
@@ -2067,10 +2067,11 @@ app.post('/change_catalogue_sticker/:id', function (req, res) {
 });
 
 
-app.get('/change_sticker/:id', function (req, res) {
+app.get('/change_sticker/:storyId/:storyItemId', function (req, res) {
 
     let token = req.cookies.token;
-    let id = req.params.id;
+    let storyId = req.params.storyId;
+    let storyItemId = req.params.storyItemId;
 
     if (token) {
 
@@ -2078,7 +2079,7 @@ app.get('/change_sticker/:id', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+            return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first();
 
         }).then(function (story) {
 
@@ -2092,7 +2093,7 @@ app.get('/change_sticker/:id', function (req, res) {
         }).then(function (stickers) {
 
             res.render("pages/change_catalogue_sticker", {
-                storyItemId: id,
+                storyItemId: storyItemId,
                 stickers: stickers
             });
 
