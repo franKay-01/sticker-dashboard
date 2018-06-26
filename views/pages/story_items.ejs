@@ -177,7 +177,6 @@
                 <% if (images.length > 0){ %>
 
                 <img src="<%= images[imageCounter].get("uri").url() %>" class="gbeja_notxt">
-                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Image</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="1" data-name="" data-id="<%= item.id %>">Change
                     Type</a><br><br><br>
 
@@ -192,14 +191,13 @@
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Quote</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="2" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change
-                    Type</a><br><br><br>
+                    Type/Replace Image</a><br><br><br>
                 <% } else if (item.get("type") === 3){ %>
                 <% if (stickers.length > 0){ %>
 
                 <img src="<%= stickers[stickerCounter].get("uri").url() %>" class="gbeja_notxt">
-                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Image</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="3" data-name="" data-id="<%= item.id %>">Change
-                    Type</a><br><br><br>
+                    Type/Replace Sticker</a><br><br><br>
 
                 <%  stickerCounter++ %>
 
