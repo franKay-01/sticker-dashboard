@@ -1909,7 +1909,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
     let files = req.files;
     let id = req.body.storyItemId;
     let storyId = req.params.storyId;
-    let previousForm = req.body.previousContent;
+    let previousForm = parseInt(req.body.previousContent);
     let storyItemType = parseInt(req.body.storyItemType);
     let content = req.body.text_element;
     let _storyItem = [];
