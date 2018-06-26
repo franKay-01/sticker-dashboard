@@ -2036,6 +2036,7 @@ app.post('/change_catalogue_sticker/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let stickerId = req.body.sticker_id;
+    let storyId;
 
     if (token) {
 
@@ -2046,6 +2047,8 @@ app.post('/change_catalogue_sticker/:id', function (req, res) {
             return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
 
         }).then(function (storyItem) {
+
+            storyId = storyItem.get("story_id");
 
             storyItem.set("type", type.STORY_ITEM.sticker);
             storyItem.set("content", stickerId);
