@@ -1973,6 +1973,20 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
             console.log("STORY ITEM " + JSON.stringify(_storyItem));
             console.log("PREVIOUS " + previousForm);
 
+                //Delete tmp fil after upload
+            if (files) {
+                let tempFile = file[0].path;
+                fs.unlink(tempFile, function (err) {
+                    if (err) {
+                        //TODO handle error code
+                        console.log("-------Could not del temp" + JSON.stringify(err));
+                    }
+                    else {
+                        console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                    }
+                });
+            }
+
             if (previousForm === "image"){
 
                 return new Parse.Query(_class.Assets).equalTo("objectId", _storyItem.get("content")).first();
@@ -1985,6 +1999,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
         }).then(function (image) {
 
             console.log("IMAGE FROM ASSETS " + JSON.stringify(image));
+
 
             image.destroy({
                     success: function (object) {
@@ -2047,6 +2062,19 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
             return catalogue.save();
 
         }).then(function () {
+
+                //Delete tmp fil after upload
+                let tempFile = files[0].path;
+                fs.unlink(tempFile, function (err) {
+                    if (err) {
+                        //TODO handle error code
+                        console.log("-------Could not del temp" + JSON.stringify(err));
+                    }
+                    else {
+                        console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                    }
+                });
+
 
             res.redirect("/story_catalogue/" + id);
 
