@@ -161,8 +161,8 @@
                 <% if (story_item.length === 0) { %>
                 <p class="none" style="margin: 100px 300px auto;"><b>No Story Item</b></p>
                 <% } else { %>
-                <% let imageCounter = images.length %>
-                <% let stickerCounter = stickers.length %>
+                <% let imageCounter = 0 %>
+                <% let stickerCounter = 0 %>
 
                 <% story_item.forEach(function(item, index) { %>
 
@@ -181,7 +181,7 @@
                 <a href="#" class="preview change" data-content="1" data-name="" data-id="<%= item.id %>">Change
                     Type</a><br><br><br>
 
-                <%  imageCounter = imageCounter + 1 %>
+                <%  imageCounter++ %>
 
                 <% } %>
                 <% } else if (item.get("type") === 2){ %>
@@ -201,7 +201,7 @@
                 <a href="#" class="preview change" data-content="3" data-name="" data-id="<%= item.id %>">Change
                     Type</a><br><br><br>
 
-                <%  stickerCounter = stickerCounter + 1 %>
+                <%  stickerCounter++ %>
 
                 <% } %>
 
