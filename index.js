@@ -1975,7 +1975,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
                 //Delete tmp fil after upload
             if (files) {
-                let tempFile = file[0].path;
+                let tempFile = files[0].path;
                 fs.unlink(tempFile, function (err) {
                     if (err) {
                         //TODO handle error code
