@@ -1957,6 +1957,21 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
                     return asset.save();
                 }
             }
+        }).then(function (asset) {
+
+            if (storyItemType === type.STORY_ITEM.image){
+                _storyItem.set("type", storyItemType);
+                _storyItem.set("content", asset.id);
+
+                return _storyItem.save();
+
+            }else {
+
+                return true;
+
+            }
+
+
         }).then(function () {
 
             if (previousForm === "image"){
