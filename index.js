@@ -1960,7 +1960,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
                     return asset.save();
                 }
             } else if (storyItemType === type.STORY_ITEM.sticker) {
-                res.redirect('/change_sticker/' + id);
+                res.redirect('/change_sticker/' + storyContent);
             }
         }).then(function (asset) {
 
@@ -2071,6 +2071,7 @@ app.get('/change_sticker/:id', function (req, res) {
     let id = req.params.id;
 
     if (token) {
+
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
