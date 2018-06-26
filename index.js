@@ -2041,6 +2041,8 @@ app.post('/change_catalogue_sticker/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
+            console.log(" STORYITEM 2 " + id);
+
             return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
 
         }).then(function (storyItem) {
@@ -2078,6 +2080,8 @@ app.get('/change_sticker/:storyId/:storyItemId', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
+
+            console.log("STORY ID "+ storyId + " STORYITEM " + storyItemId);
 
             return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first();
 
