@@ -2029,7 +2029,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
 });
 
-app.get('/change_catalogue_sticker/:id', function (req, res) {
+app.post('/change_catalogue_sticker/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
