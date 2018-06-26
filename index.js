@@ -1969,9 +1969,12 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
             }
 
         }).then(function (image) {
+
+            console.log("IMAGE FROM ASSETS " + JSON.stringify(image));
+
             image.destroy({
                     success: function (object) {
-                        console.log("removed" + JSON.stringify(object));
+                        console.log("DESTROYED IAMGE " + JSON.stringify(object));
                         res.redirect('/all_story_item/' + storyId);
                     },
                     error: function (error) {
