@@ -1665,30 +1665,30 @@ app.get('/all_story_item/:id', function (req, res) {
                 }
             });
 
-            if (image_array.length > 0){
+            if (image_array.length > 0) {
                 return new Parse.Query(_class.Assets).containedIn("objectId", image_array).find();
 
-            }else {
+            } else {
                 return true;
             }
 
         }).then(function (image) {
 
-            if (image.length > 0){
+            if (image.length > 0) {
                 _images = image;
             }
 
 
-            if (sticker_array.length > 0){
+            if (sticker_array.length > 0) {
                 return new Parse.Query(_class.Stickers).containedIn("objectId", sticker_array).find();
 
-            }else {
+            } else {
                 return true;
             }
 
         }).then(function (stickers) {
 
-            if (stickers){
+            if (stickers) {
 
                 _stickers = stickers;
 
@@ -1928,7 +1928,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
             if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
                 storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
-                storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sticker ) {
+                storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sticker) {
 
                 storyItem.set("type", storyItemType);
                 storyItem.set("content", content);
@@ -1957,16 +1957,18 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
                     return asset.save();
                 }
+            } else if (storyItemType === type.STORY_ITEM.sticker) {
+                res.redirect('/change_catalogue_sticker/' + id);
             }
         }).then(function (asset) {
 
-            if (storyItemType === type.STORY_ITEM.image){
+            if (storyItemType === type.STORY_ITEM.image) {
                 _storyItem.set("type", storyItemType);
                 _storyItem.set("content", asset.id);
 
                 return _storyItem.save();
 
-            }else {
+            } else {
 
                 return true;
 
@@ -1988,12 +1990,12 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
             console.log("PREVIOUS " + previousForm + " image");
 
-            if (previousForm === type.STORY_ITEM.image){
+            if (previousForm === type.STORY_ITEM.image) {
 
                 console.log("INSIDE IMAGE" + storyContent + " STORY " + _storyItem.get("content"));
                 return new Parse.Query(_class.Assets).equalTo("objectId", storyContent).first();
 
-            }else {
+            } else {
                 res.redirect('/all_story_item/' + storyId);
 
             }
@@ -2004,15 +2006,15 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
 
             image.destroy({
-                    success: function (object) {
-                        console.log("DESTROYED IAMGE " + JSON.stringify(object));
-                        res.redirect('/all_story_item/' + storyId);
-                    },
-                    error: function (error) {
-                        console.log("Could not remove" + error);
-                        res.redirect('/all_story_item/' + storyId);
+                success: function (object) {
+                    console.log("DESTROYED IAMGE " + JSON.stringify(object));
+                    res.redirect('/all_story_item/' + storyId);
+                },
+                error: function (error) {
+                    console.log("Could not remove" + error);
+                    res.redirect('/all_story_item/' + storyId);
 
-                    }
+                }
             })
         }, function (error) {
 
@@ -2025,6 +2027,76 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
         res.redirect('/');
     }
 
+});
+
+app.get('/change_catalogue_sticker/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let stickerId = req.body.sticker_id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+
+        }).then(function (storyItem) {
+
+            storyItem.set("type", type.STORY_ITEM.sticker);
+            storyItem.set("content", stickerId);
+
+            return storyItem.save();
+
+        }).then(function () {
+
+            res.redirect('/all_story_item/' + storyId);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/all_story_item/' + storyId);
+
+        })
+    }else {
+        res.redirect('/');
+    }
+
+});
+
+
+app.get('/change_catalogue_sticker/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+        }).then(function (story) {
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", story.get("pack_id")).first();
+
+        }).then(function (pack) {
+
+            let col = pack.relation(_class.Packs);
+            return col.query().find();
+
+        }).then(function (stickers) {
+
+            res.render("pages/change_catalogue_sticker", {
+                storyItemId: id,
+                stickers: stickers
+            });
+
+        }, function () {
+
+        })
+    }
 });
 
 app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
@@ -2065,17 +2137,17 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
 
         }).then(function () {
 
-                //Delete tmp fil after upload
-                let tempFile = files[0].path;
-                fs.unlink(tempFile, function (err) {
-                    if (err) {
-                        //TODO handle error code
-                        console.log("-------Could not del temp" + JSON.stringify(err));
-                    }
-                    else {
-                        console.log("SUUCCCEESSSSS IN DELTEING TEMP");
-                    }
-                });
+            //Delete tmp fil after upload
+            let tempFile = files[0].path;
+            fs.unlink(tempFile, function (err) {
+                if (err) {
+                    //TODO handle error code
+                    console.log("-------Could not del temp" + JSON.stringify(err));
+                }
+                else {
+                    console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                }
+            });
 
 
             res.redirect("/story_catalogue/" + id);
