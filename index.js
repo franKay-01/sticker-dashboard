@@ -1962,7 +1962,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
                     return asset.save();
                 }
             } else if (storyItemType === type.STORY_ITEM.sticker) {
-                res.redirect('/change_sticker/' + _storyId +'/'+id);
+                res.redirect('/change_sticker/' + _storyId + '/' + id);
             }
         }).then(function (asset) {
 
@@ -2065,7 +2065,7 @@ app.post('/change_catalogue_sticker/:id', function (req, res) {
             res.redirect('/all_story_item/' + storyId);
 
         })
-    }else {
+    } else {
         res.redirect('/');
     }
 
@@ -2084,7 +2084,7 @@ app.get('/change_sticker/:storyId/:storyItemId', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            console.log("STORY ID "+ storyId + " STORYITEM " + storyItemId);
+            console.log("STORY ID " + storyId + " STORYITEM " + storyItemId);
 
             return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first();
 
@@ -3228,6 +3228,43 @@ app.get('/remove_story/:id', function (req, res) {
     }
 });
 
+app.get('/remove_story_item/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.StoryItems).equalTo("story_id", id).first();
+
+        }).then(function (stories) {
+
+            stories.destroy({
+                success: function (object) {
+                    console.log("removed" + JSON.stringify(object));
+                    res.redirect("/categories");
+                },
+                error: function (error) {
+                    console.log("Could not remove" + error);
+                    res.redirect("/categories");
+
+                }
+            })
+
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/stories');
+        })
+
+    } else {
+        res.redirect('/');
+    }
+
+});
+
 app.get('/remove_story_items/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -3246,7 +3283,9 @@ app.get('/remove_story_items/:id', function (req, res) {
                 return Parse.Object.destroyAll(stories);
 
             } else {
-                res.redirect('/stories');
+
+                return true;
+
             }
 
         }).then(function (success) {

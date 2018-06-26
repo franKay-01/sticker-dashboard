@@ -172,13 +172,19 @@
                           disabled><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Text</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="0" data-name="<%= item.get("content") %>"
-                   data-id="<%= item.id %>">Change Type</a><br><br><br>
+                   data-id="<%= item.id %>">Change Type</a>
+                <a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">
+                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;" aria-hidden="true"></i>
+                </a><br><br><br>
                 <% } else if (item.get("type") === 1){ %>
                 <% if (images.length > 0){ %>
 
                 <img src="<%= images[imageCounter].get("uri").url() %>" class="gbeja_notxt">
                 <a href="#" class="preview change" data-content="1" data-name="" data-id="<%= item.id %>">Change
-                    Type</a><br><br><br>
+                    Type</a>
+                <a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">
+                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;" aria-hidden="true"></i>
+                </a><br><br><br>
 
                 <%  imageCounter++ %>
 
@@ -191,13 +197,20 @@
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Quote</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="2" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change
-                    Type/Replace Image</a><br><br><br>
+                    Type/Replace Image</a>
+                <a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">
+                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;" aria-hidden="true"></i>
+                </a>
+                <br><br><br>
                 <% } else if (item.get("type") === 3){ %>
                 <% if (stickers.length > 0){ %>
 
                 <img src="<%= stickers[stickerCounter].get("uri").url() %>" class="gbeja_notxt">
                 <a href="#" class="preview change" data-content="3" data-name="" data-id="<%= item.id %>">Change
-                    Type/Replace Sticker</a><br><br><br>
+                    Type/Replace Sticker</a>
+                <a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">
+                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;" aria-hidden="true"></i>
+                </a><br><br><br>
 
                 <%  stickerCounter++ %>
 
@@ -210,14 +223,20 @@
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Italic</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="5" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change
-                    Type</a><br><br><br>
+                    Type</a>
+                <a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">
+                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;" aria-hidden="true"></i>
+                </a><br><br><br>
 
                 <% }else if (item.get("type") === 6){ %>
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Bold</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="6" data-name="<%= item.get("content") %>"
-                   data-id="<%= item.id %>">Change Type</a><br><br><br>
+                   data-id="<%= item.id %>">Change Type</a>
+                <a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">
+                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;" aria-hidden="true"></i>
+                </a><br><br><br>
 
                 <% } %>
                 <% }) %>
