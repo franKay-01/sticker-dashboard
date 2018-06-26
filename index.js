@@ -1960,7 +1960,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
                     return asset.save();
                 }
             } else if (storyItemType === type.STORY_ITEM.sticker) {
-                res.redirect('/change_catalogue_sticker/' + id);
+                res.redirect('/change_sticker/' + id);
             }
         }).then(function (asset) {
 
@@ -2065,7 +2065,7 @@ app.post('/change_catalogue_sticker/:id', function (req, res) {
 });
 
 
-app.get('/change_catalogue_sticker/:id', function (req, res) {
+app.get('/change_sticker/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
