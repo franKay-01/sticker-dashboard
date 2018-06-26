@@ -1909,7 +1909,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
     let files = req.files;
     let id = req.body.storyItemId;
     let storyId = req.params.storyId;
-    let previousForm = JSON.stringify(req.body.previousContent);
+    let previousForm = req.body.previousContent;
     let storyItemType = parseInt(req.body.storyItemType);
     let content = req.body.text_element;
     let _storyItem = [];
@@ -1988,7 +1988,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
             console.log("PREVIOUS " + previousForm + " image");
 
-            if (previousForm === "image"){
+            if (previousForm === type.STORY_ITEM.image){
 
                 console.log("INSIDE IMAGE" + storyContent + " STORY " + _storyItem.get("content"));
                 return new Parse.Query(_class.Assets).equalTo("objectId", storyContent).first();
