@@ -33,7 +33,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
     Parse.Promise.when(
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STICKER).first({useMasterKey: true}),
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STORY).first({useMasterKey: true}),
-        new Parse.Query(_class.Packs).equalTo("user_id", ADMIN).notEqualTo("objectId", DEFAULT_PACK).limit(2).ascending("createdAt").find({useMasterKey: true}),
+        new Parse.Query(_class.Packs).equalTo("user_id", ADMIN).notEqualTo("objectId", DEFAULT_PACK).limit(2).descending("createdAt").find({useMasterKey: true}),
         new Parse.Query(_class.Categories).ascending("name").limit(30).find(),
         new Parse.Query(_class.Adverts).find()
     ).then((sticker, story, packs, categories, adverts) => {
@@ -76,7 +76,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
         let promises = [];
         _.map(_packs, function (pack) {
-            promises.push(pack.relation(_class.Packs).query().limit(5).find({useMasterKey: true}));
+            promises.push(pack.relation(_class.Packs).query().limit(4).find({useMasterKey: true}));
         });
 
         return Parse.Promise.when(promises);
