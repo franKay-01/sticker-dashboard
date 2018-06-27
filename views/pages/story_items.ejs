@@ -27,7 +27,9 @@
     <script src="/public/assets/js/custom.js"></script>
     <script src="/public/assets/js/tag.js"></script>
     <script>
-        let content = "";
+        document.getElementById("submit_story").onclick = function () {
+            document.getElementById("story_form").submit();
+        }
     </script>
 </head>
 
@@ -190,7 +192,8 @@
                 <a href="#" class="preview change" data-content="0" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" id="remove_story_item" style="color: #cc0000 !important;margin-left: 5px" class="preview">
-                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;" aria-hidden="true"></i>
+                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
+                             aria-hidden="true"></i>
                 </a><br><br><br>
                 <% } else if (item.get("type") === 1){ %>
                 <% if (images.length > 0){ %>
@@ -199,10 +202,11 @@
                 <a href="#" class="preview change" data-content="1" data-name="" data-id="<%= item.id %>">Change
                     Type</a>
                 <a href="#" id="remove_story_item" style="margin-left: 5px;color: #cc0000 !important;" class="preview">
-                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;" aria-hidden="true"></i>
+                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
+                             aria-hidden="true"></i>
                 </a><br><br><br>
 
-                <%  imageCounter++ %>
+                <% imageCounter++ %>
 
                 <% } %>
                 <% } else if (item.get("type") === 2){ %>
@@ -215,7 +219,8 @@
                    data-id="<%= item.id %>">Change
                     Type/Replace Image</a>
                 <a href="#" id="remove_story_item" style="color: #cc0000 !important;margin-left: 5px" class="preview">
-                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;" aria-hidden="true"></i>
+                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
+                             aria-hidden="true"></i>
                 </a>
                 <br><br><br>
                 <% } else if (item.get("type") === 3){ %>
@@ -225,10 +230,11 @@
                 <a href="#" class="preview change" data-content="3" data-name="" data-id="<%= item.id %>">Change
                     Type/Replace Sticker</a>
                 <a href="#" id="remove_story_item" style="color: #cc0000 !important;margin-left: 5px" class="preview">
-                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;" aria-hidden="true"></i>
+                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
+                             aria-hidden="true"></i>
                 </a><br><br><br>
 
-                <%  stickerCounter++ %>
+                <% stickerCounter++ %>
 
                 <% } %>
 
@@ -241,7 +247,8 @@
                    data-id="<%= item.id %>">Change
                     Type</a>
                 <a href="#" id="remove_story_item" style="color: #cc0000 !important;margin-left: 5px" class="preview">
-                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;" aria-hidden="true"></i>
+                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
+                             aria-hidden="true"></i>
                 </a><br><br><br>
 
                 <% }else if (item.get("type") === 6){ %>
@@ -251,7 +258,8 @@
                 <a href="#" class="preview change" data-content="6" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" id="remove_story_item" style="color: #cc0000 !important;margin-left: 5px" class="preview">
-                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;" aria-hidden="true"></i>
+                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
+                             aria-hidden="true"></i>
                 </a><br><br><br>
 
                 <% } %>
