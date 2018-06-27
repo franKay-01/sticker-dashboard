@@ -3241,10 +3241,12 @@ app.post('/remove_story_item/:storyId', function (req, res) {
 
         }).then(function (storyItem) {
 
+            // if (storyItem.get("type") === type.STORY_ITEM.image){}
             storyItem.destroy({
                 success: function (object) {
                     console.log("removed" + JSON.stringify(object));
-                    res.redirect("/all_story_item/" + storyId );
+                    // res.redirect("/all_story_item/" + storyId );
+                    return true;
                 },
                 error: function (error) {
                     console.log("Could not remove" + error);
@@ -3252,6 +3254,9 @@ app.post('/remove_story_item/:storyId', function (req, res) {
 
                 }
             })
+
+        }).then(function () {
+            res.send("IT WORKED");
 
         }, function (error) {
 
