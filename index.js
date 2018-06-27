@@ -1190,6 +1190,7 @@ app.get('/story_of_day', function (req, res) {
                 new Parse.Query(_class.Stories).equalTo("user_id", _user.id).find(),
                 new Parse.Query(_class.ArtWork).find()
             )
+
         }).then(function (stories, artworks) {
 
             _allArtwork = artworks;
