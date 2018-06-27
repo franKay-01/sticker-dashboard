@@ -295,7 +295,7 @@ $(document).ready(function () {
             $('#opaqueDiv').fadeOut('fast');
         });
 
-        $('#remove_story_item').on('click', function () {
+        $('.remove_story_item').on('click', function () {
             $(".remove_story_item").fadeIn('fast');
             $("#pageMask").fadeIn('fast');
             $("#logo").fadeOut('fast');

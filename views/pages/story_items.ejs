@@ -219,7 +219,7 @@
                 <a href="#" class="preview change" data-content="2" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change
                     Type/Replace Image</a>
-                <a href="#" id="remove_story_item" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview">
+                <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview remove_story_item">
                     Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
                              aria-hidden="true"></i>
                 </a>
@@ -230,7 +230,7 @@
                 <img src="<%= stickers[stickerCounter].get("uri").url() %>" class="gbeja_notxt">
                 <a href="#" class="preview change" data-content="3" data-name="" data-id="<%= item.id %>">Change
                     Type/Replace Sticker</a>
-                <a href="#" id="remove_story_item" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview">
+                <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview remove_story_item">
                     Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
                              aria-hidden="true"></i>
                 </a><br><br><br>
@@ -247,7 +247,7 @@
                 <a href="#" class="preview change" data-content="5" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change
                     Type</a>
-                <a href="#" id="remove_story_item" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview">
+                <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview remove_story_item">
                     Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
                              aria-hidden="true"></i>
                 </a><br><br><br>
@@ -258,7 +258,7 @@
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Bold</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="6" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change Type</a>
-                <a href="#" id="remove_story_item" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview">
+                <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview remove_story_item">
                     Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
                              aria-hidden="true"></i>
                 </a><br><br><br>
@@ -268,7 +268,7 @@
                 <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit ItalicBold</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change Type</a>
-                <a href="#" id="remove_story_item" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview">
+                <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview remove_story_item">
                     Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
                              aria-hidden="true"></i>
                 </a><br><br><br>
@@ -296,7 +296,7 @@
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
 <script>
 
-    $("#remove_story_item").click(function () {
+    $(".remove_story_item").click(function () {
         $('.storyItem').val($(this).attr("data-id"));
     });
 
