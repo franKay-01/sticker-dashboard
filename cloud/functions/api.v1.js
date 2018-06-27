@@ -18,6 +18,7 @@ const DEFAULT_PACK = process.env.DEFAULT_PACK;
 //TODO write pagination function for editing stickers
 //TODO remove repeated code for creating stories/stickers
 //TODO properly handle errors
+//TODO handle instances when ID's have not been provided
 
 Parse.Cloud.define("getFeed", function (req, res) {
 
@@ -32,7 +33,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
     Parse.Promise.when(
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STICKER).first({useMasterKey: true}),
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STORY).first({useMasterKey: true}),
-        new Parse.Query(_class.Packs).equalTo("user_id", ADMIN).notEqualTo("objectId", DEFAULT_PACK).limit(2).find({useMasterKey: true}),
+        new Parse.Query(_class.Packs).equalTo("user_id", ADMIN).notEqualTo("objectId", DEFAULT_PACK).limit(2).ascending("createdAt").find({useMasterKey: true}),
         new Parse.Query(_class.Categories).ascending("name").limit(30).find(),
         new Parse.Query(_class.Adverts).find()
     ).then((sticker, story, packs, categories, adverts) => {
