@@ -3228,7 +3228,7 @@ app.get('/remove_story/:id', function (req, res) {
     }
 });
 
-app.get('/remove_story_item', function (req, res) {
+app.post('/remove_story_item', function (req, res) {
     let token = req.cookies.token;
     let id = req.body.storyItem;
 
