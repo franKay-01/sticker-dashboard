@@ -1192,10 +1192,18 @@ app.get('/story_of_day', function (req, res) {
             )
         }).then(function (stories, artworks) {
 
-            _stories = stories;
             _allArtwork = artworks;
 
             if (_stories) {
+
+                _.each(stories, function (story) {
+                    if (story.get("published") === true){
+
+                        _stories.push(story);
+
+                    }
+                });
+
                 _.each(artworks, function (artwork) {
 
                     artWork.push(artwork.get("sticker"));
