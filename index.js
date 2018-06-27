@@ -3233,6 +3233,7 @@ app.post('/remove_story_item/:storyId', function (req, res) {
     let id = req.body.storyItem;
     let storyId = req.params.storyId;
     let assetId;
+    let _storyItem;
 
     if (token) {
 
@@ -3243,6 +3244,7 @@ app.post('/remove_story_item/:storyId', function (req, res) {
         }).then(function (storyItem) {
 
             assetId = storyItem.get("content");
+            _storyItem = storyItem;
 
             storyItem.destroy({
                 success: function (object) {
@@ -3258,7 +3260,7 @@ app.post('/remove_story_item/:storyId', function (req, res) {
 
         }).then(function () {
 
-            if (storyItem.get("type") === type.STORY_ITEM.image){
+            if (_storyItem.get("type") === type.STORY_ITEM.image){
 
                 return new Parse.Query(_class.Assets).equalTo("objectId", assetId).first();
 
