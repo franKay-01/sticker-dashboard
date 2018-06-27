@@ -333,9 +333,29 @@ $(document).ready(function () {
             $('#opaqueDiv').fadeOut('fast');
         });
 
+        $('#change_image').on('click', function () {
+            $('#pageMask').fadeIn('fast');
+            $('#hiddenChangeArtwork').fadeIn('fast');
+            $('#logo').fadeOut('fast');
+            $('.welcome_post').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#opaqueDiv').fadeOut('fast');
+        });
+
         $('#cancelPermission').on('click', function () {
             $('#pageMask').fadeOut('fast');
             $('#askPermission').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('.welcome_post').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+        });
+
+        $('#btnCloseChangeArtwork').on('click', function () {
+            $('#pageMask').fadeOut('fast');
+            $('#hiddenChangeArtwork').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
             $('.welcome_post').fadeIn('fast');
