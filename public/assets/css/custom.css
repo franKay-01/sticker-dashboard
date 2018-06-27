@@ -2159,7 +2159,7 @@ tr #titles {
     top: 204px;
 }
 
-.remove_story_item{
+.remove_item{
     display: none;
     position: absolute;
     margin-left: 300px;
