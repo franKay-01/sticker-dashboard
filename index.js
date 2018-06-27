@@ -3232,6 +3232,7 @@ app.post('/remove_story_item/:storyId', function (req, res) {
     let token = req.cookies.token;
     let id = req.body.storyItem;
     let storyId = req.params.storyId;
+    let assetId;
 
     if (token) {
 
@@ -3241,11 +3242,11 @@ app.post('/remove_story_item/:storyId', function (req, res) {
 
         }).then(function (storyItem) {
 
-            // if (storyItem.get("type") === type.STORY_ITEM.image){}
+            assetId = storyItem.get("content");
+
             storyItem.destroy({
                 success: function (object) {
                     console.log("removed" + JSON.stringify(object));
-                    // res.redirect("/all_story_item/" + storyId );
                     return true;
                 },
                 error: function (error) {
@@ -3256,7 +3257,30 @@ app.post('/remove_story_item/:storyId', function (req, res) {
             })
 
         }).then(function () {
-            res.send("IT WORKED");
+
+            if (storyItem.get("type") === type.STORY_ITEM.image){
+
+                return new Parse.Query(_class.Assets).equalTo("objectId", assetId).first();
+
+            }else {
+
+                res.redirect("/all_story_item/" + storyId );
+
+            }
+
+        }).then(function (asset) {
+
+            asset.destroy({
+                success: function (object) {
+                    console.log("removed" + JSON.stringify(object));
+                    res.redirect("/all_story_item/" + storyId );
+                },
+                error: function (error) {
+                    console.log("Could not remove" + error);
+                    res.redirect("/all_story_item/" + storyId );
+
+                }
+            })
 
         }, function (error) {
 
