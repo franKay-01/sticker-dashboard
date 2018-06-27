@@ -27,9 +27,10 @@
     <script src="/public/assets/js/custom.js"></script>
     <script src="/public/assets/js/tag.js"></script>
     <script>
-        document.getElementById("submit_remove").onclick = function () {
-            document.getElementById("story_form").submit();
+        function formSubmit() {
+            document.getElementById("removeForm").submit();
         }
+
     </script>
 </head>
 
@@ -52,13 +53,13 @@
     <div class="remove_story_item" style="display: none">
         <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
             <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
-            <form method="post" action="/remove_story_item">
+            <form method="post" id="removeForm" action="/remove_story_item">
 
                 <input name="storyItem" id="storyItem" hidden>
                 <a href="#" id="cancel_remove" class="edit_labels" style="margin: 200px !important;">
                     NO
                 </a>
-                <a href="#" class="edit_labels" id="submit_remove">
+                <a href="#" class="edit_labels" onclick="formSubmit()" id="submit_remove">
                     YES
                 </a>
             </form>
