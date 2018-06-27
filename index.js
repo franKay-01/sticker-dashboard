@@ -3237,7 +3237,7 @@ app.post('/remove_story_item/:storyId', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.StoryItems).equalTo("story_id", id).first();
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
 
         }).then(function (storyItem) {
 
