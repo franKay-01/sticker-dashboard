@@ -1656,7 +1656,7 @@ app.get('/story/item/:id', function (req, res) {
 
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/story_catalogue');
+            res.redirect('/stories');
         });
     } else {
         res.redirect('/');
