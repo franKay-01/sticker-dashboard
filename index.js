@@ -1637,6 +1637,8 @@ app.get('/story/item/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
 
+    console.log("STORY ID " + id);
+
     if (token) {
 
         getUser(token).then(function (sessionToken) {
