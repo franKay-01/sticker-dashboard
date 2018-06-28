@@ -544,6 +544,7 @@ app.post('/new_story', function (req, res) {
     let keywords = req.body.keyword;
     let _keywords = [];
     let story_id = "";
+    let state = "new";
 
     if (keywords !== undefined || keywords !== "undefined") {
         _keywords = keywords.split(",");
@@ -583,7 +584,7 @@ app.post('/new_story', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/story/' + story_id + '/new');
+            res.redirect('/story/' + story_id + '/' + state);
 
         }, function (error) {
             console.log("ERROR WHEN CREATING NEW STORY " + error.message);
@@ -1467,7 +1468,7 @@ app.post('/add_story_artwork/:id/:state', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story/' + story_id + '/new');
+            res.redirect('/story/' + story_id + '/' + state);
 
         });
     } else {
