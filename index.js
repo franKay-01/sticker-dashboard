@@ -1056,6 +1056,9 @@ app.get('/message/send', function (req, res) {
 /*====================================== MESSAGES ============================*/
 
 
+
+
+
 app.get('/find_stickers/:name', function (req, res) {
 
     let token = req.cookies.token;
@@ -1086,7 +1089,6 @@ app.get('/find_stickers/:name', function (req, res) {
     }
 
 });
-
 
 app.post('/new_catalogue_sticker/:id', function (req, res) {
     let token = req.cookies.token;
@@ -1378,38 +1380,6 @@ app.get('/change_color/:id', function (req, res) {
     }
 });
 
-
-app.post('/edit_item/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let content = req.body.content;
-    let story_id = req.body.id;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
-
-        }).then(function (story_item) {
-
-            story_item.set("content", content);
-            return story_item.save();
-
-        }).then(function () {
-
-            res.redirect('/storyitem/view/' + story_id);
-
-        }, function (error) {
-            console.log("ERROR " + error.message);
-            res.redirect('/edit_story_item/' + id + "/" + story_id);
-        })
-    } else {
-        res.redirect('/');
-    }
-});
-
 app.get('/edit_story_item/:id/:story_id', function (req, res) {
 
     let token = req.cookies.token;
@@ -1665,6 +1635,37 @@ app.get('/storyitem/view/:id', function (req, res) {
     }
 });
 
+app.post('/storyitem/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let content = req.body.content;
+    let story_id = req.body.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+
+        }).then(function (story_item) {
+
+            story_item.set("content", content);
+            return story_item.save();
+
+        }).then(function () {
+
+            res.redirect('/storyitem/view/' + story_id);
+
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/edit_story_item/' + id + "/" + story_id);
+        })
+    } else {
+        res.redirect('/');
+    }
+});
+
 
 
 app.post('/edit_story/:id', function (req, res) {
@@ -1909,7 +1910,6 @@ app.post('/change_catalogue_sticker/:id', function (req, res) {
     }
 
 });
-
 
 app.get('/change_sticker/:storyId/:storyItemId', function (req, res) {
 
@@ -2308,7 +2308,6 @@ app.get('/home', function (req, res) {
         res.redirect("/");
     }
 });
-
 
 app.post('/create_barcode', function (req, res) {
 
