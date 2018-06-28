@@ -2135,6 +2135,14 @@ tr #titles {
     top: 204px;
 }
 
+#hiddenChangeType {
+    display: none;
+    position: absolute;
+    margin-left: 300px;
+    z-index: 9999;
+    top: 204px;
+}
+
 #askPermission{
     display: none;
     position: absolute;
@@ -2144,6 +2152,14 @@ tr #titles {
 }
 
 .remove_story{
+    display: none;
+    position: absolute;
+    margin-left: 300px;
+    z-index: 9999;
+    top: 204px;
+}
+
+.remove_story_item{
     display: none;
     position: absolute;
     margin-left: 300px;

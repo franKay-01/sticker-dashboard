@@ -118,6 +118,16 @@ $(document).ready(function () {
             $('#pack_id').fadeOut('fast');
         });
 
+        $('.italicBold_element').on('click', function () {
+            $('#hiddenBoldItalicsCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
+
         $('.quote_element').on('click', function () {
             $('#hiddenQuoteCatalouge').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
@@ -188,12 +198,31 @@ $(document).ready(function () {
         });
 
         $(".change").click(function () {
-            $(".storyItemId").val($(this).attr("data-id"));
             $("#hiddenChangeType").fadeIn('fast');
             $("#pageMask").fadeIn('fast');
             $("#logo").fadeOut('fast');
             $(".welcome_post").fadeOut('fast');
             $(".story").fadeOut('fast');
+            $("#foot").fadeOut('fast');
+        });
+
+        $("#btnSubmitStoryItem").on('click', function () {
+            $( "#type_form" ).submit();
+        });
+
+        $("#btn_cancelChangeType").on('click',function () {
+            $("#hiddenChangeType").fadeOut('fast');
+            $("#pageMask").fadeOut('fast');
+            $("#logo").fadeIn('fast');
+            $(".welcome_post").fadeIn('fast');
+            $(".story").fadeIn('fast');
+            $("#foot").fadeIn('fast');
+            $('.common').attr("hidden", "hidden");
+            $('.image').attr("hidden", "hidden");
+            $('.image_divider').attr("hidden", "hidden");
+            $('.sticker').attr("hidden", "hidden");
+            $('#type_form')[0].reset();
+
         });
 
         $('#btn_cancelAdLink').on('click', function () {
@@ -266,6 +295,15 @@ $(document).ready(function () {
             $('#opaqueDiv').fadeOut('fast');
         });
 
+        $('.remove_items').on('click', function () {
+            $(".remove_story_item").fadeIn('fast');
+            $("#pageMask").fadeIn('fast');
+            $("#logo").fadeOut('fast');
+            $(".welcome_post").fadeOut('fast');
+            $(".story").fadeOut('fast');
+            $("#foot").fadeOut('fast');
+        });
+
         $('#cancel_delete').on('click', function () {
             $('#pageMask').fadeOut('fast');
             $('.remove_story').fadeOut('fast');
@@ -274,6 +312,15 @@ $(document).ready(function () {
             $('#Welcome').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
+        });
+
+        $('#cancel_remove').on('click', function () {
+            $('.remove_story_item').fadeOut('fast');
+            $("#pageMask").fadeOut('fast');
+            $("#logo").fadeIn('fast');
+            $(".welcome_post").fadeIn('fast');
+            $(".story").fadeIn('fast');
+            $("#foot").fadeIn('fast');
         });
 
         $('#showPermission').on('click', function () {
@@ -286,9 +333,29 @@ $(document).ready(function () {
             $('#opaqueDiv').fadeOut('fast');
         });
 
+        $('#change_image').on('click', function () {
+            $('#pageMask').fadeIn('fast');
+            $('#hiddenChangeArtwork').fadeIn('fast');
+            $('#logo').fadeOut('fast');
+            $('.welcome_post').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#opaqueDiv').fadeOut('fast');
+        });
+
         $('#cancelPermission').on('click', function () {
             $('#pageMask').fadeOut('fast');
             $('#askPermission').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('.welcome_post').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+        });
+
+        $('#btnCloseChangeArtwork').on('click', function () {
+            $('#pageMask').fadeOut('fast');
+            $('#hiddenChangeArtwork').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
             $('.welcome_post').fadeIn('fast');
@@ -396,6 +463,17 @@ $(document).ready(function () {
 
         $('#btnCloseBoldCatalouge').on('click', function () {
             $('#hiddenBoldCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
+        $('#btnCloseItalicBoldCatalouge').on('click', function () {
+            $('#hiddenBoldItalicsCatalouge').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
@@ -580,7 +658,7 @@ $(document).ready(function () {
         $('#Welcome').fadeOut('fast');
         $('#signoutLink').fadeOut('fast');
         $('#opaqueDiv').fadeOut('fast');
-        ;
+
         //insert category name into text field for removal
         $('#catNameRemove').val($this.val());
         $('#inputRemoveId').val($this.attr("data-id"));

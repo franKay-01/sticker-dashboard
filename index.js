@@ -1190,12 +1190,21 @@ app.get('/story_of_day', function (req, res) {
                 new Parse.Query(_class.Stories).equalTo("user_id", _user.id).find(),
                 new Parse.Query(_class.ArtWork).find()
             )
+
         }).then(function (stories, artworks) {
 
-            _stories = stories;
             _allArtwork = artworks;
 
             if (_stories) {
+
+                _.each(stories, function (story) {
+                    if (story.get("published") === true){
+
+                        _stories.push(story);
+
+                    }
+                });
+
                 _.each(artworks, function (artwork) {
 
                     artWork.push(artwork.get("sticker"));
@@ -1641,6 +1650,11 @@ app.get('/all_story_item/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
+    let image_array = [];
+    let sticker_array = [];
+    let _storyItem;
+    let _images = [];
+    let _stickers = [];
 
     if (token) {
 
@@ -1650,10 +1664,51 @@ app.get('/all_story_item/:id', function (req, res) {
 
         }).then(function (story_item) {
 
+            _storyItem = story_item;
+
+            _.each(story_item, function (item) {
+                if (item.get("type") === type.STORY_ITEM.image) {
+                    image_array.push(item.get("content"));
+                } else if (item.get("type") === type.STORY_ITEM.sticker) {
+                    sticker_array.push(item.get("content"));
+                }
+            });
+
+            if (image_array.length > 0) {
+                return new Parse.Query(_class.Assets).containedIn("objectId", image_array).find();
+
+            } else {
+                return true;
+            }
+
+        }).then(function (image) {
+
+            if (image.length > 0) {
+                _images = image;
+            }
+
+
+            if (sticker_array.length > 0) {
+                return new Parse.Query(_class.Stickers).containedIn("objectId", sticker_array).find();
+
+            } else {
+                return true;
+            }
+
+        }).then(function (stickers) {
+
+            if (stickers) {
+
+                _stickers = stickers;
+
+            }
+
             res.render("pages/story_items", {
 
-                story_item: story_item,
-                story_id: id
+                story_item: _storyItem,
+                story_id: id,
+                stickers: _stickers,
+                images: _images
 
             });
         }, function (error) {
@@ -1857,6 +1912,213 @@ app.get('/main_story/:id/:title', function (req, res) {
     }
 });
 
+app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res) {
+
+    let token = req.cookies.token;
+    let files = req.files;
+    let id = req.body.storyItemId;
+    let storyId = req.params.storyId;
+    let previousForm = parseInt(req.body.previousContent);
+    let storyItemType = parseInt(req.body.storyItemType);
+    let content = req.body.text_element;
+    let _storyItem = [];
+    let storyContent;
+    let _storyId;
+
+    console.log("TYPE " + storyItemType);
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+
+        }).then(function (storyItem) {
+
+            _storyItem = storyItem;
+            storyContent = storyItem.get("content");
+            _storyId = storyItem.get("story_id");
+
+            if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
+                storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
+                storyItemType === type.STORY_ITEM.italicBold) {
+
+                storyItem.set("type", storyItemType);
+                storyItem.set("content", content);
+
+                return storyItem.save();
+            } else if (storyItemType === type.STORY_ITEM.divider) {
+
+                storyItem.set("type", storyItemType);
+                storyItem.set("content", "");
+
+                return storyItem.save();
+            } else if (storyItemType === type.STORY_ITEM.image) {
+
+                if (files) {
+                    let Asset = new Parse.Object.extend(_class.Assets);
+                    let asset = new Asset();
+
+                    let fullName = files[0].originalname;
+                    let stickerName = fullName.substring(0, fullName.length - 4);
+
+                    let bitmap = fs.readFileSync(files[0].path, {encoding: 'base64'});
+
+                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
+
+                    asset.set("uri", parseFile);
+
+                    return asset.save();
+                }
+            } else if (storyItemType === type.STORY_ITEM.sticker) {
+                res.redirect('/change_sticker/' + _storyId + '/' + id);
+            }
+        }).then(function (asset) {
+
+            if (storyItemType === type.STORY_ITEM.image) {
+                _storyItem.set("type", storyItemType);
+                _storyItem.set("content", asset.id);
+
+                return _storyItem.save();
+
+            } else {
+
+                return true;
+
+            }
+        }).then(function () {
+
+            if (files.length > 0) {
+                let tempFile = files[0].path;
+                fs.unlink(tempFile, function (err) {
+                    if (err) {
+                        //TODO handle error code
+                        console.log("-------Could not del temp" + JSON.stringify(err));
+                    }
+                    else {
+                        console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                    }
+                });
+            }
+
+            if (previousForm === type.STORY_ITEM.image) {
+
+                console.log("INSIDE IMAGE" + storyContent + " STORY " + _storyItem.get("content"));
+                return new Parse.Query(_class.Assets).equalTo("objectId", storyContent).first();
+
+            } else {
+                res.redirect('/all_story_item/' + storyId);
+
+            }
+
+        }).then(function (image) {
+
+            console.log("IMAGE FROM ASSETS " + JSON.stringify(image));
+
+
+            image.destroy({
+                success: function (object) {
+                    console.log("DESTROYED IAMGE " + JSON.stringify(object));
+                    res.redirect('/all_story_item/' + storyId);
+                },
+                error: function (error) {
+                    console.log("Could not remove" + error);
+                    res.redirect('/all_story_item/' + storyId);
+
+                }
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/all_story_item/' + storyId);
+
+        })
+
+    } else {
+        res.redirect('/');
+    }
+
+});
+
+app.post('/change_catalogue_sticker/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let stickerId = req.body.sticker_id;
+    let storyId;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            console.log(" STORYITEM 2 " + id);
+
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+
+        }).then(function (storyItem) {
+
+            storyId = storyItem.get("story_id");
+
+            storyItem.set("type", type.STORY_ITEM.sticker);
+            storyItem.set("content", stickerId);
+
+            return storyItem.save();
+
+        }).then(function () {
+
+            res.redirect('/all_story_item/' + storyId);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/all_story_item/' + storyId);
+
+        })
+    } else {
+        res.redirect('/');
+    }
+
+});
+
+
+app.get('/change_sticker/:storyId/:storyItemId', function (req, res) {
+
+    let token = req.cookies.token;
+    let storyId = req.params.storyId;
+    let storyItemId = req.params.storyItemId;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            console.log("STORY ID " + storyId + " STORYITEM " + storyItemId);
+
+            return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first();
+
+        }).then(function (story) {
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", story.get("pack_id")).first();
+
+        }).then(function (pack) {
+
+            let col = pack.relation(_class.Packs);
+            return col.query().find();
+
+        }).then(function (stickers) {
+
+            res.render("pages/change_catalogue_sticker", {
+                storyItemId: storyItemId,
+                stickers: stickers
+            });
+
+        }, function () {
+
+        })
+    }
+});
+
 app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
 
     let token = req.cookies.token;
@@ -1894,6 +2156,19 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
             return catalogue.save();
 
         }).then(function () {
+
+            //Delete tmp fil after upload
+            let tempFile = files[0].path;
+            fs.unlink(tempFile, function (err) {
+                if (err) {
+                    //TODO handle error code
+                    console.log("-------Could not del temp" + JSON.stringify(err));
+                }
+                else {
+                    console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                }
+            });
+
 
             res.redirect("/story_catalogue/" + id);
 
@@ -1943,6 +2218,10 @@ app.post('/new_catalogue/:id', function (req, res) {
 
                 case type.STORY_ITEM.bold:
                     story.set("type", type.STORY_ITEM.bold);
+                    break;
+
+                case type.STORY_ITEM.italicBold:
+                    story.set("type", type.STORY_ITEM.italicBold);
                     break;
             }
 
@@ -2958,6 +3237,74 @@ app.get('/remove_story/:id', function (req, res) {
     }
 });
 
+app.post('/remove_story_item/:storyId', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.body.storyItem;
+    let storyId = req.params.storyId;
+    let assetId;
+    let _storyItem;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+
+        }).then(function (storyItem) {
+
+            assetId = storyItem.get("content");
+            _storyItem = storyItem;
+
+            storyItem.destroy({
+                success: function (object) {
+                    console.log("removed" + JSON.stringify(object));
+                    return true;
+                },
+                error: function (error) {
+                    console.log("Could not remove" + error);
+                    res.redirect("/all_story_item/" + storyId );
+
+                }
+            })
+
+        }).then(function () {
+
+            if (_storyItem.get("type") === type.STORY_ITEM.image){
+
+                return new Parse.Query(_class.Assets).equalTo("objectId", assetId).first();
+
+            }else {
+
+                res.redirect("/all_story_item/" + storyId );
+
+            }
+
+        }).then(function (asset) {
+
+            asset.destroy({
+                success: function (object) {
+                    console.log("removed" + JSON.stringify(object));
+                    res.redirect("/all_story_item/" + storyId );
+                },
+                error: function (error) {
+                    console.log("Could not remove" + error);
+                    res.redirect("/all_story_item/" + storyId );
+
+                }
+            })
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/stories');
+        })
+
+    } else {
+        res.redirect('/');
+    }
+
+});
+
 app.get('/remove_story_items/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -2976,7 +3323,9 @@ app.get('/remove_story_items/:id', function (req, res) {
                 return Parse.Object.destroyAll(stories);
 
             } else {
-                res.redirect('/stories');
+
+                return true;
+
             }
 
         }).then(function (success) {
