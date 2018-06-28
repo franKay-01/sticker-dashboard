@@ -1718,12 +1718,12 @@ app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
             });
 
 
-            res.redirect("/story/item/" + id);
+            res.redirect("/storyitem/" + id);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect("/story/item/" + id);
+            res.redirect("/storyitem/" + id);
 
         })
     } else {
