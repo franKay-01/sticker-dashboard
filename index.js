@@ -1592,78 +1592,78 @@ app.get('/storyitem/:id', function (req, res) {
     }
 });
 
-// app.get('/story/item/view/:id', function (req, res) {
-//
-//     let token = req.cookies.token;
-//     let id = req.params.id;
-//     let image_array = [];
-//     let sticker_array = [];
-//     let _storyItem;
-//     let _images = [];
-//     let _stickers = [];
-//
-//     if (token) {
-//
-//         getUser(token).then(function (sessionToken) {
-//
-//             return new Parse.Query(_class.StoryItems).equalTo("story_id", id).find();
-//
-//         }).then(function (story_item) {
-//
-//             _storyItem = story_item;
-//
-//             _.each(story_item, function (item) {
-//                 if (item.get("type") === type.STORY_ITEM.image) {
-//                     image_array.push(item.get("content"));
-//                 } else if (item.get("type") === type.STORY_ITEM.sticker) {
-//                     sticker_array.push(item.get("content"));
-//                 }
-//             });
-//
-//             if (image_array.length > 0) {
-//                 return new Parse.Query(_class.Assets).containedIn("objectId", image_array).find();
-//
-//             } else {
-//                 return true;
-//             }
-//
-//         }).then(function (image) {
-//
-//             if (image.length > 0) {
-//                 _images = image;
-//             }
-//
-//
-//             if (sticker_array.length > 0) {
-//                 return new Parse.Query(_class.Stickers).containedIn("objectId", sticker_array).find();
-//
-//             } else {
-//                 return true;
-//             }
-//
-//         }).then(function (stickers) {
-//
-//             if (stickers) {
-//
-//                 _stickers = stickers;
-//
-//             }
-//
-//             res.render("pages/story_items", {
-//
-//                 story_item: _storyItem,
-//                 story_id: id,
-//                 stickers: _stickers,
-//                 images: _images
-//
-//             });
-//         }, function (error) {
-//
-//             console.log("ERROR " + error.message);
-//             res.redirect('/story_details/' + id)
-//         })
-//     }
-// });
+app.get('/storyitem/view/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let image_array = [];
+    let sticker_array = [];
+    let _storyItem;
+    let _images = [];
+    let _stickers = [];
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.StoryItems).equalTo("story_id", id).find();
+
+        }).then(function (story_item) {
+
+            _storyItem = story_item;
+
+            _.each(story_item, function (item) {
+                if (item.get("type") === type.STORY_ITEM.image) {
+                    image_array.push(item.get("content"));
+                } else if (item.get("type") === type.STORY_ITEM.sticker) {
+                    sticker_array.push(item.get("content"));
+                }
+            });
+
+            if (image_array.length > 0) {
+                return new Parse.Query(_class.Assets).containedIn("objectId", image_array).find();
+
+            } else {
+                return true;
+            }
+
+        }).then(function (image) {
+
+            if (image.length > 0) {
+                _images = image;
+            }
+
+
+            if (sticker_array.length > 0) {
+                return new Parse.Query(_class.Stickers).containedIn("objectId", sticker_array).find();
+
+            } else {
+                return true;
+            }
+
+        }).then(function (stickers) {
+
+            if (stickers) {
+
+                _stickers = stickers;
+
+            }
+
+            res.render("pages/story_items", {
+
+                story_item: _storyItem,
+                story_id: id,
+                stickers: _stickers,
+                images: _images
+
+            });
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/story_details/' + id)
+        })
+    }
+});
 
 
 
