@@ -1667,6 +1667,72 @@ app.post('/storyitem/sticker/add/:id', function (req, res) {
     }
 });
 
+app.post('/storyitem/image/:id', upload.array('im1'), function (req, res) {
+
+    let token = req.cookies.token;
+    let files = req.files;
+    let id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            let Asset = new Parse.Object.extend(_class.Assets);
+            let asset = new Asset();
+
+            let fullName = files[0].originalname;
+            let stickerName = fullName.substring(0, fullName.length - 4);
+
+            let bitmap = fs.readFileSync(files[0].path, {encoding: 'base64'});
+
+            //create our parse file
+            let parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
+
+            asset.set("uri", parseFile);
+
+            return asset.save();
+
+        }).then(function (image) {
+
+            let Story = new Parse.Object.extend(_class.StoryItems);
+            let catalogue = new Story();
+
+            catalogue.set("type", type.STORY_ITEM.image);
+            catalogue.set("content", image.id);
+            catalogue.set("story_id", id);
+
+            return catalogue.save();
+
+        }).then(function () {
+
+            //Delete tmp fil after upload
+            let tempFile = files[0].path;
+            fs.unlink(tempFile, function (err) {
+                if (err) {
+                    //TODO handle error code
+                    console.log("-------Could not del temp" + JSON.stringify(err));
+                }
+                else {
+                    console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                }
+            });
+
+
+            res.redirect("/story/item/" + id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect("/story/item/" + id);
+
+        })
+    } else {
+        res.redirect('/');
+
+    }
+});
+
+
 
 app.post('/edit_story/:id', function (req, res) {
     let token = req.cookies.token;
@@ -1963,70 +2029,6 @@ app.post('/change_artwork', upload.array('im1'), function (req, res) {
     }
 });
 
-app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
-
-    let token = req.cookies.token;
-    let files = req.files;
-    let id = req.params.id;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            let Asset = new Parse.Object.extend(_class.Assets);
-            let asset = new Asset();
-
-            let fullName = files[0].originalname;
-            let stickerName = fullName.substring(0, fullName.length - 4);
-
-            let bitmap = fs.readFileSync(files[0].path, {encoding: 'base64'});
-
-            //create our parse file
-            let parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
-
-            asset.set("uri", parseFile);
-
-            return asset.save();
-
-        }).then(function (image) {
-
-            let Story = new Parse.Object.extend(_class.StoryItems);
-            let catalogue = new Story();
-
-            catalogue.set("type", type.STORY_ITEM.image);
-            catalogue.set("content", image.id);
-            catalogue.set("story_id", id);
-
-            return catalogue.save();
-
-        }).then(function () {
-
-            //Delete tmp fil after upload
-            let tempFile = files[0].path;
-            fs.unlink(tempFile, function (err) {
-                if (err) {
-                    //TODO handle error code
-                    console.log("-------Could not del temp" + JSON.stringify(err));
-                }
-                else {
-                    console.log("SUUCCCEESSSSS IN DELTEING TEMP");
-                }
-            });
-
-
-            res.redirect("/story/item/" + id);
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect("/story/item/" + id);
-
-        })
-    } else {
-        res.redirect('/');
-
-    }
-});
 
 app.post('/new_catalogue/:id', function (req, res) {
     let token = req.cookies.token;
