@@ -1399,7 +1399,7 @@ app.post('/edit_item/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/story/item/view/' + story_id);
+            res.redirect('/storyitem/view/' + story_id);
 
         }, function (error) {
             console.log("ERROR " + error.message);
@@ -1837,7 +1837,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
                 return new Parse.Query(_class.Assets).equalTo("objectId", storyContent).first();
 
             } else {
-                res.redirect('/story/item/view/' + storyId);
+                res.redirect('/storyitem/view/' + storyId);
 
             }
 
@@ -1849,18 +1849,18 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
             image.destroy({
                 success: function (object) {
                     console.log("DESTROYED IAMGE " + JSON.stringify(object));
-                    res.redirect('/story/item/view/' + storyId);
+                    res.redirect('/storyitem/view/' + storyId);
                 },
                 error: function (error) {
                     console.log("Could not remove" + error);
-                    res.redirect('/story/item/view/' + storyId);
+                    res.redirect('/storyitem/view/' + storyId);
 
                 }
             })
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story/item/view/' + storyId);
+            res.redirect('/storyitem/view/' + storyId);
 
         })
 
@@ -1896,12 +1896,12 @@ app.post('/change_catalogue_sticker/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/story/item/view/' + storyId);
+            res.redirect('/storyitem/view/' + storyId);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story/item/view/' + storyId);
+            res.redirect('/storyitem/view/' + storyId);
 
         })
     } else {
@@ -2998,7 +2998,7 @@ app.post('/remove_story_item/:storyId', function (req, res) {
                 },
                 error: function (error) {
                     console.log("Could not remove" + error);
-                    res.redirect("/story/item/view/" + storyId);
+                    res.redirect("/storyitem/view/" + storyId);
 
                 }
             })
@@ -3011,7 +3011,7 @@ app.post('/remove_story_item/:storyId', function (req, res) {
 
             } else {
 
-                res.redirect("/story/item/view/" + storyId);
+                res.redirect("/storyitem/view/" + storyId);
 
             }
 
@@ -3020,11 +3020,11 @@ app.post('/remove_story_item/:storyId', function (req, res) {
             asset.destroy({
                 success: function (object) {
                     console.log("removed" + JSON.stringify(object));
-                    res.redirect("/story/item/view/" + storyId);
+                    res.redirect("/storyitem/view/" + storyId);
                 },
                 error: function (error) {
                     console.log("Could not remove" + error);
-                    res.redirect("/story/item/view/" + storyId);
+                    res.redirect("/storyitem/view/" + storyId);
 
                 }
             })
