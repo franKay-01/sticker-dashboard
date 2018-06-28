@@ -1090,51 +1090,6 @@ app.get('/find_stickers/:name', function (req, res) {
 
 });
 
-app.post('/new_catalogue_sticker/:id', function (req, res) {
-    let token = req.cookies.token;
-    let id = req.params.id;
-
-    if (token) {
-
-        let _user = {};
-        let _story = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
-
-        }).then(function (story) {
-
-            _story = story;
-
-            return new Parse.Query(_class.Packs).equalTo("objectId", story.get("pack_id")).first();
-
-        }).then(function (pack) {
-
-            let col = pack.relation(_class.Packs);
-            return col.query().find();
-
-        }).then(function (stickers) {
-
-            res.render("pages/catalogue_sticker", {
-                story: _story.id,
-                stickers: stickers
-            });
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/');
-
-        });
-    } else {
-        res.redirect('/');
-
-    }
-});
-
 app.get('/story/:id/:state', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
@@ -1663,6 +1618,51 @@ app.post('/storyitem/:id', function (req, res) {
         })
     } else {
         res.redirect('/');
+    }
+});
+
+app.post('/storyitem/sticker/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+
+        let _user = {};
+        let _story = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+        }).then(function (story) {
+
+            _story = story;
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", story.get("pack_id")).first();
+
+        }).then(function (pack) {
+
+            let col = pack.relation(_class.Packs);
+            return col.query().find();
+
+        }).then(function (stickers) {
+
+            res.render("pages/catalogue_sticker", {
+                story: _story.id,
+                stickers: stickers
+            });
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/');
+
+        });
+    } else {
+        res.redirect('/');
+
     }
 });
 
