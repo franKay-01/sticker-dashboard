@@ -1667,7 +1667,7 @@ app.post('/storyitem/sticker/add/:id', function (req, res) {
     }
 });
 
-app.post('/storyitem/image/:id', upload.array('im1'), function (req, res) {
+app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
 
     let token = req.cookies.token;
     let files = req.files;
