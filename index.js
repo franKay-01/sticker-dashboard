@@ -249,6 +249,9 @@ function setPermission(user, isPublicReadAccess) {
     return acl;
 }
 
+
+/*====================================== ACCOUNTS ============================*/
+
 // Home Page
 app.get('/', function (req, res) {
 
@@ -370,29 +373,30 @@ app.post('/signup', function (req, res) {
 
 });
 
-app.get('/get_acl', function (req, res) {
-    let token = req.cookies.token;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            console.log("SESSION " + JSON.stringify(sessionToken));
-            return new Parse.Query("Test").find({sessionToken: sessionToken.get("sessionToken")});
-
-        }).then(function (test) {
-            res.send("TEST RESULTS " + JSON.stringify(test));
-        }, function (error) {
-            res.send("TEST FAILED " + error.message);
-        })
-    }
+app.get('/account/password/forgot', function (req, res) {
+    res.render("pages/forgot_password");
 });
 
-app.get('/test_acl/:id/:text', function (req, res) {
 
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let text = req.params.text;
+app.post('/account/password/reset', function (req, res) {
+    const username = req.body.forgotten_password;
+
+    Parse.User.requestPasswordReset(username, {
+        success: function () {
+            // Password reset request was sent successfully
+            console.log("EMAIL was sent successfully");
+            res.render("pages/password_reset_info");
+        },
+        error: function (error) {
+            // Show the error message somewhere
+            console.log("Error: " + error.code + " " + error.message);
+            res.redirect('/account/password/forgot');
+        }
+    });
+});
+
+app.get('/account/email/reset', function (req, res) {
+    const token = req.cookies.token;
 
     if (token) {
 
@@ -400,84 +404,26 @@ app.get('/test_acl/:id/:text', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            _user = sessionToken.get("user")
-            let Test = new Parse.Object.extend("Test");
-            let test = new Test();
+            _user = sessionToken.get("user");
 
-            test.set("text_id", id);
-            test.set("text", text);
-
-
-            let ACL = new Parse.ACL();
-            ACL.setReadAccess(_user.id, true);
-            ACL.setWriteAccess(_user.id, true);
-            ACL.setPublicReadAccess(true);
-
-
-            test.setACL(ACL);
-
-            return test.save();
-
-
-        }).then(function (test) {
-
-            res.send("TEST COMPLETE " + JSON.stringify(test));
+            new Parse.Query("User").equalTo("objectId", _user.id).first().then(function (user) {
+                console.log("USER FROM RESET " + JSON.stringify(user) + " CURRENT USER " + Parse.User.current());
+                user.set("email", "test@gmail.com");
+                // user.set("username", "test@gmail.com");
+                return user.save();
+            }).then(function (result) {
+                console.log("EMAIL CHANGED SUCCESSFULLY " + JSON.stringify(result));
+                res.redirect("/");
+            })
         }, function (error) {
-            res.send("TEST FAILED " + error.message);
+            console.log("ERROR OCCURRED WHEN RESETTING EMAIL " + error.message)
+        });
 
-        })
+    } else {
+        res.redirect('/');
 
     }
-});
 
-app.get('/role', function (req, res) {
-
-    let token = req.cookies.token;
-
-    if (token) {
-
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            // var roleACL = new Parse.ACL();
-            // roleACL.setPublicReadAccess(true);
-            // var role = new Parse.Role("Administrator", roleACL);
-            // role.getUsers().add(_user);
-            //
-            // return role.save();
-
-            var queryRole = new Parse.Query(Parse.Role);
-            queryRole.equalTo('name', 'Administrator');
-            queryRole.first({
-                success: function (admin) {
-                    console.log("ADMIN " + JSON.stringify(admin));
-
-                    var adminRelation = admin.Relation('_User');
-
-                    adminRelation.add(_user);
-
-                    return admin.save();
-                },
-                error: function (error) {
-                    res.send("ROLE FAILED " + error.message);
-
-                }
-            });
-
-            // var roleACL = new Parse.ACL();
-            // roleACL.setPublicReadAccess(true);
-            // var role = new Parse.Role("Administrator", roleACL);
-            // role.save();
-
-        }).then(function (admin) {
-            res.send("ROLE COMPLETE " + JSON.stringify(admin));
-
-        }, function (error) {
-            res.send("ROLE FAILED " + error.message);
-
-        })
-    }
 });
 
 
@@ -533,6 +479,48 @@ app.post('/login', function (req, res) {
 
     });
 });
+
+app.get('/account/user/profile', function (req, res) {
+
+    let token = req.cookies.token;
+    let _user = {};
+    let _profile = {};
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(_class.Profile).equalTo("user_id", _user.id).first();
+
+        }).then(function (profile) {
+
+            _profile = profile;
+
+            return new Parse.Query(_class.Links).equalTo("object_id", profile.get("user_id")).find();
+
+        }).then(function (links) {
+
+            res.render("pages/profile", {
+                username: _user.get("name"),
+                email: _user.get("username"),
+                profile: _profile,
+                links: links
+            });
+
+        }, function (error) {
+            console.log("ERROR ON PROFILE " + error.message);
+            res.redirect('/');
+        });
+
+    } else {
+        res.redirect('/');
+    }
+});
+
+
+/*====================================== ACCOUNTS ============================*/
 
 
 app.post('/new_story', function (req, res) {
@@ -703,7 +691,10 @@ app.get('/send_message', function (req, res) {
     }
 });
 
-app.get('/advert_collection', function (req, res) {
+/*====================================== ADVERTS ============================*/
+
+
+app.get('/adverts', function (req, res) {
 
     let token = req.cookies.token;
     let _adverts = [];
@@ -994,7 +985,7 @@ app.post('/update_advert/:id', function (req, res) {
 
 });
 
-app.post('/new_advert', function (req, res) {
+app.post('/advert', function (req, res) {
 
     let token = req.cookies.token;
     let title = req.body.title;
@@ -1035,6 +1026,9 @@ app.post('/new_advert', function (req, res) {
     }
 
 });
+
+/*====================================== ADVERTS ============================*/
+
 
 app.post('/messages', function (req, res) {
 
@@ -2503,75 +2497,6 @@ app.get('/home', function (req, res) {
     }
 });
 
-app.get('/account/password/forgot', function (req, res) {
-    res.render("pages/forgot_password");
-});
-
-
-app.post('/account/password/reset', function (req, res) {
-    const username = req.body.forgotten_password;
-
-    Parse.User.requestPasswordReset(username, {
-        success: function () {
-            // Password reset request was sent successfully
-            console.log("EMAIL was sent successfully");
-            res.render("pages/password_reset_info");
-        },
-        error: function (error) {
-            // Show the error message somewhere
-            console.log("Error: " + error.code + " " + error.message);
-            res.redirect('/account/password/forgot');
-        }
-    });
-});
-
-app.get('/account/email/reset', function (req, res) {
-    const token = req.cookies.token;
-
-    if (token) {
-
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            new Parse.Query("User").equalTo("objectId", _user.id).first().then(function (user) {
-                console.log("USER FROM RESET " + JSON.stringify(user) + " CURRENT USER " + Parse.User.current());
-                user.set("email", "test@gmail.com");
-                // user.set("username", "test@gmail.com");
-                return user.save();
-            }).then(function (result) {
-                console.log("EMAIL CHANGED SUCCESSFULLY " + JSON.stringify(result));
-                res.redirect("/");
-            })
-        }, function (error) {
-            console.log("ERROR OCCURRED WHEN RESETTING EMAIL " + error.message)
-        });
-
-    } else {
-        res.redirect('/');
-
-    }
-
-});
-
-app.get('/create_barcode', function (req, res) {
-
-    let token = req.cookies.token;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            res.render("pages/create_barcode");
-
-        });
-    } else {
-        res.redirect('/');
-    }
-
-});
 
 app.post('/create_barcode', function (req, res) {
 
@@ -3119,45 +3044,6 @@ app.get('/review/:id', function (req, res) {
             console.log("ERROR " + error.message);
             res.redirect('/packs');
         });
-    } else {
-        res.redirect('/');
-    }
-});
-
-app.get('/user_profile', function (req, res) {
-
-    let token = req.cookies.token;
-    let _user = {};
-    let _profile = {};
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            return new Parse.Query(_class.Profile).equalTo("user_id", _user.id).first();
-
-        }).then(function (profile) {
-
-            _profile = profile;
-
-            return new Parse.Query(_class.Links).equalTo("object_id", profile.get("user_id")).find();
-
-        }).then(function (links) {
-
-            res.render("pages/profile", {
-                username: _user.get("name"),
-                email: _user.get("username"),
-                profile: _profile,
-                links: links
-            });
-
-        }, function (error) {
-            console.log("ERROR ON PROFILE " + error.message);
-            res.redirect('/');
-        });
-
     } else {
         res.redirect('/');
     }
@@ -4008,7 +3894,7 @@ app.get('/details/:stickerId/:packId', function (req, res) {
     }
 });
 
-app.post('/update_user', upload.array('im1'), function (req, res) {
+app.post('/account/user/update', upload.array('im1'), function (req, res) {
 
     let token = req.cookies.token;
     let email = req.body.email;
@@ -4125,18 +4011,18 @@ app.post('/update_user', upload.array('im1'), function (req, res) {
             } else {
 
                 console.log("TYPE AND HANDLE NOT PRESENT");
-                res.redirect('/user_profile');
+                res.redirect('/account/user/profile');
 
             }
 
         }).then(function () {
 
-            res.redirect('/user_profile');
+            res.redirect('/account/user/profile');
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/user_profile');
+            res.redirect('/account/user/profile');
 
         })
     } else {
@@ -4613,9 +4499,6 @@ app.post('/upload_dropbox_file', function (req, res) {
 
 });
 
-/*====================================== ACCOUNTS ============================*/
-/*====================================== ACCOUNTS ============================*/
-
 /*====================================== PACKS ============================*/
 /*====================================== PACKS ============================*/
 
@@ -4905,6 +4788,134 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
     }
 });
 
+
+app.get('/create_barcode', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            res.render("pages/create_barcode");
+
+        });
+    } else {
+        res.redirect('/');
+    }
+
+});
+
+
+app.get('/get_acl', function (req, res) {
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            console.log("SESSION " + JSON.stringify(sessionToken));
+            return new Parse.Query("Test").find({sessionToken: sessionToken.get("sessionToken")});
+
+        }).then(function (test) {
+            res.send("TEST RESULTS " + JSON.stringify(test));
+        }, function (error) {
+            res.send("TEST FAILED " + error.message);
+        })
+    }
+});
+
+app.get('/test_acl/:id/:text', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let text = req.params.text;
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user")
+            let Test = new Parse.Object.extend("Test");
+            let test = new Test();
+
+            test.set("text_id", id);
+            test.set("text", text);
+
+
+            let ACL = new Parse.ACL();
+            ACL.setReadAccess(_user.id, true);
+            ACL.setWriteAccess(_user.id, true);
+            ACL.setPublicReadAccess(true);
+
+
+            test.setACL(ACL);
+
+            return test.save();
+
+
+        }).then(function (test) {
+
+            res.send("TEST COMPLETE " + JSON.stringify(test));
+        }, function (error) {
+            res.send("TEST FAILED " + error.message);
+
+        })
+
+    }
+});
+
+app.get('/role', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            // var roleACL = new Parse.ACL();
+            // roleACL.setPublicReadAccess(true);
+            // var role = new Parse.Role("Administrator", roleACL);
+            // role.getUsers().add(_user);
+            //
+            // return role.save();
+
+            var queryRole = new Parse.Query(Parse.Role);
+            queryRole.equalTo('name', 'Administrator');
+            queryRole.first({
+                success: function (admin) {
+                    console.log("ADMIN " + JSON.stringify(admin));
+
+                    var adminRelation = admin.Relation('_User');
+
+                    adminRelation.add(_user);
+
+                    return admin.save();
+                },
+                error: function (error) {
+                    res.send("ROLE FAILED " + error.message);
+
+                }
+            });
+
+            // var roleACL = new Parse.ACL();
+            // roleACL.setPublicReadAccess(true);
+            // var role = new Parse.Role("Administrator", roleACL);
+            // role.save();
+
+        }).then(function (admin) {
+            res.send("ROLE COMPLETE " + JSON.stringify(admin));
+
+        }, function (error) {
+            res.send("ROLE FAILED " + error.message);
+
+        })
+    }
+});
 /*====================================== EXPERIMENTS ============================*/
 
 
