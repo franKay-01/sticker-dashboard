@@ -1200,7 +1200,7 @@ app.post('/add_catalogue_artwork/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/story_catalogue/' + story_id);
+            res.redirect('/story/item/' + story_id);
 
         }, function (error) {
 
@@ -1269,36 +1269,6 @@ app.post('/add_story_artwork/:id/:state', function (req, res) {
             console.log("ERROR " + error.message);
             res.redirect('/story/' + story_id + '/' + state);
 
-        });
-    } else {
-        res.redirect('/');
-
-    }
-});
-
-app.get('/story_catalogue/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.params.id;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Stories).equalTo("objectId", id).first()
-
-        }).then(function (story) {
-
-            res.render("pages/story_catalogue", {
-
-                story_id: story.id,
-                name: story.get("title")
-
-            });
-
-        }, function (error) {
-            console.log("ERROR " + error.message);
-            res.redirect('/story_catalogue');
         });
     } else {
         res.redirect('/');
@@ -1461,7 +1431,7 @@ app.get('/edit_story_item/:id/:story_id', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story_catalogue/' + story_id);
+            res.redirect('/story/item/' + story_id);
         })
     } else {
         res.redirect('/');
@@ -1659,6 +1629,36 @@ app.get('/story/item/view/:id', function (req, res) {
             console.log("ERROR " + error.message);
             res.redirect('/story_details/' + id)
         })
+    }
+});
+
+app.get('/story/item/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first()
+
+        }).then(function (story) {
+
+            res.render("pages/story_catalogue", {
+
+                story_id: story.id,
+                name: story.get("title")
+
+            });
+
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/story_catalogue');
+        });
+    } else {
+        res.redirect('/');
+
     }
 });
 
@@ -2010,12 +2010,12 @@ app.post('/new_catalogue_image/:id', upload.array('im1'), function (req, res) {
             });
 
 
-            res.redirect("/story_catalogue/" + id);
+            res.redirect("/story/item/" + id);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect("/story_catalogue/" + id);
+            res.redirect("/story/item/" + id);
 
         })
     } else {
@@ -2072,7 +2072,7 @@ app.post('/new_catalogue/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect("/story_catalogue/" + id);
+            res.redirect("/story/item/" + id);
 
         }, function (error) {
 
