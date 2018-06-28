@@ -1559,6 +1559,40 @@ app.get('/stories', function (req, res) {
     }
 });
 
+app.get('/story/item/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    console.log("STORY ID " + id);
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first()
+
+        }).then(function (story) {
+
+            res.render("pages/story_catalogue", {
+
+                story_id: story.id,
+                name: story.get("title")
+
+            });
+
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/stories');
+        });
+    } else {
+        console.log("COMING HOME");
+        res.redirect('/');
+
+    }
+});
+
+
 app.get('/story/item/view/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -1632,38 +1666,6 @@ app.get('/story/item/view/:id', function (req, res) {
     }
 });
 
-app.get('/story/item/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.params.id;
-
-    console.log("STORY ID " + id);
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Stories).equalTo("objectId", id).first()
-
-        }).then(function (story) {
-
-            res.render("pages/story_catalogue", {
-
-                story_id: story.id,
-                name: story.get("title")
-
-            });
-
-        }, function (error) {
-            console.log("ERROR " + error.message);
-            res.redirect('/stories');
-        });
-    } else {
-        console.log("COMING HOME");
-        res.redirect('/');
-
-    }
-});
 
 
 app.post('/edit_story/:id', function (req, res) {
