@@ -1137,39 +1137,6 @@ app.get('/story/:id/:state', function (req, res) {
     }
 });
 
-app.post('/add_catalogue_artwork/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let sticker_id = req.body.sticker_id;
-    let story_id = req.params.id;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-            let Story = new Parse.Object.extend(_class.StoryItems);
-            let catalogue = new Story();
-
-            catalogue.set("content", sticker_id);
-            catalogue.set("story_id", story_id);
-            catalogue.set("type", type.STORY_ITEM.sticker);
-
-            return catalogue.save();
-
-        }).then(function () {
-
-            res.redirect('/storyitem/' + story_id);
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/story_details/' + story_id);
-
-        })
-    } else {
-        res.redirect('/');
-
-    }
-});
 
 app.post('/add_story_artwork/:id/:state', function (req, res) {
     let token = req.cookies.token;
@@ -1666,6 +1633,39 @@ app.post('/storyitem/sticker/:id', function (req, res) {
     }
 });
 
+app.post('/storyitem/sticker/add/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let sticker_id = req.body.sticker_id;
+    let story_id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+            let Story = new Parse.Object.extend(_class.StoryItems);
+            let catalogue = new Story();
+
+            catalogue.set("content", sticker_id);
+            catalogue.set("story_id", story_id);
+            catalogue.set("type", type.STORY_ITEM.sticker);
+
+            return catalogue.save();
+
+        }).then(function () {
+
+            res.redirect('/storyitem/' + story_id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/story_details/' + story_id);
+
+        })
+    } else {
+        res.redirect('/');
+
+    }
+});
 
 
 app.post('/edit_story/:id', function (req, res) {
