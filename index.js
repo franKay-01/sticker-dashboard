@@ -1200,7 +1200,7 @@ app.post('/add_catalogue_artwork/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/story/item/' + story_id);
+            res.redirect('/storyitem/' + story_id);
 
         }, function (error) {
 
@@ -1559,7 +1559,7 @@ app.get('/stories', function (req, res) {
     }
 });
 
-app.get('/story/item/:id', function (req, res) {
+app.get('/storyitem/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
