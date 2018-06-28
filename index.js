@@ -1659,6 +1659,7 @@ app.get('/story/item/:id', function (req, res) {
             res.redirect('/stories');
         });
     } else {
+        console.log("COMING HOME");
         res.redirect('/');
 
     }
