@@ -2525,7 +2525,7 @@ app.post('/account/password/reset', function (req, res) {
     });
 });
 
-app.get('/reset_email', function (req, res) {
+app.get('/account/email/reset', function (req, res) {
     const token = req.cookies.token;
 
     if (token) {
@@ -3421,7 +3421,7 @@ app.post('/remove_category', function (req, res) {
 });
 
 //LOGOUT
-app.get('/logout', function (req, res) {
+app.get('/account/logout', function (req, res) {
     res.clearCookie('token');
     res.redirect("/");
 });
