@@ -1436,7 +1436,7 @@ app.post('/add_story_artwork/:id/:state', function (req, res) {
 
                 return new Parse.Query(_class.ArtWork).equalTo("object_id", story.id).first();
 
-            }else if (state === new){
+            }else if (state === "new"){
                 let Artwork = new Parse.Object.extend(_class.ArtWork);
                 let artwork = new Artwork();
 

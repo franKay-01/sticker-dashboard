@@ -24,6 +24,10 @@
     <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
     <script>
         $(document).ready(function () {
+            document.getElementById("submitChangeArt").onclick = function () {
+                document.getElementById("changeForm").submit();
+            }
+
             document.getElementById("submit_story").onclick = function () {
                 document.getElementById("story_form").submit();
             }
@@ -46,27 +50,14 @@
             <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CHANGE ARTWORK</div>
         </center>
         <!--<form id="pack_form" action="/new_catalogue_image/<%#= story_id %>" method="post"-->
-        <form id="pack_form" action="/story/<%= story.id %>/change" method="post"
+        <form id="changeForm" action="/story/<%= story.id %>/change" method="post"
               enctype="multipart/form-data">
-            <center>
-                <div class="file-field input-field">
-                    <div class="btn">
-                        <span><i class="fa fa-file-o"></i></span>
-                        <input type="file" name="im1">
-                    </div>
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text">
-                    </div>
-                </div>
-                <br>
-            </center>
-            <span>
-        <button type="submit" class="create">CHANGE</button>
-        </span>
-            <span>
-        <button type="button" id="btnCloseChangeArtwork" class="cancel">Cancel</button>
-         </span>
-
+            <a href="#" id="btnCloseChangeArtwork" class="edit_labels" style="margin: 200px !important;">
+                NO
+            </a>
+            <a href="#" id="submitChangeArt" class="edit_labels">
+                YES
+            </a>
         </form>
     </div>
 
