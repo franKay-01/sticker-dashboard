@@ -319,7 +319,7 @@ app.get('/', function (req, res) {
 
 })
 
-app.get('/sign_up', function (req, res) {
+app.get('/account/create', function (req, res) {
     let message = "";
     res.render("pages/sign_up", {error: message});
 });
@@ -2503,12 +2503,12 @@ app.get('/home', function (req, res) {
     }
 });
 
-app.get('/forget_password', function (req, res) {
+app.get('/account/password/forgot', function (req, res) {
     res.render("pages/forgot_password");
 });
 
 
-app.post('/reset_password', function (req, res) {
+app.post('/account/password/reset', function (req, res) {
     const username = req.body.forgotten_password;
 
     Parse.User.requestPasswordReset(username, {
@@ -2520,7 +2520,7 @@ app.post('/reset_password', function (req, res) {
         error: function (error) {
             // Show the error message somewhere
             console.log("Error: " + error.code + " " + error.message);
-            res.redirect('/forget_password');
+            res.redirect('/account/password/forgot');
         }
     });
 });
