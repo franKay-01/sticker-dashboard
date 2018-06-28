@@ -46,7 +46,7 @@
             <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CHANGE ARTWORK</div>
         </center>
         <!--<form id="pack_form" action="/new_catalogue_image/<%#= story_id %>" method="post"-->
-        <form id="pack_form" action="/change_artwork/" method="post"
+        <form id="pack_form" action="/story/<%= story.id %>/change" method="post"
               enctype="multipart/form-data">
             <center>
                 <div class="file-field input-field">

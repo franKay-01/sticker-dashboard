@@ -583,7 +583,7 @@ app.post('/new_story', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/story/' + story_id);
+            res.redirect('/story/' + story_id + '/new');
 
         }, function (error) {
             console.log("ERROR WHEN CREATING NEW STORY " + error.message);
@@ -1198,7 +1198,7 @@ app.get('/story_of_day', function (req, res) {
             if (_stories) {
 
                 _.each(stories, function (story) {
-                    if (story.get("published") === true){
+                    if (story.get("published") === true) {
 
                         _stories.push(story);
 
@@ -1333,9 +1333,10 @@ app.post('/new_catalogue_sticker/:id', function (req, res) {
     }
 });
 
-app.get('/story/:id', function (req, res) {
+app.get('/story/:id/:state', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
+    let state = req.params.state;
 
     if (token) {
 
@@ -1363,7 +1364,8 @@ app.get('/story/:id', function (req, res) {
 
             res.render("pages/story_artwork", {
                 story: _story.id,
-                stickers: stickers
+                stickers: stickers,
+                state:state
             });
 
         }, function (error) {
@@ -1412,10 +1414,11 @@ app.post('/add_catalogue_artwork/:id', function (req, res) {
     }
 });
 
-app.post('/add_story_artwork/:id', function (req, res) {
+app.post('/add_story_artwork/:id/:state', function (req, res) {
     let token = req.cookies.token;
     let sticker_id = req.body.sticker_id;
     let story_id = req.params.id;
+    let state = req.params.state;
 
     if (token) {
 
@@ -1429,13 +1432,33 @@ app.post('/add_story_artwork/:id', function (req, res) {
         }).then(function (story) {
             id = story.id;
 
-            let Artwork = new Parse.Object.extend(_class.ArtWork);
-            let artwork = new Artwork();
+            if (state === "change"){
 
-            artwork.set("object_id", id);
-            artwork.set("sticker", sticker_id);
+                return new Parse.Query(_class.ArtWork).equalTo("object_id", story.id).first();
 
-            return artwork.save();
+            }else if (state === new){
+                let Artwork = new Parse.Object.extend(_class.ArtWork);
+                let artwork = new Artwork();
+
+                artwork.set("object_id", id);
+                artwork.set("sticker", sticker_id);
+
+                return artwork.save();
+            }
+
+
+        }).then(function (artwork) {
+
+            if (state === "change") {
+
+                artwork.set("sticker", sticker_id);
+
+                return artwork.save();
+
+            }else if (state === "new"){
+                res.redirect('/story_details/' + id);
+
+            }
 
         }).then(function () {
 
@@ -1444,7 +1467,7 @@ app.post('/add_story_artwork/:id', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story/' + story_id);
+            res.redirect('/story/' + story_id + '/new');
 
         });
     } else {
@@ -2116,6 +2139,20 @@ app.get('/change_sticker/:storyId/:storyItemId', function (req, res) {
         }, function () {
 
         })
+    }
+});
+
+app.post('/change_artwork', upload.array('im1'), function (req, res) {
+
+    let token = req.cookies.token;
+    let files = req.files;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+        })
+
     }
 });
 
@@ -3262,20 +3299,20 @@ app.post('/remove_story_item/:storyId', function (req, res) {
                 },
                 error: function (error) {
                     console.log("Could not remove" + error);
-                    res.redirect("/all_story_item/" + storyId );
+                    res.redirect("/all_story_item/" + storyId);
 
                 }
             })
 
         }).then(function () {
 
-            if (_storyItem.get("type") === type.STORY_ITEM.image){
+            if (_storyItem.get("type") === type.STORY_ITEM.image) {
 
                 return new Parse.Query(_class.Assets).equalTo("objectId", assetId).first();
 
-            }else {
+            } else {
 
-                res.redirect("/all_story_item/" + storyId );
+                res.redirect("/all_story_item/" + storyId);
 
             }
 
@@ -3284,11 +3321,11 @@ app.post('/remove_story_item/:storyId', function (req, res) {
             asset.destroy({
                 success: function (object) {
                     console.log("removed" + JSON.stringify(object));
-                    res.redirect("/all_story_item/" + storyId );
+                    res.redirect("/all_story_item/" + storyId);
                 },
                 error: function (error) {
                     console.log("Could not remove" + error);
-                    res.redirect("/all_story_item/" + storyId );
+                    res.redirect("/all_story_item/" + storyId);
 
                 }
             })
