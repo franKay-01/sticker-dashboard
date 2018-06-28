@@ -584,27 +584,6 @@ app.post('/new_story', function (req, res) {
 
 });
 
-app.get('/send_message', function (req, res) {
-
-    let token = req.cookies.token;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            res.render("pages/post_message");
-
-        }, function (error) {
-
-            res.redirect('/home');
-
-        })
-    } else {
-
-        res.redirect('/home');
-
-    }
-});
 
 /*====================================== ADVERTS ============================*/
 
@@ -945,7 +924,10 @@ app.post('/advert', function (req, res) {
 /*====================================== ADVERTS ============================*/
 
 
-app.post('/messages', function (req, res) {
+/*====================================== MESSAGES ============================*/
+
+
+app.post('/message', function (req, res) {
 
     let token = req.cookies.token;
     let name = req.body.name;
@@ -1020,7 +1002,7 @@ app.get('/messages', function (req, res) {
     }
 });
 
-app.get('/single_message/:id', function (req, res) {
+app.get('/message/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
@@ -1047,6 +1029,31 @@ app.get('/single_message/:id', function (req, res) {
     }
 
 });
+
+app.get('/message/send', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            res.render("pages/post_message");
+
+        }, function (error) {
+
+            res.redirect('/home');
+
+        })
+    } else {
+
+        res.redirect('/home');
+
+    }
+});
+
+
+/*====================================== MESSAGES ============================*/
 
 
 app.get('/find_stickers/:name', function (req, res) {
@@ -1422,7 +1429,7 @@ app.post('/edit_item/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/all_story_item/' + story_id);
+            res.redirect('/story/item/view/' + story_id);
 
         }, function (error) {
             console.log("ERROR " + error.message);
@@ -1462,7 +1469,127 @@ app.get('/edit_story_item/:id/:story_id', function (req, res) {
 
 });
 
-app.get('/all_story_item/:id', function (req, res) {
+app.post('/set_story_color/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let color_1 = req.body.color1;
+    let color_2 = req.body.color2;
+    let hash = "#";
+
+    if (token) {
+
+        color_1 = hash.concat(color_1);
+        color_2 = hash.concat(color_2);
+
+        console.log("COLOR " + color_2);
+
+        let colors = [color_1, color_2];
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+
+        }).then(function (story) {
+
+            story.set("color", colors);
+
+            return story.save();
+
+        }).then(function () {
+
+            res.redirect('/story_details/' + id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/story_details/' + id);
+
+        });
+
+    } else {
+        res.redirect('/');
+
+    }
+});
+
+/*====================================== STORIES ============================*/
+
+app.get('/stories', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        let _user = {};
+        let art = {};
+        let _story = [];
+        let _allPack = [];
+        let artWork = [];
+        let _allArtwork = [];
+        let combined = [];
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).descending("createdAt").find(),
+                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find(),
+                new Parse.Query(_class.ArtWork).find()
+            );
+
+
+        }).then(function (story, allPack, artworks) {
+
+            _story = story;
+            _allPack = allPack;
+            _allArtwork = artworks;
+
+            _.each(artworks, function (artwork) {
+
+                artWork.push(artwork.get("sticker"));
+
+            });
+
+            return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
+
+        }).then(function (stickers) {
+
+            _.each(_allArtwork, function (artworks) {
+
+                _.each(stickers, function (sticker) {
+
+                    if (artworks.get("sticker") === sticker.id) {
+
+                        combined.push({
+                            story: artworks.get("object_id"),
+                            image: sticker.get("uri").url()
+                        });
+                    }
+                })
+            });
+
+            res.render("pages/stories", {
+                story: _story,
+                allPacks: _allPack,
+                arts: combined
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+        })
+    } else {
+        res.redirect('/');
+
+    }
+});
+
+app.get('/story/item/view/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
@@ -1535,123 +1662,6 @@ app.get('/all_story_item/:id', function (req, res) {
     }
 });
 
-app.post('/set_story_color/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let color_1 = req.body.color1;
-    let color_2 = req.body.color2;
-    let hash = "#";
-
-    if (token) {
-
-        color_1 = hash.concat(color_1);
-        color_2 = hash.concat(color_2);
-
-        console.log("COLOR " + color_2);
-
-        let colors = [color_1, color_2];
-
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
-
-
-        }).then(function (story) {
-
-            story.set("color", colors);
-
-            return story.save();
-
-        }).then(function () {
-
-            res.redirect('/story_details/' + id);
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/story_details/' + id);
-
-        });
-
-    } else {
-        res.redirect('/');
-
-    }
-});
-
-app.get('/stories', function (req, res) {
-
-    let token = req.cookies.token;
-
-    if (token) {
-
-        let _user = {};
-        let art = {};
-        let _story = [];
-        let _allPack = [];
-        let artWork = [];
-        let _allArtwork = [];
-        let combined = [];
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            return Parse.Promise.when(
-                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).descending("createdAt").find(),
-                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find(),
-                new Parse.Query(_class.ArtWork).find()
-            );
-
-
-        }).then(function (story, allPack, artworks) {
-
-            _story = story;
-            _allPack = allPack;
-            _allArtwork = artworks;
-
-            _.each(artworks, function (artwork) {
-
-                artWork.push(artwork.get("sticker"));
-
-            });
-
-            return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
-
-        }).then(function (stickers) {
-
-            _.each(_allArtwork, function (artworks) {
-
-                _.each(stickers, function (sticker) {
-
-                    if (artworks.get("sticker") === sticker.id) {
-
-                        combined.push({
-                            story: artworks.get("object_id"),
-                            image: sticker.get("uri").url()
-                        });
-                    }
-                })
-            });
-
-            res.render("pages/stories", {
-                story: _story,
-                allPacks: _allPack,
-                arts: combined
-            })
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/home');
-        })
-    } else {
-        res.redirect('/');
-
-    }
-});
 
 app.post('/edit_story/:id', function (req, res) {
     let token = req.cookies.token;
@@ -1823,7 +1833,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
                 return new Parse.Query(_class.Assets).equalTo("objectId", storyContent).first();
 
             } else {
-                res.redirect('/all_story_item/' + storyId);
+                res.redirect('/story/item/view/' + storyId);
 
             }
 
@@ -1835,18 +1845,18 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
             image.destroy({
                 success: function (object) {
                     console.log("DESTROYED IAMGE " + JSON.stringify(object));
-                    res.redirect('/all_story_item/' + storyId);
+                    res.redirect('/story/item/view/' + storyId);
                 },
                 error: function (error) {
                     console.log("Could not remove" + error);
-                    res.redirect('/all_story_item/' + storyId);
+                    res.redirect('/story/item/view/' + storyId);
 
                 }
             })
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/all_story_item/' + storyId);
+            res.redirect('/story/item/view/' + storyId);
 
         })
 
@@ -1882,12 +1892,12 @@ app.post('/change_catalogue_sticker/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/all_story_item/' + storyId);
+            res.redirect('/story/item/view/' + storyId);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/all_story_item/' + storyId);
+            res.redirect('/story/item/view/' + storyId);
 
         })
     } else {
@@ -2984,7 +2994,7 @@ app.post('/remove_story_item/:storyId', function (req, res) {
                 },
                 error: function (error) {
                     console.log("Could not remove" + error);
-                    res.redirect("/all_story_item/" + storyId);
+                    res.redirect("/story/item/view/" + storyId);
 
                 }
             })
@@ -2997,7 +3007,7 @@ app.post('/remove_story_item/:storyId', function (req, res) {
 
             } else {
 
-                res.redirect("/all_story_item/" + storyId);
+                res.redirect("/story/item/view/" + storyId);
 
             }
 
@@ -3006,11 +3016,11 @@ app.post('/remove_story_item/:storyId', function (req, res) {
             asset.destroy({
                 success: function (object) {
                     console.log("removed" + JSON.stringify(object));
-                    res.redirect("/all_story_item/" + storyId);
+                    res.redirect("/story/item/view/" + storyId);
                 },
                 error: function (error) {
                     console.log("Could not remove" + error);
-                    res.redirect("/all_story_item/" + storyId);
+                    res.redirect("/story/item/view/" + storyId);
 
                 }
             })
