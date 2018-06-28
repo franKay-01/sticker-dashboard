@@ -861,7 +861,7 @@ app.post('/update/advert/link/:id', function (req, res) {
     }
 });
 
-app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res) {
+app.post('/advert/image/:id', upload.array('adverts'), function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
@@ -946,7 +946,7 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
 });
 
-app.post('/update_advert/:id', function (req, res) {
+app.post('/advert/edit/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
