@@ -24,10 +24,6 @@
     <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
     <script>
         $(document).ready(function () {
-            document.getElementById("submitChangeArt").onclick = function () {
-                document.getElementById("changeForm").submit();
-            }
-
             document.getElementById("submit_story").onclick = function () {
                 document.getElementById("story_form").submit();
             }
@@ -47,18 +43,17 @@
 <div id="hiddenChangeArtwork" class="hidden_forms" style="display: none">
     <div class="medium-3 large-3 cell create_background">
         <center>
-            <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CHANGE ARTWORK</div>
+            <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CHANGE ARTWORK ?</div>
         </center>
         <!--<form id="pack_form" action="/new_catalogue_image/<%#= story_id %>" method="post"-->
-        <form id="changeForm" action="/story/<%= story.id %>/change" method="post"
-              enctype="multipart/form-data">
-            <a href="#" id="btnCloseChangeArtwork" class="edit_labels" style="margin: 200px !important;">
-                NO
-            </a>
-            <a href="#" id="submitChangeArt" class="edit_labels">
-                YES
-            </a>
-        </form>
+        <br><br>
+        <a href="#" id="btnCloseChangeArtwork" class="edit_labels" style="margin: 200px !important;">
+            NO
+        </a>
+        <a href="/story/<%= story.id %>/change" id="submitChangeArt" class="edit_labels">
+            YES
+        </a>
+
     </div>
 
 </div>
@@ -222,13 +217,16 @@
                     <br>
 
                     <a href="#" id="submit_story" class="preview">Save Changes</a><br>
-                    <a href="#" id="change_image" class="preview">Change Artwork <i class="fa fa-picture-o" style="color: #590a5d; font-size: 1.5rem;"
+                    <a href="#" id="change_image" class="preview">Change Artwork <i class="fa fa-picture-o"
+                                                                                    style="color: #590a5d; font-size: 1.5rem;"
                                                                                     aria-hidden="true"></i></a><br>
                     <a href="/all_story_item/<%= story.id %>" class="preview">View Story Items</a><br>
                     <a href="/main_story/<%= story.id %>/<%= story.get("title") %>" class="preview">Edit Main Story</a>
                     <br><br>
                     <a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">
-                        Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;" aria-hidden="true"></i>
+                        Delete<i class="fa fa-trash"
+                                 style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
+                                 aria-hidden="true"></i>
                     </a>
                     <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
                 </div>
