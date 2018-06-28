@@ -584,91 +584,6 @@ app.post('/new_story', function (req, res) {
 
 });
 
-app.post('/latest_element/:type', function (req, res) {
-
-    let token = req.cookies.token;
-    let type = req.params.type;
-    let id = req.body.element_id;
-
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-            switch (type) {
-                case "sticker":
-                    return new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first();
-
-                case "story":
-                    return new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first();
-
-            }
-
-        }).then(function (latest) {
-
-            latest.set("latest_id", id);
-
-            return latest.save();
-
-        }).then(function () {
-
-            let Selected = new Parse.Object.extend(_class.PreviouslySelected);
-            let selected = new Selected();
-
-            switch (type) {
-                case "sticker":
-                    selected.set("type", 0);
-                    selected.set("object_id", id);
-                    break;
-                case "story":
-                    selected.set("type", 1);
-                    selected.set("object_id", id);
-                    break;
-            }
-
-            return selected.save();
-
-        }).then(function () {
-
-            switch (type) {
-                case "sticker":
-                    return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
-                case "story":
-                    res.redirect('/home');
-
-            }
-
-
-        }).then(function (sticker) {
-
-            if (sticker.get("description") === "" || sticker.get("description") === undefined) {
-                res.render("pages/add_description", {
-                    sticker: sticker
-                })
-            } else {
-                res.redirect('/home');
-            }
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            switch (type) {
-                case "sticker":
-                    res.redirect('/sticker_of_day');
-                    break;
-
-                case "story":
-                    res.redirect('/story_of_day');
-                    break;
-            }
-
-        });
-    } else {
-
-        res.redirect('/');
-
-    }
-
-});
-
 app.get('/send_message', function (req, res) {
 
     let token = req.cookies.token;
@@ -1133,123 +1048,6 @@ app.get('/single_message/:id', function (req, res) {
 
 });
 
-app.get('/sticker_of_day', function (req, res) {
-
-    let token = req.cookies.token;
-    let _user = {};
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            let query = new Parse.Query(_class.Stickers);
-            query.equalTo("sold", false);
-            query.equalTo("user_id", _user.id);
-            return query.find();
-
-        }).then(function (stickers) {
-
-            res.render("pages/sticker_of_day", {
-                stickers: stickers
-            });
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/home');
-        })
-    } else {
-        res.redirect('/');
-
-    }
-});
-
-app.get('/story_of_day', function (req, res) {
-
-    let token = req.cookies.token;
-    let _stories = [];
-    let artWork = [];
-    let _allArtwork = [];
-    let combined = [];
-    let _user = {};
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            return Parse.Promise.when(
-                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).find(),
-                new Parse.Query(_class.ArtWork).find()
-            )
-
-        }).then(function (stories, artworks) {
-
-            _allArtwork = artworks;
-
-            if (_stories) {
-
-                _.each(stories, function (story) {
-                    if (story.get("published") === true) {
-
-                        _stories.push(story);
-
-                    }
-                });
-
-                _.each(artworks, function (artwork) {
-
-                    artWork.push(artwork.get("sticker"));
-
-                });
-
-                return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
-            } else {
-                res.render("pages/story_of_day", {
-
-                    stories: [],
-                    artworks: []
-
-                });
-            }
-
-        }).then(function (stickers) {
-
-            _.each(_allArtwork, function (artworks) {
-
-                _.each(stickers, function (sticker) {
-
-                    if (artworks.get("sticker") === sticker.id) {
-
-                        combined.push({
-                            story: artworks.get("object_id"),
-                            image: sticker.get("uri").url()
-                        });
-                    }
-                })
-            });
-
-            res.render("pages/story_of_day", {
-
-                stories: _stories,
-                artworks: combined
-
-            });
-
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/home');
-        })
-    } else {
-        res.redirect('/');
-
-    }
-});
 
 app.get('/find_stickers/:name', function (req, res) {
 
@@ -4498,6 +4296,216 @@ app.post('/upload_dropbox_file', function (req, res) {
     }
 
 });
+
+/*====================================== FEED ============================*/
+
+app.post('/feed/:type', function (req, res) {
+
+    let token = req.cookies.token;
+    let type = req.params.type;
+    let id = req.body.element_id;
+
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+            switch (type) {
+                case "sticker":
+                    return new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first();
+
+                case "story":
+                    return new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first();
+
+            }
+
+        }).then(function (latest) {
+
+            latest.set("latest_id", id);
+
+            return latest.save();
+
+        }).then(function () {
+
+            let Selected = new Parse.Object.extend(_class.PreviouslySelected);
+            let selected = new Selected();
+
+            switch (type) {
+                case "sticker":
+                    selected.set("type", 0);
+                    selected.set("object_id", id);
+                    break;
+                case "story":
+                    selected.set("type", 1);
+                    selected.set("object_id", id);
+                    break;
+            }
+
+            return selected.save();
+
+        }).then(function () {
+
+            switch (type) {
+                case "sticker":
+                    return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
+                case "story":
+                    res.redirect('/home');
+
+            }
+
+
+        }).then(function (sticker) {
+
+            if (sticker.get("description") === "" || sticker.get("description") === undefined) {
+                res.render("pages/add_description", {
+                    sticker: sticker
+                })
+            } else {
+                res.redirect('/home');
+            }
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            switch (type) {
+                case "sticker":
+                    res.redirect('/feed/sticker');
+                    break;
+
+                case "story":
+                    res.redirect('/feed/story');
+                    break;
+            }
+
+        });
+    } else {
+
+        res.redirect('/');
+
+    }
+
+});
+
+
+app.get('/feed/sticker', function (req, res) {
+
+    let token = req.cookies.token;
+    let _user = {};
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            let query = new Parse.Query(_class.Stickers);
+            query.equalTo("sold", false);
+            query.equalTo("user_id", _user.id);
+            return query.find();
+
+        }).then(function (stickers) {
+
+            res.render("pages/sticker_of_day", {
+                stickers: stickers
+            });
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+        })
+    } else {
+        res.redirect('/');
+
+    }
+});
+
+app.get('/feed/story', function (req, res) {
+
+    let token = req.cookies.token;
+    let _stories = [];
+    let artWork = [];
+    let _allArtwork = [];
+    let combined = [];
+    let _user = {};
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).find(),
+                new Parse.Query(_class.ArtWork).find()
+            )
+
+        }).then(function (stories, artworks) {
+
+            _allArtwork = artworks;
+
+            if (_stories) {
+
+                _.each(stories, function (story) {
+                    if (story.get("published") === true) {
+
+                        _stories.push(story);
+
+                    }
+                });
+
+                _.each(artworks, function (artwork) {
+
+                    artWork.push(artwork.get("sticker"));
+
+                });
+
+                return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
+            } else {
+                res.render("pages/story_of_day", {
+
+                    stories: [],
+                    artworks: []
+
+                });
+            }
+
+        }).then(function (stickers) {
+
+            _.each(_allArtwork, function (artworks) {
+
+                _.each(stickers, function (sticker) {
+
+                    if (artworks.get("sticker") === sticker.id) {
+
+                        combined.push({
+                            story: artworks.get("object_id"),
+                            image: sticker.get("uri").url()
+                        });
+                    }
+                })
+            });
+
+            res.render("pages/story_of_day", {
+
+                stories: _stories,
+                artworks: combined
+
+            });
+
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+        })
+    } else {
+        res.redirect('/');
+
+    }
+});
+
+
+/*====================================== FEED ============================*/
+
 
 /*====================================== PACKS ============================*/
 /*====================================== PACKS ============================*/
