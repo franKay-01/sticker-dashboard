@@ -768,7 +768,7 @@ app.get('/adverts', function (req, res) {
     }
 });
 
-app.get('/advert_details/:id', function (req, res) {
+app.get('/advert/edit/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
@@ -829,7 +829,7 @@ app.post('/update/advert/link/:id', function (req, res) {
 
             if (existing.length > 0) {
 
-                res.redirect('/advert_details/' + id);
+                res.redirect('/advert/edit/' + id);
 
             } else {
 
@@ -845,13 +845,13 @@ app.post('/update/advert/link/:id', function (req, res) {
 
         }).then(function (link) {
 
-            res.redirect('/advert_details/' + id);
+            res.redirect('/advert/edit/' + id);
 
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/advert_details/' + id);
+            res.redirect('/advert/edit/' + id);
 
         })
     } else {
@@ -879,7 +879,7 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
 
             if (advert) {
                 // advertMessage = "ADVERT under category already exist";
-                res.redirect('/advert_details/' + id);
+                res.redirect('/advert/edit/' + id);
             } else {
                 files.forEach(function (file) {
 
@@ -929,13 +929,13 @@ app.post('/update_advert_image/:id', upload.array('adverts'), function (req, res
                 });
             }
 
-            res.redirect('/advert_details/' + id);
+            res.redirect('/advert/edit/' + id);
 
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/advert_details/' + id);
+            res.redirect('/advert/edit/' + id);
 
         })
 
@@ -969,12 +969,12 @@ app.post('/update_advert/:id', function (req, res) {
         }).then(function () {
 
             advertMessage = "";
-            res.redirect('/advert_details/' + id);
+            res.redirect('/advert/edit/' + id);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/advert_details/' + id);
+            res.redirect('/advert/edit/' + id);
 
         })
     } else {
@@ -1013,7 +1013,7 @@ app.post('/advert', function (req, res) {
         }).then(function (advert) {
 
             advertMessage = "";
-            res.redirect('/advert_details/' + advert.id);
+            res.redirect('/advert/edit/' + advert.id);
 
         }, function (error) {
 
