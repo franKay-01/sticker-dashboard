@@ -8,7 +8,7 @@ exports.Sticker = sticker => {
     _sticker.description = sticker.get("description");
     _sticker.categories = sticker.get("categories");
 
-    let url = sticker.get("url");
+    let url = sticker.get("uri");
     if (url) {
         _sticker.url = url.url();
     } else {
