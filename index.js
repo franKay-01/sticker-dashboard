@@ -2198,7 +2198,7 @@ app.get('/home', function (req, res) {
             return Parse.Promise.when(
                 new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first(),
                 new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
-                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).limit(limit).find(),
+                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).descending("createdAt").limit(limit).find(),
                 new Parse.Query(_class.Categories).limit(limit).find(),
                 new Parse.Query(_class.Stories).equalTo("user_id", _user.id).descending("createdAt").limit(limit).find(),
                 new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find(),
@@ -4016,6 +4016,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
     let description = req.body.description;
     let _keywords = [];
     let fileDetails = [];
+    let _previews = [];
 
     if (keywords !== undefined || keywords !== "undefined") {
         _keywords = keywords.split(",");
@@ -4033,6 +4034,12 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
+           return util.thumbnail(files)
+
+        }).then(previews => {
+
+            _previews = previews;
+
             return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
 
         }).then(function (pack) {
@@ -4049,9 +4056,20 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
+                    let bitmapPreview;
+                    let parseFilePreview = "";
+
+                    _.map(_previews, preview => {
+                        if (stickerName === preview.name) {
+                            bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
+                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
+                        }
+                    });
+
                     let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
 
                     pack.set("art_work", parseFile);
+                    pack.set("preview", parseFilePreview);
                     fileDetails.push(file);
 
                 });

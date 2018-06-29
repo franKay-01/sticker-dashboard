@@ -348,7 +348,11 @@ let getMimeType = mimeType => {
     return ".png";
 };
 
-exports.thumbnail = files => {
+exports.thumbnail = (files,size) => {
+
+    if(!size) {
+        size = 200
+    }
 
     let promise = new Parse.Promise();
     let filePreviews = [];
@@ -359,7 +363,7 @@ exports.thumbnail = files => {
         let image_name = fullName.substring(0, fullName.length - 4);
 
         gm(file.path)
-            .resize(150, 150)
+            .resize(size, size)
             .write('public/uploads/' + image_name + getMimeType(file.mimetype), function (err) {
                 if (!err) {
                     filePreviews.push(
