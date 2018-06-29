@@ -102,6 +102,8 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
     }, error => {
 
+        console.log("FEED ERROR " + error.message);
+
         util.handleError(res, error);
 
     })
