@@ -1138,68 +1138,6 @@ app.get('/story/:id/:state', function (req, res) {
 });
 
 
-app.post('/add_story_artwork/:id/:state', function (req, res) {
-    let token = req.cookies.token;
-    let sticker_id = req.body.sticker_id;
-    let story_id = req.params.id;
-    let state = req.params.state;
-
-    if (token) {
-
-        let _user = {};
-        let id;
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Stories).equalTo("objectId", story_id).first();
-
-        }).then(function (story) {
-            id = story.id;
-
-            if (state === "change"){
-
-                return new Parse.Query(_class.ArtWork).equalTo("object_id", story.id).first();
-
-            }else if (state === "new"){
-                let Artwork = new Parse.Object.extend(_class.ArtWork);
-                let artwork = new Artwork();
-
-                artwork.set("object_id", id);
-                artwork.set("sticker", sticker_id);
-
-                return artwork.save();
-            }
-
-
-        }).then(function (artwork) {
-
-            if (state === "change") {
-
-                artwork.set("sticker", sticker_id);
-
-                return artwork.save();
-
-            }else if (state === "new"){
-                res.redirect('/story_details/' + id);
-
-            }
-
-        }).then(function () {
-
-            res.redirect('/story_details/' + id);
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/story/' + story_id + '/' + state);
-
-        });
-    } else {
-        res.redirect('/');
-
-    }
-});
-
 app.get('/story_details/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -1792,6 +1730,69 @@ app.post('/storyItem/type/:id', function (req, res) {
 
     }
 });
+
+app.post('/story/artwork/add/:id/:state', function (req, res) {
+    let token = req.cookies.token;
+    let sticker_id = req.body.sticker_id;
+    let story_id = req.params.id;
+    let state = req.params.state;
+
+    if (token) {
+
+        let _user = {};
+        let id;
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Stories).equalTo("objectId", story_id).first();
+
+        }).then(function (story) {
+            id = story.id;
+
+            if (state === "change"){
+
+                return new Parse.Query(_class.ArtWork).equalTo("object_id", story.id).first();
+
+            }else if (state === "new"){
+                let Artwork = new Parse.Object.extend(_class.ArtWork);
+                let artwork = new Artwork();
+
+                artwork.set("object_id", id);
+                artwork.set("sticker", sticker_id);
+
+                return artwork.save();
+            }
+
+
+        }).then(function (artwork) {
+
+            if (state === "change") {
+
+                artwork.set("sticker", sticker_id);
+
+                return artwork.save();
+
+            }else if (state === "new"){
+                res.redirect('/story_details/' + id);
+
+            }
+
+        }).then(function () {
+
+            res.redirect('/story_details/' + id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/story/' + story_id + '/' + state);
+
+        });
+    } else {
+        res.redirect('/');
+
+    }
+});
+
 
 
 app.post('/edit_story/:id', function (req, res) {
