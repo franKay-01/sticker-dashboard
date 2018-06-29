@@ -8,8 +8,10 @@ exports.Sticker = sticker => {
     _sticker.description = sticker.get("description");
     _sticker.categories = sticker.get("categories");
 
-    if (sticker.get("uri")) {
-        _sticker.url = sticker.get("uri").url();
+    let preview = sticker.get("preview");
+   // let url = sticker.get("url");
+    if (preview) {
+        _sticker.url = preview.url();
     } else {
         _sticker.url = "";
     }
@@ -39,7 +41,8 @@ exports.Pack = (pack, stickerList) => {
     _pack.name = pack.get("pack_name");
     _pack.description = pack.get("pack_description");
 
-    let _artwork = pack.get("art_work");
+   // let _artwork = pack.get("art_work");
+    let _artwork = pack.get("preview");
     if (_artwork) {
         _pack.artwork = _artwork.url();
     } else {
