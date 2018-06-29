@@ -349,7 +349,7 @@ Parse.Cloud.define("getStickers", function (req, res) {
     let packId = req.params.packId;
 
     // var user = req.user;
-    return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
+    return new Parse.Query(_class.Packs).equalTo("published",true).equalTo("objectId", packId).first({useMasterKey: true})
         .then(function (pack) {
 
             let stickers = pack.relation(_class.Packs);
