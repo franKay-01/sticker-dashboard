@@ -97,6 +97,12 @@ exports.Story = (story, sticker, storyItem) => {
         _story.stickerUrl = "";
     }
 
+    if (sticker.get("preview")) {
+        _story.stickerPreviewUrl = sticker.get("preview").url();
+    } else {
+        _story.stickerPreviewUrl = "";
+    }
+
     let colors = story.get("color");
     if (colors) {
         _story.colors = colors
