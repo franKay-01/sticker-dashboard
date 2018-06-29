@@ -1780,7 +1780,7 @@ app.post('/storyItem/type/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect("/story/item/" + id);
+            res.redirect("/storyitem/" + id);
 
         }, function (error) {
 
