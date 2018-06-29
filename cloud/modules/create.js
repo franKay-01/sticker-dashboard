@@ -69,7 +69,7 @@ exports.Pack = (pack, stickerList) => {
             _.map(stickers, sticker => {
 
                 if (pack.id === sticker.get("parent").id) {
-                    _stickers.push({id: sticker.id, url: sticker.get("uri").url(),preview:sticker.get("preview").url()});
+                    _stickers.push({id: sticker.id, url: sticker.get("preview").url()});
                 }
 
             });
