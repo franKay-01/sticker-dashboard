@@ -327,6 +327,11 @@ Parse.Cloud.define("getStories", function (req, res) {
                         } else {
                             _story.stickerUrl = "";
                         }
+                        if (sticker.get("preview")) {
+                            _story.stickerPreviewUrl = sticker.get("preview").url();
+                        } else {
+                            _story.stickerPreviewUrl = "";
+                        }
                     }
                 })
             });
