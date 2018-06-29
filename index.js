@@ -1732,6 +1732,66 @@ app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
     }
 });
 
+app.post('/storyItem/type/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let content = req.body.content;
+    let _type = parseInt(req.body.style);
+
+    if (token) {
+
+        console.log("CONTENT " + content);
+
+        getUser(token).then(function (sessionToken) {
+
+            let Story = new Parse.Object.extend(_class.StoryItems);
+            let story = new Story();
+
+            switch (_type) {
+                case type.STORY_ITEM.text:
+                    story.set("type", type.STORY_ITEM.text);
+                    break;
+
+                case type.STORY_ITEM.quote:
+                    story.set("type", type.STORY_ITEM.quote);
+                    break;
+
+                case type.STORY_ITEM.divider:
+                    story.set("type", type.STORY_ITEM.divider);
+                    break;
+
+                case type.STORY_ITEM.italic:
+                    story.set("type", type.STORY_ITEM.italic);
+                    break;
+
+                case type.STORY_ITEM.bold:
+                    story.set("type", type.STORY_ITEM.bold);
+                    break;
+
+                case type.STORY_ITEM.italicBold:
+                    story.set("type", type.STORY_ITEM.italicBold);
+                    break;
+            }
+
+            story.set("content", content);
+            story.set("story_id", id);
+
+            return story.save();
+
+        }).then(function () {
+
+            res.redirect("/story/item/" + id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect("/story_details/" + id);
+        })
+    } else {
+        res.redirect('/');
+
+    }
+});
 
 
 app.post('/edit_story/:id', function (req, res) {
@@ -2029,67 +2089,6 @@ app.post('/change_artwork', upload.array('im1'), function (req, res) {
     }
 });
 
-
-app.post('/new_catalogue/:id', function (req, res) {
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let content = req.body.content;
-    let _type = parseInt(req.body.style);
-
-    if (token) {
-
-        console.log("CONTENT " + content);
-
-        getUser(token).then(function (sessionToken) {
-
-            let Story = new Parse.Object.extend(_class.StoryItems);
-            let story = new Story();
-
-            switch (_type) {
-                case type.STORY_ITEM.text:
-                    story.set("type", type.STORY_ITEM.text);
-                    break;
-
-                case type.STORY_ITEM.quote:
-                    story.set("type", type.STORY_ITEM.quote);
-                    break;
-
-                case type.STORY_ITEM.divider:
-                    story.set("type", type.STORY_ITEM.divider);
-                    break;
-
-                case type.STORY_ITEM.italic:
-                    story.set("type", type.STORY_ITEM.italic);
-                    break;
-
-                case type.STORY_ITEM.bold:
-                    story.set("type", type.STORY_ITEM.bold);
-                    break;
-
-                case type.STORY_ITEM.italicBold:
-                    story.set("type", type.STORY_ITEM.italicBold);
-                    break;
-            }
-
-            story.set("content", content);
-            story.set("story_id", id);
-
-            return story.save();
-
-        }).then(function () {
-
-            res.redirect("/story/item/" + id);
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect("/story_details/" + id);
-        })
-    } else {
-        res.redirect('/');
-
-    }
-});
 
 app.post('/edit_main_story/:id', function (req, res) {
 
