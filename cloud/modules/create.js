@@ -8,12 +8,18 @@ exports.Sticker = sticker => {
     _sticker.description = sticker.get("description");
     _sticker.categories = sticker.get("categories");
 
-    //let preview = sticker.get("preview");
-    //let url = sticker.get("url");
-    if (sticker.get("uri")) {
-        _sticker.url = sticker.get("uri").url();
+    let url = sticker.get("url");
+    if (url) {
+        _sticker.url = url.url();
     } else {
         _sticker.url = "";
+    }
+
+    let preview = sticker.get("preview");
+    if (preview) {
+        _sticker.preview = preview.url();
+    } else {
+        _sticker.preview = "";
     }
 
     return _sticker;
@@ -41,12 +47,18 @@ exports.Pack = (pack, stickerList) => {
     _pack.name = pack.get("pack_name");
     _pack.description = pack.get("pack_description");
 
-   let _artwork = pack.get("art_work");
-   // let _artwork = pack.get("preview");
-    if (_artwork) {
-        _pack.artwork = _artwork.url();
+   let artwork = pack.get("art_work");
+    if (artwork) {
+        _pack.artwork = artwork.url();
     } else {
         _pack.artwork = "";
+    }
+
+    let preview = pack.get("preview");
+    if (preview) {
+        _pack.preview = preview.url();
+    } else {
+        _pack.preview = "";
     }
 
     let _stickers = [];
@@ -57,7 +69,7 @@ exports.Pack = (pack, stickerList) => {
             _.map(stickers, sticker => {
 
                 if (pack.id === sticker.get("parent").id) {
-                    _stickers.push({id: sticker.id, url: sticker.get("uri").url()});
+                    _stickers.push({id: sticker.id, url: sticker.get("uri").url(),preview:sticker.get("preview").url()});
                 }
 
             });

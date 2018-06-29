@@ -38,8 +38,6 @@ Parse.Cloud.define("getFeed", function (req, res) {
         new Parse.Query(_class.Adverts).find()
     ).then((sticker, story, packs, categories, adverts) => {
 
-        console.log("FIRST QUERY ");
-
         _packs = packs;
         _categories = categories;
         _adverts = adverts;
@@ -51,8 +49,6 @@ Parse.Cloud.define("getFeed", function (req, res) {
         );
 
     }).then((sticker, story, storyArtwork) => {
-
-        console.log("SECOND QUERY ");
 
         _sticker = sticker;
         _story = story;
@@ -71,8 +67,6 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
     }).then((sticker, storyItems, advertImages, links) => {
 
-        console.log("THIRD QUERY ");
-
         feed.stickerOfDay = create.Sticker(_sticker);
         feed.latestStory = create.Story(_story, sticker, storyItems);
 
@@ -88,8 +82,6 @@ Parse.Cloud.define("getFeed", function (req, res) {
         return Parse.Promise.when(promises);
 
     }).then(stickerList => {
-
-        console.log("FOURTH QUERY ");
 
         let packList = [];
         let categoryList = [];
