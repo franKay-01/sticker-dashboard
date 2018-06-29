@@ -44,7 +44,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
         return Parse.Promise.when(
             new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("latest_id")).first({useMasterKey: true}),
-            new Parse.Query(_class.Stories).equalTo("objectId", story.get("latest_id")).first({useMasterKey: true}),
+            new Parse.Query(_class.Stories).equalTo("published",true).equalTo("objectId", story.get("latest_id")).first({useMasterKey: true}),
             new Parse.Query(_class.ArtWork).equalTo("object_id", story.get("latest_id")).first({useMasterKey: true}),
         );
 
@@ -176,7 +176,7 @@ Parse.Cloud.define("getStory", function (req, res) {
     let storyId = req.params.storyId;
 
     Parse.Promise.when(
-        new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey: true}),
+        new Parse.Query(_class.Stories).equalTo("published",true).equalTo("objectId", storyId).first({useMasterKey: true}),
         new Parse.Query(_class.ArtWork).equalTo("object_id", storyId).first({useMasterKey: true}),
         new Parse.Query(_class.StoryItems).equalTo("story_id", storyId).find({useMasterKey: true})
     ).then(function (story, sticker, storyItems) {
@@ -279,7 +279,7 @@ Parse.Cloud.define("getStories", function (req, res) {
     let storyList = [];
 
     return Parse.Promise.when(
-        new Parse.Query(_class.Stories).equalTo("user_id", ADMIN).descending("createdAt").find({useMasterKey: true}),
+        new Parse.Query(_class.Stories).equalTo("published",true).equalTo("user_id", ADMIN).descending("createdAt").find({useMasterKey: true}),
         new Parse.Query(_class.ArtWork).find()
 
     ).then((stories, artworks) => {
