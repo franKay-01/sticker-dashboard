@@ -133,7 +133,7 @@
             <center>
                 <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW ADVERT</div>
             </center>
-            <form id="pack_form" action="/new_advert" method="post">
+            <form id="pack_form" action="/advert" method="post">
                 <center>
                     <input type="text" class="_pack common_pack_detail validate" placeholder="Advert Title"
                            name="title" required="" aria-required="true"><br>
@@ -214,7 +214,7 @@
         </div>
     </div>
     <%}%>
-    <span class="medium-12 large-12 welcome_post" id="Welcome"><b>Welcome <a href="/user_profile"
+    <span class="medium-12 large-12 welcome_post" id="Welcome"><b>Welcome <a href="/account/user/profile"
                                                                              style="font-size: 45px;color: #af627f;"> <%= user_name %> </a></b></span>
     <div class="grid-x grid-margin-x" id="opaqueDiv">
         <!-- Card to display Stats of the database-->
@@ -248,13 +248,13 @@
 
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">Update</div>
-            <a href="/sticker_of_day">
+            <a href="/feed/sticker">
                 <button class="create_button">
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; Sticker of the Day
                     </p>
                 </button>
             </a>
-            <a href="/story_of_day">
+            <a href="/feed/story">
                 <button class="create_button">
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Story of the Day</p>
                 </button>
@@ -326,7 +326,7 @@
             <!--<center>-->
             <div class="title_of_the_day">Story of the Day</div>
             <!--</center>-->
-            <a class="_stickers_packs" href="/story_of_day">
+            <a class="_stickers_packs" href="/feed/story">
                 <center>
                     <img src="<%= latestStory.get("uri").url() %>" width="200px" height="200px">
                 </center>
@@ -343,7 +343,7 @@
         <% if (locals.latestSticker){ %>
         <div class="medium-3 large-3 cell icons">
             <div class="title_of_the_day">Sticker of the Day</div>
-            <a class="_stickers_packs" href="/sticker_of_day">
+            <a class="_stickers_packs" href="/feed/sticker">
                 <center>
                     <img src="<%= latestSticker.url() %>" width="200px" height="200px">
                 </center>

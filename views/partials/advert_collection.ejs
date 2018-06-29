@@ -5,7 +5,7 @@
 <% adverts.forEach(function(item, index) { %>
 
 <div class="medium-3 large-3 cell icons">
-    <a href="/advert_details/<%= item.advert.id %>">
+    <a href="/advert/edit/<%= item.advert.id %>">
         <% if (item.image !== ""){ %>
         <center>
             <img src="<%= item.image %>" style="height: 250px">
@@ -26,7 +26,7 @@
 <% _adverts.forEach(function (item, index) { %>
 
 <div class="medium-3 large-3 cell icons">
-    <a href="/advert_details/<%= item.id %>">
+    <a href="/advert/edit/<%= item.id %>">
         <center>
             <p class="none" style="margin: 145px 90px auto;"><b>No Artwork</b></p>
 
