@@ -1179,7 +1179,7 @@ app.get('/change_color/:id', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story/edit/' + story.id);
+            res.redirect('/storyedit/' + story.id);
         })
 
     } else {
@@ -1249,12 +1249,12 @@ app.post('/set_story_color/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/story/edit/' + id);
+            res.redirect('/storyedit/' + id);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story/edit/' + id);
+            res.redirect('/storyedit/' + id);
 
         });
 
@@ -1438,7 +1438,7 @@ app.get('/storyitem/view/:id', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story/edit/' + id)
+            res.redirect('/storyedit/' + id)
         })
     }
 });
@@ -1544,7 +1544,7 @@ app.post('/storyitem/sticker/add/:id', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story/edit/' + story_id);
+            res.redirect('/storyedit/' + story_id);
 
         })
     } else {
@@ -1671,7 +1671,7 @@ app.post('/storyItem/type/:id', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect("/story/edit/" + id);
+            res.redirect("/storyedit/" + id);
         })
     } else {
         res.redirect('/');
@@ -1721,13 +1721,13 @@ app.post('/story/artwork/add/:id/:state', function (req, res) {
                 return artwork.save();
 
             }else if (state === "new"){
-                res.redirect('/story/edit/' + id);
+                res.redirect('/storyedit/' + id);
 
             }
 
         }).then(function () {
 
-            res.redirect('/story/edit/' + id);
+            res.redirect('/storyedit/' + id);
 
         }, function (error) {
 
@@ -1741,7 +1741,7 @@ app.post('/story/artwork/add/:id/:state', function (req, res) {
     }
 });
 
-app.get('/story/edit/:id', function (req, res) {
+app.get('/storyedit/:id', function (req, res) {
 
     let token = req.cookies.token;
     let story_id = req.params.id;
@@ -1827,12 +1827,12 @@ app.post('/edit_story/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/story/edit/' + id);
+            res.redirect('/storyedit/' + id);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story/edit/' + id);
+            res.redirect('/storyedit/' + id);
 
         })
     } else {
@@ -1863,7 +1863,7 @@ app.get('/main_story/:id/:title', function (req, res) {
 
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/story/edit/' + id);
+            res.redirect('/storyedit/' + id);
         });
     } else {
         res.redirect('/');
@@ -3282,7 +3282,7 @@ app.get('/publish/:id/:state/:type', function (req, res) {
                     return;
 
                 case "story":
-                    res.redirect("/story/edit/" + id);
+                    res.redirect("/storyedit/" + id);
                     return;
             }
 
@@ -3296,7 +3296,7 @@ app.get('/publish/:id/:state/:type', function (req, res) {
                     return;
 
                 case "story":
-                    res.redirect("/story/edit/" + id);
+                    res.redirect("/storyedit/" + id);
                     return;
             }
 
