@@ -124,6 +124,25 @@
             <div class="medium-1 hide-for-small"></div>
         </div>
         <!-- End of Content-Section-One -->
+        <!-- 8 is ITALIC BOLD-->
+        <% } else if (item.get("type") === 8){ %>
+        <!-- Content-Section-One -->
+        <div class="small-12 grid-x">
+            <div class="medium-1 hide-for-small"></div>
+            <div class="medium-10 small-12">
+                <div class="content-section padding-top gray-text">
+                    <p>
+                        <strong><i>
+                            <%= item.get("content") %>
+                            </i>
+                        </strong>
+                    </p>
+
+                </div>
+            </div>
+            <div class="medium-1 hide-for-small"></div>
+        </div>
+        <!-- End of Content-Section-One -->
         <% } %>
         <% }) %>
         <% } %>
