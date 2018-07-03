@@ -2681,6 +2681,22 @@ app.get('/barcodes', function (req, res) {
 
 });
 
+app.get('/barcode', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            res.render("pages/create_barcode");
+
+        });
+    } else {
+        res.redirect('/');
+    }
+
+});
 
 
 /*====================================== BARCODE ============================*/
@@ -3321,11 +3337,11 @@ app.get('/pack/:id', function (req, res) {
 });
 
 
-app.get('/publish/:id/:state/:type', function (req, res) {
+app.get('/publish/:type/:status/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
-    let state = req.params.state;
+    let status = req.params.status;
     let type = req.params.type;
 
     if (token) {
@@ -3343,9 +3359,9 @@ app.get('/publish/:id/:state/:type', function (req, res) {
 
         }).then(function (object) {
 
-            if (state === "publish") {
+            if (status === "publish") {
                 object.set("published", true);
-            } else if (state === "unpublish") {
+            } else if (status === "unpublish") {
                 object.set("published", false);
 
             }
@@ -4835,22 +4851,7 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 });
 
 
-app.get('/barcode', function (req, res) {
 
-    let token = req.cookies.token;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            res.render("pages/create_barcode");
-
-        });
-    } else {
-        res.redirect('/');
-    }
-
-});
 
 
 app.get('/get_acl', function (req, res) {
