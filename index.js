@@ -2816,7 +2816,7 @@ app.post('/review/sticker/:stickerId/:packId', function (req, res) {
             }, function (error) {
 
                 console.log("STICKER REVIEW FAILED " + error.message);
-                res.redirect("/details/" + id + "/" + pack_id);
+                res.redirect("/sticker/edit/" + id + "/" + pack_id);
 
             });
         });
@@ -3509,115 +3509,6 @@ app.post('/update_pack/:id', function (req, res) {
     }
 });
 
-//EDIT/STICKER DETAILS
-app.get('/details/:stickerId/:packId', function (req, res) {
-
-    let token = req.cookies.token;
-    let stickerId = req.params.stickerId;
-    let packId = req.params.packId;
-    // let stickers = req.params.stickers;
-    let _sticker;
-    let _categories;
-    let selectedCategories;
-    let _pack = [];
-
-    if (token) {
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            return Parse.Promise.when(
-                new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first(),
-                new Parse.Query(_class.Categories).ascending("name").find(),
-                new Parse.Query(_class.Packs).equalTo("objectId", packId).first()
-            );
-
-        }).then(function (sticker, categories, pack) {
-
-                _sticker = sticker;
-                _categories = categories;
-                _pack = pack;
-                selectedCategories = sticker.get("categories");
-
-                console.log("SELECTED " + selectedCategories);
-
-                let sticker_relation = sticker.relation(_class.Categories);
-                return sticker_relation.query().find();
-
-            }
-        ).then(function (stickerCategories) {
-
-            // var categoryNames = [];
-            // _.each(stickerCategories, function (category) {
-            //     categoryNames.push(category.get("name"))
-            // });
-
-            // console.log("CATEGORY NAMES " + categoryNames);
-
-            // if (_user.get("type") === SUPER_USER) {
-            //     res.render("pages/admin_details", {
-            //         sticker: stickerDetail,
-            //         // categoryNames: categoryNames.sort(),
-            //         categories: allCategories,
-            //         pack_id: pack_
-            //     });
-            // } else {
-
-
-            //TODO how to catch error when time expires (Check APIs)
-            // const AWS = require('aws-sdk');
-            //
-            // const s3 = new AWS.S3();
-            // AWS.config.update({
-            //     accessKeyId: 'AKIAINM7RXYLJVMDEMLQ',
-            //     secretAccessKey: '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'
-            // });
-            //
-            //
-            // const myBucket = 'cyfa';
-            // let name = stickerDetail.get("uri").name();
-            //
-            // const key = name;
-            // const signedUrlExpireSeconds = 60 * 5;
-            //
-            // const url = s3.getSignedUrl('getObject', {
-            //     Bucket: myBucket,
-            //     Key: key,
-            //     Expires: signedUrlExpireSeconds
-            // });
-            //
-            let col = _pack.relation(_class.Packs);
-            return col.query().find({sessionToken: token});
-
-            // }
-        }).then(function (stickers) {
-
-            let page = util.page(stickers, stickerId);
-
-            res.render("pages/sticker_details", {
-                sticker: _sticker,
-                selected: selectedCategories,
-                categories: _categories,
-                pack_id: packId,
-                next: page.next,
-                previous: page.previous,
-                // uri: url,
-                id: stickerId
-            });
-
-        }, function (err) {
-            console.log("Error Loading-----------------------" + JSON.stringify(err));
-            res.redirect("/pack/" + packId);
-
-        });
-    }
-    else {
-        res.redirect("/");
-    }
-});
-
 app.post('/account/user/update', upload.array('im1'), function (req, res) {
 
     let token = req.cookies.token;
@@ -3755,93 +3646,6 @@ app.post('/account/user/update', upload.array('im1'), function (req, res) {
 });
 
 
-app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let pid = req.params.pid;
-    let name = req.body.sticker_name;
-    let category = req.body.category;
-    let categories = req.body.categories;
-    let review_id = req.body.review_id;
-    let files = req.files;
-    let _category = [];
-    let category_names;
-    let _category_names;
-
-    if (token) {
-        let _user = {};
-
-        if (category !== undefined) {
-            category_names = Array.from(category);
-            _category = category_names;
-        }
-
-        if (categories !== undefined) {
-
-            _category_names = Array.from(categories);
-
-            if (_category.length !== 0) {
-                _category = _category.concat(_category_names);
-            } else {
-                _category = _category_names;
-            }
-        }
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
-
-        }).then(function (sticker) {
-
-            files.forEach(function (file) {
-
-                let fullName = file.originalname;
-                let stickerName = fullName.substring(0, fullName.length - 4);
-
-                let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-
-                //create our parse file
-                let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-
-                sticker.set("uri", parseFile);
-
-
-            });
-            sticker.set("name", name);
-            sticker.set("categories", _category);
-
-            return sticker.save();
-
-        }).then(function (result) {
-
-            _.each(files, function (file) {
-                //Delete tmp fil after upload
-                var tempFile = file.path;
-                fs.unlink(tempFile, function (error) {
-                    if (error) {
-                        //TODO handle error code
-                        //TODO add job to do deletion of tempFiles
-                        console.log("-------Could not del temp" + JSON.stringify(error));
-                    }
-                    else {
-                        console.log("-------Deleted All Files");
-
-                    }
-                });
-            });
-
-            res.redirect('/pack/' + pid);
-        }, function (error) {
-            console.log("ERROR " + error.message);
-            res.redirect('/review/edit/' + review_id);
-        });
-    } else {
-        res.redirect('/');
-    }
-
-});
 
 app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
@@ -4036,12 +3840,12 @@ app.post('/update/:id/:pid', function (req, res) {
         }).then(function (sticker) {
 
             console.log("STICKER UPDATED" + JSON.stringify(sticker));
-            res.redirect("/details/" + stickerId + "/" + packId);
+            res.redirect("/sticker/edit/" + stickerId + "/" + packId);
 
         }, function (error) {
 
             console.log("SERVER ERROR " + error.message);
-            res.redirect("/details/" + stickerId + "/" + packId);
+            res.redirect("/sticker/edit/" + stickerId + "/" + packId);
 
         });
 
@@ -4355,6 +4159,202 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
     }
 });
 
+app.post('/sticker/review/:id/:pid', upload.array('im1'), function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let pid = req.params.pid;
+    let name = req.body.sticker_name;
+    let category = req.body.category;
+    let categories = req.body.categories;
+    let review_id = req.body.review_id;
+    let files = req.files;
+    let _category = [];
+    let category_names;
+    let _category_names;
+
+    if (token) {
+        let _user = {};
+
+        if (category !== undefined) {
+            category_names = Array.from(category);
+            _category = category_names;
+        }
+
+        if (categories !== undefined) {
+
+            _category_names = Array.from(categories);
+
+            if (_category.length !== 0) {
+                _category = _category.concat(_category_names);
+            } else {
+                _category = _category_names;
+            }
+        }
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
+
+        }).then(function (sticker) {
+
+            files.forEach(function (file) {
+
+                let fullName = file.originalname;
+                let stickerName = fullName.substring(0, fullName.length - 4);
+
+                let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                //create our parse file
+                let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+
+                sticker.set("uri", parseFile);
+
+
+            });
+            sticker.set("name", name);
+            sticker.set("categories", _category);
+
+            return sticker.save();
+
+        }).then(function (result) {
+
+            _.each(files, function (file) {
+                //Delete tmp fil after upload
+                var tempFile = file.path;
+                fs.unlink(tempFile, function (error) {
+                    if (error) {
+                        //TODO handle error code
+                        //TODO add job to do deletion of tempFiles
+                        console.log("-------Could not del temp" + JSON.stringify(error));
+                    }
+                    else {
+                        console.log("-------Deleted All Files");
+
+                    }
+                });
+            });
+
+            res.redirect('/pack/' + pid);
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/review/edit/' + review_id);
+        });
+    } else {
+        res.redirect('/');
+    }
+
+});
+
+//EDIT/STICKER DETAILS
+app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
+
+    let token = req.cookies.token;
+    let stickerId = req.params.stickerId;
+    let packId = req.params.packId;
+    // let stickers = req.params.stickers;
+    let _sticker;
+    let _categories;
+    let selectedCategories;
+    let _pack = [];
+
+    if (token) {
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first(),
+                new Parse.Query(_class.Categories).ascending("name").find(),
+                new Parse.Query(_class.Packs).equalTo("objectId", packId).first()
+            );
+
+        }).then(function (sticker, categories, pack) {
+
+                _sticker = sticker;
+                _categories = categories;
+                _pack = pack;
+                selectedCategories = sticker.get("categories");
+
+                console.log("SELECTED " + selectedCategories);
+
+                let sticker_relation = sticker.relation(_class.Categories);
+                return sticker_relation.query().find();
+
+            }
+        ).then(function (stickerCategories) {
+
+            // var categoryNames = [];
+            // _.each(stickerCategories, function (category) {
+            //     categoryNames.push(category.get("name"))
+            // });
+
+            // console.log("CATEGORY NAMES " + categoryNames);
+
+            // if (_user.get("type") === SUPER_USER) {
+            //     res.render("pages/admin_details", {
+            //         sticker: stickerDetail,
+            //         // categoryNames: categoryNames.sort(),
+            //         categories: allCategories,
+            //         pack_id: pack_
+            //     });
+            // } else {
+
+
+            //TODO how to catch error when time expires (Check APIs)
+            // const AWS = require('aws-sdk');
+            //
+            // const s3 = new AWS.S3();
+            // AWS.config.update({
+            //     accessKeyId: 'AKIAINM7RXYLJVMDEMLQ',
+            //     secretAccessKey: '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'
+            // });
+            //
+            //
+            // const myBucket = 'cyfa';
+            // let name = stickerDetail.get("uri").name();
+            //
+            // const key = name;
+            // const signedUrlExpireSeconds = 60 * 5;
+            //
+            // const url = s3.getSignedUrl('getObject', {
+            //     Bucket: myBucket,
+            //     Key: key,
+            //     Expires: signedUrlExpireSeconds
+            // });
+            //
+            let col = _pack.relation(_class.Packs);
+            return col.query().find({sessionToken: token});
+
+            // }
+        }).then(function (stickers) {
+
+            let page = util.page(stickers, stickerId);
+
+            res.render("pages/sticker_details", {
+                sticker: _sticker,
+                selected: selectedCategories,
+                categories: _categories,
+                pack_id: packId,
+                next: page.next,
+                previous: page.previous,
+                // uri: url,
+                id: stickerId
+            });
+
+        }, function (err) {
+            console.log("Error Loading-----------------------" + JSON.stringify(err));
+            res.redirect("/pack/" + packId);
+
+        });
+    }
+    else {
+        res.redirect("/");
+    }
+});
 
 
 /*====================================== STICKERS ============================*/
