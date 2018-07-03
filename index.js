@@ -2418,165 +2418,6 @@ app.get('/home', function (req, res) {
 });
 
 //UPLOAD MULTIPLE STICKERS
-app.post('/uploads', upload.array('im1[]'), function (req, res) {
-
-    let token = req.cookies.token;
-    let pack_id = req.body.pack_id;
-    let files = req.files;
-    let fileDetails = [];
-    let stickerDetails = [];
-    let stickerCollection;
-    let _previews = [];
-
-    if (token) {
-
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            let db = admin.database();
-
-            // change this to shorter folder
-            let ref = db.ref("server/saving-data/fireblog");
-
-            let statsRef = ref.child("/gstickers-e4668");
-
-            //TODO implement DRY for thumbnails
-            util.thumbnail(files).then(previews => {
-
-                _previews = previews;
-
-                return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first({sessionToken: token});
-
-            }).then(function (collection) {
-
-                stickerCollection = collection;
-
-                files.forEach(function (file) {
-
-                    let Sticker = new Parse.Object.extend(_class.Stickers);
-                    let sticker = new Sticker();
-
-                    let fullName = file.originalname;
-                    let stickerName = fullName.substring(0, fullName.length - 4);
-
-                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-
-                    let bitmapPreview;
-                    let parseFilePreview = "";
-
-                    _.map(_previews, preview => {
-                        if (stickerName === preview.name) {
-                            bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
-                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
-                        }
-                    });
-
-
-                    //create our parse file
-                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                    sticker.set("stickerName", stickerName);
-                    sticker.set("localName", stickerName);
-                    sticker.set("uri", parseFile);
-                    sticker.set("preview", parseFilePreview);
-                    sticker.set("user_id", _user.id);
-                    sticker.set("parent", collection);
-                    sticker.set("description", "");
-                    sticker.set("flag", false);
-                    sticker.set("archive", false);
-                    sticker.set("sold", false);
-                    sticker.set("version", collection.get("version"));
-                    // sticker.setACL(setPermission(_user, false));
-
-                    stickerDetails.push(sticker);
-                    fileDetails.push(file);
-
-                });
-
-                console.log("SAVE ALL OBJECTS AND FILE");
-                return Parse.Object.saveAll(stickerDetails);
-
-            }).then(function (stickers) {
-
-                _.each(fileDetails, function (file) {
-                    //Delete tmp fil after upload
-                    let tempFile = file.path;
-                    fs.unlink(tempFile, function (err) {
-                        if (err) {
-                            //TODO handle error code
-                            console.log("-------Could not del temp" + JSON.stringify(err));
-                        }
-                        else {
-                            console.log("SUUCCCEESSSSS IN DELTEING TEMP");
-                        }
-                    });
-                });
-
-                _.each(stickers, function (sticker) {
-                    let collection_relation = stickerCollection.relation(_class.Packs);
-                    collection_relation.add(sticker);
-                });
-
-                console.log("SAVE COLLECTION RELATION");
-                return stickerCollection.save();
-
-            }).then(function () {
-
-                let data = {
-                    //Specify email data
-                    from: process.env.EMAIL_FROM || "test@example.com",
-                    //The email to contact
-                    to: _user.get("username"),
-                    //Subject and text data
-                    subject: 'Stickers Uploaded',
-                    html: fs.readFileSync("./uploads/sticker_upload.html", "utf8")
-                };
-
-                mailgun.messages().send(data, function (error, body) {
-                    if (error) {
-                        console.log("BIG BIG ERROR: ", error.message);
-                    }
-                    else {
-
-                        console.log("EMAIL SENT" + body);
-                    }
-                });
-
-                statsRef.transaction(function (sticker) {
-                    if (sticker) {
-                        if (sticker.stickers) {
-                            sticker.stickers++;
-                        }
-                    }
-
-                    return sticker
-                });
-
-
-            }).then(function (stickers) {
-
-                res.redirect("/pack/" + pack_id);
-
-            }, function (error) {
-
-                console.log("BIG BIG ERROR" + JSON.stringify(error));
-                res.redirect("/pack/" + pack_id);
-
-            })
-        }, function (error) {
-            console.log("BIG BIG ERROR" + error.message);
-            res.redirect("/");
-        });
-
-
-    } else {
-
-        res.redirect("/");
-
-    }
-});
 
 
 /*====================================== BARCODE ============================*/
@@ -4328,7 +4169,7 @@ app.post('/upload_dropbox_file', function (req, res) {
 });
 
 
-/*====================================== STICKER ============================*/
+/*====================================== STICKERS ============================*/
 
 // Add Stickers Version 1
 app.get('/uploads/computer/:id', function (req, res) {
@@ -4354,7 +4195,169 @@ app.get('/uploads/computer/:id', function (req, res) {
     }
 });
 
-/*====================================== STICKER ============================*/
+app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
+
+    let token = req.cookies.token;
+    let pack_id = req.body.pack_id;
+    let files = req.files;
+    let fileDetails = [];
+    let stickerDetails = [];
+    let stickerCollection;
+    let _previews = [];
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            let db = admin.database();
+
+            // change this to shorter folder
+            let ref = db.ref("server/saving-data/fireblog");
+
+            let statsRef = ref.child("/gstickers-e4668");
+
+            //TODO implement DRY for thumbnails
+            util.thumbnail(files).then(previews => {
+
+                _previews = previews;
+
+                return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first({sessionToken: token});
+
+            }).then(function (collection) {
+
+                stickerCollection = collection;
+
+                files.forEach(function (file) {
+
+                    let Sticker = new Parse.Object.extend(_class.Stickers);
+                    let sticker = new Sticker();
+
+                    let fullName = file.originalname;
+                    let stickerName = fullName.substring(0, fullName.length - 4);
+
+                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                    let bitmapPreview;
+                    let parseFilePreview = "";
+
+                    _.map(_previews, preview => {
+                        if (stickerName === preview.name) {
+                            bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
+                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
+                        }
+                    });
+
+
+                    //create our parse file
+                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                    sticker.set("stickerName", stickerName);
+                    sticker.set("localName", stickerName);
+                    sticker.set("uri", parseFile);
+                    sticker.set("preview", parseFilePreview);
+                    sticker.set("user_id", _user.id);
+                    sticker.set("parent", collection);
+                    sticker.set("description", "");
+                    sticker.set("flag", false);
+                    sticker.set("archive", false);
+                    sticker.set("sold", false);
+                    sticker.set("version", collection.get("version"));
+                    // sticker.setACL(setPermission(_user, false));
+
+                    stickerDetails.push(sticker);
+                    fileDetails.push(file);
+
+                });
+
+                console.log("SAVE ALL OBJECTS AND FILE");
+                return Parse.Object.saveAll(stickerDetails);
+
+            }).then(function (stickers) {
+
+                _.each(fileDetails, function (file) {
+                    //Delete tmp fil after upload
+                    let tempFile = file.path;
+                    fs.unlink(tempFile, function (err) {
+                        if (err) {
+                            //TODO handle error code
+                            console.log("-------Could not del temp" + JSON.stringify(err));
+                        }
+                        else {
+                            console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                        }
+                    });
+                });
+
+                _.each(stickers, function (sticker) {
+                    let collection_relation = stickerCollection.relation(_class.Packs);
+                    collection_relation.add(sticker);
+                });
+
+                console.log("SAVE COLLECTION RELATION");
+                return stickerCollection.save();
+
+            }).then(function () {
+
+                let data = {
+                    //Specify email data
+                    from: process.env.EMAIL_FROM || "test@example.com",
+                    //The email to contact
+                    to: _user.get("username"),
+                    //Subject and text data
+                    subject: 'Stickers Uploaded',
+                    html: fs.readFileSync("./uploads/sticker_upload.html", "utf8")
+                };
+
+                mailgun.messages().send(data, function (error, body) {
+                    if (error) {
+                        console.log("BIG BIG ERROR: ", error.message);
+                    }
+                    else {
+
+                        console.log("EMAIL SENT" + body);
+                    }
+                });
+
+                statsRef.transaction(function (sticker) {
+                    if (sticker) {
+                        if (sticker.stickers) {
+                            sticker.stickers++;
+                        }
+                    }
+
+                    return sticker
+                });
+
+
+            }).then(function (stickers) {
+
+                res.redirect("/pack/" + pack_id);
+
+            }, function (error) {
+
+                console.log("BIG BIG ERROR" + JSON.stringify(error));
+                res.redirect("/pack/" + pack_id);
+
+            })
+        }, function (error) {
+            console.log("BIG BIG ERROR" + error.message);
+            res.redirect("/");
+        });
+
+
+    } else {
+
+        res.redirect("/");
+
+    }
+});
+
+
+
+/*====================================== STICKERS ============================*/
 
 
 /*====================================== FEED ============================*/
@@ -4568,9 +4571,6 @@ app.get('/feed/story', function (req, res) {
 
 /*====================================== PACKS ============================*/
 /*====================================== PACKS ============================*/
-
-/*====================================== STICKERS ============================*/
-/*====================================== STICKERS ============================*/
 
 /*====================================== CATEGORIES ============================*/
 /*====================================== CATEGORIES ============================*/
