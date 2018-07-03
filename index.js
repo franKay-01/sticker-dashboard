@@ -1838,7 +1838,7 @@ app.post('/story/color/:id', function (req, res) {
     }
 });
 
-app.get('/story/main/:id', function (req, res) {
+app.get('/storymain/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
 
@@ -2116,12 +2116,12 @@ app.post('/edit_main_story/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/story/main/' + story_id );
+            res.redirect('/storymain/' + story_id );
 
         }, function (error) {
 
             console.log("ERROR " + error.message)
-            res.redirect('/story/main/' + story_id);
+            res.redirect('/storymain/' + story_id);
         })
     } else {
         res.redirect('/');
