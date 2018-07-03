@@ -1903,7 +1903,7 @@ app.post('/storymain/edit/:id', function (req, res) {
     }
 });
 
-app.get('/story/delete/:id', function (req, res) {
+app.get('/storydelete/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
@@ -2042,7 +2042,7 @@ app.get('/storyItemDelete/:id', function (req, res) {
             console.log("THIS IS THE CORRECT ROUTE 3");
 
 
-            res.redirect("/story/delete/" + id);
+            res.redirect("/storydelete/" + id);
 
         }, function (error) {
 
