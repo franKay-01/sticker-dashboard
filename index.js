@@ -1742,7 +1742,7 @@ app.post('/story', function (req, res) {
 
 });
 
-app.get('/story/color/:id', function (req, res) {
+app.get('/storycolor/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
