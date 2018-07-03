@@ -1794,9 +1794,7 @@ app.get('/storyedit/:id', function (req, res) {
     }
 });
 
-
-
-app.post('/edit_story/:id', function (req, res) {
+app.post('/storyedit/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let title = req.body.title;
@@ -1840,6 +1838,8 @@ app.post('/edit_story/:id', function (req, res) {
 
     }
 });
+
+
 
 app.get('/main_story/:id/:title', function (req, res) {
     let token = req.cookies.token;
