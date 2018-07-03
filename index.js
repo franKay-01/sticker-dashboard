@@ -3787,75 +3787,6 @@ app.post('/add_sticker_description/:id', function (req, res) {
 
 });
 
-//Update Sticker
-app.post('/update/:id/:pid', function (req, res) {
-
-    let token = req.cookies.token;
-
-    //input fields from form
-    let stickerName = req.body.stickerName;
-    let new_categories = req.body.categories;
-    let stickerId = req.params.id;
-    let packId = req.params.pid;
-    let sticker_status = req.body.sticker_status;
-    let description = req.body.description;
-
-    let _listee = [];
-
-    if (new_categories) {
-
-        if (new_categories !== undefined) {
-            let category_new = Array.from(new_categories);
-
-            _.each(category_new, function (category) {
-                _listee.push(category);
-            });
-        }
-    }
-
-    if (token) {
-
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first();
-
-        }).then(function (sticker) {
-
-            sticker.set("stickerName", stickerName);
-            sticker.set("localName", stickerName);
-            sticker.set("categories", _listee);
-            if (sticker_status === "1") {
-                sticker.set("sold", true);
-            } else if (sticker_status === "0") {
-                sticker.set("sold", false);
-            }
-            sticker.set("description", description);
-
-            return sticker.save();
-
-        }).then(function (sticker) {
-
-            console.log("STICKER UPDATED" + JSON.stringify(sticker));
-            res.redirect("/sticker/edit/" + stickerId + "/" + packId);
-
-        }, function (error) {
-
-            console.log("SERVER ERROR " + error.message);
-            res.redirect("/sticker/edit/" + stickerId + "/" + packId);
-
-        });
-
-    } else {
-
-        console.log("No session found[[[[[[");
-        res.redirect("/pack/" + packId);
-
-    }
-});
 
 app.get('/upload_page/:id', function (req, res) {
 
@@ -4353,6 +4284,76 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
     }
     else {
         res.redirect("/");
+    }
+});
+
+//Update Sticker
+app.post('/sticker/edit/:id/:pid', function (req, res) {
+
+    let token = req.cookies.token;
+
+    //input fields from form
+    let stickerName = req.body.stickerName;
+    let new_categories = req.body.categories;
+    let stickerId = req.params.id;
+    let packId = req.params.pid;
+    let sticker_status = req.body.sticker_status;
+    let description = req.body.description;
+
+    let _listee = [];
+
+    if (new_categories) {
+
+        if (new_categories !== undefined) {
+            let category_new = Array.from(new_categories);
+
+            _.each(category_new, function (category) {
+                _listee.push(category);
+            });
+        }
+    }
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first();
+
+        }).then(function (sticker) {
+
+            sticker.set("stickerName", stickerName);
+            sticker.set("localName", stickerName);
+            sticker.set("categories", _listee);
+            if (sticker_status === "1") {
+                sticker.set("sold", true);
+            } else if (sticker_status === "0") {
+                sticker.set("sold", false);
+            }
+            sticker.set("description", description);
+
+            return sticker.save();
+
+        }).then(function (sticker) {
+
+            console.log("STICKER UPDATED" + JSON.stringify(sticker));
+            res.redirect("/sticker/edit/" + stickerId + "/" + packId);
+
+        }, function (error) {
+
+            console.log("SERVER ERROR " + error.message);
+            res.redirect("/sticker/edit/" + stickerId + "/" + packId);
+
+        });
+
+    } else {
+
+        console.log("No session found[[[[[[");
+        res.redirect("/pack/" + packId);
+
     }
 });
 
