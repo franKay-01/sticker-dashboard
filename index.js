@@ -1934,7 +1934,7 @@ app.get('/story/delete/:id', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error);
-            res.redirect("/categories");
+            res.redirect("/stories");
 
         })
     } else {
@@ -2024,7 +2024,7 @@ app.get('/storyItemDelete/:id', function (req, res) {
 
         }).then(function (stories) {
 
-            console.log("THIS IS THE CORRECT ROUTE 2");
+            console.log("THIS IS THE CORRECT ROUTE 2 " + JSON.stringify(stories));
 
             if (stories.length > 0) {
 
