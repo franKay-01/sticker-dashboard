@@ -3429,31 +3429,6 @@ app.get('/edit_pack_details/:id', function (req, res) {
     }
 });
 
-
-// Add Stickers Version 1
-app.get('/add_stickers/:id', function (req, res) {
-
-    var token = req.cookies.token;
-    var pack_id = req.params.id;
-
-    if (token) {
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first();
-
-        }).then(function (pack) {
-
-            res.render("pages/add_sticker", {id: pack.id, pack_name: pack.get("pack_name")});
-
-        }, function (error) {
-            res.redirect("/");
-
-        })
-    } else {
-        res.redirect("/");
-    }
-});
-
 app.get('/send_for_review/:id', function (req, res) {
 
     var token = req.cookies.token;
@@ -4351,6 +4326,36 @@ app.post('/upload_dropbox_file', function (req, res) {
     }
 
 });
+
+
+/*====================================== STICKER ============================*/
+
+// Add Stickers Version 1
+app.get('/uploads/computer/:id', function (req, res) {
+
+    var token = req.cookies.token;
+    var pack_id = req.params.id;
+
+    if (token) {
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first();
+
+        }).then(function (pack) {
+
+            res.render("pages/add_sticker", {id: pack.id, pack_name: pack.get("pack_name")});
+
+        }, function (error) {
+            res.redirect("/");
+
+        })
+    } else {
+        res.redirect("/");
+    }
+});
+
+/*====================================== STICKER ============================*/
+
 
 /*====================================== FEED ============================*/
 
