@@ -1866,6 +1866,45 @@ app.get('/storymain/:id', function (req, res) {
     }
 });
 
+app.post('/storymain/edit/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let main_story = req.body.main_story;
+    let story_id = "";
+
+    if (token) {
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(_class.StoryBody).equalTo("objectId", id).first();
+        }).then(function (story) {
+
+            story_id = story.get("story_id");
+
+            story.set("story", main_story);
+
+            return story.save();
+
+        }).then(function () {
+
+            res.redirect('/storymain/' + story_id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message)
+            res.redirect('/storymain/' + story_id);
+        })
+    } else {
+        res.redirect('/');
+
+    }
+});
+
+
 
 app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res) {
 
@@ -2083,45 +2122,6 @@ app.post('/change_artwork', upload.array('im1'), function (req, res) {
         getUser(token).then(function (sessionToken) {
 
         })
-
-    }
-});
-
-
-app.post('/edit_main_story/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let main_story = req.body.main_story;
-    let story_id = "";
-
-    if (token) {
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            return new Parse.Query(_class.StoryBody).equalTo("objectId", id).first();
-        }).then(function (story) {
-
-            story_id = story.get("story_id");
-
-            story.set("story", main_story);
-
-            return story.save();
-
-        }).then(function () {
-
-            res.redirect('/storymain/' + story_id);
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message)
-            res.redirect('/storymain/' + story_id);
-        })
-    } else {
-        res.redirect('/');
 
     }
 });
