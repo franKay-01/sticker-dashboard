@@ -1846,7 +1846,6 @@ app.get('/storymain/:id', function (req, res) {
             return Parse.Promise.when(
                 new Parse.Query(_class.StoryBody).equalTo("story_id", id).first(),
                 new Parse.Query(_class.Stories).equalTo("objectId", id).first()
-
             )
 
         }).then(function (storyBody, story) {
@@ -2036,11 +2035,8 @@ app.get('/storyItemDelete/:id', function (req, res) {
 
         }).then(function (success) {
 
-            if (success) {
+            res.redirect("/story/delete/" + id);
 
-                res.redirect("/story/delete/" + id);
-
-            }
         }, function (error) {
 
             console.log("ERROR " + error.message);
@@ -2051,7 +2047,6 @@ app.get('/storyItemDelete/:id', function (req, res) {
         res.redirect('/');
     }
 });
-
 
 
 app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res) {
@@ -3079,8 +3074,6 @@ app.get('/delete_sticker/:id/:pid', function (req, res) {
     }
 
 });
-
-
 
 
 app.post('/remove_category', function (req, res) {
