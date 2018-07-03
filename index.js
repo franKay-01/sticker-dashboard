@@ -3788,99 +3788,6 @@ app.post('/add_sticker_description/:id', function (req, res) {
 });
 
 
-
-app.post('/upload_dropbox_file', function (req, res) {
-    let bitmap;
-    let name;
-    let fileUrl;
-    let token = req.cookies.token;
-    let pack_id = req.body.pack_id;
-    let stickerPack;
-
-    name = req.body.fileName;
-    fileUrl = req.body.fileUrl; // receive url from form
-    name = name.substring(0, name.length - 4);
-
-    if (token) {
-
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-            var options = {
-                url: fileUrl,
-                dest: __dirname + '/public/uploads/' + req.body.fileName
-            }
-
-            download.image(options)
-                .then(({filename, image}) => {
-
-                    bitmap = fs.readFileSync(filename, {encoding: 'base64'});
-
-                    let pack = new Parse.Query(_class.Packs);
-                    pack.equalTo("objectId", pack_id)
-                        .first({sessionToken: token})
-                        .then(function (pack) {
-
-                            stickerPack = pack;
-
-                            let parseFile = new Parse.File(name, {base64: bitmap});
-                            let Sticker = new Parse.Object.extend(_class.Stickers);
-                            let sticker = new Sticker();
-
-                            sticker.set("stickerName", name);
-                            sticker.set("localName", name);
-                            sticker.set("user_id", _user.id);
-                            sticker.set("uri", parseFile);
-                            sticker.set("parent", pack);
-                            sticker.set("flag", false);
-                            sticker.set("archive", false);
-                            sticker.set("sold", false);
-
-                            return sticker.save();
-
-                        }).then(function (sticker) {
-
-                        let pack_relation = stickerPack.relation(_class.Packs);
-
-                        pack_relation.add(sticker);
-
-                        fs.unlink(filename, function (err) {
-                            if (err) {
-                                //TODO handle error code
-                                console.log("Could not del temp++++++++" + JSON.stringify(err));
-                            }
-                        });
-
-                        return stickerPack.save();
-
-                    }).then(function () {
-
-                        console.log("REDIRECT TO DASHBOARD");
-                        res.redirect("/pack/" + pack_id);
-
-                    }, function (error) {
-                        console.log("BIG BIG ERROR" + error.message);
-                        res.redirect("/pack/" + pack_id);
-                    });
-                }).catch((err) => {
-                throw err;
-            });
-        }, function (error) {
-            console.log("SESSION INVALID " + error.message);
-            res.redirect("/pack/" + pack_id);
-        });
-
-    } else {
-
-        res.redirect("/pack/" + pack_id);
-
-    }
-
-});
-
-
 /*====================================== STICKERS ============================*/
 
 // Add Stickers Version 1
@@ -4357,6 +4264,98 @@ app.get('/uploads/dropbox/:id', function (req, res) {
     }
 
 });
+
+app.post('/uploads/dropbox', function (req, res) {
+    let bitmap;
+    let name;
+    let fileUrl;
+    let token = req.cookies.token;
+    let pack_id = req.body.pack_id;
+    let stickerPack;
+
+    name = req.body.fileName;
+    fileUrl = req.body.fileUrl; // receive url from form
+    name = name.substring(0, name.length - 4);
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+            var options = {
+                url: fileUrl,
+                dest: __dirname + '/public/uploads/' + req.body.fileName
+            }
+
+            download.image(options)
+                .then(({filename, image}) => {
+
+                    bitmap = fs.readFileSync(filename, {encoding: 'base64'});
+
+                    let pack = new Parse.Query(_class.Packs);
+                    pack.equalTo("objectId", pack_id)
+                        .first({sessionToken: token})
+                        .then(function (pack) {
+
+                            stickerPack = pack;
+
+                            let parseFile = new Parse.File(name, {base64: bitmap});
+                            let Sticker = new Parse.Object.extend(_class.Stickers);
+                            let sticker = new Sticker();
+
+                            sticker.set("stickerName", name);
+                            sticker.set("localName", name);
+                            sticker.set("user_id", _user.id);
+                            sticker.set("uri", parseFile);
+                            sticker.set("parent", pack);
+                            sticker.set("flag", false);
+                            sticker.set("archive", false);
+                            sticker.set("sold", false);
+
+                            return sticker.save();
+
+                        }).then(function (sticker) {
+
+                        let pack_relation = stickerPack.relation(_class.Packs);
+
+                        pack_relation.add(sticker);
+
+                        fs.unlink(filename, function (err) {
+                            if (err) {
+                                //TODO handle error code
+                                console.log("Could not del temp++++++++" + JSON.stringify(err));
+                            }
+                        });
+
+                        return stickerPack.save();
+
+                    }).then(function () {
+
+                        console.log("REDIRECT TO DASHBOARD");
+                        res.redirect("/pack/" + pack_id);
+
+                    }, function (error) {
+                        console.log("BIG BIG ERROR" + error.message);
+                        res.redirect("/pack/" + pack_id);
+                    });
+                }).catch((err) => {
+                throw err;
+            });
+        }, function (error) {
+            console.log("SESSION INVALID " + error.message);
+            res.redirect("/pack/" + pack_id);
+        });
+
+    } else {
+
+        res.redirect("/pack/" + pack_id);
+
+    }
+
+});
+
 
 
 /*====================================== STICKERS ============================*/
