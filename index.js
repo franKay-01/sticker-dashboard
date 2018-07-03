@@ -2114,7 +2114,7 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
                     return asset.save();
                 }
             } else if (storyItemType === type.STORY_ITEM.sticker) {
-                res.redirect('/change_sticker/' + _storyId + '/' + id);
+                res.redirect('/storyitem/change/sticker/' + _storyId + '/' + id);
             }
         }).then(function (asset) {
 
@@ -2184,7 +2184,7 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
 });
 
 
-app.post('/change_catalogue_sticker/:id', function (req, res) {
+app.post('/storyitem/change/sticker/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
@@ -2224,7 +2224,7 @@ app.post('/change_catalogue_sticker/:id', function (req, res) {
 
 });
 
-app.get('/change_sticker/:storyId/:storyItemId', function (req, res) {
+app.get('/storyitem/change/sticker/:storyId/:storyItemId', function (req, res) {
 
     let token = req.cookies.token;
     let storyId = req.params.storyId;
