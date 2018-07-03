@@ -2055,8 +2055,7 @@ app.get('/storyitemdelete/:id', function (req, res) {
     }
 });
 
-
-app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res) {
+app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) {
 
     let token = req.cookies.token;
     let files = req.files;
@@ -2183,6 +2182,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
     }
 
 });
+
 
 app.post('/change_catalogue_sticker/:id', function (req, res) {
 
