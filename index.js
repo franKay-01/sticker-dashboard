@@ -3194,6 +3194,34 @@ app.get('/pack/:id', function (req, res) {
     }
 });
 
+app.get('/pack/edit/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let pack_id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first();
+
+        }).then(function (pack) {
+
+            res.render("pages/pack_details", {
+                pack_details: pack
+            });
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect("/pack/" + pack_id);
+        })
+    } else {
+        res.redirect('/');
+    }
+});
+
+
 /*====================================== PACKS ============================*/
 
 app.get('/publish/:type/:status/:id', function (req, res) {
@@ -3261,32 +3289,6 @@ app.get('/publish/:type/:status/:id', function (req, res) {
 });
 
 
-app.get('/edit_pack_details/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let pack_id = req.params.id;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first();
-
-        }).then(function (pack) {
-
-            res.render("pages/pack_details", {
-                pack_details: pack
-            });
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect("/pack/" + pack_id);
-        })
-    } else {
-        res.redirect('/');
-    }
-});
 
 app.get('/send_for_review/:id', function (req, res) {
 
@@ -3714,12 +3716,12 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/edit_pack_details/' + id);
+            res.redirect('/pack/edit/' + id);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/edit_pack_details/' + id);
+            res.redirect('/pack/edit/' + id);
 
         })
     } else {
