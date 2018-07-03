@@ -1838,15 +1838,9 @@ app.post('/story/color/:id', function (req, res) {
     }
 });
 
-
-
-
-
-
-app.get('/main_story/:id/:title', function (req, res) {
+app.get('/story/main/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
-    let title = req.params.title;
 
     if (token) {
 
@@ -1860,7 +1854,7 @@ app.get('/main_story/:id/:title', function (req, res) {
 
             res.render("pages/story_page", {
                 story: story,
-                title: title
+                title: story.get("title")
             });
 
         }, function (error) {
@@ -1872,6 +1866,9 @@ app.get('/main_story/:id/:title', function (req, res) {
 
     }
 });
+
+
+
 
 app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res) {
 
@@ -2099,7 +2096,6 @@ app.post('/edit_main_story/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let main_story = req.body.main_story;
-    let title = req.body.title;
     let story_id = "";
 
     if (token) {
@@ -2120,12 +2116,12 @@ app.post('/edit_main_story/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/main_story/' + story_id + '/' + title);
+            res.redirect('/story/main/' + story_id );
 
         }, function (error) {
 
             console.log("ERROR " + error.message)
-            res.redirect('/main_story/' + story_id + '/' + title);
+            res.redirect('/story/main/' + story_id);
         })
     } else {
         res.redirect('/');
