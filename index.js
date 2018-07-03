@@ -3221,6 +3221,113 @@ app.get('/pack/edit/:id', function (req, res) {
     }
 });
 
+app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
+
+    let token = req.cookies.token;
+    let files = req.files;
+    let id = req.params.id;
+    let keywords = req.body.keyword;
+    let archive = req.body.archive;
+    let description = req.body.description;
+    let _keywords = [];
+    let fileDetails = [];
+    let _previews = [];
+
+    if (keywords !== undefined || keywords !== "undefined") {
+        _keywords = keywords.split(",");
+    }
+
+    if (archive === undefined || archive === "undefined") {
+        archive = false;
+    } else if (archive === 1 || archive === "1") {
+        archive = true;
+    } else if (archive === 0 || archive === "0") {
+        archive = false;
+    }
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return util.thumbnail(files)
+
+        }).then(previews => {
+
+            _previews = previews;
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+
+        }).then(function (pack) {
+
+
+            pack.set("pack_description", description);
+            pack.set("keyword", _keywords);
+            pack.set("archive", archive);
+
+            if (files !== undefined || files !== "undefined") {
+                files.forEach(function (file) {
+                    let fullName = file.originalname;
+                    let stickerName = fullName.substring(0, fullName.length - 4);
+
+                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                    let bitmapPreview;
+                    let parseFilePreview = "";
+
+                    _.map(_previews, preview => {
+                        if (stickerName === preview.name) {
+                            bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
+                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
+                        }
+                    });
+
+                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+
+                    pack.set("art_work", parseFile);
+                    pack.set("preview", parseFilePreview);
+                    fileDetails.push(file);
+
+                });
+            }
+
+            return pack.save();
+
+        }).then(function (pack) {
+
+            _.each(fileDetails, function (file) {
+                //Delete tmp fil after upload
+                var tempFile = file.path;
+                fs.unlink(tempFile, function (error) {
+                    if (error) {
+                        //TODO handle error code
+                        //TODO add job to do deletion of tempFiles
+                        console.log("-------Could not del temp" + JSON.stringify(error));
+                    }
+                    else {
+                        console.log("-------Deleted All Files");
+
+                    }
+                });
+            });
+
+            return true;
+
+        }).then(function () {
+
+            res.redirect('/pack/edit/' + id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/pack/edit/' + id);
+
+        })
+    } else {
+        res.redirect('/');
+    }
+
+});
+
 
 /*====================================== PACKS ============================*/
 
@@ -3620,116 +3727,6 @@ app.post('/account/user/update', upload.array('im1'), function (req, res) {
         res.redirect('/');
     }
 });
-
-
-
-app.post('/pack_update/:id', upload.array('art'), function (req, res) {
-
-    let token = req.cookies.token;
-    let files = req.files;
-    let id = req.params.id;
-    let keywords = req.body.keyword;
-    let archive = req.body.archive;
-    let description = req.body.description;
-    let _keywords = [];
-    let fileDetails = [];
-    let _previews = [];
-
-    if (keywords !== undefined || keywords !== "undefined") {
-        _keywords = keywords.split(",");
-    }
-
-    if (archive === undefined || archive === "undefined") {
-        archive = false;
-    } else if (archive === 1 || archive === "1") {
-        archive = true;
-    } else if (archive === 0 || archive === "0") {
-        archive = false;
-    }
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return util.thumbnail(files)
-
-        }).then(previews => {
-
-            _previews = previews;
-
-            return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
-
-        }).then(function (pack) {
-
-
-            pack.set("pack_description", description);
-            pack.set("keyword", _keywords);
-            pack.set("archive", archive);
-
-            if (files !== undefined || files !== "undefined") {
-                files.forEach(function (file) {
-                    let fullName = file.originalname;
-                    let stickerName = fullName.substring(0, fullName.length - 4);
-
-                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-
-                    let bitmapPreview;
-                    let parseFilePreview = "";
-
-                    _.map(_previews, preview => {
-                        if (stickerName === preview.name) {
-                            bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
-                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
-                        }
-                    });
-
-                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-
-                    pack.set("art_work", parseFile);
-                    pack.set("preview", parseFilePreview);
-                    fileDetails.push(file);
-
-                });
-            }
-
-            return pack.save();
-
-        }).then(function (pack) {
-
-            _.each(fileDetails, function (file) {
-                //Delete tmp fil after upload
-                var tempFile = file.path;
-                fs.unlink(tempFile, function (error) {
-                    if (error) {
-                        //TODO handle error code
-                        //TODO add job to do deletion of tempFiles
-                        console.log("-------Could not del temp" + JSON.stringify(error));
-                    }
-                    else {
-                        console.log("-------Deleted All Files");
-
-                    }
-                });
-            });
-
-            return true;
-
-        }).then(function () {
-
-            res.redirect('/pack/edit/' + id);
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/pack/edit/' + id);
-
-        })
-    } else {
-        res.redirect('/');
-    }
-
-});
-
 
 app.post('/add_sticker_description/:id', function (req, res) {
 
