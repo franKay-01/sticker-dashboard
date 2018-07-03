@@ -1077,57 +1077,6 @@ app.get('/story/:id/:state', function (req, res) {
     }
 });
 
-
-
-app.get('/change_color/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let color = [];
-    let _story = [];
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return Parse.Promise.when(
-                new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
-                new Parse.Query(_class.ArtWork).equalTo("object_id", id).first()
-            );
-
-        }).then(function (story, art) {
-
-            console.log("ART " + JSON.stringify(art));
-            _story = story;
-            colors = story.get("color");
-            if (colors) {
-                color = story.get("color");
-            } else {
-                //use system default
-                colors = type.DEFAULT.color
-            }
-
-            return new Parse.Query(_class.Stickers).equalTo("objectId", art.get("sticker")).first();
-
-        }).then(function (sticker) {
-
-            res.render("pages/choose_color", {
-                story: _story,
-                colors: colors,
-                sticker: sticker
-            });
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/storyedit/' + story.id);
-        })
-
-    } else {
-        res.redirect('/');
-
-    }
-});
-
 app.get('/edit_story_item/:id/:story_id', function (req, res) {
 
     let token = req.cookies.token;
@@ -1833,6 +1782,55 @@ app.post('/story/color/:id', function (req, res) {
             res.redirect('/storyedit/' + id);
 
         });
+
+    } else {
+        res.redirect('/');
+
+    }
+});
+
+app.get('/story/color/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let color = [];
+    let _story = [];
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
+                new Parse.Query(_class.ArtWork).equalTo("object_id", id).first()
+            );
+
+        }).then(function (story, art) {
+
+            console.log("ART " + JSON.stringify(art));
+            _story = story;
+            colors = story.get("color");
+            if (colors) {
+                color = story.get("color");
+            } else {
+                //use system default
+                colors = type.DEFAULT.color
+            }
+
+            return new Parse.Query(_class.Stickers).equalTo("objectId", art.get("sticker")).first();
+
+        }).then(function (sticker) {
+
+            res.render("pages/choose_color", {
+                story: _story,
+                colors: colors,
+                sticker: sticker
+            });
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/storyedit/' + story.id);
+        })
 
     } else {
         res.redirect('/');
