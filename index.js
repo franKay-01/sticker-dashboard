@@ -523,8 +523,6 @@ app.get('/account/user/profile', function (req, res) {
 /*====================================== ACCOUNTS ============================*/
 
 
-
-
 /*====================================== ADVERTS ============================*/
 
 
@@ -996,9 +994,6 @@ app.get('/message/send', function (req, res) {
 /*====================================== MESSAGES ============================*/
 
 
-
-
-
 app.get('/find_stickers/:name', function (req, res) {
 
     let token = req.cookies.token;
@@ -1062,7 +1057,7 @@ app.get('/story/:id/:state', function (req, res) {
             res.render("pages/story_artwork", {
                 story: _story.id,
                 stickers: stickers,
-                state:state
+                state: state
             });
 
         }, function (error) {
@@ -1539,11 +1534,11 @@ app.post('/story/artwork/add/:id/:state', function (req, res) {
         }).then(function (story) {
             id = story.id;
 
-            if (state === "change"){
+            if (state === "change") {
 
                 return new Parse.Query(_class.ArtWork).equalTo("object_id", story.id).first();
 
-            }else if (state === "new"){
+            } else if (state === "new") {
                 let Artwork = new Parse.Object.extend(_class.ArtWork);
                 let artwork = new Artwork();
 
@@ -1562,7 +1557,7 @@ app.post('/story/artwork/add/:id/:state', function (req, res) {
 
                 return artwork.save();
 
-            }else if (state === "new"){
+            } else if (state === "new") {
                 res.redirect('/storyedit/' + id);
 
             }
@@ -1848,12 +1843,16 @@ app.get('/storymain/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.StoryBody).equalTo("story_id", id).first();
+            return Parse.Promise.when(
+                new Parse.Query(_class.StoryBody).equalTo("story_id", id).first(),
+                new Parse.Query(_class.Stories).equalTo("objectId", id).first()
 
-        }).then(function (story) {
+            )
+
+        }).then(function (storyBody, story) {
 
             res.render("pages/story_page", {
-                story: story,
+                story: storyBody,
                 title: story.get("title")
             });
 
@@ -1866,8 +1865,6 @@ app.get('/storymain/:id', function (req, res) {
 
     }
 });
-
-
 
 
 app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res) {
@@ -2116,7 +2113,7 @@ app.post('/edit_main_story/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/storymain/' + story_id );
+            res.redirect('/storymain/' + story_id);
 
         }, function (error) {
 
@@ -4033,7 +4030,7 @@ app.post('/pack_update/:id', upload.array('art'), function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-           return util.thumbnail(files)
+            return util.thumbnail(files)
 
         }).then(previews => {
 
