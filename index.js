@@ -1915,6 +1915,7 @@ app.get('/story/delete/:id', function (req, res) {
 
             _user = sessionToken.get("user");
 
+            console.log("STORY ID " + id);
             return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
 
         }).then(function (story) {
