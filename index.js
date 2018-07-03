@@ -2017,11 +2017,14 @@ app.get('/storyItemDelete/:id', function (req, res) {
 
     if (token) {
 
+        console.log("THIS IS THE CORRECT ROUTE");
         getUser(token).then(function (sessionToken) {
 
             return new Parse.Query(_class.StoryItems).equalTo("story_id", id).find();
 
         }).then(function (stories) {
+
+            console.log("THIS IS THE CORRECT ROUTE 2");
 
             if (stories.length > 0) {
 
@@ -2034,6 +2037,9 @@ app.get('/storyItemDelete/:id', function (req, res) {
             }
 
         }).then(function (success) {
+
+            console.log("THIS IS THE CORRECT ROUTE 3");
+
 
             res.redirect("/story/delete/" + id);
 
