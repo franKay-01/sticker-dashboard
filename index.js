@@ -1943,7 +1943,7 @@ app.get('/storydelete/:id', function (req, res) {
     }
 });
 
-app.post('/storyItemDelete/:storyId', function (req, res) {
+app.post('/storyitemdelete/:storyId', function (req, res) {
     let token = req.cookies.token;
     let id = req.body.storyItem;
     let storyId = req.params.storyId;
@@ -2011,7 +2011,7 @@ app.post('/storyItemDelete/:storyId', function (req, res) {
 
 });
 
-app.get('/storyItemDelete/:id', function (req, res) {
+app.get('/storyitemdelete/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
