@@ -102,6 +102,8 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
     }, error => {
 
+        console.log("FEED ERROR " + error.message);
+
         util.handleError(res, error);
 
     })
@@ -324,6 +326,11 @@ Parse.Cloud.define("getStories", function (req, res) {
                             _story.stickerUrl = sticker.get("uri").url();
                         } else {
                             _story.stickerUrl = "";
+                        }
+                        if (sticker.get("preview")) {
+                            _story.stickerPreviewUrl = sticker.get("preview").url();
+                        } else {
+                            _story.stickerPreviewUrl = "";
                         }
                     }
                 })

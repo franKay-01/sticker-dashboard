@@ -2439,6 +2439,7 @@ app.post('/uploads', upload.array('im1[]'), function (req, res) {
 
             let statsRef = ref.child("/gstickers-e4668");
 
+            //TODO implement DRY for thumbnails
             util.thumbnail(files).then(previews => {
 
                 _previews = previews;

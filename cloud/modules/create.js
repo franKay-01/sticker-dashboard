@@ -8,10 +8,18 @@ exports.Sticker = sticker => {
     _sticker.description = sticker.get("description");
     _sticker.categories = sticker.get("categories");
 
-    if (sticker.get("uri")) {
-        _sticker.url = sticker.get("uri").url();
+    let url = sticker.get("uri");
+    if (url) {
+        _sticker.url = url.url();
     } else {
         _sticker.url = "";
+    }
+
+    let preview = sticker.get("preview");
+    if (preview) {
+        _sticker.preview = preview.url();
+    } else {
+        _sticker.preview = "";
     }
 
     return _sticker;
@@ -39,11 +47,18 @@ exports.Pack = (pack, stickerList) => {
     _pack.name = pack.get("pack_name");
     _pack.description = pack.get("pack_description");
 
-    let _artwork = pack.get("art_work");
-    if (_artwork) {
-        _pack.artwork = _artwork.url();
+   let artwork = pack.get("art_work");
+    if (artwork) {
+        _pack.artwork = artwork.url();
     } else {
         _pack.artwork = "";
+    }
+
+    let preview = pack.get("preview");
+    if (preview) {
+        _pack.preview = preview.url();
+    } else {
+        _pack.preview = "";
     }
 
     let _stickers = [];
@@ -80,6 +95,12 @@ exports.Story = (story, sticker, storyItem) => {
         _story.stickerUrl = sticker.get("uri").url();
     } else {
         _story.stickerUrl = "";
+    }
+
+    if (sticker.get("preview")) {
+        _story.stickerPreviewUrl = sticker.get("preview").url();
+    } else {
+        _story.stickerPreviewUrl = "";
     }
 
     let colors = story.get("color");
