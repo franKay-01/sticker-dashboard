@@ -3328,6 +3328,49 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
 
 });
 
+app.post('/pack/review/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let name = req.body.pack_name;
+    let archive = req.body.archive;
+    let description = req.body.pack_description;
+    let keyword = req.body.keyword;
+    let review_id = req.body.review_id;
+
+    let key = keyword.split(",");
+
+    if (token) {
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+        }).then(function (pack) {
+            pack.set("name", name);
+
+            if (archive === undefined || archive === "1") {
+                pack.set("archive", false);
+            } else if (archive === "0") {
+                pack.set("archive", true);
+            }
+            pack.set("pack_description", description);
+            pack.set("keyword", key);
+
+            return pack.save();
+
+        }).then(function (result) {
+            res.redirect('/review/edit/' + review_id);
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/review/edit/' + review_id);
+        });
+    } else {
+        res.redirect('/');
+    }
+});
+
 
 /*====================================== PACKS ============================*/
 
@@ -3546,50 +3589,6 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
         res.redirect('/')
     }
 
-});
-
-
-app.post('/update_pack/:id', function (req, res) {
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let name = req.body.pack_name;
-    let archive = req.body.archive;
-    let description = req.body.pack_description;
-    let keyword = req.body.keyword;
-    let review_id = req.body.review_id;
-
-    let key = keyword.split(",");
-
-    if (token) {
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
-        }).then(function (pack) {
-            pack.set("name", name);
-
-            if (archive === undefined || archive === "1") {
-                pack.set("archive", false);
-            } else if (archive === "0") {
-                pack.set("archive", true);
-            }
-            pack.set("pack_description", description);
-            pack.set("keyword", key);
-
-            return pack.save();
-
-        }).then(function (result) {
-            res.redirect('/review/edit/' + review_id);
-        }, function (error) {
-            console.log("ERROR " + error.message);
-            res.redirect('/review/edit/' + review_id);
-        });
-    } else {
-        res.redirect('/');
-    }
 });
 
 app.post('/account/user/update', upload.array('im1'), function (req, res) {
