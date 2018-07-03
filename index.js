@@ -994,36 +994,6 @@ app.get('/message/send', function (req, res) {
 /*====================================== MESSAGES ============================*/
 
 
-app.get('/find_stickers/:name', function (req, res) {
-
-    let token = req.cookies.token;
-    let name = req.params.name;
-    let field = [];
-
-    if (token) {
-
-        field.push(name);
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Stickers).containedIn("categories", field).find();
-
-        }).then(function (stickers) {
-
-            res.render("pages/associated_stickers", {
-                stickers: stickers,
-                name: name
-            })
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/categories');
-        })
-    } else {
-        res.redirect('/');
-    }
-
-});
 
 app.get('/story/:id/:state', function (req, res) {
     let token = req.cookies.token;
@@ -4356,6 +4326,36 @@ app.post('/uploads/dropbox', function (req, res) {
 
 });
 
+app.get('/find/sticker/:name', function (req, res) {
+
+    let token = req.cookies.token;
+    let name = req.params.name;
+    let field = [];
+
+    if (token) {
+
+        field.push(name);
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Stickers).containedIn("categories", field).find();
+
+        }).then(function (stickers) {
+
+            res.render("pages/associated_stickers", {
+                stickers: stickers,
+                name: name
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/categories');
+        })
+    } else {
+        res.redirect('/');
+    }
+
+});
 
 
 /*====================================== STICKERS ============================*/
