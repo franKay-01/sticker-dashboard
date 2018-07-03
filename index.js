@@ -1742,53 +1742,6 @@ app.post('/story', function (req, res) {
 
 });
 
-app.post('/story/color/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let color_1 = req.body.color1;
-    let color_2 = req.body.color2;
-    let hash = "#";
-
-    if (token) {
-
-        color_1 = hash.concat(color_1);
-        color_2 = hash.concat(color_2);
-
-        console.log("COLOR " + color_2);
-
-        let colors = [color_1, color_2];
-
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
-
-
-        }).then(function (story) {
-
-            story.set("color", colors);
-
-            return story.save();
-
-        }).then(function () {
-
-            res.redirect('/storyedit/' + id);
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/storyedit/' + id);
-
-        });
-
-    } else {
-        res.redirect('/');
-
-    }
-});
-
 app.get('/story/color/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -1837,6 +1790,54 @@ app.get('/story/color/:id', function (req, res) {
 
     }
 });
+
+app.post('/story/color/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let color_1 = req.body.color1;
+    let color_2 = req.body.color2;
+    let hash = "#";
+
+    if (token) {
+
+        color_1 = hash.concat(color_1);
+        color_2 = hash.concat(color_2);
+
+        console.log("COLOR " + color_2);
+
+        let colors = [color_1, color_2];
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+
+        }).then(function (story) {
+
+            story.set("color", colors);
+
+            return story.save();
+
+        }).then(function () {
+
+            res.redirect('/storyedit/' + id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/storyedit/' + id);
+
+        });
+
+    } else {
+        res.redirect('/');
+
+    }
+});
+
 
 
 
