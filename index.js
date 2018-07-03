@@ -2010,7 +2010,7 @@ app.post('/storyItemDelete/:storyId', function (req, res) {
 
 });
 
-app.get('/storyItemdelete/:id', function (req, res) {
+app.get('/storyItemDelete/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
