@@ -3788,29 +3788,6 @@ app.post('/add_sticker_description/:id', function (req, res) {
 });
 
 
-app.get('/upload_page/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let pack_id = req.params.id;
-
-    if (token) {
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first();
-
-        }).then(function (pack) {
-
-            res.render("pages/upload", {id: pack_id, pack_name: pack.get("pack_name")});
-
-
-        }, function (error) {
-            res.redirect('/');
-        })
-    } else {
-        res.redirect("/");
-    }
-
-});
 
 app.post('/upload_dropbox_file', function (req, res) {
     let bitmap;
@@ -4355,6 +4332,30 @@ app.post('/sticker/edit/:id/:pid', function (req, res) {
         res.redirect("/pack/" + packId);
 
     }
+});
+
+app.get('/uploads/dropbox/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let pack_id = req.params.id;
+
+    if (token) {
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first();
+
+        }).then(function (pack) {
+
+            res.render("pages/upload", {id: pack_id, pack_name: pack.get("pack_name")});
+
+
+        }, function (error) {
+            res.redirect('/');
+        })
+    } else {
+        res.redirect("/");
+    }
+
 });
 
 
