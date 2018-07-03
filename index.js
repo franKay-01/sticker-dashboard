@@ -3371,76 +3371,7 @@ app.post('/pack/review/:id', function (req, res) {
     }
 });
 
-
-/*====================================== PACKS ============================*/
-
-app.get('/publish/:type/:status/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let status = req.params.status;
-    let type = req.params.type;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            switch (type) {
-                case "pack":
-                    return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
-
-                case "story":
-                    return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
-
-            }
-
-        }).then(function (object) {
-
-            if (status === "publish") {
-                object.set("published", true);
-            } else if (status === "unpublish") {
-                object.set("published", false);
-
-            }
-
-            return object.save();
-
-        }).then(function () {
-
-            switch (type) {
-                case "pack":
-                    res.redirect("/pack/" + id);
-                    return;
-
-                case "story":
-                    res.redirect("/storyedit/" + id);
-                    return;
-            }
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-
-            switch (type) {
-                case "pack":
-                    res.redirect("/pack/" + id);
-                    return;
-
-                case "story":
-                    res.redirect("/storyedit/" + id);
-                    return;
-            }
-
-        })
-    } else {
-        res.redirect('/');
-    }
-
-});
-
-
-
-app.get('/send_for_review/:id', function (req, res) {
+app.get('/pack/review/update/status/:id', function (req, res) {
 
     var token = req.cookies.token;
     var pack_id = req.params.id;
@@ -3472,31 +3403,12 @@ app.get('/send_for_review/:id', function (req, res) {
     }
 });
 
-// creating new packs
-
-app.get('/details_update/:id', function (req, res) {
-    let token = req.cookies.token;
-    let id = req.params.id;
-
-    if (token) {
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-
-        });
-    }
-});
-
-
-app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
+app.post('/review/:itemId/:packId/:reviewId', function (req, res) {
 
     let token = req.cookies.token;
-    let id = req.params.id;
-    let pack_ = req.params.pack_id;
-    let review_id = req.params.review_id;
+    let id = req.params.itemId;
+    let pack_ = req.params.packId;
+    let review_id = req.params.reviewId;
     let type = req.body.type;
     let categoryNames = [];
     let all;
@@ -3589,6 +3501,93 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
         res.redirect('/')
     }
 
+});
+
+/*====================================== PACKS ============================*/
+
+app.get('/publish/:type/:status/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let status = req.params.status;
+    let type = req.params.type;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            switch (type) {
+                case "pack":
+                    return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+
+                case "story":
+                    return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+            }
+
+        }).then(function (object) {
+
+            if (status === "publish") {
+                object.set("published", true);
+            } else if (status === "unpublish") {
+                object.set("published", false);
+
+            }
+
+            return object.save();
+
+        }).then(function () {
+
+            switch (type) {
+                case "pack":
+                    res.redirect("/pack/" + id);
+                    return;
+
+                case "story":
+                    res.redirect("/storyedit/" + id);
+                    return;
+            }
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+
+            switch (type) {
+                case "pack":
+                    res.redirect("/pack/" + id);
+                    return;
+
+                case "story":
+                    res.redirect("/storyedit/" + id);
+                    return;
+            }
+
+        })
+    } else {
+        res.redirect('/');
+    }
+
+});
+
+
+
+
+// creating new packs
+
+app.get('/details_update/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+
+        });
+    }
 });
 
 app.post('/account/user/update', upload.array('im1'), function (req, res) {
