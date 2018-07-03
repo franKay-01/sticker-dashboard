@@ -3031,6 +3031,8 @@ app.get('/account/logout', function (req, res) {
     res.redirect("/");
 });
 
+/*====================================== PACKS ============================*/
+
 // Collection Dashboard
 app.get('/packs', function (req, res) {
 
@@ -3061,6 +3063,51 @@ app.get('/packs', function (req, res) {
     }
 });
 
+// creating new pack
+app.post('/pack', function (req, res) {
+
+    var token = req.cookies.token;
+    var pack_description = req.body.pack_description;
+    var coll_name = req.body.coll_name;
+    var pricing = parseInt(req.body.pricing);
+    var version = parseInt(req.body.version);
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            var PackCollection = new Parse.Object.extend(_class.Packs);
+            var pack = new PackCollection();
+            pack.set("pack_name", coll_name);
+            pack.set("pack_description", pack_description);
+            pack.set("user_id", _user.id);
+            pack.set("user_name", _user.get("name"));
+            pack.set("status", type.PACK_STATUS.pending);
+            pack.set("pricing", pricing);
+            pack.set("version", version);
+            pack.set("archive", false);
+            pack.set("flag", false);
+            pack.set("published", false);
+
+            return pack.save();
+
+        }).then(function (collection) {
+
+            res.redirect('/pack/' + collection.id);
+
+        }, function (error) {
+            console.log("ERROR OCCURRED WHEN ADDING NEW PACK " + error.message);
+            console.log('/');
+        })
+    }
+    else {
+        res.redirect("/");
+    }
+});
 
 //Displays all stickers belonging to a selected collection
 app.get('/pack/:id', function (req, res) {
@@ -3147,6 +3194,8 @@ app.get('/pack/:id', function (req, res) {
     }
 });
 
+
+/*====================================== PACKS ============================*/
 
 app.get('/publish/:type/:status/:id', function (req, res) {
 
@@ -3273,50 +3322,6 @@ app.get('/send_for_review/:id', function (req, res) {
 });
 
 // creating new packs
-app.post('/new_pack', function (req, res) {
-
-    var token = req.cookies.token;
-    var pack_description = req.body.pack_description;
-    var coll_name = req.body.coll_name;
-    var pricing = parseInt(req.body.pricing);
-    var version = parseInt(req.body.version);
-
-    if (token) {
-
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            var PackCollection = new Parse.Object.extend(_class.Packs);
-            var pack = new PackCollection();
-            pack.set("pack_name", coll_name);
-            pack.set("pack_description", pack_description);
-            pack.set("user_id", _user.id);
-            pack.set("user_name", _user.get("name"));
-            pack.set("status", type.PACK_STATUS.pending);
-            pack.set("pricing", pricing);
-            pack.set("version", version);
-            pack.set("archive", false);
-            pack.set("flag", false);
-            pack.set("published", false);
-
-            return pack.save();
-
-        }).then(function (collection) {
-
-            res.redirect('/pack/' + collection.id);
-
-        }, function (error) {
-            console.log("ERROR OCCURRED WHEN ADDING NEW PACK " + error.message);
-            console.log('/');
-        })
-    }
-    else {
-        res.redirect("/");
-    }
-});
 
 app.get('/details_update/:id', function (req, res) {
     let token = req.cookies.token;
@@ -4570,8 +4575,6 @@ app.get('/feed/story', function (req, res) {
 /*====================================== FEED ============================*/
 
 
-/*====================================== PACKS ============================*/
-/*====================================== PACKS ============================*/
 
 /*====================================== CATEGORIES ============================*/
 /*====================================== CATEGORIES ============================*/
