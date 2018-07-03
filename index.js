@@ -2266,36 +2266,6 @@ app.get('/storyitem/change/sticker/:storyId/:storyItemId', function (req, res) {
 
 
 
-app.get('/packs_in_review', function (req, res) {
-
-    let token = req.cookies.token;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Packs).equalTo("status", type.PACK_STATUS.review).find();
-
-        }).then(function (pack) {
-
-            res.render("pages/packs_for_admin", {
-
-                collection: pack
-
-            });
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/home');
-
-        });
-
-    } else {
-        res.redirect('/');
-
-    }
-});
 
 app.get('/home', function (req, res) {
 
@@ -2814,7 +2784,7 @@ app.post('/new_category', function (req, res) {
     }
 });
 
-app.post('/review_pack/:id', function (req, res) {
+app.post('/review/pack/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
@@ -2874,7 +2844,7 @@ app.post('/review_pack/:id', function (req, res) {
     }
 });
 
-app.get('/review_details/:id', function (req, res) {
+app.get('/review/edit/:id', function (req, res) {
 
     let token = req.cookies.token;
     let review_id = req.params.id;
@@ -2915,6 +2885,113 @@ app.get('/review_details/:id', function (req, res) {
 
     }
 });
+
+
+app.post('/review/sticker/:stickerId/:packId', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.stickerId;
+    let pack_id = req.params.packId;
+    let field = req.body.review_field;
+    let comments = req.body.review_text;
+    let status = req.body.flagged;
+
+    let review_field = field.split(",");
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+            let Sticker_review = new Parse.Object.extend(_class.Reviews);
+            let reviews = new Sticker_review();
+
+            new Parse.Query(_class.Stickers).equalTo("objectId", id).first().then(function (sticker) {
+                if (status === "2") {
+                    sticker.set("flag", true);
+                } else if (status === "1") {
+                    sticker.set("flag", false);
+                }
+                reviews.set("image", sticker.get("uri").url());
+                reviews.set("name", sticker.get("stickerName"));
+                reviews.set("owner", sticker.get("user_id"));
+
+                let _pack = sticker.get("parent");
+                _pack.fetch({
+                    success: function (_pack) {
+
+                        reviews.set("pack_id", _pack.id);
+
+                    }
+                });
+
+                return sticker.save();
+
+            }).then(function () {
+
+                if (status === "1") {
+                    reviews.set("approved", true);
+                } else if (status === "2") {
+                    reviews.set("approved", false);
+                }
+                reviews.set("comments", comments);
+                reviews.set("reviewer", _user.id);
+                reviews.set("reviewer_name", _user.get("name"));
+                reviews.set("type_id", id);
+                reviews.set("review_field", review_field);
+
+                reviews.set("type", 1);
+                return reviews.save();
+
+            }).then(function () {
+
+                console.log("STICKER REVIEWED");
+                res.redirect("/pack/" + pack_id);
+
+            }, function (error) {
+
+                console.log("STICKER REVIEW FAILED " + error.message);
+                res.redirect("/details/" + id + "/" + pack_id);
+
+            });
+        });
+    } else {
+        res.redirect('/');
+    }
+});
+
+app.get('/review/find/packs', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Packs).equalTo("status", type.PACK_STATUS.review).find();
+
+        }).then(function (pack) {
+
+            res.render("pages/packs_for_admin", {
+
+                collection: pack
+
+            });
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+
+        });
+
+    } else {
+        res.redirect('/');
+
+    }
+});
+
 
 /*====================================== REVIEWS ============================*/
 
@@ -3523,7 +3600,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
 
             }, function (error) {
                 console.log("ERROR " + error.message);
-                res.redirect('/review_details/' + review_id);
+                res.redirect('/review/edit/' + review_id);
             });
         } else {
             getUser(token).then(function (sessionToken) {
@@ -3539,7 +3616,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/review_details/' + review_id);
+                res.redirect('/review/edit/' + review_id);
 
             });
         }
@@ -3583,10 +3660,10 @@ app.post('/update_pack/:id', function (req, res) {
             return pack.save();
 
         }).then(function (result) {
-            res.redirect('/review_details/' + review_id);
+            res.redirect('/review/edit/' + review_id);
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/review_details/' + review_id);
+            res.redirect('/review/edit/' + review_id);
         });
     } else {
         res.redirect('/');
@@ -3838,79 +3915,6 @@ app.post('/account/user/update', upload.array('im1'), function (req, res) {
     }
 });
 
-app.post('/review_sticker/:id/:pack_id', function (req, res) {
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let pack_id = req.params.pack_id;
-    let field = req.body.review_field;
-    let comments = req.body.review_text;
-    let status = req.body.flagged;
-
-    let review_field = field.split(",");
-
-    if (token) {
-
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-            let Sticker_review = new Parse.Object.extend(_class.Reviews);
-            let reviews = new Sticker_review();
-
-            new Parse.Query(_class.Stickers).equalTo("objectId", id).first().then(function (sticker) {
-                if (status === "2") {
-                    sticker.set("flag", true);
-                } else if (status === "1") {
-                    sticker.set("flag", false);
-                }
-                reviews.set("image", sticker.get("uri").url());
-                reviews.set("name", sticker.get("stickerName"));
-                reviews.set("owner", sticker.get("user_id"));
-
-                let _pack = sticker.get("parent");
-                _pack.fetch({
-                    success: function (_pack) {
-
-                        reviews.set("pack_id", _pack.id);
-
-                    }
-                });
-
-                return sticker.save();
-
-            }).then(function () {
-
-                if (status === "1") {
-                    reviews.set("approved", true);
-                } else if (status === "2") {
-                    reviews.set("approved", false);
-                }
-                reviews.set("comments", comments);
-                reviews.set("reviewer", _user.id);
-                reviews.set("reviewer_name", _user.get("name"));
-                reviews.set("type_id", id);
-                reviews.set("review_field", review_field);
-
-                reviews.set("type", 1);
-                return reviews.save();
-
-            }).then(function () {
-
-                console.log("STICKER REVIEWED");
-                res.redirect("/pack/" + pack_id);
-
-            }, function (error) {
-
-                console.log("STICKER REVIEW FAILED " + error.message);
-                res.redirect("/details/" + id + "/" + pack_id);
-
-            });
-        });
-    } else {
-        res.redirect('/');
-    }
-});
 
 app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
     let token = req.cookies.token;
@@ -3992,7 +3996,7 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
             res.redirect('/pack/' + pid);
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/review_details/' + review_id);
+            res.redirect('/review/edit/' + review_id);
         });
     } else {
         res.redirect('/');
