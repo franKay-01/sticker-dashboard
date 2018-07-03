@@ -2183,7 +2183,6 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
 
 });
 
-
 app.post('/storyitem/change/sticker/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -2261,6 +2260,9 @@ app.get('/storyitem/change/sticker/:storyId/:storyItemId', function (req, res) {
         })
     }
 });
+
+
+/*====================================== STORIES ============================*/
 
 
 
@@ -2906,7 +2908,7 @@ app.get('/review_details/:id', function (req, res) {
 
         }, function (error) {
             console.log("ERROR WHEN RETRIEVING REVIEW " + error.message);
-            res.redirect('/review_collection');
+            res.redirect('/reviews');
         });
     } else {
         res.redirect('/');
@@ -2914,7 +2916,9 @@ app.get('/review_details/:id', function (req, res) {
     }
 });
 
-app.get('/review_collection', function (req, res) {
+/*====================================== REVIEWS ============================*/
+
+app.get('/reviews', function (req, res) {
 
     let token = req.cookies.token;
 
@@ -2996,6 +3000,9 @@ app.get('/review/:id', function (req, res) {
         res.redirect('/');
     }
 });
+
+/*====================================== REVIEWS ============================*/
+
 
 app.post('/update_category', function (req, res) {
 
