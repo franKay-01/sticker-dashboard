@@ -523,66 +523,6 @@ app.get('/account/user/profile', function (req, res) {
 /*====================================== ACCOUNTS ============================*/
 
 
-app.post('/new_story', function (req, res) {
-    let token = req.cookies.token;
-    let title = req.body.title;
-    let summary = req.body.summary;
-    let pack_id = req.body.pack_id;
-    let body = req.body.story;
-    let keywords = req.body.keyword;
-    let _keywords = [];
-    let story_id = "";
-    let state = "new";
-
-    if (keywords !== undefined || keywords !== "undefined") {
-        _keywords = keywords.split(",");
-    }
-
-    if (token) {
-
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            let Stories = new Parse.Object.extend(_class.Stories);
-            let story = new Stories();
-
-            story.set("title", title);
-            story.set("summary", summary);
-            story.set("pack_id", pack_id);
-            story.set("keyword", _keywords);
-            // story.set("is_latest_story", false);
-            story.set("published", false);
-            story.set("user_id", _user.id);
-            story.set("status", 0);
-
-            return story.save();
-
-        }).then(function (story) {
-            let Main = new Parse.Object.extend(_class.StoryBody);
-            let main = new Main();
-
-            story_id = story.id;
-            main.set("story_id", story.id);
-            main.set("story", body);
-
-            return main.save();
-
-        }).then(function () {
-
-            res.redirect('/story/' + story_id + '/' + state);
-
-        }, function (error) {
-            console.log("ERROR WHEN CREATING NEW STORY " + error.message);
-            res.redirect('/');
-        });
-    } else {
-        res.redirect('/');
-    }
-
-});
 
 
 /*====================================== ADVERTS ============================*/
@@ -1838,6 +1778,68 @@ app.post('/storyedit/:id', function (req, res) {
 
     }
 });
+
+app.post('/story', function (req, res) {
+    let token = req.cookies.token;
+    let title = req.body.title;
+    let summary = req.body.summary;
+    let pack_id = req.body.pack_id;
+    let body = req.body.story;
+    let keywords = req.body.keyword;
+    let _keywords = [];
+    let story_id = "";
+    let state = "new";
+
+    if (keywords !== undefined || keywords !== "undefined") {
+        _keywords = keywords.split(",");
+    }
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            let Stories = new Parse.Object.extend(_class.Stories);
+            let story = new Stories();
+
+            story.set("title", title);
+            story.set("summary", summary);
+            story.set("pack_id", pack_id);
+            story.set("keyword", _keywords);
+            // story.set("is_latest_story", false);
+            story.set("published", false);
+            story.set("user_id", _user.id);
+            story.set("status", 0);
+
+            return story.save();
+
+        }).then(function (story) {
+            let Main = new Parse.Object.extend(_class.StoryBody);
+            let main = new Main();
+
+            story_id = story.id;
+            main.set("story_id", story.id);
+            main.set("story", body);
+
+            return main.save();
+
+        }).then(function () {
+
+            res.redirect('/story/' + story_id + '/' + state);
+
+        }, function (error) {
+            console.log("ERROR WHEN CREATING NEW STORY " + error.message);
+            res.redirect('/');
+        });
+    } else {
+        res.redirect('/');
+    }
+
+});
+
 
 
 
