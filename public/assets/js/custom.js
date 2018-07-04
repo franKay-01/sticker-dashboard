@@ -390,6 +390,7 @@ $(document).ready(function () {
             $('#pageMask').fadeOut('fast');
             $('#pack_id').fadeOut('fast');
             $('#logo').fadeIn('fast');
+            $('#stickerTable').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
             $('#detailsForm').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
@@ -633,6 +634,7 @@ $(document).ready(function () {
         $('#signoutLink').fadeOut('fast');
         $('#opaqueDiv').fadeOut('fast');
         $('#detailsForm').fadeOut('fast');
+        $('#stickerTable').fadeOut('fast');
 
     });
 
