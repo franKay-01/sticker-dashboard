@@ -478,6 +478,144 @@ app.get('/account/create', function (req, res) {
     res.render("pages/sign_up", {error: message});
 });
 
+
+app.post('/account/user/update', upload.array('im1'), function (req, res) {
+
+    let token = req.cookies.token;
+    let email = req.body.email;
+    let image = req.files;
+    let type = parseInt(req.body.type);
+    let handle = req.body.handles;
+    let profile_info = [];
+    let link_length = [];
+
+    console.log("TYPE " + type + " HNDLE " + handle);
+
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(_class.Profile).equalTo("user_id", _user.id).first();
+
+        }).then(function (profile) {
+
+            if (image) {
+                image.forEach(function (file) {
+
+                    console.log("FILE INFO " + file.path);
+
+                    let fullName = file.originalname;
+
+                    let image_name = fullName.substring(0, fullName.length - 4);
+
+                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                    //create our parse file
+                    let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
+
+                    profile.set("uri", parseFile);
+                    profile.set("email", email);
+                    // sticker.setACL(setPermission(_user, false));
+
+                    profile_info.push(profile);
+                });
+            } else {
+
+                profile.set("email", email);
+                return profile.save()
+
+            }
+
+            return Parse.Object.saveAll(profile_info);
+
+        }).then(function (saved_profile) {
+
+            if (profile_info.length) {
+                _.each(profile_info, function (file) {
+                    //Delete tmp fil after upload
+                    let tempFile = file.path;
+                    fs.unlink(tempFile, function (err) {
+                        if (err) {
+                            //TODO handle error code
+                            console.log("-------Could not del temp" + JSON.stringify(err));
+                        }
+                        else {
+                            console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                        }
+                    });
+                });
+            }
+            return new Parse.Query(_class.Links).equalTo("object_id", _user.id).find();
+
+        }).then(function (links) {
+
+            if (type && handle) {
+                if (links.length !== 0) {
+                    _.each(links, function (_link) {
+
+                        if (_link.get("type") === type) {
+
+                            _link.set("link", handle);
+                            link_length.push(1);
+
+                            return _link.save();
+                        }
+
+                    });
+
+                    if (link_length.length === 0) {
+
+                        let Link = new Parse.Object.extend(_class.Links);
+                        let link = new Link();
+
+                        link.set("object_id", _user.id);
+                        link.set("type", type);
+                        link.set("link", handle);
+
+                        return link.save();
+
+                    }
+
+                } else {
+                    let Link = new Parse.Object.extend(_class.Links);
+                    let link = new Link();
+
+                    link.set("object_id", _user.id);
+                    link.set("type", type);
+                    link.set("link", handle);
+
+                    return link.save();
+                }
+
+
+            } else {
+
+                console.log("TYPE AND HANDLE NOT PRESENT");
+                res.redirect('/account/user/profile');
+
+            }
+
+        }).then(function () {
+
+            res.redirect('/account/user/profile');
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/account/user/profile');
+
+        })
+    } else {
+        res.redirect('/');
+    }
+});
+
+
 app.post('/signup', function (req, res) {
     let name = req.body.name;
     let username = req.body.username;
@@ -3522,194 +3660,6 @@ app.get('/publish/:type/:status/:id', function (req, res) {
 
 });
 
-
-// creating new packs
-
-app.get('/details_update/:id', function (req, res) {
-    let token = req.cookies.token;
-    let id = req.params.id;
-
-    if (token) {
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-
-        });
-    }
-});
-
-app.post('/account/user/update', upload.array('im1'), function (req, res) {
-
-    let token = req.cookies.token;
-    let email = req.body.email;
-    let image = req.files;
-    let type = parseInt(req.body.type);
-    let handle = req.body.handles;
-    let profile_info = [];
-    let link_length = [];
-
-    console.log("TYPE " + type + " HNDLE " + handle);
-
-
-    if (token) {
-
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            return new Parse.Query(_class.Profile).equalTo("user_id", _user.id).first();
-
-        }).then(function (profile) {
-
-            if (image) {
-                image.forEach(function (file) {
-
-                    console.log("FILE INFO " + file.path);
-
-                    let fullName = file.originalname;
-
-                    let image_name = fullName.substring(0, fullName.length - 4);
-
-                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-
-                    //create our parse file
-                    let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
-
-                    profile.set("uri", parseFile);
-                    profile.set("email", email);
-                    // sticker.setACL(setPermission(_user, false));
-
-                    profile_info.push(profile);
-                });
-            } else {
-
-                profile.set("email", email);
-                return profile.save()
-
-            }
-
-            return Parse.Object.saveAll(profile_info);
-
-        }).then(function (saved_profile) {
-
-            if (profile_info.length) {
-                _.each(profile_info, function (file) {
-                    //Delete tmp fil after upload
-                    let tempFile = file.path;
-                    fs.unlink(tempFile, function (err) {
-                        if (err) {
-                            //TODO handle error code
-                            console.log("-------Could not del temp" + JSON.stringify(err));
-                        }
-                        else {
-                            console.log("SUUCCCEESSSSS IN DELTEING TEMP");
-                        }
-                    });
-                });
-            }
-            return new Parse.Query(_class.Links).equalTo("object_id", _user.id).find();
-
-        }).then(function (links) {
-
-            if (type && handle) {
-                if (links.length !== 0) {
-                    _.each(links, function (_link) {
-
-                        if (_link.get("type") === type) {
-
-                            _link.set("link", handle);
-                            link_length.push(1);
-
-                            return _link.save();
-                        }
-
-                    });
-
-                    if (link_length.length === 0) {
-
-                        let Link = new Parse.Object.extend(_class.Links);
-                        let link = new Link();
-
-                        link.set("object_id", _user.id);
-                        link.set("type", type);
-                        link.set("link", handle);
-
-                        return link.save();
-
-                    }
-
-                } else {
-                    let Link = new Parse.Object.extend(_class.Links);
-                    let link = new Link();
-
-                    link.set("object_id", _user.id);
-                    link.set("type", type);
-                    link.set("link", handle);
-
-                    return link.save();
-                }
-
-
-            } else {
-
-                console.log("TYPE AND HANDLE NOT PRESENT");
-                res.redirect('/account/user/profile');
-
-            }
-
-        }).then(function () {
-
-            res.redirect('/account/user/profile');
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/account/user/profile');
-
-        })
-    } else {
-        res.redirect('/');
-    }
-});
-
-app.post('/add_sticker_description/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let stickerId = req.params.id;
-    let description = req.body.description;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first();
-
-        }).then(function (sticker) {
-
-            sticker.set("description", description);
-
-            return sticker.save();
-
-        }).then(function () {
-
-            res.redirect('/home');
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/home');
-
-        })
-    }
-
-});
-
-
 /*====================================== STICKERS ============================*/
 
 // Add Stickers Version 1
@@ -4346,6 +4296,39 @@ app.get('/sticker/delete/:id/:packId', function (req, res) {
     }
 
 });
+
+app.post('/sticker/decsription/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let stickerId = req.params.id;
+    let description = req.body.description;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first();
+
+        }).then(function (sticker) {
+
+            sticker.set("description", description);
+
+            return sticker.save();
+
+        }).then(function () {
+
+            res.redirect('/home');
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+
+        })
+    }
+
+});
+
 
 /*====================================== STICKERS ============================*/
 
