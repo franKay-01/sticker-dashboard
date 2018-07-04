@@ -2615,6 +2615,76 @@ app.post('/category', function (req, res) {
     }
 });
 
+app.post('/category/update', function (req, res) {
+
+    let token = req.cookies.token;
+    let newName = req.body.catname;
+    let currentId = req.body.categoryId;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query("Categories").equalTo("objectId", currentId).first()
+
+        }).then(function (category) {
+
+            category.set("name", newName);
+            return category.save();
+
+        }).then(function () {
+
+            res.redirect("/categories");
+
+        }, function (error) {
+
+            console.error(error);
+            res.redirect("/categories");
+
+        });
+    }
+    else { //no session found
+        res.redirect("/");
+    }
+
+});
+
+app.post('/remove_category', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.body.inputRemoveId;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Categories).equalTo("objectId", id).first();
+
+        }).then(function (category) {
+                category.destroy({
+                    success: function (object) {
+                        console.log("removed" + JSON.stringify(object));
+                        res.redirect("/categories");
+                    },
+                    error: function (error) {
+                        console.log("Could not remove" + error);
+                        res.redirect("/categories");
+
+                    }
+                });
+            },
+            function (error) {
+                console.log("ERROR " + error);
+                res.redirect("/categories");
+
+            });
+    }
+    else { //no session found
+        res.redirect("/");
+    }
+
+});
+
 /*====================================== CATEGORY ============================*/
 
 /*====================================== REVIEWS ============================*/
@@ -2913,77 +2983,6 @@ app.get('/review/find/packs', function (req, res) {
 
 /*====================================== REVIEWS ============================*/
 
-
-app.post('/update_category', function (req, res) {
-
-        let token = req.cookies.token;
-        let newName = req.body.catname;
-        let currentId = req.body.categoryId;
-
-        if (token) {
-
-            getUser(token).then(function (sessionToken) {
-
-                return new Parse.Query("Categories").equalTo("objectId", currentId).first()
-
-            }).then(function (category) {
-
-                category.set("name", newName);
-                return category.save();
-
-            }).then(function () {
-
-                res.redirect("/categories");
-
-            }, function (error) {
-
-                console.error(error);
-                res.redirect("/categories");
-
-            });
-        }
-        else { //no session found
-            res.redirect("/");
-        }
-
-    }
-);
-
-app.post('/remove_category', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.body.inputRemoveId;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Categories).equalTo("objectId", id).first();
-
-        }).then(function (category) {
-                category.destroy({
-                    success: function (object) {
-                        console.log("removed" + JSON.stringify(object));
-                        res.redirect("/categories");
-                    },
-                    error: function (error) {
-                        console.log("Could not remove" + error);
-                        res.redirect("/categories");
-
-                    }
-                });
-            },
-            function (error) {
-                console.log("ERROR " + error);
-                res.redirect("/categories");
-
-            });
-    }
-    else { //no session found
-        res.redirect("/");
-    }
-
-});
 
 /*====================================== PACKS ============================*/
 
@@ -3522,8 +3521,6 @@ app.get('/publish/:type/:status/:id', function (req, res) {
     }
 
 });
-
-
 
 
 // creating new packs
@@ -4562,7 +4559,6 @@ app.get('/feed/story', function (req, res) {
 /*====================================== FEED ============================*/
 
 
-
 /*====================================== CATEGORIES ============================*/
 /*====================================== CATEGORIES ============================*/
 
@@ -4839,9 +4835,6 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 
     }
 });
-
-
-
 
 
 app.get('/get_acl', function (req, res) {
