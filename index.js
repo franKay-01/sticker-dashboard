@@ -2511,6 +2511,9 @@ app.get('/barcode', function (req, res) {
 
 
 // FIND A SPECIFIC CATEGORY
+
+/*====================================== CATEGORY ============================*/
+
 app.post('/find_category', function (req, res) {
 
     let token = req.cookies.token;
@@ -2612,6 +2615,93 @@ app.post('/new_category', function (req, res) {
 
     else {
         res.redirect("/");
+    }
+});
+
+/*====================================== CATEGORY ============================*/
+
+/*====================================== REVIEWS ============================*/
+
+app.get('/reviews', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(_class.Reviews).equalTo('owner', _user.id).find(); // Set our channel
+
+        }).then(function (review) {
+            // res.send(JSON.stringify(review));
+            res.render("pages/review_collection", {reviews: review});
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+
+        });
+    } else {
+        res.redirect('/');
+
+    }
+});
+
+app.get('/review/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let pack_id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Packs);
+
+        }).then(function (pack) {
+
+            pack.get(pack_id, {
+                success: function (pack) {
+                    let pack_name = pack.get("pack_name");
+                    let pack_owner = pack.get("user_name");
+                    let pack_owner_id = pack.get("user_id");
+                    let art = pack.get("art_work");
+                    let pack_id = pack.id;
+                    let _description = pack.get("pack_description");
+
+                    //
+                    // new Parse.Query("User").equalTo("objectId", pack_owner).find().then(function (user) {
+                    //     _owner = user;
+                    //     console.log("ABOUT TO SEARCH FOR USER "+JSON.stringify(_owner));
+                    // }, function (error) {
+                    //     console.log("ERROR "+error.message);
+                    // });
+
+                    res.render("pages/review_page", {
+                        id: pack_id,
+                        packName: pack_name,
+                        owner: pack_owner,
+                        art_work: art,
+                        owner_id: pack_owner_id,
+                        description: _description
+                    });
+                },
+                error: function (error) {
+                    console.log("ERROR " + error.message);
+                    res.redirect('/packs');
+                }
+
+            });
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/packs');
+        });
+    } else {
+        res.redirect('/');
     }
 });
 
@@ -2826,91 +2916,6 @@ app.get('/review/find/packs', function (req, res) {
 
 /*====================================== REVIEWS ============================*/
 
-app.get('/reviews', function (req, res) {
-
-    let token = req.cookies.token;
-
-    if (token) {
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            return new Parse.Query(_class.Reviews).equalTo('owner', _user.id).find(); // Set our channel
-
-        }).then(function (review) {
-            // res.send(JSON.stringify(review));
-            res.render("pages/review_collection", {reviews: review});
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/home');
-
-        });
-    } else {
-        res.redirect('/');
-
-    }
-});
-
-app.get('/review/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let pack_id = req.params.id;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Packs);
-
-        }).then(function (pack) {
-
-            pack.get(pack_id, {
-                success: function (pack) {
-                    let pack_name = pack.get("pack_name");
-                    let pack_owner = pack.get("user_name");
-                    let pack_owner_id = pack.get("user_id");
-                    let art = pack.get("art_work");
-                    let pack_id = pack.id;
-                    let _description = pack.get("pack_description");
-
-                    //
-                    // new Parse.Query("User").equalTo("objectId", pack_owner).find().then(function (user) {
-                    //     _owner = user;
-                    //     console.log("ABOUT TO SEARCH FOR USER "+JSON.stringify(_owner));
-                    // }, function (error) {
-                    //     console.log("ERROR "+error.message);
-                    // });
-
-                    res.render("pages/review_page", {
-                        id: pack_id,
-                        packName: pack_name,
-                        owner: pack_owner,
-                        art_work: art,
-                        owner_id: pack_owner_id,
-                        description: _description
-                    });
-                },
-                error: function (error) {
-                    console.log("ERROR " + error.message);
-                    res.redirect('/packs');
-                }
-
-            });
-        }, function (error) {
-            console.log("ERROR " + error.message);
-            res.redirect('/packs');
-        });
-    } else {
-        res.redirect('/');
-    }
-});
-
-/*====================================== REVIEWS ============================*/
-
 
 app.post('/update_category', function (req, res) {
 
@@ -2946,45 +2951,6 @@ app.post('/update_category', function (req, res) {
 
     }
 );
-
-//This is to remove stickers
-app.get('/delete_sticker/:id/:pid', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let pack_id = req.params.pid;
-
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
-
-        }).then(function (_sticker) {
-                _sticker.destroy({
-                    success: function (object) {
-                        console.log("removed" + JSON.stringify(object));
-                        res.redirect("/pack/" + pack_id);
-                    },
-                    error: function (error) {
-                        console.log("Could not remove" + error);
-                        res.redirect("/pack/" + pack_id);
-
-                    }
-                });
-            },
-            function (error) {
-                console.error(error);
-                res.redirect("/pack/" + pack_id);
-
-            });
-    } else {
-        res.redirect('/');
-    }
-
-});
-
 
 app.post('/remove_category', function (req, res) {
 
@@ -4349,6 +4315,43 @@ app.get('/find/sticker/:name', function (req, res) {
 
 });
 
+//This is to remove stickers
+app.get('/sticker/delete/:id/:packId', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let pack_id = req.params.packId;
+
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
+
+        }).then(function (_sticker) {
+                _sticker.destroy({
+                    success: function (object) {
+                        console.log("removed" + JSON.stringify(object));
+                        res.redirect("/pack/" + pack_id);
+                    },
+                    error: function (error) {
+                        console.log("Could not remove" + error);
+                        res.redirect("/pack/" + pack_id);
+
+                    }
+                });
+            },
+            function (error) {
+                console.error(error);
+                res.redirect("/pack/" + pack_id);
+
+            });
+    } else {
+        res.redirect('/');
+    }
+
+});
 
 /*====================================== STICKERS ============================*/
 
