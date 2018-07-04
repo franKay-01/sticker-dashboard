@@ -825,6 +825,12 @@ label {
     margin-right: 5px;
     margin-top: 5px
 }
+.story_icons{
+    float: left;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 5px
+}
 
 .icons {
     width: 300px !important;

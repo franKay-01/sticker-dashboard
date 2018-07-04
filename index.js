@@ -1818,6 +1818,7 @@ app.get('/storyedit/:id', function (req, res) {
 
     let token = req.cookies.token;
     let story_id = req.params.id;
+    let _latest;
 
     if (token) {
 
@@ -1829,12 +1830,14 @@ app.get('/storyedit/:id', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(_class.Stories).equalTo("objectId", story_id).first(),
-                new Parse.Query(_class.ArtWork).equalTo("object_id", story_id).first()
+                new Parse.Query(_class.ArtWork).equalTo("object_id", story_id).first(),
+                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first()
             );
 
-        }).then(function (story, sticker) {
+        }).then(function (story, sticker, latest) {
 
             _story = story;
+            _latest = latest;
 
             colors = story.get("color");
             if (colors) {
@@ -1852,7 +1855,8 @@ app.get('/storyedit/:id', function (req, res) {
             res.render("pages/story_details", {
                 story: _story,
                 sticker: _sticker,
-                colors: colors
+                colors: colors,
+                latest:_latest
             });
 
         }, function (error) {

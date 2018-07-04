@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pack Collection - G-Stickers</title>
+    <title>Story Details - G-Stickers</title>
 
     <% include ../partials/fav.ejs %>
 
@@ -180,6 +180,15 @@
         </div>
 
         <div class="story_form">
+            <p class="story_icons">
+                STORY OF THE DAY
+                <%if (latest.get("latest_id") === item.id){%>
+                <i class="fa fa-circle" id="circle" style="color: #0f9d58;" aria-hidden="true"></i>
+                <%}else{%>
+                <i class="fa fa-circle" id="circle" style="color: grey;" aria-hidden="true"></i>
+                <%}%>
+            </p>
+
             <a target="_blank" href="/newsletter/story/<%= story.id %>" style="float: right">
                 <button class="create_button add_catalogue" style="background: transparent !important;">
                     <p class="preview"> PREVIEW STORY</p>
