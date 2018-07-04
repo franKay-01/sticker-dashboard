@@ -519,7 +519,11 @@ app.get('/account/user/profile', function (req, res) {
     }
 });
 
-
+//LOGOUT
+app.get('/account/logout', function (req, res) {
+    res.clearCookie('token');
+    res.redirect("/");
+});
 /*====================================== ACCOUNTS ============================*/
 
 
@@ -993,54 +997,6 @@ app.get('/message/send', function (req, res) {
 
 /*====================================== MESSAGES ============================*/
 
-
-
-app.get('/story/:id/:state', function (req, res) {
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let state = req.params.state;
-
-    if (token) {
-
-        let _user = {};
-        let _story = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
-
-        }).then(function (story) {
-
-            _story = story;
-
-            return new Parse.Query(_class.Packs).equalTo("objectId", story.get("pack_id")).first();
-
-        }).then(function (pack) {
-
-            let col = pack.relation(_class.Packs);
-            return col.query().find();
-
-        }).then(function (stickers) {
-
-            res.render("pages/story_artwork", {
-                story: _story.id,
-                stickers: stickers,
-                state: state
-            });
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/');
-
-        });
-    } else {
-        res.redirect('/');
-
-    }
-});
 
 app.get('/edit_story_item/:id/:story_id', function (req, res) {
 
@@ -1540,6 +1496,53 @@ app.post('/story/artwork/add/:id/:state', function (req, res) {
 
             console.log("ERROR " + error.message);
             res.redirect('/story/' + story_id + '/' + state);
+
+        });
+    } else {
+        res.redirect('/');
+
+    }
+});
+
+app.get('/story/artwork/:state/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let state = req.params.state;
+
+    if (token) {
+
+        let _user = {};
+        let _story = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+        }).then(function (story) {
+
+            _story = story;
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", story.get("pack_id")).first();
+
+        }).then(function (pack) {
+
+            let col = pack.relation(_class.Packs);
+            return col.query().find();
+
+        }).then(function (stickers) {
+
+            res.render("pages/story_artwork", {
+                story: _story.id,
+                stickers: stickers,
+                state: state
+            });
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/');
 
         });
     } else {
@@ -3023,12 +3026,6 @@ app.post('/remove_category', function (req, res) {
         res.redirect("/");
     }
 
-});
-
-//LOGOUT
-app.get('/account/logout', function (req, res) {
-    res.clearCookie('token');
-    res.redirect("/");
 });
 
 /*====================================== PACKS ============================*/
