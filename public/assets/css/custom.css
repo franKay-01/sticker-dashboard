@@ -819,6 +819,13 @@ label {
     margin: 0 auto;
 }
 
+.display_icons{
+    float: right;
+    font-size: 15px;
+    margin-right: 5px;
+    margin-top: 5px
+}
+
 .icons {
     width: 300px !important;
     height: 400px !important;
