@@ -1842,6 +1842,8 @@ app.get('/storyedit/:id', function (req, res) {
 
             page = util.page(story, story.id);
 
+            console.log("PAGE " + JSON.stringify(page));
+
             colors = story.get("color");
             if (colors) {
                 colors = story.get("color");
