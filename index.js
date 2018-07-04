@@ -1832,15 +1832,16 @@ app.get('/storyedit/:id', function (req, res) {
             return Parse.Promise.when(
                 new Parse.Query(_class.Stories).equalTo("objectId", story_id).first(),
                 new Parse.Query(_class.ArtWork).equalTo("object_id", story_id).first(),
-                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first()
+                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
+                new Parse.Query(_class.Stories).find()
             );
 
-        }).then(function (story, sticker, latest) {
+        }).then(function (story, sticker, latest, stories) {
 
             _story = story;
             _latest = latest;
 
-            page = util.page(story, story.id);
+            page = util.page(stories, story_id);
 
             console.log("PAGE " + JSON.stringify(page));
 
