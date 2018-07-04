@@ -23,13 +23,17 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
     <script>
+        function storyInfo() {
+            var x = document.getElementById("story_message")
+            x.className = "show";
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        }
+
         $(document).ready(function () {
             document.getElementById("submit_story").onclick = function () {
                 document.getElementById("story_form").submit();
-            }
-
-            function setTextColor(picker) {
-                document.getElementsByTagName('body')[0].style.color = '#' + picker.toString()
             }
         });
 
@@ -170,11 +174,19 @@
                     </p>
                 </button>
 
+                <%if (latest.get("latest_id") === story.id){%>
+                <button class="create_button" onclick="storyInfo()" style="background-color: #f1f1f1 !important;">
+                    <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
+                                                           aria-hidden="true"></i> &nbsp; DELETE
+                    </p>
+                </button>
+                <%} else {%>
                 <button class="create_button" id="remove_story" style="background-color: #f1f1f1 !important;">
                     <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
                                                            aria-hidden="true"></i> &nbsp; DELETE
                     </p>
                 </button>
+                <%}%>
                 <br><br>
                 <center>
                 <span>
@@ -261,6 +273,8 @@
                 </div>
             </form>
         </div>
+        <div id="story_message">Packs need to contain at least 10 stickers to PUBLISH</div>
+
 
         <%- include('../partials/footer') %>
 
