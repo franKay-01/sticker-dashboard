@@ -648,6 +648,7 @@ $(document).ready(function () {
         $('#signoutLink').fadeIn('fast');
         $('#opaqueDiv').fadeIn('fast');
         $('#detailsForm').fadeIn('fast');
+        $('#stickerTable').fadeIn('fast');
     });
 
     //show 'remove-category' form
