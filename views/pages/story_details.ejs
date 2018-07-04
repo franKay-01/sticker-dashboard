@@ -175,6 +175,22 @@
                                                            aria-hidden="true"></i> &nbsp; DELETE
                     </p>
                 </button>
+                <span>
+                    <% if (previous !== ""){ %>
+                    <a style="color: #dd3c36 !important; "
+                       href="/sticker/edit/<%= previous %>/<%= pack_id %>">
+                        <i style="font-size: 6rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                    <% } %>
+                </span>
+                <span>
+                    <% if (next !== ""){ %>
+
+                    <a style="color: #dd3c36 !important;"
+                       href="/sticker/edit/<%= next %>/<%= pack_id %>">
+                        <i style="font-size: 6rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
+
+                    <% } %>
+                </span>
             </div>
 
         </div>

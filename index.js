@@ -1819,6 +1819,7 @@ app.get('/storyedit/:id', function (req, res) {
     let token = req.cookies.token;
     let story_id = req.params.id;
     let _latest;
+    let page;
 
     if (token) {
 
@@ -1839,6 +1840,8 @@ app.get('/storyedit/:id', function (req, res) {
             _story = story;
             _latest = latest;
 
+            page = util.page(story, story.id);
+
             colors = story.get("color");
             if (colors) {
                 colors = story.get("color");
@@ -1856,7 +1859,9 @@ app.get('/storyedit/:id', function (req, res) {
                 story: _story,
                 sticker: _sticker,
                 colors: colors,
-                latest:_latest
+                latest: _latest,
+                next: page.next,
+                previous: page.previous
             });
 
         }, function (error) {
