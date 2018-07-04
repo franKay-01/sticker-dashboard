@@ -2649,7 +2649,7 @@ app.post('/category/update', function (req, res) {
 
 });
 
-app.post('/remove_category', function (req, res) {
+app.post('/category/delete', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.body.inputRemoveId;
