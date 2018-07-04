@@ -189,7 +189,7 @@
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"
                           disabled><%= item.get("content") %></textarea>
-                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Text</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Text</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="0" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview remove_items">
@@ -215,7 +215,7 @@
                 <i class="fa fa-quote-left" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i>
                 <b style="color: #a46580; font-size: 20px"><%= item.get("content") %></b>
                 <i class="fa fa-quote-right" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i><br>
-                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Quote</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Quote</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="2" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change
                     Type/Replace Image</a>
@@ -243,7 +243,7 @@
                 <!--<div class="someCSSClass">fontAwesomeQuote <h2></h2> fontAwesomeQuote</div>-->
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
-                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Italic</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Italic</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="5" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change
                     Type</a>
@@ -255,7 +255,7 @@
                 <% }else if (item.get("type") === 6){ %>
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
-                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit Bold</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Bold</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="6" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview remove_items">
@@ -265,7 +265,7 @@
 
                 <% }else if (item.get("type") === 8){ %>
                 <b style="color: #a46580; font-size: 20px"><i><%= item.get("content") %></i></b><br><br>
-                <a href="/edit_story_item/<%= item.id %>/<%= story_id %>" class="preview">Edit ItalicBold</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit ItalicBold</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview remove_items">

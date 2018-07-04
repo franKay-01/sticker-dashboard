@@ -253,6 +253,157 @@ function setPermission(user, isPublicReadAccess) {
 /*====================================== ACCOUNTS ============================*/
 
 // Home Page
+app.get('/home', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        let _user = {};
+
+        let _allPacks = [];
+        let _story = [];
+        let _collection = [];
+        let _allAds = [];
+        let _categories = [];
+        let _messages = [];
+        let sticker_id;
+        let _latestSticker;
+        let _storyImage;
+        let _storyBody;
+        let _stickerName;
+        let _categoryLength = 0;
+        let _packLength = 0;
+        let _stickerLength = 0;
+        let _storyLength = 0;
+        const limit = 5;
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            if (_user.get("type") === MK_TEAM) {
+                res.redirect('/get_barcode');
+            }
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first(),
+                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
+                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).descending("createdAt").limit(limit).find(),
+                new Parse.Query(_class.Categories).limit(limit).find(),
+                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).descending("createdAt").limit(limit).find(),
+                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find(),
+                new Parse.Query(_class.Categories).count(),
+                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).count(),
+                new Parse.Query(_class.Stickers).equalTo("user_id", _user.id).count(),
+                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).count(),
+                new Parse.Query(_class.Adverts).equalTo("user_id", _user.id).limit(limit).find(),
+                new Parse.Query(_class.Message).limit(limit).find()
+            );
+
+        }).then(function (sticker, latestStory, collection, categories, story, allPacks, categoryLength, packLength,
+                          stickerLength, storyLength, allAdverts, allMessages) {
+
+            _categories = categories;
+            _collection = collection;
+            _story = story;
+            _messages = allMessages;
+            _allPacks = allPacks;
+            _allAds = allAdverts;
+            _categoryLength = helper.leadingZero(categoryLength);
+            _packLength = helper.leadingZero(packLength);
+            _stickerLength = helper.leadingZero(stickerLength);
+            _storyLength = helper.leadingZero(storyLength);
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("latest_id")).first(),
+                new Parse.Query(_class.ArtWork).equalTo("object_id", latestStory.get("latest_id")).first(),
+                new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("latest_id")).first()
+            );
+
+        }).then(function (latestSticker, storyImage, storyBody) {
+
+            _latestSticker = latestSticker.get("uri");
+            _latestSticker['stickerName'] = latestSticker.get("stickerName");
+            _latestSticker['description'] = latestSticker.get("description");
+
+            _storyBody = storyBody;
+
+            sticker_id = storyImage.get("sticker");
+
+            return new Parse.Query(_class.Stickers).equalTo("objectId", sticker_id).first();
+
+        }).then(function (sticker) {
+
+            if (_user.get("type") === NORMAL_USER) {
+
+                res.render("pages/home", {
+                    collections: _collection,
+                    allPacks: _allPacks,
+                    story: _story,
+                    categoryLength: _categoryLength,
+                    packLength: _packLength,
+                    stickerLength: _stickerLength,
+                    storyLength: _storyLength,
+                    name: _user.get("name"),
+                    verified: _user.get("emailVerified"),
+                    error_message: "null"
+
+                });
+
+            } else if (_user.get("type") === SUPER_USER) {
+
+                res.render("pages/admin_home", {
+                    collections: _collection,
+                    categories: _categories,
+                    allAdverts: _allAds,
+                    allPacks: _allPacks,
+                    story: _story,
+                    latestSticker: _latestSticker,
+                    latestStory: sticker,
+                    storyBody: _storyBody,
+                    stickerName: _stickerName,
+                    messages: _messages,
+                    categoryLength: _categoryLength,
+                    packLength: _packLength,
+                    stickerLength: _stickerLength,
+                    storyLength: _storyLength,
+                    user_name: _user.get("name"),
+                    verified: _user.get("emailVerified"),
+                    error_message: "null"
+
+                });
+
+            }
+
+        }, function (error) {
+
+            console.log("ERROR ON HOME " + error.message);
+
+            res.render("pages/admin_home", {
+                collections: _collection,
+                categories: _categories,
+                allAdverts: _allAds,
+                allPacks: _allPacks,
+                story: _story,
+                categoryLength: _categoryLength,
+                packLength: _packLength,
+                stickerLength: _stickerLength,
+                storyLength: _storyLength,
+                user_name: _user.get("name"),
+                verified: _user.get("emailVerified"),
+                error_message: "null"
+            });
+        });
+
+
+    } else {
+        console.log("BACK TO LOGIN ");
+        res.redirect("/");
+    }
+});
+
+// Home Page
 app.get('/', function (req, res) {
 
     let token = req.cookies.token;
@@ -997,36 +1148,6 @@ app.get('/message/send', function (req, res) {
 
 /*====================================== MESSAGES ============================*/
 
-
-app.get('/edit_story_item/:id/:story_id', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let story_id = req.params.story_id;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
-
-        }).then(function (story_item) {
-
-            res.render("pages/edit_story_item", {
-                story_item: story_item,
-                story_id: story_id
-            })
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/story/item/' + story_id);
-        })
-    } else {
-        res.redirect('/');
-    }
-
-});
-
 /*====================================== STORIES ============================*/
 
 app.get('/stories', function (req, res) {
@@ -1230,7 +1351,7 @@ app.post('/storyitem/:id', function (req, res) {
 
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/edit_story_item/' + id + "/" + story_id);
+            res.redirect('/storyitem/edit/' + id + "/" + story_id);
         })
     } else {
         res.redirect('/');
@@ -2234,163 +2355,36 @@ app.get('/storyitem/change/sticker/:storyId/:storyItemId', function (req, res) {
     }
 });
 
-
-/*====================================== STORIES ============================*/
-
-
-
-
-app.get('/home', function (req, res) {
+app.get('/storyitem/edit/:id/:story_id', function (req, res) {
 
     let token = req.cookies.token;
+    let id = req.params.id;
+    let story_id = req.params.story_id;
 
     if (token) {
 
-        let _user = {};
-
-        let _allPacks = [];
-        let _story = [];
-        let _collection = [];
-        let _allAds = [];
-        let _categories = [];
-        let _messages = [];
-        let sticker_id;
-        let _latestSticker;
-        let _storyImage;
-        let _storyBody;
-        let _stickerName;
-        let _categoryLength = 0;
-        let _packLength = 0;
-        let _stickerLength = 0;
-        let _storyLength = 0;
-        const limit = 5;
-
         getUser(token).then(function (sessionToken) {
 
-            _user = sessionToken.get("user");
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
 
-            if (_user.get("type") === MK_TEAM) {
-                res.redirect('/get_barcode');
-            }
+        }).then(function (story_item) {
 
-            return Parse.Promise.when(
-                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first(),
-                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
-                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).descending("createdAt").limit(limit).find(),
-                new Parse.Query(_class.Categories).limit(limit).find(),
-                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).descending("createdAt").limit(limit).find(),
-                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find(),
-                new Parse.Query(_class.Categories).count(),
-                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).count(),
-                new Parse.Query(_class.Stickers).equalTo("user_id", _user.id).count(),
-                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).count(),
-                new Parse.Query(_class.Adverts).equalTo("user_id", _user.id).limit(limit).find(),
-                new Parse.Query(_class.Message).limit(limit).find()
-            );
-
-        }).then(function (sticker, latestStory, collection, categories, story, allPacks, categoryLength, packLength,
-                          stickerLength, storyLength, allAdverts, allMessages) {
-
-            _categories = categories;
-            _collection = collection;
-            _story = story;
-            _messages = allMessages;
-            _allPacks = allPacks;
-            _allAds = allAdverts;
-            _categoryLength = helper.leadingZero(categoryLength);
-            _packLength = helper.leadingZero(packLength);
-            _stickerLength = helper.leadingZero(stickerLength);
-            _storyLength = helper.leadingZero(storyLength);
-
-            return Parse.Promise.when(
-                new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("latest_id")).first(),
-                new Parse.Query(_class.ArtWork).equalTo("object_id", latestStory.get("latest_id")).first(),
-                new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("latest_id")).first()
-            );
-
-        }).then(function (latestSticker, storyImage, storyBody) {
-
-            _latestSticker = latestSticker.get("uri");
-            _latestSticker['stickerName'] = latestSticker.get("stickerName");
-            _latestSticker['description'] = latestSticker.get("description");
-
-            _storyBody = storyBody;
-
-            sticker_id = storyImage.get("sticker");
-
-            return new Parse.Query(_class.Stickers).equalTo("objectId", sticker_id).first();
-
-        }).then(function (sticker) {
-
-            if (_user.get("type") === NORMAL_USER) {
-
-                res.render("pages/home", {
-                    collections: _collection,
-                    allPacks: _allPacks,
-                    story: _story,
-                    categoryLength: _categoryLength,
-                    packLength: _packLength,
-                    stickerLength: _stickerLength,
-                    storyLength: _storyLength,
-                    name: _user.get("name"),
-                    verified: _user.get("emailVerified"),
-                    error_message: "null"
-
-                });
-
-            } else if (_user.get("type") === SUPER_USER) {
-
-                res.render("pages/admin_home", {
-                    collections: _collection,
-                    categories: _categories,
-                    allAdverts: _allAds,
-                    allPacks: _allPacks,
-                    story: _story,
-                    latestSticker: _latestSticker,
-                    latestStory: sticker,
-                    storyBody: _storyBody,
-                    stickerName: _stickerName,
-                    messages: _messages,
-                    categoryLength: _categoryLength,
-                    packLength: _packLength,
-                    stickerLength: _stickerLength,
-                    storyLength: _storyLength,
-                    user_name: _user.get("name"),
-                    verified: _user.get("emailVerified"),
-                    error_message: "null"
-
-                });
-
-            }
-
+            res.render("pages/edit_story_item", {
+                story_item: story_item,
+                story_id: story_id
+            })
         }, function (error) {
 
-            console.log("ERROR ON HOME " + error.message);
-
-            res.render("pages/admin_home", {
-                collections: _collection,
-                categories: _categories,
-                allAdverts: _allAds,
-                allPacks: _allPacks,
-                story: _story,
-                categoryLength: _categoryLength,
-                packLength: _packLength,
-                stickerLength: _stickerLength,
-                storyLength: _storyLength,
-                user_name: _user.get("name"),
-                verified: _user.get("emailVerified"),
-                error_message: "null"
-            });
-        });
-
-
+            console.log("ERROR " + error.message);
+            res.redirect('/story/item/' + story_id);
+        })
     } else {
-        console.log("BACK TO LOGIN ");
-        res.redirect("/");
+        res.redirect('/');
     }
+
 });
 
-//UPLOAD MULTIPLE STICKERS
+/*====================================== STORIES ============================*/
 
 
 /*====================================== BARCODE ============================*/
