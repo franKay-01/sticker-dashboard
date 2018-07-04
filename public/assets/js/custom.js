@@ -635,6 +635,7 @@ $(document).ready(function () {
         $('#opaqueDiv').fadeOut('fast');
         $('#detailsForm').fadeOut('fast');
         $('#stickerTable').fadeOut('fast');
+        $('#foot').fadeOut('fast');
 
     });
 
@@ -649,6 +650,7 @@ $(document).ready(function () {
         $('#opaqueDiv').fadeIn('fast');
         $('#detailsForm').fadeIn('fast');
         $('#stickerTable').fadeIn('fast');
+        $('#foot').fadeIn('fast');
     });
 
     //show 'remove-category' form
