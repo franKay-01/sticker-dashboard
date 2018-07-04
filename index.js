@@ -1301,6 +1301,7 @@ app.get('/stories', function (req, res) {
         let artWork = [];
         let _allArtwork = [];
         let combined = [];
+        let _latest;
 
         getUser(token).then(function (sessionToken) {
 
@@ -1309,15 +1310,17 @@ app.get('/stories', function (req, res) {
             return Parse.Promise.when(
                 new Parse.Query(_class.Stories).equalTo("user_id", _user.id).descending("createdAt").find(),
                 new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find(),
-                new Parse.Query(_class.ArtWork).find()
+                new Parse.Query(_class.ArtWork).find(),
+                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first()
             );
 
 
-        }).then(function (story, allPack, artworks) {
+        }).then(function (story, allPack, artworks, latest) {
 
             _story = story;
             _allPack = allPack;
             _allArtwork = artworks;
+            _latest = latest;
 
             _.each(artworks, function (artwork) {
 
@@ -1346,7 +1349,8 @@ app.get('/stories', function (req, res) {
             res.render("pages/stories", {
                 story: _story,
                 allPacks: _allPack,
-                arts: combined
+                arts: combined,
+                latest: _latest
             })
         }, function (error) {
 
@@ -4540,11 +4544,6 @@ app.get('/feed/story', function (req, res) {
 });
 
 /*====================================== FEED ============================*/
-
-
-/*====================================== CATEGORIES ============================*/
-/*====================================== CATEGORIES ============================*/
-
 
 /*====================================== NEWSLETTER ============================*/
 
