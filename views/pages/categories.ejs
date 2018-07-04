@@ -54,11 +54,12 @@
                     <br>
                 </center>
                 <span>
-        <button type="button" id="btnCancelEditCat" class="cancel">Cancel</button>
-         </span>
-                <span>
         <button type="submit" class="create">Edit</button>
         </span>
+                <span>
+        <button type="button" id="btnCancelEditCat" class="cancel">Cancel</button>
+         </span>
+
             </form>
         </div>
     </div>
@@ -75,11 +76,12 @@
                     <br>
                 </center>
                 <span>
-           <button id="btnCancelRemove" type="button" class="cancel">Cancel</button>
-             </span>
-                <span>
            <button id="btnSaveRemove" type="submit" class="create">Remove</button>
             </span>
+                <span>
+           <button id="btnCancelRemove" type="button" class="cancel">Cancel</button>
+             </span>
+
             </form>
         </div>
     </div>
@@ -97,7 +99,8 @@
 
                     <input type="text" name="category_name[]" id="category_names" hidden required>
                     <br>
-                    <input type="text" class="_pack common_pack_detail" style="margin-bottom: 25px" name="emoji" placeholder="Please Add an EMOJI 😀">
+                    <input type="text" class="_pack common_pack_detail" style="margin-bottom: 25px" name="emoji"
+                           placeholder="Please Add an EMOJI 😀">
                 </center>
 
 
@@ -118,10 +121,12 @@
         <div class="medium-12 large-12" id="searchCategory">
             <form action="/category/find" id="searchBar" method="post">
 
-                <input type="text" class="_pack_2 common_pack_detail validate" style="float: left;" placeholder="Category Name"
+                <input type="text" class="_pack_2 common_pack_detail validate" style="float: left;"
+                       placeholder="Category Name"
                        name="searchCategory" required="" aria-required="true"/>
 
-                <button type="submit" style="background-color: transparent !important;"><i class="fa fa-search search_button"></i></button>
+                <button type="submit" style="background-color: transparent !important;"><i
+                            class="fa fa-search search_button"></i></button>
 
             </form>
         </div>
