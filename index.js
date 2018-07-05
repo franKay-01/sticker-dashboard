@@ -3822,9 +3822,8 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                 console.log("SAVE COLLECTION RELATION");
                 return stickerCollection.save();
 
-            }).then(function (relations) {
+            }).then(function () {
 
-                console.log("RELATION COMPLETED " + JSON.stringify(relations));
                 let data = {
                     //Specify email data
                     from: process.env.EMAIL_FROM || "test@example.com",
