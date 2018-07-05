@@ -2182,6 +2182,14 @@ tr #titles {
     top: 204px;
 }
 
+#hiddenMakeStory{
+    display: none;
+    position: absolute;
+    margin-left: 300px;
+    z-index: 9999;
+    top: 204px;
+}
+
 .remove_story{
     display: none;
     position: absolute;

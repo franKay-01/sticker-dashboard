@@ -31,6 +31,12 @@
             }, 3000);
         }
 
+        function submitStory() {
+
+            document.getElementById("latestStory").submit();
+
+        }
+
         $(document).ready(function () {
             document.getElementById("submit_story").onclick = function () {
                 document.getElementById("story_form").submit();
@@ -55,6 +61,25 @@
             NO
         </a>
         <a href="/story/artwork/change/<%= story.id %>" id="submitChangeArt" class="edit_labels">
+            YES
+        </a>
+
+    </div>
+
+</div>
+
+
+<div id="hiddenMakeStory" class="hidden_forms" style="display: none">
+    <div class="medium-3 large-3 cell create_background">
+        <center>
+            <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">MAKE THIS STORY OF THE DAY?</div>
+        </center>
+        <!--<form id="pack_form" action="/new_catalogue_image/<%#= story_id %>" method="post"-->
+        <br><br>
+        <a href="#" id="btnCloseMakeStory" class="edit_labels" style="margin: 200px !important;">
+            NO
+        </a>
+        <a href="#" id="submitChangeArt" onclick="submitStory()" class="edit_labels">
             YES
         </a>
 
@@ -274,12 +299,13 @@
             </form>
             <% if (latest.get("latest_id") !== story.id){ %>
 
-            <form action="/feeds/story" method="post">
+            <form id="latestStory" action="/feeds/story" method="post">
                 <input type="text" class="story_id" name="element_id" hidden>
-                <button style="background-color: transparent;font-size: 20px;" class="preview story_card" type="submit">Make Story of The Day</button>
+                <button style="background-color: transparent;font-size: 20px;" class="preview storyElement">Make Story of The Day</button>
             </form>
             <% } %>
         </div>
+
         <div id="story_message">THIS STORY IS BEING USED AS STORY OF THE DAY. YOU CAN NOT DELETE IT.</div>
 
 
@@ -297,9 +323,7 @@
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
 <script type="text/javascript">
-    $(".story_card").click(function () {
-        $(".story_id").val($(this).attr("data-id"));
-    });
+
 </script>
 </body>
 </html>

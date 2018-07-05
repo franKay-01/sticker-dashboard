@@ -207,10 +207,10 @@ $(document).ready(function () {
         });
 
         $("#btnSubmitStoryItem").on('click', function () {
-            $( "#type_form" ).submit();
+            $("#type_form").submit();
         });
 
-        $("#btn_cancelChangeType").on('click',function () {
+        $("#btn_cancelChangeType").on('click', function () {
             $("#hiddenChangeType").fadeOut('fast');
             $("#pageMask").fadeOut('fast');
             $("#logo").fadeIn('fast');
@@ -622,6 +622,28 @@ $(document).ready(function () {
         $('#signoutLink').fadeIn('fast');
         $('#opaqueDiv').fadeIn('fast');
         $('#pack_form')[0].reset();
+    });
+
+    $(".storyElement").click(function () {
+        $(".story_id").val($(this).attr("data-id"));
+
+        $('#pageMask').fadeIn('fast');
+        $('#hiddenMakeStory').fadeIn('fast');
+        $('#logo').fadeOut('fast');
+        $('.welcome_post').fadeOut('fast');
+        $('#Welcome').fadeOut('fast');
+        $('#signoutLink').fadeOut('fast');
+        $('#opaqueDiv').fadeOut('fast');
+    });
+
+    $('#btnCloseMakeStory').on('click', function () {
+        $('#pageMask').fadeOut('fast');
+        $('#hiddenChangeArtwork').fadeOut('fast');
+        $('#logo').fadeIn('fast');
+        $('#Welcome').fadeIn('fast');
+        $('.welcome_post').fadeIn('fast');
+        $('#signoutLink').fadeIn('fast');
+        $('#opaqueDiv').fadeIn('fast');
     });
 
     //show deleteForm
