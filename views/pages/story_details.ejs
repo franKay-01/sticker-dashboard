@@ -262,14 +262,14 @@
                                                                                     style="color: #590a5d; font-size: 1.5rem;"
                                                                                     aria-hidden="true"></i></a><br>
                     <a href="/storyitem/view/<%= story.id %>" class="preview">View Story Items</a><br>
-                    <a href="/storymain/<%= story.id %>" class="preview">Edit Main Story</a>
+                    <a href="/storymain/<%= story.id %>" class="preview">Edit Main Story</a><br>
 
                     <%if (latest.get("latest_id") !== story.id){%>
 
                     <form action="/feed/story" method="post">
                         <input type="hidden" class="story_id" name="element_id" value="<%= story.id %>">
-                        <button class="create_button add_catalogue" style="background: transparent !important;">
-                            <a href="#" class="preview">Make Story of The Day</a>
+                        <button type="submit" class="create_button add_catalogue" style="background: transparent !important;">
+                            Make Story of The Day
                         </button>
                     </form>
                     <%}%>
