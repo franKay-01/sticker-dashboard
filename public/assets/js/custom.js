@@ -625,8 +625,6 @@ $(document).ready(function () {
     });
 
     $(".storyElement").click(function () {
-        $(".story_id").val($(this).attr("data-id"));
-
         $('#pageMask').fadeIn('fast');
         $('#hiddenMakeStory').fadeIn('fast');
         $('#logo').fadeOut('fast');
