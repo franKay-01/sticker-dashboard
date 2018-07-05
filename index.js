@@ -3281,7 +3281,7 @@ app.get('/pack/:id', function (req, res) {
             switch (type) {
                 case SUPER_USER:
                     res.render("pages/admin_pack", {
-                        stickers: stickers,
+                        stickers: _stickers,
                         id: pack_id,
                         art: pack_art,
                         published: pack_publish,
@@ -3295,7 +3295,7 @@ app.get('/pack/:id', function (req, res) {
 
                 case NORMAL_USER:
                     res.render("pages/new_pack", {
-                        stickers: stickers,
+                        stickers: _stickers,
                         id: pack_id,
                         pack_name: pack_name,
                         art: pack_art,
