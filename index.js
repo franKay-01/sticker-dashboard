@@ -3814,6 +3814,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                 });
 
                 _.each(stickers, function (sticker) {
+                    console.log("RELATION IS WORKING");
                     let collection_relation = stickerCollection.relation(_class.Packs);
                     collection_relation.add(sticker);
                 });
