@@ -342,6 +342,8 @@ let getMimeType = mimeType => {
         case "image/png" :
             return ".png";
 
+        case "image/gif" :
+            return ".gif";
 
     }
 
