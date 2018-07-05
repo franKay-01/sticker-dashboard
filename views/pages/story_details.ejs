@@ -263,14 +263,6 @@
                                                                                     aria-hidden="true"></i></a><br>
                     <a href="/storyitem/view/<%= story.id %>" class="preview">View Story Items</a><br>
                     <a href="/storymain/<%= story.id %>" class="preview">Edit Main Story</a><br>
-
-                    <% if (latest.get("latest_id") !== story.id){ %>
-
-                    <form action="/feed/story" method="post">
-                        <input type="text" class="story_id" name="element_id" hidden>
-                        <button style="background-color: transparent;font-size: 20px;" class="preview story_card" type="submit">Make Story of The Day</button>
-                    </form>
-                    <% } %>
                     <br><br>
                     <!--<a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">-->
                     <!--Delete<i class="fa fa-trash"-->
@@ -280,6 +272,13 @@
                     <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
                 </div>
             </form>
+            <% if (latest.get("latest_id") !== story.id){ %>
+
+            <form action="/feed/story" method="post">
+                <input type="text" class="story_id" name="element_id" hidden>
+                <button style="background-color: transparent;font-size: 20px;" class="preview story_card" type="submit">Make Story of The Day</button>
+            </form>
+            <% } %>
         </div>
         <div id="story_message">THIS STORY IS BEING USED AS STORY OF THE DAY. YOU CAN NOT DELETE IT.</div>
 
