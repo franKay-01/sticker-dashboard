@@ -4359,7 +4359,7 @@ app.post('/feeds/:type', function (req, res) {
     let type = req.params.type;
     let id = req.body.element_id;
 
-    console.log("FEED TYPE " + type);
+    console.log("FEED TYPE " + type + " ELEMENT " + id);
 
     if (token) {
 
