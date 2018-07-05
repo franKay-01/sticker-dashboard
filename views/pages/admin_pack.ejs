@@ -251,6 +251,24 @@
                 <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #7ed321" aria-hidden="true"></i> &nbsp; PUBLISHED
                 </p>
             </button>
+            <center style="margin-top: 25px;">
+                <span style="padding-right: 125px;">
+                    <% if (previous !== ""){ %>
+                    <a style="color: #a46580 !important; "
+                       href="/pack/<%= previous %>">
+                        <i style="font-size: 3rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                    <% } %>
+                </span>
+                <span style="padding-left: 15px">
+                    <% if (next !== ""){ %>
+
+                    <a style="color: #a46580 !important;"
+                       href="/pack/<%= next %>">
+                        <i style="font-size: 3rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
+
+                    <% } %>
+                </span>
+            </center>
         </div>
 
         <!-- End of card -->

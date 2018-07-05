@@ -3230,7 +3230,8 @@ app.get('/pack/:id', function (req, res) {
         let type;
         let pack_name;
         let pack_status;
-        let artwork;
+        let page;
+        let _stickers;
 
         getUser(token).then(function (sessionToken) {
 
@@ -3267,6 +3268,16 @@ app.get('/pack/:id', function (req, res) {
             }
         }).then(function (stickers) {
 
+            _stickers = stickers;
+
+            return new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find();
+
+
+        }).then(function (packs) {
+
+             page = util.page(packs, pack_id);
+
+
             switch (type) {
                 case SUPER_USER:
                     res.render("pages/admin_pack", {
@@ -3276,7 +3287,9 @@ app.get('/pack/:id', function (req, res) {
                         published: pack_publish,
                         pack_name: pack_name,
                         userType: _user.get("type"),
-                        status: pack_status
+                        status: pack_status,
+                        next: page.next,
+                        previous: page.previous
                     });
                     break;
 
@@ -3287,11 +3300,12 @@ app.get('/pack/:id', function (req, res) {
                         pack_name: pack_name,
                         art: pack_art,
                         published: pack_publish,
-                        status: pack_status
+                        status: pack_status,
+                        next: page.next,
+                        previous: page.previous
                     });
                     break;
             }
-
         }, function (error) {
             console.log("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
             res.redirect("/");
