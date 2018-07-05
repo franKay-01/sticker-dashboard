@@ -4578,7 +4578,6 @@ app.get('/feed/story', function (req, res) {
 
 app.get('/newsletter/story/:storyId', function (req, res) {
 
-    //delete all items in the database
     let storyId = req.params.storyId;
     let _story;
     let colors;
