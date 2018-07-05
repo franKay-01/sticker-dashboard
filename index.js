@@ -3809,7 +3809,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                             console.log("-------Could not del temp" + JSON.stringify(err));
                         }
                         else {
-                            console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                            console.log("SUUCCCEESSSSS IN DELETING TEMP");
                         }
                     });
                 });
@@ -3817,6 +3817,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                 _.each(stickers, function (sticker) {
                     let collection_relation = stickerCollection.relation(_class.Packs);
                     collection_relation.add(sticker);
+                    console.log("COLLECTION RELATION " + JSON.stringify(collection_relation));
                 });
 
                 console.log("SAVE COLLECTION RELATION");
