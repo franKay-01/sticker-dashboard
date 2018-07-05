@@ -11,6 +11,7 @@ const LATEST_STICKER = process.env.LATEST_STICKER;
 const LATEST_STORY = process.env.LATEST_STORY;
 const ADMIN = process.env.ADMIN;
 const DEFAULT_PACK = process.env.DEFAULT_PACK;
+const SERVER_URL = process.env.SERVER_URL.replace('parse', '');
 
 //TODO remove all archived items
 //TODO remove all flagged items
@@ -197,6 +198,7 @@ Parse.Cloud.define("getStory", function (req, res) {
             story.title = _story.get("title");
             story.summary = _story.get("summary");
             story.stickerName = sticker.get("stickerName");
+            story.shareUrl = SERVER_URL + story.id;
 
             if (sticker.get("uri")) {
                 story.stickerUrl = sticker.get("uri").url();
