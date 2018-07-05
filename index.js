@@ -3799,6 +3799,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
 
             }).then(function (stickers) {
 
+                console.log("STICKERS " + JSON.stringify(stickers));
                 _.each(fileDetails, function (file) {
                     //Delete tmp fil after upload
                     let tempFile = file.path;
