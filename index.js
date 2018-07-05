@@ -3822,8 +3822,9 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                 console.log("SAVE COLLECTION RELATION");
                 return stickerCollection.save();
 
-            }).then(function () {
+            }).then(function (relations) {
 
+                console.log("RELATION COMPLETED " + JSON.stringify(relations));
                 let data = {
                     //Specify email data
                     from: process.env.EMAIL_FROM || "test@example.com",
@@ -3854,6 +3855,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                     return sticker
                 });
 
+            return true;
 
             }).then(function (stickers) {
 
