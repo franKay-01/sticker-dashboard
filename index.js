@@ -3743,14 +3743,13 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
             let statsRef = ref.child("/gstickers-e4668");
 
             //TODO implement DRY for thumbnails
-            // util.thumbnail(files).then(previews => {
-            //
-            //     _previews = previews;
+            util.thumbnail(files).then(previews => {
 
-                return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first({sessionToken: token})
+                _previews = previews;
 
-            // })
-            .then(function (collection) {
+                return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first({sessionToken: token});
+
+            }).then(function (collection) {
 
                 stickerCollection = collection;
 
@@ -3767,12 +3766,12 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                     let bitmapPreview;
                     let parseFilePreview = "";
 
-                    // _.map(_previews, preview => {
-                    //     if (stickerName === preview.name) {
-                    //         bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
-                    //         parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
-                    //     }
-                    // });
+                    _.map(_previews, preview => {
+                        if (stickerName === preview.name) {
+                            bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
+                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
+                        }
+                    });
 
 
                     //create our parse file
@@ -3780,7 +3779,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                     sticker.set("stickerName", stickerName);
                     sticker.set("localName", stickerName);
                     sticker.set("uri", parseFile);
-                    // sticker.set("preview", parseFilePreview);
+                    sticker.set("preview", parseFilePreview);
                     sticker.set("user_id", _user.id);
                     sticker.set("parent", collection);
                     sticker.set("description", "");
