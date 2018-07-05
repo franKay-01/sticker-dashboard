@@ -4440,123 +4440,123 @@ app.post('/feed/:type', function (req, res) {
 });
 
 
-app.get('/feed/sticker', function (req, res) {
-
-    let token = req.cookies.token;
-    let _user = {};
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            let query = new Parse.Query(_class.Stickers);
-            query.equalTo("sold", false);
-            query.equalTo("user_id", _user.id);
-            return query.find();
-
-        }).then(function (stickers) {
-
-            res.render("pages/sticker_of_day", {
-                stickers: stickers
-            });
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/home');
-        })
-    } else {
-        res.redirect('/');
-
-    }
-});
-
-app.get('/feed/story', function (req, res) {
-
-    let token = req.cookies.token;
-    let _stories = [];
-    let artWork = [];
-    let _allArtwork = [];
-    let combined = [];
-    let _user = {};
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            return Parse.Promise.when(
-                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).find(),
-                new Parse.Query(_class.ArtWork).find()
-            )
-
-        }).then(function (stories, artworks) {
-
-            _allArtwork = artworks;
-
-            if (_stories) {
-
-                _.each(stories, function (story) {
-                    if (story.get("published") === true) {
-
-                        _stories.push(story);
-
-                    }
-                });
-
-                _.each(artworks, function (artwork) {
-
-                    artWork.push(artwork.get("sticker"));
-
-                });
-
-                return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
-            } else {
-                res.render("pages/story_of_day", {
-
-                    stories: [],
-                    artworks: []
-
-                });
-            }
-
-        }).then(function (stickers) {
-
-            _.each(_allArtwork, function (artworks) {
-
-                _.each(stickers, function (sticker) {
-
-                    if (artworks.get("sticker") === sticker.id) {
-
-                        combined.push({
-                            story: artworks.get("object_id"),
-                            image: sticker.get("uri").url()
-                        });
-                    }
-                })
-            });
-
-            res.render("pages/story_of_day", {
-
-                stories: _stories,
-                artworks: combined
-
-            });
-
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/home');
-        })
-    } else {
-        res.redirect('/');
-
-    }
-});
+// app.get('/feed/sticker', function (req, res) {
+//
+//     let token = req.cookies.token;
+//     let _user = {};
+//
+//     if (token) {
+//
+//         getUser(token).then(function (sessionToken) {
+//
+//             _user = sessionToken.get("user");
+//
+//             let query = new Parse.Query(_class.Stickers);
+//             query.equalTo("sold", false);
+//             query.equalTo("user_id", _user.id);
+//             return query.find();
+//
+//         }).then(function (stickers) {
+//
+//             res.render("pages/sticker_of_day", {
+//                 stickers: stickers
+//             });
+//
+//         }, function (error) {
+//
+//             console.log("ERROR " + error.message);
+//             res.redirect('/home');
+//         })
+//     } else {
+//         res.redirect('/');
+//
+//     }
+// });
+//
+// app.get('/feed/story', function (req, res) {
+//
+//     let token = req.cookies.token;
+//     let _stories = [];
+//     let artWork = [];
+//     let _allArtwork = [];
+//     let combined = [];
+//     let _user = {};
+//
+//     if (token) {
+//
+//         getUser(token).then(function (sessionToken) {
+//
+//             _user = sessionToken.get("user");
+//
+//             return Parse.Promise.when(
+//                 new Parse.Query(_class.Stories).equalTo("user_id", _user.id).find(),
+//                 new Parse.Query(_class.ArtWork).find()
+//             )
+//
+//         }).then(function (stories, artworks) {
+//
+//             _allArtwork = artworks;
+//
+//             if (_stories) {
+//
+//                 _.each(stories, function (story) {
+//                     if (story.get("published") === true) {
+//
+//                         _stories.push(story);
+//
+//                     }
+//                 });
+//
+//                 _.each(artworks, function (artwork) {
+//
+//                     artWork.push(artwork.get("sticker"));
+//
+//                 });
+//
+//                 return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
+//             } else {
+//                 res.render("pages/story_of_day", {
+//
+//                     stories: [],
+//                     artworks: []
+//
+//                 });
+//             }
+//
+//         }).then(function (stickers) {
+//
+//             _.each(_allArtwork, function (artworks) {
+//
+//                 _.each(stickers, function (sticker) {
+//
+//                     if (artworks.get("sticker") === sticker.id) {
+//
+//                         combined.push({
+//                             story: artworks.get("object_id"),
+//                             image: sticker.get("uri").url()
+//                         });
+//                     }
+//                 })
+//             });
+//
+//             res.render("pages/story_of_day", {
+//
+//                 stories: _stories,
+//                 artworks: combined
+//
+//             });
+//
+//
+//         }, function (error) {
+//
+//             console.log("ERROR " + error.message);
+//             res.redirect('/home');
+//         })
+//     } else {
+//         res.redirect('/');
+//
+//     }
+// });
 
 /*====================================== FEED ============================*/
 
