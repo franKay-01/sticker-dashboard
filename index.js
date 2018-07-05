@@ -3837,7 +3837,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
 
                 mailgun.messages().send(data, function (error, body) {
                     if (error) {
-                        console.log("BIG BIG ERROR: ", error.message);
+                        console.log("BIG BIG ERROR: "+ error.message);
                     }
                     else {
 
