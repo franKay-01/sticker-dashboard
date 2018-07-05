@@ -3724,7 +3724,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
     let files = req.files;
     let fileDetails = [];
     let stickerDetails = [];
-    let stickerCollection;
+    let stickerCollection = {};
     let _previews = [];
 
     if (token) {
@@ -3815,7 +3815,6 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                 });
 
                 _.each(stickers, function (sticker) {
-                    console.log("RELATION IS WORKING " + JSON.stringify(sticker));
                     let collection_relation = stickerCollection.relation(_class.Packs);
                     collection_relation.add(sticker);
                 });
