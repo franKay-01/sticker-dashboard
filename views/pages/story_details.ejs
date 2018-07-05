@@ -35,6 +35,10 @@
             document.getElementById("submit_story").onclick = function () {
                 document.getElementById("story_form").submit();
             }
+
+            document.getElementById("feed").onclick = function () {
+                document.getElementById("feedForm").submit();
+            }
         });
 
     </script>
@@ -174,19 +178,19 @@
                     </p>
                 </button>
 
-                <%if (latest.get("latest_id") === story.id){%>
+                <% if (latest.get("latest_id") === story.id){ %>
                 <button class="create_button" onclick="storyInfo()" style="background-color: #f1f1f1 !important;">
                     <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
                                                            aria-hidden="true"></i> &nbsp; DELETE
                     </p>
                 </button>
-                <%} else {%>
+                <% } else { %>
                 <button class="create_button" id="remove_story" style="background-color: #f1f1f1 !important;">
                     <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
                                                            aria-hidden="true"></i> &nbsp; DELETE
                     </p>
                 </button>
-                <%}%>
+                <% } %>
 
                 <center style="margin-top: 25px;">
                 <span style="padding-right: 125px;">
@@ -196,15 +200,15 @@
                         <i style="font-size: 3rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
                     <% } %>
                 </span>
-                <span style="padding-left: 15px">
-                    <% if (next !== ""){ %>
+                    <span style="padding-left: 15px">
+                        <% if (next !== ""){ %>
 
-                    <a style="color: #a46580 !important;"
-                       href="/storyedit/<%= next %>">
+                        <a style="color: #a46580 !important;"
+                           href="/storyedit/<%= next %>">
                         <i style="font-size: 3rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
 
-                    <% } %>
-                </span>
+                        <% } %>
+                    </span>
                 </center>
 
             </div>
@@ -214,11 +218,11 @@
         <div class="story_form">
             <p class="story_icons">
                 STORY OF THE DAY
-                <%if (latest.get("latest_id") === story.id){%>
+                <% if (latest.get("latest_id") === story.id){ %>
                 <i class="fa fa-circle" id="circle" style="color: #0f9d58;" aria-hidden="true"></i>
-                <%}else{%>
+                <% }else{ %>
                 <i class="fa fa-circle" id="circle" style="color: grey;" aria-hidden="true"></i>
-                <%}%>
+                <% } %>
             </p>
 
             <a target="_blank" href="/newsletter/story/<%= story.id %>" style="float: right">
@@ -264,20 +268,18 @@
                     <a href="/storyitem/view/<%= story.id %>" class="preview">View Story Items</a><br>
                     <a href="/storymain/<%= story.id %>" class="preview">Edit Main Story</a><br>
 
-                    <%if (latest.get("latest_id") !== story.id){%>
+                    <% if (latest.get("latest_id") !== story.id){ %>
 
-                    <form action="/feed/story" method="post">
+                    <form action="/feed/story" method="post" id="feedForm">
                         <input type="hidden" class="story_id" name="element_id" value="<%= story.id %>">
-                        <button type="submit" class="create_button add_catalogue" style="background: transparent !important;">
-                            Make Story of The Day
-                        </button>
+                        <a href="#" id="feed" class="preview">Make Story of The Day</a><br>
                     </form>
-                    <%}%>
+                    <% } %>
                     <br><br>
                     <!--<a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">-->
-                        <!--Delete<i class="fa fa-trash"-->
-                                 <!--style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"-->
-                                 <!--aria-hidden="true"></i>-->
+                    <!--Delete<i class="fa fa-trash"-->
+                    <!--style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"-->
+                    <!--aria-hidden="true"></i>-->
                     <!--</a>-->
                     <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
                 </div>
