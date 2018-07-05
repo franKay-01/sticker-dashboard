@@ -270,9 +270,9 @@
 
                     <% if (latest.get("latest_id") !== story.id){ %>
 
-                    <form action="/feed/story" method="post" id="feed_form">
-                        <input type="text" class="story_id" name="element_id" value="<%= story.id %>" hidden>
-                        <button class="update" type="submit">Make Story of The Day</button>
+                    <form action="/feed/story" method="post">
+                        <input type="text" class="story_id" name="element_id" hidden>
+                        <button class="update story_card" type="submit">Make Story of The Day</button>
 
                         <!--<a href="#" id="feed" class="preview">Make Story of The Day</a><br>-->
                     </form>
@@ -303,7 +303,10 @@
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
+<script type="text/javascript">
+    $(".story_card").click(function () {
+        $(".story_id").val($(this).attr("data-id"));
+    });
+</script>
 </body>
-
-
 </html>
