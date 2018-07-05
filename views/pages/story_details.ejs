@@ -297,7 +297,7 @@
                     <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
                 </div>
             </form>
-            <% if (latest.get("latest_id") !== story.id){ %>
+            <% if (latest.get("latest_id") !== story.id && story.get("published") === true){ %>
 
             <form id="latestStory" action="/feeds/story" method="post">
                 <input type="text" class="story_id" name="element_id" value="<%= story.id %>" hidden>
