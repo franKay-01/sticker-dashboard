@@ -88,11 +88,29 @@
         <div class="medium-12 large-12 cell" style="margin-top: 30px">
             <center>
                 <a href="/pack/<%= pack_id %>" class="cancel_btn">Back</a>
+
+                <% if (latest.get("latest_id") === story.id){ %>
+                <button type="button" class="cancel_btn delbtn" onclick="stickerInfo()">
+                    Delete
+                </button>
+                <% } else { %>
                 <button type="button" class="cancel_btn delbtn" data-id="<%= sticker.id %>"
                         value="<%= sticker.get("name") %>">Delete
                 </button>
+                <% } %>
+
+
                 <button class="update" type="submit">Update</button>
             </center>
         </div>
     </div>
 </form>
+<script>
+    function stickerInfo() {
+        var x = document.getElementById("sticker_message")
+        x.className = "show";
+        setTimeout(function () {
+            x.className = x.className.replace("show", "");
+        }, 3000);
+    }
+</script>

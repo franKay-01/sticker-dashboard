@@ -158,6 +158,29 @@ label {
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
+#sticker_message {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -165px;
+    background-color: #a71010;
+    color: #ecdcdc;
+    text-align: center;
+    border-radius: 25px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    opacity: 0.8;
+    font-size: 17px;
+}
+
+
+#sticker_message.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
 #pack_message.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;

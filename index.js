@@ -3270,12 +3270,11 @@ app.get('/pack/:id', function (req, res) {
 
             _stickers = stickers;
 
-            return new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find();
-
+                return new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find();
 
         }).then(function (packs) {
 
-             page = util.page(packs, pack_id);
+            page = util.page(packs, pack_id);
 
 
             switch (type) {
@@ -3289,7 +3288,7 @@ app.get('/pack/:id', function (req, res) {
                         userType: _user.get("type"),
                         status: pack_status,
                         next: page.next,
-                        previous: page.previous
+                        previous: page.previous,
                     });
                     break;
 
@@ -3302,7 +3301,7 @@ app.get('/pack/:id', function (req, res) {
                         published: pack_publish,
                         status: pack_status,
                         next: page.next,
-                        previous: page.previous
+                        previous: page.previous,
                     });
                     break;
             }
@@ -3977,6 +3976,7 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
     let _categories;
     let selectedCategories;
     let _pack = [];
+    let _latest;
 
     if (token) {
         let _user = {};
@@ -3988,14 +3988,18 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
             return Parse.Promise.when(
                 new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first(),
                 new Parse.Query(_class.Categories).ascending("name").find(),
-                new Parse.Query(_class.Packs).equalTo("objectId", packId).first()
+                new Parse.Query(_class.Packs).equalTo("objectId", packId).first(),
+                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first()
+
             );
 
-        }).then(function (sticker, categories, pack) {
+        }).then(function (sticker, categories, pack, latest) {
 
                 _sticker = sticker;
                 _categories = categories;
                 _pack = pack;
+                _latest = latest;
+
                 selectedCategories = sticker.get("categories");
 
                 console.log("SELECTED " + selectedCategories);
@@ -4061,7 +4065,8 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
                 next: page.next,
                 previous: page.previous,
                 // uri: url,
-                id: stickerId
+                id: stickerId,
+                latest: _latest
             });
 
         }, function (err) {
