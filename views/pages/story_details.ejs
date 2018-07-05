@@ -37,7 +37,7 @@
             }
 
             document.getElementById("feed").onclick = function () {
-                document.getElementById("feedForm").submit();
+                document.getElementById("feed_form").submit();
             }
         });
 
@@ -270,7 +270,7 @@
 
                     <% if (latest.get("latest_id") !== story.id){ %>
 
-                    <form action="/feed/story" method="post" id="feedForm">
+                    <form action="/feed/story" method="post" id="feed_form">
                         <input type="text" class="story_id" name="element_id" value="<%= story.id %>" hidden>
                         <a href="#" id="feed" class="preview">Make Story of The Day</a><br>
                     </form>
