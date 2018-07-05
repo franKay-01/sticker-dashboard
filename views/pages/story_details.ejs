@@ -271,7 +271,7 @@
                     <% if (latest.get("latest_id") !== story.id){ %>
 
                     <form action="/feed/story" method="post" id="feedForm">
-                        <input type="hidden" class="story_id" name="element_id" value="<%= story.id %>">
+                        <input type="text" class="story_id" name="element_id" value="<%= story.id %>" hidden>
                         <a href="#" id="feed" class="preview">Make Story of The Day</a><br>
                     </form>
                     <% } %>
