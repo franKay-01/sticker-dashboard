@@ -35,10 +35,6 @@
             document.getElementById("submit_story").onclick = function () {
                 document.getElementById("story_form").submit();
             }
-
-            document.getElementById("feed").onclick = function () {
-                document.getElementById("feed_form").submit();
-            }
         });
 
     </script>
@@ -272,9 +268,7 @@
 
                     <form action="/feed/story" method="post">
                         <input type="text" class="story_id" name="element_id" hidden>
-                        <button class="update story_card" type="submit">Make Story of The Day</button>
-
-                        <!--<a href="#" id="feed" class="preview">Make Story of The Day</a><br>-->
+                        <button style="background-color: transparent;font-size: 20px;" class="preview story_card" type="submit">Make Story of The Day</button>
                     </form>
                     <% } %>
                     <br><br>
