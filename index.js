@@ -3761,7 +3761,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                     let fullName = file.originalname;
                     let stickerName = fullName.substring(0, fullName.length - 4);
 
-                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'}, file.mimetype);
+                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
                     let bitmapPreview;
                     let parseFilePreview = "";
