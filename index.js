@@ -416,7 +416,7 @@ app.get('/', function (req, res) {
 
     //utility render__ function to appending appId and serverURL
     const render__ = (_stickers, _error) => {
-        res.render("pages/login",
+        res.render("pages/accounts/login",
             {
                 stickers: _stickers,
                 appId: process.env.APP_ID,
@@ -481,7 +481,7 @@ app.get('/', function (req, res) {
 
 app.get('/account/create', function (req, res) {
     let message = "";
-    res.render("pages/sign_up", {error: message});
+    res.render("pages/accounts/sign_up", {error: message});
 });
 
 
@@ -661,7 +661,7 @@ app.post('/signup', function (req, res) {
             // Show the error message somewhere and let the user try again.
             let message = "SignUp was unsuccessful. " + error.message;
             console.log("SignUp was unsuccessful. " + JSON.stringify(error));
-            res.render("pages/sign_up", {error: message});
+            res.render("pages/accounts/sign_up", {error: message});
         }
     });
 
@@ -669,7 +669,7 @@ app.post('/signup', function (req, res) {
 });
 
 app.get('/account/password/forgot', function (req, res) {
-    res.render("pages/forgot_password");
+    res.render("pages/accounts/forgot_password");
 });
 
 
@@ -680,7 +680,7 @@ app.post('/account/password/reset', function (req, res) {
         success: function () {
             // Password reset request was sent successfully
             console.log("EMAIL was sent successfully");
-            res.render("pages/password_reset_info");
+            res.render("pages/accounts/password_reset_info");
         },
         error: function (error) {
             // Show the error message somewhere
@@ -797,7 +797,7 @@ app.get('/account/user/profile', function (req, res) {
 
         }).then(function (links) {
 
-            res.render("pages/profile", {
+            res.render("pages/accounts/profile", {
                 username: _user.get("name"),
                 email: _user.get("username"),
                 profile: _profile,
