@@ -4170,7 +4170,7 @@ app.get('/uploads/dropbox/:id', function (req, res) {
 
         }).then(function (pack) {
 
-            res.render("pages/upload", {id: pack_id, pack_name: pack.get("pack_name")});
+            res.render("pages/stickers/upload", {id: pack_id, pack_name: pack.get("pack_name")});
 
 
         }, function (error) {
@@ -4826,7 +4826,7 @@ app.get("/test_upload/:id", function (req, res) {
 
         }).then(function (pack) {
 
-            res.render("pages/testupload", {id: pack.id, pack_name: pack.get("pack_name")});
+            res.render("pages/stickers/testupload", {id: pack.id, pack_name: pack.get("pack_name")});
 
         })
     }
