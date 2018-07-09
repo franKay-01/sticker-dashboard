@@ -4479,7 +4479,7 @@ app.get('/feed/sticker', function (req, res) {
 
         }).then(function (stickers) {
 
-            res.render("pages/sticker_of_day", {
+            res.render("pages/stickers/sticker_of_day", {
                 stickers: stickers
             });
 
