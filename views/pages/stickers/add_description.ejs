@@ -79,12 +79,10 @@
                     <!--if new img has been uploaded, set value to true-->
                     <label class="update_label">Description:</label><br>
                     <input placeholder="Sticker Description" class="box_2" name="description"
-                           style="width: 100%; margin-bottom: 25px;" value="<%= sticker.get("description") %>"/>
+                           style="width: 100%; margin-bottom: 25px;" value="<%= sticker.get("description") %>" required/>
                 </div>
                 <div class="medium-12 large-12 cell" style="margin-top: 30px">
                     <center>
-                        <a href="/home" class="cancel_btn">Back Home</a>
-
                         <button class="update" type="submit">Update</button>
                     </center>
                 </div>
