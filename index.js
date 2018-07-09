@@ -4617,7 +4617,7 @@ app.get('/newsletter/story/:storyId', function (req, res) {
 
     }).then(function (sticker, storyItems) {
 
-        res.render("pages/newsletter", {
+        res.render("pages/newsletter/newsletter", {
             story: _story,
             sticker: sticker,
             colors: colors,
@@ -4637,7 +4637,7 @@ app.post('/newsletter/email', function (req, res) {
 
     function subscriptionTemplate(id) {
 
-        let file = fs.readFileSync('./views/pages/newsletter_email.ejs', 'ascii');
+        let file = fs.readFileSync('./views/pages/newsletter/newsletter_email.ejs', 'ascii');
 
         return ejs.render(file, {id: id, serverURL: SERVER_URL});
     }
@@ -4655,7 +4655,7 @@ app.post('/newsletter/email', function (req, res) {
 
                 } else if (newsletter.get("subscribe") === true) {
 
-                    res.render("pages/newsletter_already_subscribed");
+                    res.render("pages/newsletter/newsletter_already_subscribed");
 
                 }
             } else {
@@ -4704,7 +4704,7 @@ app.post('/newsletter/email', function (req, res) {
                 }
             });
 
-            res.render("pages/newsletter_subscribe");
+            res.render("pages/newsletter/newsletter_subscribe");
 
         }, function (error) {
 
@@ -4729,7 +4729,7 @@ app.get('/newsletter/update/:id', function (req, res) {
     }).then(function () {
 
         // TODO display type of update before changing subscription to true
-        res.render("pages/newsletter_updates");
+        res.render("pages/newsletter/newsletter_updates");
 
     }, function (error) {
 
@@ -4778,7 +4778,7 @@ app.get('/newsletter/send/story', function (req, res) {
 
         });
 
-        let file = fs.readFileSync('./views/pages/newsletter_story.ejs', 'ascii');
+        let file = fs.readFileSync('./views/pages/newsletter/newsletter_story.ejs', 'ascii');
 
         return ejs.render(file, {
             story: _story,
