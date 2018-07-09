@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pack Collection - G-Stickers</title>
+
+    <% include ../partials/fav.ejs %>
+
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
+    <script>
+
+        function addcolor() {
+            let color_1 = document.getElementById("color_value").value;
+            let color_2 = document.getElementById("color_value_1").value;
+            let hash = "#";
+
+            color_1 = hash.concat(color_1);
+            color_2 = hash.concat(color_2);
+
+            let img = document.getElementById("image");
+
+            img.style.backgroundImage = 'linear-gradient(' + color_1 + ',' + color_2 + ')';
+
+        }
+
+    </script>
+</head>
+
+<body class="primary-background-color">
+<div class="grid-container">
+    <!-- Logo -->
+    <div class="medium-12 large-12" id="logo">
+        <a href="/home">
+            <img src="/public/assets/images/G_logo.png"
+                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
+        </a>
+        <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
+
+    </div>
+
+    <!-- End of logo -->
+    <span class="medium-6 large-6 welcome_post"><b>Edit Story Details</b></span>
+
+    <div class="grid-x grid-margin-x story">
+        <div class="medium-3 large-3 cell login_card">
+            <div class="card_head_position">
+                <div class="stats">Menu</div>
+                <div><a class="_stickers" href="/home">Home</a></div>
+                <div><a class="_categories" href="/packs">Packs</a></div>
+                <div><a class="_stickers_packs" href="/reviews">Reviews</a></div>
+                <div><a class="_stickers_packs" href="/stories">Stories</a></div>
+                <div><a class="_stickers_packs" href="/categories">Categories</a></div>
+                <div><a class="_stickers_packs" href="/adverts">Adverts</a></div>
+
+            </div>
+        </div>
+        <form class="medium-3 large-3 cell icons" id="story_color" action="/story/color/<%= story.id %>"
+              method="post">
+            <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
+            <div class="create_new">First Color</div>
+
+            <div style="margin:0 15px auto;">
+                <input name="color1" type="hidden" id="color_value"
+                       value="<%= colors[0] %>">
+                <button id="color_button" class="jscolor {valueElement: 'color_value'}"></button>
+            </div>
+            <div class="create_new">Second Color</div>
+
+            <div style=" margin:0px 15px auto;">
+                <input name="color2" type="hidden" id="color_value_1" value="<%= colors[1] %>">
+                <button id="color_button" class="jscolor {valueElement: 'color_value_1'}"></button>
+            </div>
+
+            <button type="button" class="check_color add_catalogue" onclick="addcolor()"
+                    style="background: transparent !important;">
+                <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Change Color</p>
+            </button>
+
+            <button class="submit_color" type="submit"><i class="fa fa-circle size" aria-hidden="true"></i>Submit
+                Changes
+            </button>
+
+        </form>
+
+        <div id="image" class="medium-3 large-3 cell icons"
+             style="background-image: linear-gradient(to bottom, <%= colors[0] %>, <%= colors[1] %>);">
+
+            <img class="gbeja_notxt" src="<%= sticker.get("uri").url() %>" width="200px" height="200px">
+            <div style="color: #ffffff !important;font-weight: 800 !important;"
+                 class="story_summary truncate_summary"> <%= story.get("title") %></div>
+
+        </div>
+
+
+        <%- include('../partials/footer') %>
+
+    </div>
+</div>
+
+<!-- Body -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js"></script>
+<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+</body>
+
+
+</html>

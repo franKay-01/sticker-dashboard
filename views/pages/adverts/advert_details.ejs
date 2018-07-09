@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sticker Details - G-Stickers</title>
+
+    <% include ../partials/fav.ejs %>
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('select').material_select();
+
+            $(".addImage").on("click", function (evt) {
+                $(".adverts").trigger("click");
+            });
+
+            $("#adverts").change(function () {
+
+                var input = document.getElementById('adverts');
+                var output = document.getElementById('selectedFiles');
+
+                $('.heading').show();
+
+                output.innerHTML = '<ul>';
+                for (var i = 0; i < input.files.length; ++i) {
+                    output.innerHTML += '<li>' + "FILE NAME: " + '<b style="color: #a46580">' + input.files.item(i).name + '<b>' + '</li>';
+                }
+                output.innerHTML += '</ul>';
+            });
+
+        });
+    </script>
+</head>
+
+<body class="primary-background-color">
+<div class="grid-container">
+    <!-- Logo -->
+    <div class="medium-12 large-12">
+        <a href="/home">
+            <img src="/public/assets/images/G_logo.png"
+                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
+                 id="logo">
+        </a>
+        <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
+
+    </div>
+    <% if (advertMessage !== ""){ %>
+    <div class="medium-12 large-12 error_card" id="error_card" style="display: block">
+        <div style="text-align: center;font-size: 20px;">
+            <%= advertMessage %>
+        </div>
+    </div>
+    <% } %>
+    <div id="pageMask"></div>
+
+    <div id="hiddenAddAdvertLinks" hidden>
+        <div class="medium-3 large-3 cell create_background">
+            <div class="edit_labels medium-12 large-12">ADD ADVERT IMAGE</div>
+
+            <form id="pack_form" action="/update/advert/link/<%= ad_details.id %>" method="post">
+                <center>
+                <label class="update_label" style="color: white !important;margin-left: 140px;">Select
+                    Platform:</label>
+                <div style="width: 450px !important;">
+                    <select name="type" required="">
+                        <option value="" disabled selected>Choose your platform</option>
+                        <option value="0">Android</option>
+                        <option value="1">IOS</option>
+                        <option value="2">Web</option>
+                    </select>
+                </div>
+                <label class="update_label" style="color: white !important;margin-left: 140px;">Link:</label>
+                <input placeholder="https://google.com/ads"
+                       name="link" class="_pack common_pack_detail validate" required>
+                </center>
+
+                <span>
+                    <button type="submit" id="categoryBtn" class="create">CREATE</button>
+                </span>
+                <span>
+                    <button type="button" id="btn_cancelAdLink" class="cancel">Cancel</button>
+                </span>
+            </form>
+
+        </div>
+    </div>
+
+    <div id="hiddenAddAdvertImageForm" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <div class="edit_labels medium-12 large-12">ADD ADVERT IMAGE</div>
+
+
+            <form id="pack_form" action="/advert/image/<%= ad_details.id %>" method="post"
+                  enctype="multipart/form-data">
+                <!--<div style="width: 200px !important;">-->
+                <div>
+
+                    <center>
+
+                        <button type="button" style="color: white" class="advert_image addImage"><i
+                                    class="fa fa-camera-retro"></i> Add Image
+                        </button>
+                        <input type="file" name="adverts" class="adverts" id="adverts" style="display: none"
+                               required/><br><br>
+
+                        <div style="color: whitesmoke" class="heading medium-12 large-12" hidden>You are adding the
+                            following images as Advert Images:
+                        </div>
+                        <div id="selectedFiles" class="medium-12 large-12"></div>
+                    </center>
+
+
+                </div>
+                <span>
+
+        <button type="submit" id="categoryBtn" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btn_cancelAdImage" class="cancel">Cancel</button>
+         </span>
+            </form>
+        </div>
+    </div>
+    <center>
+        <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Edit <i
+                        style="color: #a46580"><%= ad_details.get("title") %></i> Ad</b></span>
+    </center>
+
+    <!--End of logo-->
+    <div class="grid-x grid-margin-x">
+
+        <div class="medium-3 large-3 cell login_card">
+            <div class="card_head_position">
+                <div class="stats">Menu</div>
+                <div><a class="_stickers" href="/home">Home</a></div>
+                <div><a class="_categories" href="/packs">Packs</a></div>
+                <div><a class="_stickers_packs" href="/reviews">Reviews</a></div>
+                <div><a class="_stickers_packs" href="/stories">Stories</a></div>
+                <div><a class="_stickers_packs" href="/categories">Categories</a></div>
+                <div><a class="_stickers_packs" href="/adverts">Adverts</a></div>
+
+            </div>
+        </div>
+        <% include ../partials/advert_details %>
+    </div>
+</div>
+</body>
+
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>-->
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js"></script>
+<script type="text/javascript" src="/public/assets/js/fileup.js"></script>
+<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+</html>

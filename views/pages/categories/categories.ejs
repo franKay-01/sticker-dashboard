@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Categories - G-Stickers</title>
+
+    <% include ../partials/fav.ejs %>
+
+    <style>
+        @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+    </style>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="/public/assets/js/custom.js"></script>
+    <script src="/public/assets/js/tag.js"></script>
+
+
+</head>
+<body class="primary-background-color">
+<div class="grid-container">
+    <!-- Logo -->
+    <div class="medium-12 large-12">
+        <a href="/home">
+            <img src="/public/assets/images/G_logo.png"
+                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
+                 id="logo">
+        </a>
+        <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
+    </div>
+    <!-- End of logo-->
+    <div id="pageMask"></div>
+    <!-- Hidden form to edit category-->
+    <div id="hiddenEditForm" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <form id="pack_form" action="/category/update" method="post">
+                <center>
+                    <div class="edit_labels medium-12 large-12">EDIT CATEGORY</div>
+                    Rename category:<input type="text" name="catname" class="_pack common_pack_detail" id="categoryName"
+                                           autofocus onfocus="this.value = this.value;"/>
+                    <input type="hidden" name="categoryId" id="categoryId"/>
+                    <br>
+                </center>
+                <span>
+        <button type="submit" class="create">Edit</button>
+        </span>
+                <span>
+        <button type="button" id="btnCancelEditCat" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+    <!-- End of form-->
+
+    <!-- Hidden form to remove category-->
+    <div id="hiddenRemoveCategory" style="display: none;">
+        <div class="medium-3 large-3 cell create_background">
+            <form id="pack_form" action="/category/delete" method="post">
+                <center>
+                    <div class="edit_labels medium-12 large-12">REMOVE CATEGORY</div>
+                    <input type="text" class="_pack common_pack_detail" disabled name="catnameD" id="catNameRemove"/>
+                    <input type="hidden" name="inputRemoveId" id="inputRemoveId">
+                    <br>
+                </center>
+                <span>
+           <button id="btnSaveRemove" type="submit" class="create">Remove</button>
+            </span>
+                <span>
+           <button id="btnCancelRemove" type="button" class="cancel">Cancel</button>
+             </span>
+
+            </form>
+        </div>
+    </div>
+    <!-- End of form-->
+
+    <!-- Hidden form to add category-->
+    <div id="hiddenAddCatForm" style="display: none">
+        <div class="medium-3 large-3 cell create_background" style="height: 340px !important;">
+            <div class="edit_labels medium-12 large-12">CREATE NEW CATEGORY</div>
+
+            <form id="pack_form" action="/category" method="post">
+                <center>
+                    <label>Please type the category name and press enter to set it</label>
+                    <div class="chips _pack common_pack_detail"></div>
+
+                    <input type="text" name="category_name[]" id="category_names" hidden required>
+                    <br>
+                    <input type="text" class="_pack common_pack_detail" style="margin-bottom: 25px" name="emoji"
+                           placeholder="Please Add an EMOJI 😀">
+                </center>
+
+
+                <span>
+        <button type="submit" id="categoryBtn" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btn_cancelAddCat" class="cancel">Cancel</button>
+         </span>
+            </form>
+        </div>
+    </div>
+    <!-- End of form-->
+    <span class="medium-6 large-6 welcome_post" id="Welcome"><b>Categories</b></span>
+
+    <div class="grid-x grid-margin-x" id="opaqueDiv">
+        <!-- Card to display navigation property-->
+        <div class="medium-12 large-12" id="searchCategory">
+            <form action="/category/find" id="searchBar" method="post">
+
+                <input type="text" class="_pack_2 common_pack_detail validate" style="float: left;"
+                       placeholder="Category Name"
+                       name="searchCategory" required="" aria-required="true"/>
+
+                <button type="submit" style="background-color: transparent !important;"><i
+                            class="fa fa-search search_button"></i></button>
+
+            </form>
+        </div>
+        <div class="medium-3 large-3 cell login_card">
+            <div class="card_head_position">
+                <div class="stats">Menu</div>
+                <div><a class="_stickers" href="/home">Home</a></div>
+                <div><a class="_categories" href="/packs">Packs</a></div>
+                <div><a class="_stickers_packs" href="/reviews">Reviews</a></div>
+                <div><a class="_stickers_packs" href="/stories">Stories</a></div>
+                <div><a class="_stickers_packs" href="/categories">Categories</a></div>
+                <div><a class="_stickers_packs" href="/adverts">Adverts</a></div>
+
+            </div>
+        </div>
+        <!-- End of card-->
+
+        <!-- Card to add new category-->
+        <div class="medium-3 large-3 cell icons" id="btnAddCategory">
+            <img class="_pack_icon" src="/public/assets/images/icon-category.png">
+            <div class="add_category_label">
+                ADD CATEGORY
+            </div>
+        </div>
+        <!-- End of card-->
+        <% include ../partials/categories %>
+    </div>
+</div>
+</body>
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
+<!-- Compiled and minified JavaScript -->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>-->
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js"></script>
+<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+</html>

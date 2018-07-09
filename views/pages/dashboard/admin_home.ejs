@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home - G-Stickers</title>
+
+    <% include ../partials/fav.ejs %>
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+
+    <style>
+        @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+    </style>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="/public/assets/js/custom.js"></script>
+    <script src="/public/assets/js/tag.js"></script>
+
+</head>
+
+<body class="primary-background-color">
+<% if (verified === "false") { %>
+<div class="medium-12 large-12">
+    <div class="verifiy_account">
+        <center>
+            Please verify your account. Click the <br> link proved in your email.
+        </center>
+    </div>
+</div>
+<% } %>
+<div class="grid-container">
+    <!-- Logo-->
+    <div class="medium-12 large-12">
+        <a href="/home">
+            <img src="/public/assets/images/G_logo.png"
+                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
+                 id="logo">
+        </a>
+        <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
+    </div>
+    <!-- End of logo-->
+    <div id="pageMask"></div>
+
+    <!-- Start of hidden form -->
+    <div id="hiddenAddCatForm" style="display: none">
+        <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
+            <div class="edit_labels medium-12 large-12">CREATE NEW CATEGORY</div>
+
+
+            <form id="pack_form" action="/category" method="post">
+                <center>
+                    <label>Please type the category name and press enter to set it</label>
+
+                    <div class="chips _pack common_pack_detail"></div>
+
+                    <input type="text" name="category_name[]" id="category_names" required hidden>
+                    <br>
+                    <input type="text" class="_pack common_pack_detail" style="margin-bottom: 25px" name="emoji"
+                           placeholder="Please Add an EMOJI 😀">
+
+                </center>
+                <span>
+        <button type="submit" id="categoryBtn" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btn_cancelAddCat" class="cancel">Cancel</button>
+         </span>
+            </form>
+        </div>
+    </div>
+
+    <div id="hiddenAddStoryForm" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW STORY
+                </div>
+            </center>
+            <form id="pack_form" action="/story" method="post">
+                <center>
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Story Title"
+                           name="title" required="" aria-required="true"><br>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Story Summary"
+                              name="summary" required="" aria-required="true"></textarea><br>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Story"
+                              name="story" required="" aria-required="true"></textarea><br>
+                    <br>
+                    <label for="keyword"> Seperate Tags with comma (,)</label>
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Smile,Angry,Sad"
+                           id="keyword"
+                           name="keyword" required="" aria-required="true">
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate" name="pack_id" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Add Pack</option>
+                            <% if (locals.allPacks) { %>
+                            <% if (allPacks.length === 0) { %>
+
+                            <% } else { %>
+                            <% allPacks.forEach(function(items) { %>
+                            <option value="<%= items.id %>"><%= items.get("pack_name") %></option>
+                            <% }) %>
+                            <% } %>
+                            <% } %>
+                        </select>
+                    </div>
+
+                    <br>
+                </center>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseStory" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+
+    </div>
+
+    <div id="hiddenAddAdvertForm" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW ADVERT</div>
+            </center>
+            <form id="pack_form" action="/advert" method="post">
+                <center>
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Advert Title"
+                           name="title" required="" aria-required="true"><br>
+                    <input class="_pack common_pack_detail validate" placeholder="Description"
+                           name="description" required="" aria-required="true">
+                    <br>
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate" name="action" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Add Action Button</option>
+                            <option value="FIND OUT MORE">FIND OUT MORE</option>
+                            <option value="INSTALL NOW">INSTALL NOW</option>
+                            <option value="FREE">FREE</option>
+                            <option value="FREE DOWNLOAD">FREE DOWNLOAD</option>
+                            <option value="DOWNLOAD">DOWNLOAD</option>
+                            <option value="DONWNLOAD NOW">DOWNLOAD NOW</option>
+                            <option value="BUY">BUY</option>
+                            <option value="BUY NOW">BUY NOW</option>
+                            <option value="PURCHASE">PURCHASE</option>
+                            <option value="PLAY">PLAY</option>
+                            <option value="PLAY NOW">PLAY NOW</option>
+
+                        </select>
+                    </div>
+                </center>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" class="cancel btnCloseAd">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+
+    </div>
+
+    <div id="hiddenCreateForm">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW PACK</div>
+            </center>
+            <form id="pack_form" action="/pack" method="post">
+                <center>
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Pack name"
+                           name="coll_name" required="" aria-required="true"><br>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Pack description"
+                              name="pack_description" required="" aria-required="true"></textarea><br>
+                    <input type="number" class="_pack common_pack_detail validate" placeholder="Pack Version"
+                           name="version" required="" aria-required="true"><br>
+
+                    <div style="margin-bottom: 10px">
+                        <input name="pricing" type="radio" id="pricing1" value="0"/>
+                        <label for="pricing1" class="_label">Free</label>
+
+                        <input name="pricing" type="radio" id="pricing2" value="1"/>
+                        <label for="pricing2" class="_label">Paid</label>
+
+                        <input name="pricing" type="radio" id="pricing3" value="2"/>
+                        <label for="pricing3" class="_label">Free/Paid</label>
+                    </div>
+                    <br>
+                </center>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCancel" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+    <!-- End of hidden form -->
+    <%if (error_message !== "null") {%>
+    <div class="medium-12 large-12 error_card" id="error_card" style="display: block">
+        <div style="text-align: center;font-size: 20px;">
+            <%= error_message %>
+        </div>
+    </div>
+    <%}%>
+    <span class="medium-12 large-12 welcome_post" id="Welcome"><b>Welcome <a href="/account/user/profile"
+                                                                             style="font-size: 45px;color: #af627f;"> <%= user_name %> </a></b></span>
+    <div class="grid-x grid-margin-x" id="opaqueDiv">
+        <!-- Card to display Stats of the database-->
+        <div class="medium-3 large-3 cell login_card">
+            <div class="card_head_position">
+                <div class="stats">Stats</div>
+                <div class="_stickers"><%= stickerLength %> Stickers</div>
+                <div class="_stickers_packs"><%= packLength %> Packs</div>
+                <div class="_categories"><%= categoryLength %> Categories</div>
+            </div>
+        </div>
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">Create New</div>
+            <button id="showCreateForm" class="create_button">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; Sticker Pack</p>
+            </button>
+            <button id="btnAddStory" class="create_button">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Story</p>
+            </button>
+            <button id="btnAddCategory" class="create_button">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Category</p>
+            </button>
+
+            <button id="btnAddAdverts" class="create_button">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Adverts</p>
+            </button>
+            <br>
+
+        </div>
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">Update</div>
+            <a href="/feed/sticker">
+                <button class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; Sticker of the Day
+                    </p>
+                </button>
+            </a>
+            <a href="/feed/story">
+                <button class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Story of the Day</p>
+                </button>
+            </a>
+            <a href="/review/find/packs">
+                <button class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Packs in Review</p>
+                </button>
+            </a>
+            <a href="#">
+                <button class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Stories in Review</p>
+                </button>
+            </a>
+            <br>
+
+        </div>
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">Sticker Packs</div>
+
+            <div class="card_head_position">
+                <div class="recent_labels">Recent Sticker Packs</div>
+                <%- include('../partials/home_pack') %>
+            </div>
+            <a href="/reviews">
+                <button class="create_button review_tab_bottom">
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;REVIEWS</p>
+                </button>
+            </a>
+        </div>
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">Stories</div>
+
+            <div class="card_head_position">
+                <div class="recent_labels">Recent Stories</div>
+                <%- include('../partials/story_titles') %>
+            </div>
+
+            <a href="/review_colelction">
+                <button class="create_button review_tab_bottom">
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;REVIEWS</p>
+                </button>
+            </a>
+        </div>
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">Categories</div>
+
+            <div class="card_head_position">
+                <div class="recent_labels">Recent Categories</div>
+
+                <%- include('../partials/home_category') %>
+            </div>
+        </div>
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">Adverts</div>
+
+            <div class="card_head_position">
+                <div class="recent_labels">Recent Adverts</div>
+                <%- include('../partials/adverts') %>
+            </div>
+        </div>
+        <!-- End of card-->
+        <% if (locals.latestStory){ %>
+        <div class="medium-3 large-3 cell icons">
+            <!--<center>-->
+            <div class="title_of_the_day">Story of the Day</div>
+            <!--</center>-->
+            <a class="_stickers_packs" href="/feed/story">
+                <center>
+                    <img src="<%= latestStory.get("uri").url() %>" width="200px" height="200px">
+                </center>
+                <div>
+                    <div class="story_title truncate_story_title"><%= storyBody.get("title") %></div>
+                    <div class="story_summary truncate_summary"> <%= storyBody.get("summary") %></div>
+                </div>
+            </a>
+
+        </div>
+
+        <% } %>
+
+        <% if (locals.latestSticker){ %>
+        <div class="medium-3 large-3 cell icons">
+            <div class="title_of_the_day">Sticker of the Day</div>
+            <a class="_stickers_packs" href="/feed/sticker">
+                <center>
+                    <img src="<%= latestSticker.url() %>" width="200px" height="200px">
+                </center>
+                <!--<div class="name_tag"><p class="pack_name_text"><%#= latestSticker.stickerName %></p></div>-->
+                <div style="text-align: center !important;" class="story_title truncate_story_title"><%= latestSticker.stickerName %></div>
+                <div class="story_summary truncate_summary"> <%= latestSticker.description %></div>
+            </a>
+
+        </div>
+
+        <% } %>
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">Messages</div>
+
+            <div class="card_head_position">
+                <div class="recent_labels">Recent Messages</div>
+                <%- include('../partials/recent_messages') %>
+            </div>
+        </div>
+
+
+        <div class="medium-12 large-12 cell">
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+</div>
+
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>-->
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js">
+</script>
+<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+
+</body>
+</html>
