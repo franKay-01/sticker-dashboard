@@ -3123,7 +3123,7 @@ app.get('/review/find/packs', function (req, res) {
 
         }).then(function (pack) {
 
-            res.render("pages/packs_for_admin", {
+            res.render("pages/packs/packs_for_admin", {
 
                 collection: pack
 
@@ -3162,7 +3162,7 @@ app.get('/packs', function (req, res) {
             let query = new Parse.Query(_class.Packs);
             query.equalTo("user_id", _user.id).find({sessionToken: token}).then(function (collections) {
 
-                res.render("pages/packs", {collections: collections});
+                res.render("pages/packs/packs", {collections: collections});
 
             });
 
@@ -3285,7 +3285,7 @@ app.get('/pack/:id', function (req, res) {
 
             switch (type) {
                 case SUPER_USER:
-                    res.render("pages/admin_pack", {
+                    res.render("pages/packs/admin_pack", {
                         stickers: _stickers,
                         id: pack_id,
                         art: pack_art,
@@ -3299,7 +3299,7 @@ app.get('/pack/:id', function (req, res) {
                     break;
 
                 case NORMAL_USER:
-                    res.render("pages/new_pack", {
+                    res.render("pages/packs/new_pack", {
                         stickers: _stickers,
                         id: pack_id,
                         pack_name: pack_name,
@@ -3335,7 +3335,7 @@ app.get('/pack/edit/:id', function (req, res) {
 
         }).then(function (pack) {
 
-            res.render("pages/pack_details", {
+            res.render("pages/packs/pack_details", {
                 pack_details: pack
             });
 
@@ -3616,7 +3616,7 @@ app.post('/review/:itemId/:packId/:reviewId', function (req, res) {
 
             }).then(function (pack) {
 
-                res.render("pages/edit_pack", {pack: pack, review_id: review_id});
+                res.render("pages/packs/edit_pack", {pack: pack, review_id: review_id});
 
             }, function (error) {
 

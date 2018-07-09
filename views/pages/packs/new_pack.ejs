@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pack Collection - G-Stickers</title>
 
-    <% include ../partials/fav.ejs %>
+    <% include ../../partials/fav.ejs %>
 
     <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
 
@@ -65,8 +65,8 @@
             <a class="dropbox_upload" href="/uploads/dropbox/<%= id %>">Dropbox Upload</a>
         </div>
     <!-- End of card -->
-        <% include ../partials/sticker_cards %>
-        <%- include('../partials/footer') %>
+        <% include ../../partials/sticker_cards %>
+        <%- include('../../partials/footer') %>
         <div id="toast_message">When Uploading ensure there's stable connection.<br>
             If after uploading you can't see the images, just give it time..</div>
     </div>

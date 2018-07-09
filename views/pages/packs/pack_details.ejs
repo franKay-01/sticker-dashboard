@@ -4,26 +4,26 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Packs - G-Stickers</title>
+    <title>Pack Details - G-Stickers</title>
 
-    <% include ../partials/fav.ejs %>
-
+    <% include ../../partials/fav.ejs %>
     <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
 
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <!-- Latest compiled and minified CSS -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-
+    <script type = "text/javascript"
+            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 </head>
 
 <body class="primary-background-color">
-
 <div class="grid-container">
-    <!-- Logo -->
     <div class="medium-12 large-12">
         <a href="/home">
             <img src="/public/assets/images/G_logo.png"
@@ -33,40 +33,19 @@
         <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
 
     </div>
-    <!-- End of logo-->
     <div id="pageMask"></div>
+    <center>
+        <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Edit <i style="color: #a46580"><%= pack_details.get("pack_name") %></i> Pack</b></span>
+    </center>
 
-    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Review of Packs & Stickers</b></span>
+    <% include ../../partials/pack_details %>
 
-    <div class="grid-x grid-margin-x" id="opaqueDiv">
-        <div class="medium-3 large-3 cell login_card">
-            <div class="card_head_position">
-                <div class="stats">Menu</div>
-                <div><a class="_stickers" href="/home">Home</a></div>
-                <div><a class="_categories" href="/packs">Packs</a></div>
-                <div><a class="_stickers_packs" href="/reviews">Reviews</a></div>
-                <div><a class="_stickers_packs" href="/stories">Stories</a></div>
-
-
-            </div>
-        </div>
-
-        <%- include('../partials/packs_for_admin') %>
-
-        <%- include('../partials/footer') %>
-    </div>
 </div>
-
-<!-- Body -->
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+</body>
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>-->
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
+<script type="text/javascript" src="/public/assets/js/fileup.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
-
-</body>
-
-
 </html>
