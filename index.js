@@ -3706,7 +3706,7 @@ app.get('/uploads/computer/:id', function (req, res) {
 
         }).then(function (pack) {
 
-            res.render("pages/add_sticker", {id: pack.id, pack_name: pack.get("pack_name")});
+            res.render("pages/stickers/add_sticker", {id: pack.id, pack_name: pack.get("pack_name")});
 
         }, function (error) {
             res.redirect("/");
