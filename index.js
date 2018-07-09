@@ -3585,7 +3585,7 @@ app.post('/review/:itemId/:packId/:reviewId', function (req, res) {
                     }
                 }
 
-                res.render("pages/edit_sticker", {
+                res.render("pages/stickers/edit_sticker", {
                     sticker: stickerDetail,
                     categoryNames: categoryNames,
                     categories: allCategories,
@@ -4059,7 +4059,7 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
 
             let page = util.page(stickers, stickerId);
 
-            res.render("pages/sticker_details", {
+            res.render("pages/stickers/sticker_details", {
                 sticker: _sticker,
                 selected: selectedCategories,
                 categories: _categories,
@@ -4432,7 +4432,7 @@ app.post('/feeds/:type', function (req, res) {
         }).then(function (sticker) {
 
             if (sticker.get("description") === "" || sticker.get("description") === undefined) {
-                res.render("pages/add_description", {
+                res.render("pages/stickers/add_description", {
                     sticker: sticker
                 })
             } else {
