@@ -1352,7 +1352,7 @@ app.get('/stories', function (req, res) {
                 })
             });
 
-            res.render("pages/stories", {
+            res.render("pages/stories/stories", {
                 story: _story,
                 allPacks: _allPack,
                 arts: combined,
@@ -1384,7 +1384,7 @@ app.get('/storyitem/:id', function (req, res) {
 
         }).then(function (story) {
 
-            res.render("pages/story_catalogue", {
+            res.render("pages/stories/story_catalogue", {
 
                 story_id: story.id,
                 name: story.get("title")
@@ -1459,7 +1459,7 @@ app.get('/storyitem/view/:id', function (req, res) {
 
             }
 
-            res.render("pages/story_items", {
+            res.render("pages/stories/story_items", {
 
                 story_item: _storyItem,
                 story_id: id,
@@ -1534,7 +1534,7 @@ app.post('/storyitem/sticker/:id', function (req, res) {
 
         }).then(function (stickers) {
 
-            res.render("pages/catalogue_sticker", {
+            res.render("pages/stories/catalogue_sticker", {
                 story: _story.id,
                 stickers: stickers
             });
@@ -1802,7 +1802,7 @@ app.get('/story/artwork/:state/:id', function (req, res) {
 
         }).then(function (stickers) {
 
-            res.render("pages/story_artwork", {
+            res.render("pages/stories/story_artwork", {
                 story: _story.id,
                 stickers: stickers,
                 state: state
@@ -1866,7 +1866,7 @@ app.get('/storyedit/:id', function (req, res) {
 
         }).then(function (_sticker) {
 
-            res.render("pages/story_details", {
+            res.render("pages/stories/story_details", {
                 story: _story,
                 sticker: _sticker,
                 colors: colors,
@@ -2106,7 +2106,7 @@ app.get('/storymain/:id', function (req, res) {
 
         }).then(function (storyBody, story) {
 
-            res.render("pages/story_page", {
+            res.render("pages/stories/story_page", {
                 story: storyBody,
                 title: story.get("title")
             });
@@ -2506,7 +2506,7 @@ app.get('/storyitem/change/sticker/:storyId/:storyItemId', function (req, res) {
 
         }).then(function (stickers) {
 
-            res.render("pages/change_catalogue_sticker", {
+            res.render("pages/stories/change_catalogue_sticker", {
                 storyItemId: storyItemId,
                 stickers: stickers
             });
@@ -2531,7 +2531,7 @@ app.get('/storyitem/edit/:id/:story_id', function (req, res) {
 
         }).then(function (story_item) {
 
-            res.render("pages/edit_story_item", {
+            res.render("pages/stories/edit_story_item", {
                 story_item: story_item,
                 story_id: story_id
             })
@@ -4542,7 +4542,7 @@ app.get('/feed/story', function (req, res) {
 
                 return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
             } else {
-                res.render("pages/story_of_day", {
+                res.render("pages/stories/story_of_day", {
 
                     stories: [],
                     artworks: []
@@ -4566,7 +4566,7 @@ app.get('/feed/story', function (req, res) {
                 })
             });
 
-            res.render("pages/story_of_day", {
+            res.render("pages/stories/story_of_day", {
 
                 stories: _stories,
                 artworks: combined
