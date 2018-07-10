@@ -1861,7 +1861,13 @@ app.get('/storyedit/:id', function (req, res) {
                 colors = type.DEFAULT.color;
             }
 
-            return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("sticker")).first();
+            if (sticker){
+
+                return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("sticker")).first();
+
+            }else {
+                return "";
+            }
 
 
         }).then(function (_sticker) {
@@ -1940,7 +1946,7 @@ app.post('/story', function (req, res) {
     let body = req.body.story;
     let keywords = req.body.keyword;
     let _keywords = [];
-    let story_id = "";
+    let story_id;
     let story_array = [];
     let newObject = {};
 
