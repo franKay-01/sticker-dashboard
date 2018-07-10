@@ -1764,7 +1764,7 @@ app.post('/story/artwork/add/:id/:state', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story/' + story_id + '/' + state);
+            res.redirect('/story/' + story_id);
 
         });
     } else {
@@ -1993,7 +1993,7 @@ app.post('/story', function (req, res) {
 
         }).then(function (main) {
 
-            res.redirect('/storyedit/' + main.get("story_id"));
+            res.redirect('/story/artwork/new/' + main.get("story_id"));
 
         }, function (error) {
             console.log("ERROR WHEN CREATING NEW STORY " + error.message);
