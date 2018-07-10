@@ -1941,7 +1941,6 @@ app.post('/story', function (req, res) {
     let keywords = req.body.keyword;
     let _keywords = [];
     let story_id = "";
-    let state = "new";
     let story_array = [];
     let newObject = {};
 
@@ -1988,7 +1987,7 @@ app.post('/story', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/story/' + story_id + '/' + state);
+            res.redirect('/storyedit/' + story_id);
 
         }, function (error) {
             console.log("ERROR WHEN CREATING NEW STORY " + error.message);
