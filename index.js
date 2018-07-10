@@ -1943,6 +1943,7 @@ app.post('/story', function (req, res) {
     let story_id = "";
     let state = "new";
     let story_array = [];
+    let newObject = {};
 
     if (keywords !== undefined || keywords !== "undefined") {
         _keywords = keywords.split(",");
@@ -1957,6 +1958,8 @@ app.post('/story', function (req, res) {
             _user = sessionToken.get("user");
             story_array.push(title,summary);
 
+            newObject = util.arrayToObject(story_array);
+
             let Stories = new Parse.Object.extend(_class.Stories);
             let story = new Stories();
 
@@ -1968,7 +1971,7 @@ app.post('/story', function (req, res) {
             story.set("published", false);
             story.set("user_id", _user.id);
             story.set("status", 0);
-            story.set("storyObject", JSON.stringify(story_array));
+            story.set("storyObject", newObject);
 
 
             return story.save();
