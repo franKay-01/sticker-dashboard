@@ -343,7 +343,7 @@ app.get('/home', function (req, res) {
 
             if (_user.get("type") === NORMAL_USER) {
 
-                res.render("pages/home", {
+                res.render("pages/dashboard/home", {
                     collections: _collection,
                     allPacks: _allPacks,
                     story: _story,
@@ -359,7 +359,7 @@ app.get('/home', function (req, res) {
 
             } else if (_user.get("type") === SUPER_USER) {
 
-                res.render("pages/admin_home", {
+                res.render("pages/dashboard/admin_home", {
                     collections: _collection,
                     categories: _categories,
                     allAdverts: _allAds,
@@ -386,7 +386,7 @@ app.get('/home', function (req, res) {
 
             console.log("ERROR ON HOME " + error.message);
 
-            res.render("pages/admin_home", {
+            res.render("pages/dashboard/admin_home", {
                 collections: _collection,
                 categories: _categories,
                 allAdverts: _allAds,
@@ -882,7 +882,7 @@ app.get('/adverts', function (req, res) {
 
             advertMessage = "";
 
-            res.render("pages/advert_collection", {
+            res.render("pages/adverts/advert_collection", {
                 adverts: _adverts,
                 _adverts: adverts,
             });
@@ -915,7 +915,7 @@ app.get('/advert/edit/:id', function (req, res) {
 
         }).then(function (advert, advertImage) {
 
-            res.render("pages/advert_details", {
+            res.render("pages/adverts/advert_details", {
 
                 ad_details: advert,
                 ad_images: advertImage,
@@ -1224,7 +1224,7 @@ app.get('/messages', function (req, res) {
 
             });
 
-            res.render("pages/messages", {
+            res.render("pages/messages/messages", {
                 contact: message,
                 dates: _dates
             })
@@ -1252,7 +1252,7 @@ app.get('/message/:id', function (req, res) {
 
         }).then(function (message) {
 
-            res.render("pages/single_message", {
+            res.render("pages/messages/single_message", {
                 message: message
             });
 
@@ -1275,7 +1275,7 @@ app.get('/message/send', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            res.render("pages/post_message");
+            res.render("pages/messages/post_message");
 
         }, function (error) {
 
@@ -2614,7 +2614,7 @@ app.get('/barcodes', function (req, res) {
             barcodes.find({
 
                 success: function (bars) {
-                    res.render("pages/get_barcode", {
+                    res.render("pages/barcodes/get_barcode", {
                         barcodes: bars
                     });
                 },
@@ -2659,7 +2659,7 @@ app.get('/barcode', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            res.render("pages/create_barcode");
+            res.render("pages/barcodes/create_barcode");
 
         });
     } else {
@@ -2688,11 +2688,11 @@ app.post('/category/find', function (req, res) {
                 if (category) {
                     console.log("MESSAGE FROM SEARCH " + category);
                     console.log("CATEGORY DETAILS " + JSON.stringify(category));
-                    res.render("pages/search_categories", {categories: category});
+                    res.render("pages/categories/search_categories", {categories: category});
                 } else {
                     console.log("MESSAGE FROM SEARCH " + category);
                     console.log("CATEGORY DETAILS " + JSON.stringify(category));
-                    res.render("pages/search_categories", {categories: []});
+                    res.render("pages/categories/search_categories", {categories: []});
                 }
 
             },
@@ -2717,7 +2717,7 @@ app.get('/categories', function (req, res) {
 
                 let _categories = helper.chunks(categories, 4);
 
-                res.render("pages/categories", {categories: _categories});
+                res.render("pages/categories/categories", {categories: _categories});
             },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
@@ -2866,7 +2866,7 @@ app.get('/reviews', function (req, res) {
 
         }).then(function (review) {
             // res.send(JSON.stringify(review));
-            res.render("pages/review_collection", {reviews: review});
+            res.render("pages/reviews/review_collection", {reviews: review});
 
         }, function (error) {
 
@@ -2910,7 +2910,7 @@ app.get('/review/:id', function (req, res) {
                     //     console.log("ERROR "+error.message);
                     // });
 
-                    res.render("pages/review_page", {
+                    res.render("pages/reviews/review_page", {
                         id: pack_id,
                         packName: pack_name,
                         owner: pack_owner,
@@ -3019,12 +3019,12 @@ app.get('/review/edit/:id', function (req, res) {
                 let id = review.get("type_id");
                 return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
             } else {
-                res.render("pages/review_details", {reviews: review});
+                res.render("pages/reviews/review_details", {reviews: review});
             }
 
         }).then(function (sticker) {
             let sticker_url = sticker.get("uri").url();
-            res.render("pages/review_details", {reviews: _review, sticker_url: sticker_url});
+            res.render("pages/reviews/review_details", {reviews: _review, sticker_url: sticker_url});
 
         }, function (error) {
             console.log("ERROR WHEN RETRIEVING REVIEW " + error.message);
@@ -4026,7 +4026,7 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
             // console.log("CATEGORY NAMES " + categoryNames);
 
             // if (_user.get("type") === SUPER_USER) {
-            //     res.render("pages/admin_details", {
+            //     res.render("pages/reviews/admin_details", {
             //         sticker: stickerDetail,
             //         // categoryNames: categoryNames.sort(),
             //         categories: allCategories,
@@ -4289,7 +4289,7 @@ app.get('/find/sticker/:name', function (req, res) {
 
         }).then(function (stickers) {
 
-            res.render("pages/associated_stickers", {
+            res.render("pages/categories/associated_stickers", {
                 stickers: stickers,
                 name: name
             })
