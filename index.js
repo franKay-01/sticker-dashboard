@@ -1963,7 +1963,8 @@ app.post('/story', function (req, res) {
             _user = sessionToken.get("user");
             story_array.push(title,summary);
 
-            newObject = util.arrayToObject(story_array);
+            // newObject = util.arrayToObject(story_array);
+            newObject = {"title":title, "description":summary};
 
             let Stories = new Parse.Object.extend(_class.Stories);
             let story = new Stories();
