@@ -1985,13 +1985,13 @@ app.post('/story', function (req, res) {
 
             return main.save();
 
-        }).then(function () {
+        }).then(function (main) {
 
-            res.redirect('/storyedit/' + story_id);
+            res.redirect('/storyedit/' + main.get("story_id"));
 
         }, function (error) {
             console.log("ERROR WHEN CREATING NEW STORY " + error.message);
-            res.redirect('/');
+            res.redirect('/stories');
         });
     } else {
         res.redirect('/');
