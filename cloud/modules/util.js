@@ -350,13 +350,6 @@ let getMimeType = mimeType => {
     return ".png";
 };
 
-exports.arrayToObject = (arr) => {
-    var rv = {};
-    for (var i = 0; i < arr.length; ++i)
-        rv[i] = arr[i];
-    return rv;
-};
-
 exports.thumbnail = (files,size) => {
 
     if(!size) {

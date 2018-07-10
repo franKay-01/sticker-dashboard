@@ -1947,7 +1947,6 @@ app.post('/story', function (req, res) {
     let keywords = req.body.keyword;
     let _keywords = [];
     let story_id;
-    let story_array = [];
     let newObject = {};
 
     if (keywords !== undefined || keywords !== "undefined") {
@@ -1961,9 +1960,7 @@ app.post('/story', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
-            story_array.push(title,summary);
 
-            // newObject = util.arrayToObject(story_array);
             newObject = {"title":title, "description":summary};
 
             let Stories = new Parse.Object.extend(_class.Stories);
