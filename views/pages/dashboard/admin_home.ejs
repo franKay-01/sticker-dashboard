@@ -170,6 +170,29 @@
 
     </div>
 
+    <div id="hiddenAddProductForm">
+        <div class="medium-3 large-3 cell create_background">
+            <form id="pack_form" action="/pack" method="post">
+                <center>
+                    <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW PRODUCT
+                    </div>
+
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Product Name"
+                           name="coll_name" required="" aria-required="true"><br>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Product Description"
+                              name="pack_description" required="" aria-required="true"></textarea><br>
+                </center>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCancelProduct" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+
     <div id="hiddenCreateForm">
         <div class="medium-3 large-3 cell create_background">
             <center>
@@ -243,7 +266,7 @@
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Adverts</p>
             </button>
 
-            <button id="btnAddAdverts" class="create_button" style="background-color: #0f9d58 !important;">
+            <button id="btnAddProduct" class="create_button" style="background-color: #2dbd77 !important;">
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Product ID</p>
             </button>
             <br>

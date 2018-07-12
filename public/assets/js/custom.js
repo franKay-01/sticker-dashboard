@@ -602,6 +602,17 @@ $(document).ready(function () {
         $('#opaqueDiv').fadeOut('fast');
     });
 
+    $('#btnCancelProduct').on('click', function () {
+        $('#pageMask').fadeOut('fast');
+        $('#hiddenAddProductForm').fadeOut('fast');
+        $('#logo').fadeIn('fast');
+        $('#Welcome').fadeIn('fast');
+        $('#signoutLink').fadeIn('fast');
+        $('#opaqueDiv').fadeIn('fast');
+    });
+
+
+
     const btnAddCategory = $('#btnAddCategory');
     //add button style
     btnAddCategory.on('mouseover', function () {
