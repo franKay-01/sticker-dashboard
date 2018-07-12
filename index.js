@@ -4115,15 +4115,16 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
 });
 
 //Update Sticker
-app.post('/sticker/edit/:id/:pid', function (req, res) {
+app.post('/sticker/edit/:stickerId/:packId', function (req, res) {
 
     let token = req.cookies.token;
 
     //input fields from form
     let stickerName = req.body.stickerName;
+    let localName = req.body.localName;
     let new_categories = req.body.categories;
-    let stickerId = req.params.id;
-    let packId = req.params.pid;
+    let stickerId = req.params.stickerId;
+    let packId = req.params.packId;
     let sticker_status = req.body.sticker_status;
     let description = req.body.description;
     let stickerEdit = "/sticker/edit/";
@@ -4154,7 +4155,7 @@ app.post('/sticker/edit/:id/:pid', function (req, res) {
         }).then(function (sticker) {
 
             sticker.set("stickerName", stickerName);
-            sticker.set("localName", stickerName);
+            sticker.set("localName", localName);
             sticker.set("categories", _listee);
             if (sticker_status === "1") {
                 sticker.set("sold", true);
