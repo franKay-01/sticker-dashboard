@@ -600,6 +600,7 @@ $(document).ready(function () {
         $('#Welcome').fadeOut('fast');
         $('#signoutLink').fadeOut('fast');
         $('#opaqueDiv').fadeOut('fast');
+        $('#product_heading').fadeOut('fast');
     });
 
     $('#btnCancelProduct').on('click', function () {
@@ -609,6 +610,7 @@ $(document).ready(function () {
         $('#Welcome').fadeIn('fast');
         $('#signoutLink').fadeIn('fast');
         $('#opaqueDiv').fadeIn('fast');
+        $('#product_heading').fadeIn('fast');
     });
 
 
