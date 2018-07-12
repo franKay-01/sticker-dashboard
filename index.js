@@ -4411,11 +4411,13 @@ app.post('/sticker/decsription/:id', function (req, res) {
 
 /*====================================== FEED ============================*/
 
-app.post('/feeds/:type', function (req, res) {
+app.post('/feeds/:type/:origin', function (req, res) {
 
     let token = req.cookies.token;
     let type = req.params.type;
+    let origin = req.params.origin;
     let id = req.body.element_id;
+    let storyPage = "story";
 
     console.log("FEED TYPE " + type + " ELEMENT " + id);
 
@@ -4461,7 +4463,11 @@ app.post('/feeds/:type', function (req, res) {
                 case "sticker":
                     return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
                 case "story":
-                    res.redirect('/home');
+                    if (origin === storyPage){
+                        res.redirect('/storyedit/'+id);
+                    }else {
+                        res.redirect('/home');
+                    }
             }
 
         }).then(function (sticker) {
