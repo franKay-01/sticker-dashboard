@@ -4410,7 +4410,7 @@ app.post('/sticker/decsription/:id', function (req, res) {
 
 /*====================================== PRODUCT ID ============================*/
 
-app.post('/products', function (req, res) {
+app.get('/products', function (req, res) {
     let token = req.cookies.token;
 
     if (token) {
