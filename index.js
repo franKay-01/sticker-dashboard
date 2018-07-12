@@ -4408,6 +4408,35 @@ app.post('/sticker/decsription/:id', function (req, res) {
 /*====================================== STICKERS ============================*/
 
 
+/*====================================== PRODUCT ID ============================*/
+
+app.post('/products', function (req, res) {
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Product).find();
+
+        }).then(function (products) {
+
+            res.render("pages/products/products", {
+                products: products
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/');
+
+        })
+    }else {
+        res.redirect('/');
+    }
+});
+/*====================================== PRODUCT ID ============================*/
+
+
 /*====================================== FEED ============================*/
 
 app.post('/feeds/:type/:origin', function (req, res) {

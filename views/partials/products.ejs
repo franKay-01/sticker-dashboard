@@ -1,0 +1,29 @@
+<!--Display Collections from parse-->
+<%if ( products.length === 0 ){%>
+<div class="medium-3 large-3 cell icons">
+    <p class="none">No Packs</p>
+    <div class="name_tag"><p class="pack_name_text">No Packs</p></div>
+
+</div>
+<%}else {%>
+<% products.forEach(function(item, index) { %>
+
+<div class="medium-3 large-3 cell icons">
+    <a href="/pack/<%= item.id %>">
+        <% if (item.get("art_work") === "undefined" || item.get("artwork") === undefined){ %>
+        <center>
+            <p class="none" style="margin: 145px 90px auto;"><b>No Artwork</b></p>
+        </center>
+        <div class="name_tag"><p class="pack_name_text"><%= item.get("name") %></p></div>
+        <% } else {%>
+        <center>
+            <img class="pack_artwork" src="<%= item.get("artwork").url() %>" style="height: 250px">
+        </center>
+        <div class="name_tag"><p class="pack_name_text"><%= item.get("name") %></p></div>
+        <%}%>
+    </a>
+
+</div>
+
+<% }); %>
+<%}%>
