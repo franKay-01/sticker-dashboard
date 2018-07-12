@@ -5,7 +5,7 @@ exports.Reviews = "Reviews";
 exports.Stories = "Stories";
 exports.StoryBody = "StoryBody";
 exports.Assets = "Assets";
-exports.Product = "ProductIds";
+exports.Product = "ProductsIds";
 //TODO Update to StoryItems
 exports.StoryItems = "StoryItem";
 //TODO update to Artwork
