@@ -4411,6 +4411,7 @@ app.post('/sticker/decsription/:id', function (req, res) {
 /*====================================== PRODUCT ID ============================*/
 
 app.get('/products', function (req, res) {
+
     let token = req.cookies.token;
 
     if (token) {
@@ -4430,8 +4431,42 @@ app.get('/products', function (req, res) {
             res.redirect('/');
 
         })
-    }else {
+    } else {
         res.redirect('/');
+    }
+});
+
+app.post('/product', function (req, res) {
+
+    let token = req.cookies.token;
+    let name = req.body.product_name;
+    let description = req.body.product_description;
+    let products = '/products';
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            let ProductsID = new Parse.Object.extend(_class.Product);
+            let productId = new ProductsID();
+
+            productId.set("name", name);
+            productId.set("description", description);
+            productId.set("userId", _user.id);
+
+            return productId.save();
+
+        }).then(function (product) {
+
+            res.redirect(products);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect(products)
+        })
     }
 });
 /*====================================== PRODUCT ID ============================*/
