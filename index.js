@@ -320,9 +320,9 @@ app.get('/home', function (req, res) {
             _latestSticker = latestSticker.get("uri");
             _latestSticker['stickerName'] = latestSticker.get("stickerName");
 
-            if (latestSticker.get("description") !== undefined){
+            if (latestSticker.get("description") !== undefined) {
                 _latestSticker['description'] = latestSticker.get("description");
-            }else {
+            } else {
                 _latestSticker['description'] = "";
 
             }
@@ -1631,7 +1631,7 @@ app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
                 }
             });
 
-            res.redirect( storyItem + id);
+            res.redirect(storyItem + id);
 
         }, function (error) {
 
@@ -1858,11 +1858,11 @@ app.get('/storyedit/:id', function (req, res) {
                 colors = type.DEFAULT.color;
             }
 
-            if (sticker){
+            if (sticker) {
 
                 return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("sticker")).first();
 
-            }else {
+            } else {
                 return "";
             }
 
@@ -3296,7 +3296,7 @@ app.get('/pack/:id', function (req, res) {
 
             _stickers = stickers;
 
-                return new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find();
+            return new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find();
 
         }).then(function (packs) {
 
@@ -3868,7 +3868,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
 
                 mailgun.messages().send(data, function (error, body) {
                     if (error) {
-                        console.log("BIG BIG ERROR: "+ error.message);
+                        console.log("BIG BIG ERROR: " + error.message);
                     }
                     else {
 
@@ -3886,7 +3886,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                     return sticker
                 });
 
-            return true;
+                return true;
 
             }).then(function (stickers) {
 
@@ -4024,7 +4024,6 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
                 new Parse.Query(_class.Categories).ascending("name").find(),
                 new Parse.Query(_class.Packs).equalTo("objectId", packId).first(),
                 new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first()
-
             );
 
         }).then(function (sticker, categories, pack, latest) {
@@ -4463,9 +4462,9 @@ app.post('/feeds/:type/:origin', function (req, res) {
                 case "sticker":
                     return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
                 case "story":
-                    if (origin === storyPage){
-                        res.redirect('/storyedit/'+id);
-                    }else {
+                    if (origin === storyPage) {
+                        res.redirect('/storyedit/' + id);
+                    } else {
                         res.redirect('/home');
                     }
             }
