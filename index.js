@@ -44,12 +44,6 @@ const NORMAL_USER = 2;
 const SUPER_USER = 0;
 const MK_TEAM = 1;
 
-const TEXT = 0;
-const IMAGE = 1;
-const QUOTE = 2;
-const STICKER = 3;
-const DIVIDER = 4;
-
 const PACK = 0;
 const STORY = 1;
 
@@ -494,9 +488,7 @@ app.post('/account/user/update', upload.array('im1'), function (req, res) {
     let handle = req.body.handles;
     let profile_info = [];
     let link_length = [];
-
-    console.log("TYPE " + type + " HNDLE " + handle);
-
+    let accountRedirect = '/account/user/profile';
 
     if (token) {
 
@@ -602,18 +594,18 @@ app.post('/account/user/update', upload.array('im1'), function (req, res) {
             } else {
 
                 console.log("TYPE AND HANDLE NOT PRESENT");
-                res.redirect('/account/user/profile');
+                res.redirect(accountRedirect);
 
             }
 
         }).then(function () {
 
-            res.redirect('/account/user/profile');
+            res.redirect(accountRedirect);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/account/user/profile');
+            res.redirect(accountRedirect);
 
         })
     } else {
@@ -943,6 +935,7 @@ app.post('/update/advert/link/:id', function (req, res) {
     let type = parseInt(req.body.type);
     let link = req.body.link;
     let existing = [];
+    let advertRedirect = '/advert/edit/';
 
     if (token) {
 
@@ -960,7 +953,7 @@ app.post('/update/advert/link/:id', function (req, res) {
 
             if (existing.length > 0) {
 
-                res.redirect('/advert/edit/' + id);
+                res.redirect(advertRedirect + id);
 
             } else {
 
@@ -976,13 +969,13 @@ app.post('/update/advert/link/:id', function (req, res) {
 
         }).then(function (link) {
 
-            res.redirect('/advert/edit/' + id);
+            res.redirect(advertRedirect + id);
 
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/advert/edit/' + id);
+            res.redirect(advertRedirect + id);
 
         })
     } else {
@@ -999,6 +992,7 @@ app.post('/advert/image/:id', upload.array('adverts'), function (req, res) {
     let files = req.files;
     let fileDetails = [];
     let advertDetails = [];
+    let advertRedirect = '/advert/edit/';
 
     if (token) {
 
@@ -1060,13 +1054,13 @@ app.post('/advert/image/:id', upload.array('adverts'), function (req, res) {
                 });
             }
 
-            res.redirect('/advert/edit/' + id);
+            res.redirect(advertRedirect + id);
 
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/advert/edit/' + id);
+            res.redirect(advertRedirect + id);
 
         })
 
@@ -1083,6 +1077,7 @@ app.post('/advert/edit/:id', function (req, res) {
     let id = req.params.id;
     let title = req.body.title;
     let description = req.body.description;
+    let advertRedirect = '/advert/edit/';
 
     if (token) {
 
@@ -1100,12 +1095,12 @@ app.post('/advert/edit/:id', function (req, res) {
         }).then(function () {
 
             advertMessage = "";
-            res.redirect('/advert/edit/' + id);
+            res.redirect(advertRedirect + id);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/advert/edit/' + id);
+            res.redirect(advertRedirect + id);
 
         })
     } else {
@@ -1590,6 +1585,7 @@ app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
     let token = req.cookies.token;
     let files = req.files;
     let id = req.params.id;
+    let storyItem = "/storyitem/";
 
     if (token) {
 
@@ -1635,13 +1631,12 @@ app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
                 }
             });
 
-
-            res.redirect("/storyitem/" + id);
+            res.redirect( storyItem + id);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect("/storyitem/" + id);
+            res.redirect(storyItem + id);
 
         })
     } else {
@@ -1716,6 +1711,8 @@ app.post('/story/artwork/add/:id/:state', function (req, res) {
     let sticker_id = req.body.sticker_id;
     let story_id = req.params.id;
     let state = req.params.state;
+    let storyEdit = '/storyedit/';
+
 
     if (token) {
 
@@ -1753,13 +1750,13 @@ app.post('/story/artwork/add/:id/:state', function (req, res) {
                 return artwork.save();
 
             } else if (state === "new") {
-                res.redirect('/storyedit/' + id);
+                res.redirect(storyEdit + id);
 
             }
 
         }).then(function () {
 
-            res.redirect('/storyedit/' + id);
+            res.redirect(storyEdit + id);
 
         }, function (error) {
 
@@ -1900,6 +1897,8 @@ app.post('/storyedit/:id', function (req, res) {
     let keyword = req.body.keyword;
     let summary = req.body.summary;
     let _keyword = [];
+    let storyEdit = '/storyedit/';
+
 
     if (keyword !== "undefined" || keyword !== undefined) {
         _keyword = keyword.split(",");
@@ -1924,12 +1923,12 @@ app.post('/storyedit/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/storyedit/' + id);
+            res.redirect(storyEdit + id);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/storyedit/' + id);
+            res.redirect(storyEdit + id);
 
         })
     } else {
@@ -1961,7 +1960,11 @@ app.post('/story', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            newObject = {"title":title, "description":summary};
+            //TODO move to story item
+            // newObject.title = title;
+            // newObject.description = summary;
+            //
+            // newObject.html = [{"2":"sd","4":"sdf","7":"sdf"}];
 
             let Stories = new Parse.Object.extend(_class.Stories);
             let story = new Stories();
@@ -1974,7 +1977,7 @@ app.post('/story', function (req, res) {
             story.set("published", false);
             story.set("user_id", _user.id);
             story.set("status", 0);
-            story.set("storyObject", newObject);
+            // story.set("storyObject", newObject);
 
 
             return story.save();
@@ -2059,6 +2062,7 @@ app.post('/story/color/:id', function (req, res) {
     let color_1 = req.body.color1;
     let color_2 = req.body.color2;
     let hash = "#";
+    let storyEdit = '/storyedit/';
 
     if (token) {
 
@@ -2084,12 +2088,12 @@ app.post('/story/color/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/storyedit/' + id);
+            res.redirect(storyEdit + id);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/storyedit/' + id);
+            res.redirect(storyEdit + id);
 
         });
 
@@ -2137,6 +2141,7 @@ app.post('/storymain/edit/:id', function (req, res) {
     let id = req.params.id;
     let main_story = req.body.main_story;
     let story_id = "";
+    let storyMain = '/storymain/';
 
     if (token) {
         let _user = {};
@@ -2156,12 +2161,12 @@ app.post('/storymain/edit/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/storymain/' + story_id);
+            res.redirect(storyMain + story_id);
 
         }, function (error) {
 
             console.log("ERROR " + error.message)
-            res.redirect('/storymain/' + story_id);
+            res.redirect(storyMain + story_id);
         })
     } else {
         res.redirect('/');
@@ -2213,6 +2218,7 @@ app.post('/storyitem/delete/:storyId', function (req, res) {
     let token = req.cookies.token;
     let id = req.body.storyItem;
     let storyId = req.params.storyId;
+    let storyItemView = "/storyitem/view/";
     let assetId;
     let _storyItem;
 
@@ -2234,7 +2240,7 @@ app.post('/storyitem/delete/:storyId', function (req, res) {
                 },
                 error: function (error) {
                     console.log("Could not remove" + error);
-                    res.redirect("/storyitem/view/" + storyId);
+                    res.redirect(storyItemView + storyId);
 
                 }
             })
@@ -2247,7 +2253,7 @@ app.post('/storyitem/delete/:storyId', function (req, res) {
 
             } else {
 
-                res.redirect("/storyitem/view/" + storyId);
+                res.redirect(storyItemView + storyId);
 
             }
 
@@ -2256,11 +2262,11 @@ app.post('/storyitem/delete/:storyId', function (req, res) {
             asset.destroy({
                 success: function (object) {
                     console.log("removed" + JSON.stringify(object));
-                    res.redirect("/storyitem/view/" + storyId);
+                    res.redirect(storyItemView + storyId);
                 },
                 error: function (error) {
                     console.log("Could not remove" + error);
-                    res.redirect("/storyitem/view/" + storyId);
+                    res.redirect(storyItemView + storyId);
 
                 }
             })
@@ -2333,6 +2339,7 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
     let _storyItem = [];
     let storyContent;
     let _storyId;
+    let storyItemView = '/storyitem/view/';
 
     console.log("TYPE " + storyItemType);
 
@@ -2416,7 +2423,7 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
                 return new Parse.Query(_class.Assets).equalTo("objectId", storyContent).first();
 
             } else {
-                res.redirect('/storyitem/view/' + storyId);
+                res.redirect(storyItemView + storyId);
 
             }
 
@@ -2428,18 +2435,18 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
             image.destroy({
                 success: function (object) {
                     console.log("DESTROYED IAMGE " + JSON.stringify(object));
-                    res.redirect('/storyitem/view/' + storyId);
+                    res.redirect(storyItemView + storyId);
                 },
                 error: function (error) {
                     console.log("Could not remove" + error);
-                    res.redirect('/storyitem/view/' + storyId);
+                    res.redirect(storyItemView + storyId);
 
                 }
             })
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/storyitem/view/' + storyId);
+            res.redirect(storyItemView + storyId);
 
         })
 
@@ -2455,6 +2462,7 @@ app.post('/storyitem/change/sticker/:id', function (req, res) {
     let id = req.params.id;
     let stickerId = req.body.sticker_id;
     let storyId;
+    let storyItemView = '/storyitem/view/';
 
     if (token) {
 
@@ -2475,12 +2483,12 @@ app.post('/storyitem/change/sticker/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/storyitem/view/' + storyId);
+            res.redirect(storyItemView + storyId);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/storyitem/view/' + storyId);
+            res.redirect(storyItemView + storyId);
 
         })
     } else {
@@ -2825,6 +2833,7 @@ app.post('/category/delete', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.body.inputRemoveId;
+    let categories = '/categories';
 
     if (token) {
 
@@ -2836,18 +2845,18 @@ app.post('/category/delete', function (req, res) {
                 category.destroy({
                     success: function (object) {
                         console.log("removed" + JSON.stringify(object));
-                        res.redirect("/categories");
+                        res.redirect(categories);
                     },
                     error: function (error) {
                         console.log("Could not remove" + error);
-                        res.redirect("/categories");
+                        res.redirect(categories);
 
                     }
                 });
             },
             function (error) {
                 console.log("ERROR " + error);
-                res.redirect("/categories");
+                res.redirect(categories);
 
             });
     }
@@ -2894,6 +2903,7 @@ app.get('/review/:id', function (req, res) {
 
     let token = req.cookies.token;
     let pack_id = req.params.id;
+    let packs = '/packs';
 
     if (token) {
 
@@ -2931,13 +2941,13 @@ app.get('/review/:id', function (req, res) {
                 },
                 error: function (error) {
                     console.log("ERROR " + error.message);
-                    res.redirect('/packs');
+                    res.redirect(packs);
                 }
 
             });
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/packs');
+            res.redirect(packs);
         });
     } else {
         res.redirect('/');
@@ -3474,6 +3484,7 @@ app.post('/pack/review/:id', function (req, res) {
     let description = req.body.pack_description;
     let keyword = req.body.keyword;
     let review_id = req.body.review_id;
+    let reviewEdit = '/review/edit/';
 
     let key = keyword.split(",");
 
@@ -3499,10 +3510,10 @@ app.post('/pack/review/:id', function (req, res) {
             return pack.save();
 
         }).then(function (result) {
-            res.redirect('/review/edit/' + review_id);
+            res.redirect(reviewEdit + review_id);
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/review/edit/' + review_id);
+            res.redirect(reviewEdit + review_id);
         });
     } else {
         res.redirect('/');
@@ -3511,8 +3522,9 @@ app.post('/pack/review/:id', function (req, res) {
 
 app.get('/pack/review/update/status/:id', function (req, res) {
 
-    var token = req.cookies.token;
-    var pack_id = req.params.id;
+    let token = req.cookies.token;
+    let pack_id = req.params.id;
+    let pack = '/pack/';
 
     if (token) {
 
@@ -3528,12 +3540,12 @@ app.get('/pack/review/update/status/:id', function (req, res) {
         }).then(function () {
 
             console.log("PACK SUBMITTED FOR REVIEW");
-            res.redirect('/pack/' + pack_id);
+            res.redirect(pack + pack_id);
 
         }, function (error) {
 
             console.log("PACK NOT SUBMITTED FOR REVIEW. ERROR " + error.message);
-            res.redirect('/pack/' + pack_id);
+            res.redirect(pack + pack_id);
 
         });
     } else {
@@ -3549,6 +3561,7 @@ app.post('/review/:itemId/:packId/:reviewId', function (req, res) {
     let review_id = req.params.reviewId;
     let type = req.body.type;
     let categoryNames = [];
+    let reviewEdit = '/review/edit/';
     let all;
     let name;
     let category;
@@ -3615,7 +3628,7 @@ app.post('/review/:itemId/:packId/:reviewId', function (req, res) {
 
             }, function (error) {
                 console.log("ERROR " + error.message);
-                res.redirect('/review/edit/' + review_id);
+                res.redirect(reviewEdit + review_id);
             });
         } else {
             getUser(token).then(function (sessionToken) {
@@ -3631,7 +3644,7 @@ app.post('/review/:itemId/:packId/:reviewId', function (req, res) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/review/edit/' + review_id);
+                res.redirect(reviewEdit + review_id);
 
             });
         }
@@ -3649,6 +3662,8 @@ app.get('/publish/:type/:status/:id', function (req, res) {
     let id = req.params.id;
     let status = req.params.status;
     let type = req.params.type;
+    let pack = "/pack/";
+    let storyEdit = "/storyedit/";
 
     if (token) {
 
@@ -3678,11 +3693,11 @@ app.get('/publish/:type/:status/:id', function (req, res) {
 
             switch (type) {
                 case "pack":
-                    res.redirect("/pack/" + id);
+                    res.redirect(pack + id);
                     return;
 
                 case "story":
-                    res.redirect("/storyedit/" + id);
+                    res.redirect(storyEdit + id);
                     return;
             }
 
@@ -3692,11 +3707,11 @@ app.get('/publish/:type/:status/:id', function (req, res) {
 
             switch (type) {
                 case "pack":
-                    res.redirect("/pack/" + id);
+                    res.redirect(pack + id);
                     return;
 
                 case "story":
-                    res.redirect("/storyedit/" + id);
+                    res.redirect(storyEdit + id);
                     return;
             }
 
@@ -3742,6 +3757,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
     let stickerDetails = [];
     let stickerCollection = {};
     let _previews = [];
+    let pack = "/pack/";
 
     if (token) {
 
@@ -3874,12 +3890,12 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
 
             }).then(function (stickers) {
 
-                res.redirect("/pack/" + pack_id);
+                res.redirect(pack + pack_id);
 
             }, function (error) {
 
                 console.log("BIG BIG ERROR" + JSON.stringify(error));
-                res.redirect("/pack/" + pack_id);
+                res.redirect(pack + pack_id);
 
             })
         }, function (error) {
@@ -4110,6 +4126,7 @@ app.post('/sticker/edit/:id/:pid', function (req, res) {
     let packId = req.params.pid;
     let sticker_status = req.body.sticker_status;
     let description = req.body.description;
+    let stickerEdit = "/sticker/edit/";
 
     let _listee = [];
 
@@ -4151,12 +4168,12 @@ app.post('/sticker/edit/:id/:pid', function (req, res) {
         }).then(function (sticker) {
 
             console.log("STICKER UPDATED" + JSON.stringify(sticker));
-            res.redirect("/sticker/edit/" + stickerId + "/" + packId);
+            res.redirect(stickerEdit + stickerId + "/" + packId);
 
         }, function (error) {
 
             console.log("SERVER ERROR " + error.message);
-            res.redirect("/sticker/edit/" + stickerId + "/" + packId);
+            res.redirect(stickerEdit + stickerId + "/" + packId);
 
         });
 
@@ -4199,6 +4216,7 @@ app.post('/uploads/dropbox', function (req, res) {
     let token = req.cookies.token;
     let pack_id = req.body.pack_id;
     let stickerPack;
+    let pack = "/pack/";
 
     name = req.body.fileName;
     fileUrl = req.body.fileUrl; // receive url from form
@@ -4261,23 +4279,23 @@ app.post('/uploads/dropbox', function (req, res) {
                     }).then(function () {
 
                         console.log("REDIRECT TO DASHBOARD");
-                        res.redirect("/pack/" + pack_id);
+                        res.redirect(pack + pack_id);
 
                     }, function (error) {
                         console.log("BIG BIG ERROR" + error.message);
-                        res.redirect("/pack/" + pack_id);
+                        res.redirect(pack + pack_id);
                     });
                 }).catch((err) => {
                 throw err;
             });
         }, function (error) {
             console.log("SESSION INVALID " + error.message);
-            res.redirect("/pack/" + pack_id);
+            res.redirect(pack + pack_id);
         });
 
     } else {
 
-        res.redirect("/pack/" + pack_id);
+        res.redirect(pack + pack_id);
 
     }
 
@@ -4320,6 +4338,7 @@ app.get('/sticker/delete/:id/:packId', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let pack_id = req.params.packId;
+    let pack = "/pack";
 
 
     if (token) {
@@ -4332,18 +4351,18 @@ app.get('/sticker/delete/:id/:packId', function (req, res) {
                 _sticker.destroy({
                     success: function (object) {
                         console.log("removed" + JSON.stringify(object));
-                        res.redirect("/pack/" + pack_id);
+                        res.redirect(pack + pack_id);
                     },
                     error: function (error) {
                         console.log("Could not remove" + error);
-                        res.redirect("/pack/" + pack_id);
+                        res.redirect(pack + pack_id);
 
                     }
                 });
             },
             function (error) {
                 console.error(error);
-                res.redirect("/pack/" + pack_id);
+                res.redirect(pack + pack_id);
 
             });
     } else {
@@ -4357,6 +4376,7 @@ app.post('/sticker/decsription/:id', function (req, res) {
     let token = req.cookies.token;
     let stickerId = req.params.id;
     let description = req.body.description;
+    let home = '/home';
 
     if (token) {
 
@@ -4372,12 +4392,12 @@ app.post('/sticker/decsription/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/home');
+            res.redirect(home);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/home');
+            res.redirect(home);
 
         })
     }
@@ -4441,9 +4461,7 @@ app.post('/feeds/:type', function (req, res) {
                     return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
                 case "story":
                     res.redirect('/home');
-
             }
-
 
         }).then(function (sticker) {
 
@@ -4454,6 +4472,7 @@ app.post('/feeds/:type', function (req, res) {
             } else {
                 res.redirect('/home');
             }
+
         }, function (error) {
 
             console.log("ERROR " + error.message);

@@ -18,6 +18,8 @@ exports.USER = {
 };
 
 exports.LINKS = {
+    //TODO change ios and android to mobile
+    //TODO add social as a links type
     android: 0,
     ios: 1,
     web: 2,
@@ -25,6 +27,12 @@ exports.LINKS = {
     facebook: 4,
     twitter: 5,
     instagram: 6
+};
+
+exports.ADVERT_IMAGE_TYPE = {
+    mobile: 0, //200 * 200 size
+    web: 1, //450 * 450
+    banner: 2 //1024 * 1024
 };
 
 exports.STORY_ITEM = {
@@ -36,7 +44,12 @@ exports.STORY_ITEM = {
     italic: 5,
     bold: 6,
     advert:7,
-    italicBold:8
+    italicBold:8,
+    heading: 9,
+    list:10,
+    sideNote:11,
+    greyArea:12,
+    html:13
 };
 
 exports.PACK_TYPE = {
