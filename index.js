@@ -4443,6 +4443,8 @@ app.post('/product', function (req, res) {
     let description = req.body.product_description;
     let products = '/products';
 
+    console.log("NAME " + name + " DESC " + description);
+
     if (token) {
 
         getUser(token).then(function (sessionToken) {
@@ -4459,6 +4461,8 @@ app.post('/product', function (req, res) {
             return productId.save();
 
         }).then(function (product) {
+
+            console.log("MADE " + JSON.stringify(product));
 
             res.redirect(products);
 
