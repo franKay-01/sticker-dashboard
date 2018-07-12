@@ -601,6 +601,8 @@ $(document).ready(function () {
         $('#signoutLink').fadeOut('fast');
         $('#opaqueDiv').fadeOut('fast');
         $('#product_heading').fadeOut('fast');
+        $('#all_stories').fadeOut('fast');
+
     });
 
     $('#btnCancelProduct').on('click', function () {
@@ -611,6 +613,9 @@ $(document).ready(function () {
         $('#signoutLink').fadeIn('fast');
         $('#opaqueDiv').fadeIn('fast');
         $('#product_heading').fadeIn('fast');
+        $('#all_stories').fadeIn('fast');
+        $('#pack_form')[0].reset();
+
     });
 
 
