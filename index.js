@@ -4447,7 +4447,6 @@ app.get('/product/:productId', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             return Parse.Promise.when(
-
                 new Parse.Query(_class.Product).equalTo("objectId", productId).first(),
                 new Parse.Query(_class.Product).find()
             );
