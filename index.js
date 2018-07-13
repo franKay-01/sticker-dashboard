@@ -3664,6 +3664,7 @@ app.get('/publish/:type/:status/:id', function (req, res) {
     let type = req.params.type;
     let pack = "/pack/";
     let storyEdit = "/storyedit/";
+    let productEdit = "/product/";
 
     if (token) {
 
@@ -3675,6 +3676,9 @@ app.get('/publish/:type/:status/:id', function (req, res) {
 
                 case "story":
                     return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+                case "product":
+                    return new Parse.Query(_class.Product).equalTo("objectId", id).first();
 
             }
 
@@ -3699,6 +3703,10 @@ app.get('/publish/:type/:status/:id', function (req, res) {
                 case "story":
                     res.redirect(storyEdit + id);
                     return;
+
+                case "product":
+                    res.redirect(productEdit + id);
+                    return;
             }
 
         }, function (error) {
@@ -3712,6 +3720,10 @@ app.get('/publish/:type/:status/:id', function (req, res) {
 
                 case "story":
                     res.redirect(storyEdit + id);
+                    return;
+
+                case "product":
+                    res.redirect(productEdit + id);
                     return;
             }
 
