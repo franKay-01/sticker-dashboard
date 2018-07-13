@@ -4436,6 +4436,49 @@ app.get('/products', function (req, res) {
     }
 });
 
+app.post('/product/:productId', function (req, res) {
+
+    let token = req.cookies.token;
+    let productId = req.params.productId;
+    let page;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return Parse.Promise.when(
+
+                new Parse.Query(_class.Product).equalTo("objectId", productId).first(),
+                new Parse.Query(_class.Product).find()
+            );
+
+        }).then(function (product, products) {
+
+            res.send("PRODUCT " + JSON.stringify(product));
+            
+            page = util.page(products, productId);
+
+            res.render("pages/products/product", {
+
+                id: product.id,
+                name: product.get("name"),
+                art: product.get("artwork").url(),
+                published: product.get("published"),
+                next: page.next,
+                previous: page.previous
+
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/products');
+        })
+    } else {
+        res.redirect('/');
+    }
+});
+
+
 app.post('/product', function (req, res) {
 
     let token = req.cookies.token;
