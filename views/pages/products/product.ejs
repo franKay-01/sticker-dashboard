@@ -19,34 +19,27 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-    <!--<script>-->
-        <!--function myFunction() {-->
-            <!--var x = document.getElementById("toast_message")-->
-            <!--x.className = "show";-->
-            <!--setTimeout(function () {-->
-                <!--x.className = x.className.replace("show", "");-->
-            <!--}, 3000);-->
-        <!--}-->
+    <script>
 
-        <!--function packSize() {-->
-            <!--var x = document.getElementById("pack_message")-->
-            <!--x.className = "show";-->
-            <!--setTimeout(function () {-->
-                <!--x.className = x.className.replace("show", "");-->
-            <!--}, 3000);-->
-        <!--}-->
-
-        <!--function not_approved() {-->
-            <!--var x = document.getElementById("not_approved")-->
-            <!--x.className = "show";-->
-            <!--setTimeout(function () {-->
-                <!--x.className = x.className.replace("show", "");-->
-            <!--}, 3000);-->
-        <!--}-->
-    <!--</script>-->
+        function productId() {
+            var x = document.getElementById("pack_message")
+            x.className = "show";
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        }
+        //
+        // function not_approved() {
+        //     var x = document.getElementById("not_approved")
+        //     x.className = "show";
+        //     setTimeout(function () {
+        //         x.className = x.className.replace("show", "");
+        //     }, 3000);
+        // }
+    </script>
 </head>
 
-<body class="primary-background-color" onload="myFunction()">
+<body class="primary-background-color">
 <div id="pageMask"></div>
 
 <!-- Start of hidden form -->
@@ -56,7 +49,7 @@
         <a href="#" id="cancelPermission" class="edit_labels" style="margin: 200px !important;">
             NO
         </a>
-        <a href="/publish/pack/publish/<%= id %>" class="edit_labels">
+        <a href="/publish/product/publish/<%= id %>" class="edit_labels">
             YES
         </a>
     </div>
@@ -68,7 +61,7 @@
         <a href="#" id="cancelPublish" class="edit_labels" style="margin: 200px !important;">
             NO
         </a>
-        <a href="/publish/pack/unpublish/<%= id %>" class="edit_labels">
+        <a href="/publish/product/unpublish/<%= id %>" class="edit_labels">
             YES
         </a>
     </div>
@@ -133,8 +126,8 @@
 
             <!-- <%# if (status === 2){ %>-->
             <% if (published === false){%>
-            <%if ( stickers.length < 10){%>
-            <a href="#" onclick="packSize()">
+            <%if ( productIds === undefined){%>
+            <a href="#" onclick="productId()">
                 <button class="create_button">
                     <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
                     </p>
@@ -200,7 +193,7 @@
 
         <%- include('../../partials/footer') %>
 
-        <!--<div id="pack_message">Packs need to contain at least 10 stickers to PUBLISH</div>-->
+        <div id="pack_message">PRODUCT IDs can not be published without having existing app IDs</div>
 
     </div>
 

@@ -4454,8 +4454,6 @@ app.get('/product/:productId', function (req, res) {
 
         }).then(function (product, products) {
 
-            res.send("PRODUCT " + JSON.stringify(product));
-
             page = util.page(products, productId);
 
             res.render("pages/products/product", {
@@ -4464,6 +4462,7 @@ app.get('/product/:productId', function (req, res) {
                 name: product.get("name"),
                 art: product.get("artwork").url(),
                 published: product.get("published"),
+                productIds: product.get("productId"),
                 next: page.next,
                 previous: page.previous
 
