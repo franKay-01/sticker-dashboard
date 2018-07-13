@@ -4461,12 +4461,7 @@ app.get('/product/:productId', function (req, res) {
             console.log("PAGES " + JSON.stringify(page));
 
             res.render("pages/products/product", {
-
-                id: product.id,
-                name: product.get("name"),
-                art: product.get("artwork").url(),
-                published: product.get("published"),
-                productIds: product.get("productId"),
+                product: product,
                 next: page.next,
                 previous: page.previous
 
