@@ -4453,7 +4453,12 @@ app.get('/product/:productId', function (req, res) {
 
         }).then(function (product, products) {
 
+            console.log("PRODUCT " + JSON.stringify(product));
+            console.log("PRODUCTS " + JSON.stringify(products));
+
             page = util.page(products, productId);
+
+            console.log("PAGES " + JSON.stringify(page));
 
             res.render("pages/products/product", {
 
@@ -4461,7 +4466,7 @@ app.get('/product/:productId', function (req, res) {
                 name: product.get("name"),
                 art: product.get("artwork").url(),
                 published: product.get("published"),
-                // productIds: product.get("productId"),
+                productIds: product.get("productId"),
                 next: page.next,
                 previous: page.previous
 
