@@ -4461,7 +4461,7 @@ app.get('/product/:productId', function (req, res) {
                 name: product.get("name"),
                 art: product.get("artwork").url(),
                 published: product.get("published"),
-                productIds: product.get("productId"),
+                // productIds: product.get("productId"),
                 next: page.next,
                 previous: page.previous
 
