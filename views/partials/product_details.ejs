@@ -26,8 +26,11 @@
             <textarea class="box_2 validate" name="description" required="" aria-required="true" style="margin-bottom: 35px !important;"><%= product.get("description") %>
             </textarea><br>
 
-            <input type="text" placeholder="Android Product ID" name="android" class="box_2" style="margin-bottom: 35px !important;" value="<%= product.get("productId")%>">
+            <label class="update_label">Android Product ID:</label>
+            <input type="text" placeholder="Android Product ID" name="android" class="box_2" style="margin-bottom: 35px !important;"
+                   value="<%= JSON.stringify(product.get("productId").android)%>">
 
+            <label class="update_label">IOs Product ID:</label>
             <input type="text" placeholder="IOs Product ID" name="ios" class="box_2" style="margin-bottom: 35px !important;" value="<%= product.get("productId")%>">
 
             <br>
