@@ -4436,7 +4436,7 @@ app.get('/products', function (req, res) {
     }
 });
 
-app.post('/product/:productId', function (req, res) {
+app.get('/product/:productId', function (req, res) {
 
     let token = req.cookies.token;
     let productId = req.params.productId;
@@ -4455,7 +4455,7 @@ app.post('/product/:productId', function (req, res) {
         }).then(function (product, products) {
 
             res.send("PRODUCT " + JSON.stringify(product));
-            
+
             page = util.page(products, productId);
 
             res.render("pages/products/product", {
