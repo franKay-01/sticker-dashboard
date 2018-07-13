@@ -4515,6 +4515,34 @@ app.post('/product', function (req, res) {
         })
     }
 });
+
+app.get('/product/edit/:productId', function (req, res) {
+
+    let token = req.cookies.token;
+    let productId = req.params.productId;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Product).equalTo("objectId", productId).first();
+
+        }).then(function (product) {
+
+            res.render("pages/products/product_details", {
+                product: product
+            });
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect("/product/" + productId);
+        })
+    } else {
+        res.redirect('/');
+    }
+
+});
 /*====================================== PRODUCT ID ============================*/
 
 
