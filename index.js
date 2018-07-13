@@ -4498,6 +4498,7 @@ app.post('/product', function (req, res) {
             productId.set("name", name);
             productId.set("description", description);
             productId.set("userId", _user.id);
+            productId.set("published", false);
 
             return productId.save();
 
