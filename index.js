@@ -4528,6 +4528,40 @@ app.post('/product', function (req, res) {
     }
 });
 
+app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
+
+    let token = req.cookies.token;
+    let files = req.files;
+    let id = req.params.productId;
+    let name = req.body.name;
+    let description = req.body.description;
+    let android = req.body.android;
+    let ios = req.body.ios;
+
+
+    getUser(token).then(function (sessionToken) {
+
+        if (files){
+
+            return util.thumbnail(files)
+
+        }else {
+
+            return "";
+        }
+
+    }).then(previews => {
+
+        _previews = previews;
+
+        return new Parse.Query(_class.Product).equalTo("objectId", id).first();
+
+    }).then(function (product) {
+
+
+    })
+});
+
 app.get('/product/edit/:productId', function (req, res) {
 
     let token = req.cookies.token;
