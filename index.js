@@ -4495,7 +4495,7 @@ app.post('/product', function (req, res) {
     let name = req.body.product_name;
     let description = req.body.product_description;
     let products = '/products';
-    let productObject = {"android":"","ios":""};
+    let productObject = {"android": "", "ios": ""};
 
     console.log("NAME " + name + " DESC " + description);
 
@@ -4539,6 +4539,8 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
     let description = req.body.description;
     let android = req.body.android;
     let ios = req.body.ios;
+    let _previews;
+    let parseFile;
 
     console.log("PREVIEW 1" + files);
 
@@ -4563,41 +4565,69 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
             return new Parse.Query(_class.Product).equalTo("objectId", id).first();
 
         }).then(function (product) {
-            //
-            // if (android !== "" && ios !== ""){
-            //
-            //
-            //
-            // }else if (android !== "" && ios === ""){
-            //
-            //     productObject = {"android":android, "ios": ""};
-            //
-            // }else if (android === "" && ios !== ""){
-            //
-            //     productObject = {"android":"","ios":ios};
-            //
-            // }
 
-            product.set("name", name);
-            product.set("description", description);
-            product.set("productId", {"android":android,"ios":ios});
+            if (files.length > 0) {
 
-            return product.save();
+                files.forEach(function (file) {
 
-        }).then(function (productItem) {
-            console.log("PRODUCT " + JSON.stringify(productItem));
-            res.redirect('/product/edit/' + id);
+                    let fullName = file.originalname;
+                    let stickerName = fullName.substring(0, fullName.length - 4);
 
-        }, function (error) {
+                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
-            console.log("ERROR " + error.message);
-            res.redirect('/product/edit/' + id);
+                    let bitmapPreview;
+                    let parseFilePreview = "";
 
-        })
-    }else {
-        res.redirect('/');
+                    _.map(_previews, preview => {
+                        if (stickerName === preview.name) {
+                            bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
+                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
+                        }
+                    });
+
+                    parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+
+                    product.set("artwork", parseFile);
+                    product.set("preview", _previews);
+                });
+            }
+                product.set("name", name);
+                product.set("description", description);
+                product.set("productId", {"android": android, "ios": ios});
+
+
+                return product.save();
+
+            }).then(function (productItem) {
+
+                if (files.length > 0){
+                    let tempFile = files[0].path;
+                    fs.unlink(tempFile, function (err) {
+                        if (err) {
+                            //TODO handle error code
+                            console.log("-------Could not del temp" + JSON.stringify(err));
+                        }
+                        else {
+                            console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                        }
+                    });
+                }
+
+                res.redirect('/product/edit/' + id);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/product/edit/' + id);
+
+            })
+        }
+    else
+        {
+            res.redirect('/');
+        }
     }
-});
+);
 
 app.get('/product/edit/:productId', function (req, res) {
 
