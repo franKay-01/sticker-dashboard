@@ -1602,6 +1602,7 @@ app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
             //create our parse file
             let parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
 
+            console.log("IMAGE " + JSON.stringify(parseFile));
             asset.set("uri", parseFile);
 
             return asset.save();
@@ -1653,8 +1654,6 @@ app.post('/storyItem/type/:id', function (req, res) {
 
     if (token) {
 
-        console.log("CONTENT " + content);
-
         getUser(token).then(function (sessionToken) {
 
             let Story = new Parse.Object.extend(_class.StoryItems);
@@ -1663,30 +1662,35 @@ app.post('/storyItem/type/:id', function (req, res) {
             switch (_type) {
                 case type.STORY_ITEM.text:
                     story.set("type", type.STORY_ITEM.text);
+                    story.set("content", {"text": content});
                     break;
 
                 case type.STORY_ITEM.quote:
                     story.set("type", type.STORY_ITEM.quote);
+                    story.set("content", {"text": content});
                     break;
 
                 case type.STORY_ITEM.divider:
                     story.set("type", type.STORY_ITEM.divider);
+                    story.set("", "");
                     break;
 
                 case type.STORY_ITEM.italic:
                     story.set("type", type.STORY_ITEM.italic);
+                    story.set("content", {"text": content});
                     break;
 
                 case type.STORY_ITEM.bold:
                     story.set("type", type.STORY_ITEM.bold);
+                    story.set("content", {"text": content});
                     break;
 
                 case type.STORY_ITEM.italicBold:
                     story.set("type", type.STORY_ITEM.italicBold);
+                    story.set("content", {"text": content});
                     break;
             }
 
-            story.set("content", content);
             story.set("story_id", id);
 
             return story.save();
