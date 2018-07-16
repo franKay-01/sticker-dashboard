@@ -4539,56 +4539,49 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
     let description = req.body.description;
     let android = req.body.android;
     let ios = req.body.ios;
-    let productObject;
 
-    if (ios !== "" && android !== ""){
+    if (token) {
 
-        productObject = {"android": android,"ios": ios};
+        getUser(token).then(function (sessionToken) {
 
-    }else if (ios === "" && android !== ""){
+            if (files) {
 
-        productObject = {"android": android};
+                return util.thumbnail(files)
 
-    }else if (ios !== "" && android === ""){
-        productObject = {"ios": ios};
+            } else {
 
+                return "";
+            }
+
+        }).then(previews => {
+
+            console.log("PREVIEW " + previews);
+            _previews = previews;
+
+            return new Parse.Query(_class.Product).equalTo("objectId", id).first();
+
+        }).then(function (product) {
+
+            product.set("name", name);
+            product.set("description", description);
+            product.set("productId".android, android);
+            product.set("productId".ios, ios);
+
+            return product.save();
+
+        }).then(function (productItem) {
+            console.log("PRODUCT " + JSON.stringify(productItem));
+            res.redirect('/product/edit/' + id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/product/edit/' + id);
+
+        })
+    }else {
+        res.redirect('/');
     }
-
-    getUser(token).then(function (sessionToken) {
-
-        if (files){
-
-            return util.thumbnail(files)
-
-        }else {
-
-            return "";
-        }
-
-    }).then(previews => {
-
-        _previews = previews;
-
-        return new Parse.Query(_class.Product).equalTo("objectId", id).first();
-
-    }).then(function (product) {
-
-        product.set("name", name);
-        product.set("description", description);
-        product.set("productId", productObject);
-
-        return product.save();
-
-    }).then(function (productItem) {
-
-        res.redirect('/product/edit/' + id);
-
-    }, function (error) {
-
-        console.log("ERROR " + error.message);
-        res.redirect('/product/edit/' + id);
-
-    })
 });
 
 app.get('/product/edit/:productId', function (req, res) {
