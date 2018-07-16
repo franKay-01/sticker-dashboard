@@ -4564,20 +4564,23 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
             return new Parse.Query(_class.Product).equalTo("objectId", id).first();
 
         }).then(function (product) {
+            //
+            // if (android !== "" && ios !== ""){
+            //
+            //
+            //
+            // }else if (android !== "" && ios === ""){
+            //
+            //     productObject = {"android":android, "ios": ""};
+            //
+            // }else if (android === "" && ios !== ""){
+            //
+            //     productObject = {"android":"","ios":ios};
+            //
+            // }
 
-            if (android !== "" && ios !== ""){
+            productObject = {"android":android,"ios":ios};
 
-                productObject = {"android":android,"ios":ios};
-
-            }else if (android !== "" && ios === ""){
-
-                productObject = {"android":android, "ios": product.get("productId").ios};
-
-            }else if (android === "" && ios !== ""){
-
-                productObject = {"android":product.get("productId").android,"ios":ios};
-
-            }
             product.set("name", name);
             product.set("description", description);
             product.set("productId", productObject);
