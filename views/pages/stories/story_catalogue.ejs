@@ -176,6 +176,89 @@
     </div>
 
 
+    <div id="hiddenHeadingCatalouge" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW HEADING</div>
+            </center>
+            <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
+                <center>
+                    <i class="fa fa-list" style="color: white; font-size: 5rem" aria-hidden="true"></i>
+                    <br><br>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
+                              name="content" id="element" required="" aria-required="true"></textarea><br>
+                    Words: <span id="wordCount">0</span><br/>
+                </center>
+
+                <input name="style" value="9" hidden>
+
+                <span>
+        <button type="submit" class="create">ADD</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseItalicBoldCatalouge" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+
+    <div id="hiddenGreyAreaCatalouge" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW GREY AREA</div>
+            </center>
+            <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
+                <center>
+                    <i class="fa fa-list" style="color: white; font-size: 5rem" aria-hidden="true"></i>
+                    <br><br>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
+                              name="content" id="element" required="" aria-required="true"></textarea><br>
+                    Words: <span id="wordCount">0</span><br/>
+                </center>
+
+                <input name="style" value="12" hidden>
+
+                <span>
+        <button type="submit" class="create">ADD</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseItalicBoldCatalouge" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+
+
+    <div id="hiddenSideNoteCatalouge" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW BOLD & ITALIC</div>
+            </center>
+            <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
+                <center>
+                    <i class="fa fa-bold" style="color: white; font-size: 3rem" aria-hidden="true"></i>
+                    <i class="fa fa-italic" style="color: white; font-size: 3rem" aria-hidden="true"></i>
+                    <br><br>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
+                              name="content" id="element" required="" aria-required="true"></textarea><br>
+                    Words: <span id="wordCount">0</span><br/>
+                </center>
+
+                <input name="style" value="11" hidden>
+
+                <span>
+        <button type="submit" class="create">ADD</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseItalicBoldCatalouge" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+
     <div id="hiddenBoldItalicsCatalouge" class="hidden_forms" style="display: none">
         <div class="medium-3 large-3 cell create_background">
             <center>
@@ -192,6 +275,33 @@
                 </center>
 
                 <input name="style" value="8" hidden>
+
+                <span>
+        <button type="submit" class="create">ADD</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseItalicBoldCatalouge" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+
+    <div id="hiddenListCatalouge" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW LIST</div>
+            </center>
+            <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
+                <center>
+                    <i class="fa fa-list" style="color: white; font-size: 5rem" aria-hidden="true"></i>
+                    <br><br>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
+                              name="content" id="element" required="" aria-required="true"></textarea><br>
+                    Words: <span id="wordCount">0</span><br/>
+                </center>
+
+                <input name="style" value="10" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -329,6 +439,10 @@
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Italic</p>
             </button>
 
+            <button class="create_button list_element">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;List</p>
+            </button>
+
         </div>
 
         <div class="medium-3 large-3 cell icons">
@@ -349,8 +463,30 @@
             <button class="create_button italicBold_element">
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Italic Bold</p>
             </button>
+
+            <button class="create_button heading_element">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Heading</p>
+            </button>
         </div>
-        <%- include('../../partials/footer') %>
+
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new"></div>
+
+            <button class="create_button sideNote_element">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Side Note</p>
+            </button>
+
+            <button class="create_button greyArea_element">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Grey Area</p>
+            </button>
+
+            <!--<button class="create_button greyArea_element">-->
+                <!--<p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Grey Area</p>-->
+            <!--</button>-->
+        </div>
+
+            <%- include('../../partials/footer') %>
     </div>
 </div>
 
