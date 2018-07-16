@@ -4540,6 +4540,8 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
     let android = req.body.android;
     let ios = req.body.ios;
 
+    console.log("PREVIEW " + files);
+
     if (token) {
 
         getUser(token).then(function (sessionToken) {
