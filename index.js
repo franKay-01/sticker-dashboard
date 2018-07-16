@@ -1608,13 +1608,12 @@ app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
 
         }).then(function (image) {
 
-            console.log("IMAGE URL " + image.get("uri").url());
             let Story = new Parse.Object.extend(_class.StoryItems);
             let catalogue = new Story();
 
             catalogue.set("type", type.STORY_ITEM.image);
-            catalogue.set("content", image.id);
-            catalogue.set("story_id", id);
+            catalogue.set("contents", {"uri":image.get("uri").url()});
+            catalogue.set("storyId", id);
 
             return catalogue.save();
 
@@ -1662,36 +1661,36 @@ app.post('/storyItem/type/:id', function (req, res) {
             switch (_type) {
                 case type.STORY_ITEM.text:
                     story.set("type", type.STORY_ITEM.text);
-                    story.set("content", {"text": content});
+                    story.set("contents", {"text": content});
                     break;
 
                 case type.STORY_ITEM.quote:
                     story.set("type", type.STORY_ITEM.quote);
-                    story.set("content", {"text": content});
+                    story.set("contents", {"text": content});
                     break;
 
                 case type.STORY_ITEM.divider:
                     story.set("type", type.STORY_ITEM.divider);
-                    story.set("", "");
+                    story.set("contents", {"": ""});
                     break;
 
                 case type.STORY_ITEM.italic:
                     story.set("type", type.STORY_ITEM.italic);
-                    story.set("content", {"text": content});
+                    story.set("contents", {"text": content});
                     break;
 
                 case type.STORY_ITEM.bold:
                     story.set("type", type.STORY_ITEM.bold);
-                    story.set("content", {"text": content});
+                    story.set("contents", {"text": content});
                     break;
 
                 case type.STORY_ITEM.italicBold:
                     story.set("type", type.STORY_ITEM.italicBold);
-                    story.set("content", {"text": content});
+                    story.set("contents", {"text": content});
                     break;
             }
 
-            story.set("story_id", id);
+            story.set("storyId", id);
 
             return story.save();
 
