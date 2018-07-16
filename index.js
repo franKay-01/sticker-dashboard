@@ -4543,20 +4543,6 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
 
     console.log("PREVIEW 1" + files);
 
-    if (android !== "" && ios !== ""){
-
-        productObject = {"android":android,"ios":ios};
-
-    }else if (android !== "" && ios === ""){
-
-        productObject = {"android":android};
-
-    }else if (android === "" && ios !== ""){
-
-        productObject = {"ios":ios};
-
-    }
-
     if (token) {
 
         getUser(token).then(function (sessionToken) {
@@ -4579,6 +4565,19 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
 
         }).then(function (product) {
 
+            if (android !== "" && ios !== ""){
+
+                productObject = {"android":android,"ios":ios};
+
+            }else if (android !== "" && ios === ""){
+
+                productObject = {"android":android, "ios": product.get("productId").ios};
+
+            }else if (android === "" && ios !== ""){
+
+                productObject = {"android":product.get("productId").android,"ios":ios};
+
+            }
             product.set("name", name);
             product.set("description", description);
             product.set("productId", productObject);
