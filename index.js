@@ -4532,65 +4532,60 @@ app.post('/product', function (req, res) {
 
 app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
 
-    let token = req.cookies.token;
-    let files = req.files;
-    let id = req.params.productId;
-    let name = req.body.name;
-    let description = req.body.description;
-    let android = req.body.android;
-    let ios = req.body.ios;
-    let _previews;
-    let parseFile;
+        let token = req.cookies.token;
+        let files = req.files;
+        let id = req.params.productId;
+        let name = req.body.name;
+        let description = req.body.description;
+        let android = req.body.android;
+        let ios = req.body.ios;
+        let _previews;
+        let parseFile;
 
-    console.log("PREVIEW 1" + files);
+        console.log("PREVIEW 1" + files);
 
-    if (token) {
+        if (token) {
 
-        getUser(token).then(function (sessionToken) {
+            getUser(token).then(function (sessionToken) {
 
-            if (files.length > 0) {
+                if (files.length > 0) {
 
-                return util.thumbnail(files)
+                    return util.thumbnail(files)
 
-            } else {
+                } else {
 
-                return "";
-            }
+                    return "";
+                }
 
-        }).then(previews => {
+            }).then(previews => {
 
-            console.log("PREVIEW 2 " + previews);
-            _previews = previews;
+                console.log("PREVIEW 2 " + JSON.stringify(previews));
+                _previews = previews;
 
-            return new Parse.Query(_class.Product).equalTo("objectId", id).first();
+                return new Parse.Query(_class.Product).equalTo("objectId", id).first();
 
-        }).then(function (product) {
+            }).then(function (product) {
 
-            if (files.length > 0) {
+                if (files.length > 0) {
 
-                files.forEach(function (file) {
-
-                    let fullName = file.originalname;
+                    let fullName = files[0].originalname;
                     let stickerName = fullName.substring(0, fullName.length - 4);
 
-                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+                    let bitmap = fs.readFileSync(files[0].path, {encoding: 'base64'});
 
                     let bitmapPreview;
                     let parseFilePreview = "";
 
-                    _.map(_previews, preview => {
-                        if (stickerName === preview.name) {
-                            bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
-                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
-                        }
-                    });
 
-                    parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                    bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
+                    parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
+                    parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
 
                     product.set("artwork", parseFile);
-                    product.set("preview", _previews);
-                });
-            }
+                    product.set("preview", parseFilePreview);
+
+                }
+
                 product.set("name", name);
                 product.set("description", description);
                 product.set("productId", {"android": android, "ios": ios});
@@ -4598,9 +4593,10 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
 
                 return product.save();
 
+
             }).then(function (productItem) {
 
-                if (files.length > 0){
+                if (files.length > 0) {
                     let tempFile = files[0].path;
                     fs.unlink(tempFile, function (err) {
                         if (err) {
@@ -4622,8 +4618,7 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
 
             })
         }
-    else
-        {
+        else {
             res.redirect('/');
         }
     }
