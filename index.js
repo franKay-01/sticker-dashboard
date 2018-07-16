@@ -4577,8 +4577,8 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
                     let parseFilePreview = "";
 
 
-                    bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
-                    parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
+                    bitmapPreview = fs.readFileSync(_previews[0].path, {encoding: 'base64'});
+                    parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, _previews[0].mimetype);
                     parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
 
                     product.set("artwork", parseFile);
