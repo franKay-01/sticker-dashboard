@@ -4539,7 +4539,20 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
     let description = req.body.description;
     let android = req.body.android;
     let ios = req.body.ios;
+    let productObject;
 
+    if (ios !== "" && android !== ""){
+
+        productObject = {"android": android,"ios": ios};
+
+    }else if (ios === "" && android !== ""){
+
+        productObject = {"android": android};
+
+    }else if (ios !== "" && android === ""){
+        productObject = {"ios": ios};
+
+    }
 
     getUser(token).then(function (sessionToken) {
 
@@ -4562,8 +4575,7 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
 
         product.set("name", name);
         product.set("description", description);
-        product.set("productId".android, android);
-        product.set("productId".ios, ios);
+        product.set("productId", productObject);
 
         return product.save();
 
