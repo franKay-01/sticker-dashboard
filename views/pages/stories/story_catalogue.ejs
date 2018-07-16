@@ -24,12 +24,12 @@
     <script>
 
         $(function() {
-            var scntDiv = $('#p_scents');
-            var i = $('#p_scents p').size() + 1;
+            var scntDiv = $('#lists');
+            var i = $('#lists p').size() + 1;
 
             $("#addScnt").click(function(event){
             // $('#addScnt').live('click', function() {
-                $('<p><label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt_" value="" placeholder="Input Value" /></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+                $('<p><label for="p_scnts"><input class="_pack common_pack_detail validate" placeholder="Add Text" type="text" id="list" name="content[]"></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
                 i++;
                 return false;
             });
@@ -315,14 +315,13 @@
                 <center>
                     <i class="fa fa-list" style="color: white; font-size: 5rem" aria-hidden="true"></i>
                     <br><br>
-
-                    <input class="_pack common_pack_detail validate" placeholder="Add Text" type="text" id="member" required="" name="content[]">
-
                     <h2><a href="#" id="addScnt">Add Another Input Box</a></h2>
 
-                    <div id="p_scents">
+                    <div id="lists">
                         <p>
-                            <label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="Input Value" /></label>
+                            <label for="p_scnts">
+                                <input class="_pack common_pack_detail validate" placeholder="Add Text" type="text" id="list" required="" name="content[]">
+                            </label>
                         </p>
                     </div>
 
