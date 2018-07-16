@@ -1602,13 +1602,13 @@ app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
             //create our parse file
             let parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
 
-            console.log("IMAGE " + JSON.stringify(parseFile));
             asset.set("uri", parseFile);
 
             return asset.save();
 
         }).then(function (image) {
 
+            console.log("IMAGE URL " + image.get("uri").url());
             let Story = new Parse.Object.extend(_class.StoryItems);
             let catalogue = new Story();
 
