@@ -4539,7 +4539,6 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
     let description = req.body.description;
     let android = req.body.android;
     let ios = req.body.ios;
-    let productObject;
 
     console.log("PREVIEW 1" + files);
 
@@ -4579,11 +4578,9 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
             //
             // }
 
-            productObject = {"android":android,"ios":ios};
-
             product.set("name", name);
             product.set("description", description);
-            product.set("productId", productObject);
+            product.set("productId", {"android":android,"ios":ios});
 
             return product.save();
 
