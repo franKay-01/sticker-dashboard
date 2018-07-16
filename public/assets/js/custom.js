@@ -543,7 +543,7 @@ $(document).ready(function () {
             $('#signoutLink').fadeIn('fast');
             $('#pack_id').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
-            $('#pack_form')[0].reset();
+            $('.hidden_forms')[0].reset();
         });
 
         $('#btnCloseSideNoteCatalouge').on('click', function () {
