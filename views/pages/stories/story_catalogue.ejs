@@ -24,6 +24,28 @@
 
     <script>
 
+        function addFields(){
+            // Number of inputs to create
+            let number = document.getElementById("member").value;
+            // Container <div> where dynamic content will be placed
+            let container = document.getElementById("container");
+            // Clear previous contents of the container
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+            for (i=0;i<number;i++){
+                // Append a node with a random text
+                container.appendChild(document.createTextNode("Member " + (i+1)));
+                // Create an <input> element, set its type and name attributes
+                let input = document.createElement("input");
+                input.type = "text";
+                input.name = "content[]";
+                container.appendChild(input);
+                // Append a line break
+                container.appendChild(document.createElement("br"));
+            }
+        }
+
         counter = function() {
             let value = $('#element').val();
 
@@ -296,8 +318,11 @@
                 <center>
                     <i class="fa fa-list" style="color: white; font-size: 5rem" aria-hidden="true"></i>
                     <br><br>
-                    <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
-                              name="content" id="element" required="" aria-required="true"></textarea><br>
+
+                    <input class="_pack common_pack_detail validate" placeholder="Add Text" type="text" id="member" required="" name="content[]">
+                    <a href="#" id="filldetails" onclick="addFields()">Add new</a>
+                    <div id="container"/>
+
                     Words: <span id="wordCount">0</span><br/>
                 </center>
 
