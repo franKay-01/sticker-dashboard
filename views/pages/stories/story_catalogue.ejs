@@ -24,28 +24,6 @@
 
     <script>
 
-        function addFields(){
-            // Number of inputs to create
-            let number = document.getElementById("member").value;
-            // Container <div> where dynamic content will be placed
-            let container = document.getElementById("container");
-            // Clear previous contents of the container
-            while (container.hasChildNodes()) {
-                container.removeChild(container.lastChild);
-            }
-            for (i=0;i<number;i++){
-                // Append a node with a random text
-                container.appendChild(document.createTextNode("Member " + (i+1)));
-                // Create an <input> element, set its type and name attributes
-                let input = document.createElement("input");
-                input.type = "text";
-                input.name = "content[]";
-                container.appendChild(input);
-                // Append a line break
-                container.appendChild(document.createElement("br"));
-            }
-        }
-
         counter = function() {
             let value = $('#element').val();
 
@@ -95,7 +73,7 @@
     <div id="hiddenTextCatalouge" class="hidden_forms" style="display: none">
         <div class="medium-3 large-3 cell create_background">
             <center>
-                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW TEXT
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW TEXT
                 </div>
             </center>
             <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
@@ -218,7 +196,7 @@
         <button type="submit" class="create">ADD</button>
         </span>
                 <span>
-        <button type="button" id="btnCloseItalicBoldCatalouge" class="cancel">Cancel</button>
+        <button type="button" id="btnCloseHeadingCatalouge" class="cancel">Cancel</button>
          </span>
 
             </form>
@@ -245,7 +223,7 @@
         <button type="submit" class="create">ADD</button>
         </span>
                 <span>
-        <button type="button" id="btnCloseItalicBoldCatalouge" class="cancel">Cancel</button>
+        <button type="button" id="btnCloseGreyAreaCatalouge" class="cancel">Cancel</button>
          </span>
 
             </form>
@@ -256,12 +234,12 @@
     <div id="hiddenSideNoteCatalouge" class="hidden_forms" style="display: none">
         <div class="medium-3 large-3 cell create_background">
             <center>
-                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW BOLD & ITALIC</div>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW SIDE NOTE</div>
             </center>
             <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
                 <center>
-                    <i class="fa fa-bold" style="color: white; font-size: 3rem" aria-hidden="true"></i>
-                    <i class="fa fa-italic" style="color: white; font-size: 3rem" aria-hidden="true"></i>
+                    <i class="fa fa-sticky-note-o" style="color: white; font-size: 3rem" aria-hidden="true"></i>
+
                     <br><br>
                     <textarea class="_pack common_pack_detail validate" placeholder="Add Text"
                               name="content" id="element" required="" aria-required="true"></textarea><br>
@@ -274,7 +252,7 @@
         <button type="submit" class="create">ADD</button>
         </span>
                 <span>
-        <button type="button" id="btnCloseItalicBoldCatalouge" class="cancel">Cancel</button>
+        <button type="button" id="btnCloseSideNoteCatalouge" class="cancel">Cancel</button>
          </span>
 
             </form>
@@ -320,8 +298,6 @@
                     <br><br>
 
                     <input class="_pack common_pack_detail validate" placeholder="Add Text" type="text" id="member" required="" name="content[]">
-                    <a href="#" id="filldetails" onclick="addFields()">Add new</a>
-                    <div id="container"/>
 
                     Words: <span id="wordCount">0</span><br/>
                 </center>
@@ -332,7 +308,7 @@
         <button type="submit" class="create">ADD</button>
         </span>
                 <span>
-        <button type="button" id="btnCloseItalicBoldCatalouge" class="cancel">Cancel</button>
+        <button type="button" id="btnCloseListCatalouge" class="cancel">Cancel</button>
          </span>
 
             </form>
