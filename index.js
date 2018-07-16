@@ -4495,6 +4495,7 @@ app.post('/product', function (req, res) {
     let name = req.body.product_name;
     let description = req.body.product_description;
     let products = '/products';
+    let productObject = {"android":"","ios":""};
 
     console.log("NAME " + name + " DESC " + description);
 
@@ -4511,6 +4512,7 @@ app.post('/product', function (req, res) {
             productId.set("description", description);
             productId.set("userId", _user.id);
             productId.set("published", false);
+            productId.set("productId", productObject);
 
             return productId.save();
 
@@ -4558,6 +4560,21 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
 
     }).then(function (product) {
 
+        product.set("name", name);
+        product.set("description", description);
+        product.set("productId".android, android);
+        product.set("productId".ios, ios);
+
+        return product.save();
+
+    }).then(function (productItem) {
+
+        res.redirect('/product/edit/' + id);
+
+    }, function (error) {
+
+        console.log("ERROR " + error.message);
+        res.redirect('/product/edit/' + id);
 
     })
 });
