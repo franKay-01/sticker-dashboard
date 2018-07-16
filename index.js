@@ -4539,14 +4539,29 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
     let description = req.body.description;
     let android = req.body.android;
     let ios = req.body.ios;
+    let productObject;
 
-    console.log("PREVIEW " + files);
+    console.log("PREVIEW 1" + files);
+
+    if (android !== "" && ios !== ""){
+
+        productObject = {"android":android,"ios":ios};
+
+    }else if (android !== "" && ios === ""){
+
+        productObject = {"android":android};
+
+    }else if (android === "" && ios !== ""){
+
+        productObject = {"ios":ios};
+
+    }
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            if (files) {
+            if (files.length > 0) {
 
                 return util.thumbnail(files)
 
@@ -4557,7 +4572,7 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
 
         }).then(previews => {
 
-            console.log("PREVIEW " + previews);
+            console.log("PREVIEW 2 " + previews);
             _previews = previews;
 
             return new Parse.Query(_class.Product).equalTo("objectId", id).first();
@@ -4566,8 +4581,7 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
 
             product.set("name", name);
             product.set("description", description);
-            product.set("productId".android, android);
-            product.set("productId".ios, ios);
+            product.set("productId", productObject);
 
             return product.save();
 
