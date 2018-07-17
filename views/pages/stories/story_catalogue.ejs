@@ -27,18 +27,10 @@
             var scntDiv = $('#lists');
             var i = $('#lists p').size() + 1;
 
-            $("#addScnt").click(function (event) {
+            $("#addList").click(function (event) {
                 // $('#addScnt').live('click', function() {
-                $('<p><label for="p_scnts"><input class="_pack common_pack_detail validate" placeholder="Add Text" type="text" id="list" name="content[]"></label> <a href="#" id="listRemove">Remove</a></p>').appendTo(scntDiv);
+                $('<p><label for="p_scnts"><input class="_pack common_pack_detail validate" placeholder="Add Text" type="text" id="list" name="content[]"></label> </p>').appendTo(scntDiv);
                 i++;
-                return false;
-            });
-
-            $('#listRemove').click(function () {
-                if (i > 2) {
-                    $(this).parents('p').remove();
-                    i--;
-                }
                 return false;
             });
         });
@@ -321,15 +313,9 @@
                     <br><br>
                     <div id="lists">
                         <p>
-                            <!--<label for="p_scnts">-->
-                            <span>
-                              <input class="_pack common_pack_detail validate" placeholder="Add Text" type="text"
-                                     id="list" required="" name="content[]">
-                            <a href="#" id="addScnt"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-
-                            </span>
-
-                            <!--</label>-->
+                            <input class="_pack common_pack_detail validate" placeholder="Add Text" type="text"
+                                   id="list" required="" name="content[]">
+                            <a href="#" id="addList"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                         </p>
                     </div>
 
