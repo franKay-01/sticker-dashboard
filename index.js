@@ -1397,6 +1397,35 @@ app.get('/storyitem/:id', function (req, res) {
     }
 });
 
+app.get('/storyitem/html/:id', function () {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+        }).then(function (story) {
+
+            res.render("pages/stories/story_html", {
+                id: story.id
+            })
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect("/storyitem/view/" + id);
+        })
+
+    } else {
+
+        res.redirect('/');
+    }
+});
+
 app.get('/storyitem/view/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -1707,7 +1736,7 @@ app.post('/storyItem/type/:id', function (req, res) {
 
                 case type.STORY_ITEM.heading:
                     story.set("type", type.STORY_ITEM.heading);
-                    story.set("contents", {"heading": heading, "text":content});
+                    story.set("contents", {"heading": heading, "text": content});
                     break;
             }
 
