@@ -1414,7 +1414,7 @@ app.get('/storyitem/html/:id', function () {
             storyItem.set("storyId", id);
 
             return storyItem.save();
-            // return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+            //product.set("productId", {"android": android, "ios": ios});
 
         }).then(function (story) {
 
