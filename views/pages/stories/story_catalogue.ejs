@@ -40,12 +40,12 @@
 
             if (value.length === 0) {
 
-                $('#wordCount').html(0);
+                $('.wordCount').html(0);
                 return;
             } else {
                 let regex = /\s+/gi;
                 let wordCount = value.trim().replace(regex, ' ').split(' ').length;
-                $('#wordCount').html(wordCount);
+                $('.wordCount').html(wordCount);
             }
         };
 
@@ -92,7 +92,7 @@
                     <i class="fa fa-text-width" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
-                    Words: <span id="wordCount">0</span><br/>
+                    Words: <span class="wordCount">0</span><br/>
                 </center>
                 <input name="style" value="0" hidden>
                 <span>
@@ -118,7 +118,7 @@
                     <i class="fa fa-quote-right" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
-                    Words: <span id="wordCount">0</span><br/>
+                    Words: <span class="wordCount">0</span><br/>
                 </center>
                 <input name="style" value="2" hidden>
                 <span>
@@ -143,7 +143,7 @@
                     <br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
-                    Words: <span id="wordCount">0</span><br/>
+                    Words: <span class="wordCount">0</span><br/>
                 </center>
 
                 <input name="style" value="5" hidden>
@@ -170,7 +170,7 @@
                     <br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
-                    Words: <span id="wordCount">0</span><br/>
+                    Words: <span class="wordCount">0</span><br/>
                 </center>
 
                 <input name="style" value="6" hidden>
@@ -198,7 +198,7 @@
                     <br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
-                    Words: <span id="wordCount">0</span><br/>
+                    Words: <span class="wordCount">0</span><br/>
                 </center>
 
                 <input name="style" value="9" hidden>
@@ -226,7 +226,7 @@
                     <br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
-                    Words: <span id="wordCount">0</span><br/>
+                    Words: <span class="wordCount">0</span><br/>
                 </center>
 
                 <input name="style" value="12" hidden>
@@ -256,7 +256,7 @@
                     <br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
-                    Words: <span id="wordCount">0</span><br/>
+                    Words: <span class="wordCount">0</span><br/>
                 </center>
 
                 <input name="style" value="11" hidden>
@@ -286,7 +286,7 @@
                     <br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
-                    Words: <span id="wordCount">0</span><br/>
+                    Words: <span class="wordCount">0</span><br/>
                 </center>
 
                 <input name="style" value="8" hidden>
@@ -318,8 +318,6 @@
                             <a href="#" id="addList"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                         </p>
                     </div>
-
-                    Words: <span id="wordCount">0</span><br/>
                 </center>
 
                 <input name="style" value="10" hidden>
