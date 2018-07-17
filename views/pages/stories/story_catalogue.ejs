@@ -38,10 +38,12 @@
         counter = function () {
             let value = $('.element').val();
 
+            alert(value);
             if (value.length === 0) {
 
                 $('.wordCount').html(0);
                 return;
+
             } else {
                 let regex = /\s+/gi;
                 let wordCount = value.trim().replace(regex, ' ').split(' ').length;
