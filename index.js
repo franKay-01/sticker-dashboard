@@ -1406,12 +1406,20 @@ app.get('/storyitem/html/:id', function () {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+            let Story = new Parse.Object.extend(_class.StoryItems);
+            let storyItem = new Story();
+
+            storyItem.set("type", type.STORY_ITEM.html);
+            storyItem.set("contents", {"html":{"text":"","italic":"","bold":"","italicBold":""}});
+            storyItem.set("storyId", id);
+
+            return storyItem.save();
+            // return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
 
         }).then(function (story) {
 
             res.render("pages/stories/story_html", {
-                id: story.id
+                storyItemId: story.id
             })
 
         }, function (error) {
