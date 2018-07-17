@@ -1423,7 +1423,7 @@ app.get('/storyItem/html/:id', function (req, res) {
 
             _story = storyItem;
 
-            return new Parse.Query(_class.Stories).equalTo("objectId", storyItem.id).first();
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
 
         }).then(function (story) {
 
