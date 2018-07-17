@@ -1397,7 +1397,7 @@ app.get('/storyitem/:id', function (req, res) {
     }
 });
 
-app.get('/storyitem/html/:id', function () {
+app.get('/storyitem/html/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
