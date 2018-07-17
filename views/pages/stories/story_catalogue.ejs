@@ -46,15 +46,11 @@
             } else {
                 let regex = /\s+/gi;
                 let wordCount = value.trim().replace(regex, ' ').split(' ').length;
-                alert(wordCount);
                 $('.wordCount').html(wordCount);
             }
         };
 
         $(document).ready(function () {
-            // $('#element').on("change", function (evt) {
-            //     counter();
-            // });
 
             $('.element').change(counter);
             $('.element').keypress(counter);
@@ -198,6 +194,7 @@
                 <center>
                     <i class="fa fa-list" style="color: white; font-size: 5rem" aria-hidden="true"></i>
                     <br><br>
+                    <input class="_pack common_pack_detail validate" placeholder="Add Heading" type="text" required="" name="heading">
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
                     Words: <span class="wordCount">0</span><br/>

@@ -1649,6 +1649,7 @@ app.post('/storyItem/type/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let content = req.body.content;
+    let heading = req.body.heading;
     let _type = parseInt(req.body.style);
 
     if (token) {
@@ -1702,6 +1703,11 @@ app.post('/storyItem/type/:id', function (req, res) {
                 case type.STORY_ITEM.greyArea:
                     story.set("type", type.STORY_ITEM.greyArea);
                     story.set("contents", {"text": content});
+                    break;
+
+                case type.STORY_ITEM.heading:
+                    story.set("type", type.STORY_ITEM.heading);
+                    story.set("contents", {"heading": heading, "text":content});
                     break;
             }
 
