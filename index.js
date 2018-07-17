@@ -1693,6 +1693,16 @@ app.post('/storyItem/type/:id', function (req, res) {
                     story.set("type", type.STORY_ITEM.list);
                     story.set("contents", {"text": content});
                     break;
+
+                case type.STORY_ITEM.sideNote:
+                    story.set("type", type.STORY_ITEM.sideNote);
+                    story.set("contents", {"text": content});
+                    break;
+
+                case type.STORY_ITEM.greyArea:
+                    story.set("type", type.STORY_ITEM.greyArea);
+                    story.set("contents", {"text": content});
+                    break;
             }
 
             story.set("storyId", id);
