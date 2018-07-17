@@ -1401,6 +1401,7 @@ app.get('/storyitem/html/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
+    let _story;
 
     if (token) {
 
@@ -1416,12 +1417,18 @@ app.get('/storyitem/html/:id', function (req, res) {
             return storyItem.save();
             //product.set("productId", {"android": android, "ios": ios});
 
+        }).then(function (storyItem) {
+
+            _story = storyItem;
+
+            return new Parse.Query(_class.Stories).equalTo("objectId", story.id).first();
+
         }).then(function (story) {
 
             res.render("pages/stories/story_html", {
-                storyItemId: story.id
+                name: story.get("title"),
+                storyItemId: _story.id
             })
-
         }, function (error) {
 
             console.log("ERROR " + error.message);
