@@ -1651,6 +1651,8 @@ app.post('/storyItem/type/:id', function (req, res) {
     let content = req.body.content;
     let _type = parseInt(req.body.style);
 
+    console.log("CONTENT " + JSON.stringify(content));
+
     if (token) {
 
         getUser(token).then(function (sessionToken) {
@@ -1686,6 +1688,11 @@ app.post('/storyItem/type/:id', function (req, res) {
 
                 case type.STORY_ITEM.italicBold:
                     story.set("type", type.STORY_ITEM.italicBold);
+                    story.set("contents", {"text": content});
+                    break;
+
+                case type.STORY_ITEM.list:
+                    story.set("type", type.STORY_ITEM.list);
                     story.set("contents", {"text": content});
                     break;
             }
