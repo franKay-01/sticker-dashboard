@@ -29,12 +29,12 @@
 
             $("#addScnt").click(function(event){
             // $('#addScnt').live('click', function() {
-                $('<p><label for="p_scnts"><input class="_pack common_pack_detail validate" placeholder="Add Text" type="text" id="list" name="content[]"></label> <a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+                $('<p><label for="p_scnts"><input class="_pack common_pack_detail validate" placeholder="Add Text" type="text" id="list" name="content[]"></label> <a href="#" id="listRemove">Remove</a></p>').appendTo(scntDiv);
                 i++;
                 return false;
             });
 
-            $('#remScnt').click(function() {
+            $('#listRemove').click(function() {
                 if( i > 2 ) {
                     $(this).parents('p').remove();
                     i--;
@@ -317,6 +317,7 @@
                     <br><br>
 
                     <input class="_pack common_pack_detail validate" placeholder="Add Text" type="text" id="list" required="" name="content[]">
+
                     <a href="#" id="addScnt"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 
                     <div id="lists">
