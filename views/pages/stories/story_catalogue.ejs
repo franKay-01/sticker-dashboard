@@ -46,6 +46,7 @@
             } else {
                 let regex = /\s+/gi;
                 let wordCount = value.trim().replace(regex, ' ').split(' ').length;
+                alert(wordCount);
                 $('.wordCount').html(wordCount);
             }
         };
