@@ -1558,7 +1558,7 @@ app.post('/storyitem/sticker/add/:id', function (req, res) {
             let Story = new Parse.Object.extend(_class.StoryItems);
             let catalogue = new Story();
 
-            catalogue.set("contents", {"id":sticker_id});
+            catalogue.set("contents", {"id": sticker_id});
             catalogue.set("storyId", story_id);
             catalogue.set("type", type.STORY_ITEM.sticker);
 
@@ -1612,7 +1612,7 @@ app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
             let catalogue = new Story();
 
             catalogue.set("type", type.STORY_ITEM.image);
-            catalogue.set("contents", {"uri":image.get("uri").url()});
+            catalogue.set("contents", {"uri": image.get("uri").url()});
             catalogue.set("storyId", id);
 
             return catalogue.save();
@@ -1650,8 +1650,6 @@ app.post('/storyItem/type/:id', function (req, res) {
     let id = req.params.id;
     let content = req.body.content;
     let _type = parseInt(req.body.style);
-
-    console.log("CONTENT " + JSON.stringify(content));
 
     if (token) {
 
