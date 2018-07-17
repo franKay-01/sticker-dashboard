@@ -1419,6 +1419,8 @@ app.get('/storyItem/html/:id', function (req, res) {
 
         }).then(function (storyItem) {
 
+            console.log("STORY ITEM " + JSON.stringify(storyItem));
+
             _story = storyItem;
 
             return new Parse.Query(_class.Stories).equalTo("objectId", storyItem.id).first();
@@ -1432,7 +1434,7 @@ app.get('/storyItem/html/:id', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect("/storyitem/view/" + id);
+            res.redirect("/storyitem/" + id);
         })
 
     } else {
