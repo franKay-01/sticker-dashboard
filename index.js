@@ -1419,8 +1419,6 @@ app.get('/storyItem/html/:id', function (req, res) {
 
         }).then(function (storyItem) {
 
-            console.log("STORY ITEM " + JSON.stringify(storyItem));
-
             _story = storyItem;
 
             return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
@@ -1429,7 +1427,8 @@ app.get('/storyItem/html/:id', function (req, res) {
 
             res.render("pages/stories/story_html", {
                 name: story.get("title"),
-                storyItemId: _story.id
+                storyItemId: _story.id,
+                storyId: story.get("storyId")
             })
         }, function (error) {
 
