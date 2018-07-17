@@ -23,19 +23,19 @@
 
     <script>
 
-        $(function() {
+        $(function () {
             var scntDiv = $('#lists');
             var i = $('#lists p').size() + 1;
 
-            $("#addScnt").click(function(event){
-            // $('#addScnt').live('click', function() {
+            $("#addScnt").click(function (event) {
+                // $('#addScnt').live('click', function() {
                 $('<p><label for="p_scnts"><input class="_pack common_pack_detail validate" placeholder="Add Text" type="text" id="list" name="content[]"></label> <a href="#" id="listRemove">Remove</a></p>').appendTo(scntDiv);
                 i++;
                 return false;
             });
 
-            $('#listRemove').click(function() {
-                if( i > 2 ) {
+            $('#listRemove').click(function () {
+                if (i > 2) {
                     $(this).parents('p').remove();
                     i--;
                 }
@@ -43,21 +43,21 @@
             });
         });
 
-        counter = function() {
+        counter = function () {
             let value = $('#element').val();
 
             if (value.length === 0) {
 
                 $('#wordCount').html(0);
                 return;
-            }else {
+            } else {
                 let regex = /\s+/gi;
                 let wordCount = value.trim().replace(regex, ' ').split(' ').length;
                 $('#wordCount').html(wordCount);
             }
         };
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             // $('#element').on("change", function (evt) {
             //     counter();
             // });
@@ -225,7 +225,8 @@
     <div id="hiddenGreyAreaCatalouge" class="hidden_forms" style="display: none">
         <div class="medium-3 large-3 cell create_background">
             <center>
-                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW GREY AREA</div>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW GREY AREA
+                </div>
             </center>
             <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
                 <center>
@@ -253,7 +254,8 @@
     <div id="hiddenSideNoteCatalouge" class="hidden_forms" style="display: none">
         <div class="medium-3 large-3 cell create_background">
             <center>
-                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW SIDE NOTE</div>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW SIDE NOTE
+                </div>
             </center>
             <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
                 <center>
@@ -281,7 +283,9 @@
     <div id="hiddenBoldItalicsCatalouge" class="hidden_forms" style="display: none">
         <div class="medium-3 large-3 cell create_background">
             <center>
-                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW BOLD & ITALIC</div>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW BOLD &
+                    ITALIC
+                </div>
             </center>
             <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
                 <center>
@@ -315,16 +319,17 @@
                 <center>
                     <i class="fa fa-list" style="color: white; font-size: 5rem" aria-hidden="true"></i>
                     <br><br>
-
-                    <input class="_pack common_pack_detail validate" placeholder="Add Text" type="text" id="list" required="" name="content[]">
-
-                    <a href="#" id="addScnt"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-
                     <div id="lists">
                         <p>
-                            <label for="p_scnts">
-                                <input class="_pack common_pack_detail validate" placeholder="Add Text" type="text" id="list" required="" name="content[]">
-                            </label>
+                            <!--<label for="p_scnts">-->
+                            <span>
+                              <input class="_pack common_pack_detail validate" placeholder="Add Text" type="text"
+                                     id="list" required="" name="content[]">
+                            <a href="#" id="addScnt"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+
+                            </span>
+
+                            <!--</label>-->
                         </p>
                     </div>
 
@@ -423,7 +428,8 @@
 
     </div>
 
-    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Story Items - <i class="welcome_post" style="color: #a46580"><%= name %></i></b></span>
+    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Story Items - <i class="welcome_post"
+                                                                                   style="color: #a46580"><%= name %></i></b></span>
 
     <div class="grid-x grid-margin-x" id="opaqueDiv">
         <div class="medium-3 large-3 cell login_card">
@@ -442,10 +448,10 @@
             <div class="create_new">Story Items</div>
 
             <a href="/storyitem/view/<%= story_id %>">
-            <button class="create_button">
-                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Show All
-                </p>
-            </button>
+                <button class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Show All
+                    </p>
+                </button>
             </a>
         </div>
 
@@ -512,11 +518,11 @@
             </button>
 
             <!--<button class="create_button greyArea_element">-->
-                <!--<p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Grey Area</p>-->
+            <!--<p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Grey Area</p>-->
             <!--</button>-->
         </div>
 
-            <%- include('../../partials/footer') %>
+        <%- include('../../partials/footer') %>
     </div>
 </div>
 
