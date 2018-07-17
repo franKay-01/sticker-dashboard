@@ -1410,7 +1410,7 @@ app.get('/storyitem/html/:id', function () {
             let storyItem = new Story();
 
             storyItem.set("type", type.STORY_ITEM.html);
-            storyItem.set("contents", {"html":{"text":"","italic":"","bold":"","italicBold":""}});
+            storyItem.set("contents", {"html":{"text":"","italic":"","bold":"","italicBold":"","color":{"text":"","color":""}}});
             storyItem.set("storyId", id);
 
             return storyItem.save();
