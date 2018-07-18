@@ -314,7 +314,6 @@ $(document).ready(function () {
             $("#image_id").remove();
         });
 
-
         $('#removePublished').on('click', function () {
             $('#pageMask').fadeIn('fast');
             $('#removePublish').fadeIn('fast');
