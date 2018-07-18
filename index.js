@@ -283,12 +283,12 @@ app.get('/home', function (req, res) {
             return Parse.Promise.when(
                 new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first(),
                 new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
-                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).descending("createdAt").limit(limit).find(),
+                new Parse.Query(_class.Packs).equalTo("userId", _user.id).descending("createdAt").limit(limit).find(),
                 new Parse.Query(_class.Categories).limit(limit).find(),
                 new Parse.Query(_class.Stories).equalTo("user_id", _user.id).descending("createdAt").limit(limit).find(),
-                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find(),
+                new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
                 new Parse.Query(_class.Categories).count(),
-                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).count(),
+                new Parse.Query(_class.Packs).equalTo("userId", _user.id).count(),
                 new Parse.Query(_class.Stickers).equalTo("user_id", _user.id).count(),
                 new Parse.Query(_class.Stories).equalTo("user_id", _user.id).count(),
                 new Parse.Query(_class.Adverts).equalTo("user_id", _user.id).limit(limit).find(),
@@ -1310,7 +1310,7 @@ app.get('/stories', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(_class.Stories).equalTo("user_id", _user.id).descending("createdAt").find(),
-                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find(),
+                new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
                 new Parse.Query(_class.ArtWork).find(),
                 new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first()
             );
@@ -1411,7 +1411,7 @@ app.get('/storyItem/html/:id', function (req, res) {
             let storyItem = new Story();
 
             storyItem.set("type", type.STORY_ITEM.html);
-            storyItem.set("contents", {"html":{"text":"","italic":"","bold":"","italicBold":"","color":{"text":"","color":""}}});
+            storyItem.set("contents", {"html": []});
             storyItem.set("storyId", id);
 
             return storyItem.save();
@@ -2984,12 +2984,12 @@ app.get('/review/:id', function (req, res) {
 
             pack.get(pack_id, {
                 success: function (pack) {
-                    let pack_name = pack.get("pack_name");
-                    let pack_owner = pack.get("user_name");
-                    let pack_owner_id = pack.get("user_id");
-                    let art = pack.get("art_work");
+                    let pack_name = pack.get("name");
+                    let pack_owner = pack.get("userName");
+                    let pack_owner_id = pack.get("userId");
+                    let art = pack.get("artwork");
                     let pack_id = pack.id;
-                    let _description = pack.get("pack_description");
+                    let _description = pack.get("description");
 
                     //
                     // new Parse.Query("User").equalTo("objectId", pack_owner).find().then(function (user) {
@@ -3048,9 +3048,9 @@ app.post('/review/pack/:id', function (req, res) {
                 } else if (status === "1") {
                     pack.set("status", type.PACK_STATUS.rejected);
                 }
-                review.set("image", pack.get("art_work").url());
-                review.set("name", pack.get("pack_name"));
-                review.set("owner", pack.get("user_id"));
+                review.set("image", pack.get("artwork").url());
+                review.set("name", pack.get("name"));
+                review.set("owner", pack.get("userId"));
                 review.set("pack_id", pack.id);
                 return pack.save();
 
@@ -3249,7 +3249,7 @@ app.get('/packs', function (req, res) {
 
             _user = sessionToken.get("user");
             let query = new Parse.Query(_class.Packs);
-            query.equalTo("user_id", _user.id).find({sessionToken: token}).then(function (collections) {
+            query.equalTo("userId", _user.id).find({sessionToken: token}).then(function (collections) {
 
                 res.render("pages/packs/packs", {collections: collections});
 
@@ -3286,14 +3286,14 @@ app.post('/pack', function (req, res) {
 
             var PackCollection = new Parse.Object.extend(_class.Packs);
             var pack = new PackCollection();
-            pack.set("pack_name", coll_name);
-            pack.set("pack_description", pack_description);
-            pack.set("user_id", _user.id);
-            pack.set("user_name", _user.get("name"));
+            pack.set("name", coll_name);
+            pack.set("description", pack_description);
+            pack.set("userId", _user.id);
+            pack.set("userName", _user.get("name"));
             pack.set("status", type.PACK_STATUS.pending);
-            pack.set("pricing", pricing);
+            pack.set("price_type", pricing);
             pack.set("version", version);
-            pack.set("archive", false);
+            pack.set("archived", false);
             pack.set("flag", false);
             pack.set("published", false);
 
@@ -3477,9 +3477,9 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
         }).then(function (pack) {
 
 
-            pack.set("pack_description", description);
-            pack.set("keyword", _keywords);
-            pack.set("archive", archive);
+            pack.set("description", description);
+            pack.set("keywords", _keywords);
+            pack.set("archived", archive);
 
             if (files !== undefined || files !== "undefined") {
                 files.forEach(function (file) {
@@ -3500,7 +3500,7 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
 
                     let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
 
-                    pack.set("art_work", parseFile);
+                    pack.set("artwork", parseFile);
                     pack.set("preview", parseFilePreview);
                     fileDetails.push(file);
 
@@ -3569,12 +3569,12 @@ app.post('/pack/review/:id', function (req, res) {
             pack.set("name", name);
 
             if (archive === undefined || archive === "1") {
-                pack.set("archive", false);
+                pack.set("archived", false);
             } else if (archive === "0") {
-                pack.set("archive", true);
+                pack.set("archived", true);
             }
-            pack.set("pack_description", description);
-            pack.set("keyword", key);
+            pack.set("description", description);
+            pack.set("keywords", key);
 
             return pack.save();
 
