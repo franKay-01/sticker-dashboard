@@ -1406,25 +1406,25 @@ app.post('/storyItem/html/:id', function (req, res) {
     let color = req.body.color;
     let object = {};
 
-    if (types === type.STORY_ITEM.text){
+    if (types === type.STORY_ITEM.text) {
 
-        object = {"0":content};
+        object = {"0": content};
 
-    }else if (types === type.STORY_ITEM.bold){
+    } else if (types === type.STORY_ITEM.bold) {
 
-        object = {"6":content};
+        object = {"6": content};
 
-    }else if (types === type.STORY_ITEM.italic){
+    } else if (types === type.STORY_ITEM.italic) {
 
-        object = {"5":content};
+        object = {"5": content};
 
-    }else if (types === type.STORY_ITEM.italicBold){
+    } else if (types === type.STORY_ITEM.italicBold) {
 
-        object = {"8":content};
+        object = {"8": content};
 
-    }else if (types === type.STORY_ITEM.color){
+    } else if (types === type.STORY_ITEM.color) {
 
-        object = {"14":{"text": content, "color":color}};
+        object = {"14": {"text": content, "color": color}};
 
     }
 
@@ -1435,48 +1435,65 @@ app.post('/storyItem/html/:id', function (req, res) {
             return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
 
         }).then(function (storyItem) {
-            console.log("STORYITEM " + JSON.stringify(storyItem));
+
             storyItem.get("contents").html.push(object);
             return storyItem.save();
 
         }).then(function (item) {
 
-            res.send(JSON.stringify(item));
+            res.redirect('/storyItem/html/old/' + item.id);
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
             res.send("ERRROR " + error.message);
         })
-    }else {
+    } else {
         res.redirect('/');
     }
 });
 
-app.get('/storyItem/html/:id', function (req, res) {
+app.get('/storyItem/html/:state/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
+    let state = req.params.state;
     let _story;
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            let Story = new Parse.Object.extend(_class.StoryItems);
-            let storyItem = new Story();
+            if (state === "new") {
+                let Story = new Parse.Object.extend(_class.StoryItems);
+                let storyItem = new Story();
 
-            storyItem.set("type", type.STORY_ITEM.html);
-            storyItem.set("contents", {"html": []});
-            storyItem.set("storyId", id);
+                storyItem.set("type", type.STORY_ITEM.html);
+                storyItem.set("contents", {"html": []});
+                storyItem.set("storyId", id);
 
-            return storyItem.save();
+                return storyItem.save();
+
+            } else if (state === "old") {
+
+                return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+
+            }
             //product.set("productId", {"android": android, "ios": ios});
 
         }).then(function (storyItem) {
 
             _story = storyItem;
 
-            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+            if (state === "new") {
+
+                return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+            }else if (state === "old"){
+
+                return new Parse.Query(_class.Stories).equalTo("objectId", storyItem.get("storyId")).first();
+
+            }
 
         }).then(function (story) {
 
