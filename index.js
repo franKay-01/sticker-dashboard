@@ -2162,7 +2162,7 @@ app.get('/storycolor/:id', function (req, res) {
 
         }).then(function (sticker) {
 
-            res.render("pages/choose_color", {
+            res.render("pages/stories/choose_color", {
                 story: _story,
                 colors: colors,
                 sticker: sticker
