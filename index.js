@@ -1435,7 +1435,7 @@ app.post('/storyItem/html/:id', function (req, res) {
             return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
 
         }).then(function (storyItem) {
-
+            console.log("STORYITEM " + JSON.stringify(storyItem));
             storyItem.html.push(object);
             return storyItem.save();
 
