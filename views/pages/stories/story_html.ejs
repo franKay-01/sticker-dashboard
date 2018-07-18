@@ -187,6 +187,35 @@
         </div>
     </div>
 
+    <div id="hiddenColorCatalouge" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW COLOR</div>
+            </center>
+            <form id="pack_form" action="/storyItem/html/<%= storyItemId %>" method="post">
+                <center>
+                    <i class="fa fa-bold" style="color: white; font-size: 3rem" aria-hidden="true"></i>
+                    <i class="fa fa-italic" style="color: white; font-size: 3rem" aria-hidden="true"></i>
+                    <br><br>
+                    <input name="color" class="_pack common_pack_detail validate" placeholder="Add Color" required="" aria-required="true">
+                    <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
+                              name="content" required="" aria-required="true"></textarea><br>
+                    Words: <span class="wordCount">0</span><br/>
+                </center>
+
+                <input name="style" value="14" hidden>
+
+                <span>
+        <button type="submit" class="create">ADD</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseColorCatalouge" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+
     <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Story Items - <i class="welcome_post"
                                                                                    style="color: #a46580"><%= name %></i></b></span>
 
@@ -232,6 +261,10 @@
 
             <button class="create_button italicBold_element">
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Italic Bold</p>
+            </button>
+
+            <button class="create_button color_element">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Color</p>
             </button>
         </div>
 
