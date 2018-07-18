@@ -1442,7 +1442,13 @@ app.post('/storyItem/html/:id', function (req, res) {
         }).then(function (item) {
 
             res.send(JSON.stringify(item));
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.send("ERRROR " + error.message);
         })
+    }else {
+        res.redirect('/');
     }
 });
 
