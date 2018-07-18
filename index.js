@@ -1401,28 +1401,28 @@ app.post('/storyItem/html/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
-    let type = parseInt(req.body.style);
+    let types = parseInt(req.body.style);
     let content = req.body.content;
     let color = req.body.color;
     let object = {};
 
-    if (type === type.STORY_ITEM.text){
+    if (types === type.STORY_ITEM.text){
 
         object = {"0":content};
 
-    }else if (type === type.STORY_ITEM.bold){
+    }else if (types === type.STORY_ITEM.bold){
 
         object = {"6":content};
 
-    }else if (type === type.STORY_ITEM.italic){
+    }else if (types === type.STORY_ITEM.italic){
 
         object = {"5":content};
 
-    }else if (type === type.STORY_ITEM.italicBold){
+    }else if (types === type.STORY_ITEM.italicBold){
 
         object = {"8":content};
 
-    }else if (type === type.STORY_ITEM.color){
+    }else if (types === type.STORY_ITEM.color){
 
         object = {"14":{"text": content, "color":color}};
 
