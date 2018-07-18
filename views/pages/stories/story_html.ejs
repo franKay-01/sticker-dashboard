@@ -199,10 +199,15 @@
                     <i class="fa fa-bold" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <i class="fa fa-italic" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <br><br>
-                    <button id="color_button" class="jscolor {valueElement: 'color'}"></button>
+                    <table>
+                        <tr>
+                            <td><button id="color_button" style="width: 7% !important;" class="jscolor {valueElement: 'color'}"></button></td>
+                            <td><textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
+                                          name="content" required="" aria-required="true"></textarea></td>
+                        </tr>
+                    </table>
                     <input name="color" id="color" class="_pack common_pack_detail validate" value="#df5A34" required="" aria-required="true" hidden>
-                    <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
-                              name="content" required="" aria-required="true"></textarea><br>
+                    <br>
                     Words: <span class="wordCount">0</span><br/>
                 </center>
 
