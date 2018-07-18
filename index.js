@@ -1436,7 +1436,7 @@ app.post('/storyItem/html/:id', function (req, res) {
 
         }).then(function (storyItem) {
             console.log("STORYITEM " + JSON.stringify(storyItem));
-            storyItem.html.push(object);
+            storyItem.get("contents").html.push(object);
             return storyItem.save();
 
         }).then(function (item) {
