@@ -49,7 +49,8 @@ exports.STORY_ITEM = {
     list:10,
     sideNote:11,
     greyArea:12,
-    html:13
+    html:13,
+    color: 14
 };
 
 exports.PACK_TYPE = {
