@@ -319,8 +319,19 @@
                 <% let arraySize = item.get("contents").html.length %>
                 <% for (let i = 0; i < arraySize; i ++){%>
 
-                 <%= item.get("contents").html[i] %>
+                 <% var html = item.get("contents").html %>
+                 <% for (let i = 0; i < html.length; i ++) { %>
+                    <% let _html = html[i]; %>
+                    <% let type = Object.keys(_html); %>
+                    <% let content = Object.values(_html)[0]; %>
 
+                <% if (parseInt(type) === 0){%>
+
+                         <%= Object.values(_html) %>
+
+                 <%} %>
+
+                <%}%>
                 <%}%>
 
                 <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Html</a>&nbsp;&nbsp;
