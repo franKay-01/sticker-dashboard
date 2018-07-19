@@ -283,7 +283,7 @@
 
                 <% let arraySize = item.get("contents").text.length %>
                 <% for (let i = 0; i < arraySize; i ++){%>
-                    <b>*</b> <%= item.get("contents").text[i] %>
+                    <b>*</b> <%= item.get("contents").text[i] %><br>
                 <%}%>
 
                 <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit List</a>&nbsp;&nbsp;
