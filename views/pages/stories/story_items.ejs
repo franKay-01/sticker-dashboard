@@ -269,7 +269,7 @@
                 </a><br><br><br>
 
                 <% } else if (item.get("type") === 9){ %>
-                <b style="color: black">Heading:</b><b style="color: #a46580; font-size: 20px"><%= item.get("contents").heading %></b>
+                <b style="color: black">Heading:</b><b style="color: #a46580; font-size: 20px"><%= item.get("contents").heading %></b><br>
                 <b style="color: black">Text:</b><b style="color: #a46580; font-size: 20px"><%= item.get("contents").text %></b><br><br>
                 <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Heading</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name="<%= item.get("content") %>"
