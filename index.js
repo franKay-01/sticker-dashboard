@@ -1497,6 +1497,8 @@ app.get('/storyItem/html/:state/:id', function (req, res) {
 
         }).then(function (story) {
 
+            console.log("STORY ITEM " + JSON.stringify(story));
+
             res.render("pages/stories/story_html", {
                 name: story.get("title"),
                 storyItemId: _story.id,
