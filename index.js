@@ -1573,14 +1573,16 @@ app.get('/storyitem/view/:id', function (req, res) {
 
             }
 
-            res.render("pages/stories/story_items", {
+            res.send(JSON.stringify(_storyItem));
 
-                story_item: _storyItem,
-                story_id: id,
-                stickers: _stickers,
-                images: _images
-
-            });
+            // res.render("pages/stories/story_items", {
+            //
+            //     story_item: _storyItem,
+            //     story_id: id,
+            //     stickers: _stickers,
+            //     images: _images
+            //
+            // });
         }, function (error) {
 
             console.log("ERROR " + error.message);
