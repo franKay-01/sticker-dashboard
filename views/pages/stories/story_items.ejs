@@ -306,7 +306,7 @@
                 </a><br><br><br>
                 <%} else if (item.get("type") === 12){%>
                 <textarea class="box_2 validate" placeholder="Side Note"
-                          name="review_text" required="" aria-required="true"><%= item.get("contents").text %></textarea>
+                          name="review_text" required="" aria-required="true"><%= JSON.stringify(item.get("contents").text) %></textarea>
                 <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Grey Area</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name="<%= item.get("contents") %>"
                    data-id="<%= item.id %>">Change Type</a>
@@ -318,9 +318,8 @@
 
                 <% let arraySize = item.get("contents").html.length %>
                 <% for (let i = 0; i < arraySize; i ++){%>
-                <!--<%# if (item.get("contents").text[i]){%>-->
+
                  <%= item.get("contents").html[i] %>
-                <!--<%#}%>-->
                 <%}%>
 
                 <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Grey Area</a>&nbsp;&nbsp;
