@@ -52,10 +52,67 @@
         <form class="story_form" id="story_form" action="/storyitem/<%= story_item.id %>" method="post">
             <div class="medium-5 large-5 cell">
 
+                <% if (story_item.get("type") === 0 || story_item.get("type") === 2 || story_item.get("type") === 6
+                        || story_item.get("type") === 5 || story_item.get("type") === 8 || story_item.get("type") === 11
+                        || story_item.get("type") === 12) { %>
+
                 <label class="update_label">Content:</label>
-                <textarea class="validate editable" placeholder="Summary"
-                          name="content" required="" aria-required="true"><%= story_item.get("content") %></textarea><br>
+                <textarea class="validate editable" placeholder="Content"
+                          name="content" required=""
+                          aria-required="true"><%= story_item.get("contents") %></textarea><br>
                 <input name="id" value="<%= story_id %>" hidden>
+
+                <% } else if (story_item.get("type") === 9){ %>
+
+                <b style="color: black">Heading:</b>
+                <input class="validate editable" placeholder="Content" name="heading"
+                       value="<%= story_item.get("contents").heading %>" required="" aria-required="true">
+                <textarea class="validate editable" placeholder="Content"
+                          name="content" required=""
+                          aria-required="true"><%= story_item.get("contents").text %></textarea><br>
+
+                <% } else if (story_item.get("type") === 10){ %>
+
+                <% let arraySize = story_item.get("contents").text.length %>
+                <% for (let i = 0; i < arraySize; i++){ %>
+                <input class="validate editable" placeholder="Content" name="content[]"
+                       value="<%= story_item.get("contents").text[i] %>" required="" aria-required="true">
+                <% } %>
+
+                <% } else if (story_item.get("type") === 13){ %>
+                <% var html = item.get("contents").html %>
+                <% for (let i = 0; i < html.length; i++) { %>
+                <% let _html = html[i]; %>
+                <% let type = Object.keys(_html); %>
+                <% let content = Object.values(_html)[0]; %>
+
+                <% if (parseInt(type) === 0){ %>
+
+                <input class="validate editable" placeholder="Content" name="heading" value="<%= content.text %>"
+                       required="" aria-required="true">
+
+                <span><%= content.text %></span>
+
+                <% } else if (parseInt(type) === 5){ %>
+
+                <span><i><%= content.text %></i></span>
+
+                <% } else if (parseInt(type) === 6){ %>
+
+                <span><b><%= content.text %></b></span>
+
+                <% } else if (parseInt(type) === 8){ %>
+
+                <span><i><b><%= content.text %></b></i></span>
+
+                <% } else if (parseInt(type) === 14){ %>
+
+                <span style="color: <%= content.color %>"> <%= content.text %></span>
+
+                <% } %>
+
+                <% } %>
+                <% } %>
                 <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
             </div>
             <a href="#" id="submit_story" class="waves-effect pink darken-4 btn add-image-btn">SAVE</a>
