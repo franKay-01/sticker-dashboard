@@ -1406,6 +1406,7 @@ app.post('/storyItem/html/:id', function (req, res) {
     let color = req.body.color;
     let object = {};
 
+
     if (types === type.STORY_ITEM.text) {
 
         object = {"0": content};
@@ -1424,7 +1425,7 @@ app.post('/storyItem/html/:id', function (req, res) {
 
     } else if (types === type.STORY_ITEM.color) {
 
-        object = {"14": {"text": content, "color": color}};
+        object = {"14": {"text": content, "color": "#" + color}};
 
     }
 
