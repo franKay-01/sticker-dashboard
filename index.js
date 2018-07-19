@@ -1502,7 +1502,7 @@ app.get('/storyItem/html/:state/:id', function (req, res) {
             res.render("pages/stories/story_html", {
                 name: story.get("title"),
                 storyItemId: _story.id,
-                storyId: story.get("storyId")
+                storyId: story.id
             })
         }, function (error) {
 
