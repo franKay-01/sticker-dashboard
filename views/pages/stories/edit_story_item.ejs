@@ -58,13 +58,18 @@
 
                 <div class="create_new">Contents</div>
 
+                <div style="margin: 20px 15px auto;">
+
                 <textarea class="validate editable" placeholder="Content"
                           name="content" required=""
                           aria-required="true"><%= story_item.get("contents") %></textarea><br>
                 <input name="id" value="<%= story_id %>" hidden>
 
+                </div>
                 <% } else if (story_item.get("type") === 9){ %>
                 <div class="create_new">Heading</div>
+
+                <div style="margin: 20px 15px auto;">
 
                 <b style="color: black">Heading:</b>
                 <input class="validate editable" placeholder="Content" name="heading"
@@ -72,19 +77,23 @@
                 <textarea class="validate editable" placeholder="Content"
                           name="content" required=""
                           aria-required="true"><%= story_item.get("contents").text %></textarea><br>
+                </div>
 
                 <% } else if (story_item.get("type") === 10){ %>
                 <div class="create_new">Lists</div>
 
                 <% let arraySize = story_item.get("contents").text.length %>
+                <div style="margin: 20px 15px auto;">
+
                 <% for (let i = 0; i < arraySize; i++){ %>
                 <input class="validate editable" placeholder="Content" name="content[]"
                        value="<%= story_item.get("contents").text[i] %>" required="" aria-required="true">
                 <% } %>
-
+                </div>
                 <% } else if (story_item.get("type") === 13){ %>
                 <div class="create_new">HTML Items</div>
 
+                <div style="margin: 20px 15px auto;">
                 <% var html = item.get("contents").html %>
                 <% for (let i = 0; i < html.length; i++) { %>
                 <% let _html = html[i]; %>
@@ -117,6 +126,7 @@
                 <% } %>
 
                 <% } %>
+                </div>
                 <% } %>
                 <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
             </div>
