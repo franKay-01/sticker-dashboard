@@ -56,13 +56,15 @@
                         || story_item.get("type") === 5 || story_item.get("type") === 8 || story_item.get("type") === 11
                         || story_item.get("type") === 12) { %>
 
-                <label class="update_label">Content:</label>
+                <div class="create_new">Contents</div>
+
                 <textarea class="validate editable" placeholder="Content"
                           name="content" required=""
                           aria-required="true"><%= story_item.get("contents") %></textarea><br>
                 <input name="id" value="<%= story_id %>" hidden>
 
                 <% } else if (story_item.get("type") === 9){ %>
+                <div class="create_new">Heading</div>
 
                 <b style="color: black">Heading:</b>
                 <input class="validate editable" placeholder="Content" name="heading"
@@ -72,6 +74,7 @@
                           aria-required="true"><%= story_item.get("contents").text %></textarea><br>
 
                 <% } else if (story_item.get("type") === 10){ %>
+                <div class="create_new">Lists</div>
 
                 <% let arraySize = story_item.get("contents").text.length %>
                 <% for (let i = 0; i < arraySize; i++){ %>
@@ -80,6 +83,8 @@
                 <% } %>
 
                 <% } else if (story_item.get("type") === 13){ %>
+                <div class="create_new">HTML Items</div>
+
                 <% var html = item.get("contents").html %>
                 <% for (let i = 0; i < html.length; i++) { %>
                 <% let _html = html[i]; %>
