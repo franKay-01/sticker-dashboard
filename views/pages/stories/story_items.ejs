@@ -320,9 +320,10 @@
                 <% for (let i = 0; i < arraySize; i ++){%>
 
                  <%= item.get("contents").html[i] %>
+
                 <%}%>
 
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Grey Area</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Html</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name="<%= item.get("contents") %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview remove_items">
