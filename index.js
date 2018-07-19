@@ -1563,14 +1563,14 @@ app.get('/storyitem/view/:id', function (req, res) {
 
             }
 
-            res.send(JSON.stringify(_storyItem));
-            // res.render("pages/stories/story_items", {
-            //
-            //     story_item: _storyItem,
-            //     story_id: id,
-            //     stickers: _stickers,
-            //
-            // });
+            // res.send(JSON.stringify(_storyItem));
+            res.render("pages/stories/story_items", {
+
+                story_item: _storyItem,
+                story_id: id,
+                stickers: _stickers,
+
+            });
         }, function (error) {
 
             console.log("ERROR " + error.message);
