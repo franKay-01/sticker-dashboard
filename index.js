@@ -1530,7 +1530,7 @@ app.get('/storyitem/view/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.StoryItems).equalTo("story_id", id).find();
+            return new Parse.Query(_class.StoryItems).equalTo("storyId", id).find();
 
         }).then(function (story_item) {
 
@@ -1538,9 +1538,9 @@ app.get('/storyitem/view/:id', function (req, res) {
 
             _.each(story_item, function (item) {
                 if (item.get("type") === type.STORY_ITEM.image) {
-                    image_array.push(item.get("content"));
+                    image_array.push(item.get("contents"));
                 } else if (item.get("type") === type.STORY_ITEM.sticker) {
-                    sticker_array.push(item.get("content"));
+                    sticker_array.push(item.get("contents"));
                 }
             });
 
