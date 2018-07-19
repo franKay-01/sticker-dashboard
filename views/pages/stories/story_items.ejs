@@ -319,7 +319,7 @@
                 <% let arraySize = item.get("contents").html.length %>
                 <% for (let i = 0; i < arraySize; i ++){%>
                 <!--<%# if (item.get("contents").text[i]){%>-->
-                 <%= item.get("contents").text[i] %>
+                 <%= item.get("contents").html[i] %>
                 <!--<%#}%>-->
                 <%}%>
 
