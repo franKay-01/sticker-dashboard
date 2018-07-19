@@ -180,7 +180,6 @@
                 <% if (story_item.length === 0) { %>
                 <p class="none" style="margin: 100px 300px auto;"><b>No Story Item</b></p>
                 <% } else { %>
-                <% let imageCounter = 0 %>
                 <% let stickerCounter = 0 %>
 
                 <% story_item.forEach(function(item, index) { %>
@@ -188,7 +187,7 @@
                 <% if (item.get("type") === 0){ %>
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"
-                          disabled><%= item.get("content") %></textarea>
+                          disabled><%= item.get("contents").text %></textarea>
                 <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Text</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="0" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change Type</a>
@@ -197,9 +196,8 @@
                              aria-hidden="true"></i>
                 </a><br><br><br>
                 <% } else if (item.get("type") === 1){ %>
-                <% if (images.length > 0){ %>
 
-                <img src="<%= images[imageCounter].get("uri").url() %>" class="gbeja_notxt">
+                <img src="<%= item.get("contents").id %>" class="gbeja_notxt">
                 <a href="#" class="preview change" data-content="1" data-name="" data-id="<%= item.id %>">Change
                     Type</a>
                 <a href="#" data-id="<%= item.id %>" style="margin-left: 5px;color: #cc0000 !important;" class="preview remove_items">
@@ -207,18 +205,15 @@
                              aria-hidden="true"></i>
                 </a><br><br><br>
 
-                <% imageCounter++ %>
-
-                <% } %>
                 <% } else if (item.get("type") === 2){ %>
 
                 <i class="fa fa-quote-left" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i>
-                <b style="color: #a46580; font-size: 20px"><%= item.get("content") %></b>
+                <b style="color: #a46580; font-size: 20px"><%= item.get("contents").text %></b>
                 <i class="fa fa-quote-right" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i><br>
                 <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Quote</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="2" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change
-                    Type/Replace Image</a>
+                    Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview remove_items">
                     Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
                              aria-hidden="true"></i>
@@ -242,7 +237,7 @@
                 <% } else if (item.get("type") === 5){ %>
                 <!--<div class="someCSSClass">fontAwesomeQuote <h2></h2> fontAwesomeQuote</div>-->
                 <textarea class="box_2 validate" placeholder="Review description"
-                          name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
+                          name="review_text" required="" aria-required="true"><%= item.get("contents").text %></textarea>
                 <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Italic</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="5" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change
@@ -254,7 +249,7 @@
 
                 <% }else if (item.get("type") === 6){ %>
                 <textarea class="box_2 validate" placeholder="Review description"
-                          name="review_text" required="" aria-required="true"><%= item.get("content") %></textarea>
+                          name="review_text" required="" aria-required="true"><%= item.get("contents").text %></textarea>
                 <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Bold</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="6" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change Type</a>
@@ -264,8 +259,19 @@
                 </a><br><br><br>
 
                 <% }else if (item.get("type") === 8){ %>
-                <b style="color: #a46580; font-size: 20px"><i><%= item.get("content") %></i></b><br><br>
+                <b style="color: #a46580; font-size: 20px"><i><%= item.get("contents").text %></i></b><br><br>
                 <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit ItalicBold</a>&nbsp;&nbsp;
+                <a href="#" class="preview change" data-content="8" data-name="<%= item.get("content") %>"
+                   data-id="<%= item.id %>">Change Type</a>
+                <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview remove_items">
+                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
+                             aria-hidden="true"></i>
+                </a><br><br><br>
+
+                <% } else if (item.get("type") === 9){ %>
+                <b style="color: black">Heading:</b><b style="color: #a46580; font-size: 20px"><%= item.get("contents").heading %></b>
+                <b style="color: black">Text:</b><b style="color: #a46580; font-size: 20px"><%= item.get("contents").text %></b><br><br>
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Heading</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name="<%= item.get("content") %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview remove_items">

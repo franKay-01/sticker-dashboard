@@ -1537,26 +1537,16 @@ app.get('/storyitem/view/:id', function (req, res) {
             _storyItem = story_item;
 
             _.each(story_item, function (item) {
-                if (item.get("type") === type.STORY_ITEM.image) {
-                    image_array.push(item.get("contents"));
-                } else if (item.get("type") === type.STORY_ITEM.sticker) {
-                    sticker_array.push(item.get("contents"));
+                 if (item.get("type") === type.STORY_ITEM.sticker) {
+                    sticker_array.push(item.get("contents").id);
                 }
             });
 
-            if (image_array.length > 0) {
-                return new Parse.Query(_class.Assets).containedIn("objectId", image_array).find();
 
-            } else {
                 return true;
-            }
+
 
         }).then(function (image) {
-
-            if (image.length > 0) {
-                _images = image;
-            }
-
 
             if (sticker_array.length > 0) {
                 return new Parse.Query(_class.Stickers).containedIn("objectId", sticker_array).find();
@@ -1573,16 +1563,13 @@ app.get('/storyitem/view/:id', function (req, res) {
 
             }
 
-            res.send(JSON.stringify(_storyItem));
+            res.render("pages/stories/story_items", {
 
-            // res.render("pages/stories/story_items", {
-            //
-            //     story_item: _storyItem,
-            //     story_id: id,
-            //     stickers: _stickers,
-            //     images: _images
-            //
-            // });
+                story_item: _storyItem,
+                story_id: id,
+                stickers: _stickers,
+
+            });
         }, function (error) {
 
             console.log("ERROR " + error.message);
