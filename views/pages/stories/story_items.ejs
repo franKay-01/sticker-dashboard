@@ -279,6 +279,21 @@
                              aria-hidden="true"></i>
                 </a><br><br><br>
 
+                <% } else if (item.get("type") === 10){ %>
+
+                <% item.get("text").forEach(function(list, index) { %>
+
+                <b>*</b> <%= list[index] %>
+
+                <%})%>
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit List</a>&nbsp;&nbsp;
+                <a href="#" class="preview change" data-content="8" data-name="<%= item.get("content") %>"
+                   data-id="<%= item.id %>">Change Type</a>
+                <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px" class="preview remove_items">
+                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
+                             aria-hidden="true"></i>
+                </a><br><br><br>
+
                 <% } %>
                 <% }) %>
                 <% } %>
