@@ -316,9 +316,6 @@
                 </a><br><br><br>
                 <%} else if (item.get("type") === 13){%>
 
-                <% let arraySize = item.get("contents").html.length %>
-                <% for (let i = 0; i < arraySize; i ++){%>
-
                  <% var html = item.get("contents").html %>
                  <% for (let i = 0; i < html.length; i ++) { %>
                     <% let _html = html[i]; %>
@@ -331,7 +328,6 @@
 
                  <%} %>
 
-                <%}%>
                 <%}%>
 
                 <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Html</a>&nbsp;&nbsp;
