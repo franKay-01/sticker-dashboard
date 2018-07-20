@@ -1492,7 +1492,7 @@ app.get('/storyItem/html/:state/:id', function (req, res) {
 
                 return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
 
-            }else if (state === "old"){
+            } else if (state === "old") {
 
                 return new Parse.Query(_class.Stories).equalTo("objectId", storyItem.get("storyId")).first();
 
@@ -1540,13 +1540,13 @@ app.get('/storyitem/view/:id', function (req, res) {
             _storyItem = story_item;
 
             _.each(story_item, function (item) {
-                 if (item.get("type") === type.STORY_ITEM.sticker) {
+                if (item.get("type") === type.STORY_ITEM.sticker) {
                     sticker_array.push(item.get("contents").id);
                 }
             });
 
 
-                return true;
+            return true;
 
 
         }).then(function (image) {
@@ -1589,7 +1589,11 @@ app.post('/storyitem/:id', function (req, res) {
     let content = req.body.content;
     let story_id = req.body.id;
     let heading = req.body.heading;
+    let htmlText = req.body.htmlText;
+    let htmlContent = req.body.htmlContent;
+    let htmlColor = req.body.htmlColor;
     let storyItemType = parseInt(req.body.type);
+    let index = parseInt(req.body.index);
     let object = {};
 
     if (token) {
@@ -1602,9 +1606,9 @@ app.post('/storyitem/:id', function (req, res) {
 
 
             if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
-            storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
-            storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sideNote ||
-            storyItemType === type.STORY_ITEM.greyArea || storyItemType === type.STORY_ITEM.list) {
+                storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
+                storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sideNote ||
+                storyItemType === type.STORY_ITEM.greyArea || storyItemType === type.STORY_ITEM.list) {
 
                 object = {"text": content};
 
@@ -1613,8 +1617,34 @@ app.post('/storyitem/:id', function (req, res) {
                 object = {"heading": heading, "text": content};
 
 
-            }else if (storyItemType === type.STORY_ITEM.html){
-               let _html =  storyItem.get("contents").html[index]
+            } else if (storyItemType === type.STORY_ITEM.html) {
+
+                let html = story_item.get("contents").html;
+                for (let i = 0; i < html.length; i++) {
+                    if (index[i] === i) {
+
+                        let _html = storyItem.get("contents").html[index[i]];
+                        let type = Object.keys(_html);
+
+                        if (parseInt(type) === type.STORY_ITEM.text || parseInt(type) === type.STORY_ITEM.bold ||
+                            parseInt(type) === type.STORY_ITEM.italic || parseInt(type) === type.STORY_ITEM.italicBold) {
+
+                            _html.text = htmlText;
+
+                            storyItem.get("contents").html[index[i]] = _html;
+                            object = storyItem.get("contents").html[i];
+
+                        }else if (parseInt(type) === type.STORY_ITEM.html){
+
+                            _html.color = htmlColor;
+                            _html.text = htmlContent;
+
+                            storyItem.get("contents").html[i] = _html;
+                            object = storyItem.get("contents").html[i];
+                        }
+
+                    }
+                }
 
                 //get parseInt(type)
                 //if type is color
