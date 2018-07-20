@@ -107,8 +107,7 @@
                 <% let _html = html[i]; %>
                 <% let type = Object.keys(_html); %>
                 <% let content = Object.values(_html)[0]; %>
-                    <input name="id" value="<%= story_id %>" hidden>
-                    <input name="type" value="<%= story_item.get("type") %>" hidden>
+
                 <% if (parseInt(type) === 0){ %>
 
                 <input class="validate" placeholder="Content" name="htmlText" value="<%= content.text %>"
@@ -140,7 +139,7 @@
                     <b style="color: black">Color:</b>
                     <input class="validate" placeholder="Color" id="htmlColor" name="text" value="<%= content.color %>"
                            required="" aria-required="true">
-                    <button id="color_button" style="width: 7% !important;z-index: 1;" class="jscolor {valueElement: 'htmlColor'}"></button><br>
+                    <button id="color_button" style="width: 7% !important;z-index: 1;color: <%= content.color%>" class="jscolor {valueElement: 'htmlColor'}"></button><br>
 
                     <input name="index[]" value="<%= i %>" hidden>
 
