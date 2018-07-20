@@ -24,6 +24,8 @@
           type="text/css" media="screen" charset="utf-8">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
+
     <script>
         window.onload = function () {
             document.getElementById("submit_story").onclick = function () {
@@ -138,7 +140,7 @@
                     <b style="color: black">Color:</b>
                     <input class="validate" placeholder="Color" id="htmlColor" name="text" value="<%= content.color %>"
                            required="" aria-required="true">
-                    <button id="color_button" style="width: 7% !important;z-index: 1;" class="jscolor {valueElement: 'htmlColor'}"></button>
+                    <button id="color_button" style="width: 7% !important;z-index: 1;" class="jscolor {valueElement: 'htmlColor'}"></button><br>
 
                     <input name="index[]" value="<%= i %>" hidden>
 
