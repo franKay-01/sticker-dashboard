@@ -1606,7 +1606,7 @@ app.post('/storyitem/:id', function (req, res) {
 
                 object = {"text": content};
 
-            } else if (types === type.STORY_ITEM.heading) {
+            } else if (storyItemType === type.STORY_ITEM.heading) {
 
                 object = {"heading": heading, "text": content};
 
