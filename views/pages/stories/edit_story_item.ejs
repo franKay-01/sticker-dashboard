@@ -111,24 +111,24 @@
 
                 <input class="validate" placeholder="Content" name="htmlText" value="<%= content.text %>"
                        required="" aria-required="true">
-                    <input name="index[]" value="<% i %>" hidden>
+                    <input name="index[]" value="<%= i %>" hidden>
 
                 <% } else if (parseInt(type) === 5){ %>
 
                     <input class="validate" placeholder="Content" name="htmlText" value="<%= content.text %>"
                            required="" aria-required="true">
-                    <input name="index[]" value="<% i %>" hidden>
+                    <input name="index[]" value="<%= i %>" hidden>
                 <% } else if (parseInt(type) === 6){ %>
 
                     <input class="validate" placeholder="Content" name="htmlText" value="<%= content.text %>"
                            required="" aria-required="true">
-                    <input name="index[]" value="<% i %>" hidden>
+                    <input name="index[]" value="<%= i %>" hidden>
 
                 <% } else if (parseInt(type) === 8){ %>
 
                     <input class="validate" placeholder="Content" name="htmlText" value="<%= content.text %>"
                            required="" aria-required="true">
-                    <input name="index[]" value="<% i %>" hidden>
+                    <input name="index[]" value="<%= i %>" hidden>
 
                 <% } else if (parseInt(type) === 14){ %>
 
@@ -140,7 +140,7 @@
                            required="" aria-required="true">
                     <button id="color_button" style="width: 7% !important;z-index: 1;" class="jscolor {valueElement: 'htmlColor'}"></button>
 
-                    <input name="index[]" value="<% i %>" hidden>
+                    <input name="index[]" value="<%= i %>" hidden>
 
                 <% } %>
 
