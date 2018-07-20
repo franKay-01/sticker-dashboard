@@ -62,7 +62,7 @@
 
                 <textarea class="validate editable" placeholder="Content"
                           name="content" required=""
-                          aria-required="true"><%= story_item.get("contents") %></textarea><br>
+                          aria-required="true"><%= story_item.get("contents").text %></textarea><br>
                 <input name="id" value="<%= story_id %>" hidden>
                 <input name="type" value="<%= story_item.get("type") %>" hidden>
 
