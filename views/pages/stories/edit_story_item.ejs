@@ -64,6 +64,7 @@
                           name="content" required=""
                           aria-required="true"><%= story_item.get("contents") %></textarea><br>
                 <input name="id" value="<%= story_id %>" hidden>
+                <input name="type" value="<%= story_item.get("type") %>" hidden>
 
                 </div>
                 <% } else if (story_item.get("type") === 9){ %>
@@ -78,6 +79,8 @@
                           name="content" required=""
                           aria-required="true"><%= story_item.get("contents").text %></textarea><br>
                 </div>
+                <input name="id" value="<%= story_id %>" hidden>
+                <input name="type" value="<%= story_item.get("type") %>" hidden>
 
                 <% } else if (story_item.get("type") === 10){ %>
                 <div class="create_new">Lists</div>
@@ -90,6 +93,9 @@
                        value="<%= story_item.get("contents").text[i] %>" required="" aria-required="true">
                 <% } %>
                 </div>
+                <input name="id" value="<%= story_id %>" hidden>
+                <input name="type" value="<%= story_item.get("type") %>" hidden>
+
                 <% } else if (story_item.get("type") === 13){ %>
                 <div class="create_new">HTML Items</div>
 
@@ -99,7 +105,8 @@
                 <% let _html = html[i]; %>
                 <% let type = Object.keys(_html); %>
                 <% let content = Object.values(_html)[0]; %>
-
+                    <input name="id" value="<%= story_id %>" hidden>
+                    <input name="type" value="<%= story_item.get("type") %>" hidden>
                 <% if (parseInt(type) === 0){ %>
 
                 <input class="validate editable" placeholder="Content" name="heading" value="<%= content.text %>"
@@ -127,6 +134,8 @@
 
                 <% } %>
                 </div>
+                <input name="id" value="<%= story_id %>" hidden>
+                <input name="type" value="<%= story_item.get("type") %>" hidden>
                 <% } %>
                 <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
             </div>

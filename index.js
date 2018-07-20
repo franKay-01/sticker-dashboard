@@ -1586,6 +1586,9 @@ app.post('/storyitem/:id', function (req, res) {
     let id = req.params.id;
     let content = req.body.content;
     let story_id = req.body.id;
+    let heading = req.body.heading;
+    let storyItemType = parseInt(req.body.type);
+    let object = {};
 
     if (token) {
 
@@ -1595,7 +1598,21 @@ app.post('/storyitem/:id', function (req, res) {
 
         }).then(function (story_item) {
 
-            story_item.set("content", content);
+
+            if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
+            storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
+            storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sideNote ||
+            storyItemType === type.STORY_ITEM.greyArea || storyItemType === type.STORY_ITEM.list) {
+
+                object = {"text": content};
+
+            } else if (types === type.STORY_ITEM.heading) {
+
+                object = {"heading": heading, "text": content};
+
+            }
+
+            story_item.set("contents", object);
             return story_item.save();
 
         }).then(function () {
@@ -2364,7 +2381,7 @@ app.post('/storyitem/delete/:storyId', function (req, res) {
 
         }).then(function (storyItem) {
 
-            assetId = storyItem.get("content");
+            assetId = storyItem.get("contents");
             _storyItem = storyItem;
 
             storyItem.destroy({
@@ -2383,7 +2400,7 @@ app.post('/storyitem/delete/:storyId', function (req, res) {
 
             if (_storyItem.get("type") === type.STORY_ITEM.image) {
 
-                return new Parse.Query(_class.Assets).equalTo("objectId", assetId).first();
+                return new Parse.Query(_class.Assets).equalTo("objectId", assetId.uri).first();
 
             } else {
 
@@ -2427,7 +2444,7 @@ app.get('/storyitem/delete/:id', function (req, res) {
         console.log("THIS IS THE CORRECT ROUTE");
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.StoryItems).equalTo("story_id", id).find();
+            return new Parse.Query(_class.StoryItems).equalTo("storyId", id).find();
 
         }).then(function (stories) {
 
