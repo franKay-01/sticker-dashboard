@@ -89,7 +89,7 @@
                 <div style="margin: 20px 15px auto;">
 
                 <% for (let i = 0; i < arraySize; i++){ %>
-                <input class="validate editable" placeholder="Content" name="content[]"
+                <input class="validate" placeholder="Content" name="content[]"
                        value="<%= story_item.get("contents").text[i] %>" required="" aria-required="true">
                 <% } %>
                 </div>
@@ -109,26 +109,38 @@
                     <input name="type" value="<%= story_item.get("type") %>" hidden>
                 <% if (parseInt(type) === 0){ %>
 
-                <input class="validate editable" placeholder="Content" name="heading" value="<%= content.text %>"
+                <input class="validate" placeholder="Content" name="content" value="<%= content.text %>"
                        required="" aria-required="true">
-
-                <span><%= content.text %></span>
+                    <input name="index[]" value="<% i %>" hidden>
 
                 <% } else if (parseInt(type) === 5){ %>
 
-                <span><i><%= content.text %></i></span>
-
+                    <input class="validate" placeholder="Content" name="content" value="<%= content.text %>"
+                           required="" aria-required="true">
+                    <input name="index[]" value="<% i %>" hidden>
                 <% } else if (parseInt(type) === 6){ %>
 
-                <span><b><%= content.text %></b></span>
+                    <input class="validate" placeholder="Content" name="content" value="<%= content.text %>"
+                           required="" aria-required="true">
+                    <input name="index[]" value="<% i %>" hidden>
 
                 <% } else if (parseInt(type) === 8){ %>
 
-                <span><i><b><%= content.text %></b></i></span>
+                    <input class="validate" placeholder="Content" name="content" value="<%= content.text %>"
+                           required="" aria-required="true">
+                    <input name="index[]" value="<% i %>" hidden>
 
                 <% } else if (parseInt(type) === 14){ %>
 
-                <span style="color: <%= content.color %>"> <%= content.text %></span>
+                    <b style="color: black">Heading:</b>
+                    <input class="validate" placeholder="Text" name="text" value="<%= content.text %>"
+                           required="" aria-required="true">
+                    <b style="color: black">Color:</b>
+                    <input class="validate" placeholder="Color" id="htmlColor" name="text" value="<%= content.color %>"
+                           required="" aria-required="true">
+                    <button id="color_button" style="width: 7% !important;z-index: 1;" class="jscolor {valueElement: 'htmlColor'}"></button>
+
+                    <input name="index[]" value="<% i %>" hidden>
 
                 <% } %>
 

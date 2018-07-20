@@ -1425,6 +1425,7 @@ app.post('/storyItem/html/:id', function (req, res) {
 
     } else if (types === type.STORY_ITEM.color) {
 
+        //String(type.)
         object = {"14": {"text": content, "color": "#" + color}};
 
     }
@@ -1436,6 +1437,7 @@ app.post('/storyItem/html/:id', function (req, res) {
             return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
 
         }).then(function (storyItem) {
+
 
             storyItem.get("contents").html.push(object);
             return storyItem.save();
@@ -1610,6 +1612,15 @@ app.post('/storyitem/:id', function (req, res) {
 
                 object = {"heading": heading, "text": content};
 
+
+            }else if (storyItemType === type.STORY_ITEM.html){
+               let _html =  storyItem.get("contents").html[index]
+
+                //get parseInt(type)
+                //if type is color
+                //_html.color = "new color"
+                //_html.text = "new text"
+                //storyItem.get("contents").html[index] = _html
             }
 
             story_item.set("contents", object);
