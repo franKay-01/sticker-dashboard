@@ -60,7 +60,7 @@
 
                 <div style="margin: 20px 15px auto;">
 
-                <textarea class="validate editable" placeholder="Content"
+                <textarea class="validate" placeholder="Content"
                           name="content" required=""
                           aria-required="true"><%= story_item.get("contents").text %></textarea><br>
                 <input name="id" value="<%= story_id %>" hidden>
@@ -73,9 +73,9 @@
                 <div style="margin: 20px 15px auto;">
 
                 <b style="color: black">Heading:</b>
-                <input class="validate editable" placeholder="Content" name="heading"
+                <input class="validate" placeholder="Content" name="heading"
                        value="<%= story_item.get("contents").heading %>" required="" aria-required="true">
-                <textarea class="validate editable" placeholder="Content"
+                <textarea class="validate" placeholder="Content"
                           name="content" required=""
                           aria-required="true"><%= story_item.get("contents").text %></textarea><br>
                 </div>
