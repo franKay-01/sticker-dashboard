@@ -2186,7 +2186,7 @@ app.post('/story', function (req, res) {
 
         }).then(function (main) {
 
-            res.redirect('/story/artwork/new/' + main.get("story_id"));
+            res.redirect('/story/artwork/new/' + main.get("storyId"));
 
         }, function (error) {
             console.log("ERROR WHEN CREATING NEW STORY " + error.message);
