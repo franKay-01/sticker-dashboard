@@ -14,14 +14,17 @@
         <label class="update_label">Attached Ad Images:</label>
         <div class="medium-12 large-12">
 
-            <% if (!ad_images) { %>
+            <% if (ad_images.length < 0) { %>
 
             <p class="none"><b>No Artwork</b></p>
 
             <% } else { %>
 
-            <img class="btn_pack_icon" src="<%= ad_images.get("uri").url() %>">
+            <% ad_images.forEach(function(item, index) { %>
 
+            <img class="btn_pack_icon" src="<%= item.get("uri").url() %>">
+
+            <%});%>
             <% } %>
 
             <a href="#" id="showAdImageForm" class="show_btn" style="font-size: 25px !important;color: #560c82 !important;">
