@@ -3411,7 +3411,6 @@ app.post('/pack', function (req, res) {
             pack.set("name", coll_name);
             pack.set("description", pack_description);
             pack.set("userId", _user.id);
-            pack.set("userName", _user.get("name"));
             pack.set("status", type.PACK_STATUS.pending);
             pack.set("price_type", pricing);
             pack.set("version", version);
