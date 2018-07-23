@@ -43,9 +43,9 @@ Parse.Cloud.define("getFeed", function (req, res) {
         _adverts = adverts;
 
         return Parse.Promise.when(
-            new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("latestId")).first({useMasterKey: true}),
-            new Parse.Query(_class.Stories).equalTo("published",true).equalTo("objectId", story.get("latestId")).first({useMasterKey: true}),
-            new Parse.Query(_class.ArtWork).equalTo("object_id", story.get("latestId")).first({useMasterKey: true}),
+            new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first({useMasterKey: true}),
+            new Parse.Query(_class.Stories).equalTo("published",true).equalTo("objectId", story.get("feedId")).first({useMasterKey: true}),
+            new Parse.Query(_class.ArtWork).equalTo("object_id", story.get("feedId")).first({useMasterKey: true}),
         );
 
     }).then((sticker, story, storyArtwork) => {

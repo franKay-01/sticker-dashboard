@@ -15,7 +15,7 @@ exports.Profile = "Profiles";
 exports.Latest = "Feed";
 exports.Barcodes = "Barcodes";
 exports.Links = "Links";
-exports.PreviouslySelected = "History";
+exports.History = "History";
 //TODO update to Subscriptions
 //TODO columns -> email:String, updates:Array of integers
 exports.NewsLetter = "NewsLetter";

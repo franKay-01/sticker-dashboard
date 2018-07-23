@@ -310,9 +310,9 @@ app.get('/home', function (req, res) {
             _storyLength = helper.leadingZero(storyLength);
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("latestId")).first(),
-                new Parse.Query(_class.ArtWork).equalTo("object_id", latestStory.get("latestId")).first(),
-                new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("latestId")).first()
+                new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first(),
+                new Parse.Query(_class.ArtWork).equalTo("object_id", latestStory.get("feedId")).first(),
+                new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first()
             );
 
         }).then(function (latestSticker, storyImage, storyBody) {
@@ -1615,7 +1615,6 @@ app.post('/storyitem/:id', function (req, res) {
             } else if (storyItemType === type.STORY_ITEM.heading) {
 
                 object = {"heading": heading, "text": content};
-
 
             } else if (storyItemType === type.STORY_ITEM.list){
 
@@ -4874,13 +4873,13 @@ app.post('/feeds/:type/:origin', function (req, res) {
 
         }).then(function (latest) {
 
-            latest.set("latestId", id);
+            latest.set("feedId", id);
 
             return latest.save();
 
         }).then(function () {
 
-            let Selected = new Parse.Object.extend(_class.PreviouslySelected);
+            let Selected = new Parse.Object.extend(_class.History);
             let selected = new Selected();
 
             switch (type) {
