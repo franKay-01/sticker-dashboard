@@ -4052,14 +4052,14 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                 });
 
                 // query all stickers that have packId as their parent
-                let _pack = sticker.get("parent");
-                _pack.fetch({
-                    success: function (_pack) {
-
-                        reviews.set("packId", _pack.id);
-
-                    }
-                });
+                // let _pack = sticker.get("parent");
+                // _pack.fetch({
+                //     success: function (_pack) {
+                //
+                //         reviews.set("packId", _pack.id);
+                //
+                //     }
+                // });
 
                 return new Parse.Query(_class.Stickers).equalTo("parent", {
                     __type: 'Pointer',
