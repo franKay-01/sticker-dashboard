@@ -906,10 +906,11 @@ app.get('/advert/edit/:id', function (req, res) {
                 new Parse.Query(_class.Adverts).equalTo("objectId", id).first(),
                 new Parse.Query(_class.AdvertImages).equalTo("advertId", id).first(),
                 new Parse.Query(_class.Links).equalTo("itemId", id).first()
-
         );
 
         }).then(function (advert, advertImage, link) {
+
+            console.log("LINK " + JSON.stringify(link));
 
             res.render("pages/adverts/advert_details", {
 
