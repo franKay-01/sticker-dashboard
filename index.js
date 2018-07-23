@@ -4077,7 +4077,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
 
             }).then(function (stickers) {
 
-                res.send("STICKERS " + JSON.stringify(stickers));
+                res.send("STICKERS " + stickers.length);
                 let data = {
                     //Specify email data
                     from: process.env.EMAIL_FROM || "test@example.com",
