@@ -988,6 +988,7 @@ app.post('/advert/image/:id', upload.array('adverts'), function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
+    let type = req.body.type;
     let files = req.files;
     let fileDetails = [];
     let advertDetails = [];
@@ -1023,6 +1024,7 @@ app.post('/advert/image/:id', upload.array('adverts'), function (req, res) {
                     advert_image.set("name", image_name);
                     advert_image.set("advertId", id);
                     advert_image.set("uri", parseFile);
+                    advert_image.set("type", type);
 
                     advertDetails.push(advert_image);
                     fileDetails.push(file);

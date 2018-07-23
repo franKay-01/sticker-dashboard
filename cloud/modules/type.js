@@ -20,13 +20,13 @@ exports.USER = {
 exports.LINKS = {
     //TODO change ios and android to mobile
     //TODO add social as a links type
-    android: 0,
-    ios: 1,
-    web: 2,
-    telephone: 3,
-    facebook: 4,
-    twitter: 5,
-    instagram: 6
+    mobile: 0,
+    web: 1,
+    telephone: 2,
+    facebook: 3,
+    twitter: 4,
+    instagram: 5,
+    social:6
 };
 
 exports.ADVERT_IMAGE_TYPE = {
