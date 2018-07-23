@@ -64,7 +64,18 @@
                 </div>
                 <div class="quote-area-content purple-text semi-bold small-10">
                     <p>
+                        <span style="clear: left;">
+                            <img style="width: 46px;padding-bottom: 24px;"
+                         src="../../../public/assets/images/newsletter/quote-begin.png" alt="Begin Quote">
+                        </span>
+                        <span style="clear: left;">
+                        <span style="clear: left;">
                         <%= content.text %>
+                        </span>
+                        </span>
+                        <span style="clear: left;">
+                            <img style="width: 26px;padding-top: 12px;" src="../../../public/assets/images/newsletter/quote-end.png" alt="End Quote">
+                        </span>
                     </p>
                 </div>
                 <div class="quote-area-end small-1">
@@ -247,35 +258,35 @@
             <div class="medium-10 small-12">
                 <div class="content-section padding-top gray-text">
                     <p>
-                    <% var html = item.get("contents").html %>
-                    <% for (let i = 0; i < html.length; i++) { %>
-                    <% let _html = html[i]; %>
-                    <% let type = Object.keys(_html); %>
-                    <% let html_content = Object.values(_html)[0]; %>
+                        <% var html = item.get("contents").html %>
+                        <% for (let i = 0; i < html.length; i++) { %>
+                        <% let _html = html[i]; %>
+                        <% let type = Object.keys(_html); %>
+                        <% let html_content = Object.values(_html)[0]; %>
 
-                    <% if (parseInt(type) === 0){ %>
+                        <% if (parseInt(type) === 0){ %>
 
-                    <span><%= html_content.text %></span>
+                        <span><%= html_content.text %></span>
 
-                    <% } else if (parseInt(type) === 5){ %>
+                        <% } else if (parseInt(type) === 5){ %>
 
-                    <span><i><%= html_content.text %></i></span>
+                        <span><i><%= html_content.text %></i></span>
 
-                    <% } else if (parseInt(type) === 6){ %>
+                        <% } else if (parseInt(type) === 6){ %>
 
-                    <span><b><%= html_content.text %></b></span>
+                        <span><b><%= html_content.text %></b></span>
 
-                    <% } else if (parseInt(type) === 8){ %>
+                        <% } else if (parseInt(type) === 8){ %>
 
-                    <span><i><b><%= html_content.text %></b></i></span>
+                        <span><i><b><%= html_content.text %></b></i></span>
 
-                    <% } else if (parseInt(type) === 14){ %>
+                        <% } else if (parseInt(type) === 14){ %>
 
-                    <span style="color: <%= html_content.color %>"> <%= html_content.text %></span>
+                        <span style="color: <%= html_content.color %>"> <%= html_content.text %></span>
 
-                    <% } %>
+                        <% } %>
 
-                    <% } %>
+                        <% } %>
                     </p>
                 </div>
             </div>
