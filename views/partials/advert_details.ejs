@@ -27,9 +27,17 @@
             <a href="#" id="showAdImageForm" class="show_btn" style="font-size: 25px !important;color: #560c82 !important;">
                 <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Artwork</p>
             </a>
+
+            <%if (link) {%>
+            <a href="#" onclick="linkNumber()" class="show_btn" style="font-size: 25px !important;color: #560c82 !important;">
+                <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Links</p>
+            </a>
+            <%} else {%>
             <a href="#" id="showAdLinkForm" class="show_btn" style="font-size: 25px !important;color: #560c82 !important;">
                 <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Links</p>
             </a>
+            <%}%>
+
 
         </div>
 
@@ -38,7 +46,7 @@
 
     <div class="medium-12 large-12 cell">
         <center>
-            <a href="/adverts" class="cancel_btn">Cancel</a>
+            <a href="/adverts" class="cancel_btn">Back</a>
             <button class="update" type="submit">Update</button>
         </center>
     </div>

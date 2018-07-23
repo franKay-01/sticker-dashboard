@@ -548,7 +548,7 @@ app.post('/account/user/update', upload.array('im1'), function (req, res) {
                     });
                 });
             }
-            return new Parse.Query(_class.Links).equalTo("object_id", _user.id).find();
+            return new Parse.Query(_class.Links).equalTo("itemId", _user.id).find();
 
         }).then(function (links) {
 
@@ -571,7 +571,7 @@ app.post('/account/user/update', upload.array('im1'), function (req, res) {
                         let Link = new Parse.Object.extend(_class.Links);
                         let link = new Link();
 
-                        link.set("object_id", _user.id);
+                        link.set("itemId", _user.id);
                         link.set("type", type);
                         link.set("link", handle);
 
@@ -583,7 +583,7 @@ app.post('/account/user/update', upload.array('im1'), function (req, res) {
                     let Link = new Parse.Object.extend(_class.Links);
                     let link = new Link();
 
-                    link.set("object_id", _user.id);
+                    link.set("itemId", _user.id);
                     link.set("type", type);
                     link.set("link", handle);
 
@@ -785,7 +785,7 @@ app.get('/account/user/profile', function (req, res) {
 
             _profile = profile;
 
-            return new Parse.Query(_class.Links).equalTo("object_id", profile.get("userId")).find();
+            return new Parse.Query(_class.Links).equalTo("itemId", profile.get("userId")).find();
 
         }).then(function (links) {
 
@@ -904,15 +904,18 @@ app.get('/advert/edit/:id', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(_class.Adverts).equalTo("objectId", id).first(),
-                new Parse.Query(_class.AdvertImages).equalTo("advertId", id).first()
-            );
+                new Parse.Query(_class.AdvertImages).equalTo("advertId", id).first(),
+                new Parse.Query(_class.Links).equalTo("itemId", id).first()
 
-        }).then(function (advert, advertImage) {
+        );
+
+        }).then(function (advert, advertImage, link) {
 
             res.render("pages/adverts/advert_details", {
 
                 ad_details: advert,
                 ad_images: advertImage,
+                link:link,
                 advertMessage: advertMessage
             })
 
@@ -936,24 +939,17 @@ app.post('/update/advert/link/:id', function (req, res) {
     let id = req.params.id;
     let type = parseInt(req.body.type);
     let link = req.body.link;
-    let existing = [];
     let advertRedirect = '/advert/edit/';
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Links).equalTo("object_id", id).find();
+            return new Parse.Query(_class.Links).equalTo("itemId", id).first();
 
         }).then(function (links) {
 
-            _.each(links, function (link) {
-                if (link.get("type") === type) {
-                    existing.push(type);
-                }
-            });
-
-            if (existing.length > 0) {
+            if (links) {
 
                 res.redirect(advertRedirect + id);
 
@@ -963,7 +959,7 @@ app.post('/update/advert/link/:id', function (req, res) {
                 let links = new Links();
 
                 links.set("type", type);
-                links.set("object_id", id);
+                links.set("itemId", id);
                 links.set("link", link);
 
                 return links.save();

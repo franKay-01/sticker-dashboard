@@ -46,6 +46,14 @@
             });
 
         });
+
+        function linkNumber() {
+            var x = document.getElementById("pack_message")
+            x.className = "show";
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        }
     </script>
 </head>
 
@@ -72,7 +80,7 @@
 
     <div id="hiddenAddAdvertLinks" hidden>
         <div class="medium-3 large-3 cell create_background">
-            <div class="edit_labels medium-12 large-12">ADD ADVERT IMAGE</div>
+            <div class="edit_labels medium-12 large-12">ADD ADVERT LINK</div>
 
             <form id="pack_form" action="/update/advert/link/<%= ad_details.id %>" method="post">
                 <center>
@@ -161,6 +169,9 @@
         <% include ../../partials/advert_details %>
     </div>
 </div>
+
+<div id="advert_message">ADVERTS can not have more than one LINK.</div>
+
 </body>
 
 <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
