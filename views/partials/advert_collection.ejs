@@ -1,5 +1,5 @@
 <!--Display Collections from parse-->
-<% if (adverts.length === 0){ %>
+<% if (adverts.length === 0 && adverts_no_image.length === 0){ %>
 
 <% } else { %>
 <% adverts.forEach(function(item, index) { %>
@@ -37,6 +37,6 @@
 
 </div>
 
-<% }) %>
+<% }); %>
 
 <% } %>
