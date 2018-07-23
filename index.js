@@ -1001,10 +1001,11 @@ app.post('/advert/image/:id', upload.array('adverts'), function (req, res) {
 
         }).then(function (advert) {
 
-            if (advert) {
+            if (files){
+            // if (advert) {
                 // advertMessage = "ADVERT under category already exist";
-                res.redirect('/advert/edit/' + id);
-            } else {
+            //     res.redirect('/advert/edit/' + id);
+            // } else {
                 files.forEach(function (file) {
 
                     let fullName = file.originalname;
