@@ -22,7 +22,7 @@
     <script>
 
         function productId() {
-            var x = document.getElementById("pack_message")
+            var x = document.getElementById("_message")
             x.className = "show";
             setTimeout(function () {
                 x.className = x.className.replace("show", "");
@@ -193,7 +193,7 @@
 
         <%- include('../../partials/footer') %>
 
-        <div id="pack_message">PRODUCT IDs can not be published without having existing app IDs</div>
+        <div id="_message">PRODUCT IDs can not be published without having existing app IDs</div>
 
     </div>
 

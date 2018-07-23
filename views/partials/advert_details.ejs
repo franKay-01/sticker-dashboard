@@ -37,8 +37,6 @@
                 <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Links</p>
             </a>
             <%}%>
-
-
         </div>
 
     </div>
@@ -51,4 +49,13 @@
         </center>
     </div>
 </form>
+<script>
+    function linkNumber() {
+        var x = document.getElementById("_message")
+        x.className = "show";
+        setTimeout(function () {
+            x.className = x.className.replace("show", "");
+        }, 3000);
+    }
+</script>
 

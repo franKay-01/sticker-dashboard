@@ -117,7 +117,7 @@ label {
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
-#pack_message {
+#_message {
     visibility: hidden;
     min-width: 250px;
     margin-left: -165px;
@@ -181,7 +181,7 @@ label {
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
-#pack_message.show {
+#_message.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
