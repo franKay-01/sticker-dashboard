@@ -1409,23 +1409,23 @@ app.post('/storyItem/html/:id', function (req, res) {
 
     if (types === type.STORY_ITEM.text) {
 
-        object = {"0": content};
+        object = {"0":{"text":content}};
 
     } else if (types === type.STORY_ITEM.bold) {
 
-        object = {"6": content};
+        object = {"6": {"text":content}};
 
     } else if (types === type.STORY_ITEM.italic) {
 
-        object = {"5": content};
+        object = {"5": {"text":content}};
 
     } else if (types === type.STORY_ITEM.italicBold) {
 
-        object = {"8": content};
+        object = {"8": {"text":content}};
 
     } else if (types === type.STORY_ITEM.color) {
 
-        //String(type.)
+        //TODO String(type.)
         object = {"14": {"text": content, "color": "#" + color}};
 
     }
@@ -1608,7 +1608,7 @@ app.post('/storyitem/:id', function (req, res) {
             if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
                 storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
                 storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sideNote ||
-                storyItemType === type.STORY_ITEM.greyArea || storyItemType === type.STORY_ITEM.list) {
+                storyItemType === type.STORY_ITEM.greyArea) {
 
                 object = {"text": content};
 
@@ -1617,7 +1617,11 @@ app.post('/storyitem/:id', function (req, res) {
                 object = {"heading": heading, "text": content};
 
 
-            } else if (storyItemType === type.STORY_ITEM.html) {
+            } else if (storyItemType === type.STORY_ITEM.list){
+
+                object = {"list": content};
+
+            }else if (storyItemType === type.STORY_ITEM.html) {
 
                 let html = story_item.get("contents").html;
                 for (let i = 0; i < html.length; i++) {
@@ -2543,21 +2547,21 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
         }).then(function (storyItem) {
 
             _storyItem = storyItem;
-            storyContent = storyItem.get("content");
-            _storyId = storyItem.get("story_id");
+            storyContent = storyItem.get("contents");
+            _storyId = storyItem.get("storyId");
 
             if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
                 storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
                 storyItemType === type.STORY_ITEM.italicBold) {
 
                 storyItem.set("type", storyItemType);
-                storyItem.set("content", content);
+                storyItem.set("contents", content);
 
                 return storyItem.save();
             } else if (storyItemType === type.STORY_ITEM.divider) {
 
                 storyItem.set("type", storyItemType);
-                storyItem.set("content", "");
+                storyItem.set("contents", "");
 
                 return storyItem.save();
             } else if (storyItemType === type.STORY_ITEM.image) {
@@ -2584,7 +2588,7 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
 
             if (storyItemType === type.STORY_ITEM.image) {
                 _storyItem.set("type", storyItemType);
-                _storyItem.set("content", asset.id);
+                _storyItem.set("contents", asset.id);
 
                 return _storyItem.save();
 
@@ -2610,7 +2614,7 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
 
             if (previousForm === type.STORY_ITEM.image) {
 
-                console.log("INSIDE IMAGE" + storyContent + " STORY " + _storyItem.get("content"));
+                console.log("INSIDE IMAGE" + storyContent + " STORY " + _storyItem.get("contents").uri);
                 return new Parse.Query(_class.Assets).equalTo("objectId", storyContent).first();
 
             } else {
@@ -2665,10 +2669,10 @@ app.post('/storyitem/change/sticker/:id', function (req, res) {
 
         }).then(function (storyItem) {
 
-            storyId = storyItem.get("story_id");
+            storyId = storyItem.get("storyId");
 
             storyItem.set("type", type.STORY_ITEM.sticker);
-            storyItem.set("content", stickerId);
+            storyItem.set("contents", {"id":stickerId});
 
             return storyItem.save();
 
@@ -5092,7 +5096,8 @@ app.get('/newsletter/story/:storyId', function (req, res) {
             story: _story,
             sticker: sticker,
             colors: colors,
-            storyItems: storyItems
+            storyItems: storyItems,
+            type: type
         });
 
     }, function (error) {

@@ -35,14 +35,15 @@
         <% } else { %>
         <% storyItems.forEach(function(item, index) { %>
         <!-- 0 is TEXT-->
-        <% if (item.get("type") === 0){ %>
+        <% let content = item.get("contents") %>
+        <% if (item.get("type") === type.STORY_ITEM.text){ %>
         <!-- Content-Section-One -->
         <div class="small-12 grid-x">
             <div class="medium-1 hide-for-small"></div>
             <div class="medium-10 small-12">
                 <div class="content-section padding-top gray-text">
                     <p>
-                        <%= item.get("content") %>
+                        <%= content.text %>
                     </p>
 
                 </div>
@@ -52,7 +53,7 @@
         <!-- End of Content-Section-One -->
 
         <!-- 2 is QUOTE-->
-        <% } else if (item.get("type") === 2){ %>
+        <% } else if (item.get("type") === type.STORY_ITEM.quote){ %>
 
         <!-- Quote -->
         <div class="small-12 grid-x">
@@ -63,7 +64,7 @@
                 </div>
                 <div class="quote-area-content purple-text semi-bold small-10">
                     <p>
-                        <%= item.get("content") %>
+                        <%= content.text %>
                     </p>
                 </div>
                 <div class="quote-area-end small-1">
@@ -74,7 +75,7 @@
         </div>
         <!-- End of Quote -->
 
-        <% } else if (item.get("type") === 4){ %>
+        <% } else if (item.get("type") === type.STORY_ITEM.divider){ %>
 
         <!-- Divider -->
         <div class="small-12 grid-x">
@@ -87,7 +88,7 @@
         <!-- End of Divider -->
         <!-- 5 is ITALICS-->
 
-        <% }else if (item.get("type") === 5){ %>
+        <% }else if (item.get("type") === type.STORY_ITEM.italic){ %>
 
         <!-- Content-Section-One -->
         <div class="small-12 grid-x">
@@ -96,7 +97,7 @@
                 <div class="content-section padding-top gray-text">
                     <p>
                         <i>
-                            <%= item.get("content") %>
+                            <%= content.text %>
                         </i>
                     </p>
 
@@ -107,7 +108,7 @@
         <!-- End of Content-Section-One -->
         <!-- 6 is BOLD-->
 
-        <% } else if (item.get("type") === 6){ %>
+        <% } else if (item.get("type") === type.STORY_ITEM.bold){ %>
         <!-- Content-Section-One -->
         <div class="small-12 grid-x">
             <div class="medium-1 hide-for-small"></div>
@@ -115,7 +116,7 @@
                 <div class="content-section padding-top gray-text">
                     <p>
                         <strong>
-                            <%= item.get("content") %>
+                            <%= content.text %>
                         </strong>
                     </p>
 
@@ -124,8 +125,9 @@
             <div class="medium-1 hide-for-small"></div>
         </div>
         <!-- End of Content-Section-One -->
+
         <!-- 8 is ITALIC BOLD-->
-        <% } else if (item.get("type") === 8){ %>
+        <% } else if (item.get("type") === type.STORY_ITEM.italicBold){ %>
         <!-- Content-Section-One -->
         <div class="small-12 grid-x">
             <div class="medium-1 hide-for-small"></div>
@@ -133,11 +135,148 @@
                 <div class="content-section padding-top gray-text">
                     <p>
                         <strong><i>
-                            <%= item.get("content") %>
+                                <%= content.text %>
                             </i>
                         </strong>
                     </p>
 
+                </div>
+            </div>
+            <div class="medium-1 hide-for-small"></div>
+        </div>
+        <!-- End of Content-Section-One -->'
+
+
+        <!-- Image -->
+
+        <% } else if (item.get("type") === type.STORY_ITEM.image){ %>
+        <!-- Content-Section-One -->
+        <div class="small-12 grid-x">
+            <div class="medium-1 hide-for-small"></div>
+            <div class="medium-10 small-12">
+                <div class="content-section padding-top gray-text">
+                    <p>
+                        <img src="<%= content.uri %>">
+
+                    </p>
+
+                </div>
+            </div>
+            <div class="medium-1 hide-for-small"></div>
+        </div>
+        <!-- End of Content-Section-One -->
+
+        <!-- List -->
+
+        <% } else if (item.get("type") === type.STORY_ITEM.list){ %>
+        <!-- Content-Section-One -->
+        <div class="small-12 grid-x">
+            <div class="medium-1 hide-for-small"></div>
+            <div class="medium-10 small-12">
+                <div class="content-section padding-top gray-text">
+                    <ul>
+                        <% let arraySize = item.get("contents").list.length %>
+                        <% for (let i = 0; i < arraySize; i++){ %>
+                        <li> <%= item.get("contents").list[i] %></li>
+                        <% } %>
+
+                    </ul>
+
+                </div>
+            </div>
+            <div class="medium-1 hide-for-small"></div>
+        </div>
+        <!-- End of Content-Section-One -->
+
+        <!-- Grey Area -->
+        <% } else if (item.get("type") === type.STORY_ITEM.greyArea){ %>
+        <!-- Content-Section-One -->
+        <div class="small-12 grid-x">
+            <div class="medium-1 hide-for-small"></div>
+            <div class="medium-10 small-12">
+                <div class="content-section padding-top gray-text">
+                    <p style="background-color: grey">
+                        <%= content.text %>
+                    </p>
+
+                </div>
+            </div>
+            <div class="medium-1 hide-for-small"></div>
+        </div>
+        <!-- End of Content-Section-One -->
+        <!-- Side Note -->
+        <% } else if (item.get("type") === type.STORY_ITEM.sideNote){ %>
+        <!-- Content-Section-One -->
+        <div class="small-12 grid-x">
+            <div class="medium-1 hide-for-small"></div>
+            <div class="medium-10 small-12">
+                <div class="content-section padding-top gray-text">
+                    <p style="background-color: grey; border-left: 2px solid black;">
+                        <%= content.text %>
+                    </p>
+
+                </div>
+            </div>
+            <div class="medium-1 hide-for-small"></div>
+        </div>
+        <!-- End of Content-Section-One -->
+
+        <!-- Heading -->
+        <% } else if (item.get("type") === type.STORY_ITEM.heading){ %>
+        <!-- Content-Section-One -->
+        <div class="small-12 grid-x">
+            <div class="medium-1 hide-for-small"></div>
+            <div class="medium-10 small-12">
+                <div class="content-section padding-top gray-text">
+                    <h3><%= content.heading %></h3>
+                    <p>
+                        <%= content.text %>
+                    </p>
+
+                </div>
+            </div>
+            <div class="medium-1 hide-for-small"></div>
+        </div>
+        <!-- End of Content-Section-One -->
+
+        <!-- HTML -->
+        <% } else if (item.get("type") === type.STORY_ITEM.html){ %>
+        <!-- Content-Section-One -->
+        <div class="small-12 grid-x">
+            <div class="medium-1 hide-for-small"></div>
+            <div class="medium-10 small-12">
+                <div class="content-section padding-top gray-text">
+                    <p>
+                    <% var html = item.get("contents").html %>
+                    <% for (let i = 0; i < html.length; i++) { %>
+                    <% let _html = html[i]; %>
+                    <% let type = Object.keys(_html); %>
+                    <% let html_content = Object.values(_html)[0]; %>
+
+                    <% if (parseInt(type) === 0){ %>
+
+                    <span><%= html_content.text %></span>
+
+                    <% } else if (parseInt(type) === 5){ %>
+
+                    <span><i><%= html_content.text %></i></span>
+
+                    <% } else if (parseInt(type) === 6){ %>
+
+                    <span><b><%= html_content.text %></b></span>
+
+                    <% } else if (parseInt(type) === 8){ %>
+
+                    <span><i><b><%= html_content.text %></b></i></span>
+
+                    <% } else if (parseInt(type) === 14){ %>
+
+                    <span style="color: <%= html_content.color %>"> <%= html_content.text %></span>
+
+                    <% } %>
+
+                    <% } %>
+                    </p>
                 </div>
             </div>
             <div class="medium-1 hide-for-small"></div>
@@ -203,7 +342,8 @@
                 <!-- Download-Text -->
                 <div id="download-text" class="small-12 padding-top">
                     <h5>
-                        Download GhanaTok to get the "<span class="purple-text"><%= sticker.get("stickerName") %></span>" Sticker now
+                        Download GhanaTok to get the "<span class="purple-text"><%= sticker.get("stickerName") %></span>"
+                        Sticker now
                     </h5>
                 </div>
 

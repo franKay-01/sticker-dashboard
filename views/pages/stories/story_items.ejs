@@ -293,10 +293,13 @@
 
                 <% } else if (item.get("type") === 10){ %>
 
-                <% let arraySize = item.get("contents").text.length %>
-                <% for (let i = 0; i < arraySize; i++){ %>
-                <b>*</b> <%= item.get("contents").text[i] %><br>
-                <% } %>
+                <ul>
+                    <% let arraySize = item.get("contents").list.length %>
+                    <% for (let i = 0; i < arraySize; i++){ %>
+                    <li> <%= item.get("contents").list[i] %></li>
+                    <% } %>
+
+                </ul>
 
                 <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit List</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name="<%= item.get("contents") %>"
