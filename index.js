@@ -4067,17 +4067,19 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                     objectId: pack_id
                 }).find();
 
-                // _.each(stickers, function (sticker) {
-                //     let collection_relation = stickerCollection.relation(_class.Packs);
-                //     collection_relation.add(sticker);
-                // });
 
                 //console.log("SAVE COLLECTION RELATION");
-                // return stickerCollection.save();
+
 
             }).then(function (stickers) {
 
-                res.send("STICKERS " + stickers.length);
+                // res.send("STICKERS " + stickers.length);
+
+                _.each(stickers, function (sticker) {
+                        let collection_relation = stickerCollection.relation(_class.Packs);
+                        collection_relation.add(sticker);
+                    });
+
                 let data = {
                     //Specify email data
                     from: process.env.EMAIL_FROM || "test@example.com",
@@ -4098,17 +4100,17 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                     }
                 });
 
-                statsRef.transaction(function (sticker) {
-                    if (sticker) {
-                        if (sticker.stickers) {
-                            sticker.stickers++;
-                        }
-                    }
+                // statsRef.transaction(function (sticker) {
+                //     if (sticker) {
+                //         if (sticker.stickers) {
+                //             sticker.stickers++;
+                //         }
+                //     }
+                //
+                //     return sticker
+                // });
 
-                    return sticker
-                });
-
-                return true;
+                return stickerCollection.save();
 
             }).then(function (stickers) {
 
