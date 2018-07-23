@@ -875,9 +875,10 @@ app.get('/adverts', function (req, res) {
             advertMessage = "";
 
             console.log("ADVERTS " + JSON.stringify(_adverts) + " AND " + JSON.stringify(adverts));
+
             res.render("pages/adverts/advert_collection", {
                 adverts: _adverts,
-                _adverts: adverts,
+                adverts_no_image: adverts,
             });
 
         }, function (error) {
