@@ -199,7 +199,7 @@
                     </p>
                 </button>
 
-                <% if (latest.get("latest_id") === story.id){ %>
+                <% if (latest.get("latestId") === story.id){ %>
                 <button class="create_button" onclick="storyInfo()" style="background-color: #f1f1f1 !important;">
                     <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
                                                            aria-hidden="true"></i> &nbsp; DELETE
@@ -239,7 +239,7 @@
         <div class="story_form">
             <p class="story_icons">
                 STORY OF THE DAY
-                <% if (latest.get("latest_id") === story.id){ %>
+                <% if (latest.get("latestId") === story.id){ %>
                 <i class="fa fa-circle" id="circle" style="color: #0f9d58;" aria-hidden="true"></i>
                 <% }else{ %>
                 <i class="fa fa-circle" id="circle" style="color: grey;" aria-hidden="true"></i>
@@ -303,7 +303,7 @@
                     <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
                 </div>
             </form>
-            <% if (latest.get("latest_id") !== story.id && story.get("published") === true){ %>
+            <% if (latest.get("latestId") !== story.id && story.get("published") === true){ %>
 
             <form id="latestStory" action="/feeds/story/story" method="post">
                 <input type="text" class="story_id" name="element_id" value="<%= story.id %>" hidden>
