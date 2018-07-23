@@ -3415,7 +3415,7 @@ app.post('/pack', function (req, res) {
             pack.set("description", pack_description);
             pack.set("userId", _user.id);
             pack.set("status", type.PACK_STATUS.pending);
-            pack.set("price_type", pricing);
+            pack.set("priceType", pricing);
             pack.set("version", version);
             pack.set("archived", false);
             pack.set("flagged", false);
@@ -4051,16 +4051,33 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                     });
                 });
 
-                _.each(stickers, function (sticker) {
-                    let collection_relation = stickerCollection.relation(_class.Packs);
-                    collection_relation.add(sticker);
+                // query all stickers that have packId as their parent
+                let _pack = sticker.get("parent");
+                _pack.fetch({
+                    success: function (_pack) {
+
+                        reviews.set("packId", _pack.id);
+
+                    }
                 });
 
-                console.log("SAVE COLLECTION RELATION");
-                return stickerCollection.save();
+                return new Parse.Query(_class.Stickers).equalTo("parent", {
+                    __type: 'Pointer',
+                    className: _class.Packs,
+                    objectId: pack_id
+                }).find();
 
-            }).then(function () {
+                // _.each(stickers, function (sticker) {
+                //     let collection_relation = stickerCollection.relation(_class.Packs);
+                //     collection_relation.add(sticker);
+                // });
 
+                //console.log("SAVE COLLECTION RELATION");
+                // return stickerCollection.save();
+
+            }).then(function (stickers) {
+
+                res.send("STICKERS " + JSON.stringify(stickers));
                 let data = {
                     //Specify email data
                     from: process.env.EMAIL_FROM || "test@example.com",

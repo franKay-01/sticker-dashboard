@@ -54,7 +54,7 @@ exports.STORY_ITEM = {
 };
 
 exports.PACK_TYPE = {
-    standard: 0,
+    grouped: 0,
     themed: 1,
     curated: 2
 };
