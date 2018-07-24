@@ -320,7 +320,6 @@ app.get('/home', function (req, res) {
 
         }).then(function (latestSticker, storyImage, storyBody) {
 
-            console.log("LATEST " + latestSticker + " AND " + storyImage);
             _latestSticker = latestSticker.get("uri");
             _latestSticker['stickerName'] = latestSticker.get("stickerName");
 
@@ -338,6 +337,8 @@ app.get('/home', function (req, res) {
             return new Parse.Query(_class.Stickers).equalTo("objectId", sticker_id).first();
 
         }).then(function (sticker) {
+
+            console.log("LATEST " + _latestSticker + " " + _storyBody);
 
             if (_user.get("type") === NORMAL_USER) {
 
