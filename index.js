@@ -362,6 +362,7 @@ app.get('/home', function (req, res) {
 
             } else if (_user.get("type") === SUPER_USER) {
 
+                console.log("LATEST STORY IMAGE " + JSON.stringify(sticker));
                 res.render("pages/dashboard/admin_home", {
                     collections: _collection,
                     categories: _categories,
