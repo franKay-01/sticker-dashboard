@@ -321,7 +321,7 @@ app.get('/home', function (req, res) {
         }).then(function (latestSticker, storyImage, storyBody) {
 
             _latestSticker = latestSticker.get("uri");
-            _latestSticker['stickerName'] = latestSticker.get("stickerName");
+            _latestSticker['stickerName'] = latestSticker.get("name");
 
             if (latestSticker.get("description") !== undefined) {
                 _latestSticker['description'] = latestSticker.get("description");
