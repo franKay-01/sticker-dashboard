@@ -320,6 +320,7 @@ app.get('/home', function (req, res) {
 
         }).then(function (latestSticker, storyImage, storyBody) {
 
+
             _latestSticker = latestSticker.get("uri");
             _latestSticker['stickerName'] = latestSticker.get("name");
 
@@ -329,6 +330,8 @@ app.get('/home', function (req, res) {
                 _latestSticker['description'] = "";
 
             }
+
+            console.log("LATEST STICKER " + JSON.stringify(_latestSticker));
 
             _storyBody = storyBody;
 
