@@ -261,9 +261,9 @@ app.get('/home', function (req, res) {
         let _allAds = [];
         let _categories = [];
         let _messages = [];
+        let _allProducts = [];
         let sticker_id;
         let _latestSticker;
-        let _storyImage;
         let _storyBody;
         let _stickerName;
         let _categoryLength = 0;
@@ -292,11 +292,13 @@ app.get('/home', function (req, res) {
                 new Parse.Query(_class.Stickers).equalTo("userId", _user.id).count(),
                 new Parse.Query(_class.Stories).equalTo("userId", _user.id).count(),
                 new Parse.Query(_class.Adverts).equalTo("userId", _user.id).limit(limit).find(),
-                new Parse.Query(_class.Message).limit(limit).find()
+                new Parse.Query(_class.Message).limit(limit).find(),
+                new Parse.Query(_class.Product).limit(limit).find()
+
             );
 
         }).then(function (sticker, latestStory, collection, categories, story, allPacks, categoryLength, packLength,
-                          stickerLength, storyLength, allAdverts, allMessages) {
+                          stickerLength, storyLength, allAdverts, allMessages, products) {
 
             _categories = categories;
             _collection = collection;
@@ -304,6 +306,7 @@ app.get('/home', function (req, res) {
             _messages = allMessages;
             _allPacks = allPacks;
             _allAds = allAdverts;
+            _allProducts = products;
             _categoryLength = helper.leadingZero(categoryLength);
             _packLength = helper.leadingZero(packLength);
             _stickerLength = helper.leadingZero(stickerLength);
@@ -340,6 +343,7 @@ app.get('/home', function (req, res) {
                 res.render("pages/dashboard/home", {
                     collections: _collection,
                     allPacks: _allPacks,
+                    allProducts: _allProducts,
                     story: _story,
                     categoryLength: _categoryLength,
                     packLength: _packLength,
@@ -357,6 +361,7 @@ app.get('/home', function (req, res) {
                     collections: _collection,
                     categories: _categories,
                     allAdverts: _allAds,
+                    allProducts: _allProducts,
                     allPacks: _allPacks,
                     story: _story,
                     latestSticker: _latestSticker,
@@ -385,6 +390,7 @@ app.get('/home', function (req, res) {
                 categories: _categories,
                 allAdverts: _allAds,
                 allPacks: _allPacks,
+                allProducts: _allProducts,
                 story: _story,
                 categoryLength: _categoryLength,
                 packLength: _packLength,
