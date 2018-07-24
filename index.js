@@ -4755,7 +4755,7 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
         let _previews;
         let parseFile;
 
-    console.log("PREVIEW 2 " + android_price + " AND " +ios );
+    console.log("PREVIEW 2 " + android_price + " AND " +ios_price );
 
     if (token) {
 
