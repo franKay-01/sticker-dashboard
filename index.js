@@ -333,15 +333,29 @@ app.get('/home', function (req, res) {
 
             console.log("LATEST STICKER " + JSON.stringify(_latestSticker));
 
-            _storyBody = storyBody;
+            if (storyBody !== undefined) {
 
-            sticker_id = storyImage.get("sticker");
+                _storyBody = storyBody;
 
-            return new Parse.Query(_class.Stickers).equalTo("objectId", sticker_id).first();
+            }else {
+
+                _storyBody = "";
+
+            }
+
+            if (storyImage !== undefined){
+                sticker_id = storyImage.get("sticker");
+
+                return new Parse.Query(_class.Stickers).equalTo("objectId", sticker_id).first();
+
+            }else {
+                sticker_id = "";
+
+                return sticker_id;
+
+            }
 
         }).then(function (sticker) {
-
-            console.log("LATEST " + _latestSticker + " " + _storyBody);
 
             if (_user.get("type") === NORMAL_USER) {
 
