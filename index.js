@@ -4022,6 +4022,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                     sticker.set("userId", _user.id);
                     sticker.set("parent", collection);
                     sticker.set("description", "");
+                    sticker.set("meaning", "");
                     sticker.set("flagged", false);
                     sticker.set("archived", false);
                     sticker.set("sold", false);
