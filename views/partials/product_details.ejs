@@ -39,7 +39,7 @@
             <table>
                 <tr>
                     <td width="10%">
-                        <p style="color: #a46580 !important;">Android: <b>GH₵ <%= product.get("price").android %></b></p>
+                        <p style="color: #a46580 !important;">Android: <b>GH₵ <%= product.get("price").ios %></b></p>
                          <div class="row" style="width: 150px !important;">
                          <select class="input-field validate" name="ios_price">
                              <option value="" disabled selected>&nbsp;Price Tag(iOS)</option>
@@ -52,7 +52,7 @@
                          </div>
                     </td>
                     <td width="10%">
-                        <p style="color: #a46580 !important;">iOS: <b>GH₵ <%= product.get("price").ios %></b></p>
+                        <p style="color: #a46580 !important;">iOS: <b>GH₵ <%= product.get("price").android %></b></p>
                         <div class="row" style="width: 150px !important;">
                         <select class="input-field validate" name="android_price">
                             <option value="" disabled selected>&nbsp;Price Tag(Android)</option>

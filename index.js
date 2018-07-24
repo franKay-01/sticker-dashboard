@@ -4755,8 +4755,6 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
         let _previews;
         let parseFile;
 
-        console.log("PRICE " + android_price + " iOS " + ios_price);
-
         if (token) {
 
             getUser(token).then(function (sessionToken) {
