@@ -4749,6 +4749,8 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
         let name = req.body.name;
         let description = req.body.description;
         let android = req.body.android;
+        let android_price = parseInt(req.body.android_price);
+        let ios_price = parseInt(req.body.ios_price);
         let ios = req.body.ios;
         let _previews;
         let parseFile;
@@ -4800,6 +4802,7 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
                 product.set("name", name);
                 product.set("description", description);
                 product.set("productId", {"android": android, "ios": ios});
+                product.set("price", {"android": android_price, "ios": ios_price});
 
 
                 return product.save();
