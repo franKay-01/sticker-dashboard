@@ -4749,8 +4749,8 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
         let name = req.body.name;
         let description = req.body.description;
         let android = req.body.android;
-        let android_price = parseInt(req.body.android_price);
-        let ios_price = parseInt(req.body.ios_price);
+        let android_price = req.body.android_price;
+        let ios_price = req.body.ios_price;
         let ios = req.body.ios;
         let _previews;
         let parseFile;
