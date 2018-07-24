@@ -4348,6 +4348,7 @@ app.post('/sticker/edit/:stickerId/:packId', function (req, res) {
     let stickerId = req.params.stickerId;
     let packId = req.params.packId;
     let sticker_status = req.body.sticker_status;
+    let meaning = req.body.meaning;
     let description = req.body.description;
     let stickerEdit = "/sticker/edit/";
 
@@ -4379,6 +4380,7 @@ app.post('/sticker/edit/:stickerId/:packId', function (req, res) {
             sticker.set("name", stickerName);
             sticker.set("localName", localName);
             sticker.set("categories", _listee);
+            sticker.set("meaning", meaning);
             if (sticker_status === "1") {
                 sticker.set("sold", true);
             } else if (sticker_status === "0") {
