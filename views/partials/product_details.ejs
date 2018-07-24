@@ -23,36 +23,48 @@
             <input type="hidden" id="imgChange" name="imgChange" value="false">
 
             <label class="update_label">Product Decsription:</label>
-            <textarea class="box_2 validate" name="description" required="" aria-required="true" style="margin-bottom: 35px !important;"><%= product.get("description") %></textarea><br>
+            <textarea class="box_2 validate" name="description" required="" aria-required="true"
+                      style="margin-bottom: 35px !important;"><%= product.get("description") %></textarea><br>
 
             <label class="update_label">Android Product ID:</label>
-            <input type="text" placeholder="Android Product ID" name="android" class="box_2" style="margin-bottom: 35px !important;"
+            <input type="text" placeholder="Android Product ID" name="android" class="box_2"
+                   style="margin-bottom: 35px !important;"
                    value="<%= product.get("productId").android %>">
 
             <label class="update_label">IOs Product ID:</label>
-            <input type="text" placeholder="IOs Product ID" name="ios" class="box_2" style="margin-bottom: 35px !important;"
+            <input type="text" placeholder="IOs Product ID" name="ios" class="box_2"
+                   style="margin-bottom: 35px !important;"
                    value="<%= product.get("productId").ios %>">
 
-            <span class="row" style="width: 150px !important;">
-                <select class="input-field validate" name="ios_price">
-                     <option value="" disabled selected>&nbsp;Add Price Tag</option>
-                    <option value="0.99">GH₵ 0.99</option>
-                    <option value="1.99">GH₵ 1.99</option>
-                    <option value="2.99">GH₵ 2.99</option>
-                    <option value="3.99">GH₵ 3.99</option>
-                    <option value="4.99">GH₵ 4.99</option>
-                </select>
-            </span>
-            <span class="row" style="width: 150px !important;">
-                <select class="input-field validate" name="android_price">
-                    <option value="" disabled selected>&nbsp;Add Price Tag</option>
-                    <option value="0.99">GH₵ 0.99</option>
-                    <option value="1.99">GH₵ 1.99</option>
-                    <option value="2.99">GH₵ 2.99</option>
-                    <option value="3.99">GH₵ 3.99</option>
-                    <option value="4.99">GH₵ 4.99</option>
-                </select>
-            </span>
+            <table>
+                <tr>
+                    <td width="10%">
+                         <div class="row" style="width: 150px !important;">
+                         <select class="input-field validate" name="ios_price">
+                             <option value="" disabled selected>&nbsp;Add Price Tag</option>
+                            <option value="0.99">GH₵ 0.99</option>
+                            <option value="1.99">GH₵ 1.99</option>
+                            <option value="2.99">GH₵ 2.99</option>
+                            <option value="3.99">GH₵ 3.99</option>
+                            <option value="4.99">GH₵ 4.99</option>
+                            </select>
+                         </div>
+                    </td>
+                    <td width="10%">
+                        <div class="row" style="width: 150px !important;">
+                        <select class="input-field validate" name="android_price">
+                            <option value="" disabled selected>&nbsp;Add Price Tag</option>
+                            <option value="0.99">GH₵ 0.99</option>
+                            <option value="1.99">GH₵ 1.99</option>
+                            <option value="2.99">GH₵ 2.99</option>
+                            <option value="3.99">GH₵ 3.99</option>
+                            <option value="4.99">GH₵ 4.99</option>
+                        </select>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
 
             <br>
             <label class="update_label">Add Pack Artwork:</label>
