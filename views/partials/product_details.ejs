@@ -33,6 +33,27 @@
             <input type="text" placeholder="IOs Product ID" name="ios" class="box_2" style="margin-bottom: 35px !important;"
                    value="<%= product.get("productId").ios %>">
 
+            <span class="row" style="width: 150px !important;">
+                <select class="input-field validate" name="ios_price">
+                     <option value="" disabled selected>&nbsp;Add Price Tag</option>
+                    <option value="0.99">GH₵ 0.99</option>
+                    <option value="1.99">GH₵ 1.99</option>
+                    <option value="2.99">GH₵ 2.99</option>
+                    <option value="3.99">GH₵ 3.99</option>
+                    <option value="4.99">GH₵ 4.99</option>
+                </select>
+            </span>
+            <span class="row" style="width: 150px !important;">
+                <select class="input-field validate" name="android_price">
+                    <option value="" disabled selected>&nbsp;Add Price Tag</option>
+                    <option value="0.99">GH₵ 0.99</option>
+                    <option value="1.99">GH₵ 1.99</option>
+                    <option value="2.99">GH₵ 2.99</option>
+                    <option value="3.99">GH₵ 3.99</option>
+                    <option value="4.99">GH₵ 4.99</option>
+                </select>
+            </span>
+
             <br>
             <label class="update_label">Add Pack Artwork:</label>
             <input style="color: #a46580;" id="art" name="art" type="file"><br>
