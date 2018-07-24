@@ -323,15 +323,9 @@ app.get('/home', function (req, res) {
 
             _latestSticker = latestSticker.get("uri");
             _latestSticker['stickerName'] = latestSticker.get("name");
+            _latestSticker['description'] = latestSticker.get("description");
 
-            if (latestSticker.get("description") !== undefined) {
-                _latestSticker['description'] = latestSticker.get("description");
-            } else {
-                _latestSticker['description'] = "";
-
-            }
-
-            console.log("LATEST STICKER " + _latestSticker.length);
+            console.log("LATEST STICKER " + _latestSticker);
 
             if (storyBody !== undefined) {
 
