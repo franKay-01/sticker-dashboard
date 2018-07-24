@@ -4755,7 +4755,9 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
         let _previews;
         let parseFile;
 
-        if (token) {
+    console.log("PREVIEW 2 " + android_price + " AND " +ios );
+
+    if (token) {
 
             getUser(token).then(function (sessionToken) {
 
@@ -4800,8 +4802,19 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
                 product.set("name", name);
                 product.set("description", description);
                 product.set("productId", {"android": android, "ios": ios});
-                product.set("price", {"android": android_price, "ios": ios_price});
+                if (android_price && ios_price){
 
+                    product.set("price", {"android": android_price, "ios": ios_price});
+
+                }else if (android_price){
+
+                    product.set("price", {"android": android_price, "ios": product.get("price").ios});
+
+                }else if (ios_price){
+
+                    product.set("price", {"android": product.get("price").android, "ios": ios_price});
+
+                }
 
                 return product.save();
 
