@@ -1730,7 +1730,7 @@ app.post('/storyitem/html/update/:id', function (req, res) {
 
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/storyitem/edit/' + id + "/" + story_id);
+            res.redirect('/storyItem/html/edit/' + id);
         })
     }
 });
