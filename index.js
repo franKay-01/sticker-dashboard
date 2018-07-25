@@ -294,7 +294,6 @@ app.get('/home', function (req, res) {
                 new Parse.Query(_class.Adverts).equalTo("userId", _user.id).limit(limit).find(),
                 new Parse.Query(_class.Message).limit(limit).find(),
                 new Parse.Query(_class.Product).limit(limit).find()
-
             );
 
         }).then(function (sticker, latestStory, collection, categories, story, allPacks, categoryLength, packLength,
@@ -331,18 +330,18 @@ app.get('/home', function (req, res) {
 
                 _storyBody = storyBody;
 
-            }else {
+            } else {
 
                 _storyBody = "";
 
             }
 
-            if (storyImage !== undefined){
+            if (storyImage !== undefined) {
                 sticker_id = storyImage.get("sticker");
 
                 return new Parse.Query(_class.Stickers).equalTo("objectId", sticker_id).first();
 
-            }else {
+            } else {
                 sticker_id = "";
 
                 return sticker_id;
@@ -925,7 +924,7 @@ app.get('/advert/edit/:id', function (req, res) {
                 new Parse.Query(_class.Adverts).equalTo("objectId", id).first(),
                 new Parse.Query(_class.AdvertImages).equalTo("advertId", id).find(),
                 new Parse.Query(_class.Links).equalTo("itemId", id).first()
-        );
+            );
 
         }).then(function (advert, advertImage, link) {
 
@@ -935,7 +934,7 @@ app.get('/advert/edit/:id', function (req, res) {
 
                 ad_details: advert,
                 ad_images: advertImage,
-                link:link,
+                link: link,
                 advertMessage: advertMessage
             })
 
@@ -1021,11 +1020,11 @@ app.post('/advert/image/:id', upload.array('adverts'), function (req, res) {
 
         }).then(function (advert) {
 
-            if (files){
-            // if (advert) {
+            if (files) {
+                // if (advert) {
                 // advertMessage = "ADVERT under category already exist";
-            //     res.redirect('/advert/edit/' + id);
-            // } else {
+                //     res.redirect('/advert/edit/' + id);
+                // } else {
                 files.forEach(function (file) {
 
                     let fullName = file.originalname;
@@ -1430,19 +1429,19 @@ app.post('/storyItem/html/:id', function (req, res) {
 
     if (types === type.STORY_ITEM.text) {
 
-        object = {"0":{"text":content}};
+        object = {"0": {"text": content}};
 
     } else if (types === type.STORY_ITEM.bold) {
 
-        object = {"6": {"text":content}};
+        object = {"6": {"text": content}};
 
     } else if (types === type.STORY_ITEM.italic) {
 
-        object = {"5": {"text":content}};
+        object = {"5": {"text": content}};
 
     } else if (types === type.STORY_ITEM.italicBold) {
 
-        object = {"8": {"text":content}};
+        object = {"8": {"text": content}};
 
     } else if (types === type.STORY_ITEM.color) {
 
@@ -1476,6 +1475,38 @@ app.post('/storyItem/html/:id', function (req, res) {
         res.redirect('/');
     }
 });
+
+app.get('/storyItem/html/edit/:id/:storyId', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let storyId = req.params.storyId;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+
+        }).then(function (storyItem) {
+
+            res.render("pages/stories/storyitem_html", {
+
+                storyItem: storyItem,
+                storyId: storyId
+
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/storyitem/view/' + storyId);
+
+        })
+    }else {
+        res.redirect('/');
+    }
+
+})
 
 app.get('/storyItem/html/:state/:id', function (req, res) {
 
@@ -1637,11 +1668,11 @@ app.post('/storyitem/:id', function (req, res) {
 
                 object = {"heading": heading, "text": content};
 
-            } else if (storyItemType === type.STORY_ITEM.list){
+            } else if (storyItemType === type.STORY_ITEM.list) {
 
                 object = {"list": content};
 
-            }else if (storyItemType === type.STORY_ITEM.html) {
+            } else if (storyItemType === type.STORY_ITEM.html) {
 
                 let html = story_item.get("contents").html;
                 for (let i = 0; i < html.length; i++) {
@@ -1658,7 +1689,7 @@ app.post('/storyitem/:id', function (req, res) {
                             storyItem.get("contents").html[index[i]] = _html;
                             object = storyItem.get("contents").html[i];
 
-                        }else if (parseInt(type) === type.STORY_ITEM.html){
+                        } else if (parseInt(type) === type.STORY_ITEM.html) {
 
                             _html.color = htmlColor;
                             _html.text = htmlContent;
@@ -2692,7 +2723,7 @@ app.post('/storyitem/change/sticker/:id', function (req, res) {
             storyId = storyItem.get("storyId");
 
             storyItem.set("type", type.STORY_ITEM.sticker);
-            storyItem.set("contents", {"id":stickerId});
+            storyItem.set("contents", {"id": stickerId});
 
             return storyItem.save();
 
@@ -4088,9 +4119,9 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                 // res.send("STICKERS " + stickers.length);
 
                 _.each(stickers, function (sticker) {
-                        let collection_relation = stickerCollection.relation(_class.Packs);
-                        collection_relation.add(sticker);
-                    });
+                    let collection_relation = stickerCollection.relation(_class.Packs);
+                    collection_relation.add(sticker);
+                });
 
                 let data = {
                     //Specify email data
@@ -4770,9 +4801,9 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
         let _previews;
         let parseFile;
 
-    console.log("PREVIEW 2 " + android_price + " AND " +ios_price );
+        console.log("PREVIEW 2 " + android_price + " AND " + ios_price);
 
-    if (token) {
+        if (token) {
 
             getUser(token).then(function (sessionToken) {
 
@@ -4817,15 +4848,15 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
                 product.set("name", name);
                 product.set("description", description);
                 product.set("productId", {"android": android, "ios": ios});
-                if (android_price && ios_price){
+                if (android_price && ios_price) {
 
                     product.set("price", {"android": android_price, "ios": ios_price});
 
-                }else if (android_price){
+                } else if (android_price) {
 
                     product.set("price", {"android": android_price, "ios": product.get("price").ios});
 
-                }else if (ios_price){
+                } else if (ios_price) {
 
                     product.set("price", {"android": product.get("price").android, "ios": ios_price});
 
