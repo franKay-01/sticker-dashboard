@@ -1732,7 +1732,7 @@ app.post('/storyitem/:id', function (req, res) {
                 let _html = contents.html[index];
                 let htmlType = Object.keys(_html);
 
-                if (parseInt(type) !== type.STORY_ITEM.color) {
+                if (parseInt(htmlType) !== type.STORY_ITEM.color) {
 
                     let html = {};
                     html[htmlType.toString()] = {"text": htmlContent};
