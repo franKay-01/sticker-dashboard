@@ -1713,11 +1713,11 @@ app.post('/storyitem/:id', function (req, res) {
             console.log("CONTENT FROM HTML " + JSON.stringify(_html));
             let htmlType = Object.keys(_html);
 
-            if (parseInt(htmlType) === type.STORY_ITEM.text || parseInt(htmlType) === type.STORY_ITEM.bold ||
-                parseInt(htmlType) === type.STORY_ITEM.italic || parseInt(htmlType) === type.STORY_ITEM.italicBold) {
+
+            console.log(" HTML " + htmlContent);
 
                 let html = {};
-                html[htmlType.toString()] = {"text": htmlText};
+                html[htmlType.toString()] = {"text": htmlContent};
                 console.log("UPDATED HTML " + JSON.stringify(html));
 
                 story_item.get("contents").html[index] = html;
@@ -1725,11 +1725,7 @@ app.post('/storyitem/:id', function (req, res) {
 
                 console.log("FINAL HTML " + JSON.stringify(object));
 
-            }else {
 
-                console.log("DID NOT FIND ANYTHING");
-
-            }
 
             // if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
             //     storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
