@@ -1502,7 +1502,7 @@ app.post('/storyItem/html/edit/:id', function (req, res) {
                     let typeOfObject = Object.keys(_html);
                     let content = Object.values(_html)[0];
 
-                    console.log("THIRD STAGE " + typeOfObject + " AND " + content);
+                    console.log("THIRD STAGE " + typeOfObject + " AND " + JSON.stringify(content));
 
                     res.render("pages/stories/edit_html", {
                         type: type,
