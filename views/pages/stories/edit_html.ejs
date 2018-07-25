@@ -54,8 +54,8 @@
         <form class="story_form" id="story_form" action="/storyitem/<%= storyItemId %>" method="post">
             <div class="medium-5 large-5 cell">
 
-                <% if (objectType === type.STORY_ITEM.text || objectType === type.STORY_ITEM.quote || objectType === type.STORY_ITEM.bold
-                        || objectType === type.STORY_ITEM.italic || objectType === type.STORY_ITEM.italicBold) { %>
+                <% if (objectId === type.STORY_ITEM.text || objectId === type.STORY_ITEM.quote || objectId === type.STORY_ITEM.bold
+                        || objectId === type.STORY_ITEM.italic || objectId === type.STORY_ITEM.italicBold) { %>
 
                 <div class="create_new">Contents</div>
 
@@ -69,7 +69,7 @@
                     <input name="type" value="<%= objectType %>" hidden>
 
                 </div>
-                <% } else if (objectType === type.STORY_ITEM.html){ %>
+                <% } else if (objectId === type.STORY_ITEM.html){ %>
                 <div class="create_new">Text & Color</div>
 
                 <div style="margin: 20px 15px auto;">
