@@ -1509,7 +1509,7 @@ app.post('/storyItem/html/edit/:id', function (req, res) {
                         content:content,
                         objectType: typeOfObject,
                         story_id: storyId,
-                        storyItemId: id,
+                        storyItemId: story_item.id,
                         index:indexValue
                     })
                 }
@@ -1711,19 +1711,23 @@ app.post('/storyitem/:id', function (req, res) {
 
             let _html = story_item.get("contents").html[index];
             console.log("CONTENT FROM HTML " + JSON.stringify(_html));
-            let type = Object.keys(_html);
+            let htmlType = Object.keys(_html);
 
-            if (parseInt(type) === type.STORY_ITEM.text || parseInt(type) === type.STORY_ITEM.bold ||
-                parseInt(type) === type.STORY_ITEM.italic || parseInt(type) === type.STORY_ITEM.italicBold) {
+            if (parseInt(htmlType) === type.STORY_ITEM.text || parseInt(htmlType) === type.STORY_ITEM.bold ||
+                parseInt(htmlType) === type.STORY_ITEM.italic || parseInt(htmlType) === type.STORY_ITEM.italicBold) {
 
                 let html = {};
-                html[type.toString()] = {"text": htmlText};
+                html[htmlType.toString()] = {"text": htmlText};
                 console.log("UPDATED HTML " + JSON.stringify(html));
 
                 story_item.get("contents").html[index] = html;
                 object = story_item.get("contents").html;
 
                 console.log("FINAL HTML " + JSON.stringify(object));
+
+            }else {
+
+                console.log("DID NOT FIND ANYTHING");
 
             }
 
