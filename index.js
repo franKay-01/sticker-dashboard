@@ -1732,9 +1732,10 @@ app.post('/storyitem/:id', function (req, res) {
                 if (parseInt(type) === type.STORY_ITEM.text || parseInt(type) === type.STORY_ITEM.bold ||
                     parseInt(type) === type.STORY_ITEM.italic || parseInt(type) === type.STORY_ITEM.italicBold) {
 
-                    let _type = type.toString();
+                    let html = {};
+                    html[type.toString()] = {"text": htmlText};
 
-                    storyItem.get("contents").html[index] = {_type: {"text": htmlText}};
+                    storyItem.get("contents").html[index] = html;
                     object = storyItem.get("contents").html;
 
                 } else if (parseInt(type) === type.STORY_ITEM.html) {
