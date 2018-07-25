@@ -1647,9 +1647,7 @@ app.get('/storyitem/view/:id', function (req, res) {
                 }
             });
 
-
             return true;
-
 
         }).then(function (image) {
 
