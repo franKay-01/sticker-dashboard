@@ -1704,6 +1704,8 @@ app.post('/storyitem/html/update/:id', function (req, res) {
             let _html = contents.html[index];
             let htmlType = Object.keys(_html);
 
+            console.log("OBJECT TYPE " + htmlType);
+
             if (parseInt(htmlType) !== type.STORY_ITEM.color) {
 
                 let html = {};
