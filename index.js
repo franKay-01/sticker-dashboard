@@ -1507,7 +1507,7 @@ app.post('/storyItem/html/edit/:id', function (req, res) {
                     res.render("pages/stories/edit_html", {
                         type: type,
                         content:content,
-                        objectId: typeOfObject,
+                        objectType: typeOfObject,
                         story_id: storyId,
                         storyItemId: id,
                         index:indexValue

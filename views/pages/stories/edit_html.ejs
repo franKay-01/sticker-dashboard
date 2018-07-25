@@ -54,8 +54,8 @@
         <form class="story_form" id="story_form" action="/storyitem/<%= storyItemId %>" method="post">
             <div class="medium-5 large-5 cell">
 
-                <% if (parseInt(objectId) === type.STORY_ITEM.text || parseInt(objectId) === type.STORY_ITEM.quote || parseInt(objectId) === type.STORY_ITEM.bold
-                        || parseInt(objectId) === type.STORY_ITEM.italic || parseInt(objectId) === type.STORY_ITEM.italicBold) { %>
+                <% if (parseInt(objectType) === type.STORY_ITEM.text || parseInt(objectType) === type.STORY_ITEM.quote || parseInt(objectType) === type.STORY_ITEM.bold
+                        || parseInt(objectType) === type.STORY_ITEM.italic || parseInt(objectType) === type.STORY_ITEM.italicBold) { %>
 
                 <div class="create_new">Contents</div>
 
@@ -66,10 +66,10 @@
                           aria-required="true"><%= content.text %></textarea><br>
                     <input name="id" value="<%= story_id %>" hidden>
                     <input name="index" value="<%= index %>" hidden>
-                    <input name="type" value="<%= objectType %>" hidden>
+                    <input name="type" value="<%= parseInt(objectType) %>" hidden>
 
                 </div>
-                <% } else if (parseInt(objectId) === type.STORY_ITEM.html){ %>
+                <% } else if (parseInt(objectType) === type.STORY_ITEM.html){ %>
                 <div class="create_new">Text & Color</div>
 
                 <div style="margin: 20px 15px auto;">
@@ -84,7 +84,7 @@
                 </div>
                 <input name="id" value="<%= story_id %>" hidden>
                 <input name="index" value="<%= index %>" hidden>
-                <input name="type" value="<%= objectType %>" hidden>
+                <input name="type" value="<%= parseInt(objectType) %>" hidden>
 
                 <% } %>
             </div>
