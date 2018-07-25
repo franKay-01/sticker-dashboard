@@ -1709,55 +1709,73 @@ app.post('/storyitem/:id', function (req, res) {
 
         }).then(function (story_item) {
 
-            if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
-                storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
-                storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sideNote ||
-                storyItemType === type.STORY_ITEM.greyArea) {
+            let _html = story_item.get("contents").html[index];
+            console.log("CONTENT FROM HTML " + JSON.stringify(_html));
+            let type = Object.keys(_html);
 
-                object = {"text": content};
+            if (parseInt(type) === type.STORY_ITEM.text || parseInt(type) === type.STORY_ITEM.bold ||
+                parseInt(type) === type.STORY_ITEM.italic || parseInt(type) === type.STORY_ITEM.italicBold) {
 
-            } else if (storyItemType === type.STORY_ITEM.heading) {
+                let html = {};
+                html[type.toString()] = {"text": htmlText};
+                console.log("UPDATED HTML " + JSON.stringify(html));
 
-                object = {"heading": heading, "text": content};
+                story_item.get("contents").html[index] = html;
+                object = story_item.get("contents").html;
 
-            } else if (storyItemType === type.STORY_ITEM.list) {
-
-                object = {"list": content};
+                console.log("FINAL HTML " + JSON.stringify(object));
 
             }
 
-            if (originalType === type.STORY_ITEM.html) {
-
-                let _html = story_item.get("contents").html[index];
-                console.log("CONTENT FROM HTML " + JSON.stringify(_html));
-                let type = Object.keys(_html);
-
-                if (parseInt(type) === type.STORY_ITEM.text || parseInt(type) === type.STORY_ITEM.bold ||
-                    parseInt(type) === type.STORY_ITEM.italic || parseInt(type) === type.STORY_ITEM.italicBold) {
-
-                    let html = {};
-                    html[type.toString()] = {"text": htmlText};
-                    console.log("UPDATED HTML " + JSON.stringify(html));
-
-                    story_item.get("contents").html[index] = html;
-                    object = story_item.get("contents").html;
-
-                    console.log("FINAL HTML " + JSON.stringify(object));
-
-                } else if (parseInt(type) === type.STORY_ITEM.color) {
-
-                    _html.color = htmlColor;
-                    _html.text = htmlContent;
-
-                    story_item.get("contents").html[index] = _html;
-                    object = story_item.get("contents").html;
-                }
-                //get parseInt(type)
-                //if type is color
-                //_html.color = "new color"
-                //_html.text = "new text"
-                //storyItem.get("contents").html[index] = _html
-            }
+            // if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
+            //     storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
+            //     storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sideNote ||
+            //     storyItemType === type.STORY_ITEM.greyArea) {
+            //
+            //     object = {"text": content};
+            //
+            // } else if (storyItemType === type.STORY_ITEM.heading) {
+            //
+            //     object = {"heading": heading, "text": content};
+            //
+            // } else if (storyItemType === type.STORY_ITEM.list) {
+            //
+            //     object = {"list": content};
+            //
+            // }
+            //
+            // if (originalType === type.STORY_ITEM.html) {
+            //
+            //     let _html = story_item.get("contents").html[index];
+            //     console.log("CONTENT FROM HTML " + JSON.stringify(_html));
+            //     let type = Object.keys(_html);
+            //
+            //     if (parseInt(type) === type.STORY_ITEM.text || parseInt(type) === type.STORY_ITEM.bold ||
+            //         parseInt(type) === type.STORY_ITEM.italic || parseInt(type) === type.STORY_ITEM.italicBold) {
+            //
+            //         let html = {};
+            //         html[type.toString()] = {"text": htmlText};
+            //         console.log("UPDATED HTML " + JSON.stringify(html));
+            //
+            //         story_item.get("contents").html[index] = html;
+            //         object = story_item.get("contents").html;
+            //
+            //         console.log("FINAL HTML " + JSON.stringify(object));
+            //
+            //     } else if (parseInt(type) === type.STORY_ITEM.color) {
+            //
+            //         _html.color = htmlColor;
+            //         _html.text = htmlContent;
+            //
+            //         story_item.get("contents").html[index] = _html;
+            //         object = story_item.get("contents").html;
+            //     }
+            //     //get parseInt(type)
+            //     //if type is color
+            //     //_html.color = "new color"
+            //     //_html.text = "new text"
+            //     //storyItem.get("contents").html[index] = _html
+            // }
 
             story_item.set("contents", object);
             return story_item.save();
