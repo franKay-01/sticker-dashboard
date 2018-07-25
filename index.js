@@ -1480,10 +1480,10 @@ app.post('/storyItem/html/edit/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
-    let storyId = req.body.storyId;
+    let storyId = req.body.id;
     let indexValue = parseInt(req.body.indexValue);
 
-    console.log("STARTING " + JSON.stringify(storyId));
+    console.log("STARTING " + JSON.stringify(storyId) + " AND " + indexValue);
 
     if (token) {
 
@@ -1501,6 +1501,8 @@ app.post('/storyItem/html/edit/:id', function (req, res) {
                     let _html = html[i];
                     let typeOfObject = Object.keys(_html);
                     let content = Object.values(_html)[0];
+
+                    console.log("THIRD STAGE " + JSON.stringify(content));
 
                     res.render("pages/stories/edit_html", {
                         type: type,
