@@ -1695,6 +1695,7 @@ app.post('/storyitem/:id', function (req, res) {
     let htmlContent = req.body.htmlContent;
     let htmlColor = req.body.htmlColor;
     let storyItemType = parseInt(req.body.type);
+    let originalType = parseInt(req.body.original);
     let index = parseInt(req.body.index);
     let object = {};
 
@@ -1722,13 +1723,13 @@ app.post('/storyitem/:id', function (req, res) {
 
                 object = {"list": content};
 
-            } else if (storyItemType === type.STORY_ITEM.html) {
+            } else if (originalType === type.STORY_ITEM.html) {
 
                 let html = story_item.get("contents").html;
                 for (let i = 0; i < html.length; i++) {
-                    if (index[i] === i) {
+                    if (index === i) {
 
-                        let _html = storyItem.get("contents").html[index[i]];
+                        let _html = storyItem.get("contents").html[i];
                         let type = Object.keys(_html);
 
                         if (parseInt(type) === type.STORY_ITEM.text || parseInt(type) === type.STORY_ITEM.bold ||
@@ -1736,16 +1737,16 @@ app.post('/storyitem/:id', function (req, res) {
 
                             _html.text = htmlText;
 
-                            storyItem.get("contents").html[index[i]] = _html;
-                            object = storyItem.get("contents").html[i];
+                            storyItem.get("contents").html[0] = _html;
+                            object = storyItem.get("contents").html[0];
 
                         } else if (parseInt(type) === type.STORY_ITEM.html) {
 
                             _html.color = htmlColor;
                             _html.text = htmlContent;
 
-                            storyItem.get("contents").html[i] = _html;
-                            object = storyItem.get("contents").html[i];
+                            storyItem.get("contents").html[0] = _html;
+                            object = storyItem.get("contents").html[0];
                         }
 
                     }
