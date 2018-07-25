@@ -1717,6 +1717,8 @@ app.post('/storyitem/:id', function (req, res) {
 
                 object = {"text": content};
 
+                console.log("CONTENT FROM HTML " + JSON.stringify(_html));
+
             } else if (storyItemType === type.STORY_ITEM.heading) {
 
                 object = {"heading": heading, "text": content};
@@ -1725,7 +1727,9 @@ app.post('/storyitem/:id', function (req, res) {
 
                 object = {"list": content};
 
-            } else if (originalType === type.STORY_ITEM.html) {
+            }
+
+            if (originalType === type.STORY_ITEM.html) {
 
                 let _html = storyItem.get("contents").html[index];
                 console.log("CONTENT FROM HTML " + JSON.stringify(_html));
