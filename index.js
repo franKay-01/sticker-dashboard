@@ -1695,11 +1695,12 @@ app.post('/storyitem/:id', function (req, res) {
     let htmlContent = req.body.htmlContent;
     let htmlColor = req.body.htmlColor;
     let storyItemType = parseInt(req.body.type);
+    // let htmlType = parseInt(req.body.htmlType);
     let originalType = parseInt(req.body.original);
     let index = parseInt(req.body.index);
     let object = {};
 
-    console.log()
+
     if (token) {
 
         getUser(token).then(function (sessionToken) {

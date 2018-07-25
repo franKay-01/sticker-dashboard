@@ -62,11 +62,10 @@
                 <div style="margin: 20px 15px auto;">
 
                 <textarea class="validate" placeholder="Content"
-                          name="content" required=""
+                          name="htmlContent" required=""
                           aria-required="true"><%= content.text %></textarea><br>
                     <input name="id" value="<%= story_id %>" hidden>
                     <input name="index" value="<%= index %>" hidden>
-                    <input name="type" value="<%= parseInt(objectType) %>" hidden>
                     <input name="original" value="14" hidden>
 
                 </div>
@@ -85,7 +84,6 @@
                 </div>
                 <input name="id" value="<%= story_id %>" hidden>
                 <input name="index" value="<%= index %>" hidden>
-                <input name="type" value="<%= parseInt(objectType) %>" hidden>
                 <input name="original" value="14" hidden>
 
                 <% } %>
