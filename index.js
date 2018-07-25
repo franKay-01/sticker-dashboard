@@ -1506,11 +1506,11 @@ app.post('/storyItem/html/edit/:id', function (req, res) {
 
                     res.render("pages/stories/edit_html", {
                         type: type,
-                        content:content,
+                        content: content,
                         objectType: typeOfObject,
                         story_id: storyId,
                         storyItemId: story_item.id,
-                        index:indexValue
+                        index: indexValue
                     })
                 }
             }
@@ -1684,24 +1684,13 @@ app.get('/storyitem/view/:id', function (req, res) {
     }
 });
 
-app.post('/storyitem/:id', function (req, res) {
-
+app.post('/storyitem/html/update/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
-    let content = req.body.content;
-    let story_id = req.body.id;
-    let heading = req.body.heading;
     let htmlContent = req.body.htmlContent;
     let htmlColor = req.body.htmlColor;
-    let storyItemType = parseInt(req.body.type);
-    // let htmlType = parseInt(req.body.htmlType);
-    let originalType = parseInt(req.body.original);
-    let index = parseInt(req.body.index);
-    let object = {};
-
 
     if (token) {
-
         getUser(token).then(function (sessionToken) {
 
             return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
@@ -1709,25 +1698,6 @@ app.post('/storyitem/:id', function (req, res) {
         }).then(function (story_item) {
 
             let contents = story_item.get("contents");
-
-            if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
-                storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
-                storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sideNote ||
-                storyItemType === type.STORY_ITEM.greyArea) {
-
-                contents = {"text": content};
-
-            } else if (storyItemType === type.STORY_ITEM.heading) {
-
-                contents = {"heading": heading, "text": content};
-
-            } else if (storyItemType === type.STORY_ITEM.list) {
-
-                contents = {"list": content};
-
-            }
-
-            if (originalType === type.STORY_ITEM.html) {
 
                 let _html = contents.html[index];
                 let htmlType = Object.keys(_html);
@@ -1748,14 +1718,51 @@ app.post('/storyitem/:id', function (req, res) {
 
                     contents.html[index] = html;
                 }
-                //get parseInt(type)
-                //if type is color
-                //_html.color = "new color"
-                //_html.text = "new text"
-                //storyItem.get("contents").html[index] = _html
+
+        })
+    }
+});
+
+app.post('/storyitem/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let content = req.body.content;
+    let story_id = req.body.id;
+    let heading = req.body.heading;
+    let storyItemType = parseInt(req.body.type);
+    // let htmlType = parseInt(req.body.htmlType);
+    let originalType = parseInt(req.body.original);
+    let index = parseInt(req.body.index);
+    let object = {};
+
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+
+        }).then(function (story_item) {
+
+            if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
+                storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
+                storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sideNote ||
+                storyItemType === type.STORY_ITEM.greyArea) {
+
+                object = {"text": content};
+
+            } else if (storyItemType === type.STORY_ITEM.heading) {
+
+                object = {"heading": heading, "text": content};
+
+            } else if (storyItemType === type.STORY_ITEM.list) {
+
+                object = {"list": content};
+
             }
 
-            story_item.set("contents", contents);
+            story_item.set("contents", object);
             return story_item.save();
 
         }).then(function () {
