@@ -51,12 +51,11 @@
 
     <div class="grid-x grid-margin-x">
 
-        <form class="story_form" id="story_form" action="/storyitem/<%= story_item.id %>" method="post">
+        <form class="story_form" id="story_form" action="/storyitem/<%= storyItemId %>" method="post">
             <div class="medium-5 large-5 cell">
 
-                <% if (story_item.get("type") === 0 || story_item.get("type") === 2 || story_item.get("type") === 6
-                        || story_item.get("type") === 5 || story_item.get("type") === 8 || story_item.get("type") === 11
-                        || story_item.get("type") === 12) { %>
+                <% if (objectType === type.STORY_ITEM.text || objectType === type.STORY_ITEM.quote || objectType === type.STORY_ITEM.bold
+                        || objectType === type.STORY_ITEM.italic || objectType === type.STORY_ITEM.italicBold) { %>
 
                 <div class="create_new">Contents</div>
 
@@ -64,25 +63,28 @@
 
                 <textarea class="validate" placeholder="Content"
                           name="content" required=""
-                          aria-required="true"><%= story_item.get("contents").text %></textarea><br>
-                <input name="id" value="<%= story_id %>" hidden>
-                <input name="type" value="<%= story_item.get("type") %>" hidden>
+                          aria-required="true"><%= content.text %></textarea><br>
+                    <input name="id" value="<%= story_id %>" hidden>
+                    <input name="index" value="<%= index %>" hidden>
+                    <input name="type" value="<%= objectType %>" hidden>
 
                 </div>
-                <% } else if (story_item.get("type") === 9){ %>
-                <div class="create_new">Heading</div>
+                <% } else if (objectType === type.STORY_ITEM.html){ %>
+                <div class="create_new">Text & Color</div>
 
                 <div style="margin: 20px 15px auto;">
 
-                <b style="color: black">Heading:</b>
-                <input class="validate" placeholder="Content" name="heading"
-                       value="<%= story_item.get("contents").heading %>" required="" aria-required="true">
-                <textarea class="validate" placeholder="Content"
-                          name="content" required=""
-                          aria-required="true"><%= story_item.get("contents").text %></textarea><br>
+                    <b style="color: black">Text:</b>
+                    <input class="validate" placeholder="Text" name="htmlContent" value="<%= content.text %>"
+                           required="" aria-required="true">
+                    <b style="color: black">Color:</b>
+                    <input class="validate" placeholder="Color" id="htmlColor" name="text" value="#<%= content.color %>"
+                           required="" aria-required="true">
+                    <button id="color_button" style="width: 7% !important;z-index: 1;" class="jscolor {valueElement: 'htmlColor'}"></button><br>
                 </div>
                 <input name="id" value="<%= story_id %>" hidden>
-                <input name="type" value="<%= story_item.get("type") %>" hidden>
+                <input name="index" value="<%= index %>" hidden>
+                <input name="type" value="<%= objectType %>" hidden>
 
                 <% } %>
                 <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->

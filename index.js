@@ -1476,6 +1476,50 @@ app.post('/storyItem/html/:id', function (req, res) {
     }
 });
 
+app.post('/storyItem/html/edit/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let storyId = req.body.storyId;
+    let indexValue = parseInt(req.body.indexValue);
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+
+        }).then(function (story_item) {
+
+            let html = story_item.get("contents").html;
+            for (let i = 0; i < html.length; i++) {
+                if (indexValue === i) {
+                    let _html = html[i];
+                    let typeOfObject = Object.keys(_html);
+                    let content = Object.values(_html)[0];
+
+                    res.render("pages/stories/edit_html", {
+                        type: type,
+                        content:content,
+                        objectType: typeOfObject,
+                        story_id: storyId,
+                        storyItemId: id,
+                        index:indexValue
+                    })
+                }
+            }
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect("/storyitem/view/" + storyId);
+        })
+    } else {
+        res.redirect('/');
+    }
+
+});
+
 app.get('/storyItem/html/edit/:id/:storyId', function (req, res) {
 
     let token = req.cookies.token;
@@ -1502,7 +1546,7 @@ app.get('/storyItem/html/edit/:id/:storyId', function (req, res) {
             res.redirect('/storyitem/view/' + storyId);
 
         })
-    }else {
+    } else {
         res.redirect('/');
     }
 

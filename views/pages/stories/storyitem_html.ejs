@@ -177,7 +177,7 @@
         <div class="story_form">
             <div class="medium-5 large-5 cell">
 
-                <form action="/storyItem/html/edit/<%= storyItem.id %>/<%= storyId %>">
+                <form action="/storyItem/html/edit/<%= storyItem.id %>" method="post">
 
                     <% if (!storyItem) { %>
                     <p class="none" style="margin: 100px 300px auto;"><b>No Story Item</b></p>
@@ -195,6 +195,7 @@
                               name="review_text" required="" aria-required="true"
                               disabled><%= content.text %></textarea>
                     <input name="indexValue" value="<% i %>" hidden>
+                    <input name="id" value="<%= storyId %>" hidden>
                     <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit Text</button>&nbsp;&nbsp;
                     <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
                        data-id="<%= storyItem.id %>">Change Type</a>
@@ -211,6 +212,8 @@
                               name="review_text" required="" aria-required="true"
                               disabled><%= content.text %></textarea>
                     <input name="indexValue" value="<% i %>" hidden>
+                    <input name="id" value="<%= storyId %>" hidden>
+
                     <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit Italics</button>&nbsp;&nbsp;
                     <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
                        data-id="<%= storyItem.id %>">Change Type</a>
@@ -227,6 +230,8 @@
                               name="review_text" required="" aria-required="true"
                               disabled><%= content.text %></textarea>
                     <input name="indexValue" value="<% i %>" hidden>
+                    <input name="id" value="<%= storyId %>" hidden>
+
                     <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit Bold</button>&nbsp;&nbsp;
                     <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
                        data-id="<%= storyItem.id %>">Change Type</a>
@@ -243,6 +248,8 @@
                               name="review_text" required="" aria-required="true"
                               disabled><%= content.text %></textarea>
                     <input name="indexValue" value="<% i %>" hidden>
+                    <input name="id" value="<%= storyId %>" hidden>
+
                     <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit ItalicBold</button>&nbsp;&nbsp;
                     <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
                        data-id="<%= storyItem.id %>">Change Type</a>
@@ -264,7 +271,8 @@
                     <!--<button id="color_button" style="width: 7% !important;z-index: 1;" class="jscolor {valueElement: 'htmlColor'}"></button><br>-->
 
                     <button style="background-color: transparent;font-size: 20px" type="submit" class="preview">Edit ItalicBold</button>&nbsp;&nbsp;
-
+                    <input name="indexValue" value="<% i %>" hidden>
+                    <input name="id" value="<%= storyId %>" hidden>
                     <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
                        data-id="<%= storyItem.id %>">Change Type</a>
                     <a href="#" data-id="<%= storyItem.id %>" style="color: #cc0000 !important;margin-left: 5px"
