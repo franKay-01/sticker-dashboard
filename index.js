@@ -1699,6 +1699,7 @@ app.post('/storyitem/:id', function (req, res) {
     let index = parseInt(req.body.index);
     let object = {};
 
+    console.log()
     if (token) {
 
         getUser(token).then(function (sessionToken) {
@@ -1734,11 +1735,14 @@ app.post('/storyitem/:id', function (req, res) {
 
                     let html = {};
                     html[type.toString()] = {"text": htmlText};
+                    console.log("UPDATED HTML " + JSON.stringify(html));
 
                     storyItem.get("contents").html[index] = html;
                     object = storyItem.get("contents").html;
 
-                } else if (parseInt(type) === type.STORY_ITEM.html) {
+                    console.log("FINAL HTML " + JSON.stringify(object));
+
+                } else if (parseInt(type) === type.STORY_ITEM.color) {
 
                     _html.color = htmlColor;
                     _html.text = htmlContent;
