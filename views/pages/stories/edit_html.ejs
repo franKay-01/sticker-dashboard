@@ -51,7 +51,7 @@
 
     <div class="grid-x grid-margin-x">
 
-        <form class="story_form" id="story_form" action="/storyitem/<%= storyItemId %>" method="post">
+        <form class="story_form" id="story_form" action="/storyitem/<%= storyItemId %>/<%=  parseInt(objectType) %>" method="post">
             <div class="medium-5 large-5 cell">
 
                 <% if (parseInt(objectType) === type.STORY_ITEM.text || parseInt(objectType) === type.STORY_ITEM.quote || parseInt(objectType) === type.STORY_ITEM.bold
