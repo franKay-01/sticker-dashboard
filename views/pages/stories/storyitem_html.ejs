@@ -194,7 +194,7 @@
                     <textarea class="box_2 validate" placeholder="Review description"
                               name="review_text" required="" aria-required="true"
                               disabled><%= content.text %></textarea>
-                    <input name="indexValue" value="<% i %>" hidden>
+                    <input name="indexValue" value="<%= i %>" hidden>
                     <input name="id" value="<%= storyId %>" hidden>
                     <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit Text</button>&nbsp;&nbsp;
                     <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
@@ -211,7 +211,7 @@
                     <textarea class="box_2 validate" placeholder="Review description"
                               name="review_text" required="" aria-required="true"
                               disabled><%= content.text %></textarea>
-                    <input name="indexValue" value="<% i %>" hidden>
+                    <input name="indexValue" value="<%= i %>" hidden>
                     <input name="id" value="<%= storyId %>" hidden>
 
                     <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit Italics</button>&nbsp;&nbsp;
@@ -229,7 +229,7 @@
                     <textarea class="box_2 validate" placeholder="Review description"
                               name="review_text" required="" aria-required="true"
                               disabled><%= content.text %></textarea>
-                    <input name="indexValue" value="<% i %>" hidden>
+                    <input name="indexValue" value="<%= i %>" hidden>
                     <input name="id" value="<%= storyId %>" hidden>
 
                     <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit Bold</button>&nbsp;&nbsp;
@@ -247,7 +247,7 @@
                     <textarea class="box_2 validate" placeholder="Review description"
                               name="review_text" required="" aria-required="true"
                               disabled><%= content.text %></textarea>
-                    <input name="indexValue" value="<% i %>" hidden>
+                    <input name="indexValue" value="<%= i %>" hidden>
                     <input name="id" value="<%= storyId %>" hidden>
 
                     <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit ItalicBold</button>&nbsp;&nbsp;
@@ -266,12 +266,12 @@
                     <input class="validate" placeholder="Text" name="htmlContent" value="<%= content.text %>"
                            required="" aria-required="true">
                     <b style="color: black">Color:</b>
-                    <input class="validate" placeholder="Color" id="htmlColor" name="text" value="#<%= content.color %>"
+                    <input class="validate" placeholder="Color" id="htmlColor" name="text" value="<%= content.color %>"
                            required="" aria-required="true">
                     <!--<button id="color_button" style="width: 7% !important;z-index: 1;" class="jscolor {valueElement: 'htmlColor'}"></button><br>-->
 
-                    <button style="background-color: transparent;font-size: 20px" type="submit" class="preview">Edit ItalicBold</button>&nbsp;&nbsp;
-                    <input name="indexValue" value="<% i %>" hidden>
+                    <button style="background-color: transparent;font-size: 20px" type="submit" class="preview">Edit Color</button>&nbsp;&nbsp;
+                    <input name="indexValue" value="<%= i %>" hidden>
                     <input name="id" value="<%= storyId %>" hidden>
                     <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
                        data-id="<%= storyItem.id %>">Change Type</a>

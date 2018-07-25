@@ -1483,6 +1483,8 @@ app.post('/storyItem/html/edit/:id', function (req, res) {
     let storyId = req.body.storyId;
     let indexValue = parseInt(req.body.indexValue);
 
+    console.log("STARTING " + JSON.stringify(storyId));
+
     if (token) {
 
         getUser(token).then(function (sessionToken) {
@@ -1490,6 +1492,8 @@ app.post('/storyItem/html/edit/:id', function (req, res) {
             return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
 
         }).then(function (story_item) {
+
+            console.log("SECOND STAGE " + JSON.stringify(story_item));
 
             let html = story_item.get("contents").html;
             for (let i = 0; i < html.length; i++) {
