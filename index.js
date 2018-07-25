@@ -1709,15 +1709,12 @@ app.post('/storyitem/:id', function (req, res) {
 
         }).then(function (story_item) {
 
-
             if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
                 storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
                 storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sideNote ||
                 storyItemType === type.STORY_ITEM.greyArea) {
 
                 object = {"text": content};
-
-                console.log("CONTENT FROM HTML " + JSON.stringify(_html));
 
             } else if (storyItemType === type.STORY_ITEM.heading) {
 
@@ -1731,7 +1728,7 @@ app.post('/storyitem/:id', function (req, res) {
 
             if (originalType === type.STORY_ITEM.html) {
 
-                let _html = storyItem.get("contents").html[index];
+                let _html = story_item.get("contents").html[index];
                 console.log("CONTENT FROM HTML " + JSON.stringify(_html));
                 let type = Object.keys(_html);
 
@@ -1742,8 +1739,8 @@ app.post('/storyitem/:id', function (req, res) {
                     html[type.toString()] = {"text": htmlText};
                     console.log("UPDATED HTML " + JSON.stringify(html));
 
-                    storyItem.get("contents").html[index] = html;
-                    object = storyItem.get("contents").html;
+                    story_item.get("contents").html[index] = html;
+                    object = story_item.get("contents").html;
 
                     console.log("FINAL HTML " + JSON.stringify(object));
 
@@ -1752,8 +1749,8 @@ app.post('/storyitem/:id', function (req, res) {
                     _html.color = htmlColor;
                     _html.text = htmlContent;
 
-                    storyItem.get("contents").html[index] = _html;
-                    object = storyItem.get("contents").html;
+                    story_item.get("contents").html[index] = _html;
+                    object = story_item.get("contents").html;
                 }
                 //get parseInt(type)
                 //if type is color
