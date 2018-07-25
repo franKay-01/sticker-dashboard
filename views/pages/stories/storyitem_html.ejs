@@ -195,7 +195,7 @@
                               name="review_text" required="" aria-required="true"
                               disabled><%= content.text %></textarea>
                     <input name="indexValue" value="<% i %>" hidden>
-                    <button class="preview">Edit Text</button>&nbsp;&nbsp;
+                    <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit Text</button>&nbsp;&nbsp;
                     <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
                        data-id="<%= storyItem.id %>">Change Type</a>
                     <a href="#" data-id="<%= storyItem.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -211,7 +211,7 @@
                               name="review_text" required="" aria-required="true"
                               disabled><%= content.text %></textarea>
                     <input name="indexValue" value="<% i %>" hidden>
-                    <button class="preview">Edit Italics</button>&nbsp;&nbsp;
+                    <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit Italics</button>&nbsp;&nbsp;
                     <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
                        data-id="<%= storyItem.id %>">Change Type</a>
                     <a href="#" data-id="<%= storyItem.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -227,7 +227,7 @@
                               name="review_text" required="" aria-required="true"
                               disabled><%= content.text %></textarea>
                     <input name="indexValue" value="<% i %>" hidden>
-                    <button class="preview">Edit Bold</button>&nbsp;&nbsp;
+                    <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit Bold</button>&nbsp;&nbsp;
                     <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
                        data-id="<%= storyItem.id %>">Change Type</a>
                     <a href="#" data-id="<%= storyItem.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -243,7 +243,7 @@
                               name="review_text" required="" aria-required="true"
                               disabled><%= content.text %></textarea>
                     <input name="indexValue" value="<% i %>" hidden>
-                    <button class="preview">Edit ItalicBold</button>&nbsp;&nbsp;
+                    <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit ItalicBold</button>&nbsp;&nbsp;
                     <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
                        data-id="<%= storyItem.id %>">Change Type</a>
                     <a href="#" data-id="<%= storyItem.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -259,11 +259,11 @@
                     <input class="validate" placeholder="Text" name="htmlContent" value="<%= content.text %>"
                            required="" aria-required="true">
                     <b style="color: black">Color:</b>
-                    <input class="validate" placeholder="Color" id="htmlColor" name="text" value="<%= content.color %>"
+                    <input class="validate" placeholder="Color" id="htmlColor" name="text" value="#<%= content.color %>"
                            required="" aria-required="true">
-                    <button id="color_button" style="width: 7% !important;z-index: 1;" class="jscolor {valueElement: 'htmlColor'}"></button><br>
+                    <!--<button id="color_button" style="width: 7% !important;z-index: 1;" class="jscolor {valueElement: 'htmlColor'}"></button><br>-->
 
-                    <button class="preview">Edit ItalicBold</button>&nbsp;&nbsp;
+                    <button style="background-color: transparent;font-size: 20px" type="submit" class="preview">Edit ItalicBold</button>&nbsp;&nbsp;
 
                     <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
                        data-id="<%= storyItem.id %>">Change Type</a>
