@@ -1723,7 +1723,7 @@ app.post('/storyitem/html/update/:id', function (req, res) {
                 contents.html[index] = html;
             }
 
-            story_item.set("contents", object);
+            story_item.set("contents", contents);
             return story_item.save();
 
         }).then(function () {
