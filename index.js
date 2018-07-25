@@ -1689,6 +1689,8 @@ app.post('/storyitem/html/update/:id', function (req, res) {
     let id = req.params.id;
     let htmlContent = req.body.htmlContent;
     let htmlColor = req.body.htmlColor;
+    let story_id = req.body.id;
+    let index = parseInt(req.body.index);
 
     if (token) {
         getUser(token).then(function (sessionToken) {
@@ -1699,26 +1701,36 @@ app.post('/storyitem/html/update/:id', function (req, res) {
 
             let contents = story_item.get("contents");
 
-                let _html = contents.html[index];
-                let htmlType = Object.keys(_html);
+            let _html = contents.html[index];
+            let htmlType = Object.keys(_html);
 
-                if (parseInt(htmlType) !== type.STORY_ITEM.color) {
+            if (parseInt(htmlType) !== type.STORY_ITEM.color) {
 
-                    let html = {};
-                    html[htmlType.toString()] = {"text": htmlContent};
-                    console.log("UPDATED HTML " + JSON.stringify(html));
+                let html = {};
+                html[htmlType.toString()] = {"text": htmlContent};
+                console.log("UPDATED HTML " + JSON.stringify(html));
 
-                    contents.html[index] = html;
+                contents.html[index] = html;
 
-                } else {
+            } else {
 
-                    let html = {};
-                    html[htmlType.toString()] = {"text": htmlContent, "color": htmlColor};
-                    console.log("UPDATED HTML " + JSON.stringify(html));
+                let html = {};
+                html[htmlType.toString()] = {"text": htmlContent, "color": htmlColor};
+                console.log("UPDATED HTML " + JSON.stringify(html));
 
-                    contents.html[index] = html;
-                }
+                contents.html[index] = html;
+            }
 
+            story_item.set("contents", object);
+            return story_item.save();
+
+        }).then(function () {
+
+            res.redirect('/storyitem/view/' + story_id);
+
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/storyitem/edit/' + id + "/" + story_id);
         })
     }
 });
@@ -1731,11 +1743,7 @@ app.post('/storyitem/:id', function (req, res) {
     let story_id = req.body.id;
     let heading = req.body.heading;
     let storyItemType = parseInt(req.body.type);
-    // let htmlType = parseInt(req.body.htmlType);
-    let originalType = parseInt(req.body.original);
-    let index = parseInt(req.body.index);
     let object = {};
-
 
     if (token) {
 
