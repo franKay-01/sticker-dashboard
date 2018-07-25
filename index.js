@@ -1497,7 +1497,7 @@ app.post('/storyItem/html/edit/:id', function (req, res) {
 
             let html = story_item.get("contents").html;
             for (let i = 0; i < html.length; i++) {
-                if (indexValue === i) {
+                if (parseInt(indexValue) === i) {
                     let _html = html[i];
                     let typeOfObject = Object.keys(_html);
                     let content = Object.values(_html)[0];
