@@ -1725,34 +1725,26 @@ app.post('/storyitem/:id', function (req, res) {
 
             } else if (originalType === type.STORY_ITEM.html) {
 
-                let html = story_item.get("contents").html;
-                for (let i = 0; i < html.length; i++) {
-                    if (index === i) {
+                let _html = storyItem.get("contents").html[index];
+                console.log("CONTENT FROM HTML " + JSON.stringify(_html));
+                let type = Object.keys(_html);
 
-                        let _html = storyItem.get("contents").html[index];
-                        console.log("CONTENT FROM HTML " + JSON.stringify(_html));
-                        let type = Object.keys(_html);
+                if (parseInt(type) === type.STORY_ITEM.text || parseInt(type) === type.STORY_ITEM.bold ||
+                    parseInt(type) === type.STORY_ITEM.italic || parseInt(type) === type.STORY_ITEM.italicBold) {
 
-                        if (parseInt(type) === type.STORY_ITEM.text || parseInt(type) === type.STORY_ITEM.bold ||
-                            parseInt(type) === type.STORY_ITEM.italic || parseInt(type) === type.STORY_ITEM.italicBold) {
+                    let _type = type.toString();
 
-                            let _type = type.toString();
+                    storyItem.get("contents").html[index] = {_type: {"text": htmlText}};
+                    object = storyItem.get("contents").html;
 
-                            storyItem.get("contents").html[index] = {_type: {"text": htmlText}};
-                            object = storyItem.get("contents").html;
+                } else if (parseInt(type) === type.STORY_ITEM.html) {
 
-                        } else if (parseInt(type) === type.STORY_ITEM.html) {
+                    _html.color = htmlColor;
+                    _html.text = htmlContent;
 
-                            _html.color = htmlColor;
-                            _html.text = htmlContent;
-
-                            storyItem.get("contents").html[0] = _html;
-                            object = storyItem.get("contents").html;
-                        }
-
-                    }
+                    storyItem.get("contents").html[index] = _html;
+                    object = storyItem.get("contents").html;
                 }
-
                 //get parseInt(type)
                 //if type is color
                 //_html.color = "new color"
