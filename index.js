@@ -1483,7 +1483,7 @@ app.post('/storyItem/html/edit/:id', function (req, res) {
     let storyId = req.body.id;
     let indexValue = req.body.indexValue;
 
-    console.log("STARTING " + JSON.stringify(storyId) + " AND " + indexValue);
+    console.log("STARTING " + parseInt(indexValue));
 
     if (token) {
 
