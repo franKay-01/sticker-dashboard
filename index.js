@@ -1709,7 +1709,8 @@ app.post('/storyitem/:id', function (req, res) {
 
         }).then(function (story_item) {
 
-            let _html = story_item.get("contents").html[index];
+            let contents = story_item.get("contents");
+            let _html = contents.html[index];
             console.log("CONTENT FROM HTML " + JSON.stringify(_html));
             let htmlType = Object.keys(_html);
 
@@ -1720,8 +1721,8 @@ app.post('/storyitem/:id', function (req, res) {
                 html[htmlType.toString()] = {"text": htmlContent};
                 console.log("UPDATED HTML " + JSON.stringify(html));
 
-                story_item.get("contents").html[index] = html;
-                object = story_item.get("contents").html;
+                contents.html[index] = html;
+             //   object = story_item.get("contents");
 
                 console.log("FINAL HTML " + JSON.stringify(object));
 
@@ -1777,7 +1778,7 @@ app.post('/storyitem/:id', function (req, res) {
             //     //storyItem.get("contents").html[index] = _html
             // }
 
-            story_item.set("contents", object);
+            story_item.set("contents", contents);
             return story_item.save();
 
         }).then(function () {
