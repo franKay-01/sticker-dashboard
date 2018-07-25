@@ -337,7 +337,8 @@
                 <% } else if (item.get("type") === 13){ %>
 
                 <% var html = item.get("contents").html %>
-                <% if (html){ %>
+                <% alert(html) %>
+                <% if (html.leength > 0){ %>
                 <% for (let i = 0; i < html.length; i++) { %>
                 <% let _html = html[i]; %>
                 <% let type = Object.keys(_html); %>
@@ -366,8 +367,6 @@
                 <% } %>
 
                 <% } %>
-                <% } %>
-
                 <br>
                 <a href="/storyitem/html/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Html</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name="<%= item.get("contents") %>"
@@ -377,6 +376,7 @@
                     Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
                              aria-hidden="true"></i>
                 </a><br><br><br>
+                <% } %>
                 <% } %>
                 <% }) %>
                 <% } %>

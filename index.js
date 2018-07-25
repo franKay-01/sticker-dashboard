@@ -1729,16 +1729,17 @@ app.post('/storyitem/:id', function (req, res) {
                 for (let i = 0; i < html.length; i++) {
                     if (index === i) {
 
-                        let _html = storyItem.get("contents").html[i];
+                        let _html = storyItem.get("contents").html[index];
+                        console.log("CONTENT FROM HTML " + JSON.stringify(_html));
                         let type = Object.keys(_html);
 
                         if (parseInt(type) === type.STORY_ITEM.text || parseInt(type) === type.STORY_ITEM.bold ||
                             parseInt(type) === type.STORY_ITEM.italic || parseInt(type) === type.STORY_ITEM.italicBold) {
 
-                            _html.text = htmlText;
+                            let _type = type.toString();
 
-                            storyItem.get("contents").html[0] = _html;
-                            object = storyItem.get("contents").html[0];
+                            storyItem.get("contents").html[index] = {_type: {"text": htmlText}};
+                            object = storyItem.get("contents").html;
 
                         } else if (parseInt(type) === type.STORY_ITEM.html) {
 
@@ -1746,7 +1747,7 @@ app.post('/storyitem/:id', function (req, res) {
                             _html.text = htmlContent;
 
                             storyItem.get("contents").html[0] = _html;
-                            object = storyItem.get("contents").html[0];
+                            object = storyItem.get("contents").html;
                         }
 
                     }
