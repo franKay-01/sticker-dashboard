@@ -4017,6 +4017,39 @@ app.post('/review/:itemId/:packId/:reviewId', function (req, res) {
 
 });
 
+app.get('/pack/stickers/:id/:packId', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let packId = req.params.packId;
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+
+        }).then(function (pack) {
+
+            let col = pack.relation(_class.Packs);
+            return col.query().find();
+
+        }).then(function (stickers) {
+
+            res.render("pages/packs/select_stickers", {
+                id: packId,
+                stickers: stickers
+            });
+        })
+
+    } else {
+        res.redirect('/');
+    }
+});
+
 /*====================================== PACKS ============================*/
 
 app.get('/publish/:type/:status/:id', function (req, res) {

@@ -1,0 +1,24 @@
+<!-- Cards -->
+<% if (stickers.length === 0) { %>
+<div class="medium-3 large-3 cell icons">
+    <center>
+        <p class="none" style="margin: 145px 90px auto;"><b>No Stickers</b></p>
+    </center>
+</div>
+
+<% } else { %>
+<% stickers.forEach(function(item, index) { %>
+<div class="medium-3 large-3 cell icons sticker-image" data-id="<%= item.id%>" data-name="<%= item.get("name") %>">
+
+    <img src="<%= item.get("uri").url() %>" class="gbeja_notxt">
+
+    <div class="name_tag"><p class="sticker_name_text"><%= item.get("name") %></p></div>
+
+</div>
+
+<% }); %>
+<% } %>
+
+
+
+
