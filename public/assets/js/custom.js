@@ -31,19 +31,15 @@ $(document).ready(function () {
                     "border-width":"2px",
                     "border-style":"solid"});
                 $(".sticker_id").val(selectedItems);
-                console.log("onSelected");
-                console.log(selectedItems)
+                $('.add-sticker-btn').removeAttr('disabled');
+
             },
             onUnSelected: function (el) {
                 selectedItems = selectedItems.filter(function( obj ) {
                     return obj !== el.attr("data-id");
                 });
-
                 el.css({"border": "none"});
                 $(".sticker_id").val(selectedItems);
-
-                console.log("onUnSelected");
-                console.log(selectedItems)
             }
         });
 

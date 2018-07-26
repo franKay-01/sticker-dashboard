@@ -38,10 +38,10 @@
 
     </div>
     <!-- End of logo -->
-    <span class="medium-6 large-6 welcome_post"><b>Add Story Art Work</b></span>
+    <span class="medium-6 large-6 welcome_post"><b>Add Sticker to Pack</b></span>
     <span class="medium-6 large-6" style="float: right;margin-right: 400px">
     <form action="/story/artwork/add/<%= id %>" method="post">
-        <button type="submit" class="waves-effect waves-light btn add-story-btn" style="position: fixed" disabled>ADD STICKER</button>
+        <button type="submit" class="waves-effect waves-light btn add-sticker-btn" style="position: fixed" disabled>ADD STICKER</button>
         <input type="hidden" class="sticker_id" name="sticker_id[]">
     </form>
     </span>
@@ -65,14 +65,6 @@
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
-<script type="text/javascript">
-    $(".sticker-image").click(function () {
-        $(".sticker_id").val($(this).attr("data-id"));
-        $(".add-story-btn").html("Make " + $(this).attr("data-name") + " Artwork");
-        $('.add-story-btn').removeAttr('disabled');
-
-    });
-</script>
 </body>
 
 
