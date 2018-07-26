@@ -4014,10 +4014,9 @@ app.post('/review/:itemId/:packId/:reviewId', function (req, res) {
 
 });
 
-app.get('/pack/stickers/:id/:packId', function (req, res) {
+app.get('/pack/stickers/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
-    let packId = req.params.packId;
 
     if (token) {
 
@@ -4058,6 +4057,10 @@ app.get('/pack/stickers/:id/:packId', function (req, res) {
             //     id: packId,
             //     stickers: _stickers
             // });
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/pack/' + id);
         })
 
     } else {
