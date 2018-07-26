@@ -4148,9 +4148,9 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
 
                 return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first({sessionToken: token});
 
-            }).then(function (collection) {
+            }).then(function (pack) {
 
-                stickerCollection = collection;
+                stickerCollection = pack;
 
                 files.forEach(function (file) {
 
@@ -4180,13 +4180,20 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                     sticker.set("uri", parseFile);
                     sticker.set("preview", parseFilePreview);
                     sticker.set("userId", _user.id);
-                    sticker.set("parent", collection);
+                    sticker.set("parent", pack);
                     sticker.set("description", "");
                     sticker.set("meaning", "");
                     sticker.set("flagged", false);
                     sticker.set("archived", false);
-                    sticker.set("sold", false);
-                    sticker.set("version", collection.get("version"));
+                    if (pack.get("productId") !== ""){
+                        sticker.set("sold", true);
+                        sticker.set("productId", pack.get("productId"));
+                    }else {
+                        sticker.set("sold", false);
+                        sticker.set("productId", "");
+                    }
+                    sticker.set("version", pack.get("version"));
+
                     // sticker.setACL(setPermission(_user, false));
 
                     stickerDetails.push(sticker);
