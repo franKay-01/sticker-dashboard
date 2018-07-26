@@ -4046,6 +4046,7 @@ app.get('/pack/stickers/:id', function (req, res) {
 
         }).then(function (stickers) {
 
+            console.log("STICKERS " + JSON.stringify(stickers));
             res.render("pages/packs/select_stickers", {
                 id: id,
                 stickers: stickers
