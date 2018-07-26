@@ -7,8 +7,9 @@
 </div>
 
 <% } else { %>
-<% stickers.forEach(function(item, index) { %>
 <ul id="easySelectable">
+
+<% stickers.forEach(function(item, index) { %>
 <li class="medium-3 large-3 cell icons" data-id="<%= item.id%>" data-name="<%= item.get("name") %>">
 
     <img src="<%= item.get("uri").url() %>" class="gbeja_notxt">
@@ -16,8 +17,9 @@
     <div class="name_tag"><p class="sticker_name_text"><%= item.get("name") %></p></div>
 
 </li>
-</ul>
 <% }); %>
+</ul>
+
 <% } %>
 
 
