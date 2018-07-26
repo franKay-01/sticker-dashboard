@@ -4040,23 +4040,16 @@ app.get('/pack/stickers/:id', function (req, res) {
 
             });
 
-            _.each(_stickers, function (sticker) {
-
-                console.log("STICKER " + JSON.stringify(sticker));
-
-            })
-
                 // let col = pack.relation(_class.Packs);
             // return col.query().find();
             return _stickers;
 
         }).then(function (stickers) {
 
-            res.send("STICKERS " + JSON.stringify(stickers))
-            // res.render("pages/packs/select_stickers", {
-            //     id: packId,
-            //     stickers: _stickers
-            // });
+            res.render("pages/packs/select_stickers", {
+                id: id,
+                stickers: stickers
+            });
         }, function (error) {
 
             console.log("ERROR " + error.message);
