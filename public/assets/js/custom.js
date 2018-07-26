@@ -27,7 +27,7 @@ $(document).ready(function () {
         $('#easySelectable').easySelectable({
             onSelected: function (el) {
                 selectedItems.push(el.attr("data-id"))
-                el.style.border =
+                el.style.border = "thick solid #00bcd4";
                 console.log("onSelected")
                 console.log(selectedItems)
             },
