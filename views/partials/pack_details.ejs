@@ -29,6 +29,7 @@
             <input type="text" class="box_2 validate" value="<%= pack_details.get("keywords") %>" placeholder="Smile,Angry,Sad" id="keyword"
                    name="keyword" style="margin-bottom: 35px !important;"><br>
 
+            <%if (pack_details.get("priceType") === type.PACK_TYPE.grouped){%>
             <label for="productId" class="update_label">Add Product ID</label>
             <label for="productId" class="update_label" style="font-size: 15px !important;">Current ProductID Name: <%= productDetails %></label>
             <div class="row" style="width: 400px !important;">
@@ -43,6 +44,8 @@
                     <% } %>
                 </select>
             </div>
+            <%}%>
+
 
             <label class="update_label">Archive:</label>
             <div style="margin-bottom: 30px">

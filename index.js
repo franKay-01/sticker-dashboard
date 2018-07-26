@@ -3699,7 +3699,8 @@ app.get('/pack/edit/:id', function (req, res) {
             res.render("pages/packs/pack_details", {
                 pack_details: _pack,
                 productId: _productId,
-                productDetails: productDetails
+                productDetails: productDetails,
+                type:type
             });
 
         }, function (error) {
