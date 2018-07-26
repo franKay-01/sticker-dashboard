@@ -4046,10 +4046,15 @@ app.get('/pack/stickers/:id', function (req, res) {
 
         }).then(function (stickers) {
 
+            return stickers.query().find();
+
+        }).then(function (stickers) {
+
             res.render("pages/packs/select_stickers", {
                 id: id,
-                stickers: stickers.query().find()
+                stickers:stickers
             });
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
