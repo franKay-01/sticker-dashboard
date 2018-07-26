@@ -3565,6 +3565,7 @@ app.post('/pack', function (req, res) {
     }
 });
 
+
 //Displays all stickers belonging to a selected collection
 app.get('/pack/:id', function (req, res) {
 
@@ -3618,24 +3619,9 @@ app.get('/pack/:id', function (req, res) {
 
             _stickers = stickers;
 
-            return Parse.Promise.when(
-                new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
-                new Parse.Query(_class.Packs).equalTo("priceType", type.PACK_TYPE.grouped).find()
-            );
+            return new Parse.Query(_class.Packs).equalTo("userId", _user.id).find();
 
-        }).then(function (packs, groupedPacks) {
-
-            let _stickers = [];
-
-            _.each(groupedPacks, function (pack) {
-
-                console.log("PACK " + JSON.stringify(pack));
-                let col = pack.relation(_class.Packs);
-                _stickers.push(col.query().find());
-
-            });
-
-            res.send(JSON.stringify(_stickers));
+        }).then(function (packs) {
 
             page = util.page(packs, pack_id);
 
@@ -3651,7 +3637,6 @@ app.get('/pack/:id', function (req, res) {
                         status: pack_status,
                         next: page.next,
                         previous: page.previous,
-                        groupedPacks: groupedPacks,
                         pack_type: packType,
                         type: type
 
@@ -4042,19 +4027,37 @@ app.get('/pack/stickers/:id/:packId', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+            // return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+            return new Parse.Query(_class.Packs).equalTo("priceType", type.PACK_TYPE.grouped).find();
 
-        }).then(function (pack) {
+        }).then(function (packs) {
 
-            let col = pack.relation(_class.Packs);
-            return col.query().find();
+            let _stickers = [];
+
+            _.each(packs, function (pack) {
+
+                let col = pack.relation(_class.Packs);
+                _stickers.push(col.query().find());
+
+            });
+
+            _.each(_stickers, function (sticker) {
+
+                console.log("STICKER " + JSON.stringify(sticker));
+
+            })
+
+                // let col = pack.relation(_class.Packs);
+            // return col.query().find();
+            return _stickers;
 
         }).then(function (stickers) {
 
-            res.render("pages/packs/select_stickers", {
-                id: packId,
-                stickers: stickers
-            });
+            res.send("STICKERS " + JSON.stringify(stickers))
+            // res.render("pages/packs/select_stickers", {
+            //     id: packId,
+            //     stickers: _stickers
+            // });
         })
 
     } else {
