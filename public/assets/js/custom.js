@@ -27,8 +27,10 @@ $(document).ready(function () {
         $('#easySelectable').easySelectable({
             onSelected: function (el) {
                 selectedItems.push(el.attr("data-id"))
-                el.style.border = "thick solid #00bcd4";
-                console.log("onSelected")
+                el.css({"border-color": "#00bcd4",
+                    "border-width":"1px",
+                    "border-style":"solid"});
+                console.log("onSelected");
                 console.log(selectedItems)
             },
             onUnSelected: function (el) {
@@ -36,7 +38,8 @@ $(document).ready(function () {
                     return obj !== el.attr("data-id");
                 });
 
-                console.log("onUnSelected")
+                el.css({"border": "none"});
+                console.log("onUnSelected");
                 console.log(selectedItems)
             }
         });
