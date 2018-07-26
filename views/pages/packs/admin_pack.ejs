@@ -278,36 +278,19 @@
         <!-- End of card -->
 
         <% if (pack_type === type.PACK_TYPE.curated) {%>
-        <% if (groupedPacks.length === 0) { %>
-        <div class="medium-3 large-3 cell icons">
-            <center>
-                <p class="none" style="margin: 145px 90px auto;"><b>No Group</b></p>
-            </center>
-        </div>
-
-        <% } else { %>
-        <% groupedPacks.forEach(function(item, index) { %>
 
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">
                 Select Stickers From
             </div>
             <a href="/pack/stickers/<%= item.id %>/<%= id %>">
-                <% if (item.get("artwork") === "undefined" || item.get("artwork") === undefined) {%>
-                <center>
-                    <p class="none" style="margin: 145px 90px auto;"><b>No Artwork</b></p>
-
-                </center>
-                <%} else {%>
-                <img src="<%= item.get("artwork").url() %>" class="gbeja_notxt">
-
-                <%}%>
-                <div class="name_tag"><p class="sticker_name_text"><%= item.get("name") %></p></div>
+                <button class="create_button" style="background-color: #f1f1f1 !important;">
+                    <p class="title button_font" style="color: #00b0ff !important;">&nbsp; <i class="fa fa-circle size" style="color: #00b0ff" aria-hidden="true"></i> &nbsp;CLICK TO SELECT
+                    </p>
+                </button>
             </a>
         </div>
 
-        <% }); %>
-        <% } %>
         <%}%>
         <% include ../../partials/sticker_cards %>
         <%- include('../../partials/footer') %>
