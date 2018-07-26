@@ -31,7 +31,8 @@
 
             <%if (pack_details.get("priceType") === type.PACK_TYPE.grouped){%>
             <label for="productId" class="update_label">Add Product ID</label>
-            <label for="productId" class="update_label" style="font-size: 15px !important;">Current ProductID Name: <%= productDetails %></label>
+            <label for="productId" class="update_label" style="font-size: 15px !important;">
+                Current ProductID Name: <i style="color: #0f9d58 !important;"><%= productDetails %></i></label>
             <div class="row" style="width: 400px !important;">
                 <select class="input-field validate" name="productId">
                     <option value="" disabled selected>&nbsp;Add Pack</option>
