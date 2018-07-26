@@ -27,7 +27,7 @@ $(document).ready(function () {
         $('#easySelectable').easySelectable({
             onSelected: function (el) {
                 selectedItems.push(el.attr("data-id"))
-
+                el.style.border =
                 console.log("onSelected")
                 console.log(selectedItems)
             },

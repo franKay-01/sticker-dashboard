@@ -6,7 +6,7 @@ Author: mee4dy@gmail.com
     $.fn.easySelectable = function (options) {
         var el = $(this);
         var options = $.extend({
-            'item': 'li',
+            'item': 'div',
             'state': true,
             onSelecting: function (el) {
             },
