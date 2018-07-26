@@ -4038,7 +4038,7 @@ app.get('/pack/stickers/:id', function (req, res) {
 
                 console.log("PACK ID " + pack.id);
                 let col = pack.relation(_class.Packs);
-                _stickers.push(col.query().find());
+                _stickers.push(col);
 
             });
 
@@ -4046,10 +4046,9 @@ app.get('/pack/stickers/:id', function (req, res) {
 
         }).then(function (stickers) {
 
-            console.log("STICKERS " + JSON.stringify(stickers));
             res.render("pages/packs/select_stickers", {
                 id: id,
-                stickers: stickers
+                stickers: stickers.query().find()
             });
         }, function (error) {
 
