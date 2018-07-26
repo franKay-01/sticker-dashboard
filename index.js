@@ -3625,10 +3625,9 @@ app.get('/pack/:id', function (req, res) {
 
         }).then(function (packs, groupedPacks) {
 
-            console.log("PACKS " + JSON.stringify(packs) + " GROUPED " + JSON.stringify(groupedPacks));
             page = util.page(packs, pack_id);
 
-            switch (type) {
+            switch (userType) {
                 case SUPER_USER:
                     res.render("pages/packs/admin_pack", {
                         stickers: _stickers,
