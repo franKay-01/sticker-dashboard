@@ -3687,6 +3687,7 @@ app.get('/pack/edit/:id', function (req, res) {
             _pack = pack;
             _productId = productId;
 
+            console.log("HERE " + pack.get("productId"));
             if (pack.get("productId")) {
                 return new Parse.Query(_class.Product).equalTo("objectId", pack.get("productId")).first();
             }else {
@@ -3694,6 +3695,7 @@ app.get('/pack/edit/:id', function (req, res) {
             }
 
         }).then(function (productInfo) {
+            console.log("HERE 2 " + JSON.stringify(productInfo));
 
             if (productInfo !== ""){
                 productDetails = productInfo.get("name");
