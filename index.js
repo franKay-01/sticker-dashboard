@@ -3720,12 +3720,13 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
     let id = req.params.id;
     let keywords = req.body.keyword;
     let archive = req.body.archive;
-    let productId = req.body.productId;
+    let productId = parseInt(req.body.productId);
     let description = req.body.description;
     let _keywords = [];
     let fileDetails = [];
     let _previews = [];
 
+    console.log("PRODUCT " + productId);
     if (keywords !== undefined || keywords !== "undefined") {
         _keywords = keywords.split(",");
     }
@@ -3752,6 +3753,7 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
 
         }).then(function (pack) {
 
+            console.log("PACK 1 " + JSON.stringify(pack))
 
             pack.set("description", description);
             pack.set("keywords", _keywords);
