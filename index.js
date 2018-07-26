@@ -748,7 +748,7 @@ app.post('/login', function (req, res) {
         res.cookie('email_verified', user.get("emailVerified"));
         res.cookie('userType', user.get("type"));
 
-        var status = user.get("image_set");
+        let status = user.get("image_set");
         if (status === true) {
             res.cookie('profile_image', user.get("image").url());
         } else {
@@ -1059,7 +1059,7 @@ app.post('/advert/image/:id', upload.array('adverts'), function (req, res) {
             if (fileDetails.length) {
                 _.each(fileDetails, function (file) {
                     //Delete tmp fil after upload
-                    var tempFile = file.path;
+                    let tempFile = file.path;
                     fs.unlink(tempFile, function (error) {
                         if (error) {
                             //TODO handle error code
@@ -3479,7 +3479,7 @@ app.get('/review/find/packs', function (req, res) {
 // Collection Dashboard
 app.get('/packs', function (req, res) {
 
-    var token = req.cookies.token;
+    let token = req.cookies.token;
 
     if (token) {
         let _user = {};
@@ -3509,11 +3509,11 @@ app.get('/packs', function (req, res) {
 // creating new pack
 app.post('/pack', function (req, res) {
 
-    var token = req.cookies.token;
-    var pack_description = req.body.pack_description;
-    var coll_name = req.body.coll_name;
-    var pricing = parseInt(req.body.pricing);
-    var version = parseInt(req.body.version);
+    let token = req.cookies.token;
+    let pack_description = req.body.pack_description;
+    let coll_name = req.body.coll_name;
+    let packType = parseInt(req.body.packType);
+    let version = parseInt(req.body.version);
 
     if (token) {
 
@@ -3523,17 +3523,30 @@ app.post('/pack', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            var PackCollection = new Parse.Object.extend(_class.Packs);
-            var pack = new PackCollection();
+            let PackCollection = new Parse.Object.extend(_class.Packs);
+            let pack = new PackCollection();
             pack.set("name", coll_name);
             pack.set("description", pack_description);
             pack.set("userId", _user.id);
             pack.set("status", type.PACK_STATUS.pending);
-            pack.set("priceType", pricing);
             pack.set("version", version);
             pack.set("archived", false);
             pack.set("flagged", false);
             pack.set("published", false);
+
+            if (packType === type.PACK_TYPE.grouped){
+
+                pack.set("priceType", type.PACK_TYPE.grouped);
+
+            }else if (packType === type.PACK_TYPE.themed){
+
+                pack.set("priceType", type.PACK_TYPE.themed);
+
+            }else if (packType === type.PACK_TYPE.curated){
+
+                pack.set("priceType", type.PACK_TYPE.curated);
+
+            }
 
             return pack.save();
 
@@ -3751,7 +3764,7 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
 
             _.each(fileDetails, function (file) {
                 //Delete tmp fil after upload
-                var tempFile = file.path;
+                let tempFile = file.path;
                 fs.unlink(tempFile, function (error) {
                     if (error) {
                         //TODO handle error code
@@ -4046,8 +4059,8 @@ app.get('/publish/:type/:status/:id', function (req, res) {
 // Add Stickers Version 1
 app.get('/uploads/computer/:id', function (req, res) {
 
-    var token = req.cookies.token;
-    var pack_id = req.params.id;
+    let token = req.cookies.token;
+    let pack_id = req.params.id;
 
     if (token) {
         getUser(token).then(function (sessionToken) {
@@ -4303,7 +4316,7 @@ app.post('/sticker/review/:id/:pid', upload.array('im1'), function (req, res) {
 
             _.each(files, function (file) {
                 //Delete tmp fil after upload
-                var tempFile = file.path;
+                let tempFile = file.path;
                 fs.unlink(tempFile, function (error) {
                     if (error) {
                         //TODO handle error code
@@ -4560,7 +4573,7 @@ app.post('/uploads/dropbox', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
-            var options = {
+            let options = {
                 url: fileUrl,
                 dest: __dirname + '/public/uploads/' + req.body.fileName
             }
@@ -5552,13 +5565,13 @@ app.get('/role', function (req, res) {
             //
             // return role.save();
 
-            var queryRole = new Parse.Query(Parse.Role);
+            let queryRole = new Parse.Query(Parse.Role);
             queryRole.equalTo('name', 'Administrator');
             queryRole.first({
                 success: function (admin) {
                     console.log("ADMIN " + JSON.stringify(admin));
 
-                    var adminRelation = admin.Relation('_User');
+                    let adminRelation = admin.Relation('_User');
 
                     adminRelation.add(_user);
 

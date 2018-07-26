@@ -202,21 +202,31 @@
                 <center>
                     <input type="text" class="_pack common_pack_detail validate" placeholder="Pack name"
                            name="coll_name" required="" aria-required="true"><br>
+
                     <textarea class="_pack common_pack_detail validate" placeholder="Pack description"
                               name="pack_description" required="" aria-required="true"></textarea><br>
+
                     <input type="number" class="_pack common_pack_detail validate" placeholder="Pack Version"
                            name="version" required="" aria-required="true"><br>
 
-                    <div style="margin-bottom: 10px">
-                        <input name="pricing" type="radio" id="pricing1" value="0"/>
-                        <label for="pricing1" class="_label">Free</label>
-
-                        <input name="pricing" type="radio" id="pricing2" value="1"/>
-                        <label for="pricing2" class="_label">Paid</label>
-
-                        <input name="pricing" type="radio" id="pricing3" value="2"/>
-                        <label for="pricing3" class="_label">Free/Paid</label>
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate" name="packType" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Add Pack</option>
+                            <option value="0">GROUPED</option>
+                            <option value="1">THEMED</option>
+                            <option value="2">CURATED</option>
+                        </select>
                     </div>
+                    <!--<div style="margin-bottom: 10px">-->
+                        <!--<input name="pricing" type="radio" id="pricing1" value="0"/>-->
+                        <!--<label for="pricing1" class="_label">Free</label>-->
+
+                        <!--<input name="pricing" type="radio" id="pricing2" value="1"/>-->
+                        <!--<label for="pricing2" class="_label">Paid</label>-->
+
+                        <!--<input name="pricing" type="radio" id="pricing3" value="2"/>-->
+                        <!--<label for="pricing3" class="_label">Free/Paid</label>-->
+                    <!--</div>-->
                     <br>
                 </center>
                 <span>
