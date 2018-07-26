@@ -3743,7 +3743,13 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return util.thumbnail(files)
+            if (files.length !== 0){
+
+                return util.thumbnail(files)
+
+            }else {
+                return true;
+            }
 
         }).then(previews => {
 
