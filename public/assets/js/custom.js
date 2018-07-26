@@ -28,8 +28,9 @@ $(document).ready(function () {
             onSelected: function (el) {
                 selectedItems.push(el.attr("data-id"))
                 el.css({"border-color": "#00bcd4",
-                    "border-width":"1px",
+                    "border-width":"2px",
                     "border-style":"solid"});
+                $(".sticker_id").val(selectedItems);
                 console.log("onSelected");
                 console.log(selectedItems)
             },
@@ -39,6 +40,8 @@ $(document).ready(function () {
                 });
 
                 el.css({"border": "none"});
+                $(".sticker_id").val(selectedItems);
+
                 console.log("onUnSelected");
                 console.log(selectedItems)
             }
