@@ -3602,6 +3602,7 @@ app.get('/pack/:id', function (req, res) {
             pack_art = pack.get("artwork");
             pack_publish = pack.get("published");
             pack_name = pack.get("name");
+            pack_type = pack.get("priceType");
 
             let col = pack.relation(_class.Packs);
 
@@ -3617,9 +3618,12 @@ app.get('/pack/:id', function (req, res) {
 
             _stickers = stickers;
 
-            return new Parse.Query(_class.Packs).equalTo("userId", _user.id).find();
+            return Parse.Promise.when(
+                new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
+                new Parse.Query(_class.Packs).equalTo("priceType", type.PACK_TYPE.grouped).find()
+            );
 
-        }).then(function (packs) {
+        }).then(function (packs, groupedPacks) {
 
             page = util.page(packs, pack_id);
 
@@ -3636,6 +3640,10 @@ app.get('/pack/:id', function (req, res) {
                         status: pack_status,
                         next: page.next,
                         previous: page.previous,
+                        groupedPacks: groupedPacks,
+                        pack_type: pack_type,
+                        type: type
+
                     });
                     break;
 
@@ -3649,6 +3657,7 @@ app.get('/pack/:id', function (req, res) {
                         status: pack_status,
                         next: page.next,
                         previous: page.previous,
+                        type: type
                     });
                     break;
             }
@@ -3700,7 +3709,7 @@ app.get('/pack/edit/:id', function (req, res) {
                 pack_details: _pack,
                 productId: _productId,
                 productDetails: productDetails,
-                type:type
+                type: type
             });
 
         }, function (error) {
@@ -3743,11 +3752,11 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            if (files.length !== 0){
+            if (files.length !== 0) {
 
                 return util.thumbnail(files)
 
-            }else {
+            } else {
                 return true;
             }
 
@@ -4185,10 +4194,10 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                     sticker.set("meaning", "");
                     sticker.set("flagged", false);
                     sticker.set("archived", false);
-                    if (pack.get("productId") !== ""){
+                    if (pack.get("productId") !== "") {
                         sticker.set("sold", true);
                         sticker.set("productId", pack.get("productId"));
-                    }else {
+                    } else {
                         sticker.set("sold", false);
                         sticker.set("productId", "");
                     }
