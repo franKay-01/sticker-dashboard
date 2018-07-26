@@ -3788,6 +3788,7 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
 
         }).then(function (pack) {
 
+            console.log("PACK " + JSON.stringify(pack))
             _.each(fileDetails, function (file) {
                 //Delete tmp fil after upload
                 let tempFile = file.path;
