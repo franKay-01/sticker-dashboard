@@ -41,8 +41,7 @@ $(document).ready(function () {
                 el.css({"border": "none"});
                 $(".sticker_id").val(selectedItems);
 
-                console.log(selectedItems.length);
-                if (selectedItems.length < 0){
+                if (selectedItems.length === 0){
                     $('.add-sticker-btn').attr("disabled", true);
                 }
             }
