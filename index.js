@@ -3629,6 +3629,7 @@ app.get('/pack/:id', function (req, res) {
 
             _.each(groupedPacks, function (pack) {
 
+                console.log("PACK " + JSON.stringify(pack));
                 let col = pack.relation(_class.Packs);
                 _stickers.push(col.query().find());
 
