@@ -4037,16 +4037,11 @@ app.get('/pack/stickers/:id', function (req, res) {
             _.each(packs, function (pack) {
 
                 console.log("PACK ID " + pack.id);
-                let col = pack.relation(_class.Packs);
-                _stickers.push(col);
+                _stickers.push(pack.id);
 
             });
 
-            return _stickers;
-
-        }).then(function (stickers) {
-
-            return stickers.query().find();
+            return new Parse.Query(_class.Stickers).containedIn("parent", _stickers).find();
 
         }).then(function (stickers) {
 
