@@ -3720,7 +3720,7 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
     let id = req.params.id;
     let keywords = req.body.keyword;
     let archive = req.body.archive;
-    let productId = parseInt(req.body.productId);
+    let productId = req.body.productId;
     let description = req.body.description;
     let _keywords = [];
     let fileDetails = [];
