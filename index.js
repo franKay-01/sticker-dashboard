@@ -4031,16 +4031,25 @@ app.get('/pack/stickers/:id', function (req, res) {
 
         }).then(function (packs) {
 
-            let col = packs.relation(_class.Packs);
-            return col.query().find();
+            console.log("PACKS " + JSON.stringify(packs));
+            let _stickers = [];
+
+            _.each(packs, function (pack) {
+
+                let col = pack.relation(_class.Packs);
+                _stickers.push(col.query().find());
+
+            });
+
+            return _stickers;
 
         }).then(function (stickers) {
 
+            console.log("STICKERS " + JSON.stringify(stickers));
             res.render("pages/packs/select_stickers", {
                 id: id,
                 stickers: stickers
             });
-
         }, function (error) {
 
             console.log("ERROR " + error.message);
