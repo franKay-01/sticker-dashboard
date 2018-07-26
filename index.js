@@ -3530,19 +3530,20 @@ app.post('/pack', function (req, res) {
             pack.set("userId", _user.id);
             pack.set("status", type.PACK_STATUS.pending);
             pack.set("version", version);
+            pack.set("productId", "");
             pack.set("archived", false);
             pack.set("flagged", false);
             pack.set("published", false);
 
-            if (packType === type.PACK_TYPE.grouped){
+            if (packType === type.PACK_TYPE.grouped) {
 
                 pack.set("priceType", type.PACK_TYPE.grouped);
 
-            }else if (packType === type.PACK_TYPE.themed){
+            } else if (packType === type.PACK_TYPE.themed) {
 
                 pack.set("priceType", type.PACK_TYPE.themed);
 
-            }else if (packType === type.PACK_TYPE.curated){
+            } else if (packType === type.PACK_TYPE.curated) {
 
                 pack.set("priceType", type.PACK_TYPE.curated);
 
@@ -3666,17 +3667,42 @@ app.get('/pack/edit/:id', function (req, res) {
 
     let token = req.cookies.token;
     let pack_id = req.params.id;
+    let _pack;
+    let _productId;
+    let productDetails;
 
     if (token) {
 
+        let _user = {};
+
         getUser(token).then(function (sessionToken) {
+            _user = sessionToken.get("user");
 
-            return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first();
+            return Parse.Promise.when(
+                new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first(),
+                new Parse.Query(_class.Product).equalTo("userId", _user.id).find()
+            );
 
-        }).then(function (pack) {
+        }).then(function (pack, productId) {
+            _pack = pack;
+            _productId = productId;
+
+            if (pack.get("productId")) {
+                return new Parse.Query(_class.Product).equalTo("objectId", pack.get("productId")).first();
+            }else {
+                return "";
+            }
+
+        }).then(function (productInfo) {
+
+            if (productInfo !== ""){
+                productDetails = productInfo.get("name");
+            }
 
             res.render("pages/packs/pack_details", {
-                pack_details: pack
+                pack_details: _pack,
+                productId: _productId,
+                productDetails: productDetails
             });
 
         }, function (error) {

@@ -27,7 +27,22 @@
             </textarea><br>
             <label for="keyword" style="color: #a46580 !important;">Seperate Tags with comma (,)</label>
             <input type="text" class="box_2 validate" value="<%= pack_details.get("keywords") %>" placeholder="Smile,Angry,Sad" id="keyword"
-                   name="keyword" style="margin-bottom: 35px !important;">
+                   name="keyword" style="margin-bottom: 35px !important;"><br>
+
+            <label for="productId" style="color: #a46580 !important;">Add Product ID</label>
+            <label for="productId" style="color: #a46580 !important;">Current ProductID Name: <%= productDetails %></label>
+            <div class="row" style="width: 450px !important;">
+                <select class="input-field validate" name="productId" required="" aria-required="true">
+                    <option value="" disabled selected>&nbsp;Add Pack</option>
+                    <% if (productId.length === 0) { %>
+
+                    <% } else { %>
+                    <% productId.forEach(function(items) { %>
+                    <option value="<%= items.id %>"><%= items.get("name") %></option>
+                    <% }) %>
+                    <% } %>
+                </select>
+            </div>
 
             <label class="update_label">Archive:</label>
             <div style="margin-bottom: 30px">
