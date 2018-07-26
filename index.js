@@ -3625,6 +3625,17 @@ app.get('/pack/:id', function (req, res) {
 
         }).then(function (packs, groupedPacks) {
 
+            let _stickers = [];
+
+            _.each(groupedPacks, function (pack) {
+
+                let col = pack.relation(_class.Packs);
+                _stickers.push(col.query().find());
+
+            });
+
+            res.send(JSON.stringify(_stickers));
+
             page = util.page(packs, pack_id);
 
             switch (userType) {
