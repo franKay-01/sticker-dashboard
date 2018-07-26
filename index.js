@@ -3688,10 +3688,14 @@ app.get('/pack/edit/:id', function (req, res) {
             _productId = productId;
 
             console.log("HERE " + pack.get("productId"));
-            if (pack.get("productId") !== "") {
-                return new Parse.Query(_class.Product).equalTo("objectId", pack.get("productId")).first();
-            }else {
+            if (pack.get("productId") === "") {
+
                 return "";
+
+            }else {
+
+                return new Parse.Query(_class.Product).equalTo("objectId", pack.get("productId")).first();
+
             }
 
         }).then(function (productInfo) {
