@@ -3574,7 +3574,7 @@ app.get('/pack/:id', function (req, res) {
     if (token) {
 
         let _user = {};
-        let type;
+        let userType;
         let pack_name;
         let pack_status;
         let page;
@@ -3583,11 +3583,11 @@ app.get('/pack/:id', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
-            type = _user.get("type");
+            userType = _user.get("type");
 
             let query = new Parse.Query(_class.Packs).equalTo("objectId", pack_id);
 
-            switch (type) {
+            switch (userType) {
                 case SUPER_USER:
                     return query.first({useMasterKey: true});
 
@@ -3602,11 +3602,11 @@ app.get('/pack/:id', function (req, res) {
             pack_art = pack.get("artwork");
             pack_publish = pack.get("published");
             pack_name = pack.get("name");
-            pack_type = pack.get("priceType");
+            packType = pack.get("priceType");
 
             let col = pack.relation(_class.Packs);
 
-            switch (type) {
+            switch (userType) {
                 case SUPER_USER:
                     return col.query().find({useMasterKey: true});
 
@@ -3641,7 +3641,7 @@ app.get('/pack/:id', function (req, res) {
                         next: page.next,
                         previous: page.previous,
                         groupedPacks: groupedPacks,
-                        pack_type: pack_type,
+                        pack_type: packType,
                         type: type
 
                     });
