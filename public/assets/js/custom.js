@@ -40,6 +40,10 @@ $(document).ready(function () {
                 });
                 el.css({"border": "none"});
                 $(".sticker_id").val(selectedItems);
+
+                if (selectedItems.length < 0){
+                    $('.add-sticker-btn').attr("disabled", "disabled");
+                }
             }
         });
 
