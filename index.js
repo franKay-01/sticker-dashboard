@@ -3687,21 +3687,12 @@ app.get('/pack/edit/:id', function (req, res) {
             _pack = pack;
             _productId = productId;
 
-            console.log("HERE " + pack.get("productId"));
-            if (pack.get("productId") === "") {
-
-                return "";
-
-            }else {
-
-                return new Parse.Query(_class.Product).equalTo("objectId", pack.get("productId")).first();
-
-            }
+            return new Parse.Query(_class.Product).equalTo("objectId", pack.get("productId")).first();
 
         }).then(function (productInfo) {
-            console.log("HERE 2 " + JSON.stringify(productInfo));
+            console.log("HERE 2 " + productInfo);
 
-            if (productInfo !== ""){
+            if (productInfo !== undefined) {
                 productDetails = productInfo.get("name");
             }
 
