@@ -4019,9 +4019,10 @@ app.post('/pack/stickers/:packId', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.packId;
     let stickerIds = req.body.stickerIds;
-    let _stickerIds = Array.from(stickerIds);
+    let _stickerIds = [];
 
-    console.log("STICKER IDS " + JSON.stringify(_stickerIds));
+    _stickerIds = stickerIds.split(",");
+
     if (token) {
 
         let _user = {};
