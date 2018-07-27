@@ -4023,6 +4023,7 @@ app.post('/pack/stickers/:packId', function (req, res) {
 
     console.log("STICKERS " + stickerIds);
     _stickerIds =  Array.from(stickerIds);
+    console.log("STICKERS " + _stickerIds);
 
     if (token) {
 
