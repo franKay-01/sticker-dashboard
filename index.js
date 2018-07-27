@@ -4020,19 +4020,40 @@ app.post('/pack/stickers/:packId', function (req, res) {
     let id = req.params.packId;
     let stickerIds = req.body.stickerIds;
 
-    res.send("STICKERS " + JSON.stringify(stickerIds));
+    if (token) {
 
-    // if (token) {
-    //
-    //     let _user = {};
-    //
-    //     getUser(token).then(function (sessionToken) {
-    //
-    //     })
-    //
-    // }else {
-    //     res.redirect('/');
-    // }
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stickers).containedIn("objectId", stickerIds).find(),
+                new Parse.Query(_class.Packs).equalTo("objectId", id).first()
+            )
+
+        }).then(function (stickers, pack) {
+
+            _.each(stickers, function (sticker) {
+                let collection_relation = pack.relation(_class.Packs);
+                collection_relation.add(sticker);
+            });
+
+            return pack.save();
+
+        }).then(function (pack) {
+
+            res.redirect('/pack/' + id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/pack/' + id);
+
+        })
+
+    } else {
+        res.redirect('/');
+    }
 });
 
 app.get('/pack/stickers/:packId', function (req, res) {
