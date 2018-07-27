@@ -4022,7 +4022,7 @@ app.post('/pack/stickers/:packId', function (req, res) {
     let _stickerIds = [];
 
     console.log("STICKERS " + stickerIds);
-    // _stickerIds = stickerIds.split(",");
+    _stickerIds =  Array.from(stickerIds);
 
     if (token) {
 
@@ -4031,7 +4031,7 @@ app.post('/pack/stickers/:packId', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Stickers).containedIn("objectId", stickerIds).find(),
+                new Parse.Query(_class.Stickers).containedIn("objectId", _stickerIds).find(),
                 new Parse.Query(_class.Packs).equalTo("objectId", id).first()
             )
 
