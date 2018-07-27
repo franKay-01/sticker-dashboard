@@ -4024,6 +4024,7 @@ app.post('/pack/stickers/:packId', function (req, res) {
 
         let _user = {};
 
+        console.log("ARRAY " + stickerIds);
         getUser(token).then(function (sessionToken) {
 
             return Parse.Promise.when(
