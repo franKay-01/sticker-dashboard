@@ -4018,9 +4018,10 @@ app.post('/pack/stickers/:packId', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.packId;
-    let stickerIds = [];
-    stickerIds = req.body.stickerIds;
+    let stickerIds = req.body.stickerIds;
+    let _stickerIds = Array.from(stickerIds);
 
+    console.log("STICKER IDS " + JSON.stringify(_stickerIds));
     if (token) {
 
         let _user = {};
@@ -4028,7 +4029,7 @@ app.post('/pack/stickers/:packId', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Stickers).containedIn("objectId", stickerIds).find(),
+                new Parse.Query(_class.Stickers).containedIn("objectId", _stickerIds).find(),
                 new Parse.Query(_class.Packs).equalTo("objectId", id).first()
             )
 
