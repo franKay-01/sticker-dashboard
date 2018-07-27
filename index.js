@@ -4022,7 +4022,7 @@ app.post('/pack/stickers/:packId', function (req, res) {
     let _stickerIds = [];
 
     console.log("STICKERS " + stickerIds);
-    _stickerIds =  Array.from(stickerIds);
+    _stickerIds =  stickerIds.split(",");
     console.log("STICKERS " + _stickerIds);
 
     if (token) {
