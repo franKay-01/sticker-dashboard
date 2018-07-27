@@ -4018,13 +4018,13 @@ app.post('/pack/stickers/:packId', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.packId;
-    let stickerIds = req.body.stickerIds;
+    let stickerIds = [];
+    stickerIds = req.body.stickerIds;
 
     if (token) {
 
         let _user = {};
 
-        console.log("ARRAY " + stickerIds);
         getUser(token).then(function (sessionToken) {
 
             return Parse.Promise.when(
