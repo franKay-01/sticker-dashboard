@@ -4033,6 +4033,7 @@ app.post('/pack/stickers/:packId', function (req, res) {
 
         }).then(function (stickers, pack) {
 
+            console.log("STICKERS " + JSON.stringify(stickers));
             _.each(stickers, function (sticker) {
                 let collection_relation = pack.relation(_class.Packs);
                 collection_relation.add(sticker);
