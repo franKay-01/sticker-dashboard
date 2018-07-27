@@ -4014,9 +4014,30 @@ app.post('/review/:itemId/:packId/:reviewId', function (req, res) {
 
 });
 
-app.get('/pack/stickers/:id', function (req, res) {
+app.post('/pack/stickers/:packId', function (req, res) {
+
     let token = req.cookies.token;
-    let id = req.params.id;
+    let id = req.params.packId;
+    let stickerIds = req.body.stickerIds;
+
+    res.send("STICKERS " + JSON.stringify(stickerIds));
+
+    // if (token) {
+    //
+    //     let _user = {};
+    //
+    //     getUser(token).then(function (sessionToken) {
+    //
+    //     })
+    //
+    // }else {
+    //     res.redirect('/');
+    // }
+});
+
+app.get('/pack/stickers/:packId', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.packId;
 
     if (token) {
 
@@ -4047,7 +4068,7 @@ app.get('/pack/stickers/:id', function (req, res) {
 
             res.render("pages/packs/select_stickers", {
                 id: id,
-                stickers:stickers
+                stickers: stickers
             });
 
         }, function (error) {

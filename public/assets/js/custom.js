@@ -30,7 +30,7 @@ $(document).ready(function () {
                 el.css({"border-color": "#00bcd4",
                     "border-width":"2px",
                     "border-style":"solid"});
-                $(".sticker_id").val(selectedItems);
+                $(".stickerIds").val(selectedItems);
                 $('.add-sticker-btn').removeAttr('disabled');
 
             },
@@ -39,7 +39,7 @@ $(document).ready(function () {
                     return obj !== el.attr("data-id");
                 });
                 el.css({"border": "none"});
-                $(".sticker_id").val(selectedItems);
+                $(".stickerIds").val(selectedItems);
 
                 if (selectedItems.length === 0){
                     $('.add-sticker-btn').attr("disabled", true);
