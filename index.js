@@ -2253,6 +2253,7 @@ app.post('/story', function (req, res) {
     let pack_id = req.body.pack_id;
     let body = req.body.story;
     let keywords = req.body.keyword;
+    let storyType = parseInt(req.body.storyType);
     let _keywords = [];
     let story_id;
     let newObject = {};
@@ -2286,6 +2287,7 @@ app.post('/story', function (req, res) {
             story.set("published", false);
             story.set("userId", _user.id);
             story.set("status", 0);
+            story.set("storyType", storyType);
             // story.set("storyObject", newObject);
 
 
