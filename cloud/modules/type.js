@@ -59,6 +59,12 @@ exports.PACK_TYPE = {
     curated: 2
 };
 
+exports.STORY_TYPE = {
+    short_stories: 0,
+    story: 1,
+    jokes: 2
+};
+
 exports.DEFAULT = {
     color: ["#df5A34","#814ea4"]
 };
