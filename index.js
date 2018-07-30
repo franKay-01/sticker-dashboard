@@ -2252,7 +2252,6 @@ app.post('/story', function (req, res) {
     let summary = req.body.summary;
     let pack_id = req.body.pack_id;
     let body = req.body.story;
-    let keywords = req.body.keyword;
     let storyType = parseInt(req.body.storyType);
     let _keywords = [];
     let story_id;
@@ -2282,7 +2281,7 @@ app.post('/story', function (req, res) {
             story.set("title", title);
             story.set("summary", summary);
             story.set("packId", pack_id);
-            story.set("keywords", _keywords);
+            story.set("keywords", []);
             // story.set("is_latest_story", false);
             story.set("published", false);
             story.set("userId", _user.id);
