@@ -14,23 +14,32 @@
         <label class="update_label">Attached Ad Images:</label>
         <div class="medium-12 large-12">
 
-            <% if (!ad_images) { %>
+            <% if (ad_images.length < 0) { %>
 
             <p class="none"><b>No Artwork</b></p>
 
             <% } else { %>
 
-            <img class="btn_pack_icon" src="<%= ad_images.get("uri").url() %>">
+            <% ad_images.forEach(function(item, index) { %>
 
+            <img class="btn_pack_icon" src="<%= item.get("uri").url() %>">
+
+            <%});%>
             <% } %>
 
             <a href="#" id="showAdImageForm" class="show_btn" style="font-size: 25px !important;color: #560c82 !important;">
                 <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Artwork</p>
             </a>
+
+            <%if (link) {%>
+            <a href="#" onclick="linkNumber()" class="show_btn" style="font-size: 25px !important;color: #560c82 !important;">
+                <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Links</p>
+            </a>
+            <%} else {%>
             <a href="#" id="showAdLinkForm" class="show_btn" style="font-size: 25px !important;color: #560c82 !important;">
                 <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Links</p>
             </a>
-
+            <%}%>
         </div>
 
     </div>
@@ -38,9 +47,18 @@
 
     <div class="medium-12 large-12 cell">
         <center>
-            <a href="/adverts" class="cancel_btn">Cancel</a>
+            <a href="/adverts" class="cancel_btn">Back</a>
             <button class="update" type="submit">Update</button>
         </center>
     </div>
 </form>
+<script>
+    function linkNumber() {
+        var x = document.getElementById("_message")
+        x.className = "show";
+        setTimeout(function () {
+            x.className = x.className.replace("show", "");
+        }, 3000);
+    }
+</script>
 

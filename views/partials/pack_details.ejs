@@ -1,15 +1,15 @@
-<form id="detailsForm" action="/pack_update/<%= pack_details.id %>" enctype="multipart/form-data" method="post">
+<form id="detailsForm" action="/pack/edit/<%= pack_details.id %>" enctype="multipart/form-data" method="post">
     <div class="grid-x grid-margin-x">
         <div class="medium-6 large-5 cell">
             <div class="droppableArea">
                 <div class="output" name="tfile"></div>
-                <% if (pack_details.get("art_work") === "undefined" || pack_details.get("art_work") === undefined){ %>
+                <% if (pack_details.get("artwork") === "undefined" || pack_details.get("artwork") === undefined){ %>
                 <center>
                 <p class="none" style="margin: 145px 90px auto;"><b>No Artwork</b></p>
                 </center>
                 <% } else { %>
 
-                <img class="pack_artwork" id="im1" name="im1" src="<%= pack_details.get("art_work").url() %>">
+                <img class="pack_artwork" id="im1" name="im1" src="<%= pack_details.get("artwork").url() %>">
 
                 <% } %>
             </div>
@@ -17,27 +17,46 @@
         <div class="medium-6 large-6 cell">
             <label class="update_label">Pack Name:</label>
             <input placeholder="Pack Name" class="box_2" name="pack_name"
-                   value="<%= pack_details.get("pack_name") %>" disabled style="margin-bottom: 35px !important;">
+                   value="<%= pack_details.get("name") %>" disabled style="margin-bottom: 35px !important;">
 
             <!--if new img has been uploaded, set value to true-->
             <input type="hidden" id="imgChange" name="imgChange" value="false">
 
             <label class="update_label">Pack Decsription:</label>
-            <textarea class="box_2 validate" name="description" required="" aria-required="true" style="margin-bottom: 35px !important;"><%= pack_details.get("pack_description") %>
+            <textarea class="box_2 validate" name="description" required="" aria-required="true" style="margin-bottom: 35px !important;"><%= pack_details.get("description") %>
             </textarea><br>
             <label for="keyword" style="color: #a46580 !important;">Seperate Tags with comma (,)</label>
-            <input type="text" class="box_2 validate" value="<%= pack_details.get("keyword") %>" placeholder="Smile,Angry,Sad" id="keyword"
-                   name="keyword" style="margin-bottom: 35px !important;">
+            <input type="text" class="box_2 validate" value="<%= pack_details.get("keywords") %>" placeholder="Smile,Angry,Sad" id="keyword"
+                   name="keyword" style="margin-bottom: 35px !important;"><br>
+
+            <%if (pack_details.get("priceType") === type.PACK_TYPE.grouped || pack_details.get("priceType") === type.PACK_TYPE.themed){%>
+            <label for="productId" class="update_label">Add Product ID</label>
+            <label for="productId" class="update_label" style="font-size: 15px !important;">
+                Current ProductID Name: <i style="color: #0f9d58 !important;"><%= productDetails %></i></label>
+            <div class="row" style="width: 400px !important;">
+                <select class="input-field validate" name="productId">
+                    <option value="" disabled selected>&nbsp;Add Pack</option>
+                    <% if (productId.length === 0) { %>
+
+                    <% } else { %>
+                    <% productId.forEach(function(items) { %>
+                    <option value="<%= items.id %>"><%= items.get("name") %></option>
+                    <% }) %>
+                    <% } %>
+                </select>
+            </div>
+            <%}%>
+
 
             <label class="update_label">Archive:</label>
             <div style="margin-bottom: 30px">
-                <% if (pack_details.get("archive") === true ){%>
+                <% if (pack_details.get("archived") === true ){%>
                 <input name="archive" type="radio" id="archive1" checked value="1"/>
                 <label for="archive1" class="_label" style="color: #a46580 !important;">Yes</label>
 
                 <input name="archive" type="radio" id="archive2" value="0"/>
                 <label for="archive2" class="_label" style="color: #a46580 !important">No</label>
-                <%} else if (pack_details.get("pack_name") === false){%>
+                <%} else if (pack_details.get("archived") === false){%>
                 <input name="archive" type="radio" id="archive1" value="1"/>
                 <label for="archive1" class="_label" style="color: #a46580 !important;">Yes</label>
 
@@ -60,7 +79,7 @@
         </div>
         <div class="medium-12 large-12 cell">
             <center>
-                <a href="/pack/<%= pack_details.id %>" class="cancel_btn">Cancel</a>
+                <a href="/pack/<%= pack_details.id %>" class="cancel_btn">Back</a>
                 <button class="update" type="submit">Update</button>
             </center>
         </div>

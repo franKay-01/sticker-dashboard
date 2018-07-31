@@ -88,6 +88,46 @@ $(document).ready(function () {
             $('#pack_id').fadeOut('fast');
         });
 
+        $('.list_element').on('click', function () {
+            $('#hiddenListCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
+
+        $('.greyArea_element').on('click', function () {
+            $('#hiddenGreyAreaCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
+
+        $('.heading_element').on('click', function () {
+            $('#hiddenHeadingCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
+
+        $('.sideNote_element').on('click', function () {
+            $('#hiddenSideNoteCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
+
         $('.image_element').on('click', function () {
             $('#hiddenImageCatalouge').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
@@ -120,6 +160,16 @@ $(document).ready(function () {
 
         $('.italicBold_element').on('click', function () {
             $('#hiddenBoldItalicsCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
+
+        $('.color_element').on('click', function () {
+            $('#hiddenColorCatalouge').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
             $('#opaqueDiv').fadeOut('fast');
             $('#logo').fadeOut('fast');
@@ -207,10 +257,10 @@ $(document).ready(function () {
         });
 
         $("#btnSubmitStoryItem").on('click', function () {
-            $( "#type_form" ).submit();
+            $("#type_form").submit();
         });
 
-        $("#btn_cancelChangeType").on('click',function () {
+        $("#btn_cancelChangeType").on('click', function () {
             $("#hiddenChangeType").fadeOut('fast');
             $("#pageMask").fadeOut('fast');
             $("#logo").fadeIn('fast');
@@ -263,7 +313,6 @@ $(document).ready(function () {
         $('#clearBtn').on('click', function () {
             $("#image_id").remove();
         });
-
 
         $('#removePublished').on('click', function () {
             $('#pageMask').fadeIn('fast');
@@ -390,6 +439,7 @@ $(document).ready(function () {
             $('#pageMask').fadeOut('fast');
             $('#pack_id').fadeOut('fast');
             $('#logo').fadeIn('fast');
+            $('#stickerTable').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
             $('#detailsForm').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
@@ -474,6 +524,61 @@ $(document).ready(function () {
 
         $('#btnCloseItalicBoldCatalouge').on('click', function () {
             $('#hiddenBoldItalicsCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
+        $('#btnCloseColorCatalouge').on('click', function () {
+            $('#hiddenColorCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
+        $('#btnCloseGreyAreaCatalouge').on('click', function () {
+            $('#hiddenGreyAreaCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
+        $('#btnCloseListCatalouge').on('click', function () {
+            $('#hiddenListCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('.hidden_forms')[0].reset();
+        });
+
+        $('#btnCloseSideNoteCatalouge').on('click', function () {
+            $('#hiddenSideNoteCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
+        $('#btnCloseHeadingCatalouge').on('click', function () {
+            $('#hiddenHeadingCatalouge').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
@@ -592,6 +697,33 @@ $(document).ready(function () {
         $('#opaqueDiv').fadeOut('fast');
     });
 
+    $('#btnAddProduct').on('click', function () {
+        $('#pageMask').fadeIn('fast');
+        $('#hiddenAddProductForm').fadeIn('fast');
+        $('#logo').fadeOut('fast');
+        $('#Welcome').fadeOut('fast');
+        $('#signoutLink').fadeOut('fast');
+        $('#opaqueDiv').fadeOut('fast');
+        $('#product_heading').fadeOut('fast');
+        $('#all_stories').fadeOut('fast');
+
+    });
+
+    $('#btnCancelProduct').on('click', function () {
+        $('#pageMask').fadeOut('fast');
+        $('#hiddenAddProductForm').fadeOut('fast');
+        $('#logo').fadeIn('fast');
+        $('#Welcome').fadeIn('fast');
+        $('#signoutLink').fadeIn('fast');
+        $('#opaqueDiv').fadeIn('fast');
+        $('#product_heading').fadeIn('fast');
+        $('#all_stories').fadeIn('fast');
+        $('#pack_form')[0].reset();
+
+    });
+
+
+
     const btnAddCategory = $('#btnAddCategory');
     //add button style
     btnAddCategory.on('mouseover', function () {
@@ -623,6 +755,26 @@ $(document).ready(function () {
         $('#pack_form')[0].reset();
     });
 
+    $(".storyElement").click(function () {
+        $('#pageMask').fadeIn('fast');
+        $('#hiddenMakeStory').fadeIn('fast');
+        $('#logo').fadeOut('fast');
+        $('.welcome_post').fadeOut('fast');
+        $('#Welcome').fadeOut('fast');
+        $('#signoutLink').fadeOut('fast');
+        $('#opaqueDiv').fadeOut('fast');
+    });
+
+    $('#btnCloseMakeStory').on('click', function () {
+        $('#pageMask').fadeOut('fast');
+        $('#hiddenChangeArtwork').fadeOut('fast');
+        $('#logo').fadeIn('fast');
+        $('#Welcome').fadeIn('fast');
+        $('.welcome_post').fadeIn('fast');
+        $('#signoutLink').fadeIn('fast');
+        $('#opaqueDiv').fadeIn('fast');
+    });
+
     //show deleteForm
     $('.delbtn').on('click', function () {
         // var $this = $(this);
@@ -633,6 +785,8 @@ $(document).ready(function () {
         $('#signoutLink').fadeOut('fast');
         $('#opaqueDiv').fadeOut('fast');
         $('#detailsForm').fadeOut('fast');
+        $('#stickerTable').fadeOut('fast');
+        $('#foot').fadeOut('fast');
 
     });
 
@@ -646,6 +800,8 @@ $(document).ready(function () {
         $('#signoutLink').fadeIn('fast');
         $('#opaqueDiv').fadeIn('fast');
         $('#detailsForm').fadeIn('fast');
+        $('#stickerTable').fadeIn('fast');
+        $('#foot').fadeIn('fast');
     });
 
     //show 'remove-category' form

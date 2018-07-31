@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Messages - G-Stickers</title>
+
+    <% include ../../partials/fav.ejs %>
+
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+</head>
+
+<body class="primary-background-color">
+
+<div class="grid-container">
+    <!-- Logo -->
+    <div class="medium-12 large-12">
+        <a href="/home">
+            <img src="/public/assets/images/G_logo.png"
+                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
+                 id="logo">
+        </a>
+        <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
+
+    </div>
+    <!-- End of logo-->
+    <div id="pageMask"></div>
+
+    <span class="medium-12 large-12 welcome_post" id="all_stories"><b>All Contacts</b></span>
+
+    <div class="grid-x grid-margin-x" id="opaqueDiv">
+        <div class="medium-3 large-3 cell login_card">
+            <div class="card_head_position">
+                <div class="stats">Menu</div>
+                <div><a class="_stickers" href="/home">Home</a></div>
+                <div><a class="_categories" href="/packs">Packs</a></div>
+                <div><a class="_stickers_packs" href="/reviews">Reviews</a></div>
+                <div><a class="_stickers_packs" href="/stories">Stories</a></div>
+            </div>
+        </div>
+
+        <div style="text-align: center;" class="sign_form">
+
+            <form id="signForm" method="post" action="/message">
+                <br>
+                <input type="text" class="_signup_textbox" placeholder="Name" name="name">
+                <br>
+                <input type="email" class="_signup_textbox" placeholder="Email" name="email">
+                <br>
+                <input type="text" class="_signup_textbox" placeholder="Subject" name="subject">
+                <br>
+                <input type="text" class="_signup_textbox" placeholder="Message" name="message">
+                <br>
+                <div style="margin-bottom: 10px">
+                    <input name="source" type="radio" id="source1" value="0"/>
+                    <label for="source1" class="_label">Illustrator</label>
+
+                    <input name="source" type="radio" id="source2" value="1"/>
+                    <label for="source2" class="_label">Brand</label>
+
+                    <input name="source" type="radio" id="source3" value="2"/>
+                    <label for="source3" class="_label">Website</label>
+                </div>
+                <button type="submit" class="btnSignUp">Send Message</button>
+            </form>
+        </div>
+        <%- include('../../partials/footer') %>
+    </div>
+</div>
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js"></script>
+<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+
+</body>
+
+
+</html>

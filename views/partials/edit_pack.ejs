@@ -1,9 +1,9 @@
-<form id="detailsForm" action="/update_pack/<%= pack.id %>" method="post">
+<form id="detailsForm" action="/pack/review/<%= pack.id %>" method="post">
     <div class="grid-x grid-margin-x">
         <div class="medium-6 large-5 cell">
             <div class="droppableArea">
                 <div class="output" name="tfile"></div>
-                <img id="im1" name="im1" style="width: 100%; height: 100%;" src="<%= pack.get("art_work").url() %>">
+                <img id="im1" name="im1" style="width: 100%; height: 100%;" src="<%= pack.get("artwork").url() %>">
             </div>
         </div>
 
@@ -12,17 +12,17 @@
             <label class="update_label">Pack Name:</label>
             <input placeholder="Sticker Name" class="box_2"
                    name="pack_name"
-                   value="<%= pack.get("pack_name") %>">
+                   value="<%= pack.get("name") %>">
             <label class="update_label">Pack Name:</label>
             <input placeholder="Sticker Name" class="box_2"
                    name="pack_description"
-                   value="<%= pack.get("pack_description") %>">
+                   value="<%= pack.get("description") %>">
 
             <label class="update_label">Keyword - separate with comma (,)</label>
 
             <input placeholder="Sticker Name" class="box_2"
                    name="keyword"
-                   value="<%= pack.get("keyword") %>">
+                   value="<%= pack.get("keywords") %>">
             <label class="update_label">Archive</label>
             <div style="margin-bottom: 10px">
                 <input name="archive" type="radio" id="archive1" value="0">
@@ -38,7 +38,7 @@
         </div>
         <div class="medium-12 large-12 cell">
             <center>
-                <a href="/review_details/<%= review_id %>" class="cancel_btn">Cancel</a>
+                <a href="/review/edit/<%= review_id %>" class="cancel_btn">Cancel</a>
 
                 <button class="update" type="submit">Update</button>
             </center>

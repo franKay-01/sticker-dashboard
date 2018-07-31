@@ -55,7 +55,7 @@
 </div>
 
 <div class="hiddenEditForm">
-    <form id="editCategoryForm" action="/update_category" method="post">
+    <form id="editCategoryForm" action="/category/update" method="post">
         <table id="editTable">
             <tr>
                 <th  colspan="2" id="editHeading">
@@ -84,7 +84,7 @@
 
 <!--add category form-->
 <div class="hiddenAddCatForm">
-    <form id="addCategoryForm" action="/new_category" method="post">
+    <form id="addCategoryForm" action="/category" method="post">
         <table id="addtable">
             <tr>
                 <th  colspan="2" id="headingAdd">
@@ -110,7 +110,7 @@
 
 <!--remove category form-->
 <div class="hiddenRemoveCategory">
-    <form id="deleteCategoryForm" action="/remove_category" method="post">
+    <form id="deleteCategoryForm" action="/category/delete" method="post">
         <table id="deleteTable">
             <tr>
                 <th  colspan="2" id="headingRemove">
@@ -118,7 +118,7 @@
                 </th>
             </tr>
             <tr>
-                <td colspan="2"><input type="text" name="catnameD" id="catNameRemove" /></td>
+                <td colspan="2"><input disabled type="text" name="catnameD" id="catNameRemove" /></td>
                 <input type="hidden" name="inputRemoveId" id="inputRemoveId">
             </tr>
             <tr>

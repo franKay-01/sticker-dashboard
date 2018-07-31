@@ -1,4 +1,4 @@
-<form id="review_form" method="post" action="/edit_details/<%= reviews.get("type_id") %>/<%= reviews.get("pack_id") %>/<%= reviews.id %>">
+<form id="review_form" method="post" action="/edit_details/<%= reviews.get("typeId") %>/<%= reviews.get("packId") %>/<%= reviews.id %>">
     <div>
         <div class="grid-x grid-margin-x">
             <div class="medium-6 large-5 cell">
@@ -36,7 +36,7 @@
                 <!--if new img has been uploaded, set value to true-->
                 <label class="update_label">Reviewer's Name:</label> <input placeholder="Sticker Name" class="box_2"
                                                                             name="Reviewer's Name"
-                                                                            value="<%= reviews.get("reviewer_name") %>"
+                                                                            value="<%= reviews.get("reviewerName") %>"
                                                                             disabled>
 
                 <label class="update_label">Comments :</label><textarea class="box_2" name="comments"
@@ -52,8 +52,8 @@
                 <% } %>
 
                 <label class="update_label">Field Reviewed</label> <input placeholder="No Fields Reveiwed" class="box_2"
-                                                                          name="review_field"
-                                                                          value="<%= reviews.get("review_field") %>"
+                                                                          name="reviewField"
+                                                                          value="<%= reviews.get("reviewField") %>"
                                                                           disabled>
 
                 <button class="update" type="submit">Make Changes</button>

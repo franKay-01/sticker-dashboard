@@ -44,12 +44,6 @@ const NORMAL_USER = 2;
 const SUPER_USER = 0;
 const MK_TEAM = 1;
 
-const TEXT = 0;
-const IMAGE = 1;
-const QUOTE = 2;
-const STICKER = 3;
-const DIVIDER = 4;
-
 const PACK = 0;
 const STORY = 1;
 
@@ -253,13 +247,188 @@ function setPermission(user, isPublicReadAccess) {
 /*====================================== ACCOUNTS ============================*/
 
 // Home Page
+app.get('/home', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        let _user = {};
+
+        let _allPacks = [];
+        let _story = [];
+        let _collection = [];
+        let _allAds = [];
+        let _categories = [];
+        let _messages = [];
+        let _allProducts = [];
+        let sticker_id;
+        let _latestSticker;
+        let _storyBody;
+        let _stickerName;
+        let _categoryLength = 0;
+        let _packLength = 0;
+        let _stickerLength = 0;
+        let _storyLength = 0;
+        const limit = 5;
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            if (_user.get("type") === MK_TEAM) {
+                res.redirect('/get_barcode');
+            }
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first(),
+                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
+                new Parse.Query(_class.Packs).equalTo("userId", _user.id).descending("createdAt").limit(limit).find(),
+                new Parse.Query(_class.Categories).limit(limit).find(),
+                new Parse.Query(_class.Stories).equalTo("userId", _user.id).descending("createdAt").limit(limit).find(),
+                new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
+                new Parse.Query(_class.Categories).count(),
+                new Parse.Query(_class.Packs).equalTo("userId", _user.id).count(),
+                new Parse.Query(_class.Stickers).equalTo("userId", _user.id).count(),
+                new Parse.Query(_class.Stories).equalTo("userId", _user.id).count(),
+                new Parse.Query(_class.Adverts).equalTo("userId", _user.id).limit(limit).find(),
+                new Parse.Query(_class.Message).limit(limit).find(),
+                new Parse.Query(_class.Product).limit(limit).find()
+            );
+
+        }).then(function (sticker, latestStory, collection, categories, story, allPacks, categoryLength, packLength,
+                          stickerLength, storyLength, allAdverts, allMessages, products) {
+
+            _categories = categories;
+            _collection = collection;
+            _story = story;
+            _messages = allMessages;
+            _allPacks = allPacks;
+            _allAds = allAdverts;
+            _allProducts = products;
+            _categoryLength = helper.leadingZero(categoryLength);
+            _packLength = helper.leadingZero(packLength);
+            _stickerLength = helper.leadingZero(stickerLength);
+            _storyLength = helper.leadingZero(storyLength);
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first(),
+                new Parse.Query(_class.ArtWork).equalTo("itemId", latestStory.get("feedId")).first(),
+                new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first()
+            );
+
+        }).then(function (latestSticker, storyImage, storyBody) {
+
+
+            _latestSticker = latestSticker.get("uri");
+            _latestSticker['stickerName'] = latestSticker.get("name");
+            _latestSticker['description'] = latestSticker.get("description");
+
+            console.log("LATEST STICKER " + _latestSticker);
+
+            if (storyBody !== undefined) {
+
+                _storyBody = storyBody;
+
+            } else {
+
+                _storyBody = "";
+
+            }
+
+            if (storyImage !== undefined) {
+                sticker_id = storyImage.get("sticker");
+
+                return new Parse.Query(_class.Stickers).equalTo("objectId", sticker_id).first();
+
+            } else {
+                sticker_id = "";
+
+                return sticker_id;
+
+            }
+
+        }).then(function (sticker) {
+
+            if (_user.get("type") === NORMAL_USER) {
+
+                res.render("pages/dashboard/home", {
+                    collections: _collection,
+                    allPacks: _allPacks,
+                    allProducts: _allProducts,
+                    story: _story,
+                    categoryLength: _categoryLength,
+                    packLength: _packLength,
+                    stickerLength: _stickerLength,
+                    storyLength: _storyLength,
+                    name: _user.get("name"),
+                    verified: _user.get("emailVerified"),
+                    error_message: "null"
+
+                });
+
+            } else if (_user.get("type") === SUPER_USER) {
+
+                res.render("pages/dashboard/admin_home", {
+                    collections: _collection,
+                    categories: _categories,
+                    allAdverts: _allAds,
+                    allProducts: _allProducts,
+                    allPacks: _allPacks,
+                    story: _story,
+                    latestSticker: _latestSticker,
+                    latestStory: sticker,
+                    storyBody: _storyBody,
+                    stickerName: _stickerName,
+                    messages: _messages,
+                    categoryLength: _categoryLength,
+                    packLength: _packLength,
+                    stickerLength: _stickerLength,
+                    storyLength: _storyLength,
+                    user_name: _user.get("name"),
+                    verified: _user.get("emailVerified"),
+                    error_message: "null"
+
+                });
+
+            }
+
+        }, function (error) {
+
+            console.log("ERROR ON HOME " + error.message);
+
+            res.render("pages/dashboard/admin_home", {
+                collections: _collection,
+                categories: _categories,
+                allAdverts: _allAds,
+                allPacks: _allPacks,
+                allProducts: _allProducts,
+                story: _story,
+                categoryLength: _categoryLength,
+                packLength: _packLength,
+                stickerLength: _stickerLength,
+                storyLength: _storyLength,
+                user_name: _user.get("name"),
+                verified: _user.get("emailVerified"),
+                error_message: "null"
+            });
+        });
+
+
+    } else {
+        console.log("BACK TO LOGIN ");
+        res.redirect("/");
+    }
+});
+
+// Home Page
 app.get('/', function (req, res) {
 
     let token = req.cookies.token;
 
     //utility render__ function to appending appId and serverURL
     const render__ = (_stickers, _error) => {
-        res.render("pages/login",
+        res.render("pages/accounts/login",
             {
                 stickers: _stickers,
                 appId: process.env.APP_ID,
@@ -324,8 +493,144 @@ app.get('/', function (req, res) {
 
 app.get('/account/create', function (req, res) {
     let message = "";
-    res.render("pages/sign_up", {error: message});
+    res.render("pages/accounts/sign_up", {error: message});
 });
+
+
+app.post('/account/user/update', upload.array('im1'), function (req, res) {
+
+    let token = req.cookies.token;
+    let email = req.body.email;
+    let image = req.files;
+    let type = parseInt(req.body.type);
+    let handle = req.body.handles;
+    let profile_info = [];
+    let link_length = [];
+    let accountRedirect = '/account/user/profile';
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(_class.Profile).equalTo("userId", _user.id).first();
+
+        }).then(function (profile) {
+
+            if (image) {
+                image.forEach(function (file) {
+
+                    console.log("FILE INFO " + file.path);
+
+                    let fullName = file.originalname;
+
+                    let image_name = fullName.substring(0, fullName.length - 4);
+
+                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                    //create our parse file
+                    let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
+
+                    profile.set("uri", parseFile);
+                    profile.set("email", email);
+                    // sticker.setACL(setPermission(_user, false));
+
+                    profile_info.push(profile);
+                });
+            } else {
+
+                profile.set("email", email);
+                return profile.save()
+
+            }
+
+            return Parse.Object.saveAll(profile_info);
+
+        }).then(function (saved_profile) {
+
+            if (profile_info.length) {
+                _.each(profile_info, function (file) {
+                    //Delete tmp fil after upload
+                    let tempFile = file.path;
+                    fs.unlink(tempFile, function (err) {
+                        if (err) {
+                            //TODO handle error code
+                            console.log("-------Could not del temp" + JSON.stringify(err));
+                        }
+                        else {
+                            console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                        }
+                    });
+                });
+            }
+            return new Parse.Query(_class.Links).equalTo("itemId", _user.id).find();
+
+        }).then(function (links) {
+
+            if (type && handle) {
+                if (links.length !== 0) {
+                    _.each(links, function (_link) {
+
+                        if (_link.get("type") === type) {
+
+                            _link.set("link", handle);
+                            link_length.push(1);
+
+                            return _link.save();
+                        }
+
+                    });
+
+                    if (link_length.length === 0) {
+
+                        let Link = new Parse.Object.extend(_class.Links);
+                        let link = new Link();
+
+                        link.set("itemId", _user.id);
+                        link.set("type", type);
+                        link.set("link", handle);
+
+                        return link.save();
+
+                    }
+
+                } else {
+                    let Link = new Parse.Object.extend(_class.Links);
+                    let link = new Link();
+
+                    link.set("itemId", _user.id);
+                    link.set("type", type);
+                    link.set("link", handle);
+
+                    return link.save();
+                }
+
+
+            } else {
+
+                console.log("TYPE AND HANDLE NOT PRESENT");
+                res.redirect(accountRedirect);
+
+            }
+
+        }).then(function () {
+
+            res.redirect(accountRedirect);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect(accountRedirect);
+
+        })
+    } else {
+        res.redirect('/');
+    }
+});
+
 
 app.post('/signup', function (req, res) {
     let name = req.body.name;
@@ -346,7 +651,7 @@ app.post('/signup', function (req, res) {
     user.signUp({useMasterKey: true}, {
         success: function (user) {
 
-            profile.set("user_id", user.id);
+            profile.set("userId", user.id);
             profile.set("email", username);
             if (gender !== "undefined" || gender !== undefined) {
                 profile.set("gender", gender);
@@ -366,7 +671,7 @@ app.post('/signup', function (req, res) {
             // Show the error message somewhere and let the user try again.
             let message = "SignUp was unsuccessful. " + error.message;
             console.log("SignUp was unsuccessful. " + JSON.stringify(error));
-            res.render("pages/sign_up", {error: message});
+            res.render("pages/accounts/sign_up", {error: message});
         }
     });
 
@@ -374,7 +679,7 @@ app.post('/signup', function (req, res) {
 });
 
 app.get('/account/password/forgot', function (req, res) {
-    res.render("pages/forgot_password");
+    res.render("pages/accounts/forgot_password");
 });
 
 
@@ -385,7 +690,7 @@ app.post('/account/password/reset', function (req, res) {
         success: function () {
             // Password reset request was sent successfully
             console.log("EMAIL was sent successfully");
-            res.render("pages/password_reset_info");
+            res.render("pages/accounts/password_reset_info");
         },
         error: function (error) {
             // Show the error message somewhere
@@ -443,7 +748,7 @@ app.post('/login', function (req, res) {
         res.cookie('email_verified', user.get("emailVerified"));
         res.cookie('userType', user.get("type"));
 
-        var status = user.get("image_set");
+        let status = user.get("image_set");
         if (status === true) {
             res.cookie('profile_image', user.get("image").url());
         } else {
@@ -492,17 +797,17 @@ app.get('/account/user/profile', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            return new Parse.Query(_class.Profile).equalTo("user_id", _user.id).first();
+            return new Parse.Query(_class.Profile).equalTo("userId", _user.id).first();
 
         }).then(function (profile) {
 
             _profile = profile;
 
-            return new Parse.Query(_class.Links).equalTo("object_id", profile.get("user_id")).find();
+            return new Parse.Query(_class.Links).equalTo("itemId", profile.get("userId")).find();
 
         }).then(function (links) {
 
-            res.render("pages/profile", {
+            res.render("pages/accounts/profile", {
                 username: _user.get("name"),
                 email: _user.get("username"),
                 profile: _profile,
@@ -519,70 +824,12 @@ app.get('/account/user/profile', function (req, res) {
     }
 });
 
-
-/*====================================== ACCOUNTS ============================*/
-
-
-app.post('/new_story', function (req, res) {
-    let token = req.cookies.token;
-    let title = req.body.title;
-    let summary = req.body.summary;
-    let pack_id = req.body.pack_id;
-    let body = req.body.story;
-    let keywords = req.body.keyword;
-    let _keywords = [];
-    let story_id = "";
-    let state = "new";
-
-    if (keywords !== undefined || keywords !== "undefined") {
-        _keywords = keywords.split(",");
-    }
-
-    if (token) {
-
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            let Stories = new Parse.Object.extend(_class.Stories);
-            let story = new Stories();
-
-            story.set("title", title);
-            story.set("summary", summary);
-            story.set("pack_id", pack_id);
-            story.set("keyword", _keywords);
-            // story.set("is_latest_story", false);
-            story.set("published", false);
-            story.set("user_id", _user.id);
-            story.set("status", 0);
-
-            return story.save();
-
-        }).then(function (story) {
-            let Main = new Parse.Object.extend(_class.StoryBody);
-            let main = new Main();
-
-            story_id = story.id;
-            main.set("story_id", story.id);
-            main.set("story", body);
-
-            return main.save();
-
-        }).then(function () {
-
-            res.redirect('/story/' + story_id + '/' + state);
-
-        }, function (error) {
-            console.log("ERROR WHEN CREATING NEW STORY " + error.message);
-            res.redirect('/');
-        });
-    } else {
-        res.redirect('/');
-    }
-
+//LOGOUT
+app.get('/account/logout', function (req, res) {
+    res.clearCookie('token');
+    res.redirect("/");
 });
+/*====================================== ACCOUNTS ============================*/
 
 
 /*====================================== ADVERTS ============================*/
@@ -601,7 +848,7 @@ app.get('/adverts', function (req, res) {
             _user = sessionToken.get("user");
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Adverts).equalTo("user_id", _user.id).find(),
+                new Parse.Query(_class.Adverts).equalTo("userId", _user.id).find(),
                 new Parse.Query(_class.AdvertImages).find(),
             );
 
@@ -611,7 +858,7 @@ app.get('/adverts', function (req, res) {
 
                 _.each(ad_images, function (image) {
 
-                    if (advert.id === image.get("advert_id")) {
+                    if (advert.id === image.get("advertId")) {
 
                         //TODO modify query to group types
                         //TODO use type constants from types JS e.g type.LINKS.android
@@ -645,9 +892,11 @@ app.get('/adverts', function (req, res) {
 
             advertMessage = "";
 
-            res.render("pages/advert_collection", {
+            console.log("ADVERTS " + JSON.stringify(_adverts) + " AND " + JSON.stringify(adverts));
+
+            res.render("pages/adverts/advert_collection", {
                 adverts: _adverts,
-                _adverts: adverts,
+                adverts_no_image: adverts,
             });
 
         }, function (error) {
@@ -673,15 +922,19 @@ app.get('/advert/edit/:id', function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(_class.Adverts).equalTo("objectId", id).first(),
-                new Parse.Query(_class.AdvertImages).equalTo("advert_id", id).first()
+                new Parse.Query(_class.AdvertImages).equalTo("advertId", id).find(),
+                new Parse.Query(_class.Links).equalTo("itemId", id).first()
             );
 
-        }).then(function (advert, advertImage) {
+        }).then(function (advert, advertImage, link) {
 
-            res.render("pages/advert_details", {
+            console.log("LINK " + JSON.stringify(link));
+
+            res.render("pages/adverts/advert_details", {
 
                 ad_details: advert,
                 ad_images: advertImage,
+                link: link,
                 advertMessage: advertMessage
             })
 
@@ -705,25 +958,19 @@ app.post('/update/advert/link/:id', function (req, res) {
     let id = req.params.id;
     let type = parseInt(req.body.type);
     let link = req.body.link;
-    let existing = [];
+    let advertRedirect = '/advert/edit/';
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Links).equalTo("object_id", id).find();
+            return new Parse.Query(_class.Links).equalTo("itemId", id).first();
 
         }).then(function (links) {
 
-            _.each(links, function (link) {
-                if (link.get("type") === type) {
-                    existing.push(type);
-                }
-            });
+            if (links) {
 
-            if (existing.length > 0) {
-
-                res.redirect('/advert/edit/' + id);
+                res.redirect(advertRedirect + id);
 
             } else {
 
@@ -731,7 +978,7 @@ app.post('/update/advert/link/:id', function (req, res) {
                 let links = new Links();
 
                 links.set("type", type);
-                links.set("object_id", id);
+                links.set("itemId", id);
                 links.set("link", link);
 
                 return links.save();
@@ -739,13 +986,13 @@ app.post('/update/advert/link/:id', function (req, res) {
 
         }).then(function (link) {
 
-            res.redirect('/advert/edit/' + id);
+            res.redirect(advertRedirect + id);
 
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/advert/edit/' + id);
+            res.redirect(advertRedirect + id);
 
         })
     } else {
@@ -759,22 +1006,25 @@ app.post('/advert/image/:id', upload.array('adverts'), function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
+    let type = parseInt(req.body.type);
     let files = req.files;
     let fileDetails = [];
     let advertDetails = [];
+    let advertRedirect = '/advert/edit/';
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.AdvertImages).equalTo("advert_id", id).first();
+            return new Parse.Query(_class.AdvertImages).equalTo("advertId", id).first();
 
         }).then(function (advert) {
 
-            if (advert) {
+            if (files) {
+                // if (advert) {
                 // advertMessage = "ADVERT under category already exist";
-                res.redirect('/advert/edit/' + id);
-            } else {
+                //     res.redirect('/advert/edit/' + id);
+                // } else {
                 files.forEach(function (file) {
 
                     let fullName = file.originalname;
@@ -790,8 +1040,9 @@ app.post('/advert/image/:id', upload.array('adverts'), function (req, res) {
                     let advert_image = new Advert_Image();
 
                     advert_image.set("name", image_name);
-                    advert_image.set("advert_id", id);
+                    advert_image.set("advertId", id);
                     advert_image.set("uri", parseFile);
+                    advert_image.set("type", type);
 
                     advertDetails.push(advert_image);
                     fileDetails.push(file);
@@ -808,7 +1059,7 @@ app.post('/advert/image/:id', upload.array('adverts'), function (req, res) {
             if (fileDetails.length) {
                 _.each(fileDetails, function (file) {
                     //Delete tmp fil after upload
-                    var tempFile = file.path;
+                    let tempFile = file.path;
                     fs.unlink(tempFile, function (error) {
                         if (error) {
                             //TODO handle error code
@@ -823,13 +1074,13 @@ app.post('/advert/image/:id', upload.array('adverts'), function (req, res) {
                 });
             }
 
-            res.redirect('/advert/edit/' + id);
+            res.redirect(advertRedirect + id);
 
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/advert/edit/' + id);
+            res.redirect(advertRedirect + id);
 
         })
 
@@ -846,6 +1097,7 @@ app.post('/advert/edit/:id', function (req, res) {
     let id = req.params.id;
     let title = req.body.title;
     let description = req.body.description;
+    let advertRedirect = '/advert/edit/';
 
     if (token) {
 
@@ -863,12 +1115,12 @@ app.post('/advert/edit/:id', function (req, res) {
         }).then(function () {
 
             advertMessage = "";
-            res.redirect('/advert/edit/' + id);
+            res.redirect(advertRedirect + id);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/advert/edit/' + id);
+            res.redirect(advertRedirect + id);
 
         })
     } else {
@@ -899,7 +1151,7 @@ app.post('/advert', function (req, res) {
 
             advert.set("title", title);
             advert.set("description", description);
-            advert.set("user_id", _user.id);
+            advert.set("userId", _user.id);
             advert.set("buttonAction", action);
 
             return advert.save();
@@ -987,7 +1239,7 @@ app.get('/messages', function (req, res) {
 
             });
 
-            res.render("pages/messages", {
+            res.render("pages/messages/messages", {
                 contact: message,
                 dates: _dates
             })
@@ -1015,7 +1267,7 @@ app.get('/message/:id', function (req, res) {
 
         }).then(function (message) {
 
-            res.render("pages/single_message", {
+            res.render("pages/messages/single_message", {
                 message: message
             });
 
@@ -1038,7 +1290,7 @@ app.get('/message/send', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            res.render("pages/post_message");
+            res.render("pages/messages/post_message");
 
         }, function (error) {
 
@@ -1055,215 +1307,6 @@ app.get('/message/send', function (req, res) {
 
 /*====================================== MESSAGES ============================*/
 
-
-
-
-
-app.get('/find_stickers/:name', function (req, res) {
-
-    let token = req.cookies.token;
-    let name = req.params.name;
-    let field = [];
-
-    if (token) {
-
-        field.push(name);
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Stickers).containedIn("categories", field).find();
-
-        }).then(function (stickers) {
-
-            res.render("pages/associated_stickers", {
-                stickers: stickers,
-                name: name
-            })
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/categories');
-        })
-    } else {
-        res.redirect('/');
-    }
-
-});
-
-app.get('/story/:id/:state', function (req, res) {
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let state = req.params.state;
-
-    if (token) {
-
-        let _user = {};
-        let _story = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
-
-        }).then(function (story) {
-
-            _story = story;
-
-            return new Parse.Query(_class.Packs).equalTo("objectId", story.get("pack_id")).first();
-
-        }).then(function (pack) {
-
-            let col = pack.relation(_class.Packs);
-            return col.query().find();
-
-        }).then(function (stickers) {
-
-            res.render("pages/story_artwork", {
-                story: _story.id,
-                stickers: stickers,
-                state:state
-            });
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/');
-
-        });
-    } else {
-        res.redirect('/');
-
-    }
-});
-
-
-
-app.get('/change_color/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let color = [];
-    let _story = [];
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return Parse.Promise.when(
-                new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
-                new Parse.Query(_class.ArtWork).equalTo("object_id", id).first()
-            );
-
-        }).then(function (story, art) {
-
-            console.log("ART " + JSON.stringify(art));
-            _story = story;
-            colors = story.get("color");
-            if (colors) {
-                color = story.get("color");
-            } else {
-                //use system default
-                colors = type.DEFAULT.color
-            }
-
-            return new Parse.Query(_class.Stickers).equalTo("objectId", art.get("sticker")).first();
-
-        }).then(function (sticker) {
-
-            res.render("pages/choose_color", {
-                story: _story,
-                colors: colors,
-                sticker: sticker
-            });
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/storyedit/' + story.id);
-        })
-
-    } else {
-        res.redirect('/');
-
-    }
-});
-
-app.get('/edit_story_item/:id/:story_id', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let story_id = req.params.story_id;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
-
-        }).then(function (story_item) {
-
-            res.render("pages/edit_story_item", {
-                story_item: story_item,
-                story_id: story_id
-            })
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/story/item/' + story_id);
-        })
-    } else {
-        res.redirect('/');
-    }
-
-});
-
-app.post('/set_story_color/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let color_1 = req.body.color1;
-    let color_2 = req.body.color2;
-    let hash = "#";
-
-    if (token) {
-
-        color_1 = hash.concat(color_1);
-        color_2 = hash.concat(color_2);
-
-        console.log("COLOR " + color_2);
-
-        let colors = [color_1, color_2];
-
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
-
-
-        }).then(function (story) {
-
-            story.set("color", colors);
-
-            return story.save();
-
-        }).then(function () {
-
-            res.redirect('/storyedit/' + id);
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/storyedit/' + id);
-
-        });
-
-    } else {
-        res.redirect('/');
-
-    }
-});
-
 /*====================================== STORIES ============================*/
 
 app.get('/stories', function (req, res) {
@@ -1279,23 +1322,26 @@ app.get('/stories', function (req, res) {
         let artWork = [];
         let _allArtwork = [];
         let combined = [];
+        let _latest;
 
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).descending("createdAt").find(),
-                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find(),
-                new Parse.Query(_class.ArtWork).find()
+                new Parse.Query(_class.Stories).equalTo("userId", _user.id).descending("createdAt").find(),
+                new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
+                new Parse.Query(_class.ArtWork).find(),
+                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first()
             );
 
 
-        }).then(function (story, allPack, artworks) {
+        }).then(function (story, allPack, artworks, latest) {
 
             _story = story;
             _allPack = allPack;
             _allArtwork = artworks;
+            _latest = latest;
 
             _.each(artworks, function (artwork) {
 
@@ -1314,17 +1360,18 @@ app.get('/stories', function (req, res) {
                     if (artworks.get("sticker") === sticker.id) {
 
                         combined.push({
-                            story: artworks.get("object_id"),
+                            story: artworks.get("itemId"),
                             image: sticker.get("uri").url()
                         });
                     }
                 })
             });
 
-            res.render("pages/stories", {
+            res.render("pages/stories/stories", {
                 story: _story,
                 allPacks: _allPack,
-                arts: combined
+                arts: combined,
+                latest: _latest
             })
         }, function (error) {
 
@@ -1352,7 +1399,7 @@ app.get('/storyitem/:id', function (req, res) {
 
         }).then(function (story) {
 
-            res.render("pages/story_catalogue", {
+            res.render("pages/stories/story_catalogue", {
 
                 story_id: story.id,
                 name: story.get("title")
@@ -1370,6 +1417,210 @@ app.get('/storyitem/:id', function (req, res) {
     }
 });
 
+app.post('/storyItem/html/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let types = parseInt(req.body.style);
+    let content = req.body.content;
+    let color = req.body.color;
+    let object = {};
+
+
+    if (types === type.STORY_ITEM.text) {
+
+        object = {"0": {"text": content}};
+
+    } else if (types === type.STORY_ITEM.bold) {
+
+        object = {"6": {"text": content}};
+
+    } else if (types === type.STORY_ITEM.italic) {
+
+        object = {"5": {"text": content}};
+
+    } else if (types === type.STORY_ITEM.italicBold) {
+
+        object = {"8": {"text": content}};
+
+    } else if (types === type.STORY_ITEM.color) {
+
+        //TODO String(type.)
+        object = {"14": {"text": content, "color": "#" + color}};
+
+    }
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+
+        }).then(function (storyItem) {
+
+
+            storyItem.get("contents").html.push(object);
+            return storyItem.save();
+
+        }).then(function (item) {
+
+            res.redirect('/storyItem/html/old/' + item.id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.send("ERRROR " + error.message);
+        })
+    } else {
+        res.redirect('/');
+    }
+});
+
+app.post('/storyItem/html/edit/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let storyId = req.body.id;
+    let indexValue = req.body.indexValue;
+
+    console.log("STARTING " + parseInt(indexValue));
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+
+        }).then(function (story_item) {
+
+            console.log("SECOND STAGE " + JSON.stringify(story_item));
+
+            let html = story_item.get("contents").html;
+            for (let i = 0; i < html.length; i++) {
+                if (parseInt(indexValue) === i) {
+                    let _html = html[i];
+                    let typeOfObject = Object.keys(_html);
+                    let content = Object.values(_html)[0];
+
+                    console.log("THIRD STAGE " + typeOfObject + " AND " + JSON.stringify(content));
+
+                    res.render("pages/stories/edit_html", {
+                        type: type,
+                        content: content,
+                        objectType: typeOfObject,
+                        story_id: storyId,
+                        storyItemId: story_item.id,
+                        index: indexValue
+                    })
+                }
+            }
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect("/storyitem/view/" + storyId);
+        })
+    } else {
+        res.redirect('/');
+    }
+
+});
+
+app.get('/storyItem/html/edit/:id/:storyId', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let storyId = req.params.storyId;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+
+        }).then(function (storyItem) {
+
+            res.render("pages/stories/storyitem_html", {
+
+                storyItem: storyItem,
+                storyId: storyId
+
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/storyitem/view/' + storyId);
+
+        })
+    } else {
+        res.redirect('/');
+    }
+
+})
+
+app.get('/storyItem/html/:state/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let state = req.params.state;
+    let _story;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            if (state === "new") {
+                let Story = new Parse.Object.extend(_class.StoryItems);
+                let storyItem = new Story();
+
+                storyItem.set("type", type.STORY_ITEM.html);
+                storyItem.set("contents", {"html": []});
+                storyItem.set("storyId", id);
+
+                return storyItem.save();
+
+            } else if (state === "old") {
+
+                return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+
+            }
+            //product.set("productId", {"android": android, "ios": ios});
+
+        }).then(function (storyItem) {
+
+            _story = storyItem;
+
+            if (state === "new") {
+
+                return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+            } else if (state === "old") {
+
+                return new Parse.Query(_class.Stories).equalTo("objectId", storyItem.get("storyId")).first();
+
+            }
+
+        }).then(function (story) {
+
+            console.log("STORY ITEM " + JSON.stringify(story));
+
+            res.render("pages/stories/story_html", {
+                name: story.get("title"),
+                storyItemId: _story.id,
+                storyId: story.id
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect("/storyitem/" + id);
+        })
+
+    } else {
+
+        res.redirect('/');
+    }
+});
+
 app.get('/storyitem/view/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -1384,33 +1635,21 @@ app.get('/storyitem/view/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.StoryItems).equalTo("story_id", id).find();
+            return new Parse.Query(_class.StoryItems).equalTo("storyId", id).find();
 
         }).then(function (story_item) {
 
             _storyItem = story_item;
 
             _.each(story_item, function (item) {
-                if (item.get("type") === type.STORY_ITEM.image) {
-                    image_array.push(item.get("content"));
-                } else if (item.get("type") === type.STORY_ITEM.sticker) {
-                    sticker_array.push(item.get("content"));
+                if (item.get("type") === type.STORY_ITEM.sticker) {
+                    sticker_array.push(item.get("contents").id);
                 }
             });
 
-            if (image_array.length > 0) {
-                return new Parse.Query(_class.Assets).containedIn("objectId", image_array).find();
-
-            } else {
-                return true;
-            }
+            return true;
 
         }).then(function (image) {
-
-            if (image.length > 0) {
-                _images = image;
-            }
-
 
             if (sticker_array.length > 0) {
                 return new Parse.Query(_class.Stickers).containedIn("objectId", sticker_array).find();
@@ -1427,12 +1666,12 @@ app.get('/storyitem/view/:id', function (req, res) {
 
             }
 
-            res.render("pages/story_items", {
+            // res.send(JSON.stringify(_storyItem));
+            res.render("pages/stories/story_items", {
 
                 story_item: _storyItem,
                 story_id: id,
                 stickers: _stickers,
-                images: _images
 
             });
         }, function (error) {
@@ -1443,12 +1682,68 @@ app.get('/storyitem/view/:id', function (req, res) {
     }
 });
 
+app.post('/storyitem/html/update/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let htmlContent = req.body.htmlContent;
+    let htmlColor = req.body.htmlColor;
+    let story_id = req.body.id;
+    let index = parseInt(req.body.index);
+
+    if (token) {
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+
+        }).then(function (story_item) {
+
+            let contents = story_item.get("contents");
+
+            let _html = contents.html[index];
+            let htmlType = Object.keys(_html);
+
+            console.log("OBJECT TYPE " + htmlType);
+
+            if (parseInt(htmlType) !== type.STORY_ITEM.color) {
+
+                let html = {};
+                html[htmlType.toString()] = {"text": htmlContent};
+                console.log("UPDATED HTML " + JSON.stringify(html));
+
+                contents.html[index] = html;
+
+            } else {
+
+                let html = {};
+                html[htmlType.toString()] = {"text": htmlContent, "color": htmlColor};
+                console.log("UPDATED HTML " + JSON.stringify(html));
+
+                contents.html[index] = html;
+            }
+
+            story_item.set("contents", contents);
+            return story_item.save();
+
+        }).then(function () {
+
+            res.redirect('/storyitem/view/' + story_id);
+
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/storyItem/html/edit/' + id);
+        })
+    }
+});
+
 app.post('/storyitem/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
     let content = req.body.content;
     let story_id = req.body.id;
+    let heading = req.body.heading;
+    let storyItemType = parseInt(req.body.type);
+    let object = {};
 
     if (token) {
 
@@ -1458,7 +1753,24 @@ app.post('/storyitem/:id', function (req, res) {
 
         }).then(function (story_item) {
 
-            story_item.set("content", content);
+            if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
+                storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
+                storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sideNote ||
+                storyItemType === type.STORY_ITEM.greyArea) {
+
+                object = {"text": content};
+
+            } else if (storyItemType === type.STORY_ITEM.heading) {
+
+                object = {"heading": heading, "text": content};
+
+            } else if (storyItemType === type.STORY_ITEM.list) {
+
+                object = {"list": content};
+
+            }
+
+            story_item.set("contents", object);
             return story_item.save();
 
         }).then(function () {
@@ -1467,7 +1779,7 @@ app.post('/storyitem/:id', function (req, res) {
 
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/edit_story_item/' + id + "/" + story_id);
+            res.redirect('/storyitem/edit/' + id + "/" + story_id);
         })
     } else {
         res.redirect('/');
@@ -1493,7 +1805,7 @@ app.post('/storyitem/sticker/:id', function (req, res) {
 
             _story = story;
 
-            return new Parse.Query(_class.Packs).equalTo("objectId", story.get("pack_id")).first();
+            return new Parse.Query(_class.Packs).equalTo("objectId", story.get("packId")).first();
 
         }).then(function (pack) {
 
@@ -1502,7 +1814,7 @@ app.post('/storyitem/sticker/:id', function (req, res) {
 
         }).then(function (stickers) {
 
-            res.render("pages/catalogue_sticker", {
+            res.render("pages/stories/catalogue_sticker", {
                 story: _story.id,
                 stickers: stickers
             });
@@ -1531,8 +1843,8 @@ app.post('/storyitem/sticker/add/:id', function (req, res) {
             let Story = new Parse.Object.extend(_class.StoryItems);
             let catalogue = new Story();
 
-            catalogue.set("content", sticker_id);
-            catalogue.set("story_id", story_id);
+            catalogue.set("contents", {"id": sticker_id});
+            catalogue.set("storyId", story_id);
             catalogue.set("type", type.STORY_ITEM.sticker);
 
             return catalogue.save();
@@ -1558,6 +1870,7 @@ app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
     let token = req.cookies.token;
     let files = req.files;
     let id = req.params.id;
+    let storyItem = "/storyitem/";
 
     if (token) {
 
@@ -1584,8 +1897,8 @@ app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
             let catalogue = new Story();
 
             catalogue.set("type", type.STORY_ITEM.image);
-            catalogue.set("content", image.id);
-            catalogue.set("story_id", id);
+            catalogue.set("contents", {"uri": image.get("uri").url()});
+            catalogue.set("storyId", id);
 
             return catalogue.save();
 
@@ -1603,13 +1916,12 @@ app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
                 }
             });
 
-
-            res.redirect("/storyitem/" + id);
+            res.redirect(storyItem + id);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect("/storyitem/" + id);
+            res.redirect(storyItem + id);
 
         })
     } else {
@@ -1622,11 +1934,10 @@ app.post('/storyItem/type/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let content = req.body.content;
+    let heading = req.body.heading;
     let _type = parseInt(req.body.style);
 
     if (token) {
-
-        console.log("CONTENT " + content);
 
         getUser(token).then(function (sessionToken) {
 
@@ -1636,31 +1947,56 @@ app.post('/storyItem/type/:id', function (req, res) {
             switch (_type) {
                 case type.STORY_ITEM.text:
                     story.set("type", type.STORY_ITEM.text);
+                    story.set("contents", {"text": content});
                     break;
 
                 case type.STORY_ITEM.quote:
                     story.set("type", type.STORY_ITEM.quote);
+                    story.set("contents", {"text": content});
                     break;
 
                 case type.STORY_ITEM.divider:
                     story.set("type", type.STORY_ITEM.divider);
+                    story.set("contents", {"": ""});
                     break;
 
                 case type.STORY_ITEM.italic:
                     story.set("type", type.STORY_ITEM.italic);
+                    story.set("contents", {"text": content});
                     break;
 
                 case type.STORY_ITEM.bold:
                     story.set("type", type.STORY_ITEM.bold);
+                    story.set("contents", {"text": content});
                     break;
 
                 case type.STORY_ITEM.italicBold:
                     story.set("type", type.STORY_ITEM.italicBold);
+                    story.set("contents", {"text": content});
+                    break;
+
+                case type.STORY_ITEM.list:
+                    story.set("type", type.STORY_ITEM.list);
+                    story.set("contents", {"text": content});
+                    break;
+
+                case type.STORY_ITEM.sideNote:
+                    story.set("type", type.STORY_ITEM.sideNote);
+                    story.set("contents", {"text": content});
+                    break;
+
+                case type.STORY_ITEM.greyArea:
+                    story.set("type", type.STORY_ITEM.greyArea);
+                    story.set("contents", {"text": content});
+                    break;
+
+                case type.STORY_ITEM.heading:
+                    story.set("type", type.STORY_ITEM.heading);
+                    story.set("contents", {"heading": heading, "text": content});
                     break;
             }
 
-            story.set("content", content);
-            story.set("story_id", id);
+            story.set("storyId", id);
 
             return story.save();
 
@@ -1684,6 +2020,8 @@ app.post('/story/artwork/add/:id/:state', function (req, res) {
     let sticker_id = req.body.sticker_id;
     let story_id = req.params.id;
     let state = req.params.state;
+    let storyEdit = '/storyedit/';
+
 
     if (token) {
 
@@ -1697,15 +2035,15 @@ app.post('/story/artwork/add/:id/:state', function (req, res) {
         }).then(function (story) {
             id = story.id;
 
-            if (state === "change"){
+            if (state === "change") {
 
-                return new Parse.Query(_class.ArtWork).equalTo("object_id", story.id).first();
+                return new Parse.Query(_class.ArtWork).equalTo("itemId", story.id).first();
 
-            }else if (state === "new"){
+            } else if (state === "new") {
                 let Artwork = new Parse.Object.extend(_class.ArtWork);
                 let artwork = new Artwork();
 
-                artwork.set("object_id", id);
+                artwork.set("itemId", id);
                 artwork.set("sticker", sticker_id);
 
                 return artwork.save();
@@ -1720,19 +2058,66 @@ app.post('/story/artwork/add/:id/:state', function (req, res) {
 
                 return artwork.save();
 
-            }else if (state === "new"){
-                res.redirect('/storyedit/' + id);
+            } else if (state === "new") {
+                res.redirect(storyEdit + id);
 
             }
 
         }).then(function () {
 
-            res.redirect('/storyedit/' + id);
+            res.redirect(storyEdit + id);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/story/' + story_id + '/' + state);
+            res.redirect('/story/' + story_id);
+
+        });
+    } else {
+        res.redirect('/');
+
+    }
+});
+
+app.get('/story/artwork/:state/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let state = req.params.state;
+
+    if (token) {
+
+        let _user = {};
+        let _story = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+        }).then(function (story) {
+
+            _story = story;
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", story.get("packId")).first();
+
+        }).then(function (pack) {
+
+            let col = pack.relation(_class.Packs);
+            return col.query().find();
+
+        }).then(function (stickers) {
+
+            res.render("pages/stories/story_artwork", {
+                story: _story.id,
+                stickers: stickers,
+                state: state
+            });
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/');
 
         });
     } else {
@@ -1745,6 +2130,8 @@ app.get('/storyedit/:id', function (req, res) {
 
     let token = req.cookies.token;
     let story_id = req.params.id;
+    let _latest;
+    let page;
 
     if (token) {
 
@@ -1754,14 +2141,23 @@ app.get('/storyedit/:id', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
+            _user = sessionToken.get("user");
+
             return Parse.Promise.when(
                 new Parse.Query(_class.Stories).equalTo("objectId", story_id).first(),
-                new Parse.Query(_class.ArtWork).equalTo("object_id", story_id).first()
+                new Parse.Query(_class.ArtWork).equalTo("itemId", story_id).first(),
+                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
+                new Parse.Query(_class.Stories).equalTo("userId", _user.id).find()
             );
 
-        }).then(function (story, sticker) {
+        }).then(function (story, sticker, latest, stories) {
 
             _story = story;
+            _latest = latest;
+
+            page = util.page(stories, story_id);
+
+            console.log("PAGE " + JSON.stringify(page));
 
             colors = story.get("color");
             if (colors) {
@@ -1771,15 +2167,24 @@ app.get('/storyedit/:id', function (req, res) {
                 colors = type.DEFAULT.color;
             }
 
-            return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("sticker")).first();
+            if (sticker) {
+
+                return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("sticker")).first();
+
+            } else {
+                return "";
+            }
 
 
         }).then(function (_sticker) {
 
-            res.render("pages/story_details", {
+            res.render("pages/stories/story_details", {
                 story: _story,
                 sticker: _sticker,
-                colors: colors
+                colors: colors,
+                latest: _latest,
+                next: page.next,
+                previous: page.previous
             });
 
         }, function (error) {
@@ -1794,15 +2199,15 @@ app.get('/storyedit/:id', function (req, res) {
     }
 });
 
-
-
-app.post('/edit_story/:id', function (req, res) {
+app.post('/storyedit/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let title = req.body.title;
     let keyword = req.body.keyword;
     let summary = req.body.summary;
     let _keyword = [];
+    let storyEdit = '/storyedit/';
+
 
     if (keyword !== "undefined" || keyword !== undefined) {
         _keyword = keyword.split(",");
@@ -1820,19 +2225,19 @@ app.post('/edit_story/:id', function (req, res) {
         }).then(function (story) {
 
             story.set("title", title);
-            story.set("keyword", _keyword);
+            story.set("keywords", _keyword);
             story.set("summary", summary);
 
             return story.save();
 
         }).then(function () {
 
-            res.redirect('/storyedit/' + id);
+            res.redirect(storyEdit + id);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/storyedit/' + id);
+            res.redirect(storyEdit + id);
 
         })
     } else {
@@ -1841,10 +2246,20 @@ app.post('/edit_story/:id', function (req, res) {
     }
 });
 
-app.get('/main_story/:id/:title', function (req, res) {
+app.post('/story', function (req, res) {
     let token = req.cookies.token;
-    let id = req.params.id;
-    let title = req.params.title;
+    let title = req.body.title;
+    let summary = req.body.summary;
+    let pack_id = req.body.pack_id;
+    let body = req.body.story;
+    let storyType = parseInt(req.body.storyType);
+    let _keywords = [];
+    let story_id;
+    let newObject = {};
+
+    if (keywords !== undefined || keywords !== "undefined") {
+        _keywords = keywords.split(",");
+    }
 
     if (token) {
 
@@ -1852,13 +2267,171 @@ app.get('/main_story/:id/:title', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.StoryBody).equalTo("story_id", id).first();
+            _user = sessionToken.get("user");
+
+            //TODO move to story item
+            // newObject.title = title;
+            // newObject.description = summary;
+            //
+            // newObject.html = [{"2":"sd","4":"sdf","7":"sdf"}];
+
+            let Stories = new Parse.Object.extend(_class.Stories);
+            let story = new Stories();
+
+            story.set("title", title);
+            story.set("summary", summary);
+            story.set("packId", pack_id);
+            story.set("keywords", []);
+            // story.set("is_latest_story", false);
+            story.set("published", false);
+            story.set("userId", _user.id);
+            story.set("status", 0);
+            story.set("storyType", storyType);
+            // story.set("storyObject", newObject);
+
+
+            return story.save();
+
+        }).then(function (story) {
+            let Main = new Parse.Object.extend(_class.StoryBody);
+            let main = new Main();
+
+            story_id = story.id;
+            main.set("storyId", story.id);
+            main.set("story", body);
+
+            return main.save();
+
+        }).then(function (main) {
+
+            res.redirect('/story/artwork/new/' + main.get("storyId"));
+
+        }, function (error) {
+            console.log("ERROR WHEN CREATING NEW STORY " + error.message);
+            res.redirect('/stories');
+        });
+    } else {
+        res.redirect('/');
+    }
+
+});
+
+app.get('/storycolor/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let color = [];
+    let _story = [];
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
+                new Parse.Query(_class.ArtWork).equalTo("itemId", id).first()
+            );
+
+        }).then(function (story, art) {
+
+            _story = story;
+            colors = story.get("color");
+            if (colors) {
+                color = story.get("color");
+            } else {
+                //use system default
+                colors = type.DEFAULT.color
+            }
+
+            return new Parse.Query(_class.Stickers).equalTo("objectId", art.get("sticker")).first();
+
+        }).then(function (sticker) {
+
+            res.render("pages/stories/choose_color", {
+                story: _story,
+                colors: colors,
+                sticker: sticker
+            });
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/storyedit/' + story.id);
+        })
+
+    } else {
+        res.redirect('/');
+
+    }
+});
+
+app.post('/story/color/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let color_1 = req.body.color1;
+    let color_2 = req.body.color2;
+    let hash = "#";
+    let storyEdit = '/storyedit/';
+
+    if (token) {
+
+        color_1 = hash.concat(color_1);
+        color_2 = hash.concat(color_2);
+
+        console.log("COLOR " + color_2);
+
+        let colors = [color_1, color_2];
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
 
         }).then(function (story) {
 
-            res.render("pages/story_page", {
-                story: story,
-                title: title
+            story.set("color", colors);
+
+            return story.save();
+
+        }).then(function () {
+
+            res.redirect(storyEdit + id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect(storyEdit + id);
+
+        });
+
+    } else {
+        res.redirect('/');
+
+    }
+});
+
+app.get('/storymain/:id', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.StoryBody).equalTo("storyId", id).first(),
+                new Parse.Query(_class.Stories).equalTo("objectId", id).first()
+            )
+
+        }).then(function (storyBody, story) {
+
+            res.render("pages/stories/story_page", {
+                story: storyBody,
+                title: story.get("title")
             });
 
         }, function (error) {
@@ -1871,7 +2444,199 @@ app.get('/main_story/:id/:title', function (req, res) {
     }
 });
 
-app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res) {
+app.post('/storymain/edit/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let main_story = req.body.main_story;
+    let story_id = "";
+    let storyMain = '/storymain/';
+
+    if (token) {
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(_class.StoryBody).equalTo("objectId", id).first();
+        }).then(function (story) {
+
+            story_id = story.get("storyId");
+
+            story.set("story", main_story);
+
+            return story.save();
+
+        }).then(function () {
+
+            res.redirect(storyMain + story_id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message)
+            res.redirect(storyMain + story_id);
+        })
+    } else {
+        res.redirect('/');
+
+    }
+});
+
+app.get('/storydelete/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let _user = {};
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            console.log("STORY ID " + id);
+            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+        }).then(function (story) {
+
+            story.destroy({
+                success: function (object) {
+                    console.log("removed" + JSON.stringify(object));
+                    res.redirect('/stories');
+                },
+                error: function (error) {
+                    console.log("Could not remove" + error);
+                    res.redirect("/stories");
+
+                }
+            });
+
+        }, function (error) {
+
+            console.log("ERROR " + error);
+            res.redirect("/stories");
+
+        })
+    } else {
+        res.redirect('/');
+    }
+});
+
+app.post('/storyitem/delete/:storyId', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.body.storyItem;
+    let storyId = req.params.storyId;
+    let storyItemView = "/storyitem/view/";
+    let assetId;
+    let _storyItem;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+
+        }).then(function (storyItem) {
+
+            assetId = storyItem.get("contents");
+            _storyItem = storyItem;
+
+            storyItem.destroy({
+                success: function (object) {
+                    console.log("removed" + JSON.stringify(object));
+                    return true;
+                },
+                error: function (error) {
+                    console.log("Could not remove" + error);
+                    res.redirect(storyItemView + storyId);
+
+                }
+            })
+
+        }).then(function () {
+
+            if (_storyItem.get("type") === type.STORY_ITEM.image) {
+
+                return new Parse.Query(_class.Assets).equalTo("objectId", assetId.uri).first();
+
+            } else {
+
+                res.redirect(storyItemView + storyId);
+
+            }
+
+        }).then(function (asset) {
+
+            asset.destroy({
+                success: function (object) {
+                    console.log("removed" + JSON.stringify(object));
+                    res.redirect(storyItemView + storyId);
+                },
+                error: function (error) {
+                    console.log("Could not remove" + error);
+                    res.redirect(storyItemView + storyId);
+
+                }
+            })
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/stories');
+        })
+
+    } else {
+        res.redirect('/');
+    }
+
+});
+
+app.get('/storyitem/delete/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+
+        console.log("THIS IS THE CORRECT ROUTE");
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.StoryItems).equalTo("storyId", id).find();
+
+        }).then(function (stories) {
+
+            console.log("THIS IS THE CORRECT ROUTE 2 " + JSON.stringify(stories));
+
+            if (stories.length > 0) {
+
+                return Parse.Object.destroyAll(stories);
+
+            } else {
+
+                return true;
+
+            }
+
+        }).then(function (success) {
+
+            console.log("THIS IS THE CORRECT ROUTE 3");
+
+
+            res.redirect("/storydelete/" + id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/stories');
+        })
+
+    } else {
+        res.redirect('/');
+    }
+});
+
+app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) {
 
     let token = req.cookies.token;
     let files = req.files;
@@ -1883,6 +2648,7 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
     let _storyItem = [];
     let storyContent;
     let _storyId;
+    let storyItemView = '/storyitem/view/';
 
     console.log("TYPE " + storyItemType);
 
@@ -1895,21 +2661,21 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
         }).then(function (storyItem) {
 
             _storyItem = storyItem;
-            storyContent = storyItem.get("content");
-            _storyId = storyItem.get("story_id");
+            storyContent = storyItem.get("contents");
+            _storyId = storyItem.get("storyId");
 
             if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
                 storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
                 storyItemType === type.STORY_ITEM.italicBold) {
 
                 storyItem.set("type", storyItemType);
-                storyItem.set("content", content);
+                storyItem.set("contents", content);
 
                 return storyItem.save();
             } else if (storyItemType === type.STORY_ITEM.divider) {
 
                 storyItem.set("type", storyItemType);
-                storyItem.set("content", "");
+                storyItem.set("contents", "");
 
                 return storyItem.save();
             } else if (storyItemType === type.STORY_ITEM.image) {
@@ -1930,13 +2696,13 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
                     return asset.save();
                 }
             } else if (storyItemType === type.STORY_ITEM.sticker) {
-                res.redirect('/change_sticker/' + _storyId + '/' + id);
+                res.redirect('/storyitem/change/sticker/' + _storyId + '/' + id);
             }
         }).then(function (asset) {
 
             if (storyItemType === type.STORY_ITEM.image) {
                 _storyItem.set("type", storyItemType);
-                _storyItem.set("content", asset.id);
+                _storyItem.set("contents", asset.id);
 
                 return _storyItem.save();
 
@@ -1962,11 +2728,11 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
             if (previousForm === type.STORY_ITEM.image) {
 
-                console.log("INSIDE IMAGE" + storyContent + " STORY " + _storyItem.get("content"));
+                console.log("INSIDE IMAGE" + storyContent + " STORY " + _storyItem.get("contents").uri);
                 return new Parse.Query(_class.Assets).equalTo("objectId", storyContent).first();
 
             } else {
-                res.redirect('/storyitem/view/' + storyId);
+                res.redirect(storyItemView + storyId);
 
             }
 
@@ -1978,18 +2744,18 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
             image.destroy({
                 success: function (object) {
                     console.log("DESTROYED IAMGE " + JSON.stringify(object));
-                    res.redirect('/storyitem/view/' + storyId);
+                    res.redirect(storyItemView + storyId);
                 },
                 error: function (error) {
                     console.log("Could not remove" + error);
-                    res.redirect('/storyitem/view/' + storyId);
+                    res.redirect(storyItemView + storyId);
 
                 }
             })
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/storyitem/view/' + storyId);
+            res.redirect(storyItemView + storyId);
 
         })
 
@@ -1999,12 +2765,13 @@ app.post('/change_story_type/:storyId', upload.array('im1'), function (req, res)
 
 });
 
-app.post('/change_catalogue_sticker/:id', function (req, res) {
+app.post('/storyitem/change/sticker/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
     let stickerId = req.body.sticker_id;
     let storyId;
+    let storyItemView = '/storyitem/view/';
 
     if (token) {
 
@@ -2016,21 +2783,21 @@ app.post('/change_catalogue_sticker/:id', function (req, res) {
 
         }).then(function (storyItem) {
 
-            storyId = storyItem.get("story_id");
+            storyId = storyItem.get("storyId");
 
             storyItem.set("type", type.STORY_ITEM.sticker);
-            storyItem.set("content", stickerId);
+            storyItem.set("contents", {"id": stickerId});
 
             return storyItem.save();
 
         }).then(function () {
 
-            res.redirect('/storyitem/view/' + storyId);
+            res.redirect(storyItemView + storyId);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/storyitem/view/' + storyId);
+            res.redirect(storyItemView + storyId);
 
         })
     } else {
@@ -2039,7 +2806,7 @@ app.post('/change_catalogue_sticker/:id', function (req, res) {
 
 });
 
-app.get('/change_sticker/:storyId/:storyItemId', function (req, res) {
+app.get('/storyitem/change/sticker/:storyId/:storyItemId', function (req, res) {
 
     let token = req.cookies.token;
     let storyId = req.params.storyId;
@@ -2057,7 +2824,7 @@ app.get('/change_sticker/:storyId/:storyItemId', function (req, res) {
 
         }).then(function (story) {
 
-            return new Parse.Query(_class.Packs).equalTo("objectId", story.get("pack_id")).first();
+            return new Parse.Query(_class.Packs).equalTo("objectId", story.get("packId")).first();
 
         }).then(function (pack) {
 
@@ -2066,7 +2833,7 @@ app.get('/change_sticker/:storyId/:storyItemId', function (req, res) {
 
         }).then(function (stickers) {
 
-            res.render("pages/change_catalogue_sticker", {
+            res.render("pages/stories/change_catalogue_sticker", {
                 storyItemId: storyItemId,
                 stickers: stickers
             });
@@ -2077,242 +2844,41 @@ app.get('/change_sticker/:storyId/:storyItemId', function (req, res) {
     }
 });
 
-app.post('/change_artwork', upload.array('im1'), function (req, res) {
-
-    let token = req.cookies.token;
-    let files = req.files;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-        })
-
-    }
-});
-
-
-app.post('/edit_main_story/:id', function (req, res) {
+app.get('/storyitem/edit/:id/:story_id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
-    let main_story = req.body.main_story;
-    let title = req.body.title;
-    let story_id = "";
-
-    if (token) {
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            return new Parse.Query(_class.StoryBody).equalTo("objectId", id).first();
-        }).then(function (story) {
-
-            story_id = story.get("story_id");
-
-            story.set("story", main_story);
-
-            return story.save();
-
-        }).then(function () {
-
-            res.redirect('/main_story/' + story_id + '/' + title);
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message)
-            res.redirect('/main_story/' + story_id + '/' + title);
-        })
-    } else {
-        res.redirect('/');
-
-    }
-});
-
-app.get('/packs_in_review', function (req, res) {
-
-    let token = req.cookies.token;
+    let story_id = req.params.story_id;
 
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
-            return new Parse.Query(_class.Packs).equalTo("status", type.PACK_STATUS.review).find();
+            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
 
-        }).then(function (pack) {
+        }).then(function (story_item) {
 
-            res.render("pages/packs_for_admin", {
-
-                collection: pack
-
-            });
-
+            res.render("pages/stories/edit_story_item", {
+                story_item: story_item,
+                story_id: story_id
+            })
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/home');
-
-        });
-
+            res.redirect('/story/item/' + story_id);
+        })
     } else {
         res.redirect('/');
-
     }
+
 });
 
-app.get('/home', function (req, res) {
-
-    let token = req.cookies.token;
-
-    if (token) {
-
-        let _user = {};
-
-        let _allPacks = [];
-        let _story = [];
-        let _collection = [];
-        let _allAds = [];
-        let _categories = [];
-        let _messages = [];
-        let sticker_id;
-        let _latestSticker;
-        let _storyImage;
-        let _storyBody;
-        let _stickerName;
-        let _categoryLength = 0;
-        let _packLength = 0;
-        let _stickerLength = 0;
-        let _storyLength = 0;
-        const limit = 5;
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            if (_user.get("type") === MK_TEAM) {
-                res.redirect('/get_barcode');
-            }
-
-            return Parse.Promise.when(
-                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first(),
-                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
-                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).descending("createdAt").limit(limit).find(),
-                new Parse.Query(_class.Categories).limit(limit).find(),
-                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).descending("createdAt").limit(limit).find(),
-                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).find(),
-                new Parse.Query(_class.Categories).count(),
-                new Parse.Query(_class.Packs).equalTo("user_id", _user.id).count(),
-                new Parse.Query(_class.Stickers).equalTo("user_id", _user.id).count(),
-                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).count(),
-                new Parse.Query(_class.Adverts).equalTo("user_id", _user.id).limit(limit).find(),
-                new Parse.Query(_class.Message).limit(limit).find()
-            );
-
-        }).then(function (sticker, latestStory, collection, categories, story, allPacks, categoryLength, packLength,
-                          stickerLength, storyLength, allAdverts, allMessages) {
-
-            _categories = categories;
-            _collection = collection;
-            _story = story;
-            _messages = allMessages;
-            _allPacks = allPacks;
-            _allAds = allAdverts;
-            _categoryLength = helper.leadingZero(categoryLength);
-            _packLength = helper.leadingZero(packLength);
-            _stickerLength = helper.leadingZero(stickerLength);
-            _storyLength = helper.leadingZero(storyLength);
-
-            return Parse.Promise.when(
-                new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("latest_id")).first(),
-                new Parse.Query(_class.ArtWork).equalTo("object_id", latestStory.get("latest_id")).first(),
-                new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("latest_id")).first()
-            );
-
-        }).then(function (latestSticker, storyImage, storyBody) {
-
-            _latestSticker = latestSticker.get("uri");
-            _latestSticker['stickerName'] = latestSticker.get("stickerName");
-            _latestSticker['description'] = latestSticker.get("description");
-
-            _storyBody = storyBody;
-
-            sticker_id = storyImage.get("sticker");
-
-            return new Parse.Query(_class.Stickers).equalTo("objectId", sticker_id).first();
-
-        }).then(function (sticker) {
-
-            if (_user.get("type") === NORMAL_USER) {
-
-                res.render("pages/home", {
-                    collections: _collection,
-                    allPacks: _allPacks,
-                    story: _story,
-                    categoryLength: _categoryLength,
-                    packLength: _packLength,
-                    stickerLength: _stickerLength,
-                    storyLength: _storyLength,
-                    name: _user.get("name"),
-                    verified: _user.get("emailVerified"),
-                    error_message: "null"
-
-                });
-
-            } else if (_user.get("type") === SUPER_USER) {
-
-                res.render("pages/admin_home", {
-                    collections: _collection,
-                    categories: _categories,
-                    allAdverts: _allAds,
-                    allPacks: _allPacks,
-                    story: _story,
-                    latestSticker: _latestSticker,
-                    latestStory: sticker,
-                    storyBody: _storyBody,
-                    stickerName: _stickerName,
-                    messages: _messages,
-                    categoryLength: _categoryLength,
-                    packLength: _packLength,
-                    stickerLength: _stickerLength,
-                    storyLength: _storyLength,
-                    user_name: _user.get("name"),
-                    verified: _user.get("emailVerified"),
-                    error_message: "null"
-
-                });
-
-            }
-
-        }, function (error) {
-
-            console.log("ERROR ON HOME " + error.message);
-
-            res.render("pages/admin_home", {
-                collections: _collection,
-                categories: _categories,
-                allAdverts: _allAds,
-                allPacks: _allPacks,
-                story: _story,
-                categoryLength: _categoryLength,
-                packLength: _packLength,
-                stickerLength: _stickerLength,
-                storyLength: _storyLength,
-                user_name: _user.get("name"),
-                verified: _user.get("emailVerified"),
-                error_message: "null"
-            });
-        });
+/*====================================== STORIES ============================*/
 
 
-    } else {
-        console.log("BACK TO LOGIN ");
-        res.redirect("/");
-    }
-});
+/*====================================== BARCODE ============================*/
 
-app.post('/create_barcode', function (req, res) {
+app.post('/barcode', function (req, res) {
 
     let token = req.cookies.token;
     let number = req.body.barcode_amount;
@@ -2349,12 +2915,12 @@ app.post('/create_barcode', function (req, res) {
 
         }).then(function () {
 
-            res.redirect('/get_barcodes');
+            res.redirect('/barcodes');
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/create_barcode');
+            res.redirect('/barcode');
         })
 
     } else {
@@ -2363,7 +2929,7 @@ app.post('/create_barcode', function (req, res) {
 
 });
 
-app.get('/get_barcodes', function (req, res) {
+app.get('/barcodes', function (req, res) {
 
     let token = req.cookies.token;
 
@@ -2375,13 +2941,13 @@ app.get('/get_barcodes', function (req, res) {
             barcodes.find({
 
                 success: function (bars) {
-                    res.render("pages/get_barcode", {
+                    res.render("pages/barcodes/get_barcode", {
                         barcodes: bars
                     });
                 },
                 error: function (error) {
                     console.log("Error: " + error.code + " " + error.message);
-                    res.redirect('/get_barcodes/');
+                    res.redirect('/barcodes');
                 }
             });
         }, function (error) {
@@ -2412,170 +2978,30 @@ app.get('/get_barcodes', function (req, res) {
 
 });
 
-
-//UPLOAD MULTIPLE STICKERS
-app.post('/uploads', upload.array('im1[]'), function (req, res) {
+app.get('/barcode', function (req, res) {
 
     let token = req.cookies.token;
-    let pack_id = req.body.pack_id;
-    let files = req.files;
-    let fileDetails = [];
-    let stickerDetails = [];
-    let stickerCollection;
-    let _previews = [];
 
     if (token) {
 
-        let _user = {};
-
         getUser(token).then(function (sessionToken) {
 
-            _user = sessionToken.get("user");
+            res.render("pages/barcodes/create_barcode");
 
-            let db = admin.database();
-
-            // change this to shorter folder
-            let ref = db.ref("server/saving-data/fireblog");
-
-            let statsRef = ref.child("/gstickers-e4668");
-
-            //TODO implement DRY for thumbnails
-            util.thumbnail(files).then(previews => {
-
-                _previews = previews;
-
-                return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first({sessionToken: token});
-
-            }).then(function (collection) {
-
-                stickerCollection = collection;
-
-                files.forEach(function (file) {
-
-                    let Sticker = new Parse.Object.extend(_class.Stickers);
-                    let sticker = new Sticker();
-
-                    let fullName = file.originalname;
-                    let stickerName = fullName.substring(0, fullName.length - 4);
-
-                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-
-                    let bitmapPreview;
-                    let parseFilePreview = "";
-
-                    _.map(_previews, preview => {
-                        if (stickerName === preview.name) {
-                            bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
-                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
-                        }
-                    });
-
-
-                    //create our parse file
-                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-                    sticker.set("stickerName", stickerName);
-                    sticker.set("localName", stickerName);
-                    sticker.set("uri", parseFile);
-                    sticker.set("preview", parseFilePreview);
-                    sticker.set("user_id", _user.id);
-                    sticker.set("parent", collection);
-                    sticker.set("description", "");
-                    sticker.set("flag", false);
-                    sticker.set("archive", false);
-                    sticker.set("sold", false);
-                    sticker.set("version", collection.get("version"));
-                    // sticker.setACL(setPermission(_user, false));
-
-                    stickerDetails.push(sticker);
-                    fileDetails.push(file);
-
-                });
-
-                console.log("SAVE ALL OBJECTS AND FILE");
-                return Parse.Object.saveAll(stickerDetails);
-
-            }).then(function (stickers) {
-
-                _.each(fileDetails, function (file) {
-                    //Delete tmp fil after upload
-                    let tempFile = file.path;
-                    fs.unlink(tempFile, function (err) {
-                        if (err) {
-                            //TODO handle error code
-                            console.log("-------Could not del temp" + JSON.stringify(err));
-                        }
-                        else {
-                            console.log("SUUCCCEESSSSS IN DELTEING TEMP");
-                        }
-                    });
-                });
-
-                _.each(stickers, function (sticker) {
-                    let collection_relation = stickerCollection.relation(_class.Packs);
-                    collection_relation.add(sticker);
-                });
-
-                console.log("SAVE COLLECTION RELATION");
-                return stickerCollection.save();
-
-            }).then(function () {
-
-                let data = {
-                    //Specify email data
-                    from: process.env.EMAIL_FROM || "test@example.com",
-                    //The email to contact
-                    to: _user.get("username"),
-                    //Subject and text data
-                    subject: 'Stickers Uploaded',
-                    html: fs.readFileSync("./uploads/sticker_upload.html", "utf8")
-                };
-
-                mailgun.messages().send(data, function (error, body) {
-                    if (error) {
-                        console.log("BIG BIG ERROR: ", error.message);
-                    }
-                    else {
-
-                        console.log("EMAIL SENT" + body);
-                    }
-                });
-
-                statsRef.transaction(function (sticker) {
-                    if (sticker) {
-                        if (sticker.stickers) {
-                            sticker.stickers++;
-                        }
-                    }
-
-                    return sticker
-                });
-
-
-            }).then(function (stickers) {
-
-                res.redirect("/pack/" + pack_id);
-
-            }, function (error) {
-
-                console.log("BIG BIG ERROR" + JSON.stringify(error));
-                res.redirect("/pack/" + pack_id);
-
-            })
-        }, function (error) {
-            console.log("BIG BIG ERROR" + error.message);
-            res.redirect("/");
         });
-
-
     } else {
-
-        res.redirect("/");
-
+        res.redirect('/');
     }
+
 });
 
+
+/*====================================== BARCODE ============================*/
+
+
+/*====================================== CATEGORY ============================*/
 // FIND A SPECIFIC CATEGORY
-app.post('/find_category', function (req, res) {
+app.post('/category/find', function (req, res) {
 
     let token = req.cookies.token;
     let categoryName = req.body.searchCategory;
@@ -2589,11 +3015,11 @@ app.post('/find_category', function (req, res) {
                 if (category) {
                     console.log("MESSAGE FROM SEARCH " + category);
                     console.log("CATEGORY DETAILS " + JSON.stringify(category));
-                    res.render("pages/search_categories", {categories: category});
+                    res.render("pages/categories/search_categories", {categories: category});
                 } else {
                     console.log("MESSAGE FROM SEARCH " + category);
                     console.log("CATEGORY DETAILS " + JSON.stringify(category));
-                    res.render("pages/search_categories", {categories: []});
+                    res.render("pages/categories/search_categories", {categories: []});
                 }
 
             },
@@ -2618,7 +3044,7 @@ app.get('/categories', function (req, res) {
 
                 let _categories = helper.chunks(categories, 4);
 
-                res.render("pages/categories", {categories: _categories});
+                res.render("pages/categories/categories", {categories: _categories});
             },
             function (error) {
                 console.log("No categories found.............." + JSON.stringify(error));
@@ -2630,8 +3056,7 @@ app.get('/categories', function (req, res) {
     }
 });
 
-
-app.post('/new_category', function (req, res) {
+app.post('/category', function (req, res) {
 
     let token = req.cookies.token;
     let categoryName = JSON.stringify(req.body.category_name);
@@ -2679,7 +3104,166 @@ app.post('/new_category', function (req, res) {
     }
 });
 
-app.post('/review_pack/:id', function (req, res) {
+app.post('/category/update', function (req, res) {
+
+    let token = req.cookies.token;
+    let newName = req.body.catname;
+    let currentId = req.body.categoryId;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query("Categories").equalTo("objectId", currentId).first()
+
+        }).then(function (category) {
+
+            category.set("name", newName);
+            return category.save();
+
+        }).then(function () {
+
+            res.redirect("/categories");
+
+        }, function (error) {
+
+            console.error(error);
+            res.redirect("/categories");
+
+        });
+    }
+    else { //no session found
+        res.redirect("/");
+    }
+
+});
+
+app.post('/category/delete', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.body.inputRemoveId;
+    let categories = '/categories';
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Categories).equalTo("objectId", id).first();
+
+        }).then(function (category) {
+                category.destroy({
+                    success: function (object) {
+                        console.log("removed" + JSON.stringify(object));
+                        res.redirect(categories);
+                    },
+                    error: function (error) {
+                        console.log("Could not remove" + error);
+                        res.redirect(categories);
+
+                    }
+                });
+            },
+            function (error) {
+                console.log("ERROR " + error);
+                res.redirect(categories);
+
+            });
+    }
+    else { //no session found
+        res.redirect("/");
+    }
+
+});
+
+/*====================================== CATEGORY ============================*/
+
+/*====================================== REVIEWS ============================*/
+
+app.get('/reviews', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(_class.Reviews).equalTo('owner', _user.id).find(); // Set our channel
+
+        }).then(function (review) {
+            // res.send(JSON.stringify(review));
+            res.render("pages/reviews/review_collection", {reviews: review});
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home');
+
+        });
+    } else {
+        res.redirect('/');
+
+    }
+});
+
+app.get('/review/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let pack_id = req.params.id;
+    let packs = '/packs';
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Packs);
+
+        }).then(function (pack) {
+
+            pack.get(pack_id, {
+                success: function (pack) {
+                    let pack_name = pack.get("name");
+                    let pack_owner = pack.get("userName");
+                    let pack_owner_id = pack.get("userId");
+                    let art = pack.get("artwork");
+                    let pack_id = pack.id;
+                    let _description = pack.get("description");
+
+                    //
+                    // new Parse.Query("User").equalTo("objectId", pack_owner).find().then(function (user) {
+                    //     _owner = user;
+                    //     console.log("ABOUT TO SEARCH FOR USER "+JSON.stringify(_owner));
+                    // }, function (error) {
+                    //     console.log("ERROR "+error.message);
+                    // });
+
+                    res.render("pages/reviews/review_page", {
+                        id: pack_id,
+                        packName: pack_name,
+                        owner: pack_owner,
+                        art_work: art,
+                        owner_id: pack_owner_id,
+                        description: _description
+                    });
+                },
+                error: function (error) {
+                    console.log("ERROR " + error.message);
+                    res.redirect(packs);
+                }
+
+            });
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect(packs);
+        });
+    } else {
+        res.redirect('/');
+    }
+});
+
+app.post('/review/pack/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
@@ -2704,10 +3288,10 @@ app.post('/review_pack/:id', function (req, res) {
                 } else if (status === "1") {
                     pack.set("status", type.PACK_STATUS.rejected);
                 }
-                review.set("image", pack.get("art_work").url());
-                review.set("name", pack.get("pack_name"));
-                review.set("owner", pack.get("user_id"));
-                review.set("pack_id", pack.id);
+                review.set("image", pack.get("artwork").url());
+                review.set("name", pack.get("name"));
+                review.set("owner", pack.get("userId"));
+                review.set("packId", pack.id);
                 return pack.save();
 
             }).then(function () {
@@ -2719,9 +3303,9 @@ app.post('/review_pack/:id', function (req, res) {
                 }
                 review.set("comments", comment);
                 review.set("reviewer", _user.id);
-                review.set("reviewer_name", _user.get("name"));
-                review.set("type_id", id);
-                review.set("review_field", []);
+                review.set("reviewerName", _user.get("name"));
+                review.set("typeId", id);
+                review.set("reviewField", []);
                 review.set("type", 0);
 
                 return review.save();
@@ -2739,7 +3323,7 @@ app.post('/review_pack/:id', function (req, res) {
     }
 });
 
-app.get('/review_details/:id', function (req, res) {
+app.get('/review/edit/:id', function (req, res) {
 
     let token = req.cookies.token;
     let review_id = req.params.id;
@@ -2761,19 +3345,19 @@ app.get('/review_details/:id', function (req, res) {
             console.log("REVIEWS " + JSON.stringify(review));
             let type = review.get("type");
             if (type === 1) {
-                let id = review.get("type_id");
+                let id = review.get("typeId");
                 return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
             } else {
-                res.render("pages/review_details", {reviews: review});
+                res.render("pages/reviews/review_details", {reviews: review});
             }
 
         }).then(function (sticker) {
             let sticker_url = sticker.get("uri").url();
-            res.render("pages/review_details", {reviews: _review, sticker_url: sticker_url});
+            res.render("pages/reviews/review_details", {reviews: _review, sticker_url: sticker_url});
 
         }, function (error) {
             console.log("ERROR WHEN RETRIEVING REVIEW " + error.message);
-            res.redirect('/review_collection');
+            res.redirect('/reviews');
         });
     } else {
         res.redirect('/');
@@ -2781,22 +3365,98 @@ app.get('/review_details/:id', function (req, res) {
     }
 });
 
-app.get('/review_collection', function (req, res) {
 
+app.post('/review/sticker/:stickerId/:packId', function (req, res) {
     let token = req.cookies.token;
+    let id = req.params.stickerId;
+    let pack_id = req.params.packId;
+    let field = req.body.reviewField;
+    let comments = req.body.review_text;
+    let status = req.body.flagged;
+
+    let review_field = field.split(",");
 
     if (token) {
+
         let _user = {};
 
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
+            let Sticker_review = new Parse.Object.extend(_class.Reviews);
+            let reviews = new Sticker_review();
 
-            return new Parse.Query(_class.Reviews).equalTo('owner', _user.id).find(); // Set our channel
+            new Parse.Query(_class.Stickers).equalTo("objectId", id).first().then(function (sticker) {
+                if (status === "2") {
+                    sticker.set("flagged", true);
+                } else if (status === "1") {
+                    sticker.set("flagged", false);
+                }
+                reviews.set("image", sticker.get("uri").url());
+                reviews.set("name", sticker.get("name"));
+                reviews.set("owner", sticker.get("userId"));
 
-        }).then(function (review) {
-            // res.send(JSON.stringify(review));
-            res.render("pages/review_collection", {reviews: review});
+                let _pack = sticker.get("parent");
+                _pack.fetch({
+                    success: function (_pack) {
+
+                        reviews.set("packId", _pack.id);
+
+                    }
+                });
+
+                return sticker.save();
+
+            }).then(function () {
+
+                if (status === "1") {
+                    reviews.set("approved", true);
+                } else if (status === "2") {
+                    reviews.set("approved", false);
+                }
+                reviews.set("comments", comments);
+                reviews.set("reviewer", _user.id);
+                reviews.set("reviewerName", _user.get("name"));
+                reviews.set("typeId", id);
+                reviews.set("reviewField", review_field);
+
+                reviews.set("type", 1);
+                return reviews.save();
+
+            }).then(function () {
+
+                console.log("STICKER REVIEWED");
+                res.redirect("/pack/" + pack_id);
+
+            }, function (error) {
+
+                console.log("STICKER REVIEW FAILED " + error.message);
+                res.redirect("/sticker/edit/" + id + "/" + pack_id);
+
+            });
+        });
+    } else {
+        res.redirect('/');
+    }
+});
+
+app.get('/review/find/packs', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Packs).equalTo("status", type.PACK_STATUS.review).find();
+
+        }).then(function (pack) {
+
+            res.render("pages/packs/packs_for_admin", {
+
+                collection: pack
+
+            });
 
         }, function (error) {
 
@@ -2804,333 +3464,23 @@ app.get('/review_collection', function (req, res) {
             res.redirect('/home');
 
         });
+
     } else {
         res.redirect('/');
 
     }
 });
 
-app.get('/review/:id', function (req, res) {
 
-    let token = req.cookies.token;
-    let pack_id = req.params.id;
+/*====================================== REVIEWS ============================*/
 
-    if (token) {
 
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Packs);
-
-        }).then(function (pack) {
-
-            pack.get(pack_id, {
-                success: function (pack) {
-                    let pack_name = pack.get("pack_name");
-                    let pack_owner = pack.get("user_name");
-                    let pack_owner_id = pack.get("user_id");
-                    let art = pack.get("art_work");
-                    let pack_id = pack.id;
-                    let _description = pack.get("pack_description");
-
-                    //
-                    // new Parse.Query("User").equalTo("objectId", pack_owner).find().then(function (user) {
-                    //     _owner = user;
-                    //     console.log("ABOUT TO SEARCH FOR USER "+JSON.stringify(_owner));
-                    // }, function (error) {
-                    //     console.log("ERROR "+error.message);
-                    // });
-
-                    res.render("pages/review_page", {
-                        id: pack_id,
-                        packName: pack_name,
-                        owner: pack_owner,
-                        art_work: art,
-                        owner_id: pack_owner_id,
-                        description: _description
-                    });
-                },
-                error: function (error) {
-                    console.log("ERROR " + error.message);
-                    res.redirect('/packs');
-                }
-
-            });
-        }, function (error) {
-            console.log("ERROR " + error.message);
-            res.redirect('/packs');
-        });
-    } else {
-        res.redirect('/');
-    }
-});
-
-app.post('/update_category', function (req, res) {
-
-        let token = req.cookies.token;
-        let newName = req.body.catname;
-        let currentId = req.body.categoryId;
-
-        if (token) {
-
-            getUser(token).then(function (sessionToken) {
-
-                return new Parse.Query("Categories").equalTo("objectId", currentId).first()
-
-            }).then(function (category) {
-
-                category.set("name", newName);
-                return category.save();
-
-            }).then(function () {
-
-                res.redirect("/categories");
-
-            }, function (error) {
-
-                console.error(error);
-                res.redirect("/categories");
-
-            });
-        }
-        else { //no session found
-            res.redirect("/");
-        }
-
-    }
-);
-
-//This is to remove stickers
-app.get('/delete_sticker/:id/:pid', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let pack_id = req.params.pid;
-
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
-
-        }).then(function (_sticker) {
-                _sticker.destroy({
-                    success: function (object) {
-                        console.log("removed" + JSON.stringify(object));
-                        res.redirect("/pack/" + pack_id);
-                    },
-                    error: function (error) {
-                        console.log("Could not remove" + error);
-                        res.redirect("/pack/" + pack_id);
-
-                    }
-                });
-            },
-            function (error) {
-                console.error(error);
-                res.redirect("/pack/" + pack_id);
-
-            });
-    } else {
-        res.redirect('/');
-    }
-
-});
-
-app.get('/remove_story/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let _user = {};
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-
-            return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
-
-        }).then(function (story) {
-
-            story.destroy({
-                success: function (object) {
-                    console.log("removed" + JSON.stringify(object));
-                    res.redirect('/stories');
-                },
-                error: function (error) {
-                    console.log("Could not remove" + error);
-                    res.redirect("/stories");
-
-                }
-            });
-
-        }, function (error) {
-
-            console.log("ERROR " + error);
-            res.redirect("/categories");
-
-        })
-    } else {
-        res.redirect('/');
-    }
-});
-
-app.post('/remove_story_item/:storyId', function (req, res) {
-    let token = req.cookies.token;
-    let id = req.body.storyItem;
-    let storyId = req.params.storyId;
-    let assetId;
-    let _storyItem;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
-
-        }).then(function (storyItem) {
-
-            assetId = storyItem.get("content");
-            _storyItem = storyItem;
-
-            storyItem.destroy({
-                success: function (object) {
-                    console.log("removed" + JSON.stringify(object));
-                    return true;
-                },
-                error: function (error) {
-                    console.log("Could not remove" + error);
-                    res.redirect("/storyitem/view/" + storyId);
-
-                }
-            })
-
-        }).then(function () {
-
-            if (_storyItem.get("type") === type.STORY_ITEM.image) {
-
-                return new Parse.Query(_class.Assets).equalTo("objectId", assetId).first();
-
-            } else {
-
-                res.redirect("/storyitem/view/" + storyId);
-
-            }
-
-        }).then(function (asset) {
-
-            asset.destroy({
-                success: function (object) {
-                    console.log("removed" + JSON.stringify(object));
-                    res.redirect("/storyitem/view/" + storyId);
-                },
-                error: function (error) {
-                    console.log("Could not remove" + error);
-                    res.redirect("/storyitem/view/" + storyId);
-
-                }
-            })
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/stories');
-        })
-
-    } else {
-        res.redirect('/');
-    }
-
-});
-
-app.get('/remove_story_items/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.params.id;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.StoryItems).equalTo("story_id", id).find();
-
-        }).then(function (stories) {
-
-            if (stories.length > 0) {
-
-                return Parse.Object.destroyAll(stories);
-
-            } else {
-
-                return true;
-
-            }
-
-        }).then(function (success) {
-
-            if (success) {
-
-                res.redirect("/remove_story/" + id);
-
-            }
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/stories');
-        })
-
-    } else {
-        res.redirect('/');
-    }
-});
-
-app.post('/remove_category', function (req, res) {
-
-    let token = req.cookies.token;
-    let id = req.body.inputRemoveId;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Categories).equalTo("objectId", id).first();
-
-        }).then(function (category) {
-                category.destroy({
-                    success: function (object) {
-                        console.log("removed" + JSON.stringify(object));
-                        res.redirect("/categories");
-                    },
-                    error: function (error) {
-                        console.log("Could not remove" + error);
-                        res.redirect("/categories");
-
-                    }
-                });
-            },
-            function (error) {
-                console.log("ERROR " + error);
-                res.redirect("/categories");
-
-            });
-    }
-    else { //no session found
-        res.redirect("/");
-    }
-
-});
-
-//LOGOUT
-app.get('/account/logout', function (req, res) {
-    res.clearCookie('token');
-    res.redirect("/");
-});
+/*====================================== PACKS ============================*/
 
 // Collection Dashboard
 app.get('/packs', function (req, res) {
 
-    var token = req.cookies.token;
+    let token = req.cookies.token;
 
     if (token) {
         let _user = {};
@@ -3139,9 +3489,9 @@ app.get('/packs', function (req, res) {
 
             _user = sessionToken.get("user");
             let query = new Parse.Query(_class.Packs);
-            query.equalTo("user_id", _user.id).find({sessionToken: token}).then(function (collections) {
+            query.equalTo("userId", _user.id).find({sessionToken: token}).then(function (collections) {
 
-                res.render("pages/packs", {collections: collections});
+                res.render("pages/packs/packs", {collections: collections});
 
             });
 
@@ -3157,250 +3507,14 @@ app.get('/packs', function (req, res) {
     }
 });
 
-
-//Displays all stickers belonging to a selected collection
-app.get('/pack/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let pack_id = req.params.id;
-
-    if (token) {
-
-        let _user = {};
-        let type;
-        let pack_name;
-        let pack_status;
-        let artwork;
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-            type = _user.get("type");
-
-            let query = new Parse.Query(_class.Packs).equalTo("objectId", pack_id);
-
-            switch (type) {
-                case SUPER_USER:
-                    return query.first({useMasterKey: true});
-
-                case NORMAL_USER:
-                    return query.first({sessionToken: token});
-
-            }
-
-        }).then(function (pack) {
-
-            pack_status = pack.get("status");
-            pack_art = pack.get("art_work");
-            pack_publish = pack.get("published");
-            pack_name = pack.get("pack_name");
-
-            let col = pack.relation(_class.Packs);
-
-            switch (type) {
-                case SUPER_USER:
-                    return col.query().find({useMasterKey: true});
-
-                case NORMAL_USER:
-                    return col.query().find({sessionToken: token});
-
-            }
-        }).then(function (stickers) {
-
-            switch (type) {
-                case SUPER_USER:
-                    res.render("pages/admin_pack", {
-                        stickers: stickers,
-                        id: pack_id,
-                        art: pack_art,
-                        published: pack_publish,
-                        pack_name: pack_name,
-                        userType: _user.get("type"),
-                        status: pack_status
-                    });
-                    break;
-
-                case NORMAL_USER:
-                    res.render("pages/new_pack", {
-                        stickers: stickers,
-                        id: pack_id,
-                        pack_name: pack_name,
-                        art: pack_art,
-                        published: pack_publish,
-                        status: pack_status
-                    });
-                    break;
-            }
-
-        }, function (error) {
-            console.log("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
-            res.redirect("/");
-        })
-    }
-    else {
-        //No session exists, log in
-        res.redirect("/");
-    }
-});
-
-
-app.get('/publish/:id/:state/:type', function (req, res) {
+// creating new pack
+app.post('/pack', function (req, res) {
 
     let token = req.cookies.token;
-    let id = req.params.id;
-    let state = req.params.state;
-    let type = req.params.type;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            switch (type) {
-                case "pack":
-                    return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
-
-                case "story":
-                    return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
-
-            }
-
-        }).then(function (object) {
-
-            if (state === "publish") {
-                object.set("published", true);
-            } else if (state === "unpublish") {
-                object.set("published", false);
-
-            }
-
-            return object.save();
-
-        }).then(function () {
-
-            switch (type) {
-                case "pack":
-                    res.redirect("/pack/" + id);
-                    return;
-
-                case "story":
-                    res.redirect("/storyedit/" + id);
-                    return;
-            }
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-
-            switch (type) {
-                case "pack":
-                    res.redirect("/pack/" + id);
-                    return;
-
-                case "story":
-                    res.redirect("/storyedit/" + id);
-                    return;
-            }
-
-        })
-    } else {
-        res.redirect('/');
-    }
-
-});
-
-
-app.get('/edit_pack_details/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let pack_id = req.params.id;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first();
-
-        }).then(function (pack) {
-
-            res.render("pages/pack_details", {
-                pack_details: pack
-            });
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect("/pack/" + pack_id);
-        })
-    } else {
-        res.redirect('/');
-    }
-});
-
-
-// Add Stickers Version 1
-app.get('/add_stickers/:id', function (req, res) {
-
-    var token = req.cookies.token;
-    var pack_id = req.params.id;
-
-    if (token) {
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first();
-
-        }).then(function (pack) {
-
-            res.render("pages/add_sticker", {id: pack.id, pack_name: pack.get("pack_name")});
-
-        }, function (error) {
-            res.redirect("/");
-
-        })
-    } else {
-        res.redirect("/");
-    }
-});
-
-app.get('/send_for_review/:id', function (req, res) {
-
-    var token = req.cookies.token;
-    var pack_id = req.params.id;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first();
-
-        }).then(function (pack) {
-
-            pack.set("status", type.PACK_STATUS.review);
-            return pack.save();
-
-        }).then(function () {
-
-            console.log("PACK SUBMITTED FOR REVIEW");
-            res.redirect('/pack/' + pack_id);
-
-        }, function (error) {
-
-            console.log("PACK NOT SUBMITTED FOR REVIEW. ERROR " + error.message);
-            res.redirect('/pack/' + pack_id);
-
-        });
-    } else {
-        res.redirect('/');
-    }
-});
-
-// creating new packs
-app.post('/new_pack', function (req, res) {
-
-    var token = req.cookies.token;
-    var pack_description = req.body.pack_description;
-    var coll_name = req.body.coll_name;
-    var pricing = parseInt(req.body.pricing);
-    var version = parseInt(req.body.version);
+    let pack_description = req.body.pack_description;
+    let coll_name = req.body.coll_name;
+    let packType = parseInt(req.body.packType);
+    let version = parseInt(req.body.version);
 
     if (token) {
 
@@ -3410,18 +3524,31 @@ app.post('/new_pack', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            var PackCollection = new Parse.Object.extend(_class.Packs);
-            var pack = new PackCollection();
-            pack.set("pack_name", coll_name);
-            pack.set("pack_description", pack_description);
-            pack.set("user_id", _user.id);
-            pack.set("user_name", _user.get("name"));
+            let PackCollection = new Parse.Object.extend(_class.Packs);
+            let pack = new PackCollection();
+            pack.set("name", coll_name);
+            pack.set("description", pack_description);
+            pack.set("userId", _user.id);
             pack.set("status", type.PACK_STATUS.pending);
-            pack.set("pricing", pricing);
             pack.set("version", version);
-            pack.set("archive", false);
-            pack.set("flag", false);
+            pack.set("productId", "");
+            pack.set("archived", false);
+            pack.set("flagged", false);
             pack.set("published", false);
+
+            if (packType === type.PACK_TYPE.grouped) {
+
+                pack.set("priceType", type.PACK_TYPE.grouped);
+
+            } else if (packType === type.PACK_TYPE.themed) {
+
+                pack.set("priceType", type.PACK_TYPE.themed);
+
+            } else if (packType === type.PACK_TYPE.curated) {
+
+                pack.set("priceType", type.PACK_TYPE.curated);
+
+            }
 
             return pack.save();
 
@@ -3439,9 +3566,288 @@ app.post('/new_pack', function (req, res) {
     }
 });
 
-app.get('/details_update/:id', function (req, res) {
+
+//Displays all stickers belonging to a selected collection
+app.get('/pack/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let pack_id = req.params.id;
+
+    if (token) {
+
+        let _user = {};
+        let userType;
+        let pack_name;
+        let pack_status;
+        let page;
+        let _stickers;
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+            userType = _user.get("type");
+
+            let query = new Parse.Query(_class.Packs).equalTo("objectId", pack_id);
+
+            switch (userType) {
+                case SUPER_USER:
+                    return query.first({useMasterKey: true});
+
+                case NORMAL_USER:
+                    return query.first({sessionToken: token});
+
+            }
+
+        }).then(function (pack) {
+
+            pack_status = pack.get("status");
+            pack_art = pack.get("artwork");
+            pack_publish = pack.get("published");
+            pack_name = pack.get("name");
+            packType = pack.get("priceType");
+
+            let col = pack.relation(_class.Packs);
+
+            switch (userType) {
+                case SUPER_USER:
+                    return col.query().find({useMasterKey: true});
+
+                case NORMAL_USER:
+                    return col.query().find({sessionToken: token});
+
+            }
+        }).then(function (stickers) {
+
+            _stickers = stickers;
+
+            return new Parse.Query(_class.Packs).equalTo("userId", _user.id).find();
+
+        }).then(function (packs) {
+
+            page = util.page(packs, pack_id);
+
+            switch (userType) {
+                case SUPER_USER:
+                    res.render("pages/packs/admin_pack", {
+                        stickers: _stickers,
+                        id: pack_id,
+                        art: pack_art,
+                        published: pack_publish,
+                        pack_name: pack_name,
+                        userType: _user.get("type"),
+                        status: pack_status,
+                        next: page.next,
+                        previous: page.previous,
+                        pack_type: packType,
+                        type: type
+
+                    });
+                    break;
+
+                case NORMAL_USER:
+                    res.render("pages/packs/new_pack", {
+                        stickers: _stickers,
+                        id: pack_id,
+                        pack_name: pack_name,
+                        art: pack_art,
+                        published: pack_publish,
+                        status: pack_status,
+                        next: page.next,
+                        previous: page.previous,
+                        type: type
+                    });
+                    break;
+            }
+        }, function (error) {
+            console.log("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
+            res.redirect("/");
+        })
+    }
+    else {
+        //No session exists, log in
+        res.redirect("/");
+    }
+});
+
+app.get('/pack/edit/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let pack_id = req.params.id;
+    let _pack;
+    let _productId;
+    let productDetails;
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+            _user = sessionToken.get("user");
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first(),
+                new Parse.Query(_class.Product).equalTo("userId", _user.id).find()
+            );
+
+        }).then(function (pack, productId) {
+            _pack = pack;
+            _productId = productId;
+
+            return new Parse.Query(_class.Product).equalTo("objectId", pack.get("productId")).first();
+
+        }).then(function (productInfo) {
+            console.log("HERE 2 " + productInfo);
+
+            if (productInfo !== undefined) {
+                productDetails = productInfo.get("name");
+            }
+
+            res.render("pages/packs/pack_details", {
+                pack_details: _pack,
+                productId: _productId,
+                productDetails: productDetails,
+                type: type
+            });
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect("/pack/" + pack_id);
+        })
+    } else {
+        res.redirect('/');
+    }
+});
+
+app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
+
+    let token = req.cookies.token;
+    let files = req.files;
+    let id = req.params.id;
+    let keywords = req.body.keyword;
+    let archive = req.body.archive;
+    let productId = req.body.productId;
+    let description = req.body.description;
+    let _keywords = [];
+    let fileDetails = [];
+    let _previews = [];
+
+    console.log("PRODUCT " + productId);
+    if (keywords !== undefined || keywords !== "undefined") {
+        _keywords = keywords.split(",");
+    }
+
+    if (archive === undefined || archive === "undefined") {
+        archive = false;
+    } else if (archive === 1 || archive === "1") {
+        archive = true;
+    } else if (archive === 0 || archive === "0") {
+        archive = false;
+    }
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            if (files.length !== 0) {
+
+                return util.thumbnail(files)
+
+            } else {
+                return true;
+            }
+
+        }).then(previews => {
+
+            _previews = previews;
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+
+        }).then(function (pack) {
+
+            console.log("PACK 1 " + JSON.stringify(pack))
+
+            pack.set("description", description);
+            pack.set("keywords", _keywords);
+            pack.set("archived", archive);
+            pack.set("productId", productId);
+
+            if (files !== undefined || files !== "undefined") {
+                files.forEach(function (file) {
+                    let fullName = file.originalname;
+                    let stickerName = fullName.substring(0, fullName.length - 4);
+
+                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                    let bitmapPreview;
+                    let parseFilePreview = "";
+
+                    _.map(_previews, preview => {
+                        if (stickerName === preview.name) {
+                            bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
+                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
+                        }
+                    });
+
+                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+
+                    pack.set("artwork", parseFile);
+                    pack.set("preview", parseFilePreview);
+                    fileDetails.push(file);
+
+                });
+            }
+
+            return pack.save();
+
+        }).then(function (pack) {
+
+            console.log("PACK " + JSON.stringify(pack))
+            _.each(fileDetails, function (file) {
+                //Delete tmp fil after upload
+                let tempFile = file.path;
+                fs.unlink(tempFile, function (error) {
+                    if (error) {
+                        //TODO handle error code
+                        //TODO add job to do deletion of tempFiles
+                        console.log("-------Could not del temp" + JSON.stringify(error));
+                    }
+                    else {
+                        console.log("-------Deleted All Files");
+
+                    }
+                });
+            });
+
+            return true;
+
+        }).then(function () {
+
+            res.redirect('/pack/edit/' + id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/pack/edit/' + id);
+
+        })
+    } else {
+        res.redirect('/');
+    }
+
+});
+
+app.post('/pack/review/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
+    let name = req.body.pack_name;
+    let archive = req.body.archive;
+    let description = req.body.pack_description;
+    let keyword = req.body.keyword;
+    let review_id = req.body.review_id;
+    let reviewEdit = '/review/edit/';
+
+    let key = keyword.split(",");
 
     if (token) {
         let _user = {};
@@ -3450,20 +3856,73 @@ app.get('/details_update/:id', function (req, res) {
 
             _user = sessionToken.get("user");
 
+            return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+        }).then(function (pack) {
+            pack.set("name", name);
 
+            if (archive === undefined || archive === "1") {
+                pack.set("archived", false);
+            } else if (archive === "0") {
+                pack.set("archived", true);
+            }
+            pack.set("description", description);
+            pack.set("keywords", key);
+
+            return pack.save();
+
+        }).then(function (result) {
+            res.redirect(reviewEdit + review_id);
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect(reviewEdit + review_id);
         });
+    } else {
+        res.redirect('/');
     }
 });
 
-
-app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
+app.get('/pack/review/update/status/:id', function (req, res) {
 
     let token = req.cookies.token;
-    let id = req.params.id;
-    let pack_ = req.params.pack_id;
-    let review_id = req.params.review_id;
+    let pack_id = req.params.id;
+    let pack = '/pack/';
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first();
+
+        }).then(function (pack) {
+
+            pack.set("status", type.PACK_STATUS.review);
+            return pack.save();
+
+        }).then(function () {
+
+            console.log("PACK SUBMITTED FOR REVIEW");
+            res.redirect(pack + pack_id);
+
+        }, function (error) {
+
+            console.log("PACK NOT SUBMITTED FOR REVIEW. ERROR " + error.message);
+            res.redirect(pack + pack_id);
+
+        });
+    } else {
+        res.redirect('/');
+    }
+});
+
+app.post('/review/:itemId/:packId/:reviewId', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.itemId;
+    let pack_ = req.params.packId;
+    let review_id = req.params.reviewId;
     let type = req.body.type;
     let categoryNames = [];
+    let reviewEdit = '/review/edit/';
     let all;
     let name;
     let category;
@@ -3501,7 +3960,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
 
             }).then(function (review) {
 
-                let review_fields = review.get("review_field");
+                let review_fields = review.get("reviewField");
                 let review_field = Array.from(review_fields);
 
                 for (let time = 0; time < review_field.length; time++) {
@@ -3516,7 +3975,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
                     }
                 }
 
-                res.render("pages/edit_sticker", {
+                res.render("pages/stickers/edit_sticker", {
                     sticker: stickerDetail,
                     categoryNames: categoryNames,
                     categories: allCategories,
@@ -3530,7 +3989,7 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
 
             }, function (error) {
                 console.log("ERROR " + error.message);
-                res.redirect('/review_details/' + review_id);
+                res.redirect(reviewEdit + review_id);
             });
         } else {
             getUser(token).then(function (sessionToken) {
@@ -3541,12 +4000,12 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
 
             }).then(function (pack) {
 
-                res.render("pages/edit_pack", {pack: pack, review_id: review_id});
+                res.render("pages/packs/edit_pack", {pack: pack, review_id: review_id});
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/review_details/' + review_id);
+                res.redirect(reviewEdit + review_id);
 
             });
         }
@@ -3556,171 +4015,217 @@ app.post('/edit_details/:id/:pack_id/:review_id', function (req, res) {
 
 });
 
+app.post('/pack/stickers/:packId', function (req, res) {
 
-app.post('/update_pack/:id', function (req, res) {
     let token = req.cookies.token;
-    let id = req.params.id;
-    let name = req.body.pack_name;
-    let archive = req.body.archive;
-    let description = req.body.pack_description;
-    let keyword = req.body.keyword;
-    let review_id = req.body.review_id;
+    let id = req.params.packId;
+    let stickerIds = req.body.stickerIds;
+    let _stickerIds = [];
 
-    let key = keyword.split(",");
+    console.log("STICKERS " + stickerIds);
+    _stickerIds =  stickerIds.split(",");
+    console.log("STICKERS " + _stickerIds);
 
     if (token) {
+
         let _user = {};
 
         getUser(token).then(function (sessionToken) {
 
-            _user = sessionToken.get("user");
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stickers).containedIn("objectId", _stickerIds).find(),
+                new Parse.Query(_class.Packs).equalTo("objectId", id).first()
+            )
 
-            return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
-        }).then(function (pack) {
-            pack.set("name", name);
+        }).then(function (stickers, pack) {
 
-            if (archive === undefined || archive === "1") {
-                pack.set("archive", false);
-            } else if (archive === "0") {
-                pack.set("archive", true);
-            }
-            pack.set("pack_description", description);
-            pack.set("keyword", key);
+            console.log("STICKERS " + JSON.stringify(stickers));
+            _.each(stickers, function (sticker) {
+                let collection_relation = pack.relation(_class.Packs);
+                collection_relation.add(sticker);
+            });
 
             return pack.save();
 
-        }).then(function (result) {
-            res.redirect('/review_details/' + review_id);
+        }).then(function (pack) {
+
+            res.redirect('/pack/' + id);
+
         }, function (error) {
+
             console.log("ERROR " + error.message);
-            res.redirect('/review_details/' + review_id);
-        });
+            res.redirect('/pack/' + id);
+
+        })
+
     } else {
         res.redirect('/');
     }
 });
 
-//EDIT/STICKER DETAILS
-app.get('/details/:stickerId/:packId', function (req, res) {
-
+app.get('/pack/stickers/:packId', function (req, res) {
     let token = req.cookies.token;
-    let stickerId = req.params.stickerId;
-    let packId = req.params.packId;
-    // let stickers = req.params.stickers;
-    let _sticker;
-    let _categories;
-    let selectedCategories;
-    let _pack = [];
+    let id = req.params.packId;
 
     if (token) {
+
         let _user = {};
 
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
 
-            return Parse.Promise.when(
-                new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first(),
-                new Parse.Query(_class.Categories).ascending("name").find(),
-                new Parse.Query(_class.Packs).equalTo("objectId", packId).first()
-            );
+            // return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+            return new Parse.Query(_class.Packs).equalTo("priceType", type.PACK_TYPE.grouped).find();
 
-        }).then(function (sticker, categories, pack) {
+        }).then(function (packs) {
 
-                _sticker = sticker;
-                _categories = categories;
-                _pack = pack;
-                selectedCategories = sticker.get("categories");
+            console.log("PACKS " + JSON.stringify(packs));
+            let _stickers = [];
 
-                console.log("SELECTED " + selectedCategories);
+            _.each(packs, function (pack) {
 
-                let sticker_relation = sticker.relation(_class.Categories);
-                return sticker_relation.query().find();
+                console.log("PACK ID " + pack.id);
+                _stickers.push(pack.id);
 
-            }
-        ).then(function (stickerCategories) {
-
-            // var categoryNames = [];
-            // _.each(stickerCategories, function (category) {
-            //     categoryNames.push(category.get("name"))
-            // });
-
-            // console.log("CATEGORY NAMES " + categoryNames);
-
-            // if (_user.get("type") === SUPER_USER) {
-            //     res.render("pages/admin_details", {
-            //         sticker: stickerDetail,
-            //         // categoryNames: categoryNames.sort(),
-            //         categories: allCategories,
-            //         pack_id: pack_
-            //     });
-            // } else {
-
-
-            //TODO how to catch error when time expires (Check APIs)
-            // const AWS = require('aws-sdk');
-            //
-            // const s3 = new AWS.S3();
-            // AWS.config.update({
-            //     accessKeyId: 'AKIAINM7RXYLJVMDEMLQ',
-            //     secretAccessKey: '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'
-            // });
-            //
-            //
-            // const myBucket = 'cyfa';
-            // let name = stickerDetail.get("uri").name();
-            //
-            // const key = name;
-            // const signedUrlExpireSeconds = 60 * 5;
-            //
-            // const url = s3.getSignedUrl('getObject', {
-            //     Bucket: myBucket,
-            //     Key: key,
-            //     Expires: signedUrlExpireSeconds
-            // });
-            //
-            let col = _pack.relation(_class.Packs);
-            return col.query().find({sessionToken: token});
-
-            // }
-        }).then(function (stickers) {
-
-            let page = util.page(stickers, stickerId);
-
-            res.render("pages/sticker_details", {
-                sticker: _sticker,
-                selected: selectedCategories,
-                categories: _categories,
-                pack_id: packId,
-                next: page.next,
-                previous: page.previous,
-                // uri: url,
-                id: stickerId
             });
 
-        }, function (err) {
-            console.log("Error Loading-----------------------" + JSON.stringify(err));
-            res.redirect("/pack/" + packId);
+            return new Parse.Query(_class.Stickers).containedIn("parent", _stickers).find();
 
-        });
+        }).then(function (stickers) {
+
+            res.render("pages/packs/select_stickers", {
+                id: id,
+                stickers: stickers
+            });
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/pack/' + id);
+        })
+
+    } else {
+        res.redirect('/');
     }
-    else {
+});
+
+/*====================================== PACKS ============================*/
+
+app.get('/publish/:type/:status/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let status = req.params.status;
+    let type = req.params.type;
+    let pack = "/pack/";
+    let storyEdit = "/storyedit/";
+    let productEdit = "/product/";
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            switch (type) {
+                case "pack":
+                    return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+
+                case "story":
+                    return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+                case "product":
+                    return new Parse.Query(_class.Product).equalTo("objectId", id).first();
+
+            }
+
+        }).then(function (object) {
+
+            if (status === "publish") {
+                object.set("published", true);
+            } else if (status === "unpublish") {
+                object.set("published", false);
+
+            }
+
+            return object.save();
+
+        }).then(function () {
+
+            switch (type) {
+                case "pack":
+                    res.redirect(pack + id);
+                    return;
+
+                case "story":
+                    res.redirect(storyEdit + id);
+                    return;
+
+                case "product":
+                    res.redirect(productEdit + id);
+                    return;
+            }
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+
+            switch (type) {
+                case "pack":
+                    res.redirect(pack + id);
+                    return;
+
+                case "story":
+                    res.redirect(storyEdit + id);
+                    return;
+
+                case "product":
+                    res.redirect(productEdit + id);
+                    return;
+            }
+
+        })
+    } else {
+        res.redirect('/');
+    }
+
+});
+
+/*====================================== STICKERS ============================*/
+
+// Add Stickers Version 1
+app.get('/uploads/computer/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let pack_id = req.params.id;
+
+    if (token) {
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first();
+
+        }).then(function (pack) {
+
+            res.render("pages/stickers/add_sticker", {id: pack.id, pack_name: pack.get("name")});
+
+        }, function (error) {
+            res.redirect("/");
+
+        })
+    } else {
         res.redirect("/");
     }
 });
 
-app.post('/account/user/update', upload.array('im1'), function (req, res) {
+app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
 
     let token = req.cookies.token;
-    let email = req.body.email;
-    let image = req.files;
-    let type = parseInt(req.body.type);
-    let handle = req.body.handles;
-    let profile_info = [];
-    let link_length = [];
-
-    console.log("TYPE " + type + " HNDLE " + handle);
-
+    let pack_id = req.body.pack_id;
+    let files = req.files;
+    let fileDetails = [];
+    let stickerDetails = [];
+    let stickerCollection = {};
+    let _previews = [];
+    let pack = "/pack/";
 
     if (token) {
 
@@ -3730,43 +4235,80 @@ app.post('/account/user/update', upload.array('im1'), function (req, res) {
 
             _user = sessionToken.get("user");
 
-            return new Parse.Query(_class.Profile).equalTo("user_id", _user.id).first();
+            let db = admin.database();
 
-        }).then(function (profile) {
+            // change this to shorter folder
+            let ref = db.ref("server/saving-data/fireblog");
 
-            if (image) {
-                image.forEach(function (file) {
+            let statsRef = ref.child("/gstickers-e4668");
 
-                    console.log("FILE INFO " + file.path);
+            //TODO implement DRY for thumbnails
+            util.thumbnail(files).then(previews => {
+
+                _previews = previews;
+
+                return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first({sessionToken: token});
+
+            }).then(function (pack) {
+
+                stickerCollection = pack;
+
+                files.forEach(function (file) {
+
+                    let Sticker = new Parse.Object.extend(_class.Stickers);
+                    let sticker = new Sticker();
 
                     let fullName = file.originalname;
-
-                    let image_name = fullName.substring(0, fullName.length - 4);
+                    let stickerName = fullName.substring(0, fullName.length - 4);
 
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
-                    //create our parse file
-                    let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
+                    let bitmapPreview;
+                    let parseFilePreview = "";
 
-                    profile.set("uri", parseFile);
-                    profile.set("email", email);
+                    _.map(_previews, preview => {
+                        if (stickerName === preview.name) {
+                            bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
+                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
+                        }
+                    });
+
+
+                    //create our parse file
+                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                    sticker.set("name", stickerName);
+                    sticker.set("localName", stickerName);
+                    sticker.set("uri", parseFile);
+                    sticker.set("preview", parseFilePreview);
+                    sticker.set("userId", _user.id);
+                    sticker.set("parent", pack);
+                    sticker.set("description", "");
+                    sticker.set("meaning", "");
+                    sticker.set("flagged", false);
+                    sticker.set("archived", false);
+                    if (pack.get("productId") !== "") {
+                        sticker.set("sold", true);
+                        sticker.set("productId", pack.get("productId"));
+                    } else {
+                        sticker.set("sold", false);
+                        sticker.set("productId", "");
+                    }
+                    sticker.set("version", pack.get("version"));
+
                     // sticker.setACL(setPermission(_user, false));
 
-                    profile_info.push(profile);
+                    stickerDetails.push(sticker);
+                    fileDetails.push(file);
+
                 });
-            } else {
 
-                profile.set("email", email);
-                return profile.save()
+                console.log("SAVE ALL OBJECTS AND FILE");
+                return Parse.Object.saveAll(stickerDetails);
 
-            }
+            }).then(function (stickers) {
 
-            return Parse.Object.saveAll(profile_info);
-
-        }).then(function (saved_profile) {
-
-            if (profile_info.length) {
-                _.each(profile_info, function (file) {
+                console.log("STICKERS " + JSON.stringify(stickers));
+                _.each(fileDetails, function (file) {
                     //Delete tmp fil after upload
                     let tempFile = file.path;
                     fs.unlink(tempFile, function (err) {
@@ -3775,151 +4317,86 @@ app.post('/account/user/update', upload.array('im1'), function (req, res) {
                             console.log("-------Could not del temp" + JSON.stringify(err));
                         }
                         else {
-                            console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                            console.log("SUUCCCEESSSSS IN DELETING TEMP");
                         }
                     });
                 });
-            }
-            return new Parse.Query(_class.Links).equalTo("object_id", _user.id).find();
 
-        }).then(function (links) {
+                return new Parse.Query(_class.Stickers).equalTo("parent", {
+                    __type: 'Pointer',
+                    className: _class.Packs,
+                    objectId: pack_id
+                }).find();
 
-            if (type && handle) {
-                if (links.length !== 0) {
-                    _.each(links, function (_link) {
 
-                        if (_link.get("type") === type) {
+                //console.log("SAVE COLLECTION RELATION");
 
-                            _link.set("link", handle);
-                            link_length.push(1);
 
-                            return _link.save();
-                        }
+            }).then(function (stickers) {
 
-                    });
+                // res.send("STICKERS " + stickers.length);
 
-                    if (link_length.length === 0) {
+                _.each(stickers, function (sticker) {
+                    let collection_relation = stickerCollection.relation(_class.Packs);
+                    collection_relation.add(sticker);
+                });
 
-                        let Link = new Parse.Object.extend(_class.Links);
-                        let link = new Link();
+                let data = {
+                    //Specify email data
+                    from: process.env.EMAIL_FROM || "test@example.com",
+                    //The email to contact
+                    to: _user.get("username"),
+                    //Subject and text data
+                    subject: 'Stickers Uploaded',
+                    html: fs.readFileSync("./uploads/sticker_upload.html", "utf8")
+                };
 
-                        link.set("object_id", _user.id);
-                        link.set("type", type);
-                        link.set("link", handle);
-
-                        return link.save();
-
+                mailgun.messages().send(data, function (error, body) {
+                    if (error) {
+                        console.log("BIG BIG ERROR: " + error.message);
                     }
+                    else {
 
-                } else {
-                    let Link = new Parse.Object.extend(_class.Links);
-                    let link = new Link();
-
-                    link.set("object_id", _user.id);
-                    link.set("type", type);
-                    link.set("link", handle);
-
-                    return link.save();
-                }
-
-
-            } else {
-
-                console.log("TYPE AND HANDLE NOT PRESENT");
-                res.redirect('/account/user/profile');
-
-            }
-
-        }).then(function () {
-
-            res.redirect('/account/user/profile');
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/account/user/profile');
-
-        })
-    } else {
-        res.redirect('/');
-    }
-});
-
-app.post('/review_sticker/:id/:pack_id', function (req, res) {
-    let token = req.cookies.token;
-    let id = req.params.id;
-    let pack_id = req.params.pack_id;
-    let field = req.body.review_field;
-    let comments = req.body.review_text;
-    let status = req.body.flagged;
-
-    let review_field = field.split(",");
-
-    if (token) {
-
-        let _user = {};
-
-        getUser(token).then(function (sessionToken) {
-
-            _user = sessionToken.get("user");
-            let Sticker_review = new Parse.Object.extend(_class.Reviews);
-            let reviews = new Sticker_review();
-
-            new Parse.Query(_class.Stickers).equalTo("objectId", id).first().then(function (sticker) {
-                if (status === "2") {
-                    sticker.set("flag", true);
-                } else if (status === "1") {
-                    sticker.set("flag", false);
-                }
-                reviews.set("image", sticker.get("uri").url());
-                reviews.set("name", sticker.get("stickerName"));
-                reviews.set("owner", sticker.get("user_id"));
-
-                let _pack = sticker.get("parent");
-                _pack.fetch({
-                    success: function (_pack) {
-
-                        reviews.set("pack_id", _pack.id);
-
+                        console.log("EMAIL SENT" + body);
                     }
                 });
 
-                return sticker.save();
+                // statsRef.transaction(function (sticker) {
+                //     if (sticker) {
+                //         if (sticker.stickers) {
+                //             sticker.stickers++;
+                //         }
+                //     }
+                //
+                //     return sticker
+                // });
 
-            }).then(function () {
+                return stickerCollection.save();
 
-                if (status === "1") {
-                    reviews.set("approved", true);
-                } else if (status === "2") {
-                    reviews.set("approved", false);
-                }
-                reviews.set("comments", comments);
-                reviews.set("reviewer", _user.id);
-                reviews.set("reviewer_name", _user.get("name"));
-                reviews.set("type_id", id);
-                reviews.set("review_field", review_field);
+            }).then(function (stickers) {
 
-                reviews.set("type", 1);
-                return reviews.save();
-
-            }).then(function () {
-
-                console.log("STICKER REVIEWED");
-                res.redirect("/pack/" + pack_id);
+                res.redirect(pack + pack_id);
 
             }, function (error) {
 
-                console.log("STICKER REVIEW FAILED " + error.message);
-                res.redirect("/details/" + id + "/" + pack_id);
+                console.log("BIG BIG ERROR" + JSON.stringify(error));
+                res.redirect(pack + pack_id);
 
-            });
+            })
+        }, function (error) {
+            console.log("BIG BIG ERROR" + error.message);
+            res.redirect("/");
         });
+
+
     } else {
-        res.redirect('/');
+
+        res.redirect("/");
+
     }
 });
 
-app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
+app.post('/sticker/review/:id/:pid', upload.array('im1'), function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let pid = req.params.pid;
@@ -3982,7 +4459,7 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
 
             _.each(files, function (file) {
                 //Delete tmp fil after upload
-                var tempFile = file.path;
+                let tempFile = file.path;
                 fs.unlink(tempFile, function (error) {
                     if (error) {
                         //TODO handle error code
@@ -3999,7 +4476,7 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
             res.redirect('/pack/' + pid);
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/review_details/' + review_id);
+            res.redirect('/review/edit/' + review_id);
         });
     } else {
         res.redirect('/');
@@ -4007,158 +4484,135 @@ app.post('/update_sticker/:id/:pid', upload.array('im1'), function (req, res) {
 
 });
 
-app.post('/pack_update/:id', upload.array('art'), function (req, res) {
+//EDIT/STICKER DETAILS
+app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
 
     let token = req.cookies.token;
-    let files = req.files;
-    let id = req.params.id;
-    let keywords = req.body.keyword;
-    let archive = req.body.archive;
-    let description = req.body.description;
-    let _keywords = [];
-    let fileDetails = [];
-    let _previews = [];
-
-    if (keywords !== undefined || keywords !== "undefined") {
-        _keywords = keywords.split(",");
-    }
-
-    if (archive === undefined || archive === "undefined") {
-        archive = false;
-    } else if (archive === 1 || archive === "1") {
-        archive = true;
-    } else if (archive === 0 || archive === "0") {
-        archive = false;
-    }
+    let stickerId = req.params.stickerId;
+    let packId = req.params.packId;
+    // let stickers = req.params.stickers;
+    let _sticker;
+    let _categories;
+    let selectedCategories;
+    let _pack = [];
+    let _latest;
 
     if (token) {
+        let _user = {};
 
         getUser(token).then(function (sessionToken) {
 
-           return util.thumbnail(files)
+            _user = sessionToken.get("user");
 
-        }).then(previews => {
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first(),
+                new Parse.Query(_class.Categories).ascending("name").find(),
+                new Parse.Query(_class.Packs).equalTo("objectId", packId).first(),
+                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first()
+            );
 
-            _previews = previews;
+        }).then(function (sticker, categories, pack, latest) {
 
-            return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+                _sticker = sticker;
+                _categories = categories;
+                _pack = pack;
+                _latest = latest;
 
-        }).then(function (pack) {
+                selectedCategories = sticker.get("categories");
 
+                console.log("SELECTED " + selectedCategories);
 
-            pack.set("pack_description", description);
-            pack.set("keyword", _keywords);
-            pack.set("archive", archive);
+                let sticker_relation = sticker.relation(_class.Categories);
+                return sticker_relation.query().find();
 
-            if (files !== undefined || files !== "undefined") {
-                files.forEach(function (file) {
-                    let fullName = file.originalname;
-                    let stickerName = fullName.substring(0, fullName.length - 4);
-
-                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-
-                    let bitmapPreview;
-                    let parseFilePreview = "";
-
-                    _.map(_previews, preview => {
-                        if (stickerName === preview.name) {
-                            bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
-                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
-                        }
-                    });
-
-                    let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
-
-                    pack.set("art_work", parseFile);
-                    pack.set("preview", parseFilePreview);
-                    fileDetails.push(file);
-
-                });
             }
+        ).then(function (stickerCategories) {
 
-            return pack.save();
+            // var categoryNames = [];
+            // _.each(stickerCategories, function (category) {
+            //     categoryNames.push(category.get("name"))
+            // });
 
-        }).then(function (pack) {
+            // console.log("CATEGORY NAMES " + categoryNames);
 
-            _.each(fileDetails, function (file) {
-                //Delete tmp fil after upload
-                var tempFile = file.path;
-                fs.unlink(tempFile, function (error) {
-                    if (error) {
-                        //TODO handle error code
-                        //TODO add job to do deletion of tempFiles
-                        console.log("-------Could not del temp" + JSON.stringify(error));
-                    }
-                    else {
-                        console.log("-------Deleted All Files");
+            // if (_user.get("type") === SUPER_USER) {
+            //     res.render("pages/reviews/admin_details", {
+            //         sticker: stickerDetail,
+            //         // categoryNames: categoryNames.sort(),
+            //         categories: allCategories,
+            //         pack_id: pack_
+            //     });
+            // } else {
 
-                    }
-                });
+
+            //TODO how to catch error when time expires (Check APIs)
+            // const AWS = require('aws-sdk');
+            //
+            // const s3 = new AWS.S3();
+            // AWS.config.update({
+            //     accessKeyId: 'AKIAINM7RXYLJVMDEMLQ',
+            //     secretAccessKey: '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'
+            // });
+            //
+            //
+            // const myBucket = 'cyfa';
+            // let name = stickerDetail.get("uri").name();
+            //
+            // const key = name;
+            // const signedUrlExpireSeconds = 60 * 5;
+            //
+            // const url = s3.getSignedUrl('getObject', {
+            //     Bucket: myBucket,
+            //     Key: key,
+            //     Expires: signedUrlExpireSeconds
+            // });
+            //
+            let col = _pack.relation(_class.Packs);
+            return col.query().find({sessionToken: token});
+
+            // }
+        }).then(function (stickers) {
+
+            let page = util.page(stickers, stickerId);
+
+            res.render("pages/stickers/sticker_details", {
+                sticker: _sticker,
+                selected: selectedCategories,
+                categories: _categories,
+                pack_id: packId,
+                next: page.next,
+                previous: page.previous,
+                // uri: url,
+                id: stickerId,
+                latest: _latest
             });
 
-            return true;
+        }, function (err) {
+            console.log("Error Loading-----------------------" + JSON.stringify(err));
+            res.redirect("/pack/" + packId);
 
-        }).then(function () {
-
-            res.redirect('/edit_pack_details/' + id);
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/edit_pack_details/' + id);
-
-        })
-    } else {
-        res.redirect('/');
+        });
     }
-
-});
-
-
-app.post('/add_sticker_description/:id', function (req, res) {
-
-    let token = req.cookies.token;
-    let stickerId = req.params.id;
-    let description = req.body.description;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first();
-
-        }).then(function (sticker) {
-
-            sticker.set("description", description);
-
-            return sticker.save();
-
-        }).then(function () {
-
-            res.redirect('/home');
-
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-            res.redirect('/home');
-
-        })
+    else {
+        res.redirect("/");
     }
-
 });
 
 //Update Sticker
-app.post('/update/:id/:pid', function (req, res) {
+app.post('/sticker/edit/:stickerId/:packId', function (req, res) {
 
     let token = req.cookies.token;
 
     //input fields from form
     let stickerName = req.body.stickerName;
+    let localName = req.body.localName;
     let new_categories = req.body.categories;
-    let stickerId = req.params.id;
-    let packId = req.params.pid;
+    let stickerId = req.params.stickerId;
+    let packId = req.params.packId;
     let sticker_status = req.body.sticker_status;
+    let meaning = req.body.meaning;
     let description = req.body.description;
+    let stickerEdit = "/sticker/edit/";
 
     let _listee = [];
 
@@ -4185,9 +4639,10 @@ app.post('/update/:id/:pid', function (req, res) {
 
         }).then(function (sticker) {
 
-            sticker.set("stickerName", stickerName);
-            sticker.set("localName", stickerName);
+            sticker.set("name", stickerName);
+            sticker.set("localName", localName);
             sticker.set("categories", _listee);
+            sticker.set("meaning", meaning);
             if (sticker_status === "1") {
                 sticker.set("sold", true);
             } else if (sticker_status === "0") {
@@ -4200,12 +4655,12 @@ app.post('/update/:id/:pid', function (req, res) {
         }).then(function (sticker) {
 
             console.log("STICKER UPDATED" + JSON.stringify(sticker));
-            res.redirect("/details/" + stickerId + "/" + packId);
+            res.redirect(stickerEdit + stickerId + "/" + packId);
 
         }, function (error) {
 
             console.log("SERVER ERROR " + error.message);
-            res.redirect("/details/" + stickerId + "/" + packId);
+            res.redirect(stickerEdit + stickerId + "/" + packId);
 
         });
 
@@ -4217,7 +4672,7 @@ app.post('/update/:id/:pid', function (req, res) {
     }
 });
 
-app.get('/upload_page/:id', function (req, res) {
+app.get('/uploads/dropbox/:id', function (req, res) {
 
     let token = req.cookies.token;
     let pack_id = req.params.id;
@@ -4229,7 +4684,7 @@ app.get('/upload_page/:id', function (req, res) {
 
         }).then(function (pack) {
 
-            res.render("pages/upload", {id: pack_id, pack_name: pack.get("pack_name")});
+            res.render("pages/stickers/upload", {id: pack_id, pack_name: pack.get("name")});
 
 
         }, function (error) {
@@ -4241,13 +4696,14 @@ app.get('/upload_page/:id', function (req, res) {
 
 });
 
-app.post('/upload_dropbox_file', function (req, res) {
+app.post('/uploads/dropbox', function (req, res) {
     let bitmap;
     let name;
     let fileUrl;
     let token = req.cookies.token;
     let pack_id = req.body.pack_id;
     let stickerPack;
+    let pack = "/pack/";
 
     name = req.body.fileName;
     fileUrl = req.body.fileUrl; // receive url from form
@@ -4260,7 +4716,7 @@ app.post('/upload_dropbox_file', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             _user = sessionToken.get("user");
-            var options = {
+            let options = {
                 url: fileUrl,
                 dest: __dirname + '/public/uploads/' + req.body.fileName
             }
@@ -4281,13 +4737,13 @@ app.post('/upload_dropbox_file', function (req, res) {
                             let Sticker = new Parse.Object.extend(_class.Stickers);
                             let sticker = new Sticker();
 
-                            sticker.set("stickerName", name);
+                            sticker.set("name", name);
                             sticker.set("localName", name);
-                            sticker.set("user_id", _user.id);
+                            sticker.set("userId", _user.id);
                             sticker.set("uri", parseFile);
                             sticker.set("parent", pack);
-                            sticker.set("flag", false);
-                            sticker.set("archive", false);
+                            sticker.set("flagged", false);
+                            sticker.set("archived", false);
                             sticker.set("sold", false);
 
                             return sticker.save();
@@ -4310,36 +4766,394 @@ app.post('/upload_dropbox_file', function (req, res) {
                     }).then(function () {
 
                         console.log("REDIRECT TO DASHBOARD");
-                        res.redirect("/pack/" + pack_id);
+                        res.redirect(pack + pack_id);
 
                     }, function (error) {
                         console.log("BIG BIG ERROR" + error.message);
-                        res.redirect("/pack/" + pack_id);
+                        res.redirect(pack + pack_id);
                     });
                 }).catch((err) => {
                 throw err;
             });
         }, function (error) {
             console.log("SESSION INVALID " + error.message);
-            res.redirect("/pack/" + pack_id);
+            res.redirect(pack + pack_id);
         });
 
     } else {
 
-        res.redirect("/pack/" + pack_id);
+        res.redirect(pack + pack_id);
 
     }
 
 });
 
+app.get('/find/sticker/:name', function (req, res) {
+
+    let token = req.cookies.token;
+    let name = req.params.name;
+    let field = [];
+
+    if (token) {
+
+        field.push(name);
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Stickers).containedIn("categories", field).find();
+
+        }).then(function (stickers) {
+
+            res.render("pages/categories/associated_stickers", {
+                stickers: stickers,
+                name: name
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/categories');
+        })
+    } else {
+        res.redirect('/');
+    }
+
+});
+
+//This is to remove stickers
+app.get('/sticker/delete/:id/:packId', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let pack_id = req.params.packId;
+    let pack = "/pack";
+
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
+
+        }).then(function (_sticker) {
+                _sticker.destroy({
+                    success: function (object) {
+                        console.log("removed" + JSON.stringify(object));
+                        res.redirect(pack + pack_id);
+                    },
+                    error: function (error) {
+                        console.log("Could not remove" + error);
+                        res.redirect(pack + pack_id);
+
+                    }
+                });
+            },
+            function (error) {
+                console.error(error);
+                res.redirect(pack + pack_id);
+
+            });
+    } else {
+        res.redirect('/');
+    }
+
+});
+
+app.post('/sticker/decsription/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let stickerId = req.params.id;
+    let description = req.body.description;
+    let home = '/home';
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first();
+
+        }).then(function (sticker) {
+
+            sticker.set("description", description);
+
+            return sticker.save();
+
+        }).then(function () {
+
+            res.redirect(home);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect(home);
+
+        })
+    }
+
+});
+
+
+/*====================================== STICKERS ============================*/
+
+
+/*====================================== PRODUCT ID ============================*/
+
+app.get('/products', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Product).find();
+
+        }).then(function (products) {
+
+            res.render("pages/products/products", {
+                products: products
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/');
+
+        })
+    } else {
+        res.redirect('/');
+    }
+});
+
+app.get('/product/:productId', function (req, res) {
+
+    let token = req.cookies.token;
+    let productId = req.params.productId;
+    let page;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.Product).equalTo("objectId", productId).first(),
+                new Parse.Query(_class.Product).find()
+            );
+
+        }).then(function (product, products) {
+
+            console.log("PRODUCT " + JSON.stringify(product));
+            console.log("PRODUCTS " + JSON.stringify(products));
+
+            page = util.page(products, productId);
+
+            console.log("PAGES " + JSON.stringify(page));
+
+            res.render("pages/products/product", {
+                product: product,
+                next: page.next,
+                previous: page.previous
+
+            })
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/products');
+        })
+    } else {
+        res.redirect('/');
+    }
+});
+
+
+app.post('/product', function (req, res) {
+
+    let token = req.cookies.token;
+    let name = req.body.product_name;
+    let description = req.body.product_description;
+    let products = '/products';
+    let productObject = {"android": "", "ios": ""};
+
+    console.log("NAME " + name + " DESC " + description);
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            let ProductsID = new Parse.Object.extend(_class.Product);
+            let productId = new ProductsID();
+
+            productId.set("name", name);
+            productId.set("description", description);
+            productId.set("userId", _user.id);
+            productId.set("published", false);
+            productId.set("productId", productObject);
+
+            return productId.save();
+
+        }).then(function (product) {
+
+            console.log("MADE " + JSON.stringify(product));
+
+            res.redirect(products);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect(products)
+        })
+    }
+});
+
+app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
+
+        let token = req.cookies.token;
+        let files = req.files;
+        let id = req.params.productId;
+        let name = req.body.name;
+        let description = req.body.description;
+        let android = req.body.android;
+        let android_price = req.body.android_price;
+        let ios_price = req.body.ios_price;
+        let ios = req.body.ios;
+        let _previews;
+        let parseFile;
+
+        console.log("PREVIEW 2 " + android_price + " AND " + ios_price);
+
+        if (token) {
+
+            getUser(token).then(function (sessionToken) {
+
+                if (files.length > 0) {
+
+                    return util.thumbnail(files)
+
+                } else {
+
+                    return "";
+                }
+
+            }).then(previews => {
+
+                console.log("PREVIEW 2 " + JSON.stringify(previews));
+                _previews = previews;
+
+                return new Parse.Query(_class.Product).equalTo("objectId", id).first();
+
+            }).then(function (product) {
+
+                if (files.length > 0) {
+
+                    let fullName = files[0].originalname;
+                    let stickerName = fullName.substring(0, fullName.length - 4);
+
+                    let bitmap = fs.readFileSync(files[0].path, {encoding: 'base64'});
+
+                    let bitmapPreview;
+                    let parseFilePreview = "";
+
+
+                    bitmapPreview = fs.readFileSync(_previews[0].path, {encoding: 'base64'});
+                    parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, _previews[0].mimetype);
+                    parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
+
+                    product.set("artwork", parseFile);
+                    product.set("preview", parseFilePreview);
+
+                }
+
+                product.set("name", name);
+                product.set("description", description);
+                product.set("productId", {"android": android, "ios": ios});
+                if (android_price && ios_price) {
+
+                    product.set("price", {"android": android_price, "ios": ios_price});
+
+                } else if (android_price) {
+
+                    product.set("price", {"android": android_price, "ios": product.get("price").ios});
+
+                } else if (ios_price) {
+
+                    product.set("price", {"android": product.get("price").android, "ios": ios_price});
+
+                }
+
+                return product.save();
+
+
+            }).then(function (productItem) {
+
+                if (files.length > 0) {
+                    let tempFile = files[0].path;
+                    fs.unlink(tempFile, function (err) {
+                        if (err) {
+                            //TODO handle error code
+                            console.log("-------Could not del temp" + JSON.stringify(err));
+                        }
+                        else {
+                            console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                        }
+                    });
+                }
+
+                res.redirect('/product/edit/' + id);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/product/edit/' + id);
+
+            })
+        }
+        else {
+            res.redirect('/');
+        }
+    }
+);
+
+app.get('/product/edit/:productId', function (req, res) {
+
+    let token = req.cookies.token;
+    let productId = req.params.productId;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Product).equalTo("objectId", productId).first();
+
+        }).then(function (product) {
+
+            res.render("pages/products/product_details", {
+                product: product
+            });
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect("/product/" + productId);
+        })
+    } else {
+        res.redirect('/');
+    }
+
+});
+/*====================================== PRODUCT ID ============================*/
+
+
 /*====================================== FEED ============================*/
 
-app.post('/feed/:type', function (req, res) {
+app.post('/feeds/:type/:origin', function (req, res) {
 
     let token = req.cookies.token;
     let type = req.params.type;
+    let origin = req.params.origin;
     let id = req.body.element_id;
+    let storyPage = "story";
 
+    console.log("FEED TYPE " + type + " ELEMENT " + id);
 
     if (token) {
 
@@ -4355,23 +5169,23 @@ app.post('/feed/:type', function (req, res) {
 
         }).then(function (latest) {
 
-            latest.set("latest_id", id);
+            latest.set("feedId", id);
 
             return latest.save();
 
         }).then(function () {
 
-            let Selected = new Parse.Object.extend(_class.PreviouslySelected);
+            let Selected = new Parse.Object.extend(_class.History);
             let selected = new Selected();
 
             switch (type) {
                 case "sticker":
                     selected.set("type", 0);
-                    selected.set("object_id", id);
+                    selected.set("itemId", id);
                     break;
                 case "story":
                     selected.set("type", 1);
-                    selected.set("object_id", id);
+                    selected.set("itemId", id);
                     break;
             }
 
@@ -4383,20 +5197,23 @@ app.post('/feed/:type', function (req, res) {
                 case "sticker":
                     return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
                 case "story":
-                    res.redirect('/home');
-
+                    if (origin === storyPage) {
+                        res.redirect('/storyedit/' + id);
+                    } else {
+                        res.redirect('/home');
+                    }
             }
-
 
         }).then(function (sticker) {
 
             if (sticker.get("description") === "" || sticker.get("description") === undefined) {
-                res.render("pages/add_description", {
+                res.render("pages/stickers/add_description", {
                     sticker: sticker
                 })
             } else {
                 res.redirect('/home');
             }
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
@@ -4433,12 +5250,12 @@ app.get('/feed/sticker', function (req, res) {
 
             let query = new Parse.Query(_class.Stickers);
             query.equalTo("sold", false);
-            query.equalTo("user_id", _user.id);
+            query.equalTo("userId", _user.id);
             return query.find();
 
         }).then(function (stickers) {
 
-            res.render("pages/sticker_of_day", {
+            res.render("pages/stickers/sticker_of_day", {
                 stickers: stickers
             });
 
@@ -4469,7 +5286,7 @@ app.get('/feed/story', function (req, res) {
             _user = sessionToken.get("user");
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Stories).equalTo("user_id", _user.id).find(),
+                new Parse.Query(_class.Stories).equalTo("userId", _user.id).find(),
                 new Parse.Query(_class.ArtWork).find()
             )
 
@@ -4495,7 +5312,7 @@ app.get('/feed/story', function (req, res) {
 
                 return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
             } else {
-                res.render("pages/story_of_day", {
+                res.render("pages/stories/story_of_day", {
 
                     stories: [],
                     artworks: []
@@ -4512,14 +5329,14 @@ app.get('/feed/story', function (req, res) {
                     if (artworks.get("sticker") === sticker.id) {
 
                         combined.push({
-                            story: artworks.get("object_id"),
+                            story: artworks.get("itemId"),
                             image: sticker.get("uri").url()
                         });
                     }
                 })
             });
 
-            res.render("pages/story_of_day", {
+            res.render("pages/stories/story_of_day", {
 
                 stories: _stories,
                 artworks: combined
@@ -4540,28 +5357,10 @@ app.get('/feed/story', function (req, res) {
 
 /*====================================== FEED ============================*/
 
-
-/*====================================== PACKS ============================*/
-/*====================================== PACKS ============================*/
-
-/*====================================== STICKERS ============================*/
-/*====================================== STICKERS ============================*/
-
-/*====================================== CATEGORIES ============================*/
-/*====================================== CATEGORIES ============================*/
-
-/*====================================== REVIEWS ============================*/
-/*====================================== REVIEWS ============================*/
-
-/*====================================== PROFILE ============================*/
-/*====================================== PROFILE ============================*/
-
-
 /*====================================== NEWSLETTER ============================*/
 
 app.get('/newsletter/story/:storyId', function (req, res) {
 
-    //delete all items in the database
     let storyId = req.params.storyId;
     let _story;
     let colors;
@@ -4569,7 +5368,7 @@ app.get('/newsletter/story/:storyId', function (req, res) {
 
     Parse.Promise.when(
         new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
-        new Parse.Query(_class.ArtWork).equalTo("object_id", storyId).first()
+        new Parse.Query(_class.ArtWork).equalTo("itemId", storyId).first()
     ).then(function (story, sticker) {
 
         _story = story;
@@ -4583,16 +5382,17 @@ app.get('/newsletter/story/:storyId', function (req, res) {
 
         return Parse.Promise.when(
             new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("sticker")).first(),
-            new Parse.Query(_class.StoryItems).equalTo("story_id", _story.id).find()
+            new Parse.Query(_class.StoryItems).equalTo("storyId", _story.id).find()
         )
 
     }).then(function (sticker, storyItems) {
 
-        res.render("pages/newsletter", {
+        res.render("pages/newsletter/newsletter", {
             story: _story,
             sticker: sticker,
             colors: colors,
-            storyItems: storyItems
+            storyItems: storyItems,
+            type: type
         });
 
     }, function (error) {
@@ -4608,7 +5408,7 @@ app.post('/newsletter/email', function (req, res) {
 
     function subscriptionTemplate(id) {
 
-        let file = fs.readFileSync('./views/pages/newsletter_email.ejs', 'ascii');
+        let file = fs.readFileSync('./views/pages/newsletter/newsletter_email.ejs', 'ascii');
 
         return ejs.render(file, {id: id, serverURL: SERVER_URL});
     }
@@ -4626,7 +5426,7 @@ app.post('/newsletter/email', function (req, res) {
 
                 } else if (newsletter.get("subscribe") === true) {
 
-                    res.render("pages/newsletter_already_subscribed");
+                    res.render("pages/newsletter/newsletter_already_subscribed");
 
                 }
             } else {
@@ -4675,7 +5475,7 @@ app.post('/newsletter/email', function (req, res) {
                 }
             });
 
-            res.render("pages/newsletter_subscribe");
+            res.render("pages/newsletter/newsletter_subscribe");
 
         }, function (error) {
 
@@ -4700,7 +5500,7 @@ app.get('/newsletter/update/:id', function (req, res) {
     }).then(function () {
 
         // TODO display type of update before changing subscription to true
-        res.render("pages/newsletter_updates");
+        res.render("pages/newsletter/newsletter_updates");
 
     }, function (error) {
 
@@ -4720,7 +5520,7 @@ app.get('/newsletter/send/story', function (req, res) {
     return Parse.Promise.when(
         new Parse.Query(_class.NewsLetter).equalTo("subscribe", true).find(),
         new Parse.Query(_class.Stories).equalTo("objectId", 'VcTBweB2Mz').first(),
-        new Parse.Query(_class.ArtWork).equalTo("object_id", 'VcTBweB2Mz').first()
+        new Parse.Query(_class.ArtWork).equalTo("itemId", 'VcTBweB2Mz').first()
     ).then(function (newsletters, story, sticker) {
 
         console.log("COLLECTED ALL DATA");
@@ -4736,7 +5536,7 @@ app.get('/newsletter/send/story', function (req, res) {
 
         return Parse.Promise.when(
             new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("sticker")).first(),
-            new Parse.Query(_class.StoryItems).equalTo("story_id", _story.id).find()
+            new Parse.Query(_class.StoryItems).equalTo("storyId", _story.id).find()
         )
 
     }).then(function (sticker, storyItems) {
@@ -4749,7 +5549,7 @@ app.get('/newsletter/send/story', function (req, res) {
 
         });
 
-        let file = fs.readFileSync('./views/pages/newsletter_story.ejs', 'ascii');
+        let file = fs.readFileSync('./views/pages/newsletter/newsletter_story.ejs', 'ascii');
 
         return ejs.render(file, {
             story: _story,
@@ -4797,7 +5597,7 @@ app.get("/test_upload/:id", function (req, res) {
 
         }).then(function (pack) {
 
-            res.render("pages/testupload", {id: pack.id, pack_name: pack.get("pack_name")});
+            res.render("pages/stickers/testupload", {id: pack.id, pack_name: pack.get("name")});
 
         })
     }
@@ -4828,24 +5628,6 @@ app.post('/upload_test', upload.array('im1[]'), function (req, res) {
         res.redirect("/");
 
     }
-});
-
-
-app.get('/create_barcode', function (req, res) {
-
-    let token = req.cookies.token;
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            res.render("pages/create_barcode");
-
-        });
-    } else {
-        res.redirect('/');
-    }
-
 });
 
 
@@ -4926,13 +5708,13 @@ app.get('/role', function (req, res) {
             //
             // return role.save();
 
-            var queryRole = new Parse.Query(Parse.Role);
+            let queryRole = new Parse.Query(Parse.Role);
             queryRole.equalTo('name', 'Administrator');
             queryRole.first({
                 success: function (admin) {
                     console.log("ADMIN " + JSON.stringify(admin));
 
-                    var adminRelation = admin.Relation('_User');
+                    let adminRelation = admin.Relation('_User');
 
                     adminRelation.add(_user);
 

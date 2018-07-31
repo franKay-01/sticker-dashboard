@@ -15,9 +15,17 @@
     </div>
     <div>
         <center>
-            <button type="button" class="editbtn1" data-id="<%= categories.id %>" value="<%= categories.get("name") %>"><img class="btnEdit" src="/public/assets/images/btn-edit.png" /></button>
+            <button style="background-color: transparent !important;" type="button">
+               <a class="sticker_name_text" href="/categories">< Back</a>
+            </button>
 
-            <button type="button" class="delbtn1" data-id="<%= categories.id %>" value="<%= categories.get("name") %>"><img class="btnEdit" src="/public/assets/images/btn-delete.png" /></button>
+            <button style="background-color: transparent !important;" type="button" class="editbtn1" data-id="<%= categories.id %>" value="<%= categories.get("name") %>">
+                <img class="btnEdit" src="/public/assets/images/btn-edit.png" />
+            </button>
+
+            <button style="background-color: transparent !important;" type="button" class="delbtn1" data-id="<%= categories.id %>" value="<%= categories.get("name") %>">
+                <img class="btnEdit" src="/public/assets/images/btn-delete.png" />
+            </button>
         </center>
     </div>
 </div>

@@ -18,13 +18,21 @@ exports.USER = {
 };
 
 exports.LINKS = {
-    android: 0,
-    ios: 1,
-    web: 2,
-    telephone: 3,
-    facebook: 4,
-    twitter: 5,
-    instagram: 6
+    //TODO change ios and android to mobile
+    //TODO add social as a links type
+    mobile: 0,
+    web: 1,
+    telephone: 2,
+    facebook: 3,
+    twitter: 4,
+    instagram: 5,
+    social:6
+};
+
+exports.ADVERT_IMAGE_TYPE = {
+    mobile: 0, //200 * 200 size
+    web: 1, //450 * 450
+    banner: 2 //1024 * 1024
 };
 
 exports.STORY_ITEM = {
@@ -36,13 +44,25 @@ exports.STORY_ITEM = {
     italic: 5,
     bold: 6,
     advert:7,
-    italicBold:8
+    italicBold:8,
+    heading: 9,
+    list:10,
+    sideNote:11,
+    greyArea:12,
+    html:13,
+    color: 14
 };
 
 exports.PACK_TYPE = {
-    standard: 0,
+    grouped: 0,
     themed: 1,
     curated: 2
+};
+
+exports.STORY_TYPE = {
+    short_stories: 0,
+    story: 1,
+    jokes: 2
 };
 
 exports.DEFAULT = {

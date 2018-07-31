@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pack - G-Stickers</title>
+
+    <% include ../../partials/fav.ejs %>
+
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("toast_message")
+            x.className = "show";
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        }
+
+        function packSize() {
+            var x = document.getElementById("_message")
+            x.className = "show";
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        }
+
+        function not_approved() {
+            var x = document.getElementById("not_approved")
+            x.className = "show";
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        }
+    </script>
+</head>
+
+<body class="primary-background-color" onload="myFunction()">
+<div id="pageMask"></div>
+
+<!-- Start of hidden form -->
+<div id="askPermission" style="display: none">
+    <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
+        <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
+        <a href="#" id="cancelPermission" class="edit_labels" style="margin: 200px !important;">
+            NO
+        </a>
+        <a href="/publish/pack/publish/<%= id %>" class="edit_labels">
+            YES
+        </a>
+    </div>
+</div>
+
+<div id="removePublish" style="display: none">
+    <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
+        <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
+        <a href="#" id="cancelPublish" class="edit_labels" style="margin: 200px !important;">
+            NO
+        </a>
+        <a href="/publish/pack/unpublish/<%= id %>" class="edit_labels">
+            YES
+        </a>
+    </div>
+</div>
+<div class="grid-container">
+    <!-- Logo -->
+    <div class="medium-12 large-12" id="logo">
+        <a href="/home">
+            <img src="/public/assets/images/G_logo.png"
+                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
+        </a>
+        <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
+
+    </div>
+    <!-- End of logo -->
+    <span class="medium-12 large-12 welcome_post"><b><%= pack_name %> Sticker Pack</b></span>
+    <div class="grid-x grid-margin-x" id="opaqueDiv">
+
+        <div id="not_approved">
+            THIS PACK HAS NOT BEEN APPROVED. THUS YOU CAN NOT PUBLISH
+        </div>
+        <!-- Card for displaying navigation links-->
+        <div class="medium-3 large-3 cell login_card">
+            <div class="card_head_position">
+                <div class="stats">Menu</div>
+                <div><a class="_stickers" href="/home">Home</a></div>
+                <div><a class="_categories" href="/packs">Packs</a></div>
+                <div><a class="_stickers_packs" href="/reviews">Reviews</a></div>
+                <div><a class="_stickers_packs" href="/stories">Stories</a></div>
+                <div><a class="_stickers_packs" href="/categories">Categories</a></div>
+                <div><a class="_stickers_packs" href="/adverts">Adverts</a></div>
+
+                <div style="margin-top: 25px">
+                    <p class="_stickers_packs">Sticker# - <%= stickers.length %> </p><br>
+                </div>
+
+                <!--<br><br>-->
+
+                <!--<div><a class="_stickers" href="/review/put id here">Reviews Pack</a></div>-->
+            </div>
+        </div>
+
+        <div class="medium-3 large-3 cell icons">
+            <% if (art === "undefined" || art === undefined){ %>
+            <center>
+                <p class="none" style="margin: 145px 90px auto;"><b>No Artwork</b></p>
+            </center>
+
+            <%}else {%>
+            <img class="pack_artwork" src="<%= art.url() %>">
+            <%}%>
+            <a href="/pack/edit/<%= id %>">
+                <button class="create_button pack_edit_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;EDIT PACK</p>
+                </button>
+            </a>
+        </div>
+        <!-- End of card-->
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">New Sticker</div>
+            <div class="options">Options</div>
+            <a href="/uploads/computer/<%= id %>">
+                <button class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; From Computer
+                    </p>
+                </button>
+            </a>
+
+            <a href="/uploads/dropbox/<%= id %>">
+                <button class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; Dropbox Upload
+                    </p>
+                </button>
+            </a>
+
+            <!--<a href="/test_upload/<%#= id %>">-->
+                <!--<button class="create_button">-->
+                    <!--<p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; Test Upload-->
+                    <!--</p>-->
+                <!--</button>-->
+            <!--</a>-->
+
+        </div>
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">
+                Status
+                <%if (status === 0){%>
+                <i class="fa fa-circle" id="circle" style="color: grey;float: right;font-size: 15px;" aria-hidden="true"></i>
+                <%} else if (status === 1){%>
+                <i class="fa fa-circle" id="circle" style="color: #f8ab1c;float: right;font-size: 15px;" aria-hidden="true"></i>
+
+                <%} else if(status === 2){%>
+                <i class="fa fa-circle" id="circle" style="color: #0f9d58;float: right;font-size: 15px;" aria-hidden="true"></i>
+
+                <%} else if(status === 3){%>
+                <i class="fa fa-circle" id="circle" style="color: red;float: right;font-size: 15px;" aria-hidden="true"></i>
+
+                <%}%>
+            </div>
+
+            <% if (status === 0 && stickers.length !== 0){ %>
+
+            <a href="/pack/review/update/status/<%= id %>">
+                <button class="create_button">
+                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; SUBMIT FOR
+                        REVIEW
+                    </p>
+                </button>
+            </a>
+
+            <% } %>
+
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #f8ab1c" aria-hidden="true"></i> &nbsp; IN REVIEW
+                </p>
+            </button>
+
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #dd041f" aria-hidden="true"></i> &nbsp; REJECTED
+                </p>
+            </button>
+
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #7ed321" aria-hidden="true"></i> &nbsp;APPROVED
+                </p>
+            </button>
+
+        </div>
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">
+                Publishing
+                <%if (published === false){%>
+                <i class="fa fa-circle" id="circle" style="color: #f8ab1c;float: right;font-size: 15px;" aria-hidden="true"></i>
+                <%} else if (published === true){%>
+                <i class="fa fa-circle" id="circle" style="color: #7ed321;float: right;font-size: 15px;" aria-hidden="true"></i>
+                <%}%>
+            </div>
+
+            <!-- <%# if (status === 2){ %>-->
+            <% if (published === false){%>
+            <%if ( stickers.length < 10){%>
+            <a href="#" onclick="packSize()">
+                <button class="create_button">
+                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
+                    </p>
+                </button>
+            </a>
+            <%}else {%>
+            <a href="#" id="showPermission">
+                <button class="create_button">
+                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
+                    </p>
+                </button>
+            </a>
+            <%}%>
+            <%} else if (published === true){%>
+            <a href="#" id="removePublished">
+                <button class="create_button">
+                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; UNPUBLISH
+                    </p>
+                </button>
+            </a>
+
+            <%}%>
+
+            <!--<%# } else {%>-->
+            <!--<a onclick="not_approved()">-->
+                <!--<button class="create_button">-->
+                    <!--<p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH-->
+                    <!--</p>-->
+                <!--</button>-->
+            <!--</a>-->
+            <!--<%#}%>-->
+
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #f8ab1c" aria-hidden="true"></i> &nbsp; UNPUBLISHED
+                </p>
+            </button>
+
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #7ed321" aria-hidden="true"></i> &nbsp; PUBLISHED
+                </p>
+            </button>
+            <center style="margin-top: 25px;">
+                <span style="padding-right: 125px;">
+                    <% if (previous !== ""){ %>
+                    <a style="color: #a46580 !important; "
+                       href="/pack/<%= previous %>">
+                        <i style="font-size: 3rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                    <% } %>
+                </span>
+                <span style="padding-left: 15px">
+                    <% if (next !== ""){ %>
+
+                    <a style="color: #a46580 !important;"
+                       href="/pack/<%= next %>">
+                        <i style="font-size: 3rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
+
+                    <% } %>
+                </span>
+            </center>
+        </div>
+
+        <!-- End of card -->
+
+        <% if (pack_type === type.PACK_TYPE.curated) {%>
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">
+                Select Stickers
+            </div>
+            <a href="/pack/stickers/<%= id %>">
+                <button class="create_button" style="background-color: #f1f1f1 !important;">
+                    <p class="title button_font" style="color: #a46580 !important;">&nbsp; <i class="fa fa-circle size" style="color: #a46580" aria-hidden="true"></i> &nbsp;CLICK TO SELECT
+                    </p>
+                </button>
+            </a>
+        </div>
+
+        <%}%>
+        <% include ../../partials/sticker_cards %>
+        <%- include('../../partials/footer') %>
+        <div id="toast_message">When Uploading ensure there's stable connection.<br>
+            If after uploading you can't see the images, just give it time..
+        </div>
+
+        <div id="_message">Packs need to contain at least 10 stickers to PUBLISH</div>
+
+    </div>
+
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js"></script>
+<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+
+</body>
+
+
+</html>

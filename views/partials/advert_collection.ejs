@@ -1,5 +1,5 @@
 <!--Display Collections from parse-->
-<% if (adverts.length === 0){ %>
+<% if (adverts.length === 0 && adverts_no_image.length === 0){ %>
 
 <% } else { %>
 <% adverts.forEach(function(item, index) { %>
@@ -23,7 +23,7 @@
 
 
 <% }); %>
-<% _adverts.forEach(function (item, index) { %>
+<% adverts_no_image.forEach(function (item, index) { %>
 
 <div class="medium-3 large-3 cell icons">
     <a href="/advert/edit/<%= item.id %>">
@@ -37,6 +37,6 @@
 
 </div>
 
-<% }) %>
+<% }); %>
 
 <% } %>

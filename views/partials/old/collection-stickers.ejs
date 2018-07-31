@@ -4,7 +4,7 @@
     <% stickers.forEach(function(item, index) { %>
 
     <div class="column">
-        <a href="/details/<%= item.id %>">
+        <a href="/sticker/edit/<%= item.id %>">
             <div class="block">
                 <img style="display: block; color: white;" id="abi" src="<%= item.get("uri").url() %>">
                 <div>
