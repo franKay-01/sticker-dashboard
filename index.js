@@ -254,7 +254,7 @@ app.get('/home', function (req, res) {
     notification.send({
         title:"testing",
         description:"really testing",
-        topic: "tester"
+        topic: "staging.feed.story"
     }).then(function (success) {
 
         console.log("SENDING WAS SUCCESSFUL " + JSON.stringify(success));
