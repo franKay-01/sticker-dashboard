@@ -253,7 +253,8 @@ app.get('/home', function (req, res) {
     let token = req.cookies.token;
     notification.send({
         title:"testing",
-        description:"really testing"
+        description:"really testing",
+        topic: "tester"
     }).then(function (success) {
 
         console.log("SENDING WAS SUCCESSFUL " + JSON.stringify(success));
