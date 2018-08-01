@@ -261,7 +261,7 @@ app.get('/home', function (req, res) {
         console.log("SENDING WAS SUCCESSFUL " + JSON.stringify(success));
 
     }, function (error) {
-
+        console.log("ERROR SENDING 1");
         console.log("ERROR SENDING " + error.message);
 
     });
