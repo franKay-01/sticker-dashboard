@@ -32,7 +32,11 @@ let send = (opt) => {
 
     let promise = new Parse.Promise();
 
+    console.log("SEND");
+
     getAccessToken().then((accessToken) => {
+
+        console.log("GET ACCESS TOKEN");
 
         let message = {
             "message": {
@@ -76,7 +80,7 @@ let send = (opt) => {
 
 
     }, (error) => {
-        console.log(JSON.stringify(error))
+        console.log("ERROR FROM FUNCTION " + error.message)
     });
 
 

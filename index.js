@@ -251,6 +251,7 @@ function setPermission(user, isPublicReadAccess) {
 app.get('/home', function (req, res) {
 
     let token = req.cookies.token;
+
     notification.send({
         title:"testing",
         description:"really testing",
@@ -263,7 +264,7 @@ app.get('/home', function (req, res) {
 
         console.log("ERROR SENDING " + JSON.stringify(error));
 
-    })
+    });
 
     if (token) {
 
