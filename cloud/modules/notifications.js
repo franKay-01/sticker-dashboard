@@ -80,7 +80,9 @@ let send = (opt) => {
 
 
     }, (error) => {
-        console.log("ERROR FROM FUNCTION " + error.message)
+        console.log("ERROR FROM FUNCTION " + error.message);
+        console.log("KEY " + key.private_key);
+        console.log("PRIVATE KEY " + JSON.stringify(key));
     });
 
 
