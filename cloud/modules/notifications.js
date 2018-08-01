@@ -43,7 +43,7 @@ let send = (opt) => {
                     "body": opt.description
                 },
                 "data": {
-                    "id": opt.itemId
+                    "id": "hgh"
                 },
                 "android": {
                     "notification": {

@@ -31,6 +31,7 @@ let helper = require('./cloud/modules/helpers');
 let type = require('./cloud/modules/type');
 let _class = require('./cloud/modules/classNames');
 let util = require('./cloud/modules/util');
+let notification = require('./cloud/modules/notifications');
 
 //google app engine configuration
 //let config = require('./config.json');
@@ -250,6 +251,18 @@ function setPermission(user, isPublicReadAccess) {
 app.get('/home', function (req, res) {
 
     let token = req.cookies.token;
+    notification.send({
+        title:"testing",
+        description:"really testing"
+    }).then(function (success) {
+
+        console.log("SENDING WAS SUCCESSFUL " + JSON.stringify(success));
+
+    }, function (error) {
+
+        console.log("ERROR SENDING " + JSON.stringify(error));
+
+    })
 
     if (token) {
 
