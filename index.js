@@ -262,7 +262,7 @@ app.get('/home', function (req, res) {
 
     }, function (error) {
 
-        console.log("ERROR SENDING " + JSON.stringify(error));
+        console.log("ERROR SENDING " + error.message);
 
     });
 
