@@ -2,6 +2,7 @@ let path = require("path");
 let fs = require('fs');
 let {google} = require('googleapis');
 
+
 const PROJECT_ID = 'gsticker-market-place';
 const HOST = 'fcm.googleapis.com';
 const URL = HOST + '/v1/projects/' + PROJECT_ID + '/messages:send';
@@ -10,7 +11,8 @@ const SCOPES = [MESSAGING_SCOPE];
 
 let getAccessToken = () => {
     return new Promise(function (resolve, reject) {
-        let key = require(path.join(__dirname, '../..', "service_accounts/tuapa.json"));
+        // let key = require(path.join(__dirname, '../..', "service_accounts/tuapa.json"));
+        let key = require("../../service_accounts/tuapa.json");
         let jwtClient = new google.auth.JWT(
             key.client_email,
             null,
