@@ -1,6 +1,6 @@
 let path = require("path");
 let fs = require('fs');
-let {google} = require('googleapis');
+let google = require('googleapis');
 
 
 const PROJECT_ID = 'gsticker-market-place';
