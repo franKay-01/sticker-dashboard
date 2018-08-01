@@ -81,7 +81,8 @@ let send = (opt) => {
 
             promise.resolve(httpResponse)
         }, function (httpResponse) {
-            console.log("FAILED " + httpResponse.status);
+
+            console.log("FAILED " + httpResponse);
 
             promise.reject(httpResponse.status);
         });
