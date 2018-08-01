@@ -50,7 +50,7 @@ let send = (opt) => {
                         "click_action": "TOP_STORY_ACTIVITY"
                     }
                 },
-                "aps": {
+                "apns": {
                     "payload": {
                         "aps": {
                             "category": "NEW_MESSAGE_CATEGORY"
