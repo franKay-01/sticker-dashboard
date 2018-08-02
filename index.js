@@ -252,20 +252,6 @@ app.get('/home', function (req, res) {
 
     let token = req.cookies.token;
 
-    // notification.send({
-    //     title: "testing",
-    //     description: "really testing",
-    //     topic: "staging.feed.story"
-    // }).then(function (success) {
-    //
-    //     console.log("SENDING WAS SUCCESSFUL " + JSON.stringify(success));
-    //
-    // }, function (error) {
-    //     console.log("ERROR SENDING 1");
-    //     console.log("ERROR SENDING " + error.message);
-    //
-    // });
-
     if (token) {
 
         let _user = {};
@@ -5389,6 +5375,23 @@ app.post('/feeds/:type/:origin', function (req, res) {
 
 });
 
+app.get('/notification/:id/:type', function (req, res) {
+
+    //TODO type by id
+// notification.send({
+//     title: "testing",
+//     description: "really testing",
+//     topic: "staging.feed.story"
+// }).then(function (success) {
+//
+//     console.log("SENDING WAS SUCCESSFUL " + JSON.stringify(success));
+//
+// }, function (error) {
+//     console.log("ERROR SENDING 1");
+//     console.log("ERROR SENDING " + error.message);
+//
+// });
+});
 
 app.get('/feed/sticker', function (req, res) {
 

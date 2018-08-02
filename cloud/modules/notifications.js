@@ -71,12 +71,8 @@ let send = (opt) => {
             },
             body: message
         }).then(function (httpResponse) {
-            console.log("SUCCESSFUL " + JSON.stringify(httpResponse));
-
             promise.resolve(httpResponse)
         }, function (httpResponse) {
-            console.log("FAILED NOTIFY" + JSON.stringify(httpResponse));
-
             promise.reject(httpResponse.status);
         });
 
