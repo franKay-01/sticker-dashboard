@@ -5287,7 +5287,7 @@ app.get('/product/edit/:productId', function (req, res) {
 app.post('/feeds/:type/:origin', function (req, res) {
 
     let token = req.cookies.token;
-    let type = req.params.type;
+    let feedType = req.params.type;
     let origin = req.params.origin;
     let id = req.body.element_id;
     let storyPage = "story";
@@ -5295,7 +5295,7 @@ app.post('/feeds/:type/:origin', function (req, res) {
     if (token) {
 
         getUser(token).then(function (sessionToken) {
-            switch (type) {
+            switch (feedType) {
                 case "sticker":
                     return new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first();
 
@@ -5315,7 +5315,7 @@ app.post('/feeds/:type/:origin', function (req, res) {
             let Selected = new Parse.Object.extend(_class.History);
             let selected = new Selected();
 
-            switch (type) {
+            switch (feedType) {
                 case "sticker":
                     selected.set("type", 0);
                     selected.set("itemId", id);
@@ -5330,18 +5330,18 @@ app.post('/feeds/:type/:origin', function (req, res) {
 
         }).then(function () {
 
-            switch (type) {
+            switch (feedType) {
                 case "sticker":
                     return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
                 case "story":
                     if (origin === storyPage) {
-                        res.redirect('/notification/'+id+'/'+type);
+                        res.redirect('/notification/'+id+'/'+feedType);
 
                         // res.redirect('/storyedit/' + id);
                     } else {
 
                         // res.redirect('/home');
-                        res.redirect('/notification/'+id+'/'+type);
+                        res.redirect('/notification/'+id+'/'+feedType);
                     }
             }
 
@@ -5352,7 +5352,7 @@ app.post('/feeds/:type/:origin', function (req, res) {
                     sticker: sticker
                 })
             } else {
-                res.redirect('/notification/'+id+'/'+type);
+                res.redirect('/notification/'+id+'/'+feedType);
 
                 // res.redirect('/home');
             }
@@ -5360,7 +5360,7 @@ app.post('/feeds/:type/:origin', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            switch (type) {
+            switch (feedType) {
                 case "sticker":
                     res.redirect('/feed/sticker');
                     break;
@@ -5382,20 +5382,20 @@ app.post('/feeds/:type/:origin', function (req, res) {
 app.get('/notification/:id/:type', function (req, res) {
 
     let token = req.cookies.token;
-    let type = req.params.type;
+    let notificationType = req.params.type;
     let id = req.params.id;
     let _story = {};
     let _sticker = {};
     let _artwork = {};
 
-    console.log("ITEM ID " + id);
+    console.log("ITEM ID " + id + " TYPE " + notificationType);
     if (token) {
 
         getUser(token).then(function (sessionToken) {
-            switch (type) {
+            switch (notificationType) {
                 case "story":
                     return  Parse.Promise.when(
-                    new Parse.Query(_class.Stories).equalTo("published",true).equalTo("objectId", id).first(),
+                    new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
                     new Parse.Query(_class.ArtWork).equalTo("itemId", id).first()
                 );
 
@@ -5405,7 +5405,7 @@ app.get('/notification/:id/:type', function (req, res) {
             }
         }).then(function (story, artwork, sticker) {
 
-            console.log("ITEM ID 2 " + sticker.id);
+            console.log("ITEM ID 2 " + JSON.stringify(sticker));
             if (story){
                 _story = story;
             }
@@ -5413,7 +5413,7 @@ app.get('/notification/:id/:type', function (req, res) {
             //     _sticker = sticker
             // }
 
-            switch (type) {
+            switch (notificationType) {
                 case "story":
                     return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("itemId")).first();
 
@@ -5422,7 +5422,7 @@ app.get('/notification/:id/:type', function (req, res) {
             }
         }).then(function (sticker) {
 
-            switch (type) {
+            switch (notificationType) {
                 case "story":
                     res.send("STICKER " + JSON.stringify(sticker) + " STORY " + JSON.stringify(_story));
 
@@ -5577,7 +5577,6 @@ app.get('/newsletter/story/:storyId', function (req, res) {
     let storyId = req.params.storyId;
     let _story;
     let colors;
-
 
     Parse.Promise.when(
         new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
