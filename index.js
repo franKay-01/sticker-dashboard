@@ -554,8 +554,9 @@ app.post('/author/edit/:id', function (req, res) {
     let socialMedia = req.body.socialMedia;
     let socialArray = [];
 
+    console.log("SOCIAL MEDIA " + socialMedia);
     if (socialMedia !== "undefined" || socialMedia !== undefined) {
-        socialArray = socialMedia.split(",");
+        socialArray = Array.from(socialMedia);
     }
 
     if (token) {
