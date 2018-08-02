@@ -5382,7 +5382,7 @@ app.post('/feeds/:type/:origin', function (req, res) {
 
 });
 
-app.get('/notification/:id/:type', function (req, res) {
+app.get('/notification/:id/:type/:origin', function (req, res) {
 
     let token = req.cookies.token;
     let notificationType = req.params.type;
