@@ -544,6 +544,28 @@ app.post('/author', function (req, res) {
     }
 });
 
+app.get('/author/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Authors).equalTo("objectId", id).first();
+
+        }).then(function (author) {
+
+            res.render("pages/accounts/edit_author", {
+                author: author
+            })
+        }, function (error) {
+
+        })
+    }
+});
+
 app.get('/authors', function (req, res) {
 
     let token = req.cookies.token;
@@ -557,11 +579,11 @@ app.get('/authors', function (req, res) {
         }).then(function (authors) {
 
             res.render("pages/accounts/authors", {
-               authors:authors
+                authors: authors
             });
         });
 
-    }else {
+    } else {
         res.redirect('/');
     }
 });
