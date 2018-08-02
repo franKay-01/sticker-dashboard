@@ -2297,8 +2297,6 @@ app.get('/storyedit/:id', function (req, res) {
 
             page = util.page(stories, story_id);
 
-            console.log("PAGE " + JSON.stringify(page));
-
             colors = story.get("color");
             if (colors) {
                 colors = story.get("color");
@@ -2320,9 +2318,9 @@ app.get('/storyedit/:id', function (req, res) {
 
             art = _sticker;
 
-            if (story.get("authorId") !== ""){
+            if (_story.get("authorId") !== ""){
 
-                return new Parse.Query(_class.Authors).equalTo("objectId", story.get("authorId")).first();
+                return new Parse.Query(_class.Authors).equalTo("objectId", _story.get("authorId")).first();
 
             }else {
 
