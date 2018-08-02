@@ -252,19 +252,19 @@ app.get('/home', function (req, res) {
 
     let token = req.cookies.token;
 
-    notification.send({
-        title: "testing",
-        description: "really testing",
-        topic: "staging.feed.story"
-    }).then(function (success) {
-
-        console.log("SENDING WAS SUCCESSFUL " + JSON.stringify(success));
-
-    }, function (error) {
-        console.log("ERROR SENDING 1");
-        console.log("ERROR SENDING " + error.message);
-
-    });
+    // notification.send({
+    //     title: "testing",
+    //     description: "really testing",
+    //     topic: "staging.feed.story"
+    // }).then(function (success) {
+    //
+    //     console.log("SENDING WAS SUCCESSFUL " + JSON.stringify(success));
+    //
+    // }, function (error) {
+    //     console.log("ERROR SENDING 1");
+    //     console.log("ERROR SENDING " + error.message);
+    //
+    // });
 
     if (token) {
 
@@ -2275,6 +2275,7 @@ app.get('/storyedit/:id', function (req, res) {
         let _story = {};
         let colors = [];
         let _authors = [];
+        let art;
 
         getUser(token).then(function (sessionToken) {
 
@@ -2317,12 +2318,19 @@ app.get('/storyedit/:id', function (req, res) {
 
         }).then(function (_sticker) {
 
+            art = _sticker;
+
+           return new Parse.Query(_class.Authors).equalTo("objectId", story.get("authorId")).first();
+
+        }).then(function (author) {
+
             res.render("pages/stories/story_details", {
                 story: _story,
-                sticker: _sticker,
+                sticker: art,
                 colors: colors,
                 latest: _latest,
-                authors:_authors,
+                authors: _authors,
+                author: author,
                 next: page.next,
                 previous: page.previous
             });

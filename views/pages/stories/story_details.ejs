@@ -281,7 +281,7 @@
                     <textarea class="validate" placeholder="Summary" style="width: 60% !important;"
                               name="summary" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
 
-                    <label class="update_label">Author:</label>
+                    <label class="update_label">Author:</label> <%= author.get("name") %>
                     <div class="row" style="width: 450px !important;margin-left: 0 !important;">
                         <select class="input-field validate" name="pack_id" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Add Author</option>
