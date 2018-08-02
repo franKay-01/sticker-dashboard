@@ -5002,7 +5002,8 @@ app.post('/sticker/decsription/:id', function (req, res) {
     let token = req.cookies.token;
     let stickerId = req.params.id;
     let description = req.body.description;
-    let home = '/home';
+    let origin = req.body.origin;
+    let sticker = 'sticker';
 
     if (token) {
 
@@ -5018,12 +5019,13 @@ app.post('/sticker/decsription/:id', function (req, res) {
 
         }).then(function () {
 
-            res.redirect(home);
+            // res.redirect(home);
+            res.redirect('/notification/' + stickerId + '/' + sticker + '/' + origin);
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect(home);
+            res.redirect('/');
 
         })
     }
@@ -5335,13 +5337,13 @@ app.post('/feeds/:type/:origin', function (req, res) {
                     return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
                 case "story":
                     if (origin === storyPage) {
-                        res.redirect('/notification/'+id+'/'+feedType);
+                        res.redirect('/notification/' + id + '/' + feedType + '/' + origin);
 
                         // res.redirect('/storyedit/' + id);
                     } else {
 
                         // res.redirect('/home');
-                        res.redirect('/notification/'+id+'/'+feedType);
+                        res.redirect('/notification/' + id + '/' + feedType + '/' + origin);
                     }
             }
 
@@ -5349,10 +5351,11 @@ app.post('/feeds/:type/:origin', function (req, res) {
 
             if (sticker.get("description") === "" || sticker.get("description") === undefined) {
                 res.render("pages/stickers/add_description", {
-                    sticker: sticker
+                    sticker: sticker,
+                    origin: origin
                 })
             } else {
-                res.redirect('/notification/'+id+'/'+feedType);
+                res.redirect('/notification/' + id + '/' + feedType + '/' + origin);
 
                 // res.redirect('/home');
             }
@@ -5385,8 +5388,6 @@ app.get('/notification/:id/:type', function (req, res) {
     let notificationType = req.params.type;
     let id = req.params.id;
     let _story = {};
-    let _sticker = {};
-    let _artwork = {};
 
     console.log("ITEM ID " + id + " TYPE " + notificationType);
     if (token) {
@@ -5394,10 +5395,10 @@ app.get('/notification/:id/:type', function (req, res) {
         getUser(token).then(function (sessionToken) {
             switch (notificationType) {
                 case "story":
-                    return  Parse.Promise.when(
-                    new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
-                    new Parse.Query(_class.ArtWork).equalTo("itemId", id).first()
-                );
+                    return Parse.Promise.when(
+                        new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
+                        new Parse.Query(_class.ArtWork).equalTo("itemId", id).first()
+                    );
 
                 case "sticker":
                     return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
@@ -5405,16 +5406,9 @@ app.get('/notification/:id/:type', function (req, res) {
             }
         }).then(function (item, artwork) {
 
-            console.log("ITEM ID 2 " + JSON.stringify(item));
-
-                // _story = story;
-
-            // if (sticker){
-            //     _sticker = sticker
-            // }
-
             switch (notificationType) {
                 case "story":
+                    _story = item;
                     return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("itemId")).first();
 
                 case "sticker":
@@ -5429,8 +5423,8 @@ app.get('/notification/:id/:type', function (req, res) {
                 case "sticker":
                     res.send("STICKER " + JSON.stringify(sticker));
             }
-            })
-    }else {
+        })
+    } else {
         res.redirect('/');
     }
 
