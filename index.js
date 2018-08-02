@@ -5403,12 +5403,12 @@ app.get('/notification/:id/:type', function (req, res) {
                     return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
 
             }
-        }).then(function (story, artwork, sticker) {
+        }).then(function (item, artwork) {
 
-            console.log("ITEM ID 2 " + JSON.stringify(sticker));
-            if (story){
-                _story = story;
-            }
+            console.log("ITEM ID 2 " + JSON.stringify(item));
+
+                // _story = story;
+
             // if (sticker){
             //     _sticker = sticker
             // }
@@ -5418,7 +5418,7 @@ app.get('/notification/:id/:type', function (req, res) {
                     return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("itemId")).first();
 
                 case "sticker":
-                    return sticker;
+                    return item;
             }
         }).then(function (sticker) {
 
