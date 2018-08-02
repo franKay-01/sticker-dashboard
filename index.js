@@ -5406,10 +5406,11 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
             }
         }).then(function (item, artwork) {
 
+            console.log("ARTWORK " + artwork);
             switch (notificationType) {
                 case "story":
                     _story = item;
-                    return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("itemId")).first();
+                    return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("sticker")).first();
 
                 case "sticker":
                     return item;
