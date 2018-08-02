@@ -506,6 +506,7 @@ app.get('/', function (req, res) {
 
 });
 
+// creating a new author
 app.post('/author', function (req, res) {
 
     let token = req.cookies.token;
@@ -514,19 +515,56 @@ app.post('/author', function (req, res) {
     let phone = req.body.authorNumber;
     let socialMedia = req.body.authorSocial;
 
-    res.send(name + " " + email + " "+phone+" "+ JSON.stringify(socialMedia));
-
     if (token) {
 
         getUser(token).then(function (sessionToken) {
 
+            let Author = new Parse.Object.extend(_class.Authors);
+            let author = new Author();
 
+            author.set("name", name);
+            author.set("email", email);
+            author.set("phone", phone);
+            author.set("socialHandles", socialMedia);
+
+            return author.save();
+
+        }).then(function (author) {
+
+            res.redirect('/authors');
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home')
         })
 
     } else {
         res.redirect('/');
     }
-})
+});
+
+app.get('/authors', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Authors).find();
+
+        }).then(function (authors) {
+
+            res.render("pages/accounts/authors", {
+               authors:authors
+            });
+        });
+
+    }else {
+        res.redirect('/');
+    }
+});
 
 app.get('/account/create', function (req, res) {
     let message = "";
