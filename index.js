@@ -2308,24 +2308,29 @@ app.get('/storyedit/:id', function (req, res) {
             console.log("STORY INFO " + _story.get("authorId"));
             if (_story.get("authorId") !== "") {
 
-                return new Parse.Query(_class.Authors).equalTo("objectId", _story.get("authorId")).first();
+                return "";
 
             } else {
 
-                return "";
+                return new Parse.Query(_class.Authors).equalTo("objectId", _story.get("authorId")).first();
+
             }
 
         }).then(function (author) {
+            let authorName;
 
-            console.log("AUTHOR " + author);
-
+            if (author === ""){
+                authorName = "";
+            }else {
+                authorName = author.get("name");
+            }
             res.render("pages/stories/story_details", {
                 story: _story,
                 sticker: art,
                 colors: colors,
                 latest: _latest,
                 authors: _authors,
-                author: author,
+                author: authorName,
                 next: page.next,
                 previous: page.previous
             });
