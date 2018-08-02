@@ -552,6 +552,11 @@ app.post('/author/edit/:id', function (req, res) {
     let email = req.body.authorEmail;
     let phone = req.body.authorNumber;
     let socialMedia = req.body.socialMedia;
+    let socialArray = [];
+
+    if (socialMedia !== "undefined" || socialMedia !== undefined) {
+        socialArray = socialMedia.split(",");
+    }
 
     if (token) {
 
@@ -564,7 +569,7 @@ app.post('/author/edit/:id', function (req, res) {
             author.set("name", name);
             author.set("email", email);
             author.set("phone", phone);
-            author.set("social", socialMedia);
+            author.set("social", socialArray);
 
             return author.save();
 
