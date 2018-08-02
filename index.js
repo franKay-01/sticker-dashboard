@@ -2274,6 +2274,7 @@ app.get('/storyedit/:id', function (req, res) {
         let _user = {};
         let _story = {};
         let colors = [];
+        let _authors = [];
 
         getUser(token).then(function (sessionToken) {
 
@@ -2283,13 +2284,15 @@ app.get('/storyedit/:id', function (req, res) {
                 new Parse.Query(_class.Stories).equalTo("objectId", story_id).first(),
                 new Parse.Query(_class.ArtWork).equalTo("itemId", story_id).first(),
                 new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
-                new Parse.Query(_class.Stories).equalTo("userId", _user.id).find()
+                new Parse.Query(_class.Stories).equalTo("userId", _user.id).find(),
+                new Parse.Query(_class.Authors).find()
             );
 
-        }).then(function (story, sticker, latest, stories) {
+        }).then(function (story, sticker, latest, stories, authors) {
 
             _story = story;
             _latest = latest;
+            _authors = authors;
 
             page = util.page(stories, story_id);
 
@@ -2319,6 +2322,7 @@ app.get('/storyedit/:id', function (req, res) {
                 sticker: _sticker,
                 colors: colors,
                 latest: _latest,
+                authors:_authors,
                 next: page.next,
                 previous: page.previous
             });
