@@ -5405,6 +5405,7 @@ app.get('/notification/:id/:type', function (req, res) {
             }
         }).then(function (story, artwork, sticker) {
 
+            console.log("ITEM ID 2 " + sticker.id);
             if (story){
                 _story = story;
             }
