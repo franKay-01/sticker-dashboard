@@ -71,6 +71,7 @@ let send = (opt) => {
         }).then(function (httpResponse) {
             promise.resolve(httpResponse)
         }, function (httpResponse) {
+            console.log("NOTIFICATIONS ERROR " + JSON.stringify(httpResponse));
             promise.reject(httpResponse.status);
         });
 
