@@ -5424,7 +5424,11 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                     notification.send({
                         title: story.title,
                         description: story.summary,
-                        data: story,
+                        data: {
+                            id:story.id,
+                            stickerPreviewUrl:story.stickerPreviewUrl,
+                            summary:story.summary
+                        },
                         //TODO retrieve first section from Server
                         topic: "staging.feed.story"
                     }).then(function (success) {
@@ -5444,7 +5448,11 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                     notification.send({
                         title: _sticker.name,
                         description: sticker.description,
-                        data: sticker,
+                        data: {
+                            id: sticker.id,
+                            name: sticker.name,
+                            preview: sticker.preview
+                        },
                         //TODO retrieve first section from Server
                         topic: "staging.feed.sticker"
                     }).then(function (success) {
