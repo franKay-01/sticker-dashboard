@@ -544,6 +544,24 @@ app.post('/author', function (req, res) {
     }
 });
 
+app.post('/author/edit/:id', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.id;
+    let social = req.body.socialMedia;
+
+    res.send(social);
+
+    // if (token) {
+    //
+    //     getUser(token).then(function (sessionToken) {
+    //
+    //     })
+    // }else {
+    //     res.redirect('/');
+    // }
+});
+
 app.get('/author/:id', function (req, res) {
 
     let token = req.cookies.token;
