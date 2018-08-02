@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Packs - G-Stickers</title>
+    <title>Authors - G-Stickers</title>
 
     <% include ../../partials/fav.ejs %>
 
@@ -43,44 +43,43 @@
     <!-- End of logo-->
     <div id="pageMask"></div>
 
-    <!-- Hidden form for creating new packs-->
-    <div id="hiddenCreateForm">
+    <!-- Hidden form for creating new author-->
+
+    <div id="hiddenAddAuthors">
         <div class="medium-3 large-3 cell create_background">
-            <form id="pack_form" action="/pack" method="post">
+            <form id="pack_form" action="/author" method="post">
                 <center>
-                    <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW PACK
+                    <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW AUTHOR
                     </div>
 
-                    <input type="text" class="_pack common_pack_detail validate" placeholder="Pack name"
-                           name="coll_name" required="" aria-required="true"><br>
-                    <textarea class="_pack common_pack_detail validate" placeholder="Pack description"
-                              name="pack_description" required="" aria-required="true"></textarea><br>
-                    <input type="number" class="_pack common_pack_detail validate" placeholder="Pack Version"
-                           name="version" required="" aria-required="true"><br>
-
-                    <div class="row" style="width: 450px !important;">
-                        <select class="input-field validate" name="packType" required="" aria-required="true">
-                            <option value="" disabled selected>&nbsp;Add Pack Type</option>
-                            <option value="0">GROUPED</option>
-                            <option value="1">THEMED</option>
-                            <option value="2">CURATED</option>
-                        </select>
-                    </div>
-                    <br>
-
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Author's Name"
+                           name="authorName" required="" aria-required="true"><br>
+                    <input type="email" class="_pack common_pack_detail validate" placeholder="Email"
+                           name="authorEmail" required="" aria-required="true"><br>
+                    <input type="number" class="_pack common_pack_detail validate" placeholder="Number"
+                           name="authorNumber" required="" aria-required="true"><br>
+                    <center>
+                        <div id="lists" style="margin: 0px 130px;">
+                            <p>
+                                <input class="_pack common_pack_detail validate" placeholder="Add Social Media Handle" type="text"
+                                       id="list" required="" name="authorSocial[]">
+                                <a href="#" id="addList"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                            </p>
+                        </div>
+                    </center>
                 </center>
                 <span>
         <button type="submit" class="create">CREATE</button>
         </span>
                 <span>
-        <button type="button" id="btnCancel" class="cancel">Cancel</button>
+        <button type="button" id="btnCancelAuthor" class="cancel">Cancel</button>
          </span>
 
             </form>
         </div>
     </div>
     <!-- End of form-->
-    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>All Packs</b></span>
+    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>All Authors</b></span>
 
     <div class="grid-x grid-margin-x" id="opaqueDiv">
         <div class="medium-3 large-3 cell login_card">
@@ -98,11 +97,11 @@
             <div class="create_new">Create New</div>
 
             <button class="create_button">
-                <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;Pack</p>
+                <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;Authors</p>
             </button>
         </div>
 
-        <% include ../../partials/packs %>
+        <% include ../../partials/authors %>
         <%- include('../../partials/footer') %>
     </div>
 </div>

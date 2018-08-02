@@ -1,6 +1,7 @@
 let path = require("path");
 let fs = require('fs');
-let {google} = require('googleapis');
+let google = require('googleapis');
+
 
 const PROJECT_ID = 'gsticker-market-place';
 const HOST = 'fcm.googleapis.com';
@@ -10,7 +11,10 @@ const SCOPES = [MESSAGING_SCOPE];
 
 let getAccessToken = () => {
     return new Promise(function (resolve, reject) {
-        let key = require(path.join(__dirname, '../..', "service_accounts/tuapa.json"));
+        // let key = require(path.join(__dirname, '../..', "service_accounts/tuapa.json"));
+        let key = require("../../service_accounts/tuapa.json");
+        console.log("KEY " + key.private_key);
+        console.log("PRIVATE KEY " + JSON.stringify(key));
         let jwtClient = new google.auth.JWT(
             key.client_email,
             null,
@@ -32,7 +36,11 @@ let send = (opt) => {
 
     let promise = new Parse.Promise();
 
+    console.log("SEND");
+
     getAccessToken().then((accessToken) => {
+
+        console.log("GET ACCESS TOKEN");
 
         let message = {
             "message": {
@@ -43,14 +51,14 @@ let send = (opt) => {
                     "body": opt.description
                 },
                 "data": {
-                    "id": opt.itemId
+                    "id": "hgh"
                 },
                 "android": {
                     "notification": {
                         "click_action": "TOP_STORY_ACTIVITY"
                     }
                 },
-                "aps": {
+                "apns": {
                     "payload": {
                         "aps": {
                             "category": "NEW_MESSAGE_CATEGORY"
@@ -69,14 +77,19 @@ let send = (opt) => {
             },
             body: message
         }).then(function (httpResponse) {
+            console.log("SUCCESSFUL " + JSON.stringify(httpResponse));
+
             promise.resolve(httpResponse)
         }, function (httpResponse) {
+            console.log("FAILED " + httpResponse);
+
             promise.reject(httpResponse.status);
         });
 
 
     }, (error) => {
-        console.log(JSON.stringify(error))
+        console.log("ERROR FROM FUNCTION " + error.message);
+
     });
 
 

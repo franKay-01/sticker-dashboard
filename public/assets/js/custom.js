@@ -298,6 +298,26 @@ $(document).ready(function () {
             $('#opaqueDiv').fadeOut('fast');
         });
 
+        $('#btnAddAuthors').on('click', function () {
+            $('#pageMask').fadeIn('fast');
+            $('#hiddenAddAuthors').fadeIn('fast');
+            $('#all_stories').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#opaqueDiv').fadeOut('fast');
+        });
+
+        $('#btnCancelAuthor').on('click', function () {
+            $('#hiddenAddAuthors').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
         $('#addCategory').on('click', function () {
             $('#addCategoryForm').fadeIn('fast');
             $('#pageMask').fadeIn('fast');

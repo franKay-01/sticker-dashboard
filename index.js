@@ -31,6 +31,7 @@ let helper = require('./cloud/modules/helpers');
 let type = require('./cloud/modules/type');
 let _class = require('./cloud/modules/classNames');
 let util = require('./cloud/modules/util');
+let notification = require('./cloud/modules/notifications');
 
 //google app engine configuration
 //let config = require('./config.json');
@@ -250,6 +251,20 @@ function setPermission(user, isPublicReadAccess) {
 app.get('/home', function (req, res) {
 
     let token = req.cookies.token;
+
+    notification.send({
+        title: "testing",
+        description: "really testing",
+        topic: "staging.feed.story"
+    }).then(function (success) {
+
+        console.log("SENDING WAS SUCCESSFUL " + JSON.stringify(success));
+
+    }, function (error) {
+        console.log("ERROR SENDING 1");
+        console.log("ERROR SENDING " + error.message);
+
+    });
 
     if (token) {
 
@@ -489,7 +504,67 @@ app.get('/', function (req, res) {
 
     }
 
-})
+});
+
+// creating a new author
+app.post('/author', function (req, res) {
+
+    let token = req.cookies.token;
+    let name = req.body.authorName;
+    let email = req.body.authorEmail;
+    let phone = req.body.authorNumber;
+    let socialMedia = req.body.authorSocial;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            let Author = new Parse.Object.extend(_class.Authors);
+            let author = new Author();
+
+            author.set("name", name);
+            author.set("email", email);
+            author.set("phone", phone);
+            author.set("socialHandles", socialMedia);
+
+            return author.save();
+
+        }).then(function (author) {
+
+            res.redirect('/authors');
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/home')
+        })
+
+    } else {
+        res.redirect('/');
+    }
+});
+
+app.get('/authors', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Authors).find();
+
+        }).then(function (authors) {
+
+            res.render("pages/accounts/authors", {
+               authors:authors
+            });
+        });
+
+    }else {
+        res.redirect('/');
+    }
+});
 
 app.get('/account/create', function (req, res) {
     let message = "";
@@ -4023,7 +4098,7 @@ app.post('/pack/stickers/:packId', function (req, res) {
     let _stickerIds = [];
 
     console.log("STICKERS " + stickerIds);
-    _stickerIds =  stickerIds.split(",");
+    _stickerIds = stickerIds.split(",");
     console.log("STICKERS " + _stickerIds);
 
     if (token) {

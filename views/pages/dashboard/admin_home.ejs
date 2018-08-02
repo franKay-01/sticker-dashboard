@@ -27,6 +27,19 @@
     <script src="/public/assets/js/custom.js"></script>
     <script src="/public/assets/js/tag.js"></script>
 
+    <script>
+        $(function () {
+            var scntDiv = $('#lists');
+            var i = $('#lists p').size() + 1;
+
+            $("#addList").click(function (event) {
+                // $('#addScnt').live('click', function() {
+                $('<p><label for="p_scnts"><input class="_pack common_pack_detail validate" placeholder="Add Social Media Handle" type="text" id="list" name="authorSocial[]"></label> </p>').appendTo(scntDiv);
+                i++;
+                return false;
+            });
+        });
+    </script>
 </head>
 
 <body class="primary-background-color">
@@ -199,6 +212,40 @@
         </div>
     </div>
 
+    <div id="hiddenAddAuthors">
+        <div class="medium-3 large-3 cell create_background">
+            <form id="pack_form" action="/author" method="post">
+                <center>
+                    <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW AUTHOR
+                    </div>
+
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Author's Name"
+                           name="authorName" required="" aria-required="true"><br>
+                    <input type="email" class="_pack common_pack_detail validate" placeholder="Email"
+                           name="authorEmail" required="" aria-required="true"><br>
+                    <input type="number" class="_pack common_pack_detail validate" placeholder="Number"
+                           name="authorNumber" required="" aria-required="true"><br>
+                    <center>
+                        <div id="lists" style="margin: 0px 130px;">
+                            <p>
+                                <input class="_pack common_pack_detail validate" placeholder="Add Social Media Handle" type="text"
+                                       id="list" required="" name="authorSocial[]">
+                                <a href="#" id="addList"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                            </p>
+                        </div>
+                    </center>
+                </center>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCancelAuthor" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+
     <div id="hiddenCreateForm">
         <div class="medium-3 large-3 cell create_background">
             <center>
@@ -278,15 +325,22 @@
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Category</p>
             </button>
 
+        </div>
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">Create New</div>
             <button id="btnAddAdverts" class="create_button">
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Adverts</p>
+            </button>
+
+            <button id="btnAddAuthors" class="create_button">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Authors</p>
             </button>
 
             <button id="btnAddProduct" class="create_button" style="background-color: #2dbd77 !important;">
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Product ID</p>
             </button>
             <br>
-
         </div>
 
         <div class="medium-3 large-3 cell icons">

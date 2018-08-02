@@ -16,6 +16,7 @@ exports.Latest = "Feed";
 exports.Barcodes = "Barcodes";
 exports.Links = "Links";
 exports.History = "History";
+exports.Authors = "Authors";
 //TODO update to Subscriptions
 //TODO columns -> email:String, updates:Array of integers
 exports.NewsLetter = "NewsLetter";
