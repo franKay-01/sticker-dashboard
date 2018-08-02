@@ -1,4 +1,4 @@
-<form id="stickerForm" action="/sticker/edit/<%= author.id %>" method="post">
+<form id="stickerForm" action="/author/edit/<%= author.id %>" method="post">
     <div class="grid-x grid-margin-x">
         <div class="medium-6 large-5 cell">
             <div class="droppableArea">
@@ -22,8 +22,9 @@
 
                 <% let arraySize = author.get("socialHandles").length %>
                 <% for (let i = 0; i < arraySize; i++){ %>
-                <input placeholder="Social Handles" class="box_2" name="socialMedia" style="width: 100%; margin-bottom: 25px;"
-                       value="<%= author.get("socialHandles") %>"><br><li> <%= author.get("socialHandles")[i] %></li>
+                <input placeholder="Social Handles" class="box_2" name="socialMedia[]" style="width: 100%; margin-bottom: 25px;"
+                       value="<%= author.get("socialHandles")[i] %>">
+
                 <% } %>
 
         </div>
