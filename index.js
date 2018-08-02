@@ -548,18 +548,39 @@ app.post('/author/edit/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
-    let social = req.body.socialMedia;
+    let name = req.body.authorName;
+    let email = req.body.authorEmail;
+    let phone = req.body.authorNumber;
+    let socialMedia = req.body.socialMedia;
 
-    res.send(social);
+    if (token) {
 
-    // if (token) {
-    //
-    //     getUser(token).then(function (sessionToken) {
-    //
-    //     })
-    // }else {
-    //     res.redirect('/');
-    // }
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Authors).equalTo("objectId", id).first();
+
+        }).then(function (author) {
+
+            author.set("name", name);
+            author.set("email", email);
+            author.set("phone", phone);
+            author.set("social", socialMedia);
+
+            return author.save();
+
+        }).then(function (author) {
+
+            res.redirect('/author/'+ author.id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/author/' + id);
+        })
+
+    }else {
+        res.redirect('/');
+    }
 });
 
 app.get('/author/:id', function (req, res) {
