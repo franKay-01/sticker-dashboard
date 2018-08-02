@@ -32,6 +32,7 @@ let type = require('./cloud/modules/type');
 let _class = require('./cloud/modules/classNames');
 let util = require('./cloud/modules/util');
 let notification = require('./cloud/modules/notifications');
+let create = require('./cloud/modules/create');
 
 //google app engine configuration
 //let config = require('./config.json');
@@ -5419,10 +5420,44 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
 
             switch (notificationType) {
                 case "story":
+                    let story = create.Story(_story, sticker, []);
+                    notification.send({
+                        title: story.title,
+                        description: story.summary,
+                        data: story,
+                        //TODO retrieve first section from Server
+                        topic: "staging.feed.story"
+                    }).then(function (success) {
+
+                        console.log("SENDING WAS SUCCESSFUL " + JSON.stringify(success));
+
+                    }, function (status) {
+                        console.log("STATUS " + status);
+
+                    });
+
                     res.send("STICKER " + JSON.stringify(sticker) + " STORY " + JSON.stringify(_story));
+                    break;
 
                 case "sticker":
+                    let _sticker = create.Sticker(sticker);
+                    notification.send({
+                        title: _sticker.name,
+                        description: sticker.description,
+                        data: sticker,
+                        //TODO retrieve first section from Server
+                        topic: "staging.feed.sticker"
+                    }).then(function (success) {
+
+                        console.log("SENDING WAS SUCCESSFUL " + JSON.stringify(success));
+
+                    }, function (status) {
+                        console.log("STATUS " + status);
+
+                    });
+
                     res.send("STICKER " + JSON.stringify(sticker));
+                    break;
             }
         })
     } else {
@@ -5430,19 +5465,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
     }
 
     //TODO type by id
-// notification.send({
-//     title: "testing",
-//     description: "really testing",
-//     topic: "staging.feed.story"
-// }).then(function (success) {
-//
-//     console.log("SENDING WAS SUCCESSFUL " + JSON.stringify(success));
-//
-// }, function (error) {
-//     console.log("ERROR SENDING 1");
-//     console.log("ERROR SENDING " + error.message);
-//
-// });
+
 });
 
 app.get('/feed/sticker', function (req, res) {

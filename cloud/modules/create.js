@@ -4,7 +4,7 @@ const type = require('./type');
 exports.Sticker = sticker => {
     let _sticker = {};
     _sticker.id = sticker.id;
-    _sticker.name = sticker.get("stickerName");
+    _sticker.name = sticker.get("name");
     _sticker.description = sticker.get("description");
     _sticker.categories = sticker.get("categories");
 
@@ -89,7 +89,7 @@ exports.Story = (story, sticker, storyItem) => {
     _story.id = story.id;
     _story.title = story.get("title");
     _story.summary = story.get("summary");
-    _story.stickerName = sticker.get("stickerName");
+    _story.stickerName = sticker.get("name");
 
     if (sticker.get("uri")) {
         _story.stickerUrl = sticker.get("uri").url();
