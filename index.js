@@ -564,7 +564,7 @@ app.post('/author/edit/:id', function (req, res) {
             author.set("name", name);
             author.set("email", email);
             author.set("phone", phone);
-            author.set("social", socialMedia);
+            author.set("socialHandles", socialMedia);
 
             return author.save();
 
