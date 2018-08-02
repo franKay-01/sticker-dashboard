@@ -2320,7 +2320,14 @@ app.get('/storyedit/:id', function (req, res) {
 
             art = _sticker;
 
-           return new Parse.Query(_class.Authors).equalTo("objectId", story.get("authorId")).first();
+            if (story.get("authorId") !== ""){
+
+                return new Parse.Query(_class.Authors).equalTo("objectId", story.get("authorId")).first();
+
+            }else {
+
+                return "";
+            }
 
         }).then(function (author) {
 
