@@ -556,7 +556,7 @@ app.post('/author/edit/:id', function (req, res) {
 
         }).then(function (author) {
 
-            res.redirect('/author/'+ author.id);
+            res.redirect('/author/' + author.id);
 
         }, function (error) {
 
@@ -564,7 +564,7 @@ app.post('/author/edit/:id', function (req, res) {
             res.redirect('/author/' + id);
         })
 
-    }else {
+    } else {
         res.redirect('/');
     }
 });
@@ -2304,11 +2304,11 @@ app.get('/storyedit/:id', function (req, res) {
 
             art = _sticker;
 
-            if (_story.get("authorId") !== ""){
+            if (_story.get("authorId") !== "") {
 
                 return new Parse.Query(_class.Authors).equalTo("objectId", _story.get("authorId")).first();
 
-            }else {
+            } else {
 
                 return "";
             }
@@ -5292,8 +5292,6 @@ app.post('/feeds/:type/:origin', function (req, res) {
     let id = req.body.element_id;
     let storyPage = "story";
 
-    console.log("FEED TYPE " + type + " ELEMENT " + id);
-
     if (token) {
 
         getUser(token).then(function (sessionToken) {
@@ -5337,9 +5335,13 @@ app.post('/feeds/:type/:origin', function (req, res) {
                     return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
                 case "story":
                     if (origin === storyPage) {
-                        res.redirect('/storyedit/' + id);
+                        res.redirect('/notification/'+id+'/'+type);
+
+                        // res.redirect('/storyedit/' + id);
                     } else {
-                        res.redirect('/home');
+
+                        // res.redirect('/home');
+                        res.redirect('/notification/'+id+'/'+type);
                     }
             }
 
@@ -5350,7 +5352,9 @@ app.post('/feeds/:type/:origin', function (req, res) {
                     sticker: sticker
                 })
             } else {
-                res.redirect('/home');
+                res.redirect('/notification/'+id+'/'+type);
+
+                // res.redirect('/home');
             }
 
         }, function (error) {
@@ -5377,20 +5381,56 @@ app.post('/feeds/:type/:origin', function (req, res) {
 
 app.get('/notification/:id/:type', function (req, res) {
 
+    let token = req.cookies.token;
     let type = req.params.type;
     let id = req.params.id;
+    let _story = {};
+    let _sticker = {};
+    let _artwork = {};
 
-    //TODO story query
-    // Parse.Promise.when(
-    //     new Parse.Query(_class.Stories).equalTo("published",true).equalTo("objectId", id).first(),
-    //     new Parse.Query(_class.ArtWork).equalTo("itemId", id).first({useMasterKey: true}),
-    // ).then(function (story, sticker) {
-    //
-    //     return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("itemId")).first();
-    //
-    // }).then(function (sticker) {
-    //
-    // });
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+            switch (type) {
+                case "story":
+                    return  Parse.Promise.when(
+                    new Parse.Query(_class.Stories).equalTo("published",true).equalTo("objectId", id).first(),
+                    new Parse.Query(_class.ArtWork).equalTo("itemId", id).first()
+                );
+
+                case "sticker":
+                    return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
+
+            }
+        }).then(function (story, artwork, sticker) {
+
+            if (story){
+                _story = story;
+            }
+            // if (sticker){
+            //     _sticker = sticker
+            // }
+
+            switch (type) {
+                case "story":
+                    return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("itemId")).first();
+
+                case "sticker":
+                    return sticker;
+            }
+        }).then(function (sticker) {
+
+            switch (type) {
+                case "story":
+                    res.send("STICKER " + JSON.stringify(sticker) + " STORY " + JSON.stringify(_story));
+
+                case "sticker":
+                    res.send("STICKER " + JSON.stringify(sticker));
+            }
+            })
+    }else {
+        res.redirect('/');
+    }
 
     //TODO type by id
 // notification.send({
