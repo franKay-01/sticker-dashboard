@@ -13,8 +13,6 @@ let getAccessToken = () => {
     return new Promise(function (resolve, reject) {
         // let key = require(path.join(__dirname, '../..', "service_accounts/tuapa.json"));
         let key = require("../../service_accounts/tuapa.json");
-        console.log("KEY " + key.private_key);
-        console.log("PRIVATE KEY " + JSON.stringify(key));
         let jwtClient = new google.auth.JWT(
             key.client_email,
             null,
@@ -36,11 +34,7 @@ let send = (opt) => {
 
     let promise = new Parse.Promise();
 
-    console.log("SEND");
-
     getAccessToken().then((accessToken) => {
-
-        console.log("GET ACCESS TOKEN");
 
         let message = {
             "message": {
@@ -81,14 +75,14 @@ let send = (opt) => {
 
             promise.resolve(httpResponse)
         }, function (httpResponse) {
-            console.log("FAILED " + httpResponse.status);
+            console.log("FAILED NOTIFY" + JSON.stringify(httpResponse));
 
             promise.reject(httpResponse.status);
         });
 
 
     }, (error) => {
-        console.log("ERROR FROM FUNCTION " + error.message);
+        console.log("ERROR FROM getAccessToken " + error.message);
 
     });
 
