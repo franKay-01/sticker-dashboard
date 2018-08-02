@@ -3,7 +3,8 @@
         <div class="medium-6 large-5 cell">
             <div class="droppableArea">
                 <div class="output" name="tfile"></div>
-                <i class="fa fa-user fa-5x" style="color: palevioletred;margin-top: 85px;" aria-hidden="true"></i>
+                <i class="fa fa-user fa-5x" style="color: palevioletred;margin-top: 85px;font-size: 150px !important;"
+                   aria-hidden="true"></i>
             </div>
         </div>
         <div class="medium-6 large-5 cell">
@@ -20,12 +21,16 @@
 
             <label class="update_label">Author Social Media Handles:</label><br>
 
+            <div id="lists">
                 <% let arraySize = author.get("socialHandles").length %>
                 <% for (let i = 0; i < arraySize; i++){ %>
-                <input placeholder="Social Handles" class="box_2" name="socialMedia[]" style="width: 100%; margin-bottom: 25px;"
+                <input placeholder="Social Handles" class="box_2" name="socialMedia[]" id="list"
+                       style="width: 100%; margin-bottom: 25px;"
                        value="<%= author.get("socialHandles")[i] %>">
 
                 <% } %>
+                <a href="#" id="addList"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+            </div>
 
         </div>
         <div class="medium-12 large-12 cell" style="margin-top: 30px">
