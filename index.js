@@ -2316,6 +2316,8 @@ app.get('/storyedit/:id', function (req, res) {
 
         }).then(function (author) {
 
+            console.log("AUTHOR " + author);
+
             res.render("pages/stories/story_details", {
                 story: _story,
                 sticker: art,
