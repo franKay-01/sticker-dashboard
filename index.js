@@ -2353,6 +2353,7 @@ app.post('/storyedit/:id', function (req, res) {
     let title = req.body.title;
     let keyword = req.body.keyword;
     let summary = req.body.summary;
+    let authorId = req.body.authorId;
     let _keyword = [];
     let storyEdit = '/storyedit/';
 
@@ -2375,6 +2376,7 @@ app.post('/storyedit/:id', function (req, res) {
             story.set("title", title);
             story.set("keywords", _keyword);
             story.set("summary", summary);
+            story.set("authorId", authorId);
 
             return story.save();
 
