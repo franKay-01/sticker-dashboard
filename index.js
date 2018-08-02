@@ -5388,6 +5388,7 @@ app.get('/notification/:id/:type', function (req, res) {
     let _sticker = {};
     let _artwork = {};
 
+    console.log("ITEM ID " + id);
     if (token) {
 
         getUser(token).then(function (sessionToken) {
