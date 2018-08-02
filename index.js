@@ -5377,6 +5377,21 @@ app.post('/feeds/:type/:origin', function (req, res) {
 
 app.get('/notification/:id/:type', function (req, res) {
 
+    let type = req.params.type;
+    let id = req.params.id;
+
+    //TODO story query
+    // Parse.Promise.when(
+    //     new Parse.Query(_class.Stories).equalTo("published",true).equalTo("objectId", id).first(),
+    //     new Parse.Query(_class.ArtWork).equalTo("itemId", id).first({useMasterKey: true}),
+    // ).then(function (story, sticker) {
+    //
+    //     return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("itemId")).first();
+    //
+    // }).then(function (sticker) {
+    //
+    // });
+
     //TODO type by id
 // notification.send({
 //     title: "testing",
