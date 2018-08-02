@@ -75,7 +75,7 @@ let send = (opt) => {
 
             promise.resolve(httpResponse)
         }, function (httpResponse) {
-            console.log("FAILED " + httpResponse.statusText);
+            console.log("FAILED NOTIFY" + httpResponse.statusText);
 
             promise.reject(httpResponse.status);
         });
