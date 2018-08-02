@@ -34,7 +34,7 @@
 
             $("#addList").click(function (event) {
                 // $('#addScnt').live('click', function() {
-                $('<p><label for="p_scnts"><input class="_pack common_pack_detail validate" placeholder="Add Text" type="text" id="list" name="content[]"></label> </p>').appendTo(scntDiv);
+                $('<p><label for="p_scnts"><input class="_pack common_pack_detail validate" placeholder="Add Social Media Handle" type="text" id="list" name="authorSocial[]"></label> </p>').appendTo(scntDiv);
                 i++;
                 return false;
             });
@@ -221,14 +221,12 @@
 
                     <input type="text" class="_pack common_pack_detail validate" placeholder="Author's Name"
                            name="authorName" required="" aria-required="true"><br>
-                    <input type="email" class="_pack common_pack_detail validate" placeholder="Author's Email"
+                    <input type="email" class="_pack common_pack_detail validate" placeholder="Email"
                            name="authorEmail" required="" aria-required="true"><br>
-                    <input type="number" class="_pack common_pack_detail validate" placeholder="Author's Number"
-                           name="authorNumber" required="" aria-required="true"><br>
-                    <input type="number" class="_pack common_pack_detail validate" placeholder="Author's Number"
+                    <input type="number" class="_pack common_pack_detail validate" placeholder="Number"
                            name="authorNumber" required="" aria-required="true"><br>
                     <center>
-                        <div id="lists" style="margin: 50px 130px;">
+                        <div id="lists" style="margin: 0px 130px;">
                             <p>
                                 <input class="_pack common_pack_detail validate" placeholder="Add Social Media Handle" type="text"
                                        id="list" required="" name="authorSocial[]">

@@ -253,8 +253,8 @@ app.get('/home', function (req, res) {
     let token = req.cookies.token;
 
     notification.send({
-        title:"testing",
-        description:"really testing",
+        title: "testing",
+        description: "really testing",
         topic: "staging.feed.story"
     }).then(function (success) {
 
@@ -504,6 +504,28 @@ app.get('/', function (req, res) {
 
     }
 
+});
+
+app.post('/author', function (req, res) {
+
+    let token = req.cookies.token;
+    let name = req.body.authorName;
+    let email = req.body.authorEmail;
+    let phone = req.body.authorNumber;
+    let socialMedia = req.body.authorSocial;
+
+    res.send(name + " " + email + " "+phone+" "+ JSON.stringify(socialMedia));
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+
+        })
+
+    } else {
+        res.redirect('/');
+    }
 })
 
 app.get('/account/create', function (req, res) {
@@ -4038,7 +4060,7 @@ app.post('/pack/stickers/:packId', function (req, res) {
     let _stickerIds = [];
 
     console.log("STICKERS " + stickerIds);
-    _stickerIds =  stickerIds.split(",");
+    _stickerIds = stickerIds.split(",");
     console.log("STICKERS " + _stickerIds);
 
     if (token) {
