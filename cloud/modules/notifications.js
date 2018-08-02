@@ -4,7 +4,7 @@ let google = require('googleapis');
 
 
 const PROJECT_ID = 'gsticker-market-place';
-const HOST = 'fcm.googleapis.com';
+const HOST = 'https://fcm.googleapis.com';
 const URL = HOST + '/v1/projects/' + PROJECT_ID + '/messages:send';
 const MESSAGING_SCOPE = 'https://www.googleapis.com/auth/firebase.messaging';
 const SCOPES = [MESSAGING_SCOPE];
@@ -81,7 +81,7 @@ let send = (opt) => {
 
             promise.resolve(httpResponse)
         }, function (httpResponse) {
-            console.log("FAILED " + httpResponse);
+            console.log("FAILED " + httpResponse.status);
 
             promise.reject(httpResponse.status);
         });
