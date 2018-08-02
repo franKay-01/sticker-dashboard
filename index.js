@@ -5393,7 +5393,7 @@ app.get('/notification/:id/:type', function (req, res) {
 //     console.log("ERROR SENDING " + error.message);
 //
 // });
-}
+});
 
 app.get('/feed/sticker', function (req, res) {
 
