@@ -24,9 +24,7 @@
             <div id="lists">
                 <% let arraySize = author.get("socialHandles").length %>
                 <% for (let i = 0; i < arraySize; i++){ %>
-                <input placeholder="Social Handles" class="box_2" name="socialMedia[]" id="list"
-                       style="width: 100%; margin-bottom: 25px;"
-                       value="<%= author.get("socialHandles")[i] %>">
+                <input placeholder="Social Handles" class="box_2" name="socialMedia[]" id="list" style="width: 100%; margin-bottom: 25px;" value="<%= author.get("socialHandles")[i] %>"><br>
 
                 <% } %>
                 <a href="#" id="addList"><i class="fa fa-plus-circle" style="color: palevioletred !important;" aria-hidden="true"></i></a>

@@ -38,7 +38,7 @@
 
             $("#addList").click(function (event) {
                 // $('#addScnt').live('click', function() {
-                $('<p><label for="p_scnts"><input class="box_2" placeholder="Add Social Media Handle" type="text" id="list" name="socialMedia[]"></label> </p>').appendTo(scntDiv);
+                $('<input class="box_2" name="socialMedia[]" id="list" style="width: 100%; margin-bottom: 25px;">').appendTo(scntDiv);
                 i++;
                 return false;
             });
