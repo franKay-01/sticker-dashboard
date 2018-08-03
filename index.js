@@ -2318,11 +2318,14 @@ app.get('/storyedit/:id', function (req, res) {
 
         }).then(function (author) {
             let authorName;
+            let authorId;
 
             if (author === ""){
                 authorName = "";
+                authorId = "";
             }else {
                 authorName = author.get("name");
+                authorId = author.id;
             }
             res.render("pages/stories/story_details", {
                 story: _story,
@@ -2331,6 +2334,7 @@ app.get('/storyedit/:id', function (req, res) {
                 latest: _latest,
                 authors: _authors,
                 author: authorName,
+                authorId: authorId,
                 next: page.next,
                 previous: page.previous
             });
