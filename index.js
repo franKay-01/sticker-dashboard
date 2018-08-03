@@ -5465,7 +5465,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                     notification.send({
                         title: "Sticker Of the Day",
                         description: "agye gon - What a sad outcome",
-                        actvity:"STICKER_ACTIVITY",
+                        activity:"STICKER_ACTIVITY",
                         data: {
                             id: "GaY7fNmUss",
                             name: "agye gon",
