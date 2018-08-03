@@ -45,11 +45,6 @@ let send = (opt) => {
                     "body": opt.description
                 },
                 "data": opt.data,
-                "android": {
-                    "notification": {
-                        "click_action": "TOP_STORY_ACTIVITY"
-                    }
-                },
                 "apns": {
                     "payload": {
                         "aps": {
