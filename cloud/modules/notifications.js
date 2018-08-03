@@ -47,7 +47,7 @@ let send = (opt) => {
                 "data": opt.data,
                 "android": {
                     "notification": {
-                        "click_action": "STORY_ACTIVITY"
+                        "click_action": opt.activity
                     }
                 },
                 "apns": {
