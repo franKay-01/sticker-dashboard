@@ -2419,12 +2419,6 @@ app.post('/story', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            //TODO move to story item
-            // newObject.title = title;
-            // newObject.description = summary;
-            //
-            // newObject.html = [{"2":"sd","4":"sdf","7":"sdf"}];
-
             let Stories = new Parse.Object.extend(_class.Stories);
             let story = new Stories();
 
@@ -2437,6 +2431,7 @@ app.post('/story', function (req, res) {
             story.set("userId", _user.id);
             story.set("status", 0);
             story.set("storyType", storyType);
+            story.set("authorId", "");
             // story.set("storyObject", newObject);
 
 
