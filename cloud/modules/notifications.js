@@ -44,7 +44,6 @@ let send = (opt) => {
                     "title": opt.title,
                     "body": opt.description
                 },
-                "ttl":0,
                 "data": opt.data,
                 "android": {
                     "notification": {
