@@ -40,8 +40,10 @@ let send = (opt) => {
             "message": {
                 //TODO create topics to be env specific to avoid sending push to live users
                 "topic": opt.topic,
-                "title": opt.title,
-                "body": opt.description,
+                "notification": {
+                    "title": opt.title,
+                    "body": opt.description
+                },
                 "data": opt.data,
                 "android": {
                     "notification": {
