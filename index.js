@@ -5398,9 +5398,10 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
     let token = req.cookies.token;
     let notificationType = req.params.type;
     let id = req.params.id;
+    let origin = req.params.origin;
+    let storyPage = "story";
     let _story = {};
 
-    console.log("ITEM ID " + id + " TYPE " + notificationType);
     if (token) {
 
         getUser(token).then(function (sessionToken) {
@@ -5449,8 +5450,11 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                         console.log("STATUS " + status);
 
                     });
-
-                    res.send("STICKER " + JSON.stringify(sticker) + " STORY " + JSON.stringify(_story));
+                    if (origin === storyPage) {
+                         res.redirect('/storyedit/' + id);
+                    } else {
+                        res.redirect('/home');
+                    }
                     break;
 
                 case "sticker":
@@ -5474,7 +5478,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
 
                     });
 
-                    res.send("STICKER " + JSON.stringify(sticker));
+                    res.redirect('/home');
                     break;
             }
         })
