@@ -2305,24 +2305,36 @@ app.get('/storyedit/:id', function (req, res) {
 
             art = _sticker;
 
+            console.log("STORY INFO " + _story.get("authorId"));
             if (_story.get("authorId") !== "") {
 
-                return new Parse.Query(_class.Authors).equalTo("objectId", _story.get("authorId")).first();
+                return "";
 
             } else {
 
-                return "";
+                return new Parse.Query(_class.Authors).equalTo("objectId", _story.get("authorId")).first();
+
             }
 
         }).then(function (author) {
+            let authorName;
+            let authorId;
 
+            if (author === ""){
+                authorName = "";
+                authorId = "";
+            }else {
+                authorName = author.get("name");
+                authorId = author.id;
+            }
             res.render("pages/stories/story_details", {
                 story: _story,
                 sticker: art,
                 colors: colors,
                 latest: _latest,
                 authors: _authors,
-                author: author,
+                author: authorName,
+                authorId: authorId,
                 next: page.next,
                 previous: page.previous
             });
@@ -2345,6 +2357,7 @@ app.post('/storyedit/:id', function (req, res) {
     let title = req.body.title;
     let keyword = req.body.keyword;
     let summary = req.body.summary;
+    let authorId = req.body.authorId;
     let _keyword = [];
     let storyEdit = '/storyedit/';
 
@@ -2367,6 +2380,7 @@ app.post('/storyedit/:id', function (req, res) {
             story.set("title", title);
             story.set("keywords", _keyword);
             story.set("summary", summary);
+            story.set("authorId", authorId);
 
             return story.save();
 
@@ -2409,12 +2423,6 @@ app.post('/story', function (req, res) {
 
             _user = sessionToken.get("user");
 
-            //TODO move to story item
-            // newObject.title = title;
-            // newObject.description = summary;
-            //
-            // newObject.html = [{"2":"sd","4":"sdf","7":"sdf"}];
-
             let Stories = new Parse.Object.extend(_class.Stories);
             let story = new Stories();
 
@@ -2427,6 +2435,7 @@ app.post('/story', function (req, res) {
             story.set("userId", _user.id);
             story.set("status", 0);
             story.set("storyType", storyType);
+            story.set("authorId", "");
             // story.set("storyObject", newObject);
 
 
@@ -5388,9 +5397,10 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
     let token = req.cookies.token;
     let notificationType = req.params.type;
     let id = req.params.id;
+    let origin = req.params.origin;
+    let storyPage = "story";
     let _story = {};
 
-    console.log("ITEM ID " + id + " TYPE " + notificationType);
     if (token) {
 
         getUser(token).then(function (sessionToken) {
@@ -5441,8 +5451,11 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                         console.log("STATUS " + status);
 
                     });
-
-                    res.send("STICKER " + JSON.stringify(sticker) + " STORY " + JSON.stringify(_story));
+                    if (origin === storyPage) {
+                         res.redirect('/storyedit/' + id);
+                    } else {
+                        res.redirect('/home');
+                    }
                     break;
 
                 case "sticker":
@@ -5466,7 +5479,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
 
                     });
 
-                    res.send("STICKER " + JSON.stringify(sticker));
+                    res.redirect('/home');
                     break;
             }
         })
