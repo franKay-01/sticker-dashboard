@@ -5433,13 +5433,14 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                     let story = create.Story(_story, sticker, []);
                     notification.send({
                         title: "AM I FAT",
-                        description: "So, yesterday, someone actually called me fat. Yes, a whole me, FAT! Hmmm…! I am coming, let me gather myself because the way my heart is beating, I might say something and it will become something that is there. So you, it’s okay. \n",
+                        description: "So, yesterday, someone actually called me fat. Yes, a whole me, FAT! Hmmm…! I am coming, let me gather myself because the way my heart is beating, I might say something and it will become something that is there. So you, it’s okay",
                         data: {
                             id: "q7qeqHtU38",
                             stickerUrl: "https://cyfa.s3.amazonaws.com/d8afeb64ae4f4ef0e9a29c81b2289413_angry%20face.png",
-                            summary: "\"So, yesterday, someone actually called me fat. Yes, a whole me, FAT! Hmmm…! I am coming, let me gather myself because the way my heart is beating, I might say something and it will become something that is there. So you, it’s okay. \\n\",",
+                            summary: "So, yesterday, someone actually called me fat. Yes, a whole me, FAT! Hmmm…! I am coming, let me gather myself because the way my heart is beating, I might say something and it will become something that is there. So you, it’s okay.",
                             type:"story",
-                            colors:["#17BBFF","#7C3FD9"]
+                            topColor:"#17BBFF",
+                            bottomColor:"#7C3FD9"
                         },
                         //TODO retrieve first section from Server
                         topic: "test.feed.story"
