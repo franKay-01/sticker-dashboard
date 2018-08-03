@@ -5440,6 +5440,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                             summary: "So, yesterday, someone actually called me fat. Yes, a whole me, FAT! Hmmm…! I am coming, let me gather myself because the way my heart is beating, I might say something and it will become something that is there. So you, it’s okay.",
                             type:"story",
                             topColor:"#17BBFF",
+                            "timestamp": "2018-08-01 20:49:07
                             bottomColor:"#7C3FD9"
                         },
                         //TODO retrieve first section from Server
