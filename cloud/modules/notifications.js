@@ -11,8 +11,8 @@ const SCOPES = [MESSAGING_SCOPE];
 
 let getAccessToken = () => {
     return new Promise(function (resolve, reject) {
-        // let key = require(path.join(__dirname, '../..', "service_accounts/tuapa.json"));
-        let key = require("../../service_accounts/tuapa.json");
+        // let key = require(path.join(__dirname, '../..', "service_accounts/cyfa.json"));
+        let key = require("../../service_accounts/cyfa.json");
         let jwtClient = new google.auth.JWT(
             key.client_email,
             null,
@@ -45,11 +45,11 @@ let send = (opt) => {
                     "body": opt.description
                 },
                 "data": {
-                    "id": "hgh"
+                    "id": opt.data
                 },
                 "android": {
                     "notification": {
-                        "click_action": "TOP_STORY_ACTIVITY"
+                        "click_action": opt.activity
                     }
                 },
                 "apns": {
