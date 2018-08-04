@@ -44,10 +44,12 @@ let send = (opt) => {
                     "title": opt.title,
                     "body": opt.description
                 },
-                "data": opt.data,
+                "data": {
+                    "id": "hgh"
+                },
                 "android": {
                     "notification": {
-                        "click_action": opt.activity
+                        "click_action": "TOP_STORY_ACTIVITY"
                     }
                 },
                 "apns": {
@@ -69,9 +71,12 @@ let send = (opt) => {
             },
             body: message
         }).then(function (httpResponse) {
+            console.log("SUCCESSFUL " + JSON.stringify(httpResponse));
+
             promise.resolve(httpResponse)
         }, function (httpResponse) {
-            console.log("NOTIFICATIONS ERROR " + JSON.stringify(httpResponse));
+            console.log("FAILED NOTIFY" + JSON.stringify(httpResponse));
+
             promise.reject(httpResponse.status);
         });
 
