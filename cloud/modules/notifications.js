@@ -44,9 +44,7 @@ let send = (opt) => {
                     "title": opt.title,
                     "body": opt.description
                 },
-                "data": {
-                    "id": opt.data
-                },
+                "data": opt.data,
                 "android": {
                     "notification": {
                         "click_action": opt.activity
