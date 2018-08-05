@@ -11,8 +11,8 @@ const SCOPES = [MESSAGING_SCOPE];
 
 let getAccessToken = () => {
     return new Promise(function (resolve, reject) {
-        // let key = require(path.join(__dirname, '../..', "service_accounts/tuapa.json"));
-        let key = require("../../service_accounts/tuapa.json");
+        // let key = require(path.join(__dirname, '../..', "service_accounts/cyfa.json"));
+        let key = require("../../service_accounts/cyfa.json");
         let jwtClient = new google.auth.JWT(
             key.client_email,
             null,
@@ -47,13 +47,14 @@ let send = (opt) => {
                 "data": opt.data,
                 "android": {
                     "notification": {
-                        "click_action": "TOP_STORY_ACTIVITY"
+                        "click_action": opt.activity
                     }
                 },
                 "apns": {
                     "payload": {
-                        "aps": {
-                            "category": "NEW_MESSAGE_CATEGORY"
+                        "aps" : {
+                            "category" : "NEW_MESSAGE_CATEGORY",
+                            "badge" : 1,
                         }
                     }
                 }
@@ -69,9 +70,12 @@ let send = (opt) => {
             },
             body: message
         }).then(function (httpResponse) {
+            console.log("SUCCESSFUL " + JSON.stringify(httpResponse));
+
             promise.resolve(httpResponse)
         }, function (httpResponse) {
-            console.log("NOTIFICATIONS ERROR " + JSON.stringify(httpResponse));
+            console.log("FAILED NOTIFY" + JSON.stringify(httpResponse));
+
             promise.reject(httpResponse.status);
         });
 
