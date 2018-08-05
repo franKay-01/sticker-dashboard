@@ -48,6 +48,10 @@ const MK_TEAM = 1;
 
 const PACK = 0;
 const STORY = 1;
+const STICKER = "sticker";
+const STORIES = "story";
+const PACKS = "pack";
+const PRODUCT = "product";
 
 const CATEGORY_LIMIT = 1000;
 
@@ -4119,7 +4123,7 @@ app.post('/review/:itemId/:packId/:reviewId', function (req, res) {
                         name = review_field[time];
                     } else if (review_field[time] === "category") {
                         category = review_field[time];
-                    } else if (review_field[time] === "sticker") {
+                    } else if (review_field[time] === STICKER) {
                         sticker = review_field[time];
                     }
                 }
@@ -4276,13 +4280,13 @@ app.get('/publish/:type/:status/:id', function (req, res) {
         getUser(token).then(function (sessionToken) {
 
             switch (type) {
-                case "pack":
+                case PACKS:
                     return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
 
-                case "story":
+                case STORIES:
                     return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
 
-                case "product":
+                case PRODUCT:
                     return new Parse.Query(_class.Product).equalTo("objectId", id).first();
 
             }
@@ -4301,15 +4305,15 @@ app.get('/publish/:type/:status/:id', function (req, res) {
         }).then(function () {
 
             switch (type) {
-                case "pack":
+                case PACKS:
                     res.redirect(pack + id);
                     return;
 
-                case "story":
+                case STORIES:
                     res.redirect(storyEdit + id);
                     return;
 
-                case "product":
+                case PRODUCT:
                     res.redirect(productEdit + id);
                     return;
             }
@@ -4319,15 +4323,15 @@ app.get('/publish/:type/:status/:id', function (req, res) {
             console.log("ERROR " + error.message);
 
             switch (type) {
-                case "pack":
+                case PACKS:
                     res.redirect(pack + id);
                     return;
 
-                case "story":
+                case STORIES:
                     res.redirect(storyEdit + id);
                     return;
 
-                case "product":
+                case PRODUCT:
                     res.redirect(productEdit + id);
                     return;
             }
@@ -5308,10 +5312,10 @@ app.post('/feeds/:type/:origin', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
             switch (feedType) {
-                case "sticker":
+                case STICKER:
                     return new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first();
 
-                case "story":
+                case STORIES:
                     return new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first();
 
             }
@@ -5328,11 +5332,11 @@ app.post('/feeds/:type/:origin', function (req, res) {
             let selected = new Selected();
 
             switch (feedType) {
-                case "sticker":
+                case STICKER:
                     selected.set("type", 0);
                     selected.set("itemId", id);
                     break;
-                case "story":
+                case STORIES:
                     selected.set("type", 1);
                     selected.set("itemId", id);
                     break;
@@ -5343,9 +5347,9 @@ app.post('/feeds/:type/:origin', function (req, res) {
         }).then(function () {
 
             switch (feedType) {
-                case "sticker":
+                case STICKER:
                     return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
-                case "story":
+                case STORIES:
                     if (origin === storyPage) {
                         res.redirect('/notification/' + id + '/' + feedType + '/' + origin);
 
@@ -5374,11 +5378,11 @@ app.post('/feeds/:type/:origin', function (req, res) {
 
             console.log("ERROR " + error.message);
             switch (feedType) {
-                case "sticker":
+                case STICKER:
                     res.redirect('/feed/sticker');
                     break;
 
-                case "story":
+                case STORIES:
                     res.redirect('/feed/story');
                     break;
             }
@@ -5405,13 +5409,13 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
             switch (notificationType) {
-                case "story":
+                case STORIES:
                     return Parse.Promise.when(
                         new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
                         new Parse.Query(_class.ArtWork).equalTo("itemId", id).first()
                     );
 
-                case "sticker":
+                case STICKER:
                     return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
 
             }
@@ -5419,17 +5423,17 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
 
             console.log("ARTWORK " + artwork);
             switch (notificationType) {
-                case "story":
+                case STORIES:
                     _story = item;
                     return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("sticker")).first();
 
-                case "sticker":
+                case STICKER:
                     return item;
             }
         }).then(function (sticker) {
 
             switch (notificationType) {
-                case "story":
+                case STORIES:
                     let story = create.Story(_story, sticker, []);
                     notification.send({
                         title: story.title,
@@ -5456,7 +5460,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                     }
                     break;
 
-                case "sticker":
+                case STICKER:
                     let _sticker = create.Sticker(sticker);
                     notification.send({
                         title: _sticker.name,
