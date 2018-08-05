@@ -50,11 +50,16 @@ let send = (opt) => {
                         "click_action": opt.activity
                     }
                 },
-                "apns": {
+                "aps": {
                     "payload": {
-                        "aps": {
-                            "category": "NEW_MESSAGE_CATEGORY"
-                        }
+                        "aps" : {
+                            "alert" : {
+                                "title" : opt.topic,
+                                "body" : opt.description,
+                            },
+                            "badge" : 1,
+                        },
+                        "data": opt.data
                     }
                 }
             }
