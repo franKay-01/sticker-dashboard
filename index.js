@@ -3123,6 +3123,7 @@ app.get('/barcodes', function (req, res) {
             barcodes.find({
 
                 success: function (bars) {
+                    console.log("BARCODES " + JSON.stringify(bars));
                     res.render("pages/barcodes/get_barcode", {
                         barcodes: bars
                     });
