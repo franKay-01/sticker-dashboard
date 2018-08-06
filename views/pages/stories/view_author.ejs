@@ -22,29 +22,6 @@
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
     </script>
 
-    <script>
-        $(document).ready(function() {
-            $('select').material_select();
-
-            $("input[type='image']").click(function(event) {
-                event.preventDefault();
-                $("input[id='my_file']").click();
-            });
-        });
-
-        $(function () {
-            var scntDiv = $('#lists');
-            var i = $('#lists p').size() + 1;
-
-            $("#addList").click(function (event) {
-                // $('#addScnt').live('click', function() {
-                $('<input placeholder="Add Social Handles" class="box_2" name="socialMedia[]" id="list" style="width: 100%; margin-bottom: 25px;">').appendTo(scntDiv);
-                i++;
-                return false;
-            });
-        });
-
-    </script>
 </head>
 
 <body class="primary-background-color">

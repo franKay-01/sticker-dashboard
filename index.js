@@ -588,7 +588,7 @@ app.get('/author/view/:authorId/:storyId', function (req, res) {
 
         }).then(function (author) {
 
-            res.render("pages/accounts/view_author", {
+            res.render("pages/stories/view_author", {
                 author: author,
                 storyId: storyId
             })
