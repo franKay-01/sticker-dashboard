@@ -574,6 +574,34 @@ app.post('/author/edit/:id', function (req, res) {
     }
 });
 
+app.get('/author/view/:authorId/:storyId', function (req, res) {
+
+    let token = req.cookies.token;
+    let id = req.params.authorId;
+    let storyId = req.params.storyId;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Authors).equalTo("objectId", id).first();
+
+        }).then(function (author) {
+
+            res.render("pages/accounts/view_author", {
+                author: author,
+                storyId: storyId
+            })
+        }, function (error) {
+            res.redirect('/storyedit/' + storyId);
+        })
+    }else {
+
+        res.redirect('/');
+
+    }
+});
+
 app.get('/author/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -591,8 +619,13 @@ app.get('/author/:id', function (req, res) {
                 author: author
             })
         }, function (error) {
-
+            res.redirect('/');
         })
+
+    }else {
+
+        res.redirect('/');
+
     }
 });
 

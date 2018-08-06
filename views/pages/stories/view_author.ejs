@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sticker Details - G-Stickers</title>
+
+    <% include ../../partials/fav.ejs %>
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script type = "text/javascript"
+            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+
+            $("input[type='image']").click(function(event) {
+                event.preventDefault();
+                $("input[id='my_file']").click();
+            });
+        });
+
+        $(function () {
+            var scntDiv = $('#lists');
+            var i = $('#lists p').size() + 1;
+
+            $("#addList").click(function (event) {
+                // $('#addScnt').live('click', function() {
+                $('<input placeholder="Add Social Handles" class="box_2" name="socialMedia[]" id="list" style="width: 100%; margin-bottom: 25px;">').appendTo(scntDiv);
+                i++;
+                return false;
+            });
+        });
+
+    </script>
+</head>
+
+<body class="primary-background-color">
+<div class="grid-container">
+    <!-- Logo -->
+    <div class="medium-12 large-12">
+        <a href="/home">
+            <img src="/public/assets/images/G_logo.png"
+                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
+                 id="logo">
+        </a>
+        <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
+
+    </div>
+    <div id="pageMask"></div>
+    <center>
+        <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Edit <i style="color: #a46580"><%= author.get("name") %></i> Profile</b></span>
+    </center>
+    <div id="stickerForm" style="width: 70% !important;">
+        <div class="grid-x grid-margin-x">
+            <div class="medium-6 large-5 cell">
+                <div class="droppableArea">
+                    <div class="output" name="tfile"></div>
+                    <i class="fa fa-user fa-5x" style="color: palevioletred;margin-top: 85px;font-size: 150px !important;"
+                       aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="medium-6 large-5 cell">
+                <label class="update_label">Author Name:</label><br>
+                <input placeholder="Sticker Name" class="box_2" name="stickerName"
+                       style="width: 100%; margin-bottom: 25px;"
+                       value="<%= author.get("name") %>" disabled><br>
+                <!--if new img has been uploaded, set value to true-->
+
+                <label class="update_label">Author Email:</label><br>
+                <input placeholder="Sticker Name" class="box_2" name="stickerName"
+                       style="width: 100%; margin-bottom: 25px;"
+                       value="<%= author.get("email") %>" disabled><br>
+
+                <label class="update_label">Author Social Media Handles:</label><br>
+
+                <div id="lists">
+                    <% let arraySize = author.get("socialHandles").length %>
+                    <% for (let i = 0; i < arraySize; i++){ %>
+                    <input placeholder="Social Handles" class="box_2" name="socialMedia[]" id="list" style="width: 100%; margin-bottom: 25px;" value="<%= author.get("socialHandles")[i] %>" disabled><br>
+
+                    <% } %>
+                </div>
+
+            </div>
+            <div class="medium-12 large-12 cell" style="margin-top: 30px">
+                <center>
+                    <a href="/storyedit/<%= storyId %>" class="cancel_btn">Back</a>
+                </center>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>-->
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js"></script>
+<script type="text/javascript" src="/public/assets/js/fileup.js"></script>
+<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+</html>
