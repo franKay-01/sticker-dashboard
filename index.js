@@ -2310,7 +2310,7 @@ app.get('/storyedit/:id', function (req, res) {
             art = _sticker;
 
             console.log("STORY INFO " + _story.get("authorId"));
-            if (_story.get("authorId") !== "") {
+            if (_story.get("authorId") === "") {
 
                 return "";
 
