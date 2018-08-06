@@ -281,10 +281,10 @@
                     <textarea class="validate" placeholder="Summary" style="width: 60% !important;"
                               name="summary" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
 
-                    <label class="update_label">Author:</label><a href="/author/<%= authorId %>"><i style="color: palevioletred"><%= author %></i></a>
+                    <label class="update_label">Author: <a href="/author/<%= authorId %>"><i style="color: #00aa9f;font-weight: 700"><%= author %></i></a></label>
                     <div class="row" style="width: 450px !important;margin-left: 0 !important;">
                         <select class="input-field validate" name="authorId">
-                            <option value="" disabled selected>&nbsp;Add Author</option>
+                            <option value="" disabled selected>&nbsp;Add/Change Author</option>
                             <% if (authors.length === 0) { %>
 
                             <% } else { %>
