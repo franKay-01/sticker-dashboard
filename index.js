@@ -595,7 +595,7 @@ app.get('/author/view/:authorId/:storyId', function (req, res) {
         }, function (error) {
             res.redirect('/storyedit/' + storyId);
         })
-    }else {
+    } else {
 
         res.redirect('/');
 
@@ -622,7 +622,7 @@ app.get('/author/:id', function (req, res) {
             res.redirect('/');
         })
 
-    }else {
+    } else {
 
         res.redirect('/');
 
@@ -2357,10 +2357,10 @@ app.get('/storyedit/:id', function (req, res) {
             let authorName;
             let authorId;
 
-            if (author === ""){
+            if (author === "") {
                 authorName = "";
                 authorId = "";
-            }else {
+            } else {
                 authorName = author.get("name");
                 authorId = author.id;
             }
@@ -3805,10 +3805,8 @@ app.get('/pack/:id', function (req, res) {
             _stickers = stickers;
 
             return Parse.Promise.when(
-
                 new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
                 new Parse.Query(_class.Product).find(),
-
             );
 
         }).then(function (packs, products) {
@@ -3860,6 +3858,45 @@ app.get('/pack/:id', function (req, res) {
         //No session exists, log in
         res.redirect("/");
     }
+});
+
+app.post('/pack/product', function (req, res) {
+
+    let token = req.cookies.token;
+    let packId = req.body.packId;
+    let productId = req.body.productId;
+    let zero = "0";
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", packId).first();
+
+        }).then(function (pack) {
+
+            if (productId === zero){
+                pack.set("productId", "free");
+            }else {
+                pack.set("productId", productId);
+            }
+
+            return pack.save();
+
+        }).then(function (pack) {
+
+            res.redirect('/pack/stickers/' + packId);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/pack/' + packId);
+        })
+
+    }else {
+        res.redirect('/');
+    }
+
 });
 
 app.get('/pack/edit/:id', function (req, res) {
@@ -4259,6 +4296,9 @@ app.post('/pack/stickers/:packId', function (req, res) {
 app.get('/pack/stickers/:packId', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.packId;
+    let free = [];
+    let paid = [];
+    let pack = {};
 
     if (token) {
 
@@ -4273,7 +4313,8 @@ app.get('/pack/stickers/:packId', function (req, res) {
 
         }).then(function (packs) {
 
-            console.log("PACKS " + JSON.stringify(packs));
+            pack = packs;
+
             let _stickers = [];
 
             _.each(packs, function (pack) {
@@ -4287,9 +4328,30 @@ app.get('/pack/stickers/:packId', function (req, res) {
 
         }).then(function (stickers) {
 
+            if (pack.get("product") === "free"){
+                _.each(stickers, function (sticker) {
+
+                    if (sticker.get("sold") === false){
+
+                        free.push(sticker);
+
+                    }
+                });
+            } else if (pack.get("product") !== "free"){
+                _.each(stickers, function (sticker) {
+
+                    if (sticker.get("sold") === true){
+
+                        paid.push(sticker);
+
+                    }
+                });
+            }
             res.render("pages/packs/select_stickers", {
                 id: id,
-                stickers: stickers
+                freeStickers: free,
+                paidStickers: paid
+
             });
 
         }, function (error) {
@@ -5478,14 +5540,14 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                     notification.send({
                         title: "AM I FAT",
                         description: "So, yesterday, someone actually called me fat. Yes, a whole me, FAT! Hmmm…! I am coming, let me gather myself because the way my heart is beating, I might say something and it will become something that is there. So you, it’s okay",
-                        activity:"STORY_ACTIVITY",
+                        activity: "STORY_ACTIVITY",
                         data: {
                             id: "q7qeqHtU38",
                             title: "AM I FAT",
                             stickerUrl: "https://cyfa.s3.amazonaws.com/d8afeb64ae4f4ef0e9a29c81b2289413_angry%20face.png",
                             summary: "So, yesterday, someone actually called me fat. Yes, a whole me, FAT! Hmmm…! I am coming, let me gather myself because the way my heart is beating, I might say something and it will become something that is there. So you, it’s okay.",
-                            topColor:"#17BBFF",
-                            bottomColor:"#7C3FD9"
+                            topColor: "#17BBFF",
+                            bottomColor: "#7C3FD9"
                         },
                         //TODO retrieve first section from Server
                         topic: "test.feed.story"
@@ -5498,7 +5560,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
 
                     });
                     if (origin === storyPage) {
-                         res.redirect('/storyedit/' + id);
+                        res.redirect('/storyedit/' + id);
                     } else {
                         res.redirect('/home');
                     }
@@ -5509,7 +5571,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                     notification.send({
                         title: "Sticker Of the Day",
                         description: "agye gon - What a sad outcome",
-                        activity:"STICKER_ACTIVITY",
+                        activity: "STICKER_ACTIVITY",
                         data: {
                             id: "GaY7fNmUss",
                             name: "agye gon",
