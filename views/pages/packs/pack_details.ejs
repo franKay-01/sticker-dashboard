@@ -20,11 +20,41 @@
     <script type = "text/javascript"
             src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/public/assets/js/custom.js"></script>
     <script src="/public/assets/js/tag.js"></script>
 
 </head>
 
 <body class="primary-background-color">
+<div id="pageMask"></div>
+<div id="productId" style="display: none">
+    <div class="medium-3 large-3 cell create_background">
+        <div class="edit_labels medium-12 large-12">MAKE THIS PACK FREE OR PAID?</div>
+        <form action="/pack/product/update" method="post" id="pack_form">
+            <div class="row" style="width: 400px !important;">
+                <select class="input-field validate" name="productId">
+                    <option value="" disabled selected>&nbsp;Add Product ID</option>
+                    <% if (productId.length === 0) { %>
+
+                    <% } else { %>
+                    <% productId.forEach(function(items) { %>
+                    <option value="<%= items.id %>"><%= items.get("name") %></option>
+                    <% }) %>
+                    <% } %>
+                </select>
+            </div>
+            <input name="packId" value="<%= id %>" hidden>
+
+            <span>
+                    <button type="submit" class="create">SUBMIT</button>
+                </span>
+            <span>
+                    <button type="button" id="cancelProductId" class="cancel">Cancel</button>
+                </span>
+
+        </form>
+    </div>
+</div>
 <div class="grid-container">
     <div class="medium-12 large-12">
         <a href="/home">
@@ -47,7 +77,6 @@
 <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>-->
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
-<script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/js/fileup.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
 </html>

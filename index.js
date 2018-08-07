@@ -3875,9 +3875,9 @@ app.post('/pack/product', function (req, res) {
 
         }).then(function (pack) {
 
-            if (productId === zero){
+            if (productId === zero) {
                 pack.set("productId", "free");
-            }else {
+            } else {
                 pack.set("productId", productId);
             }
 
@@ -3885,7 +3885,7 @@ app.post('/pack/product', function (req, res) {
 
         }).then(function (pack) {
 
-            res.redirect('/pack/stickers/' + packId +'/'+ pack.get("productId"));
+            res.redirect('/pack/stickers/' + packId + '/' + pack.get("productId"));
 
         }, function (error) {
 
@@ -3893,8 +3893,59 @@ app.post('/pack/product', function (req, res) {
             res.redirect('/pack/' + packId);
         })
 
-    }else {
+    } else {
         res.redirect('/');
+    }
+
+});
+
+app.post('/pack/product/update', function (req, res) {
+
+    let token = req.cookies.token;
+    let packId = req.body.packId;
+    let productId = req.body.productId;
+    let _stickers = [];
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", packId).first();
+
+        }).then(function (pack) {
+
+            pack.set("productId", productId);
+
+            return pack.save();
+        }).then(function (pack) {
+
+            return new Parse.Query(_class.Stickers).equalTo("parent", pack.id).find();
+
+        }).then(function (stickers) {
+
+            _.each(stickers, function (sticker) {
+
+                sticker.set("productId", productId);
+                _stickers.push(sticker);
+
+            });
+
+            return Parse.Object.saveAll(_stickers);
+
+        }).then(function (stickers) {
+
+            res.redirect('/pack/edit/' + packId);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/pack/edit/' + packId);
+
+        })
+    }else {
+
+        res.redirect('/');
+
     }
 
 });
@@ -4325,19 +4376,19 @@ app.get('/pack/stickers/:packId/:productId', function (req, res) {
 
         }).then(function (stickers) {
 
-            if (productId === "free"){
+            if (productId === "free") {
                 _.each(stickers, function (sticker) {
 
-                    if (sticker.get("sold") === false){
+                    if (sticker.get("sold") === false) {
 
                         free.push(sticker);
 
                     }
                 });
-            } else if (productId !== "free"){
+            } else if (productId !== "free") {
                 _.each(stickers, function (sticker) {
 
-                    if (sticker.get("sold") === true){
+                    if (sticker.get("sold") === true) {
 
                         paid.push(sticker);
 
