@@ -3885,7 +3885,7 @@ app.post('/pack/product', function (req, res) {
 
         }).then(function (pack) {
 
-            res.redirect('/pack/stickers/' + packId + pack.get("productId"));
+            res.redirect('/pack/stickers/' + packId +'/'+ pack.get("productId"));
 
         }, function (error) {
 
