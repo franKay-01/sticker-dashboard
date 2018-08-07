@@ -3905,7 +3905,8 @@ app.post('/pack/product/update', function (req, res) {
     let packId = req.body.packId;
     let productId = req.body.productId;
     let _stickers = [];
-    let zero = "0";
+
+    console.log("PRODUCT ID " + productId);
 
     if (token) {
 
@@ -3915,7 +3916,7 @@ app.post('/pack/product/update', function (req, res) {
 
         }).then(function (pack) {
 
-            if (productId !== zero){
+            if (productId !== "free"){
                 pack.set("productId", productId);
             }else {
                 pack.set("productId", "free");
