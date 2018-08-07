@@ -71,6 +71,13 @@
                 </select>
             </div>
             <input name="packId" value="<%= id %>" hidden>
+
+          <span>
+            <button type="submit" class="create">SUBMIT</button>
+            </span>
+            <span>
+        <button type="button" id="cancelPermission" class="cancel">Cancel</button>
+         </span>
         </form>
     </div>
 </div>
@@ -78,7 +85,7 @@
 <div id="askPermission" style="display: none">
     <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
         <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
-        <a href="#" id="cancelProductId" class="edit_labels" style="margin: 200px !important;">
+        <a href="#" id="cancelPermission" class="edit_labels" style="margin: 200px !important;">
             NO
         </a>
         <a href="/publish/pack/publish/<%= id %>" class="edit_labels">
