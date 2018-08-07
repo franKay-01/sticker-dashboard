@@ -3885,7 +3885,7 @@ app.post('/pack/product', function (req, res) {
 
         }).then(function (pack) {
 
-            res.redirect('/pack/stickers/' + packId);
+            res.redirect('/pack/stickers/' + packId + pack.get("productId"));
 
         }, function (error) {
 
@@ -4293,12 +4293,12 @@ app.post('/pack/stickers/:packId', function (req, res) {
     }
 });
 
-app.get('/pack/stickers/:packId', function (req, res) {
+app.get('/pack/stickers/:packId/:productId', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.packId;
+    let productId = req.params.productId;
     let free = [];
     let paid = [];
-    let pack = {};
 
     if (token) {
 
@@ -4313,13 +4313,10 @@ app.get('/pack/stickers/:packId', function (req, res) {
 
         }).then(function (packs) {
 
-            pack = packs;
-
             let _stickers = [];
 
             _.each(packs, function (pack) {
 
-                console.log("PACK ID " + pack.id);
                 _stickers.push(pack.id);
 
             });
@@ -4328,7 +4325,7 @@ app.get('/pack/stickers/:packId', function (req, res) {
 
         }).then(function (stickers) {
 
-            if (pack.get("product") === "free"){
+            if (productId === "free"){
                 _.each(stickers, function (sticker) {
 
                     if (sticker.get("sold") === false){
@@ -4337,7 +4334,7 @@ app.get('/pack/stickers/:packId', function (req, res) {
 
                     }
                 });
-            } else if (pack.get("product") !== "free"){
+            } else if (productId !== "free"){
                 _.each(stickers, function (sticker) {
 
                     if (sticker.get("sold") === true){
