@@ -406,6 +406,7 @@ $(document).ready(function () {
             $('#pageMask').fadeIn('fast');
             $('#productId').fadeIn('fast');
             $('#logo').fadeOut('fast');
+            $('#detailsForm').fadeOut('fast');
             $('.welcome_post').fadeOut('fast');
             $('#Welcome').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
@@ -437,6 +438,7 @@ $(document).ready(function () {
             $('#pageMask').fadeOut('fast');
             $('#productId').fadeOut('fast');
             $('#logo').fadeIn('fast');
+            $('#detailsForm').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
             $('.welcome_post').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
