@@ -3915,15 +3915,12 @@ app.post('/pack/product/update', function (req, res) {
 
         }).then(function (pack) {
 
-            console.log("PACK DETAILS " + JSON.stringify(pack));
             if (productId === zero){
 
-                console.log("INSIDE ZERO");
                 pack.set("productId", "free");
 
             }else {
 
-                console.log("NOT INSIDE ZERO");
                 pack.set("productId", productId);
 
             }
@@ -3931,9 +3928,15 @@ app.post('/pack/product/update', function (req, res) {
             return pack.save();
         }).then(function (pack) {
 
-            return new Parse.Query(_class.Stickers).equalTo("parent", pack.id).find();
+            return new Parse.Query(_class.Stickers).equalTo("parent",  {
+                __type: 'Pointer',
+                className: _class.Packs,
+                objectId: packId
+            }).find();
 
         }).then(function (stickers) {
+
+            console.log("STICKERS " + JSON.stringify(stickers));
 
             _.each(stickers, function (sticker) {
 
