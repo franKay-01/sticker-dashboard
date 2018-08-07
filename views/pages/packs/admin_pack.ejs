@@ -52,8 +52,30 @@
 <!-- Start of hidden form -->
 <div id="askPermission" style="display: none">
     <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
+        <div class="edit_labels medium-12 large-12">MAKE THIS PACK FREE OR PAID?</div>
+        <form action="/pack/product" method="post" id="pack_form">
+            <div class="row" style="width: 450px !important;">
+                <select class="input-field validate" name="productId" required="" aria-required="true">
+                    <option value="" disabled selected>&nbsp;Add Pack</option>
+                    <option value="0">FREE</option>
+                    <% if (products.length === 0) { %>
+
+                    <% } else { %>
+                    <% products.forEach(function(items) { %>
+                    <option value="<%= items.id %>"><%= items.get("name") %></option>
+                    <% }) %>
+                    <% } %>
+                </select>
+            </div>
+            <input name="packId" value="<%= id %>" hidden>
+        </form>
+    </div>
+</div>
+
+<div id="productId" style="display: none">
+    <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
         <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
-        <a href="#" id="cancelPermission" class="edit_labels" style="margin: 200px !important;">
+        <a href="#" id="cancelProductId" class="edit_labels" style="margin: 200px !important;">
             NO
         </a>
         <a href="/publish/pack/publish/<%= id %>" class="edit_labels">
@@ -128,6 +150,32 @@
         </div>
         <!-- End of card-->
 
+        <% if (pack_type === type.PACK_TYPE.curated) {%>
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">Add Sticker(s)</div>
+            <div class="options">Options</div>
+            <%if (productId === ""){%>
+
+            <a href="#" id="selectProductId">
+                <button class="create_button" style="background-color: #f1f1f1 !important;">
+                    <p class="title button_font" style="color: #a46580 !important;">&nbsp; <i class="fa fa-circle size" style="color: #a46580" aria-hidden="true"></i> &nbsp;FROM PACKS
+                    </p>
+                </button>
+            </a>
+
+            <%} else {%>
+            <a href="/pack/stickers/<%= id %>">
+                <button class="create_button" style="background-color: #f1f1f1 !important;">
+                    <p class="title button_font" style="color: #a46580 !important;">&nbsp; <i class="fa fa-circle size" style="color: #a46580" aria-hidden="true"></i> &nbsp;FROM PACKS
+                    </p>
+                </button>
+            </a>
+            <%}%>
+        </div>
+
+        <%} else {%>
+
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">New Sticker</div>
             <div class="options">Options</div>
@@ -153,6 +201,7 @@
             <!--</a>-->
 
         </div>
+        <%}%>
 
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">
@@ -277,21 +326,6 @@
 
         <!-- End of card -->
 
-        <% if (pack_type === type.PACK_TYPE.curated) {%>
-
-        <div class="medium-3 large-3 cell icons">
-            <div class="create_new">
-                Select Stickers
-            </div>
-            <a href="/pack/stickers/<%= id %>">
-                <button class="create_button" style="background-color: #f1f1f1 !important;">
-                    <p class="title button_font" style="color: #a46580 !important;">&nbsp; <i class="fa fa-circle size" style="color: #a46580" aria-hidden="true"></i> &nbsp;CLICK TO SELECT
-                    </p>
-                </button>
-            </a>
-        </div>
-
-        <%}%>
         <% include ../../partials/sticker_cards %>
         <%- include('../../partials/footer') %>
         <div id="toast_message">When Uploading ensure there's stable connection.<br>

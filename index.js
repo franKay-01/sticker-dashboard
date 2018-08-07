@@ -3763,6 +3763,7 @@ app.get('/pack/:id', function (req, res) {
         let pack_status;
         let page;
         let _stickers;
+        let productId;
 
         getUser(token).then(function (sessionToken) {
 
@@ -3787,6 +3788,7 @@ app.get('/pack/:id', function (req, res) {
             pack_publish = pack.get("published");
             pack_name = pack.get("name");
             packType = pack.get("priceType");
+            productId = pack.get("productId");
 
             let col = pack.relation(_class.Packs);
 
@@ -3802,9 +3804,14 @@ app.get('/pack/:id', function (req, res) {
 
             _stickers = stickers;
 
-            return new Parse.Query(_class.Packs).equalTo("userId", _user.id).find();
+            return Parse.Promise.when(
 
-        }).then(function (packs) {
+                new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
+                new Parse.Query(_class.Product).find(),
+
+            );
+
+        }).then(function (packs, products) {
 
             page = util.page(packs, pack_id);
 
@@ -3821,7 +3828,9 @@ app.get('/pack/:id', function (req, res) {
                         next: page.next,
                         previous: page.previous,
                         pack_type: packType,
-                        type: type
+                        type: type,
+                        productId: productId,
+                        products: products
 
                     });
                     break;
@@ -3836,7 +3845,9 @@ app.get('/pack/:id', function (req, res) {
                         status: pack_status,
                         next: page.next,
                         previous: page.previous,
-                        type: type
+                        type: type,
+                        productId: productId,
+                        products: products
                     });
                     break;
             }

@@ -402,6 +402,16 @@ $(document).ready(function () {
             $('#opaqueDiv').fadeOut('fast');
         });
 
+        $('#selectProductId').on('click', function () {
+            $('#pageMask').fadeIn('fast');
+            $('#productId').fadeIn('fast');
+            $('#logo').fadeOut('fast');
+            $('.welcome_post').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#opaqueDiv').fadeOut('fast');
+        });
+
         $('#change_image').on('click', function () {
             $('#pageMask').fadeIn('fast');
             $('#hiddenChangeArtwork').fadeIn('fast');
@@ -415,6 +425,17 @@ $(document).ready(function () {
         $('#cancelPermission').on('click', function () {
             $('#pageMask').fadeOut('fast');
             $('#askPermission').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('.welcome_post').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+        });
+
+
+        $('#cancelProductId').on('click', function () {
+            $('#pageMask').fadeOut('fast');
+            $('#productId').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
             $('.welcome_post').fadeIn('fast');
