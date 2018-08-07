@@ -3915,14 +3915,10 @@ app.post('/pack/product/update', function (req, res) {
 
         }).then(function (pack) {
 
-            if (productId === zero){
-
-                pack.set("productId", "free");
-
-            }else {
-
+            if (productId !== zero){
                 pack.set("productId", productId);
-
+            }else {
+                pack.set("productId", "free");
             }
 
             return pack.save();
