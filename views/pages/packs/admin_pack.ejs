@@ -72,12 +72,15 @@
             </div>
             <input name="packId" value="<%= id %>" hidden>
 
-          <span>
-            <button type="submit" class="create">SUBMIT</button>
-            </span>
-            <span>
-        <button type="button" id="cancelPermission" class="cancel">Cancel</button>
-         </span>
+            <center>
+                <span>
+                    <button type="submit" class="create">SUBMIT</button>
+                </span>
+                <span>
+                    <button type="button" id="cancelPermission" class="cancel">Cancel</button>
+                </span>
+            </center>
+
         </form>
     </div>
 </div>
@@ -149,9 +152,9 @@
                 <p class="none" style="margin: 145px 90px auto;"><b>No Artwork</b></p>
             </center>
 
-            <%}else {%>
+            <% }else { %>
             <img class="pack_artwork" src="<%= art.url() %>">
-            <%}%>
+            <% } %>
             <a href="/pack/edit/<%= id %>">
                 <button class="create_button pack_edit_button">
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;EDIT PACK</p>
@@ -160,31 +163,37 @@
         </div>
         <!-- End of card-->
 
-        <% if (pack_type === type.PACK_TYPE.curated) {%>
+        <% if (pack_type === type.PACK_TYPE.curated) { %>
 
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">Add Sticker(s)</div>
             <div class="options">Options</div>
-            <%if (productId === ""){%>
+            <% if (productId === ""){ %>
 
             <a href="#" id="selectProductId">
                 <button class="create_button" style="background-color: #f1f1f1 !important;">
-                    <p class="title button_font" style="color: #a46580 !important;">&nbsp; <i class="fa fa-circle size" style="color: #a46580" aria-hidden="true"></i> &nbsp;FROM PACKS
+                    <p class="title button_font" style="color: #a46580 !important;">&nbsp; <i class="fa fa-circle size"
+                                                                                              style="color: #a46580"
+                                                                                              aria-hidden="true"></i>
+                        &nbsp;FROM PACKS
                     </p>
                 </button>
             </a>
 
-            <%} else {%>
+            <% } else { %>
             <a href="/pack/stickers/<%= id %>">
                 <button class="create_button" style="background-color: #f1f1f1 !important;">
-                    <p class="title button_font" style="color: #a46580 !important;">&nbsp; <i class="fa fa-circle size" style="color: #a46580" aria-hidden="true"></i> &nbsp;FROM PACKS
+                    <p class="title button_font" style="color: #a46580 !important;">&nbsp; <i class="fa fa-circle size"
+                                                                                              style="color: #a46580"
+                                                                                              aria-hidden="true"></i>
+                        &nbsp;FROM PACKS
                     </p>
                 </button>
             </a>
-            <%}%>
+            <% } %>
         </div>
 
-        <%} else {%>
+        <% } else { %>
 
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">New Sticker</div>
@@ -204,37 +213,43 @@
             </a>
 
             <!--<a href="/test_upload/<%#= id %>">-->
-                <!--<button class="create_button">-->
-                    <!--<p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; Test Upload-->
-                    <!--</p>-->
-                <!--</button>-->
+            <!--<button class="create_button">-->
+            <!--<p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; Test Upload-->
+            <!--</p>-->
+            <!--</button>-->
             <!--</a>-->
 
         </div>
-        <%}%>
+        <% } %>
 
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">
                 Status
-                <%if (status === 0){%>
-                <i class="fa fa-circle" id="circle" style="color: grey;float: right;font-size: 15px;" aria-hidden="true"></i>
-                <%} else if (status === 1){%>
-                <i class="fa fa-circle" id="circle" style="color: #f8ab1c;float: right;font-size: 15px;" aria-hidden="true"></i>
+                <% if (status === 0){ %>
+                <i class="fa fa-circle" id="circle" style="color: grey;float: right;font-size: 15px;"
+                   aria-hidden="true"></i>
+                <% } else if (status === 1){ %>
+                <i class="fa fa-circle" id="circle" style="color: #f8ab1c;float: right;font-size: 15px;"
+                   aria-hidden="true"></i>
 
-                <%} else if(status === 2){%>
-                <i class="fa fa-circle" id="circle" style="color: #0f9d58;float: right;font-size: 15px;" aria-hidden="true"></i>
+                <% } else if(status === 2){ %>
+                <i class="fa fa-circle" id="circle" style="color: #0f9d58;float: right;font-size: 15px;"
+                   aria-hidden="true"></i>
 
-                <%} else if(status === 3){%>
-                <i class="fa fa-circle" id="circle" style="color: red;float: right;font-size: 15px;" aria-hidden="true"></i>
+                <% } else if(status === 3){ %>
+                <i class="fa fa-circle" id="circle" style="color: red;float: right;font-size: 15px;"
+                   aria-hidden="true"></i>
 
-                <%}%>
+                <% } %>
             </div>
 
             <% if (status === 0 && stickers.length !== 0){ %>
 
             <a href="/pack/review/update/status/<%= id %>">
                 <button class="create_button">
-                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; SUBMIT FOR
+                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
+                                                                                   aria-hidden="true"></i> &nbsp; SUBMIT
+                        FOR
                         REVIEW
                     </p>
                 </button>
@@ -243,17 +258,20 @@
             <% } %>
 
             <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
-                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #f8ab1c" aria-hidden="true"></i> &nbsp; IN REVIEW
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #f8ab1c"
+                                                       aria-hidden="true"></i> &nbsp; IN REVIEW
                 </p>
             </button>
 
             <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
-                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #dd041f" aria-hidden="true"></i> &nbsp; REJECTED
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #dd041f"
+                                                       aria-hidden="true"></i> &nbsp; REJECTED
                 </p>
             </button>
 
             <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
-                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #7ed321" aria-hidden="true"></i> &nbsp;APPROVED
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #7ed321"
+                                                       aria-hidden="true"></i> &nbsp;APPROVED
                 </p>
             </button>
 
@@ -262,56 +280,66 @@
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">
                 Publishing
-                <%if (published === false){%>
-                <i class="fa fa-circle" id="circle" style="color: #f8ab1c;float: right;font-size: 15px;" aria-hidden="true"></i>
-                <%} else if (published === true){%>
-                <i class="fa fa-circle" id="circle" style="color: #7ed321;float: right;font-size: 15px;" aria-hidden="true"></i>
-                <%}%>
+                <% if (published === false){ %>
+                <i class="fa fa-circle" id="circle" style="color: #f8ab1c;float: right;font-size: 15px;"
+                   aria-hidden="true"></i>
+                <% } else if (published === true){ %>
+                <i class="fa fa-circle" id="circle" style="color: #7ed321;float: right;font-size: 15px;"
+                   aria-hidden="true"></i>
+                <% } %>
             </div>
 
             <!-- <%# if (status === 2){ %>-->
-            <% if (published === false){%>
-            <%if ( stickers.length < 10){%>
+            <% if (published === false){ %>
+            <% if ( stickers.length < 10){ %>
             <a href="#" onclick="packSize()">
                 <button class="create_button">
-                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
+                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
+                                                                                   aria-hidden="true"></i> &nbsp;
+                        PUBLISH
                     </p>
                 </button>
             </a>
-            <%}else {%>
+            <% }else { %>
             <a href="#" id="showPermission">
                 <button class="create_button">
-                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH
+                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
+                                                                                   aria-hidden="true"></i> &nbsp;
+                        PUBLISH
                     </p>
                 </button>
             </a>
-            <%}%>
-            <%} else if (published === true){%>
+            <% } %>
+            <% } else if (published === true){ %>
             <a href="#" id="removePublished">
                 <button class="create_button">
-                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; UNPUBLISH
+                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
+                                                                                   aria-hidden="true"></i> &nbsp;
+                        UNPUBLISH
                     </p>
                 </button>
             </a>
 
-            <%}%>
+            <% } %>
 
             <!--<%# } else {%>-->
             <!--<a onclick="not_approved()">-->
-                <!--<button class="create_button">-->
-                    <!--<p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH-->
-                    <!--</p>-->
-                <!--</button>-->
+            <!--<button class="create_button">-->
+            <!--<p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; PUBLISH-->
+            <!--</p>-->
+            <!--</button>-->
             <!--</a>-->
             <!--<%#}%>-->
 
             <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
-                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #f8ab1c" aria-hidden="true"></i> &nbsp; UNPUBLISHED
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #f8ab1c"
+                                                       aria-hidden="true"></i> &nbsp; UNPUBLISHED
                 </p>
             </button>
 
             <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
-                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #7ed321" aria-hidden="true"></i> &nbsp; PUBLISHED
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #7ed321"
+                                                       aria-hidden="true"></i> &nbsp; PUBLISHED
                 </p>
             </button>
             <center style="margin-top: 25px;">
