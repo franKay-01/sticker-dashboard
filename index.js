@@ -3907,7 +3907,6 @@ app.post('/pack/product/update', function (req, res) {
     let _stickers = [];
     let zero = "0";
 
-    console.log("PACK ID " + packId + " ProDUCT " + productId);
     if (token) {
 
         getUser(token).then(function (sessionToken) {
@@ -3916,12 +3915,15 @@ app.post('/pack/product/update', function (req, res) {
 
         }).then(function (pack) {
 
+            console.log("PACK DETAILS " + JSON.stringify(pack));
             if (productId === zero){
 
+                console.log("INSIDE ZERO");
                 pack.set("productId", "free");
 
             }else {
 
+                console.log("NOT INSIDE ZERO");
                 pack.set("productId", productId);
 
             }
