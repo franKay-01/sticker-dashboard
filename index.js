@@ -3998,6 +3998,11 @@ app.get('/pack/edit/:id', function (req, res) {
                 productDetails = productInfo.get("name");
             }
 
+            if (_pack.get("productId") === "free"){
+
+                productDetails = "FREE";
+            }
+
             res.render("pages/packs/pack_details", {
                 pack_details: _pack,
                 productId: _productId,
