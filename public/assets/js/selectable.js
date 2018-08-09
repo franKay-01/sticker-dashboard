@@ -11,7 +11,7 @@ $(document).ready(function () {
                 el.css({
                     // "border-color": "#00bcd4",
                     "border-color": "#e57373",
-                    "border-width": "2px",
+                    "border-width": "4px",
                     "border-style": "solid"
                 });
                 counter = counter + 1;
