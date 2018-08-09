@@ -9,7 +9,8 @@ $(document).ready(function () {
             onSelected: function (el) {
                 selectedItems.push(el.attr("data-id"))
                 el.css({
-                    "border-color": "#00bcd4",
+                    // "border-color": "#00bcd4",
+                    "border-color": "#e57373",
                     "border-width": "2px",
                     "border-style": "solid"
                 });
@@ -35,7 +36,7 @@ $(document).ready(function () {
 
                 if (selectedItems.length === 0) {
                     word = 'ADD STICKER(S)';
-                    word word.bold();
+                    word = word.bold();
 
                     $('.add-sticker-btn').attr("disabled", true);
                     $('.add-sticker-btn').html(word);
