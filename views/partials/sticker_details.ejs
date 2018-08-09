@@ -27,24 +27,24 @@
                 <% if (categories.length === 0) { %>
 
                 <% } else { %>
-                <% categories.forEach(function(items) { %>
-                <% let name = items.get("name").toString() %>
-                <% let isSelected = false %>
-                <% if (selected){ %>
-                <% selected.forEach(function(select){ %>
-                <% if (select === name) { %>
-                <% isSelected = true %>
-                <option value="<%= items.get("name") %>" selected><%= items.get("name") %></option>
-                <% } %>
-                <% }) %>
-                <% } %>
-                <% if(isSelected){ %>
-                <% isSelected = false %>
-                <% return %>
-                <% } %>
-                <option value="<%= items.get("name") %>"><%= items.get("name") %></option>
+                    <% categories.forEach(function(items) { %>
+                        <% let name = items.get("name").toString() %>
+                        <% let isSelected = false %>
+                        <% if (selected){ %>
+                            <% selected.forEach(function(select){ %>
+                                <% if (select === name) { %>
+                                    <% isSelected = true %>
+                                    <option value="<%= items.get("name") %>" selected><%= items.get("name") %></option>
+                                <% } %>
+                            <% }) %>
+                        <% } %>
+                        <% if(isSelected){ %>
+                            <% isSelected = false %>
+                            <% return %>
+                        <% } %>
+                        <option value="<%= items.get("name") %>"><%= items.get("name") %></option>
 
-                <% }) %>
+                    <% }) %>
                 <% } %>
             </select>
 
@@ -64,19 +64,21 @@
                     <li class="list-group-item">
                         Sell Sticker
                         <div class="material-switch pull-right">
-                            <% if (sticker.get("sold") === true){%>
-                            <input id="switch_status" onchange="checkStatus()" name="switch_status" type="checkbox" checked/>
-                            <label for="switch_status" class="label-primary"></label>
-                            <%} else if (sticker.get("sold") === false) {%>
-                            <input id="switch_status" onchange="checkStatus()" name="switch_status" type="checkbox"/>
-                            <label for="switch_status" class="label-primary"></label>
-                            <%}%>
+                            <% if (sticker.get("sold") === true){ %>
+                                <input id="switch_status" onchange="checkStatus()" name="switch_status" type="checkbox"
+                                       checked/>
+                                <label for="switch_status" class="label-primary"></label>
+                            <% } else if (sticker.get("sold") === false) { %>
+                                <input id="switch_status" onchange="checkStatus()" name="switch_status"
+                                       type="checkbox"/>
+                                <label for="switch_status" class="label-primary"></label>
+                            <% } %>
                         </div>
                     </li>
                     <input name="sticker_status" id="sticker_status" hidden>
                     <script>
                         function checkStatus() {
-                            if(document.getElementById('switch_status').checked) {
+                            if (document.getElementById('switch_status').checked) {
                                 document.getElementById('sticker_status').value = 1;
                             } else {
                                 document.getElementById('sticker_status').value = 0;
@@ -98,16 +100,17 @@
             <center>
                 <a href="/pack/<%= pack_id %>" class="cancel_btn">Back</a>
 
-                <% if (latest.get("feedId") === sticker.id){ %>
-                <button type="button" class="cancel_btn" onclick="stickerInfo()">
-                    Delete
-                </button>
-                <% } else { %>
-                <button type="button" class="cancel_btn delbtn" data-id="<%= sticker.id %>"
-                        value="<%= sticker.get("name") %>">Delete
-                </button>
+                <% if (latest !== ""){ %>
+                    <% if (latest.get("feedId") === sticker.id){ %>
+                        <button type="button" class="cancel_btn" onclick="stickerInfo()">
+                            Delete
+                        </button>
+                    <% } else { %>
+                        <button type="button" class="cancel_btn delbtn" data-id="<%= sticker.id %>"
+                                value="<%= sticker.get("name") %>">Delete
+                        </button>
+                    <% } %>
                 <% } %>
-
 
                 <button class="update" type="submit">Update</button>
             </center>
