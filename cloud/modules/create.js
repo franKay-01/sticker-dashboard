@@ -6,6 +6,7 @@ exports.Sticker = sticker => {
     _sticker.id = sticker.id;
     _sticker.name = sticker.get("name");
     _sticker.description = sticker.get("description");
+    _sticker.meaning = sticker.get("meaning");
     _sticker.categories = sticker.get("categories");
 
     let url = sticker.get("uri");
@@ -20,6 +21,14 @@ exports.Sticker = sticker => {
         _sticker.preview = preview.url();
     } else {
         _sticker.preview = "";
+    }
+
+    let sold = sticker.get("sold");
+
+    if ((sold === "true") || (sold === true)) {
+        _sticker.sold = true;
+    } else {
+        _sticker.sold = false;
     }
 
     return _sticker;
@@ -44,10 +53,10 @@ exports.Pack = (pack, stickerList) => {
 
     let _pack = {};
     _pack.id = pack.id;
-    _pack.name = pack.get("pack_name");
-    _pack.description = pack.get("pack_description");
+    _pack.name = pack.get("name");
+    _pack.description = pack.get("description");
 
-   let artwork = pack.get("art_work");
+    let artwork = pack.get("artwork");
     if (artwork) {
         _pack.artwork = artwork.url();
     } else {
@@ -83,44 +92,48 @@ exports.Pack = (pack, stickerList) => {
 
 };
 
-exports.Story = (story, sticker, storyItem) => {
+exports.StoryArtwork = (story, sticker) => {
+
+    story.stickerName = sticker.get("name");
+
+    if (sticker.get("uri")) {
+        story.stickerUrl = sticker.get("uri").url();
+    } else {
+        story.stickerUrl = "";
+    }
+    if (sticker.get("preview")) {
+        story.stickerPreviewUrl = sticker.get("preview").url();
+    } else {
+        story.stickerPreviewUrl = "";
+    }
+
+    return story;
+
+};
+
+exports.StoryItems = (storyItems) => {
+    let _storyItems = [];
+
+    if (storyItems.length) {
+        _.each(storyItems, storyItem => {
+            _storyItems.push({id: storyItem.id, content: storyItem.get("content"), type: storyItem.get("type")});
+        });
+    }
+
+    return _storyItems
+};
+
+exports.Story = (story) => {
 
     let _story = {};
     _story.id = story.id;
     _story.title = story.get("title");
     _story.summary = story.get("summary");
-    _story.stickerName = sticker.get("name");
-
-    if (sticker.get("uri")) {
-        _story.stickerUrl = sticker.get("uri").url();
-    } else {
-        _story.stickerUrl = "";
-    }
-
-    if (sticker.get("preview")) {
-        _story.stickerPreviewUrl = sticker.get("preview").url();
-    } else {
-        _story.stickerPreviewUrl = "";
-    }
-
-    let colors = story.get("color");
-    if (colors) {
-        _story.colors = colors
-    } else {
-        _story.colors = type.DEFAULT.color
-    }
-
-    if (storyItem.length) {
-        let _stories = [];
-        _.each(storyItem, storyItem => {
-            _stories.push({id: storyItem.id, content: storyItem.get("content"), type: storyItem.get("type")});
-        });
-        _story.stories = _stories;
-    }
 
     return _story;
 
 };
+
 
 exports.Adverts = (advert, links, advertImages) => {
 
