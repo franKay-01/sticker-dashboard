@@ -2403,9 +2403,9 @@ app.post('/storyedit/:id', function (req, res) {
     let storyEdit = '/storyedit/';
 
     console.log("KEYWORD " + keyword);
-    // if (keyword !== "undefined" || keyword !== undefined) {
-    //     _keyword = keyword.split(",");
-    // }
+    if (keyword !== "undefined" || keyword !== undefined) {
+        _keyword = keyword.split(",");
+    }
 
     if (token) {
 
