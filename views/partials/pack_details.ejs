@@ -29,7 +29,7 @@
             <input type="text" class="box_2 validate" value="<%= pack_details.get("keywords") %>" placeholder="Smile,Angry,Sad" id="keyword"
                    name="keyword" style="margin-bottom: 35px !important;"><br>
 
-            <%if (pack_details.get("priceType") === type.PACK_TYPE.grouped || pack_details.get("priceType") === type.PACK_TYPE.themed){%>
+            <%if (pack_details.get("packType") === type.PACK_TYPE.grouped || pack_details.get("packType") === type.PACK_TYPE.themed){%>
             <label for="productId" class="update_label">Add Product ID</label>
             <label for="productId" class="update_label" style="font-size: 15px !important;">
                 Current ProductID Name: <i style="color: #0f9d58 !important;"><%= productDetails %></i></label>

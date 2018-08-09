@@ -3724,15 +3724,15 @@ app.post('/pack', function (req, res) {
 
             if (packType === type.PACK_TYPE.grouped) {
 
-                pack.set("priceType", type.PACK_TYPE.grouped);
+                pack.set("packType", type.PACK_TYPE.grouped);
 
             } else if (packType === type.PACK_TYPE.themed) {
 
-                pack.set("priceType", type.PACK_TYPE.themed);
+                pack.set("packType", type.PACK_TYPE.themed);
 
             } else if (packType === type.PACK_TYPE.curated) {
 
-                pack.set("priceType", type.PACK_TYPE.curated);
+                pack.set("packType", type.PACK_TYPE.curated);
 
             }
 
@@ -3794,7 +3794,7 @@ app.get('/pack/:id', function (req, res) {
             pack_art = pack.get("artwork");
             is_published = pack.get("published");
             pack_name = pack.get("name");
-            packType = pack.get("priceType");
+            packType = pack.get("packType");
             productId = pack.get("productId");
 
             let packRelation = pack.relation(_class.Packs);
@@ -4386,7 +4386,7 @@ app.get('/pack/stickers/:packId/:productId', function (req, res) {
             _user = sessionToken.get("user");
 
             // return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
-            return new Parse.Query(_class.Packs).equalTo("priceType", type.PACK_TYPE.grouped).find();
+            return new Parse.Query(_class.Packs).equalTo("packType", type.PACK_TYPE.grouped).find();
 
         }).then(function (packs) {
 
