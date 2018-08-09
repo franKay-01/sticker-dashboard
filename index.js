@@ -5345,6 +5345,7 @@ app.post('/product', function (req, res) {
             productId.set("userId", _user.id);
             productId.set("published", false);
             productId.set("productId", productObject);
+            productId.set("price", productObject);
 
             return productId.save();
 
