@@ -1883,7 +1883,7 @@ app.post('/storyitem/html/update/:id', function (req, res) {
             } else {
 
                 let html = {};
-                html[htmlType.toString()] = {"text": htmlContent, "color": htmlColor};
+                html[htmlType.toString()] = {"text": htmlContent, "color": "#" + htmlColor};
                 console.log("UPDATED HTML " + JSON.stringify(html));
 
                 contents.html[index] = html;
@@ -3952,6 +3952,11 @@ app.post('/pack/product/update', function (req, res) {
             _.each(stickers, function (sticker) {
 
                 sticker.set("productId", productId);
+                if (productId !== "free"){
+                    sticker.set("sold", false);
+                }else {
+                    sticker.set("sold", true);
+                }
                 _stickers.push(sticker);
 
             });
