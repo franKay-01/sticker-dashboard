@@ -1316,12 +1316,12 @@ a {
 
 .pack_name_text {
     height: 39px;
-    font-size: 28px;
+    font-size: 23px;
     font-weight: 600;
     letter-spacing: -1.9px;
     text-align: center;
     margin-top: 10px;
-    color: #3c3c3c;
+    color: #002b5c;
 }
 
 #signlink {
