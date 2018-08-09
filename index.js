@@ -4843,17 +4843,19 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
                 _sticker = sticker;
                 _categories = categories;
                 _pack = pack;
-                _latest = latest;
+
+                if(latest){
+                    _latest = latest;
+                }
 
                 selectedCategories = sticker.get("categories");
 
-                console.log("SELECTED " + selectedCategories);
+                console.log("SELECTED " + latest);
 
                 let sticker_relation = sticker.relation(_class.Categories);
                 return sticker_relation.query().find();
 
-            }
-        ).then(function (stickerCategories) {
+            }).then(function (stickerCategories) {
 
             // var categoryNames = [];
             // _.each(stickerCategories, function (category) {
