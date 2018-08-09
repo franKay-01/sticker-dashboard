@@ -2294,7 +2294,7 @@ app.get('/storyedit/:id', function (req, res) {
 
     let token = req.cookies.token;
     let story_id = req.params.id;
-    let _latest;
+    let _latest = "";
     let page;
 
     if (token) {
@@ -2320,8 +2320,11 @@ app.get('/storyedit/:id', function (req, res) {
         }).then(function (story, sticker, latest, stories, authors) {
 
             _story = story;
-            _latest = latest;
             _authors = authors;
+
+            if(latest) {
+                _latest = latest;
+            }
 
             page = util.page(stories, story_id);
 
