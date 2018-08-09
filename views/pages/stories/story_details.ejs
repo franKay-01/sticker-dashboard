@@ -75,7 +75,9 @@
 <div id="hiddenMakeStory" class="hidden_forms" style="display: none">
     <div class="medium-3 large-3 cell create_background">
         <center>
-            <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">MAKE THIS STORY OF THE DAY?</div>
+            <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">MAKE THIS STORY OF THE
+                DAY?
+            </div>
         </center>
         <!--<form id="pack_form" action="/new_catalogue_image/<%#= story_id %>" method="post"-->
         <br><br>
@@ -159,34 +161,36 @@
                 <div class="create_new">
                     Publishing
                     <% if (story.get("published") === false){ %>
-                    <i class="fa fa-circle" id="circle"
-                       style="color: #f8ab1c;float: right;font-size: 15px;margin-top: 10px;" aria-hidden="true"></i>
+                        <i class="fa fa-circle" id="circle"
+                           style="color: #f8ab1c;float: right;font-size: 15px;margin-top: 10px;" aria-hidden="true"></i>
                     <% } else if (story.get("published") === true){ %>
-                    <i class="fa fa-circle" id="circle"
-                       style="color: #7ed321;float: right;font-size: 15px;margin-top: 10px;" aria-hidden="true"></i>
+                        <i class="fa fa-circle" id="circle"
+                           style="color: #7ed321;float: right;font-size: 15px;margin-top: 10px;" aria-hidden="true"></i>
                     <% } %>
                 </div>
 
                 <!-- <%# if (status === 2){ %>-->
                 <% if (story.get("published") === false){ %>
 
-                <a href="#" id="showPermission">
-                    <button class="create_button">
-                        <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
-                                                                                       aria-hidden="true"></i> &nbsp;
-                            PUBLISH
-                        </p>
-                    </button>
-                </a>
+                    <a href="#" id="showPermission">
+                        <button class="create_button">
+                            <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
+                                                                                           aria-hidden="true"></i>
+                                &nbsp;
+                                PUBLISH
+                            </p>
+                        </button>
+                    </a>
                 <% } else if (story.get("published") === true){ %>
-                <a href="#" id="removePublished">
-                    <button class="create_button">
-                        <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
-                                                                                       aria-hidden="true"></i> &nbsp;
-                            UNPUBLISH
-                        </p>
-                    </button>
-                </a>
+                    <a href="#" id="removePublished">
+                        <button class="create_button">
+                            <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
+                                                                                           aria-hidden="true"></i>
+                                &nbsp;
+                                UNPUBLISH
+                            </p>
+                        </button>
+                    </a>
 
                 <% } %>
 
@@ -202,33 +206,36 @@
                     </p>
                 </button>
 
-                <% if (latest.get("feedId") === story.id){ %>
-                <button class="create_button" onclick="storyInfo()" style="background-color: #f1f1f1 !important;">
-                    <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
-                                                           aria-hidden="true"></i> &nbsp; DELETE
-                    </p>
-                </button>
-                <% } else { %>
-                <button class="create_button" id="remove_story" style="background-color: #f1f1f1 !important;">
-                    <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
-                                                           aria-hidden="true"></i> &nbsp; DELETE
-                    </p>
-                </button>
+                <% if (latest !== ""){ %>
+                    <% if (latest.get("feedId") === story.id){ %>
+                        <button class="create_button" onclick="storyInfo()"
+                                style="background-color: #f1f1f1 !important;">
+                            <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
+                                                                   aria-hidden="true"></i> &nbsp; DELETE
+                            </p>
+                        </button>
+                    <% } else { %>
+                        <button class="create_button" id="remove_story" style="background-color: #f1f1f1 !important;">
+                            <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
+                                                                   aria-hidden="true"></i> &nbsp; DELETE
+                            </p>
+                        </button>
+                    <% } %>
                 <% } %>
 
                 <center style="margin-top: 25px;">
                 <span style="padding-right: 125px;">
                     <% if (previous !== ""){ %>
-                    <a style="color: #a46580 !important; "
-                       href="/storyedit/<%= previous %>">
+                        <a style="color: #a46580 !important; "
+                           href="/storyedit/<%= previous %>">
                         <i style="font-size: 3rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
                     <% } %>
                 </span>
                     <span style="padding-left: 15px">
                         <% if (next !== ""){ %>
 
-                        <a style="color: #a46580 !important;"
-                           href="/storyedit/<%= next %>">
+                            <a style="color: #a46580 !important;"
+                               href="/storyedit/<%= next %>">
                         <i style="font-size: 3rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
 
                         <% } %>
@@ -243,9 +250,9 @@
             <p class="story_icons">
                 STORY OF THE DAY
                 <% if (latest.get("feedId") === story.id){ %>
-                <i class="fa fa-circle" id="circle" style="color: #0f9d58;" aria-hidden="true"></i>
+                    <i class="fa fa-circle" id="circle" style="color: #0f9d58;" aria-hidden="true"></i>
                 <% }else{ %>
-                <i class="fa fa-circle" id="circle" style="color: grey;" aria-hidden="true"></i>
+                    <i class="fa fa-circle" id="circle" style="color: grey;" aria-hidden="true"></i>
                 <% } %>
             </p>
 
@@ -260,13 +267,13 @@
                 <div class="medium-5 large-5 cell">
 
                     <center>
-                        <% if (sticker !== ""){%>
-                        <img width="200px" height="200px" src="<%= sticker.get("uri").url() %>">
-                        <%}else {%>
+                        <% if (sticker !== ""){ %>
+                            <img width="200px" height="200px" src="<%= sticker.get("uri").url() %>">
+                        <% }else { %>
 
-                        <p class="none" style="margin: 145px 90px auto;"><b>No Artwork</b></p>
+                            <p class="none" style="margin: 145px 90px auto;"><b>No Artwork</b></p>
 
-                        <%}%>
+                        <% } %>
                     </center>
                     <label class="update_label">Story Title:</label> <input placeholder="Story Title"
                                                                             style="width: 60% !important;" class="box_2"
@@ -281,25 +288,26 @@
                     <textarea class="validate" placeholder="Summary" style="width: 60% !important;"
                               name="summary" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
 
-                    <label class="update_label">Author: <a href="/author/view/<%= authorId %>/<%= story.id %>"><i style="color: #00aa9f;font-weight: 700"><%= author %></i></a></label>
+                    <label class="update_label">Author: <a href="/author/view/<%= authorId %>/<%= story.id %>"><i
+                                    style="color: #00aa9f;font-weight: 700"><%= author %></i></a></label>
                     <div class="row" style="width: 450px !important;margin-left: 0 !important;">
                         <select class="input-field validate" name="authorId">
                             <option value="" disabled selected>&nbsp;Add/Change Author</option>
                             <% if (authors.length === 0) { %>
 
                             <% } else { %>
-                            <% authors.forEach(function(items) { %>
-                            <option value="<%= items.id %>"><%= items.get("name") %></option>
-                            <% }) %>
+                                <% authors.forEach(function(items) { %>
+                                    <option value="<%= items.id %>"><%= items.get("name") %></option>
+                                <% }) %>
                             <% } %>
                         </select>
                     </div>
 
                     <label class="update_label">Edit Color Scheme:</label>
                     <span style="color: <%= colors.topColor %>"><i class="fa fa-circle fa-5x"
-                                                             aria-hidden="true"></i></span>
+                                                                   aria-hidden="true"></i></span>
                     <span style="color:<%= colors.bottomColor %>;margin-left: -30px;"><i class="fa fa-circle fa-5x"
-                                                                                aria-hidden="true"></i></span>
+                                                                                         aria-hidden="true"></i></span>
 
                     <br>
                     <a href="/storycolor/<%= story.id %>" class="preview">Edit Color</a><br>
@@ -322,10 +330,12 @@
             </form>
             <% if (latest.get("feedId") !== story.id && story.get("published") === true){ %>
 
-            <form id="latestStory" action="/feeds/story/story" method="post">
-                <input type="text" class="story_id" name="element_id" value="<%= story.id %>" hidden>
-                <button style="background-color: transparent;font-size: 20px;" type="button" class="preview storyElement">Make Story of The Day</button>
-            </form>
+                <form id="latestStory" action="/feeds/story/story" method="post">
+                    <input type="text" class="story_id" name="element_id" value="<%= story.id %>" hidden>
+                    <button style="background-color: transparent;font-size: 20px;" type="button"
+                            class="preview storyElement">Make Story of The Day
+                    </button>
+                </form>
             <% } %>
         </div>
 
