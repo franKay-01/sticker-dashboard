@@ -866,10 +866,8 @@ label {
 }
 
 .display_icons{
-    float: right;
-    font-size: 15px;
-    margin-right: 5px;
-    margin-top: 5px
+    position: absolute;
+    right: 0;
 }
 .story_icons{
     float: left;
