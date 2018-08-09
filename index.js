@@ -4822,7 +4822,7 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
     let _categories;
     let selectedCategories;
     let _pack = [];
-    let _latest;
+    let _latest = "";
 
     if (token) {
         let _user = {};
