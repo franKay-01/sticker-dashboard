@@ -39,16 +39,18 @@
 
     </div>
     <!-- End of logo -->
-    <%if (freeStickers.length > 0){%>
+    <% if (freeStickers.length > 0){ %>
     <span class="medium-6 large-6 welcome_post"><b>Add Free Sticker to Pack</b></span>
 
-    <%} else if (paidStickers.length > 0){%>
+    <% } else if (paidStickers.length > 0){ %>
     <span class="medium-6 large-6 welcome_post"><b>Add Paid Sticker to Pack</b></span>
 
-    <%}%>
+    <% } %>
     <span class="medium-6 large-6" style="float: right;margin-right: 400px">
     <form action="/pack/stickers/<%= id %>" method="post">
-        <button type="submit" class="waves-effect waves-light btn add-sticker-btn" style="position: fixed" disabled>ADD STICKER(S)</button>
+        <button class="create_button add-sticker-btn" style="position: fixed">&nbsp;ADD STICKER(S)</button>
+
+        <!--<button type="submit" class="waves-effect waves-light btn add-sticker-btn" style="position: fixed" disabled>ADD STICKER(S)</button>-->
         <input type="text" class="sticker_id" id="stickerIds" name="stickerIds" hidden>
     </form>
     </span>
