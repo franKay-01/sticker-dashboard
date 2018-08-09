@@ -4031,6 +4031,7 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
     let id = req.params.id;
     let keywords = req.body.keyword;
     let archive = req.body.archive;
+    let packVersion = req.body.packVersion;
     let productId = req.body.productId;
     let description = req.body.description;
     let _keywords = [];
@@ -4076,6 +4077,7 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
             pack.set("keywords", _keywords);
             pack.set("archived", archive);
             pack.set("productId", productId);
+            pack.set("version", packVersion);
 
             if (files !== undefined || files !== "undefined") {
                 files.forEach(function (file) {
