@@ -2294,7 +2294,7 @@ app.get('/storyedit/:id', function (req, res) {
 
     let token = req.cookies.token;
     let story_id = req.params.id;
-    let _latest;
+    let _latest = "";
     let page;
 
     if (token) {
@@ -2320,8 +2320,11 @@ app.get('/storyedit/:id', function (req, res) {
         }).then(function (story, sticker, latest, stories, authors) {
 
             _story = story;
-            _latest = latest;
             _authors = authors;
+
+            if(latest) {
+                _latest = latest;
+            }
 
             page = util.page(stories, story_id);
 
@@ -2446,15 +2449,15 @@ app.post('/story', function (req, res) {
     let title = req.body.title;
     let summary = req.body.summary;
     let pack_id = req.body.pack_id;
-    let body = req.body.story;
+    let body = req.body.summary;
     let storyType = parseInt(req.body.storyType);
     let _keywords = [];
     let story_id;
     let newObject = {};
 
-    if (keywords !== undefined || keywords !== "undefined") {
-        _keywords = keywords.split(",");
-    }
+    // if (keywords !== undefined || keywords !== "undefined") {
+    //     _keywords = keywords.split(",");
+    // }
 
     if (token) {
 
@@ -3675,7 +3678,7 @@ app.get('/packs', function (req, res) {
 
             _user = sessionToken.get("user");
             let query = new Parse.Query(_class.Packs);
-            query.equalTo("userId", _user.id).find({sessionToken: token}).then(function (collections) {
+            query.equalTo("userId", _user.id).ascending("createdAt").find({sessionToken: token}).then(function (collections) {
 
                 res.render("pages/packs/packs", {collections: collections});
 

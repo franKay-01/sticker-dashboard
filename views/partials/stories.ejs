@@ -2,30 +2,33 @@
 
 <% story.forEach(function(item, index) { %>
 
-<% arts.forEach(function (art, index) { %>
+    <% arts.forEach(function (art, index) { %>
 
-<% if (art.story === item.id){%>
-<div class="medium-3 large-3 cell icons">
-    <%if (latest.get("feedId") === item.id){%>
-    <i class="fa fa-circle display_icons" id="circle" style="color: #0f9d58;" aria-hidden="true"></i>
-    <%}else{%>
-    <i class="fa fa-circle display_icons" id="circle" style="color: grey;" aria-hidden="true"></i>
-    <%}%>
-    <a href="/storyedit/<%= item.id %>">
+        <% if (art.story === item.id){ %>
+        <div class="medium-3 large-3 cell icons">
+            <% if (latest !== ""){ %>
+            <% if (latest.get("feedId") === item.id){ %>
+                <i class="fa fa-circle display_icons" id="circle" style="color: #0f9d58;" aria-hidden="true"></i>
+            <% }else{ %>
+                <i class="fa fa-circle display_icons" id="circle" style="color: grey;" aria-hidden="true"></i>
+            <% } %>
+            <% } %>
+            <a href="/storyedit/<%= item.id %>">
 
-        <center>
-        <img class="btn_pack_icon" src="<%= art.image %>" style="height: 200px;width: 250px;">
-        </center>
-        <div class="story_title truncate_story_title"><%= item.get("title") %></div>
-        <div class="story_summary truncate_summary"> <%= item.get("summary") %></div>
-    </a>
+                <center>
+                    <img class="btn_pack_icon" src="<%= art.image %>" style="height: 200px;width: 250px;">
+                </center>
+                <div class="story_title truncate_story_title"><%= item.get("title") %></div>
+                <div class="story_summary truncate_summary"> <%= item.get("summary") %></div>
+            </a>
 
-    <a href="/storyitem/<%= item.id %>">
-        <button class="create_button review_tab_bottom add_catalogue" style="background: transparent !important;">
-            <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Story Item</p>
-        </button>
-    </a>
-</div>
-<%}%>
-<% }); %>
+            <a href="/storyitem/<%= item.id %>">
+                <button class="create_button review_tab_bottom add_catalogue"
+                        style="background: transparent !important;">
+                    <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Story Item</p>
+                </button>
+            </a>
+        </div>
+        <% } %>
+    <% }); %>
 <% }); %>
