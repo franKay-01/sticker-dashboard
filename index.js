@@ -2405,7 +2405,7 @@ app.post('/storyedit/:id', function (req, res) {
     let _keyword = [];
     let storyEdit = '/storyedit/';
 
-
+    console.log("KEYWORD " + keyword);
     if (keyword !== "undefined" || keyword !== undefined) {
         _keyword = keyword.split(",");
     }

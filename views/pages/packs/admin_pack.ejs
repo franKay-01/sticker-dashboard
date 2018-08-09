@@ -133,6 +133,7 @@
                 <div><a class="_stickers_packs" href="/stories">Stories</a></div>
                 <div><a class="_stickers_packs" href="/categories">Categories</a></div>
                 <div><a class="_stickers_packs" href="/adverts">Adverts</a></div>
+                <div><a class="_stickers_packs" href="/products">Product IDs</a></div>
 
                 <div style="margin-top: 25px">
                     <p class="_stickers_packs">Sticker# - <%= stickers.length %> </p><br>
@@ -185,6 +186,24 @@
                 </button>
             </a>
             <% } %>
+            <center class="indication">
+                <span style="padding-right: 125px;">
+                    <% if (previous !== ""){ %>
+                    <a style="color: #a46580 !important; "
+                       href="/pack/<%= previous %>">
+                        <i style="font-size: 3rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                    <% } %>
+                </span>
+                <span style="padding-left: 15px">
+                    <% if (next !== ""){ %>
+
+                    <a style="color: #a46580 !important;"
+                       href="/pack/<%= next %>">
+                        <i style="font-size: 3rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
+
+                    <% } %>
+                </span>
+            </center>
         </div>
 
         <% } else { %>
@@ -206,6 +225,24 @@
                 </button>
             </a>
 
+            <center class="indication">
+                <span style="padding-right: 125px;">
+                    <% if (previous !== ""){ %>
+                    <a style="color: #a46580 !important; "
+                       href="/pack/<%= previous %>">
+                        <i style="font-size: 3rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                    <% } %>
+                </span>
+                <span style="padding-left: 15px">
+                    <% if (next !== ""){ %>
+
+                    <a style="color: #a46580 !important;"
+                       href="/pack/<%= next %>">
+                        <i style="font-size: 3rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
+
+                    <% } %>
+                </span>
+            </center>
             <!--<a href="/test_upload/<%#= id %>">-->
             <!--<button class="create_button">-->
             <!--<p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; Test Upload-->
@@ -241,11 +278,7 @@
 
             <a href="/pack/review/update/status/<%= id %>">
                 <button class="create_button">
-                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
-                                                                                   aria-hidden="true"></i> &nbsp; SUBMIT
-                        FOR
-                        REVIEW
-                    </p>
+                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; SUBMIT FOR REVIEW</p>
                 </button>
             </a>
 
@@ -270,6 +303,8 @@
             </button>
 
         </div>
+
+        <% if (pack_type !== type.PACK_TYPE.grouped) { %>
 
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">
@@ -336,26 +371,8 @@
                                                        aria-hidden="true"></i> &nbsp; PUBLISHED
                 </p>
             </button>
-            <center style="margin-top: 25px;">
-                <span style="padding-right: 125px;">
-                    <% if (previous !== ""){ %>
-                    <a style="color: #a46580 !important; "
-                       href="/pack/<%= previous %>">
-                        <i style="font-size: 3rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
-                    <% } %>
-                </span>
-                <span style="padding-left: 15px">
-                    <% if (next !== ""){ %>
-
-                    <a style="color: #a46580 !important;"
-                       href="/pack/<%= next %>">
-                        <i style="font-size: 3rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
-
-                    <% } %>
-                </span>
-            </center>
         </div>
-
+<%}%>
         <!-- End of card -->
 
         <% include ../../partials/sticker_cards %>
