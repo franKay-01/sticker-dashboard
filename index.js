@@ -3675,7 +3675,7 @@ app.get('/packs', function (req, res) {
 
             _user = sessionToken.get("user");
             let query = new Parse.Query(_class.Packs);
-            query.equalTo("userId", _user.id).find({sessionToken: token}).then(function (collections) {
+            query.equalTo("userId", _user.id).ascending("createdAt").find({sessionToken: token}).then(function (collections) {
 
                 res.render("pages/packs/packs", {collections: collections});
 
