@@ -1486,7 +1486,7 @@ app.get('/stories', function (req, res) {
         let artWork = [];
         let _allArtwork = [];
         let combined = [];
-        let _latest;
+        let _latest = "";
 
         getUser(token).then(function (sessionToken) {
 
@@ -1505,7 +1505,11 @@ app.get('/stories', function (req, res) {
             _story = story;
             _allPack = allPack;
             _allArtwork = artworks;
-            _latest = latest;
+
+            if(latest) {
+                _latest = latest;
+            }
+
 
             _.each(artworks, function (artwork) {
 
