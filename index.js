@@ -2452,9 +2452,9 @@ app.post('/story', function (req, res) {
     let story_id;
     let newObject = {};
 
-    if (keywords !== undefined || keywords !== "undefined") {
-        _keywords = keywords.split(",");
-    }
+    // if (keywords !== undefined || keywords !== "undefined") {
+    //     _keywords = keywords.split(",");
+    // }
 
     if (token) {
 
