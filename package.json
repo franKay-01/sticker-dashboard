@@ -11,7 +11,7 @@
   "dependencies": {
     "@parse/s3-files-adapter": "^1.2.1",
     "alloyeditor": "^1.5.1",
-    "aws-sdk": "^2.252.1",
+    "aws-sdk": "^2.289.0",
     "body-parser": "^1.17.2",
     "busboy": "^0.2.14",
     "cookie-parser": "^1.4.3",
@@ -22,6 +22,9 @@
     "express": "~4.11.x",
     "fine-uploader": "^5.14.5",
     "firebase-admin": "^5.12.1",
+    "gm": "^1.23.1",
+    "google-auth-library": "^0.10.0",
+    "googleapis": "^20.1.0",
     "image-downloader": "^3.3.0",
     "images-downloader": "*",
     "jsbarcode": "^3.9.0",
@@ -38,10 +41,7 @@
     "sendgrid": "^4.5.0",
     "twilio": "^2.9.0",
     "underscore": "^1.8.3",
-    "url-to-image": "^1.0.0",
-    "gm": "^1.23.1",
-    "google-auth-library": "^0.10.0",
-    "googleapis": "^20.1.0"
+    "url-to-image": "^1.0.0"
   },
   "scripts": {
     "start": "node index.js"
