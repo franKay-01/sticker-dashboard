@@ -13,6 +13,7 @@ $(document).ready(function () {
                 });
                 $("#stickerIds").val(selectedItems);
                 $('.add-sticker-btn').removeAttr('disabled');
+                $('.add-sticker-btn').attr("background-color", "#dfdfdf");
 
             },
             onUnSelected: function (el) {
@@ -24,6 +25,7 @@ $(document).ready(function () {
 
                 if (selectedItems.length === 0) {
                     $('.add-sticker-btn').attr("disabled", true);
+                    $('.add-sticker-btn').attr("background-color", "#a46580");
                 }
             }
         });
