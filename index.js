@@ -268,8 +268,9 @@ app.get('/home', function (req, res) {
         let _categories = [];
         let _messages = [];
         let _allProducts = [];
-        let sticker_id;
-        let _latestSticker;
+        let stickerId;
+        let _latestSticker = "";
+        let _latestStory = "";
         let _storyBody;
         let _stickerName;
         let _categoryLength = 0;
@@ -330,8 +331,6 @@ app.get('/home', function (req, res) {
             _latestSticker['stickerName'] = latestSticker.get("name");
             _latestSticker['description'] = latestSticker.get("description");
 
-            console.log("LATEST STICKER " + _latestSticker);
-
             if (storyBody !== undefined) {
 
                 _storyBody = storyBody;
@@ -343,14 +342,14 @@ app.get('/home', function (req, res) {
             }
 
             if (storyImage !== undefined) {
-                sticker_id = storyImage.get("sticker");
+                stickerId = storyImage.get("sticker");
 
-                return new Parse.Query(_class.Stickers).equalTo("objectId", sticker_id).first();
+                return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first();
 
             } else {
-                sticker_id = "";
+                stickerId = "";
 
-                return sticker_id;
+                return stickerId;
 
             }
 
@@ -407,9 +406,14 @@ app.get('/home', function (req, res) {
                 collections: _collection,
                 categories: _categories,
                 allAdverts: _allAds,
-                allPacks: _allPacks,
                 allProducts: _allProducts,
+                allPacks: _allPacks,
                 story: _story,
+                latestSticker: _latestSticker,
+                latestStory: "",
+                storyBody: _storyBody,
+                stickerName: _stickerName,
+                messages: _messages,
                 categoryLength: _categoryLength,
                 packLength: _packLength,
                 stickerLength: _stickerLength,
