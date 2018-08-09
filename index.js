@@ -2446,7 +2446,7 @@ app.post('/story', function (req, res) {
     let title = req.body.title;
     let summary = req.body.summary;
     let pack_id = req.body.pack_id;
-    let body = req.body.story;
+    let body = req.body.summary;
     let storyType = parseInt(req.body.storyType);
     let _keywords = [];
     let story_id;
