@@ -3759,6 +3759,9 @@ app.get('/pack/:id', function (req, res) {
     let token = req.cookies.token;
     let pack_id = req.params.id;
 
+    let is_published = false;
+    let pack_art = false;
+
     if (token) {
 
         let _user = {};
@@ -3789,19 +3792,19 @@ app.get('/pack/:id', function (req, res) {
 
             pack_status = pack.get("status");
             pack_art = pack.get("artwork");
-            pack_publish = pack.get("published");
+            is_published = pack.get("published");
             pack_name = pack.get("name");
             packType = pack.get("priceType");
             productId = pack.get("productId");
 
-            let col = pack.relation(_class.Packs);
+            let packRelation = pack.relation(_class.Packs);
 
             switch (userType) {
                 case SUPER_USER:
-                    return col.query().find({useMasterKey: true});
+                    return packRelation.query().descending("createdAt").find({useMasterKey: true});
 
                 case NORMAL_USER:
-                    return col.query().find({sessionToken: token});
+                    return packRelation.query().find({sessionToken: token});
 
             }
         }).then(function (stickers) {
@@ -3823,7 +3826,7 @@ app.get('/pack/:id', function (req, res) {
                         stickers: _stickers,
                         id: pack_id,
                         art: pack_art,
-                        published: pack_publish,
+                        published: is_published,
                         pack_name: pack_name,
                         userType: _user.get("type"),
                         status: pack_status,
@@ -3843,7 +3846,7 @@ app.get('/pack/:id', function (req, res) {
                         id: pack_id,
                         pack_name: pack_name,
                         art: pack_art,
-                        published: pack_publish,
+                        published: is_published,
                         status: pack_status,
                         next: page.next,
                         previous: page.previous,
