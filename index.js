@@ -14,12 +14,6 @@ let cors = require('cors');
 let methodOverride = require('method-override');
 let moment = require('moment');
 let admin = require('firebase-admin');
-let AWS = require('aws-sdk');
-AWS.config.region = 'us-east-1'; // Region
-AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: 'us-east-1:126bf2fe-8f84-44c5-b4c2-aa83a6280ae0',
-});
-
 
 //for parsing location, directory and paths
 let path = require('path');
@@ -379,26 +373,6 @@ app.get('/home', function (req, res) {
                 });
 
             } else if (_user.get("type") === SUPER_USER) {
-
-                var lambda = new AWS.Lambda({region: 'us-east-1', apiVersion: '2018-07-09'});
-// create JSON object for parameters for invoking Lambda function
-                var pullParams = {
-                    FunctionName : 'myLoggingFunction',
-                    InvocationType : 'RequestResponse',
-                    LogType : 'None'
-                };
-// create variable to hold data returned by the Lambda function
-                var pullResults;
-
-                lambda.invoke(pullParams, function(error, data) {
-                    if (error) {
-                        console.log("ERROR FROM LAMBDA " + error);
-                    } else {
-                        pullResults = JSON.parse(data.Payload);
-                    }
-                });
-
-                console.log("SUCCESS FROM LAMBDA " + pullResults);
 
                 res.render("pages/dashboard/admin_home", {
                     collections: _collection,
@@ -4057,6 +4031,7 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
     let id = req.params.id;
     let keywords = req.body.keyword;
     let archive = req.body.archive;
+    let packVersion = parseInt(req.body.packVersion);
     let productId = req.body.productId;
     let description = req.body.description;
     let _keywords = [];
@@ -4102,6 +4077,7 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
             pack.set("keywords", _keywords);
             pack.set("archived", archive);
             pack.set("productId", productId);
+            pack.set("version", packVersion);
 
             if (files !== undefined || files !== "undefined") {
                 files.forEach(function (file) {
