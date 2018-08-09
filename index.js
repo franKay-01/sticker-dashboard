@@ -4031,7 +4031,7 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
     let id = req.params.id;
     let keywords = req.body.keyword;
     let archive = req.body.archive;
-    let packVersion = req.body.packVersion;
+    let packVersion = parseInt(req.body.packVersion);
     let productId = req.body.productId;
     let description = req.body.description;
     let _keywords = [];
