@@ -248,11 +248,13 @@
 
         <div class="story_form">
             <p class="story_icons">
+                <% if (latest !== ""){ %>
                 STORY OF THE DAY
                 <% if (latest.get("feedId") === story.id){ %>
                     <i class="fa fa-circle" id="circle" style="color: #0f9d58;" aria-hidden="true"></i>
                 <% }else{ %>
                     <i class="fa fa-circle" id="circle" style="color: grey;" aria-hidden="true"></i>
+                <% } %>
                 <% } %>
             </p>
 
