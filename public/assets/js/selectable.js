@@ -15,7 +15,7 @@ $(document).ready(function () {
                 counter = counter + 1;
                 $("#stickerIds").val(selectedItems);
                 $('.add-sticker-btn').removeAttr('disabled');
-                $('.add-sticker-btn').html('ADD' + counter + 'STICKER(S)');
+                $('.add-sticker-btn').html('ADD ' + counter + ' STICKER(S)');
             },
             onUnSelected: function (el) {
                 selectedItems = selectedItems.filter(function (obj) {
@@ -24,7 +24,7 @@ $(document).ready(function () {
                 el.css({"border": "none"});
                 $("#stickerIds").val(selectedItems);
                 counter = counter - 1;
-                $('.add-sticker-btn').html('ADD' + counter + 'STICKER(S)');
+                $('.add-sticker-btn').html('ADD ' + counter + ' STICKER(S)');
 
 
                 if (selectedItems.length === 0) {
