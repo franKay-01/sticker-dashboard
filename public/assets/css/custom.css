@@ -1298,7 +1298,7 @@ a {
     font-stretch: normal;
     line-height: 1.23;
     letter-spacing: 0.4px;
-    text-align: left;
+    text-align: center;
     color: #0a3463;
     margin-left: 15px;
 }
@@ -1311,7 +1311,7 @@ a {
     font-stretch: normal;
     line-height: normal;
     letter-spacing: normal;
-    text-align: left;
+    text-align: center;
     color: #002b5c;
     margin-left: 15px;
 }
