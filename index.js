@@ -2485,18 +2485,18 @@ app.post('/story', function (req, res) {
             return story.save();
 
         }).then(function (story) {
-            let Main = new Parse.Object.extend(_class.StoryBody);
-            let main = new Main();
+        //     let Main = new Parse.Object.extend(_class.StoryBody);
+        //     let main = new Main();
+        //
+        //     story_id = story.id;
+        //     main.set("storyId", story.id);
+        //     main.set("story", body);
+        //
+        //     return main.save();
+        //
+        // }).then(function (main) {
 
-            story_id = story.id;
-            main.set("storyId", story.id);
-            main.set("story", body);
-
-            return main.save();
-
-        }).then(function (main) {
-
-            res.redirect('/story/artwork/new/' + main.get("storyId"));
+            res.redirect('/story/artwork/new/' + story.id);
 
         }, function (error) {
             console.log("ERROR WHEN CREATING NEW STORY " + error.message);
