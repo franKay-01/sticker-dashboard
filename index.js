@@ -1973,7 +1973,7 @@ app.post('/storyitem/sticker/:id', function (req, res) {
 
             _story = story;
 
-            return new Parse.Query(_class.Stickers).find();
+            return new Parse.Query(_class.Stickers).limit(1500).find();
 
         }).then(function (stickers) {
 
