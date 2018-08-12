@@ -8,7 +8,7 @@
 
 <% } else { %>
 <% stickers.forEach(function(item, index) { %>
-<div class="medium-3 large-3 cell card-zoom icons sticker-image" data-id="<%= item.id%>" data-name="<%= item.get("name") %>">
+<div class="medium-3 large-3 cell icons sticker-image" data-id="<%= item.id%>" data-name="<%= item.get("name") %>">
 
     <img src="<%= item.get("uri").url() %>" class="card-image-size">
 
