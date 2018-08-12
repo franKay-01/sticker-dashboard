@@ -8,7 +8,8 @@
 <%}else {%>
 <% collections.forEach(function(item, index) { %>
 
-<div class="medium-3 large-3 cell icons card">
+<div class="medium-3 large-3 cell icons ">
+    <button class="card">
     <%if (item.get("packType") === 0){%>
     <i class="fa fa-circle display_icons" id="circle" style="color: #ffb12f;" aria-hidden="true"></i>
     <%}else if (item.get("packType") === 1){%>
@@ -29,7 +30,7 @@
             <div class="name_tag"><p class="pack_name_text"><%= item.get("name") %></p></div>
         <%}%>
     </a>
-
+    </button>
 </div>
 
 <% }); %>
