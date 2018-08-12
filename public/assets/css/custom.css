@@ -1448,12 +1448,13 @@ a {
     margin-right: 60px;
 }
 
-a.card-zoom {
-    transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1.0) !important;
+card-zoom {
+transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-a.card-zoom:hover {
-    transform: translateY(-3px) !important;
+.card-zoom:hover {
+    transform: scale(1.1, 1.1);
+    box-shadow: 0 30px 60px rgba(0,0,0, 0.5);
 }
 
 ._pack {
