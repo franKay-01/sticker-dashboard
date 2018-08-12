@@ -1448,11 +1448,11 @@ a {
     margin-right: 60px;
 }
 
-button .card {
+a.card-zoom {
     transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1.0) !important;
 }
 
-button .card:hover {
+a.card-zoom:hover {
     transform: translateY(-3px) !important;
 }
 
