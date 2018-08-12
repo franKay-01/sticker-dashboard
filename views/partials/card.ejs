@@ -1,7 +1,7 @@
 <!-- Cards -->
 <% if (stickers.length !== 0) { %>
  <% stickers.forEach(function(item, index) { %>
-    <div class="medium-3 large-3 cell icons">
+    <div class="medium-3 large-3 cell icons card">
       <img src="<%= item.get("uri").url() %>" class="gbeja_notxt">
     </div>
 <% }); %>

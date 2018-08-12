@@ -1448,6 +1448,14 @@ a {
     margin-right: 60px;
 }
 
+.card {
+    transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1.0) !important;
+}
+
+card:hover {
+    transform: translateY(-3px) !important;
+}
+
 ._pack {
     width: 450px !important;
     text-align: left;
