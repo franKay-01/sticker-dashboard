@@ -2332,15 +2332,11 @@ app.get('/storyedit/:id', function (req, res) {
 
             if (colors.topColor === "" || colors === {}) {
                 //use system default
-<<<<<<< HEAD
                 colors = type.DEFAULT.colors;
-=======
-                colors = type.DEFAULT.color;
 
             } else {
                 colors = story.get("color");
 
->>>>>>> d39df8665f94ebcf80bc9f0aa9a4cacc1e569d5c
             }
 
             if (sticker) {
