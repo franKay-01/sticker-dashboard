@@ -2529,7 +2529,8 @@ app.get('/storycolor/:id', function (req, res) {
             _story = story;
             colors = story.get("color");
 
-            if (colors !== {}) {
+            console.log("COLOR " + colors);
+            if (colors.hasOwnProperty('topColor')) {
                 color = story.get("color");
             } else {
                 //use system default
