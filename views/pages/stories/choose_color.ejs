@@ -31,10 +31,12 @@
 
 
     <script>
-        let topColor = document.getElementById("top").value;
-        let bottomColor = document.getElementById("bottom").value;
+        let topColor;
+        let bottomColor;
 
         $(document).ready(function () {
+            topColor = document.getElementById("top").value;
+            bottomColor = document.getElementById("bottom").value;
 
             $(function () {
                 $("#color_value").colorpicker();
@@ -122,7 +124,7 @@
                 <input style="width:100px;" id="color_value_1"/>
 
                 <div id="cpEvent1" class="demoPanel" style="width: 170px;"></div>
-                <!--<input name="color2" type="hidden" id="color_value_1" value="<%= colors.bottomColor %>">-->
+                <!--<input name="color2" type="hidden" id="color_value_1" value="<%#= colors.bottomColor %>">-->
                 <!--<button id="color_button" class="jscolor {valueElement: 'color_value_1'}"></button>-->
             </div>
 
