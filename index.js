@@ -2328,11 +2328,14 @@ app.get('/storyedit/:id', function (req, res) {
             page = util.page(stories, story_id);
 
             colors = story.get("color");
-            if (colors) {
-                colors = story.get("color");
-            } else {
+
+            if (colors.topColor === "" || colors === {}) {
                 //use system default
                 colors = type.DEFAULT.color;
+
+            } else {
+                colors = story.get("color");
+
             }
 
             if (sticker) {
@@ -2529,12 +2532,13 @@ app.get('/storycolor/:id', function (req, res) {
             _story = story;
             colors = story.get("color");
 
-            console.log("COLOR " + colors);
-            if (colors.hasOwnProperty('topColor') !== "") {
-                color = story.get("color");
-            } else {
+            if (colors.topColor === "" || colors === {}) {
                 //use system default
-                colors = type.DEFAULT.color
+                colors = type.DEFAULT.color;
+
+            } else {
+                color = story.get("color");
+
             }
 
             return new Parse.Query(_class.Stickers).equalTo("objectId", art.get("stickerId")).first();
