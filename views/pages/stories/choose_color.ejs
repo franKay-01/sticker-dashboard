@@ -32,8 +32,10 @@
 
     <script>
 
+
         $(document).ready(function () {
             $(function () {
+                // let topColor = $("#color_value").val()
                 $("#color_value").colorpicker();
                 $("#color_value_1").colorpicker();
 
@@ -44,8 +46,8 @@
         });
 
         function addcolor() {
-            let color_1 = document.getElementById("color_value").value;
-            let color_2 = document.getElementById("color_value_1").value;
+            let color_1 = $("#color_value").val();
+            let color_2 = $("#color_value_1").val();
             let hash = "#";
 
             color_1 = hash.concat(color_1);
@@ -94,6 +96,9 @@
         </div>
         <form class="medium-3 large-3 cell icons" id="story_color" action="/story/color/<%= story.id %>"
               method="post">
+            <!--<input id="color_value" value="<%#= colors.topColor %>" hidden/>-->
+            <!--<input id="color_value_1" value="<%#= colors.bottomColor %>" hidden/>-->
+
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
             <div class="create_new">First Color</div>
 
@@ -111,7 +116,7 @@
             <div style=" margin:0px 15px auto;">
                 <input style="width:100px;" id="color_value_1"/>
 
-                <div id="cpEvent" class="demoPanel" style="width: 170px;"></div>
+                <div id="cpEvent1" class="demoPanel" style="width: 170px;"></div>
                 <!--<input name="color2" type="hidden" id="color_value_1" value="<%= colors.bottomColor %>">-->
                 <!--<button id="color_button" class="jscolor {valueElement: 'color_value_1'}"></button>-->
             </div>
