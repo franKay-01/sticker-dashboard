@@ -342,7 +342,7 @@ app.get('/home', function (req, res) {
             }
 
             if (storyImage !== undefined) {
-                stickerId = storyImage.get("sticker");
+                stickerId = storyImage.get("stickerId");
 
                 return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first();
 
@@ -1513,7 +1513,7 @@ app.get('/stories', function (req, res) {
 
             _.each(artworks, function (artwork) {
 
-                artWork.push(artwork.get("sticker"));
+                artWork.push(artwork.get("stickerId"));
 
             });
 
@@ -2207,7 +2207,7 @@ app.post('/story/artwork/add/:id/:state', function (req, res) {
                 let artwork = new Artwork();
 
                 artwork.set("itemId", id);
-                artwork.set("sticker", sticker_id);
+                artwork.set("stickerId", sticker_id);
 
                 return artwork.save();
             }
@@ -2337,7 +2337,7 @@ app.get('/storyedit/:id', function (req, res) {
 
             if (sticker) {
 
-                return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("sticker")).first();
+                return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first();
 
             } else {
                 return "";
@@ -2535,7 +2535,7 @@ app.get('/storycolor/:id', function (req, res) {
                 colors = type.DEFAULT.color
             }
 
-            return new Parse.Query(_class.Stickers).equalTo("objectId", art.get("sticker")).first();
+            return new Parse.Query(_class.Stickers).equalTo("objectId", art.get("stickerId")).first();
 
         }).then(function (sticker) {
 
@@ -5614,7 +5614,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
             switch (notificationType) {
                 case STORIES:
                     _story = item;
-                    return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("sticker")).first();
+                    return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("stickerId")).first();
 
                 case STICKER:
                     return item;
@@ -5757,7 +5757,7 @@ app.get('/feed/story', function (req, res) {
 
                 _.each(artworks, function (artwork) {
 
-                    artWork.push(artwork.get("sticker"));
+                    artWork.push(artwork.get("stickerId"));
 
                 });
 
@@ -5985,13 +5985,11 @@ app.get('/newsletter/send/story', function (req, res) {
         }
 
         return Parse.Promise.when(
-            new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("sticker")).first(),
+            new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first(),
             new Parse.Query(_class.StoryItems).equalTo("storyId", _story.id).find()
         )
 
     }).then(function (sticker, storyItems) {
-
-        console.log("COLLECTED ALL DATA 2");
 
         _.each(_newsletters, function (newsletter) {
 

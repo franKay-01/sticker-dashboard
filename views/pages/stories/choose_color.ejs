@@ -20,9 +20,19 @@
 
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/public/assets/js/evol-colorpicker.js" type="text/javascript" charset="utf-8"></script>
+    <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
     <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css">
+    <link href="/public/assets/css/evol-colorpicker.css" rel="stylesheet" type="text/css">
     <script>
+
+        $(document).ready(function() {
+            $("#mycolor").colorpicker();
+        });
 
         function addcolor() {
             let color_1 = document.getElementById("color_value").value;
@@ -37,6 +47,7 @@
             img.style.backgroundImage = 'linear-gradient(' + color_1 + ',' + color_2 + ')';
 
         }
+
 
     </script>
 </head>
@@ -99,6 +110,23 @@
 
         </form>
 
+        <div class="medium-3 large-3 cell">
+            <input style="width:100px;" id="mycolor" />
+
+            <div id="cpEvent" class="demoPanel" style="width: 170px; background-color: rgb(247, 150, 70);">
+                Event binding:
+                <br><br>
+                <div style="width:126px;" class="evo-cp-wrap"><input id="cpBinding" class="colorPicker evo-cp0"><div class="evo-pointer evo-colorind" style="background-color:#f79646"></div></div><br>
+                <i>Using "change.color" and "mouseover.color" events.</i>
+            </div>
+        </div>
+
+        <div class="medium-3 large-3 cell">
+            <div style="width:128px;">
+                <input style="width:100px;" id="mycolor" class="colorPicker evo-cp0" />
+                <div class="evo-colorind" style="background-color:#8db3e2"></div>
+            </div>
+        </div>
         <div id="image" class="medium-3 large-3 cell icons"
              style="background-image: linear-gradient(to bottom, <%= colors.topColor %>, <%= colors.bottomColor %>);">
 

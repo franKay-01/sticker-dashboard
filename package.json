@@ -19,6 +19,7 @@
     "cors": "*",
     "crypto": "0.0.3",
     "ejs": "^2.5.6",
+    "evol-colorpicker": "^3.3.1",
     "express": "~4.11.x",
     "fine-uploader": "^5.14.5",
     "firebase-admin": "^5.12.1",
