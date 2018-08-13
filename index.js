@@ -1506,7 +1506,7 @@ app.get('/stories', function (req, res) {
             _allPack = allPack;
             _allArtwork = artworks;
 
-            if(latest) {
+            if (latest) {
                 _latest = latest;
             }
 
@@ -1793,10 +1793,8 @@ app.get('/storyitem/view/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
-    let image_array = [];
     let sticker_array = [];
     let _storyItem;
-    let _images = [];
     let _stickers = [];
 
     if (token) {
@@ -2322,7 +2320,7 @@ app.get('/storyedit/:id', function (req, res) {
             _story = story;
             _authors = authors;
 
-            if(latest) {
+            if (latest) {
                 _latest = latest;
             }
 
@@ -2489,16 +2487,16 @@ app.post('/story', function (req, res) {
             return story.save();
 
         }).then(function (story) {
-        //     let Main = new Parse.Object.extend(_class.StoryBody);
-        //     let main = new Main();
-        //
-        //     story_id = story.id;
-        //     main.set("storyId", story.id);
-        //     main.set("story", body);
-        //
-        //     return main.save();
-        //
-        // }).then(function (main) {
+            //     let Main = new Parse.Object.extend(_class.StoryBody);
+            //     let main = new Main();
+            //
+            //     story_id = story.id;
+            //     main.set("storyId", story.id);
+            //     main.set("story", body);
+            //
+            //     return main.save();
+            //
+            // }).then(function (main) {
 
             res.redirect('/story/artwork/new/' + story.id);
 
@@ -3010,16 +3008,17 @@ app.get('/storyitem/change/sticker/:storyId/:storyItemId', function (req, res) {
 
             console.log("STORY ID " + storyId + " STORYITEM " + storyItemId);
 
-            return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first();
-
-        }).then(function (story) {
-
-            return new Parse.Query(_class.Packs).equalTo("objectId", story.get("packId")).first();
-
-        }).then(function (pack) {
-
-            let col = pack.relation(_class.Packs);
-            return col.query().find();
+            return new Parse.Query(_class.Stickers).limit(1500).find();
+            // return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first();
+            //
+            // }).then(function (story) {
+            //
+            //     return new Parse.Query(_class.Packs).equalTo("objectId", story.get("packId")).first();
+            //
+            // }).then(function (pack) {
+            //
+            //     let col = pack.relation(_class.Packs);
+            //     return col.query().find();
 
         }).then(function (stickers) {
 
@@ -3928,16 +3927,16 @@ app.post('/pack/product/update', function (req, res) {
 
         }).then(function (pack) {
 
-            if (productId !== "free"){
+            if (productId !== "free") {
                 pack.set("productId", productId);
-            }else {
+            } else {
                 pack.set("productId", "free");
             }
 
             return pack.save();
         }).then(function (pack) {
 
-            return new Parse.Query(_class.Stickers).equalTo("parent",  {
+            return new Parse.Query(_class.Stickers).equalTo("parent", {
                 __type: 'Pointer',
                 className: _class.Packs,
                 objectId: packId
@@ -3950,9 +3949,9 @@ app.post('/pack/product/update', function (req, res) {
             _.each(stickers, function (sticker) {
 
                 sticker.set("productId", productId);
-                if (productId !== "free"){
+                if (productId !== "free") {
                     sticker.set("sold", false);
-                }else {
+                } else {
                     sticker.set("sold", true);
                 }
                 _stickers.push(sticker);
@@ -3971,7 +3970,7 @@ app.post('/pack/product/update', function (req, res) {
             res.redirect('/pack/edit/' + packId);
 
         })
-    }else {
+    } else {
 
         res.redirect('/');
 
@@ -4012,7 +4011,7 @@ app.get('/pack/edit/:id', function (req, res) {
                 productDetails = productInfo.get("name");
             }
 
-            if (_pack.get("productId") === "free"){
+            if (_pack.get("productId") === "free") {
 
                 productDetails = "FREE";
             }
@@ -4855,22 +4854,22 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
 
         }).then(function (sticker, categories, pack, latest) {
 
-                _sticker = sticker;
-                _categories = categories;
-                _pack = pack;
+            _sticker = sticker;
+            _categories = categories;
+            _pack = pack;
 
-                if(latest){
-                    _latest = latest;
-                }
+            if (latest) {
+                _latest = latest;
+            }
 
-                selectedCategories = sticker.get("categories");
+            selectedCategories = sticker.get("categories");
 
-                console.log("SELECTED " + latest);
+            console.log("SELECTED " + latest);
 
-                let sticker_relation = sticker.relation(_class.Categories);
-                return sticker_relation.query().find();
+            let sticker_relation = sticker.relation(_class.Categories);
+            return sticker_relation.query().find();
 
-            }).then(function (stickerCategories) {
+        }).then(function (stickerCategories) {
 
             // var categoryNames = [];
             // _.each(stickerCategories, function (category) {
@@ -5627,7 +5626,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
             switch (notificationType) {
                 case STORIES:
                     let story = create.Story(_story);
-                    story = create.StoryArtwork(story,sticker);
+                    story = create.StoryArtwork(story, sticker);
                     notification.send({
                         title: "AM I FAT",
                         description: "So, yesterday, someone actually called me fat. Yes, a whole me, FAT! Hmmm…! I am coming, let me gather myself because the way my heart is beating, I might say something and it will become something that is there. So you, it’s okay",
