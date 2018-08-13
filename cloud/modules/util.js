@@ -3,37 +3,37 @@
  */
 
 // Include the Twilio Cloud Module to send sms messages
-var twilio = require("twilio")("AC6bad1c4bf8d48125709add2b8b0a5ce0", "33028731ba2e2bfb477a0709582a49f8");
-var moment = require('moment');
+let twilio = require("twilio")("AC6bad1c4bf8d48125709add2b8b0a5ce0", "33028731ba2e2bfb477a0709582a49f8");
+let moment = require('moment');
 var _ = require('underscore');
 let gm = require('gm').subClass({imageMagick: true});
 
 //TODO update response errors
-var KEY_RESPONSE_CODE = "responseCode";
-var KEY_RESPONSE_MESSAGE = "responseMessage";
-var KEY_DATA = "data";
-var RESPONSE_OK = 0;
-var STATUS_OK = 200;
-var SERVER_ERROR = 1;
-var UNKNOWN_ERROR = -1;
-var TEXT_MESSAGE_ERROR = 2;
-var TOKEN_ERROR = 3;
-var HASH_ERROR = 4;
-var CONTACTS_ERROR = 5;
-var SETUP_USER_ERROR = 6;
-var USER_ERROR = 7;
-var GETTING_RECORDS_ERROR = 8;
+let KEY_RESPONSE_CODE = "responseCode";
+let KEY_RESPONSE_MESSAGE = "responseMessage";
+let KEY_DATA = "data";
+let RESPONSE_OK = 0;
+let STATUS_OK = 200;
+let SERVER_ERROR = 1;
+let UNKNOWN_ERROR = -1;
+let TEXT_MESSAGE_ERROR = 2;
+let TOKEN_ERROR = 3;
+let HASH_ERROR = 4;
+let STORIES_ERROR = 5;
+let SETUP_USER_ERROR = 6;
+let USER_ERROR = 7;
+let GETTING_RECORDS_ERROR = 8;
 
-var CREATING_TEST_ERROR = 9;
-var CREATING_TASK_ERROR = 10;
-var CLASS_TYPE_ERROR = 11;
+let CREATING_TEST_ERROR = 9;
+let CREATING_TASK_ERROR = 10;
+let CLASS_TYPE_ERROR = 11;
 
-var UPDATING_TEST_ERROR = 12;
-var UPDATING_TASK_ERROR = 13;
+let UPDATING_TEST_ERROR = 12;
+let UPDATING_TASK_ERROR = 13;
 
-var DELETING_TEST_ERROR = 14;
-var DELETING_TASKS_ERROR = 15;
-var GETTING_TASKS_ERROR = 16;
+let DELETING_TEST_ERROR = 14;
+let DELETING_TASKS_ERROR = 15;
+let GETTING_TASKS_ERROR = 16;
 
 let STORY_PREVIEW_ERROR = 17;
 
@@ -199,8 +199,8 @@ handleError = function (res, error) {
                     error[KEY_RESPONSE_MESSAGE] = "Couldn't generate hash";
                     break;
 
-                case CONTACTS_ERROR :
-                    error[KEY_RESPONSE_MESSAGE] = "No contacts found";
+                case STORIES_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "No stories found";
                     break;
 
                 case SETUP_USER_ERROR :
@@ -411,7 +411,7 @@ exports.UNKNOWN_ERROR = UNKNOWN_ERROR;
 exports.TEXT_MESSAGE_ERROR = TEXT_MESSAGE_ERROR;
 exports.TOKEN_ERROR = TOKEN_ERROR;
 exports.HASH_ERROR = HASH_ERROR;
-exports.CONTACTS_ERROR = CONTACTS_ERROR;
+exports.CONTACTS_ERROR = STORIES_ERROR;
 exports.SETUP_USER_ERROR = SETUP_USER_ERROR;
 exports.GETTING_RECORDS_ERROR = GETTING_RECORDS_ERROR;
 exports.GETTING_TASKS_ERROR = GETTING_TASKS_ERROR;
