@@ -2528,7 +2528,8 @@ app.get('/storycolor/:id', function (req, res) {
 
             _story = story;
             colors = story.get("color");
-            if (colors) {
+
+            if (colors.getOwnPropertyNames(obj).length !== 0) {
                 color = story.get("color");
             } else {
                 //use system default
@@ -2567,8 +2568,9 @@ app.post('/story/color/:id', function (req, res) {
 
     if (token) {
 
-        // color_1 = hash.concat(color_1);
-        // color_2 = hash.concat(color_2);
+        console.log("COLORS " + color_1 + " " + color_2);
+        color_1 = hash.concat(color_1);
+        color_2 = hash.concat(color_2);
 
         let _user = {};
 
