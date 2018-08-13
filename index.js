@@ -2971,6 +2971,8 @@ app.post('/storyitem/change/sticker/:id', function (req, res) {
 
         }).then(function (storyItem) {
 
+            console.log("STORY ITEM " + JSON.stringify(storyItem));
+
             storyId = storyItem.get("storyId");
 
             storyItem.set("type", type.STORY_ITEM.sticker);
