@@ -2568,21 +2568,19 @@ app.post('/story/color/:id', function (req, res) {
     let id = req.params.id;
     let color_1 = req.body.top;
     let color_2 = req.body.bottom;
-    let hash = "#";
     let storyEdit = '/storyedit/';
 
+    console.log("COLOR FROM " + color_1 + " " + color_2);
+
     if (token) {
-
-        console.log("COLORS " + color_1 + " " + color_2);
-        color_1 = hash.concat(color_1);
-        color_2 = hash.concat(color_2);
-
         let _user = {};
+
+        color_1 = color_1.substr(1);
+        color_2 = color_2.substr(1);
 
         getUser(token).then(function (sessionToken) {
 
             return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
-
 
         }).then(function (story) {
 
