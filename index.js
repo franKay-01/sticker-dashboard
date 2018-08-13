@@ -3686,8 +3686,10 @@ app.get('/packs', function (req, res) {
             let query = new Parse.Query(_class.Packs);
             query.equalTo("userId", _user.id).ascending("createdAt").find({sessionToken: token}).then(function (collections) {
 
-                res.render("pages/packs/packs", {collections: collections});
-
+                res.render("pages/packs/packs", {
+                    packs: collections,
+                    type: type
+                });
             });
 
         }, function (error) {
@@ -3845,7 +3847,6 @@ app.get('/pack/:id', function (req, res) {
                         type: type,
                         productId: productId,
                         products: products
-
                     });
                     break;
 

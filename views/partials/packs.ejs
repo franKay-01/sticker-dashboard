@@ -1,19 +1,19 @@
 <!--Display Collections from parse-->
-<%if ( collections.length === 0 ){%>
+<%if ( packs.length === 0 ){%>
 <div class="medium-3 large-3 cell icons">
     <p class="none">No Packs</p>
     <div class="name_tag"><p class="pack_name_text">No Packs</p></div>
 
 </div>
 <%}else {%>
-<% collections.forEach(function(item, index) { %>
+<% packs.forEach(function(item, index) { %>
 
 <div class="medium-3 large-3 cell card-zoom icons ">
-    <%if (item.get("packType") === 0){%>
+    <%if (item.get("packType") === type.PACK_TYPE.grouped){%>
     <i class="fa fa-circle display_icons" id="circle" style="color: #ffb12f;" aria-hidden="true"></i>
-    <%}else if (item.get("packType") === 1){%>
+    <%}else if (item.get("packType") === type.PACK_TYPE.themed){%>
     <i class="fa fa-circle display_icons" id="circle" style="color: #28ff7e;" aria-hidden="true"></i>
-    <%} else if (item.get("packType") === 2) {%>
+    <%} else if (item.get("packType") === type.PACK_TYPE.curated) {%>
     <i class="fa fa-circle display_icons" id="circle" style="color: #203f80;" aria-hidden="true"></i>
     <%}%>
     <a href="/pack/<%= item.id %>">
