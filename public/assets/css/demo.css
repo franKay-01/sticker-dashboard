@@ -57,3 +57,10 @@ label {
   font-size: smaller;
   color: Gray;
 }
+.evo-colorind{
+  border:solid 1px #c3c3c3;
+  width:50px !important;
+  height:50px !important;
+  float:right;
+  border-radius: 50px !important;
+}
