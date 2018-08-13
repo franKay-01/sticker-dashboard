@@ -24,8 +24,7 @@
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js" type="text/javascript"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
-            type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
     <script src="/public/assets/js/evol-colorpicker.min.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
 
@@ -142,6 +141,21 @@
             <div style="color: #ffffff !important;font-weight: 800 !important;"
                  class="story_summary truncate_summary"> <%= story.get("title") %></div>
 
+        </div>
+
+        <div class="medium-3 large-3 cell icons">
+            <div id="cpb" class="demoPanel" style="width:170px;">
+                Methods:<br/><br/>
+                <input id="cp1"/><br/>
+                <div id="tests" class="demo-links">
+                    <a href="#" id="getVal">Get Value</a>
+                    <a href="#" id="setVal">Set Value</a><br/>
+                    <a href="#" id="enable">Enable</a>
+                    <a href="#" id="disable">Disable</a>
+                    <a href="#" id="clear">Clear</a>
+                    <a href="#" id="destroy1">Destroy</a>
+                </div>
+            </div>
         </div>
 
 
