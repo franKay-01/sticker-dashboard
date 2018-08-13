@@ -296,7 +296,7 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         } else {
 
-            util.handleError(res, error);
+            util.handleError(res, util.STORIES_ERROR);
 
         }
 
