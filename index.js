@@ -2576,9 +2576,6 @@ app.post('/story/color/:id', function (req, res) {
     if (token) {
         let _user = {};
 
-        color_1 = color_1.substr(1);
-        color_2 = color_2.substr(1);
-
         getUser(token).then(function (sessionToken) {
 
             return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
