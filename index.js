@@ -3029,9 +3029,16 @@ app.get('/storyitem/change/sticker/:storyId/:storyItemId', function (req, res) {
                 stickers: stickers
             });
 
-        }, function () {
+        }, function (error) {
 
+            console.log("ERROR " + error.message);
+            res.redirect('/storyitem/view/'+storyId);
         })
+
+    }else {
+
+        res.redirect('/');
+
     }
 });
 
