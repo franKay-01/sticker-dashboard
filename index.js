@@ -3060,10 +3060,12 @@ app.get('/storyitem/edit/:id/:story_id', function (req, res) {
                 story_item: story_item,
                 story_id: story_id
             })
+
         }, function (error) {
 
             console.log("ERROR " + error.message);
             res.redirect('/story/item/' + story_id);
+
         })
     } else {
         res.redirect('/');
