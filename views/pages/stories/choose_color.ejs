@@ -101,8 +101,8 @@
         </div>
         <form class="medium-3 large-3 cell icons" id="story_color" action="/story/color/<%= story.id %>"
               method="post">
-            <input id="top" value="<%= colors.topColor %>" hidden/>
-            <input id="bottom" value="<%= colors.bottomColor %>" hidden/>
+            <input type="text" id="top" value="<%= colors.topColor %>" hidden/>
+            <input type="text" id="bottom" value="<%= colors.bottomColor %>" hidden/>
 
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
             <div class="create_new">First Color</div>
