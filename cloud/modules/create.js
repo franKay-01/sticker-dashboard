@@ -116,7 +116,7 @@ exports.StoryItems = (storyItems) => {
 
     if (storyItems.length) {
         _.each(storyItems, storyItem => {
-            _storyItems.push({id: storyItem.id, content: storyItem.get("contents"), type: storyItem.get("type")});
+            _storyItems.push({id: storyItem.id, contents: storyItem.get("contents"), type: storyItem.get("type")});
         });
     }
 
