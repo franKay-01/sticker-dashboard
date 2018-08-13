@@ -66,7 +66,7 @@ exports.STORY_TYPE = {
 };
 
 exports.DEFAULT = {
-    color: {
+    colors: {
         "topColor":"#df5A34",
         "bottomColor":"#814ea4"
     }

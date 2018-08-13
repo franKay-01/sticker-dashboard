@@ -2332,7 +2332,7 @@ app.get('/storyedit/:id', function (req, res) {
                 colors = story.get("color");
             } else {
                 //use system default
-                colors = type.DEFAULT.color;
+                colors = type.DEFAULT.colors;
             }
 
             if (sticker) {
@@ -2532,7 +2532,7 @@ app.get('/storycolor/:id', function (req, res) {
                 color = story.get("color");
             } else {
                 //use system default
-                colors = type.DEFAULT.color
+                colors = type.DEFAULT.colors
             }
 
             return new Parse.Query(_class.Stickers).equalTo("objectId", art.get("sticker")).first();
@@ -5828,7 +5828,7 @@ app.get('/newsletter/story/:storyId', function (req, res) {
 
         if (!colors) {
             //use system default
-            colors = type.DEFAULT.color;
+            colors = type.DEFAULT.colors;
         }
 
         return Parse.Promise.when(
@@ -5982,7 +5982,7 @@ app.get('/newsletter/send/story', function (req, res) {
         colors = story.get("color");
         if (!colors) {
             //use system default
-            colors = type.DEFAULT.color;
+            colors = type.DEFAULT.colors;
         }
 
         return Parse.Promise.when(

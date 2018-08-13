@@ -130,6 +130,14 @@ exports.Story = (story) => {
     _story.title = story.get("title");
     _story.summary = story.get("summary");
 
+    let colors = story.get("color");
+    if(colors){
+        _story.colors = colors
+    }else{
+        _story.colors = type.DEFAULT.colors
+    }
+
+
     return _story;
 
 };
