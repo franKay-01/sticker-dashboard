@@ -43,10 +43,13 @@
 
                 $("#color_value").on("change", function() {
                     topColor = $(this).val();
+                    $("#top").val(topColor)
                 });
 
                 $("#color_value_1").on("change", function() {
                     bottomColor = $(this).val();
+                    $("#bottom").val(bottomColor)
+
                 });
             })
         });

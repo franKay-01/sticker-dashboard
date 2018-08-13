@@ -2560,15 +2560,15 @@ app.post('/story/color/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
-    let color_1 = req.body.color1;
-    let color_2 = req.body.color2;
+    let color_1 = req.body.top;
+    let color_2 = req.body.bottom;
     let hash = "#";
     let storyEdit = '/storyedit/';
 
     if (token) {
 
-        color_1 = hash.concat(color_1);
-        color_2 = hash.concat(color_2);
+        // color_1 = hash.concat(color_1);
+        // color_2 = hash.concat(color_2);
 
         let _user = {};
 
