@@ -12,7 +12,7 @@ exports.PACK_STATUS = {
 };
 
 exports.USER = {
-    "super": 0,
+    super: 0,
     normal: 2,
     team:3
 };

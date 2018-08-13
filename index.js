@@ -342,7 +342,7 @@ app.get('/home', function (req, res) {
             }
 
             if (storyImage !== undefined) {
-                stickerId = storyImage.get("sticker");
+                stickerId = storyImage.get("stickerId");
 
                 return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first();
 
@@ -1513,7 +1513,7 @@ app.get('/stories', function (req, res) {
 
             _.each(artworks, function (artwork) {
 
-                artWork.push(artwork.get("sticker"));
+                artWork.push(artwork.get("stickerId"));
 
             });
 
@@ -1998,6 +1998,7 @@ app.post('/storyitem/sticker/add/:id', function (req, res) {
 
     let token = req.cookies.token;
     let sticker_id = req.body.sticker_id;
+    let sticker_url = req.body.sticker_url;
     let story_id = req.params.id;
 
     if (token) {
@@ -2006,7 +2007,7 @@ app.post('/storyitem/sticker/add/:id', function (req, res) {
             let Story = new Parse.Object.extend(_class.StoryItems);
             let catalogue = new Story();
 
-            catalogue.set("contents", {"id": sticker_id});
+            catalogue.set("contents", {"id": sticker_id, "url": sticker_url});
             catalogue.set("storyId", story_id);
             catalogue.set("type", type.STORY_ITEM.sticker);
 
@@ -2207,7 +2208,7 @@ app.post('/story/artwork/add/:id/:state', function (req, res) {
                 let artwork = new Artwork();
 
                 artwork.set("itemId", id);
-                artwork.set("sticker", sticker_id);
+                artwork.set("stickerId", sticker_id);
 
                 return artwork.save();
             }
@@ -2328,16 +2329,23 @@ app.get('/storyedit/:id', function (req, res) {
             page = util.page(stories, story_id);
 
             colors = story.get("color");
-            if (colors) {
-                colors = story.get("color");
-            } else {
+
+            if (colors.topColor === "" || colors === {}) {
                 //use system default
+<<<<<<< HEAD
                 colors = type.DEFAULT.colors;
+=======
+                colors = type.DEFAULT.color;
+
+            } else {
+                colors = story.get("color");
+
+>>>>>>> d39df8665f94ebcf80bc9f0aa9a4cacc1e569d5c
             }
 
             if (sticker) {
 
-                return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("sticker")).first();
+                return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first();
 
             } else {
                 return "";
@@ -2528,14 +2536,21 @@ app.get('/storycolor/:id', function (req, res) {
 
             _story = story;
             colors = story.get("color");
-            if (colors) {
-                color = story.get("color");
-            } else {
+
+            if (colors.topColor === "" || colors === {}) {
                 //use system default
+<<<<<<< HEAD
                 colors = type.DEFAULT.colors
+=======
+                colors = type.DEFAULT.color;
+
+            } else {
+                color = story.get("color");
+
+>>>>>>> d39df8665f94ebcf80bc9f0aa9a4cacc1e569d5c
             }
 
-            return new Parse.Query(_class.Stickers).equalTo("objectId", art.get("sticker")).first();
+            return new Parse.Query(_class.Stickers).equalTo("objectId", art.get("stickerId")).first();
 
         }).then(function (sticker) {
 
@@ -2560,22 +2575,18 @@ app.post('/story/color/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
-    let color_1 = req.body.color1;
-    let color_2 = req.body.color2;
-    let hash = "#";
+    let color_1 = req.body.top;
+    let color_2 = req.body.bottom;
     let storyEdit = '/storyedit/';
 
+    console.log("COLOR FROM " + color_1 + " " + color_2);
+
     if (token) {
-
-        color_1 = hash.concat(color_1);
-        color_2 = hash.concat(color_2);
-
         let _user = {};
 
         getUser(token).then(function (sessionToken) {
 
             return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
-
 
         }).then(function (story) {
 
@@ -3679,8 +3690,10 @@ app.get('/packs', function (req, res) {
             let query = new Parse.Query(_class.Packs);
             query.equalTo("userId", _user.id).ascending("createdAt").find({sessionToken: token}).then(function (collections) {
 
-                res.render("pages/packs/packs", {collections: collections});
-
+                res.render("pages/packs/packs", {
+                    packs: collections,
+                    type: type
+                });
             });
 
         }, function (error) {
@@ -3838,7 +3851,6 @@ app.get('/pack/:id', function (req, res) {
                         type: type,
                         productId: productId,
                         products: products
-
                     });
                     break;
 
@@ -5614,7 +5626,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
             switch (notificationType) {
                 case STORIES:
                     _story = item;
-                    return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("sticker")).first();
+                    return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("stickerId")).first();
 
                 case STICKER:
                     return item;
@@ -5758,7 +5770,7 @@ app.get('/feed/story', function (req, res) {
 
                 _.each(artworks, function (artwork) {
 
-                    artWork.push(artwork.get("sticker"));
+                    artWork.push(artwork.get("stickerId"));
 
                 });
 
@@ -5986,13 +5998,11 @@ app.get('/newsletter/send/story', function (req, res) {
         }
 
         return Parse.Promise.when(
-            new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("sticker")).first(),
+            new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first(),
             new Parse.Query(_class.StoryItems).equalTo("storyId", _story.id).find()
         )
 
     }).then(function (sticker, storyItems) {
-
-        console.log("COLLECTED ALL DATA 2");
 
         _.each(_newsletters, function (newsletter) {
 

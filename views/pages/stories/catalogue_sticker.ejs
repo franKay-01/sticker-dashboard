@@ -38,6 +38,7 @@
     <form action="/storyitem/sticker/add/<%= story %>" method="post">
         <button type="submit" class="waves-effect #e57373 red lighten-2 btn add-image-btn" style="position: fixed" disabled>ADD IMAGE</button>
         <input type="hidden" class="sticker_id" name="sticker_id">
+        <input type="hidden" class="sticker_url" name="sticker_url">
     </form>
     </span>
 
@@ -60,6 +61,7 @@
 <script type="text/javascript">
     $(".sticker-image").click(function () {
         $(".sticker_id").val($(this).attr("data-id"));
+        $(".sticker_url").val($(this).attr("data-url"));
         $(".add-image-btn").html("Add " + $(this).attr("data-name") + " Image");
         $('.add-image-btn').removeAttr('disabled');
 

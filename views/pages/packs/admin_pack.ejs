@@ -256,25 +256,25 @@
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">
                 Status
-                <% if (status === 0){ %>
+                <% if (status === type.PACK_STATUS.pending){ %>
                 <i class="fa fa-circle" id="circle" style="color: grey;float: right;font-size: 15px;"
                    aria-hidden="true"></i>
-                <% } else if (status === 1){ %>
+                <% } else if (status === type.PACK_STATUS.review){ %>
                 <i class="fa fa-circle" id="circle" style="color: #f8ab1c;float: right;font-size: 15px;"
                    aria-hidden="true"></i>
 
-                <% } else if(status === 2){ %>
+                <% } else if(status === type.PACK_STATUS.approved){ %>
                 <i class="fa fa-circle" id="circle" style="color: #0f9d58;float: right;font-size: 15px;"
                    aria-hidden="true"></i>
 
-                <% } else if(status === 3){ %>
+                <% } else if(status === type.PACK_STATUS.rejected){ %>
                 <i class="fa fa-circle" id="circle" style="color: red;float: right;font-size: 15px;"
                    aria-hidden="true"></i>
 
                 <% } %>
             </div>
 
-            <% if (status === 0 && stickers.length !== 0){ %>
+            <% if (status === type.PACK_STATUS.pending && stickers.length !== 0){ %>
 
             <a href="/pack/review/update/status/<%= id %>">
                 <button class="create_button">
