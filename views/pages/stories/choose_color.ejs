@@ -31,27 +31,32 @@
 
 
     <script>
-
+        let topColor = document.getElementById("top").value;
+        let bottomColor = document.getElementById("bottom").value;
 
         $(document).ready(function () {
+
             $(function () {
-                // let topColor = $("#color_value").val()
                 $("#color_value").colorpicker();
                 $("#color_value_1").colorpicker();
 
                 $("#color_value").on("change", function() {
-                    alert($(this).val());
+                    topColor = $(this).val();
+                });
+
+                $("#color_value_1").on("change", function() {
+                    bottomColor = $(this).val();
                 });
             })
         });
 
         function addcolor() {
-            let color_1 = $("#color_value").val();
-            let color_2 = $("#color_value_1").val();
+            let color_1 = topColor;
+            let color_2 = bottomColor;
             let hash = "#";
 
-            color_1 = hash.concat(color_1);
-            color_2 = hash.concat(color_2);
+            // color_1 = hash.concat(color_1);
+            // color_2 = hash.concat(color_2);
 
             let img = document.getElementById("image");
 
@@ -96,8 +101,8 @@
         </div>
         <form class="medium-3 large-3 cell icons" id="story_color" action="/story/color/<%= story.id %>"
               method="post">
-            <!--<input id="color_value" value="<%#= colors.topColor %>" hidden/>-->
-            <!--<input id="color_value_1" value="<%#= colors.bottomColor %>" hidden/>-->
+            <input id="top" value="<%= colors.topColor %>" hidden/>
+            <input id="bottom" value="<%= colors.bottomColor %>" hidden/>
 
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
             <div class="create_new">First Color</div>
