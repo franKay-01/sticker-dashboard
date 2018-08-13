@@ -1973,7 +1973,7 @@ app.post('/storyitem/sticker/:id', function (req, res) {
 
             _story = story;
 
-            return new Parse.Query(_class.Stickers).find();
+            return new Parse.Query(_class.Stickers).limit(1500).find();
 
         }).then(function (stickers) {
 
@@ -5623,7 +5623,8 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
 
             switch (notificationType) {
                 case STORIES:
-                    let story = create.Story(_story, sticker, []);
+                    let story = create.Story(_story);
+                    story = create.StoryArtwork(story,sticker);
                     notification.send({
                         title: "AM I FAT",
                         description: "So, yesterday, someone actually called me fat. Yes, a whole me, FAT! Hmmm…! I am coming, let me gather myself because the way my heart is beating, I might say something and it will become something that is there. So you, it’s okay",

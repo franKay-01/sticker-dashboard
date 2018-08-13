@@ -200,7 +200,7 @@
                 </a><br><br><br>
                 <% } else if (item.get("type") === 1){ %>
 
-                <img src="<%= item.get("contents").uri %>" class="gbeja_notxt">
+                <img src="<%= item.get("contents").uri %>" class="card-image-size">
                 <a href="#" class="preview change" data-content="1" data-name="" data-id="<%= item.id %>">Change
                     Type</a>
                 <a href="#" data-id="<%= item.id %>" style="margin-left: 5px;color: #cc0000 !important;"
@@ -227,7 +227,7 @@
                 <% } else if (item.get("type") === 3){ %>
                 <% if (stickers.length > 0){ %>
 
-                <img src="<%= stickers[stickerCounter].get("uri").url() %>" class="gbeja_notxt">
+                <img src="<%= stickers[stickerCounter].get("uri").url() %>" class="card-image-size">
                 <a href="#" class="preview change" data-content="3" data-name="" data-id="<%= item.id %>">Change
                     Type/Replace Sticker</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"

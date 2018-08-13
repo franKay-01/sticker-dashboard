@@ -1,6 +1,7 @@
 body {
     background: url(../images/background.png) repeat;
     font-family: 'Montserrat', sans-serif;
+    background-attachment: fixed;
 }
 
 a {
@@ -790,6 +791,11 @@ label {
     border-radius: 10.8px;
     margin: 10px 20px auto;
     background-color: #a46580;
+    transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1.0) !important;
+}
+
+button.create_button:hover {
+    transform: translateY(-3px) !important;
 }
 
 .submit_color{
@@ -887,7 +893,14 @@ label {
     position: relative;
     background-color: white;
     /*box-shadow: -3px 3px 25px -1px rgba(0, 0, 0, 0.6);*/
+    transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
     box-shadow: rgb(197, 197, 197) 0 0 40px;
+}
+
+
+.card-zoom.icons:hover {
+    transform: scale(0.9, 0.9);
+    box-shadow: rgb(197, 197, 197) 0 0 20px;
 }
 
 .image_canvas {
@@ -1286,7 +1299,7 @@ a {
     font-size: 16px;
     font-weight: bold;
     letter-spacing: -0.9px;
-    color: #002b5c;
+    color: #28396E;
     text-align: center;
     padding-top: 10px
 }
@@ -1298,32 +1311,32 @@ a {
     font-stretch: normal;
     line-height: 1.23;
     letter-spacing: 0.4px;
-    text-align: left;
-    color: #0a3463;
+    text-align: center;
+    color: #28396E;
     margin-left: 15px;
 }
 
 .story_summary{
     height: 100px;
     font-size: 15px;
-    font-weight: 300;
+    /*font-weight: 300;*/
     font-style: normal;
     font-stretch: normal;
     line-height: normal;
     letter-spacing: normal;
-    text-align: left;
-    color: #002b5c;
-    margin-left: 15px;
+    text-align: center;
+    color: #28396E;
+    padding: 10px;
 }
 
 .pack_name_text {
     height: 39px;
-    font-size: 28px;
+    font-size: 23px;
     font-weight: 600;
     letter-spacing: -1.9px;
     text-align: center;
     margin-top: 10px;
-    color: #3c3c3c;
+    color: #28396E;
 }
 
 #signlink {
@@ -1447,6 +1460,8 @@ a {
     text-align: center;
     margin-right: 60px;
 }
+
+
 
 ._pack {
     width: 450px !important;
@@ -1625,7 +1640,7 @@ a {
     margin-top: 2px !important;
 }
 
-.gbeja_notxt {
+.card-image-size {
     width: 300px;
     height: 300px;
     display: block;
