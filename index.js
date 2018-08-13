@@ -2529,7 +2529,7 @@ app.get('/storycolor/:id', function (req, res) {
             _story = story;
             colors = story.get("color");
 
-            if (colors.getOwnPropertyNames(obj).length !== 0) {
+            if (colors !== null) {
                 color = story.get("color");
             } else {
                 //use system default
