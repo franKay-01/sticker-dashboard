@@ -36,6 +36,10 @@
             $(function () {
                 $("#color_value").colorpicker();
                 $("#color_value_1").colorpicker();
+
+                $("#color_value").on("change", function() {
+                    alert($(this).val());
+                });
             })
         });
 
@@ -108,8 +112,8 @@
                 <input style="width:100px;" id="color_value_1"/>
 
                 <div id="cpEvent" class="demoPanel" style="width: 170px;"></div>
-                <input name="color2" type="hidden" id="color_value_1" value="<%= colors.bottomColor %>">
-                <button id="color_button" class="jscolor {valueElement: 'color_value_1'}"></button>
+                <!--<input name="color2" type="hidden" id="color_value_1" value="<%= colors.bottomColor %>">-->
+                <!--<button id="color_button" class="jscolor {valueElement: 'color_value_1'}"></button>-->
             </div>
 
             <button type="button" class="check_color add_catalogue" onclick="addcolor()"
