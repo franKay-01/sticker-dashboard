@@ -2859,13 +2859,13 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
                 storyItemType === type.STORY_ITEM.italicBold) {
 
                 storyItem.set("type", storyItemType);
-                storyItem.set("contents", content);
+                storyItem.set("contents", {"text": content});
 
                 return storyItem.save();
             } else if (storyItemType === type.STORY_ITEM.divider) {
 
                 storyItem.set("type", storyItemType);
-                storyItem.set("contents", "");
+                storyItem.set("contents", {"":""});
 
                 return storyItem.save();
             } else if (storyItemType === type.STORY_ITEM.image) {
@@ -2892,7 +2892,7 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
 
             if (storyItemType === type.STORY_ITEM.image) {
                 _storyItem.set("type", storyItemType);
-                _storyItem.set("contents", asset.id);
+                _storyItem.set("contents", {"uri":asset.get("uri").url()});
 
                 return _storyItem.save();
 
