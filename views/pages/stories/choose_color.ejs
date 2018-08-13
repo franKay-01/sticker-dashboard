@@ -131,7 +131,6 @@
             <button class="submit_color" type="submit"><i class="fa fa-circle size" aria-hidden="true"></i>Submit
                 Changes
             </button>
-
         </form>
 
         <div id="image" class="medium-3 large-3 cell icons"
@@ -142,23 +141,6 @@
                  class="story_summary truncate_summary"> <%= story.get("title") %></div>
 
         </div>
-
-        <div class="medium-3 large-3 cell icons">
-            <div class="demoPanel ui-widget ui-widget-content ui-corner-all" style="width:130px">
-                Palette triggers:<br/><br/>
-                <label>button only</label>
-                <input id="cpButton" value="#ccc1d9" />
-                <label>focus only</label>
-                <input id="cpFocus" value="#8db3e2" />
-                <label>button + focus</label>
-                <input id="cpBoth" value="#b7dde8" />
-                <label><a href="#" id="show">link</a></label>
-                <input id="cpOther" value="#d7e3bc" />
-                <br/>
-                <i>Using "showOn" option.</i>
-            </div>
-        </div>
-
 
         <%- include('../../partials/footer') %>
 
