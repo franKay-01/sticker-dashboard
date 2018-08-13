@@ -2529,7 +2529,7 @@ app.get('/storycolor/:id', function (req, res) {
             _story = story;
             colors = story.get("color");
 
-            if (colors !== null) {
+            if (colors !== {}) {
                 color = story.get("color");
             } else {
                 //use system default
