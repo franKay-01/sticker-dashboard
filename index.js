@@ -2831,6 +2831,8 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
     let id = req.body.storyItemId;
     let storyId = req.params.storyId;
     let previousForm = parseInt(req.body.previousContent);
+    console.log("TYPE " + req.body.storyItemType);
+
     let storyItemType = parseInt(req.body.storyItemType);
     let content = req.body.text_element;
     let _storyItem = [];
