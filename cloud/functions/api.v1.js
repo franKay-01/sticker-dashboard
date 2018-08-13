@@ -13,13 +13,10 @@ const ADMIN = process.env.ADMIN;
 const DEFAULT_PACK = process.env.DEFAULT_PACK;
 const SERVER_URL = process.env.SERVER_URL.replace('parse', '');
 
-//TODO remove all archived items
-//TODO remove all flagged items
-//TODO only send published items
-//TODO write pagination function for editing stickers
-//TODO remove repeated code for creating stories/stickers
+
 //TODO properly handle errors
 //TODO handle instances when ID's have not been provided
+//TODO retrieve API Version and Device Type from req
 
 Parse.Cloud.define("getFeed", function (req, res) {
 
@@ -256,6 +253,8 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     ).then((stories, artworks) => {
 
+        console.log("STORIES " + JSON.stringify(stories));
+
         _stories = stories;
         _artworks = artworks;
 
@@ -271,10 +270,11 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     }).then(stickers => {
 
+        console.log("STICKERS " +JSON.stringify(stickers));
+
         _.each(_stories, function (story) {
 
             let _story = create.Story(story);
-
 
             _.each(_artworks, function (artwork) {
 
