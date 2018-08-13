@@ -1998,6 +1998,7 @@ app.post('/storyitem/sticker/add/:id', function (req, res) {
 
     let token = req.cookies.token;
     let sticker_id = req.body.sticker_id;
+    let sticker_url = req.body.sticker_url;
     let story_id = req.params.id;
 
     if (token) {
@@ -2006,7 +2007,7 @@ app.post('/storyitem/sticker/add/:id', function (req, res) {
             let Story = new Parse.Object.extend(_class.StoryItems);
             let catalogue = new Story();
 
-            catalogue.set("contents", {"id": sticker_id});
+            catalogue.set("contents", {"id": sticker_id, "url": sticker_url});
             catalogue.set("storyId", story_id);
             catalogue.set("type", type.STORY_ITEM.sticker);
 
