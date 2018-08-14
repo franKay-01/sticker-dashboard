@@ -3,39 +3,41 @@
  */
 
 // Include the Twilio Cloud Module to send sms messages
-let twilio = require("twilio")("AC6bad1c4bf8d48125709add2b8b0a5ce0", "33028731ba2e2bfb477a0709582a49f8");
-let moment = require('moment');
-var _ = require('underscore');
-let gm = require('gm').subClass({imageMagick: true});
+const twilio = require("twilio")("AC6bad1c4bf8d48125709add2b8b0a5ce0", "33028731ba2e2bfb477a0709582a49f8");
+const moment = require('moment');
+const _ = require('underscore');
+const gm = require('gm').subClass({imageMagick: true});
 
 //TODO update response errors
-let KEY_RESPONSE_CODE = "responseCode";
-let KEY_RESPONSE_MESSAGE = "responseMessage";
-let KEY_DATA = "data";
-let RESPONSE_OK = 0;
-let STATUS_OK = 200;
-let SERVER_ERROR = 1;
-let UNKNOWN_ERROR = -1;
-let TEXT_MESSAGE_ERROR = 2;
-let TOKEN_ERROR = 3;
-let HASH_ERROR = 4;
-let STORIES_ERROR = 5;
-let SETUP_USER_ERROR = 6;
-let USER_ERROR = 7;
-let GETTING_RECORDS_ERROR = 8;
+const KEY_RESPONSE_CODE = "responseCode";
+const KEY_RESPONSE_MESSAGE = "responseMessage";
+const KEY_DATA = "data";
+const RESPONSE_OK = 0;
+const STATUS_OK = 200;
+const SERVER_ERROR = 1;
+const UNKNOWN_ERROR = -1;
+const TEXT_MESSAGE_ERROR = 2;
+const TOKEN_ERROR = 3;
+const HASH_ERROR = 4;
+const STORIES_ERROR = 5;
+const SETUP_USER_ERROR = 6;
+const USER_ERROR = 7;
+const GETTING_RECORDS_ERROR = 8;
 
-let CREATING_TEST_ERROR = 9;
-let CREATING_TASK_ERROR = 10;
-let CLASS_TYPE_ERROR = 11;
+const CREATING_TEST_ERROR = 9;
+const CREATING_TASK_ERROR = 10;
+const CLASS_TYPE_ERROR = 11;
 
-let UPDATING_TEST_ERROR = 12;
-let UPDATING_TASK_ERROR = 13;
+const UPDATING_TEST_ERROR = 12;
+const UPDATING_TASK_ERROR = 13;
 
-let DELETING_TEST_ERROR = 14;
-let DELETING_TASKS_ERROR = 15;
-let GETTING_TASKS_ERROR = 16;
+const DELETING_TEST_ERROR = 14;
+const DELETING_TASKS_ERROR = 15;
+const GETTING_TASKS_ERROR = 16;
 
-let STORY_PREVIEW_ERROR = 17;
+const STORY_PREVIEW_ERROR = 17;
+
+const SPECIAL_CHARACTERS = /[`~!@#$%^&*()_|+\-=÷¿?;:'",.123<>\{\}\[\]\\\/]/gi;
 
 /**
  * Creates a function to reject the given promise
@@ -362,7 +364,7 @@ exports.thumbnail = (files,size) => {
     files.forEach(function (file, index) {
 
         let fullName = file.originalname;
-        fullName = fullName.replace(/[`~!@#$%^&*()_|+\-=÷¿?;:'",.23<>\{\}\[\]\\\/]/gi, '');
+        fullName = fullName.replace(SPECIAL_CHARACTERS, '');
         let image_name = fullName.substring(0, fullName.length - 4);
 
         gm(file.path)
@@ -426,3 +428,4 @@ exports.DELETING_TASKS_ERROR = DELETING_TASKS_ERROR;
 exports.CLASS_TYPE_ERROR = CLASS_TYPE_ERROR;
 exports.STORY_PREVIEW_ERROR = STORY_PREVIEW_ERROR;
 exports.STATUS_OK = STATUS_OK;
+exports.SPECIAL_CHARACTERS = SPECIAL_CHARACTERS;

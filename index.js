@@ -4611,7 +4611,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                     let sticker = new Sticker();
 
                     let fullName = file.originalname;
-                    fullName = fullName.replace(/[`~!@#$%^&*()_|+\-=÷¿?;:'",.23<>\{\}\[\]\\\/]/gi, '');
+                    fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
 
                     let stickerName = fullName.substring(0, fullName.length - 4);
 
