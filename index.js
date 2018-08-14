@@ -4902,7 +4902,7 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
 
 
             //TODO how to catch error when time expires (Check APIs)
-            const AWS = require('aws-sdk');
+            // const AWS = require('aws-sdk');
             //
             // const s3 = new AWS.S3();
             // AWS.config.update({
@@ -4910,35 +4910,35 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
             //     secretAccessKey: 'VUEG22l8/pfbtHFin4agKjk0eHddiB5UyWuL8TXX'
             // });
 
-            const s3 = new AWS.S3();
-
-            AWS.config.region = 'us-east-1'; // Region
-            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                IdentityPoolId: 'us-east-1:3040d86e-7139-4023-b6d6-d84b37b220e6',
-            });
-
-            const myBucket = 'cyfa';
-            let name = _sticker.get("uri").name();
-
-            console.log("NAME " + name);
-
-            const key = name;
-            const signedUrlExpireSeconds = 60 * 5;
-
-            s3.getSignedUrl('getObject', {
-                Bucket: myBucket,
-                Key: key,
-                Expires: signedUrlExpireSeconds
-            }, function (error, url) {
-                if (error){
-                    console.log("ERROR S3", error.message);
-
-                }else {
-                    // res.redirect(url);
-                    console.log("The URL is", url);
-
-                }
-            });
+            // const s3 = new AWS.S3();
+            //
+            // AWS.config.region = 'us-east-1'; // Region
+            // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            //     IdentityPoolId: 'us-east-1:3040d86e-7139-4023-b6d6-d84b37b220e6',
+            // });
+            //
+            // const myBucket = 'cyfa';
+            // let name = _sticker.get("uri").name();
+            //
+            // console.log("NAME " + name);
+            //
+            // const key = name;
+            // const signedUrlExpireSeconds = 60 * 5;
+            //
+            // s3.getSignedUrl('getObject', {
+            //     Bucket: myBucket,
+            //     Key: key,
+            //     Expires: signedUrlExpireSeconds
+            // }, function (error, url) {
+            //     if (error){
+            //         console.log("ERROR S3", error.message);
+            //
+            //     }else {
+            //         // res.redirect(url);
+            //         console.log("The URL is", url);
+            //
+            //     }
+            // });
 
             let col = _pack.relation(_class.Packs);
             return col.query().find({sessionToken: token});
