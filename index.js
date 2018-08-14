@@ -4610,10 +4610,11 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                     let Sticker = new Parse.Object.extend(_class.Stickers);
                     let sticker = new Sticker();
 
-                    let fullName = file.originalname;
-                    fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
 
-                    let stickerName = fullName.substring(0, fullName.length - 4);
+                   // fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
+                    let originalName = file.originalname;
+                    let stickerName = originalName.replace(util.SPECIAL_CHARACTERS, '').
+                    substring(0, originalName.length - 4);
 
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
