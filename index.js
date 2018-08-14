@@ -2005,7 +2005,7 @@ app.post('/storyitem/sticker/add/:id', function (req, res) {
             let Story = new Parse.Object.extend(_class.StoryItems);
             let catalogue = new Story();
 
-            catalogue.set("contents", {"id": sticker_id, "url": sticker_url});
+            catalogue.set("contents", {"id": sticker_id, "uri": sticker_url});
             catalogue.set("storyId", story_id);
             catalogue.set("type", type.STORY_ITEM.sticker);
 
@@ -2863,7 +2863,7 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
             } else if (storyItemType === type.STORY_ITEM.divider) {
 
                 storyItem.set("type", storyItemType);
-                storyItem.set("contents", {"":""});
+                storyItem.set("contents", {"": ""});
 
                 return storyItem.save();
             } else if (storyItemType === type.STORY_ITEM.image) {
@@ -2890,7 +2890,7 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
 
             if (storyItemType === type.STORY_ITEM.image) {
                 _storyItem.set("type", storyItemType);
-                _storyItem.set("contents", {"uri":asset.get("uri").url()});
+                _storyItem.set("contents", {"uri": asset.get("uri").url()});
 
                 return _storyItem.save();
 
@@ -2958,6 +2958,7 @@ app.post('/storyitem/change/sticker/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let stickerId = req.body.sticker_id;
+    let sticker_url = req.body.sticker_url;
     let storyId;
     let storyItemView = '/storyitem/view/';
 
@@ -2976,7 +2977,7 @@ app.post('/storyitem/change/sticker/:id', function (req, res) {
             storyId = storyItem.get("storyId");
 
             storyItem.set("type", type.STORY_ITEM.sticker);
-            storyItem.set("contents", {"id": stickerId});
+            storyItem.set("contents", {"id": stickerId, "uri":sticker_url});
 
             return storyItem.save();
 
@@ -3032,10 +3033,10 @@ app.get('/storyitem/change/sticker/:storyId/:storyItemId', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/storyitem/view/'+storyId);
+            res.redirect('/storyitem/view/' + storyId);
         })
 
-    }else {
+    } else {
 
         res.redirect('/');
 
@@ -4910,24 +4911,40 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
             //     accessKeyId: 'AKIAINM7RXYLJVMDEMLQ',
             //     secretAccessKey: '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'
             // });
+
+            // const s3 = new AWS.S3();
             //
+            // AWS.config.region = 'us-east-1'; // Region
+            // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            //     IdentityPoolId: 'us-east-1:3040d86e-7139-4023-b6d6-d84b37b220e6',
+            // });
             //
             // const myBucket = 'cyfa';
-            // let name = stickerDetail.get("uri").name();
+            // let name = _sticker.get("uri").name();
+            //
+            // console.log("NAME " + name);
             //
             // const key = name;
             // const signedUrlExpireSeconds = 60 * 5;
             //
-            // const url = s3.getSignedUrl('getObject', {
+            // s3.getSignedUrl('getObject', {
             //     Bucket: myBucket,
             //     Key: key,
             //     Expires: signedUrlExpireSeconds
-            // });
+            // }, function (error, url) {
+            //     if (error){
+            //         console.log("ERROR S3", error.message);
             //
+            //     }else {
+            //         // res.redirect(url);
+            //         console.log("The URL is", url);
+            //
+            //     }
+            // });
+
             let col = _pack.relation(_class.Packs);
             return col.query().find({sessionToken: token});
 
-            // }
         }).then(function (stickers) {
 
             let page = util.page(stickers, stickerId);
@@ -4944,8 +4961,8 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
                 latest: _latest
             });
 
-        }, function (err) {
-            console.log("Error Loading-----------------------" + JSON.stringify(err));
+        }, function (error) {
+            console.log("Error Loading-----------------------" + error.messgae);
             res.redirect("/pack/" + packId);
 
         });
