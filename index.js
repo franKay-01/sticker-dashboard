@@ -5181,7 +5181,7 @@ app.get('/sticker/delete/:id/:packId', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let pack_id = req.params.packId;
-    let pack = "/pack";
+    let pack = "/pack/";
 
 
     if (token) {
