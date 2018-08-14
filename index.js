@@ -4920,7 +4920,7 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
             // Create the IAM service object
 
             const myBucket = 'cyfa';
-            let name = stickerDetail.get("uri").name();
+            let name = _sticker.get("uri").name();
 
             const key = name;
             const signedUrlExpireSeconds = 60 * 5;
@@ -4936,7 +4936,6 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
             let col = _pack.relation(_class.Packs);
             return col.query().find({sessionToken: token});
 
-            // }
         }).then(function (stickers) {
 
             let page = util.page(stickers, stickerId);
@@ -4953,8 +4952,8 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
                 latest: _latest
             });
 
-        }, function (err) {
-            console.log("Error Loading-----------------------" + JSON.stringify(err));
+        }, function (error) {
+            console.log("Error Loading-----------------------" + error.messgae);
             res.redirect("/pack/" + packId);
 
         });
