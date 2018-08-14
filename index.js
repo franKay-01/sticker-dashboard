@@ -2863,7 +2863,7 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
             } else if (storyItemType === type.STORY_ITEM.divider) {
 
                 storyItem.set("type", storyItemType);
-                storyItem.set("contents", {"":""});
+                storyItem.set("contents", {"": ""});
 
                 return storyItem.save();
             } else if (storyItemType === type.STORY_ITEM.image) {
@@ -2890,7 +2890,7 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
 
             if (storyItemType === type.STORY_ITEM.image) {
                 _storyItem.set("type", storyItemType);
-                _storyItem.set("contents", {"uri":asset.get("uri").url()});
+                _storyItem.set("contents", {"uri": asset.get("uri").url()});
 
                 return _storyItem.save();
 
@@ -3032,10 +3032,10 @@ app.get('/storyitem/change/sticker/:storyId/:storyItemId', function (req, res) {
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('/storyitem/view/'+storyId);
+            res.redirect('/storyitem/view/' + storyId);
         })
 
-    }else {
+    } else {
 
         res.redirect('/');
 
@@ -4912,16 +4912,16 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
 
             AWS.config.update({region: 'us-east-1'});
 
-// Create the IAM service object
+            // Create the IAM service object
             let iam = new AWS.IAM({apiVersion: '2010-05-08'});
 
             let params = {
                 UserName: 'ios@psyphertxt'
             };
 
-            iam.getUser(params, function(err, data) {
+            iam.getUser(params, function (err, data) {
                 if (err && err.code === 'NoSuchEntity') {
-                    iam.createUser(params, function(err, data) {
+                    iam.createUser(params, function (err, data) {
                         if (err) {
                             throw err;
                         } else {
