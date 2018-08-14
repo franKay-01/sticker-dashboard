@@ -2958,6 +2958,7 @@ app.post('/storyitem/change/sticker/:id', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.id;
     let stickerId = req.body.sticker_id;
+    let sticker_url = req.body.sticker_url;
     let storyId;
     let storyItemView = '/storyitem/view/';
 
@@ -2976,7 +2977,7 @@ app.post('/storyitem/change/sticker/:id', function (req, res) {
             storyId = storyItem.get("storyId");
 
             storyItem.set("type", type.STORY_ITEM.sticker);
-            storyItem.set("contents", {"id": stickerId});
+            storyItem.set("contents", {"id": stickerId, "uri":sticker_url});
 
             return storyItem.save();
 
