@@ -252,16 +252,12 @@ Parse.Cloud.define("getStories", function (req, res) {
         new Parse.Query(_class.ArtWork).find()
     ).then((stories, artworks) => {
 
-        console.log("STORIES " + JSON.stringify(stories));
-
         _stories = stories;
         _artworks = artworks;
 
         _.each(artworks, artwork => {
 
-            //TODO add type:Number=[short story, comic etc] to story
-            //TODO update sticker to stickerId
-            stickerIds.push(artwork.get("sticker"));
+            stickerIds.push(artwork.get("stickerId"));
 
         });
 
@@ -269,7 +265,6 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     }).then(stickers => {
 
-        console.log("STICKERS " + JSON.stringify(stickers));
 
         _.each(_stories, function (story) {
 
