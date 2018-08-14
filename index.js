@@ -4912,15 +4912,16 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
 
             AWS.config.region = 'us-east-1'; // Region
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                IdentityPoolId: 'us-east-1:9a0a504b-e987-4488-a4e0-9926f26a60d6',
+                IdentityPoolId: 'us-east-1:90ff65d0-48b7-4042-8eae-546c130fbe0a',
             });
-
             const s3 = new AWS.S3();
 
             // Create the IAM service object
 
             const myBucket = 'cyfa';
             let name = _sticker.get("uri").name();
+
+            console.log("NAME " + name);
 
             const key = name;
             const signedUrlExpireSeconds = 60 * 5;
