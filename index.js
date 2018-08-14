@@ -1525,7 +1525,7 @@ app.get('/stories', function (req, res) {
 
                 _.each(stickers, function (sticker) {
 
-                    if (artworks.get("sticker") === sticker.id) {
+                    if (artworks.get("stickerId") === sticker.id) {
 
                         combined.push({
                             story: artworks.get("itemId"),
