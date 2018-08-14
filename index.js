@@ -5848,7 +5848,7 @@ app.get('/newsletter/story/:storyId', function (req, res) {
         }
 
         return Parse.Promise.when(
-            new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("sticker")).first(),
+            new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first(),
             new Parse.Query(_class.StoryItems).equalTo("storyId", _story.id).find()
         )
 
