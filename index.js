@@ -4611,6 +4611,8 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                     let sticker = new Sticker();
 
                     let fullName = file.originalname;
+                    fullName = fullName.replace(/[`~!@#$%^&*()_|+\-=÷¿?;:'",.<>\{\}\[\]\\\/]/gi, '');
+
                     let stickerName = fullName.substring(0, fullName.length - 4);
 
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
