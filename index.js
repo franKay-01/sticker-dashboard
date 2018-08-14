@@ -4902,14 +4902,36 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
 
 
             //TODO how to catch error when time expires (Check APIs)
-            // const AWS = require('aws-sdk');
+            const AWS = require('aws-sdk');
             //
             // const s3 = new AWS.S3();
             // AWS.config.update({
             //     accessKeyId: 'AKIAINM7RXYLJVMDEMLQ',
             //     secretAccessKey: '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'
             // });
-            //
+
+            AWS.config.update({region: 'REGION'});
+
+// Create the IAM service object
+            let iam = new AWS.IAM({apiVersion: '2010-05-08'});
+
+            let params = {
+                UserName: 'ios@psyphertxt'
+            };
+
+            iam.getUser(params, function(err, data) {
+                if (err && err.code === 'NoSuchEntity') {
+                    iam.createUser(params, function(err, data) {
+                        if (err) {
+                            throw err;
+                        } else {
+                            console.log("Success", JSON.stringify(data));
+                        }
+                    });
+                } else {
+                    console.log("User " + 'ios@psyphertxt' + " already exists", data.User.UserId);
+                }
+            });
             //
             // const myBucket = 'cyfa';
             // let name = stickerDetail.get("uri").name();
