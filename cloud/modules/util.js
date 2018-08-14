@@ -362,7 +362,7 @@ exports.thumbnail = (files,size) => {
     files.forEach(function (file, index) {
 
         let fullName = file.originalname;
-        fullName = fullName.replace(/[`~!@#$%^&*()_|+\-=÷¿?;:'",.<>\{\}\[\]\\\/]/gi, '');
+        fullName = fullName.replace(/[`~!@#$%^&*()_|+\-=÷¿?;:'",.23<>\{\}\[\]\\\/]/gi, '');
         let image_name = fullName.substring(0, fullName.length - 4);
 
         gm(file.path)
