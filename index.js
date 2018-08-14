@@ -4929,7 +4929,7 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
                 Bucket: myBucket,
                 Key: key,
                 Expires: signedUrlExpireSeconds,
-                Body: 'francis'
+                Tagging: 'francis'
             }, function (error, url) {
                 if (error){
                     console.log("ERROR S3", error.message);
