@@ -4905,18 +4905,18 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
             const AWS = require('aws-sdk');
             //
             // const s3 = new AWS.S3();
-            AWS.config.update({
-                accessKeyId: 'AKIAINM7RXYLJVMDEMLQ',
-                secretAccessKey: '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'
-            });
+            // AWS.config.update({
+            //     accessKeyId: 'AKIAINM7RXYLJVMDEMLQ',
+            //     secretAccessKey: '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'
+            // });
 
-            // AWS.config.update({region: 'us-east-1'});
+            AWS.config.update({region: 'us-east-1'});
 
             // Create the IAM service object
             let iam = new AWS.IAM({apiVersion: '2010-05-08'});
 
             let params = {
-                UserName: 'ios@psyphertxt'
+                UserName: 'Francis'
             };
 
             iam.getUser(params, function (err, data) {
