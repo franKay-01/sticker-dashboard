@@ -53,7 +53,7 @@ const STORIES = "story";
 const PACKS = "pack";
 const PRODUCT = "product";
 
-const CATEGORY_LIMIT = 1000;
+const PARSE_LIMIT = 1000;
 
 //TODO investigate email template server url links
 const PARSE_SERVER_URL = process.env.SERVER_URL;
@@ -1971,7 +1971,7 @@ app.post('/storyitem/sticker/:id', function (req, res) {
 
             _story = story;
 
-            return new Parse.Query(_class.Stickers).limit(1500).find();
+            return new Parse.Query(_class.Stickers).limit(PARSE_LIMIT).find();
 
         }).then(function (stickers) {
 
@@ -3010,7 +3010,7 @@ app.get('/storyitem/change/sticker/:storyId/:storyItemId', function (req, res) {
 
             console.log("STORY ID " + storyId + " STORYITEM " + storyItemId);
 
-            return new Parse.Query(_class.Stickers).limit(1500).find();
+            return new Parse.Query(_class.Stickers).limit(PARSE_LIMIT).find();
             // return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first();
             //
             // }).then(function (story) {
@@ -3240,7 +3240,7 @@ app.get('/categories', function (req, res) {
 
     if (token) {
 
-        new Parse.Query(_class.Categories).limit(CATEGORY_LIMIT).ascending().find().then(function (categories) {
+        new Parse.Query(_class.Categories).limit(PARSE_LIMIT).ascending().find().then(function (categories) {
 
                 let _categories = helper.chunks(categories, 4);
 
@@ -3817,7 +3817,7 @@ app.get('/pack/:id', function (req, res) {
 
             switch (userType) {
                 case SUPER_USER:
-                    return packRelation.query().limit(1500).ascending("name").find({useMasterKey: true});
+                    return packRelation.query().limit(PARSE_LIMIT).ascending("name").find({useMasterKey: true});
 
                 case NORMAL_USER:
                     return packRelation.query().find({sessionToken: token});
