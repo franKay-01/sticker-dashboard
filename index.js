@@ -4927,7 +4927,7 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
 
             s3.getSignedUrl('getObject', {
                 Bucket: myBucket,
-                Key: key + 'francis',
+                Key: key,
                 Expires: signedUrlExpireSeconds
             }, function (error, url) {
                 if (error){
