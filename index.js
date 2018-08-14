@@ -4929,12 +4929,13 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
                 Bucket: myBucket,
                 Key: key,
                 Expires: signedUrlExpireSeconds,
-                name: 'francis'
+                Body: 'francis'
             }, function (error, url) {
                 if (error){
                     console.log("ERROR S3", error.message);
 
                 }else {
+                    res.redirect(url);
                     console.log("The URL is", url);
 
                 }
