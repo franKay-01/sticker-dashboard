@@ -4934,7 +4934,7 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
                     console.log("ERROR S3", error.message);
 
                 }else {
-                    res.redirect(url);
+                    // res.redirect(url);
                     console.log("The URL is", url);
 
                 }
