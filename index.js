@@ -3817,7 +3817,7 @@ app.get('/pack/:id', function (req, res) {
 
             switch (userType) {
                 case SUPER_USER:
-                    return packRelation.query().skip(100).ascending("name").find({useMasterKey: true});
+                    return packRelation.query().skip(99).ascending("name").find({useMasterKey: true});
 
                 case NORMAL_USER:
                     return packRelation.query().find({sessionToken: token});
