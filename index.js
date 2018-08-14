@@ -4910,41 +4910,29 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
             //     secretAccessKey: 'VUEG22l8/pfbtHFin4agKjk0eHddiB5UyWuL8TXX'
             // });
 
-            AWS.config.update({region: 'us-east-1'});
+            AWS.config.region = 'us-east-1'; // Region
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: 'us-east-1:9a0a504b-e987-4488-a4e0-9926f26a60d6',
+            });
+
+            const s3 = new AWS.S3();
 
             // Create the IAM service object
-            let iam = new AWS.IAM({apiVersion: '2010-05-08'});
 
-            let params = {
-                UserName: 'Francis'
-            };
+            const myBucket = 'cyfa';
+            let name = stickerDetail.get("uri").name();
 
-            iam.getUser(params, function (err, data) {
-                if (err && err.code === 'NoSuchEntity') {
-                    iam.createUser(params, function (err, data) {
-                        if (err) {
-                            throw err;
-                        } else {
-                            console.log("Success", JSON.stringify(data));
-                        }
-                    });
-                } else {
-                    console.log("User " + 'ios@psyphertxt' + " already exists", data.User.UserId);
-                }
+            const key = name;
+            const signedUrlExpireSeconds = 60 * 5;
+
+            const url = s3.getSignedUrl('getObject', {
+                Bucket: myBucket,
+                Key: key,
+                Expires: signedUrlExpireSeconds
             });
-            //
-            // const myBucket = 'cyfa';
-            // let name = stickerDetail.get("uri").name();
-            //
-            // const key = name;
-            // const signedUrlExpireSeconds = 60 * 5;
-            //
-            // const url = s3.getSignedUrl('getObject', {
-            //     Bucket: myBucket,
-            //     Key: key,
-            //     Expires: signedUrlExpireSeconds
-            // });
-            //
+
+            console.log("URL " + url);
+
             let col = _pack.relation(_class.Packs);
             return col.query().find({sessionToken: token});
 
