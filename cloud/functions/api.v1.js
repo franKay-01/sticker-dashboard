@@ -218,7 +218,7 @@ Parse.Cloud.define("getStoryItems", function (req, res) {
     let storyId = req.params.storyId;
 
     Parse.Promise.when(
-        new Parse.Query(_class.StoryItems).equalTo("storyId", storyId).find({useMasterKey: true})
+        new Parse.Query(_class.StoryItems).equalTo("storyId", storyId).ascending("createdAt").find({useMasterKey: true})
     ).then(storyItems => {
 
 
