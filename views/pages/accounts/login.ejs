@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-signin-client_id"
+          content="490674121048-fie59n0s25dai5730fai8le635sf8gv8.apps.googleusercontent.com">
+
     <title>Sign In - G-Stickers</title>
 
     <% include ../../partials/fav.ejs %>
@@ -18,7 +21,7 @@
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script src="/public/assets/js/functions.js"></script>
-
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
 </head>
 
@@ -57,6 +60,8 @@
 
                     <br>
                     <button type="submit" name="login" id="btnLogin">Login</button>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
                     <br><br>
                     <a href="/account/password/forgot" class="forgotten_password">Forgot password?</a>
                     <br><br>
@@ -79,6 +84,15 @@
 <script type="text/javascript" src="/public/assets/js/custom.js">
 </script>
 <script type="application/javascript">
+
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }
+
 
     function setCookie(name, value, days) {
         let expires = "";
