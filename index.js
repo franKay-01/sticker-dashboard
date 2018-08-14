@@ -2452,13 +2452,6 @@ app.post('/story', function (req, res) {
     let pack_id = req.body.pack_id;
     let body = req.body.summary;
     let storyType = parseInt(req.body.storyType);
-    let _keywords = [];
-    let story_id;
-    let newObject = {};
-
-    // if (keywords !== undefined || keywords !== "undefined") {
-    //     _keywords = keywords.split(",");
-    // }
 
     if (token) {
 
@@ -2481,6 +2474,7 @@ app.post('/story', function (req, res) {
             story.set("status", 0);
             story.set("storyType", storyType);
             story.set("authorId", "");
+            story.set("color", {topColor: "", bottomColor: ""});
             // story.set("storyObject", newObject);
 
 
