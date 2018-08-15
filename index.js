@@ -392,7 +392,8 @@ app.get('/home', function (req, res) {
                     storyLength: _storyLength,
                     user_name: _user.get("name"),
                     verified: _user.get("emailVerified"),
-                    error_message: "null"
+                    error_message: "null",
+                    type: type
 
                 });
 
@@ -1539,7 +1540,8 @@ app.get('/stories', function (req, res) {
                 story: _story,
                 allPacks: _allPack,
                 arts: combined,
-                latest: _latest
+                latest: _latest,
+                type: type
             })
         }, function (error) {
 
@@ -1881,8 +1883,7 @@ app.post('/storyitem/html/update/:id', function (req, res) {
             } else {
 
                 let html = {};
-                html[htmlType.toString()] = {"text": htmlContent, "color": "#" + htmlColor};
-                console.log("UPDATED HTML " + JSON.stringify(html));
+                html[htmlType.toString()] = {"text": htmlContent, "color": htmlColor};
 
                 contents.html[index] = html;
             }
@@ -2059,7 +2060,7 @@ app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
             let catalogue = new Story();
 
             catalogue.set("type", type.STORY_ITEM.image);
-            catalogue.set("contents", {"uri": image.get("uri").url()});
+            catalogue.set("contents", {"uri": image.get("uri").url(), "id":image.id});
             catalogue.set("storyId", id);
 
             return catalogue.save();
@@ -2452,13 +2453,6 @@ app.post('/story', function (req, res) {
     let pack_id = req.body.pack_id;
     let body = req.body.summary;
     let storyType = parseInt(req.body.storyType);
-    let _keywords = [];
-    let story_id;
-    let newObject = {};
-
-    // if (keywords !== undefined || keywords !== "undefined") {
-    //     _keywords = keywords.split(",");
-    // }
 
     if (token) {
 
@@ -2481,6 +2475,7 @@ app.post('/story', function (req, res) {
             story.set("status", 0);
             story.set("storyType", storyType);
             story.set("authorId", "");
+            story.set("color", {topColor: "", bottomColor: ""});
             // story.set("storyObject", newObject);
 
 
@@ -2784,20 +2779,26 @@ app.get('/storyitem/delete/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
+    let assetArray = [];
 
     if (token) {
 
-        console.log("THIS IS THE CORRECT ROUTE");
         getUser(token).then(function (sessionToken) {
 
             return new Parse.Query(_class.StoryItems).equalTo("storyId", id).find();
 
         }).then(function (stories) {
 
-            console.log("THIS IS THE CORRECT ROUTE 2 " + JSON.stringify(stories));
-
             if (stories.length > 0) {
 
+                _.each(stories, function (items) {
+
+                    if (items.get("type") === type.STORY_ITEM.image) {
+                        assetArray.push(items.get("contents").id);
+                    }
+                });
+
+                console.log("ASSETS AVAILABLE");
                 return Parse.Object.destroyAll(stories);
 
             } else {
@@ -2808,8 +2809,31 @@ app.get('/storyitem/delete/:id', function (req, res) {
 
         }).then(function (success) {
 
-            console.log("THIS IS THE CORRECT ROUTE 3");
+            if (assetArray.length > 0){
 
+                console.log("FINDING ASSETS");
+                return new Parse.Query(_class.Assets).containedIn("objectId", assetArray).find();
+
+            }else {
+
+                res.redirect("/storydelete/" + id);
+
+            }
+
+        }).then(function (assets) {
+
+            if (assets){
+                console.log("ASSETS DELETING " + JSON.stringify(assets));
+
+                return Parse.Object.destroyAll(assets);
+
+            } else {
+
+                res.redirect("/storydelete/" + id);
+
+            }
+
+        }).then(function () {
 
             res.redirect("/storydelete/" + id);
 
@@ -2890,7 +2914,7 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
 
             if (storyItemType === type.STORY_ITEM.image) {
                 _storyItem.set("type", storyItemType);
-                _storyItem.set("contents", {"uri": asset.get("uri").url()});
+                _storyItem.set("contents", {"uri": asset.get("uri").url(), "id": asset.id});
 
                 return _storyItem.save();
 
@@ -2977,7 +3001,7 @@ app.post('/storyitem/change/sticker/:id', function (req, res) {
             storyId = storyItem.get("storyId");
 
             storyItem.set("type", type.STORY_ITEM.sticker);
-            storyItem.set("contents", {"id": stickerId, "uri":sticker_url});
+            storyItem.set("contents", {"id": stickerId, "uri": sticker_url});
 
             return storyItem.save();
 
@@ -4342,6 +4366,43 @@ app.post('/review/:itemId/:packId/:reviewId', function (req, res) {
         }
     } else {
         res.redirect('/')
+    }
+
+});
+
+app.get('/pack/stickers/remove/:stickerId/:packId', function (req, res) {
+
+    let token = req.cookies.token;
+    let stickerId = req.params.stickerId;
+    let packId = req.params.packId;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first(),
+                new Parse.Query(_class.Packs).equalTo("objectId", packId).first()
+            )
+        }).then(function (sticker, pack) {
+
+            let collection_relation = pack.relation(_class.Packs);
+            collection_relation.remove(sticker);
+
+            return pack.save();
+
+        }).then(function () {
+
+            res.redirect('/pack/' + packId);
+
+        }, function (error) {
+
+            console.log("ERROR REMOVING STICKER RELATION " + error.message);
+            res.redirect('/pack/' + packId);
+
+        })
+    } else {
+        res.redirect('/');
     }
 
 });
