@@ -2060,7 +2060,7 @@ app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
             let catalogue = new Story();
 
             catalogue.set("type", type.STORY_ITEM.image);
-            catalogue.set("contents", {"uri": image.get("uri").url()});
+            catalogue.set("contents", {"uri": image.get("uri").url(), "id":image.id});
             catalogue.set("storyId", id);
 
             return catalogue.save();
