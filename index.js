@@ -2798,6 +2798,7 @@ app.get('/storyitem/delete/:id', function (req, res) {
                     }
                 });
 
+                console.log("ASSETS AVAILABLE");
                 return Parse.Object.destroyAll(stories);
 
             } else {
@@ -2810,6 +2811,7 @@ app.get('/storyitem/delete/:id', function (req, res) {
 
             if (assetArray.length > 0){
 
+                console.log("FINDING ASSETS");
                 return new Parse.Query(_class.Assets).containedIn("uri", assetArray).find();
 
             }else {
@@ -2821,6 +2823,7 @@ app.get('/storyitem/delete/:id', function (req, res) {
         }).then(function (assets) {
 
             if (assets){
+                console.log("ASSETS DELETING " + JSON.stringify(assets));
 
                 return Parse.Object.destroyAll(assets);
 
