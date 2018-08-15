@@ -1874,15 +1874,13 @@ app.post('/storyitem/html/update/:id', function (req, res) {
 
                 let html = {};
                 html[htmlType.toString()] = {"text": htmlContent};
-                console.log("UPDATED HTML " + JSON.stringify(html));
 
                 contents.html[index] = html;
 
             } else {
 
                 let html = {};
-                html[htmlType.toString()] = {"text": htmlContent, "color": "#" + htmlColor};
-                console.log("UPDATED HTML " + JSON.stringify(html));
+                html[htmlType.toString()] = {"text": htmlContent, "color": htmlColor};
 
                 contents.html[index] = html;
             }
