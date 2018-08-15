@@ -392,7 +392,8 @@ app.get('/home', function (req, res) {
                     storyLength: _storyLength,
                     user_name: _user.get("name"),
                     verified: _user.get("emailVerified"),
-                    error_message: "null"
+                    error_message: "null",
+                    type: type
 
                 });
 

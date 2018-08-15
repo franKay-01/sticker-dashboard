@@ -117,7 +117,9 @@
 
                             <% } else { %>
                             <% allPacks.forEach(function(items) { %>
+                            <%if (items.get("packType") === type.PACK_TYPE.grouped){%>
                             <option value="<%= items.id %>"><%= items.get("name") %></option>
+                            <%}%>
                             <% }) %>
                             <% } %>
                             <% } %>
