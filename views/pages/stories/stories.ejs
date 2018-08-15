@@ -60,7 +60,7 @@
                     <textarea class="_pack common_pack_detail validate" placeholder="Story Summary"
                               name="summary" required="" aria-required="true"></textarea><br>
                     <!--<textarea class="_pack common_pack_detail validate" placeholder="Story"-->
-                              <!--name="story" required="" aria-required="true"></textarea><br>-->
+                    <!--name="story" required="" aria-required="true"></textarea><br>-->
 
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="pack_id" required="" aria-required="true">
@@ -69,7 +69,9 @@
 
                             <% } else { %>
                             <% allPacks.forEach(function(items) { %>
+                            <% if (items.get("packType") === type.PACK_TYPE.grouped){ %>
                             <option value="<%= items.id %>"><%= items.get("name") %></option>
+                            <% } %>
                             <% }) %>
                             <% } %>
                         </select>

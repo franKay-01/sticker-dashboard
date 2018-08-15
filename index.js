@@ -1540,7 +1540,8 @@ app.get('/stories', function (req, res) {
                 story: _story,
                 allPacks: _allPack,
                 arts: combined,
-                latest: _latest
+                latest: _latest,
+                type: type
             })
         }, function (error) {
 
@@ -2778,19 +2779,24 @@ app.get('/storyitem/delete/:id', function (req, res) {
 
     let token = req.cookies.token;
     let id = req.params.id;
+    let assetArray = [];
 
     if (token) {
 
-        console.log("THIS IS THE CORRECT ROUTE");
         getUser(token).then(function (sessionToken) {
 
             return new Parse.Query(_class.StoryItems).equalTo("storyId", id).find();
 
         }).then(function (stories) {
 
-            console.log("THIS IS THE CORRECT ROUTE 2 " + JSON.stringify(stories));
-
             if (stories.length > 0) {
+
+                _.each(stories, function (items) {
+
+                    if (items.get("type") === type.STORY_ITEM.image) {
+                        assetArray.push(items.get("contents").uri);
+                    }
+                });
 
                 return Parse.Object.destroyAll(stories);
 
@@ -2802,8 +2808,29 @@ app.get('/storyitem/delete/:id', function (req, res) {
 
         }).then(function (success) {
 
-            console.log("THIS IS THE CORRECT ROUTE 3");
+            if (assetArray.length > 0){
 
+                return new Parse.Query(_class.Assets).containedIn("uri", assetArray).find();
+
+            }else {
+
+                res.redirect("/storydelete/" + id);
+
+            }
+
+        }).then(function (assets) {
+
+            if (assets){
+
+                return Parse.Object.destroyAll(assets);
+
+            } else {
+
+                res.redirect("/storydelete/" + id);
+
+            }
+
+        }).then(function () {
 
             res.redirect("/storydelete/" + id);
 
@@ -4371,7 +4398,7 @@ app.get('/pack/stickers/remove/:stickerId/:packId', function (req, res) {
             res.redirect('/pack/' + packId);
 
         })
-    }else {
+    } else {
         res.redirect('/');
     }
 
