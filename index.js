@@ -2794,7 +2794,7 @@ app.get('/storyitem/delete/:id', function (req, res) {
                 _.each(stories, function (items) {
 
                     if (items.get("type") === type.STORY_ITEM.image) {
-                        assetArray.push(items.get("contents").uri);
+                        assetArray.push(items.get("contents").id);
                     }
                 });
 
@@ -2812,7 +2812,7 @@ app.get('/storyitem/delete/:id', function (req, res) {
             if (assetArray.length > 0){
 
                 console.log("FINDING ASSETS");
-                return new Parse.Query(_class.Assets).containedIn("uri", assetArray).find();
+                return new Parse.Query(_class.Assets).containedIn("objectId", assetArray).find();
 
             }else {
 
@@ -2914,7 +2914,7 @@ app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) 
 
             if (storyItemType === type.STORY_ITEM.image) {
                 _storyItem.set("type", storyItemType);
-                _storyItem.set("contents", {"uri": asset.get("uri").url()});
+                _storyItem.set("contents", {"uri": asset.get("uri").url(), "id": asset.id});
 
                 return _storyItem.save();
 
