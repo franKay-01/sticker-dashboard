@@ -14,6 +14,13 @@
         <img src="<%= item.get("uri").url() %>" class="card-image-size">
         <div class="name_tag"><p class="sticker_name_text"><%= item.get("name") %></p></div>
     </a>
+    <% if (pack_type === type.PACK_TYPE.curated){%>
+    <a href="/pack/stickers/remove/<%= item.id %>/<%= id %>">
+        <button class="create_button review_tab_bottom add_catalogue" style="background: transparent !important;">
+            <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Remove Sticker</p>
+        </button>
+    </a>
+    <%}%>
 </div>
 
 <% }); %>

@@ -1874,6 +1874,7 @@ app.post('/storyitem/html/update/:id', function (req, res) {
 
                 let html = {};
                 html[htmlType.toString()] = {"text": htmlContent};
+                console.log("UPDATED HTML " + JSON.stringify(html));
 
                 contents.html[index] = html;
 
@@ -2969,7 +2970,7 @@ app.post('/storyitem/change/sticker/:id', function (req, res) {
             storyId = storyItem.get("storyId");
 
             storyItem.set("type", type.STORY_ITEM.sticker);
-            storyItem.set("contents", {"id": stickerId, "uri":sticker_url});
+            storyItem.set("contents", {"id": stickerId, "uri": sticker_url});
 
             return storyItem.save();
 
@@ -4334,6 +4335,43 @@ app.post('/review/:itemId/:packId/:reviewId', function (req, res) {
         }
     } else {
         res.redirect('/')
+    }
+
+});
+
+app.get('/pack/stickers/remove/:stickerId/:packId', function (req, res) {
+
+    let token = req.cookies.token;
+    let stickerId = req.params.stickerId;
+    let packId = req.params.packId;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first(),
+                new Parse.Query(_class.Packs).equalTo("objectId", packId).first()
+            )
+        }).then(function (sticker, pack) {
+
+            let collection_relation = pack.relation(_class.Packs);
+            collection_relation.remove(sticker);
+
+            return pack.save();
+
+        }).then(function () {
+
+            res.redirect('/pack/' + packId);
+
+        }, function (error) {
+
+            console.log("ERROR REMOVING STICKER RELATION " + error.message);
+            res.redirect('/pack/' + packId);
+
+        })
+    }else {
+        res.redirect('/');
     }
 
 });
