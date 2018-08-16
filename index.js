@@ -4649,12 +4649,11 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
 
             _user = sessionToken.get("user");
 
-            let db = admin.database();
+            // let db = admin.database();
 
-            // change this to shorter folder
-            let ref = db.ref("server/saving-data/fireblog");
+            // let ref = db.ref("gstickers-e4668");
 
-            let statsRef = ref.child("/gstickers-e4668");
+            // let statsRef = ref.child("sticker" + + "/views/count");
 
             //TODO implement DRY for thumbnails
             util.thumbnail(files).then(previews => {
@@ -5002,6 +5001,22 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
             //     }
             // });
 
+            let db = admin.database();
+
+            let ref = db.ref("gstickers-e4668");
+
+            let statsRef = ref.child("sticker" + stickerId + "/views/count");
+
+            statsRef.transaction(function (sticker) {
+                if (sticker) {
+                    if (sticker.count) {
+                        sticker.count++;
+                    }
+                }
+
+                return sticker
+            });
+
             let col = _pack.relation(_class.Packs);
             return col.query().find({sessionToken: token});
 
@@ -5039,7 +5054,7 @@ app.post('/sticker/edit/:stickerId/:packId', function (req, res) {
 
     //input fields from form
     let stickerName = req.body.stickerName;
-    let localName = req.body.localName;
+    // let localName = req.body.localName;
     let new_categories = req.body.categories;
     let stickerId = req.params.stickerId;
     let packId = req.params.packId;
@@ -5074,7 +5089,7 @@ app.post('/sticker/edit/:stickerId/:packId', function (req, res) {
         }).then(function (sticker) {
 
             sticker.set("name", stickerName);
-            sticker.set("localName", localName);
+            sticker.set("localName", stickerName);
             sticker.set("categories", _listee);
             sticker.set("meaning", meaning);
             if (sticker_status === "1") {
