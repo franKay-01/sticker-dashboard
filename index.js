@@ -5014,7 +5014,7 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
 
             let ref = db.ref("sticker");
 
-            let statsRef = ref.child(stickerId + "/views/count");
+            let statsRef = ref.child(stickerId + "/views");
 
             // statsRef.set({
             //     count: count + 1
