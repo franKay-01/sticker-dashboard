@@ -8,10 +8,11 @@ let _class = require('../cloud/modules/classNames');
 describe('loggingMachine', function () {
     describe('log In', function () {
         it('logs into account', function () {
+            let dat = 0;
+            new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
 
-            let data = new Parse.Query(_class.Authors).limit(1).find();
-
-            data = data.length;
+                dat = data.length
+            });
             // Parse.Cloud.run("login", {
             //     username: "dev@psyphertxt.com",
             //     password: "WonDerful1"
@@ -27,7 +28,7 @@ describe('loggingMachine', function () {
             //     });
             // });
 
-            assert.equal(data, 1);
+            assert.equal(dat, 1);
 
         });
 
