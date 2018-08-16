@@ -4,7 +4,7 @@ Parse.serverURL = process.env.SERVER_URL;
 
 module.exports = {
     login: function (username, password) {
-        console.log("USER FROM TEST " + username);
+
         return username;
         // Parse.Cloud.run("login", {
         //     username: username,
