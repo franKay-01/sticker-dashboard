@@ -5,19 +5,20 @@ Parse.serverURL = process.env.SERVER_URL;
 module.exports = {
     login: function (username, password) {
         console.log("USER FROM TEST " + username);
-        Parse.Cloud.run("login", {
-            username: username,
-            password: password
-        }).then(user => {
-
-            Parse.User.become(user.getSessionToken()).then((user) => {
-                console.log("USER OBTAINED " + JSON.stringify(user));
-              return user.getSessionToken().getUsername();
-
-            }, error => {
-                return "Error";
-            })
-
-        })
+        return username;
+        // Parse.Cloud.run("login", {
+        //     username: username,
+        //     password: password
+        // }).then(user => {
+        //
+        //     Parse.User.become(user.getSessionToken()).then((user) => {
+        //         console.log("USER OBTAINED " + JSON.stringify(user));
+        //        return user.getSessionToken().getUsername();
+        //
+        //     }, error => {
+        //         return "Error";
+        //     })
+        //
+        // })
     }
 };
