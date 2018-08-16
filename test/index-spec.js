@@ -20,12 +20,13 @@ describe('loggingMachine', function () {
 
                     data = "error";
 
-                })
-            })
+                });
+            });
+
+            assert.equal(data, "dev@psyphertxt.com");
 
         });
 
-        assert.equal(data, "dev@psyphertxt.com");
 
         //  loggingMachine.login("dev@psyphertxt.com", "WonDerful1").then(function (result) {
         //     assert.equal(result, "dev@psyphertxt.com");
