@@ -2,6 +2,8 @@ let assert = require('assert');
 let Parse = require("parse/node").Parse; // import the module
 Parse.initialize(process.env.APP_ID);
 Parse.serverURL = process.env.SERVER_URL;
+let _class = require('./cloud/modules/classNames');
+
 
 describe('loggingMachine', function () {
     describe('log In', function () {
