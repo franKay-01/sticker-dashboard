@@ -45,8 +45,8 @@
     "url-to-image": "^1.0.0"
   },
   "scripts": {
-    "start": "node index.js",
-    "test": "mocha mocha-test"
+    "test": "mocha mocha-test",
+    "start": "node index.js"
   },
   "engines": {
     "node": ">=8.0"
