@@ -5016,9 +5016,18 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
 
             let statsRef = ref.child(stickerId + "/views/count");
 
-            statsRef.set({
-                count: count + 1
-            });
+            // statsRef.set({
+            //     count: count + 1
+            // });
+            statsRef.transaction(function (sticker) {
+                    if (sticker) {
+                        if (sticker.count) {
+                            sticker.count++;
+                        }
+                    }
+
+                    return sticker
+                });
 
             let col = _pack.relation(_class.Packs);
             return col.query().find({sessionToken: token});
