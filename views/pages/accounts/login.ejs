@@ -129,7 +129,6 @@
 
                 Parse.User.become(user.getSessionToken()).then((user) => {
 
-                    console.log("USER "+ JSON.stringify(user.getSessionToken()));
                     setCookie("token", user.getSessionToken(), 30)
 
                     document.location = "/home";
