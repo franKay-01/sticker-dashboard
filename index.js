@@ -5018,12 +5018,13 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
 
             let data = 0;
 
-            statsRef.on("value", function(snapshot) {
-                data = snapshot.val();
-                console.log("SNAP SHOT " + data)
-            }, function (errorObject) {
-                console.log("The read failed: " + errorObject.code);
-            });
+            // statsRef.on("value", function(snapshot) {
+            //     data = snapshot.val();
+            //     console.log("SNAP SHOT " + data)
+            // }, function (errorObject) {
+            //     console.log("The read failed: " + errorObject.code);
+            // });
+
             statsRef.set({
                 count: 1
             });
