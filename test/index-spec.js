@@ -11,7 +11,9 @@ describe('loggingMachine', function () {
             let dat = 0;
             new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
 
-                dat = data.length
+                dat = data.length;
+                assert.equal(dat, 1);
+
             });
             // Parse.Cloud.run("login", {
             //     username: "dev@psyphertxt.com",
@@ -28,7 +30,6 @@ describe('loggingMachine', function () {
             //     });
             // });
 
-            assert.equal(dat, 1);
 
         });
 
