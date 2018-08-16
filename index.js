@@ -4651,7 +4651,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
 
             let db = admin.database();
 
-            let ref = db.ref("gstickers-e4668");
+            let ref = db.ref("sticker");
 
             //TODO implement DRY for thumbnails
             util.thumbnail(files).then(previews => {
@@ -4750,7 +4750,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                 // res.send("STICKERS " + stickers.length);
 
                 _.each(stickers, function (sticker) {
-                    let statsRef = ref.child("sticker" + sticker.id + "/views/count");
+                    let statsRef = ref.child(sticker.id + "/views");
 
                     statsRef.set({
                         count: 0
