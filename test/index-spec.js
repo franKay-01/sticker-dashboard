@@ -6,7 +6,7 @@ Parse.serverURL = process.env.SERVER_URL;
 describe('loggingMachine', function () {
     describe('log In', function () {
         it('logs into account', function () {
-            let data;
+            let data = "";
 
             Parse.Cloud.run("login", {
                 username: "dev@psyphertxt.com",
