@@ -4649,11 +4649,9 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
 
             _user = sessionToken.get("user");
 
-            // let db = admin.database();
+            let db = admin.database();
 
-            // let ref = db.ref("gstickers-e4668");
-
-            // let statsRef = ref.child("sticker" + + "/views/count");
+            let ref = db.ref("gstickers-e4668");
 
             //TODO implement DRY for thumbnails
             util.thumbnail(files).then(previews => {
@@ -4752,6 +4750,12 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                 // res.send("STICKERS " + stickers.length);
 
                 _.each(stickers, function (sticker) {
+                    let statsRef = ref.child("sticker" + sticker.id + "/views/count");
+
+                    statsRef.set({
+                        count: 0
+                    });
+
                     let collection_relation = stickerCollection.relation(_class.Packs);
                     collection_relation.add(sticker);
                 });
