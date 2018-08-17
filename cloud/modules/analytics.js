@@ -85,6 +85,24 @@ exports.request = (opt) => {
     })
 };
 
+/**
+ * @param {object} opt - objects contain
+ * @param {string} opt.reference - reference object sticker, story, pack.
+ * @param {string} opt.type - type is views,shares,downloads,used
+ * @param {string} opt.ids - an array of strings
+ */
+exports.event = (opt) => {
+
+    let reference = database.ref(opt.reference);
+    let query = [];
+    opt.ids.map(id => {
+        query.push(reference.child(id + "/" + getType(opt.type) + "/count"));
+    });
+
+    return Parse.Promise.when(query);
+
+};
+
 exports.REQUEST_TYPE = REQUEST_TYPE;
 exports.ANALYTIC_TYPE = ANALYTIC_TYPE;
 exports.ANALYTIC_TYPE_STRING = ANALYTIC_TYPE_STRING;

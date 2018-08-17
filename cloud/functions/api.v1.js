@@ -188,15 +188,25 @@ Parse.Cloud.define("getStory", function (req, res) {
         _story = story;
         _storyItems = storyItems;
 
-        return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first({useMasterKey: true});
+         return Parse.Promise.when(
+            new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first({useMasterKey: true}),
+            analytics.request({
+                reference:analytics.FIREBASE_REFERENCE.story,
+                type:analytics.ANALYTIC_TYPE.views,
+                id:storyId,
+                request:analytics.REQUEST_TYPE.get,
 
-    }).then(function (sticker) {
+            })
+         )
+
+    }).then(function (sticker,analytics) {
 
         if (_story && sticker && _storyItems) {
 
             let story = create.Story(_story);
             story.stories = create.StoryItems(_storyItems);
             story = create.StoryArtwork(story, sticker);
+            story.views = analytics.snapshot;
 
             res.success(util.setResponseOk(story));
 
@@ -272,10 +282,13 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     }).then(stickers => {
 
+        let storyIds = []
 
         _.each(_stories, function (story) {
 
             let _story = create.Story(story);
+
+            storyIds.push(_story.id);
 
             _.each(_artworks, function (artwork) {
 
@@ -292,6 +305,18 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         });
 
+       return analytics.event({
+            reference:analytics.FIREBASE_REFERENCE.story,
+            type:analytics.ANALYTIC_TYPE.views,
+            ids:storyIds,
+
+        })
+
+
+    }).then((items) =>{
+
+        console.log(JSON.stringify(items));
+
         if (storyList.length) {
 
             res.success(util.setResponseOk(storyList));
@@ -302,7 +327,7 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         }
 
-    }, error => {
+    },error => {
 
         util.handleError(res, error);
 
