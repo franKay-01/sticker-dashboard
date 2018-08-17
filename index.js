@@ -6190,7 +6190,7 @@ app.get('/firebase_count', upload.array('im1[]'), function (req, res) {
         // return sticker
     }).then(function (count) {
 
-        res.send("COUNT " + count)
+        res.send("COUNT " + JSON.stringify(count))
 
     }, function (error) {
         res.send("ERROR " + JSON.stringify(error))
