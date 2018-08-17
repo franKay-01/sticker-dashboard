@@ -227,9 +227,7 @@ Parse.Cloud.define("getStoryItems", function (req, res) {
            request:analytics.REQUEST_TYPE.set,
 
         })
-    ).then((storyItems,analytics) => {
-
-        console.log("ANALYTICS " + analytics);
+    ).then((storyItems) => {
 
         if (storyItems.length) {
 
