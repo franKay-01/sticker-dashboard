@@ -6127,7 +6127,7 @@ app.get("/test_upload/:id", function (req, res) {
     }
 });
 
-let analytics = require("../modules/analytics");
+let analytics = require("/cloud/modules/analytics");
 app.get('/firebase', function (req, res) {
 
     analytics.event({
