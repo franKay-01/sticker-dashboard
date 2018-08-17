@@ -282,7 +282,7 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     }).then(stickers => {
 
-        let storyIds = []
+        let storyIds = [];
 
         _.each(_stories, function (story) {
 
@@ -313,8 +313,18 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     }).then((items) =>{
 
-        util.prettyLoggerJSON(items,
-            util.prettyLoggerName("ALL BADGES ERROR"));
+        let data = analytics.process({
+            items:items,
+            type:analytics.ANALYTIC_TYPE_STRING.views
+        });
+
+        _.each(storyList,(story) => {
+
+            if(data.id === story.id) {
+                story.views = data.count
+            }
+
+        });
 
         if (storyList.length) {
 
