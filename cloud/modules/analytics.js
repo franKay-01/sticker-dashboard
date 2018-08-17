@@ -1,3 +1,4 @@
+let admin = require('firebase-admin');
 let serviceAccount = require('../../service_accounts/cyfa');
 
 admin.initializeApp({
