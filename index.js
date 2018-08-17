@@ -4648,16 +4648,6 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            _user = sessionToken.get("user");
-
-            let db = admin.database();
-
-            // change this to shorter folder
-            let ref = db.ref("sticker");
-
-            let statsRef = ref.child("sticker/"+"x0EXsJF6W4"+"/views/count/");
-
-
             //TODO implement DRY for thumbnails
             util.thumbnail(files).then(previews => {
 
@@ -4726,7 +4716,6 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
 
             }).then(function (stickers) {
 
-                console.log("STICKERS " + JSON.stringify(stickers));
                 _.each(fileDetails, function (file) {
                     //Delete tmp fil after upload
                     let tempFile = file.path;
@@ -4756,6 +4745,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                 // res.send("STICKERS " + stickers.length);
 
                 _.each(stickers, function (sticker) {
+
                     let collection_relation = stickerCollection.relation(_class.Packs);
                     collection_relation.add(sticker);
                 });
@@ -4915,6 +4905,8 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
     let selectedCategories;
     let _pack = [];
     let _latest = "";
+    let _page;
+
 
     if (token) {
         let _user = {};
@@ -5010,20 +5002,19 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
 
         }).then(function (stickers) {
 
-            let page = util.page(stickers, stickerId);
+            _page = util.page(stickers, stickerId);
 
             res.render("pages/stickers/sticker_details", {
                 sticker: _sticker,
                 selected: selectedCategories,
                 categories: _categories,
                 pack_id: packId,
-                next: page.next,
-                previous: page.previous,
+                next: _page.next,
+                previous: _page.previous,
                 // uri: url,
                 id: stickerId,
                 latest: _latest
             });
-
         }, function (error) {
             console.log("Error Loading-----------------------" + error.messgae);
             res.redirect("/pack/" + packId);
@@ -5042,7 +5033,7 @@ app.post('/sticker/edit/:stickerId/:packId', function (req, res) {
 
     //input fields from form
     let stickerName = req.body.stickerName;
-    let localName = req.body.localName;
+    // let localName = req.body.localName;
     let new_categories = req.body.categories;
     let stickerId = req.params.stickerId;
     let packId = req.params.packId;
@@ -5077,7 +5068,7 @@ app.post('/sticker/edit/:stickerId/:packId', function (req, res) {
         }).then(function (sticker) {
 
             sticker.set("name", stickerName);
-            sticker.set("localName", localName);
+            sticker.set("localName", stickerName);
             sticker.set("categories", _listee);
             sticker.set("meaning", meaning);
             if (sticker_status === "1") {
@@ -6147,6 +6138,50 @@ app.get("/test_upload/:id", function (req, res) {
         })
     }
 });
+
+app.get('/firebase', upload.array('im1[]'), function (req, res) {
+
+    let db = admin.database();
+
+    let ref = db.ref("sticker");
+
+    let statsRef = ref.child("tkpa8O1NBG" + "/views/count");
+
+    statsRef.transaction(function (count) {
+
+        count += 1;
+        return count
+        // return sticker
+    }).then(function (count) {
+
+        res.send("COUNT " + count)
+
+    }, function (error) {
+        res.send("ERROR " + error.message)
+    })
+});
+
+app.get('/firebase_count', upload.array('im1[]'), function (req, res) {
+
+    let db = admin.database();
+
+    let ref = db.ref("sticker");
+
+    let statsRef = ref.child("tkpa8O1NBG" + "/views/count");
+
+    statsRef.transaction(function (count) {
+
+        return count;
+        // return sticker
+    }).then(function (count) {
+
+        res.send("COUNT " + JSON.stringify(count))
+
+    }, function (error) {
+        res.send("ERROR " + JSON.stringify(error))
+    })
+});
+
 
 
 app.post('/upload_test', upload.array('im1[]'), function (req, res) {
