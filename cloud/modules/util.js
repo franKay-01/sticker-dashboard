@@ -114,7 +114,7 @@ prettyLoggerJSON = function (log, opt) {
     return prettyLogger(JSON.stringify(log), opt);
 };
 
-prettyLoggerOptions = function (_name, _newline) {
+prettyLoggerName = function (_name, _newline) {
     return {
         name: _name,
         newline: _newline || false
@@ -403,6 +403,7 @@ exports.setResponse = setResponse;
 exports.sendValidationCode = sendValidationCode;
 exports.prettyLogger = prettyLogger;
 exports.prettyLoggerJSON = prettyLoggerJSON;
+exports.prettyLoggerName = prettyLoggerName;
 exports.getMimeType = getMimeType;
 
 //make error messages and codes as public vars

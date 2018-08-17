@@ -315,7 +315,8 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     }).then((items) =>{
 
-        console.log(JSON.stringify(items));
+        util.prettyLoggerJSON(items,
+            util.prettyLoggerName("ALL BADGES ERROR"));
 
         if (storyList.length) {
 
