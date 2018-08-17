@@ -4920,6 +4920,8 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
     let selectedCategories;
     let _pack = [];
     let _latest = "";
+    let _page;
+
 
     if (token) {
         let _user = {};
@@ -5010,51 +5012,24 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
             //     }
             // });
 
-            let db = admin.database();
-
-            let ref = db.ref("sticker");
-
-            let statsRef = ref.child(stickerId + "/views/count");
-
-            // statsRef.on("value", function(snapshot) {
-            //     data = snapshot.val();
-            //     console.log("SNAP SHOT " + data)
-            // }, function (errorObject) {
-            //     console.log("The read failed: " + errorObject.code);
-            // });
-            //
-            // statsRef.set({
-            //     count: 1
-            // });
-            statsRef.transaction(function (sticker) {
-                    if (sticker) {
-                        if (sticker.count) {
-                            sticker.count++;
-                        }
-                    }
-
-                    // return sticker
-                });
-
             let col = _pack.relation(_class.Packs);
             return col.query().find({sessionToken: token});
 
         }).then(function (stickers) {
 
-            let page = util.page(stickers, stickerId);
+            _page = util.page(stickers, stickerId);
 
             res.render("pages/stickers/sticker_details", {
                 sticker: _sticker,
                 selected: selectedCategories,
                 categories: _categories,
                 pack_id: packId,
-                next: page.next,
-                previous: page.previous,
+                next: _page.next,
+                previous: _page.previous,
                 // uri: url,
                 id: stickerId,
                 latest: _latest
             });
-
         }, function (error) {
             console.log("Error Loading-----------------------" + error.messgae);
             res.redirect("/pack/" + packId);
@@ -6178,6 +6153,26 @@ app.get("/test_upload/:id", function (req, res) {
         })
     }
 });
+
+app.get('/firebase', upload.array('im1[]'), function (req, res) {
+
+    let db = admin.database();
+
+    let ref = db.ref("sticker");
+
+    let statsRef = ref.child("tkpa8O1NBG" + "/views/count");
+
+    statsRef.transaction(function (count) {
+
+        count += 1;
+        return count
+        // return sticker
+    }).then(function (count) {
+
+        res.send("COUNT " + count)
+    })
+});
+
 
 
 app.post('/upload_test', upload.array('im1[]'), function (req, res) {
