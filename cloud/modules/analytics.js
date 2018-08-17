@@ -65,7 +65,7 @@ let getType = (type) => {
 
 /**
  * @param {object} opt - objects contain
- * @param {string} opt.reference - reference object sticker, story, pack.
+ * @param {string} opt.reference - reference object e.g sticker, story, pack.
  * @param {string} opt.type - type is views,shares,downloads,used
  * @param {string} opt.id - the id of the item
  * @param {string} opt.request - request type is either set or anything - for convenience use REQUEST_TYPE.get
@@ -86,20 +86,13 @@ exports.request = (opt) => {
 };
 
 /**
- * @param {object} opt - objects contain
- * @param {string} opt.reference - reference object sticker, story, pack.
- * @param {string} opt.type - type is views,shares,downloads,used
- * @param {string} opt.ids - an array of strings
+ * @param {object} opt - objects
+ * @param {string} opt.reference - reference object e.g sticker, story, pack
  */
 exports.event = (opt) => {
 
     let reference = database.ref(opt.reference);
-    let query = [];
-    opt.ids.map(id => {
-        query.push(reference.child(id + "/" + getType(opt.type)).on('value', q => q));
-    });
-
-    return Parse.Promise.when(query);
+    return reference.once('value');
 
 };
 
