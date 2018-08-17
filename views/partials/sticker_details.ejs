@@ -13,16 +13,9 @@
                    value="<%= sticker.get("name") %>">
 
             <!--<label class="update_label">Local Name:</label><br>-->
-<<<<<<< HEAD
             <input placeholder="Sticker Name" type="hidden" class="box_2" name="localName"
                    style="width: 100%; margin-bottom: 25px;"
                    value="<%= sticker.get("localName") %>">
-=======
-            <!--<input placeholder="Sticker Name" class="box_2" name="localName"-->
-                   <!--style="width: 100%; margin-bottom: 25px;"-->
-                   <!--value="<%#= sticker.get("name") %>">-->
->>>>>>> 72deb989dc94f2f70483d57d1293901e96602293
-
 
             <!--if new img has been uploaded, set value to true-->
             <input type="hidden" id="imgChange" name="imgChange" value="false">
@@ -106,17 +99,17 @@
             <center>
                 <a href="/pack/<%= pack_id %>" class="cancel_btn">Back</a>
 
-                <% if (latest !== ""){ %>
-                    <% if (latest.get("feedId") === sticker.id){ %>
-                        <button type="button" class="cancel_btn" onclick="stickerInfo()">
-                            Delete
-                        </button>
-                    <% } else { %>
+                <!--<%# if (latest !== ""){ %>-->
+                    <!--<%# if (latest.get("feedId") === sticker.id){ %>-->
+                        <!--<button type="button" class="cancel_btn" onclick="stickerInfo()">-->
+                            <!--Delete-->
+                        <!--</button>-->
+                    <!--<%# } else { %>-->
                         <button type="button" class="cancel_btn delbtn" data-id="<%= sticker.id %>"
                                 value="<%= sticker.get("name") %>">Delete
                         </button>
-                    <% } %>
-                <% } %>
+                    <!--<%# } %>-->
+                <!--<%# } %>-->
 
                 <button class="update" type="submit">Update</button>
             </center>
