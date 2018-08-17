@@ -1,4 +1,5 @@
 //main imports
+let sqreen = require('sqreen');
 let express = require('express');
 let ejs = require('ejs');
 let ParseServer = require('parse-server').ParseServer;
@@ -4652,9 +4653,10 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
             let db = admin.database();
 
             // change this to shorter folder
-            let ref = db.ref("server/saving-data/fireblog");
+            let ref = db.ref("sticker");
 
-            let statsRef = ref.child("/gstickers-e4668");
+            let statsRef = ref.child("sticker/"+"x0EXsJF6W4"+"/views/count/");
+
 
             //TODO implement DRY for thumbnails
             util.thumbnail(files).then(previews => {
