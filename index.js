@@ -6127,8 +6127,10 @@ app.get("/test_upload/:id", function (req, res) {
     }
 });
 
-let analytics = require("/cloud/modules/analytics");
+
 app.get('/firebase', function (req, res) {
+
+    let analytics = require("./cloud/modules/analytics");
 
     analytics.event({
         reference: analytics.FIREBASE_REFERENCE.story,
