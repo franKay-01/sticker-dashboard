@@ -306,9 +306,7 @@ Parse.Cloud.define("getStories", function (req, res) {
         });
 
        return analytics.event({
-            reference:analytics.FIREBASE_REFERENCE.story,
-            type:analytics.ANALYTIC_TYPE.views,
-            ids:storyIds,
+            reference:analytics.FIREBASE_REFERENCE.story
 
         })
 
