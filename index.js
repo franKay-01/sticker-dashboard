@@ -6138,7 +6138,7 @@ app.get('/firebase', function (req, res) {
 
             let val = [];
 
-            items.map(item => {
+            items.forEach(item => {
                 val.push(item.key)
             });
 
