@@ -2258,12 +2258,7 @@ app.get('/story/artwork/:state/:id', function (req, res) {
 
             _story = story;
 
-            return new Parse.Query(_class.Packs).equalTo("objectId", story.get("packId")).first();
-
-        }).then(function (pack) {
-
-            let col = pack.relation(_class.Packs);
-            return col.query().find();
+            return new Parse.Query(_class.Stickers).find();
 
         }).then(function (stickers) {
 
