@@ -107,7 +107,7 @@ exports.process = (opt) => {
     opt.items.forEach(item => {
         let id = item.key;
         let value = item.val();
-        let count = value[getType(opt.type)].count;
+        let count = value[opt.type].count;
         data.push({id:id,count:count});
     });
 
