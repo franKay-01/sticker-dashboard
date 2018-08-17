@@ -54,7 +54,7 @@ const STORIES = "story";
 const PACKS = "pack";
 const PRODUCT = "product";
 
-const PARSE_LIMIT = 1000;
+const PARSE_LIMIT = 2000;
 
 //TODO investigate email template server url links
 const PARSE_SERVER_URL = process.env.SERVER_URL;
