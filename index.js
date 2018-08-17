@@ -4462,7 +4462,7 @@ app.get('/pack/stickers/:packId/:productId', function (req, res) {
             _user = sessionToken.get("user");
 
             // return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
-            return new Parse.Query(_class.Packs).limit(PARSE_LIMIT).equalTo("packType", type.PACK_TYPE.grouped).find();
+            return new Parse.Query(_class.Packs).equalTo("packType", type.PACK_TYPE.grouped).find();
 
         }).then(function (packs) {
 
@@ -4474,7 +4474,7 @@ app.get('/pack/stickers/:packId/:productId', function (req, res) {
 
             });
 
-            return new Parse.Query(_class.Stickers).containedIn("parent", _stickers).find();
+            return new Parse.Query(_class.Stickers).limit(PARSE_LIMIT).containedIn("parent", _stickers).find();
 
         }).then(function (stickers) {
 
