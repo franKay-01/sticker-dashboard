@@ -29,8 +29,11 @@ let ANALYTIC_TYPE_STRING = {
 };
 
 let FIREBASE_REFERENCE = {
+    sticker: "sticker",
     stickers: "stickers",
+    story: "story",
     stories: "stories",
+    pack: "pack",
     packs: "packs"
 };
 

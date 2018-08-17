@@ -219,9 +219,17 @@ Parse.Cloud.define("getStoryItems", function (req, res) {
     let storyId = req.params.storyId;
 
     Parse.Promise.when(
-        new Parse.Query(_class.StoryItems).equalTo("storyId", storyId).ascending("createdAt").find({useMasterKey: true})
-    ).then(storyItems => {
+        new Parse.Query(_class.StoryItems).equalTo("storyId", storyId).ascending("createdAt").find({useMasterKey: true}),
+        analytics.request({
+           reference:analytics.FIREBASE_REFERENCE.story,
+           type:analytics.ANALYTIC_TYPE.views,
+           id:storyId,
+           request:analytics.REQUEST_TYPE.set,
 
+        })
+    ).then((storyItems,analytics) => {
+
+        console.log("ANALYTICS " + analytics);
 
         if (storyItems.length) {
 
