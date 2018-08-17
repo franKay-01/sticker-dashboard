@@ -6170,6 +6170,9 @@ app.get('/firebase', upload.array('im1[]'), function (req, res) {
     }).then(function (count) {
 
         res.send("COUNT " + count)
+
+    }, function (error) {
+        res.send("ERROR " + error.message)
     })
 });
 
