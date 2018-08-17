@@ -5016,27 +5016,25 @@ app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
 
             let statsRef = ref.child(stickerId + "/views/count");
 
-            let data = 0;
-
             // statsRef.on("value", function(snapshot) {
             //     data = snapshot.val();
             //     console.log("SNAP SHOT " + data)
             // }, function (errorObject) {
             //     console.log("The read failed: " + errorObject.code);
             // });
-
-            statsRef.set({
-                count: 1
-            });
-            // statsRef.transaction(function (sticker) {
-            //         if (sticker) {
-            //             if (sticker.count) {
-            //                 sticker.count++;
-            //             }
-            //         }
             //
-            //         return sticker
-            //     });
+            // statsRef.set({
+            //     count: 1
+            // });
+            statsRef.transaction(function (sticker) {
+                    if (sticker) {
+                        if (sticker.count) {
+                            sticker.count++;
+                        }
+                    }
+
+                    // return sticker
+                });
 
             let col = _pack.relation(_class.Packs);
             return col.query().find({sessionToken: token});
