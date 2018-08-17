@@ -65,13 +65,6 @@ exports.STORY_TYPE = {
     jokes: 2
 };
 
-exports.ANALYTIC_TYPE = {
-    views: 0,
-    shares: 1,
-    downloads: 2,
-    used:3
-};
-
 exports.DEFAULT = {
     colors: {
         "topColor":"#df5A34",
