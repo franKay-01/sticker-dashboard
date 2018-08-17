@@ -234,12 +234,7 @@ const getUser = token => {
         .include('user').first({sessionToken: token});
 };
 
-let serviceAccount = require('./gstickers-e4668-firebase-adminsdk-s4jya-36f278f5f3.json');
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://gstickers-e4668.firebaseio.com"
-});
 
 /*
 how to use this function parseInstance.setACL(getACL(user,true|false));
@@ -6139,7 +6134,7 @@ app.get("/test_upload/:id", function (req, res) {
     }
 });
 
-app.get('/firebase', upload.array('im1[]'), function (req, res) {
+app.get('/firebase', function (req, res) {
 
     let db = admin.database();
 
@@ -6161,7 +6156,7 @@ app.get('/firebase', upload.array('im1[]'), function (req, res) {
     })
 });
 
-app.get('/firebase_count', upload.array('im1[]'), function (req, res) {
+app.get('/firebase_count', function (req, res) {
 
     let db = admin.database();
 

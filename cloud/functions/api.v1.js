@@ -11,7 +11,7 @@ const LATEST_STICKER = process.env.LATEST_STICKER;
 const LATEST_STORY = process.env.LATEST_STORY;
 const ADMIN = process.env.ADMIN;
 const DEFAULT_PACK = process.env.DEFAULT_PACK;
-const SERVER_URL = process.env.SERVER_URL.replace('parse', '');
+const SHARE_URL =  "";
 
 
 //TODO properly handle errors
