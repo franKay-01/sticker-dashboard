@@ -6136,11 +6136,7 @@ app.get('/firebase', function (req, res) {
         reference: analytics.FIREBASE_REFERENCE.story,
     }).then((items) => {
 
-            let val = [];
-
-            items.forEach(item => {
-                val.push(item.key)
-            });
+            let val = analytics.process(items);
 
             res.send(JSON.stringify(val));
         },

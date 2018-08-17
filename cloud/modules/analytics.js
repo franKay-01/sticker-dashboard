@@ -91,8 +91,27 @@ exports.request = (opt) => {
  */
 exports.event = (opt) => {
 
-    let reference = database.ref(opt.reference);
-    return reference.once('value');
+    return  database.ref(opt.reference).once('value');
+
+};
+
+
+/**
+ * @param {object} opt - objects
+ * @param {string} opt.items - a return list of items from firebase
+ * @param {string} opt.type - type is views,shares,downloads,used
+ */
+exports.process = (opt) => {
+
+    let data = [];
+    opt.items.forEach(item => {
+        let id = item.key;
+        let value = item.val();
+        let count = value[getType(opt.type)].count;
+        data.push({id:id,count:count});
+    });
+
+    return data;
 
 };
 
