@@ -1,5 +1,5 @@
 //main imports
-let sqreen = require('sqreen');
+require('sqreen');
 let express = require('express');
 let ejs = require('ejs');
 let ParseServer = require('parse-server').ParseServer;
