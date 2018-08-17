@@ -235,7 +235,6 @@ const getUser = token => {
 };
 
 
-
 /*
 how to use this function parseInstance.setACL(getACL(user,true|false));
 * */
@@ -2056,7 +2055,7 @@ app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
             let catalogue = new Story();
 
             catalogue.set("type", type.STORY_ITEM.image);
-            catalogue.set("contents", {"uri": image.get("uri").url(), "id":image.id});
+            catalogue.set("contents", {"uri": image.get("uri").url(), "id": image.id});
             catalogue.set("storyId", id);
 
             return catalogue.save();
@@ -2800,12 +2799,12 @@ app.get('/storyitem/delete/:id', function (req, res) {
 
         }).then(function (success) {
 
-            if (assetArray.length > 0){
+            if (assetArray.length > 0) {
 
                 console.log("FINDING ASSETS");
                 return new Parse.Query(_class.Assets).containedIn("objectId", assetArray).find();
 
-            }else {
+            } else {
 
                 res.redirect("/storydelete/" + id);
 
@@ -2813,7 +2812,7 @@ app.get('/storyitem/delete/:id', function (req, res) {
 
         }).then(function (assets) {
 
-            if (assets){
+            if (assets) {
                 console.log("ASSETS DELETING " + JSON.stringify(assets));
 
                 return Parse.Object.destroyAll(assets);
@@ -4655,10 +4654,9 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                     let sticker = new Sticker();
 
 
-                   // fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
+                    // fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
                     let originalName = file.originalname;
-                    let stickerName = originalName.replace(util.SPECIAL_CHARACTERS, '').
-                    substring(0, originalName.length - 4);
+                    let stickerName = originalName.replace(util.SPECIAL_CHARACTERS, '').substring(0, originalName.length - 4);
 
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
@@ -6129,26 +6127,21 @@ app.get("/test_upload/:id", function (req, res) {
     }
 });
 
+let analytics = require("../modules/analytics");
 app.get('/firebase', function (req, res) {
 
-    let db = admin.database();
+    analytics.event({
+        reference: analytics.FIREBASE_REFERENCE.story,
+        type: analytics.ANALYTIC_TYPE.views,
+        ids: ["Ri8HSa0CMG","KkRBKzIwyi","Z7lBXJJ1PT","dvmfGNA2tw"],
 
-    let ref = db.ref("sticker");
+    }).then((items) => {
+            res.send(JSON.stringify(items));
+        },
+        (error) => {
+            res.send(JSON.stringify(error));
+        })
 
-    let statsRef = ref.child("tkpa8O1NBG" + "/views/count");
-
-    statsRef.transaction(function (count) {
-
-        count += 1;
-        return count
-        // return sticker
-    }).then(function (count) {
-
-        res.send("COUNT " + count)
-
-    }, function (error) {
-        res.send("ERROR " + error.message)
-    })
 });
 
 app.get('/firebase_count', function (req, res) {
@@ -6171,7 +6164,6 @@ app.get('/firebase_count', function (req, res) {
         res.send("ERROR " + JSON.stringify(error))
     })
 });
-
 
 
 app.post('/upload_test', upload.array('im1[]'), function (req, res) {
