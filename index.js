@@ -6176,6 +6176,23 @@ app.get('/firebase', upload.array('im1[]'), function (req, res) {
     })
 });
 
+app.get('/firebase_count', upload.array('im1[]'), function (req, res) {
+
+    let db = admin.database();
+
+    let ref = db.ref("sticker");
+
+    let statsRef = ref.child("tkpa8O1NBG" + "/views/count");
+
+    statsRef.transaction(function (count) {
+        res.send("COUNT " + count)
+
+        // return sticker
+    }, function (error) {
+        res.send("ERROR " + error.message)
+    })
+});
+
 
 
 app.post('/upload_test', upload.array('im1[]'), function (req, res) {
