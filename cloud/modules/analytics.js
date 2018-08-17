@@ -96,7 +96,7 @@ exports.event = (opt) => {
     let reference = database.ref(opt.reference);
     let query = [];
     opt.ids.map(id => {
-        query.push(reference.child(id + "/" + getType(opt.type) + "/count").on('value', q => q));
+        query.push(reference.child(id + "/" + getType(opt.type)).on('value', q => q));
     });
 
     return Parse.Promise.when(query);
