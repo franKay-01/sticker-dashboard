@@ -4,6 +4,7 @@ let type = require("../modules/type");
 let _ = require('underscore');
 let create = require("../modules/create");
 let _class = require("../modules/classNames");
+let analytics = require("../modules/analytics");
 
 
 //environment cars

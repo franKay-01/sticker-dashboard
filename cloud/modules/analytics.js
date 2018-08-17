@@ -1,5 +1,4 @@
 let serviceAccount = require('../../service_accounts/cyfa');
-let type = require('./type');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -8,29 +7,6 @@ admin.initializeApp({
 
 let database = admin.database();
 
-/*
-views: 0,
-shares: 1,
-downloads: 2,
-used:3
-* */
-
-let getType = (type) => {
-    switch (type) {
-        case 0 :
-            return type.ANALYTIC_TYPE_STRING.views;
-
-        case 1 :
-            return type.ANALYTIC_TYPE_STRING.shares;
-
-        case 2 :
-            return type.ANALYTIC_TYPE_STRING.downloads;
-
-        case 3 :
-            return type.ANALYTIC_TYPE_STRING.used;
-
-    }
-};
 
 let REQUEST_TYPE = {
     get: 0,
@@ -57,8 +33,33 @@ let FIREBASE_REFERENCE = {
     packs: "packs"
 };
 
+/*
+views: 0,
+shares: 1,
+downloads: 2,
+used:3
+* */
 /**
- * @constructor
+ * @param {number} type - request type values views:0, shares:1, downloads:2, used:3
+ */
+let getType = (type) => {
+    switch (type) {
+        case 0 :
+            return ANALYTIC_TYPE_STRING.views;
+
+        case 1 :
+            return ANALYTIC_TYPE_STRING.shares;
+
+        case 2 :
+            return ANALYTIC_TYPE_STRING.downloads;
+
+        case 3 :
+            return ANALYTIC_TYPE_STRING.used;
+
+    }
+};
+
+/**
  * @param {object} opt - objects contain
  * @param {string} opt.reference - reference object sticker, story, pack.
  * @param {string} opt.type - type is views,shares,downloads,used
