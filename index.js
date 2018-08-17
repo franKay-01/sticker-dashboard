@@ -6185,9 +6185,13 @@ app.get('/firebase_count', upload.array('im1[]'), function (req, res) {
     let statsRef = ref.child("tkpa8O1NBG" + "/views/count");
 
     statsRef.transaction(function (count) {
+
+        return count;
+        // return sticker
+    }).then(function (count) {
+
         res.send("COUNT " + count)
 
-        // return sticker
     }, function (error) {
         res.send("ERROR " + JSON.stringify(error))
     })
