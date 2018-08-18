@@ -312,8 +312,6 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     }).then((items) => {
 
-        util.prettyLoggerJSON(items,util.prettyLoggerName("ITEMS"));
-
         let data = analytics.process({
             items: items,
             type: analytics.ANALYTIC_TYPE_STRING.views
@@ -325,7 +323,7 @@ Parse.Cloud.define("getStories", function (req, res) {
 
             _.each(data, item => {
                 if (story.id === item.id) {
-                    story.views = data.value
+                    story.views = item.value
                 }
             });
 
@@ -333,7 +331,7 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         });
 
-        if (stories.length) {
+        if (storyList.length) {
 
             res.success(util.setResponseOk(stories));
 
