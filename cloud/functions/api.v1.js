@@ -307,11 +307,12 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         return analytics.event({
             reference: analytics.FIREBASE_REFERENCE.story
-
         })
 
 
     }).then((items) => {
+
+        util.prettyLoggerJSON(items,util.prettyLoggerName("ITEMS"));
 
         let data = analytics.process({
             items: items,
