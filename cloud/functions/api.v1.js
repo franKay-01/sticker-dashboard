@@ -318,17 +318,21 @@ Parse.Cloud.define("getStories", function (req, res) {
             type:analytics.ANALYTIC_TYPE_STRING.views
         });
 
+        let stories = [];
+
         _.each(storyList,(story) => {
 
             if(data.id === story.id) {
                 story.views = data.count
             }
 
+            stories.push(story);
+
         });
 
         if (storyList.length) {
 
-            res.success(util.setResponseOk(storyList));
+            res.success(util.setResponseOk(stories));
 
         } else {
 
