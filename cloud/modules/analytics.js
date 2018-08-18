@@ -108,7 +108,7 @@ exports.process = (opt) => {
         let id = item.key;
         let value = item.val();
         let count = value[opt.type].count;
-        data.push({id:id,count:count});
+        data.push({id:id,value:count});
     });
 
     return data;
