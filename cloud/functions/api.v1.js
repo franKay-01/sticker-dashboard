@@ -12,7 +12,7 @@ const LATEST_STICKER = process.env.LATEST_STICKER;
 const LATEST_STORY = process.env.LATEST_STORY;
 const ADMIN = process.env.ADMIN;
 const DEFAULT_PACK = process.env.DEFAULT_PACK;
-const SHARE_URL =  "";
+const SHARE_URL = "";
 
 
 //TODO properly handle errors
@@ -188,18 +188,18 @@ Parse.Cloud.define("getStory", function (req, res) {
         _story = story;
         _storyItems = storyItems;
 
-         return Parse.Promise.when(
+        return Parse.Promise.when(
             new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first({useMasterKey: true}),
             analytics.request({
-                reference:analytics.FIREBASE_REFERENCE.story,
-                type:analytics.ANALYTIC_TYPE.views,
-                id:storyId,
-                request:analytics.REQUEST_TYPE.get,
+                reference: analytics.FIREBASE_REFERENCE.story,
+                type: analytics.ANALYTIC_TYPE.views,
+                id: storyId,
+                request: analytics.REQUEST_TYPE.get,
 
             })
-         )
+        )
 
-    }).then(function (sticker,analytics) {
+    }).then(function (sticker, analytics) {
 
         if (_story && sticker && _storyItems) {
 
@@ -231,10 +231,10 @@ Parse.Cloud.define("getStoryItems", function (req, res) {
     Parse.Promise.when(
         new Parse.Query(_class.StoryItems).equalTo("storyId", storyId).ascending("createdAt").find({useMasterKey: true}),
         analytics.request({
-           reference:analytics.FIREBASE_REFERENCE.story,
-           type:analytics.ANALYTIC_TYPE.views,
-           id:storyId,
-           request:analytics.REQUEST_TYPE.set,
+            reference: analytics.FIREBASE_REFERENCE.story,
+            type: analytics.ANALYTIC_TYPE.views,
+            id: storyId,
+            request: analytics.REQUEST_TYPE.set,
 
         })
     ).then((storyItems) => {
@@ -305,32 +305,34 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         });
 
-       return analytics.event({
-            reference:analytics.FIREBASE_REFERENCE.story
+        return analytics.event({
+            reference: analytics.FIREBASE_REFERENCE.story
 
         })
 
 
-    }).then((items) =>{
+    }).then((items) => {
 
         let data = analytics.process({
-            items:items,
-            type:analytics.ANALYTIC_TYPE_STRING.views
+            items: items,
+            type: analytics.ANALYTIC_TYPE_STRING.views
         });
 
         let stories = [];
 
-        _.each(storyList,(story) => {
+        _.each(storyList, story => {
 
-            if(data.id === story.id) {
-                story.views = data.count
-            }
+            _.each(data, item => {
+                if (story.id === item.id) {
+                    story.views = data.count
+                }
+            });
 
             stories.push(story);
 
         });
 
-        if (storyList.length) {
+        if (stories.length) {
 
             res.success(util.setResponseOk(stories));
 
@@ -340,7 +342,7 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         }
 
-    },error => {
+    }, error => {
 
         util.handleError(res, error);
 
