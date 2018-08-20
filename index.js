@@ -2201,9 +2201,12 @@ app.post('/story/artwork/add/:id/:state', function (req, res) {
 
             if (state === "change") {
 
+                console.log("CHANGING");
                 return new Parse.Query(_class.ArtWork).equalTo("itemId", story.id).first();
 
             } else if (state === "new") {
+                console.log("NEW ARTWORK");
+
                 let Artwork = new Parse.Object.extend(_class.ArtWork);
                 let artwork = new Artwork();
 
