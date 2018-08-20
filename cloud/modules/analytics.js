@@ -25,6 +25,7 @@ let ANALYTIC_TYPE_STRING = {
     views: "views",
     shares: "shares",
     downloads: "downloads",
+    rated: "rated",
     used: "used"
 };
 
@@ -71,6 +72,10 @@ let getType = (type) => {
  * @param {string} opt.request - request type is either set or anything - for convenience use REQUEST_TYPE.get
  */
 exports.request = (opt) => {
+
+    ///add environment
+    ///add API Key 8e50a3f8-2108-4b40-b889-ba949f73df0a
+    //use API to secure the data
 
     let reference = database.ref(opt.reference);
     let viewCount = reference.child(opt.id + "/" + getType(opt.type) + "/count");
