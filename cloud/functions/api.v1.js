@@ -41,6 +41,8 @@ Parse.Cloud.define("getFeed", function (req, res) {
         new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).notEqualTo("objectId", DEFAULT_PACK).limit(2).descending("createdAt").find({useMasterKey: true}),
     ).then((sticker, story, packs) => {
 
+        if(sticker && story && packs) {
+
         _packs = packs;
         // _categories = categories;
         // _adverts = adverts;
@@ -51,6 +53,12 @@ Parse.Cloud.define("getFeed", function (req, res) {
             new Parse.Query(_class.Stories).equalTo("published", true).equalTo("objectId", story.get("feedId")).first({useMasterKey: true}),
             new Parse.Query(_class.ArtWork).equalTo("itemId", story.get("feedId")).first({useMasterKey: true}),
         );
+
+        } else {
+
+            console.log("FEED ERROR");
+            util.handleError(res, util.setErrorType(util.FEED_ERROR));
+        }
 
     }).then((sticker, story, storyArtwork) => {
 
