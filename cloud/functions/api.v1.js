@@ -152,12 +152,20 @@ Parse.Cloud.define("getPacks", function (req, res) {
         .then(function (packs) {
 
             _packs = packs;
+
+            if(packs.length) {
             let promises = [];
             _.map(packs, function (pack) {
                 promises.push(pack.relation(_class.Packs).query().limit(4).find({useMasterKey: true}));
             });
 
             return Parse.Promise.when(promises);
+
+            } else {
+
+            util.handleError(res, util.setErrorType(util.PACKS_ERROR));
+
+            }
 
         }).then(function (stickerList) {
 

@@ -61,7 +61,8 @@ exports.Pack = (pack, stickerList) => {
 
     let _pack = {};
 
-    if (pack) {
+    if (pack && stickerList.length) {
+
         _pack.id = pack.id;
         _pack.name = pack.get("name");
         _pack.description = pack.get("description");
