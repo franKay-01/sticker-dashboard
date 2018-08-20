@@ -36,6 +36,7 @@ const DELETING_TASKS_ERROR = 15;
 const GETTING_TASKS_ERROR = 16;
 
 const STORY_PREVIEW_ERROR = 17;
+const STORY_ITEMS_ERROR = 18;
 
 const SPECIAL_CHARACTERS = /[`~!@#$%^&*()_|+\-=÷¿?;:'",.123<>\{\}\[\]\\\/]/gi;
 
@@ -254,6 +255,10 @@ handleError = function (res, error) {
                     error[KEY_RESPONSE_MESSAGE] = "Stories wasn't found";
                     break;
 
+                    case STORY_ITEMS_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "Stories items where not loaded";
+                    break;
+
 
                 default :
                     error[KEY_RESPONSE_CODE] = UNKNOWN_ERROR;
@@ -428,5 +433,6 @@ exports.DELETING_TEST_ERROR = DELETING_TEST_ERROR;
 exports.DELETING_TASKS_ERROR = DELETING_TASKS_ERROR;
 exports.CLASS_TYPE_ERROR = CLASS_TYPE_ERROR;
 exports.STORY_PREVIEW_ERROR = STORY_PREVIEW_ERROR;
+exports.STORY_ITEMS_ERROR = STORY_ITEMS_ERROR;
 exports.STATUS_OK = STATUS_OK;
 exports.SPECIAL_CHARACTERS = SPECIAL_CHARACTERS;

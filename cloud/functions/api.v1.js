@@ -22,25 +22,29 @@ const SHARE_URL = "";
 Parse.Cloud.define("getFeed", function (req, res) {
 
     let feed = {};
-    let _sticker;
-    let _story;
-    let _packs;
-    let _categories;
-    let _adverts;
+    let _sticker = {};
+    let _story = {};
+    let _packs = [];
+    let _categories = [];
+    let _adverts = [];
+    let _products = [];
     let advertList = [];
+
+    // new Parse.Query(_class.Categories).ascending("name").limit(30).find(),
+    //     new Parse.Query(_class.Adverts).find(),
+    //     new Parse.Query(_class.Product).find(),
+    // categories, adverts, products
 
     Parse.Promise.when(
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STICKER).first({useMasterKey: true}),
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STORY).first({useMasterKey: true}),
         new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).notEqualTo("objectId", DEFAULT_PACK).limit(2).descending("createdAt").find({useMasterKey: true}),
-        new Parse.Query(_class.Categories).ascending("name").limit(30).find(),
-        new Parse.Query(_class.Adverts).find(),
-        new Parse.Query(_class.Product).find(),
-    ).then((sticker, story, packs, categories, adverts, products) => {
+    ).then((sticker, story, packs) => {
 
         _packs = packs;
-        _categories = categories;
-        _adverts = adverts;
+        // _categories = categories;
+        // _adverts = adverts;
+        // _products = products;
 
         return Parse.Promise.when(
             new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first({useMasterKey: true}),
@@ -52,29 +56,32 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
         _sticker = sticker;
         _story = story;
-        let advertIds = [];
-
-        _.each(_adverts, advert => {
-            advertIds.push(advert.id)
-        });
+        // let advertIds = [];
+        //
+        // _.each(_adverts, advert => {
+        //     advertIds.push(advert.id)
+        // });
+        //
+        //
+        // new Parse.Query(_class.AdvertImages).containedIn("advert_id", advertIds).find({useMasterKey: true}),
+        //     new Parse.Query(_class.Links).containedIn("itemId", advertIds).find({useMasterKey: true})
+        //advertImages, links
 
         return Parse.Promise.when(
             new Parse.Query(_class.Stickers).equalTo("objectId", storyArtwork.get("sticker")).first({useMasterKey: true}),
-            new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find({useMasterKey: true}),
-            new Parse.Query(_class.AdvertImages).containedIn("advert_id", advertIds).find({useMasterKey: true}),
-            new Parse.Query(_class.Links).containedIn("itemId", advertIds).find({useMasterKey: true})
+            new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find({useMasterKey: true})
         );
 
-    }).then((sticker, storyItems, advertImages, links) => {
+    }).then((sticker, storyItems) => {
 
         feed.stickerOfDay = create.Sticker(_sticker);
         let _latestStory = create.Story(_story);
         _latestStory.stories = create.StoryItems(storyItems);
         feed.latestStory = create.StoryArtwork(_latestStory, sticker);
 
-        _.each(_adverts, advert => {
-            advertList.push(create.Adverts(advert, links, advertImages));
-        });
+        // _.each(_adverts, advert => {
+        //     advertList.push(create.Adverts(advert, links, advertImages));
+        // });
 
         let promises = [];
         _.map(_packs, function (pack) {
@@ -86,25 +93,23 @@ Parse.Cloud.define("getFeed", function (req, res) {
     }).then(stickerList => {
 
         let packList = [];
-        let categoryList = [];
+        // let categoryList = [];
 
         _.map(_packs, pack => {
             packList.push(create.Pack(pack, stickerList))
         });
 
-        _.map(_categories, category => {
-            categoryList.push(create.Category(category))
-        });
+        // _.map(_categories, category => {
+        //     categoryList.push(create.Category(category))
+        // });
 
         feed.packs = packList;
-        feed.categories = categoryList;
-        feed.adverts = advertList;
+        // feed.categories = categoryList;
+        // feed.adverts = advertList;
 
         res.success(util.setResponseOk(feed));
 
     }, error => {
-
-        console.log("FEED ERROR " + error.message);
 
         util.handleError(res, error);
 
@@ -166,11 +171,6 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
 });
 
-Parse.Cloud.define("getPack", function (req, res) {
-
-    let packId = req.params.packId;
-
-});
 
 Parse.Cloud.define("getStory", function (req, res) {
 
