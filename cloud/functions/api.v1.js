@@ -161,8 +161,15 @@ Parse.Cloud.define("getPacks", function (req, res) {
                 packList.push(create.Pack(pack, stickerList));
             });
 
-            //TODO properly handle error
+            if(packList.length) {
+
             res.success(util.setResponseOk(packList));
+
+            } else {
+
+            util.handleError(res, util.setErrorType(util.PACKS_ERROR));
+
+            }
 
         }, function (error) {
 

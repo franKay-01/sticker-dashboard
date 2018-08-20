@@ -37,6 +37,7 @@ const GETTING_TASKS_ERROR = 16;
 
 const STORY_PREVIEW_ERROR = 17;
 const STORY_ITEMS_ERROR = 18;
+const PACKS_ERROR = 19;
 
 const SPECIAL_CHARACTERS = /[`~!@#$%^&*()_|+\-=÷¿?;:'",.123<>\{\}\[\]\\\/]/gi;
 
@@ -259,6 +260,10 @@ handleError = function (res, error) {
                     error[KEY_RESPONSE_MESSAGE] = "Stories items where not loaded";
                     break;
 
+                case PACKS_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "No Packs Found";
+                    break;
+
 
                 default :
                     error[KEY_RESPONSE_CODE] = UNKNOWN_ERROR;
@@ -434,5 +439,6 @@ exports.DELETING_TASKS_ERROR = DELETING_TASKS_ERROR;
 exports.CLASS_TYPE_ERROR = CLASS_TYPE_ERROR;
 exports.STORY_PREVIEW_ERROR = STORY_PREVIEW_ERROR;
 exports.STORY_ITEMS_ERROR = STORY_ITEMS_ERROR;
+exports.PACKS_ERROR = PACKS_ERROR;
 exports.STATUS_OK = STATUS_OK;
 exports.SPECIAL_CHARACTERS = SPECIAL_CHARACTERS;
