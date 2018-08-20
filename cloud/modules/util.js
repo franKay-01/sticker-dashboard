@@ -52,30 +52,26 @@ rejectPromise = function (p) {
     };
 };
 
-Object.defineProperty(global, '__stack', {
-    get: function () {
-        var orig = Error.prepareStackTrace;
-        Error.prepareStackTrace = function (_, stack) {
-            return stack;
-        };
-        var err = new Error;
-        Error.captureStackTrace(err, arguments.callee);
-        var stack = err.stack;
-        Error.prepareStackTrace = orig;
-        return stack;
-    }
-});
+// Object.defineProperty(global, '__stack', {
+//     get: function () {
+//         var orig = Error.prepareStackTrace;
+//         Error.prepareStackTrace = function (_, stack) {
+//             return stack;
+//         };
+//         var err = new Error;
+//         Error.captureStackTrace(err, arguments.callee);
+//         var stack = err.stack;
+//         Error.prepareStackTrace = orig;
+//         return stack;
+//     }
+// });
+//
+// Object.defineProperty(global, '__line', {
+//     get: function () {
+//         return "Line Number " + __stack[1].getLineNumber();
+//     }
+// });
 
-Object.defineProperty(global, '__line', {
-    get: function () {
-        return "Line Number " + __stack[1].getLineNumber();
-    }
-});
-
-/*
- *  util.prettyLoggerJSON(error,
- util.prettyLoggerOptions("ALL BADGES ERROR"));
- * */
 
 /**
  * a wrap around console.log to provide newlines for readability for cloud code logs
@@ -173,7 +169,7 @@ setResponseOk = function (data) {
  */
 handleError = function (res, error) {
 
-    prettyLogger(JSON.stringify(error), prettyLoggerOptions("ERROR"));
+    prettyLogger(JSON.stringify(error), prettyLoggerName("ERROR"));
 
     if (error === undefined) {
         error = {};
@@ -271,7 +267,7 @@ handleError = function (res, error) {
             }
         }
 
-        prettyLoggerJSON(error, prettyLoggerOptions("DEVELOPER::HANDLE CALLED ERROR"));
+        prettyLoggerJSON(error, prettyLoggerName("DEVELOPER::HANDLE CALLED ERROR"));
         res.success(error);
     }
 };
