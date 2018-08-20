@@ -19,7 +19,6 @@ const UNKNOWN_ERROR = -1;
 const TEXT_MESSAGE_ERROR = 2;
 const TOKEN_ERROR = 3;
 const HASH_ERROR = 4;
-const STORIES_ERROR = 5;
 const SETUP_USER_ERROR = 6;
 const USER_ERROR = 7;
 const GETTING_RECORDS_ERROR = 8;
@@ -35,7 +34,6 @@ const DELETING_TEST_ERROR = 14;
 const DELETING_TASKS_ERROR = 15;
 const GETTING_TASKS_ERROR = 16;
 
-const STORIES_ERROR = 17;
 const STORY_ITEMS_ERROR = 18;
 const PACKS_ERROR = 19;
 const FEED_ERROR = 20;
@@ -251,11 +249,6 @@ handleError = function (res, error) {
 
                 case CLASS_TYPE_ERROR :
                     error[KEY_RESPONSE_MESSAGE] = "No class type was specified. Check parameters";
-                    break;
-
-
-                case STORIES_ERROR :
-                    error[KEY_RESPONSE_MESSAGE] = "Stories wasn't found";
                     break;
 
                     case STORY_ITEMS_ERROR :
