@@ -4734,39 +4734,32 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                 // res.send("STICKERS " + stickers.length);
 
                 _.each(stickers, function (sticker) {
-                    console.log("STICKER " + sticker.id);
+
                     let collection_relation = stickerCollection.relation(_class.Packs);
                     collection_relation.add(sticker);
+
                 });
 
-                let data = {
-                    //Specify email data
-                    from: process.env.EMAIL_FROM || "test@example.com",
-                    //The email to contact
-                    to: _user.get("username"),
-                    //Subject and text data
-                    subject: 'Stickers Uploaded',
-                    html: fs.readFileSync("./uploads/sticker_upload.html", "utf8")
-                };
+                // EMAIL PART
 
-                mailgun.messages().send(data, function (error, body) {
-                    if (error) {
-                        console.log("BIG BIG ERROR: " + error.message);
-                    }
-                    else {
-
-                        console.log("EMAIL SENT" + body);
-                    }
-                });
-
-                // statsRef.transaction(function (sticker) {
-                //     if (sticker) {
-                //         if (sticker.stickers) {
-                //             sticker.stickers++;
-                //         }
-                //     }
+                // let data = {
+                //     //Specify email data
+                //     from: process.env.EMAIL_FROM || "test@example.com",
+                //     //The email to contact
+                //     to: _user.get("username"),
+                //     //Subject and text data
+                //     subject: 'Stickers Uploaded',
+                //     html: fs.readFileSync("./uploads/sticker_upload.html", "utf8")
+                // };
                 //
-                //     return sticker
+                // mailgun.messages().send(data, function (error, body) {
+                //     if (error) {
+                //         console.log("BIG BIG ERROR: " + error.message);
+                //     }
+                //     else {
+                //
+                //         console.log("EMAIL SENT" + body);
+                //     }
                 // });
 
                 return stickerCollection.save();
@@ -4777,7 +4770,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
 
             }, function (error) {
 
-                console.log("BIG BIG ERROR" + JSON.stringify(error));
+                console.log("BIG BIG ERROR" + error.message);
                 res.redirect(pack + pack_id);
 
             })
