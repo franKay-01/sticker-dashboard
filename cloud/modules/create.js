@@ -130,6 +130,7 @@ exports.Story = (story) => {
     _story.id = story.id;
     _story.title = story.get("title");
     _story.summary = story.get("summary");
+    _story.views = 0;
 
     let colors = story.get("color");
     if(colors){

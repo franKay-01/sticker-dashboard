@@ -4,6 +4,7 @@ let type = require("../modules/type");
 let _ = require('underscore');
 let create = require("../modules/create");
 let _class = require("../modules/classNames");
+let analytics = require("../modules/analytics");
 
 
 //environment cars
@@ -11,7 +12,7 @@ const LATEST_STICKER = process.env.LATEST_STICKER;
 const LATEST_STORY = process.env.LATEST_STORY;
 const ADMIN = process.env.ADMIN;
 const DEFAULT_PACK = process.env.DEFAULT_PACK;
-const SERVER_URL = process.env.SERVER_URL.replace('parse', '');
+const SHARE_URL = "";
 
 
 //TODO properly handle errors
@@ -187,15 +188,25 @@ Parse.Cloud.define("getStory", function (req, res) {
         _story = story;
         _storyItems = storyItems;
 
-        return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first({useMasterKey: true});
+        return Parse.Promise.when(
+            new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first({useMasterKey: true}),
+            analytics.request({
+                reference: analytics.FIREBASE_REFERENCE.story,
+                type: analytics.ANALYTIC_TYPE.views,
+                id: storyId,
+                request: analytics.REQUEST_TYPE.get,
 
-    }).then(function (sticker) {
+            })
+        )
+
+    }).then(function (sticker, analytics) {
 
         if (_story && sticker && _storyItems) {
 
             let story = create.Story(_story);
             story.stories = create.StoryItems(_storyItems);
             story = create.StoryArtwork(story, sticker);
+            story.views = analytics.snapshot;
 
             res.success(util.setResponseOk(story));
 
@@ -218,9 +229,15 @@ Parse.Cloud.define("getStoryItems", function (req, res) {
     let storyId = req.params.storyId;
 
     Parse.Promise.when(
-        new Parse.Query(_class.StoryItems).equalTo("storyId", storyId).ascending("createdAt").find({useMasterKey: true})
-    ).then(storyItems => {
+        new Parse.Query(_class.StoryItems).equalTo("storyId", storyId).ascending("createdAt").find({useMasterKey: true}),
+        analytics.request({
+            reference: analytics.FIREBASE_REFERENCE.story,
+            type: analytics.ANALYTIC_TYPE.views,
+            id: storyId,
+            request: analytics.REQUEST_TYPE.set,
 
+        })
+    ).then((storyItems) => {
 
         if (storyItems.length) {
 
@@ -265,10 +282,13 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     }).then(stickers => {
 
+        let storyIds = [];
 
         _.each(_stories, function (story) {
 
             let _story = create.Story(story);
+
+            storyIds.push(_story.id);
 
             _.each(_artworks, function (artwork) {
 
@@ -285,9 +305,35 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         });
 
+        return analytics.event({
+            reference: analytics.FIREBASE_REFERENCE.story
+        })
+
+
+    }).then((items) => {
+
+        let data = analytics.process({
+            items: items,
+            type: analytics.ANALYTIC_TYPE_STRING.views
+        });
+
+        let stories = [];
+
+        _.each(storyList, story => {
+
+            _.each(data, item => {
+                if (story.id === item.id) {
+                    story.views = item.value
+                }
+            });
+
+            stories.push(story);
+
+        });
+
         if (storyList.length) {
 
-            res.success(util.setResponseOk(storyList));
+            res.success(util.setResponseOk(stories));
 
         } else {
 

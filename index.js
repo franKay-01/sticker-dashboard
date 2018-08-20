@@ -54,7 +54,7 @@ const STORIES = "story";
 const PACKS = "pack";
 const PRODUCT = "product";
 
-const PARSE_LIMIT = 1000;
+const PARSE_LIMIT = 2000;
 
 //TODO investigate email template server url links
 const PARSE_SERVER_URL = process.env.SERVER_URL;
@@ -234,12 +234,6 @@ const getUser = token => {
         .include('user').first({sessionToken: token});
 };
 
-let serviceAccount = require('./gstickers-e4668-firebase-adminsdk-s4jya-36f278f5f3.json');
-
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://gstickers-e4668.firebaseio.com"
-});
 
 /*
 how to use this function parseInstance.setACL(getACL(user,true|false));
@@ -2061,7 +2055,7 @@ app.post('/storyItem/image/:id', upload.array('im1'), function (req, res) {
             let catalogue = new Story();
 
             catalogue.set("type", type.STORY_ITEM.image);
-            catalogue.set("contents", {"uri": image.get("uri").url(), "id":image.id});
+            catalogue.set("contents", {"uri": image.get("uri").url(), "id": image.id});
             catalogue.set("storyId", id);
 
             return catalogue.save();
@@ -2808,12 +2802,12 @@ app.get('/storyitem/delete/:id', function (req, res) {
 
         }).then(function (success) {
 
-            if (assetArray.length > 0){
+            if (assetArray.length > 0) {
 
                 console.log("FINDING ASSETS");
                 return new Parse.Query(_class.Assets).containedIn("objectId", assetArray).find();
 
-            }else {
+            } else {
 
                 res.redirect("/storydelete/" + id);
 
@@ -2821,7 +2815,7 @@ app.get('/storyitem/delete/:id', function (req, res) {
 
         }).then(function (assets) {
 
-            if (assets){
+            if (assets) {
                 console.log("ASSETS DELETING " + JSON.stringify(assets));
 
                 return Parse.Object.destroyAll(assets);
@@ -4482,7 +4476,7 @@ app.get('/pack/stickers/:packId/:productId', function (req, res) {
 
             });
 
-            return new Parse.Query(_class.Stickers).containedIn("parent", _stickers).find();
+            return new Parse.Query(_class.Stickers).limit(PARSE_LIMIT).containedIn("parent", _stickers).find();
 
         }).then(function (stickers) {
 
@@ -4663,10 +4657,9 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                     let sticker = new Sticker();
 
 
-                   // fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
+                    // fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
                     let originalName = file.originalname;
-                    let stickerName = originalName.replace(util.SPECIAL_CHARACTERS, '').
-                    substring(0, originalName.length - 4);
+                    let stickerName = originalName.replace(util.SPECIAL_CHARACTERS, '').substring(0, originalName.length - 4);
 
                     let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
@@ -6137,29 +6130,29 @@ app.get("/test_upload/:id", function (req, res) {
     }
 });
 
-app.get('/firebase', upload.array('im1[]'), function (req, res) {
 
-    let db = admin.database();
+app.get('/firebase', function (req, res) {
 
-    let ref = db.ref("sticker");
+    let analytics = require("./cloud/modules/analytics");
 
-    let statsRef = ref.child("tkpa8O1NBG" + "/views/count");
+    analytics.event({
+        reference: analytics.FIREBASE_REFERENCE.story,
+    }).then((items) => {
 
-    statsRef.transaction(function (count) {
+            let val = analytics.process({
+                items:items,
+                type:analytics.ANALYTIC_TYPE_STRING.views
+            });
 
-        count += 1;
-        return count
-        // return sticker
-    }).then(function (count) {
+            res.send(JSON.stringify(val));
+        },
+        (error) => {
+            res.send(JSON.stringify(error));
+        })
 
-        res.send("COUNT " + count)
-
-    }, function (error) {
-        res.send("ERROR " + error.message)
-    })
 });
 
-app.get('/firebase_count', upload.array('im1[]'), function (req, res) {
+app.get('/firebase_count', function (req, res) {
 
     let db = admin.database();
 
@@ -6179,7 +6172,6 @@ app.get('/firebase_count', upload.array('im1[]'), function (req, res) {
         res.send("ERROR " + JSON.stringify(error))
     })
 });
-
 
 
 app.post('/upload_test', upload.array('im1[]'), function (req, res) {
