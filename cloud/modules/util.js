@@ -35,10 +35,11 @@ const DELETING_TEST_ERROR = 14;
 const DELETING_TASKS_ERROR = 15;
 const GETTING_TASKS_ERROR = 16;
 
-const STORY_PREVIEW_ERROR = 17;
+const STORIES_ERROR = 17;
 const STORY_ITEMS_ERROR = 18;
 const PACKS_ERROR = 19;
 const FEED_ERROR = 20;
+const STORIES_ERROR = 21;
 
 const SPECIAL_CHARACTERS = /[`~!@#$%^&*()_|+\-=÷¿?;:'",.123<>\{\}\[\]\\\/]/gi;
 
@@ -253,7 +254,7 @@ handleError = function (res, error) {
                     break;
 
 
-                case STORY_PREVIEW_ERROR :
+                case STORIES_ERROR :
                     error[KEY_RESPONSE_MESSAGE] = "Stories wasn't found";
                     break;
 
@@ -442,7 +443,7 @@ exports.UPDATING_TASK_ERROR = UPDATING_TASK_ERROR;
 exports.DELETING_TEST_ERROR = DELETING_TEST_ERROR;
 exports.DELETING_TASKS_ERROR = DELETING_TASKS_ERROR;
 exports.CLASS_TYPE_ERROR = CLASS_TYPE_ERROR;
-exports.STORY_PREVIEW_ERROR = STORY_PREVIEW_ERROR;
+exports.STORIES_ERROR = STORIES_ERROR;
 exports.STORY_ITEMS_ERROR = STORY_ITEMS_ERROR;
 exports.FEED_ERROR = FEED_ERROR;
 exports.PACKS_ERROR = PACKS_ERROR;
