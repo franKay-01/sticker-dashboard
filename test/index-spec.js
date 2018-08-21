@@ -26,7 +26,8 @@ describe('loggingMachine', function () {
             // assert.equal(result.length, 3);
 
             let name = findAuthor("michael@info.com");
-            assert.deepStrictEqual(name, "Michael bay");
+            console.log("NAME " + name);
+            assert.deepEqual(name, "Michael bay");
             done();
 
             // Parse.Cloud.run("login", {
