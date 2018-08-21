@@ -11,13 +11,10 @@ describe('loggingMachine', function () {
         it('logs into account', function () {
 
             new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
-                console.log("DATA INFO " + JSON.stringify(data));
-
                 dat = data.length;
-                expect(dat).to.equal("1");
-
-                // assert.equal(dat, 2);
-
+                console.log("LENGTH " + JSON.stringify(dat));
+                assert.equal(dat, "2");
+                done();
             });
             // Parse.Cloud.run("login", {
             //     username: "dev@psyphertxt.com",
