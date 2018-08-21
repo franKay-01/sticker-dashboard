@@ -21,7 +21,7 @@ describe('loggingMachine', function () {
             }).then(user => {
                 Parse.User.become(user.getSessionToken()).then((user) => {
 
-                    data = user.getSessionToken().getUsername();
+                    data = user.getUsername();
                     let check = "dev@psyphertxt.co";
                     console.log("DATA INFO " + data);
                     console.log("DATA INFO CHECK" + check);
