@@ -7,66 +7,47 @@ Parse.serverURL = process.env.SERVER_URL;
 let _class = require('../cloud/modules/classNames');
 
 
-// before(function(){
-//     expected = "dev@psyphertxt.com";
-// });
-var expected, current;
-before(function () {
-    expected = ['a', 'b', 'c'];
-})
-
-// describe('loggingMachine', function () {
-//     describe('log In', function () {
-//         it('logs into account', function () {
-//             let dat = 0;
-//             let data = "";
-//
-//
-describe('String#split', function () {
-    beforeEach(function () {
-        current = 'a,b,c'.split(',');
-    })
-    it('should return an array', function () {
-        assert(Array.isArray(current));
-    });
-    it('should return the same array', function () {
-        assert.equal(expected.length, current.length, 'arrays have equal length');
-        for (var i = 0; i < expected.length; i++) {
-            assert.equal(expected[i], current[i], i + 'element is equal');
-        }
-    })
+before(function(){
+    expected = "dev@psyphertxt.com";
 });
-// new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
-//
-//     dat = data.length;
-//     assert.equal(dat, 1);
-//
-// });
-//
-// Parse.Cloud.run("login", {
-//     username: "dev@psyphertxt.com",
-//     password: "WonDerful1"
-// }).then(user => {
-//     Parse.User.become(user.getSessionToken()).then((user) => {
-//
-//         data = user.getSessionToken().getUsername();
-//         assert.equal(expected, data, 'element is equal');
-//
-//         // assert.equal(data, "dev@psyphertxt.co");
-//         done();
-//         // expect(data).to.equal("dev@psyphertxt.co");
-//
-//     }, error => {
-//
-//         done(error);
-//         // return;
-//
-//
-//     });
-// });
+
+describe('loggingMachine', function () {
+    describe('log In', function () {
+        it('logs into account', function () {
+            let dat = 0;
+            let data = "";
+
+            // new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
+            //
+            //     dat = data.length;
+            //     assert.equal(dat, 1);
+            //
+            // });
+
+            Parse.Cloud.run("login", {
+                username: "dev@psyphertxt.com",
+                password: "WonDerful1"
+            }).then(user => {
+                Parse.User.become(user.getSessionToken()).then((user) => {
+
+                    data = user.getSessionToken().getUsername();
+                    assert.notEqual(expected, data, 'element is equal');
+
+                    // assert.equal(data, "dev@psyphertxt.co");
+                    done();
+                    // expect(data).to.equal("dev@psyphertxt.co");
+
+                }, error => {
+
+                    done(error);
+                    // return;
 
 
-//     });
-// });
+                });
+            });
 
-// });
+
+        });
+    });
+
+});
