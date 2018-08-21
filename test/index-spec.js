@@ -7,6 +7,10 @@ Parse.serverURL = process.env.SERVER_URL;
 let _class = require('../cloud/modules/classNames');
 
 
+before(function(){
+    expected = "dev@psyphertxt.com";
+});
+
 describe('loggingMachine', function () {
     describe('log In', function () {
         it('logs into account', function () {
@@ -27,7 +31,9 @@ describe('loggingMachine', function () {
                 Parse.User.become(user.getSessionToken()).then((user) => {
 
                     data = user.getSessionToken().getUsername();
-                    assert.equal(data, "dev@psyphertxt.co");
+                    assert.equal(expected, data, 'element is equal');
+
+                    // assert.equal(data, "dev@psyphertxt.co");
                     done();
                     // expect(data).to.equal("dev@psyphertxt.co");
 
