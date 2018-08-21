@@ -7,11 +7,14 @@ Parse.initialize(process.env.APP_ID);
 Parse.serverURL = process.env.SERVER_URL;
 
 function findAuthor(email) {
-    new Parse.Query(_class.Authors).equalTo("email", "michael@info.com").first().then(function (data) {
-        return data.get("name");
-        ;
+    let name = "";
 
-    })
+    new Parse.Query(_class.Authors).equalTo("email", email).first().then(function (data) {
+        console.log("LOG FROM FUNCTION " + data.get("name"));
+        name = data.get("name");
+    });
+
+    return name;
 }
 
 describe('loggingMachine', function () {
