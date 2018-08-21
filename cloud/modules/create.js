@@ -87,14 +87,14 @@ exports.Pack = (pack, stickerList) => {
         let _stickers = [];
         _.map(stickerList, function (stickers) {
 
-            console.log("INNTER STICKER LENGTH" + JSON.stringify(stickers.length));
-
             if (stickers.length) {
 
                 _.map(stickers, sticker => {
 
-                    console.log("STICKER OBJECT" + JSON.stringify(sticker));
-                    if (pack.id === sticker.get("parent").objectId) {
+                    console.log("STICKER OBJECT" + sticker.get("parent"));
+                    console.log("PARENT ID" + sticker.get("parent").id);
+                    console.log("PACK ID" + pack.id);
+                    if (pack.id === sticker.get("parent").id) {
                         _stickers.push({id: sticker.id, url: sticker.get("uri").url()});
                     } else {
                         console.log("DOEST MUCH")
