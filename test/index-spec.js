@@ -21,7 +21,7 @@ describe('loggingMachine', function () {
 
             new Parse.Query(_class.Authors).equalTo("email", "michael@info.com").first().then(function (data) {
                 // result = parseInt(data.length);
-                result = data.get("name")
+                result = data.get("name");
                 return result;
                 // expect(dat).to.be.equal(2)
                 // done();
@@ -29,8 +29,9 @@ describe('loggingMachine', function () {
                 console.log("RESULT " + result);
                 assert.deepEqual(JSON.stringify(result), "Michael Way");
                 done();
-            })
+            });
 
+            console.log("AFTER " + result);
 
             // Parse.Cloud.run("login", {
             //     username: "dev@psyphertxt.com",
