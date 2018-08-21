@@ -18,8 +18,11 @@ describe('loggingMachine', function () {
 
             new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
                 dat = parseInt(data.length);
+                console.log("BEFORE " + data.length);
                 // expect(dat).to.be.equal(2);
                 assert.equal(dat, 3);
+                console.log("AFTER " + data.length);
+
                 // done();
             });
             // Parse.Cloud.run("login", {
