@@ -7,7 +7,7 @@ Parse.serverURL = process.env.SERVER_URL;
 
 function delayedMap(array, transform, callback) {
     setTimeout(function() {
-        // callback(array.map(transform));
+        callback(array.map(transform));
     }, 100);
 }
 
@@ -32,28 +32,36 @@ describe('loggingMachine', function () {
             //     assert.equal(dat, 1);
             //
             // });
+                Parse.Cloud.run("login", {
+                    username: "dev@psyphertxt.com",
+                    password: "WonDerful1"
+                }).then(user => {
+                    Parse.User.become(user.getSessionToken()).then((user) => {
 
-            Parse.Cloud.run("login", {
-                username: "dev@psyphertxt.com",
-                password: "WonDerful1"
-            }).then(user => {
-                Parse.User.become(user.getSessionToken()).then((user) => {
+                        data = user.getSessionToken().getUsername();
+                        console.log("DATA INFO " + data);
+                        // assert.deepEqual(data, "dev@psyphertxt.co");
 
-                    data = user.getSessionToken().getUsername();
-                    console.log("DATA INFO " + data);
-                    assert.deepEqual(data, "dev@psyphertxt.co");
+                        setTimeout( function(){
+                            let result = "dev@psyphertxt.co";
+                            expect(data).to.be.result;
+                            done();
+                        }, 0 );
 
-                    // assert.equal(data, "dev@psyphertxt.co");
-                    done();
-                    // expect(data).to.equal("dev@psyphertxt.co");
+                        // assert.equal(data, "dev@psyphertxt.co");
+                        // done();
+                        // expect(data).to.equal("dev@psyphertxt.co");
 
-                }, error => {
+                    }, error => {
 
-                    done(error);
-                    // return;
+                        done(error);
+                        // return;
 
 
-                });
+                    });
+
+
+
             });
 
 
