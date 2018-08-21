@@ -22,12 +22,14 @@ describe('loggingMachine', function () {
             new Parse.Query(_class.Authors).equalTo("email", "michael@info.com").first().then(function (data) {
                 // result = parseInt(data.length);
                 result = data.get("name")
-                console.log("BEFORE " + data.get("name"));
+                return result;
                 // expect(dat).to.be.equal(2)
                 // done();
-            });
+            }).then(function (result) {
+                assert.equal(result, "Michael Way");
+                done();
+            })
 
-            assert.equal(result, "Michael Way");
 
             // Parse.Cloud.run("login", {
             //     username: "dev@psyphertxt.com",
