@@ -258,11 +258,7 @@ Parse.Cloud.define("getStories", function (req, res) {
         new Parse.Query(_class.ArtWork).find()
     ).then((stories, artworks) => {
 
-        console.log("Checking stories");
-
-        if (_stories.length) {
-
-            console.log("Checking length " + _stories.length);
+        if (stories.length) {
 
             _stories = stories;
             _artworks = artworks;
