@@ -17,6 +17,8 @@ describe('loggingMachine', function () {
         it('logs into account', function () {
             let result = [];
 
+            assert.equal(result.length, 3);
+
             new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
                 // result = parseInt(data.length);
                 console.log("BEFORE " + data.length);
