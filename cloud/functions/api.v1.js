@@ -124,12 +124,12 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
                 let promises = [];
                 _.map(packs, function (pack) {
-                     promises.push(pack.relation(_class.Stickers).query().limit(6).find({useMasterKey: true}));
-                    // promises.push(new Parse.Query(_class.Stickers).equalTo("parent", {
-                    //     __type: 'Pointer',
-                    //     className: _class.Packs,
-                    //     objectId: pack.id
-                    // }).find())
+                    // promises.push(pack.relation(_class.Stickers).query().limit(6).find({useMasterKey: true}));
+                    promises.push(new Parse.Query(_class.Packs).equalTo("parent", {
+                        __type: 'Pointer',
+                        className: _class.Stickers,
+                        objectId: pack.id
+                    }).find({useMasterKey: true}))
                 });
 
                 return Parse.Promise.when(promises);
