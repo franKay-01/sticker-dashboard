@@ -33,7 +33,7 @@ describe('queringMachine', function () {
                 let extension = /[^.]+$/.exec(preview);
                 assert.equal(extension, "jpg" | "png");
 
-                console.log("DATA " + name +  " " + version);
+                console.log("DATA");
 
             });
 
