@@ -62,6 +62,8 @@ exports.Pack = (pack, stickerList) => {
 
     let _pack = {};
 
+    console.log("stickerList.length " + stickerList.length);
+
     if (pack && stickerList.length) {
 
         _pack.id = pack.id;
