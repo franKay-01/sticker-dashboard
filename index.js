@@ -4477,11 +4477,13 @@ app.get('/pack/create/previews/:packId', function (req, res) {
                 stickerArray.push(sticker.get("preview").url.url());
                 
             });
-            
+
+            console.log("ARRAY LENGTH " + stickerArray.length);
             return _pack.save("previews", stickerArray);
             
-        }).then(function () {
+        }).then(function (pack) {
 
+            console.log("AFTER SAVING PACK");
             res.redirect('/pack/' + id);
 
         }, function (error) {
