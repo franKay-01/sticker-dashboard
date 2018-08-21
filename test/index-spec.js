@@ -24,8 +24,8 @@ describe('loggingMachine', function () {
                     data = user.getSessionToken().getUsername();
                     let check = "dev@psyphertxt.co";
                     console.log("DATA INFO " + data);
-                    console.log("DATA INFO " + check);
-                    assert.deepEqual(data, check);
+                    console.log("DATA INFO CHECK" + check);
+                    assert.deepStrictEqual(data, check);
                     done();
 
 
