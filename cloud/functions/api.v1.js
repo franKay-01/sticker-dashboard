@@ -273,7 +273,6 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         } else {
 
-            console.log("Checking error " + _stories.length);
             util.handleError(res, util.setErrorType(util.STORIES_ERROR));
 
         }
@@ -281,7 +280,6 @@ Parse.Cloud.define("getStories", function (req, res) {
     }).then(stickers => {
 
         let storyIds = [];
-        console.log("Checking error " + stickers.length);
 
         _.each(_stories, function (story) {
 
