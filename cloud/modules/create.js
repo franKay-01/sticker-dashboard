@@ -62,7 +62,7 @@ exports.Pack = (pack, stickerList) => {
 
     let _pack = {};
 
-    if (pack && stickerList.length) {
+    if (pack && stickerList.length > 0) {
 
         _pack.id = pack.id;
         _pack.name = pack.get("name");

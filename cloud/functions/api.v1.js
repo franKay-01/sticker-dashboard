@@ -124,12 +124,12 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
                 let promises = [];
                 _.map(packs, function (pack) {
-                    // promises.push(pack.relation(_class.Packs).query().limit(6).find({useMasterKey: true}));
-                    promises.push(new Parse.Query(_class.Stickers).equalTo("parent", {
-                        __type: 'Pointer',
-                        className: _class.Packs,
-                        objectId: pack.id
-                    }).find())
+                     promises.push(pack.relation(_class.Packs).query().limit(6).find({useMasterKey: true}));
+                    // promises.push(new Parse.Query(_class.Stickers).equalTo("parent", {
+                    //     __type: 'Pointer',
+                    //     className: _class.Packs,
+                    //     objectId: pack.id
+                    // }).find())
                 });
 
                 return Parse.Promise.when(promises);
@@ -142,15 +142,13 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
         }).then(function (stickerList) {
 
-            console.log("STRINGY " + JSON.stringify(stickerList));
-
             let packList = [];
 
             _.map(_packs, pack => {
                 packList.push(create.Pack(pack, stickerList));
             });
 
-            if (packList.length) {
+            if (packList.length > 0) {
 
                 res.success(util.setResponseOk(packList));
 
