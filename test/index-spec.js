@@ -15,19 +15,22 @@ describe('loggingMachine', function () {
         });
 
         it('logs into account', function () {
-            let result = [];
+            let result = "";
 
-            assert.equal(result.length, 3);
+            // assert.equal(result.length, 3);
 
-            new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
+            new Parse.Query(_class.Authors).equalTo("email", "michael@info.com").first().then(function (data) {
                 // result = parseInt(data.length);
-                console.log("BEFORE " + data.length);
+                result = data.get("name")
+                console.log("BEFORE " + data.get("name"));
                 // expect(dat).to.be.equal(2);
-                assert.equal(result.length, 3);
                 console.log("AFTER " + data.length);
 
                 // done();
             });
+
+            assert.equal(result, "Michael Way");
+
             // Parse.Cloud.run("login", {
             //     username: "dev@psyphertxt.com",
             //     password: "WonDerful1"
