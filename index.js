@@ -4608,7 +4608,11 @@ app.get('/publish/:type/:status/:id', function (req, res) {
 
             switch (type) {
                 case PACKS:
-                    res.redirect('/pack/create/previews/'+id);
+                    if (status === "publish") {
+                        res.redirect('/pack/create/previews/'+id);
+                    } else if (status === "unpublish") {
+                        res.redirect(pack + id);
+                    }
                     return;
 
                 case STORIES:
