@@ -10,6 +10,7 @@ describe('queringMachine', function () {
         it('Queries into Packs', function () {
 
             new Parse.Query(_class.Packs).equalTo("version", 1).first().then(function (data) {
+                console.log("DATA " + JSON.stringify(data));
                 assert.isObject(data);
                 assert.isString(data.get("name"), 'order placed');
                 assert.isNumber(data.get("version"), 0);
