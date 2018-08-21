@@ -6176,7 +6176,7 @@ app.get("/fix_arrays", function (req, res) {
 
         }).then(function (packs) {
 
-            _.each(function (pack) {
+            _.each(packs, function (pack) {
 
                 pack.set("previews", []);
                 _packs.push(pack);
