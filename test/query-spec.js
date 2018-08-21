@@ -23,6 +23,7 @@ describe('queringMachine', function () {
                 // let extension = /[^.]+$/.exec(preview);
                 // assert.equal(extension, "jpg" | "png");
                 assert.equal(data.get("name"), 'Francis');
+                console.log("DATA " + data.get("name"));
 
             });
 
