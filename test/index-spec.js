@@ -8,13 +8,19 @@ Parse.serverURL = process.env.SERVER_URL;
 
 describe('loggingMachine', function () {
     describe('log In', function () {
+        it('should start empty', function() {
+            var arr = [];
+
+            assert.equal(arr.length, 1);
+        });
+
         it('logs into account', function () {
 
             new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
                 dat = data.length;
                 console.log("LENGTH " + JSON.stringify(dat));
-                return expect(dat).to.be.equal(2);
-                // assert.deepEqual(dat, 2);
+                // expect(dat).to.be.equal(2);
+                assert.deepEqual(data.length, 3);
                 // done();
             });
             // Parse.Cloud.run("login", {
