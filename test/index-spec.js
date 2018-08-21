@@ -1,4 +1,6 @@
-let assert = require('assert');
+// let assert = require('assert');
+let expect = require('chai').expect;
+
 let Parse = require("parse/node").Parse; // import the module
 Parse.initialize(process.env.APP_ID);
 Parse.serverURL = process.env.SERVER_URL;
@@ -25,7 +27,7 @@ describe('loggingMachine', function () {
                 Parse.User.become(user.getSessionToken()).then((user) => {
 
                     data = user.getSessionToken().getUsername();
-                    assert(data, "dev@psyphertxt.co");
+                    expect(data).to.equal("dev@psyphertxt.com");
 
                 }, error => {
 
