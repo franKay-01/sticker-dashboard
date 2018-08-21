@@ -6272,55 +6272,6 @@ app.get('/get_acl', function (req, res) {
 });
 
 
-app.get('/packs_exp', function (req, res) {
-
-    let _packs = [];
-
-    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", process.env.ADMIN).descending("createdAt").find({useMasterKey: true})
-        .then(function (packs) {
-
-            if (packs.length) {
-
-                _packs = packs;
-
-                let promises = [];
-                _.map(packs, function (pack) {
-                    promises.push(pack.relation(_class.Packs).query().limit(6).find({useMasterKey: true}));
-                });
-
-                return Parse.Promise.when(promises);
-
-            } else {
-
-               res.send("length error")
-
-            }
-
-        }).then(function (stickerList) {
-
-            let packList = [];
-
-            _.map(_packs, pack => {
-                packList.push(create.Pack(pack, stickerList));
-            });
-
-            if (packList.length) {
-
-                res.send(packList)
-
-            } else {
-
-                res.send("packs error " + packList)
-
-            }
-
-        }, function (error) {
-
-            res.send("error " + error)
-        });
-
-});
-
 app.get('/test_acl/:id/:text', function (req, res) {
 
     let token = req.cookies.token;
