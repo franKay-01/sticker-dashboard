@@ -23,16 +23,16 @@ describe('queringMachine', function () {
                 archive = data.get("archived");
                 userId = data.get("userId");
 
-                assert.isString(name);
-                assert.isNumber(verison);
-                assert.isString(description);
-                assert.isBoolean(archive);
-                assert.isString(userId);
+                assert.isString(name, 'is(not) string');
+                assert.isNumber(verison, 'is(not) number');
+                assert.isString(description, 'is(not) string');
+                assert.isBoolean(archive, 'is(not) boolean');
+                assert.isString(userId, 'is(not) string');
                 let preview = data.get("artwork").url();
 
                 let extension = /[^.]+$/.exec(preview);
                 assert.equal(extension, "jpg" | "png");
-                assert.equal(data.get("name"), 'Francis');
+
                 console.log("DATA " + name +  " " + version);
 
             });
