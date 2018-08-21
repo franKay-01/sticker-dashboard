@@ -62,7 +62,7 @@ exports.Pack = (pack, stickerList) => {
 
     let _pack = {};
 
-    console.log("stickerList.length " + stickerList.length);
+    console.log("stickerList object " + JSON.stringify(stickerList));
 
     if (pack && stickerList.length) {
 
