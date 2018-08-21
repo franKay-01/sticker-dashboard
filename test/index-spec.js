@@ -17,8 +17,7 @@ describe('loggingMachine', function () {
         it('logs into account', function () {
 
             new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
-                dat = data.length;
-                console.log("LENGTH " + JSON.stringify(dat));
+                dat = JSON.stringify(data.length);
                 // expect(dat).to.be.equal(2);
                 assert.equal(data.length, 3);
                 // done();

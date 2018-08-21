@@ -4465,28 +4465,28 @@ app.get('/pack/create/previews/:packId', function (req, res) {
             return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
 
         }).then(function (pack) {
-            
+
             _pack = pack;
-            if (pack.get("previews")){
+            if (pack.get("previews")) {
 
                 res.redirect('/pack/' + id);
 
-            }else {
+            } else {
                 let packRelation = pack.relation(_class.Packs);
                 return packRelation.query().limit(STICKER_LIMIT).ascending("name").find();
 
             }
 
         }).then(function (stickers) {
-            
+
             _.each(stickers, function (sticker) {
 
                 stickerArray.push(sticker.get("preview").url());
-                
+
             });
 
             return _pack.save("previews", stickerArray);
-            
+
         }).then(function (pack) {
 
             res.redirect('/pack/' + id);
@@ -4498,7 +4498,7 @@ app.get('/pack/create/previews/:packId', function (req, res) {
 
         })
 
-    }else {
+    } else {
         res.redirect('/');
     }
 });
@@ -4616,7 +4616,7 @@ app.get('/publish/:type/:status/:id', function (req, res) {
             switch (type) {
                 case PACKS:
                     if (status === "publish") {
-                        res.redirect('/pack/create/previews/'+id);
+                        res.redirect('/pack/create/previews/' + id);
                     } else if (status === "unpublish") {
                         res.redirect(pack + id);
                     }
@@ -6163,7 +6163,39 @@ app.get('/newsletter/send/story', function (req, res) {
 /*====================================== NEWSLETTER ============================*/
 
 /*====================================== EXPERIMENTS ============================*/
+app.get("/fix_arrays", function (req, res) {
 
+    let token = req.cookies.token;
+    let _packs = [];
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.Packs).find();
+
+        }).then(function (packs) {
+
+            _.each(packs, function (pack) {
+                console.log("PACK " + JSON.stringify(pack));
+
+                pack.set("previews", []);
+                _packs.push(pack);
+
+            });
+            return Parse.Object.saveAll(_packs);
+
+        }).then(function () {
+
+            console.log("SAVED ALL PACKS");
+            res.redirect('/');
+
+        })
+    } else {
+        res.redirect('/');
+    }
+
+})
 
 app.get("/test_upload/:id", function (req, res) {
     let token = req.cookies.token;
@@ -6271,7 +6303,6 @@ app.get('/get_acl', function (req, res) {
     }
 });
 
-
 app.get('/test_acl/:id/:text', function (req, res) {
 
     let token = req.cookies.token;
@@ -6284,7 +6315,7 @@ app.get('/test_acl/:id/:text', function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            _user = sessionToken.get("user")
+            _user = sessionToken.get("user");
             let Test = new Parse.Object.extend("Test");
             let test = new Test();
 
