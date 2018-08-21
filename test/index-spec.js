@@ -23,9 +23,7 @@ describe('loggingMachine', function () {
                 // result = parseInt(data.length);
                 result = data.get("name")
                 console.log("BEFORE " + data.get("name"));
-                // expect(dat).to.be.equal(2);
-                console.log("AFTER " + data.length);
-
+                // expect(dat).to.be.equal(2)
                 // done();
             });
 
