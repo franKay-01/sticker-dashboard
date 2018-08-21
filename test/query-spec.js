@@ -17,7 +17,7 @@ describe('queringMachine', function () {
             let userId = "";
 
             new Parse.Query(_class.Packs).equalTo("version", 1).first().then(function (data) {
-                name = data.get("name");
+                name = data.name();
                 verison = data.get("version");
                 description = data.get("description");
                 archive = data.get("archived");
