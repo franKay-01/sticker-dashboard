@@ -77,7 +77,7 @@ exports.request = (opt) => {
     ///add API Key 8e50a3f8-2108-4b40-b889-ba949f73df0a
     //use API to secure the data
 
-    let reference = database.ref("8e50a3f8-2108-4b40-b889-ba949f73df0a").child(opt.reference);
+    let reference = database.ref(process.env.ANALYTICS_KEY).child(opt.reference);
     let viewCount = reference.child(opt.id + "/" + getType(opt.type) + "/count");
 
     viewCount.transaction(function (count) {
@@ -96,7 +96,7 @@ exports.request = (opt) => {
  */
 exports.event = (opt) => {
 
-    return  database.ref("8e50a3f8-2108-4b40-b889-ba949f73df0a").child(opt.reference).once('value');
+    return  database.ref(process.env.ANALYTICS_KEY).child(opt.reference).once('value');
 
 };
 
