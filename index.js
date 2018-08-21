@@ -5753,30 +5753,37 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
 
             switch (notificationType) {
                 case STORIES:
+
                     let story = create.Story(_story);
                     story = create.StoryArtwork(story, sticker);
+
                     notification.send({
-                        title: "AM I FAT",
-                        description: "So, yesterday, someone actually called me fat. Yes, a whole me, FAT! Hmmm…! I am coming, let me gather myself because the way my heart is beating, I might say something and it will become something that is there. So you, it’s okay",
+                        title: story.title,
+                        description: story.summary,
                         activity: "STORY_ACTIVITY",
                         data: {
-                            id: "q7qeqHtU38",
-                            title: "AM I FAT",
-                            stickerUrl: "https://cyfa.s3.amazonaws.com/d8afeb64ae4f4ef0e9a29c81b2289413_angry%20face.png",
-                            summary: "So, yesterday, someone actually called me fat. Yes, a whole me, FAT! Hmmm…! I am coming, let me gather myself because the way my heart is beating, I might say something and it will become something that is there. So you, it’s okay.",
-                            topColor: "#17BBFF",
-                            bottomColor: "#7C3FD9"
+                            id: story.id,
+                            title: story.title,
+                            stickerUrl: story.stickerUrl,
+                            summary: story.summary,
+                            topColor: story.topColor,
+                            bottomColor: story.bottom,
+                            type:notificationType
                         },
+
                         //TODO retrieve first section from Server
-                        topic: "test.feed.story"
+                        topic: process.env.TOPIC_PREFIX + "feed.story"
+
                     }).then(function (success) {
 
-                        console.log("SENDING WAS SUCCESSFUL " + JSON.stringify(success));
+                        console.log("STORY NOTIFICATION WAS SENT SUCCESSFUL");
 
                     }, function (status) {
-                        console.log("STATUS " + status);
+
+                        console.log("STORY NOTIFICATION WASN'T SENT " + status);
 
                     });
+
                     if (origin === storyPage) {
                         res.redirect('/storyedit/' + id);
                     } else {
@@ -5785,27 +5792,30 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                     break;
 
                 case STICKER:
+
                     let _sticker = create.Sticker(sticker);
                     notification.send({
                         title: "Sticker Of the Day",
-                        description: "agye gon - What a sad outcome",
+                        description: _sticker.description,
                         activity: "STICKER_ACTIVITY",
                         data: {
-                            id: "GaY7fNmUss",
-                            name: "agye gon",
-                            description: "What a sad outcome",
-                            url: "https://cyfa.s3.amazonaws.com/76148e8c2f16f2e5d613d21469e55418_agye%20gon.png"
+                            id: _sticker.id,
+                            name: _sticker.name,
+                            url: _sticker.url,
+                            type:notificationType
                         },
                         //TODO retrieve first section from Server
-                        topic: "test.feed.sticker"
+                        topic: process.env.TOPIC_PREFIX + "feed.sticker"
                     }).then(function (success) {
 
-                        console.log("SENDING WAS SUCCESSFUL " + JSON.stringify(success));
+                        console.log("NOTIFICATION WAS SENT SUCCESSFUL");
 
                     }, function (status) {
-                        console.log("STATUS " + status);
+
+                        console.log("NOTIFICATION WASN'T SENT " + status);
 
                     });
+
 
                     res.redirect('/home');
                     break;
