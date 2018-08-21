@@ -14,7 +14,7 @@ describe('loggingMachine', function () {
                 console.log("DATA INFO " + JSON.stringify(data));
 
                 dat = data.length;
-                assert.equal(dat, 1);
+                assert.equal(dat, 2);
 
             });
             // Parse.Cloud.run("login", {
