@@ -24,7 +24,7 @@ function findAuthor(email) {
 
 describe('loggingMachine', function () {
     describe('log In', function () {
-        let name = findAuthor("michael@info.com");
+        let name = await(findAuthor("michael@info.com"));
 
         it('should start empty', function () {
             var arr = [];
