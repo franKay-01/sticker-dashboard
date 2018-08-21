@@ -27,7 +27,7 @@ describe('loggingMachine', function () {
                 // done();
             }).then(function (result) {
                 console.log("RESULT " + result);
-                assert.equal(JSON.stringify(result), "Michael Way");
+                assert.deepEqual(JSON.stringify(result), "Michael Way");
                 done();
             })
 
