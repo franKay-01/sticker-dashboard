@@ -1,15 +1,10 @@
 let assert = require('assert');
 let expect = require('chai').expect;
+let _class = require('../cloud/modules/classNames');
 
 let Parse = require("parse/node").Parse; // import the module
 Parse.initialize(process.env.APP_ID);
 Parse.serverURL = process.env.SERVER_URL;
-let _class = require('../cloud/modules/classNames');
-
-
-before(function(){
-    expected = "dev@psyphertxt.com";
-});
 
 describe('loggingMachine', function () {
     describe('log In', function () {
@@ -17,34 +12,34 @@ describe('loggingMachine', function () {
             let dat = 0;
             let data = "";
 
-            // new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
-            //
-            //     dat = data.length;
-            //     assert.equal(dat, 1);
-            //
-            // });
+            new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
 
-            Parse.Cloud.run("login", {
-                username: "dev@psyphertxt.com",
-                password: "WonDerful1"
-            }).then(user => {
-                Parse.User.become(user.getSessionToken()).then((user) => {
+                dat = data.length;
+                assert.equal(dat, 9);
 
-                    data = user.getSessionToken().getUsername();
-                    assert.notEqual(expected, data, 'element is equal');
-
-                    // assert.equal(data, "dev@psyphertxt.co");
-                    done();
-                    // expect(data).to.equal("dev@psyphertxt.co");
-
-                }, error => {
-
-                    done(error);
-                    // return;
-
-
-                });
             });
+
+            // Parse.Cloud.run("login", {
+            //     username: "dev@psyphertxt.com",
+            //     password: "WonDerful1"
+            // }).then(user => {
+            //     Parse.User.become(user.getSessionToken()).then((user) => {
+            //
+            //         data = user.getSessionToken().getUsername();
+            //         assert.equal(data, "dev@psyphertxt.com", 'element is equal');
+            //
+            //         // assert.equal(data, "dev@psyphertxt.co");
+            //         done();
+            //         // expect(data).to.equal("dev@psyphertxt.co");
+            //
+            //     }, error => {
+            //
+            //         done(error);
+            //         // return;
+            //
+            //
+            //     });
+            // });
 
 
         });
