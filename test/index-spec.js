@@ -13,7 +13,7 @@ describe('loggingMachine', function () {
             new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
                 dat = data.length;
                 console.log("LENGTH " + JSON.stringify(dat));
-                assert.equal(dat, "2");
+                assert.deepEqual(dat, 2);
                 done();
             });
             // Parse.Cloud.run("login", {
