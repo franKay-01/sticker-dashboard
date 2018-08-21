@@ -25,6 +25,15 @@ Parse.Cloud.define("getFeed", function (req, res) {
     let _sticker = {};
     let _story = {};
     let _packs = [];
+    let _categories = [];
+    let _adverts = [];
+    let _products = [];
+    let advertList = [];
+
+    // new Parse.Query(_class.Categories).ascending("name").limit(30).find(),
+    //     new Parse.Query(_class.Adverts).find(),
+    //     new Parse.Query(_class.Product).find(),
+    // categories, adverts, products
 
     Parse.Promise.when(
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STICKER).first({useMasterKey: true}),
@@ -32,9 +41,12 @@ Parse.Cloud.define("getFeed", function (req, res) {
         new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).notEqualTo("objectId", DEFAULT_PACK).limit(2).descending("createdAt").find({useMasterKey: true}),
     ).then((sticker, story, packs) => {
 
-        if (sticker && story && packs) {
+        if(sticker && story && packs) {
 
             _packs = packs;
+            // _categories = categories;
+            // _adverts = adverts;
+            // _products = products;
 
             return Parse.Promise.when(
                 new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first({useMasterKey: true}),
@@ -44,6 +56,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
         } else {
 
+            console.log("FEED ERROR");
             util.handleError(res, util.setErrorType(util.FEED_ERROR));
         }
 
@@ -51,6 +64,16 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
         _sticker = sticker;
         _story = story;
+        // let advertIds = [];
+        //
+        // _.each(_adverts, advert => {
+        //     advertIds.push(advert.id)
+        // });
+        //
+        //
+        // new Parse.Query(_class.AdvertImages).containedIn("advert_id", advertIds).find({useMasterKey: true}),
+        //     new Parse.Query(_class.Links).containedIn("itemId", advertIds).find({useMasterKey: true})
+        //advertImages, links
 
         return Parse.Promise.when(
             new Parse.Query(_class.Stickers).equalTo("objectId", storyArtwork.get("sticker")).first({useMasterKey: true}),
@@ -61,9 +84,12 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
         feed.stickerOfDay = create.Sticker(_sticker);
         let _latestStory = create.Story(_story);
-
         _latestStory.stories = create.StoryItems(storyItems);
         feed.latestStory = create.StoryArtwork(_latestStory, sticker);
+
+        // _.each(_adverts, advert => {
+        //     advertList.push(create.Adverts(advert, links, advertImages));
+        // });
 
         let promises = [];
         _.map(_packs, function (pack) {
@@ -75,13 +101,19 @@ Parse.Cloud.define("getFeed", function (req, res) {
     }).then(stickerList => {
 
         let packList = [];
+        // let categoryList = [];
 
         _.map(_packs, pack => {
             packList.push(create.Pack(pack, stickerList))
         });
 
+        // _.map(_categories, category => {
+        //     categoryList.push(create.Category(category))
+        // });
 
         feed.packs = packList;
+        // feed.categories = categoryList;
+        // feed.adverts = advertList;
 
         res.success(util.setResponseOk(feed));
 
@@ -115,16 +147,16 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
     let _packs = [];
 
+    //TODO use default pack env variable
     return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).notEqualTo("objectId", DEFAULT_PACK).descending("createdAt").find({useMasterKey: true})
         .then(function (packs) {
 
-            if (packs.length) {
+            _packs = packs;
 
-                _packs = packs;
-
+            if(packs.length) {
                 let promises = [];
                 _.map(packs, function (pack) {
-                    promises.push(pack.relation(_class.Packs).query().limit(6).find({useMasterKey: true}));
+                    promises.push(pack.relation(_class.Packs).query().limit(4).find({useMasterKey: true}));
                 });
 
                 return Parse.Promise.when(promises);
@@ -139,11 +171,13 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
             let packList = [];
 
+            //TODO check if pack is published
+            //TODO check if pack has not been archived
             _.map(_packs, pack => {
                 packList.push(create.Pack(pack, stickerList));
             });
 
-            if (packList.length) {
+            if(packList.length) {
 
                 res.success(util.setResponseOk(packList));
 
@@ -258,34 +292,20 @@ Parse.Cloud.define("getStories", function (req, res) {
         new Parse.Query(_class.ArtWork).find()
     ).then((stories, artworks) => {
 
-        console.log("Checking stories");
+        _stories = stories;
+        _artworks = artworks;
 
-        if (_stories.length) {
+        _.each(artworks, artwork => {
 
-            console.log("Checking length " + _stories.length);
+            stickerIds.push(artwork.get("stickerId"));
 
-            _stories = stories;
-            _artworks = artworks;
+        });
 
-            _.each(artworks, artwork => {
-
-                stickerIds.push(artwork.get("stickerId"));
-
-            });
-
-            return new Parse.Query(_class.Stickers).containedIn("objectId", stickerIds).find({useMasterKey: true});
-
-        } else {
-
-            console.log("Checking error " + _stories.length);
-            util.handleError(res, util.setErrorType(util.STORIES_ERROR));
-
-        }
+        return new Parse.Query(_class.Stickers).containedIn("objectId", stickerIds).find({useMasterKey: true});
 
     }).then(stickers => {
 
         let storyIds = [];
-        console.log("Checking error " + stickers.length);
 
         _.each(_stories, function (story) {
 

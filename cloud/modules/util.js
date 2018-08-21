@@ -19,7 +19,6 @@ const UNKNOWN_ERROR = -1;
 const TEXT_MESSAGE_ERROR = 2;
 const TOKEN_ERROR = 3;
 const HASH_ERROR = 4;
-const STORIES_ERROR = 5;
 const SETUP_USER_ERROR = 6;
 const USER_ERROR = 7;
 const GETTING_RECORDS_ERROR = 8;
@@ -35,7 +34,10 @@ const DELETING_TEST_ERROR = 14;
 const DELETING_TASKS_ERROR = 15;
 const GETTING_TASKS_ERROR = 16;
 
-const STORY_PREVIEW_ERROR = 17;
+const STORY_ITEMS_ERROR = 18;
+const PACKS_ERROR = 19;
+const FEED_ERROR = 20;
+const STORIES_ERROR = 21;
 
 const SPECIAL_CHARACTERS = /[`~!@#$%^&*()_|+\-=÷¿?;:'",.123<>\{\}\[\]\\\/]/gi;
 
@@ -50,30 +52,26 @@ rejectPromise = function (p) {
     };
 };
 
-Object.defineProperty(global, '__stack', {
-    get: function () {
-        var orig = Error.prepareStackTrace;
-        Error.prepareStackTrace = function (_, stack) {
-            return stack;
-        };
-        var err = new Error;
-        Error.captureStackTrace(err, arguments.callee);
-        var stack = err.stack;
-        Error.prepareStackTrace = orig;
-        return stack;
-    }
-});
+// Object.defineProperty(global, '__stack', {
+//     get: function () {
+//         var orig = Error.prepareStackTrace;
+//         Error.prepareStackTrace = function (_, stack) {
+//             return stack;
+//         };
+//         var err = new Error;
+//         Error.captureStackTrace(err, arguments.callee);
+//         var stack = err.stack;
+//         Error.prepareStackTrace = orig;
+//         return stack;
+//     }
+// });
+//
+// Object.defineProperty(global, '__line', {
+//     get: function () {
+//         return "Line Number " + __stack[1].getLineNumber();
+//     }
+// });
 
-Object.defineProperty(global, '__line', {
-    get: function () {
-        return "Line Number " + __stack[1].getLineNumber();
-    }
-});
-
-/*
- *  util.prettyLoggerJSON(error,
- util.prettyLoggerOptions("ALL BADGES ERROR"));
- * */
 
 /**
  * a wrap around console.log to provide newlines for readability for cloud code logs
@@ -159,7 +157,6 @@ setResponseOk = function (data) {
     let success = {};
     success[KEY_RESPONSE_CODE] = RESPONSE_OK;
     success[KEY_DATA] = data;
-    console.log("SUCCESS SERVER RESPONSE " + JSON.stringify(success));
     return success;
 };
 
@@ -170,8 +167,6 @@ setResponseOk = function (data) {
  * @param error
  */
 handleError = function (res, error) {
-
-    prettyLogger(JSON.stringify(error), prettyLoggerOptions("ERROR"));
 
     if (error === undefined) {
         error = {};
@@ -249,9 +244,16 @@ handleError = function (res, error) {
                     error[KEY_RESPONSE_MESSAGE] = "No class type was specified. Check parameters";
                     break;
 
+                    case STORY_ITEMS_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "Stories items where not loaded";
+                    break;
 
-                case STORY_PREVIEW_ERROR :
-                    error[KEY_RESPONSE_MESSAGE] = "Stories wasn't found";
+                case PACKS_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "No Packs Found";
+                    break;
+
+                    case FEED_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "Feed Error";
                     break;
 
 
@@ -261,8 +263,6 @@ handleError = function (res, error) {
                     break;
             }
         }
-
-        prettyLoggerJSON(error, prettyLoggerOptions("DEVELOPER::HANDLE CALLED ERROR"));
         res.success(error);
     }
 };
@@ -427,6 +427,9 @@ exports.UPDATING_TASK_ERROR = UPDATING_TASK_ERROR;
 exports.DELETING_TEST_ERROR = DELETING_TEST_ERROR;
 exports.DELETING_TASKS_ERROR = DELETING_TASKS_ERROR;
 exports.CLASS_TYPE_ERROR = CLASS_TYPE_ERROR;
-exports.STORY_PREVIEW_ERROR = STORY_PREVIEW_ERROR;
+exports.STORIES_ERROR = STORIES_ERROR;
+exports.STORY_ITEMS_ERROR = STORY_ITEMS_ERROR;
+exports.FEED_ERROR = FEED_ERROR;
+exports.PACKS_ERROR = PACKS_ERROR;
 exports.STATUS_OK = STATUS_OK;
 exports.SPECIAL_CHARACTERS = SPECIAL_CHARACTERS;
