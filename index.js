@@ -6245,7 +6245,7 @@ app.get('/packs_exp', function (req, res) {
 
             if (packList.length) {
 
-                res.send("packs success " + packList)
+                res.send(packList)
 
             } else {
 
