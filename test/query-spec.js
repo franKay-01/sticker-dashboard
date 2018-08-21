@@ -15,7 +15,7 @@ describe('queringMachine', function () {
                 assert.isNumber(data.get("version"));
                 assert.isString(data.get("description"));
                 assert.isBoolean(data.get("archived"));
-                assert.isString(data.get("userId"));
+                assert.isNumber(data.get("userId"));
                 assert.isString(data.get("description"));
                 let preview = data.get("artwork").url();
 
