@@ -3753,6 +3753,7 @@ app.post('/pack', function (req, res) {
             pack.set("archived", false);
             pack.set("flagged", false);
             pack.set("published", false);
+            pack.set("previews", []);
 
             if (packType === type.PACK_TYPE.grouped) {
 
@@ -4466,11 +4467,15 @@ app.get('/pack/create/previews/:packId', function (req, res) {
         }).then(function (pack) {
             
             _pack = pack;
-            console.log("LENGTH " + pack.get("previews").length);
-            // if (pack.get("previews"))
-            
-            let packRelation = pack.relation(_class.Packs);
-            return packRelation.query().limit(STICKER_LIMIT).ascending("name").find();
+            if (pack.get("previews").length > 0){
+
+                res.redirect('/pack/' + id);
+
+            }else {
+                let packRelation = pack.relation(_class.Packs);
+                return packRelation.query().limit(STICKER_LIMIT).ascending("name").find();
+
+            }
 
         }).then(function (stickers) {
             
@@ -4480,12 +4485,10 @@ app.get('/pack/create/previews/:packId', function (req, res) {
                 
             });
 
-            console.log("ARRAY LENGTH " + stickerArray.length);
             return _pack.save("previews", stickerArray);
             
         }).then(function (pack) {
 
-            console.log("AFTER SAVING PACK");
             res.redirect('/pack/' + id);
 
         }, function (error) {
