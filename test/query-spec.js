@@ -11,12 +11,12 @@ describe('queringMachine', function () {
 
             new Parse.Query(_class.Packs).first().then(function (data) {
                 assert.isObject(data);
-                assert.isString(data.get("name"));
-                assert.isNumber(data.get("version"));
-                assert.isString(data.get("description"));
-                assert.isBoolean(data.get("archived"));
-                assert.isNumber(data.get("userId"));
-                assert.isString(data.get("description"));
+                assert.isString(data.get("name"), 'order placed');
+                assert.isNumber(data.get("version"), 0);
+                assert.isString(data.get("description"), 'order placed');
+                assert.isBoolean(data.get("archived"), 'order placed');
+                assert.isString(data.get("userId"), 'order placed');
+                assert.isString(data.get("description"), 'order placed');
                 let preview = data.get("artwork").url();
 
                 let extension = /[^.]+$/.exec(preview);
