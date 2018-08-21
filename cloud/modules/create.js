@@ -1,5 +1,6 @@
 const _ = require('underscore');
 const type = require('./type');
+const helper = require('./helpers');
 
 exports.Sticker = sticker => {
 
@@ -86,7 +87,7 @@ exports.Pack = (pack) => {
         let previews = pack.get("previews");
         if (previews) {
             _.each(previews,preview => {
-                _pack.previews.push(preview)
+                _pack.previews.push({id:"p"+helper.hash(),url:preview})
             });
 
         }
