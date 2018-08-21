@@ -87,6 +87,8 @@ exports.Pack = (pack, stickerList) => {
         let _stickers = [];
         _.map(stickerList, function (stickers) {
 
+            console.log("INNTER STICKER LENGTH" + JSON.stringify(stickers.length));
+
             if (stickers.length) {
 
                 _.map(stickers, sticker => {
