@@ -6248,12 +6248,13 @@ app.get('/packs_exp', function (req, res) {
 
             if (packs) {
 
-                res.send(packs);
+               // res.send(packs);
 
                 _packs = packs;
 
                 let promises = [];
                 _.map(packs, function (pack) {
+                    console.log("OBJECT OBJECT " + JSON.stringify(pack));
                     promises.push(pack.relation(_class.Packs).query().limit(6).find({useMasterKey: true}));
                     // promises.push(new Parse.Query(_class.Stickers).equalTo("parent", {
                     //     __type: 'Pointer',
@@ -6264,7 +6265,7 @@ app.get('/packs_exp', function (req, res) {
 
                 return Parse.Promise.when(promises);
 
-            } else {
+            }  else {
 
                 res.send("error")
 
