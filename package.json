@@ -47,7 +47,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "mocha test/query-spec.js"
+    "test": "mocha test/index-spec.js"
   },
   "engines": {
     "node": ">=8.0"
