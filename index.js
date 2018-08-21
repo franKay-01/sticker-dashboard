@@ -6215,70 +6215,47 @@ app.get('/packs_exp', function (req, res) {
 
     let _packs = [];
 
-    let _ = {
-        "name": "I dey",
-        "localName": "I dey",
-        "uri": {
-            "__type": "File",
-            "name": "99efe26f99a235ec7ab25599ca223acb_i dey 2.png",
-            "url": "https://cyfa.s3.amazonaws.com/99efe26f99a235ec7ab25599ca223acb_i%20dey%202.png"
-        },
-        "preview": {
-            "__type": "File",
-            "name": "47b0be14d991c1ea96f42cad8b83e2ee_i dey 2.png",
-            "url": "https://cyfa.s3.amazonaws.com/47b0be14d991c1ea96f42cad8b83e2ee_i%20dey%202.png"
-        },
-        "userId": "QcNeI1fXqF",
-        "parent": {"__type": "Pointer", "className": "Packs", "objectId": "JTngZfcXIa"},
-        "description": "",
-        "meaning": "",
-        "flagged": false,
-        "archived": false,
-        "sold": false,
-        "productId": "uCWXnTrtJ5",
-        "version": 2,
-        "createdAt": "2018-08-13T14:12:37.907Z",
-        "updatedAt": "2018-08-20T13:09:57.084Z",
-        "categories": [],
-        "objectId": "3gG5iiQkpU"
-    };
-
-    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", "QcNeI1fXqF").find({useMasterKey: true})
+    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", process.env.ADMIN).descending("createdAt").find({useMasterKey: true})
         .then(function (packs) {
 
-            if (packs) {
-
-               // res.send(packs);
+            if (packs.length) {
 
                 _packs = packs;
 
                 let promises = [];
                 _.map(packs, function (pack) {
-                    console.log("OBJECT OBJECT " + JSON.stringify(pack));
                     promises.push(pack.relation(_class.Packs).query().limit(6).find({useMasterKey: true}));
-                    // promises.push(new Parse.Query(_class.Stickers).equalTo("parent", {
-                    //     __type: 'Pointer',
-                    //     className: _class.Packs,
-                    //     objectId: pack.id
-                    // }).find({useMasterKey: true}))
                 });
 
                 return Parse.Promise.when(promises);
 
-            }  else {
+            } else {
 
-                res.send("error message")
+               res.send("length error")
 
             }
 
         }).then(function (stickerList) {
 
-            res.send(stickerList)
+            let packList = [];
+
+            _.map(_packs, pack => {
+                packList.push(create.Pack(pack, stickerList));
+            });
+
+            if (packList.length) {
+
+                res.send("packs success " + packList)
+
+            } else {
+
+                res.send("packs error " + packList)
+
+            }
 
         }, function (error) {
 
-            res.send(error)
-
+            res.send("error " + error)
         });
 
 });

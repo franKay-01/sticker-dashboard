@@ -11,6 +11,7 @@ let analytics = require("../modules/analytics");
 const LATEST_STICKER = process.env.LATEST_STICKER;
 const LATEST_STORY = process.env.LATEST_STORY;
 const ADMIN = process.env.ADMIN;
+const DEFAULT_PACK = process.env.DEFAULT_PACK;
 const SHARE_URL = "";
 
 
@@ -28,7 +29,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
     Parse.Promise.when(
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STICKER).first({useMasterKey: true}),
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STORY).first({useMasterKey: true}),
-        new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).limit(2).descending("createdAt").find({useMasterKey: true}),
+        new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).notEqualTo("objectId", DEFAULT_PACK).limit(2).descending("createdAt").find({useMasterKey: true}),
     ).then((sticker, story, packs) => {
 
         if (sticker && story && packs) {
@@ -114,7 +115,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
     let _packs = [];
 
-    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).descending("createdAt").find({useMasterKey: true})
+    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).notEqualTo("objectId", DEFAULT_PACK).descending("createdAt").find({useMasterKey: true})
         .then(function (packs) {
 
             if (packs.length) {
@@ -123,12 +124,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
                 let promises = [];
                 _.map(packs, function (pack) {
-                     promises.push(pack.relation(_class.Packs).query().limit(6).find({useMasterKey: true}));
-                    // promises.push(new Parse.Query(_class.Packs).equalTo("parent", {
-                    //     __type: 'Pointer',
-                    //     className: _class.Stickers,
-                    //     objectId: pack.id
-                    // }).find({useMasterKey: true}))
+                    promises.push(pack.relation(_class.Packs).query().limit(6).find({useMasterKey: true}));
                 });
 
                 return Parse.Promise.when(promises);
@@ -141,15 +137,13 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
         }).then(function (stickerList) {
 
-            console.log("stickerList " + JSON.stringify(stickerList));
-
             let packList = [];
 
             _.map(_packs, pack => {
                 packList.push(create.Pack(pack, stickerList));
             });
 
-            if (packList.length > 0) {
+            if (packList.length) {
 
                 res.success(util.setResponseOk(packList));
 
