@@ -6246,7 +6246,7 @@ app.get('/packs_exp', function (req, res) {
     return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", "QcNeI1fXqF").descending("createdAt").find({useMasterKey: true})
         .then(function (packs) {
 
-            if (packs.length > 0) {
+            if (packs.length) {
 
                 _packs = packs;
 
@@ -6264,7 +6264,7 @@ app.get('/packs_exp', function (req, res) {
 
             } else {
 
-                util.handleError(res, util.setErrorType(util.PACKS_ERROR));
+                res.send("error")
 
             }
 
@@ -6274,7 +6274,8 @@ app.get('/packs_exp', function (req, res) {
 
         }, function (error) {
 
-            util.handleError(res, error);
+            res.send("error " + JSON.stringify(error))
+
         });
 
 });
