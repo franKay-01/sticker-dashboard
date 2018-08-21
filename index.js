@@ -6222,7 +6222,7 @@ app.get('/packs_exp', function (req, res) {
 
                 let promises = [];
                 _.map(packs, function (pack) {
-                    promises.push(pack.relation(_class.Stickers).query().limit(6).find({useMasterKey: true}));
+                    promises.push(pack.relation(_class.Packs).query().limit(6).find({useMasterKey: true}));
                     // promises.push(new Parse.Query(_class.Stickers).equalTo("parent", {
                     //     __type: 'Pointer',
                     //     className: _class.Packs,
