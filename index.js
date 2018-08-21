@@ -6185,10 +6185,11 @@ app.get("/fix_arrays", function (req, res) {
             });
             return Parse.Object.saveAll(_packs);
 
-        }).then(function (packs) {
+        }).then(function () {
 
             console.log("SAVED ALL PACKS");
-            res.send(JSON.stringify(packs));
+            res.redirect('/');
+
         })
     } else {
         res.redirect('/');
