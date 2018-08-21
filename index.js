@@ -6243,12 +6243,10 @@ app.get('/packs_exp', function (req, res) {
         "objectId": "3gG5iiQkpU"
     };
 
-    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", "QcNeI1fXqF").descending("createdAt").include(_class.Stickers).find({useMasterKey: true})
+    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", "QcNeI1fXqF").descending("createdAt").find({useMasterKey: true})
         .then(function (packs) {
 
             if (packs.length > 0) {
-
-                res.send(packs)
 
                 _packs = packs;
 
