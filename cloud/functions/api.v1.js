@@ -29,7 +29,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
     Parse.Promise.when(
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STICKER).first({useMasterKey: true}),
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STORY).first({useMasterKey: true}),
-        new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).notEqualTo("objectId", DEFAULT_PACK).limit(2).descending("createdAt").find({useMasterKey: true}),
+        new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).limit(4).descending("createdAt").find({useMasterKey: true}),
     ).then((sticker, story, packs) => {
 
         if (sticker && story && packs) {
@@ -49,15 +49,25 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
     }).then((sticker, story, storyArtwork) => {
 
+        if(sticker && story && storyArtwork) {
+
         _sticker = sticker;
         _story = story;
 
         return Parse.Promise.when(
-            new Parse.Query(_class.Stickers).equalTo("objectId", storyArtwork.get("sticker")).first({useMasterKey: true}),
+            new Parse.Query(_class.Stickers).equalTo("objectId", storyArtwork.get("stickerId")).first({useMasterKey: true}),
             new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find({useMasterKey: true})
         );
 
+        } else {
+
+            util.handleError(res, util.setErrorType(util.FEED_ERROR_ONE));
+
+        }
+
     }).then((sticker, storyItems) => {
+
+        if(sticker && storyItems) {
 
         feed.stickerOfDay = create.Sticker(_sticker);
         let _latestStory = create.Story(_story);
@@ -65,25 +75,22 @@ Parse.Cloud.define("getFeed", function (req, res) {
         _latestStory.stories = create.StoryItems(storyItems);
         feed.latestStory = create.StoryArtwork(_latestStory, sticker);
 
-        let promises = [];
-        _.map(_packs, function (pack) {
-            promises.push(pack.relation(_class.Packs).query().limit(4).find({useMasterKey: true}));
-        });
-
-        return Parse.Promise.when(promises);
-
-    }).then(stickerList => {
-
         let packList = [];
 
         _.map(_packs, pack => {
-            packList.push(create.Pack(pack, stickerList))
+            packList.push(create.Pack(pack))
         });
 
 
         feed.packs = packList;
 
         res.success(util.setResponseOk(feed));
+
+        } else {
+
+            util.handleError(res, util.setErrorType(util.FEED_ERROR_TWO));
+
+        }
 
     }, error => {
 
@@ -113,21 +120,18 @@ Parse.Cloud.define("getCategories", function (req, res) {
 
 Parse.Cloud.define("getPacks", function (req, res) {
 
-    let _packs = [];
-
-    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).notEqualTo("objectId", DEFAULT_PACK).descending("createdAt").find({useMasterKey: true})
-        .then(function (packs) {
+    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).descending("createdAt").find({useMasterKey: true})
+        .then((packs) => {
 
             if (packs.length) {
 
-                _packs = packs;
+                let _packs = [];
 
-                let promises = [];
                 _.map(packs, function (pack) {
-                    promises.push(pack.relation(_class.Packs).query().limit(6).find({useMasterKey: true}));
+                    _packs.push(create.Pack(pack));
                 });
 
-                return Parse.Promise.when(promises);
+                res.success(util.setResponseOk(_packs));
 
             } else {
 
@@ -135,25 +139,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
             }
 
-        }).then(function (stickerList) {
-
-            let packList = [];
-
-            _.map(_packs, pack => {
-                packList.push(create.Pack(pack, stickerList));
-            });
-
-            if (packList.length) {
-
-                res.success(util.setResponseOk(packList));
-
-            } else {
-
-                util.handleError(res, util.setErrorType(util.PACKS_ERROR));
-
-            }
-
-        }, function (error) {
+        }, (error)  => {
 
             util.handleError(res, error);
         });
