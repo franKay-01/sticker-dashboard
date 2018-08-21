@@ -4450,6 +4450,8 @@ app.get('/pack/create/previews/:packId', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.packId;
     let STICKER_LIMIT = 6;
+    let _pack;
+    let stickerArray = [];
 
     if (token) {
 
@@ -4462,13 +4464,30 @@ app.get('/pack/create/previews/:packId', function (req, res) {
             return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
 
         }).then(function (pack) {
-
+            
+            _pack = pack;
+            
             let packRelation = pack.relation(_class.Packs);
             return packRelation.query().limit(STICKER_LIMIT).ascending("name").find();
 
         }).then(function (stickers) {
+            
+            _.each(stickers, function (sticker) {
 
-            res.send(JSON.stringify(stickers));
+                stickerArray.push(sticker.get("preview").url.url());
+                
+            });
+            
+            return _pack.save("previews", stickerArray);
+            
+        }).then(function () {
+
+            res.redirect('/pack/' + id);
+
+        }, function (error) {
+
+            console.log("ERROR " + JSON.stringify(error));
+            res.redirect('/pack/' + id);
 
         })
 
@@ -4590,7 +4609,6 @@ app.get('/publish/:type/:status/:id', function (req, res) {
             switch (type) {
                 case PACKS:
                     res.redirect('/pack/create/previews/'+id);
-                    // res.redirect(pack + id);
                     return;
 
                 case STORIES:
