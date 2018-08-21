@@ -7,6 +7,7 @@ Parse.initialize(process.env.APP_ID);
 Parse.serverURL = process.env.SERVER_URL;
 
 let name = "";
+let secondName = "";
 
 
 function resultAuthor(name) {
@@ -26,9 +27,8 @@ function findAuthor(email) {
 
 describe('loggingMachine', function () {
     describe('log In', function () {
-        let name = findAuthor("michael@info.com");
+        secondName = findAuthor("michael@info.com");
 
-        this.timeout(30000);
 
         it('should start empty', function () {
             var arr = [];
@@ -37,10 +37,11 @@ describe('loggingMachine', function () {
         });
 
         it('logs into account', function () {
+            this.timeout(30000);
             // assert.equal(result.length, 3);
 
-            console.log("NAME " + name);
-            assert.deepEqual(name, "Michael bay");
+            console.log("NAME " + secondName);
+            assert.deepEqual(secondName, "Michael bay");
             done();
 
             // Parse.Cloud.run("login", {
