@@ -17,9 +17,9 @@ describe('loggingMachine', function () {
         it('logs into account', function () {
 
             new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
-                dat = JSON.stringify(data.length);
+                dat = parseInt(data.length);
                 // expect(dat).to.be.equal(2);
-                assert.equal(data.length, 3);
+                assert.equal(dat, 3);
                 // done();
             });
             // Parse.Cloud.run("login", {
