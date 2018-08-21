@@ -144,6 +144,8 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
             let packList = [];
 
+            console.log("Sticker List " + stickerList);
+
             _.map(_packs, pack => {
                 packList.push(create.Pack(pack, stickerList));
             });
