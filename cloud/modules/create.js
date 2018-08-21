@@ -94,7 +94,7 @@ exports.Pack = (pack, stickerList) => {
                 _.map(stickers, sticker => {
 
                     console.log("STICKER OBJECT" + JSON.stringify(sticker));
-                    if (pack.id === sticker.get("parent").id) {
+                    if (pack.id === sticker.get("parent").objectId) {
                         _stickers.push({id: sticker.id, url: sticker.get("uri").url()});
                     } else {
                         console.log("DOEST MUCH")
