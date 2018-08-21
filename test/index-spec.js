@@ -26,7 +26,8 @@ describe('loggingMachine', function () {
                 // expect(dat).to.be.equal(2)
                 // done();
             }).then(function (result) {
-                assert.equal(result, "Michael Way");
+                console.log("RESULT " + result);
+                assert.equal(JSON.stringify(result), "Michael Way");
                 done();
             })
 
