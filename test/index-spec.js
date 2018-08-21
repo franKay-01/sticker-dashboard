@@ -20,7 +20,7 @@ describe('loggingMachine', function () {
                 dat = data.length;
                 console.log("LENGTH " + JSON.stringify(dat));
                 // expect(dat).to.be.equal(2);
-                assert.deepEqual(data.length, 3);
+                assert.equal(data.length, 3);
                 // done();
             });
             // Parse.Cloud.run("login", {

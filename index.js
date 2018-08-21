@@ -3753,6 +3753,7 @@ app.post('/pack', function (req, res) {
             pack.set("archived", false);
             pack.set("flagged", false);
             pack.set("published", false);
+            pack.set("previews", []);
 
             if (packType === type.PACK_TYPE.grouped) {
 
@@ -4446,6 +4447,62 @@ app.post('/pack/stickers/:packId', function (req, res) {
     }
 });
 
+app.get('/pack/create/previews/:packId', function (req, res) {
+    let token = req.cookies.token;
+    let id = req.params.packId;
+    let STICKER_LIMIT = 6;
+    let _pack;
+    let stickerArray = [];
+
+    if (token) {
+
+        let _user = {};
+
+        getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+
+        }).then(function (pack) {
+            
+            _pack = pack;
+            if (pack.get("previews")){
+
+                res.redirect('/pack/' + id);
+
+            }else {
+                let packRelation = pack.relation(_class.Packs);
+                return packRelation.query().limit(STICKER_LIMIT).ascending("name").find();
+
+            }
+
+        }).then(function (stickers) {
+            
+            _.each(stickers, function (sticker) {
+
+                stickerArray.push(sticker.get("preview").url());
+                
+            });
+
+            return _pack.save("previews", stickerArray);
+            
+        }).then(function (pack) {
+
+            res.redirect('/pack/' + id);
+
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/pack/' + id);
+
+        })
+
+    }else {
+        res.redirect('/');
+    }
+});
+
 app.get('/pack/stickers/:packId/:productId', function (req, res) {
     let token = req.cookies.token;
     let id = req.params.packId;
@@ -4558,7 +4615,11 @@ app.get('/publish/:type/:status/:id', function (req, res) {
 
             switch (type) {
                 case PACKS:
-                    res.redirect(pack + id);
+                    if (status === "publish") {
+                        res.redirect('/pack/create/previews/'+id);
+                    } else if (status === "unpublish") {
+                        res.redirect(pack + id);
+                    }
                     return;
 
                 case STORIES:
