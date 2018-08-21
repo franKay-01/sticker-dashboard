@@ -6210,6 +6210,45 @@ app.get('/get_acl', function (req, res) {
     }
 });
 
+
+app.get('/packs_exp', function (req, res) {
+
+    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", "QcNeI1fXqF").descending("createdAt").find({useMasterKey: true})
+        .then(function (packs) {
+
+            if (packs.length) {
+
+                _packs = packs;
+
+                let promises = [];
+                _.map(packs, function (pack) {
+                    // promises.push(pack.relation(_class.Stickers).query().limit(6).find({useMasterKey: true}));
+                    promises.push(new Parse.Query(_class.Packs).equalTo("parent", {
+                        __type: 'Pointer',
+                        className: _class.Stickers,
+                        objectId: pack.id
+                    }).find({useMasterKey: true}))
+                });
+
+                return Parse.Promise.when(promises);
+
+            } else {
+
+                util.handleError(res, util.setErrorType(util.PACKS_ERROR));
+
+            }
+
+        }).then(function (stickerList) {
+
+            res.send(stickerList)
+
+        }, function (error) {
+
+            util.handleError(res, error);
+        });
+
+});
+
 app.get('/test_acl/:id/:text', function (req, res) {
 
     let token = req.cookies.token;
