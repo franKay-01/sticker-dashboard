@@ -4466,6 +4466,8 @@ app.get('/pack/create/previews/:packId', function (req, res) {
         }).then(function (pack) {
             
             _pack = pack;
+            console.log("LENGTH " + pack.get("previews").length);
+            // if (pack.get("previews"))
             
             let packRelation = pack.relation(_class.Packs);
             return packRelation.query().limit(STICKER_LIMIT).ascending("name").find();
