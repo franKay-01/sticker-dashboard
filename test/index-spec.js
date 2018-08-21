@@ -6,15 +6,19 @@ let Parse = require("parse/node").Parse; // import the module
 Parse.initialize(process.env.APP_ID);
 Parse.serverURL = process.env.SERVER_URL;
 
+function resultAuthor(name) {
+    return name
+}
 function findAuthor(email) {
     let name = "";
 
     new Parse.Query(_class.Authors).equalTo("email", email).first().then(function (data) {
         console.log("LOG FROM FUNCTION " + data.get("name"));
         name = data.get("name");
+        return resultAuthor(name);
     });
 
-    return name;
+    // return name;
 }
 
 describe('loggingMachine', function () {
