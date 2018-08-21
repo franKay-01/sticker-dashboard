@@ -95,11 +95,11 @@ exports.Pack = (pack, stickerList) => {
                     console.log("STICKER OBJECT" + JSON.stringify(sticker));
                     console.log("PARENT ID" + sticker.get("parent").id);
                     console.log("PACK ID" + pack.id);
-                    // if (pack.id === sticker.get("parent").id) {
+                     if (pack.id === sticker.get("parent").id) {
                         _stickers.push({id: sticker.id, url: sticker.get("uri").url()});
-                    // } else {
-                    //     console.log("DOEST MUCH")
-                    // }
+                    } else {
+                        console.log("DOEST MUCH")
+                    }
 
                 });
 
