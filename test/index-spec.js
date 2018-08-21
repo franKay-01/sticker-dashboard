@@ -6,32 +6,28 @@ let Parse = require("parse/node").Parse; // import the module
 Parse.initialize(process.env.APP_ID);
 Parse.serverURL = process.env.SERVER_URL;
 
+function findAuthor(email) {
+    new Parse.Query(_class.Authors).equalTo("email", "michael@info.com").first().then(function (data) {
+        return data.get("name");
+        ;
+
+    })
+}
+
 describe('loggingMachine', function () {
     describe('log In', function () {
-        it('should start empty', function() {
+        it('should start empty', function () {
             var arr = [];
 
             assert.equal(arr.length, 1);
         });
 
         it('logs into account', function () {
-            let result = "";
-
             // assert.equal(result.length, 3);
 
-            new Parse.Query(_class.Authors).equalTo("email", "michael@info.com").first().then(function (data) {
-                // result = parseInt(data.length);
-                result = data.get("name");
-                return result;
-                // expect(dat).to.be.equal(2)
-                // done();
-            }).then(function (result) {
-                console.log("RESULT " + result);
-                assert.deepEqual(JSON.stringify(result), "Michael Way");
-                done();
-            });
-
-            console.log("AFTER " + result);
+            let name = findAuthor("michael@info.com");
+            assert.deepStrictEqual(name, "Francis");
+            done();
 
             // Parse.Cloud.run("login", {
             //     username: "dev@psyphertxt.com",
