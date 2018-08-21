@@ -37,7 +37,7 @@ describe('queringMachine', function () {
                 // console.log("DATA");
 
                 dat = data.length;
-                    assert.equal(dat, 2);
+                assert.equal(dat, 2);
 
             });
 
