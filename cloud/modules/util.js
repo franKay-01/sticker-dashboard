@@ -157,7 +157,6 @@ setResponseOk = function (data) {
     let success = {};
     success[KEY_RESPONSE_CODE] = RESPONSE_OK;
     success[KEY_DATA] = data;
-    console.log("SUCCESS SERVER RESPONSE " + JSON.stringify(success));
     return success;
 };
 
@@ -168,8 +167,6 @@ setResponseOk = function (data) {
  * @param error
  */
 handleError = function (res, error) {
-
-    prettyLogger(JSON.stringify(error), prettyLoggerName("ERROR"));
 
     if (error === undefined) {
         error = {};
@@ -266,8 +263,6 @@ handleError = function (res, error) {
                     break;
             }
         }
-
-        prettyLoggerJSON(error, prettyLoggerName("DEVELOPER::HANDLE CALLED ERROR"));
         res.success(error);
     }
 };

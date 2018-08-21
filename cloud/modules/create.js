@@ -6,6 +6,7 @@ exports.Sticker = sticker => {
     let _sticker = {};
 
     if (sticker) {
+
         _sticker.id = sticker.id;
         _sticker.name = sticker.get("name");
         _sticker.description = sticker.get("description");
