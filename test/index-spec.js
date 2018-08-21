@@ -25,7 +25,7 @@ describe('loggingMachine', function () {
                 Parse.User.become(user.getSessionToken()).then((user) => {
 
                     data = user.getSessionToken().getUsername();
-                    assert.equal(data, "dev@psyphertxt.co");
+                    assert(data, "dev@psyphertxt.co");
 
                 }, error => {
 
