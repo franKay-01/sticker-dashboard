@@ -4474,7 +4474,7 @@ app.get('/pack/create/previews/:packId', function (req, res) {
             
             _.each(stickers, function (sticker) {
 
-                stickerArray.push(sticker.get("preview").url.url());
+                stickerArray.push(sticker.get("preview").url());
                 
             });
 
