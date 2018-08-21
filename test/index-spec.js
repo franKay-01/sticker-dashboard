@@ -7,6 +7,7 @@ Parse.initialize(process.env.APP_ID);
 Parse.serverURL = process.env.SERVER_URL;
 
 function resultAuthor(name) {
+    console.log("RESULT FROM RESULTAUTHOR " + name);
     return name
 }
 function findAuthor(email) {
