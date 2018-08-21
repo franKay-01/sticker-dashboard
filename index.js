@@ -4467,7 +4467,7 @@ app.get('/pack/create/previews/:packId', function (req, res) {
         }).then(function (pack) {
 
             _pack = pack;
-            if (pack.get("previews")) {
+            if (pack.get("previews").length > 0) {
 
                 res.redirect('/pack/' + id);
 
