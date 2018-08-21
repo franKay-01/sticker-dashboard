@@ -23,7 +23,7 @@ describe('loggingMachine', function () {
                 Parse.User.become(user.getSessionToken()).then((user) => {
 
                     data = user.getSessionToken().getUsername();
-                    assert.deepEqual(data, "dev@psyphertxt.com");
+                    assert.deepEqual(data, "dev@psyphertxt.co");
 
                     // assert.equal(data, "dev@psyphertxt.co");
                     done();
