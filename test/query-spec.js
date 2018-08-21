@@ -10,20 +10,30 @@ describe('queringMachine', function () {
     describe('Query Packs', function () {
         it('Queries into Packs', function () {
 
+            let name = "";
+            let verison = 0;
+            let description = "";
+            let archive = false;
+            let userId = "";
+
             new Parse.Query(_class.Packs).equalTo("version", 1).first().then(function (data) {
-                // assert.isObject(data);
-                // assert.isString(data.get("name"));
-                // assert.isNumber(data.get("version"));
-                // assert.isString(data.get("description"));
-                // assert.isBoolean(data.get("archived"));
-                // assert.isString(data.get("userId"));
-                // assert.isString(data.get("description"));
-                // let preview = data.get("artwork").url();
-                //
-                // let extension = /[^.]+$/.exec(preview);
-                // assert.equal(extension, "jpg" | "png");
+                name = data.get("name");
+                verison = data.get("version");
+                description = data.get("description");
+                archive = data.get("archived");
+                userId = data.get("userId");
+
+                assert.isString(name);
+                assert.isNumber(verison);
+                assert.isString(description);
+                assert.isBoolean(archive);
+                assert.isString(userId);
+                let preview = data.get("artwork").url();
+
+                let extension = /[^.]+$/.exec(preview);
+                assert.equal(extension, "jpg" | "png");
                 assert.equal(data.get("name"), 'Francis');
-                console.log("DATA " + data.get("name"));
+                console.log("DATA " + name +  " " + version);
 
             });
 
