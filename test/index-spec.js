@@ -21,11 +21,12 @@ describe('loggingMachine', function () {
             }).then(user => {
                 Parse.User.become(user.getSessionToken()).then((user) => {
 
+                    console.log("USER " + JSON.stringify(user));
                     data = user.getUsername();
                     let check = "dev@psyphertxt.co";
 
-                    console.log("DATA INFO " + data);
-                    console.log("DATA INFO CHECK" + check);
+                    console.log("DATA INFO " + JSON.stringify(data));
+                    console.log("DATA INFO CHECK" + JSON.stringify(check));
                     assert.deepStrictEqual(data, check);
                     done();
 
