@@ -6,6 +6,8 @@ let Parse = require("parse/node").Parse; // import the module
 Parse.initialize(process.env.APP_ID);
 Parse.serverURL = process.env.SERVER_URL;
 
+let result = [];
+
 describe('loggingMachine', function () {
     describe('log In', function () {
         it('should start empty', function() {
@@ -17,11 +19,10 @@ describe('loggingMachine', function () {
         it('logs into account', function () {
 
             new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
-                let dat = [];
-                dat = parseInt(data.length);
+                result = parseInt(data.length);
                 console.log("BEFORE " + data.length);
                 // expect(dat).to.be.equal(2);
-                assert.equal(dat, 3);
+                assert.equal(result, 3);
                 console.log("AFTER " + data.length);
 
                 // done();
