@@ -62,8 +62,6 @@ exports.Pack = (pack, stickerList) => {
 
     let _pack = {};
 
-    console.log("stickerList object " + JSON.stringify(stickerList));
-
     if (pack && stickerList.length) {
 
         _pack.id = pack.id;
@@ -86,6 +84,8 @@ exports.Pack = (pack, stickerList) => {
 
         let _stickers = [];
         _.map(stickerList, function (stickers) {
+
+            console.log("STICKERs" + JSON.stringify(stickers));
 
             if (stickers.length) {
 
