@@ -5776,7 +5776,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
 
                     }).then(function (success) {
 
-                        console.log("STORY NOTIFICATION WAS SENT SUCCESSFUL");
+                        console.log("STORY NOTIFICATION WAS SENT SUCCESSFULLY");
 
                     }, function (status) {
 
@@ -5808,11 +5808,11 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                         topic: process.env.TOPIC_PREFIX + "feed.sticker"
                     }).then(function (success) {
 
-                        console.log("NOTIFICATION WAS SENT SUCCESSFUL");
+                        console.log("STICKER NOTIFICATION WAS SENT SUCCESSFULLY");
 
                     }, function (status) {
 
-                        console.log("NOTIFICATION WASN'T SENT " + status);
+                        console.log("STICKER NOTIFICATION WASN'T SENT " + status);
 
                     });
 
