@@ -4488,7 +4488,7 @@ app.get('/pack/create/previews/:packId', function (req, res) {
 
         }, function (error) {
 
-            console.log("ERROR " + JSON.stringify(error));
+            console.log("ERROR " + error.message);
             res.redirect('/pack/' + id);
 
         })
