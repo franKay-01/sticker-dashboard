@@ -118,24 +118,18 @@ Parse.Cloud.define("getPacks", function (req, res) {
     return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).notEqualTo("objectId", DEFAULT_PACK).descending("createdAt").find({useMasterKey: true})
         .then(function (packs) {
 
-            console.log("PACK LENGTH " + packs.length);
-
             if (packs.length) {
-
-                console.log("PACK LENGTH CHECK" + packs.length);
 
                 _packs = packs;
 
                 let promises = [];
                 _.map(packs, function (pack) {
-                    promises.push(pack.relation(_class.Packs).query().limit(1000).find({useMasterKey: true}));
+                    promises.push(pack.relation(_class.Packs).query().limit(6).find({useMasterKey: true}));
                 });
 
                 return Parse.Promise.when(promises);
 
             } else {
-
-                console.log("PACK LENGTH ERROR" + packs.length);
 
                 util.handleError(res, util.setErrorType(util.PACKS_ERROR));
 
@@ -145,10 +139,6 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
             let packList = [];
 
-            console.log("PACK STICKERS" + stickerList.length);
-
-            //TODO check if pack is published
-            //TODO check if pack has not been archived
             _.map(_packs, pack => {
                 packList.push(create.Pack(pack, stickerList));
             });
@@ -268,7 +258,11 @@ Parse.Cloud.define("getStories", function (req, res) {
         new Parse.Query(_class.ArtWork).find()
     ).then((stories, artworks) => {
 
+        console.log("Checking stories");
+
         if (_stories.length) {
+
+            console.log("Checking length " + _stories.length);
 
             _stories = stories;
             _artworks = artworks;
@@ -283,6 +277,7 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         } else {
 
+            console.log("Checking error " + _stories.length);
             util.handleError(res, util.setErrorType(util.STORIES_ERROR));
 
         }
@@ -290,6 +285,7 @@ Parse.Cloud.define("getStories", function (req, res) {
     }).then(stickers => {
 
         let storyIds = [];
+        console.log("Checking error " + stickers.length);
 
         _.each(_stories, function (story) {
 
