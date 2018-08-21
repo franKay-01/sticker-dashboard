@@ -6213,6 +6213,8 @@ app.get('/get_acl', function (req, res) {
 
 app.get('/packs_exp', function (req, res) {
 
+    let _packs = [];
+
     let _ = {
         "name": "I dey",
         "localName": "I dey",
@@ -6241,16 +6243,22 @@ app.get('/packs_exp', function (req, res) {
         "objectId": "3gG5iiQkpU"
     };
 
-    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", "QcNeI1fXqF").descending("createdAt").find({useMasterKey: true})
+    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", "QcNeI1fXqF").descending("createdAt").include(_class.Stickers).find({useMasterKey: true})
         .then(function (packs) {
 
-            if (packs.length) {
+            if (packs.length > 0) {
+
+                res.send(packs)
 
                 _packs = packs;
 
                 let promises = [];
                 _.map(packs, function (pack) {
-                    promises.push(pack.relation(_class.Packs).query().limit(6).find({useMasterKey: true}));
+                    promises.push(pack.relation(_class.Packs).query().equalTo("parent", {
+                            __type: 'Pointer',
+                            className: _class.Packs,
+                            objectId: pack.id
+                        }).limit(6).find({useMasterKey: true}));
                     // promises.push(new Parse.Query(_class.Stickers).equalTo("parent", {
                     //     __type: 'Pointer',
                     //     className: _class.Packs,
