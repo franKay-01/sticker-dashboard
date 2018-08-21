@@ -23,6 +23,8 @@ function findAuthor(email) {
 
 describe('loggingMachine', function () {
     describe('log In', function () {
+        let name = findAuthor("michael@info.com");
+
         it('should start empty', function () {
             var arr = [];
 
@@ -32,7 +34,6 @@ describe('loggingMachine', function () {
         it('logs into account', function () {
             // assert.equal(result.length, 3);
 
-            let name = findAuthor("michael@info.com");
             console.log("NAME " + name);
             assert.deepEqual(name, "Michael bay");
             done();
