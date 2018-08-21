@@ -6243,7 +6243,7 @@ app.get('/packs_exp', function (req, res) {
         "objectId": "3gG5iiQkpU"
     };
 
-    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", "QcNeI1fXqF").descending("createdAt").find({useMasterKey: true})
+    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", "QcNeI1fXqF").find({useMasterKey: true})
         .then(function (packs) {
 
             if (packs) {
@@ -6267,7 +6267,7 @@ app.get('/packs_exp', function (req, res) {
 
             }  else {
 
-                res.send("error")
+                res.send("error message")
 
             }
 
@@ -6277,7 +6277,7 @@ app.get('/packs_exp', function (req, res) {
 
         }, function (error) {
 
-            res.send("error " + JSON.stringify(error))
+            res.send(error)
 
         });
 
