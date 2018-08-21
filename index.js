@@ -6176,12 +6176,15 @@ app.get("/fix_arrays", function (req, res) {
 
         }).then(function (packs) {
 
+            console.log("PACKS " + JSON.stringify(packs));
+
             _.each(packs, function (pack) {
+                console.log("PACKS " + JSON.stringify(pack));
 
                 pack.set("previews", []);
                 _packs.push(pack);
 
-            })
+            });
             return Parse.Object.saveAll(_packs);
 
         }).then(function (packs) {
