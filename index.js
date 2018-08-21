@@ -6246,6 +6246,8 @@ app.get('/packs_exp', function (req, res) {
     return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", "QcNeI1fXqF").descending("createdAt").find({useMasterKey: true})
         .then(function (packs) {
 
+            res.send(packs);
+
             if (packs.length) {
 
                 _packs = packs;
