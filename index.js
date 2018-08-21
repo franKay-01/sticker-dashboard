@@ -6274,7 +6274,7 @@ app.get('/packs_exp', function (req, res) {
 
         }).then(function (stickerList) {
 
-            res.send(stickerList[0].length)
+            res.send(stickerList)
 
         }, function (error) {
 
