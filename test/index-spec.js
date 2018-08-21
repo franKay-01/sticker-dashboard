@@ -6,8 +6,6 @@ let Parse = require("parse/node").Parse; // import the module
 Parse.initialize(process.env.APP_ID);
 Parse.serverURL = process.env.SERVER_URL;
 
-let result = [];
-
 describe('loggingMachine', function () {
     describe('log In', function () {
         it('should start empty', function() {
@@ -17,6 +15,7 @@ describe('loggingMachine', function () {
         });
 
         it('logs into account', function () {
+            let result = [];
 
             new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
                 // result = parseInt(data.length);
