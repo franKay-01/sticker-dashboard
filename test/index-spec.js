@@ -6,12 +6,14 @@ let Parse = require("parse/node").Parse; // import the module
 Parse.initialize(process.env.APP_ID);
 Parse.serverURL = process.env.SERVER_URL;
 
+let name = "";
+
+
 function resultAuthor(name) {
     console.log("RESULT FROM RESULTAUTHOR " + name);
     return name
 }
 function findAuthor(email) {
-    let name = "";
 
     new Parse.Query(_class.Authors).equalTo("email", email).first().then(function (data) {
         console.log("LOG FROM FUNCTION " + data.get("name"));
@@ -24,7 +26,9 @@ function findAuthor(email) {
 
 describe('loggingMachine', function () {
     describe('log In', function () {
-        let name = await(findAuthor("michael@info.com"));
+        let name = findAuthor("michael@info.com");
+
+        this.timeout(30000);
 
         it('should start empty', function () {
             var arr = [];
