@@ -36,10 +36,6 @@ describe('loggingMachine', function () {
 
 
         });
-
-
-        //  loggingMachine.login("dev@psyphertxt.com", "WonDerful1").then(function (result) {
-        //     assert.equal(result, "dev@psyphertxt.com");
-        // })
     });
+
 });
