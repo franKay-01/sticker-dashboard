@@ -6166,7 +6166,7 @@ app.get('/newsletter/send/story', function (req, res) {
 app.get("/fix_arrays", function (req, res) {
 
     let token = req.cookies.token;
-    let _packs;
+    let _packs = [];
 
     if (token) {
 
@@ -6176,10 +6176,8 @@ app.get("/fix_arrays", function (req, res) {
 
         }).then(function (packs) {
 
-            console.log("PACKS " + JSON.stringify(packs));
-
             _.each(packs, function (pack) {
-                console.log("PACKS " + JSON.stringify(pack));
+                console.log("PACK " + JSON.stringify(pack));
 
                 pack.set("previews", []);
                 _packs.push(pack);
