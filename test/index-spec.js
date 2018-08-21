@@ -45,7 +45,7 @@ describe('loggingMachine', function () {
 
                         setTimeout( function(){
                             expect(data).to.be.equal(result);
-                            done();
+                            // done();
                         }, 0 );
 
                         // assert.equal(data, "dev@psyphertxt.co");
