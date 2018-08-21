@@ -30,7 +30,7 @@ describe('Query Packs', function () {
             let preview = data[0].get("artwork").url();
 
             let extension = /[^.]+$/.exec(preview);
-            assert.equal(extension, "jpg" | "png");
+            assert.equal(extension, "jpg" || "png");
 
             dat = data.length;
             assert.equal(dat, 2);
