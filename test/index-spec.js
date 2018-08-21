@@ -41,10 +41,10 @@ describe('loggingMachine', function () {
                         data = user.getSessionToken().getUsername();
                         console.log("DATA INFO " + data);
                         // assert.deepEqual(data, "dev@psyphertxt.co");
+                        let result = "dev@psyphertxt.co";
 
                         setTimeout( function(){
-                            let result = "dev@psyphertxt.co";
-                            expect(data).to.be.result;
+                            expect(data).to.be.equal(result);
                             done();
                         }, 0 );
 
