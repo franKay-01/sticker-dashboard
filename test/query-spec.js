@@ -9,7 +9,7 @@ describe('queringMachine', function () {
     describe('Query Packs', function () {
         it('Queries into Packs', function () {
 
-            new Parse.Query(_class.Packs).first().then(function (data) {
+            new Parse.Query(_class.Packs).equalTo("version", 1).first().then(function (data) {
                 assert.isObject(data);
                 assert.isString(data.get("name"), 'order placed');
                 assert.isNumber(data.get("version"), 0);
