@@ -12,10 +12,9 @@ describe('loggingMachine', function () {
 
             new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
                 console.log("DATA INFO " + JSON.stringify(data));
-                console.log("DATA INFO " + JSON.stringify(data.get("name")));
 
                 dat = data.length;
-                expect(dat).to.equal(2);
+                expect(dat).to.equal("1");
 
                 // assert.equal(dat, 2);
 
