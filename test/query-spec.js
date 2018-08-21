@@ -22,9 +22,7 @@ describe('queringMachine', function () {
                 //
                 // let extension = /[^.]+$/.exec(preview);
                 // assert.equal(extension, "jpg" | "png");
-
-                expect(data.get("name")).to.be.a('number');
-
+                assert.equal(data.get("name"), 'Francis');
 
             });
 
