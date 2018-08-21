@@ -12,9 +12,12 @@ describe('loggingMachine', function () {
 
             new Parse.Query(_class.Authors).limit(1).find().then(function (data) {
                 console.log("DATA INFO " + JSON.stringify(data));
+                console.log("DATA INFO " + JSON.stringify(data.get("name")));
 
                 dat = data.length;
-                assert.equal(dat, 2);
+                expect(dat).to.equal(2);
+
+                // assert.equal(dat, 2);
 
             });
             // Parse.Cloud.run("login", {
