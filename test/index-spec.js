@@ -30,7 +30,7 @@ describe('loggingMachine', function () {
 
         // findAuthor("michael@info.com").then(function (name) {
 
-            new Parse.Query(_class.Authors).equalTo("email", email).first().then(function (data) {
+            new Parse.Query(_class.Authors).equalTo("email", "michael@info.com").first().then(function (data) {
 
                 let name = data.get("name");
                 it('logs into account', function () {
