@@ -11,45 +11,31 @@ describe('loggingMachine', function () {
     describe('log In', function () {
         it('should be object', function (done) {
 
-            let email = "michael@info.com";
+            new Promise(async (resolve, reject) => {
 
-            let query = new Parse.Query(_class.Authors);
-            query.equalTo("email", email);
-            query.first().then(function (author) {
+                let email = "michael@info.com";
 
+                let query = new Parse.Query(_class.Authors);
+                query.equalTo("email", email);
+                query.first().then(function (author) {
 
-                request.get('/authors')
-                    .then(function(res) {
-                        expect(res).to.have.status(200);
-                        expect(res).to.be.an('object');
-                        done();
-                    })
-                    .catch(function(err) {
-                        throw err;
-                    });
-
-                // console.log("AUTHER NAME " + author.get("name"));
-                // name = author.get("name");
-                // // expect(author).to.be.an('array', 'nooo why fail??');
-                // // assert.typeOf(author, '');
-                // expect(name).to.be.an('object');
-
-                // expect({"bar": "foo"}).to.be('array', 'nooo why fail??');
-                // expect({a: 1}).to.be.an('object');
-
-                // expect([1, 2, 3]).to.be.an('array').that.includes(4);
-
-
-            })
+                    console.log("AUTHER NAME " + author.get("name"));
+                    name = author.get("name");
+                    // expect(author).to.be.an('array', 'nooo why fail??');
+                    // assert.typeOf(author, '');
+                    expect(name).to.be.an('object');
+                })
+            });
+            done();
 
         });
-        //
-        // it('should start empty', function () {
-        //     var arr = [];
-        //
-        //     assert.equal(arr.length, 1);
-        // });
-        //
+
+        it('should start empty', function () {
+            var arr = [];
+
+            assert.equal(arr.length, 1);
+        });
+
     });
 
 });
