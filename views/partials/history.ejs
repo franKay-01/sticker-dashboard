@@ -8,9 +8,7 @@
 
 <% } else { %>
 <% items.forEach(function(item, index) { %>
-<p style="color: red"><%= date[index] %></p>
-
-<% if (item.get("type") === type.FEED_TYPE.sticker){%>
+<% if (feedType === "sticker"){%>
 <div class="medium-3 large-3 cell card-zoom icons ">
     <center>
         <p><%= date[index] %></p>
@@ -21,7 +19,7 @@
     <div class="name_tag"><p class="pack_name_text"><%= item.get("name") %></p></div>
 
 </div>
-<%} else if (item.get("type") === type.FEED_TYPE.story){%>
+<%} else if (feedType === "story"){%>
 <div class="medium-3 large-3 cell card-zoom icons ">
     <center>
         <p><%= date[index] %></p>

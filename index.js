@@ -5662,6 +5662,7 @@ app.get('/feed/history/:type', function (req, res) {
 
             res.render("pages/feed/history", {
                 items: items,
+                feedType: feedType,
                 date: date,
                 type: type
 
