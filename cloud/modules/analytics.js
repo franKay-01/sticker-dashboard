@@ -96,7 +96,7 @@ exports.request = (opt) => {
  */
 exports.event = (opt) => {
 
-    return  database.ref(process.env.ANALYTICS_KEY).child(opt.reference).once('value');
+    return  database.ref(process.env.ANALYTICS_KEY + "/" + opt.reference).once('value');
 
 };
 
