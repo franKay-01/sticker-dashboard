@@ -6233,12 +6233,14 @@ app.get('/firebase', function (req, res) {
         reference: analytics.FIREBASE_REFERENCE.story,
     }).then((items) => {
 
-        let val = analytics.data({
-            items: items,
-            type: analytics.ANALYTIC_TYPE_STRING.views
-        });
+        res.send(items);
 
-        res.send(val);
+        // let val = analytics.data({
+        //     items: items,
+        //     type: analytics.ANALYTIC_TYPE_STRING.views
+        // });
+
+
 
     }).catch((error) => {
         res.send(error);
