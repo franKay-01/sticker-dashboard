@@ -170,7 +170,7 @@
                         <div class="medium-1 hide-for-small"></div>
                         <div class="medium-10 small-12">
                             <div class="content-section padding-top gray-text">
-                                <p>
+                                <p style="text-align: center">
                                     <img src="<%= content.uri %>">
 
                                 </p>
@@ -190,9 +190,9 @@
                         <div class="medium-10 small-12">
                             <div class="content-section padding-top gray-text">
                                 <ul>
-                                    <% let arraySize = item.get("contents").list.length %>
+                                    <% let arraySize = item.get("contents").text.length %>
                                     <% for (let i = 0; i < arraySize; i++){ %>
-                                        <li> <%= item.get("contents").list[i] %></li>
+                                        <li> <%= item.get("contents").text[i] %></li>
                                     <% } %>
 
                                 </ul>

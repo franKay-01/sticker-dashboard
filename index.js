@@ -1918,17 +1918,13 @@ app.post('/storyitem/:id', function (req, res) {
             if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
                 storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
                 storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sideNote ||
-                storyItemType === type.STORY_ITEM.greyArea) {
+                storyItemType === type.STORY_ITEM.greyArea || type.STORY_ITEM.list) {
 
                 object = {"text": content};
 
             } else if (storyItemType === type.STORY_ITEM.heading) {
 
                 object = {"heading": heading, "text": content};
-
-            } else if (storyItemType === type.STORY_ITEM.list) {
-
-                object = {"list": content};
 
             }
 
@@ -6173,6 +6169,25 @@ app.get('/newsletter/send/story', function (req, res) {
 /*====================================== NEWSLETTER ============================*/
 
 /*====================================== EXPERIMENTS ============================*/
+
+app.get("/test_nosql/:info", function (req, res) {
+
+    let token = req.cookies.token;
+    let info = req.params.info;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            res.send("RESULTS " + info);
+        }, function (error) {
+            res.send("ERROR " + error.message);
+        })
+    }else {
+        res.redirect('/');
+    }
+});
+
 app.get("/fix_arrays", function (req, res) {
 
     let token = req.cookies.token;
