@@ -5645,6 +5645,8 @@ app.get('/feed/history/:type', function (req, res) {
                 }
             });
 
+            console.log("STICKERS " + JSON.stringify(stickers) + " DATE " + JSON.stringify(date));
+
             switch (feedType){
                 case sticker:
                     return new Parse.Query(_class.Stickers).containedIn("objectId", stickers).find();
@@ -5664,6 +5666,7 @@ app.get('/feed/history/:type', function (req, res) {
             })
         })
     }else {
+        res.redirect('/');
 
     }
 
