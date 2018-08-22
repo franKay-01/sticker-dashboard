@@ -112,9 +112,9 @@ exports.event = (opt) => {
  */
 exports.formatted = (opt) => {
 
-    if (opt.items) {
+    let data = [];
+    if (opt.items !== undefined || opt.items !== "undefined") {
 
-        let data = [];
         opt.items.forEach(item => {
             let id = item.key;
             let value = item.val()[opt.typeString].count;
