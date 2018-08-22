@@ -9,7 +9,7 @@ Parse.serverURL = process.env.SERVER_URL;
 
 describe('loggingMachine', function () {
     describe('log In', function () {
-        it('should be object', function () {
+        it('should be object', function (done) {
 
             let email = "michael@info.com";
 
@@ -17,11 +17,19 @@ describe('loggingMachine', function () {
             query.equalTo("email", email);
             query.first().then(function (author) {
 
-                console.log("AUTHER NAME " + author.get("name"));
-                name = author.get("name");
-                // expect(author).to.be.an('array', 'nooo why fail??');
-                // assert.typeOf(author, '');
-                expect(name).to.be.an('object');
+
+                request.get('/authors')
+                    .expect(200)
+                    .end(function(err, res) {
+                        expect(res.body).to.have.lengthOf(1);
+                        done(err);
+                    });
+
+                // console.log("AUTHER NAME " + author.get("name"));
+                // name = author.get("name");
+                // // expect(author).to.be.an('array', 'nooo why fail??');
+                // // assert.typeOf(author, '');
+                // expect(name).to.be.an('object');
 
                 // expect({"bar": "foo"}).to.be('array', 'nooo why fail??');
                 // expect({a: 1}).to.be.an('object');
