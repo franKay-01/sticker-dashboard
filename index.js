@@ -1918,17 +1918,13 @@ app.post('/storyitem/:id', function (req, res) {
             if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
                 storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
                 storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sideNote ||
-                storyItemType === type.STORY_ITEM.greyArea) {
+                storyItemType === type.STORY_ITEM.greyArea || type.STORY_ITEM.list) {
 
                 object = {"text": content};
 
             } else if (storyItemType === type.STORY_ITEM.heading) {
 
                 object = {"heading": heading, "text": content};
-
-            } else if (storyItemType === type.STORY_ITEM.list) {
-
-                object = {"list": content};
 
             }
 

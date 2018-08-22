@@ -295,9 +295,9 @@
                 <% } else if (item.get("type") === 10){ %>
 
                 <ul>
-                    <% let arraySize = item.get("contents").list.length %>
+                    <% let arraySize = item.get("contents").text.length %>
                     <% for (let i = 0; i < arraySize; i++){ %>
-                    <li> <%= item.get("contents").list[i] %></li>
+                    <li> <%= item.get("contents").text[i] %></li>
                     <% } %>
 
                 </ul>
