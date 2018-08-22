@@ -5768,7 +5768,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                             summary: story.summary,
                             topColor: story.topColor,
                             bottomColor: story.bottom,
-                            type:notificationType
+                            type: notificationType
                         },
 
                         //TODO retrieve first section from Server
@@ -5802,7 +5802,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                             id: _sticker.id,
                             name: _sticker.name,
                             url: _sticker.url,
-                            type:notificationType
+                            type: notificationType
                         },
                         //TODO retrieve first section from Server
                         topic: process.env.TOPIC_PREFIX + "feed.sticker"
@@ -6233,16 +6233,15 @@ app.get('/firebase', function (req, res) {
         reference: analytics.FIREBASE_REFERENCE.story,
     }).then((items) => {
 
-            let val = analytics.data({
-                items: items,
-                type: analytics.ANALYTIC_TYPE_STRING.views
-            });
+        let val = analytics.data({
+            items: items,
+            type: analytics.ANALYTIC_TYPE_STRING.views
+        });
 
-            res.send(JSON.stringify(val));
-        },
-        (error) => {
-            res.send(JSON.stringify(error));
-        })
+        res.send(JSON.stringify(val));
+    }).catch((error) => {
+        res.send(JSON.stringify(error));
+    })
 
 });
 
