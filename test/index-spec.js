@@ -28,14 +28,19 @@ function findAuthor(email) {
 describe('loggingMachine', function () {
     describe('log In', function () {
 
-        findAuthor("michael@info.com").then(function (name) {
-            it('logs into account', function () {
-                // assert.equal(result.length, 3);
+        // findAuthor("michael@info.com").then(function (name) {
 
-                console.log("NAME FROM IT " + name);
-                assert.deepEqual(name, "Michael bay");
-                done();
+            new Parse.Query(_class.Authors).equalTo("email", email).first().then(function (data) {
 
+                let name = data.get("name");
+                it('logs into account', function () {
+                    // assert.equal(result.length, 3);
+
+                    console.log("NAME FROM IT " + name);
+                    assert.deepEqual(name, "Michael bay");
+                    done();
+
+                })
                 // Parse.Cloud.run("login", {
                 //     username: "dev@psyphertxt.com",
                 //     password: "WonDerful1"
@@ -64,7 +69,7 @@ describe('loggingMachine', function () {
                 // });
 
 
-            });
+            // });
         });
 
 
