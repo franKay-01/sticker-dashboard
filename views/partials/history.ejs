@@ -11,7 +11,7 @@
 <% if (feedType === "sticker"){%>
 <div class="medium-3 large-3 cell card-zoom icons ">
     <center>
-        <p><%= date[index] %></p>
+        <p style="font-weight: bold"><%= date[index] %></p>
     </center>
     <center>
         <img class="pack_artwork" src="<%= item.get("uri").url() %>" style="height: 250px">
@@ -22,7 +22,7 @@
 <%} else if (feedType === "story"){%>
 <div class="medium-3 large-3 cell card-zoom icons ">
     <center>
-        <p><%= date[index] %></p>
+        <p style="font-weight: bold"><%= date[index] %></p>
     </center>
     <center>
         <p class="none"><b>No Artwork</b></p>
