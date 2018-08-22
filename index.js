@@ -5682,8 +5682,6 @@ app.get('/feed/history/:type', function (req, res) {
 
             _allArtwork = artworks;
 
-            console.log("STORIES " + JSON.stringify(_story));
-
             _.each(artworks, function (artwork) {
 
                 _.each(_story, function (story) {
@@ -5694,8 +5692,8 @@ app.get('/feed/history/:type', function (req, res) {
 
 
             });
-            console.log("STORIES " + JSON.stringify(artworks));
 
+            console.log("STORIES " + JSON.stringify(artWork));
 
             return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
 
@@ -5705,6 +5703,8 @@ app.get('/feed/history/:type', function (req, res) {
             _.each(artWork, function (artworks) {
 
                 _.each(stickers, function (sticker) {
+
+                    console.log("ARTWORK " + JSON.stringify(artworks));
 
                     if (artworks === sticker.id) {
 
