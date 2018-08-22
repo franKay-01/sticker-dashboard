@@ -315,9 +315,11 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     }).then((items) => {
 
-        console.log("GET ITEMS " + JSON.stringify(items));
+
 
         if (items && storyList.length) {
+
+            console.log("GET ANALYTICS");
 
             let data = analytics.process({
                 items: items,
@@ -328,10 +330,11 @@ Parse.Cloud.define("getStories", function (req, res) {
 
             _.each(storyList, story => {
 
-                console.log("GET ANALYTICS");
+                console.log("ADD DATA");
 
                 _.each(data, item => {
                     if (story.id === item.id) {
+                        console.log("MUCH ID's " + item.id + " - " + story.id);
                         story.views = item.value
                     }
                 });
