@@ -17,9 +17,11 @@ describe('loggingMachine', function () {
             query.equalTo("email", email);
             query.first().then(function (author) {
 
+                console.log("AUTHER NAME " + author.get("name"));
+                name = author.get("name");
                 // expect(author).to.be.an('array', 'nooo why fail??');
                 // assert.typeOf(author, '');
-                expect(author).to.be.an('object');
+                expect(name).to.be.an('object');
 
                 // expect({"bar": "foo"}).to.be('array', 'nooo why fail??');
                 // expect({a: 1}).to.be.an('object');
