@@ -1,0 +1,28 @@
+<% if (items.length === 0) { %>
+<div class="medium-3 large-3 cell icons">
+    <center>
+        <p class="none" style="margin: 145px 90px auto;"><b>No Items</b></p>
+    </center>
+</div>
+
+<% } else { %>
+<% items.forEach(function(item, index) { %>
+<% combined.forEach(function (art, count) { %>
+<% if (art.story === item.id){ %>
+<div class="medium-3 large-3 cell card-zoom icons ">
+    <center>
+        <p style="font-weight: bold"><%= date[index] %></p>
+    </center>
+    <center>
+        <img class="pack_artwork" src="<%= art.image %>" style="height: 250px">
+    </center>
+    <div class="name_tag"><p class="pack_name_text"><%= item.get("title") %></p></div>
+
+</div>
+<% } %>
+
+<% }) %>
+<% }); %>
+<% } %>
+
+
