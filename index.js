@@ -5658,8 +5658,6 @@ app.get('/feed/history/:type', function (req, res) {
 
         }).then(function (items) {
 
-            console.log("STICKERS FROM QUERY " + JSON.stringify(items));
-
             res.render("pages/feed/history", {
                 items: items,
                 feedType: feedType,
