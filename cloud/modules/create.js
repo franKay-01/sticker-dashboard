@@ -113,6 +113,9 @@ exports.StoryArtwork = (story, sticker) => {
             story.stickerPreviewUrl = "";
         }
     }
+
+    console.log("STICKER PREVIEW URL " + story.stickerPreviewUrl);
+
     return story;
 
 };
