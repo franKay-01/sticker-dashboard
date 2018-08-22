@@ -19,8 +19,11 @@ describe('loggingMachine', function () {
 
                 console.log("AUTHOR " + JSON.stringify(author));
                 // expect(author).to.be.an('array', 'nooo why fail??');
+                assert.typeOf(author, 'object');
                 // expect({"bar": "foo"}).to.be('array', 'nooo why fail??');
-                expect([1, 2, 3]).to.be.an('array').that.includes(4);
+                // expect({a: 1}).to.be.an('object');
+
+                // expect([1, 2, 3]).to.be.an('array').that.includes(4);
 
 
             })
