@@ -106,7 +106,7 @@ exports.event = (opt) => {
  * @param {string} opt.items - a return list of items from firebase
  * @param {string} opt.type - type is views,shares,downloads,used
  */
-exports.process = (opt) => {
+exports.data = (opt) => {
 
     let data = [];
     opt.items.forEach(item => {
