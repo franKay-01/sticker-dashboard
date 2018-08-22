@@ -15,8 +15,6 @@ let cors = require('cors');
 let methodOverride = require('method-override');
 let moment = require('moment');
 let admin = require('firebase-admin');
-let sanitize = require('mongo-sanitize');
-
 
 //for parsing location, directory and paths
 let path = require('path');
@@ -93,7 +91,7 @@ let api = new ParseServer({
     // serverURL: config.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
 
     //**** Security Settings ****//
-    // allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
+    allowClientClassCreation: false,
 
     appId: process.env.APP_ID || 'myAppId', //For heroku,
     //  clientKey: process.env.CLIENT_KEY || 'clientKey',
@@ -6169,7 +6167,7 @@ app.get('/newsletter/send/story', function (req, res) {
 app.get("/test_nosql/:info", function (req, res) {
 
     let token = req.cookies.token;
-    let info = sanitize(req.params.info);
+    let info = req.params.info;
 
     if (token) {
 
