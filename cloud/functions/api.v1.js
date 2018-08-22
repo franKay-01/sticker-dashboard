@@ -271,11 +271,11 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         if (stickers.length) {
 
-            console.log("GET STICKERS");
-
             let storyIds = [];
 
             _.each(_stories, function (story) {
+
+                console.log("GET STICKERS");
 
                 let _story = create.Story(story);
 
@@ -283,9 +283,14 @@ Parse.Cloud.define("getStories", function (req, res) {
 
                 _.each(_artworks, function (artwork) {
 
+                    console.log("GET ARTWORK");
+
                     _.each(stickers, function (sticker) {
 
+                        console.log("GET ARTWORK STICKER");
+
                         if (artwork.get("stickerId") === sticker.id && artwork.get("itemId") === story.id) {
+                            console.log("GET ARTWORK STICKER BY ID");
                             _story = create.StoryArtwork(_story, sticker);
 
                         }
@@ -312,8 +317,6 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         if (items && storyList.length) {
 
-            console.log("GET ANALYTICS");
-
             let data = analytics.process({
                 items: items,
                 type: analytics.ANALYTIC_TYPE_STRING.views
@@ -322,6 +325,8 @@ Parse.Cloud.define("getStories", function (req, res) {
             let stories = [];
 
             _.each(storyList, story => {
+
+                console.log("GET ANALYTICS");
 
                 _.each(data, item => {
                     if (story.id === item.id) {
