@@ -91,7 +91,7 @@ let api = new ParseServer({
     // serverURL: config.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
 
     //**** Security Settings ****//
-    // allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
+    allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
 
     appId: process.env.APP_ID || 'myAppId', //For heroku,
     //  clientKey: process.env.CLIENT_KEY || 'clientKey',
@@ -6238,7 +6238,7 @@ app.get('/firebase', function (req, res) {
         items.forEach(item => {
             let id = item.key;
             let value = item.val();
-            let count = value[opt.type].count;
+            let count = value["views"].count;
             data.push({id:id,value:count});
         });
 
