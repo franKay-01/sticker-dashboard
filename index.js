@@ -5649,8 +5649,6 @@ app.get('/feed/history/:type', function (req, res) {
                 }
             });
 
-            console.log("STORIES BEGIN " + JSON.stringify(stories));
-
             switch (feedType) {
                 case sticker:
                     return new Parse.Query(_class.Stickers).containedIn("objectId", stickers).find();
@@ -5662,8 +5660,6 @@ app.get('/feed/history/:type', function (req, res) {
 
         }).then(function (items) {
             _story = items;
-            console.log("STORIES CONT'D " + JSON.stringify(_story));
-
 
             switch (feedType) {
                 case sticker:
@@ -5687,7 +5683,6 @@ app.get('/feed/history/:type', function (req, res) {
             _.each(artworks, function (artwork) {
 
                 _.each(_story, function (story) {
-                    console.log("STORY ID  " + story);
 
                     if (artwork.get("itemId") === story.id) {
                         artWork.push(artwork.get("stickerId"));
@@ -5695,8 +5690,6 @@ app.get('/feed/history/:type', function (req, res) {
                 })
 
             });
-            console.log("ARRAY OF STORY ART " + JSON.stringify(artWork));
-
 
             return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
 
@@ -5717,8 +5710,6 @@ app.get('/feed/history/:type', function (req, res) {
                     }
                 })
             });
-
-            console.log("COMBINED " + JSON.stringify(combined) + " " + JSON.stringify(_story));
 
             res.render("pages/feed/history", {
                 items: _story,
