@@ -34,6 +34,7 @@
     "mailgun-js": "^0.14.2",
     "method-override": "^2.3.9",
     "moment": "^2.22.1",
+    "mongo-sanitize": "^1.0.0",
     "multer": "^1.3.0",
     "parse": "~1.11.1",
     "parse-server": "~2.8.4",

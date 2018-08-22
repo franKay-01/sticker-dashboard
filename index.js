@@ -15,6 +15,8 @@ let cors = require('cors');
 let methodOverride = require('method-override');
 let moment = require('moment');
 let admin = require('firebase-admin');
+let sanitize = require('mongo-sanitize');
+
 
 //for parsing location, directory and paths
 let path = require('path');
@@ -6163,6 +6165,25 @@ app.get('/newsletter/send/story', function (req, res) {
 /*====================================== NEWSLETTER ============================*/
 
 /*====================================== EXPERIMENTS ============================*/
+
+app.get("/test_nosql/:info", function (req, res) {
+
+    let token = req.cookies.token;
+    let info = sanitize(req.params.info);
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            res.send("RESULTS " + info);
+        }, function (error) {
+            res.send("ERROR " + error.message);
+        })
+    }else {
+        res.redirect('/');
+    }
+});
+
 app.get("/fix_arrays", function (req, res) {
 
     let token = req.cookies.token;
