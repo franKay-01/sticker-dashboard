@@ -49,15 +49,15 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
     }).then((sticker, story, storyArtwork) => {
 
-        if(sticker && story && storyArtwork) {
+        if (sticker && story && storyArtwork) {
 
-        _sticker = sticker;
-        _story = story;
+            _sticker = sticker;
+            _story = story;
 
-        return Parse.Promise.when(
-            new Parse.Query(_class.Stickers).equalTo("objectId", storyArtwork.get("stickerId")).first({useMasterKey: true}),
-            new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find({useMasterKey: true})
-        );
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stickers).equalTo("objectId", storyArtwork.get("stickerId")).first({useMasterKey: true}),
+                new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find({useMasterKey: true})
+            );
 
         } else {
 
@@ -67,24 +67,24 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
     }).then((sticker, storyItems) => {
 
-        if(sticker && storyItems) {
+        if (sticker && storyItems) {
 
-        feed.stickerOfDay = create.Sticker(_sticker);
-        let _latestStory = create.Story(_story);
+            feed.stickerOfDay = create.Sticker(_sticker);
+            let _latestStory = create.Story(_story);
 
-        _latestStory.stories = create.StoryItems(storyItems);
-        feed.latestStory = create.StoryArtwork(_latestStory, sticker);
+            _latestStory.stories = create.StoryItems(storyItems);
+            feed.latestStory = create.StoryArtwork(_latestStory, sticker);
 
-        let packList = [];
+            let packList = [];
 
-        _.map(_packs, pack => {
-            packList.push(create.Pack(pack))
-        });
+            _.map(_packs, pack => {
+                packList.push(create.Pack(pack))
+            });
 
 
-        feed.packs = packList;
+            feed.packs = packList;
 
-        res.success(util.setResponseOk(feed));
+            res.success(util.setResponseOk(feed));
 
         } else {
 
@@ -139,7 +139,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
             }
 
-        }, (error)  => {
+        }, (error) => {
 
             util.handleError(res, error);
         });
@@ -265,56 +265,63 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     }).then(stickers => {
 
-        let storyIds = [];
+        if (stickers.length) {
 
-        _.each(_stories, function (story) {
+            let storyIds = [];
 
-            let _story = create.Story(story);
+            _.each(_stories, function (story) {
 
-            storyIds.push(_story.id);
+                let _story = create.Story(story);
 
-            _.each(_artworks, function (artwork) {
+                storyIds.push(_story.id);
 
-                _.each(stickers, function (sticker) {
+                _.each(_artworks, function (artwork) {
 
-                    if (artwork.get("stickerId") === sticker.id && artwork.get("itemId") === story.id) {
-                        _story = create.StoryArtwork(_story, sticker);
+                    _.each(stickers, function (sticker) {
 
-                    }
-                })
+                        if (artwork.get("stickerId") === sticker.id && artwork.get("itemId") === story.id) {
+                            _story = create.StoryArtwork(_story, sticker);
+
+                        }
+                    })
+                });
+
+                storyList.push(_story);
+
             });
 
-            storyList.push(_story);
+            return analytics.event({
+                reference: analytics.FIREBASE_REFERENCE.story
+            })
 
-        });
+        } else {
 
-        return analytics.event({
-            reference: analytics.FIREBASE_REFERENCE.story
-        })
+            util.handleError(res, util.setErrorType(util.STORIES_ERROR));
 
+        }
 
     }).then((items) => {
 
-        let data = analytics.process({
-            items: items,
-            type: analytics.ANALYTIC_TYPE_STRING.views
-        });
+        if (items && storyList.length) {
 
-        let stories = [];
-
-        _.each(storyList, story => {
-
-            _.each(data, item => {
-                if (story.id === item.id) {
-                    story.views = item.value
-                }
+            let data = analytics.process({
+                items: items,
+                type: analytics.ANALYTIC_TYPE_STRING.views
             });
 
-            stories.push(story);
+            let stories = [];
 
-        });
+            _.each(storyList, story => {
 
-        if (storyList.length) {
+                _.each(data, item => {
+                    if (story.id === item.id) {
+                        story.views = item.value
+                    }
+                });
+
+                stories.push(story);
+
+            });
 
             res.success(util.setResponseOk(stories));
 
