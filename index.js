@@ -5696,6 +5696,7 @@ app.get('/feed/history/:type', function (req, res) {
             return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
 
         }).then(function (stickers) {
+            console.log("STICKERS " + JSON.stringify(stickers));
 
             _.each(artWork, function (artworks) {
 
