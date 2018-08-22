@@ -315,8 +315,6 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     }).then((items) => {
 
-
-
         if (items && storyList.length) {
 
             console.log("GET ANALYTICS");
@@ -327,6 +325,8 @@ Parse.Cloud.define("getStories", function (req, res) {
             });
 
             let stories = [];
+
+            console.log("STORY LIST " + storyList.length);
 
             _.each(storyList, story => {
 

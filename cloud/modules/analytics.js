@@ -116,7 +116,7 @@ exports.data = (opt) => {
         data.push({id:id,value:count});
     });
 
-    console.log("DATA " + JSON.stringify(data));
+    console.log("SET DATA " + JSON.stringify(data));
 
     return data;
 
