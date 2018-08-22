@@ -5702,16 +5702,16 @@ app.get('/feed/history/:type', function (req, res) {
 
         }).then(function (stickers) {
 
-            _.each(artWork, function (artworks) {
+            _.each(_allArtwork, function (artworks) {
 
                 _.each(stickers, function (sticker) {
 
                     console.log("STORY ID " + artworks);
 
-                    if (artworks === sticker.id) {
+                    if (artworks.get("itemId") === sticker.id) {
 
                         combined.push({
-                            story: artworks,
+                            story: artworks.get("itemId"),
                             image: sticker.get("uri").url()
                         });
                     }
