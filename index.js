@@ -5685,7 +5685,7 @@ app.get('/feed/history/:type', function (req, res) {
             _.each(artworks, function (artwork) {
 
                 _.each(_story, function (story) {
-                    if (artworks.get("stickerId") === story.id) {
+                    if (artwork.get("stickerId") === story.id) {
                         artWork.push(artwork.get("stickerId"));
                     }
                 })
@@ -5710,8 +5710,6 @@ app.get('/feed/history/:type', function (req, res) {
                     }
                 })
             });
-
-            console.log("COMBINDED ARRAY " + JSON.stringify(combined));
 
             res.render("pages/feed/history", {
                 items: _story,
