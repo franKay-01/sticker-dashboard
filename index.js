@@ -5697,11 +5697,11 @@ app.get('/feed/history/:type', function (req, res) {
 
         }).then(function (stickers) {
 
-            _.each(_allArtwork, function (artworks) {
+            _.each(artWork, function (artworks) {
 
                 _.each(stickers, function (sticker) {
 
-                    if (artworks.get("stickerId") === sticker.id) {
+                    if (artworks === sticker.id) {
 
                         combined.push({
                             story: artworks.get("itemId"),
