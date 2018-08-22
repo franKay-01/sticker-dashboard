@@ -302,33 +302,36 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     }).then((items) => {
 
-        if (items && storyList.length) {
+        if (storyList.length) {
 
             let data = analytics.formatted({
                 items: items,
                 typeString: analytics.ANALYTIC_TYPE_STRING.views
             });
 
-            let stories = [];
+            if (data.length) {
 
-            console.log("STORY LIST " + storyList.length);
+                let stories = [];
 
-            _.each(storyList, story => {
+                _.each(storyList, story => {
 
-                console.log("ADD DATA");
+                    _.each(data, item => {
+                        if (story.id === item.id) {
+                            story.views = item.value
+                        }
+                    });
 
-                _.each(data, item => {
-                    if (story.id === item.id) {
-                        console.log("MUCH ID's " + item.id + " - " + story.id);
-                        story.views = item.value
-                    }
+                    stories.push(story);
+
                 });
 
-                stories.push(story);
+                res.success(util.setResponseOk(stories));
 
-            });
+            } else {
 
-            res.success(util.setResponseOk(stories));
+                res.success(util.setResponseOk(storyList));
+
+            }
 
         } else {
 

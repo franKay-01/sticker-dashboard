@@ -81,21 +81,17 @@ exports.request = (opt) => {
     let reference = opt.reference;
     let id = opt.id;
 
-    if (type && reference && id) {
-        let viewCount = database.ref(process.env.ANALYTICS_KEY).child(reference)
-            .child(id + "/" + getType(type) + "/count");
+    let viewCount = database.ref(process.env.ANALYTICS_KEY).child(reference)
+        .child(id + "/" + getType(type) + "/count");
 
-        viewCount.transaction(function (count) {
+    viewCount.transaction(function (count) {
 
-            if (opt.request === REQUEST_TYPE.set) {
-                count += 1;
-            }
-            return count
+        if (opt.request === REQUEST_TYPE.set) {
+            count += 1;
+        }
+        return count
 
-        })
-    }
-
-    return undefined;
+    });
 };
 
 /**
@@ -116,16 +112,16 @@ exports.event = (opt) => {
  */
 exports.formatted = (opt) => {
 
-    console.log("SET ITEMS " + JSON.stringify(opt.items));
+    if (opt.items) {
 
-    let data = [];
-    opt.items.forEach(item => {
-        let id = item.key;
-        let value = item.val()[opt.typeString].count;
-        data.push({id: id, value: value});
-    });
+        let data = [];
+        opt.items.forEach(item => {
+            let id = item.key;
+            let value = item.val()[opt.typeString].count;
+            data.push({id: id, value: value});
+        });
 
-    console.log("SET DATA " + JSON.stringify(data));
+    }
 
     return data;
 
