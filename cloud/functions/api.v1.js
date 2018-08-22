@@ -244,6 +244,8 @@ Parse.Cloud.define("getStories", function (req, res) {
         new Parse.Query(_class.ArtWork).find()
     ).then((stories, artworks) => {
 
+        console.log("GOT STICKER AND ARTWORK");
+
         if (stories.length) {
 
             _stories = stories;
@@ -259,11 +261,15 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         } else {
 
+            console.log("ERROR ONE");
+
             util.handleError(res, util.setErrorType(util.STORIES_ERROR));
 
         }
 
     }).then(stickers => {
+
+        console.log("GET STICKERS");
 
         if (stickers.length) {
 
@@ -296,11 +302,15 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         } else {
 
+            console.log("ERROR TWO");
+
             util.handleError(res, util.setErrorType(util.STORIES_ERROR));
 
         }
 
     }).then((items) => {
+
+        console.log("GET ANALYTICS");
 
         if (items && storyList.length) {
 
@@ -327,11 +337,15 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         } else {
 
+            console.log("ERROR THREE");
+
             util.handleError(res, util.STORIES_ERROR);
 
         }
 
     }, error => {
+
+        console.log("ERROR FOUR");
 
         util.handleError(res, error);
 
