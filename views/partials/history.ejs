@@ -8,6 +8,7 @@
 
 <% } else { %>
 <% items.forEach(function(item, index) { %>
+<p style="color: red"><%= date[index] %></p>
 
 <% if (item.get("type") === type.FEED_TYPE.sticker){%>
 <div class="medium-3 large-3 cell card-zoom icons ">
@@ -30,7 +31,7 @@
 
         <!--<img class="pack_artwork" src="<%#= item.get("uri").url() %>" style="height: 250px">-->
     </center>
-    <div class="name_tag"><p class="pack_name_text"><%= item.get("name") %></p></div>
+    <div class="name_tag"><p class="pack_name_text"><%= item.get("title") %></p></div>
 
 </div>
 <%}%>
