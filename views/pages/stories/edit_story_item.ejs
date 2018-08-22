@@ -88,9 +88,9 @@
                 <div class="create_new">Lists</div>
 
                 <div style="margin: 20px 15px auto;">
-                    <% let arraySize = item.get("contents").text.length %>
+                    <% let arraySize = story_item.get("contents").text.length %>
                     <% for (let i = 0; i < arraySize; i++){ %>
-                    <input class="validate" placeholder="Content" name="content[]" required="" value="<%= item.get("contents").text[i] %>" aria-required="true" >
+                    <input class="validate" placeholder="Content" name="content[]" required="" value="<%= story_item.get("contents").text[i] %>" aria-required="true" >
                     <% } %>
 
                     <input name="id" value="<%= story_id %>" hidden>
