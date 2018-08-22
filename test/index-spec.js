@@ -19,7 +19,7 @@ describe('loggingMachine', function () {
 
 
                 request.get('/authors')
-                    .expect(200)
+                    .expect(700)
                     .end(function(err, res) {
                         expect(res.body).to.have.lengthOf(1);
                         done();
