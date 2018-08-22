@@ -5680,6 +5680,8 @@ app.get('/feed/history/:type', function (req, res) {
             }
         }).then(function (artworks) {
 
+            console.log("ARTWORKS " + JSON.stringify(artworks));
+
             _allArtwork = artworks;
 
             _.each(artworks, function (artwork) {
@@ -5705,6 +5707,8 @@ app.get('/feed/history/:type', function (req, res) {
                     }
                 })
             });
+
+            console.log("COMBINDED ARRAY " + JSON.stringify(combined));
 
             res.render("pages/feed/history", {
                 items: _story,
