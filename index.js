@@ -5711,7 +5711,7 @@ app.get('/feed/history/:type', function (req, res) {
                 })
             });
 
-            console.log("COMBINED " + JSON.stringify(combined));
+            console.log("COMBINED " + JSON.stringify(combined) + " " + JSON.stringify(_story));
 
             res.render("pages/feed/history", {
                 items: _story,
