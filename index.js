@@ -5621,7 +5621,11 @@ app.get('/feed/history/:type', function (req, res) {
     let feedType = req.params.type;
     let stickers = [];
     let stories = [];
+    let artWork = [];
     let date = [];
+    let combined = [];
+    let _story;
+    let _allArtwork;
     let sticker = "sticker";
     let story = "story";
 
@@ -5634,11 +5638,11 @@ app.get('/feed/history/:type', function (req, res) {
         }).then(function (histories) {
 
             _.each(histories, function (history, index) {
-                if (history.get("type") === type.FEED_TYPE.story){
+                if (history.get("type") === type.FEED_TYPE.story) {
                     stories.push(history.get("itemId"));
                     date[index] = moment(history.get("createdAt")).format('LL');
 
-                }else if (history.get("type") === type.FEED_TYPE.sticker){
+                } else if (history.get("type") === type.FEED_TYPE.sticker) {
                     stickers.push(history.get("itemId"));
                     date[index] = moment(history.get("createdAt")).format('LL');
 
@@ -5647,7 +5651,7 @@ app.get('/feed/history/:type', function (req, res) {
 
             console.log("STICKERS " + JSON.stringify(stickers) + " DATE " + JSON.stringify(date));
 
-            switch (feedType){
+            switch (feedType) {
                 case sticker:
                     return new Parse.Query(_class.Stickers).containedIn("objectId", stickers).find();
 
@@ -5657,16 +5661,65 @@ app.get('/feed/history/:type', function (req, res) {
             }
 
         }).then(function (items) {
+            _story = items;
+
+            switch (feedType) {
+                case sticker:
+                    res.render("pages/feed/history", {
+                        items: items,
+                        feedType: feedType,
+                        date: date,
+                        type: type
+
+                    });
+                    break;
+
+                case story:
+                    return new Parse.Query(_class.ArtWork).find()
+
+            }
+        }).then(function (artworks) {
+
+            _allArtwork = artworks;
+
+            _.each(artworks, function (artwork) {
+
+                artWork.push(artwork.get("stickerId"));
+
+            });
+
+            return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
+
+        }).then(function (stickers) {
+
+            _.each(_allArtwork, function (artworks) {
+
+                _.each(stickers, function (sticker) {
+
+                    if (artworks.get("stickerId") === sticker.id) {
+
+                        combined.push({
+                            story: artworks.get("itemId"),
+                            image: sticker.get("uri").url()
+                        });
+                    }
+                })
+            });
 
             res.render("pages/feed/history", {
-                items: items,
+                items: _story,
                 feedType: feedType,
                 date: date,
-                type: type
+                type: type,
+                combined: combined
 
-            })
+            });
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/');
         })
-    }else {
+    } else {
         res.redirect('/');
 
     }
@@ -6309,7 +6362,7 @@ app.get('/firebase', function (req, res) {
         //
         // let data = []
         items.forEach(item => {
-          //  let id = item.key;
+            //  let id = item.key;
             console.log("COUNT ++ " + item.val()["views"].count);
             console.log("ID ++ " + item.key)
             // let count = value["views"].count;
@@ -6322,7 +6375,6 @@ app.get('/firebase', function (req, res) {
         //     items: items,
         //     type: analytics.ANALYTIC_TYPE_STRING.views
         // });
-
 
 
     }).catch((error) => {
