@@ -5693,18 +5693,13 @@ app.get('/feed/history/:type', function (req, res) {
 
             });
 
-            console.log("STORIES " + JSON.stringify(artWork));
-
             return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
 
         }).then(function (stickers) {
-            console.log("STICKERS " + JSON.stringify(stickers));
 
             _.each(artWork, function (artworks) {
 
                 _.each(stickers, function (sticker) {
-
-                    console.log("ARTWORK " + JSON.stringify(artworks));
 
                     if (artworks === sticker.id) {
 
@@ -5715,6 +5710,8 @@ app.get('/feed/history/:type', function (req, res) {
                     }
                 })
             });
+
+            console.log("COMBINED " + JSON.stringify(combined));
 
             res.render("pages/feed/history", {
                 items: _story,
