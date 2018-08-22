@@ -6235,14 +6235,15 @@ app.get('/firebase', function (req, res) {
 
         //
         // let data = []
-        // items.forEach(item => {
-        //     let id = item.key;
-        //     let value = item.val();
-        //     let count = value["views"].count;
-        //     data.push({id:id,value:count});
-        // });
+        items.forEach(item => {
+          //  let id = item.key;
+            console.log("VALUE ++ " + item.val())
+            console.log("ID ++ " + item.key)
+            // let count = value["views"].count;
+            // data.push({id:id,value:count});
+        });
 
-        res.send(items.snapshot);
+        res.send(items);
 
         // let val = analytics.data({
         //     items: items,

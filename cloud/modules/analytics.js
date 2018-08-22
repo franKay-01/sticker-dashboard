@@ -77,17 +77,25 @@ exports.request = (opt) => {
     ///add API Key 8e50a3f8-2108-4b40-b889-ba949f73df0a
     //use API to secure the data
 
-    let reference = database.ref(process.env.ANALYTICS_KEY).child(opt.reference);
-    let viewCount = reference.child(opt.id + "/" + getType(opt.type) + "/count");
+    let type = opt.type;
+    let reference = opt.reference;
+    let id = opt.id;
 
-    viewCount.transaction(function (count) {
+    if (type && reference && id) {
+        let viewCount = database.ref(process.env.ANALYTICS_KEY).child(reference)
+            .child(id + "/" + getType(type) + "/count");
 
-        if (opt.request === REQUEST_TYPE.set) {
-            count += 1;
-        }
-        return count
+        viewCount.transaction(function (count) {
 
-    })
+            if (opt.request === REQUEST_TYPE.set) {
+                count += 1;
+            }
+            return count
+
+        })
+    }
+
+    return undefined;
 };
 
 /**
@@ -96,7 +104,7 @@ exports.request = (opt) => {
  */
 exports.event = (opt) => {
 
-    return  database.ref(process.env.ANALYTICS_KEY + "/" + opt.reference).once('value');
+    return database.ref(process.env.ANALYTICS_KEY + "/" + opt.reference).once('value');
 
 };
 
@@ -114,8 +122,8 @@ exports.data = (opt) => {
     opt.items.forEach(item => {
         let id = item.key;
         let value = item.val();
-        let count = value[opt.type].count;
-        data.push({id:id,value:count});
+        let count = value[getType(opt.type)].count;
+        data.push({id: id, value: count});
     });
 
     console.log("SET DATA " + JSON.stringify(data));
