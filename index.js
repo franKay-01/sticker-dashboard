@@ -6233,7 +6233,7 @@ app.get('/firebase', function (req, res) {
         reference: analytics.FIREBASE_REFERENCE.story,
     }).then((items) => {
 
-            let val = analytics.process({
+            let val = analytics.data({
                 items: items,
                 type: analytics.ANALYTIC_TYPE_STRING.views
             });

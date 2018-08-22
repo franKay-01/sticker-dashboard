@@ -246,8 +246,6 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         if (stories.length) {
 
-            console.log("GOT STICKER AND ARTWORK");
-
             _stories = stories;
             _artworks = artworks;
 
@@ -261,8 +259,6 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         } else {
 
-            console.log("ERROR ONE");
-
             util.handleError(res, util.setErrorType(util.STORIES_ERROR));
 
         }
@@ -275,22 +271,15 @@ Parse.Cloud.define("getStories", function (req, res) {
 
             _.each(_stories, function (story) {
 
-                console.log("GET STICKERS");
-
                 let _story = create.Story(story);
 
                 storyIds.push(_story.id);
 
                 _.each(_artworks, function (artwork) {
 
-                    console.log("GET ARTWORK");
-
                     _.each(stickers, function (sticker) {
 
-                        console.log("GET ARTWORK STICKER");
-
                         if (artwork.get("stickerId") === sticker.id && artwork.get("itemId") === story.id) {
-                            console.log("GET ARTWORK STICKER BY ID");
                             _story = create.StoryArtwork(_story, sticker);
 
                         }
@@ -307,8 +296,6 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         } else {
 
-            console.log("ERROR TWO");
-
             util.handleError(res, util.setErrorType(util.STORIES_ERROR));
 
         }
@@ -316,8 +303,6 @@ Parse.Cloud.define("getStories", function (req, res) {
     }).then((items) => {
 
         if (items && storyList.length) {
-
-            console.log("GET ANALYTICS");
 
             let data = analytics.data({
                 items: items,

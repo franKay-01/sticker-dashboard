@@ -108,6 +108,8 @@ exports.event = (opt) => {
  */
 exports.data = (opt) => {
 
+    console.log("SET ITEMS " + JSON.stringify(opt.items));
+
     let data = [];
     opt.items.forEach(item => {
         let id = item.key;
