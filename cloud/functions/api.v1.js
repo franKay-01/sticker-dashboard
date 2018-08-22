@@ -244,9 +244,9 @@ Parse.Cloud.define("getStories", function (req, res) {
         new Parse.Query(_class.ArtWork).find()
     ).then((stories, artworks) => {
 
-        console.log("GOT STICKER AND ARTWORK");
-
         if (stories.length) {
+
+            console.log("GOT STICKER AND ARTWORK");
 
             _stories = stories;
             _artworks = artworks;
@@ -269,9 +269,9 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     }).then(stickers => {
 
-        console.log("GET STICKERS");
-
         if (stickers.length) {
+
+            console.log("GET STICKERS");
 
             let storyIds = [];
 
@@ -310,9 +310,9 @@ Parse.Cloud.define("getStories", function (req, res) {
 
     }).then((items) => {
 
-        console.log("GET ANALYTICS");
-
         if (items && storyList.length) {
+
+            console.log("GET ANALYTICS");
 
             let data = analytics.process({
                 items: items,
