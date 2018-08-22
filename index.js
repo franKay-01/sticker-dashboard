@@ -6233,7 +6233,16 @@ app.get('/firebase', function (req, res) {
         reference: analytics.FIREBASE_REFERENCE.story,
     }).then((items) => {
 
-        res.send(items);
+
+        let data = []
+        items.forEach(item => {
+            let id = item.key;
+            let value = item.val();
+            let count = value[opt.type].count;
+            data.push({id:id,value:count});
+        });
+
+        res.send(data);
 
         // let val = analytics.data({
         //     items: items,
