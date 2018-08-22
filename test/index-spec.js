@@ -22,7 +22,7 @@ describe('loggingMachine', function () {
                     .expect(200)
                     .end(function(err, res) {
                         expect(res.body).to.have.lengthOf(1);
-                        done(err);
+                        done();
                     });
 
                 // console.log("AUTHER NAME " + author.get("name"));
