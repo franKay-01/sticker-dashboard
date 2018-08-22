@@ -5680,13 +5680,16 @@ app.get('/feed/history/:type', function (req, res) {
             }
         }).then(function (artworks) {
 
-            console.log("ARTWORKS " + JSON.stringify(artworks));
-
             _allArtwork = artworks;
 
             _.each(artworks, function (artwork) {
 
-                artWork.push(artwork.get("stickerId"));
+                _.each(_story, function (story) {
+                    if (artworks.get("stickerId") === story.id) {
+                        artWork.push(artwork.get("stickerId"));
+                    }
+                })
+
 
             });
 
