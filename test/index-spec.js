@@ -19,10 +19,12 @@ describe('loggingMachine', function () {
 
 
                 request.get('/authors')
-                    .expect(700)
-                    .end(function(err, res) {
-                        expect(res.body).to.have.lengthOf(1);
-                        done();
+                    .then(function(res) {
+                        expect(res).to.have.status(200);
+                        expect(res).to.be.an('object');
+                    })
+                    .catch(function(err) {
+                        throw err;
                     });
 
                 // console.log("AUTHER NAME " + author.get("name"));
