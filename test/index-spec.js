@@ -22,6 +22,7 @@ describe('loggingMachine', function () {
                     .then(function(res) {
                         expect(res).to.have.status(200);
                         expect(res).to.be.an('object');
+                        done();
                     })
                     .catch(function(err) {
                         throw err;
