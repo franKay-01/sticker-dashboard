@@ -5655,7 +5655,10 @@ app.get('/feed/history/:type', function (req, res) {
                     return new Parse.Query(_class.Stories).containedIn("objectId", stories).find();
 
             }
+
         }).then(function (items) {
+
+            console.log("STICKERS FROM QUERY " + JSON.stringify(items));
 
             res.render("pages/feed/history", {
                 items: items,
