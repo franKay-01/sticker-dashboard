@@ -77,8 +77,12 @@ exports.request = (opt) => {
     ///add API Key 8e50a3f8-2108-4b40-b889-ba949f73df0a
     //use API to secure the data
 
-    let reference = database.ref("8e50a3f8-2108-4b40-b889-ba949f73df0a").child(opt.reference);
-    let viewCount = reference.child(opt.id + "/" + getType(opt.type) + "/count");
+    let type = opt.type;
+    let reference = opt.reference;
+    let id = opt.id;
+
+    let viewCount = database.ref(process.env.ANALYTICS_KEY).child(reference)
+        .child(id + "/" + getType(type) + "/count");
 
     viewCount.transaction(function (count) {
 
@@ -87,7 +91,7 @@ exports.request = (opt) => {
         }
         return count
 
-    })
+    });
 };
 
 /**
@@ -96,7 +100,7 @@ exports.request = (opt) => {
  */
 exports.event = (opt) => {
 
-    return  database.ref("8e50a3f8-2108-4b40-b889-ba949f73df0a").child(opt.reference).once('value');
+    return database.ref(process.env.ANALYTICS_KEY + "/" + opt.reference).once('value');
 
 };
 
@@ -104,17 +108,20 @@ exports.event = (opt) => {
 /**
  * @param {object} opt - objects
  * @param {string} opt.items - a return list of items from firebase
- * @param {string} opt.type - type is views,shares,downloads,used
+ * @param {string} opt.typeString - type is views,shares,downloads,used
  */
-exports.process = (opt) => {
+exports.formatted = (opt) => {
 
     let data = [];
-    opt.items.forEach(item => {
-        let id = item.key;
-        let value = item.val();
-        let count = value[opt.type].count;
-        data.push({id:id,value:count});
-    });
+    if (opt.items !== undefined || opt.items !== "undefined") {
+
+        opt.items.forEach(item => {
+            let id = item.key;
+            let value = item.val()[opt.typeString].count;
+            data.push({id: id, value: value});
+        });
+
+    }
 
     return data;
 

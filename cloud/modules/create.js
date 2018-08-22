@@ -1,5 +1,6 @@
 const _ = require('underscore');
 const type = require('./type');
+const helper = require('./helpers');
 
 exports.Sticker = sticker => {
 
@@ -58,11 +59,11 @@ exports.Category = category => {
     return _category;
 };
 
-exports.Pack = (pack, stickerList) => {
+exports.Pack = (pack) => {
 
     let _pack = {};
 
-    if (pack && stickerList.length > 0) {
+    if (pack) {
 
         _pack.id = pack.id;
         _pack.name = pack.get("name");
@@ -82,31 +83,14 @@ exports.Pack = (pack, stickerList) => {
             _pack.preview = "";
         }
 
-        let _stickers = [];
-        _.map(stickerList, function (stickers) {
+        _pack.previews = [];
+        let previews = pack.get("previews");
+        if (previews) {
+            _.each(previews,preview => {
+                _pack.previews.push({id:"p"+helper.hash(),url:preview})
+            });
 
-            console.log("STICKERs" + JSON.stringify(stickers));
-
-            if (stickers.length) {
-
-                _.map(stickers, sticker => {
-
-
-                    console.log("STICKER OBJECT" + JSON.stringify(sticker));
-                    console.log("PARENT ID" + sticker.get("parent").id);
-                    console.log("PACK ID" + pack.id);
-                     if (pack.id === sticker.get("parent").id) {
-                        _stickers.push({id: sticker.id, url: sticker.get("uri").url()});
-                    } else {
-                        console.log("DOEST MUCH")
-                    }
-
-                });
-
-                _pack.previews = _stickers;
-
-            }
-        });
+        }
     }
 
     return _pack;
@@ -129,6 +113,7 @@ exports.StoryArtwork = (story, sticker) => {
             story.stickerPreviewUrl = "";
         }
     }
+
     return story;
 
 };

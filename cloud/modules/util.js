@@ -38,6 +38,9 @@ const STORY_ITEMS_ERROR = 18;
 const PACKS_ERROR = 19;
 const FEED_ERROR = 20;
 const STORIES_ERROR = 21;
+const FEED_ERROR_ONE = 22;
+const FEED_ERROR_TWO = 22;
+
 
 const SPECIAL_CHARACTERS = /[`~!@#$%^&*()_|+\-=÷¿?;:'",.123<>\{\}\[\]\\\/]/gi;
 
@@ -256,6 +259,14 @@ handleError = function (res, error) {
                     error[KEY_RESPONSE_MESSAGE] = "Feed Error";
                     break;
 
+                case FEED_ERROR_ONE :
+                    error[KEY_RESPONSE_MESSAGE] = "Feed Error One";
+                    break;
+
+                case FEED_ERROR_TWO :
+                    error[KEY_RESPONSE_MESSAGE] = "Feed Error Two";
+                    break;
+
 
                 default :
                     error[KEY_RESPONSE_CODE] = UNKNOWN_ERROR;
@@ -430,6 +441,8 @@ exports.CLASS_TYPE_ERROR = CLASS_TYPE_ERROR;
 exports.STORIES_ERROR = STORIES_ERROR;
 exports.STORY_ITEMS_ERROR = STORY_ITEMS_ERROR;
 exports.FEED_ERROR = FEED_ERROR;
+exports.FEED_ERROR_ONE = FEED_ERROR_ONE;
+exports.FEED_ERROR_TWO = FEED_ERROR_TWO;
 exports.PACKS_ERROR = PACKS_ERROR;
 exports.STATUS_OK = STATUS_OK;
 exports.SPECIAL_CHARACTERS = SPECIAL_CHARACTERS;
