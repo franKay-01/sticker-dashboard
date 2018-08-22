@@ -5682,16 +5682,20 @@ app.get('/feed/history/:type', function (req, res) {
 
             _allArtwork = artworks;
 
+            console.log("STORIES " + JSON.stringify(_story));
+
             _.each(artworks, function (artwork) {
 
                 _.each(_story, function (story) {
-                    if (artwork.get("stickerId") === story.id) {
+                    if (artwork.get("itemId") === story.id) {
                         artWork.push(artwork.get("stickerId"));
                     }
                 })
 
 
             });
+            console.log("STORIES " + JSON.stringify(artworks));
+
 
             return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
 
