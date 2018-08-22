@@ -65,6 +65,11 @@ exports.STORY_TYPE = {
     jokes: 2
 };
 
+exports.FEED_TYPE = {
+    sticker: 0,
+    story: 1
+};
+
 exports.DEFAULT = {
     colors: {
         "topColor":"#df5A34",

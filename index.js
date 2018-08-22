@@ -5615,6 +5615,60 @@ app.get('/product/edit/:productId', function (req, res) {
 
 /*====================================== FEED ============================*/
 
+app.get('/feed/history/:type', function (req, res) {
+
+    let token = req.cookies.token;
+    let feedType = req.params.type;
+    let stickers = [];
+    let stories = [];
+    let date = [];
+    let sticker = "sticker";
+    let story = "story";
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.History).find();
+
+        }).then(function (histories) {
+
+            _.each(histories, function (history, index) {
+                if (history.get("type") === type.FEED_TYPE.story){
+                    stories.push(history.get("itemId"));
+                    date[index] = moment(history.get("createdAt")).format('LL');
+
+                }else if (history.get("type") === type.FEED_TYPE.sticker){
+                    stickers.push(history.get("itemId"));
+                    date[index] = moment(history.get("createdAt")).format('LL');
+
+                }
+            });
+
+            switch (feedType){
+                case sticker:
+                    return new Parse.Query(_class.Stickers).containedIn("objectId", stickers).find();
+
+                case story:
+                    return new Parse.Query(_class.Stories).containedIn("objectId", stories).find();
+
+            }
+        }).then(function (items) {
+
+            res.render("pages/feed/history", {
+                items: items,
+                feedType: feedType,
+                date: date,
+                type: type
+
+            })
+        })
+    }else {
+
+    }
+
+});
+
 app.post('/feeds/:type/:origin', function (req, res) {
 
     let token = req.cookies.token;
@@ -6173,7 +6227,7 @@ app.get("/test_nosql/:info", function (req, res) {
         }, function (error) {
             res.send("ERROR " + error.message);
         })
-    }else {
+    } else {
         res.redirect('/');
     }
 });
