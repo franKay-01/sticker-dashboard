@@ -6238,9 +6238,10 @@ app.get('/firebase', function (req, res) {
             type: analytics.ANALYTIC_TYPE_STRING.views
         });
 
-        res.send("value" + JSON.stringify(val));
+        res.send(val);
+
     }).catch((error) => {
-        res.send("error " +JSON.stringify(error));
+        res.send(error);
     })
 
 });
