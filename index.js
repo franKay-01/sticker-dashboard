@@ -5705,7 +5705,7 @@ app.get('/feed/history/:type', function (req, res) {
                     if (artworks === sticker.id) {
 
                         combined.push({
-                            story: artworks.get("itemId"),
+                            story: artworks,
                             image: sticker.get("uri").url()
                         });
                     }
