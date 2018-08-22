@@ -112,18 +112,17 @@ exports.event = (opt) => {
 /**
  * @param {object} opt - objects
  * @param {string} opt.items - a return list of items from firebase
- * @param {string} opt.type - type is views,shares,downloads,used
+ * @param {string} opt.typeString - type is views,shares,downloads,used
  */
-exports.data = (opt) => {
+exports.formatted = (opt) => {
 
     console.log("SET ITEMS " + JSON.stringify(opt.items));
 
     let data = [];
     opt.items.forEach(item => {
         let id = item.key;
-        let value = item.val();
-        let count = value[getType(opt.type)].count;
-        data.push({id: id, value: count});
+        let value = item.val()[opt.typeString].count;
+        data.push({id: id, value: value});
     });
 
     console.log("SET DATA " + JSON.stringify(data));

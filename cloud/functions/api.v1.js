@@ -304,9 +304,9 @@ Parse.Cloud.define("getStories", function (req, res) {
 
         if (items && storyList.length) {
 
-            let data = analytics.data({
+            let data = analytics.formatted({
                 items: items,
-                type: analytics.ANALYTIC_TYPE_STRING.views
+                typeString: analytics.ANALYTIC_TYPE_STRING.views
             });
 
             let stories = [];
