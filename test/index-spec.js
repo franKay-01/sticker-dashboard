@@ -18,7 +18,8 @@ describe('loggingMachine', function () {
             query.first().then(function (author) {
 
                 console.log("AUTHOR " + JSON.stringify(author));
-                expect(author).to.be.an('array', 'nooo why fail??');
+                // expect(author).to.be.an('array', 'nooo why fail??');
+                expect({"bar": "foo"}).to.be.an('array', 'nooo why fail??');
 
             })
 
