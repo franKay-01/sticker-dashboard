@@ -215,8 +215,7 @@ Parse.Cloud.define("getStory", function (req, res) {
             console.log("TWO STORY QUERY");
             story = create.StoryArtwork(story, sticker);
             console.log("THREE STORY QUERY");
-            story.views = analytics.snapshot;
-            console.log("FOUR STORY QUERY");
+          //  story.views = analytics.snapshot;
 
             res.success(util.setResponseOk(story));
 
