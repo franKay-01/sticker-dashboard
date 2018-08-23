@@ -6252,7 +6252,7 @@ app.get('/firebase', function (req, res) {
 
     });
 
-    res.send(count);
+    res.send(count.snapshot);
 
 });
 
