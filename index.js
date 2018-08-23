@@ -6247,7 +6247,7 @@ app.get('/firebase', function (req, res) {
     analytics.request({
         reference: analytics.FIREBASE_REFERENCE.story,
         type: analytics.ANALYTIC_TYPE.views,
-        id: "Z7lBXJJ1PT",
+        id: "DJkqoAzkfI",
         request: analytics.REQUEST_TYPE.get,
 
     }).then((count) => {
