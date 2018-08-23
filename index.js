@@ -6242,6 +6242,14 @@ app.get("/test_upload/:id", function (req, res) {
 
 app.get('/firebase', function (req, res) {
 
+    let admin = require('firebase-admin');
+    let serviceAccount = require('./service_accounts/cyfa');
+
+    admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+        databaseURL: "https://gsticker-market-place.firebaseio.com/"
+    });
+
     let viewCount = database.ref(process.env.ANALYTICS_KEY).child("story")
         .child("DJkqoAzkfI" + "/" + "views" + "/count");
 
