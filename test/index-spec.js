@@ -8,27 +8,28 @@ Parse.initialize(process.env.APP_ID);
 Parse.serverURL = process.env.SERVER_URL;
 
 
-
-function sum (a, b) {
+function sum(a, b) {
     // your code to make the test pass goes here ...
     return a + b;
 }
 
 test('sum should return the addition of two numbers', function (t) {
     let email = "michael@info.com";
+    t.plan(2);
 
-                let query = new Parse.Query(_class.Authors);
-                query.equalTo("email", email);
-                query.first().then(function (author) {
+    let query = new Parse.Query(_class.Authors);
+    query.equalTo("email", email);
+    query.first().then(function (author) {
 
-                    console.log("AUTHER NAME " + author.get("name"));
-                    name = author.get("name");
-                    // expect(author).to.be.an('array', 'nooo why fail??');
-                    // assert.typeOf(author, '');
-                    t.equal("Michael bay", name);
-                    t.end();
+        console.log("AUTHER NAME " + author.get("name"));
+        name = author.get("name");
+        // expect(author).to.be.an('array', 'nooo why fail??');
+        // assert.typeOf(author, '');
+        t.equal("Michael bay", name);
+        t.expect(name).to.be("string");
+        t.end();
 
-                });
+    });
     // t.equal(3, sum(1, 2)); // make this test pass by completing the add function!
     // t.end();
 });
