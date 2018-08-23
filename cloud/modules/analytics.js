@@ -81,18 +81,23 @@ exports.request = (opt) => {
     let reference = opt.reference;
     let id = opt.id;
 
+    let promise = new Parse.Promise();
+
     let viewCount = database.ref(process.env.ANALYTICS_KEY).child(reference)
         .child(id + "/" + getType(type) + "/count");
 
     viewCount.transaction(function (count) {
 
-        if (opt.request === REQUEST_TYPE.set) {
-            count += 1;
-            return count
-        }else {
-            return count.snapshot
+        if (count) {
+            if (opt.request === REQUEST_TYPE.set) {
+                count += 1;
+                return count
+            }
+            console.log("COUNT " + JSON.stringify(count));
+            promise.resolve(count)
+        } else {
+            promise.resolve(0)
         }
-
 
     });
 };
