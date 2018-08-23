@@ -6248,7 +6248,6 @@ app.get('/firebase', function (req, res) {
         reference: analytics.FIREBASE_REFERENCE.story +
             "/" + "Z7lBXJJ1PT" + "/" +
             analytics.ANALYTIC_TYPE.views
-            + "/" + "count"
     }).then((count) => {
         res.send(count)
     }).catch((error) => {
