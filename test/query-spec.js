@@ -14,12 +14,13 @@ test('check typeOf of Story items', function (t) {
 
         title = story.get("title");
         keywords = story.get("keywords");
+        result = Array.isArray(keywords);
         published = story.get("published");
         color = story.get("color");
         storyType = story.get("storyType");
 
         t.equal(typeof title, "string");
-        t.equal(typeof keywords, "object");
+        t.equal(result, true);
         t.equal(typeof published, "boolean");
         t.equal(typeof color, "object");
         t.equal(typeof storyType, "number");
