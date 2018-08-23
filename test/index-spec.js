@@ -25,7 +25,7 @@ test('sum should return the addition of two numbers', function (t) {
                     name = author.get("name");
                     // expect(author).to.be.an('array', 'nooo why fail??');
                     // assert.typeOf(author, '');
-                    t.equal("Michael Bay", name);
+                    t.equal("Michael bay", name);
                     t.end();
 
                 });
