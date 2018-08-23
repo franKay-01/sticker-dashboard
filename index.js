@@ -6242,15 +6242,15 @@ app.get("/test_upload/:id", function (req, res) {
 
 app.get('/firebase', function (req, res) {
 
-    let admin = require('firebase-admin');
+    let admin_2 = require('firebase-admin');
     let serviceAccount = require('./service_accounts/cyfa');
 
-    admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
+    admin_2.initializeApp({
+        credential: admin_2.credential.cert(serviceAccount),
         databaseURL: "https://gsticker-market-place.firebaseio.com/"
     });
 
-    let database = admin.database();
+    let database = admin_2.database();
 
     let viewCount = database.ref(process.env.ANALYTICS_KEY).child("story")
         .child("DJkqoAzkfI" + "/" + "views" + "/count");
