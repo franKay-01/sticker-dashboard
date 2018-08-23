@@ -68,7 +68,7 @@ exports.Pack = (pack) => {
         _pack.id = pack.id;
         _pack.name = pack.get("name");
         _pack.description = pack.get("description");
-        _pack.shareUrl = "https://share.cyfa.io/pack/" + pack.id;
+        _pack.shareUrl = "http://share.cyfa.io/pack/" + pack.id;
 
         let artwork = pack.get("artwork");
         if (artwork) {
