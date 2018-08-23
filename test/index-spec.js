@@ -11,7 +11,7 @@ Parse.serverURL = process.env.SERVER_URL;
 
 function sum (a, b) {
     // your code to make the test pass goes here ...
-    return a * b;
+    return a + b;
 }
 
 test('sum should return the addition of two numbers', function (t) {
