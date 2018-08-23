@@ -15,7 +15,7 @@ function sum(a, b) {
 
 test('sum should return the addition of two numbers', function (t) {
     let email = "michael@info.com";
-    t.plan(2);
+    // t.plan(2);
 
     let query = new Parse.Query(_class.Authors);
     query.equalTo("email", email);
