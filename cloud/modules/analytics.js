@@ -8,12 +8,6 @@ admin.initializeApp({
 
 let database = admin.database();
 
-
-let REQUEST_TYPE = {
-    get: 0,
-    set: 1
-};
-
 let ANALYTIC_TYPE = {
     views: 0,
     shares: 1,
@@ -69,7 +63,6 @@ let getType = (type) => {
  * @param {string} opt.reference - reference object e.g sticker, story, pack.
  * @param {string} opt.type - type is views,shares,downloads,used
  * @param {string} opt.id - the id of the item
- * @param {string} opt.request - request type is either set or anything - for convenience use REQUEST_TYPE.get
  */
 exports.request = (opt) => {
 
@@ -81,23 +74,14 @@ exports.request = (opt) => {
     let reference = opt.reference;
     let id = opt.id;
 
-    let promise = new Parse.Promise();
-
     let viewCount = database.ref(process.env.ANALYTICS_KEY).child(reference)
         .child(id + "/" + getType(type) + "/count");
 
     viewCount.transaction(function (count) {
-
-            if (opt.request === REQUEST_TYPE.set) {
                 count += 1;
-                return count
-            }
-            console.log("COUNT " + count);
-            promise.resolve(count)
+                return count;
 
     });
-
-    return promise;
 };
 
 /**

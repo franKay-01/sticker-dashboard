@@ -6245,9 +6245,7 @@ app.get('/firebase', function (req, res) {
     let analytics = require("./cloud/modules/analytics");
 
     analytics.event({
-        reference: analytics.FIREBASE_REFERENCE.story +
-            "/" + "Z7lBXJJ1PT" + "/" +
-            analytics.ANALYTIC_TYPE.views
+        reference: "story/" + "Z7lBXJJ1PT" + ""
     }).then((count) => {
         res.send(count)
     }).catch((error) => {

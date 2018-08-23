@@ -190,13 +190,7 @@ Parse.Cloud.define("getStory", function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first({useMasterKey: true}),
-                analytics.request({
-                    reference: analytics.FIREBASE_REFERENCE.story,
-                    type: analytics.ANALYTIC_TYPE.views,
-                    id: story.id,
-                    request: analytics.REQUEST_TYPE.get,
 
-                })
             )
 
         } else {
@@ -205,7 +199,7 @@ Parse.Cloud.define("getStory", function (req, res) {
 
         }
 
-    }).then(function (sticker, analytics) {
+    }).then(function (sticker) {
 
         if (sticker) {
 
@@ -242,9 +236,7 @@ Parse.Cloud.define("getStoryItems", function (req, res) {
         analytics.request({
             reference: analytics.FIREBASE_REFERENCE.story,
             type: analytics.ANALYTIC_TYPE.views,
-            id: storyId,
-            request: analytics.REQUEST_TYPE.set,
-
+            id: storyId
         })
     ).then((storyItems) => {
 
