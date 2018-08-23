@@ -15,6 +15,7 @@ let cors = require('cors');
 let methodOverride = require('method-override');
 let moment = require('moment');
 
+
 //for parsing location, directory and paths
 let path = require('path');
 let fs = require('fs');
@@ -6241,25 +6242,18 @@ app.get("/test_upload/:id", function (req, res) {
 
 app.get('/firebase', function (req, res) {
 
-    let admin_2 = require('firebase-admin');
-    let serviceAccount = require('./service_accounts/cyfa');
+    let analytics = require("./cloud/modules/analytics");
 
-    admin_2.initializeApp({
-        credential: admin_2.credential.cert(serviceAccount),
-        databaseURL: "https://gsticker-market-place.firebaseio.com/"
-    });
-
-    let database = admin_2.database();
-
-    let viewCount = database.ref(process.env.ANALYTICS_KEY).child("story")
-        .child("DJkqoAzkfI" + "/" + "views" + "/count");
-
-    viewCount.transaction(function (count) {
-
-        console.log("COUNT " + count);
-        return count
-
-    }).then((e) => {res.send(e)}, (e) => {res.send(e)});
+    analytics.event({
+        reference: analytics.FIREBASE_REFERENCE.story +
+            "/" + "Z7lBXJJ1PT" + "/" +
+            analytics.ANALYTIC_TYPE.views
+            + "/" + "/count"
+    }).then((count) => {
+        res.send(count)
+    }).catch((error) => {
+        res.send(error)
+    })
 
 });
 
