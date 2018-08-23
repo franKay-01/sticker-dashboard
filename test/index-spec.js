@@ -13,7 +13,7 @@ function sum(a, b) {
     return a + b;
 }
 
-test('sum should return the addition of two numbers', function (t) {
+test('check if name is a string', function (t) {
     let email = "michael@info.com";
     // t.plan(2);
 
@@ -23,10 +23,9 @@ test('sum should return the addition of two numbers', function (t) {
 
         console.log("AUTHER NAME " + author.get("name"));
         name = author.get("name");
-        // expect(author).to.be.an('array', 'nooo why fail??');
+        expect(author).to.be.an('array', 'nooo why fail??');
         // assert.typeOf(author, '');
         t.equal("Michael bay", name);
-        t.expect(name).to.be.a("string");
         t.end();
 
     });
