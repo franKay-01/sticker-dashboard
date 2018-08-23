@@ -92,7 +92,7 @@ exports.request = (opt) => {
                 count += 1;
                 return count
             }
-            console.log("COUNT " + JSON.stringify(count));
+            console.log("COUNT " + count);
             promise.resolve(count)
 
     });
