@@ -185,8 +185,6 @@ Parse.Cloud.define("getStory", function (req, res) {
 
         if (story && sticker && storyItems) {
 
-            console.log("FIRST QUERY");
-
             _story = story;
             _storyItems = storyItems;
 
@@ -211,12 +209,14 @@ Parse.Cloud.define("getStory", function (req, res) {
 
         if (sticker) {
 
-            console.log("SECOND QUERY");
-
             let story = create.Story(_story);
+            console.log("ONE STORY QUERY");
             story.stories = create.StoryItems(_storyItems);
+            console.log("TWO STORY QUERY");
             story = create.StoryArtwork(story, sticker);
+            console.log("THREE STORY QUERY");
             story.views = analytics.snapshot;
+            console.log("FOUR STORY QUERY");
 
             res.success(util.setResponseOk(story));
 
