@@ -96,10 +96,12 @@ exports.request = (opt) => {
             console.log("COUNT " + JSON.stringify(count));
             promise.resolve(count)
         } else {
-            promise.resolve(0)
+            promise.reject(0)
         }
 
     });
+
+    return promise;
 };
 
 /**

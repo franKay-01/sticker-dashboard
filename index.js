@@ -6244,15 +6244,17 @@ app.get('/firebase', function (req, res) {
 
     let analytics = require("./cloud/modules/analytics");
 
-    let count = analytics.request({
+    analytics.request({
         reference: analytics.FIREBASE_REFERENCE.story,
         type: analytics.ANALYTIC_TYPE.views,
         id: "Z7lBXJJ1PT",
         request: analytics.REQUEST_TYPE.get,
 
-    });
-
-    res.send(count.snapshot);
+    }).then((count) => {
+        res.send(count)
+    }).catch((error) => {
+        res.send(error)
+    })
 
 });
 
