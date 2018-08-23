@@ -6242,19 +6242,15 @@ app.get("/test_upload/:id", function (req, res) {
 
 app.get('/firebase', function (req, res) {
 
-    let analytics = require("./cloud/modules/analytics");
+    let viewCount = database.ref(process.env.ANALYTICS_KEY).child("story")
+        .child("DJkqoAzkfI" + "/" + "views" + "/count");
 
-    analytics.request({
-        reference: analytics.FIREBASE_REFERENCE.story,
-        type: analytics.ANALYTIC_TYPE.views,
-        id: "DJkqoAzkfI",
-        request: analytics.REQUEST_TYPE.get,
+    viewCount.transaction(function (count) {
 
-    }).then((count) => {
-        res.send(count)
-    }).catch((error) => {
-        res.send(error)
-    })
+        console.log("COUNT " + count);
+        return count
+
+    }).then((e) => {res.send(e)}, (e) => {res.send(e)});
 
 });
 
