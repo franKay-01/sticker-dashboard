@@ -7,45 +7,28 @@ let Parse = require("parse/node").Parse; // import the module
 Parse.initialize(process.env.APP_ID);
 Parse.serverURL = process.env.SERVER_URL;
 
-test('check if name is a string', function (t) {
-    let email = "michael@info.com";
-    t.plan(2);
+test('check typeOf of pack items', function (t) {
+    t.plan(6);
 
-    let query = new Parse.Query(_class.Authors);
-    query.equalTo("email", email);
-    query.first().then(function (author) {
+    let query = new Parse.Query(_class.Packs);
+    query.limit(1);
+    query.first().then(function (pack) {
 
-        console.log("AUTHER NAME " + author.get("name"));
-        name = author.get("name");
-        // assert.typeOf(author, '');
+        name = pack.get("name");
+        version = pack.get("version");
+        description = pack.get("description");
+        archived = pack.get("archived");
+        userId = pack.get("userId");
+        preview = pack.get("preview");
+
         t.equal(typeof name, "string");
-
-        t.equal("Michael bay", name);
+        t.equal(typeof version, "number");
+        t.equal(typeof description, "string");
+        t.equal(typeof archived, "boolean");
+        t.equal(typeof userId, "string");
+        t.equal(typeof preview, "file");
         t.end();
 
     });
-    // t.equal(3, sum(1, 2)); // make this test pass by completing the add function!
-    // t.end();
-});
 
-// describe('object checking', function () {
-//     it('should be object', function (done) {
-//
-//         let email = "michael@info.com";
-//
-//         let query = new Parse.Query(_class.Authors);
-//         query.equalTo("email", email);
-//         query.first().then(function (author) {
-//
-//             console.log("AUTHER NAME " + author.get("name"));
-//             name = author.get("name");
-//             // expect(author).to.be.an('array', 'nooo why fail??');
-//             // assert.typeOf(author, '');
-//             expect(name).to.be.an('object');
-//             done()
-//         })
-//
-//
-//     });
-//
-// });
+});
