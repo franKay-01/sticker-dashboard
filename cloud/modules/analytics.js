@@ -78,8 +78,8 @@ exports.request = (opt) => {
         .child(id + "/" + getType(type) + "/count");
 
     viewCount.transaction(function (count) {
-                count += 1;
-                return count;
+        count += 1;
+        return count;
 
     });
 };
@@ -103,18 +103,29 @@ exports.event = (opt) => {
 exports.formatted = (opt) => {
 
     let data = [];
-    if (opt.items !== undefined || opt.items !== "undefined") {
-
-        opt.items.forEach(item => {
-            let id = item.key;
-            let value = item.val()[opt.typeString].count;
-            data.push({id: id, value: value});
-        });
-
+    if (opt.items.exist()) {
+            opt.items.forEach(item => {
+                let id = item.key;
+                let value = item.val()[opt.typeString].count;
+                data.push({id: id, value: value});
+            });
     }
 
     return data;
 
+};
+
+exports.getCount = (opt) => {
+    let data = opt.data;
+    if (data.exist()) {
+        if (data.val()) {
+            let count = data.val()[opt.typeString].count;
+            if (count) {
+                return count;
+            }
+        }
+    }
+    return 0;
 };
 
 exports.ANALYTIC_TYPE = ANALYTIC_TYPE;

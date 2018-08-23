@@ -201,7 +201,7 @@ Parse.Cloud.define("getStory", function (req, res) {
 
         }
 
-    }).then(function (sticker,analyticsData) {
+    }).then(function (sticker, analytic) {
 
         if (sticker) {
 
@@ -209,10 +209,10 @@ Parse.Cloud.define("getStory", function (req, res) {
             story.stories = create.StoryItems(_storyItems);
             story = create.StoryArtwork(story, sticker);
 
-            let viewsCount = analyticsData.val()[analytics.ANALYTIC_TYPE_STRING.views].count;
-            if(viewsCount) {
-                story.views = viewsCount;
-            }
+            story.views = analytics.getCount({
+                data:analytic,
+                typeString:analytics.ANALYTIC_TYPE_STRING.views
+            });
 
             res.success(util.setResponseOk(story));
 
