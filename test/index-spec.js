@@ -26,7 +26,7 @@ test('check typeOf of pack items', function (t) {
         t.equal(typeof description, "string");
         t.equal(typeof archived, "boolean");
         t.equal(typeof userId, "string");
-        t.equal(typeof preview, "file");
+        t.equal(typeof preview, "object");
         t.end();
 
     });
