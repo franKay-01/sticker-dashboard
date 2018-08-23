@@ -170,19 +170,20 @@ Parse.Cloud.define("getPack", function (req, res) {
 
 });
 
-
 Parse.Cloud.define("getStory", function (req, res) {
 
     let _story = {};
     let _storyItems = [];
 
-    let storyId = req.params.storyId;
+    let storyId = req.params.id;
 
     Parse.Promise.when(
         new Parse.Query(_class.Stories).equalTo("published", true).equalTo("objectId", storyId).first({useMasterKey: true}),
         new Parse.Query(_class.ArtWork).equalTo("itemId", storyId).first({useMasterKey: true}),
         new Parse.Query(_class.StoryItems).equalTo("storyId", storyId).find({useMasterKey: true})
     ).then(function (story, sticker, storyItems) {
+
+        if(story && sticker && storyItems) {
 
         _story = story;
         _storyItems = storyItems;
@@ -198,6 +199,12 @@ Parse.Cloud.define("getStory", function (req, res) {
             })
         )
 
+        } else {
+
+            util.handleError(res, util.setErrorType(util.STORY_ERROR));
+
+        }
+
     }).then(function (sticker, analytics) {
 
         if (_story && sticker && _storyItems) {
@@ -211,7 +218,7 @@ Parse.Cloud.define("getStory", function (req, res) {
 
         } else {
 
-            util.handleError(res, util.setErrorType(util.STORIES_ERROR));
+            util.handleError(res, util.setErrorType(util.STORY_ERROR));
 
         }
 
