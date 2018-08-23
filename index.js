@@ -6245,7 +6245,7 @@ app.get('/firebase', function (req, res) {
     let analytics = require("./cloud/modules/analytics");
 
     analytics.event({
-        reference: "story/" + "Z7lBXJJ1PT" + ""
+        reference: "story/" + "Z7lBXJJ1PT"
     }).then((count) => {
         res.send(count)
     }).catch((error) => {
