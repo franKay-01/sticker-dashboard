@@ -6244,29 +6244,14 @@ app.get('/firebase', function (req, res) {
 
     let analytics = require("./cloud/modules/analytics");
 
-    analytics.event({
+    analytics.request({
         reference: analytics.FIREBASE_REFERENCE.story,
-    }).then((items) => {
+        type: analytics.ANALYTIC_TYPE.views,
+        id: "Z7lBXJJ1PT",
+        request: analytics.REQUEST_TYPE.get,
 
-        //
-        // let data = []
-        items.forEach(item => {
-          //  let id = item.key;
-            console.log("COUNT ++ " + item.val()["views"].count);
-            console.log("ID ++ " + item.key)
-            // let count = value["views"].count;
-            // data.push({id:id,value:count});
-        });
-
-        res.send(items);
-
-        // let val = analytics.data({
-        //     items: items,
-        //     type: analytics.ANALYTIC_TYPE_STRING.views
-        // });
-
-
-
+    }).then((data) => {
+        res.send(data);
     }).catch((error) => {
         res.send(error);
     })
