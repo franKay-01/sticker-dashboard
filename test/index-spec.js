@@ -7,60 +7,43 @@ let Parse = require("parse/node").Parse; // import the module
 Parse.initialize(process.env.APP_ID);
 Parse.serverURL = process.env.SERVER_URL;
 
-
-function sum(a, b) {
-    // your code to make the test pass goes here ...
-    return a + b;
-}
-
-test('check if name is a string', function (t) {
-    let email = "michael@info.com";
-    // t.plan(2);
-
-    let query = new Parse.Query(_class.Authors);
-    query.equalTo("email", email);
-    query.first().then(function (author) {
-
-        console.log("AUTHER NAME " + author.get("name"));
-        name = author.get("name");
-        expect(author).to.be.an('array', 'nooo why fail??');
-        // assert.typeOf(author, '');
-        t.equal("Michael bay", name);
-        t.end();
-
-    });
-    // t.equal(3, sum(1, 2)); // make this test pass by completing the add function!
-    // t.end();
-});
-// describe('loggingMachine', function () {
-//     describe('log In', function () {
-//         it('should be object', function (done) {
+// test('check if name is a string', function (t) {
+//     let email = "michael@info.com";
+//     // t.plan(2);
 //
-//             new Promise(async (resolve, reject) => {
+//     let query = new Parse.Query(_class.Authors);
+//     query.equalTo("email", email);
+//     query.first().then(function (author) {
 //
-//                 let email = "michael@info.com";
-//
-//                 let query = new Parse.Query(_class.Authors);
-//                 query.equalTo("email", email);
-//                 query.first().then(function (author) {
-//
-//                     console.log("AUTHER NAME " + author.get("name"));
-//                     name = author.get("name");
-//                     // expect(author).to.be.an('array', 'nooo why fail??');
-//                     // assert.typeOf(author, '');
-//                     expect(name).to.be.an('object');
-//                 })
-//             });
-//             done();
-//
-//         });
-//
-//         it('should start empty', function () {
-//             var arr = [];
-//
-//             assert.equal(arr.length, 1);
-//         });
+//         console.log("AUTHER NAME " + author.get("name"));
+//         name = author.get("name");
+//         // assert.typeOf(author, '');
+//         t.equal("Michael bay", name);
+//         t.end();
 //
 //     });
-//
+//     // t.equal(3, sum(1, 2)); // make this test pass by completing the add function!
+//     // t.end();
 // });
+
+describe('object checking', function () {
+    it('should be object', function (done) {
+
+        let email = "michael@info.com";
+
+        let query = new Parse.Query(_class.Authors);
+        query.equalTo("email", email);
+        query.first().then(function (author) {
+
+            console.log("AUTHER NAME " + author.get("name"));
+            name = author.get("name");
+            // expect(author).to.be.an('array', 'nooo why fail??');
+            // assert.typeOf(author, '');
+            expect(name).to.be.an('object');
+            done();
+        })
+
+
+    });
+
+});
