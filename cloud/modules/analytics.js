@@ -88,8 +88,11 @@ exports.request = (opt) => {
 
         if (opt.request === REQUEST_TYPE.set) {
             count += 1;
+            return count
+        }else {
+            return count.snapshot
         }
-        return count
+
 
     });
 };
