@@ -141,6 +141,7 @@ exports.Story = (story) => {
         _story.title = story.get("title");
         _story.summary = story.get("summary");
         _story.views = 0;
+        _story.shareUrl = "http://share.cyfa.io/sotry/" + story.id;
 
         let colors = story.get("color");
         if (colors) {
