@@ -15,8 +15,22 @@ function sum (a, b) {
 }
 
 test('sum should return the addition of two numbers', function (t) {
-    t.equal(3, sum(1, 2)); // make this test pass by completing the add function!
-    t.end();
+    let email = "michael@info.com";
+
+                let query = new Parse.Query(_class.Authors);
+                query.equalTo("email", email);
+                query.first().then(function (author) {
+
+                    console.log("AUTHER NAME " + author.get("name"));
+                    name = author.get("name");
+                    // expect(author).to.be.an('array', 'nooo why fail??');
+                    // assert.typeOf(author, '');
+                    t.equal("Michael Bay", name);
+                    t.end();
+
+                });
+    // t.equal(3, sum(1, 2)); // make this test pass by completing the add function!
+    // t.end();
 });
 // describe('loggingMachine', function () {
 //     describe('log In', function () {
