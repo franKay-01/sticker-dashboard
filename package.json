@@ -49,7 +49,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "mocha test/index-spec.js"
+    "test": "mocha test/*.js"
   },
   "engines": {
     "node": ">=8.0"

@@ -1,5 +1,3 @@
-let assert = require('assert');
-let expect = require('chai').expect;
 const test = require('tape'); // assign the tape library to the variable "test"
 let _class = require('../cloud/modules/classNames');
 
