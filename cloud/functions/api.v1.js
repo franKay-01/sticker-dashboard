@@ -146,6 +146,30 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
 });
 
+Parse.Cloud.define("getPack", function (req, res) {
+
+    let packId = req.params.id;
+
+    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("objectId", packId).first({useMasterKey: true})
+        .then((pack) => {
+
+            if (pack) {
+
+                res.success(util.setResponseOk(create.Pack(pack)));
+
+            } else {
+
+                util.handleError(res, util.setErrorType(util.PACK_ERROR));
+
+            }
+
+        }, (error) => {
+
+            util.handleError(res, error);
+        });
+
+});
+
 
 Parse.Cloud.define("getStory", function (req, res) {
 
@@ -386,8 +410,8 @@ Parse.Cloud.define("getStickers", function (req, res) {
 
             } else {
 
-                //TODO write proper error type
                 util.handleError(res, util.setErrorType(util.PACKS_ERROR));
+
             }
 
             res.success(util.setResponseOk(stickers));

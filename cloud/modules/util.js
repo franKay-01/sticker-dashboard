@@ -36,10 +36,11 @@ const GETTING_TASKS_ERROR = 16;
 
 const STORY_ITEMS_ERROR = 18;
 const PACKS_ERROR = 19;
-const FEED_ERROR = 20;
-const STORIES_ERROR = 21;
-const FEED_ERROR_ONE = 22;
-const FEED_ERROR_TWO = 22;
+const PACK_ERROR = 20;
+const FEED_ERROR = 21;
+const STORIES_ERROR = 22;
+const FEED_ERROR_ONE = 23;
+const FEED_ERROR_TWO = 24;
 
 
 const SPECIAL_CHARACTERS = /[`~!@#$%^&*()_|+\-=÷¿?;:'",.123<>\{\}\[\]\\\/]/gi;
@@ -255,6 +256,10 @@ handleError = function (res, error) {
                     error[KEY_RESPONSE_MESSAGE] = "No Packs Found";
                     break;
 
+                    case PACK_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "Pack not found";
+                    break;
+
                     case FEED_ERROR :
                     error[KEY_RESPONSE_MESSAGE] = "Feed Error";
                     break;
@@ -444,5 +449,6 @@ exports.FEED_ERROR = FEED_ERROR;
 exports.FEED_ERROR_ONE = FEED_ERROR_ONE;
 exports.FEED_ERROR_TWO = FEED_ERROR_TWO;
 exports.PACKS_ERROR = PACKS_ERROR;
+exports.PACK_ERROR = PACK_ERROR;
 exports.STATUS_OK = STATUS_OK;
 exports.SPECIAL_CHARACTERS = SPECIAL_CHARACTERS;
