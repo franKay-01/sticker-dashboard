@@ -183,21 +183,23 @@ Parse.Cloud.define("getStory", function (req, res) {
         new Parse.Query(_class.StoryItems).equalTo("storyId", storyId).find({useMasterKey: true})
     ).then(function (story, sticker, storyItems) {
 
-        if(story && sticker && storyItems) {
+        if (story && sticker && storyItems) {
 
-        _story = story;
-        _storyItems = storyItems;
+            console.log("FIRST QUERY");
 
-        return Parse.Promise.when(
-            new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first({useMasterKey: true}),
-            analytics.request({
-                reference: analytics.FIREBASE_REFERENCE.story,
-                type: analytics.ANALYTIC_TYPE.views,
-                id: storyId,
-                request: analytics.REQUEST_TYPE.get,
+            _story = story;
+            _storyItems = storyItems;
 
-            })
-        )
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first({useMasterKey: true}),
+                analytics.request({
+                    reference: analytics.FIREBASE_REFERENCE.story,
+                    type: analytics.ANALYTIC_TYPE.views,
+                    id: story.id,
+                    request: analytics.REQUEST_TYPE.get,
+
+                })
+            )
 
         } else {
 
@@ -207,7 +209,9 @@ Parse.Cloud.define("getStory", function (req, res) {
 
     }).then(function (sticker, analytics) {
 
-        if (_story && sticker && _storyItems) {
+        if (sticker) {
+
+            console.log("SECOND QUERY");
 
             let story = create.Story(_story);
             story.stories = create.StoryItems(_storyItems);
