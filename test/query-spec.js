@@ -18,10 +18,8 @@ test('check typeOf of Story items', function (t) {
         color = story.get("color");
         storyType = story.get("storyType");
 
-        console.log("TYPE OF " + typeof keywords);
-
         t.equal(typeof title, "string");
-        t.equal(typeof keywords, "array");
+        t.equal(typeof keywords, "object");
         t.equal(typeof published, "boolean");
         t.equal(typeof color, "object");
         t.equal(typeof storyType, "number");
