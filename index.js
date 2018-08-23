@@ -6250,6 +6250,8 @@ app.get('/firebase', function (req, res) {
         databaseURL: "https://gsticker-market-place.firebaseio.com/"
     });
 
+    let database = admin.database();
+
     let viewCount = database.ref(process.env.ANALYTICS_KEY).child("story")
         .child("DJkqoAzkfI" + "/" + "views" + "/count");
 
