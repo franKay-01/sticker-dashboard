@@ -88,16 +88,12 @@ exports.request = (opt) => {
 
     viewCount.transaction(function (count) {
 
-        if (count) {
             if (opt.request === REQUEST_TYPE.set) {
                 count += 1;
                 return count
             }
             console.log("COUNT " + JSON.stringify(count));
             promise.resolve(count)
-        } else {
-            promise.reject(0)
-        }
 
     });
 
