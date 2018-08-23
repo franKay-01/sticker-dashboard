@@ -18,7 +18,7 @@ test('check if name is a string', function (t) {
         console.log("AUTHER NAME " + author.get("name"));
         name = author.get("name");
         // assert.typeOf(author, '');
-        t.equal(typeof name, "number");
+        t.equal(typeof name, "string");
 
         t.equal("Michael bay", name);
         t.end();
