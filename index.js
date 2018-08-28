@@ -6289,7 +6289,7 @@ app.get('/newsletter/send/story', function (req, res) {
 app.get("/feedback", function (req, res) {
 
     res.render("pages/feedback", {
-        message: ""
+        message: "Feedback Form"
     });
 
 });

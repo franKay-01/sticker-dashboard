@@ -20,9 +20,18 @@
     <script type="text/javascript"
             src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("toast_message")
+            x.className = "show";
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        }
+    </script>
 </head>
 
-<body class="primary-background-color">
+<body class="primary-background-color" onload="myFunction()">
 
 <div class="grid-container">
     <!-- Logo -->
@@ -34,14 +43,6 @@
     <!-- End of logo-->
 
     <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Feedback Collection</b></span>
-    <%if (message !== "") {%>
-    <div class="medium-12 large-12 error_card">
-        <div style="text-align: center;font-size: 20px;">
-            <%= message %>
-        </div>
-    </div>
-    <%}%>
-
     <div class="grid-x grid-margin-x" id="opaqueDiv">
 
         <div class="medium-3 large-3 cell icons" style="width: 850px !important;height: 100% !important;margin: 0px 150px auto;">
@@ -71,6 +72,7 @@
                 </form>
             </center>
         </div>
+        <div id="toast_message"><%= message %></div>
 
         <%- include('../partials/footer') %>
     </div>
