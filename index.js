@@ -6286,11 +6286,10 @@ app.get('/newsletter/send/story', function (req, res) {
 
 /*====================================== EXPERIMENTS ============================*/
 
-app.get("/feedback", function (req, res) {
+app.get("/feedbacks", function (req, res) {
 
     new Parse.Query("Feedback").find().then(function (feedbacks) {
 
-        console.log("FEEDBACK " + JSON.stringify(feedbacks));
         res.render("pages/feedback", {
             feedbacks: feedbacks
         });
@@ -6316,13 +6315,7 @@ app.post("/feedback", function (req, res) {
     feedback.set("social", media);
 
     feedback.save().then(function (feedback) {
-        res.render("pages/feedback",{
-            message: "Saved Feedback"
-        }, function (error) {
-            res.render("pages/feedback", {
-                message: "Error, Could not save feedback"
-            })
-        })
+        res.redirect('/feedbacks');
     })
 
 });
