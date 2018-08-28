@@ -8,12 +8,6 @@ admin.initializeApp({
 
 let database = admin.database();
 
-
-let REQUEST_TYPE = {
-    get: 0,
-    set: 1
-};
-
 let ANALYTIC_TYPE = {
     views: 0,
     shares: 1,
@@ -69,7 +63,6 @@ let getType = (type) => {
  * @param {string} opt.reference - reference object e.g sticker, story, pack.
  * @param {string} opt.type - type is views,shares,downloads,used
  * @param {string} opt.id - the id of the item
- * @param {string} opt.request - request type is either set or anything - for convenience use REQUEST_TYPE.get
  */
 exports.request = (opt) => {
 
@@ -85,11 +78,8 @@ exports.request = (opt) => {
         .child(id + "/" + getType(type) + "/count");
 
     viewCount.transaction(function (count) {
-
-        if (opt.request === REQUEST_TYPE.set) {
-            count += 1;
-        }
-        return count
+        count += 1;
+        return count;
 
     });
 };
@@ -113,21 +103,34 @@ exports.event = (opt) => {
 exports.formatted = (opt) => {
 
     let data = [];
-    if (opt.items !== undefined || opt.items !== "undefined") {
-
-        opt.items.forEach(item => {
-            let id = item.key;
-            let value = item.val()[opt.typeString].count;
-            data.push({id: id, value: value});
-        });
-
+    let items = opt.items;
+    if (items !== undefined || items !== "undefined") {
+            opt.items.forEach(item => {
+                let id = item.key;
+                let value = item.val()[opt.typeString].count;
+                data.push({id: id, value: value});
+            });
     }
 
     return data;
 
 };
 
-exports.REQUEST_TYPE = REQUEST_TYPE;
+exports.getCount = (opt) => {
+    let data = opt.data;
+    if (data !== undefined || data !== "undefined") {
+        opt.items.forEach(item => {
+            if (item.val()) {
+                let count = item.val()[opt.typeString].count;
+                if (count) {
+                    return count;
+                }
+            }
+        });
+    }
+    return 0;
+};
+
 exports.ANALYTIC_TYPE = ANALYTIC_TYPE;
 exports.ANALYTIC_TYPE_STRING = ANALYTIC_TYPE_STRING;
 exports.FIREBASE_REFERENCE = FIREBASE_REFERENCE;

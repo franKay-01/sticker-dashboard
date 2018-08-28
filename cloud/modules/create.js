@@ -68,6 +68,7 @@ exports.Pack = (pack) => {
         _pack.id = pack.id;
         _pack.name = pack.get("name");
         _pack.description = pack.get("description");
+        _pack.shareUrl = "http://share.cyfa.io/pack/" + pack.id;
 
         let artwork = pack.get("artwork");
         if (artwork) {
@@ -94,6 +95,29 @@ exports.Pack = (pack) => {
     }
 
     return _pack;
+
+};
+
+exports.Story = (story) => {
+
+    let _story = {};
+
+    if (story) {
+        _story.id = story.id;
+        _story.title = story.get("title");
+        _story.summary = story.get("summary");
+        _story.views = 0;
+        _story.shareUrl = "http://share.cyfa.io/story/" + story.id;
+
+        let colors = story.get("color");
+        if (colors) {
+            _story.colors = colors
+        } else {
+            _story.colors = type.DEFAULT.colors
+        }
+    }
+
+    return _story;
 
 };
 
@@ -128,29 +152,6 @@ exports.StoryItems = (storyItems) => {
     }
 
     return _storyItems
-};
-
-//TODO
-exports.Story = (story) => {
-
-    let _story = {};
-
-    if (story) {
-        _story.id = story.id;
-        _story.title = story.get("title");
-        _story.summary = story.get("summary");
-        _story.views = 0;
-
-        let colors = story.get("color");
-        if (colors) {
-            _story.colors = colors
-        } else {
-            _story.colors = type.DEFAULT.colors
-        }
-    }
-
-    return _story;
-
 };
 
 

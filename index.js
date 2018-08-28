@@ -14,7 +14,7 @@ let cookieSession = require('cookie-session');
 let cors = require('cors');
 let methodOverride = require('method-override');
 let moment = require('moment');
-let admin = require('firebase-admin');
+
 
 //for parsing location, directory and paths
 let path = require('path');
@@ -6360,40 +6360,6 @@ app.get("/test_upload/:id", function (req, res) {
         })
     }
 });
-
-
-app.get('/firebase', function (req, res) {
-
-    let analytics = require("./cloud/modules/analytics");
-
-    analytics.event({
-        reference: analytics.FIREBASE_REFERENCE.story,
-    }).then((items) => {
-
-        //
-        // let data = []
-        items.forEach(item => {
-            //  let id = item.key;
-            console.log("COUNT ++ " + item.val()["views"].count);
-            console.log("ID ++ " + item.key)
-            // let count = value["views"].count;
-            // data.push({id:id,value:count});
-        });
-
-        res.send(items);
-
-        // let val = analytics.data({
-        //     items: items,
-        //     type: analytics.ANALYTIC_TYPE_STRING.views
-        // });
-
-
-    }).catch((error) => {
-        res.send(error);
-    })
-
-});
-
 
 app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 

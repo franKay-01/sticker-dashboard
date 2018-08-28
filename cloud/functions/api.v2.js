@@ -216,8 +216,7 @@ Parse.Cloud.define("getStory", function (req, res) {
             analytics.request({
                 reference: analytics.FIREBASE_REFERENCE.story,
                 type: analytics.ANALYTIC_TYPE.views,
-                id: storyId,
-                request: analytics.REQUEST_TYPE.get,
+                id: storyId
 
             })
         )
@@ -256,8 +255,7 @@ Parse.Cloud.define("getStoryItems", function (req, res) {
         analytics.request({
             reference: analytics.FIREBASE_REFERENCE.story,
             type: analytics.ANALYTIC_TYPE.views,
-            id: storyId,
-            request: analytics.REQUEST_TYPE.set,
+            id: storyId
 
         })
     ).then((storyItems) => {

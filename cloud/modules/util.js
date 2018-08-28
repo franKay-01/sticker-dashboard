@@ -36,10 +36,12 @@ const GETTING_TASKS_ERROR = 16;
 
 const STORY_ITEMS_ERROR = 18;
 const PACKS_ERROR = 19;
-const FEED_ERROR = 20;
-const STORIES_ERROR = 21;
-const FEED_ERROR_ONE = 22;
-const FEED_ERROR_TWO = 22;
+const PACK_ERROR = 20;
+const FEED_ERROR = 21;
+const STORIES_ERROR = 22;
+const STORY_ERROR = 23;
+const FEED_ERROR_ONE = 24;
+const FEED_ERROR_TWO = 25;
 
 
 const SPECIAL_CHARACTERS = /[`~!@#$%^&*()_|+\-=÷¿?;:'",.123<>\{\}\[\]\\\/]/gi;
@@ -203,6 +205,11 @@ handleError = function (res, error) {
                     error[KEY_RESPONSE_MESSAGE] = "No stories found";
                     break;
 
+
+                case STORY_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "No story found";
+                    break;
+
                 case SETUP_USER_ERROR :
                     error[KEY_RESPONSE_MESSAGE] = "Error setting up user";
                     break;
@@ -247,7 +254,7 @@ handleError = function (res, error) {
                     error[KEY_RESPONSE_MESSAGE] = "No class type was specified. Check parameters";
                     break;
 
-                    case STORY_ITEMS_ERROR :
+                case STORY_ITEMS_ERROR :
                     error[KEY_RESPONSE_MESSAGE] = "Stories items where not loaded";
                     break;
 
@@ -255,7 +262,11 @@ handleError = function (res, error) {
                     error[KEY_RESPONSE_MESSAGE] = "No Packs Found";
                     break;
 
-                    case FEED_ERROR :
+                case PACK_ERROR :
+                    error[KEY_RESPONSE_MESSAGE] = "Pack not found";
+                    break;
+
+                case FEED_ERROR :
                     error[KEY_RESPONSE_MESSAGE] = "Feed Error";
                     break;
 
@@ -363,9 +374,9 @@ let getMimeType = mimeType => {
     return ".png";
 };
 
-exports.thumbnail = (files,size) => {
+exports.thumbnail = (files, size) => {
 
-    if(!size) {
+    if (!size) {
         size = 200
     }
 
@@ -375,8 +386,7 @@ exports.thumbnail = (files,size) => {
     files.forEach(function (file, index) {
 
         let originalName = file.originalname;
-        let image_name = originalName.replace(SPECIAL_CHARACTERS, '').
-        substring(0, originalName.length - 4);
+        let image_name = originalName.replace(SPECIAL_CHARACTERS, '').substring(0, originalName.length - 4);
 
         gm(file.path)
             .resize(size, size)
@@ -427,6 +437,7 @@ exports.TEXT_MESSAGE_ERROR = TEXT_MESSAGE_ERROR;
 exports.TOKEN_ERROR = TOKEN_ERROR;
 exports.HASH_ERROR = HASH_ERROR;
 exports.STORIES_ERROR = STORIES_ERROR;
+exports.STORY_ERROR = STORY_ERROR;
 exports.SETUP_USER_ERROR = SETUP_USER_ERROR;
 exports.GETTING_RECORDS_ERROR = GETTING_RECORDS_ERROR;
 exports.GETTING_TASKS_ERROR = GETTING_TASKS_ERROR;
@@ -444,5 +455,6 @@ exports.FEED_ERROR = FEED_ERROR;
 exports.FEED_ERROR_ONE = FEED_ERROR_ONE;
 exports.FEED_ERROR_TWO = FEED_ERROR_TWO;
 exports.PACKS_ERROR = PACKS_ERROR;
+exports.PACK_ERROR = PACK_ERROR;
 exports.STATUS_OK = STATUS_OK;
 exports.SPECIAL_CHARACTERS = SPECIAL_CHARACTERS;
