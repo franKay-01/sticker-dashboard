@@ -6286,6 +6286,12 @@ app.get('/newsletter/send/story', function (req, res) {
 
 /*====================================== EXPERIMENTS ============================*/
 
+app.get("/feedback", function (req, res) {
+
+    res.render("pages/feedback");
+
+});
+
 app.get("/test_nosql/:info", function (req, res) {
 
     let token = req.cookies.token;
