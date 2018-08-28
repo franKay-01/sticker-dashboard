@@ -6288,7 +6288,7 @@ app.get('/newsletter/send/story', function (req, res) {
 
 app.get("/feedbacks", function (req, res) {
 
-    new Parse.Query("Feedback").ascending("createdAt").find().then(function (feedbacks) {
+    new Parse.Query("Feedback").descending("createdAt").find().then(function (feedbacks) {
 
         res.render("pages/feedback", {
             feedbacks: feedbacks
