@@ -36,6 +36,7 @@
 </head>
 
 <body class="primary-background-color" onload="myFunction()">
+<div id="pageMask"></div>
 
 <div class="create_background" id="fbForm">
 
@@ -61,29 +62,34 @@
                 <button type="submit" class="create">Submit</button>
             </span>
             <span>
-                <button type="button" id="btnCancelProduct" class="cancel">Cancel</button>
+                <button type="button" id="btnCancelFeed" class="cancel">Cancel</button>
             </span>
-
-            </button>
 
         </form>
     </center>
 </div>
 <div class="grid-container">
     <!-- Logo -->
-    <div class="medium-12 large-12">
+    <div class="medium-12 large-12" id="logo">
         <img src="/public/assets/images/G_logo.png"
              srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
              id="logo">
     </div>
     <!-- End of logo-->
 
-    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Feedback Collection</b></span>
+    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Feedback Collection</b> <a href="#" id="showFeedback"></a></span>
     <div class="grid-x grid-margin-x" id="opaqueDiv">
         <% if (feedbacks.length === 0){ %>
 
         <% } else { %>
         <table style="width: 1200px;">
+            <tr>
+                <td>Name</td>
+                <td>Profession</td>
+                <td>Email</td>
+                <td>Number</td>
+                <td>Handles</td>
+            </tr>
             <% feedbacks.forEach(function(item, index) { %>
             <tr>
                 <!--<div class="medium-6 large-6">-->

@@ -752,6 +752,22 @@ $(document).ready(function () {
 
     });
 
+    $('#showFeedback').on('click', function () {
+        $('#pageMask').fadeIn('fast');
+        $('#fbForm').fadeIn('fast');
+        $('#logo').fadeOut('fast');
+        $('#pack_id').fadeOut('fast');
+        $('#opaqueDiv').fadeOut('fast');
+    });
+
+    $('#btnCancelFeed').on('click', function () {
+        $('#pageMask').fadeOut('fast');
+        $('#fbForm').fadeOut('fast');
+        $('#logo').fadeIn('fast');
+        $('#pack_id').fadeIn('fast');
+        $('#opaqueDiv').fadeIn('fast');
+    });
+
     $('#btnCancelProduct').on('click', function () {
         $('#pageMask').fadeOut('fast');
         $('#hiddenAddProductForm').fadeOut('fast');
