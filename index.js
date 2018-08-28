@@ -6291,7 +6291,7 @@ app.get("/feedback", function (req, res) {
     new Parse.Query("Feedback").find().then(function (feedbacks) {
 
         res.render("pages/feedback", {
-            feedback: feedbacks
+            feedbacks: feedbacks
         });
 
     });
