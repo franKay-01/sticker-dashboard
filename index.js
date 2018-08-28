@@ -6288,7 +6288,38 @@ app.get('/newsletter/send/story', function (req, res) {
 
 app.get("/feedback", function (req, res) {
 
-    res.render("pages/feedback");
+    res.render("pages/feedback", {
+        message: ""
+    });
+
+});
+
+app.post("/feedback", function (req, res) {
+
+    let name = req.body.name;
+    let profession = req.body.profession;
+    let email = req.body.email;
+    let number = req.body.number;
+    let social = req.body.social;
+
+    let Feedback = new Parse.Object.extend("Feedback");
+    let feedback = new Feedback();
+
+    feedback.set("name", name);
+    feedback.set("profession", profession);
+    feedback.set("email", email);
+    feedback.set("number", number);
+    feedback.set("social", social)
+
+    feedback.save().then(function (feedback) {
+        res.render("pages/feedback",{
+            message: "Saved Feedback"
+        }, function (error) {
+            res.render("pages/feedback", {
+                message: "Error, Could not save feedback"
+            })
+        })
+    })
 
 });
 

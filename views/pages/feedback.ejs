@@ -34,6 +34,13 @@
     <!-- End of logo-->
 
     <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Feedback Collection</b></span>
+    <%if (message !== "") {%>
+    <div class="medium-12 large-12 error_card">
+        <div style="text-align: center;font-size: 20px;">
+            <%= message %>
+        </div>
+    </div>
+    <%}%>
 
     <div class="grid-x grid-margin-x" id="opaqueDiv">
 
