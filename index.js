@@ -6299,8 +6299,8 @@ app.post("/feedback", function (req, res) {
     let name = req.body.name;
     let profession = req.body.profession;
     let email = req.body.email;
-    let number = parseInt(req.body.number);
-    let social = req.body.social;
+    let number = req.body.number;
+    let media = req.body.media;
 
     let Feedback = new Parse.Object.extend("Feedback");
     let feedback = new Feedback();
@@ -6309,7 +6309,7 @@ app.post("/feedback", function (req, res) {
     feedback.set("profession", profession);
     feedback.set("email", email);
     feedback.set("number", number);
-    feedback.set("social", social)
+    feedback.set("social", media);
 
     feedback.save().then(function (feedback) {
         res.render("pages/feedback",{
