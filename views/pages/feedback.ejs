@@ -41,6 +41,7 @@
 <div class="create_background" id="fbForm">
 
     <center>
+        <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW FEEDBACK!</div>
         <form action="/feedback" id="feedbackForm" method="post">
 
             <input type="text" class="_pack common_pack_detail validate" placeholder="Name"
@@ -77,12 +78,14 @@
     </div>
     <!-- End of logo-->
 
-    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Feedback Collection</b> <a href="#" id="showFeedback">Add</a></span>
+    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Feedback Collection</b> <a href="#" id="showFeedback">
+            <b style="color:#e4622f;font-size: 35px;margin-left: 65px;">Add New Record</b></a>
+    </span>
     <div class="grid-x grid-margin-x" id="opaqueDiv">
         <% if (feedbacks.length === 0){ %>
 
         <% } else { %>
-        <table style="width: 1120px;" class="striped">
+        <table style="width: 1120px;margin: 0 35px;" class="striped">
             <tr style="background-color: #e4622f">
                 <td><b>Name</b></td>
                 <td><b>Profession</b></td>
