@@ -6303,7 +6303,7 @@ app.get('/whatsapp', function (req, res) {
                     from: 'whatsapp:+14155238886',
                     to: 'whatsapp:+233244504815'
                 })
-                .then(message => console.log(message.sid))
+                .then(message => console.log(JSON.stringify(message.sid)))
                 .done();
 
             res.redirect('/');
