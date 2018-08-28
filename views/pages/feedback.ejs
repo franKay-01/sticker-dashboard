@@ -77,18 +77,18 @@
     </div>
     <!-- End of logo-->
 
-    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Feedback Collection</b> <a href="#" id="showFeedback"></a></span>
+    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Feedback Collection</b> <a href="#" id="showFeedback">Add</a></span>
     <div class="grid-x grid-margin-x" id="opaqueDiv">
         <% if (feedbacks.length === 0){ %>
 
         <% } else { %>
-        <table style="width: 1200px;">
-            <tr>
-                <td>Name</td>
-                <td>Profession</td>
-                <td>Email</td>
-                <td>Number</td>
-                <td>Handles</td>
+        <table style="width: 1120px;" class="striped">
+            <tr style="background-color: #e4622f">
+                <td><b>Name</b></td>
+                <td><b>Profession</b></td>
+                <td><b>Email</b></td>
+                <td><b>Number</b></td>
+                <td><b>Handles</b></td>
             </tr>
             <% feedbacks.forEach(function(item, index) { %>
             <tr>
