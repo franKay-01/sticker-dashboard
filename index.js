@@ -6290,6 +6290,7 @@ app.get("/feedback", function (req, res) {
 
     new Parse.Query("Feedback").find().then(function (feedbacks) {
 
+        console.log("FEEDBACK " + JSON.stringify(feedbacks));
         res.render("pages/feedback", {
             feedbacks: feedbacks
         });
