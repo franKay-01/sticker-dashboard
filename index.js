@@ -6299,7 +6299,7 @@ app.post("/feedback", function (req, res) {
     let name = req.body.name;
     let profession = req.body.profession;
     let email = req.body.email;
-    let number = req.body.number;
+    let number = parseInt(req.body.number);
     let social = req.body.social;
 
     let Feedback = new Parse.Object.extend("Feedback");
