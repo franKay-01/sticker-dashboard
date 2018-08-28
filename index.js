@@ -6286,6 +6286,34 @@ app.get('/newsletter/send/story', function (req, res) {
 
 /*====================================== EXPERIMENTS ============================*/
 
+app.get('/whatsapp', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+            const accountSid = process.env.TWILIO_SID;
+            const authToken = process.env.TWILIO_TOKEN;
+            const client = require('twilio')(accountSid, authToken);
+
+            client.messages
+                .create({
+                    body: 'Hello there!',
+                    from: 'whatsapp:+14155238886',
+                    to: 'whatsapp:+233244504815'
+                })
+                .then(message => console.log(message.sid))
+                .done();
+
+            res.redirect('/');
+        })
+    }else {
+        res.redirect('/');
+    }
+});
+
+
 app.get("/feedbacks", function (req, res) {
 
     new Parse.Query("Feedback").descending("createdAt").find().then(function (feedbacks) {
