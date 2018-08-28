@@ -6288,10 +6288,13 @@ app.get('/newsletter/send/story', function (req, res) {
 
 app.get("/feedback", function (req, res) {
 
-    res.render("pages/feedback", {
-        message: "Feedback Form"
-    });
+    new Parse.Query("Feedback").find().then(function (feedbacks) {
 
+        res.render("pages/feedback", {
+            feedback: feedbacks
+        });
+
+    });
 });
 
 app.post("/feedback", function (req, res) {

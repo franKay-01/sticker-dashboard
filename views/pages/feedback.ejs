@@ -37,6 +37,38 @@
 
 <body class="primary-background-color" onload="myFunction()">
 
+<div class="create_background" id="fbForm">
+
+    <center>
+        <form action="/feedback" id="feedbackForm" method="post">
+
+            <input type="text" class="_pack common_pack_detail validate" placeholder="Name"
+                   name="name" required="" aria-required="true"><br>
+
+            <input type="text" class="_pack common_pack_detail validate" placeholder="Profession"
+                   name="profession" required="" aria-required="true"><br>
+
+            <input type="text" class="_pack common_pack_detail validate" placeholder="Email"
+                   name="email" required="" aria-required="true"><br>
+
+            <input type="text" class="_pack common_pack_detail validate" placeholder="Phone Number"
+                   name="number" required="" aria-required="true"><br>
+
+            <input type="text" class="_pack common_pack_detail validate" placeholder="Social Media Handle"
+                   name="media" required="" aria-required="true"><br>
+
+            <span>
+                <button type="submit" class="create">Submit</button>
+            </span>
+            <span>
+                <button type="button" id="btnCancelProduct" class="cancel">Cancel</button>
+            </span>
+
+            </button>
+
+        </form>
+    </center>
+</div>
 <div class="grid-container">
     <!-- Logo -->
     <div class="medium-12 large-12">
@@ -48,34 +80,36 @@
 
     <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Feedback Collection</b></span>
     <div class="grid-x grid-margin-x" id="opaqueDiv">
+        <% if (feedbacks.length === 0){ %>
 
-        <div class="medium-3 large-3 cell icons" style="width: 850px !important;height: 100% !important;margin: 0px 150px auto;">
+        <% } else { %>
+        <table style="width: 1200px;">
+            <% feedbacks.forEach(function(item, index) { %>
+            <tr>
 
-            <center>
-                <form action="/feedback" id="feedbackForm" method="post">
+                <!--<div class="medium-6 large-6">-->
+                <% let name = item.get("name") %>
+                <td>
+                    <%= item.get("name") %>
+                </td>
+                <td>
+                    <%= item.get("profession") %>
+                </td>
+                <td>
+                    <%= item.get("email") %>
+                </td>
+                <td>
+                    <%= item.get("number") %>
+                </td>
+                <td>
+                    <%= item.get("social") %>
+                </td>
+                <!--</div>-->
+            </tr>
 
-                    <input type="text" class="box_2" style="width: 600px;margin: 30px 70px;" placeholder="Name" required
-                           name="name">
-
-                    <input type="text" class="box_2" style="width: 600px;margin: 30px 70px;" placeholder="Profession"
-                           required name="profession">
-
-                    <input type="email" class="box_2" style="width: 600px;margin: 30px 70px;" placeholder="Email"
-                           required name="email">
-
-                    <input type="number" class="box_2" style="width: 600px;margin: 30px 70px;"
-                           placeholder="Phone Number" required name="number">
-
-                    <input type="text" class="box_2" style="width: 600px;margin: 30px 70px;"
-                           placeholder="Social Media Handle" required name="media">
-
-                    <button id="sbbutton" style="margin-top: 15px !important;margin-bottom:15px !important;color: #a46580;float: none !important;"
-                            class="create">Submit
-                    </button>
-
-                </form>
-            </center>
-        </div>
+            <% }); %>
+        </table>
+        <% } %>
         <div id="toast_message"><%= message %></div>
 
         <%- include('../partials/footer') %>
