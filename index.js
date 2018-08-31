@@ -101,7 +101,7 @@ let api = new ParseServer({
     // masterKey: config.MASTER_KEY || 'myMasterKey', //For google
 
     // verbose: process.env.VERBOSE || true,
-    verbose: true,
+    verbose: process.env.VERBOSE || true,
     //**** Live Query ****//
     // liveQuery: {
     //     classNames: ["TestObject", "Place", "Team", "Player", "ChatMessage"] // List of classes to support for query subscriptions
@@ -6246,8 +6246,11 @@ app.get('/firebase', function (req, res) {
 
     analytics.event({
         reference: "story/" + "Z7lBXJJ1PT"
-    }).then((count) => {
-        res.send(" " + count.val()["views"].count + " ")
+    }).then((analytic) => {
+        res.send(" "+analytics.getCount({
+            data:analytic,
+            typeString:analytics.ANALYTIC_TYPE_STRING.views
+        })+ " ");
     }).catch((error) => {
         res.send(error)
     })
