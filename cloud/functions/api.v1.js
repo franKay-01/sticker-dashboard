@@ -58,7 +58,6 @@ Parse.Cloud.define("getFeed", function (req, res) {
             _story = story;
 
 
-            console.log("STORY VIEWS " + storyViews);
 
             let data = analytics.formatted({
                 items: storyViews,
@@ -68,6 +67,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
             if (data.length) {
                 _.each(data, item => {
                     if (_story.id === item.id) {
+                        console.log("STORY VIEW " + item.value);
                         _story.views = item.value
                     }
                 });
