@@ -87,8 +87,8 @@ exports.Pack = (pack) => {
         _pack.previews = [];
         let previews = pack.get("previews");
         if (previews) {
-            _.each(previews, preview => {
-                _pack.previews.push({id: "p" + helper.hash(), url: preview})
+            _.each(previews,preview => {
+                _pack.previews.push({id:"p"+helper.hash(),url:preview})
             });
 
         }
@@ -106,9 +106,7 @@ exports.Story = (story) => {
         _story.id = story.id;
         _story.title = story.get("title");
         _story.summary = story.get("summary");
-        if (!story.views) {
-            _story.views = 0;
-        }
+        _story.views = 0;
         _story.shareUrl = "http://share.cyfa.io/story/" + story.id;
 
         let colors = story.get("color");

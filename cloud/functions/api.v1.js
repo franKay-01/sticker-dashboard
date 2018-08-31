@@ -25,6 +25,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
     let _sticker = {};
     let _story = {};
     let _packs = [];
+    let views = 0;
 
     Parse.Promise.when(
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STICKER).first({useMasterKey: true}),
@@ -65,7 +66,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
             if (data.length) {
                 _.each(data, item => {
                     if (_story.id === item.id) {
-                        _story.views = item.value
+                        views = item.value
                     }
                 });
             }
@@ -87,7 +88,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
             feed.stickerOfDay = create.Sticker(_sticker);
             let _latestStory = create.Story(_story);
-
+            _latestStory.views = views;
             _latestStory.stories = create.StoryItems(storyItems);
             feed.latestStory = create.StoryArtwork(_latestStory, sticker);
 
