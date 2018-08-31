@@ -75,15 +75,6 @@ Parse.Cloud.define("getFeed", function (req, res) {
             feed.stickerOfDay = create.Sticker(_sticker);
             let _latestStory = create.Story(_story);
 
-            _latestStory.stories = create.StoryItems(storyItems);
-            feed.latestStory = create.StoryArtwork(_latestStory, sticker);
-
-            let packList = [];
-
-            _.map(_packs, pack => {
-                packList.push(create.Pack(pack))
-            });
-
             let data = analytics.formatted({
                 items: storyViews,
                 typeString: analytics.ANALYTIC_TYPE_STRING.views
@@ -97,6 +88,15 @@ Parse.Cloud.define("getFeed", function (req, res) {
                 });
             }
 
+
+            _latestStory.stories = create.StoryItems(storyItems);
+            feed.latestStory = create.StoryArtwork(_latestStory, sticker);
+
+            let packList = [];
+
+            _.map(_packs, pack => {
+                packList.push(create.Pack(pack))
+            });
 
 
             feed.packs = packList;
