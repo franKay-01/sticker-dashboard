@@ -65,8 +65,8 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
             if (data.length) {
                 _.each(data, item => {
-                    if (story.id === item.id) {
-                        story.views = item.value
+                    if (_story.id === item.id) {
+                        _story.views = item.value
                     }
                 });
             }
