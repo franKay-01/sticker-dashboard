@@ -38,7 +38,24 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first({useMasterKey: true}),
-                new Parse.Query(_class.Stories).equalTo("published", true).equalTo("objectId", story.get("feedId")).first({useMasterKey: true}),
+                new Parse.Query(_class.Stories).equalTo("published", true).equalTo("objectId", story.get("feedId")).first({useMasterKey: true})
+            );
+
+        } else {
+
+            util.handleError(res, util.setErrorType(util.FEED_ERROR));
+        }
+
+    }).then((sticker, story, storyArtwork) => {
+
+        if (sticker && story && storyArtwork) {
+
+            _sticker = sticker;
+            _story = story;
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stickers).equalTo("objectId", storyArtwork.get("stickerId")).first({useMasterKey: true}),
+                new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find({useMasterKey: true}),
                 new Parse.Query(_class.ArtWork).equalTo("itemId", story.get("feedId")).first({useMasterKey: true}),
                 analytics.event({
                     reference: analytics.FIREBASE_REFERENCE.story
@@ -47,45 +64,11 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
         } else {
 
-            util.handleError(res, util.setErrorType(util.FEED_ERROR));
-        }
-
-    }).then((sticker, story, storyArtwork,storyViews) => {
-
-        if (sticker && story && storyArtwork) {
-
-            _sticker = sticker;
-            _story = story;
-
-
-
-            let data = analytics.formatted({
-                items: storyViews,
-                typeString: analytics.ANALYTIC_TYPE_STRING.views
-            });
-
-            console.log("DATA LENGTH " + data.length);
-            if (data.length) {
-                _.each(data, item => {
-                    if (_story.id === item.id) {
-                        console.log("STORY VIEW " + item.value);
-                        _story.views = item.value
-                    }
-                });
-            }
-
-            return Parse.Promise.when(
-                new Parse.Query(_class.Stickers).equalTo("objectId", storyArtwork.get("stickerId")).first({useMasterKey: true}),
-                new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find({useMasterKey: true})
-            );
-
-        } else {
-
             util.handleError(res, util.setErrorType(util.FEED_ERROR_ONE));
 
         }
 
-    }).then((sticker, storyItems) => {
+    }).then((sticker, storyItems,storyViews) => {
 
         if (sticker && storyItems) {
 
@@ -100,6 +83,20 @@ Parse.Cloud.define("getFeed", function (req, res) {
             _.map(_packs, pack => {
                 packList.push(create.Pack(pack))
             });
+
+            let data = analytics.formatted({
+                items: storyViews,
+                typeString: analytics.ANALYTIC_TYPE_STRING.views
+            });
+
+            if (data.length) {
+                _.each(data, item => {
+                    if (_latestStory.id === item.id) {
+                        _latestStory.views = item.value
+                    }
+                });
+            }
+
 
 
             feed.packs = packList;
