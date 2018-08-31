@@ -58,6 +58,8 @@ Parse.Cloud.define("getFeed", function (req, res) {
             _story = story;
 
 
+            console.log("STORY VIEWS " + storyViews);
+
             let data = analytics.formatted({
                 items: storyViews,
                 typeString: analytics.ANALYTIC_TYPE_STRING.views
