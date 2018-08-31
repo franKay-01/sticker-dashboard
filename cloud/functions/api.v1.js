@@ -64,6 +64,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
                 typeString: analytics.ANALYTIC_TYPE_STRING.views
             });
 
+            console.log("DATA LENGTH " + data.length);
             if (data.length) {
                 _.each(data, item => {
                     if (_story.id === item.id) {
