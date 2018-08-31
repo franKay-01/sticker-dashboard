@@ -56,7 +56,6 @@ Parse.Cloud.define("getFeed", function (req, res) {
             return Parse.Promise.when(
                 new Parse.Query(_class.Stickers).equalTo("objectId", storyArtwork.get("stickerId")).first({useMasterKey: true}),
                 new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find({useMasterKey: true}),
-                new Parse.Query(_class.ArtWork).equalTo("itemId", story.get("feedId")).first({useMasterKey: true}),
                 analytics.event({
                     reference: analytics.FIREBASE_REFERENCE.story
                 })
