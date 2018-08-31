@@ -407,7 +407,7 @@ Parse.Cloud.define("getStickers", function (req, res) {
         .then(function (pack) {
 
             let stickers = pack.relation(_class.Packs);
-            return Parse.Promise.When(
+            return Parse.Promise.when(
                 stickers.query().find({useMasterKey: true}),
                 analytics.request({
                     reference: analytics.FIREBASE_REFERENCE.pack,
