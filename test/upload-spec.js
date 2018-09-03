@@ -33,7 +33,7 @@ test('uploading items', function (t) {
         testImage.set("localName", stickerName);
         testImage.set("uri", parseFile);
 
-        test.save().then(function (image) {
+        testImage.save().then(function (image) {
             let imageId = image.id;
             t.equal(typeof imageId, "number");
             t.end();
