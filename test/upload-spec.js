@@ -13,7 +13,7 @@ Parse.serverURL = process.env.SERVER_URL;
 test('uploading items', function (t) {
     t.plan(1);
 
-    fs.readdir(directoryPath, function (err, files) {
+    fs.readdir(directoryPath, function (err, file) {
         //handling error
         if (err) {
             return console.log('Unable to scan directory: ' + err);
@@ -22,13 +22,13 @@ test('uploading items', function (t) {
         let Test = new Parse.Object.extend("TestImages");
         let testImage = new Test();
 
-        let originalName = files[0].originalname;
+        let originalName = file[0].originalname;
         let stickerName = originalName.replace(util.SPECIAL_CHARACTERS, '').substring(0, originalName.length - 4);
 
         let bitmap = fs.readFileSync(file[0].path, {encoding: 'base64'});
 
         //create our parse file
-        let parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
+        let parseFile = new Parse.File(stickerName, {base64: bitmap}, file[0].mimetype);
         testImage.set("name", stickerName);
         testImage.set("localName", stickerName);
         testImage.set("uri", parseFile);
