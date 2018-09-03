@@ -2254,7 +2254,7 @@ app.get('/story/artwork/:state/:id', function (req, res) {
 
             _story = story;
 
-            return new Parse.Query(_class.Stickers).find();
+            return new Parse.Query(_class.Stickers).limit(PARSE_LIMIT).find();
 
         }).then(function (stickers) {
 
