@@ -1,7 +1,7 @@
 let fs = require('fs');
 const path = require('path');
 const test = require('tape'); // assign the tape library to the variable "test"
-let _class = require('../cloud/modules/classNames');
+let util = require('../cloud/modules/util');
 const directoryPath = path.join('/app/public/assets/images');
 
 
@@ -18,9 +18,25 @@ test('uploading items', function (t) {
         if (err) {
             return console.log('Unable to scan directory: ' + err);
         }
-        console.log("FILE No. " + files[0]);
-        t.equal(typeof files[0], "object");
-        t.end();
 
+        let Test = new Parse.Object.extend("TestImages");
+        let testImage = new Test();
+
+        let originalName = file.originalname;
+        let stickerName = originalName.replace(util.SPECIAL_CHARACTERS, '').substring(0, originalName.length - 4);
+
+        let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+        //create our parse file
+        let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+        testImage.set("name", stickerName);
+        testImage.set("localName", stickerName);
+        testImage.set("uri", parseFile);
+
+        test.save().then(function (image) {
+            let imageId = image.id;
+            t.equal(typeof imageId, "number");
+            t.end();
+        })
     });
 });
