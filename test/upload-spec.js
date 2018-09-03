@@ -22,13 +22,13 @@ test('uploading items', function (t) {
         let Test = new Parse.Object.extend("TestImages");
         let testImage = new Test();
 
-        let originalName = file.originalname;
+        let originalName = files[0].originalname;
         let stickerName = originalName.replace(util.SPECIAL_CHARACTERS, '').substring(0, originalName.length - 4);
 
-        let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+        let bitmap = fs.readFileSync(file[0].path, {encoding: 'base64'});
 
         //create our parse file
-        let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+        let parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
         testImage.set("name", stickerName);
         testImage.set("localName", stickerName);
         testImage.set("uri", parseFile);
