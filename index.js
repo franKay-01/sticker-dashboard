@@ -5763,7 +5763,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                             stickerUrl: story.stickerUrl,
                             summary: story.summary,
                             topColor: story.topColor,
-                            bottomColor: story.bottom,
+                            bottomColor: story.bottomColor,
                             type: notificationType
                         },
 

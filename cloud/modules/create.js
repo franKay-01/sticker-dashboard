@@ -109,12 +109,14 @@ exports.Story = (story) => {
         _story.views = 0;
         _story.shareUrl = "http://share.cyfa.io/story/" + story.id;
 
+
         let colors = story.get("color");
-        if (colors) {
-            _story.colors = colors
+        if (colors.topColor === "" || colors.bottomColor === "") {
+            _story.colors = type.DEFAULT.colors;
         } else {
-            _story.colors = type.DEFAULT.colors
+            _story.colors = story.get("color");
         }
+
     }
 
     return _story;
