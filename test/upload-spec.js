@@ -23,6 +23,7 @@ test('uploading items', function (t) {
         let testImage = new Test();
 
         let originalName = file[0].originalname;
+        console.log("ORIGINAL " + originalName);
         let stickerName = originalName.replace(util.SPECIAL_CHARACTERS, '').substring(0, originalName.length - 4);
 
         let bitmap = fs.readFileSync(file[0].path, {encoding: 'base64'});
@@ -37,6 +38,10 @@ test('uploading items', function (t) {
             let imageId = image.id;
             t.equal(typeof imageId, "number");
             t.end();
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+
         })
     });
 });
