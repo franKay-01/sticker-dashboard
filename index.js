@@ -6299,9 +6299,9 @@ app.get('/whatsapp', function (req, res) {
 
             client.messages
                 .create({
-                    body: 'Hello there!',
                     from: 'whatsapp:+14155238886',
-                    to: 'whatsapp:+233244504815'
+                    to: 'whatsapp:+233244504815',
+                    body: 'Hello there!'
                 })
                 .then(message => console.log(JSON.stringify(message.sid)))
                 .done();
