@@ -13,35 +13,24 @@ Parse.serverURL = process.env.SERVER_URL;
 test('uploading items', function (t) {
     t.plan(1);
 
-    fs.readdir(directoryPath, function (err, file) {
-        //handling error
+    let Test = new Parse.Object.extend("TestImages");
+    let testImage = new Test();
+
+
+    fs.readFile(directoryPath, 'base64', function (err, data) {
         if (err) {
-            return console.log('Unable to scan directory: ' + err);
+            console.log(err);
+        } else {
+            iconFile = new Parse.File('icon', {base64: data});
+            console.log("FILE " + JSON.stringify(iconFile));
+            testImage.set("uri", iconFile);
+            testImage.save().then(function (saved) {
+
+                console.log("SAVED " + JSON.stringify(saved));
+                t.equal(typeof saved.id, "string");
+                t.end();
+
+            })
         }
-
-        let Test = new Parse.Object.extend("TestImages");
-        let testImage = new Test();
-
-        let originalName = file[0].originalname;
-        console.log("ORIGINAL " + originalName);
-        let stickerName = originalName.replace(util.SPECIAL_CHARACTERS, '').substring(0, originalName.length - 4);
-
-        let bitmap = fs.readFileSync(file[0].path, {encoding: 'base64'});
-
-        //create our parse file
-        let parseFile = new Parse.File(stickerName, {base64: bitmap}, file[0].mimetype);
-        testImage.set("name", stickerName);
-        testImage.set("localName", stickerName);
-        testImage.set("uri", parseFile);
-
-        testImage.save().then(function (image) {
-            let imageId = image.id;
-            t.equal(typeof imageId, "number");
-            t.end();
-        }, function (error) {
-
-            console.log("ERROR " + error.message);
-
-        })
     });
 });
