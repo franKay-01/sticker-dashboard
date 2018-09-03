@@ -2,7 +2,7 @@ let fs = require('fs');
 const path = require('path');
 const test = require('tape'); // assign the tape library to the variable "test"
 let _class = require('../cloud/modules/classNames');
-const directoryPath = path.join('/public/assets/images');
+const directoryPath = path.join('/app/public/assets/images');
 
 
 let Parse = require("parse/node").Parse; // import the module
