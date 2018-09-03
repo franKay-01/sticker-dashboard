@@ -8,7 +8,7 @@ test('log into the system', function (t) {
 
     t.plan(1);
 
-    Parse.User.logIn('dev@psyphertxt.com', 'WonDerful1').then(function (user) {
+    Parse.User.logIn(process.env.TEST_EMAIL, process.env.TEST_PASSWORD).then(function (user) {
         console.log("USER " + user);
         let type = user.get("type");
         t.equal(typeof type, "number");
