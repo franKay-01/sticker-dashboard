@@ -5,7 +5,7 @@ let Parse = require("parse/node").Parse; // import the module
 Parse.initialize(process.env.APP_ID);
 Parse.serverURL = process.env.SERVER_URL;
 
-test('check typeOf of Links items', function (t) {
+test('check typeOf of Newsletter items', function (t) {
     t.plan(2);
 
     let query = new Parse.Query(_class.NewsLetter);
