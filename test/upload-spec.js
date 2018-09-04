@@ -17,16 +17,18 @@ test('uploading items', function (t) {
 
     fs.readdir(directoryPath, function (err, files) {
 
-        fs.readFile(directoryPath+'/'+files[0], 'base64', function (err, data) {
+        fs.readFile(directoryPath + '/' + files[0], 'base64', function (err, data) {
+
             if (err) {
+
                 console.log(err);
+
             } else {
+
                 iconFile = new Parse.File('icon', {base64: data});
-                console.log("FILE " + JSON.stringify(iconFile));
                 testImage.set("uri", iconFile);
                 testImage.save().then(function (saved) {
 
-                    console.log("SAVED " + JSON.stringify(saved));
                     t.equal(typeof saved.id, "string");
                     t.end();
 
