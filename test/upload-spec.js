@@ -17,8 +17,7 @@ test('uploading items', function (t) {
 
     fs.readdir(directoryPath, function (err, files) {
 
-
-        fs.readFile(files[0], 'base64', function (err, data) {
+        fs.readFile(directoryPath+'/'+files[0], 'base64', function (err, data) {
             if (err) {
                 console.log(err);
             } else {
