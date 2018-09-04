@@ -1,7 +1,6 @@
 let fs = require('fs');
 const path = require('path');
 const test = require('tape'); // assign the tape library to the variable "test"
-let util = require('../cloud/modules/util');
 const directoryPath = path.join('/app/public/assets/images');
 
 
@@ -16,21 +15,24 @@ test('uploading items', function (t) {
     let Test = new Parse.Object.extend("TestImages");
     let testImage = new Test();
 
+    fs.readdir(directoryPath, function (err, files) {
 
-    fs.readFile(directoryPath, 'base64', function (err, data) {
-        if (err) {
-            console.log(err);
-        } else {
-            iconFile = new Parse.File('icon', {base64: data});
-            console.log("FILE " + JSON.stringify(iconFile));
-            testImage.set("uri", iconFile);
-            testImage.save().then(function (saved) {
 
-                console.log("SAVED " + JSON.stringify(saved));
-                t.equal(typeof saved.id, "string");
-                t.end();
+        fs.readFile(files[0], 'base64', function (err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                iconFile = new Parse.File('icon', {base64: data});
+                console.log("FILE " + JSON.stringify(iconFile));
+                testImage.set("uri", iconFile);
+                testImage.save().then(function (saved) {
 
-            })
-        }
+                    console.log("SAVED " + JSON.stringify(saved));
+                    t.equal(typeof saved.id, "string");
+                    t.end();
+
+                })
+            }
+        });
     });
 });
