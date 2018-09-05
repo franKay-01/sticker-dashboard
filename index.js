@@ -6366,39 +6366,39 @@ app.get("/test_nosql/:info", function (req, res) {
     }
 });
 
-app.get("/fix_arrays", function (req, res) {
-
-    let token = req.cookies.token;
-    let _packs = [];
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Packs).find();
-
-        }).then(function (packs) {
-
-            _.each(packs, function (pack) {
-                console.log("PACK " + JSON.stringify(pack));
-
-                pack.set("previews", []);
-                _packs.push(pack);
-
-            });
-            return Parse.Object.saveAll(_packs);
-
-        }).then(function () {
-
-            console.log("SAVED ALL PACKS");
-            res.redirect('/');
-
-        })
-    } else {
-        res.redirect('/');
-    }
-
-});
+// app.get("/fix_arrays", function (req, res) {
+//
+//     let token = req.cookies.token;
+//     let _packs = [];
+//
+//     if (token) {
+//
+//         getUser(token).then(function (sessionToken) {
+//
+//             return new Parse.Query(_class.Packs).find();
+//
+//         }).then(function (packs) {
+//
+//             _.each(packs, function (pack) {
+//                 console.log("PACK " + JSON.stringify(pack));
+//
+//                 pack.set("previews", []);
+//                 _packs.push(pack);
+//
+//             });
+//             return Parse.Object.saveAll(_packs);
+//
+//         }).then(function () {
+//
+//             console.log("SAVED ALL PACKS");
+//             res.redirect('/');
+//
+//         })
+//     } else {
+//         res.redirect('/');
+//     }
+//
+// });
 
 app.get("/test_upload/:id", function (req, res) {
     let token = req.cookies.token;
