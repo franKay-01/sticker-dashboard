@@ -5615,6 +5615,122 @@ app.get('/product/edit/:productId', function (req, res) {
 
 /*====================================== FEED ============================*/
 
+app.get('/feed/history/:type', function (req, res) {
+
+    let token = req.cookies.token;
+    let feedType = req.params.type;
+    let stickers = [];
+    let stories = [];
+    let artWork = [];
+    let date = [];
+    let combined = [];
+    let _story;
+    let _allArtwork;
+    let sticker = "sticker";
+    let story = "story";
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+
+            return new Parse.Query(_class.History).find();
+
+        }).then(function (histories) {
+
+            _.each(histories, function (history, index) {
+                if (history.get("type") === type.FEED_TYPE.story) {
+                    stories.push(history.get("itemId"));
+                    date[index] = moment(history.get("createdAt")).format('LL');
+
+                } else if (history.get("type") === type.FEED_TYPE.sticker) {
+                    stickers.push(history.get("itemId"));
+                    date[index] = moment(history.get("createdAt")).format('LL');
+
+                }
+            });
+
+            switch (feedType) {
+                case sticker:
+                    return new Parse.Query(_class.Stickers).containedIn("objectId", stickers).find();
+
+                case story:
+                    return new Parse.Query(_class.Stories).containedIn("objectId", stories).find();
+
+            }
+
+        }).then(function (items) {
+            _story = items;
+
+            switch (feedType) {
+                case sticker:
+                    res.render("pages/feed/history", {
+                        items: items,
+                        feedType: feedType,
+                        date: date,
+                        type: type
+
+                    });
+                    break;
+
+                case story:
+                    return new Parse.Query(_class.ArtWork).find()
+
+            }
+        }).then(function (artworks) {
+
+            _allArtwork = artworks;
+
+            _.each(artworks, function (artwork) {
+
+                _.each(_story, function (story) {
+
+                    if (artwork.get("itemId") === story.id) {
+                        artWork.push(artwork.get("stickerId"));
+                    }
+                })
+
+            });
+
+            return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
+
+        }).then(function (stickers) {
+
+            _.each(_allArtwork, function (artworks) {
+
+                _.each(stickers, function (sticker) {
+
+                    console.log("STORY ID " + artworks);
+
+                    if (artworks.get("stickerId") === sticker.id) {
+
+                        combined.push({
+                            story: artworks.get("itemId"),
+                            image: sticker.get("uri").url()
+                        });
+                    }
+                })
+            });
+
+            res.render("pages/feed/history", {
+                items: _story,
+                feedType: feedType,
+                date: date,
+                type: type,
+                combined: combined
+
+            });
+        }, function (error) {
+
+            console.log("ERROR " + error.message);
+            res.redirect('/');
+        })
+    } else {
+        res.redirect('/');
+
+    }
+
+});
+
 app.post('/feeds/:type/:origin', function (req, res) {
 
     let token = req.cookies.token;
@@ -6170,6 +6286,68 @@ app.get('/newsletter/send/story', function (req, res) {
 
 /*====================================== EXPERIMENTS ============================*/
 
+app.get('/whatsapp', function (req, res) {
+
+    let token = req.cookies.token;
+
+    if (token) {
+
+        getUser(token).then(function (sessionToken) {
+            const accountSid = process.env.TWILIO_SID;
+            const authToken = process.env.TWILIO_TOKEN;
+            const client = require('twilio')(accountSid, authToken);
+
+            client.messages
+                .create({
+                    from: 'whatsapp:+14155238886',
+                    to: 'whatsapp:+233244504815',
+                    body: 'Hello there!'
+                })
+                .then(message => console.log(JSON.stringify(message.sid)))
+                .done();
+
+            res.redirect('/');
+        })
+    }else {
+        res.redirect('/');
+    }
+});
+
+
+app.get("/feedbacks", function (req, res) {
+
+    new Parse.Query("Feedback").descending("createdAt").find().then(function (feedbacks) {
+
+        res.render("pages/feedback", {
+            feedbacks: feedbacks
+        });
+
+    });
+});
+
+app.post("/feedback", function (req, res) {
+
+    let name = req.body.name;
+    let profession = req.body.profession;
+    let email = req.body.email;
+    let number = req.body.number;
+    let media = req.body.media;
+
+    let Feedback = new Parse.Object.extend("Feedback");
+    let feedback = new Feedback();
+
+    feedback.set("name", name);
+    feedback.set("profession", profession);
+    feedback.set("email", email);
+    feedback.set("number", number);
+    feedback.set("social", media);
+
+    feedback.save().then(function (feedback) {
+        res.redirect('/feedbacks');
+    })
+
+});
+
 app.get("/test_nosql/:info", function (req, res) {
 
     let token = req.cookies.token;
@@ -6183,7 +6361,7 @@ app.get("/test_nosql/:info", function (req, res) {
         }, function (error) {
             res.send("ERROR " + error.message);
         })
-    }else {
+    } else {
         res.redirect('/');
     }
 });
@@ -6220,7 +6398,7 @@ app.get("/fix_arrays", function (req, res) {
         res.redirect('/');
     }
 
-})
+});
 
 app.get("/test_upload/:id", function (req, res) {
     let token = req.cookies.token;
@@ -6238,25 +6416,6 @@ app.get("/test_upload/:id", function (req, res) {
         })
     }
 });
-
-
-app.get('/firebase', function (req, res) {
-
-    let analytics = require("./cloud/modules/analytics");
-
-    analytics.event({
-        reference: "story/" + "Z7lBXJJ1PT"
-    }).then((analytic) => {
-        res.send(" "+analytics.getCount({
-            data:analytic,
-            typeString:analytics.ANALYTIC_TYPE_STRING.views
-        })+ " ");
-    }).catch((error) => {
-        res.send(error)
-    })
-
-});
-
 
 app.post('/upload_test', upload.array('im1[]'), function (req, res) {
 

@@ -2188,6 +2188,14 @@ tr #titles {
     top: 155px;
 }
 
+#fbForm {
+    display: none;
+    position: absolute;
+    margin: 0px 300px auto;
+    z-index: 9999;
+    top: 155px;
+}
+
 #hiddenAddAuthors {
     display: none;
     position: absolute;

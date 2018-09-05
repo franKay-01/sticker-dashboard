@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Feedback - G-Stickers</title>
+
+    <% include ../partials/fav.ejs %>
+
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("toast_message")
+            x.className = "show";
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        }
+
+        document.getElementById("sbbutton").onclick = function () {
+            document.getElementById("feedbackForm").submit();
+        }
+    </script>
+</head>
+
+<body class="primary-background-color" onload="myFunction()">
+<div id="pageMask"></div>
+
+<div class="create_background" id="fbForm">
+
+    <center>
+        <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW FEEDBACK!</div>
+        <form action="/feedback" id="feedbackForm" method="post">
+
+            <input type="text" class="_pack common_pack_detail validate" placeholder="Name"
+                   name="name"><br>
+
+            <input type="text" class="_pack common_pack_detail validate" placeholder="Profession"
+                   name="profession"><br>
+
+            <input type="text" class="_pack common_pack_detail validate" placeholder="Email"
+                   name="email"><br>
+
+            <input type="text" class="_pack common_pack_detail validate" placeholder="Phone Number"
+                   name="number"><br>
+
+            <input type="text" class="_pack common_pack_detail validate" placeholder="Social Media Handle"
+                   name="media"><br>
+
+            <span>
+                <button type="submit" class="create">Submit</button>
+            </span>
+            <span>
+                <button type="button" id="btnCancelFeed" class="cancel">Cancel</button>
+            </span>
+
+        </form>
+    </center>
+</div>
+<div class="grid-container">
+    <!-- Logo -->
+    <div class="medium-12 large-12" id="logo">
+        <img src="/public/assets/images/G_logo.png"
+             srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
+             id="logo">
+    </div>
+    <!-- End of logo-->
+
+    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Feedback Collection</b> <a href="#" id="showFeedback">
+            <b style="color:#e4622f;font-size: 35px;margin-left: 65px;">Add New Record</b></a>
+    </span>
+    <div class="grid-x grid-margin-x" id="opaqueDiv">
+        <% if (feedbacks.length === 0){ %>
+
+        <% } else { %>
+        <table style="width: 1120px;margin: 0 35px;" class="striped">
+            <tr style="background-color: #e4622f">
+                <td><b>Name</b></td>
+                <td><b>Profession</b></td>
+                <td><b>Email</b></td>
+                <td><b>Number</b></td>
+                <td><b>Handles</b></td>
+            </tr>
+            <% feedbacks.forEach(function(item, index) { %>
+            <tr>
+                <!--<div class="medium-6 large-6">-->
+                <td>
+                    <%= item.get("name") %>
+                </td>
+                <td>
+                    <%= item.get("profession") %>
+                </td>
+                <td>
+                    <%= item.get("email") %>
+                </td>
+                <td>
+                    <%= item.get("number") %>
+                </td>
+                <td>
+                    <%= item.get("social") %>
+                </td>
+                <!--</div>-->
+            </tr>
+
+            <% }); %>
+        </table>
+        <% } %>
+
+        <%- include('../partials/footer') %>
+    </div>
+</div>
+
+<!-- Body -->
+
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
+<!-- Compiled and minified JavaScript -->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>-->
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js"></script>
+<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+
+</body>
+
+
+</html>

@@ -42,13 +42,14 @@
     "parse-server-sendgrid-adapter": "^1.0.0",
     "sendgrid": "^4.5.0",
     "sqreen": "^1.22.0",
+    "tape": "^4.9.1",
     "twilio": "^2.9.0",
     "underscore": "^1.8.3",
     "url-to-image": "^1.0.0"
   },
   "scripts": {
     "start": "node index.js",
-    "test": "mocha test/index-spec.js"
+    "test": "mocha test/*.js"
   },
   "engines": {
     "node": ">=8.0"
