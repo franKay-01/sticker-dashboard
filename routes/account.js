@@ -10,7 +10,17 @@ const MK_TEAM = 1;
 
 let errorMessage = "";
 
-let upload = multer({storage: util.storage});
+let storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        console.log("Dest " + JSON.stringify(file));
+        cb(null, 'public/uploads')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+
+let upload = multer({storage: storage});
 
 module.exports = function(app) {
 
