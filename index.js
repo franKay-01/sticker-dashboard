@@ -6315,7 +6315,7 @@ app.get('/sendSMS', function (req, res) {
                     to: '+233244504815',
                     body: 'Hello there!'
                 })
-                .then(message => console.log("MESSAGE " +JSON.stringify(message.sid)))
+                .then(message => console.log("MESSAGE FROM TWILIO " + JSON.stringify(message.sid)))
                 .done();
 
             res.send('DONE');
