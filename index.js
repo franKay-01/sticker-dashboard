@@ -502,6 +502,7 @@ app.get('/', function (req, res) {
 });
 */
 // creating a new author
+/*
 app.post('/author', function (req, res) {
 
     let token = req.cookies.token;
@@ -538,6 +539,7 @@ app.post('/author', function (req, res) {
         res.redirect('/');
     }
 });
+*/
 
 app.post('/author/edit/:id', function (req, res) {
 

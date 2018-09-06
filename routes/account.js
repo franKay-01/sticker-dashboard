@@ -259,4 +259,41 @@ module.exports = function(app) {
 
     });
 
+    app.post('/author', function (req, res) {
+
+        let token = req.cookies.token;
+        let name = req.body.authorName;
+        let email = req.body.authorEmail;
+        let phone = req.body.authorNumber;
+        let socialMedia = req.body.authorSocial;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                let Author = new Parse.Object.extend(_class.Authors);
+                let author = new Author();
+
+                author.set("name", name);
+                author.set("email", email);
+                author.set("phone", phone);
+                author.set("socialHandles", socialMedia);
+
+                return author.save();
+
+            }).then(function (author) {
+
+                res.redirect('/authors');
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/home')
+            })
+
+        } else {
+            res.redirect('/');
+        }
+    });
+
 };
