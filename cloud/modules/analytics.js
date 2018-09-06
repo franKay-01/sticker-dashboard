@@ -118,6 +118,7 @@ exports.formatted = (opt) => {
 
 exports.getCount = (opt) => {
     let data = opt.data;
+    console.log("DATA " + data);
     if (data !== undefined || data !== "undefined") {
         opt.items.forEach(item => {
             if (item.val()) {

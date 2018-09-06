@@ -25,6 +25,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
     let _sticker = {};
     let _story = {};
     let _packs = [];
+    let views = 0;
 
     Parse.Promise.when(
         new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STICKER).first({useMasterKey: true}),
@@ -40,6 +41,9 @@ Parse.Cloud.define("getFeed", function (req, res) {
                 new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first({useMasterKey: true}),
                 new Parse.Query(_class.Stories).equalTo("published", true).equalTo("objectId", story.get("feedId")).first({useMasterKey: true}),
                 new Parse.Query(_class.ArtWork).equalTo("itemId", story.get("feedId")).first({useMasterKey: true}),
+                analytics.event({
+                    reference: analytics.FIREBASE_REFERENCE.story
+                })
             );
 
         } else {
@@ -47,12 +51,25 @@ Parse.Cloud.define("getFeed", function (req, res) {
             util.handleError(res, util.setErrorType(util.FEED_ERROR));
         }
 
-    }).then((sticker, story, storyArtwork) => {
+    }).then((sticker, story, storyArtwork,storyViews) => {
 
         if (sticker && story && storyArtwork) {
 
             _sticker = sticker;
             _story = story;
+
+            let data = analytics.formatted({
+                items: storyViews,
+                typeString: analytics.ANALYTIC_TYPE_STRING.views
+            });
+
+            if (data.length) {
+                _.each(data, item => {
+                    if (_story.id === item.id) {
+                        views = item.value
+                    }
+                });
+            }
 
             return Parse.Promise.when(
                 new Parse.Query(_class.Stickers).equalTo("objectId", storyArtwork.get("stickerId")).first({useMasterKey: true}),
@@ -71,7 +88,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
             feed.stickerOfDay = create.Sticker(_sticker);
             let _latestStory = create.Story(_story);
-
+            _latestStory.views = views;
             _latestStory.stories = create.StoryItems(storyItems);
             feed.latestStory = create.StoryArtwork(_latestStory, sticker);
 
@@ -189,10 +206,7 @@ Parse.Cloud.define("getStory", function (req, res) {
             _storyItems = storyItems;
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first({useMasterKey: true}),
-                analytics.event({
-                    reference: analytics.FIREBASE_REFERENCE.views + "/" + story.id
-                })
+                new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first({useMasterKey: true})
             )
 
         } else {
@@ -201,7 +215,7 @@ Parse.Cloud.define("getStory", function (req, res) {
 
         }
 
-    }).then(function (sticker, analytic) {
+    }).then(function (sticker) {
 
         if (sticker) {
 
@@ -209,10 +223,10 @@ Parse.Cloud.define("getStory", function (req, res) {
             story.stories = create.StoryItems(_storyItems);
             story = create.StoryArtwork(story, sticker);
 
-            story.views = analytics.getCount({
-                data:analytic,
-                typeString:analytics.ANALYTIC_TYPE_STRING.views
-            });
+            // story.views = analytics.getCount({
+            //     data: analytic,
+            //     typeString: analytics.ANALYTIC_TYPE_STRING.views
+            // });
 
             res.success(util.setResponseOk(story));
 
@@ -390,7 +404,15 @@ Parse.Cloud.define("getStickers", function (req, res) {
         .then(function (pack) {
 
             let stickers = pack.relation(_class.Packs);
-            return stickers.query().find({useMasterKey: true});
+            return Parse.Promise.when(
+                stickers.query().find({useMasterKey: true}),
+                analytics.request({
+                    reference: analytics.FIREBASE_REFERENCE.pack,
+                    type: analytics.ANALYTIC_TYPE.views,
+                    id: pack.id
+                })
+            );
+
 
         }).then(function (stickers) {
 

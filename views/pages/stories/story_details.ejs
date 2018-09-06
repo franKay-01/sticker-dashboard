@@ -76,7 +76,7 @@
     <div class="medium-3 large-3 cell create_background">
         <center>
             <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">MAKE THIS STORY OF THE
-                DAY?
+                WEEK?
             </div>
         </center>
         <!--<form id="pack_form" action="/new_catalogue_image/<%#= story_id %>" method="post"-->
@@ -249,7 +249,7 @@
         <div class="story_form">
             <p class="story_icons">
                 <% if (latest !== ""){ %>
-                    STORY OF THE DAY
+                    STORY OF THE WEEK
                     <% if (latest.get("feedId") === story.id){ %>
                         <i class="fa fa-circle" id="circle" style="color: #0f9d58;" aria-hidden="true"></i>
                     <% }else{ %>
@@ -336,14 +336,14 @@
                     <form id="latestStory" action="/feeds/story/story" method="post">
                         <input type="text" class="story_id" name="element_id" value="<%= story.id %>" hidden>
                         <button style="background-color: transparent;font-size: 20px;" type="button"
-                                class="preview storyElement">Make Story of The Day
+                                class="preview storyElement">Make Story of The Week
                         </button>
                     </form>
                 <% } %>
             <% } %>
         </div>
 
-        <div id="story_message">THIS STORY IS BEING USED AS STORY OF THE DAY. YOU CAN NOT DELETE IT.</div>
+        <div id="story_message">THIS STORY IS BEING USED AS STORY OF THE WEEK. YOU CAN NOT DELETE IT.</div>
 
 
         <%- include('../../partials/footer') %>

@@ -102,7 +102,7 @@ let api = new ParseServer({
     // masterKey: config.MASTER_KEY || 'myMasterKey', //For google
 
     // verbose: process.env.VERBOSE || true,
-    verbose: true,
+    verbose: process.env.VERBOSE || true,
     //**** Live Query ****//
     // liveQuery: {
     //     classNames: ["TestObject", "Place", "Team", "Player", "ChatMessage"] // List of classes to support for query subscriptions
@@ -2257,7 +2257,7 @@ app.get('/story/artwork/:state/:id', function (req, res) {
 
             _story = story;
 
-            return new Parse.Query(_class.Stickers).find();
+            return new Parse.Query(_class.Stickers).limit(PARSE_LIMIT).find();
 
         }).then(function (stickers) {
 
@@ -5882,7 +5882,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                             stickerUrl: story.stickerUrl,
                             summary: story.summary,
                             topColor: story.topColor,
-                            bottomColor: story.bottom,
+                            bottomColor: story.bottomColor,
                             type: notificationType
                         },
 
@@ -6369,39 +6369,39 @@ app.get("/test_nosql/:info", function (req, res) {
     }
 });
 
-app.get("/fix_arrays", function (req, res) {
-
-    let token = req.cookies.token;
-    let _packs = [];
-
-    if (token) {
-
-        getUser(token).then(function (sessionToken) {
-
-            return new Parse.Query(_class.Packs).find();
-
-        }).then(function (packs) {
-
-            _.each(packs, function (pack) {
-                console.log("PACK " + JSON.stringify(pack));
-
-                pack.set("previews", []);
-                _packs.push(pack);
-
-            });
-            return Parse.Object.saveAll(_packs);
-
-        }).then(function () {
-
-            console.log("SAVED ALL PACKS");
-            res.redirect('/');
-
-        })
-    } else {
-        res.redirect('/');
-    }
-
-})
+// app.get("/fix_arrays", function (req, res) {
+//
+//     let token = req.cookies.token;
+//     let _packs = [];
+//
+//     if (token) {
+//
+//         getUser(token).then(function (sessionToken) {
+//
+//             return new Parse.Query(_class.Packs).find();
+//
+//         }).then(function (packs) {
+//
+//             _.each(packs, function (pack) {
+//                 console.log("PACK " + JSON.stringify(pack));
+//
+//                 pack.set("previews", []);
+//                 _packs.push(pack);
+//
+//             });
+//             return Parse.Object.saveAll(_packs);
+//
+//         }).then(function () {
+//
+//             console.log("SAVED ALL PACKS");
+//             res.redirect('/');
+//
+//         })
+//     } else {
+//         res.redirect('/');
+//     }
+//
+// });
 
 app.get("/test_upload/:id", function (req, res) {
     let token = req.cookies.token;
