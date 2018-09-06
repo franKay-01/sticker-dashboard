@@ -9,6 +9,7 @@ const SUPER_USER = 0;
 const MK_TEAM = 1;
 
 let errorMessage = "";
+const PARSE_SERVER_URL = process.env.SERVER_URL;
 
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
