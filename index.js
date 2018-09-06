@@ -6299,16 +6299,30 @@ app.get('/sendSMS', function (req, res) {
             let number = ['233244504815'];
             let message = 'Hi, its been a long time, how have you been?';
 
-            _.each(number, function (reciever) {
-                util.sendSMS(reciever, message, function (callback) {
+            // _.each(number, function (reciever) {
+            //     util.sendSMS(reciever, message, function (callback) {
+            //
+            //         res.send("FINISHED "+ JSON.stringify(callback));
+            //
+            //     });
+            const accountSid = process.env.TWILIO_SID;
+            const authToken = process.env.TWILIO_TOKEN;
+            const client = require('twilio')(accountSid, authToken);
 
-                    res.send("FINISHED "+ JSON.stringify(callback));
+            client.messages
+                .create({
+                    from: '+15017122661',
+                    to: '+233244504815',
+                    body: 'Hello there!'
+                })
+                .then(message => console.log("MESSAGE " +JSON.stringify(message.sid)))
+                .done();
 
-                });
+            res.send('DONE');
 
-            })
+            // })
         })
-    }else {
+    } else {
         res.rediect('/');
     }
 
