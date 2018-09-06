@@ -540,7 +540,7 @@ app.post('/author', function (req, res) {
     }
 });
 */
-
+/*
 app.post('/author/edit/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -579,7 +579,7 @@ app.post('/author/edit/:id', function (req, res) {
         res.redirect('/');
     }
 });
-
+*/
 app.get('/author/view/:authorId/:storyId', function (req, res) {
 
     let token = req.cookies.token;
@@ -608,6 +608,7 @@ app.get('/author/view/:authorId/:storyId', function (req, res) {
     }
 });
 
+/*
 app.get('/author/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -634,6 +635,7 @@ app.get('/author/:id', function (req, res) {
 
     }
 });
+*/
 
 app.get('/authors', function (req, res) {
 
