@@ -207,7 +207,7 @@ module.exports = function(app) {
 
         if (token) {
 
-            getUser(token).then(sessionToken => {
+            util.getUser(token).then(sessionToken => {
 
                 _user = sessionToken.get("user");
 
