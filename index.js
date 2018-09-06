@@ -6290,6 +6290,42 @@ app.get('/newsletter/send/story', function (req, res) {
 
 /*====================================== EXPERIMENTS ============================*/
 
+app.get('/sendSMS', function (req, res) {
+    let token = req.cookies.token;
+
+    if (token) {
+        getUser(token).then(function (sessionToken) {
+            const accountSid = process.env.TWILIO_SID;
+            const authToken = process.env.TWILIO_TOKEN;
+            const client = require('twilio')(accountSid, authToken);
+
+            let number = ['233244504815'];
+            let message = 'Hi, its been a long time, how have you been?';
+
+            _.each(number, function (reciever) {
+                // util.sendSMS(reciever, message, function () {
+                //
+                //     res.send("FINISHED");
+                //
+                // });
+                client.messages
+                    .create({
+                        body: message,
+                        from: '+14155238886',
+                        to: reciever
+                    })
+                    .then(message => console.log(message.sid))
+                    .done();
+            });
+
+        })
+    }else {
+        res.rediect('/');
+    }
+
+});
+
+
 app.get('/whatsapp', function (req, res) {
 
     let token = req.cookies.token;
@@ -6403,30 +6439,6 @@ app.get("/test_nosql/:info", function (req, res) {
 //     }
 //
 // });
-
-app.get('/sendSMS', function (req, res) {
-    let token = req.cookies.token;
-
-    if (token) {
-        getUser(token).then(function (sessionToken) {
-
-            let number = ['233244504815'];
-            let message = 'Hi, its been a long time, how have you been?';
-
-            _.each(number, function (reciever) {
-                util.sendSMS(reciever, message, function () {
-
-                    res.send("FINISHED");
-
-                });
-            });
-
-        })
-    }else {
-        res.rediect('/');
-    }
-
-});
 
 app.get("/test_upload/:id", function (req, res) {
     let token = req.cookies.token;
