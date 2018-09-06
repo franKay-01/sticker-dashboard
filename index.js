@@ -431,6 +431,7 @@ app.get('/home', function (req, res) {
 });
 */
 // Home Page
+/*
 app.get('/', function (req, res) {
 
     let token = req.cookies.token;
@@ -499,7 +500,7 @@ app.get('/', function (req, res) {
     }
 
 });
-
+*/
 // creating a new author
 app.post('/author', function (req, res) {
 

@@ -7,6 +7,7 @@ const NORMAL_USER = 2;
 const SUPER_USER = 0;
 const MK_TEAM = 1;
 
+let errorMessage = "";
 
 module.exports = function(app) {
 
@@ -188,4 +189,74 @@ module.exports = function(app) {
             res.redirect("/");
         }
     });
+
+    app.get('/', function (req, res) {
+
+        let token = req.cookies.token;
+
+        //utility render__ function to appending appId and serverURL
+        const render__ = (_stickers, _error) => {
+            res.render("pages/accounts/login",
+                {
+                    stickers: _stickers,
+                    appId: process.env.APP_ID,
+                    serverURL: PARSE_SERVER_URL,
+                    error: _error
+                });
+        };
+
+        if (token) {
+
+            getUser(token).then(sessionToken => {
+
+                _user = sessionToken.get("user");
+
+                res.redirect("/home");
+
+            });
+
+        } else {
+
+            return new Parse.Query(_class.Packs).equalTo("objectId", process.env.DEFAULT_PACK).first().then(function (pack) {
+
+                if (pack) {
+
+                    console.log("PACK " + JSON.stringify(pack));
+
+                    let col = pack.relation(_class.Packs);
+                    return col.query().limit(40).find();
+
+                } else {
+                    return []
+                }
+
+            }).then(function (stickers) {
+
+                if (stickers.length) {
+
+                    console.log("STICKERS " + JSON.stringify(stickers));
+
+                    stickers = helper.shuffle(stickers);
+                    stickers = stickers.slice(0, 3);
+
+                    if (errorMessage === "") {
+                        render__(stickers, []);
+
+                    } else {
+                        render__(stickers, errorMessage);
+                        // res.render("pages/login", {stickers: stickers, error: errorMessage});
+                    }
+
+                } else {
+                    render__([], "");
+                }
+
+            }, function (error) {
+                render__([], error.message)
+            });
+
+        }
+
+    });
+
 };
