@@ -4,78 +4,81 @@ let _class = require('../cloud/modules/classNames');
 let util = require('../cloud/modules/util');
 let _ = require('underscore');
 
-app.get('/adverts', function (req, res) {
+module.exports = function(app) {
 
-    let token = req.cookies.token;
-    let _adverts = [];
-    let _user = {};
+    app.get('/adverts', function (req, res) {
 
-    if (token) {
+        let token = req.cookies.token;
+        let _adverts = [];
+        let _user = {};
 
-        util.getUser(token).then(function (sessionToken) {
+        if (token) {
 
-            _user = sessionToken.get("user");
+            util.getUser(token).then(function (sessionToken) {
 
-            return Parse.Promise.when(
-                new Parse.Query(_class.Adverts).equalTo("userId", _user.id).find(),
-                new Parse.Query(_class.AdvertImages).find(),
-            );
+                _user = sessionToken.get("user");
 
-        }).then(function (adverts, ad_images) {
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Adverts).equalTo("userId", _user.id).find(),
+                    new Parse.Query(_class.AdvertImages).find(),
+                );
 
-            _.each(adverts, function (advert) {
+            }).then(function (adverts, ad_images) {
 
-                _.each(ad_images, function (image) {
+                _.each(adverts, function (advert) {
 
-                    if (advert.id === image.get("advertId")) {
+                    _.each(ad_images, function (image) {
 
-                        //TODO modify query to group types
-                        //TODO use type constants from types JS e.g type.LINKS.android
-                        if (image.get("type") === 0) {
-                            _adverts.push({
-                                advert: advert,
-                                image: image.get("uri").url()
-                            })
+                        if (advert.id === image.get("advertId")) {
+
+                            //TODO modify query to group types
+                            //TODO use type constants from types JS e.g type.LINKS.android
+                            if (image.get("type") === 0) {
+                                _adverts.push({
+                                    advert: advert,
+                                    image: image.get("uri").url()
+                                })
+                            }
+                        }
+
+                    });
+                });
+
+                let spliced = [];
+                for (let i = 0; i < adverts.length; i = i + 1) {
+
+                    console.log("ADVERTS " + JSON.stringify(adverts[i]));
+
+                    for (let j = 0; j < _adverts.length; j = j + 1) {
+
+                        if (adverts[i].get("title") === _adverts[j].advert.get("title")) {
+                            console.log("SPLICED ITEM " + JSON.stringify(adverts[i]));
+
+                            adverts.splice(i, 1);
+                            spliced.push(i);
+                            console.log("SPLICED************");
                         }
                     }
-
-                });
-            });
-
-            let spliced = [];
-            for (let i = 0; i < adverts.length; i = i + 1) {
-
-                console.log("ADVERTS " + JSON.stringify(adverts[i]));
-
-                for (let j = 0; j < _adverts.length; j = j + 1) {
-
-                    if (adverts[i].get("title") === _adverts[j].advert.get("title")) {
-                        console.log("SPLICED ITEM " + JSON.stringify(adverts[i]));
-
-                        adverts.splice(i, 1);
-                        spliced.push(i);
-                        console.log("SPLICED************");
-                    }
                 }
-            }
 
-            advertMessage = "";
+                advertMessage = "";
 
-            console.log("ADVERTS " + JSON.stringify(_adverts) + " AND " + JSON.stringify(adverts));
+                console.log("ADVERTS " + JSON.stringify(_adverts) + " AND " + JSON.stringify(adverts));
 
-            res.render("pages/adverts/advert_collection", {
-                adverts: _adverts,
-                adverts_no_image: adverts,
-            });
+                res.render("pages/adverts/advert_collection", {
+                    adverts: _adverts,
+                    adverts_no_image: adverts,
+                });
 
-        }, function (error) {
+            }, function (error) {
 
-            console.log("ERROR " + error.message);
-            res.redirect('/home');
-        })
-    } else {
+                console.log("ERROR " + error.message);
+                res.redirect('/home');
+            })
+        } else {
 
-        res.redirect('/');
+            res.redirect('/');
 
-    }
-});
+        }
+    });
+};
