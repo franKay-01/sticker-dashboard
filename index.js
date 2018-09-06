@@ -6414,10 +6414,13 @@ app.get('/sendSMS', function (req, res) {
             let message = 'Hi, its been a long time, how have you been?';
 
             _.each(number, function (reciever) {
-                util.sendSMS(reciever, message);
+                util.sendSMS(reciever, message, function () {
+
+                    res.send("FINISHED");
+
+                });
             });
 
-            res.send("FINISHED");
         })
     }else {
         res.rediect('/');
