@@ -34,7 +34,7 @@ let _class = require('./cloud/modules/classNames');
 let util = require('./cloud/modules/util');
 let notification = require('./cloud/modules/notifications');
 let create = require('./cloud/modules/create');
-const accountRoute = require('./routes/authRoutes');
+let accountRoute = require('./routes/account');
 
 //google app engine configuration
 //let config = require('./config.json');
