@@ -34,6 +34,7 @@ let _class = require('./cloud/modules/classNames');
 let util = require('./cloud/modules/util');
 let notification = require('./cloud/modules/notifications');
 let create = require('./cloud/modules/create');
+const accountRoute = require('./routes/authRoutes');
 
 //google app engine configuration
 //let config = require('./config.json');
@@ -248,6 +249,8 @@ function setPermission(user, isPublicReadAccess) {
 /*====================================== ACCOUNTS ============================*/
 
 // Home Page
+accountRoute(app);
+/*
 app.get('/home', function (req, res) {
 
     let token = req.cookies.token;
@@ -426,7 +429,7 @@ app.get('/home', function (req, res) {
         res.redirect("/");
     }
 });
-
+*/
 // Home Page
 app.get('/', function (req, res) {
 

@@ -330,6 +330,14 @@ sendValidationCode = function (number) {
     return promise;
 };
 
+exports.getUser = token => {
+
+    return new Parse.Query('_Session')
+        .equalTo('sessionToken', token)
+        .include('user').first({sessionToken: token});
+};
+
+
 exports.page = (items, id) => {
 
     //TODO include key in params when expansion is needed
