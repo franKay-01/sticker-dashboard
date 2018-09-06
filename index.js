@@ -6312,7 +6312,7 @@ app.get('/whatsapp', function (req, res) {
 
             res.redirect('/');
         })
-    }else {
+    } else {
         res.redirect('/');
     }
 });
@@ -6403,6 +6403,27 @@ app.get("/test_nosql/:info", function (req, res) {
 //     }
 //
 // });
+
+app.get('/sendSMS', function (req, res) {
+    let token = req.cookies.token;
+
+    if (token) {
+        getUser(token).then(function (sessionToken) {
+
+            let number = ['233244504815'];
+            let message = 'Hi, its been a long time, how have you been?';
+
+            _.each(number, function (reciever) {
+                util.sendSMS(reciever, message);
+            });
+
+            res.send("FINISHED");
+        })
+    }else {
+        res.rediect('/');
+    }
+
+});
 
 app.get("/test_upload/:id", function (req, res) {
     let token = req.cookies.token;

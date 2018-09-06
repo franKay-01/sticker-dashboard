@@ -290,7 +290,7 @@ handleError = function (res, error) {
     }
 };
 
-sendSMS = function (number, message, callback) {
+exports.sendSMS = function (number, message, callback) {
 
     //send user confirmation code using twilio
     twilio.sendSms({
