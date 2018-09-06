@@ -296,4 +296,32 @@ module.exports = function(app) {
         }
     });
 
+    app.get('/author/:id', function (req, res) {
+
+        let token = req.cookies.token;
+        let id = req.params.id;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query(_class.Authors).equalTo("objectId", id).first();
+
+            }).then(function (author) {
+
+                res.render("pages/accounts/edit_author", {
+                    author: author
+                })
+            }, function (error) {
+                res.redirect('/');
+            })
+
+        } else {
+
+            res.redirect('/');
+
+        }
+    });
+
+
 };
