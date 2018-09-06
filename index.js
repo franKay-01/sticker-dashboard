@@ -6296,34 +6296,17 @@ app.get('/sendSMS', function (req, res) {
     if (token) {
         getUser(token).then(function (sessionToken) {
 
-            let number = ['233244504815'];
+            let number = ['+233244504815'];
             let message = 'Hi, its been a long time, how have you been?';
 
             // _.each(number, function (reciever) {
-            //     util.sendSMS(reciever, message, function (callback) {
-            //
-            //         res.send("FINISHED "+ JSON.stringify(callback));
-            //
-            //     });
-            const accountSid = process.env.TWILIO_SID;
-            const authToken = process.env.TWILIO_TOKEN;
-            const client = require('twilio')(accountSid, authToken);
+                util.sendSMS('+233244504815', message, function (callback) {
 
-            client.messages
-                .create({
-                    from: '+15017122661',
-                    to: '+233244504815',
-                    body: 'Hello there!'
-                })
-                .then(function (message){
-                    console.log("MESSAGE FROM TWILIO " + JSON.stringify(message.sid))
-                }, function (error) {
-                    console.log("ERROR FROM TWILIO " + JSON.stringify(error))
-                }).done();
+                    res.send("FINISHED "+ JSON.stringify(callback));
 
-            res.send('DONE');
+                // });
 
-            // })
+            })
         })
     } else {
         res.rediect('/');
