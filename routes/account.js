@@ -332,6 +332,8 @@ module.exports = function(app) {
         let phone = req.body.authorNumber;
         let socialMedia = req.body.socialMedia;
 
+        console.log("NAME " + name + email + phone + socialMedia);
+
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
