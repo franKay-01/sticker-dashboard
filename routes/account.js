@@ -392,4 +392,26 @@ module.exports = function(app) {
         }
     });
 
+    app.get('/authors', function (req, res) {
+
+        let token = req.cookies.token;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query(_class.Authors).find();
+
+            }).then(function (authors) {
+
+                res.render("pages/accounts/authors", {
+                    authors: authors
+                });
+            });
+
+        } else {
+            res.redirect('/');
+        }
+    });
+
 };

@@ -637,7 +637,7 @@ app.get('/author/:id', function (req, res) {
     }
 });
 */
-
+/*
 app.get('/authors', function (req, res) {
 
     let token = req.cookies.token;
@@ -659,7 +659,7 @@ app.get('/authors', function (req, res) {
         res.redirect('/');
     }
 });
-
+*/
 app.get('/account/create', function (req, res) {
     let message = "";
     res.render("pages/accounts/sign_up", {error: message});
