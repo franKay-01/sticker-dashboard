@@ -353,7 +353,7 @@ module.exports = function(app) {
 
             }, function (error) {
 
-                console.log("ERROR " + error.message);
+                console.log("ERROR ON AUTHOR" + error.message);
                 res.redirect('/author/' + id);
             })
 
