@@ -6295,30 +6295,18 @@ app.get('/sendSMS', function (req, res) {
 
     if (token) {
         getUser(token).then(function (sessionToken) {
-            const accountSid = process.env.TWILIO_SID;
-            const authToken = process.env.TWILIO_TOKEN;
-            const client = require('twilio')(accountSid, authToken);
 
             let number = ['233244504815'];
             let message = 'Hi, its been a long time, how have you been?';
 
             _.each(number, function (reciever) {
-                // util.sendSMS(reciever, message, function () {
-                //
-                //     res.send("FINISHED");
-                //
-                // });
-                client.messages
-                    .create({
-                        body: message,
-                        from: '+14155238886',
-                        to: reciever
-                    })
-                    .then(message => console.log(message.sid))
-                    .done();
-            });
-            res.send("DONE");
+                util.sendSMS(reciever, message, function (callback) {
 
+                    res.send("FINISHED "+ JSON.stringify(callback));
+
+                });
+
+            })
         })
     }else {
         res.rediect('/');
