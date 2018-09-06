@@ -414,4 +414,286 @@ module.exports = function(app) {
         }
     });
 
+    app.get('/account/create', function (req, res) {
+        let message = "";
+        res.render("pages/accounts/sign_up", {error: message});
+    });
+
+    app.post('/account/user/update', upload.array('im1'), function (req, res) {
+
+        let token = req.cookies.token;
+        let email = req.body.email;
+        let image = req.files;
+        let type = parseInt(req.body.type);
+        let handle = req.body.handles;
+        let profile_info = [];
+        let link_length = [];
+        let accountRedirect = '/account/user/profile';
+
+        if (token) {
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                return new Parse.Query(_class.Profile).equalTo("userId", _user.id).first();
+
+            }).then(function (profile) {
+
+                if (image) {
+                    image.forEach(function (file) {
+
+                        console.log("FILE INFO " + file.path);
+
+                        let fullName = file.originalname;
+
+                        let image_name = fullName.substring(0, fullName.length - 4);
+
+                        let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                        //create our parse file
+                        let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
+
+                        profile.set("uri", parseFile);
+                        profile.set("email", email);
+                        // sticker.setACL(setPermission(_user, false));
+
+                        profile_info.push(profile);
+                    });
+                } else {
+
+                    profile.set("email", email);
+                    return profile.save()
+
+                }
+
+                return Parse.Object.saveAll(profile_info);
+
+            }).then(function (saved_profile) {
+
+                if (profile_info.length) {
+                    _.each(profile_info, function (file) {
+                        //Delete tmp fil after upload
+                        let tempFile = file.path;
+                        fs.unlink(tempFile, function (err) {
+                            if (err) {
+                                //TODO handle error code
+                                console.log("-------Could not del temp" + JSON.stringify(err));
+                            }
+                            else {
+                                console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                            }
+                        });
+                    });
+                }
+                return new Parse.Query(_class.Links).equalTo("itemId", _user.id).find();
+
+            }).then(function (links) {
+
+                if (type && handle) {
+                    if (links.length !== 0) {
+                        _.each(links, function (_link) {
+
+                            if (_link.get("type") === type) {
+
+                                _link.set("link", handle);
+                                link_length.push(1);
+
+                                return _link.save();
+                            }
+
+                        });
+
+                        if (link_length.length === 0) {
+
+                            let Link = new Parse.Object.extend(_class.Links);
+                            let link = new Link();
+
+                            link.set("itemId", _user.id);
+                            link.set("type", type);
+                            link.set("link", handle);
+
+                            return link.save();
+
+                        }
+
+                    } else {
+                        let Link = new Parse.Object.extend(_class.Links);
+                        let link = new Link();
+
+                        link.set("itemId", _user.id);
+                        link.set("type", type);
+                        link.set("link", handle);
+
+                        return link.save();
+                    }
+
+
+                } else {
+
+                    console.log("TYPE AND HANDLE NOT PRESENT");
+                    res.redirect(accountRedirect);
+
+                }
+
+            }).then(function () {
+
+                res.redirect(accountRedirect);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect(accountRedirect);
+
+            })
+        } else {
+            res.redirect('/');
+        }
+    });
+
+    app.post('/signup', function (req, res) {
+        let name = req.body.name;
+        let username = req.body.username;
+        let password = req.body.password;
+        let gender = req.body.gender;
+
+        let user = new Parse.User();
+        user.set("name", name);
+        user.set("username", username);
+        user.set("password", password);
+        user.set("type", NORMAL_USER);
+        user.set("image_set", false);
+
+        let Profile = new Parse.Object.extend(_class.Profile);
+        let profile = new Profile();
+
+        user.signUp({useMasterKey: true}, {
+            success: function (user) {
+
+                profile.set("userId", user.id);
+                profile.set("email", username);
+                if (gender !== "undefined" || gender !== undefined) {
+                    profile.set("gender", gender);
+                } else {
+                    profile.set("gender", "null");
+                }
+
+                profile.save().then(function () {
+
+                    res.redirect('/');
+
+                });
+
+
+            },
+            error: function (user, error) {
+                // Show the error message somewhere and let the user try again.
+                let message = "SignUp was unsuccessful. " + error.message;
+                console.log("SignUp was unsuccessful. " + JSON.stringify(error));
+                res.render("pages/accounts/sign_up", {error: message});
+            }
+        });
+
+
+    });
+
+    app.get('/account/password/forgot', function (req, res) {
+        res.render("pages/accounts/forgot_password");
+    });
+
+    app.post('/account/password/reset', function (req, res) {
+        const username = req.body.forgotten_password;
+
+        Parse.User.requestPasswordReset(username, {
+            success: function () {
+                // Password reset request was sent successfully
+                console.log("EMAIL was sent successfully");
+                res.render("pages/accounts/password_reset_info");
+            },
+            error: function (error) {
+                // Show the error message somewhere
+                console.log("Error: " + error.code + " " + error.message);
+                res.redirect('/account/password/forgot');
+            }
+        });
+    });
+
+    app.get('/account/email/reset', function (req, res) {
+        const token = req.cookies.token;
+
+        if (token) {
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                new Parse.Query("User").equalTo("objectId", _user.id).first().then(function (user) {
+                    console.log("USER FROM RESET " + JSON.stringify(user) + " CURRENT USER " + Parse.User.current());
+                    user.set("email", "test@gmail.com");
+                    // user.set("username", "test@gmail.com");
+                    return user.save();
+                }).then(function (result) {
+                    console.log("EMAIL CHANGED SUCCESSFULLY " + JSON.stringify(result));
+                    res.redirect("/");
+                })
+            }, function (error) {
+                console.log("ERROR OCCURRED WHEN RESETTING EMAIL " + error.message)
+            });
+
+        } else {
+            res.redirect('/');
+
+        }
+
+    });
+
+    app.get('/account/user/profile', function (req, res) {
+
+        let token = req.cookies.token;
+        let _user = {};
+        let _profile = {};
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                return new Parse.Query(_class.Profile).equalTo("userId", _user.id).first();
+
+            }).then(function (profile) {
+
+                _profile = profile;
+
+                return new Parse.Query(_class.Links).equalTo("itemId", profile.get("userId")).find();
+
+            }).then(function (links) {
+
+                res.render("pages/accounts/profile", {
+                    username: _user.get("name"),
+                    email: _user.get("username"),
+                    profile: _profile,
+                    links: links
+                });
+
+            }, function (error) {
+                console.log("ERROR ON PROFILE " + error.message);
+                res.redirect('/');
+            });
+
+        } else {
+            res.redirect('/');
+        }
+    });
+
+    app.get('/account/logout', function (req, res) {
+        res.clearCookie('token');
+        res.redirect("/");
+    });
+
+
 };
