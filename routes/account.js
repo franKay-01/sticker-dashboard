@@ -9,6 +9,8 @@ const MK_TEAM = 1;
 
 let errorMessage = "";
 
+let upload = multer({storage: util.storage});
+
 module.exports = function(app) {
 
     app.get('/home', function (req, res) {

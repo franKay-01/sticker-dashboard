@@ -6,6 +6,7 @@
 const twilio = require("twilio")("AC6bad1c4bf8d48125709add2b8b0a5ce0", "33028731ba2e2bfb477a0709582a49f8");
 const moment = require('moment');
 const _ = require('underscore');
+const multer = require('multer');
 const gm = require('gm').subClass({imageMagick: true});
 
 //TODO update response errors
@@ -337,6 +338,15 @@ exports.getUser = token => {
         .include('user').first({sessionToken: token});
 };
 
+exports.storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        console.log("Dest " + JSON.stringify(file));
+        cb(null, 'public/uploads')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
 
 exports.page = (items, id) => {
 
