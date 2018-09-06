@@ -6296,17 +6296,16 @@ app.get('/sendSMS', function (req, res) {
     if (token) {
         getUser(token).then(function (sessionToken) {
 
-            let number = ['+233244504815'];
+            let numbers = ['+233244504815', '+233246591313'];
             let message = 'Hi, its been a long time, how have you been?';
 
-            // _.each(number, function (reciever) {
-                util.sendSMS('+233244504815', message, function (callback) {
+            _.each(numbers, function (number) {
+                util.sendSMS(number, message, function () {
 
-                    res.send("FINISHED "+ JSON.stringify(callback));
+                });
+            });
 
-                // });
-
-            })
+            res.send("FINISHED");
         })
     } else {
         res.rediect('/');
