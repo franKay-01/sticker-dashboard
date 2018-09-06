@@ -35,6 +35,7 @@ let util = require('./cloud/modules/util');
 let notification = require('./cloud/modules/notifications');
 let create = require('./cloud/modules/create');
 let accountRoute = require('./routes/account');
+let adverttRoute = require('./routes/adverts');
 
 //google app engine configuration
 //let config = require('./config.json');
@@ -429,9 +430,8 @@ app.get('/home', function (req, res) {
         res.redirect("/");
     }
 });
-*/
+
 // Home Page
-/*
 app.get('/', function (req, res) {
 
     let token = req.cookies.token;
@@ -500,9 +500,8 @@ app.get('/', function (req, res) {
     }
 
 });
-*/
+
 // creating a new author
-/*
 app.post('/author', function (req, res) {
 
     let token = req.cookies.token;
@@ -539,8 +538,7 @@ app.post('/author', function (req, res) {
         res.redirect('/');
     }
 });
-*/
-/*
+
 app.post('/author/edit/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -579,8 +577,7 @@ app.post('/author/edit/:id', function (req, res) {
         res.redirect('/');
     }
 });
-*/
-/*
+
 app.get('/author/view/:authorId/:storyId', function (req, res) {
 
     let token = req.cookies.token;
@@ -608,8 +605,7 @@ app.get('/author/view/:authorId/:storyId', function (req, res) {
 
     }
 });
-*/
-/*
+
 app.get('/author/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -636,8 +632,7 @@ app.get('/author/:id', function (req, res) {
 
     }
 });
-*/
-/*
+
 app.get('/authors', function (req, res) {
 
     let token = req.cookies.token;
@@ -659,14 +654,12 @@ app.get('/authors', function (req, res) {
         res.redirect('/');
     }
 });
-*/
-/*
+
 app.get('/account/create', function (req, res) {
     let message = "";
     res.render("pages/accounts/sign_up", {error: message});
 });
-*/
-/*
+
 app.post('/account/user/update', upload.array('im1'), function (req, res) {
 
     let token = req.cookies.token;
@@ -800,8 +793,7 @@ app.post('/account/user/update', upload.array('im1'), function (req, res) {
         res.redirect('/');
     }
 });
-*/
-/*
+
 app.post('/signup', function (req, res) {
     let name = req.body.name;
     let username = req.body.username;
@@ -847,13 +839,11 @@ app.post('/signup', function (req, res) {
 
 
 });
-*/
-/*
+
 app.get('/account/password/forgot', function (req, res) {
     res.render("pages/accounts/forgot_password");
 });
-*/
-/*
+
 app.post('/account/password/reset', function (req, res) {
     const username = req.body.forgotten_password;
 
@@ -870,8 +860,7 @@ app.post('/account/password/reset', function (req, res) {
         }
     });
 });
-*/
-/*
+
 app.get('/account/email/reset', function (req, res) {
     const token = req.cookies.token;
 
@@ -902,9 +891,9 @@ app.get('/account/email/reset', function (req, res) {
     }
 
 });
-*/
+
 //login the user in using Parse
-/*
+
 app.post('/login', function (req, res) {
 
     let username = req.body.username;
@@ -956,8 +945,7 @@ app.post('/login', function (req, res) {
 
     });
 });
-*/
-/*
+
 app.get('/account/user/profile', function (req, res) {
 
     let token = req.cookies.token;
@@ -996,9 +984,9 @@ app.get('/account/user/profile', function (req, res) {
         res.redirect('/');
     }
 });
-*/
+
 //LOGOUT
-/*
+
 app.get('/account/logout', function (req, res) {
     res.clearCookie('token');
     res.redirect("/");
@@ -1009,7 +997,8 @@ app.get('/account/logout', function (req, res) {
 
 /*====================================== ADVERTS ============================*/
 
-
+adverttRoute(app);
+/*
 app.get('/adverts', function (req, res) {
 
     let token = req.cookies.token;
@@ -1085,7 +1074,7 @@ app.get('/adverts', function (req, res) {
 
     }
 });
-
+*/
 app.get('/advert/edit/:id', function (req, res) {
 
     let token = req.cookies.token;
