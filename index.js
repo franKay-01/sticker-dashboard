@@ -580,6 +580,7 @@ app.post('/author/edit/:id', function (req, res) {
     }
 });
 */
+/*
 app.get('/author/view/:authorId/:storyId', function (req, res) {
 
     let token = req.cookies.token;
@@ -607,7 +608,7 @@ app.get('/author/view/:authorId/:storyId', function (req, res) {
 
     }
 });
-
+*/
 /*
 app.get('/author/:id', function (req, res) {
 

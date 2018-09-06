@@ -364,4 +364,32 @@ module.exports = function(app) {
         }
     });
 
+    app.get('/author/view/:authorId/:storyId', function (req, res) {
+
+        let token = req.cookies.token;
+        let id = req.params.authorId;
+        let storyId = req.params.storyId;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query(_class.Authors).equalTo("objectId", id).first();
+
+            }).then(function (author) {
+
+                res.render("pages/stories/view_author", {
+                    author: author,
+                    storyId: storyId
+                })
+            }, function (error) {
+                res.redirect('/storyedit/' + storyId);
+            })
+        } else {
+
+            res.redirect('/');
+
+        }
+    });
+
 };
