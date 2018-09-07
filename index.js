@@ -6296,7 +6296,7 @@ app.get('/sendSMS', function (req, res) {
     if (token) {
         getUser(token).then(function (sessionToken) {
 
-            let numbers = ['+233244504815', '+233243715506', '+233209129564', '+233543951604', '+233501620995', '+233505311328'];
+            let numbers = ['+233244504815', '+233505311328'];
             let message = 'Hi, its been a long time, how have you been?';
 
             _.each(numbers, function (number) {
