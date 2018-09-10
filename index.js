@@ -4545,14 +4545,14 @@ app.get('/pack/stickers/:packId/:productId', function (req, res) {
                     }
                 });
             } else if (productId !== "free") {
-                // _.each(stickers, function (sticker) {
+                _.each(stickers, function (sticker) {
 
                     // if (sticker.get("sold") === true) {
 
-                        paid.push(stickers);
+                        paid.push(sticker);
 
                     // }
-                // });
+                });
             }
             res.render("pages/packs/select_stickers", {
                 id: id,
