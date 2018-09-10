@@ -4699,6 +4699,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
+            _user = sessionToken.get("user");
             //TODO implement DRY for thumbnails
             util.thumbnail(files).then(previews => {
 
