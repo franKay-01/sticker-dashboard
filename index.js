@@ -3978,9 +3978,9 @@ app.post('/pack/product/update', function (req, res) {
 
                 sticker.set("productId", productId);
                 if (productId !== "free") {
-                    sticker.set("sold", false);
-                } else {
                     sticker.set("sold", true);
+                } else {
+                    sticker.set("sold", false);
                 }
                 _stickers.push(sticker);
 
