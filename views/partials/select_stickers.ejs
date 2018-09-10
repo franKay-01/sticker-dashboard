@@ -30,9 +30,9 @@
 <% paidStickers.forEach(function(item, index) { %>
 
     <% if (item.get("sold") === true){ %>
-    <i class="display_icons" style="color: #0f9d58;">paid</i>
+    <i class="fa fa-circle display_icons" id="circle" style="color: #0f9d58;" aria-hidden="true"></i>
     <% }else{ %>
-    <i class="display_icons" style="color: grey;">free</i>
+    <i class="fa fa-circle display_icons" id="circle" style="color: #1eaace;" aria-hidden="true"></i>
     <% } %>
     <div class="medium-3 large-3 cell icons" data-id="<%= item.id %>" data-name="<%= item.get("name") %>">
 
