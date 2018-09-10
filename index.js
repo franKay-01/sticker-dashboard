@@ -5873,6 +5873,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                     let story = create.Story(_story);
                     story = create.StoryArtwork(story, sticker);
 
+                    //TODO update implementation to include views and shareUrl
                     notification.send({
                         title: story.title,
                         description: story.summary,
@@ -5911,7 +5912,7 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
 
                     let _sticker = create.Sticker(sticker);
                     notification.send({
-                        title: "Sticker Of the Day",
+                        title: "Sticker of the Day",
                         description: _sticker.description,
                         activity: "STICKER_ACTIVITY",
                         data: {
