@@ -46,26 +46,23 @@
     <span class="medium-6 large-6 welcome_post"><b>Add Paid Sticker to Pack</b></span>
 
     <% } %>
-    <div class="medium-3 large-3 cell icons">
-        <div class="create_new">
-            Sticker Type
-        </div>
 
-        <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
-            <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #28ff7e"
-                                                   aria-hidden="true"></i> &nbsp; PAID
-            </p>
-        </button>
+    <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+        <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #28ff7e"
+                                               aria-hidden="true"></i> &nbsp; PAID
+        </p>
+    </button>
 
-        <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
-            <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #1eaace"
-                                                   aria-hidden="true"></i> &nbsp; FREE
-            </p>
-        </button>
-    </div>
+    <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+        <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #1eaace"
+                                               aria-hidden="true"></i> &nbsp; FREE
+        </p>
+    </button>
+
     <span class="medium-6 large-6" style="float: right;margin-right: 400px">
     <form action="/pack/stickers/<%= id %>" method="post">
-        <button type="submit" class="waves-effect #e57373 red lighten-2 btn add-sticker-btn" style="position: fixed;border-radius: 10.8px;" disabled><b>ADD STICKER(S)</b></button>
+        <button type="submit" class="waves-effect #e57373 red lighten-2 btn add-sticker-btn"
+                style="position: fixed;border-radius: 10.8px;" disabled><b>ADD STICKER(S)</b></button>
         <input type="text" class="sticker_id" id="stickerIds" name="stickerIds" hidden>
     </form>
     </span>
