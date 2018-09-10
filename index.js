@@ -4751,7 +4751,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                         sticker.set("productId", pack.get("productId"));
                     } else {
                         sticker.set("sold", false);
-                        sticker.set("productId", "");
+                        sticker.set("productId", "free");
                     }
                     sticker.set("version", pack.get("version"));
 
