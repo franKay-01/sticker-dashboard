@@ -29,6 +29,11 @@
 <% } else { %>
 <% paidStickers.forEach(function(item, index) { %>
 
+    <% if (item.get("sold") === true){ %>
+    <i class="display_icons" style="color: #0f9d58;">paid</i>
+    <% }else{ %>
+    <i class="display_icons" style="color: grey;">free</i>
+    <% } %>
     <div class="medium-3 large-3 cell icons" data-id="<%= item.id %>" data-name="<%= item.get("name") %>">
 
         <img src="<%= item.get("uri").url() %>" class="card-image-size">
