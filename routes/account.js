@@ -98,10 +98,11 @@ module.exports = function(app) {
 
             }).then(function (latestSticker, storyImage, storyBody) {
 
-
-                _latestSticker = latestSticker.get("uri");
-                _latestSticker['stickerName'] = latestSticker.get("name");
-                _latestSticker['description'] = latestSticker.get("description");
+                if (latestSticker){
+                    _latestSticker = latestSticker.get("uri");
+                    _latestSticker['stickerName'] = latestSticker.get("name");
+                    _latestSticker['description'] = latestSticker.get("description");
+                }
 
                 if (storyBody !== undefined) {
 

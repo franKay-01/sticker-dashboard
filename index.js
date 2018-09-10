@@ -3978,9 +3978,9 @@ app.post('/pack/product/update', function (req, res) {
 
                 sticker.set("productId", productId);
                 if (productId !== "free") {
-                    sticker.set("sold", false);
-                } else {
                     sticker.set("sold", true);
+                } else {
+                    sticker.set("sold", false);
                 }
                 _stickers.push(sticker);
 
@@ -4547,11 +4547,11 @@ app.get('/pack/stickers/:packId/:productId', function (req, res) {
             } else if (productId !== "free") {
                 _.each(stickers, function (sticker) {
 
-                    if (sticker.get("sold") === true) {
+                    // if (sticker.get("sold") === true) {
 
                         paid.push(sticker);
 
-                    }
+                    // }
                 });
             }
             res.render("pages/packs/select_stickers", {
@@ -4699,6 +4699,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
+            _user = sessionToken.get("user");
             //TODO implement DRY for thumbnails
             util.thumbnail(files).then(previews => {
 
@@ -4750,7 +4751,7 @@ app.post('/uploads/computer', upload.array('im1[]'), function (req, res) {
                         sticker.set("productId", pack.get("productId"));
                     } else {
                         sticker.set("sold", false);
-                        sticker.set("productId", "");
+                        sticker.set("productId", "free");
                     }
                     sticker.set("version", pack.get("version"));
 
@@ -5811,7 +5812,7 @@ app.post('/feeds/:type/:origin', function (req, res) {
 
         }, function (error) {
 
-            console.log("ERROR " + error.message);
+            console.log("ERROR: FEED CHANGE FAILED " + error.message);
             switch (feedType) {
                 case STICKER:
                     res.redirect('/feed/sticker');
@@ -6035,7 +6036,7 @@ app.get('/feed/story', function (req, res) {
 
                 _.each(stickers, function (sticker) {
 
-                    if (artworks.get("sticker") === sticker.id) {
+                    if (artworks.get("stickerId") === sticker.id) {
 
                         combined.push({
                             story: artworks.get("itemId"),

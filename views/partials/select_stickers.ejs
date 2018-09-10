@@ -1,10 +1,10 @@
 <!-- Cards -->
 <% if (freeStickers.length === 0) { %>
-<div class="medium-3 large-3 cell icons">
-    <center>
-        <p class="none" style="margin: 145px 90px auto;"><b>No Free Stickers</b></p>
-    </center>
-</div>
+<!--<span class="medium-3 large-3 cell icons">-->
+    <!--<center>-->
+        <!--<p class="none" style="margin: 145px 90px auto;"><b>No Free Stickers</b></p>-->
+    <!--</center>-->
+<!--</span>-->
 
 <% } else { %>
 <% freeStickers.forEach(function(item, index) { %>
@@ -20,17 +20,20 @@
 
 <!-- Cards -->
 <% if (paidStickers.length === 0) { %>
-<div class="medium-3 large-3 cell icons">
-    <center>
-        <p class="none" style="margin: 145px 90px auto;"><b>No Paid Stickers</b></p>
-    </center>
-</div>
+<!--<span class="medium-3 large-3 cell icons">-->
+    <!--<center>-->
+        <!--<p class="none" style="margin: 145px 90px auto;"><b>No Paid Stickers</b></p>-->
+    <!--</center>-->
+<!--</span>-->
 
 <% } else { %>
 <% paidStickers.forEach(function(item, index) { %>
-
     <div class="medium-3 large-3 cell icons" data-id="<%= item.id %>" data-name="<%= item.get("name") %>">
-
+        <% if (item.get("sold") === true){ %>
+        <i class="fa fa-circle display_icons" id="circle" style="color: #0f9d58;" aria-hidden="true"></i>
+        <% }else{ %>
+        <i class="fa fa-circle display_icons" id="circle" style="color: #1eaace;" aria-hidden="true"></i>
+        <% } %>
         <img src="<%= item.get("uri").url() %>" class="card-image-size">
 
         <span class="name_tag"><p class="sticker_name_text"><%= item.get("name") %></p></span>
