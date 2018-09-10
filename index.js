@@ -5812,7 +5812,7 @@ app.post('/feeds/:type/:origin', function (req, res) {
 
         }, function (error) {
 
-            console.log("ERROR " + error.message);
+            console.log("ERROR: FEED CHANGE FAILED " + error.message);
             switch (feedType) {
                 case STICKER:
                     res.redirect('/feed/sticker');
