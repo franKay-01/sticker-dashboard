@@ -6297,7 +6297,8 @@ app.get('/sendSMS', function (req, res) {
     if (token) {
         getUser(token).then(function (sessionToken) {
 
-            let numbers = ['+233244504815', '+233241989305', '+447554517595', '+233274556209', '+233544215124', '+233242206380', '+233208266204'];
+            // let numbers = ['+233244504815', '+233241989305', '+447554517595', '+233274556209', '+233544215124', '+233242206380', '+233208266204'];
+            let numbers = ['+233244504815'];
             let message = 'We are excited to introduce you to our newest App; CYFA. Get curated Ghanaian stickers & stories. Available on Android & iOS. https://cyfa.io ';
 
             _.each(numbers, function (number) {
