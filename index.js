@@ -6297,8 +6297,8 @@ app.get('/sendSMS', function (req, res) {
     if (token) {
         getUser(token).then(function (sessionToken) {
 
-            let numbers = ['+233244504815', '+233505311328'];
-            let message = 'Hi, its been a long time, how have you been?';
+            let numbers = ['+233244504815', '+233246591313'];
+            let message = 'We are excited to introduce you to our newest App; CYFA. Get curated Ghanaian stickers & stories. Available on Android & iOS. https://cyfa.io ';
 
             _.each(numbers, function (number) {
                 util.sendSMS(number, message, function () {
