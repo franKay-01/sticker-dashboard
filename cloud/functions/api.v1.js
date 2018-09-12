@@ -73,7 +73,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
             return Parse.Promise.when(
                 new Parse.Query(_class.Stickers).equalTo("objectId", storyArtwork.get("stickerId")).first({useMasterKey: true}),
-                new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find({useMasterKey: true})
+                new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).ascending("createdAt").find({useMasterKey: true})
             );
 
         } else {
