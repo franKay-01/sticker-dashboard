@@ -5884,8 +5884,8 @@ app.get('/notification/:id/:type/:origin', function (req, res) {
                             title: story.title,
                             stickerUrl: story.stickerUrl,
                             summary: story.summary,
-                            topColor: story.topColor,
-                            bottomColor: story.bottomColor,
+                            topColor: story.colors.topColor,
+                            bottomColor: story.colors.bottomColor,
                             type: notificationType
                         },
 
