@@ -294,6 +294,7 @@ exports.sendSMS = function (number, message, callback) {
 
     //send user confirmation code using twilio
     twilio.sendSms({
+        // from: "Cyfa",
         from: "8128944274",
         to: number,
         body: message
