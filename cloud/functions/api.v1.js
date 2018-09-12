@@ -191,7 +191,6 @@ Parse.Cloud.define("getStory", function (req, res) {
 
     let _story = {};
     let _storyItems = [];
-    let views = 0;
 
     let storyId = req.params.id;
 
@@ -235,7 +234,7 @@ Parse.Cloud.define("getStory", function (req, res) {
             if (data.length) {
                 _.each(data, item => {
                     if (story.id === item.id) {
-                        views = item.value
+                        story.views = item.value
                     }
                 });
             }
