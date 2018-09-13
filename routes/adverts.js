@@ -4,6 +4,8 @@ let _class = require('../cloud/modules/classNames');
 let util = require('../cloud/modules/util');
 let _ = require('underscore');
 
+let advertMessage = "";
+
 module.exports = function(app) {
 
     app.get('/adverts', function (req, res) {
