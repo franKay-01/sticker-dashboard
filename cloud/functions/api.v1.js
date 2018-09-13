@@ -167,7 +167,11 @@ Parse.Cloud.define("getPack", function (req, res) {
 
     let packId = req.params.id;
 
-    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("objectId", packId).first({useMasterKey: true})
+    let limit = req.params.limit;
+
+    if(!limit){ limit = 1000 }
+
+    return new Parse.Query(_class.Packs).limit(limit).equalTo("published", true).equalTo("objectId", packId).first({useMasterKey: true})
         .then((pack) => {
 
             if (pack) {
