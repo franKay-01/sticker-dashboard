@@ -137,7 +137,11 @@ Parse.Cloud.define("getCategories", function (req, res) {
 
 Parse.Cloud.define("getPacks", function (req, res) {
 
-    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).descending("createdAt").find({useMasterKey: true})
+    let limit = req.params.limit;
+
+    if(!limit){ limit = 1000 }
+
+    return new Parse.Query(_class.Packs).equalTo("published", true).limit(limit).equalTo("userId", ADMIN).descending("createdAt").find({useMasterKey: true})
         .then((packs) => {
 
             if (packs.length) {
@@ -167,11 +171,8 @@ Parse.Cloud.define("getPack", function (req, res) {
 
     let packId = req.params.id;
 
-    let limit = req.params.limit;
 
-    if(!limit){ limit = 1000 }
-
-    return new Parse.Query(_class.Packs).limit(limit).equalTo("published", true).equalTo("objectId", packId).first({useMasterKey: true})
+    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("objectId", packId).first({useMasterKey: true})
         .then((pack) => {
 
             if (pack) {
