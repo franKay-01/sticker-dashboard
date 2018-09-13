@@ -82,4 +82,43 @@ module.exports = function(app) {
 
         }
     });
+
+    app.get('/advert/edit/:id', function (req, res) {
+
+        let token = req.cookies.token;
+        let id = req.params.id;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Adverts).equalTo("objectId", id).first(),
+                    new Parse.Query(_class.AdvertImages).equalTo("advertId", id).find(),
+                    new Parse.Query(_class.Links).equalTo("itemId", id).first()
+                );
+
+            }).then(function (advert, advertImage, link) {
+
+                res.render("pages/adverts/advert_details", {
+
+                    ad_details: advert,
+                    ad_images: advertImage,
+                    link: link,
+                    advertMessage: advertMessage
+                })
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/home');
+            })
+
+        } else {
+
+            res.redirect('/');
+
+        }
+    });
+
 };

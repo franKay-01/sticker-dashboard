@@ -1074,7 +1074,7 @@ app.get('/adverts', function (req, res) {
 
     }
 });
-*/
+
 app.get('/advert/edit/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -1114,7 +1114,7 @@ app.get('/advert/edit/:id', function (req, res) {
 
     }
 });
-
+*/
 
 app.post('/update/advert/link/:id', function (req, res) {
 
