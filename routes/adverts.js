@@ -1,5 +1,3 @@
-let helper = require('../cloud/modules/helpers');
-let type = require('../cloud/modules/type');
 let _class = require('../cloud/modules/classNames');
 let util = require('../cloud/modules/util');
 let _ = require('underscore');
@@ -63,6 +61,9 @@ module.exports = function(app) {
                     }
                 }
 
+                console.log("DONE");
+                console.log("ADVERTS WITH IMAGES" + JSON.stringify(_adverts));
+                console.log("ADVERTS WITHOUT IMAGES " + JSON.stringify(adverts));
                 advertMessage = "";
 
                 console.log("ADVERTS " + JSON.stringify(_adverts) + " AND " + JSON.stringify(adverts));
