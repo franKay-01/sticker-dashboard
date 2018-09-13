@@ -45,6 +45,7 @@ module.exports = function(app) {
                 });
 
                 let spliced = [];
+                console.log("ADVERT TITLE " + JSON.stringify(_adverts[0].advert.get("title")));
                 for (let i = 0; i < adverts.length; i = i + 1) {
 
                     console.log("ADVERTS " + JSON.stringify(adverts[i]));
@@ -61,9 +62,6 @@ module.exports = function(app) {
                     }
                 }
 
-                console.log("DONE");
-                console.log("ADVERTS WITH IMAGES" + JSON.stringify(_adverts));
-                console.log("ADVERTS WITHOUT IMAGES " + JSON.stringify(adverts));
                 advertMessage = "";
 
                 console.log("ADVERTS " + JSON.stringify(_adverts) + " AND " + JSON.stringify(adverts));

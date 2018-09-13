@@ -35,7 +35,7 @@ let util = require('./cloud/modules/util');
 let notification = require('./cloud/modules/notifications');
 let create = require('./cloud/modules/create');
 let accountRoute = require('./routes/account');
-let adverttRoute = require('./routes/adverts');
+let advertRoute = require('./routes/adverts');
 
 //google app engine configuration
 //let config = require('./config.json');
@@ -997,8 +997,8 @@ app.get('/account/logout', function (req, res) {
 
 /*====================================== ADVERTS ============================*/
 
-// adverttRoute(app);
-
+advertRoute(app);
+/*
 app.get('/adverts', function (req, res) {
 
     let token = req.cookies.token;
@@ -1074,7 +1074,7 @@ app.get('/adverts', function (req, res) {
 
     }
 });
-
+*/
 app.get('/advert/edit/:id', function (req, res) {
 
     let token = req.cookies.token;
