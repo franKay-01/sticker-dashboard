@@ -997,8 +997,8 @@ app.get('/account/logout', function (req, res) {
 
 /*====================================== ADVERTS ============================*/
 
-adverttRoute(app);
-/*
+// adverttRoute(app);
+
 app.get('/adverts', function (req, res) {
 
     let token = req.cookies.token;
@@ -1074,7 +1074,7 @@ app.get('/adverts', function (req, res) {
 
     }
 });
-*/
+
 app.get('/advert/edit/:id', function (req, res) {
 
     let token = req.cookies.token;
