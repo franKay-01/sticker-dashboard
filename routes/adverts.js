@@ -45,7 +45,7 @@ module.exports = function(app) {
                 });
 
                 let spliced = [];
-                console.log("ADVERT TITLE " + JSON.stringify(_adverts[0].advert.get("title")));
+                console.log("ADVERT TITLE " + adverts.length + " AND " + _adverts.length);
                 for (let i = 0; i < adverts.length; i = i + 1) {
 
                     console.log("ADVERTS " + JSON.stringify(adverts[i]));
