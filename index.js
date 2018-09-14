@@ -1175,6 +1175,7 @@ app.post('/advert/image/:id', upload.array('adverts'), function (req, res) {
     let fileDetails = [];
     let advertDetails = [];
     let advertRedirect = '/advert/edit/';
+    let imageArray = [];
 
     if (token) {
 
@@ -1184,40 +1185,41 @@ app.post('/advert/image/:id', upload.array('adverts'), function (req, res) {
 
         }).then(function (advert) {
 
-            if (files) {
-                // if (advert) {
-                // advertMessage = "ADVERT under category already exist";
-                //     res.redirect('/advert/edit/' + id);
-                // } else {
-                files.forEach(function (file) {
+            // if (imageArray.length > 0) {
+            //     // advertMessage = "ADVERT under category already exist";
+            //     //     res.redirect('/advert/edit/' + id);
+            // } else {
+                if (files) {
 
-                    let fullName = file.originalname;
-                    let image_name = fullName.substring(0, fullName.length - 4);
+                    files.forEach(function (file) {
 
-                    let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+                        let fullName = file.originalname;
+                        let image_name = fullName.substring(0, fullName.length - 4);
 
-                    //create our parse file
-                    let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
-                    console.log("PARSEFILE " + JSON.stringify(parseFile));
+                        let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
-                    let Advert_Image = new Parse.Object.extend(_class.AdvertImages);
-                    let advert_image = new Advert_Image();
+                        //create our parse file
+                        let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
+                        console.log("PARSEFILE " + JSON.stringify(parseFile));
 
-                    advert_image.set("name", image_name);
-                    advert_image.set("advertId", id);
-                    advert_image.set("uri", parseFile);
-                    advert_image.set("type", type);
+                        let Advert_Image = new Parse.Object.extend(_class.AdvertImages);
+                        let advert_image = new Advert_Image();
 
-                    advertDetails.push(advert_image);
-                    fileDetails.push(file);
+                        advert_image.set("name", image_name);
+                        advert_image.set("advertId", id);
+                        advert_image.set("uri", parseFile);
+                        advert_image.set("type", type);
 
-                });
+                        advertDetails.push(advert_image);
+                        fileDetails.push(file);
 
-                advertMessage = "";
+                    });
 
-                return Parse.Object.saveAll(advertDetails);
-            }
+                    advertMessage = "";
 
+                    return Parse.Object.saveAll(advertDetails);
+                }
+            // }
         }).then(function () {
 
             if (fileDetails.length) {

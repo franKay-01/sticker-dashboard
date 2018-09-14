@@ -105,8 +105,22 @@
     <div id="hiddenAddAdvertImageForm" style="display: none">
         <div class="medium-3 large-3 cell create_background">
             <div class="edit_labels medium-12 large-12">ADD ADVERT IMAGE</div>
-
-
+            <% if (ad_images.length > 0){%>
+            <% let mobile = false; %>
+            <% let banner = false; %>
+            <% let web = false; %>
+            <% ad_images.forEach(function(item, index) { %>
+                <% if (item.get("type") === 0){%>
+            <% mobile = true;%>
+            <%}%>
+            <% if (item.get("type") === 1){%>
+            <% web = true;%>
+            <%}%>
+            <% if (item.get("type") === 2){%>
+            <% banner = true;%>
+            <%}%>
+            <%})%>
+            <%}%>
             <form id="pack_form" action="/advert/image/<%= ad_details.id %>" method="post"
                   enctype="multipart/form-data">
                 <!--<div style="width: 200px !important;">-->
@@ -118,9 +132,18 @@
                         <div style="width: 450px !important;">
                             <select name="type" required="">
                                 <option value="" disabled selected>Choose your platform</option>
+                                <%if (mobile !== true){%>
                                 <option value="0">Mobile</option>
+                                <%}%>
+                                <%if (web !== true){%>
+
                                 <option value="1">Web</option>
+
+                                <%}%>
+                                <%if (banner !== true){%>
+
                                 <option value="2">Banner</option>
+                                <%}%>
                             </select>
                         </div>
                         <button type="button" style="color: white" class="advert_image addImage"><i
