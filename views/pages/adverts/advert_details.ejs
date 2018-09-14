@@ -144,6 +144,10 @@
 
                                 <option value="2">Banner</option>
                                 <%}%>
+                                <%if (mobile === true && web === true && banner === true){%>
+                                <option value="" disabled>All platforms have images</option>
+
+                                <%}%>
                             </select>
                         </div>
                         <button type="button" style="color: white" class="advert_image addImage"><i
