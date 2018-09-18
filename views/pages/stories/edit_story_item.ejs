@@ -50,8 +50,8 @@
     <span class="medium-6 large-6 welcome_post"><b>Edit Story Item Details</b></span>
 
     <div class="grid-x grid-margin-x">
-
-        <form class="story_form" id="story_form" action="/storyitem/<%= story_item.id %>" method="post">
+        <div class="medium-7 large-7 cell">
+            <form class="story_form" id="story_form" action="/storyitem/<%= story_item.id %>" method="post">
             <div class="medium-5 large-5 cell">
 
                 <% if (story_item.get("type") === 0 || story_item.get("type") === 2 || story_item.get("type") === 6
@@ -99,8 +99,11 @@
                 </div>
                 <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
             </div>
-            <a href="#" id="submit_story" class="waves-effect pink darken-4 btn add-image-btn">SAVE</a>
-        </form>
+                <a href="#" id="submit_story" class="waves-effect pink darken-4 btn add-image-btn">SAVE</a>
+
+            </form>
+        </div>
+
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
                 <div class="stats">Menu</div>
