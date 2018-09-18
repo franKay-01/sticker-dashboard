@@ -75,7 +75,7 @@
                   enctype="multipart/form-data">
                 <center>
                     <input name="storyItemId" class="storyItemId" hidden>
-                    <input name="storyItemType" class="content" hidden>
+                    <input name="newStoryItemType" class="newStoryItemType" hidden>
                     <input name="dataPosition" class="data-position" hidden>
                     <input type="text" class="_pack common_pack_detail validate common" placeholder="Story Item Content"
                            name="htmlContent" required="" aria-required="true" hidden><br>
@@ -93,9 +93,9 @@
                     <script>
                         $("#stickerSelect").change(function () {
 
-                            let value = $('#stickerSelect').val();
+                            let value = $('#newStoryItemType').val();
                             alert(value);
-                            $(".storyItemType").val(value);
+                            $(".newStoryItemType").val(value);
                             // $(".common").html($(this).attr("data-name"));
 
                             if (value === "0" || value === "2" || value === "5" || value === "6" || value === "8") {
