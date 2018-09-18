@@ -205,16 +205,12 @@ module.exports = function(app) {
 
             }).then(function (story_item) {
 
-                console.log("SECOND STAGE " + JSON.stringify(story_item));
-
                 let html = story_item.get("contents").html;
                 for (let i = 0; i < html.length; i++) {
                     if (parseInt(indexValue) === i) {
                         let _html = html[i];
                         let typeOfObject = Object.keys(_html);
                         let content = Object.values(_html)[0];
-
-                        console.log("THIRD STAGE " + typeOfObject + " AND " + JSON.stringify(content));
 
                         res.render("pages/stories/edit_html", {
                             type: type,
@@ -314,8 +310,6 @@ module.exports = function(app) {
 
             }).then(function (story) {
 
-                console.log("STORY ITEM " + JSON.stringify(story));
-
                 res.render("pages/stories/story_html", {
                     name: story.get("title"),
                     storyItemId: _story.id,
@@ -391,6 +385,50 @@ module.exports = function(app) {
         }
     });
 
+    app.post('/storyitem/html/change/:storyId', function (req, res) {
+        let token = req.cookies.token;
+        let story_id = req.params.storyId;
+        let htmlContent = req.body.htmlContent;
+        let newStoryItemType = req.body.newStoryItemType;
+        let id = req.body.storyItemId;
+        let index = parseInt(req.body.dataPosition);
+
+        if (token) {
+            util.getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+
+            }).then(function (story_item) {
+
+                let contents = story_item.get("contents");
+
+                let _html = contents.html[index];
+                let htmlType = Object.keys(_html);
+
+                if (parseInt(htmlType) !== type.STORY_ITEM.color) {
+
+                    let html = {};
+                    // html[htmlType.toString()] = {"text": htmlContent};
+                    html[newStoryItemType] = {"text": htmlContent};
+
+                    contents.html[index] = html;
+
+                }
+
+                story_item.set("contents", contents);
+                return story_item.save();
+
+            }).then(function () {
+
+                res.redirect('/storyitem/view/' + story_id);
+
+            }, function (error) {
+                console.log("ERROR " + error.message);
+                res.redirect('/storyItem/html/edit/' + id);
+            })
+        }
+    });
+
     app.post('/storyitem/html/update/:id', function (req, res) {
         let token = req.cookies.token;
         let id = req.params.id;
@@ -411,13 +449,10 @@ module.exports = function(app) {
                 let _html = contents.html[index];
                 let htmlType = Object.keys(_html);
 
-                console.log("OBJECT TYPE " + htmlType);
-
                 if (parseInt(htmlType) !== type.STORY_ITEM.color) {
 
                     let html = {};
                     html[htmlType.toString()] = {"text": htmlContent};
-                    console.log("UPDATED HTML " + JSON.stringify(html));
 
                     contents.html[index] = html;
 
