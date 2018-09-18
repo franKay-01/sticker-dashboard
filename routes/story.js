@@ -5,6 +5,8 @@ let type = require('../cloud/modules/type');
 let multer = require('multer');
 let fs = require('fs');
 
+const PARSE_LIMIT = 2000;
+
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
         console.log("Dest " + JSON.stringify(file));
@@ -1085,16 +1087,6 @@ module.exports = function(app) {
 
         }
     });
-
-
-
-
-
-
-
-
-
-
 
     app.post('/story/color/:id', function (req, res) {
 
