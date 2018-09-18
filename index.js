@@ -1114,7 +1114,7 @@ app.get('/advert/edit/:id', function (req, res) {
 
     }
 });
-*/
+
 
 app.post('/update/advert/link/:id', function (req, res) {
 
@@ -1165,6 +1165,7 @@ app.post('/update/advert/link/:id', function (req, res) {
 
     }
 });
+*/
 
 app.post('/advert/image/:id', upload.array('adverts'), function (req, res) {
 

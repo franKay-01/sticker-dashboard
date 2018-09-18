@@ -121,4 +121,54 @@ module.exports = function(app) {
         }
     });
 
+    app.post('/update/advert/link/:id', function (req, res) {
+
+        let token = req.cookies.token;
+        let id = req.params.id;
+        let type = parseInt(req.body.type);
+        let link = req.body.link;
+        let advertRedirect = '/advert/edit/';
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query(_class.Links).equalTo("itemId", id).first();
+
+            }).then(function (links) {
+
+                if (links) {
+
+                    res.redirect(advertRedirect + id);
+
+                } else {
+
+                    let Links = new Parse.Object.extend(_class.Links);
+                    let links = new Links();
+
+                    links.set("type", type);
+                    links.set("itemId", id);
+                    links.set("link", link);
+
+                    return links.save();
+                }
+
+            }).then(function (link) {
+
+                res.redirect(advertRedirect + id);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect(advertRedirect + id);
+
+            })
+        } else {
+
+            res.redirect('/');
+
+        }
+    });
+
+
 };

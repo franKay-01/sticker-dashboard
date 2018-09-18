@@ -76,19 +76,19 @@
 
             <form id="pack_form" action="/update/advert/link/<%= ad_details.id %>" method="post">
                 <center>
-                <label class="update_label" style="color: white !important;margin-left: 140px;">Select
-                    Platform:</label>
-                <div style="width: 450px !important;">
-                    <select name="type" required="">
-                        <option value="" disabled selected>Choose your platform</option>
-                        <option value="0">Mobile</option>
-                        <option value="1">Web</option>
-                        <option value="6">Social</option>
-                    </select>
-                </div>
-                <label class="update_label" style="color: white !important;margin-left: 140px;">Link:</label>
-                <input placeholder="Advert Links: https://google.com/ads"
-                       name="link" class="_pack common_pack_detail validate" required>
+                    <label class="update_label" style="color: white !important;margin-left: 140px;">Select
+                        Platform:</label>
+                    <div style="width: 450px !important;">
+                        <select name="type" required="">
+                            <option value="" disabled selected>Choose your platform</option>
+                            <option value="0">Mobile</option>
+                            <option value="1">Web</option>
+                            <option value="6">Social</option>
+                        </select>
+                    </div>
+                    <label class="update_label" style="color: white !important;margin-left: 140px;">Link:</label>
+                    <input placeholder="Advert Links: https://google.com/ads"
+                           name="link" class="_pack common_pack_detail validate" required>
                 </center>
 
                 <span>
@@ -108,19 +108,19 @@
             <% let mobile = false; %>
             <% let banner = false; %>
             <% let web = false; %>
-            <% if (ad_images.length > 0){%>
+            <% if (ad_images.length > 0){ %>
             <% ad_images.forEach(function(item, index) { %>
-                <% if (item.get("type") === 0){%>
-            <% mobile = true;%>
-            <%}%>
-            <% if (item.get("type") === 1){%>
-            <% web = true;%>
-            <%}%>
-            <% if (item.get("type") === 2){%>
-            <% banner = true;%>
-            <%}%>
-            <%})%>
-            <%}%>
+            <% if (item.get("type") === 0){ %>
+            <% mobile = true; %>
+            <% } %>
+            <% if (item.get("type") === 1){ %>
+            <% web = true; %>
+            <% } %>
+            <% if (item.get("type") === 2){ %>
+            <% banner = true; %>
+            <% } %>
+            <% }) %>
+            <% } %>
             <form id="pack_form" action="/advert/image/<%= ad_details.id %>" method="post"
                   enctype="multipart/form-data">
                 <!--<div style="width: 200px !important;">-->
@@ -132,22 +132,18 @@
                         <div style="width: 450px !important;">
                             <select name="type" required="">
                                 <option value="" disabled selected>Choose your platform</option>
-                                <%if (mobile !== true){%>
+                                <% if (mobile !== true){ %>
                                 <option value="0">Mobile</option>
-                                <%}%>
-                                <%if (web !== true){%>
-
+                                <% } %>
+                                <% if (web !== true){ %>
                                 <option value="1">Web</option>
-
-                                <%}%>
-                                <%if (banner !== true){%>
-
+                                <% } %>
+                                <% if (banner !== true){ %>
                                 <option value="2">Banner</option>
-                                <%}%>
-                                <%if (mobile === true && web === true && banner === true){%>
+                                <% } %>
+                                <% if (mobile === true && web === true && banner === true){ %>
                                 <option value="" disabled>All platforms have images</option>
-
-                                <%}%>
+                                <% } %>
                             </select>
                         </div>
                         <button type="button" style="color: white" class="advert_image addImage"><i
