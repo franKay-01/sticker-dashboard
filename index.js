@@ -36,6 +36,7 @@ let notification = require('./cloud/modules/notifications');
 let create = require('./cloud/modules/create');
 let accountRoute = require('./routes/account');
 let advertRoute = require('./routes/adverts');
+let storyRoute = require('./routes/story');
 
 //google app engine configuration
 //let config = require('./config.json');
@@ -1297,7 +1298,7 @@ app.post('/advert/edit/:id', function (req, res) {
     }
 
 });
-*/
+
 app.post('/advert', function (req, res) {
 
     let token = req.cookies.token;
@@ -1339,7 +1340,7 @@ app.post('/advert', function (req, res) {
     }
 
 });
-
+*/
 /*====================================== ADVERTS ============================*/
 
 
@@ -1475,7 +1476,8 @@ app.get('/message/send', function (req, res) {
 /*====================================== MESSAGES ============================*/
 
 /*====================================== STORIES ============================*/
-
+storyRoute(app);
+/*
 app.get('/stories', function (req, res) {
 
     let token = req.cookies.token;
@@ -1556,6 +1558,7 @@ app.get('/stories', function (req, res) {
     }
 });
 
+*/
 app.get('/storyitem/:id', function (req, res) {
 
     let token = req.cookies.token;

@@ -315,5 +315,46 @@ module.exports = function(app) {
 
     });
 
+    app.post('/advert', function (req, res) {
+
+        let token = req.cookies.token;
+        let title = req.body.title;
+        let description = req.body.description;
+        let action = req.body.action;
+
+        if (token) {
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                let Advert = new Parse.Object.extend(_class.Adverts);
+                let advert = new Advert();
+
+                advert.set("title", title);
+                advert.set("description", description);
+                advert.set("userId", _user.id);
+                advert.set("buttonAction", action);
+
+                return advert.save();
+
+            }).then(function (advert) {
+
+                advertMessage = "";
+                res.redirect('/advert/edit/' + advert.id);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/home');
+            });
+        } else {
+            res.redirect('/');
+
+        }
+
+    });
 
 };
