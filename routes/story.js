@@ -17,82 +17,85 @@ let storage = multer.diskStorage({
 
 let upload = multer({storage: storage});
 
-app.get('/stories', function (req, res) {
+module.exports = function(app) {
 
-    let token = req.cookies.token;
+    app.get('/stories', function (req, res) {
 
-    if (token) {
+        let token = req.cookies.token;
 
-        let _user = {};
-        let art = {};
-        let _story = [];
-        let _allPack = [];
-        let artWork = [];
-        let _allArtwork = [];
-        let combined = [];
-        let _latest = "";
+        if (token) {
 
-        util.getUser(token).then(function (sessionToken) {
+            let _user = {};
+            let art = {};
+            let _story = [];
+            let _allPack = [];
+            let artWork = [];
+            let _allArtwork = [];
+            let combined = [];
+            let _latest = "";
 
-            _user = sessionToken.get("user");
+            util.getUser(token).then(function (sessionToken) {
 
-            return Parse.Promise.when(
-                new Parse.Query(_class.Stories).equalTo("userId", _user.id).descending("createdAt").find(),
-                new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
-                new Parse.Query(_class.ArtWork).find(),
-                new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first()
-            );
+                _user = sessionToken.get("user");
 
-
-        }).then(function (story, allPack, artworks, latest) {
-
-            _story = story;
-            _allPack = allPack;
-            _allArtwork = artworks;
-
-            if (latest) {
-                _latest = latest;
-            }
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).descending("createdAt").find(),
+                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
+                    new Parse.Query(_class.ArtWork).find(),
+                    new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first()
+                );
 
 
-            _.each(artworks, function (artwork) {
+            }).then(function (story, allPack, artworks, latest) {
 
-                artWork.push(artwork.get("stickerId"));
+                _story = story;
+                _allPack = allPack;
+                _allArtwork = artworks;
 
-            });
+                if (latest) {
+                    _latest = latest;
+                }
 
-            return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
 
-        }).then(function (stickers) {
+                _.each(artworks, function (artwork) {
 
-            _.each(_allArtwork, function (artworks) {
+                    artWork.push(artwork.get("stickerId"));
 
-                _.each(stickers, function (sticker) {
+                });
 
-                    if (artworks.get("stickerId") === sticker.id) {
+                return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find();
 
-                        combined.push({
-                            story: artworks.get("itemId"),
-                            image: sticker.get("uri").url()
-                        });
-                    }
+            }).then(function (stickers) {
+
+                _.each(_allArtwork, function (artworks) {
+
+                    _.each(stickers, function (sticker) {
+
+                        if (artworks.get("stickerId") === sticker.id) {
+
+                            combined.push({
+                                story: artworks.get("itemId"),
+                                image: sticker.get("uri").url()
+                            });
+                        }
+                    })
+                });
+
+                res.render("pages/stories/stories", {
+                    story: _story,
+                    allPacks: _allPack,
+                    arts: combined,
+                    latest: _latest,
+                    type: type
                 })
-            });
+            }, function (error) {
 
-            res.render("pages/stories/stories", {
-                story: _story,
-                allPacks: _allPack,
-                arts: combined,
-                latest: _latest,
-                type: type
+                console.log("ERROR " + error.message);
+                res.redirect('/home');
             })
-        }, function (error) {
+        } else {
+            res.redirect('/');
 
-            console.log("ERROR " + error.message);
-            res.redirect('/home');
-        })
-    } else {
-        res.redirect('/');
-
-    }
-});
+        }
+    });
+};
