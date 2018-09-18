@@ -1257,7 +1257,7 @@ app.post('/advert/image/:id', upload.array('adverts'), function (req, res) {
 
 
 });
-*/
+
 app.post('/advert/edit/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -1297,7 +1297,7 @@ app.post('/advert/edit/:id', function (req, res) {
     }
 
 });
-
+*/
 app.post('/advert', function (req, res) {
 
     let token = req.cookies.token;

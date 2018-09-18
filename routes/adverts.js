@@ -275,5 +275,45 @@ module.exports = function(app) {
 
     });
 
+    app.post('/advert/edit/:id', function (req, res) {
+
+        let token = req.cookies.token;
+        let id = req.params.id;
+        let title = req.body.title;
+        let description = req.body.description;
+        let advertRedirect = '/advert/edit/';
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query(_class.Adverts).equalTo("objectId", id).first();
+
+            }).then(function (advert) {
+
+                advert.set("title", title);
+                advert.set("description", description);
+
+                return advert.save();
+
+            }).then(function () {
+
+                advertMessage = "";
+                res.redirect(advertRedirect + id);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect(advertRedirect + id);
+
+            })
+        } else {
+
+            res.redirect('/');
+
+        }
+
+    });
+
 
 };
