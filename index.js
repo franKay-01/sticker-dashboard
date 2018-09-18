@@ -1558,7 +1558,6 @@ app.get('/stories', function (req, res) {
     }
 });
 
-*/
 app.get('/storyitem/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -1657,8 +1656,6 @@ app.post('/storyItem/html/edit/:id', function (req, res) {
     let id = req.params.id;
     let storyId = req.body.id;
     let indexValue = req.body.indexValue;
-
-    console.log("STARTING " + parseInt(indexValue));
 
     if (token) {
 
@@ -1906,6 +1903,7 @@ app.post('/storyitem/html/update/:id', function (req, res) {
         })
     }
 });
+*/
 
 app.post('/storyitem/:id', function (req, res) {
 
