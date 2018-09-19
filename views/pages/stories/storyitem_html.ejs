@@ -74,7 +74,7 @@
             <form id="type_form" action="/storyitem/html/change/<%= storyId %>" method="post"
                   enctype="multipart/form-data">
                 <center>
-                    <input name="storyItemId" class="storyItemId" hidden>
+                    <input name="storyItemId" value="<%= storyItem.id %>" hidden>
                     <input name="newStoryItemType" class="newStoryItemType" hidden>
                     <input name="dataPosition" class="data-position" hidden>
                     <input type="text" class="_pack common_pack_detail validate common" placeholder="Story Item Content"
