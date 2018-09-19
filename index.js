@@ -4131,13 +4131,13 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
                     let bitmapPreview;
                     let parseFilePreview;
 
-                    _.map(_previews, preview => {
+                    // _.map(_previews, preview => {
                         let changedStickerName = stickerName.replace(SPECIAL_CHARACTERS, '').substring(0, stickerName.length - 4);
-                        if (changedStickerName === preview.name) {
-                            bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
-                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
+                        if (changedStickerName === _previews[0].name) {
+                            bitmapPreview = fs.readFileSync(_previews[0].path, {encoding: 'base64'});
+                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, _previews[0].mimetype);
                         }
-                    });
+                    // });
 
                     let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
 
