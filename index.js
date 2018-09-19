@@ -4111,8 +4111,6 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
 
         }).then(function (pack) {
 
-            console.log("PACK 1 " + JSON.stringify(pack));
-
             pack.set("description", description);
             pack.set("keywords", _keywords);
             pack.set("archived", archive);
@@ -4134,6 +4132,7 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
 
                     _.map(_previews, preview => {
                         console.log("PREVIEW NAME " + preview.name);
+                        console.log("STICKER NAME " + stickerName);
                         if (stickerName === preview.name) {
                             bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
                             parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
