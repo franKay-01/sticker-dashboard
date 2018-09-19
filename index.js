@@ -4096,7 +4096,7 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
 
         getUser(token).then(function (sessionToken) {
 
-            if (files.length !== 0) {
+            if (files) {
 
                 return util.thumbnail(files)
 
@@ -4112,7 +4112,7 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
 
         }).then(function (pack) {
 
-            console.log("PACK 1 " + JSON.stringify(pack))
+            console.log("PACK 1 " + JSON.stringify(pack));
 
             pack.set("description", description);
             pack.set("keywords", _keywords);
