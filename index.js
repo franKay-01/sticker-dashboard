@@ -59,6 +59,7 @@ const PACKS = "pack";
 const PRODUCT = "product";
 
 const PARSE_LIMIT = 2000;
+const SPECIAL_CHARACTERS = /[`~!@#$%^&*()_|+\-=÷¿?;:'",.123<>\{\}\[\]\\\/]/gi;
 
 //TODO investigate email template server url links
 const PARSE_SERVER_URL = process.env.SERVER_URL;
@@ -4131,9 +4132,9 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
                     let parseFilePreview = "";
 
                     _.map(_previews, preview => {
-                        console.log("PREVIEW NAME " + preview.name);
-                        console.log("STICKER NAME " + stickerName);
-                        if (stickerName === preview.name) {
+
+                        let changedStickerName = stickerName.replace(SPECIAL_CHARACTERS, '').substring(0, stickerName.length - 4);
+                        if (changedStickerName === preview.name) {
                             bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
                             parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
                         }
