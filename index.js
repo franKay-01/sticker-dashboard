@@ -4107,7 +4107,6 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
         }).then(previews => {
 
             _previews = previews;
-            console.log("PREVIEW " + JSON.stringify(_previews));
             return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
 
         }).then(function (pack) {
@@ -4132,6 +4131,8 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
 
                     let bitmapPreview;
                     let parseFilePreview = "";
+
+                    console.log("PREVIEW " + JSON.stringify(_previews));
 
                     _.map(_previews, preview => {
                         if (stickerName === preview.name) {
