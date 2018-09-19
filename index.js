@@ -4107,7 +4107,7 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
         }).then(previews => {
 
             _previews = previews;
-            console.log("PREVIEW " + _previews);
+            console.log("PREVIEW " + JSON.stringify(_previews));
             return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
 
         }).then(function (pack) {
