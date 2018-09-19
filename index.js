@@ -37,6 +37,7 @@ let create = require('./cloud/modules/create');
 let accountRoute = require('./routes/account');
 let advertRoute = require('./routes/adverts');
 let storyRoute = require('./routes/story');
+let stickerRoute = require('./routes/stickers');
 
 //google app engine configuration
 //let config = require('./config.json');
@@ -4662,6 +4663,9 @@ app.get('/publish/:type/:status/:id', function (req, res) {
 /*====================================== STICKERS ============================*/
 
 // Add Stickers Version 1
+stickerRoute(app);
+/*
+
 app.get('/uploads/computer/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -5367,8 +5371,7 @@ app.post('/sticker/decsription/:id', function (req, res) {
     }
 
 });
-
-
+*/
 /*====================================== STICKERS ============================*/
 
 
