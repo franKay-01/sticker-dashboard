@@ -393,6 +393,8 @@ module.exports = function(app) {
         let id = req.body.storyItemId;
         let index = parseInt(req.body.dataPosition);
 
+        console.log("ID OF STORYITEM " + id);
+
         if (token) {
             util.getUser(token).then(function (sessionToken) {
 
