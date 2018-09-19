@@ -4132,9 +4132,8 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
                     let bitmapPreview;
                     let parseFilePreview = "";
 
-                    console.log("PREVIEW " + JSON.stringify(_previews));
-
                     _.map(_previews, preview => {
+                        console.log("PREVIEW NAME " + preview.name);
                         if (stickerName === preview.name) {
                             bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
                             parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
