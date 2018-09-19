@@ -393,8 +393,6 @@ module.exports = function(app) {
         let id = req.body.storyItemId;
         let index = parseInt(req.body.dataPosition);
 
-        console.log("ID OF STORYITEM " + id);
-
         if (token) {
             util.getUser(token).then(function (sessionToken) {
 
@@ -422,11 +420,11 @@ module.exports = function(app) {
 
             }).then(function () {
 
-                res.redirect('/storyItem/html/edit/' + id + story_id);
+                res.redirect('/storyItem/html/edit/' + id +'/'+ story_id);
 
             }, function (error) {
                 console.log("ERROR " + error.message);
-                res.redirect('/storyItem/html/edit/' + id + story_id);
+                res.redirect('/storyItem/html/edit/' + id +'/'+ story_id);
             })
         }
     });
