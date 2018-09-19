@@ -420,11 +420,11 @@ module.exports = function(app) {
 
             }).then(function () {
 
-                res.redirect('/storyitem/view/' + story_id);
+                res.redirect('/storyItem/html/edit/' + id + story_id);
 
             }, function (error) {
                 console.log("ERROR " + error.message);
-                res.redirect('/storyItem/html/edit/' + id);
+                res.redirect('/storyItem/html/edit/' + id + story_id);
             })
         }
     });
