@@ -4133,8 +4133,6 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
 
                     _.map(_previews, preview => {
                         let changedStickerName = stickerName.replace(SPECIAL_CHARACTERS, '').substring(0, stickerName.length - 4);
-                        console.log("CHANGED STICKER NAME " + changedStickerName);
-                        console.log("CHANGED STICKER NAME " + preview.name);
                         if (changedStickerName === preview.name) {
                             bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
                             parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
