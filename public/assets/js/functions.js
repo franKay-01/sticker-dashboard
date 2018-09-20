@@ -193,5 +193,5 @@ function add_img_to_list(file) {
     document.getElementById('fileUrl').value = source;
     document.getElementById('fileName').value = name;
     document.getElementById('fileType').value = type;
-    document.getElementById('upload').value = "Upload (1)";
+    document.getElementById('upload').innerText = "Upload (1)";
 }
