@@ -557,6 +557,7 @@ module.exports = function (app) {
 
                 download.image(options)
                     .then(({filename, image}) => {
+                        console.log("FILENAME FROM DOWNLOAD " + JSON.stringify(filename));
                         let pack = new Parse.Query(_class.Packs);
 
                         bitmap = fs.readFileSync(filename, {encoding: 'base64'});
