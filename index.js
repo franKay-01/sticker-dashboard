@@ -4132,11 +4132,11 @@ app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
                     let parseFilePreview;
 
                     // _.map(_previews, preview => {
-                        let changedStickerName = stickerName.replace(SPECIAL_CHARACTERS, '').substring(0, stickerName.length - 4);
-                        if (changedStickerName === _previews[0].name) {
-                            bitmapPreview = fs.readFileSync(_previews[0].path, {encoding: 'base64'});
-                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, _previews[0].mimetype);
-                        }
+                    let changedStickerName = stickerName.replace(SPECIAL_CHARACTERS, '').substring(0, stickerName.length - 4);
+                    if (changedStickerName === _previews[0].name) {
+                        bitmapPreview = fs.readFileSync(_previews[0].path, {encoding: 'base64'});
+                        parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, _previews[0].mimetype);
+                    }
                     // });
 
                     let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
@@ -4552,7 +4552,7 @@ app.get('/pack/stickers/:packId/:productId', function (req, res) {
 
                     // if (sticker.get("sold") === true) {
 
-                        paid.push(sticker);
+                    paid.push(sticker);
 
                     // }
                 });

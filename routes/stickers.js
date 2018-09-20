@@ -4,6 +4,7 @@ let _ = require('underscore');
 let type = require('../cloud/modules/type');
 let multer = require('multer');
 let fs = require('fs');
+let download = require('image-downloader');
 
 const PARSE_LIMIT = 2000;
 
@@ -532,6 +533,7 @@ module.exports = function(app) {
         let pack_id = req.body.pack_id;
         let stickerPack;
         let pack = "/pack/";
+        let _previews = [];
 
         name = req.body.fileName;
         fileUrl = req.body.fileUrl; // receive url from form
@@ -551,15 +553,18 @@ module.exports = function(app) {
 
                 download.image(options)
                     .then(({filename, image}) => {
+                        let pack = new Parse.Query(_class.Packs);
 
                         bitmap = fs.readFileSync(filename, {encoding: 'base64'});
 
-                        let pack = new Parse.Query(_class.Packs);
-                        pack.equalTo("objectId", pack_id)
-                            .first({sessionToken: token})
-                            .then(function (pack) {
+                        util.thumbnail(filename).then(previews => {
 
-                                stickerPack = pack;
+                            _previews = previews;
+
+                            return pack.equalTo("objectId", pack_id).first({sessionToken: token});
+
+                        }).then(function (pack) {
+                            stickerPack = pack;
 
                                 let parseFile = new Parse.File(name, {base64: bitmap});
                                 let Sticker = new Parse.Object.extend(_class.Stickers);
