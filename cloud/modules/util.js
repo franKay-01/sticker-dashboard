@@ -409,19 +409,19 @@ exports.thumbnailDropbox = (filePath, fileName, fileType, size) => {
 
         gm(file)
             .resize(size, size)
-            .write('public/uploads/' + originalName + getMimeType(fileType), function (err) {
+            .write('public/uploads/' + originalName + getMimeType(fileType[index]), function (err) {
                 if (!err) {
                     filePreviews.push(
                         {
                             name: originalName,
-                            path: 'public/uploads/' + originalName + getMimeType(fileType),
-                            mimetype: fileType
+                            path: 'public/uploads/' + originalName + getMimeType(fileType[index]),
+                            mimetype: fileType[index]
 
                         });
-                    if (index === files.length - 1) {
+                    if (index === filePath.length - 1) {
                         promise.resolve(filePreviews);
                     } else {
-                        if (index === files.length - 1) {
+                        if (index === filePath.length - 1) {
                             promise.reject(err);
                         }
                     }
