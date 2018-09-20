@@ -403,12 +403,12 @@ exports.thumbnailDropbox = (filePath, fileName, fileType, size) => {
     let filePreviews = [];
 
     filePath.forEach(function (file, index) {
-
-        console.log("INSIDE thumbnailDropbox AND PAth " + file);
+        $url = toString(file);
         let originalName = fileName[index];
         // let image_name = originalName.replace(SPECIAL_CHARACTERS, '').substring(0, originalName.length - 4);
 
-        gm(file)
+        console.log("IMAGE TYPE " + fileType[index]);
+        gm($url)
             .resize(size, size)
             .write('public/uploads/' + originalName + getMimeType(fileType[index]), function (err) {
                 if (!err) {
