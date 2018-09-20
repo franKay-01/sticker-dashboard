@@ -393,6 +393,46 @@ let getMimeType = mimeType => {
     return ".png";
 };
 
+exports.thumbnailDropbox = (filePath, fileName, fileType, size) => {
+
+    if (!size) {
+        size = 200
+    }
+
+    let promise = new Parse.Promise();
+    let filePreviews = [];
+
+    filePath.forEach(function (file, index) {
+
+        let originalName = fileName[index];
+        // let image_name = originalName.replace(SPECIAL_CHARACTERS, '').substring(0, originalName.length - 4);
+
+        gm(file)
+            .resize(size, size)
+            .write('public/uploads/' + originalName + getMimeType(fileType), function (err) {
+                if (!err) {
+                    filePreviews.push(
+                        {
+                            name: originalName,
+                            path: 'public/uploads/' + originalName + getMimeType(fileType),
+                            mimetype: fileType
+
+                        });
+                    if (index === files.length - 1) {
+                        promise.resolve(filePreviews);
+                    } else {
+                        if (index === files.length - 1) {
+                            promise.reject(err);
+                        }
+                    }
+                }
+
+            });
+    });
+
+    return promise;
+};
+
 exports.thumbnail = (files, size) => {
 
     if (!size) {

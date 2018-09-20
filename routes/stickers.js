@@ -20,7 +20,7 @@ let storage = multer.diskStorage({
 
 let upload = multer({storage: storage});
 
-module.exports = function(app) {
+module.exports = function (app) {
 
     app.get('/uploads/computer/:id', function (req, res) {
 
@@ -527,18 +527,22 @@ module.exports = function(app) {
 
     app.post('/uploads/dropbox', function (req, res) {
         let bitmap;
-        let name;
-        let fileUrl;
         let token = req.cookies.token;
         let pack_id = req.body.pack_id;
         let stickerPack;
         let pack = "/pack/";
         let _previews = [];
+        let urls = [];
+        let stickerNames = [];
+        let stickerTypes = [];
+        let name = req.body.fileName;
+        let fileUrl = req.body.fileUrl; // receive url from form
+        let fileType = req.body.file;
 
-        name = req.body.fileName;
-        fileUrl = req.body.fileUrl; // receive url from form
         name = name.substring(0, name.length - 4);
-
+        urls.push(fileUrl);
+        stickerNames.push(name);
+        stickerTypes.push(fileType);
         if (token) {
 
             let _user = {};
@@ -557,31 +561,31 @@ module.exports = function(app) {
 
                         bitmap = fs.readFileSync(filename, {encoding: 'base64'});
 
-                        util.thumbnail(filename).then(previews => {
+                        util.thumbnailDropbox(urls, stickerNames, stickerTypes).then(previews => {
 
                             _previews = previews;
-
+                            console.log("PREVIEW FROM DROPBOX " + JSON.stringify(_previews));
                             return pack.equalTo("objectId", pack_id).first({sessionToken: token});
 
                         }).then(function (pack) {
                             stickerPack = pack;
 
-                                let parseFile = new Parse.File(name, {base64: bitmap});
-                                let Sticker = new Parse.Object.extend(_class.Stickers);
-                                let sticker = new Sticker();
+                            let parseFile = new Parse.File(name, {base64: bitmap});
+                            let Sticker = new Parse.Object.extend(_class.Stickers);
+                            let sticker = new Sticker();
 
-                                sticker.set("name", name);
-                                sticker.set("localName", name);
-                                sticker.set("userId", _user.id);
-                                sticker.set("uri", parseFile);
-                                sticker.set("parent", pack);
-                                sticker.set("flagged", false);
-                                sticker.set("archived", false);
-                                sticker.set("sold", false);
+                            sticker.set("name", name);
+                            sticker.set("localName", name);
+                            sticker.set("userId", _user.id);
+                            sticker.set("uri", parseFile);
+                            sticker.set("parent", pack);
+                            sticker.set("flagged", false);
+                            sticker.set("archived", false);
+                            sticker.set("sold", false);
 
-                                return sticker.save();
+                            return sticker.save();
 
-                            }).then(function (sticker) {
+                        }).then(function (sticker) {
 
                             let pack_relation = stickerPack.relation(_class.Packs);
 
