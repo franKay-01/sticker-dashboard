@@ -406,7 +406,7 @@ exports.thumbnailDropbox = (filePath, fileName, fileType, size) => {
 
         let originalName = fileName[index];
 
-        console.log("IMAGE TYPE " + fileName[index]);
+        console.log("IMAGE TYPE " + getMimeType(fileType[index]));
         gm(file)
             .resize(size, size)
             .write('app/public/uploads/' + originalName + getMimeType(fileType[index]), function (err) {
