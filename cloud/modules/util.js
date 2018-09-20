@@ -404,6 +404,7 @@ exports.thumbnailDropbox = (filePath, fileName, fileType, size) => {
 
     filePath.forEach(function (file, index) {
 
+        console.log("INSIDE thumbnailDropbox AND PAth " + file);
         let originalName = fileName[index];
         // let image_name = originalName.replace(SPECIAL_CHARACTERS, '').substring(0, originalName.length - 4);
 
