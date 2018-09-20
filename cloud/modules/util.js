@@ -8,6 +8,7 @@ const moment = require('moment');
 const _ = require('underscore');
 const multer = require('multer');
 const request = require('request');
+let fs = require('fs');
 const gm = require('gm').subClass({imageMagick: true});
 
 //TODO update response errors
