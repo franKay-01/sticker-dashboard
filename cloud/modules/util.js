@@ -7,8 +7,6 @@ const twilio = require("twilio")("AC6bad1c4bf8d48125709add2b8b0a5ce0", "33028731
 const moment = require('moment');
 const _ = require('underscore');
 const multer = require('multer');
-const request = require('request');
-let fs = require('fs');
 const gm = require('gm').subClass({imageMagick: true});
 
 //TODO update response errors
@@ -405,19 +403,6 @@ exports.thumbnailDropbox = (filePath, fileName, fileType, size) => {
     let filePreviews = [];
 
     filePath.forEach(function (file, index) {
-
-        let download = function(uri, filename, callback){
-            request.head(uri, function(err, res, body){
-                console.log('content-type:', res.headers['content-type']);
-                console.log('content-length:', res.headers['content-length']);
-
-                request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
-            });
-        };
-
-        download(file, fileName[index], function(image){
-            console.log('DONE ' + JSON.stringify(image));
-        });
 
         let originalName = fileName[index];
 
