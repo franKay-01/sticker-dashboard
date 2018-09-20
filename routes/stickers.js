@@ -552,7 +552,7 @@ module.exports = function (app) {
                 _user = sessionToken.get("user");
                 let options = {
                     url: fileUrl,
-                    dest: __dirname + '/public/uploads/' + req.body.fileName
+                    dest: '/public/uploads/' + req.body.fileName
                 };
 
                 download.image(options)
