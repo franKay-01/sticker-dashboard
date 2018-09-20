@@ -45,7 +45,8 @@
     "tape": "^4.9.1",
     "twilio": "^2.9.0",
     "underscore": "^1.8.3",
-    "url-to-image": "^1.0.0"
+    "url-to-image": "^1.0.0",
+    "request": "2.19.1"
   },
   "scripts": {
     "start": "node index.js",
