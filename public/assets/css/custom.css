@@ -1493,9 +1493,9 @@ a {
 }
 
 .common_pack_detail {
-    border-top: 0;
-    border-right: 0;
-    border-left: 0;
+    border-top: none;
+    border-right: none;
+    border-left: none;
     border-color: black;
     border-width: 6px;
     color: white !important;
