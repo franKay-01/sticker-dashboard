@@ -39,6 +39,7 @@ let advertRoute = require('./routes/adverts');
 let storyRoute = require('./routes/story');
 let stickerRoute = require('./routes/stickers');
 let categoryRoute = require('./routes/categories');
+let newsLetterRoute = require('./routes/newsletter');
 
 //google app engine configuration
 //let config = require('./config.json');
@@ -6079,7 +6080,8 @@ app.get('/feed/story', function (req, res) {
 /*====================================== FEED ============================*/
 
 /*====================================== NEWSLETTER ============================*/
-
+newsLetterRoute(app);
+/*
 app.get('/newsletter/story/:storyId', function (req, res) {
 
     let storyId = req.params.storyId;
@@ -6122,6 +6124,8 @@ app.get('/newsletter/story/:storyId', function (req, res) {
 
 });
 
+
+*/
 app.post('/newsletter/email', function (req, res) {
 
     let email = req.body.email;
