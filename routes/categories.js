@@ -1,5 +1,6 @@
 let _class = require('../cloud/modules/classNames');
 let util = require('../cloud/modules/util');
+let helper = require('./cloud/modules/helpers');
 let _ = require('underscore');
 let type = require('../cloud/modules/type');
 let multer = require('multer');
