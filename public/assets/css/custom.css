@@ -1468,7 +1468,7 @@ a {
     text-align: left;
     color: white !important;
     font-size: 1.5rem !important;
-    background: transparent;
+    background: transparent !important;
     border-bottom: 3px white solid !important;
 }
 
@@ -1498,6 +1498,7 @@ a {
     border-left: 0;
     border-color: black;
     border-width: 6px;
+    color: white !important;
     background-color: transparent !important;
 }
 
