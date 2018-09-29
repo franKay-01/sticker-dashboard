@@ -113,5 +113,42 @@ module.exports = function (app) {
 
     });
 
+    app.post('/category/delete', function (req, res) {
+
+        let token = req.cookies.token;
+        let id = req.body.inputRemoveId;
+        let categories = '/categories';
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query(_class.Categories).equalTo("objectId", id).first();
+
+            }).then(function (category) {
+                    category.destroy({
+                        success: function (object) {
+                            console.log("removed" + JSON.stringify(object));
+                            res.redirect(categories);
+                        },
+                        error: function (error) {
+                            console.log("Could not remove" + error);
+                            res.redirect(categories);
+
+                        }
+                    });
+                },
+                function (error) {
+                    console.log("ERROR " + error);
+                    res.redirect(categories);
+
+                });
+        }
+        else { //no session found
+            res.redirect("/");
+        }
+
+    });
+
 
 };
