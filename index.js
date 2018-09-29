@@ -6123,185 +6123,183 @@ app.get('/newsletter/story/:storyId', function (req, res) {
     })
 
 });
-
-
-*/
 app.post('/newsletter/email', function (req, res) {
 
-    let email = req.body.email;
+        let email = req.body.email;
 
-    function subscriptionTemplate(id) {
+        function subscriptionTemplate(id) {
 
-        let file = fs.readFileSync('./views/pages/newsletter/newsletter_email.ejs', 'ascii');
+            let file = fs.readFileSync('./views/pages/newsletter/newsletter_email.ejs', 'ascii');
 
-        return ejs.render(file, {id: id, serverURL: SERVER_URL});
-    }
+            return ejs.render(file, {id: id, serverURL: SERVER_URL});
+        }
 
-    if (email) {
+        if (email) {
 
-        new Parse.Query(_class.NewsLetter).equalTo("email", email).first().then(function (newsletter) {
+            new Parse.Query(_class.NewsLetter).equalTo("email", email).first().then(function (newsletter) {
 
-            if (newsletter) {
-                if (newsletter.get("subscribe") === false) {
+                if (newsletter) {
+                    if (newsletter.get("subscribe") === false) {
+
+                        return subscriptionTemplate(newsletter.id);
+
+                        // res.redirect('/newsletter/update/' + newsletter.id);
+
+                    } else if (newsletter.get("subscribe") === true) {
+
+                        res.render("pages/newsletter/newsletter_already_subscribed");
+
+                    }
+                } else {
+
+                    let NewsLetter = new Parse.Object.extend(_class.NewsLetter);
+                    let newsletter = new NewsLetter();
+
+                    newsletter.set("email", email);
+                    newsletter.set("subscribe", false);
+
+                    return newsletter.save();
+                }
+
+            }).then(function (newsletter) {
+
+                if (newsletter.id) {
 
                     return subscriptionTemplate(newsletter.id);
 
-                    // res.redirect('/newsletter/update/' + newsletter.id);
-
-                } else if (newsletter.get("subscribe") === true) {
-
-                    res.render("pages/newsletter/newsletter_already_subscribed");
-
                 }
-            } else {
 
-                let NewsLetter = new Parse.Object.extend(_class.NewsLetter);
-                let newsletter = new NewsLetter();
+                return newsletter;
 
-                newsletter.set("email", email);
-                newsletter.set("subscribe", false);
+            }).then(function (htmlString) {
 
-                return newsletter.save();
-            }
+                let data = {
+                    //Specify email data
+                    from: process.env.EMAIL_FROM || "test@example.com",
+                    //The email to contact
+                    to: email,
+                    //Subject and text data
+                    subject: 'G-Stickers Newsletter Subscription',
+                    // html: fs.readFileSync("./uploads/newsletter_email.ejs", "utf8"),
+                    html: htmlString
 
-        }).then(function (newsletter) {
+                };
 
-            if (newsletter.id) {
+                //TODO update to use promises
+                mailgun.messages().send(data, function (error, body) {
+                    if (error) {
+                        console.log("BIG BIG ERROR: ", error.message);
+                    }
+                    else {
 
-                return subscriptionTemplate(newsletter.id);
+                        console.log("EMAIL SENT" + body);
+                    }
+                });
 
-            }
+                res.render("pages/newsletter/newsletter_subscribe");
 
-            return newsletter;
+            }, function (error) {
 
-        }).then(function (htmlString) {
+                console.log("ERROR " + error.message);
+                res.redirect('')
+            })
 
-            let data = {
-                //Specify email data
-                from: process.env.EMAIL_FROM || "test@example.com",
-                //The email to contact
-                to: email,
-                //Subject and text data
-                subject: 'G-Stickers Newsletter Subscription',
-                // html: fs.readFileSync("./uploads/newsletter_email.ejs", "utf8"),
-                html: htmlString
 
-            };
+        }
+    });
 
-            //TODO update to use promises
-            mailgun.messages().send(data, function (error, body) {
-                if (error) {
-                    console.log("BIG BIG ERROR: ", error.message);
-                }
-                else {
+    app.get('/newsletter/update/:id', function (req, res) {
 
-                    console.log("EMAIL SENT" + body);
-                }
-            });
+        let id = req.params.id;
 
-            res.render("pages/newsletter/newsletter_subscribe");
+        return new Parse.Query(_class.NewsLetter).equalTo("objectId", id).first().then(function (newsletter) {
+
+            newsletter.set("subscribe", true);
+
+            return newsletter.save();
+
+        }).then(function () {
+
+            // TODO display type of update before changing subscription to true
+            res.render("pages/newsletter/newsletter_updates");
 
         }, function (error) {
 
             console.log("ERROR " + error.message);
-            res.redirect('')
+
         })
+    });
 
+    app.get('/newsletter/send/story', function (req, res) {
 
-    }
-});
-
-app.get('/newsletter/update/:id', function (req, res) {
-
-    let id = req.params.id;
-
-    return new Parse.Query(_class.NewsLetter).equalTo("objectId", id).first().then(function (newsletter) {
-
-        newsletter.set("subscribe", true);
-
-        return newsletter.save();
-
-    }).then(function () {
-
-        // TODO display type of update before changing subscription to true
-        res.render("pages/newsletter/newsletter_updates");
-
-    }, function (error) {
-
-        console.log("ERROR " + error.message);
-
-    })
-});
-
-
-app.get('/newsletter/send/story', function (req, res) {
-
-    let _newsletters;
-    let _story;
-    let emails = [];
-    let colors;
-
-    return Parse.Promise.when(
-        new Parse.Query(_class.NewsLetter).equalTo("subscribe", true).find(),
-        new Parse.Query(_class.Stories).equalTo("objectId", 'VcTBweB2Mz').first(),
-        new Parse.Query(_class.ArtWork).equalTo("itemId", 'VcTBweB2Mz').first()
-    ).then(function (newsletters, story, sticker) {
-
-        console.log("COLLECTED ALL DATA");
-
-        _newsletters = newsletters;
-        _story = story;
-
-        colors = story.get("color");
-        if (!colors) {
-            //use system default
-            colors = type.DEFAULT.colors;
-        }
+        let _newsletters;
+        let _story;
+        let emails = [];
+        let colors;
 
         return Parse.Promise.when(
-            new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first(),
-            new Parse.Query(_class.StoryItems).equalTo("storyId", _story.id).find()
-        )
+            new Parse.Query(_class.NewsLetter).equalTo("subscribe", true).find(),
+            new Parse.Query(_class.Stories).equalTo("objectId", 'VcTBweB2Mz').first(),
+            new Parse.Query(_class.ArtWork).equalTo("itemId", 'VcTBweB2Mz').first()
+        ).then(function (newsletters, story, sticker) {
 
-    }).then(function (sticker, storyItems) {
+            console.log("COLLECTED ALL DATA");
 
-        _.each(_newsletters, function (newsletter) {
+            _newsletters = newsletters;
+            _story = story;
 
-            emails.push(newsletter.get("email"));
+            colors = story.get("color");
+            if (!colors) {
+                //use system default
+                colors = type.DEFAULT.colors;
+            }
 
-        });
+            return Parse.Promise.when(
+                new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first(),
+                new Parse.Query(_class.StoryItems).equalTo("storyId", _story.id).find()
+            )
 
-        let file = fs.readFileSync('./views/pages/newsletter/newsletter_story.ejs', 'ascii');
+        }).then(function (sticker, storyItems) {
 
-        return ejs.render(file, {
-            story: _story,
-            sticker: sticker,
-            colors: colors,
-            storyItems: storyItems
-        });
+            _.each(_newsletters, function (newsletter) {
+
+                emails.push(newsletter.get("email"));
+
+            });
+
+            let file = fs.readFileSync('./views/pages/newsletter/newsletter_story.ejs', 'ascii');
+
+            return ejs.render(file, {
+                story: _story,
+                sticker: sticker,
+                colors: colors,
+                storyItems: storyItems
+            });
 
 
-    }).then(function (htmlString) {
+        }).then(function (htmlString) {
 
-        return mailgun.messages().send({
-            from: process.env.EMAIL_FROM || "test@example.com",
-            to: emails.toString(),
-            subject: _story.get("title"),
-            html: htmlString
+            return mailgun.messages().send({
+                from: process.env.EMAIL_FROM || "test@example.com",
+                to: emails.toString(),
+                subject: _story.get("title"),
+                html: htmlString
 
-        });
+            });
 
-    }).then(() => {
+        }).then(() => {
 
-        res.send("EMAIL SENT");
+            res.send("EMAIL SENT");
 
-    }, function (error) {
+        }, function (error) {
 
-        console.log("ERROR " + error.message);
+            console.log("ERROR " + error.message);
 
-    })
-});
+        })
+    });
 
+
+*/
 
 /*====================================== NEWSLETTER ============================*/
 
