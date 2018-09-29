@@ -38,6 +38,7 @@ let accountRoute = require('./routes/account');
 let advertRoute = require('./routes/adverts');
 let storyRoute = require('./routes/story');
 let stickerRoute = require('./routes/stickers');
+let categoryRoute = require('./routes/categories');
 
 //google app engine configuration
 //let config = require('./config.json');
@@ -3222,6 +3223,8 @@ app.get('/barcode', function (req, res) {
 
 /*====================================== CATEGORY ============================*/
 // FIND A SPECIFIC CATEGORY
+categoryRoute(app);
+
 app.post('/category/find', function (req, res) {
 
     let token = req.cookies.token;
@@ -3255,6 +3258,7 @@ app.post('/category/find', function (req, res) {
 });
 
 //SELECT CATEGORIES PAGE
+/*
 app.get('/categories', function (req, res) {
     let token = req.cookies.token;
 
@@ -3323,6 +3327,8 @@ app.post('/category', function (req, res) {
         res.redirect("/");
     }
 });
+
+*/
 
 app.post('/category/update', function (req, res) {
 
