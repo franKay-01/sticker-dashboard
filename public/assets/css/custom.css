@@ -1502,6 +1502,11 @@ a {
     background-color: transparent !important;
 }
 
+input[readonly]{
+    background-color: transparent !important;
+    cursor: not-allowed !important;
+}
+
 ._pack_2 {
     width: 250px !important;
     text-align: left;
