@@ -3254,7 +3254,6 @@ app.post('/category/find', function (req, res) {
     }
 });
 
-
 //SELECT CATEGORIES PAGE
 app.get('/categories', function (req, res) {
     let token = req.cookies.token;
