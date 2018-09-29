@@ -87,7 +87,7 @@ module.exports = function (app) {
 
         if (token) {
 
-            getUser(token).then(function (sessionToken) {
+            util.getUser(token).then(function (sessionToken) {
 
                 return new Parse.Query("Categories").equalTo("objectId", currentId).first()
 
