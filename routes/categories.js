@@ -79,4 +79,39 @@ module.exports = function (app) {
         }
     });
 
+    app.post('/category/update', function (req, res) {
+
+        let token = req.cookies.token;
+        let newName = req.body.catname;
+        let currentId = req.body.categoryId;
+
+        if (token) {
+
+            getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query("Categories").equalTo("objectId", currentId).first()
+
+            }).then(function (category) {
+
+                category.set("name", newName);
+                return category.save();
+
+            }).then(function () {
+
+                res.redirect("/categories");
+
+            }, function (error) {
+
+                console.error(error);
+                res.redirect("/categories");
+
+            });
+        }
+        else { //no session found
+            res.redirect("/");
+        }
+
+    });
+
+
 };

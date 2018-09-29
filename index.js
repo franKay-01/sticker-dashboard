@@ -3328,8 +3328,6 @@ app.post('/category', function (req, res) {
     }
 });
 
-*/
-
 app.post('/category/update', function (req, res) {
 
     let token = req.cookies.token;
@@ -3363,6 +3361,9 @@ app.post('/category/update', function (req, res) {
     }
 
 });
+
+*/
+
 
 app.post('/category/delete', function (req, res) {
 
