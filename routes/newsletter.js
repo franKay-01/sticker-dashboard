@@ -1,5 +1,7 @@
 let _class = require("../cloud/modules/classNames");
 let type = require("../cloud/modules/type");
+let Mailgun = require('mailgun-js');
+
 let fs = require('fs');
 let ejs = require('ejs');
 
