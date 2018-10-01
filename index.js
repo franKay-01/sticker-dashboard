@@ -3917,7 +3917,7 @@ app.get('/pack/:id', function (req, res) {
         res.redirect("/");
     }
 });
-*/
+
 app.post('/pack/product', function (req, res) {
 
     let token = req.cookies.token;
@@ -3956,7 +3956,7 @@ app.post('/pack/product', function (req, res) {
     }
 
 });
-
+*/
 app.post('/pack/product/update', function (req, res) {
 
     let token = req.cookies.token;

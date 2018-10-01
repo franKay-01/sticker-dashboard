@@ -214,5 +214,43 @@ module.exports = function (app) {
         }
     });
 
+    app.post('/pack/product', function (req, res) {
+
+        let token = req.cookies.token;
+        let packId = req.body.packId;
+        let productId = req.body.productId;
+        let zero = "0";
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query(_class.Packs).equalTo("objectId", packId).first();
+
+            }).then(function (pack) {
+
+                if (productId === zero) {
+                    pack.set("productId", "free");
+                } else {
+                    pack.set("productId", productId);
+                }
+
+                return pack.save();
+
+            }).then(function (pack) {
+
+                res.redirect('/pack/stickers/' + packId + '/' + pack.get("productId"));
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/pack/' + packId);
+            })
+
+        } else {
+            res.redirect('/');
+        }
+
+    });
 
 };
