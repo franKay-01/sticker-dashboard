@@ -150,5 +150,33 @@ module.exports = function (app) {
 
     });
 
+    app.post('/category/find', function (req, res) {
+
+        let token = req.cookies.token;
+        let categoryName = req.body.searchCategory;
+
+        if (token) {
+
+            let searchCategory = new Parse.Query(_class.Categories);
+            searchCategory.equalTo("name", categoryName);
+            searchCategory.first().then(function (category) {
+
+                    if (category) {
+                        res.render("pages/categories/search_categories", {categories: category});
+                    } else {
+                        res.render("pages/categories/search_categories", {categories: []});
+                    }
+
+                },
+                function (error) {
+                    console.log("No categories found.............." + JSON.stringify(error));
+                    searchErrorMessage = error.message;
+                    res.redirect("/categories");
+                });
+        } else {
+            res.redirect("/");
+        }
+    });
+
 
 };
