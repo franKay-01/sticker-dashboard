@@ -555,4 +555,176 @@ module.exports = function (app) {
         }
     });
 
+    app.get('/pack/review/update/status/:id', function (req, res) {
+
+        let token = req.cookies.token;
+        let pack_id = req.params.id;
+        let pack = '/pack/';
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first();
+
+            }).then(function (pack) {
+
+                pack.set("status", type.PACK_STATUS.review);
+                return pack.save();
+
+            }).then(function () {
+
+                console.log("PACK SUBMITTED FOR REVIEW");
+                res.redirect(pack + pack_id);
+
+            }, function (error) {
+
+                console.log("PACK NOT SUBMITTED FOR REVIEW. ERROR " + error.message);
+                res.redirect(pack + pack_id);
+
+            });
+        } else {
+            res.redirect('/');
+        }
+    });
+
+    app.post('/review/:itemId/:packId/:reviewId', function (req, res) {
+
+        let token = req.cookies.token;
+        let id = req.params.itemId;
+        let pack_ = req.params.packId;
+        let review_id = req.params.reviewId;
+        let _type = req.body.type;
+        let categoryNames = [];
+        let reviewEdit = '/review/edit/';
+        let all;
+        let name;
+        let category;
+        let sticker;
+
+        if (token) {
+            let _user = {};
+
+            if (_type === "1") {
+
+                util.getUser(token).then(function (sessionToken) {
+
+                    _user = sessionToken.get("user");
+
+                    return Parse.Promise.when(
+                        new Parse.Query(_class.Stickers).equalTo("objectId", id).first(),
+                        new Parse.Query(_class.Categories).find()
+                    );
+
+                }).then(function (sticker, categories) {
+
+                        stickerDetail = sticker;
+                        allCategories = categories;
+
+                        let sticker_relation = sticker.relation(_class.Categories);
+                        return sticker_relation.query().find();
+
+                    }
+                ).then(function (stickerCategories) {
+
+                    _.each(stickerCategories, function (category) {
+                        categoryNames.push(category.get("name"))
+                    });
+
+                    return new Parse.Query(_class.Reviews).equalTo("objectId", review_id).first();
+
+                }).then(function (review) {
+
+                    let review_fields = review.get("reviewField");
+                    let review_field = Array.from(review_fields);
+
+                    for (let time = 0; time < review_field.length; time++) {
+                        if (review_field[time] === "all") {
+                            all = review_field[time];
+                        } else if (review_field[time] === "name") {
+                            name = review_field[time];
+                        } else if (review_field[time] === "category") {
+                            category = review_field[time];
+                        } else if (review_field[time] === STICKER) {
+                            sticker = review_field[time];
+                        }
+                    }
+
+                    res.render("pages/stickers/edit_sticker", {
+                        sticker: stickerDetail,
+                        categoryNames: categoryNames,
+                        categories: allCategories,
+                        pack_id: pack_,
+                        all: all,
+                        name: name,
+                        sticker_details: sticker,
+                        category: category,
+                        review_id: review_id
+                    });
+
+                }, function (error) {
+                    console.log("ERROR " + error.message);
+                    res.redirect(reviewEdit + review_id);
+                });
+            } else {
+                getUser(token).then(function (sessionToken) {
+
+                    _user = sessionToken.get("user");
+
+                    return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+
+                }).then(function (pack) {
+
+                    res.render("pages/packs/edit_pack", {pack: pack, review_id: review_id});
+
+                }, function (error) {
+
+                    console.log("ERROR " + error.message);
+                    res.redirect(reviewEdit + review_id);
+
+                });
+            }
+        } else {
+            res.redirect('/')
+        }
+
+    });
+
+    app.get('/pack/stickers/remove/:stickerId/:packId', function (req, res) {
+
+        let token = req.cookies.token;
+        let stickerId = req.params.stickerId;
+        let packId = req.params.packId;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first(),
+                    new Parse.Query(_class.Packs).equalTo("objectId", packId).first()
+                )
+            }).then(function (sticker, pack) {
+
+                let collection_relation = pack.relation(_class.Packs);
+                collection_relation.remove(sticker);
+
+                return pack.save();
+
+            }).then(function () {
+
+                res.redirect('/pack/' + packId);
+
+            }, function (error) {
+
+                console.log("ERROR REMOVING STICKER RELATION " + error.message);
+                res.redirect('/pack/' + packId);
+
+            })
+        } else {
+            res.redirect('/');
+        }
+
+    });
+
 };

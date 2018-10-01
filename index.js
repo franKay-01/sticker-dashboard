@@ -4244,7 +4244,7 @@ app.post('/pack/review/:id', function (req, res) {
         res.redirect('/');
     }
 });
-*/
+
 app.get('/pack/review/update/status/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -4415,7 +4415,7 @@ app.get('/pack/stickers/remove/:stickerId/:packId', function (req, res) {
     }
 
 });
-
+*/
 app.post('/pack/stickers/:packId', function (req, res) {
 
     let token = req.cookies.token;
