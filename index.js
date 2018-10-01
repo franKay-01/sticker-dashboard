@@ -41,6 +41,7 @@ let stickerRoute = require('./routes/stickers');
 let categoryRoute = require('./routes/categories');
 let newsLetterRoute = require('./routes/newsletter');
 let reviewRoutes = require('./routes/reviews');
+let packRoutes = require('./routes/packs');
 
 //google app engine configuration
 //let config = require('./config.json');
@@ -3710,7 +3711,9 @@ app.get('/review/find/packs', function (req, res) {
 
 /*====================================== PACKS ============================*/
 
+packRoutes(app);
 // Collection Dashboard
+/*
 app.get('/packs', function (req, res) {
 
     let token = req.cookies.token;
@@ -3742,7 +3745,7 @@ app.get('/packs', function (req, res) {
     }
 });
 
-
+*/
 // creating new pack
 app.post('/pack', function (req, res) {
 

@@ -1,9 +1,6 @@
-let helper = require('../cloud/modules/helpers');
 let type = require('../cloud/modules/type');
 let _class = require('../cloud/modules/classNames');
 let util = require('../cloud/modules/util');
-let multer = require('multer');
-let fs = require('fs');
 
 module.exports = function (app) {
 
@@ -296,8 +293,4 @@ module.exports = function (app) {
 
         }
     });
-
-
-
-
 };
