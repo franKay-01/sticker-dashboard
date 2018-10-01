@@ -422,7 +422,7 @@ module.exports = function (app) {
             util.getUser(token).then(function (sessionToken) {
 
                 console.log("FOUND USER " + JSON.stringify(files));
-                if (files) {
+                if (files.length > 0) {
 
                     return util.thumbnail(files)
 
