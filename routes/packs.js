@@ -421,6 +421,7 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
+                console.log("FOUND USER " + JSON.stringify(files));
                 if (files) {
 
                     return util.thumbnail(files)
@@ -476,7 +477,7 @@ module.exports = function (app) {
 
             }).then(function (pack) {
 
-                console.log("PACK " + JSON.stringify(pack))
+                console.log("PACK " + JSON.stringify(pack));
                 _.each(fileDetails, function (file) {
                     //Delete tmp fil after upload
                     let tempFile = file.path;
