@@ -5,6 +5,8 @@ let moment = require('moment');
 let notification = require('../cloud/modules/notifications');
 let create = require('../cloud/modules/create');
 
+let _ = require('underscore');
+
 const STICKER = "sticker";
 const STORIES = "story";
 
