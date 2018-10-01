@@ -124,4 +124,137 @@ module.exports = function (app) {
         }
     });
 
+    app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
+
+        let token = req.cookies.token;
+        let files = req.files;
+        let id = req.params.productId;
+        let name = req.body.name;
+        let description = req.body.description;
+        let android = req.body.android;
+        let android_price = req.body.android_price;
+        let ios_price = req.body.ios_price;
+        let ios = req.body.ios;
+        let _previews;
+        let parseFile;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                if (files.length > 0) {
+
+                    return util.thumbnail(files)
+
+                } else {
+
+                    return "";
+                }
+
+            }).then(previews => {
+
+                console.log("PREVIEW 2 " + JSON.stringify(previews));
+                _previews = previews;
+
+                return new Parse.Query(_class.Product).equalTo("objectId", id).first();
+
+            }).then(function (product) {
+
+                if (files.length > 0) {
+
+                    let fullName = files[0].originalname;
+                    let stickerName = fullName.substring(0, fullName.length - 4);
+
+                    let bitmap = fs.readFileSync(files[0].path, {encoding: 'base64'});
+
+                    let bitmapPreview;
+                    let parseFilePreview = "";
+
+
+                    bitmapPreview = fs.readFileSync(_previews[0].path, {encoding: 'base64'});
+                    parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, _previews[0].mimetype);
+                    parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
+
+                    product.set("artwork", parseFile);
+                    product.set("preview", parseFilePreview);
+
+                }
+
+                product.set("name", name);
+                product.set("description", description);
+                product.set("productId", {"android": android, "ios": ios});
+                if (android_price && ios_price) {
+
+                    product.set("price", {"android": android_price, "ios": ios_price});
+
+                } else if (android_price) {
+
+                    product.set("price", {"android": android_price, "ios": product.get("price").ios});
+
+                } else if (ios_price) {
+
+                    product.set("price", {"android": product.get("price").android, "ios": ios_price});
+
+                }
+
+                return product.save();
+
+
+            }).then(function (productItem) {
+
+                if (files.length > 0) {
+                    let tempFile = files[0].path;
+                    fs.unlink(tempFile, function (err) {
+                        if (err) {
+                            //TODO handle error code
+                            console.log("-------Could not del temp" + JSON.stringify(err));
+                        }
+                        else {
+                            console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                        }
+                    });
+                }
+
+                res.redirect('/product/edit/' + id);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/product/edit/' + id);
+
+            })
+        }
+        else {
+            res.redirect('/');
+        }
+    });
+
+    app.get('/product/edit/:productId', function (req, res) {
+
+        let token = req.cookies.token;
+        let productId = req.params.productId;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query(_class.Product).equalTo("objectId", productId).first();
+
+            }).then(function (product) {
+
+                res.render("pages/products/product_details", {
+                    product: product
+                });
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect("/product/" + productId);
+            })
+        } else {
+            res.redirect('/');
+        }
+
+    });
+
 };

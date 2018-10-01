@@ -5500,7 +5500,7 @@ app.post('/product', function (req, res) {
         })
     }
 });
-*/
+
 app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
 
         let token = req.cookies.token;
@@ -5635,6 +5635,7 @@ app.get('/product/edit/:productId', function (req, res) {
     }
 
 });
+*/
 /*====================================== PRODUCT ID ============================*/
 
 
