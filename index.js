@@ -42,6 +42,7 @@ let categoryRoute = require('./routes/categories');
 let newsLetterRoute = require('./routes/newsletter');
 let reviewRoutes = require('./routes/reviews');
 let packRoutes = require('./routes/packs');
+let productRoutes = require('./routes/products');
 
 //google app engine configuration
 //let config = require('./config.json');
@@ -5390,6 +5391,8 @@ app.post('/sticker/decsription/:id', function (req, res) {
 
 /*====================================== PRODUCT ID ============================*/
 
+productRoutes(app);
+/*
 app.get('/products', function (req, res) {
 
     let token = req.cookies.token;
@@ -5415,7 +5418,7 @@ app.get('/products', function (req, res) {
         res.redirect('/');
     }
 });
-
+*/
 app.get('/product/:productId', function (req, res) {
 
     let token = req.cookies.token;
@@ -5455,7 +5458,6 @@ app.get('/product/:productId', function (req, res) {
         res.redirect('/');
     }
 });
-
 
 app.post('/product', function (req, res) {
 
@@ -5604,8 +5606,7 @@ app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
         else {
             res.redirect('/');
         }
-    }
-);
+    });
 
 app.get('/product/edit/:productId', function (req, res) {
 
