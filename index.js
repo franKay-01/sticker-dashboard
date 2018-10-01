@@ -5458,7 +5458,7 @@ app.get('/product/:productId', function (req, res) {
         res.redirect('/');
     }
 });
-*/
+
 app.post('/product', function (req, res) {
 
     let token = req.cookies.token;
@@ -5500,7 +5500,7 @@ app.post('/product', function (req, res) {
         })
     }
 });
-
+*/
 app.post('/product/edit/:productId', upload.array('art'), function (req, res) {
 
         let token = req.cookies.token;
