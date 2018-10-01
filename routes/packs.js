@@ -727,4 +727,177 @@ module.exports = function (app) {
 
     });
 
+    app.post('/pack/stickers/:packId', function (req, res) {
+
+        let token = req.cookies.token;
+        let id = req.params.packId;
+        let stickerIds = req.body.stickerIds;
+        let _stickerIds = [];
+
+        console.log("STICKERS " + stickerIds);
+        _stickerIds = stickerIds.split(",");
+        console.log("STICKERS " + _stickerIds);
+
+        if (token) {
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stickers).containedIn("objectId", _stickerIds).find(),
+                    new Parse.Query(_class.Packs).equalTo("objectId", id).first()
+                )
+
+            }).then(function (stickers, pack) {
+
+                _.each(stickers, function (sticker) {
+                    let collection_relation = pack.relation(_class.Packs);
+                    collection_relation.add(sticker);
+                });
+
+                return pack.save();
+
+            }).then(function (pack) {
+
+                res.redirect('/pack/' + id);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/pack/' + id);
+
+            })
+
+        } else {
+            res.redirect('/');
+        }
+    });
+
+    app.get('/pack/create/previews/:packId', function (req, res) {
+        let token = req.cookies.token;
+        let id = req.params.packId;
+        let STICKER_LIMIT = 6;
+        let _pack;
+        let stickerArray = [];
+
+        if (token) {
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+
+            }).then(function (pack) {
+
+                _pack = pack;
+                if (pack.get("previews").length > 0) {
+
+                    res.redirect('/pack/' + id);
+
+                } else {
+                    let packRelation = pack.relation(_class.Packs);
+                    return packRelation.query().limit(STICKER_LIMIT).ascending("name").find();
+
+                }
+
+            }).then(function (stickers) {
+
+                _.each(stickers, function (sticker) {
+
+                    stickerArray.push(sticker.get("preview").url());
+
+                });
+
+                return _pack.save("previews", stickerArray);
+
+            }).then(function (pack) {
+
+                res.redirect('/pack/' + id);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/pack/' + id);
+
+            })
+
+        } else {
+            res.redirect('/');
+        }
+    });
+
+    app.get('/pack/stickers/:packId/:productId', function (req, res) {
+        let token = req.cookies.token;
+        let id = req.params.packId;
+        let productId = req.params.productId;
+        let free = [];
+        let paid = [];
+
+        if (token) {
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                // return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+                return new Parse.Query(_class.Packs).equalTo("packType", type.PACK_TYPE.grouped).find();
+
+            }).then(function (packs) {
+
+                let _stickers = [];
+
+                _.each(packs, function (pack) {
+
+                    _stickers.push(pack.id);
+
+                });
+
+                return new Parse.Query(_class.Stickers).limit(PARSE_LIMIT).containedIn("parent", _stickers).find();
+
+            }).then(function (stickers) {
+
+                if (productId === "free") {
+                    _.each(stickers, function (sticker) {
+
+                        if (sticker.get("sold") === false) {
+
+                            free.push(sticker);
+
+                        }
+                    });
+                } else if (productId !== "free") {
+                    _.each(stickers, function (sticker) {
+
+                        // if (sticker.get("sold") === true) {
+
+                        paid.push(sticker);
+
+                        // }
+                    });
+                }
+                res.render("pages/packs/select_stickers", {
+                    id: id,
+                    freeStickers: free,
+                    paidStickers: paid
+
+                });
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/pack/' + id);
+            })
+
+        } else {
+            res.redirect('/');
+        }
+    });
+
+
 };
