@@ -8,6 +8,8 @@ let fs = require('fs');
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
 
+const PARSE_LIMIT = 2000;
+
 module.exports = function (app) {
 
     app.get('/packs', function (req, res) {
