@@ -44,4 +44,45 @@ module.exports = function (app) {
         }
     });
 
+    app.get('/product/:productId', function (req, res) {
+
+        let token = req.cookies.token;
+        let productId = req.params.productId;
+        let page;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Product).equalTo("objectId", productId).first(),
+                    new Parse.Query(_class.Product).find()
+                );
+
+            }).then(function (product, products) {
+
+                console.log("PRODUCT " + JSON.stringify(product));
+                console.log("PRODUCTS " + JSON.stringify(products));
+
+                page = util.page(products, productId);
+
+                console.log("PAGES " + JSON.stringify(page));
+
+                res.render("pages/products/product", {
+                    product: product,
+                    next: page.next,
+                    previous: page.previous
+
+                })
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/products');
+            })
+        } else {
+            res.redirect('/');
+        }
+    });
+
+
 };

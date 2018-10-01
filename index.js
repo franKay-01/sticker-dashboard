@@ -5418,7 +5418,7 @@ app.get('/products', function (req, res) {
         res.redirect('/');
     }
 });
-*/
+
 app.get('/product/:productId', function (req, res) {
 
     let token = req.cookies.token;
@@ -5458,7 +5458,7 @@ app.get('/product/:productId', function (req, res) {
         res.redirect('/');
     }
 });
-
+*/
 app.post('/product', function (req, res) {
 
     let token = req.cookies.token;
