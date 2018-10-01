@@ -511,4 +511,48 @@ module.exports = function (app) {
 
     });
 
+    app.post('/pack/review/:id', function (req, res) {
+        let token = req.cookies.token;
+        let id = req.params.id;
+        let name = req.body.pack_name;
+        let archive = req.body.archive;
+        let description = req.body.pack_description;
+        let keyword = req.body.keyword;
+        let review_id = req.body.review_id;
+        let reviewEdit = '/review/edit/';
+
+        let key = keyword.split(",");
+
+        if (token) {
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+            }).then(function (pack) {
+                pack.set("name", name);
+
+                if (archive === undefined || archive === "1") {
+                    pack.set("archived", false);
+                } else if (archive === "0") {
+                    pack.set("archived", true);
+                }
+                pack.set("description", description);
+                pack.set("keywords", key);
+
+                return pack.save();
+
+            }).then(function (result) {
+                res.redirect(reviewEdit + review_id);
+            }, function (error) {
+                console.log("ERROR " + error.message);
+                res.redirect(reviewEdit + review_id);
+            });
+        } else {
+            res.redirect('/');
+        }
+    });
+
 };

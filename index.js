@@ -4079,7 +4079,7 @@ app.get('/pack/edit/:id', function (req, res) {
         res.redirect('/');
     }
 });
-*/
+
 app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
 
     let token = req.cookies.token;
@@ -4244,7 +4244,7 @@ app.post('/pack/review/:id', function (req, res) {
         res.redirect('/');
     }
 });
-
+*/
 app.get('/pack/review/update/status/:id', function (req, res) {
 
     let token = req.cookies.token;
