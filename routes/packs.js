@@ -421,7 +421,7 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
-                if (files) {
+                if (files.length > 0) {
 
                     return util.thumbnail(files)
 
