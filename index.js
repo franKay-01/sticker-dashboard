@@ -3804,7 +3804,7 @@ app.post('/pack', function (req, res) {
         res.redirect("/");
     }
 });
-*/
+
 //Displays all stickers belonging to a selected collection
 app.get('/pack/:id', function (req, res) {
 
@@ -3917,7 +3917,7 @@ app.get('/pack/:id', function (req, res) {
         res.redirect("/");
     }
 });
-
+*/
 app.post('/pack/product', function (req, res) {
 
     let token = req.cookies.token;

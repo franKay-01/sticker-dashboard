@@ -5,6 +5,9 @@ let util = require('../cloud/modules/util');
 let multer = require('multer');
 let fs = require('fs');
 
+const NORMAL_USER = 2;
+const SUPER_USER = 0;
+
 module.exports = function (app) {
 
     app.get('/packs', function (req, res) {
@@ -93,6 +96,118 @@ module.exports = function (app) {
             })
         }
         else {
+            res.redirect("/");
+        }
+    });
+
+    app.get('/pack/:id', function (req, res) {
+
+        let token = req.cookies.token;
+        let pack_id = req.params.id;
+
+        let is_published = false;
+        let pack_art = false;
+
+        if (token) {
+
+            let _user = {};
+            let userType;
+            let pack_name;
+            let pack_status;
+            let page;
+            let _stickers;
+            let productId;
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+                userType = _user.get("type");
+
+                let query = new Parse.Query(_class.Packs).equalTo("objectId", pack_id);
+
+                switch (userType) {
+                    case SUPER_USER:
+                        return query.first({useMasterKey: true});
+
+                    case NORMAL_USER:
+                        return query.first({sessionToken: token});
+
+                }
+
+            }).then(function (pack) {
+
+                pack_status = pack.get("status");
+                pack_art = pack.get("artwork");
+                is_published = pack.get("published");
+                pack_name = pack.get("name");
+                packType = pack.get("packType");
+                productId = pack.get("productId");
+
+                let packRelation = pack.relation(_class.Packs);
+
+                switch (userType) {
+                    case SUPER_USER:
+                        return packRelation.query().limit(PARSE_LIMIT).ascending("name").find({useMasterKey: true});
+
+                    case NORMAL_USER:
+                        return packRelation.query().find({sessionToken: token});
+
+                }
+            }).then(function (stickers) {
+
+                _stickers = stickers;
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
+                    new Parse.Query(_class.Product).find(),
+                );
+
+            }).then(function (packs, products) {
+
+                page = util.page(packs, pack_id);
+
+                switch (userType) {
+                    case SUPER_USER:
+                        res.render("pages/packs/admin_pack", {
+                            stickers: _stickers,
+                            id: pack_id,
+                            art: pack_art,
+                            published: is_published,
+                            pack_name: pack_name,
+                            userType: _user.get("type"),
+                            status: pack_status,
+                            next: page.next,
+                            previous: page.previous,
+                            pack_type: packType,
+                            type: type,
+                            productId: productId,
+                            products: products
+                        });
+                        break;
+
+                    case NORMAL_USER:
+                        res.render("pages/packs/new_pack", {
+                            stickers: _stickers,
+                            id: pack_id,
+                            pack_name: pack_name,
+                            art: pack_art,
+                            published: is_published,
+                            status: pack_status,
+                            next: page.next,
+                            previous: page.previous,
+                            type: type,
+                            productId: productId,
+                            products: products
+                        });
+                        break;
+                }
+            }, function (error) {
+                console.log("score lookup failed with error.code: " + error.code + " error.message: " + error.message);
+                res.redirect("/");
+            })
+        }
+        else {
+            //No session exists, log in
             res.redirect("/");
         }
     });
