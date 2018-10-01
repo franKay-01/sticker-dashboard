@@ -253,4 +253,129 @@ module.exports = function (app) {
 
     });
 
+    /*
+    app.post('/pack/product/update', function (req, res) {
+
+        let token = req.cookies.token;
+        let packId = req.body.packId;
+        let productId = req.body.productId;
+        let _stickers = [];
+
+        console.log("PRODUCT ID " + productId);
+
+        if (token) {
+
+            getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query(_class.Packs).equalTo("objectId", packId).first();
+
+            }).then(function (pack) {
+
+                if (productId !== "free") {
+                    pack.set("productId", productId);
+                } else {
+                    pack.set("productId", "free");
+                }
+
+                return pack.save();
+            }).then(function (pack) {
+
+                return new Parse.Query(_class.Stickers).equalTo("parent", {
+                    __type: 'Pointer',
+                    className: _class.Packs,
+                    objectId: packId
+                }).find();
+
+            }).then(function (stickers) {
+
+                console.log("STICKERS " + JSON.stringify(stickers));
+
+                _.each(stickers, function (sticker) {
+
+                    sticker.set("productId", productId);
+                    if (productId !== "free") {
+                        sticker.set("sold", true);
+                    } else {
+                        sticker.set("sold", false);
+                    }
+                    _stickers.push(sticker);
+
+                });
+
+                return Parse.Object.saveAll(_stickers);
+
+            }).then(function (stickers) {
+
+                res.redirect('/pack/edit/' + packId);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/pack/edit/' + packId);
+
+            })
+        } else {
+
+            res.redirect('/');
+
+        }
+
+    });
+    */
+
+    app.get('/pack/edit/:id', function (req, res) {
+
+        let token = req.cookies.token;
+        let pack_id = req.params.id;
+        let _pack;
+        let _productId;
+        let productDetails;
+
+        if (token) {
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+                _user = sessionToken.get("user");
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first(),
+                    new Parse.Query(_class.Product).equalTo("userId", _user.id).find()
+                );
+
+            }).then(function (pack, productId) {
+                _pack = pack;
+                _productId = productId;
+
+                return new Parse.Query(_class.Product).equalTo("objectId", pack.get("productId")).first();
+
+            }).then(function (productInfo) {
+                console.log("HERE 2 " + productInfo);
+
+                if (productInfo !== undefined) {
+                    productDetails = productInfo.get("name");
+                }
+
+                if (_pack.get("productId") === "free") {
+
+                    productDetails = "FREE";
+                }
+
+                res.render("pages/packs/pack_details", {
+                    pack_details: _pack,
+                    productId: _productId,
+                    productDetails: productDetails,
+                    type: type
+                });
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect("/pack/" + pack_id);
+            })
+        } else {
+            res.redirect('/');
+        }
+    });
+
 };
