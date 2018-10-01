@@ -7,8 +7,20 @@ let fs = require('fs');
 
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
-
 const PARSE_LIMIT = 2000;
+const SPECIAL_CHARACTERS = /[`~!@#$%^&*()_|+\-=÷¿?;:'",.123<>\{\}\[\]\\\/]/gi;
+
+let storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        console.log("Dest " + JSON.stringify(file));
+        cb(null, 'public/uploads')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+
+let upload = multer({storage: storage});
 
 module.exports = function (app) {
 
@@ -376,6 +388,127 @@ module.exports = function (app) {
         } else {
             res.redirect('/');
         }
+    });
+
+    app.post('/pack/edit/:id', upload.array('art'), function (req, res) {
+
+        let token = req.cookies.token;
+        let files = req.files;
+        let id = req.params.id;
+        let keywords = req.body.keyword;
+        let packName = req.body.pack_name;
+        let archive = req.body.archive;
+        let packVersion = parseInt(req.body.packVersion);
+        let productId = req.body.productId;
+        let description = req.body.description;
+        let _keywords = [];
+        let fileDetails = [];
+        let _previews = [];
+
+        if (keywords !== undefined || keywords !== "undefined") {
+            _keywords = keywords.split(",");
+        }
+
+        if (archive === undefined || archive === "undefined") {
+            archive = false;
+        } else if (archive === 1 || archive === "1") {
+            archive = true;
+        } else if (archive === 0 || archive === "0") {
+            archive = false;
+        }
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                if (files) {
+
+                    return util.thumbnail(files)
+
+                } else {
+                    return true;
+                }
+
+            }).then(previews => {
+
+                _previews = previews;
+                return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
+
+            }).then(function (pack) {
+
+                pack.set("description", description);
+                pack.set("keywords", _keywords);
+                pack.set("archived", archive);
+                pack.set("productId", productId);
+                pack.set("version", packVersion);
+                if (packName !== undefined || packName !== "undefined") {
+                    pack.set("name", packName);
+                }
+
+                if (files !== undefined || files !== "undefined") {
+                    files.forEach(function (file) {
+                        let fullName = file.originalname;
+                        let stickerName = fullName.substring(0, fullName.length - 4);
+
+                        let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                        let bitmapPreview;
+                        let parseFilePreview;
+
+                        // _.map(_previews, preview => {
+                        let changedStickerName = stickerName.replace(SPECIAL_CHARACTERS, '').substring(0, stickerName.length - 4);
+                        if (changedStickerName === _previews[0].name) {
+                            bitmapPreview = fs.readFileSync(_previews[0].path, {encoding: 'base64'});
+                            parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, _previews[0].mimetype);
+                        }
+                        // });
+
+                        let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+
+                        pack.set("artwork", parseFile);
+                        pack.set("preview", parseFilePreview);
+                        fileDetails.push(file);
+
+                    });
+                }
+
+                return pack.save();
+
+            }).then(function (pack) {
+
+                console.log("PACK " + JSON.stringify(pack))
+                _.each(fileDetails, function (file) {
+                    //Delete tmp fil after upload
+                    let tempFile = file.path;
+                    fs.unlink(tempFile, function (error) {
+                        if (error) {
+                            //TODO handle error code
+                            //TODO add job to do deletion of tempFiles
+                            console.log("-------Could not del temp" + JSON.stringify(error));
+                        }
+                        else {
+                            console.log("-------Deleted All Files");
+
+                        }
+                    });
+                });
+
+                return true;
+
+            }).then(function () {
+
+                res.redirect('/pack/edit/' + id);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/pack/edit/' + id);
+
+            })
+        } else {
+            res.redirect('/');
+        }
+
     });
 
 };
