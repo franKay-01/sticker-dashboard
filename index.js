@@ -3745,7 +3745,6 @@ app.get('/packs', function (req, res) {
     }
 });
 
-*/
 // creating new pack
 app.post('/pack', function (req, res) {
 
@@ -3805,7 +3804,7 @@ app.post('/pack', function (req, res) {
         res.redirect("/");
     }
 });
-
+*/
 //Displays all stickers belonging to a selected collection
 app.get('/pack/:id', function (req, res) {
 
