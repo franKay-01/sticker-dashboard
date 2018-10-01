@@ -1,10 +1,10 @@
 let _class = require("../cloud/modules/classNames");
 let type = require("../cloud/modules/type");
-let util = require('../cloud/modules/util');
 let fs = require('fs');
 let ejs = require('ejs');
 
 const SERVER_URL = process.env.SERVER_URL.replace('parse', '');
+let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
 
 module.exports = function (app) {
 

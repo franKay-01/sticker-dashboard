@@ -40,6 +40,7 @@ let storyRoute = require('./routes/story');
 let stickerRoute = require('./routes/stickers');
 let categoryRoute = require('./routes/categories');
 let newsLetterRoute = require('./routes/newsletter');
+let reviewRoutes = require('./routes/reviews');
 
 //google app engine configuration
 //let config = require('./config.json');
@@ -3408,6 +3409,9 @@ app.post('/category/delete', function (req, res) {
 
 /*====================================== REVIEWS ============================*/
 
+reviewRoutes(app);
+
+/*
 app.get('/reviews', function (req, res) {
 
     let token = req.cookies.token;
@@ -3552,6 +3556,7 @@ app.post('/review/pack/:id', function (req, res) {
     }
 });
 
+
 app.get('/review/edit/:id', function (req, res) {
 
     let token = req.cookies.token;
@@ -3593,7 +3598,6 @@ app.get('/review/edit/:id', function (req, res) {
 
     }
 });
-
 
 app.post('/review/sticker/:stickerId/:packId', function (req, res) {
     let token = req.cookies.token;
@@ -3699,7 +3703,7 @@ app.get('/review/find/packs', function (req, res) {
 
     }
 });
-
+*/
 
 /*====================================== REVIEWS ============================*/
 
@@ -3797,7 +3801,6 @@ app.post('/pack', function (req, res) {
         res.redirect("/");
     }
 });
-
 
 //Displays all stickers belonging to a selected collection
 app.get('/pack/:id', function (req, res) {
