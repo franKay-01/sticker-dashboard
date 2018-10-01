@@ -134,7 +134,7 @@ module.exports = function (app) {
 
         if (token) {
 
-            getUser(token).then(function (sessionToken) {
+            util.getUser(token).then(function (sessionToken) {
                 switch (feedType) {
                     case STICKER:
                         return new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first();
