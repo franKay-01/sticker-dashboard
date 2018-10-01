@@ -2,8 +2,8 @@ let type = require('../cloud/modules/type');
 let _class = require('../cloud/modules/classNames');
 let util = require('../cloud/modules/util');
 let moment = require('moment');
-let notification = require('./cloud/modules/notifications');
-let create = require('./cloud/modules/create');
+let notification = require('../cloud/modules/notifications');
+let create = require('../cloud/modules/create');
 
 const STICKER = "sticker";
 const STORIES = "story";
