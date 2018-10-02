@@ -1,7 +1,22 @@
 let _class = require('../cloud/modules/classNames');
 let util = require('../cloud/modules/util');
+let multer = require('multer');
+let fs = require('fs');
 
 let _ = require('underscore');
+
+let storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        console.log("Dest " + JSON.stringify(file));
+        cb(null, 'public/uploads')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+
+let upload = multer({storage: storage});
+
 
 module.exports = function (app) {
 
