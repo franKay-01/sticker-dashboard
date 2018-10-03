@@ -13,12 +13,11 @@ let cookieSession = require('cookie-session');
 let cors = require('cors');
 let methodOverride = require('method-override');
 
-
 //for parsing location, directory and paths
 let path = require('path');
 let fs = require('fs');
-let multer = require('multer');
 
+// Access to all routes
 let accountRoute = require('./routes/account');
 let advertRoute = require('./routes/adverts');
 let storyRoute = require('./routes/story');
@@ -188,27 +187,8 @@ app.all('/', (req, res, next) => {
 app.use('/public', express.static(path.join(__dirname, '/public')));
 app.set('view engine', 'ejs');
 
-// uploaded file storage location
-let storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        console.log("Dest " + JSON.stringify(file));
-        cb(null, 'public/uploads')
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
-});
-
-let upload = multer({storage: storage});
 let mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
-
-const getUser = token => {
-
-    return new Parse.Query('_Session')
-        .equalTo('sessionToken', token)
-        .include('user').first({sessionToken: token});
-};
 
 
 /*
