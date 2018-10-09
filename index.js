@@ -32,6 +32,7 @@ let experimentRoutes = require('./routes/experiments');
 let publishRoutes = require('./routes/publish');
 let messageRoutes = require('./routes/messages');
 let barcodeRoutes = require('./routes/barcodes');
+let projectRoutes = require('./routes/products');
 
 
 //TODO investigate email template server url links
@@ -253,6 +254,10 @@ stickerRoute(app);
 
 /*====================================== PRODUCT ID ============================*/
 productRoutes(app);
+/*====================================== PRODUCT ID ============================*/
+
+/*====================================== PRODUCT ID ============================*/
+projectRoutes(app);
 /*====================================== PRODUCT ID ============================*/
 
 
