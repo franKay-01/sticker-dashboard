@@ -1,8 +1,8 @@
 <!--Display Collections from parse-->
 <%if ( projects.length === 0 ){%>
 <div class="medium-3 large-3 cell icons">
-    <p class="none">No Packs</p>
-    <div class="name_tag"><p class="pack_name_text">No Packs</p></div>
+    <p class="none">No Projects</p>
+    <div class="name_tag"><p class="pack_name_text">No Projects</p></div>
 
 </div>
 <%}else {%>
@@ -12,7 +12,7 @@
     <a href="/project/<%= item.id %>">
         <% if (item.get("uri") === "undefined" || item.get("uri") === undefined){ %>
         <center>
-            <p class="none" style="margin: 145px 90px auto;"><b>No Artwork</b></p>
+            <p class="none"><b>No Artwork</b></p>
         </center>
         <div class="name_tag"><p class="pack_name_text"><%= item.get("name") %></p></div>
         <% } else {%>
