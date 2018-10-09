@@ -249,6 +249,28 @@
         </div>
     </div>
 
+    <div id="hiddenProjectForm">
+        <div class="medium-3 large-3 cell create_background">
+            <form id="pack_form" action="/project" method="post">
+                <center>
+                    <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW PROJECT
+                    </div>
+
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Project name"
+                           name="projectName" required="" aria-required="true"><br>
+
+                </center>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCancelProject" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+
     <div id="hiddenCreateForm">
         <div class="medium-3 large-3 cell create_background">
             <center>
@@ -326,6 +348,9 @@
             </button>
             <button id="btnAddCategory" class="create_button">
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Category</p>
+            </button>
+            <button id="btnAddProject" class="create_button">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Project</p>
             </button>
 
         </div>
