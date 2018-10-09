@@ -32,7 +32,7 @@ let experimentRoutes = require('./routes/experiments');
 let publishRoutes = require('./routes/publish');
 let messageRoutes = require('./routes/messages');
 let barcodeRoutes = require('./routes/barcodes');
-let projectRoutes = require('./routes/products');
+let projectRoutes = require('./routes/projects');
 
 
 //TODO investigate email template server url links
