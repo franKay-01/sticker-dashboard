@@ -50,12 +50,15 @@ module.exports = function(app) {
 
           _user = sessionToken.get("user");
 
-          return new Parse.Query(_class.Projects).find();
+          return new Parse.Query(_class.Projects).equalTo("userId", _user.id).find();
 
         }).then(function(projects) {
           res.render("pages/projects/projects", {
             projects: projects
           })
+        }, function(error){
+          console.log("ERROR " + error.message);
+          res.redirect("/");
         })
       }else {
         res.redirect("/");
