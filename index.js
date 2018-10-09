@@ -5961,6 +5961,7 @@ app.get('/feed/sticker', function (req, res) {
             let query = new Parse.Query(_class.Stickers);
             query.equalTo("sold", false);
             query.equalTo("userId", _user.id);
+            query.limit(PARSE_LIMIT);
             return query.find();
 
         }).then(function (stickers) {
