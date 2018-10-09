@@ -2181,6 +2181,14 @@ tr #titles {
     top: 155px;
 }
 
+#hiddenProjectForm{
+  display: none;
+  position: absolute;
+  margin: 0px 300px auto;
+  z-index: 9999;
+  top: 155px;
+}
+
 #hiddenAddProductForm {
     display: none;
     position: absolute;
