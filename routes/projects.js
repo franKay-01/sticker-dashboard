@@ -36,6 +36,7 @@ module.exports = function (app) {
 
                 project.set("name", name);
                 project.set("userId", _user.id);
+                project.set("version", 1);
 
                 return project.save();
 
