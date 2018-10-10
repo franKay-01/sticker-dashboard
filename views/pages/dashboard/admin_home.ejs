@@ -295,6 +295,18 @@
                             <option value="2">CURATED</option>
                         </select>
                     </div>
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate" name="projectId" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Add this story to a PROJECT</option>
+                            <% if (allProjects.length === 0) { %>
+
+                            <% } else { %>
+                            <% allProjects.forEach(function(items) { %>
+                            <option value="<%= items.id %>"><%= items.get("name") %></option>
+                            <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
                     <!--<div style="margin-bottom: 10px">-->
                         <!--<input name="pricing" type="radio" id="pricing1" value="0"/>-->
                         <!--<label for="pricing1" class="_label">Free</label>-->
