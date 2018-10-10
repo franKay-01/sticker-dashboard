@@ -163,6 +163,10 @@ module.exports = function (app) {
                     });
 
 
+                    return true;
+
+            }).then(function () {
+
                 res.redirect('/project/edit/' + id);
 
             }, function (error) {
