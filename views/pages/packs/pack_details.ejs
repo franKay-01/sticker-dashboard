@@ -27,38 +27,6 @@
 
 <body class="primary-background-color">
 <div id="pageMask"></div>
-<div id="projectId" style="display: none">
-    <div class="medium-3 large-3 cell create_background">
-        <div class="edit_labels medium-12 large-12">
-            ADD THIS PACK TO A PROJECT?<br>
-            <span style="font-size: 18px;font-weight: 700;letter-spacing: 2px;">This action can be done carried out once!!</span>
-        </div>
-        <form action="/pack/project/update" method="post" id="pack_form">
-            <div class="row" style="width: 400px !important;">
-                <select class="input-field validate" name="productId">
-                    <option value="" disabled selected>&nbsp;Add Project ID</option>
-                    <option value="free">FREE</option>
-                    <% if (projectId.length === 0) { %>
-
-                    <% } else { %>
-                    <% projectId.forEach(function(items) { %>
-                    <option value="<%= items.id %>"><%= items.get("name") %></option>
-                    <% }) %>
-                    <% } %>
-                </select>
-            </div>
-            <input name="packId" value="<%= pack_details.id %>" hidden>
-
-            <span>
-                    <button type="submit" class="create">SUBMIT</button>
-                </span>
-            <span>
-                    <button type="button" id="cancelProjectId" class="cancel">Cancel</button>
-                </span>
-
-        </form>
-    </div>
-</div>
 
 <div id="productId" style="display: none">
     <div class="medium-3 large-3 cell create_background">
