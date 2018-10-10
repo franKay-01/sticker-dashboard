@@ -271,15 +271,45 @@ module.exports = function (app) {
 
     });
 
-    /*
+
+    app.post('/pack/project/update', function (req, res) {
+
+        let token = req.cookies.token;
+        let packId = req.body.packId;
+        let projectId = req.body.projectId;
+
+        if (token) {
+
+            getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query(_class.Packs).equalTo("objectId", packId).first();
+
+            }).then(function (pack) {
+
+                pack.set("projectId", projectId);
+                return pack.save();
+
+            }).then(function () {
+
+                res.redirect('/pack/' + packId);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/pack/' + packId)
+            })
+        } else {
+            res.redirect('/');
+        }
+    });
+
+
     app.post('/pack/product/update', function (req, res) {
 
         let token = req.cookies.token;
         let packId = req.body.packId;
         let productId = req.body.productId;
         let _stickers = [];
-
-        console.log("PRODUCT ID " + productId);
 
         if (token) {
 
@@ -339,7 +369,7 @@ module.exports = function (app) {
         }
 
     });
-    */
+
 
     app.get('/pack/edit/:id', function (req, res) {
 
@@ -347,6 +377,7 @@ module.exports = function (app) {
         let pack_id = req.params.id;
         let _pack;
         let _productId;
+        let _projectId;
         let productDetails;
 
         if (token) {
@@ -358,12 +389,15 @@ module.exports = function (app) {
 
                 return Parse.Promise.when(
                     new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first(),
-                    new Parse.Query(_class.Product).equalTo("userId", _user.id).find()
+                    new Parse.Query(_class.Product).equalTo("userId", _user.id).find(),
+                    new Parse.Query(_class.Projects).equalTo("userId", _user.id).find()
+
                 );
 
-            }).then(function (pack, productId) {
+            }).then(function (pack, productId, projectId) {
                 _pack = pack;
                 _productId = productId;
+                _projectId = projectId;
 
                 return new Parse.Query(_class.Product).equalTo("objectId", pack.get("productId")).first();
 
@@ -382,6 +416,7 @@ module.exports = function (app) {
                 res.render("pages/packs/pack_details", {
                     pack_details: _pack,
                     productId: _productId,
+                    projectId: _projectId,
                     productDetails: productDetails,
                     type: type
                 });

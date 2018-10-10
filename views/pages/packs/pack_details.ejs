@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <!-- Latest compiled and minified CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
@@ -26,11 +27,44 @@
 
 <body class="primary-background-color">
 <div id="pageMask"></div>
+<div id="projectId" style="display: none">
+    <div class="medium-3 large-3 cell create_background">
+        <div class="edit_labels medium-12 large-12">
+            ADD THIS PACK TO A PROJECT?<br>
+            <span style="font-size: 18px;font-weight: 700;letter-spacing: 2px;">This action can be done carried out once!!</span>
+        </div>
+        <form action="/pack/project/update" method="post" id="pack_form">
+            <div class="row" style="width: 400px !important;">
+                <select class="input-field validate" name="productId">
+                    <option value="" disabled selected>&nbsp;Add Project ID</option>
+                    <option value="free">FREE</option>
+                    <% if (projectId.length === 0) { %>
+
+                    <% } else { %>
+                    <% projectId.forEach(function(items) { %>
+                    <option value="<%= items.id %>"><%= items.get("name") %></option>
+                    <% }) %>
+                    <% } %>
+                </select>
+            </div>
+            <input name="packId" value="<%= pack_details.id %>" hidden>
+
+            <span>
+                    <button type="submit" class="create">SUBMIT</button>
+                </span>
+            <span>
+                    <button type="button" id="cancelProjectId" class="cancel">Cancel</button>
+                </span>
+
+        </form>
+    </div>
+</div>
+
 <div id="productId" style="display: none">
     <div class="medium-3 large-3 cell create_background">
         <div class="edit_labels medium-12 large-12">
             MAKE THIS PACK FREE OR PAID?<br>
-            <span style="font-size: 13px;font-weight: 300;letter-spacing: 2px;">This action can be done carried out once!!</span>
+            <span style="font-size: 18px;font-weight: 700;letter-spacing: 2px;">This action can be done carried out once!!</span>
         </div>
         <form action="/pack/product/update" method="post" id="pack_form">
             <div class="row" style="width: 400px !important;">
