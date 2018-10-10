@@ -77,6 +77,7 @@ module.exports = function (app) {
                 pack.set("userId", _user.id);
                 pack.set("status", type.PACK_STATUS.pending);
                 pack.set("version", version);
+                pack.set("projectId", "");
                 pack.set("productId", "");
                 pack.set("archived", false);
                 pack.set("flagged", false);

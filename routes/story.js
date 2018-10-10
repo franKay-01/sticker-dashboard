@@ -33,6 +33,7 @@ module.exports = function(app) {
             let _allPack = [];
             let artWork = [];
             let _allArtwork = [];
+            let _allProjects = [];
             let combined = [];
             let _latest = "";
 
@@ -44,15 +45,17 @@ module.exports = function(app) {
                     new Parse.Query(_class.Stories).equalTo("userId", _user.id).descending("createdAt").find(),
                     new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
                     new Parse.Query(_class.ArtWork).find(),
-                    new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first()
+                    new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
+                    new Parse.Query(_class.Projects).equalTo("userId", _user.id).find()
                 );
 
 
-            }).then(function (story, allPack, artworks, latest) {
+            }).then(function (story, allPack, artworks, latest, projects) {
 
                 _story = story;
                 _allPack = allPack;
                 _allArtwork = artworks;
+                _allProjects = projects;
 
                 if (latest) {
                     _latest = latest;
@@ -86,6 +89,7 @@ module.exports = function(app) {
                 res.render("pages/stories/stories", {
                     story: _story,
                     allPacks: _allPack,
+                    allProjects: _allProjects,
                     arts: combined,
                     latest: _latest,
                     type: type
@@ -1039,6 +1043,7 @@ module.exports = function(app) {
                 story.set("keywords", []);
                 // story.set("is_latest_story", false);
                 story.set("published", false);
+                story.set("projectId", "");
                 story.set("userId", _user.id);
                 story.set("status", 0);
                 story.set("storyType", storyType);
