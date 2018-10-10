@@ -67,7 +67,19 @@
                         </select>
                     </div>
                     <br>
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate" name="projectId" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Add this story to a PROJECT</option>
+                            <% if (projects.length === 0) { %>
 
+                            <% } else { %>
+                            <% projects.forEach(function(items) { %>
+                            <option value="<%= items.id %>"><%= items.get("name") %></option>
+                            <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
+                    <br>
                 </center>
                 <span>
         <button type="submit" class="create">CREATE</button>

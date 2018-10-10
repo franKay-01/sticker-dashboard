@@ -33,13 +33,18 @@ module.exports = function (app) {
             util.getUser(token).then(function (sessionToken) {
 
                 _user = sessionToken.get("user");
-                let query = new Parse.Query(_class.Packs);
-                query.equalTo("userId", _user.id).ascending("createdAt").find({sessionToken: token}).then(function (collections) {
 
-                    res.render("pages/packs/packs", {
-                        packs: collections,
-                        type: type
-                    });
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).ascending("createdAt").find(),
+                    new Parse.Query(_class.Projects).equalTo("userId", _user.id).find()
+                );
+
+            }).then(function (collections, projects) {
+
+                res.render("pages/packs/packs", {
+                    packs: collections,
+                    projects: projects,
+                    type: type
                 });
 
             }, function (error) {
@@ -59,6 +64,7 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let pack_description = req.body.pack_description;
         let coll_name = req.body.coll_name;
+        let projectId = req.body.projectId;
         let packType = parseInt(req.body.packType);
         let version = parseInt(req.body.version);
 
@@ -77,7 +83,7 @@ module.exports = function (app) {
                 pack.set("userId", _user.id);
                 pack.set("status", type.PACK_STATUS.pending);
                 pack.set("version", version);
-                pack.set("projectId", "");
+                pack.set("projectId", projectId);
                 pack.set("productId", "");
                 pack.set("archived", false);
                 pack.set("flagged", false);
