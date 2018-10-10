@@ -1026,6 +1026,9 @@ module.exports = function(app) {
         let projectId = req.body.projectId;
         let body = req.body.summary;
         let storyType = parseInt(req.body.storyType);
+        let projectArray = [];
+
+        projectArray.push(projectId);
 
         if (token) {
 
@@ -1044,7 +1047,7 @@ module.exports = function(app) {
                 story.set("keywords", []);
                 // story.set("is_latest_story", false);
                 story.set("published", false);
-                story.set("projectId", projectId);
+                story.set("projectId", projectArray);
                 story.set("userId", _user.id);
                 story.set("status", 0);
                 story.set("storyType", storyType);
