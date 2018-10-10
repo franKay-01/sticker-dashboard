@@ -146,9 +146,10 @@ module.exports = function (app) {
 
             }).then(function (project) {
 
-                _.each(fileDetails, function (file) {
+                console.log("PROJECT " + JSON.stringify(project));
+
                     //Delete tmp fil after upload
-                    let tempFile = file.path;
+                    let tempFile = fileDetails[0].path;
                     fs.unlink(tempFile, function (error) {
                         if (error) {
                             //TODO handle error code
@@ -160,7 +161,6 @@ module.exports = function (app) {
 
                         }
                     });
-                });
 
 
                 res.redirect('/project/edit/' + id);
