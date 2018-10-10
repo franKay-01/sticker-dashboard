@@ -67,6 +67,9 @@ module.exports = function (app) {
         let projectId = req.body.projectId;
         let packType = parseInt(req.body.packType);
         let version = parseInt(req.body.version);
+        let projectArray = [];
+
+        projectArray.push(projectId);
 
         if (token) {
 
@@ -83,7 +86,7 @@ module.exports = function (app) {
                 pack.set("userId", _user.id);
                 pack.set("status", type.PACK_STATUS.pending);
                 pack.set("version", version);
-                pack.set("projectId", projectId);
+                pack.set("projectIds", projectArray);
                 pack.set("productId", "");
                 pack.set("archived", false);
                 pack.set("flagged", false);
