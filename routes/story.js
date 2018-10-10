@@ -1023,6 +1023,7 @@ module.exports = function(app) {
         let title = req.body.title;
         let summary = req.body.summary;
         let pack_id = req.body.pack_id;
+        let projectId = req.body.projectId;
         let body = req.body.summary;
         let storyType = parseInt(req.body.storyType);
 
@@ -1043,7 +1044,7 @@ module.exports = function(app) {
                 story.set("keywords", []);
                 // story.set("is_latest_story", false);
                 story.set("published", false);
-                story.set("projectId", "");
+                story.set("projectId", projectId);
                 story.set("userId", _user.id);
                 story.set("status", 0);
                 story.set("storyType", storyType);
