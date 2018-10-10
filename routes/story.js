@@ -1047,14 +1047,12 @@ module.exports = function(app) {
                 story.set("keywords", []);
                 // story.set("is_latest_story", false);
                 story.set("published", false);
-                story.set("projectId", projectArray);
+                story.set("projectIds", projectArray);
                 story.set("userId", _user.id);
                 story.set("status", 0);
                 story.set("storyType", storyType);
                 story.set("authorId", "");
                 story.set("color", {topColor: "", bottomColor: ""});
-                // story.set("storyObject", newObject);
-
 
                 return story.save();
 
