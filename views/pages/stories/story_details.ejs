@@ -299,13 +299,13 @@
                         </select>
                     </div>
 
-                    <label class="update_label">Projects Attached :</label>
-                    <div>
+                    <label class="update_label" style="margin-bottom: 0">Projects Attached :</label>
+                    <div style="margin-bottom: 20px">
                         <% if (projects.length === 0) { %>
 
                         <% } else { %>
                         <% projects.forEach(function(item) { %>
-                        <a href="/project/<%= item.id %>" style="color: #00aa9f;font-weight: 700"><%= item.get("name") %></a>
+                        <a href="/project/edit/<%= item.id %>" style="color: #00aa9f;font-weight: 700"><%= item.get("name") %></a>
                         <% }) %>
                         <% } %>
                     </div>
