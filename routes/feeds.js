@@ -162,12 +162,12 @@ module.exports = function (app) {
             }).then(function (latest) {
 
                 console.log("LATEST " + latest);
-                if (latest){
+                if (latest) {
 
                     latest.set("feedId", id);
                     return latest.save();
 
-                }else {
+                } else {
 
                     let Latest = new Parse.Object.extend(_class.Latest);
                     let latest = new Latest();
@@ -205,10 +205,14 @@ module.exports = function (app) {
                         return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
                     case STORIES:
                         if (origin === storyPage) {
-                            res.redirect('/notification/' + id + '/' + feedType + '/' + origin + '/' + projectId);
+                            res.redirect('/home/' + projectId);
+
+                            // res.redirect('/notification/' + id + '/' + feedType + '/' + origin + '/' + projectId);
 
                         } else {
-                            res.redirect('/notification/' + id + '/' + feedType + '/' + origin + '/' + projectId);
+                            res.redirect('/home/' + projectId);
+
+                            // res.redirect('/notification/' + id + '/' + feedType + '/' + origin + '/' + projectId);
                         }
                 }
 
@@ -220,7 +224,9 @@ module.exports = function (app) {
                         origin: origin
                     })
                 } else {
-                    res.redirect('/notification/' + id + '/' + feedType + '/' + origin + '/' + projectId);
+                    res.redirect('/home/' + projectId);
+
+                    // res.redirect('/notification/' + id + '/' + feedType + '/' + origin + '/' + projectId);
 
                 }
 
@@ -246,119 +252,119 @@ module.exports = function (app) {
 
     });
 
-    app.get('/notification/:id/:type/:origin/:projectId', function (req, res) {
-
-        let token = req.cookies.token;
-        let notificationType = req.params.type;
-        let id = req.params.id;
-        let origin = req.params.origin;
-        let projectId = req.params.projectId;
-        let storyPage = "story";
-        let _story = {};
-
-        if (token) {
-
-            util.getUser(token).then(function (sessionToken) {
-                switch (notificationType) {
-                    case STORIES:
-                        return Parse.Promise.when(
-                            new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
-                            new Parse.Query(_class.ArtWork).equalTo("itemId", id).first()
-                        );
-
-                    case STICKER:
-                        return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
-
-                }
-            }).then(function (item, artwork) {
-
-                switch (notificationType) {
-                    case STORIES:
-                        _story = item;
-                        return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("stickerId")).first();
-
-                    case STICKER:
-                        return item;
-                }
-            }).then(function (sticker) {
-
-                switch (notificationType) {
-                    case STORIES:
-
-                        let story = create.Story(_story);
-                        story = create.StoryArtwork(story, sticker);
-
-                        notification.send({
-                            title: story.title,
-                            description: story.summary,
-                            activity: "STORY_ACTIVITY",
-                            data: {
-                                id: story.id,
-                                title: story.title,
-                                stickerUrl: story.stickerUrl,
-                                summary: story.summary,
-                                topColor: story.topColor,
-                                bottomColor: story.bottomColor,
-                                type: notificationType
-                            },
-
-                            //TODO retrieve first section from Server
-                            topic: process.env.TOPIC_PREFIX + "feed.story"
-
-                        }).then(function (success) {
-
-                            console.log("STORY NOTIFICATION WAS SENT SUCCESSFULLY");
-
-                        }, function (status) {
-
-                            console.log("STORY NOTIFICATION WASN'T SENT " + status);
-
-                        });
-
-                        if (origin === storyPage) {
-                            res.redirect('/storyedit/' + id);
-                        } else {
-                            res.redirect('/home/' + projectId);
-                        }
-                        break;
-
-                    case STICKER:
-
-                        let _sticker = create.Sticker(sticker);
-                        notification.send({
-                            title: "Sticker Of the Day",
-                            description: _sticker.description,
-                            activity: "STICKER_ACTIVITY",
-                            data: {
-                                id: _sticker.id,
-                                name: _sticker.name,
-                                url: _sticker.url,
-                                type: notificationType
-                            },
-                            //TODO retrieve first section from Server
-                            topic: process.env.TOPIC_PREFIX + "feed.sticker"
-                        }).then(function (success) {
-
-                            console.log("STICKER NOTIFICATION WAS SENT SUCCESSFULLY");
-
-                        }, function (status) {
-
-                            console.log("STICKER NOTIFICATION WASN'T SENT " + status);
-
-                        });
-
-
-                        res.redirect('/home/' + projectId);
-                        break;
-                }
-            })
-        } else {
-            res.redirect('/');
-        }
-
-        //TODO type by id
-
-    });
+    // app.get('/notification/:id/:type/:origin/:projectId', function (req, res) {
+    //
+    //     let token = req.cookies.token;
+    //     let notificationType = req.params.type;
+    //     let id = req.params.id;
+    //     let origin = req.params.origin;
+    //     let projectId = req.params.projectId;
+    //     let storyPage = "story";
+    //     let _story = {};
+    //
+    //     if (token) {
+    //
+    //         util.getUser(token).then(function (sessionToken) {
+    //             switch (notificationType) {
+    //                 case STORIES:
+    //                     return Parse.Promise.when(
+    //                         new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
+    //                         new Parse.Query(_class.ArtWork).equalTo("itemId", id).first()
+    //                     );
+    //
+    //                 case STICKER:
+    //                     return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
+    //
+    //             }
+    //         }).then(function (item, artwork) {
+    //
+    //             switch (notificationType) {
+    //                 case STORIES:
+    //                     _story = item;
+    //                     return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("stickerId")).first();
+    //
+    //                 case STICKER:
+    //                     return item;
+    //             }
+    //         }).then(function (sticker) {
+    //
+    //             switch (notificationType) {
+    //                 case STORIES:
+    //
+    //                     let story = create.Story(_story);
+    //                     story = create.StoryArtwork(story, sticker);
+    //
+    //                     notification.send({
+    //                         title: story.title,
+    //                         description: story.summary,
+    //                         activity: "STORY_ACTIVITY",
+    //                         data: {
+    //                             id: story.id,
+    //                             title: story.title,
+    //                             stickerUrl: story.stickerUrl,
+    //                             summary: story.summary,
+    //                             topColor: story.topColor,
+    //                             bottomColor: story.bottomColor,
+    //                             type: notificationType
+    //                         },
+    //
+    //                         //TODO retrieve first section from Server
+    //                         topic: process.env.TOPIC_PREFIX + "feed.story"
+    //
+    //                     }).then(function (success) {
+    //
+    //                         console.log("STORY NOTIFICATION WAS SENT SUCCESSFULLY");
+    //
+    //                     }, function (status) {
+    //
+    //                         console.log("STORY NOTIFICATION WASN'T SENT " + status);
+    //
+    //                     });
+    //
+    //                     if (origin === storyPage) {
+    //                         res.redirect('/storyedit/' + id);
+    //                     } else {
+    //                         res.redirect('/home/' + projectId);
+    //                     }
+    //                     break;
+    //
+    //                 case STICKER:
+    //
+    //                     let _sticker = create.Sticker(sticker);
+    //                     notification.send({
+    //                         title: "Sticker Of the Day",
+    //                         description: _sticker.description,
+    //                         activity: "STICKER_ACTIVITY",
+    //                         data: {
+    //                             id: _sticker.id,
+    //                             name: _sticker.name,
+    //                             url: _sticker.url,
+    //                             type: notificationType
+    //                         },
+    //                         //TODO retrieve first section from Server
+    //                         topic: process.env.TOPIC_PREFIX + "feed.sticker"
+    //                     }).then(function (success) {
+    //
+    //                         console.log("STICKER NOTIFICATION WAS SENT SUCCESSFULLY");
+    //
+    //                     }, function (status) {
+    //
+    //                         console.log("STICKER NOTIFICATION WASN'T SENT " + status);
+    //
+    //                     });
+    //
+    //
+    //                     res.redirect('/home/' + projectId);
+    //                     break;
+    //             }
+    //         })
+    //     } else {
+    //         res.redirect('/');
+    //     }
+    //
+    //     //TODO type by id
+    //
+    // });
 
     app.get('/feed/sticker', function (req, res) {
 
