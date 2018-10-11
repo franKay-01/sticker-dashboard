@@ -206,6 +206,7 @@ module.exports = function(app) {
                         stickerLength: _stickerLength,
                         storyLength: _storyLength,
                         projectLength: _projectLength,
+                        projectId: projectId,
                         user_name: _user.get("name"),
                         verified: _user.get("emailVerified"),
                         error_message: "null",

@@ -132,6 +132,7 @@ module.exports = function (app) {
         let feedType = req.params.type;
         let origin = req.params.origin;
         let id = req.body.element_id;
+        let projectId = req.body.projectId;
         let storyPage = "story";
         let _user = {};
 
@@ -141,20 +142,42 @@ module.exports = function (app) {
 
                 _user = sessionToken.get("user");
 
+                // switch (feedType) {
+                //     case STICKER:
+                //         return new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first();
+                //
+                //     case STORIES:
+                //         return new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first();
+                //
+                // }
+
                 switch (feedType) {
                     case STICKER:
-                        return new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first();
+                        return new Parse.Query(_class.Latest).equalTo("projectId", projectId).equalTo("userId", _user.id).equalTo("type", type.FEED_TYPE.sticker).first();
 
                     case STORIES:
-                        return new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first();
+                        return new Parse.Query(_class.Latest).equalTo("projectId", projectId).equalTo("userId", _user.id).equalTo("type", type.FEED_TYPE.story).first();
 
                 }
-
             }).then(function (latest) {
 
-                latest.set("feedId", id);
+                if (latest){
 
-                return latest.save();
+                    latest.set("feedId", id);
+                    return latest.save();
+
+                }else {
+
+                    let Latest = new Parse.Object.extend(_class.Latest);
+                    let latest = new Latest();
+
+                    latest.set("feedId", id);
+                    latest.set("userId", _user.id);
+                    latest.set("projectId", projectId);
+
+                    return latest.save();
+                }
+
 
             }).then(function () {
 
@@ -368,9 +391,10 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/feed/story', function (req, res) {
+    app.get('/feed/story/:projectId', function (req, res) {
 
         let token = req.cookies.token;
+        let projectId = req.params.projectId;
         let _stories = [];
         let artWork = [];
         let _allArtwork = [];
@@ -438,7 +462,8 @@ module.exports = function (app) {
                 res.render("pages/stories/story_of_day", {
 
                     stories: _stories,
-                    artworks: combined
+                    artworks: combined,
+                    projectId: projectId
 
                 });
 
@@ -446,7 +471,7 @@ module.exports = function (app) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/home');
+                res.redirect('/');
             })
         } else {
             res.redirect('/');

@@ -304,9 +304,6 @@
             <button id="btnAddCategory" class="create_button">
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Category</p>
             </button>
-            <button id="btnAddProject" class="create_button">
-                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Project</p>
-            </button>
 
         </div>
 
@@ -316,6 +313,9 @@
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Adverts</p>
             </button>
 
+            <button id="btnAddProject" class="create_button">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Project</p>
+            </button>
         </div>
 
         <div class="medium-3 large-3 cell icons">
@@ -326,7 +326,7 @@
                     </p>
                 </button>
             </a>
-            <a href="/feed/story">
+            <a href="/feed/story/<%= projectId %>">
                 <button class="create_button">
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Story of the Week</p>
                 </button>
@@ -439,7 +439,7 @@
             <!--<center>-->
             <div class="title_of_the_day">Story of the Week</div>
             <!--</center>-->
-            <a class="_stickers_packs" href="/feed/story">
+            <a class="_stickers_packs" href="/feed/story/<%= projectId %>">
                 <center>
                     <img src="<%= latestStory.get("uri").url() %>" width="200px" height="200px">
                 </center>
@@ -457,7 +457,7 @@
             <!--<center>-->
             <div class="title_of_the_day">Story of the Week</div>
             <!--</center>-->
-            <a class="_stickers_packs" href="/feed/story">
+            <a class="_stickers_packs" href="/feed/story/<%= projectId %>">
                 <center>
                     <p class="none" ><b>No Story</b></p>
                 </center>
