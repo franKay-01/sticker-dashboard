@@ -161,6 +161,7 @@ module.exports = function (app) {
                 }
             }).then(function (latest) {
 
+                console.log("LATEST " + latest);
                 if (latest){
 
                     latest.set("feedId", id);
@@ -204,10 +205,10 @@ module.exports = function (app) {
                         return new Parse.Query(_class.Stickers).equalTo("objectId", id).first();
                     case STORIES:
                         if (origin === storyPage) {
-                            res.redirect('/notification/' + id + '/' + feedType + '/' + origin);
+                            res.redirect('/notification/' + id + '/' + feedType + '/' + origin + '/' + projectId);
 
                         } else {
-                            res.redirect('/notification/' + id + '/' + feedType + '/' + origin);
+                            res.redirect('/notification/' + id + '/' + feedType + '/' + origin + '/' + projectId);
                         }
                 }
 
@@ -219,7 +220,7 @@ module.exports = function (app) {
                         origin: origin
                     })
                 } else {
-                    res.redirect('/notification/' + id + '/' + feedType + '/' + origin);
+                    res.redirect('/notification/' + id + '/' + feedType + '/' + origin + '/' + projectId);
 
                 }
 
@@ -245,12 +246,13 @@ module.exports = function (app) {
 
     });
 
-    app.get('/notification/:id/:type/:origin', function (req, res) {
+    app.get('/notification/:id/:type/:origin/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let notificationType = req.params.type;
         let id = req.params.id;
         let origin = req.params.origin;
+        let projectId = req.params.projectId;
         let storyPage = "story";
         let _story = {};
 
@@ -316,7 +318,7 @@ module.exports = function (app) {
                         if (origin === storyPage) {
                             res.redirect('/storyedit/' + id);
                         } else {
-                            res.redirect('/home');
+                            res.redirect('/home/' + projectId);
                         }
                         break;
 
@@ -346,7 +348,7 @@ module.exports = function (app) {
                         });
 
 
-                        res.redirect('/home');
+                        res.redirect('/home/' + projectId);
                         break;
                 }
             })
