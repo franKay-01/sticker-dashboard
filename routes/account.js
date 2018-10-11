@@ -42,7 +42,8 @@ module.exports = function(app) {
                 res.render("pages/dashboard/landing", {
                     projects: projects,
                     user_name: _user.get("name"),
-                    verified: _user.get("emailVerified")
+                    verified: _user.get("emailVerified"),
+                    error_message: "null"
                 })
             }, function (error) {
 
