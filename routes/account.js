@@ -131,15 +131,24 @@ module.exports = function(app) {
                 _storyLength = helper.leadingZero(storyLength);
                 _projectLength = helper.leadingZero(projectLength);
 
-                return Parse.Promise.when(
-                    new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first(),
-                    new Parse.Query(_class.ArtWork).equalTo("itemId", latestStory.get("feedId")).first(),
-                    new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first()
-                );
+                if (latestStory){
+                    return Parse.Promise.when(
+                        new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first(),
+                        new Parse.Query(_class.ArtWork).equalTo("itemId", latestStory.get("feedId")).first(),
+                        new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first()
+                    );
+                }else {
+                    return Parse.Promise.when(
+                        undefined,
+                        undefined,
+                        undefined
+                    );
+                }
+
 
             }).then(function (latestSticker, storyImage, storyBody) {
 
-                if (latestSticker){
+                if (latestSticker !== undefined){
                     _latestSticker = latestSticker.get("uri");
                     _latestSticker['stickerName'] = latestSticker.get("name");
                     _latestSticker['description'] = latestSticker.get("description");
