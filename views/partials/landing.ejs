@@ -12,7 +12,7 @@
     <a href="/home/<%= item.id %>">
         <% if (item.get("uri") === "undefined" || item.get("uri") === undefined){ %>
         <center>
-            <p class="none"><b>No Artwork</b></p>
+            <p class="none" style="background-color: transparent !important;"><b>No Artwork</b></p>
         </center>
         <div class="name_tag"><p class="pack_name_text"><%= item.get("name") %></p></div>
         <% } else {%>

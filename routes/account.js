@@ -84,12 +84,13 @@ module.exports = function(app) {
             let _stickerLength = 0;
             let _storyLength = 0;
             let _projectLength = 0;
+            let projectArray = [];
             const limit = 5;
 
             util.getUser(token).then(function (sessionToken) {
 
                 _user = sessionToken.get("user");
-
+                projectArray.push(projectId);
                 if (_user.get("type") === MK_TEAM) {
                     res.redirect('/barcodes');
                 }
@@ -97,14 +98,14 @@ module.exports = function(app) {
                 return Parse.Promise.when(
                     new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first(),
                     new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
-                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).equalTo("projectId", projectId).descending("createdAt").limit(limit).find(),
+                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectId", projectArray).descending("createdAt").limit(limit).find(),
                     new Parse.Query(_class.Categories).limit(limit).find(),
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).equalTo("projectId", projectId).descending("createdAt").limit(limit).find(),
-                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).equalTo("projectId", projectId).find(),
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectId", projectArray).descending("createdAt").limit(limit).find(),
+                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectId", projectArray).find(),
                     new Parse.Query(_class.Categories).count(),
-                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).equalTo("projectId", projectId).count(),
+                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectId", projectArray).count(),
                     new Parse.Query(_class.Stickers).equalTo("userId", _user.id).count(),
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).equalTo("projectId", projectId).count(),
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectId", projectArray).count(),
                     new Parse.Query(_class.Adverts).equalTo("userId", _user.id).limit(limit).find(),
                     new Parse.Query(_class.Message).limit(limit).find(),
                     new Parse.Query(_class.Product).limit(limit).find(),
