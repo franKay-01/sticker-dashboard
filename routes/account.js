@@ -26,6 +26,33 @@ let upload = multer({storage: storage});
 
 module.exports = function(app) {
 
+    app.get('/landing', function (req, res) {
+        let token = req.cookies.token;
+
+        if (token){
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                return new Parse.Query(_class.Projects).equalTo("objectId", _user.id).find();
+
+            }).then(function (projects) {
+
+                res.render("pages/dashboard/landing", {
+                    projects: projects
+                })
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/');
+            })
+
+        }else {
+            res.redirect('/');
+        }
+    });
+
     app.get('/home', function (req, res) {
 
         let token = req.cookies.token;

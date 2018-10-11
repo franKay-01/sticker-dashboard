@@ -133,10 +133,14 @@ module.exports = function (app) {
         let origin = req.params.origin;
         let id = req.body.element_id;
         let storyPage = "story";
+        let _user = {};
 
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
                 switch (feedType) {
                     case STICKER:
                         return new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first();

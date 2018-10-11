@@ -4,33 +4,56 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Projects - G-Stickers</title>
+    <title>Home - G-Stickers</title>
 
     <% include ../../partials/fav.ejs %>
-
     <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
 
     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+    </style>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <script type="text/javascript" src="/public/assets/js/custom.js"></script>
+    <script src="/public/assets/js/custom.js"></script>
     <script src="/public/assets/js/tag.js"></script>
 
+    <script>
+        $(function () {
+            var scntDiv = $('#lists');
+            var i = $('#lists p').size() + 1;
+
+            $("#addList").click(function (event) {
+                // $('#addScnt').live('click', function() {
+                $('<p><label for="p_scnts"><input class="_pack common_pack_detail validate" placeholder="Add Social Media Handle" type="text" id="list" name="authorSocial[]"></label> </p>').appendTo(scntDiv);
+                i++;
+                return false;
+            });
+        });
+    </script>
 </head>
 
 <body class="primary-background-color">
-
+<% if (verified === "false") { %>
+<div class="medium-12 large-12">
+    <div class="verifiy_account">
+        <center>
+            Please verify your account. Click the <br> link proved in your email.
+        </center>
+    </div>
+</div>
+<% } %>
 <div class="grid-container">
-    <!-- Logo -->
+    <!-- Logo-->
     <div class="medium-12 large-12">
         <a href="/home">
             <img src="/public/assets/images/G_logo.png"
@@ -38,12 +61,9 @@
                  id="logo">
         </a>
         <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
-
     </div>
     <!-- End of logo-->
     <div id="pageMask"></div>
-
-    <!-- Hidden form for creating new packs-->
     <div id="hiddenCreateForm">
         <div class="medium-3 large-3 cell create_background">
             <form id="pack_form" action="/project" method="post">
@@ -65,17 +85,23 @@
             </form>
         </div>
     </div>
-    <!-- End of form-->
-    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>All Projects</b></span>
-
+    <%if (error_message !== "null") {%>
+    <div class="medium-12 large-12 error_card" id="error_card" style="display: block">
+        <div style="text-align: center;font-size: 20px;">
+            <%= error_message %>
+        </div>
+    </div>
+    <%}%>
+    <span class="medium-12 large-12 welcome_post" id="Welcome"><b>Welcome <a href="/account/user/profile"
+                                                                             style="font-size: 45px;color: #af627f;"> <%= user_name %> </a></b></span>
     <div class="grid-x grid-margin-x" id="opaqueDiv">
+        <!-- Card to display Stats of the database-->
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
-                <div class="stats">Menu</div>
-                <% include ../../partials/menu.ejs %>
-
+                <div class="stats">Dashboard for Market Place</div>
             </div>
         </div>
+
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">Create New</div>
 
@@ -84,16 +110,22 @@
             </button>
         </div>
 
-        <% include ../../partials/projects %>
-        <%- include('../../partials/footer') %>
+        <div class="medium-3 large-3 cell icons">
+            <%- include('../../partials/landing') %>
+        </div>
+
+        <div class="medium-12 large-12 cell">
+            <%- include('../../partials/footer') %>
+        </div>
     </div>
 </div>
 
-<!-- Body -->
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>-->
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js">
+</script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
 
 </body>
-
-
 </html>
