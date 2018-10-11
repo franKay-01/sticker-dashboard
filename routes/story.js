@@ -875,6 +875,9 @@ module.exports = function(app) {
             let colors = [];
             let _authors = [];
             let art;
+            let authorName;
+            let authorId;
+
 
             util.getUser(token).then(function (sessionToken) {
 
@@ -935,9 +938,6 @@ module.exports = function(app) {
                 }
 
             }).then(function (author) {
-                let authorName;
-                let authorId;
-
                 if (author === "") {
                     authorName = "";
                     authorId = "";
@@ -945,6 +945,13 @@ module.exports = function(app) {
                     authorName = author.get("name");
                     authorId = author.id;
                 }
+
+                return new Parse.Query(_class.Projects).containedIn("objectId", _story.get("projectIds")).find();
+
+            }).then(function (projects) {
+
+                console.log("PROJECTS " + JSON.stringify(projects));
+
                 res.render("pages/stories/story_details", {
                     story: _story,
                     sticker: art,
@@ -953,6 +960,7 @@ module.exports = function(app) {
                     authors: _authors,
                     author: authorName,
                     authorId: authorId,
+                    projects: projects,
                     next: page.next,
                     previous: page.previous
                 });
