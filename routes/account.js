@@ -131,11 +131,23 @@ module.exports = function(app) {
                 _storyLength = helper.leadingZero(storyLength);
                 _projectLength = helper.leadingZero(projectLength);
 
-                if (latestStory){
+                if (latestStory && sticker){
                     return Parse.Promise.when(
                         new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first(),
                         new Parse.Query(_class.ArtWork).equalTo("itemId", latestStory.get("feedId")).first(),
                         new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first()
+                    );
+                }else if (latestStory && sticker === undefined){
+                    return Parse.Promise.when(
+                        undefined,
+                        new Parse.Query(_class.ArtWork).equalTo("itemId", latestStory.get("feedId")).first(),
+                        new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first()
+                    );
+                }else if (sticker && latestStory === undefined){
+                    return Parse.Promise.when(
+                        new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first(),
+                        undefined,
+                        undefined
                     );
                 }else {
                     return Parse.Promise.when(
