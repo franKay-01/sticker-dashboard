@@ -161,10 +161,10 @@ module.exports = function (app) {
                 }
             }).then(function (latest) {
 
-                console.log("LATEST " + latest);
                 if (latest) {
 
                     latest.set("feedId", id);
+                    console.log("FEED SAVED - EXISTING");
                     return latest.save();
 
                 } else {
