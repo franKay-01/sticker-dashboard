@@ -35,7 +35,7 @@ module.exports = function(app) {
 
                 _user = sessionToken.get("user");
 
-                return new Parse.Query(_class.Projects).equalTo("objectId", _user.id).find();
+                return new Parse.Query(_class.Projects).equalTo("userId", _user.id).find();
 
             }).then(function (projects) {
 
