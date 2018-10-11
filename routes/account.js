@@ -40,7 +40,9 @@ module.exports = function(app) {
             }).then(function (projects) {
 
                 res.render("pages/dashboard/landing", {
-                    projects: projects
+                    projects: projects,
+                    user_name: _user.get("name"),
+                    verified: _user.get("emailVerified")
                 })
             }, function (error) {
 

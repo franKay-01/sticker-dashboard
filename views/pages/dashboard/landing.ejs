@@ -26,20 +26,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script src="/public/assets/js/custom.js"></script>
     <script src="/public/assets/js/tag.js"></script>
-
-    <script>
-        $(function () {
-            var scntDiv = $('#lists');
-            var i = $('#lists p').size() + 1;
-
-            $("#addList").click(function (event) {
-                // $('#addScnt').live('click', function() {
-                $('<p><label for="p_scnts"><input class="_pack common_pack_detail validate" placeholder="Add Social Media Handle" type="text" id="list" name="authorSocial[]"></label> </p>').appendTo(scntDiv);
-                i++;
-                return false;
-            });
-        });
-    </script>
 </head>
 
 <body class="primary-background-color">
