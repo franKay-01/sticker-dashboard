@@ -43,7 +43,8 @@ module.exports = function(app) {
                     projects: projects,
                     user_name: _user.get("name"),
                     verified: _user.get("emailVerified"),
-                    error_message: "null"
+                    error_message: "null",
+                    projectLength: helper.leadingZero(projects.length)
                 })
             }, function (error) {
 
