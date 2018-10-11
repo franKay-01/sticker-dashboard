@@ -299,6 +299,17 @@
                         </select>
                     </div>
 
+                    <label class="update_label">Projects Attached :</label>
+                    <div>
+                        <% if (projects.length === 0) { %>
+
+                        <% } else { %>
+                        <% projects.forEach(function(item) { %>
+                        <a href="/project/<%= item.id %>" style="color: #00aa9f;font-weight: 700"><%= item.get("name") %></a>
+                        <% }) %>
+                        <% } %>
+                    </div>
+
                     <label class="update_label">Edit Color Scheme:</label>
                     <span style="color: <%= colors.topColor %>"><i class="fa fa-circle fa-5x"
                                                                    aria-hidden="true"></i></span>
