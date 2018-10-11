@@ -950,7 +950,7 @@ module.exports = function(app) {
 
             }).then(function (projects) {
 
-                console.log("PROJECTS " + JSON.stringify(projects));
+                console.log("PROJECTS  " + JSON.stringify(projects));
 
                 res.render("pages/stories/story_details", {
                     story: _story,
