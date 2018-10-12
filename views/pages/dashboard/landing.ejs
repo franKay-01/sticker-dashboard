@@ -50,6 +50,31 @@
     </div>
     <!-- End of logo-->
     <div id="pageMask"></div>
+    <div id="hiddenAddCatForm" style="display: none">
+        <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
+            <div class="edit_labels medium-12 large-12">CREATE NEW CATEGORY</div>
+
+            <form id="pack_form" action="/category" method="post">
+                <center>
+                    <label>Please type the category name and press enter to set it</label>
+
+                    <div class="chips _pack common_pack_detail"></div>
+
+                    <input type="text" name="category_name[]" id="category_names" required hidden>
+                    <br>
+                    <input type="text" class="_pack common_pack_detail" style="margin-bottom: 25px" name="emoji"
+                           placeholder="Please Add an EMOJI 😀">
+
+                </center>
+                <span>
+        <button type="submit" id="categoryBtn" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btn_cancelAddCat" class="cancel">Cancel</button>
+         </span>
+            </form>
+        </div>
+    </div>
     <div id="hiddenCreateForm">
         <div class="medium-3 large-3 cell create_background">
             <form id="pack_form" action="/project" method="post">
@@ -160,6 +185,10 @@
             <button id="btnAddProduct" class="create_button" style="background-color: #2dbd77 !important;">
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Product ID</p>
             </button>
+            <button id="btnAddCategory" class="create_button">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Category</p>
+            </button>
+
         </div>
 
         <%- include('../../partials/landing') %>

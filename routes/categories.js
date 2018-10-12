@@ -1,10 +1,6 @@
 let _class = require('../cloud/modules/classNames');
 let util = require('../cloud/modules/util');
 let helper = require('../cloud/modules/helpers');
-let _ = require('underscore');
-let type = require('../cloud/modules/type');
-let multer = require('multer');
-let fs = require('fs');
 
 const PARSE_LIMIT = 2000;
 
@@ -69,7 +65,7 @@ module.exports = function (app) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect("/home");
+                res.redirect("/");
 
             });
         }
