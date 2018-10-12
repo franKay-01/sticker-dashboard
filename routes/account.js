@@ -76,7 +76,7 @@ module.exports = function(app) {
             let _allProjects = [];
             let stickerId;
             let _latestSticker = "";
-            let _latestStory = "";
+            let _projectItem = "";
             let _storyBody;
             let _stickerName;
             let _categoryLength = 0;
@@ -111,11 +111,12 @@ module.exports = function(app) {
                     new Parse.Query(_class.Product).limit(limit).find(),
                     new Parse.Query(_class.Projects).limit(limit).find(),
                     new Parse.Query(_class.Projects).equalTo("userId", _user.id).count(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
 
                 );
 
             }).then(function (sticker, latestStory, collection, categories, story, allPacks, categoryLength, packLength,
-                              stickerLength, storyLength, allAdverts, allMessages, products, projects, projectLength) {
+                              stickerLength, storyLength, allAdverts, allMessages, products, projects, projectLength, projectItem) {
 
                 _categories = categories;
                 _collection = collection;
@@ -125,6 +126,7 @@ module.exports = function(app) {
                 _allAds = allAdverts;
                 _allProducts = products;
                 _allProjects = projects;
+                _projectItem = projectItem;
                 _categoryLength = helper.leadingZero(categoryLength);
                 _packLength = helper.leadingZero(packLength);
                 _stickerLength = helper.leadingZero(stickerLength);
@@ -216,6 +218,7 @@ module.exports = function(app) {
                         allProducts: _allProducts,
                         allPacks: _allPacks,
                         allProjects: _allProjects,
+                        projectItem: _projectItem,
                         story: _story,
                         latestSticker: _latestSticker,
                         latestStory: sticker,
