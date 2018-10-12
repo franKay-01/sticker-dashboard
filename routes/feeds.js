@@ -229,7 +229,8 @@ module.exports = function (app) {
                 if (sticker.get("description") === "" || sticker.get("description") === undefined) {
                     res.render("pages/stickers/add_description", {
                         sticker: sticker,
-                        origin: origin
+                        origin: origin,
+                        projectId: projectId
                     })
                 } else {
                     // res.redirect('/home/' + projectId);

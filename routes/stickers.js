@@ -699,6 +699,7 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let stickerId = req.params.id;
         let description = req.body.description;
+        let projectId = req.body.projectId;
         let origin = req.body.origin;
         let sticker = 'sticker';
 
@@ -717,7 +718,7 @@ module.exports = function (app) {
             }).then(function () {
 
                 // res.redirect(home);
-                res.redirect('/notification/' + stickerId + '/' + sticker + '/' + origin);
+                res.redirect('/notification/' + stickerId + '/' + sticker + '/' + origin + '/' + projectId);
 
             }, function (error) {
 
