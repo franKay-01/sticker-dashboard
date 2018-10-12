@@ -308,7 +308,7 @@
 
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">Update</div>
-            <a href="/feed/sticker">
+            <a href="/feed/sticker/<%= projectId %>">
                 <button class="create_button">
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; Sticker of the Day
                     </p>
@@ -460,7 +460,7 @@
         <% if (latestSticker){ %>
         <div class="medium-3 large-3 cell icons">
             <div class="title_of_the_day">Sticker of the Day</div>
-            <a class="_stickers_packs" href="/feed/sticker">
+            <a class="_stickers_packs" href="/feed/sticker/<%= projectId %>">
                 <center>
                     <img src="<%= latestSticker.url() %>" width="200px" height="200px">
                 </center>
@@ -474,7 +474,7 @@
         <% } else {%>
         <div class="medium-3 large-3 cell icons">
             <div class="title_of_the_day">Sticker of the Day</div>
-            <a class="_stickers_packs" href="/feed/sticker">
+            <a class="_stickers_packs" href="/feed/sticker/<%= projectId %>">
                 <center>
                     <p class="none" ><b>No Sticker</b></p>
                 </center>

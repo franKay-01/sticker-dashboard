@@ -164,7 +164,6 @@ module.exports = function (app) {
                 if (latest) {
 
                     latest.set("feedId", id);
-                    console.log("FEED SAVED - EXISTING");
                     return latest.save();
 
                 } else {
@@ -175,6 +174,15 @@ module.exports = function (app) {
                     latest.set("feedId", id);
                     latest.set("userId", _user.id);
                     latest.set("projectId", projectId);
+                    if (feedType === STORIES){
+
+                        latest.set("type", type.FEED_TYPE.story);
+
+                    }else if (feedType === STICKER){
+
+                        latest.set("type", type.FEED_TYPE.sticker);
+
+                    }
 
                     return latest.save();
                 }
@@ -187,11 +195,11 @@ module.exports = function (app) {
 
                 switch (feedType) {
                     case STICKER:
-                        selected.set("type", 0);
+                        selected.set("type", type.FEED_TYPE.sticker);
                         selected.set("itemId", id);
                         break;
                     case STORIES:
-                        selected.set("type", 1);
+                        selected.set("type", type.FEED_TYPE.story);
                         selected.set("itemId", id);
                         break;
                 }
@@ -235,11 +243,11 @@ module.exports = function (app) {
                 console.log("ERROR: FEED CHANGE FAILED " + error.message);
                 switch (feedType) {
                     case STICKER:
-                        res.redirect('/feed/sticker');
+                        res.redirect('/feed/sticker/'+ projectId);
                         break;
 
                     case STORIES:
-                        res.redirect('/feed/story');
+                        res.redirect('/feed/story/' + projectId);
                         break;
                 }
 
@@ -366,9 +374,11 @@ module.exports = function (app) {
 
     });
 
-    app.get('/feed/sticker', function (req, res) {
+    app.get('/feed/sticker/:projectId', function (req, res) {
 
         let token = req.cookies.token;
+        let projectId = req.params.projectId;
+
         let _user = {};
 
         if (token) {
@@ -385,7 +395,8 @@ module.exports = function (app) {
             }).then(function (stickers) {
 
                 res.render("pages/stickers/sticker_of_day", {
-                    stickers: stickers
+                    stickers: stickers,
+                    projectId: projectId
                 });
 
             }, function (error) {
