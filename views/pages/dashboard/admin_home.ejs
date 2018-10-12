@@ -11,14 +11,15 @@
 
     <!-- Compiled and minified CSS -->
 
-    <style>
-        @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-    </style>
+    <!--<style>-->
+        <!--@import url('https://fonts.googleapis.com/icon?family=Material+Icons');-->
+    <!--</style>-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
@@ -273,12 +274,12 @@
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
                 <div class="stats">Stats</div>
+                <div class="_stickers"> <i class="small material-icons">chrome_reader_mode</i>
+                    <%= projectItem.get("name") %> Project</div>
                 <div class="_stickers"><%= stickerLength %> Stickers</div>
                 <div class="_stickers_packs"><%= packLength %> Packs</div>
                 <div class="_categories"><%= categoryLength %> Categories</div>
                 <div class="_categories"><%= projectLength %> Projects</div>
-
-                <div class="_stickers" style="bottom: 0"><%= projectItem.get("name") %> &nbsp; Project</div>
             </div>
         </div>
 
