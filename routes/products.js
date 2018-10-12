@@ -121,6 +121,8 @@ module.exports = function (app) {
                 console.log("ERROR " + error.message);
                 res.redirect(products)
             })
+        }else {
+            res.redirect('/');
         }
     });
 
