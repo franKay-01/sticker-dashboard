@@ -268,15 +268,12 @@
         </div>
     </div>
     <%}%>
-    <span class="medium-12 large-12 welcome_post" id="Welcome"><b>Welcome <a href="/account/user/profile" style="font-size: 45px;color: #af627f;"> <%= user_name %> </a></b></span>
+    <span class="medium-12 large-12 welcome_post" id="Welcome"><b>Welcome - <%= projectItem.get("name") %> - <a href="/account/user/profile" style="font-size: 45px;color: #af627f;"> <%= user_name %> </a></b></span>
     <div class="grid-x grid-margin-x" id="opaqueDiv">
         <!-- Card to display Stats of the database-->
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
                 <div class="stats">Stats</div>
-                <div class="_stickers">
-                    <b style="color: #403371b8;"><%= projectItem.get("name") %> Project</b>&nbsp;<i class="small material-icons">class</i>
-                </div>
                 <div class="_stickers"><%= stickerLength %> Stickers</div>
                 <div class="_stickers_packs"><%= packLength %> Packs</div>
                 <div class="_categories"><%= categoryLength %> Categories</div>
