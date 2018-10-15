@@ -68,18 +68,18 @@
                             <option value="2">CURATED</option>
                         </select>
                     </div>
-                    <div class="row" style="width: 450px !important;">
-                        <select class="input-field validate" name="projectId" required="" aria-required="true">
-                            <option value="" disabled selected>&nbsp;Add this story to a PROJECT</option>
-                            <% if (projects.length === 0) { %>
+                    <!--<div class="row" style="width: 450px !important;">-->
+                        <!--<select class="input-field validate" name="projectId" required="" aria-required="true">-->
+                            <!--<option value="" disabled selected>&nbsp;Add this story to a PROJECT</option>-->
+                            <!--<%# if (projects.length === 0) { %>-->
 
-                            <% } else { %>
-                            <% projects.forEach(function(items) { %>
-                            <option value="<%= items.id %>"><%= items.get("name") %></option>
-                            <% }) %>
-                            <% } %>
-                        </select>
-                    </div>
+                            <!--<%# } else { %>-->
+                            <!--<%# projects.forEach(function(items) { %>-->
+                            <!--<option value="<%#= items.id %>"><%#= items.get("name") %></option>-->
+                            <!--<%# }) %>-->
+                            <!--<%# } %>-->
+                        <!--</select>-->
+                    <!--</div>-->
                     <br>
                 </center>
                 <span>
