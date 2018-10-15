@@ -58,6 +58,8 @@
                     <input type="number" class="_pack common_pack_detail validate" placeholder="Pack Version"
                            name="version" required="" aria-required="true"><br>
 
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="packType" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Add Pack Type</option>
@@ -105,7 +107,7 @@
             <div class="create_new">Create New</div>
 
             <button class="create_button">
-                <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;Pack</p>
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Pack</p>
             </button>
         </div>
 

@@ -71,6 +71,7 @@
                 </select>
             </div>
             <input name="packId" value="<%= id %>" hidden>
+            <input type="hidden" name="projectId" value="<%= projectItem.id %>">
 
                 <span>
                     <button type="submit" class="create">SUBMIT</button>
@@ -190,7 +191,7 @@
             </a>
 
             <% } else { %>
-            <a href="/pack/stickers/<%= id %>/<%= productId %>">
+            <a href="/pack/stickers/<%= id %>/<%= productId %>/<%= projectItem.id %>">
                 <button class="create_button">
                     <p class="title button_font" style="color: white !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i>
                         &nbsp;FROM PACKS

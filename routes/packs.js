@@ -114,7 +114,7 @@ module.exports = function (app) {
 
             }).then(function (collection) {
 
-                res.redirect('/pack/' + collection.id);
+                res.redirect('/pack/' + collection.id + '/' + projectId);
 
             }, function (error) {
                 console.log("ERROR OCCURRED WHEN ADDING NEW PACK " + error.message);
@@ -249,6 +249,7 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let packId = req.body.packId;
         let productId = req.body.productId;
+        let projectId = req.body.projectId;
         let zero = "0";
 
         if (token) {
@@ -269,12 +270,12 @@ module.exports = function (app) {
 
             }).then(function (pack) {
 
-                res.redirect('/pack/stickers/' + packId + '/' + pack.get("productId"));
+                res.redirect('/pack/stickers/' + packId + '/' + pack.get("productId") + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/pack/' + packId);
+                res.redirect('/pack/' + packId + '/' + projectId);
             })
 
         } else {
@@ -453,6 +454,7 @@ module.exports = function (app) {
         let archive = req.body.archive;
         let packVersion = parseInt(req.body.packVersion);
         let productId = req.body.productId;
+        let projectId = req.body.projectId;
         let description = req.body.description;
         let _keywords = [];
         let fileDetails = [];
@@ -550,12 +552,12 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect('/pack/edit/' + id);
+                res.redirect('/pack/edit/' + id + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/pack/edit/' + id);
+                res.redirect('/pack/edit/' + id + '/' + projectId);
 
             })
         } else {
@@ -743,10 +745,11 @@ module.exports = function (app) {
 
     });
 
-    app.get('/pack/stickers/remove/:stickerId/:packId', function (req, res) {
+    app.get('/pack/stickers/remove/:stickerId/:packId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let stickerId = req.params.stickerId;
+        let projectId = req.params.projectId;
         let packId = req.params.packId;
 
         if (token) {
@@ -766,12 +769,12 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect('/pack/' + packId);
+                res.redirect('/pack/' + packId + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR REMOVING STICKER RELATION " + error.message);
-                res.redirect('/pack/' + packId);
+                res.redirect('/pack/' + packId + '/' + projectId);
 
             })
         } else {
@@ -785,6 +788,7 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let id = req.params.packId;
         let stickerIds = req.body.stickerIds;
+        let projectId = req.body.projectId;
         let _stickerIds = [];
 
         console.log("STICKERS " + stickerIds);
@@ -813,12 +817,12 @@ module.exports = function (app) {
 
             }).then(function (pack) {
 
-                res.redirect('/pack/' + id);
+                res.redirect('/pack/' + id + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/pack/' + id);
+                res.redirect('/pack/' + id + '/' + projectId);
 
             })
 
@@ -883,10 +887,11 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/pack/stickers/:packId/:productId', function (req, res) {
+    app.get('/pack/stickers/:packId/:productId/:projectId', function (req, res) {
         let token = req.cookies.token;
         let id = req.params.packId;
         let productId = req.params.productId;
+        let projectId = req.params.projectId;
         let free = [];
         let paid = [];
 
@@ -911,9 +916,14 @@ module.exports = function (app) {
 
                 });
 
-                return new Parse.Query(_class.Stickers).limit(PARSE_LIMIT).containedIn("parent", _stickers).find();
+                return Parse.Promise.when(
 
-            }).then(function (stickers) {
+                    new Parse.Query(_class.Stickers).limit(PARSE_LIMIT).containedIn("parent", _stickers).find(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+
+                )
+
+            }).then(function (stickers, project) {
 
                 if (productId === "free") {
                     _.each(stickers, function (sticker) {
@@ -934,17 +944,19 @@ module.exports = function (app) {
                         // }
                     });
                 }
+
                 res.render("pages/packs/select_stickers", {
                     id: id,
                     freeStickers: free,
-                    paidStickers: paid
+                    paidStickers: paid,
+                    projectItem: project
 
                 });
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/pack/' + id);
+                res.redirect('/pack/' + id + '/' + projectId);
             })
 
         } else {
