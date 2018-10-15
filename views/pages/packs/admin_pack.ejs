@@ -162,9 +162,11 @@
             <p class="none">None</p>
             <%} else {%>
             <% currentProjects.forEach(function(item, index) { %>
+
                 <b style="color: #a46580">
                     <%= item.get("name") %>
                 </b><br>
+
             <%})%>
             <%}%>
         </div>
