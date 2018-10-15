@@ -383,10 +383,11 @@ module.exports = function (app) {
     });
 
 
-    app.get('/pack/edit/:id', function (req, res) {
+    app.get('/pack/edit/:packId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
-        let pack_id = req.params.id;
+        let pack_id = req.params.packId;
+        let projectId = req.params.projectId;
         let _pack;
         let _productId;
         let _projectId;
@@ -402,8 +403,7 @@ module.exports = function (app) {
                 return Parse.Promise.when(
                     new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first(),
                     new Parse.Query(_class.Product).equalTo("userId", _user.id).find(),
-                    new Parse.Query(_class.Projects).equalTo("userId", _user.id).find()
-
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 );
 
             }).then(function (pack, productId, projectId) {
@@ -428,7 +428,7 @@ module.exports = function (app) {
                 res.render("pages/packs/pack_details", {
                     pack_details: _pack,
                     productId: _productId,
-                    projectId: _projectId,
+                    projectItem: _projectId,
                     productDetails: productDetails,
                     type: type
                 });
