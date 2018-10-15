@@ -10,7 +10,7 @@
 <% stickers.forEach(function(item, index) { %>
 
 <div class="medium-3 large-3 cell card-zoom icons">
-    <a href="/sticker/edit/<%= item.id %>/<%= id %>">
+    <a href="/sticker/edit/<%= item.id %>/<%= id %>/<%= projectItem.id %>">
         <img src="<%= item.get("uri").url() %>" class="card-image-size">
         <div class="name_tag"><p class="sticker_name_text"><%= item.get("name") %></p></div>
     </a>

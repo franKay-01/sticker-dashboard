@@ -299,11 +299,12 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/sticker/edit/:stickerId/:packId', function (req, res) {
+    app.get('/sticker/edit/:stickerId/:packId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let stickerId = req.params.stickerId;
         let packId = req.params.packId;
+        let projectId = req.params.projectId;
         // let stickers = req.params.stickers;
         let _sticker;
         let _categories;
@@ -311,6 +312,7 @@ module.exports = function (app) {
         let _pack = [];
         let _latest = "";
         let _page;
+        let _project;
 
         if (token) {
             let _user = {};
@@ -323,14 +325,16 @@ module.exports = function (app) {
                     new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first(),
                     new Parse.Query(_class.Categories).ascending("name").find(),
                     new Parse.Query(_class.Packs).equalTo("objectId", packId).first(),
-                    new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first()
+                    new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 );
 
-            }).then(function (sticker, categories, pack, latest) {
+            }).then(function (sticker, categories, pack, latest, project) {
 
                 _sticker = sticker;
                 _categories = categories;
                 _pack = pack;
+                _project = project;
 
                 if (latest) {
                     _latest = latest;
@@ -415,7 +419,8 @@ module.exports = function (app) {
                     previous: _page.previous,
                     // uri: url,
                     id: stickerId,
-                    latest: _latest
+                    latest: _latest,
+                    projectItem: _project
                 });
             }, function (error) {
                 console.log("Error Loading-----------------------" + error.messgae);
