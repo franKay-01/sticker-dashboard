@@ -16,7 +16,7 @@
     <%} else if (item.get("packType") === type.PACK_TYPE.curated) {%>
     <i class="fa fa-circle display_icons" id="circle" style="color: #203f80;" aria-hidden="true"></i>
     <%}%>
-    <a href="/pack/<%= item.id %>">
+    <a href="/pack/<%= item.id %>/<%= projectItem.id %>">
         <% if (item.get("artwork") === "undefined" || item.get("artwork") === undefined){ %>
         <center>
             <p class="none"><b>No Artwork</b></p>

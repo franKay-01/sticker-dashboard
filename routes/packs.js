@@ -126,10 +126,11 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/pack/:id', function (req, res) {
+    app.get('/pack/:packId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
-        let pack_id = req.params.id;
+        let pack_id = req.params.packId;
+        let projectId = req.params.projectId;
 
         let is_published = false;
         let pack_art = false;
@@ -187,10 +188,11 @@ module.exports = function (app) {
                 return Parse.Promise.when(
                     new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
                     new Parse.Query(_class.Product).find(),
-                    new Parse.Query(_class.Projects).containedIn("objectId", _pack.get("projectIds")).find()
+                    new Parse.Query(_class.Projects).containedIn("objectId", _pack.get("projectIds")).find(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 );
 
-            }).then(function (packs, products, projects) {
+            }).then(function (packs, products, projects, project) {
 
                 page = util.page(packs, pack_id);
 
@@ -210,7 +212,8 @@ module.exports = function (app) {
                             type: type,
                             productId: productId,
                             products: products,
-                            currentProjects: projects
+                            currentProjects: projects,
+                            projectItem: project
                         });
                         break;
 
