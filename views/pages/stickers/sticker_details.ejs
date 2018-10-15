@@ -83,7 +83,7 @@
                 <td width="10%">
                     <% if (previous !== ""){ %>
                     <a style="color: #dd3c36 !important; margin-left: 10px"
-                       href="/sticker/edit/<%= previous %>/<%= pack_id %>">
+                       href="/sticker/edit/<%= previous %>/<%= pack_id %>/<%= projectItem.id %>">
                         <i style="font-size: 6rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
                     <% } %>
 
@@ -101,7 +101,7 @@
                     <% if (next !== ""){ %>
 
                     <a style="color: #dd3c36 !important;margin-left: -30px"
-                       href="/sticker/edit/<%= next %>/<%= pack_id %>">
+                       href="/sticker/edit/<%= next %>/<%= pack_id %>/<%= projectItem.id %>">
                         <i style="font-size: 6rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
 
                     <% } %>
