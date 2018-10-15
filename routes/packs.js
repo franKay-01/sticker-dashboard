@@ -23,9 +23,10 @@ let upload = multer({storage: storage});
 
 module.exports = function (app) {
 
-    app.get('/packs', function (req, res) {
+    app.get('/packs/:projectId', function (req, res) {
 
         let token = req.cookies.token;
+        let projectId = req.params.projectId;
 
         if (token) {
             let _user = {};
@@ -36,14 +37,16 @@ module.exports = function (app) {
 
                 return Parse.Promise.when(
                     new Parse.Query(_class.Packs).equalTo("userId", _user.id).ascending("createdAt").find(),
-                    new Parse.Query(_class.Projects).equalTo("userId", _user.id).find()
+                    new Parse.Query(_class.Projects).equalTo("userId", _user.id).find(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 );
 
-            }).then(function (collections, projects) {
+            }).then(function (collections, projects, projectItem) {
 
                 res.render("pages/packs/packs", {
                     packs: collections,
                     projects: projects,
+                    projectItem: projectItem,
                     type: type
                 });
 
