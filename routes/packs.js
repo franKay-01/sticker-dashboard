@@ -140,6 +140,7 @@ module.exports = function (app) {
             let page;
             let _stickers;
             let productId;
+            let projectArray = [];
 
             util.getUser(token).then(function (sessionToken) {
 
@@ -165,6 +166,7 @@ module.exports = function (app) {
                 pack_name = pack.get("name");
                 packType = pack.get("packType");
                 productId = pack.get("productId");
+                projectArray.push(pack.get("projectIds"));
 
                 let packRelation = pack.relation(_class.Packs);
 
@@ -183,9 +185,10 @@ module.exports = function (app) {
                 return Parse.Promise.when(
                     new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
                     new Parse.Query(_class.Product).find(),
+                    new Parse.Query(_class.Projects).containedIn("objectId", projectArray).find()
                 );
 
-            }).then(function (packs, products) {
+            }).then(function (packs, products, projects) {
 
                 page = util.page(packs, pack_id);
 
@@ -204,7 +207,8 @@ module.exports = function (app) {
                             pack_type: packType,
                             type: type,
                             productId: productId,
-                            products: products
+                            products: products,
+                            currentProjects: projects
                         });
                         break;
 
