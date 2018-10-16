@@ -993,6 +993,7 @@ module.exports = function (app) {
         let keyword = req.body.keyword;
         let summary = req.body.summary;
         let authorId = req.body.authorId;
+        let projectId = req.body.projectId;
         let _keyword = [];
         let storyEdit = '/storyedit/';
 
@@ -1021,12 +1022,12 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect(storyEdit + id);
+                res.redirect(storyEdit + id + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect(storyEdit + id);
+                res.redirect(storyEdit + id + '/' + projectId);
 
             })
         } else {
