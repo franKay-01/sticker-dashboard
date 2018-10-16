@@ -12,10 +12,11 @@ const STORIES = "story";
 
 module.exports = function (app) {
 
-    app.get('/feed/history/:type', function (req, res) {
+    app.get('/feed/history/:type/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let feedType = req.params.type;
+        let projectId = req.params.projectId;
         let stickers = [];
         let stories = [];
         let artWork = [];
@@ -30,7 +31,7 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
-                return new Parse.Query(_class.History).find();
+                return new Parse.Query(_class.History).equalTo("projectId", projectId).find();
 
             }).then(function (histories) {
 
@@ -197,10 +198,12 @@ module.exports = function (app) {
                     case STICKER:
                         selected.set("type", type.FEED_TYPE.sticker);
                         selected.set("itemId", id);
+                        selected.set("projectId", projectId);
                         break;
                     case STORIES:
                         selected.set("type", type.FEED_TYPE.story);
                         selected.set("itemId", id);
+                        selected.set("projectId", projectId);
                         break;
                 }
 
