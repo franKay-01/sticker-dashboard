@@ -24,6 +24,7 @@ module.exports = function (app) {
         let combined = [];
         let _story;
         let _allArtwork;
+        let _project;
         let sticker = "sticker";
         let story = "story";
 
@@ -32,12 +33,13 @@ module.exports = function (app) {
             util.getUser(token).then(function (sessionToken) {
 
                 return Parse.Promise.when(
-                return new Parse.Query(_class.History).equalTo("projectId", projectId).find();
-
+                    new Parse.Query(_class.History).equalTo("projectId", projectId).find(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 )
 
-            }).then(function (histories) {
+            }).then(function (histories, project) {
 
+                _project = project;
                 _.each(histories, function (history, index) {
                     if (history.get("type") === type.FEED_TYPE.story) {
                         stories.push(history.get("itemId"));
@@ -115,7 +117,8 @@ module.exports = function (app) {
                     feedType: feedType,
                     date: date,
                     type: type,
-                    combined: combined
+                    combined: combined,
+                    projectItem: _project
 
                 });
             }, function (error) {
@@ -178,11 +181,11 @@ module.exports = function (app) {
                     latest.set("feedId", id);
                     latest.set("userId", _user.id);
                     latest.set("projectId", projectId);
-                    if (feedType === STORIES){
+                    if (feedType === STORIES) {
 
                         latest.set("type", type.FEED_TYPE.story);
 
-                    }else if (feedType === STICKER){
+                    } else if (feedType === STICKER) {
 
                         latest.set("type", type.FEED_TYPE.sticker);
 
@@ -250,7 +253,7 @@ module.exports = function (app) {
                 console.log("ERROR: FEED CHANGE FAILED " + error.message);
                 switch (feedType) {
                     case STICKER:
-                        res.redirect('/feed/sticker/'+ projectId);
+                        res.redirect('/feed/sticker/' + projectId);
                         break;
 
                     case STORIES:
