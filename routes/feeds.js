@@ -31,7 +31,10 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
+                return Parse.Promise.when(
                 return new Parse.Query(_class.History).equalTo("projectId", projectId).find();
+
+                )
 
             }).then(function (histories) {
 

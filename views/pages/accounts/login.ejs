@@ -131,7 +131,7 @@
 
                     setCookie("token", user.getSessionToken(), 30)
 
-                    document.location = "/home";
+                    document.location = "/landing";
 
                 }, error => {
                     document.getElementById("error_card").innerText = error.message.message;
