@@ -1098,10 +1098,11 @@ module.exports = function (app) {
 
     });
 
-    app.get('/storycolor/:id', function (req, res) {
+    app.get('/storycolor/:storyId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
-        let id = req.params.id;
+        let id = req.params.storyId;
+        let projectId = req.params.projectId;
         let color = [];
         let _story = [];
 
@@ -1126,16 +1127,19 @@ module.exports = function (app) {
                     color = story.get("color");
 
                 }
-
-                return new Parse.Query(_class.Stickers).equalTo("objectId", art.get("stickerId")).first();
-
-            }).then(function (sticker) {
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stickers).equalTo("objectId", art.get("stickerId")).first(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                )
+            }).then(function (sticker, project) {
 
                 res.render("pages/stories/choose_color", {
                     story: _story,
                     colors: colors,
-                    sticker: sticker
+                    sticker: sticker,
+                    projectItem: project
                 });
+
             }, function (error) {
 
                 console.log("ERROR " + error.message);
