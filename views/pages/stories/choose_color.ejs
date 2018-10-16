@@ -89,7 +89,7 @@
                 <div class="stats">Menu</div>
                 <% include ../../partials/menu.ejs %>
 
-                <div style="margin-top: 25px;"><a class="_stickers_packs" href="/storyedit/<%= story.id %>">Back</a>
+                <div style="margin-top: 25px;"><a class="_stickers_packs" href="/storyedit/<%= story.id %>/<%= projectItem.id %>">Back</a>
                 </div>
             </div>
         </div>
@@ -97,6 +97,7 @@
               method="post">
             <input type="text" name="top" id="top" value="<%= colors.topColor %>" hidden/>
             <input type="text" name="bottom" id="bottom" value="<%= colors.bottomColor %>" hidden/>
+            <input type="hidden" name="projectId" value="<%= projectItem.id %>">
 
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
             <div class="create_new">First Color</div>
