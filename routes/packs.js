@@ -322,11 +322,12 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let packId = req.body.packId;
         let productId = req.body.productId;
+        let projectId = req.body.projectId;
         let _stickers = [];
 
         if (token) {
 
-            getUser(token).then(function (sessionToken) {
+            util.getUser(token).then(function (sessionToken) {
 
                 return new Parse.Query(_class.Packs).equalTo("objectId", packId).first();
 
@@ -367,12 +368,12 @@ module.exports = function (app) {
 
             }).then(function (stickers) {
 
-                res.redirect('/pack/edit/' + packId);
+                res.redirect('/pack/edit/' + packId + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/pack/edit/' + packId);
+                res.redirect('/pack/edit/' + packId + '/' + projectId);
 
             })
         } else {
