@@ -27,16 +27,18 @@ module.exports = function (app) {
 
         let token = req.cookies.token;
         let projectId = req.params.projectId;
+        let projectArray = [];
 
         if (token) {
             let _user = {};
+            projectArray.push(projectId);
 
             util.getUser(token).then(function (sessionToken) {
 
                 _user = sessionToken.get("user");
 
                 return Parse.Promise.when(
-                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).ascending("createdAt").find(),
+                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectIds", projectArray).ascending("createdAt").find(),
                     new Parse.Query(_class.Projects).equalTo("userId", _user.id).find(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 );

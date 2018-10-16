@@ -36,14 +36,16 @@ module.exports = function(app) {
             let _allArtwork = [];
             let _allProjects = [];
             let combined = [];
+            let projectArray =[];
             let _latest = "";
 
             util.getUser(token).then(function (sessionToken) {
 
+                projectArray.push(projectId);
                 _user = sessionToken.get("user");
 
                 return Parse.Promise.when(
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).descending("createdAt").find(),
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).descending("createdAt").find(),
                     new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
                     new Parse.Query(_class.ArtWork).find(),
                     new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
