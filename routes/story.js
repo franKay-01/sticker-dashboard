@@ -1158,6 +1158,7 @@ module.exports = function (app) {
         let id = req.params.id;
         let color_1 = req.body.top;
         let color_2 = req.body.bottom;
+        let projectId = req.body.projectId;
         let storyEdit = '/storyedit/';
 
         console.log("COLOR FROM " + color_1 + " " + color_2);
@@ -1177,12 +1178,12 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect(storyEdit + id);
+                res.redirect(storyEdit + id + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect(storyEdit + id);
+                res.redirect(storyEdit + id + '/' + projectId);
 
             });
 
