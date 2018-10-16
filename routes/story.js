@@ -19,7 +19,7 @@ let storage = multer.diskStorage({
 
 let upload = multer({storage: storage});
 
-module.exports = function(app) {
+module.exports = function (app) {
 
     app.get('/stories/:projectId', function (req, res) {
 
@@ -36,7 +36,7 @@ module.exports = function(app) {
             let _allArtwork = [];
             let _allProjects = [];
             let combined = [];
-            let projectArray =[];
+            let projectArray = [];
             let _latest = "";
 
             util.getUser(token).then(function (sessionToken) {
@@ -99,7 +99,7 @@ module.exports = function(app) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/home/'+ projectId);
+                res.redirect('/home/' + projectId);
             })
 
         } else {
@@ -427,11 +427,11 @@ module.exports = function(app) {
 
             }).then(function () {
 
-                res.redirect('/storyItem/html/edit/' + id +'/'+ story_id);
+                res.redirect('/storyItem/html/edit/' + id + '/' + story_id);
 
             }, function (error) {
                 console.log("ERROR " + error.message);
-                res.redirect('/storyItem/html/edit/' + id +'/'+ story_id);
+                res.redirect('/storyItem/html/edit/' + id + '/' + story_id);
             })
         }
     });
@@ -864,10 +864,11 @@ module.exports = function(app) {
         }
     });
 
-    app.get('/storyedit/:id', function (req, res) {
+    app.get('/storyedit/:storyId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
-        let story_id = req.params.id;
+        let story_id = req.params.storyId;
+        let projectId = req.params.projectId;
         let _latest = "";
         let page;
 
@@ -949,9 +950,13 @@ module.exports = function(app) {
                     authorId = author.id;
                 }
 
-                return new Parse.Query(_class.Projects).containedIn("objectId", _story.get("projectIds")).find();
 
-            }).then(function (projects) {
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Projects).containedIn("objectId", _story.get("projectIds")).find(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                )
+
+            }).then(function (projects, project) {
 
                 console.log("PROJECTS  " + JSON.stringify(projects));
 
@@ -964,6 +969,7 @@ module.exports = function(app) {
                     author: authorName,
                     authorId: authorId,
                     projects: projects,
+                    projectItem: project,
                     next: page.next,
                     previous: page.previous
                 });
