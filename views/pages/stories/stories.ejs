@@ -61,20 +61,7 @@
                               name="summary" required="" aria-required="true"></textarea><br>
                     <!--<textarea class="_pack common_pack_detail validate" placeholder="Story"-->
                     <!--name="story" required="" aria-required="true"></textarea><br>-->
-
-                    <div class="row" style="width: 450px !important;">
-                        <select class="input-field validate" name="projectId" required="" aria-required="true">
-                            <option value="" disabled selected>&nbsp;Add this story to a PROJECT</option>
-                            <% if (allProjects.length === 0) { %>
-
-                            <% } else { %>
-                            <% allProjects.forEach(function(items) { %>
-                            <option value="<%= items.id %>"><%= items.get("name") %></option>
-                            <% }) %>
-                            <% } %>
-                        </select>
-                    </div>
-
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="pack_id" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Add Pack</option>

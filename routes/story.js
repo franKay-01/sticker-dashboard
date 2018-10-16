@@ -21,9 +21,10 @@ let upload = multer({storage: storage});
 
 module.exports = function(app) {
 
-    app.get('/stories', function (req, res) {
+    app.get('/stories/:projectId', function (req, res) {
 
         let token = req.cookies.token;
+        let projectId = req.params.projectId;
 
         if (token) {
 
@@ -46,7 +47,7 @@ module.exports = function(app) {
                     new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
                     new Parse.Query(_class.ArtWork).find(),
                     new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
-                    new Parse.Query(_class.Projects).equalTo("userId", _user.id).find()
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 );
 
 
@@ -60,7 +61,6 @@ module.exports = function(app) {
                 if (latest) {
                     _latest = latest;
                 }
-
 
                 _.each(artworks, function (artwork) {
 
@@ -89,7 +89,7 @@ module.exports = function(app) {
                 res.render("pages/stories/stories", {
                     story: _story,
                     allPacks: _allPack,
-                    allProjects: _allProjects,
+                    projectItem: _allProjects,
                     arts: combined,
                     latest: _latest,
                     type: type
@@ -97,8 +97,9 @@ module.exports = function(app) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/home');
+                res.redirect('/home/'+ projectId);
             })
+
         } else {
             res.redirect('/');
 
