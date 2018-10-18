@@ -1697,29 +1697,33 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/storyitem/edit/:id/:story_id', function (req, res) {
+    app.get('/storyitem/edit/:id/:story_id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
         let story_id = req.params.story_id;
+        let projectId = req.params.projectId;
 
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
 
-                return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
-
-            }).then(function (story_item) {
+                return Parse.Promise.when(
+                new Parse.Query(_class.StoryItems).equalTo("objectId", id).first(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+            )
+            }).then(function (story_item, project){
 
                 res.render("pages/stories/edit_story_item", {
                     story_item: story_item,
-                    story_id: story_id
+                    story_id: story_id,
+                    projectItem: project
                 })
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/story/item/' + story_id);
+                res.redirect('/story/item/' + story_id + '/' + projectId);
 
             })
         } else {
