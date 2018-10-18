@@ -1481,12 +1481,13 @@ module.exports = function (app) {
     app.post('/storyitem/change/:storyId', upload.array('im1'), function (req, res) {
 
         let token = req.cookies.token;
+        let storyId = req.params.storyId;
         let files = req.files;
         let id = req.body.storyItemId;
-        let storyId = req.params.storyId;
         let previousForm = parseInt(req.body.previousContent);
         let storyItemType = parseInt(req.body.storyItemType);
         let content = req.body.text_element;
+        let projectId = req.body.projectId;
         let _storyItem = [];
         let storyContent;
         let _storyId;
@@ -1538,7 +1539,7 @@ module.exports = function (app) {
                         return asset.save();
                     }
                 } else if (storyItemType === type.STORY_ITEM.sticker) {
-                    res.redirect('/storyitem/change/sticker/' + _storyId + '/' + id);
+                    res.redirect('/storyitem/change/sticker/' + _storyId + '/' + id + '/' + projectId);
                 }
             }).then(function (asset) {
 
@@ -1570,11 +1571,10 @@ module.exports = function (app) {
 
                 if (previousForm === type.STORY_ITEM.image) {
 
-                    console.log("INSIDE IMAGE" + storyContent + " STORY " + _storyItem.get("contents").uri);
                     return new Parse.Query(_class.Assets).equalTo("objectId", storyContent).first();
 
                 } else {
-                    res.redirect(storyItemView + storyId);
+                    res.redirect(storyItemView + storyId + '/' + projectId);
 
                 }
 
@@ -1586,18 +1586,18 @@ module.exports = function (app) {
                 image.destroy({
                     success: function (object) {
                         console.log("DESTROYED IAMGE " + JSON.stringify(object));
-                        res.redirect(storyItemView + storyId);
+                        res.redirect(storyItemView + storyId + '/' + projectId);
                     },
                     error: function (error) {
                         console.log("Could not remove" + error);
-                        res.redirect(storyItemView + storyId);
+                        res.redirect(storyItemView + storyId + '/' + projectId);
 
                     }
                 })
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect(storyItemView + storyId);
+                res.redirect(storyItemView + storyId + '/' + projectId);
 
             })
 
@@ -1613,6 +1613,7 @@ module.exports = function (app) {
         let id = req.params.id;
         let stickerId = req.body.sticker_id;
         let sticker_url = req.body.sticker_url;
+        let projectId = req.body.projectId;
         let storyId;
         let storyItemView = '/storyitem/view/';
 
@@ -1620,13 +1621,9 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
-                console.log(" STORYITEM 2 " + id);
-
                 return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
 
             }).then(function (storyItem) {
-
-                console.log("STORY ITEM " + JSON.stringify(storyItem));
 
                 storyId = storyItem.get("storyId");
 
@@ -1637,12 +1634,12 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect(storyItemView + storyId);
+                res.redirect(storyItemView + storyId + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect(storyItemView + storyId);
+                res.redirect(storyItemView + storyId + '/' + projectId);
 
             })
         } else {
@@ -1651,11 +1648,12 @@ module.exports = function (app) {
 
     });
 
-    app.get('/storyitem/change/sticker/:storyId/:storyItemId', function (req, res) {
+    app.get('/storyitem/change/sticker/:storyId/:storyItemId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let storyId = req.params.storyId;
         let storyItemId = req.params.storyItemId;
+        let projectId = req.params.projectId;
 
         if (token) {
 
@@ -1663,9 +1661,10 @@ module.exports = function (app) {
 
                 _user = sessionToken.get("user");
 
-                console.log("STORY ID " + storyId + " STORYITEM " + storyItemId);
-
-                return new Parse.Query(_class.Stickers).limit(PARSE_LIMIT).find();
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stickers).limit(PARSE_LIMIT).find(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                )
                 // return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first();
                 //
                 // }).then(function (story) {
@@ -1677,17 +1676,18 @@ module.exports = function (app) {
                 //     let col = pack.relation(_class.Packs);
                 //     return col.query().find();
 
-            }).then(function (stickers) {
+            }).then(function (stickers, project) {
 
                 res.render("pages/stories/change_catalogue_sticker", {
                     storyItemId: storyItemId,
-                    stickers: stickers
+                    stickers: stickers,
+                    projectItem: project
                 });
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/storyitem/view/' + storyId);
+                res.redirect('/storyitem/view/' + storyId + '/' + projectId);
             })
 
         } else {
