@@ -16,10 +16,15 @@
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css">
+    <link href="/public/assets/css/evol-colorpicker.min.css" rel="stylesheet" type="text/css">
+
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
+    <script src="/public/assets/js/evol-colorpicker.min.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
 
 
@@ -34,6 +39,18 @@
                 $('<p><label for="p_scnts"><input class="_pack common_pack_detail validate" placeholder="Add Text" type="text" id="list" name="content[]"></label> </p>').appendTo(scntDiv);
                 i++;
                 return false;
+            });
+        });
+
+        $(function () {
+            let color = document.getElementById("top").value;
+
+            $("#color_value").colorpicker();
+
+            $("#color_value").on("change", function () {
+                color = $(this).val();
+                $("#color").val(color)
+
             });
         });
 
@@ -215,6 +232,11 @@
 
                     <input name="color" id="color" class="_pack common_pack_detail validate" value="#df5A34" required=""
                            aria-required="true" hidden>
+                    <div style="margin:0 15px auto;">
+                        <input style="width:100px;" id="color_value" value="#df5A34"/>
+
+                        <div id="cpEvent" class="demoPanel" style="width: 170px;"></div>
+                    </div>
                     <br>
                     Words: <span class="wordCount">0</span><br/>
                 </center>
@@ -229,8 +251,8 @@
          </span>
 
             </form>
-            <button id="color_button" style="width: 7% !important;z-index: 1;"
-                    class="jscolor {valueElement: 'color'}"></button>
+            <!--<button id="color_button" style="width: 7% !important;z-index: 1;"-->
+                    <!--class="jscolor {valueElement: 'color'}"></button>-->
 
         </div>
     </div>
