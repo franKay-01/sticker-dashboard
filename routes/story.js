@@ -393,7 +393,7 @@ module.exports = function (app) {
                     story_item: _storyItem,
                     story_id: id,
                     stickers: _stickers,
-                    proejctItem: _project
+                    projectItem: _project
 
                 });
             }, function (error) {
