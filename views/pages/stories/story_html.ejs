@@ -43,13 +43,10 @@
         });
 
         $(function () {
-            let color = document.getElementById("top").value;
-
             $("#color_value").colorpicker();
 
             $("#color_value").on("change", function () {
-                color = $(this).val();
-                $("#color").val(color)
+                $("#color").val($(this).val());
 
             });
         });
