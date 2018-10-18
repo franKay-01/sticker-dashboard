@@ -53,6 +53,7 @@
         <div class="story_form">
             <form id="story_form" action="/storyitem/<%= story_item.id %>" method="post">
                 <div class="medium-5 large-5 cell">
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
 
                     <% if (story_item.get("type") === 0 || story_item.get("type") === 2 || story_item.get("type") === 6
                             || story_item.get("type") === 5 || story_item.get("type") === 8 || story_item.get("type") === 11
@@ -108,7 +109,7 @@
                     <div class="stats">Menu</div>
                     <% include ../../partials/menu.ejs %>
 
-                    <div style="margin-top: 24px;"><a class="_stickers_packs" href="/storyitem/view/<%= story_item.id %>">Back</a>
+                    <div style="margin-top: 24px;"><a class="_stickers_packs" href="/storyitem/view/<%= story_item.id %>/<%= projectItem.id %>">Back</a>
                     </div>
                 </div>
             </div>

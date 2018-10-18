@@ -513,6 +513,7 @@ module.exports = function (app) {
         let id = req.params.id;
         let content = req.body.content;
         let story_id = req.body.id;
+        let projectId = req.body.projectId;
         let heading = req.body.heading;
         let storyItemType = parseInt(req.body.type);
         let object = {};
