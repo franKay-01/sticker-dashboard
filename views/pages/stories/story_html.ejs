@@ -89,6 +89,7 @@
             </center>
             <form id="pack_form" action="/storyItem/html/<%= storyItemId %>" method="post">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
                     <i class="fa fa-text-width" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
@@ -114,6 +115,8 @@
             </center>
             <form id="pack_form" action="/storyItem/html/<%= storyItemId %>" method="post">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <i class="fa fa-italic" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
@@ -141,6 +144,8 @@
             </center>
             <form id="pack_form" action="/storyItem/html/<%= storyItemId %>" method="post">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <i class="fa fa-bold" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
@@ -164,10 +169,14 @@
     <div id="hiddenBoldItalicsCatalouge" class="hidden_forms" style="display: none">
         <div class="medium-3 large-3 cell create_background">
             <center>
-                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW BOLD & ITALIC</div>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW BOLD &
+                    ITALIC
+                </div>
             </center>
             <form id="pack_form" action="/storyItem/html/<%= storyItemId %>" method="post">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <i class="fa fa-bold" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <i class="fa fa-italic" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <br><br>
@@ -196,13 +205,16 @@
             </center>
             <form id="color_form" action="/storyItem/html/<%= storyItemId %>" method="post">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <i class="fa fa-bold" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <i class="fa fa-italic" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
-                                          name="content" required="" aria-required="true"></textarea>
+                              name="content" required="" aria-required="true"></textarea>
 
-                    <input name="color" id="color" class="_pack common_pack_detail validate" value="#df5A34" required="" aria-required="true" hidden>
+                    <input name="color" id="color" class="_pack common_pack_detail validate" value="#df5A34" required=""
+                           aria-required="true" hidden>
                     <br>
                     Words: <span class="wordCount">0</span><br/>
                 </center>
@@ -217,13 +229,14 @@
          </span>
 
             </form>
-            <button id="color_button" style="width: 7% !important;z-index: 1;" class="jscolor {valueElement: 'color'}"></button>
+            <button id="color_button" style="width: 7% !important;z-index: 1;"
+                    class="jscolor {valueElement: 'color'}"></button>
 
         </div>
     </div>
 
     <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Story Items HTML - <i class="welcome_post"
-                                                                                   style="color: #a46580"><%= name %></i></b></span>
+                                                                                        style="color: #a46580"><%= name %></i></b></span>
 
     <div class="grid-x grid-margin-x" id="opaqueDiv">
         <div class="medium-3 large-3 cell login_card">
@@ -231,13 +244,15 @@
                 <div class="stats">Menu</div>
                 <% include ../../partials/menu.ejs %>
 
+                <div style="margin-top: 25px;"><a class="_stickers_packs" href="/storyitem/<%= storyId %>/<%= projectItem.id %>">Back</a></div>
+
             </div>
         </div>
 
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">Story Items</div>
 
-            <a href="/storyitem/view/<%= storyId %>">
+            <a href="/storyitem/view/<%= storyId %>/<%= projectItem.id %>">
                 <button class="create_button">
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Show All
                     </p>
@@ -284,6 +299,4 @@
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
 
 </body>
-
-
 </html>
