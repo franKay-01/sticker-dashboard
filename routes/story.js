@@ -549,6 +549,7 @@ module.exports = function (app) {
     app.post('/storyitem/sticker/:id', function (req, res) {
         let token = req.cookies.token;
         let id = req.params.id;
+        let projectId = req.body.projectId;
 
         if (token) {
 
@@ -565,19 +566,23 @@ module.exports = function (app) {
 
                 _story = story;
 
-                return new Parse.Query(_class.Stickers).limit(PARSE_LIMIT).find();
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stickers).limit(PARSE_LIMIT).find(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                )
 
-            }).then(function (stickers) {
+            }).then(function (stickers, project) {
 
                 res.render("pages/stories/catalogue_sticker", {
                     story: _story.id,
-                    stickers: stickers
+                    stickers: stickers,
+                    projectItem: project
                 });
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/');
+                res.redirect('/storyitem/' + id + '/' + projectId);
 
             });
         } else {
@@ -626,6 +631,7 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let files = req.files;
         let id = req.params.id;
+        let projectId = req.body.projectId;
         let storyItem = "/storyitem/";
 
         if (token) {
@@ -672,12 +678,12 @@ module.exports = function (app) {
                     }
                 });
 
-                res.redirect(storyItem + id);
+                res.redirect(storyItem + id + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect(storyItem + id);
+                res.redirect(storyItem + id + '/' + projectId);
 
             })
         } else {
@@ -691,6 +697,7 @@ module.exports = function (app) {
         let id = req.params.id;
         let content = req.body.content;
         let heading = req.body.heading;
+        let projectId = req.body.projectId;
         let _type = parseInt(req.body.style);
 
         if (token) {
@@ -758,12 +765,12 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect("/storyitem/" + id);
+                res.redirect("/storyitem/" + id + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect("/storyedit/" + id);
+                res.redirect("/storyedit/" + id + '/' + projectId);
             })
         } else {
             res.redirect('/');
