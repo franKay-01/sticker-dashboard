@@ -518,7 +518,7 @@ module.exports = function (app) {
         let storyItemType = parseInt(req.body.type);
         let object = {};
 
-        console.log("EDITING STORY ITEM HAS BEGUN");
+        console.log("EDITING STORY ITEM HAS BEGUN" + story_id);
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
