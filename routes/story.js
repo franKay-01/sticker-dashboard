@@ -429,6 +429,7 @@ module.exports = function (app) {
         let htmlContent = req.body.htmlContent;
         let newStoryItemType = req.body.newStoryItemType;
         let id = req.body.storyItemId;
+        let projectId = req.body.projectId;
         let index = parseInt(req.body.dataPosition);
 
         if (token) {
@@ -458,12 +459,14 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect('/storyItem/html/edit/' + id + '/' + story_id);
+                res.redirect('/storyItem/html/edit/' + id + '/' + story_id + '/' + projectId);
 
             }, function (error) {
                 console.log("ERROR " + error.message);
-                res.redirect('/storyItem/html/edit/' + id + '/' + story_id);
+                res.redirect('/storyItem/html/edit/' + id + '/' + story_id + '/' + projectId);
             })
+        }else {
+            res.redirect('/');
         }
     });
 
