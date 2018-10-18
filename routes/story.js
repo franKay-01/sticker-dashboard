@@ -174,7 +174,7 @@ module.exports = function (app) {
         } else if (types === type.STORY_ITEM.color) {
 
             //TODO String(type.)
-            object = {"14": {"text": content, "color": "#" + color}};
+            object = {"14": {"text": content, "color": color}};
 
         }
 
