@@ -758,12 +758,14 @@ module.exports = function (app) {
     });
 
     app.post('/story/artwork/add/:id/:state', function (req, res) {
+
         let token = req.cookies.token;
-        let sticker_id = req.body.sticker_id;
         let story_id = req.params.id;
         let state = req.params.state;
-        let storyEdit = '/storyedit/';
 
+        let sticker_id = req.body.sticker_id;
+        let projectId = req.body.projectId;
+        let storyEdit = '/storyedit/';
 
         if (token) {
 
@@ -802,18 +804,18 @@ module.exports = function (app) {
                     return artwork.save();
 
                 } else if (state === "new") {
-                    res.redirect(storyEdit + id);
+                    res.redirect(storyEdit + id + '/' + projectId);
 
                 }
 
             }).then(function () {
 
-                res.redirect(storyEdit + id);
+                res.redirect(storyEdit + id + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/story/' + story_id);
+                res.redirect(storyEdit + story_id + '/' + projectId);
 
             });
         } else {
