@@ -619,9 +619,10 @@ module.exports = function (app) {
     app.post('/storyitem/sticker/add/:id', function (req, res) {
 
         let token = req.cookies.token;
+        let story_id = req.params.id;
         let sticker_id = req.body.sticker_id;
         let sticker_url = req.body.sticker_url;
-        let story_id = req.params.id;
+        let projectId = req.body.projectId;
 
         if (token) {
 
@@ -637,12 +638,12 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect('/storyitem/' + story_id);
+                res.redirect('/storyitem/' + story_id + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/storyedit/' + story_id);
+                res.redirect('/storyedit/' + story_id + '/' + projectId);
 
             })
         } else {
@@ -1142,7 +1143,7 @@ module.exports = function (app) {
 
             }, function (error) {
                 console.log("ERROR WHEN CREATING NEW STORY " + error.message);
-                res.redirect('/stories');
+                res.redirect('/stories/' + projectId);
             });
         } else {
             res.redirect('/');
@@ -1598,9 +1599,6 @@ module.exports = function (app) {
                 }
 
             }).then(function (image) {
-
-                console.log("IMAGE FROM ASSETS " + JSON.stringify(image));
-
 
                 image.destroy({
                     success: function (object) {
