@@ -822,9 +822,10 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/story/artwork/:state/:id', function (req, res) {
+    app.get('/story/artwork/:state/:storyId/:projectId', function (req, res) {
         let token = req.cookies.token;
-        let id = req.params.id;
+        let id = req.params.storyId;
+        let projectId = req.params.projectId;
         let state = req.params.state;
 
         if (token) {
@@ -849,13 +850,14 @@ module.exports = function (app) {
                 res.render("pages/stories/story_artwork", {
                     story: _story.id,
                     stickers: stickers,
-                    state: state
+                    state: state,
+                    projectId: projectId
                 });
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/');
+                res.redirect('/storyedit/'+ id + '/' + projectId);
 
             });
         } else {
@@ -1086,7 +1088,7 @@ module.exports = function (app) {
                 //
                 // }).then(function (main) {
 
-                res.redirect('/story/artwork/new/' + story.id);
+                res.redirect('/story/artwork/new/' + story.id + '/' + projectId);
 
             }, function (error) {
                 console.log("ERROR WHEN CREATING NEW STORY " + error.message);
