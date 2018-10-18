@@ -149,6 +149,7 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let id = req.params.id;
         let types = parseInt(req.body.style);
+        let projectId = req.body.projectId;
         let content = req.body.content;
         let color = req.body.color;
         let object = {};
@@ -190,12 +191,12 @@ module.exports = function (app) {
 
             }).then(function (item) {
 
-                res.redirect('/storyItem/html/old/' + item.id);
+                res.redirect('/storyItem/html/old/' + item.id + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/');
+                res.redirect('/stories/' + projectId);
             })
         } else {
             res.redirect('/');
