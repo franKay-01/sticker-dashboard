@@ -247,30 +247,34 @@ module.exports = function (app) {
 
     });
 
-    app.get('/storyItem/html/edit/:id/:storyId', function (req, res) {
+    app.get('/storyItem/html/edit/:id/:storyId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
         let storyId = req.params.storyId;
+        let projectId = req.params.projectId;
 
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
 
-                return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
-
-            }).then(function (storyItem) {
+                return Parse.Promise.when(
+                    new Parse.Query(_class.StoryItems).equalTo("objectId", id).first(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                )
+            }).then(function (storyItem, project) {
 
                 res.render("pages/stories/storyitem_html", {
 
                     storyItem: storyItem,
-                    storyId: storyId
+                    storyId: storyId,
+                    projectItem: project
 
                 })
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/storyitem/view/' + storyId);
+                res.redirect('/storyitem/view/' + storyId + '/' + projectId);
 
             })
         } else {
@@ -1711,10 +1715,10 @@ module.exports = function (app) {
             util.getUser(token).then(function (sessionToken) {
 
                 return Parse.Promise.when(
-                new Parse.Query(_class.StoryItems).equalTo("objectId", id).first(),
+                    new Parse.Query(_class.StoryItems).equalTo("objectId", id).first(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
-            )
-            }).then(function (story_item, project){
+                )
+            }).then(function (story_item, project) {
 
                 res.render("pages/stories/edit_story_item", {
                     story_item: story_item,
