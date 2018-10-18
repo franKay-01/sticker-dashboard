@@ -7,10 +7,11 @@ const PRODUCT = "product";
 
 module.exports = function (app) {
 
-    app.get('/publish/:type/:status/:id', function (req, res) {
+    app.get('/publish/:type/:status/:id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
+        let projectId = req.params.projectId;
         let status = req.params.status;
         let type = req.params.type;
         let pack = "/pack/";
@@ -49,14 +50,14 @@ module.exports = function (app) {
                 switch (type) {
                     case PACKS:
                         if (status === "publish") {
-                            res.redirect('/pack/create/previews/' + id);
+                            res.redirect('/pack/create/previews/' + id + projectId);
                         } else if (status === "unpublish") {
-                            res.redirect(pack + id);
+                            res.redirect(pack + id + '/' + projectId);
                         }
                         return;
 
                     case STORIES:
-                        res.redirect(storyEdit + id);
+                        res.redirect(storyEdit + id + '/' + projectId);
                         return;
 
                     case PRODUCT:
@@ -70,11 +71,11 @@ module.exports = function (app) {
 
                 switch (type) {
                     case PACKS:
-                        res.redirect(pack + id);
+                        res.redirect(pack + id + '/' + projectId);
                         return;
 
                     case STORIES:
-                        res.redirect(storyEdit + id);
+                        res.redirect(storyEdit + id + '/' + projectId);
                         return;
 
                     case PRODUCT:

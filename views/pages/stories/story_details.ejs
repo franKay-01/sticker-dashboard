@@ -98,7 +98,7 @@
         <a href="#" id="cancelPermission" class="edit_labels" style="margin: 200px !important;">
             NO
         </a>
-        <a href="/publish/story/publish/<%= story.id %>" class="edit_labels">
+        <a href="/publish/story/publish/<%= story.id %>/<%= projectItem.id %>" class="edit_labels">
             YES
         </a>
     </div>
@@ -110,7 +110,7 @@
         <a href="#" id="cancel_delete" class="edit_labels" style="margin: 200px !important;">
             NO
         </a>
-        <a href="/storyitem/delete/<%= story.id %>" class="edit_labels">
+        <a href="/storyitem/delete/<%= story.id %>/<%= projectItem.id %>" class="edit_labels">
             YES
         </a>
     </div>
@@ -122,7 +122,7 @@
         <a href="#" id="cancelPublish" class="edit_labels" style="margin: 200px !important;">
             NO
         </a>
-        <a href="/publish/story/unpublish/<%= story.id %>" class="edit_labels">
+        <a href="/publish/story/unpublish/<%= story.id %>/<%= projectItem.id %>" class="edit_labels">
             YES
         </a>
     </div>
@@ -148,7 +148,7 @@
                     <div class="stats">Menu</div>
                     <% include ../../partials/menu.ejs %>
 
-                    <div style="margin-top: 40px !important;"><a class="_stickers_packs" href="/storyitem/<%= story.id %>">Add Story Item</a></div>
+                    <div style="margin-top: 40px !important;"><a class="_stickers_packs" href="/storyitem/<%= story.id %>/<%= projectItem.id %>">Add Story Item</a></div>
                 </div>
             </div>
             <div class="icons">
@@ -221,7 +221,7 @@
                 <span style="padding-right: 125px;">
                     <% if (previous !== ""){ %>
                         <a style="color: #a46580 !important; "
-                           href="/storyedit/<%= previous %>">
+                           href="/storyedit/<%= previous %>/<%= projectItem.id %>">
                         <i style="font-size: 3rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
                     <% } %>
                 </span>
@@ -229,7 +229,7 @@
                         <% if (next !== ""){ %>
 
                             <a style="color: #a46580 !important;"
-                               href="/storyedit/<%= next %>">
+                               href="/storyedit/<%= next %>/<%= projectItem.id %>">
                         <i style="font-size: 3rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
 
                         <% } %>
@@ -325,7 +325,7 @@
                     <a href="#" id="change_image" class="preview">Change Artwork <i class="fa fa-picture-o"
                                                                                     style="color: #590a5d; font-size: 1.5rem;"
                                                                                     aria-hidden="true"></i></a><br>
-                    <a href="/storyitem/view/<%= story.id %>" class="preview">View Story Items</a><br><br>
+                    <a href="/storyitem/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Story Items</a><br><br>
                     <!--<a href="/storymain/<%#= story.id %>" class="preview">Edit Main Story</a><br><br>-->
                     <a href="/stories/<%= projectItem.id %>" class="preview">Back</a><br>
                     <!--<a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">-->

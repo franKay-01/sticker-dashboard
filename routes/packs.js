@@ -834,9 +834,10 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/pack/create/previews/:packId', function (req, res) {
+    app.get('/pack/create/previews/:packId/:projectId', function (req, res) {
         let token = req.cookies.token;
         let id = req.params.packId;
+        let projectId = req.params.projectId;
         let STICKER_LIMIT = 6;
         let _pack;
         let stickerArray = [];
@@ -861,7 +862,6 @@ module.exports = function (app) {
                 } else {
                     let packRelation = pack.relation(_class.Packs);
                     return packRelation.query().limit(STICKER_LIMIT).ascending("name").find();
-
                 }
 
             }).then(function (stickers) {
@@ -876,12 +876,12 @@ module.exports = function (app) {
 
             }).then(function (pack) {
 
-                res.redirect('/pack/' + id);
+                res.redirect('/pack/' + id + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/pack/' + id);
+                res.redirect('/pack/' + id + '/' + projectId);
 
             })
 

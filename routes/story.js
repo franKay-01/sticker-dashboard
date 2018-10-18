@@ -108,23 +108,28 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/storyitem/:id', function (req, res) {
+    app.get('/storyitem/:id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
+        let projectId = req.params.projectId;
 
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
 
-                return new Parse.Query(_class.Stories).equalTo("objectId", id).first()
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                )
 
-            }).then(function (story) {
+            }).then(function (story, project) {
 
                 res.render("pages/stories/story_catalogue", {
 
                     story_id: story.id,
-                    name: story.get("title")
+                    name: story.get("title"),
+                    projectItem: project
 
                 });
 
@@ -334,23 +339,29 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/storyitem/view/:id', function (req, res) {
+    app.get('/storyitem/view/:id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
+        let projectId = req.params.projectId;
         let sticker_array = [];
         let _storyItem;
+        let _project;
         let _stickers = [];
 
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
 
-                return new Parse.Query(_class.StoryItems).equalTo("storyId", id).find();
+                return Parse.Promise.when(
+                    new Parse.Query(_class.StoryItems).equalTo("storyId", id).find(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                )
 
-            }).then(function (story_item) {
+            }).then(function (story_item, project) {
 
                 _storyItem = story_item;
+                _project = project;
 
                 _.each(story_item, function (item) {
                     if (item.get("type") === type.STORY_ITEM.sticker) {
@@ -382,13 +393,16 @@ module.exports = function (app) {
                     story_item: _storyItem,
                     story_id: id,
                     stickers: _stickers,
+                    proejctItem: _project
 
                 });
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/storyedit/' + id)
+                res.redirect('/storyedit/' + id + '/' + projectId);
             })
+        } else {
+            res.redirect('/');
         }
     });
 
@@ -859,7 +873,7 @@ module.exports = function (app) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/storyedit/'+ id + '/' + projectId);
+                res.redirect('/storyedit/' + id + '/' + projectId);
 
             });
         } else {
@@ -1268,10 +1282,11 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/storydelete/:id', function (req, res) {
+    app.get('/storydelete/:id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
+        let projectId = req.params.projectId;
         let _user = {};
 
         if (token) {
@@ -1280,7 +1295,6 @@ module.exports = function (app) {
 
                 _user = sessionToken.get("user");
 
-                console.log("STORY ID " + id);
                 return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
 
             }).then(function (story) {
@@ -1288,11 +1302,11 @@ module.exports = function (app) {
                 story.destroy({
                     success: function (object) {
                         console.log("removed" + JSON.stringify(object));
-                        res.redirect('/stories');
+                        res.redirect('/stories/' + projectId);
                     },
                     error: function (error) {
                         console.log("Could not remove" + error);
-                        res.redirect("/stories");
+                        res.redirect("/stories/" + projectId);
 
                     }
                 });
@@ -1300,7 +1314,7 @@ module.exports = function (app) {
             }, function (error) {
 
                 console.log("ERROR " + error);
-                res.redirect("/stories");
+                res.redirect("/stories/" + projectId);
 
             })
         } else {
@@ -1312,6 +1326,7 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let id = req.body.storyItem;
         let storyId = req.params.storyId;
+        let projectId = req.body.projectId;
         let storyItemView = "/storyitem/view/";
         let assetId;
         let _storyItem;
@@ -1334,7 +1349,7 @@ module.exports = function (app) {
                     },
                     error: function (error) {
                         console.log("Could not remove" + error);
-                        res.redirect(storyItemView + storyId);
+                        res.redirect(storyItemView + storyId + '/' + projectId);
 
                     }
                 })
@@ -1347,7 +1362,7 @@ module.exports = function (app) {
 
                 } else {
 
-                    res.redirect(storyItemView + storyId);
+                    res.redirect(storyItemView + storyId + '/' + projectId);
 
                 }
 
@@ -1356,11 +1371,11 @@ module.exports = function (app) {
                 asset.destroy({
                     success: function (object) {
                         console.log("removed" + JSON.stringify(object));
-                        res.redirect(storyItemView + storyId);
+                        res.redirect(storyItemView + storyId + '/' + projectId);
                     },
                     error: function (error) {
                         console.log("Could not remove" + error);
-                        res.redirect(storyItemView + storyId);
+                        res.redirect(storyItemView + storyId + '/' + projectId);
 
                     }
                 })
@@ -1368,7 +1383,7 @@ module.exports = function (app) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/stories');
+                res.redirect('/stories/' + projectId);
             })
 
         } else {
@@ -1377,10 +1392,11 @@ module.exports = function (app) {
 
     });
 
-    app.get('/storyitem/delete/:id', function (req, res) {
+    app.get('/storyitem/delete/:id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
+        let projectId = req.params.projectId;
         let assetArray = [];
 
         if (token) {
@@ -1400,7 +1416,6 @@ module.exports = function (app) {
                         }
                     });
 
-                    console.log("ASSETS AVAILABLE");
                     return Parse.Object.destroyAll(stories);
 
                 } else {
@@ -1413,36 +1428,34 @@ module.exports = function (app) {
 
                 if (assetArray.length > 0) {
 
-                    console.log("FINDING ASSETS");
                     return new Parse.Query(_class.Assets).containedIn("objectId", assetArray).find();
 
                 } else {
 
-                    res.redirect("/storydelete/" + id);
+                    res.redirect("/storydelete/" + id + '/' + projectId);
 
                 }
 
             }).then(function (assets) {
 
                 if (assets) {
-                    console.log("ASSETS DELETING " + JSON.stringify(assets));
 
                     return Parse.Object.destroyAll(assets);
 
                 } else {
 
-                    res.redirect("/storydelete/" + id);
+                    res.redirect("/storydelete/" + id + '/' + projectId);
 
                 }
 
             }).then(function () {
 
-                res.redirect("/storydelete/" + id);
+                res.redirect("/storydelete/" + id + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/stories');
+                res.redirect('/stories/' + projectId);
             })
 
         } else {

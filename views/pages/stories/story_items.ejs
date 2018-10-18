@@ -55,6 +55,7 @@
             <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
             <form method="post" id="removeForm" action="/storyitem/delete/<%= story_id %>">
 
+                <input name="projectId" type="hidden" value="<%= projectItem.id %>">
                 <input name="storyItem" class="storyItem" hidden>
                 <a href="#" id="cancel_remove" class="edit_labels" style="margin: 200px !important;">
                     NO
@@ -74,6 +75,7 @@
             <form id="type_form" action="/storyitem/change/<%= story_id %>" method="post"
                   enctype="multipart/form-data">
                 <center>
+                    <input name="projectId" type="hidden" value="<%= projectItem.id %>">
                     <input name="storyItemId" class="storyItemId" hidden>
                     <input name="previousContent" class="content" hidden>
                     <input name="storyItemType" class="storyItemType" hidden>
