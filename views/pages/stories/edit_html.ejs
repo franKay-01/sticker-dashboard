@@ -61,6 +61,7 @@
 
         <form class="story_form" id="story_form" action="/storyitem/html/update/<%= storyItemId %>" method="post">
             <div class="medium-5 large-5 cell">
+                <input name="projectId" type="hidden" value="<%= projectItem.id %>">
 
                 <% if (parseInt(objectType) === type.STORY_ITEM.text || parseInt(objectType) === type.STORY_ITEM.quote || parseInt(objectType) === type.STORY_ITEM.bold
                         || parseInt(objectType) === type.STORY_ITEM.italic || parseInt(objectType) === type.STORY_ITEM.italicBold) { %>

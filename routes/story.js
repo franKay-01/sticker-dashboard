@@ -208,15 +208,19 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let id = req.params.id;
         let storyId = req.body.id;
+        let projectId = req.body.projectId;
         let indexValue = req.body.indexValue;
 
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
 
-                return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
+                return Parse.Promise.when(
+                    new Parse.Query(_class.StoryItems).equalTo("objectId", id).first(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+            )
 
-            }).then(function (story_item) {
+            }).then(function (story_item, project) {
 
                 let html = story_item.get("contents").html;
                 for (let i = 0; i < html.length; i++) {
@@ -231,7 +235,8 @@ module.exports = function (app) {
                             objectType: typeOfObject,
                             story_id: storyId,
                             storyItemId: story_item.id,
-                            index: indexValue
+                            index: indexValue,
+                            projectItem: project
                         })
                     }
                 }
@@ -239,7 +244,7 @@ module.exports = function (app) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect("/storyitem/view/" + storyId);
+                res.redirect("/storyitem/view/" + storyId + '/' + projectId);
             })
         } else {
             res.redirect('/');
@@ -468,6 +473,7 @@ module.exports = function (app) {
         let htmlContent = req.body.htmlContent;
         let htmlColor = req.body.htmlColor;
         let story_id = req.body.id;
+        let projectId = req.body.projectId;
         let index = parseInt(req.body.index);
 
         if (token) {
@@ -502,12 +508,14 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect('/storyitem/view/' + story_id);
+                res.redirect('/storyitem/view/' + story_id + '/' + projectId);
 
             }, function (error) {
                 console.log("ERROR " + error.message);
-                res.redirect('/storyItem/html/edit/' + id);
+                res.redirect('/storyItem/html/edit/' + id + '/' + projectId);
             })
+        }else {
+            res.redirect('/');
         }
     });
 

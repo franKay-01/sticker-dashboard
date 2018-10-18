@@ -74,6 +74,7 @@
 
             <form id="type_form" action="/storyitem/html/change/<%= storyId %>" method="post">
                 <center>
+                    <input name="projectId" type="hidden" value="<%= projectItem.id %>">
                     <input name="storyItemId" value="<%= storyItem.id %>" hidden>
                     <input name="newStoryItemType" class="newStoryItemType" hidden>
                     <input name="dataPosition" class="data-position" hidden>
@@ -120,7 +121,7 @@
                 <div class="stats">Menu</div>
                 <% include ../../partials/menu.ejs %>
 
-                <div style="margin-top: 25px;"><a class="_stickers_packs" href="/storyitem/<%= storyId %>">Add
+                <div style="margin-top: 25px;"><a class="_stickers_packs" href="/storyitem/<%= storyId %>/<%= projectItem.id %>">Add
                         Story Item</a></div>
             </div>
         </div>
@@ -144,6 +145,8 @@
                     <textarea class="box_2 validate" placeholder="Review description"
                               name="review_text" required="" aria-required="true"
                               disabled><%= content.text %></textarea>
+                    <input name="projectId" type="hidden" value="<%= projectItem.id %>">
+
                     <input name="indexValue" value="<%= i %>" hidden>
                     <input name="id" value="<%= storyId %>" hidden>
 
@@ -164,24 +167,26 @@
 
                 <% } else if (parseInt(type) === 5){ %>
                 <form action="/storyItem/html/edit/<%= storyItem.id %>" method="post">
+                    <input name="projectId" type="hidden" value="<%= projectItem.id %>">
 
-                <textarea class="box_2 validate" placeholder="Review description"
-                          name="review_text" required="" aria-required="true"
-                          disabled><%= content.text %></textarea>
-                <input name="indexValue" value="<%= i %>" hidden>
-                <input name="id" value="<%= storyId %>" hidden>
+                    <textarea class="box_2 validate" placeholder="Review description"
+                              name="review_text" required="" aria-required="true"
+                              disabled><%= content.text %></textarea>
 
-                <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit
-                    Italics
-                </button>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
-                   data-id="<%= storyItem.id %>" data-position="<%= i %>">Change Type</a>
-                <a href="#" data-id="<%= storyItem.id %>" style="color: #cc0000 !important;margin-left: 5px"
-                   class="preview remove_items">
-                    Delete<i class="fa fa-trash"
-                             style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
-                             aria-hidden="true"></i>
-                </a>
+                    <input name="indexValue" value="<%= i %>" hidden>
+                    <input name="id" value="<%= storyId %>" hidden>
+
+                    <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit
+                        Italics
+                    </button>&nbsp;&nbsp;
+                    <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
+                       data-id="<%= storyItem.id %>" data-position="<%= i %>">Change Type</a>
+                    <a href="#" data-id="<%= storyItem.id %>" style="color: #cc0000 !important;margin-left: 5px"
+                       class="preview remove_items">
+                        Delete<i class="fa fa-trash"
+                                 style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
+                                 aria-hidden="true"></i>
+                    </a>
                 </form>
                 <br><br><br>
 
@@ -191,19 +196,22 @@
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"
                           disabled><%= content.text %></textarea>
-                <input name="indexValue" value="<%= i %>" hidden>
-                <input name="id" value="<%= storyId %>" hidden>
+                    <input name="projectId" type="hidden" value="<%= projectItem.id %>">
 
-                <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit Bold
-                </button>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
-                   data-id="<%= storyItem.id %>" data-position="<%= i %>">Change Type</a>
-                <a href="#" data-id="<%= storyItem.id %>" style="color: #cc0000 !important;margin-left: 5px"
-                   class="preview remove_items">
-                    Delete<i class="fa fa-trash"
-                             style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
-                             aria-hidden="true"></i>
-                </a>
+                    <input name="indexValue" value="<%= i %>" hidden>
+                    <input name="id" value="<%= storyId %>" hidden>
+
+                    <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit
+                        Bold
+                    </button>&nbsp;&nbsp;
+                    <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
+                       data-id="<%= storyItem.id %>" data-position="<%= i %>">Change Type</a>
+                    <a href="#" data-id="<%= storyItem.id %>" style="color: #cc0000 !important;margin-left: 5px"
+                       class="preview remove_items">
+                        Delete<i class="fa fa-trash"
+                                 style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
+                                 aria-hidden="true"></i>
+                    </a>
                 </form>
                 <br><br><br>
 
@@ -213,46 +221,49 @@
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"
                           disabled><%= content.text %></textarea>
-                <input name="indexValue" value="<%= i %>" hidden>
-                <input name="id" value="<%= storyId %>" hidden>
+                    <input name="indexValue" value="<%= i %>" hidden>
+                    <input name="id" value="<%= storyId %>" hidden>
+                    <input name="projectId" type="hidden" value="<%= projectItem.id %>">
 
-                <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit
-                    ItalicBold
-                </button>&nbsp;&nbsp;
-                <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
-                   data-id="<%= storyItem.id %>" data-position="<%= i %>">Change Type</a>
-                <a href="#" data-id="<%= storyItem.id %>" style="color: #cc0000 !important;margin-left: 5px"
-                   class="preview remove_items">
-                    Delete<i class="fa fa-trash"
-                             style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
-                             aria-hidden="true"></i>
-                </a>
+                    <button class="preview" style="background-color: transparent;font-size: 20px" type="submit">Edit
+                        ItalicBold
+                    </button>&nbsp;&nbsp;
+                    <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
+                       data-id="<%= storyItem.id %>" data-position="<%= i %>">Change Type</a>
+                    <a href="#" data-id="<%= storyItem.id %>" style="color: #cc0000 !important;margin-left: 5px"
+                       class="preview remove_items">
+                        Delete<i class="fa fa-trash"
+                                 style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
+                                 aria-hidden="true"></i>
+                    </a>
                 </form>
                 <br><br><br>
 
                 <% } else if (parseInt(type) === 14){ %>
                 <form action="/storyItem/html/edit/<%= storyItem.id %>" method="post">
+                    <input name="projectId" type="hidden" value="<%= projectItem.id %>">
 
-                <b style="color: black">Text:</b>
-                <input class="validate" placeholder="Text" name="htmlContent" value="<%= content.text %>"
-                       required="" aria-required="true">
-                <b style="color: black">Color:</b>
-                <input class="validate" placeholder="Color" id="htmlColor" name="text" value="<%= content.color %>"
-                       required="" aria-required="true">
-                <!--<button id="color_button" style="width: 7% !important;z-index: 1;" class="jscolor {valueElement: 'htmlColor'}"></button><br>-->
+                    <b style="color: black">Text:</b>
+                    <input class="validate" placeholder="Text" name="htmlContent" value="<%= content.text %>"
+                           required="" aria-required="true">
+                    <b style="color: black">Color:</b>
+                    <input class="validate" placeholder="Color" id="htmlColor" name="text" value="<%= content.color %>"
+                           required="" aria-required="true">
+                    <!--<button id="color_button" style="width: 7% !important;z-index: 1;" class="jscolor {valueElement: 'htmlColor'}"></button><br>-->
 
-                <button style="background-color: transparent;font-size: 20px" type="submit" class="preview">Edit Color
-                </button>&nbsp;&nbsp;
-                <input name="indexValue" value="<%= i %>" hidden>
-                <input name="id" value="<%= storyId %>" hidden>
-                <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
-                   data-id="<%= storyItem.id %>" data-position="<%= i %>">Change Type</a>
-                <a href="#" data-id="<%= storyItem.id %>" style="color: #cc0000 !important;margin-left: 5px"
-                   class="preview remove_items">
-                    Delete<i class="fa fa-trash"
-                             style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
-                             aria-hidden="true"></i>
-                </a>
+                    <button style="background-color: transparent;font-size: 20px" type="submit" class="preview">Edit
+                        Color
+                    </button>&nbsp;&nbsp;
+                    <input name="indexValue" value="<%= i %>" hidden>
+                    <input name="id" value="<%= storyId %>" hidden>
+                    <a href="#" class="preview change" data-content="0" data-name="<%= content.text %>"
+                       data-id="<%= storyItem.id %>" data-position="<%= i %>">Change Type</a>
+                    <a href="#" data-id="<%= storyItem.id %>" style="color: #cc0000 !important;margin-left: 5px"
+                       class="preview remove_items">
+                        Delete<i class="fa fa-trash"
+                                 style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
+                                 aria-hidden="true"></i>
+                    </a>
                 </form>
                 <br><br><br>
 
