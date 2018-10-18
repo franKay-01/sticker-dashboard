@@ -322,7 +322,7 @@ module.exports = function (app) {
 
                     return Parse.Promise.when(
                         new Parse.Query(_class.Stories).equalTo("objectId", storyItem.get("storyId")).first(),
-                        new Parse.Query(_class.Projects).equalTo("objectId", projectId)
+                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                     )
                 }
 
