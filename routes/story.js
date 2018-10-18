@@ -518,6 +518,7 @@ module.exports = function (app) {
         let storyItemType = parseInt(req.body.type);
         let object = {};
 
+        console.log("EDITING STORY ITEM HAS BEGUN");
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
@@ -544,11 +545,11 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect('/storyitem/view/' + story_id);
+                res.redirect('/storyitem/view/' + story_id + '/' + projectId);
 
             }, function (error) {
                 console.log("ERROR " + error.message);
-                res.redirect('/storyitem/edit/' + id + "/" + story_id);
+                res.redirect('/storyitem/edit/' + id + "/" + story_id + '/' + projectId);
             })
         } else {
             res.redirect('/');
