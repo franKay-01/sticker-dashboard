@@ -278,10 +278,11 @@ module.exports = function (app) {
 
     });
 
-    app.get('/storyItem/html/:state/:id', function (req, res) {
+    app.get('/storyItem/html/:state/:id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
+        let projectId = req.params.projectId;
         let state = req.params.state;
         let _story;
 
@@ -312,25 +313,31 @@ module.exports = function (app) {
 
                 if (state === "new") {
 
-                    return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+                    return Parse.Promise.when(
+                        new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
+                        new Parse.Query(_class.Projects).equalTo("objectId", projectId)
+                    )
 
                 } else if (state === "old") {
 
-                    return new Parse.Query(_class.Stories).equalTo("objectId", storyItem.get("storyId")).first();
-
+                    return Parse.Promise.when(
+                        new Parse.Query(_class.Stories).equalTo("objectId", storyItem.get("storyId")).first(),
+                        new Parse.Query(_class.Projects).equalTo("objectId", projectId)
+                    )
                 }
 
-            }).then(function (story) {
+            }).then(function (story, project) {
 
                 res.render("pages/stories/story_html", {
                     name: story.get("title"),
                     storyItemId: _story.id,
-                    storyId: story.id
+                    storyId: story.id,
+                    projectItem: project
                 })
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect("/storyitem/" + id);
+                res.redirect("/storyitem/" + id + '/' + projectId);
             })
 
         } else {
