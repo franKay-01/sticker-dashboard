@@ -185,7 +185,7 @@
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"
                           disabled><%= item.get("contents").text %></textarea>
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectitem.id %>" class="preview">Edit Text</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Text</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="0" data-name="<%= item.get("contents").text %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -209,7 +209,7 @@
                 <i class="fa fa-quote-left" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i>
                 <b style="color: #a46580; font-size: 20px"><%= item.get("contents").text %></b>
                 <i class="fa fa-quote-right" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i><br>
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectitem.id %>" class="preview">Edit Quote</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Quote</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="2" data-name="<%= item.get("contents").text %>"
                    data-id="<%= item.id %>">Change
                     Type</a>
@@ -240,7 +240,7 @@
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required=""
                           aria-required="true" disabled><%= item.get("contents").text %></textarea>
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectitem.id %>" class="preview">Edit Italic</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Italic</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="5" data-name="<%= item.get("contents").text %>"
                    data-id="<%= item.id %>">Change
                     Type</a>
@@ -254,7 +254,7 @@
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required=""
                           aria-required="true" disabled><%= item.get("contents").text %></textarea>
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectitem.id %>" class="preview">Edit Bold</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Bold</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="6" data-name="<%= item.get("contents").text %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -265,7 +265,7 @@
 
                 <% }else if (item.get("type") === 8){ %>
                 <b style="color: #a46580; font-size: 20px"><i><%= item.get("contents").text %></i></b><br><br>
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectitem.id %>" class="preview">Edit ItalicBold</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit ItalicBold</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name="<%= item.get("contents").text %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -279,7 +279,7 @@
                         style="color: #a46580; font-size: 20px"><%= item.get("contents").heading %></b><br>
                 <b style="color: black">Text:</b><b
                         style="color: #a46580; font-size: 20px"><%= item.get("contents").text %></b><br><br>
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectitem.id %>" class="preview">Edit Heading</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Heading</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name=""
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -298,7 +298,7 @@
 
                 </ul>
 
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectitem.id %>" class="preview">Edit List</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit List</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name=""
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -311,7 +311,7 @@
                 <textarea class="box_2 validate" placeholder="Side Note"
                           name="review_text" required=""
                           aria-required="true" disabled><%= item.get("contents").text %></textarea>
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectitem.id %>" class="preview">Edit Side Note</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Side Note</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name="<%= item.get("contents").text %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -323,7 +323,7 @@
                 <textarea class="box_2 validate" placeholder="Side Note"
                           name="review_text" required=""
                           aria-required="true" disabled><%= JSON.stringify(item.get("contents").text) %></textarea>
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectitem.id %>" class="preview">Edit Grey Area</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Grey Area</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name="<%= item.get("contents").text %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
