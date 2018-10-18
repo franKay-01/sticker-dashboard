@@ -928,6 +928,7 @@ module.exports = function (app) {
             let _story = {};
             let colors = [];
             let _authors = [];
+            let projectArray = [];
             let art;
             let authorName;
             let authorId;
@@ -935,13 +936,14 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
+                projectArray.push(projectId);
                 _user = sessionToken.get("user");
 
                 return Parse.Promise.when(
                     new Parse.Query(_class.Stories).equalTo("objectId", story_id).first(),
                     new Parse.Query(_class.ArtWork).equalTo("itemId", story_id).first(),
                     new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).find(),
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find(),
                     new Parse.Query(_class.Authors).find()
                 );
 
