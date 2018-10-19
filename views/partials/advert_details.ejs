@@ -1,4 +1,4 @@
-<form id="review_form" action="/advert/edit/<%= ad_details.id %>/<%= projectItem.id %>" method="post">
+<form id="review_form" action="/advert/edit/<%= ad_details.id %>" method="post">
 
     <div class="grid-x grid-margin-x" style="margin: 50px 40px auto">
         <label class="update_label">Advert Title:</label> <input placeholder="Title" class="box_2 advert_title"
@@ -10,6 +10,7 @@
                                                                    name="description"
                                                                    value="<%= ad_details.get("description") %>">
 
+        <input type="hidden" name="projectId" value="<%= projectItem.id %>">
         <label class="update_label">Attached Ad Images:</label>
         <div class="medium-12 large-12">
 
