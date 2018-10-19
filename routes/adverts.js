@@ -20,9 +20,10 @@ let advertMessage = "";
 
 module.exports = function(app) {
 
-    app.get('/adverts', function (req, res) {
+    app.get('/adverts/:projectId', function (req, res) {
 
         let token = req.cookies.token;
+        let projectId = req.params.projectId;
         let _adverts = [];
         let _user = {};
 
@@ -35,9 +36,10 @@ module.exports = function(app) {
                 return Parse.Promise.when(
                     new Parse.Query(_class.Adverts).equalTo("userId", _user.id).find(),
                     new Parse.Query(_class.AdvertImages).find(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first();
                 );
 
-            }).then(function (adverts, ad_images) {
+            }).then(function (adverts, ad_images, project) {
 
                 _.each(adverts, function (advert) {
 
@@ -83,12 +85,13 @@ module.exports = function(app) {
                 res.render("pages/adverts/advert_collection", {
                     adverts: _adverts,
                     adverts_no_image: adverts,
+                    projectItem: project
                 });
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/home');
+                res.redirect('/home/' + projectId);
             })
         } else {
 
