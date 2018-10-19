@@ -106,7 +106,7 @@ module.exports = function(app) {
                     new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectIds", projectArray).count(),
                     new Parse.Query(_class.Stickers).equalTo("userId", _user.id).count(),
                     new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).count(),
-                    new Parse.Query(_class.Adverts).equalTo("userId", _user.id).limit(limit).find(),
+                    new Parse.Query(_class.Adverts).equalTo("userId", _user.id).containedIn("projectIds", projectArray).limit(limit).find(),
                     new Parse.Query(_class.Message).limit(limit).find(),
                     new Parse.Query(_class.Product).limit(limit).find(),
                     new Parse.Query(_class.Projects).limit(limit).find(),
