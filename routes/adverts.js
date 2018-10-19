@@ -291,6 +291,7 @@ module.exports = function(app) {
         let id = req.params.id;
         let title = req.body.title;
         let description = req.body.description;
+        let projectId = req.body.projectId;
         let advertRedirect = '/advert/edit/';
 
         if (token) {
@@ -309,12 +310,12 @@ module.exports = function(app) {
             }).then(function () {
 
                 advertMessage = "";
-                res.redirect(advertRedirect + id);
+                res.redirect(advertRedirect + id + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect(advertRedirect + id);
+                res.redirect(advertRedirect + id + '/' + projectId);
 
             })
         } else {
