@@ -25,16 +25,19 @@ module.exports = function(app) {
         let token = req.cookies.token;
         let projectId = req.params.projectId;
         let _adverts = [];
+        let projectArray = [];
         let _user = {};
 
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
 
+                projectArray.push(projectId);
+
                 _user = sessionToken.get("user");
 
                 return Parse.Promise.when(
-                    new Parse.Query(_class.Adverts).equalTo("userId", _user.id).find(),
+                    new Parse.Query(_class.Adverts).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find(),
                     new Parse.Query(_class.AdvertImages).find(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 )
