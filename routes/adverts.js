@@ -285,13 +285,13 @@ module.exports = function(app) {
 
     });
 
-    app.post('/advert/edit/:id', function (req, res) {
+    app.post('/advert/edit/:id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
         let title = req.body.title;
         let description = req.body.description;
-        let projectId = req.body.projectId;
+        let projectId = req.params.projectId;
         console.log("PROJECT ID " + projectId);
         let advertRedirect = '/advert/edit/';
 
