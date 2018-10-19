@@ -285,7 +285,7 @@ module.exports = function(app) {
 
     });
 
-    app.post('/advert/edit/:id', function (req, res) {
+    app.post('/advert/edit/:id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
