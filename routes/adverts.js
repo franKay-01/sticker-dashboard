@@ -103,10 +103,11 @@ module.exports = function(app) {
         }
     });
 
-    app.get('/advert/edit/:id', function (req, res) {
+    app.get('/advert/edit/:id/;projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
+        let projectId = req.params.projectId;
 
         if (token) {
 
@@ -115,23 +116,26 @@ module.exports = function(app) {
                 return Parse.Promise.when(
                     new Parse.Query(_class.Adverts).equalTo("objectId", id).first(),
                     new Parse.Query(_class.AdvertImages).equalTo("advertId", id).find(),
-                    new Parse.Query(_class.Links).equalTo("itemId", id).first()
+                    new Parse.Query(_class.Links).equalTo("itemId", id).first(),
+                    new Parse .Query(_class.Projects).equalTo("objectId", projectId).first()
                 );
 
-            }).then(function (advert, advertImage, link) {
+            }).then(function (advert, advertImage, link, projects) {
 
                 res.render("pages/adverts/advert_details", {
 
                     ad_details: advert,
                     ad_images: advertImage,
                     link: link,
-                    advertMessage: advertMessage
+                    advertMessage: advertMessage,
+                    projectItem: projects
+
                 })
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/home');
+                res.redirect('/home/'+ projectId);
             })
 
         } else {
@@ -327,12 +331,15 @@ module.exports = function(app) {
         let title = req.body.title;
         let description = req.body.description;
         let action = req.body.action;
-
+        let projectId = req.body.projectId;
+        let projectArray = [];
         if (token) {
 
             let _user = {};
 
             util.getUser(token).then(function (sessionToken) {
+
+                projectArray.push(projectId);
 
                 _user = sessionToken.get("user");
 
@@ -343,18 +350,19 @@ module.exports = function(app) {
                 advert.set("description", description);
                 advert.set("userId", _user.id);
                 advert.set("buttonAction", action);
+                advert.set("projectIds", projectArray);
 
                 return advert.save();
 
             }).then(function (advert) {
 
                 advertMessage = "";
-                res.redirect('/advert/edit/' + advert.id);
+                res.redirect('/advert/edit/' + advert.id + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/home');
+                res.redirect('/home/' + projectId);
             });
         } else {
             res.redirect('/');
