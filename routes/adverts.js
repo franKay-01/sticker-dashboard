@@ -103,7 +103,7 @@ module.exports = function(app) {
         }
     });
 
-    app.get('/advert/edit/:id/;projectId', function (req, res) {
+    app.get('/advert/edit/:id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
