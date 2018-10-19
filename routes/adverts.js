@@ -36,8 +36,8 @@ module.exports = function(app) {
                 return Parse.Promise.when(
                     new Parse.Query(_class.Adverts).equalTo("userId", _user.id).find(),
                     new Parse.Query(_class.AdvertImages).find(),
-                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first();
-                );
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                )
 
             }).then(function (adverts, ad_images, project) {
 
