@@ -292,6 +292,7 @@ module.exports = function(app) {
         let title = req.body.title;
         let description = req.body.description;
         let projectId = req.body.projectId;
+        console.log("PROJECT ID " + projectId);
         let advertRedirect = '/advert/edit/';
 
         if (token) {
