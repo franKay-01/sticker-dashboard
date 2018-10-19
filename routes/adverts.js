@@ -151,6 +151,7 @@ module.exports = function(app) {
         let id = req.params.id;
         let type = parseInt(req.body.type);
         let link = req.body.link;
+        let projectId = req.body.projectId;
         let advertRedirect = '/advert/edit/';
 
         if (token) {
@@ -163,7 +164,7 @@ module.exports = function(app) {
 
                 if (links) {
 
-                    res.redirect(advertRedirect + id);
+                    res.redirect(advertRedirect + id + '/' + projectId);
 
                 } else {
 
@@ -179,12 +180,12 @@ module.exports = function(app) {
 
             }).then(function (link) {
 
-                res.redirect(advertRedirect + id);
+                res.redirect(advertRedirect + id + '/' + projectId);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect(advertRedirect + id);
+                res.redirect(advertRedirect + id + '/' + projectId);
 
             })
         } else {
@@ -199,6 +200,7 @@ module.exports = function(app) {
         let token = req.cookies.token;
         let id = req.params.id;
         let type = parseInt(req.body.type);
+        let projectId = req.body.projectId;
         let files = req.files;
         let fileDetails = [];
         let advertDetails = [];
@@ -268,13 +270,13 @@ module.exports = function(app) {
                     });
                 }
 
-                res.redirect(advertRedirect + id);
+                res.redirect(advertRedirect + id + '/' + projectId);
 
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect(advertRedirect + id);
+                res.redirect(advertRedirect + id + '/' + projectId);
 
             })
 
