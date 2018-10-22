@@ -68,6 +68,11 @@ $(document).ready(function () {
             }
         });
 
+        $('#showList').on('click', function () {
+            let setting = document.getElementById('showSetting');
+            setting.style.display = "block";
+        });
+
         $('.text_element').on('click', function () {
             $('#hiddenTextCatalouge').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
