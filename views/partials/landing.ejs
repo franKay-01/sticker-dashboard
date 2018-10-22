@@ -9,6 +9,9 @@
 <% projects.forEach(function(item, index) { %>
 
 <div class="medium-3 large-3 cell card-zoom icons ">
+    <a href="/project/edit/<%= item.id %>">
+        <i class="fa fa-cog display_icons" id="circle" style="color: #0f9d58;" aria-hidden="true"></i>
+    </a>
     <a href="/home/<%= item.id %>">
         <% if (item.get("uri") === "undefined" || item.get("uri") === undefined){ %>
         <center>
