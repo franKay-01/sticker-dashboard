@@ -42,10 +42,34 @@
 
             $(function () {
                 $("#title_color").colorpicker();
+                $("#text_color").colorpicker();
+                $("#button_color").colorpicker();
+                $("#topcard_color").colorpicker();
+                $("#bottomcard_color").colorpicker();
 
                 $("#title_color").on("change", function() {
                     title = $(this).val();
                     $("#title").val(title)
+                });
+
+                $("#text_color").on("change", function() {
+                    text = $(this).val();
+                    $("#text").val(text)
+                });
+
+                $("#button_color").on("change", function() {
+                    button = $(this).val();
+                    $("#button").val(button)
+                });
+
+                $("#topcard_color").on("change", function() {
+                    topCard = $(this).val();
+                    $("#topCard").val(topCard)
+                });
+
+                $("#bottomcard_color").on("change", function() {
+                    bottomCard = $(this).val();
+                    $("#bottomCard").val(bottomCard)
                 });
             })
         });
