@@ -1,0 +1,38 @@
+<form id="detailsForm" action="/project/edit/<%= project.id %>" enctype="multipart/form-data" method="post">
+    <div class="grid-x grid-margin-x">
+        <div class="medium-6 large-5 cell">
+            <div class="droppableArea">
+                <div class="output" name="tfile"></div>
+                <% if (project.get("uri") === "undefined" || project.get("uri") === undefined){ %>
+                <center>
+                    <p class="none"><b>No Artwork</b></p>
+                </center>
+                <% } else { %>
+
+                <img class="pack_artwork" id="im1" name="im1" src="<%= project.get("uri").url() %>">
+
+                <% } %>
+            </div>
+        </div>
+        <div class="medium-6 large-6 cell">
+            <label class="update_label">Project Name:</label>
+
+            <input placeholder="Project Name" class="box_2" name="projectName"
+                   value="<%= project.get("name") %>" required style="margin-bottom: 35px !important;">
+
+            <label class="update_label">Version:</label>
+            <input type="number" class="box_2" name="projectVersion" required value="<%= project.get("version") %>">
+
+
+            <label class="update_label">Add Project Artwork:</label>
+            <input style="color: #a46580;" id="art" name="art" type="file"><br>
+
+        </div>
+        <div class="medium-12 large-12 cell">
+            <center>
+                <a href="/projects" class="cancel_btn">Back</a>
+                <button class="update" type="submit">Update</button>
+            </center>
+        </div>
+    </div>
+</form>

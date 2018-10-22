@@ -793,15 +793,26 @@ $(document).ready(function () {
     });
 
     //show add-category form
-    btnAddCategory.on('click', function () {
+    $('#btnAddProject').on('click', function () {
         $('#pageMask').fadeIn('fast');
-        $('#hiddenAddCatForm').fadeIn('fast');
+        $('#hiddenProjectForm').fadeIn('fast');
         $('#logo').fadeOut('fast');
         $('#searchCategory').fadeOut('fast');
         $('#Welcome').fadeOut('fast');
         $('#signoutLink').fadeOut('fast');
         $('#opaqueDiv').fadeOut('fast');
     });
+
+    $('#btnCancelProject').on('click', function (){
+      $('#hiddenProjectForm').fadeOut('fast');
+      $('#pageMask').fadeOut('fast');
+      $('#logo').fadeIn('fast');
+      $('#Welcome').fadeIn('fast');
+      $('#signoutLink').fadeIn('fast');
+      $('#opaqueDiv').fadeIn('fast');
+      $('#pack_form')[0].reset();
+    });
+
     //remove form
     $('#btn_cancelAddCat').on('click', function () {
         $('#pageMask').fadeOut('fast');
@@ -893,10 +904,3 @@ $(document).ready(function () {
 
 
 });
-
-
-
-
-
-
-

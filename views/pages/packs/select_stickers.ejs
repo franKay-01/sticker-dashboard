@@ -31,7 +31,7 @@
 <div class="grid-container">
     <!-- Logo -->
     <div class="medium-12 large-12">
-        <a href="/home">
+        <a href="/landing">
             <img src="/public/assets/images/G_logo.png"
                  srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
         </a>
@@ -51,6 +51,7 @@
         <button type="submit" class="waves-effect #e57373 red lighten-2 btn add-sticker-btn"
                 style="position: fixed;border-radius: 10.8px;" disabled><b>ADD STICKER(S)</b></button>
         <input type="text" class="sticker_id" id="stickerIds" name="stickerIds" hidden>
+        <input type="hidden" name="projectId" value="<%= projectItem.id %>">
     </form>
     </span>
     <br>

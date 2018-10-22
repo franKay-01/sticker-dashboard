@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <!-- Latest compiled and minified CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
@@ -26,13 +27,14 @@
 
 <body class="primary-background-color">
 <div id="pageMask"></div>
+
 <div id="productId" style="display: none">
     <div class="medium-3 large-3 cell create_background">
         <div class="edit_labels medium-12 large-12">
             MAKE THIS PACK FREE OR PAID?<br>
-            <span style="font-size: 13px;font-weight: 300;letter-spacing: 2px;">This action can be done carried out once!!</span>
+            <span style="font-size: 18px;font-weight: 700;letter-spacing: 2px;">This action can be done carried out once!!</span>
         </div>
-        <form action="/pack/product/update" method="post" id="pack_form">
+        <form action="/pack/product/update/<%= %>" method="post" id="pack_form">
             <div class="row" style="width: 400px !important;">
                 <select class="input-field validate" name="productId">
                     <option value="" disabled selected>&nbsp;Add Product ID</option>
@@ -47,6 +49,7 @@
                 </select>
             </div>
             <input name="packId" value="<%= pack_details.id %>" hidden>
+            <input type="hidden" name="projectId" value="<%= projectItem.id %>">
 
             <span>
                     <button type="submit" class="create">SUBMIT</button>
@@ -60,7 +63,7 @@
 </div>
 <div class="grid-container">
     <div class="medium-12 large-12">
-        <a href="/home">
+        <a href="/landing">
             <img src="/public/assets/images/G_logo.png"
                  srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
                  id="logo">

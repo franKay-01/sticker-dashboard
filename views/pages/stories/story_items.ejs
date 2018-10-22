@@ -39,7 +39,7 @@
 
     <!-- Logo -->
     <div class="medium-12 large-12" id="logo">
-        <a href="/home">
+        <a href="/landing">
             <img src="/public/assets/images/G_logo.png"
                  srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
         </a>
@@ -55,6 +55,7 @@
             <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
             <form method="post" id="removeForm" action="/storyitem/delete/<%= story_id %>">
 
+                <input name="projectId" type="hidden" value="<%= projectItem.id %>">
                 <input name="storyItem" class="storyItem" hidden>
                 <a href="#" id="cancel_remove" class="edit_labels" style="margin: 200px !important;">
                     NO
@@ -74,6 +75,7 @@
             <form id="type_form" action="/storyitem/change/<%= story_id %>" method="post"
                   enctype="multipart/form-data">
                 <center>
+                    <input name="projectId" type="hidden" value="<%= projectItem.id %>">
                     <input name="storyItemId" class="storyItemId" hidden>
                     <input name="previousContent" class="content" hidden>
                     <input name="storyItemType" class="storyItemType" hidden>
@@ -162,15 +164,9 @@
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
                 <div class="stats">Menu</div>
-                <div><a class="_stickers" href="/home">Home</a></div>
-                <div><a class="_categories" href="/packs">Packs</a></div>
-                <div><a class="_stickers_packs" href="/reviews">Reviews</a></div>
-                <div><a class="_stickers_packs" href="/stories">Stories</a></div>
-                <div><a class="_stickers_packs" href="/categories">Categories</a></div>
-                <div><a class="_stickers_packs" href="/adverts">Adverts</a></div>
-                <div><a class="_stickers_packs" href="/products">Product IDs</a></div>
+                <% include ../../partials/menu.ejs %>
 
-                <div style="margin-top: 23px;"><a class="_stickers_packs" href="/storyitem/<%= story_id %>">Add
+                <div style="margin-top: 23px;"><a class="_stickers_packs" href="/storyitem/<%= story_id %>/<%= projectItem.id %>">Add
                         Story Item</a></div>
             </div>
         </div>
@@ -179,7 +175,7 @@
             <div class="medium-5 large-5 cell">
 
                 <% if (story_item.length === 0) { %>
-                <p class="none" style="margin: 100px 300px auto;"><b>No Story Item</b></p>
+                <p class="none"><b>No Story Item</b></p>
                 <% } else { %>
                 <% let stickerCounter = 0 %>
 
@@ -189,7 +185,7 @@
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required="" aria-required="true"
                           disabled><%= item.get("contents").text %></textarea>
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Text</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Text</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="0" data-name="<%= item.get("contents").text %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -213,7 +209,7 @@
                 <i class="fa fa-quote-left" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i>
                 <b style="color: #a46580; font-size: 20px"><%= item.get("contents").text %></b>
                 <i class="fa fa-quote-right" style="color: #a46580; font-size: 1rem" aria-hidden="true"></i><br>
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Quote</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Quote</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="2" data-name="<%= item.get("contents").text %>"
                    data-id="<%= item.id %>">Change
                     Type</a>
@@ -244,7 +240,7 @@
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required=""
                           aria-required="true" disabled><%= item.get("contents").text %></textarea>
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Italic</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Italic</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="5" data-name="<%= item.get("contents").text %>"
                    data-id="<%= item.id %>">Change
                     Type</a>
@@ -258,7 +254,7 @@
                 <textarea class="box_2 validate" placeholder="Review description"
                           name="review_text" required=""
                           aria-required="true" disabled><%= item.get("contents").text %></textarea>
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Bold</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Bold</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="6" data-name="<%= item.get("contents").text %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -269,7 +265,7 @@
 
                 <% }else if (item.get("type") === 8){ %>
                 <b style="color: #a46580; font-size: 20px"><i><%= item.get("contents").text %></i></b><br><br>
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit ItalicBold</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit ItalicBold</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name="<%= item.get("contents").text %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -283,7 +279,7 @@
                         style="color: #a46580; font-size: 20px"><%= item.get("contents").heading %></b><br>
                 <b style="color: black">Text:</b><b
                         style="color: #a46580; font-size: 20px"><%= item.get("contents").text %></b><br><br>
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Heading</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Heading</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name=""
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -302,7 +298,7 @@
 
                 </ul>
 
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit List</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit List</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name=""
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -315,7 +311,7 @@
                 <textarea class="box_2 validate" placeholder="Side Note"
                           name="review_text" required=""
                           aria-required="true" disabled><%= item.get("contents").text %></textarea>
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Side Note</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Side Note</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name="<%= item.get("contents").text %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -327,7 +323,7 @@
                 <textarea class="box_2 validate" placeholder="Side Note"
                           name="review_text" required=""
                           aria-required="true" disabled><%= JSON.stringify(item.get("contents").text) %></textarea>
-                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Grey Area</a>&nbsp;&nbsp;
+                <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Grey Area</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name="<%= item.get("contents").text %>"
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -368,7 +364,7 @@
 
                 <% } %>
                 <br>
-                <a href="/storyitem/html/edit/<%= item.id %>/<%= story_id %>" class="preview">Edit Html</a>&nbsp;&nbsp;
+                <a href="/storyitem/html/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Html</a>&nbsp;&nbsp;
                 <a href="#" class="preview change" data-content="8" data-name=""
                    data-id="<%= item.id %>">Change Type</a>
                 <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
@@ -381,7 +377,7 @@
                 <% }) %>
                 <% } %>
 
-                <a href="/storyitem/<%= story_id %>" class="preview">Back</a>&nbsp;&nbsp;
+                <a href="/storyitem/<%= story_id %>/<%= projectItem.id %>" class="preview">Back</a>&nbsp;&nbsp;
 
             </div>
         </div>

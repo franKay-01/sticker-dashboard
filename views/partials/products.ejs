@@ -1,7 +1,7 @@
 <!--Display Collections from parse-->
 <%if ( products.length === 0 ){%>
 <div class="medium-3 large-3 cell icons">
-    <p class="none" style="margin: 150px 70px !important;font-weight: 800 !important;width: 100%;">No Product IDs</p>
+    <p class="none" style="font-weight: 800 !important;width: 100%;">No Product IDs</p>
 </div>
 <%}else {%>
 <% products.forEach(function(item, index) { %>
@@ -10,7 +10,7 @@
     <a href="/product/<%= item.id %>">
         <% if (item.get("art_work") === "undefined" || item.get("artwork") === undefined){ %>
         <center>
-            <p class="none" style="margin: 145px 90px auto;"><b>No Artwork</b></p>
+            <p class="none"><b>No Artwork</b></p>
         </center>
         <div class="name_tag"><p class="pack_name_text"><%= item.get("name") %></p></div>
         <% } else {%>

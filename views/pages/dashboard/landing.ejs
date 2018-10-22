@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home - G-Stickers</title>
+
+    <% include ../../partials/fav.ejs %>
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+
+    <style>
+        @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+    </style>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="/public/assets/js/custom.js"></script>
+    <script src="/public/assets/js/tag.js"></script>
+</head>
+
+<body class="primary-background-color">
+<% if (verified === "false") { %>
+<div class="medium-12 large-12">
+    <div class="verifiy_account">
+        <center>
+            Please verify your account. Click the <br> link proved in your email.
+        </center>
+    </div>
+</div>
+<% } %>
+<div class="grid-container">
+    <!-- Logo-->
+    <div class="medium-12 large-12">
+        <a href="/landing">
+            <img src="/public/assets/images/G_logo.png"
+                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
+                 id="logo">
+        </a>
+        <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
+    </div>
+    <!-- End of logo-->
+    <div id="pageMask"></div>
+    <div id="hiddenAddCatForm" style="display: none">
+        <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
+            <div class="edit_labels medium-12 large-12">CREATE NEW CATEGORY</div>
+
+            <form id="pack_form" action="/category" method="post">
+                <center>
+                    <label>Please type the category name and press enter to set it</label>
+
+                    <div class="chips _pack common_pack_detail"></div>
+
+                    <input type="text" name="category_name[]" id="category_names" required hidden>
+                    <br>
+                    <input type="text" class="_pack common_pack_detail" style="margin-bottom: 25px" name="emoji"
+                           placeholder="Please Add an EMOJI 😀">
+
+                </center>
+                <span>
+        <button type="submit" id="categoryBtn" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btn_cancelAddCat" class="cancel">Cancel</button>
+         </span>
+            </form>
+        </div>
+    </div>
+    <div id="hiddenCreateForm">
+        <div class="medium-3 large-3 cell create_background">
+            <form id="pack_form" action="/project" method="post">
+                <center>
+                    <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW PROJECT
+                    </div>
+
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Project name"
+                           name="projectName" required="" aria-required="true"><br>
+
+                </center>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCancel" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+
+    <div id="hiddenAddProductForm">
+        <div class="medium-3 large-3 cell create_background">
+            <form id="pack_form" action="/product" method="post">
+                <center>
+                    <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW PRODUCT
+                    </div>
+
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Product Name"
+                           name="product_name" required="" aria-required="true"><br>
+                    <textarea class="_pack common_pack_detail validate" placeholder="Product Description"
+                              name="product_description" required="" aria-required="true"></textarea><br>
+                </center>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCancelProduct" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+
+    <div id="hiddenAddAuthors">
+        <div class="medium-3 large-3 cell create_background">
+            <form id="pack_form" action="/author" method="post">
+                <center>
+                    <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW AUTHOR
+                    </div>
+
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Author's Name"
+                           name="authorName" required="" aria-required="true"><br>
+                    <input type="email" class="_pack common_pack_detail validate" placeholder="Email"
+                           name="authorEmail" required="" aria-required="true"><br>
+                    <input type="number" class="_pack common_pack_detail validate" placeholder="Number"
+                           name="authorNumber" required="" aria-required="true"><br>
+                    <center>
+                        <div id="lists" style="margin: 0px 130px;">
+                            <p>
+                                <input class="_pack common_pack_detail validate" placeholder="Add Social Media Handle" type="text"
+                                       id="list" required="" name="authorSocial[]">
+                                <a href="#" id="addList"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                            </p>
+                        </div>
+                    </center>
+                </center>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCancelAuthor" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+    <%if (error_message !== "null") {%>
+    <div class="medium-12 large-12 error_card" id="error_card" style="display: block">
+        <div style="text-align: center;font-size: 20px;">
+            <%= error_message %>
+        </div>
+    </div>
+    <%}%>
+    <span class="medium-12 large-12 welcome_post" id="Welcome"><b>Welcome <a href="/account/user/profile"
+                                                                             style="font-size: 45px;color: #af627f;"> <%= user_name %> </a></b></span>
+    <div class="grid-x grid-margin-x" id="opaqueDiv">
+        <!-- Card to display Stats of the database-->
+        <div class="medium-3 large-3 cell login_card">
+            <div class="card_head_position">
+                <div class="stats">Dashboard</div>
+                <div class="_stickers"><%= projectLength %> Projects</div>
+            </div>
+        </div>
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">Create New</div>
+
+            <button class="create_button" id="showCreateForm">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Project</p>
+            </button>
+
+            <button id="btnAddAuthors" class="create_button">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Authors</p>
+            </button>
+
+            <button id="btnAddProduct" class="create_button" style="background-color: #2dbd77 !important;">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Product ID</p>
+            </button>
+            <button id="btnAddCategory" class="create_button">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Category</p>
+            </button>
+
+        </div>
+
+        <%- include('../../partials/landing') %>
+
+        <div class="medium-12 large-12 cell">
+            <%- include('../../partials/footer') %>
+        </div>
+    </div>
+</div>
+
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>-->
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js">
+</script>
+<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+
+</body>
+</html>

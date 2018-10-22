@@ -68,7 +68,7 @@
 <div class="grid-container">
     <!-- Logo -->
     <div class="medium-12 large-12">
-        <a href="/home">
+        <a href="/landing">
             <img src="/public/assets/images/G_logo.png"
                  srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
                  id="logo">
@@ -87,6 +87,7 @@
             </center>
             <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
                     <i class="fa fa-text-width" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
@@ -112,6 +113,7 @@
             </center>
             <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
                     <i class="fa fa-quote-left" style="color: white; font-size: 3rem" aria-hidden="true"></i>&nbsp;&nbsp;
                     <i class="fa fa-quote-right" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
@@ -137,6 +139,8 @@
             </center>
             <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <i class="fa fa-italic" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
@@ -164,6 +168,8 @@
             </center>
             <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <i class="fa fa-bold" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
@@ -192,6 +198,8 @@
             </center>
             <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <i class="fa fa-list" style="color: white; font-size: 5rem" aria-hidden="true"></i>
                     <br><br>
                     <input class="_pack common_pack_detail validate" placeholder="Add Heading" type="text" required="" name="heading">
@@ -221,6 +229,8 @@
             </center>
             <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <i class="fa fa-list" style="color: white; font-size: 5rem" aria-hidden="true"></i>
                     <br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
@@ -250,6 +260,8 @@
             </center>
             <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <i class="fa fa-sticky-note-o" style="color: white; font-size: 3rem" aria-hidden="true"></i>
 
                     <br><br>
@@ -280,6 +292,8 @@
             </center>
             <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <i class="fa fa-bold" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <i class="fa fa-italic" style="color: white; font-size: 3rem" aria-hidden="true"></i>
                     <br><br>
@@ -308,6 +322,8 @@
             </center>
             <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <i class="fa fa-list" style="color: white; font-size: 5rem" aria-hidden="true"></i>
                     <br><br>
                     <div id="lists" style="margin: 50px 130px;">
@@ -339,6 +355,8 @@
             </center>
             <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <img class="review_tab" src="/public/assets/images/divider.png">
                 </center>
                 <input name="content" value=" " hidden>
@@ -364,6 +382,8 @@
             <form id="pack_form" action="/storyItem/image/<%= story_id %>" method="post"
                   enctype="multipart/form-data">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <div class="file-field input-field">
                         <div class="btn">
                             <span><i class="fa fa-file-o"></i></span>
@@ -394,6 +414,8 @@
             </center>
             <form id="pack_form" action="/storyitem/sticker/<%= story_id %>" method="post">
                 <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <i class="fa fa-picture-o" style="color: white; font-size: 7rem;margin-bottom: 20px"
                        aria-hidden="true"></i>
 
@@ -418,16 +440,9 @@
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
                 <div class="stats">Menu</div>
-                <div><a class="_stickers" href="/home">Home</a></div>
-                <div><a class="_categories" href="/packs">Packs</a></div>
-                <div><a class="_stickers_packs" href="/reviews">Reviews</a></div>
-                <div><a class="_stickers_packs" href="/stories">Stories</a></div>
-                <div><a class="_stickers_packs" href="/categories">Categories</a></div>
-                <div><a class="_stickers_packs" href="/adverts">Adverts</a></div>
-                <div><a class="_stickers_packs" href="/products">Product IDs</a></div>
+                <% include ../../partials/menu.ejs %>
 
-
-                <div style="margin-top: 25px;"><a class="_stickers_packs" href="/storyedit/<%= story_id %>">Back</a></div>
+                <div style="margin-top: 25px;"><a class="_stickers_packs" href="/storyedit/<%= story_id %>/<%= projectItem.id %>">Back</a></div>
 
             </div>
         </div>
@@ -435,7 +450,7 @@
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">Story Items</div>
 
-            <a href="/storyitem/view/<%= story_id %>">
+            <a href="/storyitem/view/<%= story_id %>/<%= projectItem.id %>">
                 <button class="create_button">
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Show All
                     </p>
@@ -505,7 +520,7 @@
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Grey Area</p>
             </button>
 
-            <a href="/storyItem/html/new/<%= story_id  %>">
+            <a href="/storyItem/html/new/<%= story_id  %>/<%= projectItem.id %>">
                 <button class="create_button" style="background-color: #0f9d58">
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;HTML
                     </p>

@@ -762,6 +762,7 @@ label {
 }
 
 .none{
+    width: 140px;;
     height: 24px;
     font-size: 20px;
     font-weight: 500;
@@ -771,6 +772,7 @@ label {
     letter-spacing: -1.2px;
     text-align: left;
     color: #c5c5c5;
+    margin: 150px 100px;
 }
 
 .review_tab_bottom{
@@ -1468,7 +1470,7 @@ a {
     text-align: left;
     color: white !important;
     font-size: 1.5rem !important;
-    background: transparent;
+    background: transparent !important;
     border-bottom: 3px white solid !important;
 }
 
@@ -1493,11 +1495,12 @@ a {
 }
 
 .common_pack_detail {
-    border-top: 0;
-    border-right: 0;
-    border-left: 0;
+    border-top: none;
+    border-right: none;
+    border-left: none;
     border-color: black;
     border-width: 6px;
+    color: white !important;
     background-color: transparent !important;
 }
 
@@ -2178,6 +2181,14 @@ tr #titles {
     margin: 0px 300px auto;
     z-index: 9999;
     top: 155px;
+}
+
+#hiddenProjectForm{
+  display: none;
+  position: absolute;
+  margin: 0px 300px auto;
+  z-index: 9999;
+  top: 155px;
 }
 
 #hiddenAddProductForm {

@@ -17,8 +17,7 @@
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
-    <link rel="stylesheet" type="text/css"
-          href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css">
     <link href="/public/assets/css/evol-colorpicker.min.css" rel="stylesheet" type="text/css">
 
     <!--parse js-->
@@ -72,7 +71,7 @@
 <div class="grid-container">
     <!-- Logo -->
     <div class="medium-12 large-12" id="logo">
-        <a href="/home">
+        <a href="/landing">
             <img src="/public/assets/images/G_logo.png"
                  srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
         </a>
@@ -87,15 +86,9 @@
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
                 <div class="stats">Menu</div>
-                <div><a class="_stickers" href="/home">Home</a></div>
-                <div><a class="_categories" href="/packs">Packs</a></div>
-                <div><a class="_stickers_packs" href="/reviews">Reviews</a></div>
-                <div><a class="_stickers_packs" href="/stories">Stories</a></div>
-                <div><a class="_stickers_packs" href="/categories">Categories</a></div>
-                <div><a class="_stickers_packs" href="/adverts">Adverts</a></div>
-                <div><a class="_stickers_packs" href="/products">Product IDs</a></div>
+                <% include ../../partials/menu.ejs %>
 
-                <div style="margin-top: 25px;"><a class="_stickers_packs" href="/storyedit/<%= story.id %>">Back</a>
+                <div style="margin-top: 25px;"><a class="_stickers_packs" href="/storyedit/<%= story.id %>/<%= projectItem.id %>">Back</a>
                 </div>
             </div>
         </div>
@@ -103,6 +96,7 @@
               method="post">
             <input type="text" name="top" id="top" value="<%= colors.topColor %>" hidden/>
             <input type="text" name="bottom" id="bottom" value="<%= colors.bottomColor %>" hidden/>
+            <input type="hidden" name="projectId" value="<%= projectItem.id %>">
 
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
             <div class="create_new">First Color</div>

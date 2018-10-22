@@ -3,6 +3,7 @@ let type = require('../cloud/modules/type');
 let _class = require('../cloud/modules/classNames');
 let util = require('../cloud/modules/util');
 let multer = require('multer');
+let fs = require('fs');
 
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
@@ -25,6 +26,253 @@ let upload = multer({storage: storage});
 
 module.exports = function(app) {
 
+    app.get('/landing', function (req, res) {
+        let token = req.cookies.token;
+
+        if (token){
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                return new Parse.Query(_class.Projects).equalTo("userId", _user.id).find();
+
+            }).then(function (projects) {
+
+                res.render("pages/dashboard/landing", {
+                    projects: projects,
+                    user_name: _user.get("name"),
+                    verified: _user.get("emailVerified"),
+                    error_message: "null",
+                    projectLength: helper.leadingZero(projects.length)
+                })
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/');
+            })
+
+        }else {
+            res.redirect('/');
+        }
+    });
+
+    app.get('/home/:projectId', function (req, res) {
+
+        let token = req.cookies.token;
+        let projectId = req.params.projectId;
+
+        if (token) {
+
+            let _user = {};
+
+            let _allPacks = [];
+            let _story = [];
+            let _collection = [];
+            let _allAds = [];
+            let _categories = [];
+            let _messages = [];
+            let _allProducts = [];
+            let _allProjects = [];
+            let stickerId;
+            let _latestSticker = "";
+            let _projectItem = "";
+            let _storyBody;
+            let _stickerName;
+            let _categoryLength = 0;
+            let _packLength = 0;
+            let _stickerLength = 0;
+            let _storyLength = 0;
+            let _projectLength = 0;
+            let projectArray = [];
+            const limit = 5;
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+                projectArray.push(projectId);
+                if (_user.get("type") === MK_TEAM) {
+                    res.redirect('/barcodes');
+                }
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Latest).equalTo("projectId", projectId).equalTo("userId", _user.id).equalTo("type", type.FEED_TYPE.sticker).first(),
+                    new Parse.Query(_class.Latest).equalTo("projectId", projectId).equalTo("userId", _user.id).equalTo("type", type.FEED_TYPE.story).first(),
+                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectIds", projectArray).descending("createdAt").limit(limit).find(),
+                    new Parse.Query(_class.Categories).limit(limit).find(),
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).descending("createdAt").limit(limit).find(),
+                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find(),
+                    new Parse.Query(_class.Categories).count(),
+                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectIds", projectArray).count(),
+                    new Parse.Query(_class.Stickers).equalTo("userId", _user.id).count(),
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).count(),
+                    new Parse.Query(_class.Adverts).equalTo("userId", _user.id).containedIn("projectIds", projectArray).limit(limit).find(),
+                    new Parse.Query(_class.Message).limit(limit).find(),
+                    new Parse.Query(_class.Product).limit(limit).find(),
+                    new Parse.Query(_class.Projects).limit(limit).find(),
+                    new Parse.Query(_class.Projects).equalTo("userId", _user.id).count(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+
+                );
+
+            }).then(function (sticker, latestStory, collection, categories, story, allPacks, categoryLength, packLength,
+                              stickerLength, storyLength, allAdverts, allMessages, products, projects, projectLength, projectItem) {
+
+                _categories = categories;
+                _collection = collection;
+                _story = story;
+                _messages = allMessages;
+                _allPacks = allPacks;
+                _allAds = allAdverts;
+                _allProducts = products;
+                _allProjects = projects;
+                _projectItem = projectItem;
+                _categoryLength = helper.leadingZero(categoryLength);
+                _packLength = helper.leadingZero(packLength);
+                _stickerLength = helper.leadingZero(stickerLength);
+                _storyLength = helper.leadingZero(storyLength);
+                _projectLength = helper.leadingZero(projectLength);
+
+                if (latestStory && sticker){
+                    return Parse.Promise.when(
+                        new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first(),
+                        new Parse.Query(_class.ArtWork).equalTo("itemId", latestStory.get("feedId")).first(),
+                        new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first()
+                    );
+                }else if (latestStory && sticker === undefined){
+                    return Parse.Promise.when(
+                        undefined,
+                        new Parse.Query(_class.ArtWork).equalTo("itemId", latestStory.get("feedId")).first(),
+                        new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first()
+                    );
+                }else if (sticker && latestStory === undefined){
+                    return Parse.Promise.when(
+                        new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first(),
+                        undefined,
+                        undefined
+                    );
+                }else {
+                    return Parse.Promise.when(
+                        undefined,
+                        undefined,
+                        undefined
+                    );
+                }
+
+
+            }).then(function (latestSticker, storyImage, storyBody) {
+
+                if (latestSticker !== undefined){
+                    _latestSticker = latestSticker.get("uri");
+                    _latestSticker['stickerName'] = latestSticker.get("name");
+                    _latestSticker['description'] = latestSticker.get("description");
+                }
+
+                if (storyBody !== undefined) {
+
+                    _storyBody = storyBody;
+
+                } else {
+
+                    _storyBody = "";
+
+                }
+
+                if (storyImage !== undefined) {
+                    stickerId = storyImage.get("stickerId");
+
+                    return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first();
+
+                } else {
+                    stickerId = "";
+
+                    return stickerId;
+
+                }
+
+            }).then(function (sticker) {
+
+                if (_user.get("type") === NORMAL_USER) {
+
+                    res.render("pages/dashboard/home", {
+                        collections: _collection,
+                        allPacks: _allPacks,
+                        allProducts: _allProducts,
+                        story: _story,
+                        categoryLength: _categoryLength,
+                        packLength: _packLength,
+                        stickerLength: _stickerLength,
+                        storyLength: _storyLength,
+                        name: _user.get("name"),
+                        verified: _user.get("emailVerified"),
+                        error_message: "null"
+
+                    });
+
+                } else if (_user.get("type") === SUPER_USER) {
+
+                    res.render("pages/dashboard/admin_home", {
+                        collections: _collection,
+                        categories: _categories,
+                        allAdverts: _allAds,
+                        allProducts: _allProducts,
+                        allPacks: _allPacks,
+                        allProjects: _allProjects,
+                        projectItem: _projectItem,
+                        story: _story,
+                        latestSticker: _latestSticker,
+                        latestStory: sticker,
+                        storyBody: _storyBody,
+                        stickerName: _stickerName,
+                        messages: _messages,
+                        categoryLength: _categoryLength,
+                        packLength: _packLength,
+                        stickerLength: _stickerLength,
+                        storyLength: _storyLength,
+                        projectLength: _projectLength,
+                        projectId: projectId,
+                        user_name: _user.get("name"),
+                        verified: _user.get("emailVerified"),
+                        error_message: "null",
+                        type: type
+
+                    });
+
+                }
+
+            }, function (error) {
+
+                console.log("ERROR ON HOME " + error.message);
+
+                res.render("pages/dashboard/admin_home", {
+                    collections: _collection,
+                    categories: _categories,
+                    allAdverts: _allAds,
+                    allProducts: _allProducts,
+                    allPacks: _allPacks,
+                    story: _story,
+                    latestSticker: _latestSticker,
+                    latestStory: "",
+                    storyBody: _storyBody,
+                    stickerName: _stickerName,
+                    messages: _messages,
+                    categoryLength: _categoryLength,
+                    packLength: _packLength,
+                    stickerLength: _stickerLength,
+                    storyLength: _storyLength,
+                    user_name: _user.get("name"),
+                    verified: _user.get("emailVerified"),
+                    error_message: "null"
+                });
+            });
+
+
+        } else {
+            console.log("BACK TO LOGIN ");
+            res.redirect("/");
+        }
+    });
+
     app.get('/home', function (req, res) {
 
         let token = req.cookies.token;
@@ -40,6 +288,7 @@ module.exports = function(app) {
             let _categories = [];
             let _messages = [];
             let _allProducts = [];
+            let _allProjects = [];
             let stickerId;
             let _latestSticker = "";
             let _latestStory = "";
@@ -49,6 +298,7 @@ module.exports = function(app) {
             let _packLength = 0;
             let _stickerLength = 0;
             let _storyLength = 0;
+            let _projectLength = 0;
             const limit = 5;
 
             util.getUser(token).then(function (sessionToken) {
@@ -72,11 +322,14 @@ module.exports = function(app) {
                     new Parse.Query(_class.Stories).equalTo("userId", _user.id).count(),
                     new Parse.Query(_class.Adverts).equalTo("userId", _user.id).limit(limit).find(),
                     new Parse.Query(_class.Message).limit(limit).find(),
-                    new Parse.Query(_class.Product).limit(limit).find()
+                    new Parse.Query(_class.Product).limit(limit).find(),
+                    new Parse.Query(_class.Projects).limit(limit).find(),
+                    new Parse.Query(_class.Projects).equalTo("userId", _user.id).count(),
+
                 );
 
             }).then(function (sticker, latestStory, collection, categories, story, allPacks, categoryLength, packLength,
-                              stickerLength, storyLength, allAdverts, allMessages, products) {
+                              stickerLength, storyLength, allAdverts, allMessages, products, projects, projectLength) {
 
                 _categories = categories;
                 _collection = collection;
@@ -85,10 +338,12 @@ module.exports = function(app) {
                 _allPacks = allPacks;
                 _allAds = allAdverts;
                 _allProducts = products;
+                _allProjects = projects;
                 _categoryLength = helper.leadingZero(categoryLength);
                 _packLength = helper.leadingZero(packLength);
                 _stickerLength = helper.leadingZero(stickerLength);
                 _storyLength = helper.leadingZero(storyLength);
+                _projectLength = helper.leadingZero(projectLength);
 
                 return Parse.Promise.when(
                     new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first(),
@@ -153,6 +408,7 @@ module.exports = function(app) {
                         allAdverts: _allAds,
                         allProducts: _allProducts,
                         allPacks: _allPacks,
+                        allProjects: _allProjects,
                         story: _story,
                         latestSticker: _latestSticker,
                         latestStory: sticker,
@@ -163,6 +419,7 @@ module.exports = function(app) {
                         packLength: _packLength,
                         stickerLength: _stickerLength,
                         storyLength: _storyLength,
+                        projectLength: _projectLength,
                         user_name: _user.get("name"),
                         verified: _user.get("emailVerified"),
                         error_message: "null",

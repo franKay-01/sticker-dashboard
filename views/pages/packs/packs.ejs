@@ -32,7 +32,7 @@
 <div class="grid-container">
     <!-- Logo -->
     <div class="medium-12 large-12">
-        <a href="/home">
+        <a href="/landing">
             <img src="/public/assets/images/G_logo.png"
                  srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
                  id="logo">
@@ -58,6 +58,8 @@
                     <input type="number" class="_pack common_pack_detail validate" placeholder="Pack Version"
                            name="version" required="" aria-required="true"><br>
 
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="packType" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Add Pack Type</option>
@@ -66,8 +68,19 @@
                             <option value="2">CURATED</option>
                         </select>
                     </div>
-                    <br>
+                    <!--<div class="row" style="width: 450px !important;">-->
+                        <!--<select class="input-field validate" name="projectId" required="" aria-required="true">-->
+                            <!--<option value="" disabled selected>&nbsp;Add this story to a PROJECT</option>-->
+                            <!--<%# if (projects.length === 0) { %>-->
 
+                            <!--<%# } else { %>-->
+                            <!--<%# projects.forEach(function(items) { %>-->
+                            <!--<option value="<%#= items.id %>"><%#= items.get("name") %></option>-->
+                            <!--<%# }) %>-->
+                            <!--<%# } %>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                    <br>
                 </center>
                 <span>
         <button type="submit" class="create">CREATE</button>
@@ -80,19 +93,13 @@
         </div>
     </div>
     <!-- End of form-->
-    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>All Packs</b></span>
+    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>All Packs - <%= projectItem.get("name") %> Project</b></span>
 
     <div class="grid-x grid-margin-x" id="opaqueDiv">
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
                 <div class="stats">Menu</div>
-                <div><a class="_stickers" href="/home">Home</a></div>
-                <div><a class="_categories" href="/packs">Packs</a></div>
-                <div><a class="_stickers_packs" href="/reviews">Reviews</a></div>
-                <div><a class="_stickers_packs" href="/stories">Stories</a></div>
-                <div><a class="_stickers_packs" href="/categories">Categories</a></div>
-                <div><a class="_stickers_packs" href="/adverts">Adverts</a></div>
-                <div><a class="_stickers_packs" href="/products">Product IDs</a></div>
+                <% include ../../partials/menu.ejs %>
 
             </div>
         </div>
@@ -100,7 +107,7 @@
             <div class="create_new">Create New</div>
 
             <button class="create_button">
-                <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;Pack</p>
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Pack</p>
             </button>
         </div>
 

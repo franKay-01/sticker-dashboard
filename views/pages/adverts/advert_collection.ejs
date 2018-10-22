@@ -32,7 +32,7 @@
 <div class="grid-container">
     <!-- Logo -->
     <div class="medium-12 large-12">
-        <a href="/home">
+        <a href="/landing">
             <img src="/public/assets/images/G_logo.png"
                  srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
                  id="logo">
@@ -54,6 +54,7 @@
                            name="title" required="" aria-required="true"><br>
                     <input class="_pack common_pack_detail validate" placeholder="Description"
                            name="description" required="" aria-required="true">
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
                     <br>
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="action" required="" aria-required="true">
@@ -90,13 +91,7 @@
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
                 <div class="stats">Menu</div>
-                <div><a class="_stickers" href="/home">Home</a></div>
-                <div><a class="_categories" href="/packs">Packs</a></div>
-                <div><a class="_stickers_packs" href="/reviews">Reviews</a></div>
-                <div><a class="_stickers_packs" href="/stories">Stories</a></div>
-                <div><a class="_stickers_packs" href="/categories">Categories</a></div>
-                <div><a class="_stickers_packs" href="/adverts">Adverts</a></div>
-                <div><a class="_stickers_packs" href="/products">Product IDs</a></div>
+                <% include ../../partials/menu.ejs %>
 
             </div>
         </div>

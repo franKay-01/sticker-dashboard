@@ -25,7 +25,7 @@
 <div class="grid-container">
     <!-- Logo -->
     <div class="medium-12 large-12">
-        <a href="/home">
+        <a href="/landing">
             <img src="/public/assets/images/G_logo.png"
                  srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
         </a>
@@ -38,6 +38,7 @@
     <form action="/feeds/story/home" method="post">
         <button type="submit" class="waves-effect #e57373 red lighten-2 btn add-story-btn" style="position: fixed" disabled>ADD STORY</button>
         <input type="hidden" class="story_id" name="element_id">
+        <input type="hidden" name="projectId" value="<%= projectId %>">
     </form>
     </span>
 

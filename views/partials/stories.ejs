@@ -13,7 +13,7 @@
                 <i class="fa fa-circle display_icons" id="circle" style="color: grey;" aria-hidden="true"></i>
             <% } %>
             <% } %>
-            <a href="/storyedit/<%= item.id %>">
+            <a href="/storyedit/<%= item.id %>/<%= projectItem.id %>">
 
                 <center>
                     <img class="btn_pack_icon" src="<%= art.image %>" style="height: 200px;width: 250px;">
@@ -22,7 +22,7 @@
                 <div class="story_summary truncate_summary"> <%= item.get("summary") %></div>
             </a>
 
-            <a href="/storyitem/<%= item.id %>">
+            <a href="/storyitem/<%= item.id %>/<%= projectItem.id %>">
                 <button class="create_button review_tab_bottom add_catalogue"
                         style="background: transparent !important;">
                     <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Story Item</p>

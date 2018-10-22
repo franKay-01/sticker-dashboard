@@ -71,6 +71,7 @@
                 </select>
             </div>
             <input name="packId" value="<%= id %>" hidden>
+            <input type="hidden" name="projectId" value="<%= projectItem.id %>">
 
                 <span>
                     <button type="submit" class="create">SUBMIT</button>
@@ -109,7 +110,7 @@
 <div class="grid-container">
     <!-- Logo -->
     <div class="medium-12 large-12" id="logo">
-        <a href="/home">
+        <a href="/landing">
             <img src="/public/assets/images/G_logo.png"
                  srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
         </a>
@@ -127,13 +128,7 @@
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
                 <div class="stats">Menu</div>
-                <div><a class="_stickers" href="/home">Home</a></div>
-                <div><a class="_categories" href="/packs">Packs</a></div>
-                <div><a class="_stickers_packs" href="/reviews">Reviews</a></div>
-                <div><a class="_stickers_packs" href="/stories">Stories</a></div>
-                <div><a class="_stickers_packs" href="/categories">Categories</a></div>
-                <div><a class="_stickers_packs" href="/adverts">Adverts</a></div>
-                <div><a class="_stickers_packs" href="/products">Product IDs</a></div>
+                <% include ../../partials/menu.ejs %>
 
                 <div style="margin-top: 25px">
                     <p class="_stickers_packs">Sticker# - <%= stickers.length %> </p><br>
@@ -148,19 +143,37 @@
         <div class="medium-3 large-3 cell icons">
             <% if (art === "undefined" || art === undefined){ %>
             <center>
-                <p class="none" style="margin: 145px 90px auto;"><b>No Artwork</b></p>
+                <p class="none"><b>No Artwork</b></p>
             </center>
 
             <% }else { %>
             <img class="pack_artwork" src="<%= art.url() %>">
             <% } %>
-            <a href="/pack/edit/<%= id %>">
+            <a href="/pack/edit/<%= id %>/<%= projectItem.id %>">
                 <button class="create_button pack_edit_button">
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;EDIT PACK</p>
                 </button>
             </a>
         </div>
         <!-- End of card-->
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">Project(s)</div>
+            <% if (currentProjects.length === 0) { %>
+
+            <p class="none">None</p>
+
+            <%} else {%>
+            <% currentProjects.forEach(function(item, index) { %>
+
+                <p class="options" style="color: #a46580 !important;">
+                    <%= item.get("name") %> Project
+                </p>
+
+            <%})%>
+            <%}%>
+        </div>
+
 
         <% if (pack_type === type.PACK_TYPE.curated) { %>
 
@@ -178,7 +191,7 @@
             </a>
 
             <% } else { %>
-            <a href="/pack/stickers/<%= id %>/<%= productId %>">
+            <a href="/pack/stickers/<%= id %>/<%= productId %>/<%= projectItem.id %>">
                 <button class="create_button">
                     <p class="title button_font" style="color: white !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i>
                         &nbsp;FROM PACKS
