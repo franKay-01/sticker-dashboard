@@ -73,6 +73,11 @@ $(document).ready(function () {
             setting.style.display = "block";
         });
 
+        $('#closeList').on('click', function () {
+            let setting = document.getElementById('showSetting');
+            setting.style.display = "none";
+        });
+
         $('.text_element').on('click', function () {
             $('#hiddenTextCatalouge').fadeIn('fast');
             $('#pageMask').fadeIn('fast');

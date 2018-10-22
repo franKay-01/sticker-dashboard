@@ -37,6 +37,10 @@ module.exports = function (app) {
                 project.set("name", name);
                 project.set("userId", _user.id);
                 project.set("version", 1);
+                project.set("title", "#a46580");
+                project.set("text", "#1f497d");
+                project.set("button", "#c0504d");
+                project.set("card", {"topColor": "#4bacc6", "bottomColor": "#eeece1"});
 
                 return project.save();
 
@@ -113,7 +117,13 @@ module.exports = function (app) {
         let files = req.files;
         let id = req.params.id;
         let projectName = req.body.projectName;
+        let projectTitle = req.body.title;
+        let projectText = req.body.text;
+        let projectButton = req.body.button;
+        let projectTopColor = req.body.topColor;
+        let projectBottomColor = req.body.bottomColor;
         let projectVersion = parseInt(req.body.projectVersion);
+        let projectColor = {"topColor": projectTopColor, "bottomColor": projectBottomColor};
         let fileDetails = [];
 
         if (token) {
@@ -126,6 +136,10 @@ module.exports = function (app) {
 
                 project.set("name", projectName);
                 project.set("version", projectVersion);
+                project.set("title", projectTitle);
+                project.set("text", projectText);
+                project.set("button", projectButton);
+                project.set("card", projectColor);
 
                 if (files !== undefined || files !== "undefined") {
                     files.forEach(function (file) {
