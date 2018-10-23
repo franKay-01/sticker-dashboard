@@ -38,16 +38,18 @@ module.exports = function (app) {
 
                 return Parse.Promise.when(
                     new Parse.Query(_class.Projects).equalTo("userId", _user.id).find(),
-                    new Parse.Query(_class.Product).limit(limit).find()
+                    new Parse.Query(_class.Product).limit(limit).find(),
+                    new Parse.Query(_class.Categories).limit(limit).find()
                 )
 
-            }).then(function (projects, products) {
+            }).then(function (projects, products, categories) {
 
                 res.render("pages/dashboard/landing", {
                     projects: projects,
                     user_name: _user.get("name"),
                     verified: _user.get("emailVerified"),
                     allProducts: products,
+                    categories: categories,
                     error_message: "null",
                     projectLength: helper.leadingZero(projects.length)
                 })
@@ -104,7 +106,6 @@ module.exports = function (app) {
                     new Parse.Query(_class.Latest).equalTo("projectId", projectId).equalTo("userId", _user.id).equalTo("type", type.FEED_TYPE.sticker).first(),
                     new Parse.Query(_class.Latest).equalTo("projectId", projectId).equalTo("userId", _user.id).equalTo("type", type.FEED_TYPE.story).first(),
                     new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectIds", projectArray).descending("createdAt").limit(limit).find(),
-                    new Parse.Query(_class.Categories).limit(limit).find(),
                     new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).descending("createdAt").limit(limit).find(),
                     new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find(),
                     new Parse.Query(_class.Categories).count(),
@@ -118,16 +119,14 @@ module.exports = function (app) {
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 );
 
-            }).then(function (sticker, latestStory, collection, categories, story, allPacks, categoryLength, packLength,
+            }).then(function (sticker, latestStory, collection, story, allPacks, categoryLength, packLength,
                               stickerLength, storyLength, allAdverts, allMessages, projects, projectLength, projectItem) {
 
-                _categories = categories;
                 _collection = collection;
                 _story = story;
                 _messages = allMessages;
                 _allPacks = allPacks;
                 _allAds = allAdverts;
-                _allProducts = products;
                 _allProjects = projects;
                 _projectItem = projectItem;
                 _categoryLength = helper.leadingZero(categoryLength);
@@ -161,7 +160,6 @@ module.exports = function (app) {
                         undefined
                     );
                 }
-
 
             }).then(function (latestSticker, storyImage, storyBody) {
 
@@ -215,7 +213,6 @@ module.exports = function (app) {
 
                     res.render("pages/dashboard/admin_home", {
                         collections: _collection,
-                        categories: _categories,
                         allAdverts: _allAds,
                         allPacks: _allPacks,
                         allProjects: _allProjects,
