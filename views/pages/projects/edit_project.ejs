@@ -27,8 +27,18 @@
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
     <script>
-
+        let title;
+        let text;
+        let button;
+        let topCard;
+        let bottomCard;
         $(document).ready(function () {
+
+            title = document.getElementById("titleColor");
+            text = document.getElementById("text");
+            button = document.getElementById("button");
+            topCard = document.getElementById("topCard");
+            bottomCard = document.getElementById("bottomCard");
 
             $(function () {
                 $("#title_color").colorpicker();
@@ -38,24 +48,28 @@
                 $("#bottomcard_color").colorpicker();
 
                 $("#title_color").on("change", function() {
-                    document.getElementById("titleColor").value = $(this).val();
+                    title = $(this).val();
+                    $("#title").val(title)
                 });
 
                 $("#text_color").on("change", function() {
-                    document.getElementById("textColor").value = $(this).val();
+                    text = $(this).val();
+                    $("#text").val(text)
                 });
 
                 $("#button_color").on("change", function() {
-                    document.getElementById("buttonColor").value = $(this).val();
+                    button = $(this).val();
                     $("#button").val(button)
                 });
 
                 $("#topcard_color").on("change", function() {
-                    document.getElementById("topColor").value = $(this).val();
+                    topCard = $(this).val();
+                    $("#topCard").val(topCard)
                 });
 
                 $("#bottomcard_color").on("change", function() {
-                    document.getElementById("bottomColor").value = $(this).val();
+                    bottomCard = $(this).val();
+                    $("#bottomCard").val(bottomCard)
                 });
             })
         });
