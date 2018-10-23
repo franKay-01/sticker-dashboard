@@ -33,7 +33,7 @@
     <style>
         <!--<%# include ../../partials/modified_css.ejs %>-->
         .create_new {
-            color: <%= projectItem.get("setting").title%> !important;
+            color: <%= projectItem.get("setting").title %> !important;
         }
 
         .home_pack_description{
@@ -283,7 +283,7 @@
         <div class="medium-3 large-3 cell login_card">
             <div class="card_head_position">
                 <div class="stats">Stats</div>
-                <div class="_stickers"><%= stickerLength %> Stickers</div>
+                <div class="_stickers" style="color: <%= projectItem.get("setting").title %> !important;"><%= stickerLength %> Stickers</div>
                 <div class="_stickers_packs"><%= packLength %> Packs</div>
                 <div class="_categories"><%= categoryLength %> Categories</div>
                 <div class="_categories"><%= projectLength %> Projects</div>
