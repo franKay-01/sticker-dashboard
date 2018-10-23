@@ -46,6 +46,11 @@
         .create_button{
             background-color: <%= projectItem.get("button")%> !important;
         }
+
+        .login_card{
+            background-image: linear-gradient(to bottom, <%= projectItem.get("card").topColor%>,  <%= projectItem.get("card").bottomColor%>) !important;
+
+        }
     </style>
     <% } %>
 
