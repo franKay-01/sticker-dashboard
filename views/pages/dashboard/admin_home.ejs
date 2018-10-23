@@ -29,9 +29,29 @@
     <script src="/public/assets/js/custom.js"></script>
     <script src="/public/assets/js/tag.js"></script>
 
-    <% if (projectItem.get("name") === type.PROJECT_TYPE.loveTok){ %>
+    <% if (projectItem.get("name") !== type.PROJECT_TYPE.cyfa){ %>
     <style>
-        <% include ../../partials/modified_css.ejs %>
+        <!--<%# include ../../partials/modified_css.ejs %>-->
+        .create_new {
+            color: <%= projectItem.get("setting").title%> !important;
+        }
+
+        .home_pack_description{
+            color: <%= projectItem.get("setting").text%> !important;
+        }
+
+        .home_pack_description:hover {
+            color: <%= projectItem.get("setting").text%> !important;
+        }
+
+        .create_button{
+            background-color: <%= projectItem.get("setting").button%> !important;
+        }
+
+        .login_card{
+            background-image: linear-gradient(to bottom, <%= projectItem.get("setting").cardTopColor %>,  <%= projectItem.get("setting").cardBottomColor %>) !important;
+
+        }
     </style>
     <% } %>
 
