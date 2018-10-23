@@ -28,6 +28,7 @@ module.exports = function (app) {
 
     app.get('/home', function (req, res) {
         let token = req.cookies.token;
+        const limit = 5;
 
         if (token) {
 
