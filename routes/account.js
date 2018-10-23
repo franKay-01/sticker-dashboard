@@ -39,10 +39,11 @@ module.exports = function (app) {
                 return Parse.Promise.when(
                     new Parse.Query(_class.Projects).equalTo("userId", _user.id).find(),
                     new Parse.Query(_class.Product).limit(limit).find(),
-                    new Parse.Query(_class.Categories).limit(limit).find()
+                    new Parse.Query(_class.Categories).limit(limit).find(),
+                    new Parse.Query(_class.Message).limit(limit).find()
                 )
 
-            }).then(function (projects, products, categories) {
+            }).then(function (projects, products, categories, messages) {
 
                 res.render("pages/dashboard/landing", {
                     projects: projects,
@@ -50,6 +51,7 @@ module.exports = function (app) {
                     verified: _user.get("emailVerified"),
                     allProducts: products,
                     categories: categories,
+                    messages: messages,
                     error_message: "null",
                     projectLength: helper.leadingZero(projects.length)
                 })
@@ -77,9 +79,7 @@ module.exports = function (app) {
             let _story = [];
             let _collection = [];
             let _allAds = [];
-            let _categories = [];
             let _messages = [];
-            let _allProducts = [];
             let _allProjects = [];
             let stickerId;
             let _latestSticker = "";
@@ -113,18 +113,16 @@ module.exports = function (app) {
                     new Parse.Query(_class.Stickers).equalTo("userId", _user.id).count(),
                     new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).count(),
                     new Parse.Query(_class.Adverts).equalTo("userId", _user.id).containedIn("projectIds", projectArray).limit(limit).find(),
-                    new Parse.Query(_class.Message).limit(limit).find(),
                     new Parse.Query(_class.Projects).limit(limit).find(),
                     new Parse.Query(_class.Projects).equalTo("userId", _user.id).count(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 );
 
             }).then(function (sticker, latestStory, collection, story, allPacks, categoryLength, packLength,
-                              stickerLength, storyLength, allAdverts, allMessages, projects, projectLength, projectItem) {
+                              stickerLength, storyLength, allAdverts, projects, projectLength, projectItem) {
 
                 _collection = collection;
                 _story = story;
-                _messages = allMessages;
                 _allPacks = allPacks;
                 _allAds = allAdverts;
                 _allProjects = projects;
@@ -222,7 +220,6 @@ module.exports = function (app) {
                         latestStory: sticker,
                         storyBody: _storyBody,
                         stickerName: _stickerName,
-                        messages: _messages,
                         categoryLength: _categoryLength,
                         packLength: _packLength,
                         stickerLength: _stickerLength,
