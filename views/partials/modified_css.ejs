@@ -1,20 +1,20 @@
 .create_new {
-    color: <%= projectItem.get("button")%> !important;
+    color: <%= projectItem.get("setting").title%> !important;
 }
 
 .home_pack_description{
-    color: <%= projectItem.get("text")%> !important;
+    color: <%= projectItem.get("setting").text%> !important;
 }
 
 .home_pack_description:hover {
-    color: <%= projectItem.get("text")%> !important;
+    color: <%= projectItem.get("setting").text%> !important;
 }
 
 .create_button{
-    background-color: <%= projectItem.get("button")%> !important;
+    background-color: <%= projectItem.get("setting").button%> !important;
 }
 
 .login_card{
-    background-image: linear-gradient(to bottom, <%= projectItem.get("card").topColor%>,  <%= projectItem.get("card").bottomColor%>) !important;
+    background-image: linear-gradient(to bottom, <%= projectItem.get("setting").card.topColor%>,  <%= projectItem.get("setting").card.bottomColor%>) !important;
 
 }
