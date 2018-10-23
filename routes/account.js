@@ -118,7 +118,6 @@ module.exports = function(app) {
             }).then(function (sticker, latestStory, collection, categories, story, allPacks, categoryLength, packLength,
                               stickerLength, storyLength, allAdverts, allMessages, products, projects, projectLength, projectItem) {
 
-                console.log("PROJECT " + JSON.stringify(projectItem));
                 _categories = categories;
                 _collection = collection;
                 _story = story;
