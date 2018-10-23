@@ -98,6 +98,8 @@ module.exports = function (app) {
 
             }).then(function (project) {
 
+                console.log("PROJECTS " + JSON.stringify(project));
+
                 res.render("pages/projects/edit_project", {
                     project: project
                 });
