@@ -39,10 +39,10 @@ module.exports = function (app) {
                 project.set("version", 1);
                 project.set("setting", {
                     "title": "#a46580",
-                    "text": "#1f497d",
-                    "button": "#c0504d",
-                    "cardTopColor": "#4bacc6",
-                    "cardBottomColor": "#eeece1"
+                    "text": "#a46580",
+                    "button": "#a46580",
+                    "cardTopColor": "#df5A34",
+                    "cardBottomColor": "#814ea4"
                 });
                 return project.save();
 
