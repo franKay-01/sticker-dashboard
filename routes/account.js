@@ -24,25 +24,29 @@ let storage = multer.diskStorage({
 
 let upload = multer({storage: storage});
 
-module.exports = function(app) {
+module.exports = function (app) {
 
     app.get('/home', function (req, res) {
         let token = req.cookies.token;
 
-        if (token){
+        if (token) {
 
             util.getUser(token).then(function (sessionToken) {
 
                 _user = sessionToken.get("user");
 
-                return new Parse.Query(_class.Projects).equalTo("userId", _user.id).find();
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Projects).equalTo("userId", _user.id).find(),
+                    new Parse.Query(_class.Product).limit(limit).find()
+                )
 
-            }).then(function (projects) {
+            }).then(function (projects, products) {
 
                 res.render("pages/dashboard/landing", {
                     projects: projects,
                     user_name: _user.get("name"),
                     verified: _user.get("emailVerified"),
+                    allProducts: projects,
                     error_message: "null",
                     projectLength: helper.leadingZero(projects.length)
                 })
@@ -52,7 +56,7 @@ module.exports = function(app) {
                 res.redirect('/');
             })
 
-        }else {
+        } else {
             res.redirect('/');
         }
     });
@@ -108,15 +112,13 @@ module.exports = function(app) {
                     new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).count(),
                     new Parse.Query(_class.Adverts).equalTo("userId", _user.id).containedIn("projectIds", projectArray).limit(limit).find(),
                     new Parse.Query(_class.Message).limit(limit).find(),
-                    new Parse.Query(_class.Product).limit(limit).find(),
                     new Parse.Query(_class.Projects).limit(limit).find(),
                     new Parse.Query(_class.Projects).equalTo("userId", _user.id).count(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
-
                 );
 
             }).then(function (sticker, latestStory, collection, categories, story, allPacks, categoryLength, packLength,
-                              stickerLength, storyLength, allAdverts, allMessages, products, projects, projectLength, projectItem) {
+                              stickerLength, storyLength, allAdverts, allMessages, projects, projectLength, projectItem) {
 
                 _categories = categories;
                 _collection = collection;
@@ -133,25 +135,25 @@ module.exports = function(app) {
                 _storyLength = helper.leadingZero(storyLength);
                 _projectLength = helper.leadingZero(projectLength);
 
-                if (latestStory && sticker){
+                if (latestStory && sticker) {
                     return Parse.Promise.when(
                         new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first(),
                         new Parse.Query(_class.ArtWork).equalTo("itemId", latestStory.get("feedId")).first(),
                         new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first()
                     );
-                }else if (latestStory && sticker === undefined){
+                } else if (latestStory && sticker === undefined) {
                     return Parse.Promise.when(
                         undefined,
                         new Parse.Query(_class.ArtWork).equalTo("itemId", latestStory.get("feedId")).first(),
                         new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first()
                     );
-                }else if (sticker && latestStory === undefined){
+                } else if (sticker && latestStory === undefined) {
                     return Parse.Promise.when(
                         new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first(),
                         undefined,
                         undefined
                     );
-                }else {
+                } else {
                     return Parse.Promise.when(
                         undefined,
                         undefined,
@@ -162,7 +164,7 @@ module.exports = function(app) {
 
             }).then(function (latestSticker, storyImage, storyBody) {
 
-                if (latestSticker !== undefined){
+                if (latestSticker !== undefined) {
                     _latestSticker = latestSticker.get("uri");
                     _latestSticker['stickerName'] = latestSticker.get("name");
                     _latestSticker['description'] = latestSticker.get("description");
@@ -197,7 +199,6 @@ module.exports = function(app) {
                     res.render("pages/dashboard/home", {
                         collections: _collection,
                         allPacks: _allPacks,
-                        allProducts: _allProducts,
                         story: _story,
                         categoryLength: _categoryLength,
                         packLength: _packLength,
@@ -215,7 +216,6 @@ module.exports = function(app) {
                         collections: _collection,
                         categories: _categories,
                         allAdverts: _allAds,
-                        allProducts: _allProducts,
                         allPacks: _allPacks,
                         allProjects: _allProjects,
                         projectItem: _projectItem,
