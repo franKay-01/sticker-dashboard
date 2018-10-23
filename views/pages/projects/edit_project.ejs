@@ -27,18 +27,8 @@
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
     <script>
-        let title;
-        let text;
-        let button;
-        let topCard;
-        let bottomCard;
-        $(document).ready(function () {
 
-            title = document.getElementById("title").value;
-            text = document.getElementById("text").value;
-            button = document.getElementById("button").value;
-            topCard = document.getElementById("topCard").value;
-            bottomCard = document.getElementById("bottomCard").value;
+        $(document).ready(function () {
 
             $(function () {
                 $("#title_color").colorpicker();
@@ -48,28 +38,24 @@
                 $("#bottomcard_color").colorpicker();
 
                 $("#title_color").on("change", function() {
-                    title = $(this).val();
-                    $("#title").val(title)
+                    document.getElementById("titleColor").value = $(this).val();
                 });
 
                 $("#text_color").on("change", function() {
-                    text = $(this).val();
-                    $("#text").val(text)
+                    document.getElementById("textColor").value = $(this).val();
                 });
 
                 $("#button_color").on("change", function() {
-                    button = $(this).val();
+                    document.getElementById("buttonColor").value = $(this).val();
                     $("#button").val(button)
                 });
 
                 $("#topcard_color").on("change", function() {
-                    topCard = $(this).val();
-                    $("#topCard").val(topCard)
+                    document.getElementById("topColor").value = $(this).val();
                 });
 
                 $("#bottomcard_color").on("change", function() {
-                    bottomCard = $(this).val();
-                    $("#bottomCard").val(bottomCard)
+                    document.getElementById("bottomColor").value = $(this).val();
                 });
             })
         });
