@@ -12,13 +12,14 @@
     <!-- Compiled and minified CSS -->
 
     <!--<style>-->
-        <!--@import url('https://fonts.googleapis.com/icon?family=Material+Icons');-->
+    <!--@import url('https://fonts.googleapis.com/icon?family=Material+Icons');-->
     <!--</style>-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!--parse js-->
@@ -27,6 +28,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script src="/public/assets/js/custom.js"></script>
     <script src="/public/assets/js/tag.js"></script>
+
+    <% if (projectItem.get("name") !== type.PROJECT_TYPE.cyfa){ %>
+    <style>
+        .create_new {
+            color: <%= projectItem.get("button")%> !important;
+        }
+    </style>
+    <% } %>
 
     <script>
         $(function () {
@@ -82,7 +91,7 @@
                     <textarea class="_pack common_pack_detail validate" placeholder="Story Summary"
                               name="summary" required="" aria-required="true"></textarea><br>
                     <!--<textarea class="_pack common_pack_detail validate" placeholder="Story"-->
-                              <!--name="story" required="" aria-required="true"></textarea><br>-->
+                    <!--name="story" required="" aria-required="true"></textarea><br>-->
 
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="pack_id" required="" aria-required="true">
@@ -128,7 +137,8 @@
     <div id="hiddenAddAdvertForm" style="display: none">
         <div class="medium-3 large-3 cell create_background">
             <center>
-                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW ADVERT</div>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW ADVERT
+                </div>
             </center>
             <form id="pack_form" action="/advert" method="post">
                 <center>
@@ -172,7 +182,8 @@
         <div class="medium-3 large-3 cell create_background">
             <form id="pack_form" action="/project" method="post">
                 <center>
-                    <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW PROJECT
+                    <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW
+                        PROJECT
                     </div>
 
                     <input type="text" class="_pack common_pack_detail validate" placeholder="Project name"
@@ -217,14 +228,14 @@
                         </select>
                     </div>
                     <!--<div style="margin-bottom: 10px">-->
-                        <!--<input name="pricing" type="radio" id="pricing1" value="0"/>-->
-                        <!--<label for="pricing1" class="_label">Free</label>-->
+                    <!--<input name="pricing" type="radio" id="pricing1" value="0"/>-->
+                    <!--<label for="pricing1" class="_label">Free</label>-->
 
-                        <!--<input name="pricing" type="radio" id="pricing2" value="1"/>-->
-                        <!--<label for="pricing2" class="_label">Paid</label>-->
+                    <!--<input name="pricing" type="radio" id="pricing2" value="1"/>-->
+                    <!--<label for="pricing2" class="_label">Paid</label>-->
 
-                        <!--<input name="pricing" type="radio" id="pricing3" value="2"/>-->
-                        <!--<label for="pricing3" class="_label">Free/Paid</label>-->
+                    <!--<input name="pricing" type="radio" id="pricing3" value="2"/>-->
+                    <!--<label for="pricing3" class="_label">Free/Paid</label>-->
                     <!--</div>-->
                     <br>
                 </center>
@@ -239,14 +250,16 @@
         </div>
     </div>
     <!-- End of hidden form -->
-    <%if (error_message !== "null") {%>
+    <% if (error_message !== "null") { %>
     <div class="medium-12 large-12 error_card" id="error_card" style="display: block">
         <div style="text-align: center;font-size: 20px;">
             <%= error_message %>
         </div>
     </div>
-    <%}%>
-    <span class="medium-12 large-12 welcome_post" id="Welcome"><b>Welcome - <%= projectItem.get("name") %> - <a href="/account/user/profile" style="font-size: 45px;color: #af627f;"> <%= user_name %> </a></b></span>
+    <% } %>
+    <span class="medium-12 large-12 welcome_post" id="Welcome"><b>Welcome - <%= projectItem.get("name") %> - <a
+                    href="/account/user/profile"
+                    style="font-size: 45px;color: #af627f;"> <%= user_name %> </a></b></span>
     <div class="grid-x grid-margin-x" id="opaqueDiv">
         <!-- Card to display Stats of the database-->
         <div class="medium-3 large-3 cell login_card">
@@ -280,23 +293,27 @@
             <div class="create_new">Update</div>
             <a href="/feed/sticker/<%= projectId %>">
                 <button class="create_button">
-                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; Sticker of the Day
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; Sticker of the
+                        Day
                     </p>
                 </button>
             </a>
             <a href="/feed/story/<%= projectId %>">
                 <button class="create_button">
-                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Story of the Week</p>
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Story of the Week
+                    </p>
                 </button>
             </a>
             <a href="/review/find/packs">
                 <button class="create_button">
-                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Packs in Review</p>
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Packs in Review
+                    </p>
                 </button>
             </a>
             <a href="#">
                 <button class="create_button">
-                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Stories in Review</p>
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Stories in Review
+                    </p>
                 </button>
             </a>
             <br>
@@ -313,7 +330,8 @@
 
             <a href="/feed/history/sticker/<%= projectItem.id %>">
                 <button class="create_button">
-                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Sticker History</p>
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Sticker History
+                    </p>
                 </button>
             </a>
         </div>
@@ -409,7 +427,7 @@
 
         </div>
 
-        <% } else {%>
+        <% } else { %>
 
         <div class="medium-3 large-3 cell icons">
             <!--<center>-->
@@ -417,7 +435,7 @@
             <!--</center>-->
             <a class="_stickers_packs" href="/feed/story/<%= projectId %>">
                 <center>
-                    <p class="none" ><b>No Story</b></p>
+                    <p class="none"><b>No Story</b></p>
                 </center>
                 <div>
                     <p class="none" style="margin: 125px 80px auto !important;width: 100%;"><b>Click to Select</b></p>
@@ -425,7 +443,7 @@
             </a>
 
         </div>
-        <%}%>
+        <% } %>
 
         <% if (latestSticker){ %>
         <div class="medium-3 large-3 cell icons">
@@ -435,18 +453,19 @@
                     <img src="<%= latestSticker.url() %>" width="200px" height="200px">
                 </center>
                 <!--<div class="name_tag"><p class="pack_name_text"><%#= latestSticker.stickerName %></p></div>-->
-                <div style="text-align: center !important;" class="story_title truncate_story_title"><%= latestSticker.stickerName %></div>
+                <div style="text-align: center !important;"
+                     class="story_title truncate_story_title"><%= latestSticker.stickerName %></div>
                 <div class="story_summary truncate_summary"> <%= latestSticker.description %></div>
             </a>
 
         </div>
 
-        <% } else {%>
+        <% } else { %>
         <div class="medium-3 large-3 cell icons">
             <div class="title_of_the_day">Sticker of the Day</div>
             <a class="_stickers_packs" href="/feed/sticker/<%= projectId %>">
                 <center>
-                    <p class="none" ><b>No Sticker</b></p>
+                    <p class="none"><b>No Sticker</b></p>
                 </center>
                 <!--<div class="name_tag"><p class="pack_name_text"><%#= latestSticker.stickerName %></p></div>-->
                 <p class="none" style="margin: 125px 80px auto !important;width: 100%;"><b>Click to Select</b></p>
@@ -454,7 +473,7 @@
             </a>
 
         </div>
-        <%}%>
+        <% } %>
 
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">Messages</div>

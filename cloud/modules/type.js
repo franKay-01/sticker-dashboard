@@ -65,6 +65,11 @@ exports.STORY_TYPE = {
     jokes: 2
 };
 
+exports.PROJECT_TYPE = {
+    cyfa: "Cyfa",
+    loveTok: "LoveTok"
+};
+
 exports.FEED_TYPE = {
     sticker: 0,
     story: 1
