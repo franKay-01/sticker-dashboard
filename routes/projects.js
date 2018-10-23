@@ -141,7 +141,8 @@ module.exports = function (app) {
                     "title": projectTitle,
                     "text": projectText,
                     "button": projectButton,
-                    "card": {"topColor": projectTopColor, "bottomColor": projectBottomColor}
+                    "cardTopColor": projectTopColor,
+                    "cardBottomColor": projectBottomColor
                 });
 
                 if (files !== undefined || files !== "undefined") {
