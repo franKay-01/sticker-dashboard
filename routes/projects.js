@@ -41,7 +41,8 @@ module.exports = function (app) {
                     "title": "#a46580",
                     "text": "#1f497d",
                     "button": "#c0504d",
-                    "card": {"topColor": "#4bacc6", "bottomColor": "#eeece1"}
+                    "cardTopColor": "#4bacc6",
+                    "cardBottomColor": "#eeece1"
                 });
                 return project.save();
 
