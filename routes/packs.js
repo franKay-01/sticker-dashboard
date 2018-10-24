@@ -134,7 +134,7 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let pack_id = req.params.packId;
         let projectId = req.params.projectId;
-
+        let limit = 5;
         let is_published = false;
         let pack_art = false;
 
@@ -191,7 +191,7 @@ module.exports = function (app) {
                 return Parse.Promise.when(
                     new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
                     new Parse.Query(_class.Product).find(),
-                    new Parse.Query(_class.Projects).containedIn("objectId", _pack.get("projectIds")).find(),
+                    new Parse.Query(_class.Projects).containedIn("objectId", _pack.get("projectIds")).limit(limit).find(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 );
 
