@@ -261,6 +261,7 @@ module.exports = function (app) {
 
         _itemIds = itemIds.split(",");
 
+        console.log("ITEMS FOUND " + JSON.stringify(_itemIds));
         if (token) {
 
             let _user = {};
