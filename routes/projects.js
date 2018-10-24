@@ -211,6 +211,8 @@ module.exports = function (app) {
         let pack = "pack";
         let story = "story";
 
+        console.log("ITEMTyPE " + itemType);
+
         if (token) {
 
             let _user = {};
@@ -227,7 +229,7 @@ module.exports = function (app) {
 
                 res.render("pages/projects/add_project", {
                     itemId: itemId,
-                    itemType:itemType,
+                    itemType: itemType,
                     items: items,
                     projectId: projectId,
                     type: type
