@@ -244,7 +244,7 @@ module.exports = function (app) {
         }
     });
 
-    app.post("/project/new/add", function (req, res) {
+    app.post("/projectAdd", function (req, res) {
 
         let token = req.cookies.token;
         let itemId = req.body.itemId;
