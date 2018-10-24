@@ -3,6 +3,7 @@ let util = require('../cloud/modules/util');
 let multer = require('multer');
 let type = require('../cloud/modules/type');
 let fs = require('fs');
+let _ = require('underscore');
 
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {

@@ -3,6 +3,7 @@ let _class = require('../cloud/modules/classNames');
 let util = require('../cloud/modules/util');
 let multer = require('multer');
 let fs = require('fs');
+let _ = require('underscore');
 
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
