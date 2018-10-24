@@ -249,7 +249,6 @@ module.exports = function (app) {
 
     app.post("/project/add", function (req, res) {
 
-        console.log("AT PROJECT ADD");
         let token = req.cookies.token;
         let itemId = req.body.itemId;
         let projectId = req.body.projectId;
@@ -288,9 +287,11 @@ module.exports = function (app) {
                     })
                 });
 
-                itemArray.push(_itemIds);
+                _.each(_itemIds, function (item) {
+                    itemArray.push(item);
+                });
 
-
+                item.set("projectIds", itemArray);
                 return item.save();
 
             }).then(function () {
