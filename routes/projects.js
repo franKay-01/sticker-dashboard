@@ -234,16 +234,66 @@ module.exports = function (app) {
                 })
             }, function (error) {
                 console.log("ERROR " + error.message);
-                if (itemType === pack){
+                if (itemType === pack) {
 
                     res.redirect('/pack/' + itemId + '/' + projectId);
 
-                }else if (itemType === story){
+                } else if (itemType === story) {
                     res.redirect('/stroyedit/' + itemId + '/' + projectId);
                 }
             })
-        }else {
+        } else {
             res.redirect('/');
+        }
+    });
+
+    app.post("/project/add", function (req, res) {
+
+        let token = req.cookies.token;
+        let itemId = req.body.itemId;
+        let projectId = req.body.projectId;
+        let itemType = req.body.itemType;
+        let itemIds = req.body.itemIds;
+        let pack = "pack";
+        let story = "story";
+        let itemArray = [];
+        let _itemIds = [];
+
+        _itemIds = itemIds.split(",");
+
+        if (token) {
+
+           let _user = {};
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                if (itemType === pack){
+                    return new Parse.Query(_class.Packs).equalTo("userId", _user.id).equalTo("objectId", itemId).first();
+                }else if (itemType === story){
+                    return new Parse.Query(_class.Stories).equalTo("userId", _user.id).equalTo("objectId", itemId).first();
+                }
+            }).then(function (item) {
+
+                itemArray = item.get("projectIds");
+                itemArray.push(_itemIds);
+
+                return item.save();
+
+            }).then(function () {
+
+                res.redirect('/pack/' + itemId + '/' + projectId);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/pack/' + itemId + '/' + projectId);
+
+            })
+        } else {
+
+            res.redirect('/');
+
         }
     });
 };
