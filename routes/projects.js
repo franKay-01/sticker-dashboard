@@ -239,6 +239,7 @@ module.exports = function (app) {
                     res.redirect('/pack/' + itemId + '/' + projectId);
 
                 } else if (itemType === story) {
+
                     res.redirect('/stroyedit/' + itemId + '/' + projectId);
                 }
             })
