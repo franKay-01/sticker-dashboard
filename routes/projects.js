@@ -1,6 +1,7 @@
 let _class = require('../cloud/modules/classNames');
 let util = require('../cloud/modules/util');
 let multer = require('multer');
+let type = require('../cloud/modules/type');
 let fs = require('fs');
 
 let storage = multer.diskStorage({
@@ -109,7 +110,7 @@ module.exports = function (app) {
                 res.redirect("/");
             })
 
-        }else {
+        } else {
             res.redirect("/");
         }
     });
@@ -167,22 +168,22 @@ module.exports = function (app) {
 
                 console.log("PROJECT " + JSON.stringify(project));
 
-                    //Delete tmp fil after upload
-                    let tempFile = fileDetails[0].path;
-                    fs.unlink(tempFile, function (error) {
-                        if (error) {
-                            //TODO handle error code
-                            //TODO add job to do deletion of tempFiles
-                            console.log("-------Could not del temp" + JSON.stringify(error));
-                        }
-                        else {
-                            console.log("-------Deleted All Files");
+                //Delete tmp fil after upload
+                let tempFile = fileDetails[0].path;
+                fs.unlink(tempFile, function (error) {
+                    if (error) {
+                        //TODO handle error code
+                        //TODO add job to do deletion of tempFiles
+                        console.log("-------Could not del temp" + JSON.stringify(error));
+                    }
+                    else {
+                        console.log("-------Deleted All Files");
 
-                        }
-                    });
+                    }
+                });
 
 
-                    return true;
+                return true;
 
             }).then(function () {
 
@@ -200,5 +201,47 @@ module.exports = function (app) {
 
     });
 
+    app.get('/project/add/:itemType/:itemId/:projectId', function (req, res) {
 
+        let token = req.cookies.token;
+        let itemType = req.params.itemType;
+        let itemId = req.params.itemId;
+        let projectId = req.params.proejctId;
+        let pack = "pack";
+        let story = "story";
+        let projectArray = [];
+
+        if (token) {
+
+            let _user = {};
+            projectArray.push(projectId);
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                return new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find()
+
+            }).then(function (items) {
+
+                res.render("pages/projects/add_project", {
+                    itemType: itemType,
+                    itemId: itemId,
+                    items: items,
+                    projectId: projectId,
+                    type: type
+                })
+            }, function (error) {
+                console.log("ERROR " + error.message);
+                if (itemType === pack){
+
+                    res.redirect('/pack/' + itemId + '/' + projectId);
+
+                }else if (itemType === story){
+                    res.redirect('/stroyedit/' + itemId + '/' + projectId);
+                }
+            })
+        }else {
+            res.redirect('/');
+        }
+    });
 };

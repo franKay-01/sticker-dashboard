@@ -65,9 +65,9 @@ exports.STORY_TYPE = {
     jokes: 2
 };
 
-exports.PROJECT_TYPE = {
-    cyfa: "Cyfa",
-    loveTok: "LoveTok"
+exports.ITEM_TYPE = {
+    story: "story",
+    pack: "pack"
 };
 
 exports.FEED_TYPE = {
