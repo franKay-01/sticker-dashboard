@@ -201,10 +201,9 @@ module.exports = function (app) {
 
     });
 
-    app.get('/project/add/:itemType/:itemId/:projectId', function (req, res) {
+    app.get('/project/add/:itemId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
-        let itemType = req.params.itemType;
         let itemId = req.params.itemId;
         let projectId = req.params.projectId;
         let pack = "pack";
@@ -223,15 +222,13 @@ module.exports = function (app) {
 
             }).then(function (items) {
 
-                console.log("ITEMS FOUND " + JSON.stringify(items));
-
                 res.render("pages/projects/add_project", {
-                    itemType: itemType,
                     itemId: itemId,
                     items: items,
                     projectId: projectId,
                     type: type
-                })
+                });
+
             }, function (error) {
                 console.log("ERROR " + error.message);
                 if (itemType === pack) {
@@ -263,19 +260,29 @@ module.exports = function (app) {
 
         if (token) {
 
-           let _user = {};
+            let _user = {};
             util.getUser(token).then(function (sessionToken) {
 
                 _user = sessionToken.get("user");
 
-                if (itemType === pack){
+                if (itemType === pack) {
                     return new Parse.Query(_class.Packs).equalTo("userId", _user.id).equalTo("objectId", itemId).first();
-                }else if (itemType === story){
+                } else if (itemType === story) {
                     return new Parse.Query(_class.Stories).equalTo("userId", _user.id).equalTo("objectId", itemId).first();
                 }
             }).then(function (item) {
 
                 itemArray = item.get("projectIds");
+
+                _.each(itemArray, function (item) {
+                    _.each(_itemIds, function (newItems, index) {
+
+                        if (item === newItems){
+                            _itemIds.splice(index, 1);
+                        }
+                    })
+                });
+
                 itemArray.push(_itemIds);
 
                 return item.save();

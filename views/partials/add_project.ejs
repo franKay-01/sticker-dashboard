@@ -6,26 +6,18 @@
 
 <div class="medium-3 large-3 cell icons" data-id="<%= item.id %>" data-name="<%= item.get("name") %>">
 
-    <% if (item.get("uartworkri") === "undefined" || item.get("artwork") === undefined){ %>
+    <% if (item.get("uri") === "undefined" || item.get("uri") === undefined){ %>
     <center>
         <p class="none"><b>No Artwork</b></p>
     </center>
     <% } else { %>
 
-    <img src="<%= item.get("artwork").url() %>" class="card-image-size">
+    <img src="<%= item.get("uri").url() %>" class="card-image-size">
 
     <% } %>
 
-
-    <% if (itemType === type.ITEM_TYPE.pack){%>
-
     <span class="name_tag"><p class="sticker_name_text"><%= item.get("name") %></p></span>
 
-    <%} else if (itemType === type.ITEM_TYPE.story){%>
-
-    <span class="name_tag"><p class="sticker_name_text"><%= item.get("title") %></p></span>
-
-    <%}%>
 </div>
 <% }); %>
 <% } %>
