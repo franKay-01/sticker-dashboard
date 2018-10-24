@@ -206,7 +206,7 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let itemType = req.params.itemType;
         let itemId = req.params.itemId;
-        let projectId = req.params.proejctId;
+        let projectId = req.params.projectId;
         let pack = "pack";
         let story = "story";
         let projectArray = [];
@@ -222,6 +222,8 @@ module.exports = function (app) {
                 return new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find()
 
             }).then(function (items) {
+
+                console.log("ITEMS FOUND " + JSON.stringify(items));
 
                 res.render("pages/projects/add_project", {
                     itemType: itemType,
