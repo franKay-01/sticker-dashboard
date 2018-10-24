@@ -219,7 +219,7 @@ module.exports = function (app) {
 
                 _user = sessionToken.get("user");
 
-                return new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find()
+                return new Parse.Query(_class.Projects).equalTo("userId", _user.id).find()
 
             }).then(function (items) {
 
