@@ -251,7 +251,7 @@
                 <span style="padding-right: 125px;">
                     <% if (previous !== ""){ %>
                     <a style="color: #a46580 !important; "
-                       href="/pack/<%= previous %>">
+                       href="/pack/<%= previous %>/<%= projectItem.id %>">
                         <i style="font-size: 3rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
                     <% } %>
                 </span>
@@ -259,7 +259,7 @@
                     <% if (next !== ""){ %>
 
                     <a style="color: #a46580 !important;"
-                       href="/pack/<%= next %>">
+                       href="/pack/<%= next %>/<%= projectItem.id %>">
                         <i style="font-size: 3rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
 
                     <% } %>

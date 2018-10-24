@@ -244,7 +244,7 @@ module.exports = function (app) {
         }
     });
 
-    app.post("/project/add", function (req, res) {
+    app.post("/project/new/add", function (req, res) {
 
         let token = req.cookies.token;
         let itemId = req.body.itemId;
@@ -256,6 +256,7 @@ module.exports = function (app) {
         let itemArray = [];
         let _itemIds = [];
 
+        console.log("ITEMS " + itemIds);
         _itemIds = itemIds.split(",");
 
         if (token) {
