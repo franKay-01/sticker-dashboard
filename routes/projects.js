@@ -183,7 +183,6 @@ module.exports = function (app) {
                     }
                 });
 
-
                 return true;
 
             }).then(function () {
@@ -202,7 +201,7 @@ module.exports = function (app) {
 
     });
 
-    app.get('/project/add/:itemType/:itemId/:projectId', function (req, res) {
+    app.get('/project/add/story/:itemId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let itemId = req.params.itemId;
@@ -210,8 +209,6 @@ module.exports = function (app) {
         let projectId = req.params.projectId;
         let pack = "pack";
         let story = "story";
-
-        console.log("ITEMTyPE " + itemType);
 
         if (token) {
 
@@ -221,11 +218,9 @@ module.exports = function (app) {
 
                 _user = sessionToken.get("user");
 
-                return new Parse.Query(_class.Projects).equalTo("userId", _user.id).find()
+                return new Parse.Query(_class.Projects).equalTo("userId", _user.id).find();
 
             }).then(function (items) {
-
-                console.log("PROJECT ITEMS " + JSON.stringify(items));
 
                 res.render("pages/projects/add_project", {
                     itemId: itemId,
@@ -243,7 +238,7 @@ module.exports = function (app) {
 
                 } else if (itemType === story) {
 
-                    res.redirect('/stroyedit/' + itemId + '/' + projectId);
+                    res.redirect('/storyedit/' + itemId + '/' + projectId);
                 }
             })
         } else {
@@ -300,8 +295,14 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect('/pack/' + itemId + '/' + projectId);
+                if (itemType === pack) {
 
+                    res.redirect('/pack/' + itemId + '/' + projectId);
+
+                } else if (itemType === story) {
+
+                    res.redirect('/storyedit/' + itemId + '/' + projectId);
+                }
             }, function (error) {
 
                 console.log("ERROR " + error.message);
