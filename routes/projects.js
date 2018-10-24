@@ -59,7 +59,7 @@ module.exports = function (app) {
         } else {
             res.redirect("/");
         }
-    })
+    });
 
     app.get("/projects", function (req, res) {
         let token = req.cookies.token;
@@ -244,8 +244,9 @@ module.exports = function (app) {
         }
     });
 
-    app.post("/projectAdd", function (req, res) {
+    app.post("/project/add", function (req, res) {
 
+        console.log("AT PROJECT ADD");
         let token = req.cookies.token;
         let itemId = req.body.itemId;
         let projectId = req.body.projectId;
@@ -256,7 +257,6 @@ module.exports = function (app) {
         let itemArray = [];
         let _itemIds = [];
 
-        console.log("ITEMS " + itemIds);
         _itemIds = itemIds.split(",");
 
         if (token) {
