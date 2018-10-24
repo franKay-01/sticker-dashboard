@@ -210,12 +210,11 @@ module.exports = function (app) {
         let projectId = req.params.projectId;
         let pack = "pack";
         let story = "story";
-        let projectArray = [];
 
         if (token) {
 
             let _user = {};
-            projectArray.push(projectId);
+
             util.getUser(token).then(function (sessionToken) {
 
                 _user = sessionToken.get("user");
@@ -223,6 +222,8 @@ module.exports = function (app) {
                 return new Parse.Query(_class.Projects).equalTo("userId", _user.id).find()
 
             }).then(function (items) {
+
+                console.log("PROJECT ITEMS " + JSON.stringify(items));
 
                 res.render("pages/projects/add_project", {
                     itemId: itemId,
@@ -262,10 +263,10 @@ module.exports = function (app) {
 
         _itemIds = itemIds.split(",");
 
-        console.log("ITEMS FOUND " + JSON.stringify(_itemIds));
         if (token) {
 
             let _user = {};
+
             util.getUser(token).then(function (sessionToken) {
 
                 _user = sessionToken.get("user");
