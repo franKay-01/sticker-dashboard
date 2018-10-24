@@ -201,10 +201,11 @@ module.exports = function (app) {
 
     });
 
-    app.get('/project/add/:itemId/:projectId', function (req, res) {
+    app.get('/project/add/:itemType/:itemId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let itemId = req.params.itemId;
+        let itemType = req.params.itemType;
         let projectId = req.params.projectId;
         let pack = "pack";
         let story = "story";
@@ -224,6 +225,7 @@ module.exports = function (app) {
 
                 res.render("pages/projects/add_project", {
                     itemId: itemId,
+                    itemType:itemType,
                     items: items,
                     projectId: projectId,
                     type: type
@@ -285,6 +287,7 @@ module.exports = function (app) {
                 });
 
                 itemArray.push(_itemIds);
+
 
                 return item.save();
 
