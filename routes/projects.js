@@ -201,7 +201,7 @@ module.exports = function (app) {
 
     });
 
-    app.get('/project/add/:itemType/:itemId/:projectId', function (req, res) {
+    app.get('/projectAdd/:itemType/:itemId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let itemId = req.params.itemId;
