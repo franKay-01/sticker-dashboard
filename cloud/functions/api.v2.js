@@ -148,17 +148,17 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
     let _packs = [];
     let projectId = req.params.projectId;
-
+    let projects = [];
 
     if (!projectId) {
         projectId = DEFAULT_PROJECT
     }
 
-    console.log("DEFAULT_PROJECT " + projectId);
+    projects.push(projectId);
 
     //TODO use default pack env variable
     return new Parse.Query(_class.Packs)
-        .equalTo("published", true).containedIn("projectIds", [projectId]).equalTo("userId", ADMIN).notEqualTo("objectId", DEFAULT_PACK)
+        .equalTo("published", true).containedIn("projectIds", projects).equalTo("userId", ADMIN).notEqualTo("objectId", DEFAULT_PACK)
         .descending("createdAt")
         .find({useMasterKey: true})
         .then(function (packs) {
