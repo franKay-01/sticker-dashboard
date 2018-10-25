@@ -75,7 +75,7 @@ module.exports = function (app) {
         let packType = parseInt(req.body.packType);
         let version = parseInt(req.body.version);
         let projectArray = [];
-        let NSFW = "NSFW;
+        let NSFW = "NSFW";
         projectArray.push(projectId);
 
         if (token) {
@@ -98,7 +98,7 @@ module.exports = function (app) {
                 pack.set("archived", false);
                 pack.set("flagged", false);
                 pack.set("published", false);
-                pack.set("previews", {});
+                pack.set("previews", []);
                 if (packCategory === NSFW){
                     pack.set("keywords", [packCategory]);
                 }else if (packCategory !== NSFW){
