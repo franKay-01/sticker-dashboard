@@ -302,18 +302,21 @@
                         </select>
                     </div>
 
-                    <label class="update_label" style="margin-bottom: 0">Projects Attached :</label>
-                    <div style="margin-bottom: 20px">
+                    <label class="update_label" style="margin-bottom: 0">Projects Attached :
+                    </label>
+                    <div>
                         <% if (projects.length === 0) { %>
 
                         <% } else { %>
                         <% projects.forEach(function(item) { %>
-                        <a href="/project/edit/<%= item.id %>" style="color: #00aa9f;font-weight: 700"><%= item.get("name") %></a>
+                        <a href="/project/edit/<%= item.id %>" style="color: #00aa9f;font-weight: 700"><%= item.get("name") %></a><br>
                         <% }) %>
                         <% } %>
                     </div>
-
-                    <label class="update_label">Edit Color Scheme:</label>
+                    <a href="/project/new/add/story/<%= story.id %>/<%= projectItem.id %>">
+                        <i style="color: #a46580; font-size: 20px" class="fa fa-plus-square" aria-hidden="true"></i>
+                    </a>
+                    <label class="update_label" style="margin-top: 20px;">Edit Color Scheme:</label>
                     <span style="color: <%= colors.topColor %>"><i class="fa fa-circle fa-5x"
                                                                    aria-hidden="true"></i></span>
                     <span style="color:<%= colors.bottomColor %>;margin-left: -30px;"><i class="fa fa-circle fa-5x"

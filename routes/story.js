@@ -921,6 +921,7 @@ module.exports = function (app) {
         let story_id = req.params.storyId;
         let projectId = req.params.projectId;
         let _latest = "";
+        let limit = 5;
         let page;
 
         if (token) {
@@ -1005,13 +1006,11 @@ module.exports = function (app) {
 
 
                 return Parse.Promise.when(
-                    new Parse.Query(_class.Projects).containedIn("objectId", _story.get("projectIds")).find(),
+                    new Parse.Query(_class.Projects).containedIn("objectId", _story.get("projectIds")).limit(limit).find(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 )
 
             }).then(function (projects, project) {
-
-                console.log("PROJECTS  " + JSON.stringify(projects));
 
                 res.render("pages/stories/story_details", {
                     story: _story,

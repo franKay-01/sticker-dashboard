@@ -3,6 +3,7 @@ let _class = require('../cloud/modules/classNames');
 let util = require('../cloud/modules/util');
 let multer = require('multer');
 let fs = require('fs');
+let _ = require('underscore');
 
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
@@ -70,10 +71,11 @@ module.exports = function (app) {
         let pack_description = req.body.pack_description;
         let coll_name = req.body.coll_name;
         let projectId = req.body.projectId;
+        let packCategory = req.body.packCategory;
         let packType = parseInt(req.body.packType);
         let version = parseInt(req.body.version);
         let projectArray = [];
-
+        let NSFW = "NSFW";
         projectArray.push(projectId);
 
         if (token) {
@@ -97,6 +99,11 @@ module.exports = function (app) {
                 pack.set("flagged", false);
                 pack.set("published", false);
                 pack.set("previews", []);
+                if (packCategory === NSFW){
+                    pack.set("keywords", [packCategory]);
+                }else if (packCategory !== NSFW){
+                    pack.set("keywords", [""]);
+                }
 
                 if (packType === type.PACK_TYPE.grouped) {
 
@@ -133,7 +140,7 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let pack_id = req.params.packId;
         let projectId = req.params.projectId;
-
+        let limit = 5;
         let is_published = false;
         let pack_art = false;
 
@@ -190,7 +197,7 @@ module.exports = function (app) {
                 return Parse.Promise.when(
                     new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
                     new Parse.Query(_class.Product).find(),
-                    new Parse.Query(_class.Projects).containedIn("objectId", _pack.get("projectIds")).find(),
+                    new Parse.Query(_class.Projects).containedIn("objectId", _pack.get("projectIds")).limit(limit).find(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 );
 

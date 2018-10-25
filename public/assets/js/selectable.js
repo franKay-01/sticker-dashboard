@@ -7,7 +7,7 @@ $(document).ready(function () {
         let word;
         $('#easySelectable').easySelectable({
             onSelected: function (el) {
-                selectedItems.push(el.attr("data-id"))
+                selectedItems.push(el.attr("data-id"));
                 el.css({
                     // "border-color": "#00bcd4",
                     "border-color": "#e57373",
@@ -17,7 +17,7 @@ $(document).ready(function () {
                 counter = counter + 1;
                 $("#stickerIds").val(selectedItems);
                 $('.add-sticker-btn').removeAttr('disabled');
-                word = 'ADD ' + counter + ' STICKER(S)';
+                word = 'ADD ' + counter + ' ITEM(S)';
                 word = word.bold();
                 $('.add-sticker-btn').html(word);
 
@@ -29,13 +29,13 @@ $(document).ready(function () {
                 el.css({"border": "none"});
                 $("#stickerIds").val(selectedItems);
                 counter = counter - 1;
-                word = 'ADD ' + counter + ' STICKER(S)';
+                word = 'ADD ' + counter + ' ITEM(S)';
                 word = word.bold();
 
                 $('.add-sticker-btn').html(word);
 
                 if (selectedItems.length === 0) {
-                    word = 'ADD STICKER(S)';
+                    word = 'ADD ITEM(S)';
                     word = word.bold();
 
                     $('.add-sticker-btn').attr("disabled", true);

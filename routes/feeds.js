@@ -70,7 +70,8 @@ module.exports = function (app) {
                             items: items,
                             feedType: feedType,
                             date: date,
-                            type: type
+                            type: type,
+                            projectItem: _project
 
                         });
                         break;
@@ -148,15 +149,6 @@ module.exports = function (app) {
             util.getUser(token).then(function (sessionToken) {
 
                 _user = sessionToken.get("user");
-
-                // switch (feedType) {
-                //     case STICKER:
-                //         return new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first();
-                //
-                //     case STORIES:
-                //         return new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first();
-                //
-                // }
 
                 switch (feedType) {
                     case STICKER:
@@ -428,16 +420,18 @@ module.exports = function (app) {
         let artWork = [];
         let _allArtwork = [];
         let combined = [];
+        let projectArray = [];
         let _user = {};
 
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
 
+                projectArray.push(projectId);
                 _user = sessionToken.get("user");
 
                 return Parse.Promise.when(
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).find(),
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find(),
                     new Parse.Query(_class.ArtWork).find()
                 )
 

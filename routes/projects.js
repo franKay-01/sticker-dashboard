@@ -1,7 +1,9 @@
 let _class = require('../cloud/modules/classNames');
 let util = require('../cloud/modules/util');
 let multer = require('multer');
+let type = require('../cloud/modules/type');
 let fs = require('fs');
+let _ = require('underscore');
 
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -58,7 +60,7 @@ module.exports = function (app) {
         } else {
             res.redirect("/");
         }
-    })
+    });
 
     app.get("/projects", function (req, res) {
         let token = req.cookies.token;
@@ -109,7 +111,7 @@ module.exports = function (app) {
                 res.redirect("/");
             })
 
-        }else {
+        } else {
             res.redirect("/");
         }
     });
@@ -167,22 +169,21 @@ module.exports = function (app) {
 
                 console.log("PROJECT " + JSON.stringify(project));
 
-                    //Delete tmp fil after upload
-                    let tempFile = fileDetails[0].path;
-                    fs.unlink(tempFile, function (error) {
-                        if (error) {
-                            //TODO handle error code
-                            //TODO add job to do deletion of tempFiles
-                            console.log("-------Could not del temp" + JSON.stringify(error));
-                        }
-                        else {
-                            console.log("-------Deleted All Files");
+                //Delete tmp fil after upload
+                let tempFile = fileDetails[0].path;
+                fs.unlink(tempFile, function (error) {
+                    if (error) {
+                        //TODO handle error code
+                        //TODO add job to do deletion of tempFiles
+                        console.log("-------Could not del temp" + JSON.stringify(error));
+                    }
+                    else {
+                        console.log("-------Deleted All Files");
 
-                        }
-                    });
+                    }
+                });
 
-
-                    return true;
+                return true;
 
             }).then(function () {
 
@@ -200,5 +201,118 @@ module.exports = function (app) {
 
     });
 
+    app.get('/project/new/add/:itemType/:itemId/:projectId', function (req, res) {
 
+        let token = req.cookies.token;
+        let itemId = req.params.itemId;
+        let itemType = req.params.itemType;
+        let projectId = req.params.projectId;
+        let pack = "pack";
+        let story = "story";
+
+        if (token) {
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                return new Parse.Query(_class.Projects).equalTo("userId", _user.id).find();
+
+            }).then(function (items) {
+
+                res.render("pages/projects/add_project", {
+                    itemId: itemId,
+                    itemType: itemType,
+                    items: items,
+                    projectId: projectId,
+                    type: type
+                });
+
+            }, function (error) {
+                console.log("ERROR " + error.message);
+                if (itemType === pack) {
+
+                    res.redirect('/pack/' + itemId + '/' + projectId);
+
+                } else if (itemType === story) {
+
+                    res.redirect('/storyedit/' + itemId + '/' + projectId);
+                }
+            })
+        } else {
+            res.redirect('/');
+        }
+    });
+
+    app.post("/project/add", function (req, res) {
+
+        let token = req.cookies.token;
+        let itemId = req.body.itemId;
+        let projectId = req.body.projectId;
+        let itemType = req.body.itemType;
+        let itemIds = req.body.itemIds;
+        let pack = "pack";
+        let story = "story";
+        let itemArray = [];
+        let _itemIds = [];
+
+        _itemIds = itemIds.split(",");
+
+        if (token) {
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                if (itemType === pack) {
+                    return new Parse.Query(_class.Packs).equalTo("userId", _user.id).equalTo("objectId", itemId).first();
+                } else if (itemType === story) {
+                    return new Parse.Query(_class.Stories).equalTo("userId", _user.id).equalTo("objectId", itemId).first();
+                }
+            }).then(function (item) {
+
+                itemArray = item.get("projectIds");
+
+                _.each(itemArray, function (item) {
+                    _.each(_itemIds, function (newItems, index) {
+
+                        if (item === newItems){
+                            _itemIds.splice(index, 1);
+                        }
+                    })
+                });
+
+                _.each(_itemIds, function (item) {
+                    itemArray.push(item);
+                });
+
+                item.set("projectIds", itemArray);
+                return item.save();
+
+            }).then(function () {
+
+                if (itemType === pack) {
+
+                    res.redirect('/pack/' + itemId + '/' + projectId);
+
+                } else if (itemType === story) {
+
+                    res.redirect('/storyedit/' + itemId + '/' + projectId);
+                }
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/pack/' + itemId + '/' + projectId);
+
+            })
+        } else {
+
+            res.redirect('/');
+
+        }
+    });
 };

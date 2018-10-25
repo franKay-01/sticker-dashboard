@@ -76,10 +76,10 @@
             <input name="packId" value="<%= id %>" hidden>
             <input type="hidden" name="projectId" value="<%= projectItem.id %>">
 
-                <span>
+            <span>
                     <button type="submit" class="create">SUBMIT</button>
                 </span>
-                <span>
+            <span>
                     <button type="button" id="cancelProductId" class="cancel">Cancel</button>
                 </span>
 
@@ -161,33 +161,38 @@
         <!-- End of card-->
 
         <div class="medium-3 large-3 cell icons">
-            <div class="create_new">Project(s)</div>
+            <div class="create_new">Projects</div>
             <% if (currentProjects.length === 0) { %>
 
             <p class="none">None</p>
 
-            <%} else {%>
+            <% } else { %>
             <% currentProjects.forEach(function(item, index) { %>
 
-                <p class="options" style="color: #a46580 !important;">
-                    <%= item.get("name") %> Project
-                </p>
+            <p class="options" style="color: #a46580 !important;">
+                <%= item.get("name") %> Project
+            </p>
 
-            <%})%>
-            <%}%>
+            <% }) %>
+            <% } %>
+            <a href="/project/new/add/pack/<%= id %>/<%= projectItem.id %>">
+                <button class="create_button review_tab_bottom" style="background: transparent !important;">
+                    <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add New Project</p>
+                </button>
+            </a>
         </div>
-
 
         <% if (pack_type === type.PACK_TYPE.curated) { %>
 
         <div class="medium-3 large-3 cell icons">
-            <div class="create_new">Add Sticker(s)</div>
+            <div class="create_new">Add Stickers</div>
             <div class="options">Options</div>
             <% if (productId === ""){ %>
 
             <a href="#" id="selectProductId">
                 <button class="create_button">
-                    <p class="title button_font" style="color: white !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i>
+                    <p class="title button_font" style="color: white !important;">&nbsp; <i class="fa fa-circle size"
+                                                                                            aria-hidden="true"></i>
                         &nbsp;FROM PACKS
                     </p>
                 </button>
@@ -196,7 +201,8 @@
             <% } else { %>
             <a href="/pack/stickers/<%= id %>/<%= productId %>/<%= projectItem.id %>">
                 <button class="create_button">
-                    <p class="title button_font" style="color: white !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i>
+                    <p class="title button_font" style="color: white !important;">&nbsp; <i class="fa fa-circle size"
+                                                                                            aria-hidden="true"></i>
                         &nbsp;FROM PACKS
                     </p>
                 </button>
@@ -206,7 +212,7 @@
                 <span style="padding-right: 125px;">
                     <% if (previous !== ""){ %>
                     <a style="color: #a46580 !important; "
-                       href="/pack/<%= previous %>">
+                       href="/pack/<%= previous %>/<%= projectItem.id %>">
                         <i style="font-size: 3rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
                     <% } %>
                 </span>
@@ -214,7 +220,7 @@
                     <% if (next !== ""){ %>
 
                     <a style="color: #a46580 !important;"
-                       href="/pack/<%= next %>">
+                       href="/pack/<%= next %>/<%= projectItem.id %>">
                         <i style="font-size: 3rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
 
                     <% } %>
@@ -245,7 +251,7 @@
                 <span style="padding-right: 125px;">
                     <% if (previous !== ""){ %>
                     <a style="color: #a46580 !important; "
-                       href="/pack/<%= previous %>">
+                       href="/pack/<%= previous %>/<%= projectItem.id %>">
                         <i style="font-size: 3rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
                     <% } %>
                 </span>
@@ -253,7 +259,7 @@
                     <% if (next !== ""){ %>
 
                     <a style="color: #a46580 !important;"
-                       href="/pack/<%= next %>">
+                       href="/pack/<%= next %>/<%= projectItem.id %>">
                         <i style="font-size: 3rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
 
                     <% } %>
@@ -294,7 +300,9 @@
 
             <a href="/pack/review/update/status/<%= id %>">
                 <button class="create_button">
-                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp; SUBMIT FOR REVIEW</p>
+                    <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
+                                                                                   aria-hidden="true"></i> &nbsp; SUBMIT
+                        FOR REVIEW</p>
                 </button>
             </a>
 
@@ -388,7 +396,7 @@
                 </p>
             </button>
         </div>
-<%}%>
+        <% } %>
         <!-- End of card -->
 
         <% include ../../partials/sticker_cards %>
