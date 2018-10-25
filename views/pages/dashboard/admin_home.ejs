@@ -214,6 +214,13 @@
 
                     <input type="hidden" name="projectId" value="<%= projectId %>">
 
+                    <label class="update_label">Category of Pack:</label>
+                    <input name="packCategory" type="radio" id="packCategory" checked value="NORMAL"/>
+                    <label for="packCategory" class="_label" style="color: white !important;">Normal</label>
+
+                    <input name="packCategory" type="radio" id="packCategory2" value="NSFW"/>
+                    <label for="packCategory2" class="_label" style="color: white !important">Not Safe For Work</label>
+
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="packType" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Add Pack Type</option>
