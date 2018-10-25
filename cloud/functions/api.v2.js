@@ -147,9 +147,15 @@ Parse.Cloud.define("getCategories", function (req, res) {
 Parse.Cloud.define("getPacks", function (req, res) {
 
     let _packs = [];
+    let projectId = req.params.projectId;
+
+
+    if(!projectId) {
+        projectId = DEFAULT_PROJECT
+    }
 
     //TODO use default pack env variable
-    return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).notEqualTo("objectId", DEFAULT_PACK).descending("createdAt").find({useMasterKey: true})
+    return new Parse.Query(_class.Packs).equalTo("published", true).containedIn("projectIds", [projectId]).equalTo("userId", ADMIN).notEqualTo("objectId", DEFAULT_PACK).descending("createdAt").find({useMasterKey: true})
         .then(function (packs) {
 
             _packs = packs;
