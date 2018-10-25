@@ -12,6 +12,7 @@ const LATEST_STICKER = process.env.LATEST_STICKER;
 const LATEST_STORY = process.env.LATEST_STORY;
 const ADMIN = process.env.ADMIN;
 const DEFAULT_PACK = process.env.DEFAULT_PACK;
+const DEFAULT_PROJECT = process.env.DEFAULT_PROJECT;
 const SHARE_URL = "";
 
 
@@ -285,10 +286,14 @@ Parse.Cloud.define("getStories", function (req, res) {
     let _artworks = [];
     let storyList = [];
 
-    let projectId = req.params.projectId;
+    //let projectId = req.params.projectId;
+    //.containedIn("projectIds", [projectId])
+    // if(!projectId) {
+    //     projectId = DEFAULT_PROJECT
+    // }
 
     return Parse.Promise.when(
-        new Parse.Query(_class.Stories).equalTo("published", true).equalTo("userId", ADMIN).containedIn("projectIds", [projectId]).descending("createdAt").find({useMasterKey: true}),
+        new Parse.Query(_class.Stories).equalTo("published", true).equalTo("userId", ADMIN).descending("createdAt").find({useMasterKey: true}),
         new Parse.Query(_class.ArtWork).find()
     ).then((stories, artworks) => {
 
