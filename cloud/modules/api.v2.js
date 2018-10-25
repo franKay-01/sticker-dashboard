@@ -1,10 +1,10 @@
-let util = require("../modules/util");
-let helpers = require("../modules/helpers");
-let type = require("../modules/type");
+let util = require("./util");
+let helpers = require("./helpers");
+let type = require("./type");
 let _ = require('underscore');
-let create = require("../modules/create");
-let _class = require("../modules/classNames");
-let analytics = require("../modules/analytics");
+let create = require("./create");
+let _class = require("./classNames");
+let analytics = require("./analytics");
 
 
 //environment cars
