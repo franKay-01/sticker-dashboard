@@ -155,7 +155,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
     }
 
     //TODO use default pack env variable
-    return new Parse.Query(_class.Packs).containedIn("projectIds", ["XCTCMeUA2e"])
+    return new Parse.Query(_class.Packs)//.containedIn("projectIds", ["XCTCMeUA2e"])
         .find({useMasterKey: true})
         .then(function (packs) {
 
