@@ -302,7 +302,11 @@
                         </select>
                     </div>
 
-                    <label class="update_label" style="margin-bottom: 0">Projects Attached :</label>
+                    <label class="update_label" style="margin-bottom: 0">Projects Attached :
+                        <a href="/project/new/add/story/<%= story.id %>/<%= projectItem.id %>">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </a>
+                    </label>
                     <div style="margin-bottom: 20px">
                         <% if (projects.length === 0) { %>
 
@@ -311,12 +315,6 @@
                         <a href="/project/edit/<%= item.id %>" style="color: #00aa9f;font-weight: 700"><%= item.get("name") %></a>
                         <% }) %>
                         <% } %>
-                        <br>
-                        <a href="/project/new/add/story/<%= story.id %>/<%= projectItem.id %>" style="position: absolute;margin: 35px -20px auto;">
-                            <button class="create_button review_tab_bottom" style="background: transparent !important;">
-                                <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add New Project</p>
-                            </button>
-                        </a>
                     </div>
 
                     <label class="update_label" style="margin-top: 50px;">Edit Color Scheme:</label>
