@@ -70,7 +70,8 @@ module.exports = function (app) {
                             items: items,
                             feedType: feedType,
                             date: date,
-                            type: type
+                            type: type,
+                            projectItem: _project
 
                         });
                         break;
