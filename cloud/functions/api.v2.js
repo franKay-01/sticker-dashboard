@@ -42,7 +42,7 @@ Parse.Cloud.define("getFeed", function (req, res) {
         new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).notEqualTo("objectId", DEFAULT_PACK).limit(2).descending("createdAt").find({useMasterKey: true}),
     ).then((sticker, story, packs) => {
 
-        if(sticker && story && packs) {
+        if (sticker && story && packs) {
 
             _packs = packs;
             // _categories = categories;
@@ -150,17 +150,20 @@ Parse.Cloud.define("getPacks", function (req, res) {
     let projectId = req.params.projectId;
 
 
-    if(!projectId) {
+    if (!projectId) {
         projectId = DEFAULT_PROJECT
     }
 
     //TODO use default pack env variable
-    return new Parse.Query(_class.Packs).equalTo("published", true).containedIn("projectIds", [projectId]).equalTo("userId", ADMIN).notEqualTo("objectId", DEFAULT_PACK).descending("createdAt").find({useMasterKey: true})
+    return new Parse.Query(_class.Packs)
+        .equalTo("published", true).containedIn("projectIds", "XCTCMeUA2e").equalTo("userId", ADMIN).notEqualTo("objectId", DEFAULT_PACK)
+        .descending("createdAt")
+        .find({useMasterKey: true})
         .then(function (packs) {
 
             _packs = packs;
 
-            if(packs.length) {
+            if (packs.length) {
                 let promises = [];
                 _.map(packs, function (pack) {
                     promises.push(pack.relation(_class.Packs).query().limit(4).find({useMasterKey: true}));
@@ -184,7 +187,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
                 packList.push(create.Pack(pack, stickerList));
             });
 
-            if(packList.length) {
+            if (packList.length) {
 
                 res.success(util.setResponseOk(packList));
 
