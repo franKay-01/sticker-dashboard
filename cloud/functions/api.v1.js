@@ -305,11 +305,17 @@ Parse.Cloud.define("getStories", function (req, res) {
     let _artworks = [];
     let storyList = [];
     let limit = req.params.limit;
+    let projectId = req.params.projectId;
+
+    if (!projectId) {
+        projectId = DEFAULT_PROJECT
+    }
+
 
     if(!limit){ limit = 1000 }
 
     return Parse.Promise.when(
-        new Parse.Query(_class.Stories).equalTo("published", true).limit(limit).equalTo("userId", ADMIN).descending("updatedAt").find({useMasterKey: true}),
+        new Parse.Query(_class.Stories).equalTo("published", true).containedIn("projectIds", [projectId]).limit(limit).equalTo("userId", ADMIN).descending("updatedAt").find({useMasterKey: true}),
         new Parse.Query(_class.ArtWork).find()
     ).then((stories, artworks) => {
 
