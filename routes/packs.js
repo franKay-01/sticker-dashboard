@@ -75,7 +75,6 @@ module.exports = function (app) {
         let packType = parseInt(req.body.packType);
         let version = parseInt(req.body.version);
         let projectArray = [];
-        let NSFW = "NSFW";
         projectArray.push(projectId);
 
         if (token) {
@@ -99,10 +98,14 @@ module.exports = function (app) {
                 pack.set("flagged", false);
                 pack.set("published", false);
                 pack.set("previews", []);
-                if (packCategory === NSFW){
-                    pack.set("keywords", [packCategory]);
-                }else if (packCategory !== NSFW){
+                if (packCategory === "") {
+
                     pack.set("keywords", [""]);
+
+                } else {
+
+                    pack.set("keywords", [packCategory]);
+
                 }
 
                 if (packType === type.PACK_TYPE.grouped) {
@@ -927,10 +930,8 @@ module.exports = function (app) {
                 });
 
                 return Parse.Promise.when(
-
                     new Parse.Query(_class.Stickers).limit(PARSE_LIMIT).containedIn("parent", _stickers).find(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
-
                 )
 
             }).then(function (stickers, project) {
