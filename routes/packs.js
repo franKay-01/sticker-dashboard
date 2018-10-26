@@ -195,7 +195,7 @@ module.exports = function (app) {
                 _stickers = stickers;
 
                 return Parse.Promise.when(
-                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
+                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectIds", _pack.get("projectIds")).find(),
                     new Parse.Query(_class.Product).find(),
                     new Parse.Query(_class.Projects).containedIn("objectId", _pack.get("projectIds")).limit(limit).find(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
