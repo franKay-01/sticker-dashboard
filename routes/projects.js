@@ -233,7 +233,7 @@ module.exports = function (app) {
 
                 let index = elementArray.indexOf(projectId);
                 if (index > -1) {
-                    elementArray.splice(index, 1);
+                    elementArray.splice(index, index);
                 }
                 // _.each(elementArray, function (element, index) {
                 //
