@@ -229,7 +229,7 @@ module.exports = function (app) {
 
             }).then(function (item) {
 
-                elementArray = item.get("projectId");
+                elementArray = item.get("projectIds");
 
                 _.each(elementArray, function (element, index) {
 
@@ -245,6 +245,17 @@ module.exports = function (app) {
 
             }).then(function () {
 
+                if (itemType === pack) {
+
+                    res.redirect('/pack/' + itemId + '/' + projectId);
+
+                } else if (itemType === story) {
+
+                    res.redirect('/storyedit/' + itemId + '/' + projectId);
+                }
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
                 if (itemType === pack) {
 
                     res.redirect('/pack/' + itemId + '/' + projectId);
