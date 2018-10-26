@@ -170,7 +170,9 @@
             <% currentProjects.forEach(function(item, index) { %>
 
             <p class="options" style="color: #a46580 !important;">
-                <%= item.get("name") %> Project
+                <%= item.get("name") %> Project &nbsp; <a href="/project/remove/pack/<%= id %>/<%= projectItem.id %>">
+                    <i class="fa fa-minus-square" aria-hidden="true"></i>
+                </a>
             </p>
 
             <% }) %>
