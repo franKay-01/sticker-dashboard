@@ -231,14 +231,18 @@ module.exports = function (app) {
 
                 elementArray = item.get("projectIds");
 
-                _.each(elementArray, function (element, index) {
-
-                    if (projectId === element){
-
-                        elementArray.splice(index, 1);
-
-                    }
-                });
+                let index = elementArray.indexOf(projectId);
+                if (index > -1) {
+                    elementArray.splice(index, 1);
+                }
+                // _.each(elementArray, function (element, index) {
+                //
+                //     if (projectId === element){
+                //
+                //         elementArray.splice(index, 1);
+                //
+                //     }
+                // });
 
                 item.set("projectIds", elementArray);
                 return item.save();
