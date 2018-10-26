@@ -346,6 +346,7 @@
 
                     <form id="latestStory" action="/feeds/story/story" method="post">
                         <input type="text" class="story_id" name="element_id" value="<%= story.id %>" hidden>
+                        <input type="hidden" name="projectId" value="<%= projectItem.id %>">
                         <button style="background-color: transparent;font-size: 20px;" type="button"
                                 class="preview storyElement">Make Story of The Week
                         </button>
