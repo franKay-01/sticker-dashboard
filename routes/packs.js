@@ -98,6 +98,7 @@ module.exports = function (app) {
                 pack.set("flagged", false);
                 pack.set("published", false);
                 pack.set("previews", []);
+
                 if (packCategory === "") {
 
                     pack.set("keywords", [""]);
