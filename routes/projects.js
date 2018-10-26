@@ -205,12 +205,13 @@ module.exports = function (app) {
 
     });
 
-    app.get('/project/remove/:itemType/:itemId/:projectId', function (req, res) {
+    app.get('/project/remove/:itemType/:itemId/:projectId/:projectItemId', function (req, res) {
 
         let token = req.cookies.token;
         let itemId = req.params.itemId;
         let itemType = req.params.itemType;
         let projectId = req.params.projectId;
+        let projectItemId = req.params.projectItemId;
         let elementArray = [];
 
         if (token) {
@@ -231,18 +232,18 @@ module.exports = function (app) {
 
                 elementArray = item.get("projectIds");
 
-                let index = elementArray.indexOf(projectId);
-                if (index > -1) {
-                    elementArray.splice(index, index);
-                }
-                // _.each(elementArray, function (element, index) {
-                //
-                //     if (projectId === element){
-                //
-                //         elementArray.splice(index, 1);
-                //
-                //     }
-                // });
+                // let index = elementArray.indexOf(projectId);
+                // if (index > -1) {
+                //     elementArray.splice(index, index);
+                // }
+                _.each(elementArray, function (element, index) {
+
+                    if (projectItemId === element){
+
+                        elementArray.splice(index, 1);
+
+                    }
+                });
 
                 item.set("projectIds", elementArray);
                 return item.save();

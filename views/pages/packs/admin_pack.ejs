@@ -172,7 +172,7 @@
             <p class="options" style="color: #a46580 !important;">
                 <%= item.get("name") %> Project &nbsp;
                 <% if (currentProjects.length > 1){%>
-                <a href="/project/remove/pack/<%= id %>/<%= projectItem.id %>">
+                <a href="/project/remove/pack/<%= id %>/<%= projectItem.id %>/<%= item.id %>">
                     <i class="fa fa-minus-square" style="color:<%= projectItem.get("setting").button%>; font-size: 20px" aria-hidden="true"></i>
                 </a>
                 <%}%>
