@@ -173,7 +173,6 @@ Parse.Cloud.define("getPack", function (req, res) {
 
     let packId = req.params.id;
 
-
     return new Parse.Query(_class.Packs).equalTo("published", true).equalTo("objectId", packId).first({useMasterKey: true})
         .then((pack) => {
 
