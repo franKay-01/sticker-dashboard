@@ -173,7 +173,7 @@
                 <%= item.get("name") %> Project &nbsp;
                 <% if (currentProjects.length > 1){%>
                 <a href="/project/remove/pack/<%= id %>/<%= projectItem.id %>">
-                    <i class="fa fa-minus-square" aria-hidden="true"></i>
+                    <i class="fa fa-minus-square" style="<%= projectItem.get("setting").button%>; font-size: 20px" aria-hidden="true"></i>
                 </a>
                 <%}%>
             </p>
