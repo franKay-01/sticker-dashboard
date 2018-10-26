@@ -50,7 +50,7 @@ module.exports = function (app) {
                 switch (type) {
                     case PACKS:
                         if (status === "publish") {
-                            res.redirect('/pack/create/previews/' + id + projectId);
+                            res.redirect('/pack/create/previews/' + id + '/' + projectId);
                         } else if (status === "unpublish") {
                             res.redirect(pack + id + '/' + projectId);
                         }
