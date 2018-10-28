@@ -311,9 +311,9 @@
 
                         <% } else { %>
                         <% projects.forEach(function(item) { %>
-                        <p style="color: #00aa9f;font-weight: 700"><%= item.get("name") %></p>
+                        <span style="color: #00aa9f;font-weight: 700"><%= item.get("name") %></span>
                         <a href="/project/remove/pack/<%= story.id %>/<%= projectItem.id %>/<%= item.id %>">
-                            <i class="fa fa-minus-square" style="color:<%= projectItem.get("setting").button %>; font-size: 20px"
+                            <i class="fa fa-minus-square" style="color:<%= projectItem.get("setting").button %>; font-size: 15px;margin-left: 10px"
                                aria-hidden="true"></i>
                         </a>
                         <br>
