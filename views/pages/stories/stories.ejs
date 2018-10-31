@@ -64,6 +64,19 @@
                               name="summary" required="" aria-required="true"></textarea><br>
                     <!--<textarea class="_pack common_pack_detail validate" placeholder="Story"-->
                     <!--name="story" required="" aria-required="true"></textarea><br>-->
+                    <label class="update_label" style="width: 450px;color: white !important;">Format Type of Story:</label>
+                    <input name="formatType" type="radio" id="formatType" checked value="<%= type.FORMAT_TYPE.default%>"/>
+                    <label for="formatType" class="_label" style="color: white !important;font-weight: 700">Defualt</label>
+
+                    <input name="formatType" type="radio" id="formatType2" value="<%= type.FORMAT_TYPE.sideImage%>"/>
+                    <label for="formatType2" class="_label" style="color: white !important;font-weight: 700;">S Image</label>
+
+                    <input name="formatType" type="radio" id="formatType3" value="<%= type.FORMAT_TYPE.text%>"/>
+                    <label for="formatType3" class="_label" style="color: white !important;font-weight: 700;">Text</label>
+
+                    <input name="formatType" type="radio" id="formatType4" value="<%= type.FORMAT_TYPE.backgroundImage%>"/>
+                    <label for="formatType4" class="_label" style="color: white !important;font-weight: 700;">B Image</label>
+
                     <input type="hidden" name="projectId" value="<%= projectItem.id %>">
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="pack_id" required="" aria-required="true">
@@ -83,9 +96,13 @@
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="storyType" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Add Story Type</option>
-                            <option value="0">SHORT STORIES</option>
-                            <option value="1">STORY</option>
-                            <option value="2">JOKES</option>
+                            <option value="<%= type.STORY_TYPE.short_stories%>">SHORT STORIES</option>
+                            <option value="<%= type.STORY_TYPE.story%>">STORY</option>
+                            <option value="<%= type.STORY_TYPE.jokes%>">JOKES</option>
+                            <option value="<%= type.STORY_TYPE.quotes%>">QUOTES</option>
+                            <option value="<%= type.STORY_TYPE.facts%>">FACTS</option>
+                            <option value="<%= type.STORY_TYPE.history%>">HISTORY</option>
+                            <option value="<%= type.STORY_TYPE.news%>">NEWS</option>
 
                         </select>
                     </div>
