@@ -1,6 +1,6 @@
 <% if (locals.quotes) { %>
 <% if (quotes.length === 0) { %>
-<p class="none">None</p>
+<p class="none" style="margin: 0 !important;">None</p>
 <% } else { %>
 <% quotes.forEach(function(item) { %>
 <div class="truncate_title"><a class="home_pack_description" href="/storyedit/<%= item.id %>/<%= projectItem.id %>"><%= item.get("title") %></a></div>
@@ -8,7 +8,7 @@
 <div><a class="view_all" href="/stories/<%= projectItem.id %>">View All</a></div>
 <% } %>
 <% } else { %>
-<p class="none">None</p>
+<p class="none" style="margin: 0 !important;">None</p>
 <% } %>
 
 
