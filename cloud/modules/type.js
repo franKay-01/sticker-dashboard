@@ -69,6 +69,13 @@ exports.STORY_TYPE = {
     news: 6
 };
 
+exports.FORMAT_TYPE = {
+    default: 0,
+    sideImage: 1,
+    text: 2,
+    backgroundImage: 3
+};
+
 exports.ITEM_TYPE = {
     story: "story",
     pack: "pack"
