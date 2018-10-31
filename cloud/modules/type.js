@@ -62,7 +62,11 @@ exports.PACK_TYPE = {
 exports.STORY_TYPE = {
     short_stories: 0,
     story: 1,
-    jokes: 2
+    jokes: 2,
+    quotes: 3,
+    facts: 4,
+    history: 5,
+    news: 6
 };
 
 exports.ITEM_TYPE = {

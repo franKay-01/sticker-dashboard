@@ -1094,7 +1094,6 @@ module.exports = function (app) {
         let summary = req.body.summary;
         let pack_id = req.body.pack_id;
         let projectId = req.body.projectId;
-        let body = req.body.summary;
         let storyType = parseInt(req.body.storyType);
         let projectArray = [];
 

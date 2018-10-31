@@ -108,9 +108,13 @@
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="storyType" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Add Story Type</option>
-                            <option value="0">SHORT STORIES</option>
-                            <option value="1">STORY</option>
-                            <option value="2">JOKES</option>
+                            <option value="<%= type.STORY_TYPE.short_stories%>">SHORT STORIES</option>
+                            <option value="<%= type.STORY_TYPE.story%>">STORY</option>
+                            <option value="<%= type.STORY_TYPE.jokes%>">JOKES</option>
+                            <option value="<%= type.STORY_TYPE.quotes%>">QUOTES</option>
+                            <option value="<%= type.STORY_TYPE.facts%>">FACTS</option>
+                            <option value="<%= type.STORY_TYPE.history%>">HISTORY</option>
+                            <option value="<%= type.STORY_TYPE.news%>">NEWS</option>
 
                         </select>
                     </div>
@@ -227,9 +231,9 @@
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="packType" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Add Pack Type</option>
-                            <option value="0">GROUPED</option>
-                            <option value="1">THEMED</option>
-                            <option value="2">CURATED</option>
+                            <option value="<%= type.PACK_TYPE.grouped %>">GROUPED</option>
+                            <option value="<%= type.PACK_TYPE.themed %>">THEMED</option>
+                            <option value="<%= type.PACK_TYPE.curated %>">CURATED</option>
                         </select>
                     </div>
                     <!--<div style="margin-bottom: 10px">-->
