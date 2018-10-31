@@ -86,6 +86,11 @@ module.exports = function (app) {
             let _projectItem = "";
             let _storyBody;
             let _stickerName;
+            let _jokes;
+            let _quotes;
+            let _news;
+            let _facts;
+            let _history;
             let _categoryLength = 0;
             let _packLength = 0;
             let _stickerLength = 0;
@@ -93,6 +98,7 @@ module.exports = function (app) {
             let _projectLength = 0;
             let projectArray = [];
             const limit = 5;
+            const otherLimit = 2;
 
             util.getUser(token).then(function (sessionToken) {
 
@@ -115,11 +121,21 @@ module.exports = function (app) {
                     new Parse.Query(_class.Adverts).equalTo("userId", _user.id).containedIn("projectIds", projectArray).limit(limit).find(),
                     new Parse.Query(_class.Projects).limit(limit).find(),
                     new Parse.Query(_class.Projects).equalTo("userId", _user.id).count(),
-                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.jokes)
+                        .limit(otherLimit).find(),
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.quotes)
+                        .limit(otherLimit).find(),
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.history)
+                        .limit(otherLimit).find(),
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.news)
+                        .limit(otherLimit).find(),
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.facts)
+                        .limit(otherLimit).find(),
                 );
 
             }).then(function (sticker, latestStory, collection, story, allPacks, categoryLength, packLength,
-                              stickerLength, storyLength, allAdverts, projects, projectLength, projectItem) {
+                              stickerLength, storyLength, allAdverts, projects, projectLength, projectItem, jokes, quotes, history, news, facts) {
 
                 _collection = collection;
                 _story = story;
@@ -127,6 +143,11 @@ module.exports = function (app) {
                 _allAds = allAdverts;
                 _allProjects = projects;
                 _projectItem = projectItem;
+                _jokes = jokes;
+                _quotes = quotes;
+                _news = news;
+                _history = history;
+                _facts = facts;
                 _categoryLength = helper.leadingZero(categoryLength);
                 _packLength = helper.leadingZero(packLength);
                 _stickerLength = helper.leadingZero(stickerLength);
@@ -226,6 +247,11 @@ module.exports = function (app) {
                         storyLength: _storyLength,
                         projectLength: _projectLength,
                         projectId: projectId,
+                        jokes: _jokes,
+                        history: _history,
+                        facts: _facts,
+                        news: _news,
+                        quotes: _quotes,
                         user_name: _user.get("name"),
                         verified: _user.get("emailVerified"),
                         error_message: "null",
