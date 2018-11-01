@@ -724,6 +724,9 @@ module.exports = function (app) {
         let id = req.params.id;
         let content = req.body.content;
         let heading = req.body.heading;
+        let author = req.body.author;
+        let description = req.body.description;
+        let link = req.body.link;
         let projectId = req.body.projectId;
         let _type = parseInt(req.body.style);
 
@@ -784,6 +787,10 @@ module.exports = function (app) {
                         story.set("type", type.STORY_ITEM.heading);
                         story.set("contents", {"heading": heading, "text": content});
                         break;
+
+                    case type.STORY_ITEM.source:
+                        story.set("type", type.STORY_ITEM.source);
+                        story.set("contents", {"name": author, "description": description, "link": link});
                 }
 
                 story.set("storyId", id);
