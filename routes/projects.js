@@ -5,6 +5,10 @@ let type = require('../cloud/modules/type');
 let fs = require('fs');
 let _ = require('underscore');
 
+
+let pack = "pack";
+let story = "stories";
+
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
         console.log("Dest " + JSON.stringify(file));
@@ -201,14 +205,83 @@ module.exports = function (app) {
 
     });
 
+    app.get('/project/remove/:itemType/:itemId/:projectId/:projectItemId', function (req, res) {
+
+        let token = req.cookies.token;
+        let itemId = req.params.itemId;
+        let itemType = req.params.itemType;
+        let projectId = req.params.projectId;
+        let projectItemId = req.params.projectItemId;
+        let elementArray = [];
+
+        if (token) {
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                if (itemType === pack) {
+                    return new Parse.Query(_class.Packs).equalTo("userId", _user.id).equalTo("objectId", itemId).first();
+                } else if (itemType === story) {
+                    return new Parse.Query(_class.Stories).equalTo("userId", _user.id).equalTo("objectId", itemId).first();
+                }
+
+            }).then(function (item) {
+
+                elementArray = item.get("projectIds");
+
+                // let index = elementArray.indexOf(projectId);
+                // if (index > -1) {
+                //     elementArray.splice(index, index);
+                // }
+                _.each(elementArray, function (element, index) {
+
+                    if (projectItemId === element){
+
+                        elementArray.splice(index, 1);
+
+                    }
+                });
+
+                item.set("projectIds", elementArray);
+                return item.save();
+
+            }).then(function () {
+
+                if (itemType === pack) {
+
+                    res.redirect('/pack/' + itemId + '/' + projectId);
+
+                } else if (itemType === story) {
+
+                    res.redirect('/storyedit/' + itemId + '/' + projectId);
+                }
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                if (itemType === pack) {
+
+                    res.redirect('/pack/' + itemId + '/' + projectId);
+
+                } else if (itemType === story) {
+
+                    res.redirect('/storyedit/' + itemId + '/' + projectId);
+                }
+            })
+
+        } else {
+            res.redirect('/');
+        }
+    });
+
     app.get('/project/new/add/:itemType/:itemId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let itemId = req.params.itemId;
         let itemType = req.params.itemType;
         let projectId = req.params.projectId;
-        let pack = "pack";
-        let story = "story";
 
         if (token) {
 
@@ -280,7 +353,7 @@ module.exports = function (app) {
                 _.each(itemArray, function (item) {
                     _.each(_itemIds, function (newItems, index) {
 
-                        if (item === newItems){
+                        if (item === newItems) {
                             _itemIds.splice(index, 1);
                         }
                     })

@@ -95,7 +95,7 @@
                               name="content" required="" aria-required="true"></textarea><br>
                     Words: <span class="wordCount">0</span><br/>
                 </center>
-                <input name="style" value="0" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.text %>" hidden>
                 <span>
         <button type="submit" class="create">CREATE</button>
         </span>
@@ -105,8 +105,60 @@
 
             </form>
         </div>
-
     </div>
+
+    <div id="hiddenSourceCatalouge" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW SOURCE
+                </div>
+            </center>
+            <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post" style="padding: 5px;">
+                <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+                    <i class="fa fa-key" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
+                    <input class="_pack common_pack_detail validate" placeholder="Add Name" type="text" name="author">
+                    <input class="_pack common_pack_detail validate" placeholder="Add Description" type="text" name="description">
+                    <input class="_pack common_pack_detail validate" placeholder="Add Link" type="text" name="link">
+                </center>
+                <input name="style" value="<%= type.STORY_ITEM.source %>" hidden>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseSourceCatalogue" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+
+
+    <div id="hiddenLinkCatalouge" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW LINK
+                </div>
+            </center>
+            <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post" style="padding: 5px;">
+                <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+                    <i class="fa fa-link" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
+                    <input class="_pack common_pack_detail validate" placeholder="Add Name" type="text" name="author">
+                    <input class="_pack common_pack_detail validate" placeholder="Add Link" type="text" name="url">
+                </center>
+                <input name="style" value="<%= type.STORY_ITEM.source %>" hidden>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseLinkCatalogue" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+
 
     <div id="hiddenQuoteCatalouge" class="hidden_forms" style="display: none">
         <div class="medium-3 large-3 cell create_background">
@@ -122,7 +174,7 @@
                               name="content" required="" aria-required="true"></textarea><br>
                     Words: <span class="wordCount">0</span><br/>
                 </center>
-                <input name="style" value="2" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.quote %>" hidden>
                 <span>
         <button type="submit" class="create">ADD</button>
         </span>
@@ -150,7 +202,7 @@
                     Words: <span class="wordCount">0</span><br/>
                 </center>
 
-                <input name="style" value="5" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.italic %>" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -179,7 +231,7 @@
                     Words: <span class="wordCount">0</span><br/>
                 </center>
 
-                <input name="style" value="6" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.bold %>" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -210,7 +262,7 @@
                     Words: <span class="wordCount">0</span><br/>
                 </center>
 
-                <input name="style" value="9" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.heading %>" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -240,7 +292,7 @@
                     Words: <span class="wordCount">0</span><br/>
                 </center>
 
-                <input name="style" value="12" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.greyArea %>" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -272,7 +324,7 @@
                     Words: <span class="wordCount">0</span><br/>
                 </center>
 
-                <input name="style" value="11" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.sideNote %>" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -304,7 +356,7 @@
                     Words: <span class="wordCount">0</span><br/>
                 </center>
 
-                <input name="style" value="8" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.italicBold %>" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -337,7 +389,7 @@
                     </div>
                 </center>
 
-                <input name="style" value="10" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.list %>" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -363,7 +415,7 @@
                 </center>
                 <input name="content" value=" " hidden>
 
-                <input name="style" value="4" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.divider %>" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -522,8 +574,16 @@
                 <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Grey Area</p>
             </button>
 
+            <button class="create_button source_element">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Source</p>
+            </button>
+
+            <button class="create_button link_element">
+                <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Link</p>
+            </button>
+
             <a href="/storyItem/html/new/<%= story_id  %>/<%= projectItem.id %>">
-                <button class="create_button" style="background-color: #0f9d58">
+                <button class="create_button" style="background-color: #0f9d58 !important;">
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;HTML
                     </p>
                 </button>

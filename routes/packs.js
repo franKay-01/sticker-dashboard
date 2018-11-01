@@ -75,7 +75,6 @@ module.exports = function (app) {
         let packType = parseInt(req.body.packType);
         let version = parseInt(req.body.version);
         let projectArray = [];
-        let NSFW = "NSFW";
         projectArray.push(projectId);
 
         if (token) {
@@ -99,10 +98,15 @@ module.exports = function (app) {
                 pack.set("flagged", false);
                 pack.set("published", false);
                 pack.set("previews", []);
-                if (packCategory === NSFW){
-                    pack.set("keywords", [packCategory]);
-                }else if (packCategory !== NSFW){
+
+                if (packCategory === "") {
+
                     pack.set("keywords", [""]);
+
+                } else {
+
+                    pack.set("keywords", [packCategory]);
+
                 }
 
                 if (packType === type.PACK_TYPE.grouped) {
@@ -195,7 +199,7 @@ module.exports = function (app) {
                 _stickers = stickers;
 
                 return Parse.Promise.when(
-                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
+                    new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectIds", _pack.get("projectIds")).find(),
                     new Parse.Query(_class.Product).find(),
                     new Parse.Query(_class.Projects).containedIn("objectId", _pack.get("projectIds")).limit(limit).find(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
@@ -927,10 +931,8 @@ module.exports = function (app) {
                 });
 
                 return Parse.Promise.when(
-
                     new Parse.Query(_class.Stickers).limit(PARSE_LIMIT).containedIn("parent", _stickers).find(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
-
                 )
 
             }).then(function (stickers, project) {

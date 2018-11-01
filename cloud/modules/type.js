@@ -50,7 +50,11 @@ exports.STORY_ITEM = {
     sideNote:11,
     greyArea:12,
     html:13,
-    color: 14
+    //html color
+    color: 14,
+    link: 15,
+    source: 16,
+    backgroundColor: 17
 };
 
 exports.PACK_TYPE = {
@@ -62,7 +66,18 @@ exports.PACK_TYPE = {
 exports.STORY_TYPE = {
     short_stories: 0,
     story: 1,
-    jokes: 2
+    jokes: 2,
+    quotes: 3,
+    facts: 4,
+    history: 5,
+    news: 6
+};
+
+exports.FORMAT_TYPE = {
+    default: 0,
+    sideImage: 1,
+    text: 2,
+    backgroundImage: 3
 };
 
 exports.ITEM_TYPE = {

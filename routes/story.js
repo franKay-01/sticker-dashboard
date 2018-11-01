@@ -129,7 +129,8 @@ module.exports = function (app) {
 
                     story_id: story.id,
                     name: story.get("title"),
-                    projectItem: project
+                    projectItem: project,
+                    type: type
 
                 });
 
@@ -723,6 +724,10 @@ module.exports = function (app) {
         let id = req.params.id;
         let content = req.body.content;
         let heading = req.body.heading;
+        let author = req.body.author;
+        let description = req.body.description;
+        let link = req.body.link;
+        let url = req.body.url;
         let projectId = req.body.projectId;
         let _type = parseInt(req.body.style);
 
@@ -782,6 +787,16 @@ module.exports = function (app) {
                     case type.STORY_ITEM.heading:
                         story.set("type", type.STORY_ITEM.heading);
                         story.set("contents", {"heading": heading, "text": content});
+                        break;
+
+                    case type.STORY_ITEM.source:
+                        story.set("type", type.STORY_ITEM.source);
+                        story.set("contents", {"name": author, "description": description, "link": link});
+                        break;
+
+                    case type.STORY_ITEM.link:
+                        story.set("type", type.STORY_ITEM.link);
+                        story.set("contents", {"name": author, "url": url});
                         break;
                 }
 
@@ -984,7 +999,6 @@ module.exports = function (app) {
 
                 art = _sticker;
 
-                console.log("STORY INFO " + _story.get("authorId"));
                 if (_story.get("authorId") === "") {
 
                     return "";
@@ -1022,6 +1036,7 @@ module.exports = function (app) {
                     authorId: authorId,
                     projects: projects,
                     projectItem: project,
+                    type: type,
                     next: page.next,
                     previous: page.previous
                 });
@@ -1094,7 +1109,6 @@ module.exports = function (app) {
         let summary = req.body.summary;
         let pack_id = req.body.pack_id;
         let projectId = req.body.projectId;
-        let body = req.body.summary;
         let storyType = parseInt(req.body.storyType);
         let projectArray = [];
 
