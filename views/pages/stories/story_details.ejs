@@ -150,9 +150,17 @@
                     <div class="stats">Menu</div>
                     <% include ../../partials/menu.ejs %>
 
-                    <div style="margin-top: 40px !important;"><a class="_stickers_packs"
-                                                                 href="/storyitem/<%= story.id %>/<%= projectItem.id %>">Add
+                    <%if (story.get("storyType") === type.STORY_TYPE.quotes || story.get("storyType") === type.STORY_TYPE.facts){%>
+                    <% if (storyItem) {%>
+
+                    <%} else {%>
+                    <div style="margin-top: 40px !important;"><a class="_stickers_packs" href="/storyitem/<%= story.id %>/<%= projectItem.id %>">Add
                             Story Item</a></div>
+                    <%}%>
+                    <%} else {%>
+                    <div style="margin-top: 40px !important;"><a class="_stickers_packs" href="/storyitem/<%= story.id %>/<%= projectItem.id %>">Add
+                            Story Item</a></div>
+                    <%}%>
                 </div>
             </div>
             <div class="icons">
@@ -172,7 +180,8 @@
 
                 <a href="#" id="showPermission">
                     <button class="create_button">
-                        <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i>
+                        <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
+                                                                                       aria-hidden="true"></i>
                             &nbsp;
                             PUBLISH
                         </p>
@@ -181,7 +190,8 @@
                 <% } else if (story.get("published") === true){ %>
                 <a href="#" id="removePublished">
                     <button class="create_button">
-                        <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i>
+                        <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
+                                                                                       aria-hidden="true"></i>
                             &nbsp;
                             UNPUBLISH
                         </p>
@@ -310,12 +320,13 @@
                         <% } else { %>
                         <% projects.forEach(function(item) { %>
                         <span style="color: #00aa9f;font-weight: 700"><%= item.get("name") %></span>
-                        <% if (projects.length > 1){%>
+                        <% if (projects.length > 1){ %>
                         <a href="/project/remove/pack/<%= story.id %>/<%= projectItem.id %>/<%= item.id %>">
-                            <i class="fa fa-minus-square" style="color:<%= projectItem.get("setting").button %>; font-size: 15px;margin-left: 10px"
+                            <i class="fa fa-minus-square"
+                               style="color:<%= projectItem.get("setting").button %>; font-size: 15px;margin-left: 10px"
                                aria-hidden="true"></i>
                         </a>
-                        <%}%>
+                        <% } %>
                         <br>
                         <% }) %>
                         <% } %>
@@ -351,6 +362,7 @@
                 </div>
             </form>
             <% if (latest !== ""){ %>
+            <% if (story.get("storyType") === type.STORY_TYPE.short_stories || story.get("storyType") === type.STORY_TYPE.story) { %>
             <% if (latest.get("feedId") !== story.id && story.get("published") === true){ %>
 
             <form id="latestStory" action="/feeds/story/story" method="post">
@@ -360,6 +372,7 @@
                         class="preview storyElement">Make Story of The Week
                 </button>
             </form>
+            <% } %>
             <% } %>
             <% } %>
         </div>

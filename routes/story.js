@@ -934,6 +934,7 @@ module.exports = function (app) {
             let art;
             let authorName;
             let authorId;
+            let _storyItem;
 
 
             util.getUser(token).then(function (sessionToken) {
@@ -946,13 +947,15 @@ module.exports = function (app) {
                     new Parse.Query(_class.ArtWork).equalTo("itemId", story_id).first(),
                     new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
                     new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find(),
-                    new Parse.Query(_class.Authors).find()
+                    new Parse.Query(_class.Authors).find(),
+                    new Parse.Query(_class.StoryItems).equalTo("storyId", story_id).first()
                 );
 
-            }).then(function (story, sticker, latest, stories, authors) {
+            }).then(function (story, sticker, latest, stories, authors, storyItem) {
 
                 _story = story;
                 _authors = authors;
+                _storyItem = storyItem;
 
                 if (latest) {
                     _latest = latest;
@@ -984,7 +987,6 @@ module.exports = function (app) {
 
                 art = _sticker;
 
-                console.log("STORY INFO " + _story.get("authorId"));
                 if (_story.get("authorId") === "") {
 
                     return "";
@@ -1022,6 +1024,7 @@ module.exports = function (app) {
                     authorId: authorId,
                     projects: projects,
                     projectItem: project,
+                    storyItem: _storyItem,
                     next: page.next,
                     previous: page.previous
                 });
