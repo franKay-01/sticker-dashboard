@@ -5,6 +5,7 @@ let _ = require('underscore');
 let create = require("../modules/create");
 let _class = require("../modules/classNames");
 let analytics = require("../modules/analytics");
+let query = require("../modules/query");
 
 //environment cars
 const LATEST_STICKER = process.env.LATEST_STICKER;
@@ -139,11 +140,13 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
     let limit = req.params.limit;
     let projectId = req.params.projectId;
+    let keyword = req.params.keyword;
 
-    if(!projectId){projectId = DEFAULT_PROJECT}
-    if(!limit){ limit = 1000 }
-
-    return new Parse.Query(_class.Packs).equalTo("published", true).containedIn("projectIds", [projectId]).limit(limit).equalTo("userId", ADMIN).descending("createdAt").find({useMasterKey: true})
+    return query.Packs({
+        limit:limit,
+        projectId:projectId,
+        keyword:keyword
+    })
         .then((packs) => {
 
             if (packs.length) {

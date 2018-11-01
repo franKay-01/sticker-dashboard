@@ -5,22 +5,29 @@ const helper = require('./helpers');
 const ADMIN = process.env.ADMIN;
 const DEFAULT_PROJECT = process.env.DEFAULT_PROJECT;
 
-exports.Pack = opt => {
+exports.Packs = opt => {
 
     let limit = opt.limit;
     let keyword = opt.keyword;
     let projectId = opt.projectId;
 
-    if(!projectId){projectId = DEFAULT_PROJECT}
-    if(!limit){ limit = 1000 }
+    if (!projectId) {
+        projectId = DEFAULT_PROJECT
+    }
+    if (!limit) {
+        limit = 1000
+    }
 
     let query = Parse.Query(_class.Packs);
     query.equalTo("published", true);
     query.containedIn("projectIds", [projectId]);
-    if(keyword){query.containedIn("keywords", [keyword]);}
+    if (keyword) {
+        if (keyword !== "") {
+            query.containedIn("keywords", [keyword]);
+        }
+    }
     query.limit(limit);
     query.equalTo("userId", ADMIN);
-
     query.descending("createdAt");
 
     return query.find({useMasterKey: true})
