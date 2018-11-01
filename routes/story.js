@@ -129,7 +129,8 @@ module.exports = function (app) {
 
                     story_id: story.id,
                     name: story.get("title"),
-                    projectItem: project
+                    projectItem: project,
+                    type: type
 
                 });
 
