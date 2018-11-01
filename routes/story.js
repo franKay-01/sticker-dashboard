@@ -1026,7 +1026,8 @@ module.exports = function (app) {
                     projectItem: project,
                     storyItem: _storyItem,
                     next: page.next,
-                    previous: page.previous
+                    previous: page.previous,
+                    type: type
                 });
 
             }, function (error) {
