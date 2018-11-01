@@ -1,6 +1,7 @@
 const _ = require('underscore');
 const type = require('./type');
 const helper = require('./helpers');
+const _class = require('./classNames');
 
 const ADMIN = process.env.ADMIN;
 const DEFAULT_PROJECT = process.env.DEFAULT_PROJECT;
