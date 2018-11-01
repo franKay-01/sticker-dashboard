@@ -159,8 +159,11 @@ Parse.Cloud.define("getPacks", function (req, res) {
     query.equalTo("userId", ADMIN);
     query.descending("createdAt");
 
-    return query.find({useMasterKey: true})
-        .then((packs) => {
+    return query.Packs({
+        limit: limit,
+        projectId: projectId,
+        keyword: keyword
+    }).then((packs) => {
 
             if (packs.length) {
 
