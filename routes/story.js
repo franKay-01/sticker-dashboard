@@ -804,12 +804,12 @@ module.exports = function (app) {
 
                     case type.STORY_ITEM.backgroundColor:
                         if (colorFormat === type.FORMAT_TYPE.regular){
-                            story.set("type", type.STORY_ITEM.backgroundColor.toString());
-                            story.set("contents", {"type": colorFormat, "topColor": topColor, "bottomColor": ""});
+                            story.set("type", type.STORY_ITEM.backgroundColor);
+                            story.set("contents", {"type": colorFormat.toString(), "color": topColor});
                             break;
                         }else if (colorFormat === type.FORMAT_TYPE.gradient){
-                            story.set("type", type.STORY_ITEM.backgroundColor.toString());
-                            story.set("contents", {"type": colorFormat, "topColor": topColor, "bottomColor": bottomColor});
+                            story.set("type", type.STORY_ITEM.backgroundColor);
+                            story.set("contents", {"type": colorFormat.toString(), "topColor": topColor, "bottomColor": bottomColor});
                             break;
                         }
                 }
