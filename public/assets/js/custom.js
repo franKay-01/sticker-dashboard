@@ -148,6 +148,16 @@ $(document).ready(function () {
             $('#pack_id').fadeOut('fast');
         });
 
+        $('.bcolor_element').on('click', function () {
+            $('#hiddenBColorCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
+
         $('.sideNote_element').on('click', function () {
             $('#hiddenSideNoteCatalouge').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
@@ -584,9 +594,19 @@ $(document).ready(function () {
             $('#pack_form')[0].reset();
         });
 
-
         $('#btnCloseLinkCatalogue').on('click', function () {
             $('#hiddenLinkCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
+        $('#btnCloseBColorCatalogue').on('click', function () {
+            $('#hiddenBColorCatalouge').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
