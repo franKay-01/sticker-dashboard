@@ -146,8 +146,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
         limit:limit,
         projectId:projectId,
         keyword:keyword
-    })
-        .then((packs) => {
+    }).find({useMasterKey: true}).then((packs) => {
 
             if (packs.length) {
 

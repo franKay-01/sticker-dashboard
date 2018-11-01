@@ -31,5 +31,5 @@ exports.Packs = opt => {
     query.equalTo("userId", ADMIN);
     query.descending("createdAt");
 
-    return query.find({useMasterKey: true})
+    return query;
 };
