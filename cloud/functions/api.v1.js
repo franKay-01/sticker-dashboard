@@ -140,11 +140,26 @@ Parse.Cloud.define("getPacks", function (req, res) {
 
     let limit = req.params.limit;
     let projectId = req.params.projectId;
+    let keyword = req.params.keyword;
 
     if(!projectId){projectId = DEFAULT_PROJECT}
     if(!limit){ limit = 1000 }
 
-    return new Parse.Query(_class.Packs).equalTo("published", true).containedIn("projectIds", [projectId]).limit(limit).equalTo("userId", ADMIN).descending("createdAt").find({useMasterKey: true})
+    let query = Parse.Query(_class.Packs);
+    query.equalTo("published", true);
+    query.containedIn("projectIds", [projectId]);
+
+    if (keyword) {
+        if (keyword !== "") {
+            query.containedIn("keywords", [keyword]);
+        }
+    }
+
+    query.limit(limit);
+    query.equalTo("userId", ADMIN);
+    query.descending("createdAt");
+
+    return query.find({useMasterKey: true})
         .then((packs) => {
 
             if (packs.length) {
