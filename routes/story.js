@@ -728,6 +728,9 @@ module.exports = function (app) {
         let description = req.body.description;
         let link = req.body.link;
         let url = req.body.url;
+        let colorFormat = req.body.colorFormat;
+        let topColor = req.body.topColor;
+        let bottomColor = req.body.bottomColor;
         let projectId = req.body.projectId;
         let _type = parseInt(req.body.style);
 
@@ -798,6 +801,17 @@ module.exports = function (app) {
                         story.set("type", type.STORY_ITEM.link);
                         story.set("contents", {"name": author, "url": url});
                         break;
+
+                    case type.STORY_ITEM.backgroundColor:
+                        if (colorFormat === type.FORMAT_TYPE.regular){
+                            story.set("type", type.STORY_ITEM.backgroundColor);
+                            story.set("contents", {"type": colorFormat, "topColor": topColor, "bottomColor": ""});
+                            break;
+                        }else if (colorFormat === type.FORMAT_TYPE.gradient){
+                            story.set("type", type.STORY_ITEM.backgroundColor);
+                            story.set("contents", {"type": colorFormat, "topColor": topColor, "bottomColor": bottomColor});
+                            break;
+                        }
                 }
 
                 story.set("storyId", id);
