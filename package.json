@@ -52,7 +52,7 @@
     "test": "mocha test/*.js"
   },
   "engines": {
-    "node": ">=8.0"
+    "node": "^8.0.0"
   },
   "devDependencies": {
     "mocha": "^5.2.0"
