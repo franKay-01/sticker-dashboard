@@ -28,6 +28,9 @@
     <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
     <style>
         <% include ../../partials/modified_css.ejs %>
+        .evo-palette{
+            background-color: white !important;
+        }
     </style>
     <script>
 
@@ -45,6 +48,7 @@
 
         $(function () {
             $("#color_value").colorpicker();
+            $("#color_value1").colorpicker();
         })
 
         counter = function () {
@@ -189,8 +193,17 @@
                     <label for="colorFormat2" class="_label"
                            style="color: white !important;font-weight: 700;">GRADIENT</label>
 
+                    <br>
+                    <label class="update_label" style="width: 450px;color: white !important;">Select Top Color:</label>
                     <div style=" margin:0px 15px auto;">
-                        <input style="width:100px;" id="color_value" name="htmlColor" value="#0f9d58"/>
+                        <input style="width:100px;" id="color_value" name="topColor" value="#0f9d58"/>
+
+                        <div id="cpEvent1" class="demoPanel" style="width: 170px;"></div>
+                    </div>
+                    <br>
+                    <label class="update_label" style="width: 450px;color: white !important;">Select Bottom Color:</label>
+                    <div style=" margin:0px 15px auto;">
+                        <input style="width:100px;" id="color_value1" name="bottomColor" value="#814ea4"/>
 
                         <div id="cpEvent1" class="demoPanel" style="width: 170px;"></div>
                     </div>
