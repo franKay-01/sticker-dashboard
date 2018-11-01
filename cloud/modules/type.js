@@ -77,7 +77,9 @@ exports.FORMAT_TYPE = {
     default: 0,
     sideImage: 1,
     text: 2,
-    backgroundImage: 3
+    backgroundImage: 3,
+    regular: 4,
+    gradient: 5
 };
 
 exports.ITEM_TYPE = {

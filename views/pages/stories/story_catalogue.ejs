@@ -16,10 +16,14 @@
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="/public/assets/css/evol-colorpicker.min.css" rel="stylesheet" type="text/css">
+
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script src="/public/assets/js/evol-colorpicker.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
     <style>
         <% include ../../partials/modified_css.ejs %>
     </style>
@@ -36,6 +40,10 @@
                 return false;
             });
         });
+
+        $(function () {
+            $("#color_value").colorpicker();
+        })
 
         counter = function () {
             let value = $('.element').val();
@@ -148,6 +156,44 @@
                     <input class="_pack common_pack_detail validate" placeholder="Add Link" type="text" name="url">
                 </center>
                 <input name="style" value="<%= type.STORY_ITEM.source %>" hidden>
+                <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+                <span>
+        <button type="button" id="btnCloseLinkCatalogue" class="cancel">Cancel</button>
+         </span>
+
+            </form>
+        </div>
+    </div>
+
+
+    <div id="hiddenLinkCatalouge" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW BACKGROUND COLOUR
+                </div>
+            </center>
+            <form id="pack_form" action="/storyItem/type/<%= story_id %>" method="post" style="padding: 5px;">
+                <center>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+                    <i class="fa fa-paint-brush" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
+                    <label class="update_label" style="width: 450px;color: white !important;">Select Color Format:</label>
+                    <input name="colorFormat" type="radio" id="colorFormat" checked value="<%= type.FORMAT_TYPE.regular %>"/>
+                    <label for="colorFormat" class="_label"
+                           style="color: white !important;font-weight: 700">DEFAULT</label>
+
+                    <input name="colorFormat" type="radio" id="colorFormat2" value="<%= type.FORMAT_TYPE.gradient %>"/>
+                    <label for="colorFormat2" class="_label"
+                           style="color: white !important;font-weight: 700;">GRADIENT</label>
+
+                    <div style=" margin:0px 15px auto;">
+                        <input style="width:100px;" id="color_value" name="htmlColor" value="#0f9d58"/>
+
+                        <div id="cpEvent1" class="demoPanel" style="width: 170px;"></div>
+                    </div>
+                </center>
+                <input name="style" value="<%= type.STORY_ITEM.backgroundColor %>" hidden>
                 <span>
         <button type="submit" class="create">CREATE</button>
         </span>
