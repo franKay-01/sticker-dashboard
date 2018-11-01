@@ -128,6 +128,16 @@ $(document).ready(function () {
             $('#pack_id').fadeOut('fast');
         });
 
+        $('.link_element').on('click', function () {
+            $('#hiddenLinkCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
+
         $('.heading_element').on('click', function () {
             $('#hiddenHeadingCatalouge').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
@@ -565,6 +575,18 @@ $(document).ready(function () {
 
         $('#btnCloseSourceCatalogue').on('click', function () {
             $('#hiddenSourceCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
+
+        $('#btnCloseLinkCatalogue').on('click', function () {
+            $('#hiddenLinkCatalouge').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
