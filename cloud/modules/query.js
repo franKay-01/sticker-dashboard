@@ -6,7 +6,7 @@ const _class = require('./classNames');
 const ADMIN = process.env.ADMIN;
 const DEFAULT_PROJECT = process.env.DEFAULT_PROJECT;
 
-exports.Packs = function (opt) {
+Packs = function (opt) {
 
     let limit = opt.limit;
     let keyword = opt.keyword;
@@ -33,3 +33,5 @@ exports.Packs = function (opt) {
 
     return query;
 };
+
+exports.Packs = Packs

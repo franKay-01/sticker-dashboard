@@ -142,11 +142,13 @@ Parse.Cloud.define("getPacks", function (req, res) {
     let projectId = req.params.projectId;
     let keyword = req.params.keyword;
 
-    return query.Packs({
+    let _query = query.Packs({
         limit:limit,
         projectId:projectId,
         keyword:keyword
-    }).find({useMasterKey: true}).then((packs) => {
+    });
+
+    return _query.find({useMasterKey: true}).then((packs) => {
 
             if (packs.length) {
 
