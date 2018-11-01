@@ -155,9 +155,9 @@ Parse.Cloud.define("getPacks", function (req, res) {
     //     }
     // }
 
-    query.limit(limit);
-    query.equalTo("userId", ADMIN);
-    query.descending("createdAt");
+    // query.limit(limit);
+    // query.equalTo("userId", ADMIN);
+    // query.descending("createdAt");
 
     return query.Packs({
         limit: limit,
