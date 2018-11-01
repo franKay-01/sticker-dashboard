@@ -142,7 +142,7 @@ Parse.Cloud.define("getPacks", function (req, res) {
     let projectId = req.params.projectId;
     let keyword = req.params.keyword;
 
-    let _query = query.Packs({
+    let _query = new query.Packs({
         limit:limit,
         projectId:projectId,
         keyword:keyword

@@ -34,4 +34,4 @@ Packs = function (opt) {
     return query;
 };
 
-exports.Packs = Packs
+exports.Packs = Packs;
