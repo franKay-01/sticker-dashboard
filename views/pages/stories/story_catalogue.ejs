@@ -95,7 +95,7 @@
                               name="content" required="" aria-required="true"></textarea><br>
                     Words: <span class="wordCount">0</span><br/>
                 </center>
-                <input name="style" value="0" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.text %>" hidden>
                 <span>
         <button type="submit" class="create">CREATE</button>
         </span>
@@ -149,7 +149,7 @@
                               name="content" required="" aria-required="true"></textarea><br>
                     Words: <span class="wordCount">0</span><br/>
                 </center>
-                <input name="style" value="2" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.quote %>" hidden>
                 <span>
         <button type="submit" class="create">ADD</button>
         </span>
@@ -177,7 +177,7 @@
                     Words: <span class="wordCount">0</span><br/>
                 </center>
 
-                <input name="style" value="5" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.italic %>" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -206,7 +206,7 @@
                     Words: <span class="wordCount">0</span><br/>
                 </center>
 
-                <input name="style" value="6" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.bold %>" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -237,7 +237,7 @@
                     Words: <span class="wordCount">0</span><br/>
                 </center>
 
-                <input name="style" value="9" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.heading %>" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -267,7 +267,7 @@
                     Words: <span class="wordCount">0</span><br/>
                 </center>
 
-                <input name="style" value="12" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.greyArea %>" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -299,7 +299,7 @@
                     Words: <span class="wordCount">0</span><br/>
                 </center>
 
-                <input name="style" value="11" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.sideNote %>" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -331,7 +331,7 @@
                     Words: <span class="wordCount">0</span><br/>
                 </center>
 
-                <input name="style" value="8" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.italicBold %>" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -364,7 +364,7 @@
                     </div>
                 </center>
 
-                <input name="style" value="10" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.list %>" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
@@ -390,7 +390,7 @@
                 </center>
                 <input name="content" value=" " hidden>
 
-                <input name="style" value="4" hidden>
+                <input name="style" value="<%= type.STORY_ITEM.divider %>" hidden>
 
                 <span>
         <button type="submit" class="create">ADD</button>
