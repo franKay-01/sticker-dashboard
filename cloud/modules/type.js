@@ -50,7 +50,11 @@ exports.STORY_ITEM = {
     sideNote:11,
     greyArea:12,
     html:13,
-    color: 14
+    //html color
+    color: 14,
+    link: 15,
+    source: 16,
+    backgroundColor: 17
 };
 
 exports.PACK_TYPE = {
