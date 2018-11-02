@@ -123,6 +123,10 @@ exports.COLOR_TYPE = {
     color6: {
         "topColor":"#b43b74",
         "bottomColor":"#9ca49f"
+    },
+    color7: {
+        "topColor":"#96b422",
+        "bottomColor":"#9ca49f"
     }
 
 };
