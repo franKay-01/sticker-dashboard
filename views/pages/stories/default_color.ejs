@@ -29,14 +29,6 @@
     <style>
         <% include ../../partials/modified_css.ejs %>
     </style>
-    <script>
-        $(document).ready(function () {
-
-            $('#story_color').on('click', function () {
-                document.getElementsByClassName("form_color").submit();
-            })
-        })
-    </script>
 </head>
 
 <body class="primary-background-color">
@@ -76,7 +68,7 @@
                 </div>
             </div>
         </div>
-        <form class="medium-3 large-3 cell icons form_color" action="/story/color/<%= story.id %>"
+        <form class="medium-3 large-3 cell icons form_color" id="story_color" action="/story/color/<%= story.id %>"
               method="post"
               style="background-image: linear-gradient(to bottom, <%= type.COLOR_TYPE.color1.topColor %>, <%= type.COLOR_TYPE.color1.bottomColor %>);">
             <input type="text" name="top" id="top" value="<%= type.COLOR_TYPE.color1.topColor %>" hidden/>
@@ -88,7 +80,7 @@
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
 
         </form>
-        <form class="medium-3 large-3 cell icons form_color" action="/story/color/<%= story.id %>"
+        <form class="medium-3 large-3 cell icons form_color" id="story_color" action="/story/color/<%= story.id %>"
               method="post"
               style="background-image: linear-gradient(to bottom, <%= type.COLOR_TYPE.color2.topColor %>, <%= type.COLOR_TYPE.color2.bottomColor %>);">
             <input type="text" name="top" id="top" value="<%= type.COLOR_TYPE.color2.topColor %>" hidden/>
@@ -100,7 +92,7 @@
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
 
         </form>
-        <form class="medium-3 large-3 cell icons form_color" action="/story/color/<%= story.id %>"
+        <form class="medium-3 large-3 cell icons form_color" id="story_color" action="/story/color/<%= story.id %>"
               method="post"
               style="background-image: linear-gradient(to bottom, <%= type.COLOR_TYPE.color3.topColor %>, <%= type.COLOR_TYPE.color3.bottomColor %>);">
             <input type="text" name="top" id="top" value="<%= type.COLOR_TYPE.color3.topColor %>" hidden/>
@@ -112,7 +104,7 @@
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
 
         </form>
-        <form class="medium-3 large-3 cell icons form_color" action="/story/color/<%= story.id %>"
+        <form class="medium-3 large-3 cell icons form_color" id="story_color" action="/story/color/<%= story.id %>"
               method="post"
               style="background-image: linear-gradient(to bottom, <%= type.COLOR_TYPE.color4.topColor %>, <%= type.COLOR_TYPE.color4.bottomColor %>);">
             <input type="text" name="top" id="top" value="<%= type.COLOR_TYPE.color4.topColor %>" hidden/>
@@ -124,7 +116,7 @@
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
 
         </form>
-        <form class="medium-3 large-3 cell icons form_color" action="/story/color/<%= story.id %>"
+        <form class="medium-3 large-3 cell icons form_color" id="story_color" action="/story/color/<%= story.id %>"
               method="post"
               style="background-image: linear-gradient(to bottom, <%= type.COLOR_TYPE.color5.topColor %>, <%= type.COLOR_TYPE.color5.bottomColor %>);">
             <input type="text" name="top" id="top" value="<%= type.COLOR_TYPE.color5.topColor %>" hidden/>
@@ -136,7 +128,7 @@
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
 
         </form>
-        <form class="medium-3 large-3 cell icons form_color" action="/story/color/<%= story.id %>"
+        <form class="medium-3 large-3 cell icons form_color" id="story_color" action="/story/color/<%= story.id %>"
               method="post"
               style="background-image: linear-gradient(to bottom, <%= type.COLOR_TYPE.color6.topColor %>, <%= type.COLOR_TYPE.color6.bottomColor %>);">
             <input type="text" name="top" id="top" value="<%= type.COLOR_TYPE.color6.topColor %>" hidden/>
@@ -148,7 +140,7 @@
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
 
         </form>
-        <form class="medium-3 large-3 cell icons form_color" action="/story/color/<%= story.id %>"
+        <form class="medium-3 large-3 cell icons form_color" id="story_color" action="/story/color/<%= story.id %>"
               method="post"
               style="background-image: linear-gradient(to bottom, <%= type.COLOR_TYPE.color7.topColor %>, <%= type.COLOR_TYPE.color7.bottomColor %>);">
             <input type="text" name="top" id="top" value="<%= type.COLOR_TYPE.color7.topColor %>" hidden/>
