@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Story Color - G-Stickers</title>
+
+    <% include ../../partials/fav.ejs %>
+
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css">
+    <link href="/public/assets/css/evol-colorpicker.min.css" rel="stylesheet" type="text/css">
+
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="/public/assets/js/evol-colorpicker.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
+    <style>
+        <% include ../../partials/modified_css.ejs %>
+    </style>
+    <script>
+        $(document).ready(function () {
+
+            $('#story_color').on('click', function () {
+                document.getElementById("story_color").submit();
+            })
+        })
+    </script>
+</head>
+
+<body class="primary-background-color">
+<div class="grid-container">
+    <!-- Logo -->
+    <div class="medium-12 large-12" id="logo">
+        <a href="/home">
+            <img src="/public/assets/images/G_logo.png"
+                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
+        </a>
+        <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
+
+    </div>
+
+    <!-- End of logo -->
+    <span class="medium-6 large-6 welcome_post"><b>Edit Story Details</b></span>
+
+    <div class="grid-x grid-margin-x story">
+        <div class="medium-3 large-3 cell login_card">
+            <div class="card_head_position">
+                <div class="stats">Menu</div>
+                <% include ../../partials/menu.ejs %>
+
+                <div style="margin-top: 25px;"><a class="_stickers_packs" href="/storyedit/<%= story.id %>/<%= projectItem.id %>">Back</a>
+                </div>
+            </div>
+        </div>
+        <form class="medium-3 large-3 cell icons" id="story_color" action="/story/color/<%= story.id %>"
+              method="post"
+              style="background-image: linear-gradient(to bottom, <%= type.COLOR_TYPE.color1.topColor %>, <%= type.COLOR_TYPE.color1.bottomColor %>);">
+            <input type="text" name="top" id="top" value="<%= type.COLOR_TYPE.color1.topColor %>" hidden/>
+            <input type="text" name="bottom" id="bottom" value="<%= type.COLOR_TYPE.color1.bottomColor %>" hidden/>
+            <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+            <img class="card-image-size" src="<%= sticker.get("uri").url() %>" width="200px" height="200px">
+            <div style="color: #ffffff !important;font-weight: 800 !important;font-size: 21px"
+                 class="story_summary truncate_summary"> <%= story.get("title") %></div>
+            <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
+
+        </form>
+
+        <%- include('../../partials/footer') %>
+
+    </div>
+</div>
+
+<!-- Body -->
+
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/custom.js"></script>
+<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+</body>
+
+
+</html>

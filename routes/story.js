@@ -1178,13 +1178,16 @@ module.exports = function (app) {
 
     });
 
-    app.get('/storycolor/:storyId/:projectId', function (req, res) {
+    app.get('/storycolor/:status/:storyId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.storyId;
+        let status = req.params.status;
         let projectId = req.params.projectId;
         let color = [];
         let _story = [];
+        let edit = "edit";
+        let defaults = "default";
 
         if (token) {
 
@@ -1213,12 +1216,22 @@ module.exports = function (app) {
                 )
             }).then(function (sticker, project) {
 
-                res.render("pages/stories/choose_color", {
-                    story: _story,
-                    colors: colors,
-                    sticker: sticker,
-                    projectItem: project
-                });
+                if (status === edit){
+                    res.render("pages/stories/choose_color", {
+                        story: _story,
+                        colors: colors,
+                        sticker: sticker,
+                        projectItem: project
+                    });
+                }else if (status === defaults){
+                    res.render("pages/stories/default_color", {
+                        story: _story,
+                        colors: colors,
+                        sticker: sticker,
+                        projectItem: project
+                    });
+                }
+
 
             }, function (error) {
 
