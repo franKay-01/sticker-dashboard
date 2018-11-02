@@ -76,6 +76,66 @@
             <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
 
         </form>
+        <form class="medium-3 large-3 cell icons" id="story_color" action="/story/color/<%= story.id %>"
+              method="post"
+              style="background-image: linear-gradient(to bottom, <%= type.COLOR_TYPE.color2.topColor %>, <%= type.COLOR_TYPE.color2.bottomColor %>);">
+            <input type="text" name="top" id="top" value="<%= type.COLOR_TYPE.color2.topColor %>" hidden/>
+            <input type="text" name="bottom" id="bottom" value="<%= type.COLOR_TYPE.color2.bottomColor %>" hidden/>
+            <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+            <img class="card-image-size" src="<%= sticker.get("uri").url() %>" width="200px" height="200px">
+            <div style="color: #ffffff !important;font-weight: 800 !important;font-size: 21px"
+                 class="story_summary truncate_summary"> <%= story.get("title") %></div>
+            <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
+
+        </form>
+        <form class="medium-3 large-3 cell icons" id="story_color" action="/story/color/<%= story.id %>"
+              method="post"
+              style="background-image: linear-gradient(to bottom, <%= type.COLOR_TYPE.color3.topColor %>, <%= type.COLOR_TYPE.color3.bottomColor %>);">
+            <input type="text" name="top" id="top" value="<%= type.COLOR_TYPE.color3.topColor %>" hidden/>
+            <input type="text" name="bottom" id="bottom" value="<%= type.COLOR_TYPE.color3.bottomColor %>" hidden/>
+            <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+            <img class="card-image-size" src="<%= sticker.get("uri").url() %>" width="200px" height="200px">
+            <div style="color: #ffffff !important;font-weight: 800 !important;font-size: 21px"
+                 class="story_summary truncate_summary"> <%= story.get("title") %></div>
+            <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
+
+        </form>
+        <form class="medium-3 large-3 cell icons" id="story_color" action="/story/color/<%= story.id %>"
+              method="post"
+              style="background-image: linear-gradient(to bottom, <%= type.COLOR_TYPE.color4.topColor %>, <%= type.COLOR_TYPE.color4.bottomColor %>);">
+            <input type="text" name="top" id="top" value="<%= type.COLOR_TYPE.color4.topColor %>" hidden/>
+            <input type="text" name="bottom" id="bottom" value="<%= type.COLOR_TYPE.color4.bottomColor %>" hidden/>
+            <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+            <img class="card-image-size" src="<%= sticker.get("uri").url() %>" width="200px" height="200px">
+            <div style="color: #ffffff !important;font-weight: 800 !important;font-size: 21px"
+                 class="story_summary truncate_summary"> <%= story.get("title") %></div>
+            <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
+
+        </form>
+        <form class="medium-3 large-3 cell icons" id="story_color" action="/story/color/<%= story.id %>"
+              method="post"
+              style="background-image: linear-gradient(to bottom, <%= type.COLOR_TYPE.color5.topColor %>, <%= type.COLOR_TYPE.color5.bottomColor %>);">
+            <input type="text" name="top" id="top" value="<%= type.COLOR_TYPE.color5.topColor %>" hidden/>
+            <input type="text" name="bottom" id="bottom" value="<%= type.COLOR_TYPE.color5.bottomColor %>" hidden/>
+            <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+            <img class="card-image-size" src="<%= sticker.get("uri").url() %>" width="200px" height="200px">
+            <div style="color: #ffffff !important;font-weight: 800 !important;font-size: 21px"
+                 class="story_summary truncate_summary"> <%= story.get("title") %></div>
+            <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
+
+        </form>
+        <form class="medium-3 large-3 cell icons" id="story_color" action="/story/color/<%= story.id %>"
+              method="post"
+              style="background-image: linear-gradient(to bottom, <%= type.COLOR_TYPE.color6.topColor %>, <%= type.COLOR_TYPE.color6.bottomColor %>);">
+            <input type="text" name="top" id="top" value="<%= type.COLOR_TYPE.color6.topColor %>" hidden/>
+            <input type="text" name="bottom" id="bottom" value="<%= type.COLOR_TYPE.color6.bottomColor %>" hidden/>
+            <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+            <img class="card-image-size" src="<%= sticker.get("uri").url() %>" width="200px" height="200px">
+            <div style="color: #ffffff !important;font-weight: 800 !important;font-size: 21px"
+                 class="story_summary truncate_summary"> <%= story.get("title") %></div>
+            <!--<input class="jscolor {onFineChange:'update(this)'}" value="cc66ff">-->
+
+        </form>
 
         <%- include('../../partials/footer') %>
 
