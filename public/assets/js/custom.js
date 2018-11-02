@@ -374,6 +374,22 @@ $(document).ready(function () {
             $("#image_id").remove();
         });
 
+        $('#story_color').on('click', function () {
+            $('#logo').fadeOut('fast');
+            $('.welcome_post').fadeOut('fast');
+            $('.story').fadeOut('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#askPermission').fadeIn('fast');
+        });
+
+        $('#cancelColor').on('click', function () {
+            $('#logo').fadeIn('fast');
+            $('.welcome_post').fadeIn('fast');
+            $('.story').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#askPermission').fadeOut('fast');
+        });
+
         $('#removePublished').on('click', function () {
             $('#pageMask').fadeIn('fast');
             $('#removePublish').fadeIn('fast');
@@ -974,20 +990,6 @@ $(document).ready(function () {
         $('#pack_form')[0].reset();
     });
 
-    $('#story_color').on('click', function () {
-        $('#logo').fadeOut('fast');
-        $('.welcome_post').fadeOut('fast');
-        $('.story').fadeOut('fast');
-        $('#pageMask').fadeIn('fast');
-        $('#askPermission').fadeIn('fast');
-    });
 
-    $('#cancelColor').on('click', function () {
-        $('#logo').fadeIn('fast');
-        $('.welcome_post').fadeIn('fast');
-        $('.story').fadeIn('fast');
-        $('#pageMask').fadeIn('fast');
-        $('#askPermission').fadeOut('fast');
-    })
 
 });
