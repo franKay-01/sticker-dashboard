@@ -1221,14 +1221,16 @@ module.exports = function (app) {
                         story: _story,
                         colors: colors,
                         sticker: sticker,
-                        projectItem: project
+                        projectItem: project,
+                        type: type
                     });
                 }else if (status === defaults){
                     res.render("pages/stories/default_color", {
                         story: _story,
                         colors: colors,
                         sticker: sticker,
-                        projectItem: project
+                        projectItem: project,
+                        type: type
                     });
                 }
 
