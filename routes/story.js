@@ -1256,8 +1256,6 @@ module.exports = function (app) {
         let projectId = req.body.projectId;
         let storyEdit = '/storyedit/';
 
-        console.log("COLOR FROM " + color_1 + " " + color_2);
-
         if (token) {
             let _user = {};
 
