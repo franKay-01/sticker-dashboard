@@ -325,8 +325,6 @@ module.exports = function (app) {
 
                 if (pack) {
 
-                    console.log("PACK " + JSON.stringify(pack));
-
                     let col = pack.relation(_class.Packs);
                     return col.query().limit(40).find();
 
@@ -337,8 +335,6 @@ module.exports = function (app) {
             }).then(function (stickers) {
 
                 if (stickers.length) {
-
-                    console.log("STICKERS " + JSON.stringify(stickers));
 
                     stickers = helper.shuffle(stickers);
                     stickers = stickers.slice(0, 3);

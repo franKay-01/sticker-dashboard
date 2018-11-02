@@ -62,6 +62,8 @@
                            name="title" required="" aria-required="true"><br>
                     <textarea class="_pack common_pack_detail validate" placeholder="Story Summary"
                               name="summary" required="" aria-required="true"></textarea><br>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+
                     <!--<textarea class="_pack common_pack_detail validate" placeholder="Story"-->
                     <!--name="story" required="" aria-required="true"></textarea><br>-->
                     <label class="update_label" style="width: 450px;color: white !important;">Format Type of Story:</label>
@@ -136,6 +138,59 @@
 
             <button id="btnAddStory" class="create_button">
                 <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;Story</p>
+            </button>
+        </div>
+
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">
+                Story Type
+            </div>
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #ffb12f"
+                                                       aria-hidden="true"></i> &nbsp; SHORT STORY
+                </p>
+            </button>
+
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #28ff7e"
+                                                       aria-hidden="true"></i> &nbsp; STORY
+                </p>
+            </button>
+
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #203f80"
+                                                       aria-hidden="true"></i> &nbsp; JOKES
+                </p>
+            </button>
+
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #3f7fe6"
+                                                       aria-hidden="true"></i> &nbsp; QUOTES
+                </p>
+            </button>
+
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #e83b71"
+                                                       aria-hidden="true"></i> &nbsp; FACTS
+                </p>
+            </button>
+        </div>
+
+        <div class="medium-3 large-3 cell icons">
+            <div class="create_new">
+                Story Type
+            </div>
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #1bb990"
+                                                       aria-hidden="true"></i> &nbsp; HISTORY
+                </p>
+            </button>
+
+            <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #83d07f"
+                                                       aria-hidden="true"></i> &nbsp; NEWS
+                </p>
             </button>
         </div>
         <% include ../../partials/stories %>
