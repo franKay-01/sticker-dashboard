@@ -319,7 +319,7 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
-                return new Parse.Query("Chats").find();
+                return new Parse.Query("Chats").descending("createdAt").find();
 
             }).then(function (chats) {
 
