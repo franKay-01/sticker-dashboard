@@ -45,22 +45,22 @@
             <% chats.forEach(function(item, index) { %>
             <% if (item.get("speaker") === 0){ %>
             <tr>
-                <td>
+                <td style="width: 16%;">
                     <span style="float: left; width: 100%">
                         <img style="width:170px;height:170px;margin-left:15px;"
                              src="https://cyfa.s3.amazonaws.com/5f2e2cbf6006b571d8eb43b9832c3ad9_wingemojip.png">
                     </span>
                 </td>
                 <td>
-                    <div style="float: left" class="speech-bubble"><%= item.get("chat").text %></div>
+                    <div style="float: left;height: 100px" class="speech-bubble"><%= item.get("chat").text %></div>
                 </td>
             </tr>
             <% } else if (item.get("speaker") === 1){ %>
             <tr>
                 <td>
-                    <div style="float: right;margin: 70px 0px;" class="speech-bubble-right"><%= item.get("chat").text %></div>
+                    <div style="float: right;height: 100px;margin: 70px 0px;" class="speech-bubble-right"><%= item.get("chat").text %></div>
                 </td>
-                <td>
+                <td style="width: 18%">
                     <span style="float: right;margin: 70px 0px;">
                         <img style="width:170px;height:170px;margin-left:15px;"
                              src="https://cyfa.s3.amazonaws.com/1ae2285cd23a479185eb22e28bc31995_wingfemaleemojipn.png">
