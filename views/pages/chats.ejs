@@ -41,34 +41,28 @@
 
         <% } else { %>
 
-        <table>
             <% chats.forEach(function(item, index) { %>
             <% if (item.get("speaker") === 0){ %>
-            <tr>
-                <td style="width: 10%;">
+                <div style="width: 90%;">
                     <span style="float: left;">
                         <img style="width:170px;height:170px;margin-left:15px;"
                              src="https://cyfa.s3.amazonaws.com/5f2e2cbf6006b571d8eb43b9832c3ad9_wingemojip.png">
                     </span>
-                    <span style="float: left;height: 100%;min-width: 120px; min-height: 70px;margin: 70px 0;text-align: center;" class="speech-bubble"><%= item.get("chat").text %></span>
+                    <span style="float: left;height: 100%;min-width: 120px; min-height: 70px;margin: 70px 0;text-align: center;max-width: 250px;" class="speech-bubble"><%= item.get("chat").text %></span>
 
-                </td>
-            </tr>
+                </div>
             <% } else if (item.get("speaker") === 1){ %>
-            <tr>
-                <td style="width: 90%">
-                    <div style="float: right;height: 100%;min-width: 120px; min-height: 70px;margin: 70px 0;text-align: center;" class="speech-bubble-right"><%= item.get("chat").text %></div>
-                </td>
-                <td style="width: 10%">
+                <div style="width: 90%">
                     <span style="float: right;margin: 70px 0px;">
                         <img style="width:170px;height:170px;margin-left:5px;"
                              src="https://cyfa.s3.amazonaws.com/1ae2285cd23a479185eb22e28bc31995_wingfemaleemojipn.png">
                     </span>
-                </td>
-            </tr>
+                    <div style="float: right;height: 100%;min-width: 120px; min-height: 70px;margin: 70px 0;text-align: center; max-width: 250px;" class="speech-bubble-right"><%= item.get("chat").text %></div>
+
+                </div>
+
             <% } %>
             <% }) %>
-        </table>
         <% } %>
         <%- include('../partials/footer') %>
     </div>
