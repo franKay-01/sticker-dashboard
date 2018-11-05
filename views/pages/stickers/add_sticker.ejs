@@ -62,7 +62,7 @@
                     </div>
                     <center style="margin-top: -50px !important;">
          <span>
-        <button type="button" class="clear" id="btnClearAddForm"><a href="/pack/<%= id %>"
+        <button type="button" class="clear" id="btnClearAddForm"><a href="/pack/<%= id %>/<%= projectId %>"
                                                                     class="clear">Back</a></button>
       </span><span style="margin-left: -30px !important;">
         <button type="button" class="clear" id="clearBtn">Clear</button>
@@ -73,6 +73,7 @@
                     </center>
                 </div>
                 <input type="hidden" name="pack_id" style="display: none" value="<%= id %>"/>
+                <input type="hidden" name="projectId" style="display: none" value="<%= <%= projectId %> %>"/>
             </form>
             <!-- End of form-->
             <%- include('../../partials/footer') %>
