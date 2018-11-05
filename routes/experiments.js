@@ -310,4 +310,30 @@ module.exports = function (app) {
             })
         }
     });
+
+    app.get('/chats', function (req, res) {
+
+        let token = req.cookies.token;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query("Chats").find();
+
+            }).then(function (chats) {
+
+                res.render("pages/chats", {
+                    chats: chats
+                })
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/');
+            })
+
+        }else {
+            res.redirect('/');
+        }
+    })
 };
