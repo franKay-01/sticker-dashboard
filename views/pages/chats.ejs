@@ -44,17 +44,17 @@
         <% chats.forEach(function(item, index) { %>
 
         <% if (item.get("speaker") === 0){ %>
-        <div style="float: left">
+        <div style="float: left; width: 100%">
             <img src="https://cyfa.s3.amazonaws.com/5f2e2cbf6006b571d8eb43b9832c3ad9_wingemojip.png">
             <div>
-                <%= item.get("chats").text%>
+                <%= item.get("chat").text%>
             </div>
         </div>
         <%} else if (item.get("speaker") === 1){%>
-        <div style="float: right">
+        <div style="float: right;width: 100%">
             <img src="https://cyfa.s3.amazonaws.com/1ae2285cd23a479185eb22e28bc31995_wingfemaleemojipn.png">
             <div>
-                <%= item.get("chats").text%>
+                <%= item.get("chat").text%>
             </div>
         </div>
         <%}%>
