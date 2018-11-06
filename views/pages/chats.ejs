@@ -26,7 +26,10 @@
     <script>
 
         $(document).ready(function () {
-            document.getElementsByClassName("next").onclick = function () {
+            let next = document.getElementsByClassName("next");
+            let index = $(this).attr("data-current");
+
+            next[index].onclick = function () {
                 let newId = $(this).attr("data-id");
                 alert(newId);
                 document.getElementById(newId.toString()).style.display = 'block';
@@ -66,8 +69,10 @@
                 <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                       class="speech-bubble"><%= item.get("chat").text %>
                     <% let id = index + 1 %>
-                    <a href="#" style="position: absolute;margin: 45px;" class="next" data-id="<%= id %>"><i class="fa fa-caret-square-o-right" style="color: #0f9d58"
-                                                                                                          aria-hidden="true"></i></a>
+                    <a href="#" style="position: absolute;margin: 45px;" class="next" data-id="<%= id %>"
+                       data-current="<%= index %>">
+                        <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
+                    </a>
                 </span>
 
             </div>
@@ -80,8 +85,10 @@
                 <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                       class="speech-bubble"><%= item.get("chat").text %>
                     <% let id = index + 1 %>
-                    <a href="#" style="position: absolute;margin: 45px;" class="next" data-id="<%= id %>"><i class="fa fa-caret-square-o-right" style="color: #0f9d58"
-                                                                                                          aria-hidden="true"></i></a>
+                    <a href="#" style="position: absolute;margin: 45px;" class="next" data-id="<%= id %>"
+                       data-current="<%= index %>">
+                        <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
+                    </a>
                 </span>
             </div>
             <% } %>
@@ -95,10 +102,12 @@
                 <div style="float: right;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                      class="speech-bubble-right"><%= item.get("chat").text %></div>
                 <% let id = index + 1 %>
-                <a href="#" style="position: absolute;margin: 110px 180px" class="next" data-id="<%= id %>"><i class="fa fa-caret-square-o-right" style="color: #0f9d58"
-                                                             aria-hidden="true"></i></a>
+                <a href="#" style="position: absolute;margin: 110px 180px" class="next" data-id="<%= id %>"
+                   data-current="<%= index %>">
+                    <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
+                </a>
             </div>
-            <% }else {%>
+            <% }else { %>
             <div id="<%= index %>" style="width: 90%;display: none">
                     <span style="float: right;">
                         <img style="width:170px;height:170px;margin-left:5px;"
@@ -107,10 +116,12 @@
                 <div style="float: right;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                      class="speech-bubble-right"><%= item.get("chat").text %></div>
                 <% let id = index + 1 %>
-                <a href="#" style="position: absolute;margin: 110px 180px" class="next" data-id="<%= id %>"><i class="fa fa-caret-square-o-right" style="color: #0f9d58"
-                                                             aria-hidden="true"></i></a>
+                <a href="#" style="position: absolute;margin: 110px 180px" class="next" data-id="<%= id %>"
+                   data-current="<%= index %>">
+                    <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
+                </a>
             </div>
-            <%}%>
+            <% } %>
             <% } %>
             <% }) %>
             <% } %>
