@@ -20,16 +20,23 @@
 
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
-    <script type="text/javascript"
-            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
     <script>
 
-            function showNext() {
+        $("#opaqueDiv > a ").click(function(){
 
-                $( "div" ).next( ".selected" ).css( "display", "block" );
+            $(this).next("div").slideDown();
 
-            }
+        })
+
+
+        // function showNext() {
+        //
+        //         $( "div" ).next( ".selected" ).css( "display", "block" );
+        //
+        //     }
             // document.getElementById("next").onclick = function () {
             //     let newId = $(this).attr("data-id");
             //     alert(newId);
