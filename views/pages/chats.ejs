@@ -28,8 +28,8 @@
         $(document).ready(function () {
             document.getElementById("next").onclick = function () {
                 let newId = $(this).attr("data-id");
-
-                document.getElementById(newId).css("display", "block");
+                alert(newId);
+                document.getElementById(newId).style.display = 'block';
             }
         });
 
