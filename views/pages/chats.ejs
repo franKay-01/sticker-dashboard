@@ -20,7 +20,15 @@
     <script type="text/javascript"
             src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            document.getElementById("next").onclick = function () {
+                let newId = $(this).attr("data-id");
 
+                document.getElementById(newId).css("display", "block");
+            }
+        });
+    </script>
 </head>
 <body class="primary-background-color">
 
@@ -35,39 +43,55 @@
 
     <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Chat between Kweku and Ama</b>
     </span>
-    <div class="grid-x grid-margin-x" id="opaqueDiv" style="background-color: white">
+    <center>
+        <div class="grid-x grid-margin-x" id="opaqueDiv" style="background-color: white; width: 900px;">
 
-        <% if (chats.length === 0){ %>
+            <% if (chats.length === 0){ %>
 
-        <% } else { %>
+            <% } else { %>
 
             <% chats.forEach(function(item, index) { %>
             <% if (item.get("speaker") === 0){ %>
-                <div style="width: 90%;">
+            <%if (index === 0){%>
+            <div style="width: 90%; display: block">
                     <span style="float: left;">
                         <img style="width:170px;height:170px;margin-left:15px;"
                              src="https://cyfa.s3.amazonaws.com/5f2e2cbf6006b571d8eb43b9832c3ad9_wingemojip.png">
                     </span>
-                    <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;" class="speech-bubble"><%= item.get("chat").text %></span>
+                <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
+                      class="speech-bubble"><%= item.get("chat").text %></span>
+                <% let id = index + 1 %>
+                <a href="#" id="next" data-id="<%= id %>"><i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i></a>
+            </div>
+            <%} else {%>
+            <div id="<% index %>" style="width: 90%; display: none">
+                    <span style="float: left;">
+                        <img style="width:170px;height:170px;margin-left:15px;"
+                             src="https://cyfa.s3.amazonaws.com/5f2e2cbf6006b571d8eb43b9832c3ad9_wingemojip.png">
+                    </span>
+                <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
+                      class="speech-bubble"><%= item.get("chat").text %></span>
 
-                </div>
+            </div>
+            <%}%>
             <% } else if (item.get("speaker") === 1){ %>
-                <div style="width: 90%">
+            <div style="width: 90%">
                     <span style="float: right;">
                         <img style="width:170px;height:170px;margin-left:5px;"
                              src="https://cyfa.s3.amazonaws.com/1ae2285cd23a479185eb22e28bc31995_wingfemaleemojipn.png">
                     </span>
-                    <div style="float: right;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;" class="speech-bubble-right"><%= item.get("chat").text %></div>
+                <div style="float: right;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
+                     class="speech-bubble-right"><%= item.get("chat").text %></div>
 
-                </div>
+            </div>
 
             <% } %>
             <% }) %>
-        <% } %>
-        <%- include('../partials/footer') %>
-    </div>
+            <% } %>
+            <%- include('../partials/footer') %>
+        </div>
+    </center>
 </div>
-
 <!-- Body -->
 
 <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
