@@ -54,7 +54,7 @@
 
             <% chats.forEach(function(item, index) { %>
             <% if (item.get("speaker") === 0){ %>
-            <%if (index === 0){%>
+            <% if (index === 0){ %>
             <div style="width: 90%; display: block">
                     <span style="float: left;">
                         <img style="width:170px;height:170px;margin-left:15px;"
@@ -63,9 +63,10 @@
                 <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                       class="speech-bubble"><%= item.get("chat").text %></span>
                 <% let id = index + 1 %>
-                <a href="#" id="next" data-id="<%= id %>"><i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i></a>
+                <a href="#" id="next" data-id="<%= id %>"><i class="fa fa-caret-square-o-right" style="color: #0f9d58"
+                                                             aria-hidden="true"></i></a>
             </div>
-            <%} else {%>
+            <% } else { %>
             <div id="<% index %>" style="width: 90%; display: none">
                     <span style="float: left;">
                         <img style="width:170px;height:170px;margin-left:15px;"
@@ -75,9 +76,10 @@
                       class="speech-bubble"><%= item.get("chat").text %></span>
 
             </div>
-            <%}%>
+            <% } %>
             <% } else if (item.get("speaker") === 1){ %>
-            <div style="width: 90%">
+            <% if (index === 0){ %>
+            <div id="<% index %>" style="width: 90%;display: block">
                     <span style="float: right;">
                         <img style="width:170px;height:170px;margin-left:5px;"
                              src="https://cyfa.s3.amazonaws.com/1ae2285cd23a479185eb22e28bc31995_wingfemaleemojipn.png">
@@ -86,7 +88,17 @@
                      class="speech-bubble-right"><%= item.get("chat").text %></div>
 
             </div>
+            <% }else {%>
+            <div id="<% index %>" style="width: 90%;display: none">
+                    <span style="float: right;">
+                        <img style="width:170px;height:170px;margin-left:5px;"
+                             src="https://cyfa.s3.amazonaws.com/1ae2285cd23a479185eb22e28bc31995_wingfemaleemojipn.png">
+                    </span>
+                <div style="float: right;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
+                     class="speech-bubble-right"><%= item.get("chat").text %></div>
 
+            </div>
+            <%}%>
             <% } %>
             <% }) %>
             <% } %>
