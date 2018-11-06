@@ -29,7 +29,7 @@
             document.getElementById("next").onclick = function () {
                 let newId = $(this).attr("data-id");
                 alert(newId);
-                document.getElementById(newId).style.display = 'block';
+                document.getElementById(newId.toString()).style.display = 'block';
             }
         });
 
