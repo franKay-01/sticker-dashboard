@@ -15,6 +15,9 @@
     <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!--parse js-->
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script type="text/javascript"
@@ -63,13 +66,8 @@
                 <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                       class="speech-bubble"><%= item.get("chat").text %></span>
                 <% let id = index + 1 %>
-                <a href="#" id="next" data-id="<%= id %>">
-                    <button class="create_button review_tab_bottom"
-                            style="background: transparent !important;">
-                        <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> <i class="fa fa-caret-square-o-right" style="color: #0f9d58"
-                                                                                                           aria-hidden="true"></i></p>
-                    </button>
-                </a>
+                <a href="#" id="next" data-id="<%= id %>"><i class="fa fa-caret-square-o-right" style="color: #0f9d58"
+                                                             aria-hidden="true"></i></a>
             </div>
             <% } else { %>
             <div id="<% index %>" style="width: 90%; display: none">
