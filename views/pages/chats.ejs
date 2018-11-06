@@ -25,11 +25,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
     <script>
 
-        document.getElementById("toShow").onclick = function () {
-            let newId = $(this).attr("data-id");
-            alert(newId);
-            document.getElementById(newId.toString()).style.display = 'block';
-        }
+        $(document).ready(function () {
+
+            document.getElementById("toShow").onclick = function () {
+                let newId = $(this).attr("data-id");
+                alert(newId);
+                document.getElementById(newId.toString()).style.display = 'block';
+            }
+        });
 
     </script>
 </head>
