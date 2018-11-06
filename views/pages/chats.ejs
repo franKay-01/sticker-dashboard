@@ -64,10 +64,12 @@
                              src="https://cyfa.s3.amazonaws.com/5f2e2cbf6006b571d8eb43b9832c3ad9_wingemojip.png">
                     </span>
                 <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
-                      class="speech-bubble"><%= item.get("chat").text %></span>
-                <% let id = index + 1 %>
-                <a href="#" id="next" data-id="<%= id %>"><i class="fa fa-caret-square-o-right" style="color: #0f9d58"
-                                                             aria-hidden="true"></i></a>
+                      class="speech-bubble"><%= item.get("chat").text %>
+                    <% let id = index + 1 %>
+                    <a href="#" style="position: absolute;margin: 45px;" id="next" data-id="<%= id %>"><i class="fa fa-caret-square-o-right" style="color: #0f9d58"
+                                                                                                          aria-hidden="true"></i></a>
+                </span>
+
             </div>
             <% } else { %>
             <div id="<%= index %>" style="width: 90%; display: none">
@@ -76,8 +78,11 @@
                              src="https://cyfa.s3.amazonaws.com/5f2e2cbf6006b571d8eb43b9832c3ad9_wingemojip.png">
                     </span>
                 <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
-                      class="speech-bubble"><%= item.get("chat").text %></span>
-
+                      class="speech-bubble"><%= item.get("chat").text %>
+                    <% let id = index + 1 %>
+                    <a href="#" style="position: absolute;margin: 45px;" id="next" data-id="<%= id %>"><i class="fa fa-caret-square-o-right" style="color: #0f9d58"
+                                                                                                          aria-hidden="true"></i></a>
+                </span>
             </div>
             <% } %>
             <% } else if (item.get("speaker") === 1){ %>
@@ -89,7 +94,9 @@
                     </span>
                 <div style="float: right;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                      class="speech-bubble-right"><%= item.get("chat").text %></div>
-
+                <% let id = index + 1 %>
+                <a href="#" id="next" data-id="<%= id %>"><i class="fa fa-caret-square-o-right" style="color: #0f9d58"
+                                                             aria-hidden="true"></i></a>
             </div>
             <% }else {%>
             <div id="<%= index %>" style="width: 90%;display: none">
@@ -99,7 +106,9 @@
                     </span>
                 <div style="float: right;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                      class="speech-bubble-right"><%= item.get("chat").text %></div>
-
+                <% let id = index + 1 %>
+                <a href="#" id="next" data-id="<%= id %>"><i class="fa fa-caret-square-o-right" style="color: #0f9d58"
+                                                             aria-hidden="true"></i></a>
             </div>
             <%}%>
             <% } %>
