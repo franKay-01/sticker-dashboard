@@ -70,7 +70,8 @@ exports.STORY_TYPE = {
     quotes: 3,
     facts: 4,
     history: 5,
-    news: 6
+    news: 6,
+    episodes: 7
 };
 
 exports.FORMAT_TYPE = {
