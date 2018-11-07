@@ -30,9 +30,6 @@
     <script src="/public/assets/js/tag.js"></script>
     <style>
         <% include ../../partials/modified_css.ejs %>
-        .hide {
-            display: none;
-        }
     </style>
 
     <script>
@@ -81,11 +78,6 @@
             <center>
                 <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CREATE NEW STORY
                 </div>
-                <div class="hide" style="display: block !important;" id=one>One</div>
-                <div class="hide" id=two>Two</div>
-                <div class="hide" id=three>Three</div>
-                <div class="hide" id=four>Four</div>
-
             </center>
             <form id="pack_form" action="/story" method="post">
                 <center>
@@ -536,11 +528,5 @@
 <script type="text/javascript" src="/public/assets/js/custom.js">
 </script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
-<script type="text/javascript">
-    $('.hide').click(function(e){
-        let one = $(e.target);
-        one.next().show();
-    });
-</script>
 </body>
 </html>
