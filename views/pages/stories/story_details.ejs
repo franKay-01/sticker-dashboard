@@ -50,7 +50,7 @@
             $('.soldBar').change(function() {
                 let item = $(this);
 
-                if (item.val() === true){
+                if (item.val() === "1"){
                     document.getElementById("productSelect").style.display = "block";
                 }
             });
@@ -98,8 +98,8 @@
                 <div class="row" style="width: 450px !important;">
                     <select class="input-field validate soldBar" name="sold" required="" aria-required="true">
                         <option value="" disabled selected>&nbsp;Make Free or Paid</option>
-                        <option value="false">FREE</option>
-                        <option value="true">SOLD</option>
+                        <option value="0">FREE</option>
+                        <option value="1">SOLD</option>
                     </select>
                 </div>
                 <div class="row" id="productSelect" style="width: 450px !important; display: none;">
