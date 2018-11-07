@@ -25,13 +25,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
     <script>
 
-        $(document).ready(function () {
-
-            document.getElementById("toShow").onclick = function () {
-                let newId = $(this).attr("data-id");
-                alert(newId);
-                document.getElementById(newId.toString()).style.display = 'block';
-            }
+        $('.toShow').click(function(e){
+            let one = $(e.target);
+            one.next().show();
         });
 
     </script>
@@ -59,7 +55,7 @@
             <% chats.forEach(function(item, index) { %>
             <% if (item.get("speaker") === 0){ %>
             <% if (index === 0){ %>
-            <div id="<%= index %>" style="width: 90%; display: block">
+            <div id="<%= index %>" style="width: 90%; display: block" class="toShow">
                     <span style="float: left;">
                         <img style="width:170px;height:170px;margin-left:15px;"
                              src="https://cyfa.s3.amazonaws.com/5f2e2cbf6006b571d8eb43b9832c3ad9_wingemojip.png">
@@ -67,14 +63,14 @@
                 <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                       class="speech-bubble"><%= item.get("chat").text %>
                     <% let id = index + 1 %>
-                    <a href="#" style="position: absolute;margin: 45px;" id="toShow" data-id="<%= id %>" data-current="<%= index %>">
+                    <a href="#" style="position: absolute;margin: 45px;" data-id="<%= id %>" data-current="<%= index %>">
                         <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
                     </a>
                 </span>
 
             </div>
             <% } else { %>
-            <div id="<%= index %>" style="width: 90%; display: none">
+            <div id="<%= index %>" style="width: 90%; display: none" class="toShow">
                     <span style="float: left;">
                         <img style="width:170px;height:170px;margin-left:15px;"
                              src="https://cyfa.s3.amazonaws.com/5f2e2cbf6006b571d8eb43b9832c3ad9_wingemojip.png">
@@ -82,7 +78,7 @@
                 <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                       class="speech-bubble"><%= item.get("chat").text %>
                     <% let id = index + 1 %>
-                    <a href="#" style="position: absolute;margin: 45px;" id="toShow" data-id="<%= id %>" data-current="<%= index %>">
+                    <a href="#" style="position: absolute;margin: 45px;" data-id="<%= id %>" data-current="<%= index %>">
                         <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
                     </a>
                 </span>
@@ -90,7 +86,7 @@
             <% } %>
             <% } else if (item.get("speaker") === 1){ %>
             <% if (index === 0){ %>
-            <div id="<%= index %>" style="width: 90%;display: block">
+            <div id="<%= index %>" style="width: 90%;display: block" class="toShow">
                     <span style="float: right;">
                         <img style="width:170px;height:170px;margin-left:5px;"
                              src="https://cyfa.s3.amazonaws.com/1ae2285cd23a479185eb22e28bc31995_wingfemaleemojipn.png">
@@ -98,12 +94,12 @@
                 <div style="float: right;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                      class="speech-bubble-right"><%= item.get("chat").text %></div>
                 <% let id = index + 1 %>
-                <a href="#" style="position: absolute;margin: 110px 180px" id="toShow" data-id="<%= id %>" data-current="<%= index %>">
+                <a href="#" style="position: absolute;margin: 110px 180px" data-id="<%= id %>" data-current="<%= index %>">
                     <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
                 </a>
             </div>
             <% }else {%>
-            <div id="<%= index %>" style="width: 90%;display: none">
+            <div id="<%= index %>" style="width: 90%;display: none" class="toShow">
                     <span style="float: right;">
                         <img style="width:170px;height:170px;margin-left:5px;"
                              src="https://cyfa.s3.amazonaws.com/1ae2285cd23a479185eb22e28bc31995_wingfemaleemojipn.png">
@@ -111,7 +107,7 @@
                 <div style="float: right;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                      class="speech-bubble-right"><%= item.get("chat").text %></div>
                 <% let id = index + 1 %>
-                <a href="#" style="position: absolute;margin: 110px 180px" id="toShow" data-id="<%= id %>" data-current="<%= index %>">
+                <a href="#" style="position: absolute;margin: 110px 180px" data-id="<%= id %>" data-current="<%= index %>">
                     <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
                 </a>
             </div>
