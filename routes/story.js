@@ -1075,7 +1075,7 @@ module.exports = function (app) {
 
             }, function (error) {
                 console.log("ERROR " + error.message);
-                res.redirect('/stories');
+                res.redirect('/stories/'  + projectId);
             })
 
         } else {
