@@ -458,6 +458,26 @@ $(document).ready(function () {
             $('#opaqueDiv').fadeOut('fast');
         });
 
+        $('#episode').on('click', function () {
+            $('#pageMask').fadeIn('fast');
+            $('#addEpisodeForm').fadeIn('fast');
+            $('#logo').fadeOut('fast');
+            $('.welcome_post').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#opaqueDiv').fadeOut('fast');
+        });
+
+        $('#btnCloseEpisode').on('click', function () {
+            $('#pageMask').fadeOut('fast');
+            $('#addEpisodeForm').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('.welcome_post').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+        });
+
         $('#selectProductId').on('click', function () {
             $('#pageMask').fadeIn('fast');
             $('#productId').fadeIn('fast');

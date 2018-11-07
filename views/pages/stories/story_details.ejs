@@ -73,6 +73,32 @@
 
 </div>
 
+<div id="addEpisodeForm" class="hidden_forms" style="display: none">
+    <div class="medium-3 large-3 cell create_background">
+        <center>
+            <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW EPISODE</div>
+        </center>
+        <!--<form id="pack_form" action="/new_catalogue_image/<%#= story_id %>" method="post"-->
+        <br>
+        <form id="pack_form" action="/episode" method="post">
+            <center>
+                <input type="text" class="_pack common_pack_detail validate" placeholder="Story Title"
+                       name="title" required="" aria-required="true"><br>
+                <input type="text" name="storyId" value="<%= story.id %>" hidden>
+                <input type="text" name="projectId" value="<%= projectItem.id %>" hidden>
+
+            </center>
+            <span>
+        <button type="submit" class="create">CREATE</button>
+        </span>
+            <span>
+        <button type="button" id="btnCloseEpisode" class="cancel">Cancel</button>
+         </span>
+        </form>
+    </div>
+
+</div>
+
 
 <div id="hiddenMakeStory" class="hidden_forms" style="display: none">
     <div class="medium-3 large-3 cell create_background">
@@ -150,13 +176,14 @@
                     <div class="stats">Menu</div>
                     <% include ../../partials/menu.ejs %>
 
-                    <% if (story.get("storyType") === type.STORY_TYPE.episodes) {%>
-                    <div style="margin-top: 40px !important;"><a class="_stickers_packs" href="/episode/<%= story.id %>/<%= projectItem.id %>">Add
+                    <% if (story.get("storyType") === type.STORY_TYPE.episodes) { %>
+                    <div style="margin-top: 40px !important;" id="episode"><a class="_stickers_packs" href="#">Add
                             Episode</a></div>
-                    <%} else {%>
-                    <div style="margin-top: 40px !important;"><a class="_stickers_packs" href="/storyitem/<%= story.id %>/<%= projectItem.id %>">Add
+                    <% } else { %>
+                    <div style="margin-top: 40px !important;"><a class="_stickers_packs"
+                                                                 href="/storyitem/<%= story.id %>/<%= projectItem.id %>">Add
                             Story Item</a></div>
-                    <%}%>
+                    <% } %>
                 </div>
             </div>
             <div class="icons">
@@ -338,7 +365,8 @@
                     <br>
 
                     <a href="/storycolor/edit/<%= story.id %>/<%= projectItem.id %>" class="preview">Edit Color</a><br>
-                    <a href="/storycolor/default/<%= story.id %>/<%= projectItem.id%>" class="preview">Default Colors</a>
+                    <a href="/storycolor/default/<%= story.id %>/<%= projectItem.id %>" class="preview">Default
+                        Colors</a>
                     <br><br>
 
                     <a href="#" id="submit_story" class="preview">Save Changes</a><br>
