@@ -133,6 +133,7 @@
 <script type="text/javascript">
 
     $('.toShow').click(function(e){
+        e.stopPropagation();
         let one = $(e.target);
         one.next().show();
     });
