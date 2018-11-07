@@ -975,7 +975,8 @@ module.exports = function (app) {
                     episode.set("productId", productId)
                 }
 
-                return episode.save()
+                return episode.save();
+
             }).then(function (episode) {
 
                 res.send(JSON.stringify(episode));

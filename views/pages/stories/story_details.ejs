@@ -42,14 +42,17 @@
 
         }
 
+        $('.soldBar').change(function() {
+            let item = $(this);
+
+            if (item.val() === true){
+                $('#productSelect').show();
+            }
+        });
+
         $(document).ready(function () {
             document.getElementById("submit_story").onclick = function () {
                 document.getElementById("story_form").submit();
-            }
-
-            let soldValue = $('#Crd').val();
-            if (soldValue === true){
-                $('#productSelect').show();
             }
         });
 
@@ -93,7 +96,7 @@
                 <input type="text" name="projectId" value="<%= projectItem.id %>" hidden>
 
                 <div class="row" style="width: 450px !important;">
-                    <select class="input-field validate" name="sold" required="" aria-required="true">
+                    <select class="input-field validate soldBar" name="sold" required="" aria-required="true">
                         <option value="" disabled selected>&nbsp;Make Free or Paid</option>
                         <option value="false">FREE</option>
                         <option value="true">SOLD</option>
