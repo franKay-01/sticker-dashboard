@@ -32,6 +32,11 @@
         });
 
     </script>
+    <style>
+        .toShow{
+            display: none
+        }
+    </style>
 </head>
 <body class="primary-background-color">
 
@@ -56,7 +61,7 @@
             <% chats.forEach(function(item, index) { %>
             <% if (item.get("speaker") === 0){ %>
             <% if (index === 0){ %>
-            <div id="<%= index %>" style="width: 90%; display: block" class="toShow">
+            <div id="<%= index %>" style="width: 90%; display: block !important;" class="toShow">
                     <span style="float: left;">
                         <img style="width:170px;height:170px;margin-left:15px;"
                              src="https://cyfa.s3.amazonaws.com/5f2e2cbf6006b571d8eb43b9832c3ad9_wingemojip.png">
@@ -71,7 +76,7 @@
 
             </div>
             <% } else { %>
-            <div id="<%= index %>" style="width: 90%; display: none" class="toShow">
+            <div id="<%= index %>" style="width: 90%;" class="toShow">
                     <span style="float: left;">
                         <img style="width:170px;height:170px;margin-left:15px;"
                              src="https://cyfa.s3.amazonaws.com/5f2e2cbf6006b571d8eb43b9832c3ad9_wingemojip.png">
@@ -87,7 +92,7 @@
             <% } %>
             <% } else if (item.get("speaker") === 1){ %>
             <% if (index === 0){ %>
-            <div id="<%= index %>" style="width: 90%;display: block" class="toShow">
+            <div id="<%= index %>" style="width: 90%;display: block !important;" class="toShow">
                     <span style="float: right;">
                         <img style="width:170px;height:170px;margin-left:5px;"
                              src="https://cyfa.s3.amazonaws.com/1ae2285cd23a479185eb22e28bc31995_wingfemaleemojipn.png">
@@ -100,7 +105,7 @@
                 </a>
             </div>
             <% }else {%>
-            <div id="<%= index %>" style="width: 90%;display: none" class="toShow">
+            <div id="<%= index %>" style="width: 90%;" class="toShow">
                     <span style="float: right;">
                         <img style="width:170px;height:170px;margin-left:5px;"
                              src="https://cyfa.s3.amazonaws.com/1ae2285cd23a479185eb22e28bc31995_wingfemaleemojipn.png">
