@@ -27,6 +27,11 @@
         .toShow{
             display: none
         }
+
+        .hide {
+            display: none;
+        }
+
     </style>
 </head>
 <body class="primary-background-color">
@@ -44,6 +49,11 @@
     </span>
     <center>
         <div class="grid-x grid-margin-x" id="opaqueDiv" style="background-color: white; width: 900px;">
+
+            <div class="hide" style="display: block !important;" id=one>One</div>
+            <div class="hide" id=two>Two</div>
+            <div class="hide" id=three>Three</div>
+            <div class="hide" id=four>Four</div>
 
             <% if (chats.length === 0){ %>
 
@@ -128,10 +138,13 @@
 
     $('.toShow').click(function(e){
         let one = $(e.target);
-        alert(one);
         one.next().show();
     });
 
+    $('.hide').click(function(e){
+        let one = $(e.target);
+        one.next().show();
+    });
 </script>
 </body>
 </html>
