@@ -985,6 +985,7 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
+                console.log("I'M HERE");
                 projectArray.push(projectId);
                 _user = sessionToken.get("user");
 
