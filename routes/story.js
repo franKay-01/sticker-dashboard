@@ -945,21 +945,53 @@ module.exports = function (app) {
     });
 
 
-    // app.get('/storyedit/:storyId/:projectId', function (req, res) {
-    //     let token = req.cookies.token;
-    //     let story_id = req.params.storyId;
-    //     let projectId = req.params.projectId;
-    //
-    //     if (token){
-    //
-    //         util.getUser(token).then(function (sessionToken) {
-    //
-    //
-    //
-    //         })
-    //     }
-    //
-    // });
+    app.post('/episode', function (req, res) {
+
+        let token = req.cookies.token;
+        let story_id = req.body.storyId;
+        let title = req.body.episode;
+        let sold = req.body.sold;
+        let projectId = req.body.projectId;
+        let productId = req.body.productId;
+
+        if (token){
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                let Episodes = new Parse.Object.extend(_class.Episodes);
+                let episode = new Episodes();
+
+                episode.set("title", title);
+                episode.set("sold", sold);
+                episode.set("storyId", story_id);
+                episode.set("projectId", projectId);
+                if (sold === false){
+                    episode.set("productId", free)
+                }else if (sold === true){
+                    episode.set("productId", productId)
+                }
+
+                return episode.save()
+            }).then(function (episode) {
+
+                res.send(JSON.stringify(episode));
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/storyedit/' + story_id + '/' + projectId);
+
+            })
+
+        }else {
+            res.redirect('/')
+        }
+
+    });
 
 
     app.get('/storyedit/:storyId/:projectId', function (req, res) {
@@ -977,6 +1009,7 @@ module.exports = function (app) {
             let _story = {};
             let colors = [];
             let _authors = [];
+            let _products = [];
             let projectArray = [];
             let art;
             let authorName;
@@ -985,7 +1018,6 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
-                console.log("I'M HERE");
                 projectArray.push(projectId);
                 _user = sessionToken.get("user");
 
@@ -994,13 +1026,15 @@ module.exports = function (app) {
                     new Parse.Query(_class.ArtWork).equalTo("itemId", story_id).first(),
                     new Parse.Query(_class.Latest).equalTo("projectId", projectId).equalTo("type", type.FEED_TYPE.story).first(),
                     new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find(),
-                    new Parse.Query(_class.Authors).find()
+                    new Parse.Query(_class.Authors).find(),
+                    new Parse.Query(_class.Product).find()
                 );
 
-            }).then(function (story, sticker, latest, stories, authors) {
+            }).then(function (story, sticker, latest, stories, authors, products) {
 
                 _story = story;
                 _authors = authors;
+                _products = products;
 
                 if (latest) {
                     _latest = latest;
@@ -1069,6 +1103,7 @@ module.exports = function (app) {
                     authorId: authorId,
                     projects: projects,
                     projectItem: project,
+                    products: _products,
                     type: type,
                     next: page.next,
                     previous: page.previous

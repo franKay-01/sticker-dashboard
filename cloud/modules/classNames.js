@@ -18,6 +18,7 @@ exports.Links = "Links";
 exports.History = "History";
 exports.Authors = "Authors";
 exports.Projects = "Projects";
+exports.Episodes = "Episodes";
 //TODO update to Subscriptions
 //TODO columns -> email:String, updates:Array of integers
 exports.NewsLetter = "NewsLetter";

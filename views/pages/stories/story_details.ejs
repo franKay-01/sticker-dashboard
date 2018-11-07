@@ -46,6 +46,11 @@
             document.getElementById("submit_story").onclick = function () {
                 document.getElementById("story_form").submit();
             }
+
+            let soldValue = $('#Crd').val();
+            if (soldValue === true){
+                $('#productSelect').show();
+            }
         });
 
     </script>
@@ -86,6 +91,26 @@
                        name="episode" required="" aria-required="true"><br>
                 <input type="text" name="storyId" value="<%= story.id %>" hidden>
                 <input type="text" name="projectId" value="<%= projectItem.id %>" hidden>
+
+                <div class="row" style="width: 450px !important;">
+                    <select class="input-field validate" name="sold" required="" aria-required="true">
+                        <option value="" disabled selected>&nbsp;Make Free or Paid</option>
+                        <option value="false">FREE</option>
+                        <option value="true">SOLD</option>
+                    </select>
+                </div>
+                <div class="row" id="productSelect" style="width: 450px !important; display: none;">
+                    <select class="input-field validate" name="productId" required="" aria-required="true">
+                        <option value="" disabled selected>&nbsp;Add Product ID</option>
+                        <% if (products.length === 0) { %>
+
+                        <% } else { %>
+                        <% products.forEach(function(items) { %>
+                        <option value="<%= items.id %>"><%= items.get("name") %></option>
+                        <% }) %>
+                        <% } %>
+                    </select>
+                </div>
                 <br>
             </center>
             <span>
