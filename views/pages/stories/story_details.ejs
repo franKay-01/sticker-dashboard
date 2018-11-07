@@ -150,9 +150,13 @@
                     <div class="stats">Menu</div>
                     <% include ../../partials/menu.ejs %>
 
-                    <div style="margin-top: 40px !important;"><a class="_stickers_packs"
-                                                                 href="/storyitem/<%= story.id %>/<%= projectItem.id %>">Add
+                    <% if (story.get("storyType") === type.STORY_TYPE.episodes) {%>
+                    <div style="margin-top: 40px !important;"><a class="_stickers_packs" href="/episode/<%= story.id %>/<%= projectItem.id %>">Add
+                            Episode</a></div>
+                    <%} else {%>
+                    <div style="margin-top: 40px !important;"><a class="_stickers_packs" href="/storyitem/<%= story.id %>/<%= projectItem.id %>">Add
                             Story Item</a></div>
+                    <%}%>
                 </div>
             </div>
             <div class="icons">
