@@ -82,11 +82,11 @@
         <br>
         <form id="pack_form" action="/episode" method="post">
             <center>
-                <input type="text" class="_pack common_pack_detail validate" placeholder="Story Title"
-                       name="title" required="" aria-required="true"><br>
+                <input type="text" class="_pack common_pack_detail validate" placeholder="Episode Title"
+                       name="episode" required="" aria-required="true"><br>
                 <input type="text" name="storyId" value="<%= story.id %>" hidden>
                 <input type="text" name="projectId" value="<%= projectItem.id %>" hidden>
-
+                <br>
             </center>
             <span>
         <button type="submit" class="create">CREATE</button>
