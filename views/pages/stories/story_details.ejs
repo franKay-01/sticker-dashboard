@@ -42,20 +42,20 @@
 
         }
 
-        $('.soldBar').change(function() {
-            let item = $(this);
-
-            alert(item.val());
-
-            if (item.val() === true){
-                $('#productSelect').show();
-            }
-        });
-
         $(document).ready(function () {
             document.getElementById("submit_story").onclick = function () {
                 document.getElementById("story_form").submit();
             }
+
+            $('.soldBar').change(function() {
+                let item = $(this);
+
+                alert(item.val());
+
+                if (item.val() === true){
+                    $('#productSelect').show();
+                }
+            });
         });
 
     </script>
