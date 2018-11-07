@@ -945,21 +945,21 @@ module.exports = function (app) {
     });
 
 
-    app.get('/storyedit/:storyId/:projectId', function (req, res) {
-        let token = req.cookies.token;
-        let story_id = req.params.storyId;
-        let projectId = req.params.projectId;
-
-        if (token){
-
-            util.getUser(token).then(function (sessionToken) {
-
-
-
-            })
-        }
-
-    });
+    // app.get('/storyedit/:storyId/:projectId', function (req, res) {
+    //     let token = req.cookies.token;
+    //     let story_id = req.params.storyId;
+    //     let projectId = req.params.projectId;
+    //
+    //     if (token){
+    //
+    //         util.getUser(token).then(function (sessionToken) {
+    //
+    //
+    //
+    //         })
+    //     }
+    //
+    // });
 
 
     app.get('/storyedit/:storyId/:projectId', function (req, res) {

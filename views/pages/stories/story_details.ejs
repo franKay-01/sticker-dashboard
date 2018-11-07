@@ -278,12 +278,14 @@
 
         <div class="story_form">
             <p class="story_icons">
+                <% if (story.get("storyType") === type.STORY_TYPE.short_stories || story.get("storyType") === type.STORY_TYPE.story) { %>
                 <% if (latest !== ""){ %>
                 STORY OF THE WEEK
                 <% if (latest.get("feedId") === story.id){ %>
                 <i class="fa fa-circle" id="circle" style="color: #0f9d58;" aria-hidden="true"></i>
                 <% }else{ %>
                 <i class="fa fa-circle" id="circle" style="color: grey;" aria-hidden="true"></i>
+                <% } %>
                 <% } %>
                 <% } %>
             </p>
