@@ -66,9 +66,9 @@
                 <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                       class="speech-bubble"><%= item.get("chat").text %>
                     <% let id = index + 1 %>
-                    <a href="#" style="position: absolute;margin: 45px;" data-id="<%= id %>" data-current="<%= index %>">
+                    <span style="position: absolute;margin: 45px;" data-id="<%= id %>" data-current="<%= index %>">
                         <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
-                    </a>
+                    </span>
                 </span>
 
             </div>
@@ -81,9 +81,9 @@
                 <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                       class="speech-bubble"><%= item.get("chat").text %>
                     <% let id = index + 1 %>
-                    <a href="#" style="position: absolute;margin: 45px;" data-id="<%= id %>" data-current="<%= index %>">
+                    <span style="position: absolute;margin: 45px;" data-id="<%= id %>" data-current="<%= index %>">
                         <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
-                    </a>
+                    </span>
                 </span>
             </div>
             <% } %>
@@ -97,9 +97,9 @@
                 <div style="float: right;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                      class="speech-bubble-right"><%= item.get("chat").text %></div>
                 <% let id = index + 1 %>
-                <a href="#" style="position: absolute;margin: 110px 180px" data-id="<%= id %>" data-current="<%= index %>">
+                <span style="position: absolute;margin: 110px 180px" data-id="<%= id %>" data-current="<%= index %>">
                     <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
-                </a>
+                </span>
             </div>
             <% }else {%>
             <div id="<%= index %>" style="width: 90%;" class="toShow">
@@ -110,9 +110,9 @@
                 <div style="float: right;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                      class="speech-bubble-right"><%= item.get("chat").text %></div>
                 <% let id = index + 1 %>
-                <a href="#" style="position: absolute;margin: 110px 180px" data-id="<%= id %>" data-current="<%= index %>">
+                <span style="position: absolute;margin: 110px 180px" data-id="<%= id %>" data-current="<%= index %>">
                     <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
-                </a>
+                </span>
             </div>
             <%}%>
             <% } %>
