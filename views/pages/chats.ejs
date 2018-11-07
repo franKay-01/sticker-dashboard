@@ -22,15 +22,7 @@
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
-    <script>
 
-        $('.toShow').click(function(e){
-            let one = $(e.target);
-            alert(one);
-            one.next().show();
-        });
-
-    </script>
     <style>
         .toShow{
             display: none
@@ -132,6 +124,14 @@
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
+<script>
 
+    $('.toShow').click(function(e){
+        let one = $(e.target);
+        alert(one);
+        one.next().show();
+    });
+
+</script>
 </body>
 </html>
