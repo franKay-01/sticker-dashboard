@@ -969,9 +969,9 @@ module.exports = function (app) {
                 episode.set("sold", status);
                 episode.set("storyId", story_id);
                 episode.set("projectId", projectId);
-                if (sold === "free"){
+                if (status === "free"){
                     episode.set("productId", "free")
-                }else if (sold === "sold"){
+                }else if (status === "sold"){
                     episode.set("productId", productId)
                 }
 
