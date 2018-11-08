@@ -982,7 +982,11 @@ module.exports = function (app) {
                 let episode = new Episodes();
 
                 episode.set("title", title);
-                episode.set("sold", status);
+                if (status === "free") {
+                    episode.set("sold", false);
+                } else if (status === "sold") {
+                    episode.set("sold", true);
+                }
                 episode.set("storyId", story_id);
                 episode.set("projectId", projectId);
                 if (status === "free") {
