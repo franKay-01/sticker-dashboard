@@ -108,20 +108,30 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/storyitem/:id/:projectId', function (req, res) {
+    app.get('/storyitem/:source/:id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
+        let source = req.params.source;
         let projectId = req.params.projectId;
-
+        let story = "story";
+        let episode = "episode";
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
 
-                return Parse.Promise.when(
-                    new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
-                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
-                )
+                if (source === story){
+                    return Parse.Promise.when(
+                        new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
+                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                    )
+
+                }else if (source === episode){
+                    return Parse.Promise.when(
+                        new Parse.Query(_class.Episodes).equalTo("objectId", id).first(),
+                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                    )
+                }
 
             }).then(function (story, project) {
 
@@ -130,13 +140,14 @@ module.exports = function (app) {
                     story_id: story.id,
                     name: story.get("title"),
                     projectItem: project,
-                    type: type
+                    type: type,
+                    source: source
 
                 });
 
             }, function (error) {
                 console.log("ERROR " + error.message);
-                res.redirect('/stories');
+                res.redirect('/stories/' + projectId);
             });
         } else {
             console.log("COMING HOME");
@@ -219,7 +230,7 @@ module.exports = function (app) {
                 return Parse.Promise.when(
                     new Parse.Query(_class.StoryItems).equalTo("objectId", id).first(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
-            )
+                )
 
             }).then(function (story_item, project) {
 
@@ -466,7 +477,7 @@ module.exports = function (app) {
                 console.log("ERROR " + error.message);
                 res.redirect('/storyItem/html/edit/' + id + '/' + story_id + '/' + projectId);
             })
-        }else {
+        } else {
             res.redirect('/');
         }
     });
@@ -518,7 +529,7 @@ module.exports = function (app) {
                 console.log("ERROR " + error.message);
                 res.redirect('/storyItem/html/edit/' + id + '/' + projectId);
             })
-        }else {
+        } else {
             res.redirect('/');
         }
     });
@@ -723,6 +734,7 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let id = req.params.id;
         let content = req.body.content;
+        let source = req.body.source;
         let heading = req.body.heading;
         let author = req.body.author;
         let description = req.body.description;
@@ -803,13 +815,17 @@ module.exports = function (app) {
                         break;
 
                     case type.STORY_ITEM.backgroundColor:
-                        if (colorFormat === type.FORMAT_TYPE.regular){
+                        if (colorFormat === type.FORMAT_TYPE.regular) {
                             story.set("type", type.STORY_ITEM.backgroundColor);
                             story.set("contents", {"type": colorFormat.toString(), "color": topColor});
                             break;
-                        }else if (colorFormat === type.FORMAT_TYPE.gradient){
+                        } else if (colorFormat === type.FORMAT_TYPE.gradient) {
                             story.set("type", type.STORY_ITEM.backgroundColor);
-                            story.set("contents", {"type": colorFormat.toString(), "topColor": topColor, "bottomColor": bottomColor});
+                            story.set("contents", {
+                                "type": colorFormat.toString(),
+                                "topColor": topColor,
+                                "bottomColor": bottomColor
+                            });
                             break;
                         }
                 }
@@ -820,7 +836,7 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect("/storyitem/" + id + '/' + projectId);
+                res.redirect("/storyitem/" + '/' + source + '/' + id + '/' + projectId);
 
             }, function (error) {
 
@@ -954,7 +970,7 @@ module.exports = function (app) {
         let projectId = req.body.projectId;
         let productId = req.body.productId;
 
-        if (token){
+        if (token) {
 
             let _user = {};
 
@@ -969,9 +985,9 @@ module.exports = function (app) {
                 episode.set("sold", status);
                 episode.set("storyId", story_id);
                 episode.set("projectId", projectId);
-                if (status === "free"){
+                if (status === "free") {
                     episode.set("productId", "free")
-                }else if (status === "sold"){
+                } else if (status === "sold") {
                     episode.set("productId", productId)
                 }
 
@@ -979,7 +995,7 @@ module.exports = function (app) {
 
             }).then(function (episode) {
 
-                res.send(JSON.stringify(episode));
+                res.redirect('/storyitem/episode/' + episode.id + '/' + projectId);
 
             }, function (error) {
 
@@ -988,12 +1004,11 @@ module.exports = function (app) {
 
             })
 
-        }else {
+        } else {
             res.redirect('/')
         }
 
     });
-
 
     app.get('/storyedit/:storyId/:projectId', function (req, res) {
 
@@ -1112,7 +1127,7 @@ module.exports = function (app) {
 
             }, function (error) {
                 console.log("ERROR " + error.message);
-                res.redirect('/stories/'  + projectId);
+                res.redirect('/stories/' + projectId);
             })
 
         } else {
@@ -1271,7 +1286,7 @@ module.exports = function (app) {
                 )
             }).then(function (sticker, project) {
 
-                if (status === edit){
+                if (status === edit) {
                     res.render("pages/stories/choose_color", {
                         story: _story,
                         colors: colors,
@@ -1279,7 +1294,7 @@ module.exports = function (app) {
                         projectItem: project,
                         type: type
                     });
-                }else if (status === defaults){
+                } else if (status === defaults) {
                     res.render("pages/stories/default_color", {
                         story: _story,
                         colors: colors,
