@@ -35,6 +35,16 @@
                 x.className = x.className.replace("show", "");
             }, 3000);
         }
+        
+        $(function () {
+            $('.soldBar').change(function() {
+                let item = $(this);
+
+                if (item.val() === "1"){
+                    $("#productSelect").style.display = "block";
+                }
+            });
+        })
 
         function submitStory() {
 
@@ -46,14 +56,6 @@
             document.getElementById("submit_story").onclick = function () {
                 document.getElementById("story_form").submit();
             }
-
-            $('.soldBar').change(function() {
-                let item = $(this);
-
-                if (item.val() === "1"){
-                    document.getElementById("productSelect").style.display = "block";
-                }
-            });
         });
 
     </script>
