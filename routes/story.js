@@ -7,6 +7,9 @@ let fs = require('fs');
 
 const PARSE_LIMIT = 2000;
 
+let story = "story";
+let episode = "episode";
+
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
         console.log("Dest " + JSON.stringify(file));
@@ -114,8 +117,7 @@ module.exports = function (app) {
         let id = req.params.id;
         let source = req.params.source;
         let projectId = req.params.projectId;
-        let story = "story";
-        let episode = "episode";
+
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
@@ -587,6 +589,7 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let id = req.params.id;
         let projectId = req.body.projectId;
+        let source = req.body.source;
 
         if (token) {
 
@@ -597,7 +600,15 @@ module.exports = function (app) {
 
                 _user = sessionToken.get("user");
 
-                return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+                if (source === story){
+
+                    return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+                }else if (source === episode){
+
+                    return new Parse.Query(_class.Episodes).equalTo("objectId", id).first();
+
+                }
 
             }).then(function (story) {
 
@@ -613,13 +624,14 @@ module.exports = function (app) {
                 res.render("pages/stories/catalogue_sticker", {
                     story: _story.id,
                     stickers: stickers,
-                    projectItem: project
+                    projectItem: project,
+                    source: source
                 });
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/storyitem/' + id + '/' + projectId);
+                res.redirect('/storyitem/' + '/' + source + '/' + id + '/' + projectId);
 
             });
         } else {
@@ -635,6 +647,7 @@ module.exports = function (app) {
         let sticker_id = req.body.sticker_id;
         let sticker_url = req.body.sticker_url;
         let projectId = req.body.projectId;
+        let source = req.body.source;
 
         if (token) {
 
@@ -650,7 +663,7 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect('/storyitem/' + story_id + '/' + projectId);
+                res.redirect('/storyitem/' + '/' + source + '/' + story_id + '/' + projectId);
 
             }, function (error) {
 
@@ -670,6 +683,7 @@ module.exports = function (app) {
         let files = req.files;
         let id = req.params.id;
         let projectId = req.body.projectId;
+        let source = req.body.source;
         let storyItem = "/storyitem/";
 
         if (token) {
@@ -716,7 +730,7 @@ module.exports = function (app) {
                     }
                 });
 
-                res.redirect(storyItem + id + '/' + projectId);
+                res.redirect(storyItem + '/' + source + '/' + id + '/' + projectId);
 
             }, function (error) {
 
