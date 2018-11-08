@@ -663,7 +663,7 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect('/storyitem/' + '/' + source + '/' + story_id + '/' + projectId);
+                res.redirect('/storyitem/' + source + '/' + story_id + '/' + projectId);
 
             }, function (error) {
 
