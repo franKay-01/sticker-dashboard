@@ -950,7 +950,7 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let story_id = req.body.storyId;
         let title = req.body.episode;
-        let sold = req.body.sold;
+        let status = req.body.status;
         let projectId = req.body.projectId;
         let productId = req.body.productId;
 
@@ -966,12 +966,12 @@ module.exports = function (app) {
                 let episode = new Episodes();
 
                 episode.set("title", title);
-                episode.set("sold", sold);
+                episode.set("sold", status);
                 episode.set("storyId", story_id);
                 episode.set("projectId", projectId);
-                if (sold === false){
-                    episode.set("productId", free)
-                }else if (sold === true){
+                if (sold === "free"){
+                    episode.set("productId", "free")
+                }else if (sold === "sold"){
                     episode.set("productId", productId)
                 }
 

@@ -42,8 +42,12 @@
 
                 if (item.val() === "sold"){
                     $('#' + $(this).val()).show();
+                    $('#' + $(this).val()).prop('required',true);
+
                 } else if (item.val() === "free"){
                     $('#sold').hide();
+                    $('#sold').prop('required',false);
+
                 }
             });
         })
@@ -100,14 +104,14 @@
                 <input type="text" name="projectId" value="<%= projectItem.id %>" hidden>
 
                 <div class="row" style="width: 450px !important;">
-                    <select class="input-field validate soldBar" name="sold" required="" aria-required="true">
+                    <select class="input-field validate soldBar" name="status" required="" aria-required="true">
                         <option value="" disabled selected>&nbsp;Make Free or Paid</option>
                         <option value="free">FREE</option>
                         <option value="sold">SOLD</option>
                     </select>
                 </div>
                 <div class="row" id="sold" style="width: 450px !important; display: none;">
-                    <select class="input-field validate" name="productId" required="" aria-required="true">
+                    <select class="input-field validate" name="productId">
                         <option value="" disabled selected>&nbsp;Add Product ID</option>
                         <% if (products.length === 0) { %>
 
