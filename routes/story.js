@@ -1065,11 +1065,14 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
+                console.log("ITEMS FROM URL " + story_id + " " + projectId);
                 return Parse.Promise.when(
                     new Parse.Query(_class.Episodes).equalTo("storyId", story_id).ascending("order").find(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 )
             }).then(function (episodes, project) {
+
+                console.log("ITEMS FROM DATABASE " + JSON.stringify(episodes) + " " + JSON.stringify(project));
 
                 res.render("pages/story/episodes", {
                     episodes: episodes,
