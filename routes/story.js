@@ -404,6 +404,8 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
+            console.log("STORYITEM ID " + id);
+            
                 return Parse.Promise.when(
                     new Parse.Query(_class.StoryItems).equalTo("storyId", id).find(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
