@@ -428,15 +428,17 @@ module.exports = function (app) {
                     return new Parse.Query(_class.Stickers).containedIn("objectId", sticker_array).find();
 
                 } else {
-                    return true;
+                    return "";
                 }
 
             }).then(function (stickers) {
 
-                if (stickers) {
+                if (stickers !== "") {
 
                     _stickers = stickers;
 
+                }else{
+                    _stickers = "";
                 }
 
                 res.render("pages/stories/story_items", {
