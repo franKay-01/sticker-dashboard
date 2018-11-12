@@ -1068,16 +1068,18 @@ module.exports = function (app) {
                 console.log("ITEMS FROM URL " + story_id + " " + projectId);
                 return Parse.Promise.when(
                     new Parse.Query(_class.Episodes).equalTo("storyId", story_id).ascending("order").find(),
-                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                    new Parse.Query(_class.Product).find()
                 )
-            }).then(function (episodes, project) {
+            }).then(function (episodes, project, products) {
 
                 console.log("ITEMS FROM DATABASE " + JSON.stringify(episodes) + " " + JSON.stringify(project));
 
                 res.render("pages/stories/episodes", {
                     storyId: story_id,
                     episodes: episodes,
-                    projectItem: project
+                    projectItem: project,
+                    products: products
                 })
                 
             }, function (error) {
