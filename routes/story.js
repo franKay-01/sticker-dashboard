@@ -141,6 +141,7 @@ module.exports = function (app) {
 
                     story_id: story.id,
                     name: story.get("title"),
+                    storyType: story.get("storyType"),
                     projectItem: project,
                     type: type,
                     source: source
