@@ -1,5 +1,7 @@
 <!--Display Collections from parse-->
-
+<% if (story.length === 0){ %>
+    <p class="none" style="margin: 0 !important;">None</p>
+<%} else {%>
 <% story.forEach(function(item, index) { %>
 
     <% arts.forEach(function (art, index) { %>
@@ -40,3 +42,5 @@
         <% } %>
     <% }); %>
 <% }); %>
+<% } %>
+
