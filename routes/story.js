@@ -411,6 +411,7 @@ module.exports = function (app) {
 
             }).then(function (story_item, project) {
 
+                console.log("STORY ITEM " + JSON.stringify(story_item));
                 _storyItem = story_item;
                 _project = project;
 
