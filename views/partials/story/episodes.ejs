@@ -5,14 +5,7 @@
 <% episodes.forEach(function(item, index) { %>
 <div class="medium-3 large-3 cell card-zoom icons">
     <a href="/storyedit/<%= item.id %>/<%= projectItem.id %>">
-        <div>
-            <center>
-            <i style="margin: 100px 120px auto;" class="fa fa-first-order fa-3x home_pack_description" aria-hidden="true">
-                <%= item.get("order")%>
-            </i>
-            </center>
-        </div>
-        <div class="story_title truncate_story_title">
+        <div style="margin: 100px 120px auto !important;" class="story_title truncate_story_title">
             <%= item.get("title") %>
         </div>
         <div class="story_summary truncate_summary">
