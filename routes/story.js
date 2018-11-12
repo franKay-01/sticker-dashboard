@@ -404,7 +404,7 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
-            console.log("STORYITEM ID " + id);
+                console.log("STORYITEM ID " + id);
 
                 return Parse.Promise.when(
                     new Parse.Query(_class.StoryItems).equalTo("storyId", id).find(),
@@ -440,7 +440,7 @@ module.exports = function (app) {
 
                     _stickers = stickers;
 
-                }else{
+                } else {
                     _stickers = "";
                 }
 
@@ -1065,23 +1065,22 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
-                console.log("ITEMS FROM URL " + story_id + " " + projectId);
                 return Parse.Promise.when(
                     new Parse.Query(_class.Episodes).equalTo("storyId", story_id).ascending("order").find(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
-                    new Parse.Query(_class.Product).find()
+                    new Parse.Query(_class.Product).find(),
+                    new Parse.Query(_class.Stories).equalTo("objectId", story_id).first()
                 )
-            }).then(function (episodes, project, products) {
-
-                console.log("ITEMS FROM DATABASE " + JSON.stringify(episodes) + " " + JSON.stringify(project));
+            }).then(function (episodes, project, products, story) {
 
                 res.render("pages/stories/episodes", {
                     storyId: story_id,
+                    storyName: story.get("title"),
                     episodes: episodes,
                     projectItem: project,
                     products: products
                 })
-                
+
             }, function (error) {
 
                 console.log("ERROR " + error.message);
