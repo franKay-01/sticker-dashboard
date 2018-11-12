@@ -24,7 +24,7 @@ exports.Packs = opt => {
     query.containedIn("projectIds", [projectId]);
     if (keyword) {
         if (keyword !== "") {
-            query.containedIn("keywords", [keyword]);
+            query.containedIn("keywords", [keyword.toUpperCase()]);
         }
     }
     query.limit(limit);
