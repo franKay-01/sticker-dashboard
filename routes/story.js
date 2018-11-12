@@ -870,7 +870,7 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect("/storyitem/" + '/' + source + '/' + id + '/' + projectId);
+                res.redirect("/storyitem/" + source + '/' + id + '/' + projectId);
 
             }, function (error) {
 
