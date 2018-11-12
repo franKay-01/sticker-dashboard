@@ -122,13 +122,13 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
-                if (source === story){
+                if (source === story) {
                     return Parse.Promise.when(
                         new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
                         new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                     )
 
-                }else if (source === episode){
+                } else if (source === episode) {
                     return Parse.Promise.when(
                         new Parse.Query(_class.Episodes).equalTo("objectId", id).first(),
                         new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
@@ -206,7 +206,7 @@ module.exports = function (app) {
 
             }).then(function (item) {
 
-                res.redirect('/storyItem/html/old/'+ source + '/' + item.id + '/' + projectId);
+                res.redirect('/storyItem/html/old/' + source + '/' + item.id + '/' + projectId);
 
             }, function (error) {
 
@@ -338,12 +338,12 @@ module.exports = function (app) {
                 _story = storyItem;
 
                 if (state === "new") {
-                    if (source === story){
+                    if (source === story) {
                         return Parse.Promise.when(
                             new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         )
-                    }else if (source === episode){
+                    } else if (source === episode) {
                         return Parse.Promise.when(
                             new Parse.Query(_class.Episodes).equalTo("objectId", id).first(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
@@ -359,7 +359,7 @@ module.exports = function (app) {
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         )
 
-                    }else if (source === episode){
+                    } else if (source === episode) {
                         return Parse.Promise.when(
                             new Parse.Query(_class.Episodes).equalTo("objectId", storyItem.get("storyId")).first(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
@@ -620,11 +620,11 @@ module.exports = function (app) {
 
                 _user = sessionToken.get("user");
 
-                if (source === story){
+                if (source === story) {
 
                     return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
 
-                }else if (source === episode){
+                } else if (source === episode) {
 
                     return new Parse.Query(_class.Episodes).equalTo("objectId", id).first();
 
@@ -651,7 +651,7 @@ module.exports = function (app) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/storyitem/' + '/' + source + '/' + id + '/' + projectId);
+                res.redirect('/storyitem/' + source + '/' + id + '/' + projectId);
 
             });
         } else {
@@ -1001,6 +1001,7 @@ module.exports = function (app) {
         let story_id = req.body.storyId;
         let title = req.body.episode;
         let status = req.body.status;
+        let order = req.body.order;
         let projectId = req.body.projectId;
         let productId = req.body.productId;
 
@@ -1022,6 +1023,7 @@ module.exports = function (app) {
                     episode.set("sold", true);
                 }
                 episode.set("storyId", story_id);
+                episode.set("order", order);
                 episode.set("projectId", projectId);
                 if (status === "free") {
                     episode.set("productId", "free")
@@ -1046,6 +1048,33 @@ module.exports = function (app) {
             res.redirect('/')
         }
 
+    });
+
+    app.get('/episodes/view/:storyId/:projectId', function (req, res) {
+
+        let token = req.cookies.token;
+        let story_id = req.params.storyId;
+        let projectId = req.params.projectId;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Episodes).equalTo("storyId", story_id).ascending("order").find(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                )
+            }).then(function (episodes, project) {
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/storyedit/' + story_id + '/' + projectId);
+            })
+
+        } else {
+            res.redirect('/');
+        }
     });
 
     app.get('/storyedit/:storyId/:projectId', function (req, res) {

@@ -35,18 +35,18 @@
                 x.className = x.className.replace("show", "");
             }, 3000);
         }
-        
+
         $(function () {
-            $('.soldBar').change(function() {
+            $('.soldBar').change(function () {
                 let item = $(this);
 
-                if (item.val() === "sold"){
+                if (item.val() === "sold") {
                     $('#' + $(this).val()).show();
-                    $('#' + $(this).val()).prop('required',true);
+                    $('#' + $(this).val()).prop('required', true);
 
-                } else if (item.val() === "free"){
+                } else if (item.val() === "free") {
                     $('#sold').hide();
-                    $('#sold').prop('required',false);
+                    $('#sold').prop('required', false);
 
                 }
             });
@@ -100,6 +100,8 @@
             <center>
                 <input type="text" class="_pack common_pack_detail validate" placeholder="Episode Title"
                        name="episode" required="" aria-required="true"><br>
+                <input type="number" class="_pack common_pack_detail validate" placeholder="Episode Order"
+                       name="order" required="" aria-required="true"><br>
                 <input type="text" name="storyId" value="<%= story.id %>" hidden>
                 <input type="text" name="projectId" value="<%= projectItem.id %>" hidden>
 
@@ -218,7 +220,8 @@
                     </div>
                     <% } else { %>
                     <div style="margin-top: 40px !important;">
-                        <a class="_stickers_packs" href="/storyitem/story/<%= story.id %>/<%= projectItem.id %>">Add Story
+                        <a class="_stickers_packs" href="/storyitem/story/<%= story.id %>/<%= projectItem.id %>">Add
+                            Story
                             Item</a>
                     </div>
                     <% } %>
@@ -417,9 +420,17 @@
                            aria-hidden="true"></i></a>
                     <br>
 
+                    <% if (story.get("storyType") === type.STORY_TYPE.episodes) { %>
 
-                    <a href="/storyitem/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Story Items</a><br><br>
+                    <a href="/episodes/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Episodes</a>
+                    <br><br>
 
+                    <% } else { %>
+
+                    <a href="/storyitem/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Story Items</a>
+                    <br><br>
+
+                    <% } %>
                     <!--<a href="/storymain/<%#= story.id %>" class="preview">Edit Main Story</a><br><br>-->
                     <a href="/stories/<%= projectItem.id %>" class="preview">Back</a><br>
                     <!--<a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">-->
