@@ -346,7 +346,7 @@
 
                         <center>
                             <% if (sticker !== ""){ %>
-                            <img width="200px" height="200px" src="<%= sticker.get(" uri").url() %>">
+                            <img width="200px" height="200px" src="<%= sticker.get("uri").url() %>">
                             <% }else { %>
 
                             <p class="none"><b>No Artwork</b></p>
@@ -354,7 +354,7 @@
                             <% } %>
                         </center>
                         <label class="update_label">Story Title:</label> <input placeholder="Story Title" style="width: 60% !important;"
-                            class="box_2" name="title" value="<%= story.get(" title") %>">
+                            class="box_2" name="title" value="<%= story.get("title") %>">
                         <label class="update_label">Keywords (separate with comma):</label> <input placeholder="Keywords "
                             class="box_2" name="keyword" style="width: 60% !important;" value="<%= story.get("keywords") %>">
                         <label class="update_label">Summary:</label>
@@ -425,8 +425,7 @@
 
                         <% } else { %>
 
-                        <a href="/storyitem/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Story
-                            Items</a>
+                        <a href="/storyitem/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Story Items</a>
                         <br><br>
 
                         <% } %>
