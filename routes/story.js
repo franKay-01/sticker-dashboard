@@ -1074,7 +1074,7 @@ module.exports = function (app) {
 
                 console.log("ITEMS FROM DATABASE " + JSON.stringify(episodes) + " " + JSON.stringify(project));
 
-                res.render("pages/story/episodes", {
+                res.render("pages/stories/episodes", {
                     episodes: episodes,
                     projectItem: project
                 })
