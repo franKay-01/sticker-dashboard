@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -11,10 +12,9 @@
     <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
 
     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css" />
     <link rel="stylesheet" href="/public/assets/css/custom.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
 
@@ -36,6 +36,22 @@
             }, 3000);
         }
 
+        $(function () {
+            $('.soldBar').change(function () {
+                let item = $(this);
+
+                if (item.val() === "sold") {
+                    $('#' + $(this).val()).show();
+                    $('#' + $(this).val()).prop('required', true);
+
+                } else if (item.val() === "free") {
+                    $('#sold').hide();
+                    $('#sold').prop('required', false);
+
+                }
+            });
+        })
+
         function submitStory() {
 
             document.getElementById("latestStory").submit();
@@ -53,336 +69,409 @@
 </head>
 
 <body class="primary-background-color">
-<div id="pageMask"></div>
+    <div id="pageMask"></div>
 
-<div id="hiddenChangeArtwork" class="hidden_forms" style="display: none">
-    <div class="medium-3 large-3 cell create_background">
-        <center>
-            <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CHANGE ARTWORK ?</div>
-        </center>
-        <!--<form id="pack_form" action="/new_catalogue_image/<%#= story_id %>" method="post"-->
-        <br><br>
-        <a href="#" id="btnCloseChangeArtwork" class="edit_labels" style="margin: 200px !important;">
-            NO
-        </a>
-        <a href="/story/artwork/change/<%= story.id %>/<%= projectItem.id %>" id="submitChangeArt" class="edit_labels">
-            YES
-        </a>
-
-    </div>
-
-</div>
-
-
-<div id="hiddenMakeStory" class="hidden_forms" style="display: none">
-    <div class="medium-3 large-3 cell create_background">
-        <center>
-            <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">MAKE THIS STORY OF THE
-                WEEK?
-            </div>
-        </center>
-        <!--<form id="pack_form" action="/new_catalogue_image/<%#= story_id %>" method="post"-->
-        <br><br>
-        <a href="#" id="btnCloseMakeStory" class="edit_labels" style="margin: 200px !important;">
-            NO
-        </a>
-        <a href="#" onclick="submitStory()" class="edit_labels">
-            YES
-        </a>
-
-    </div>
-
-</div>
-
-<div id="askPermission" style="display: none">
-    <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
-        <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
-        <a href="#" id="cancelPermission" class="edit_labels" style="margin: 200px !important;">
-            NO
-        </a>
-        <a href="/publish/story/publish/<%= story.id %>/<%= projectItem.id %>" class="edit_labels">
-            YES
-        </a>
-    </div>
-</div>
-
-<div class="remove_story" style="display: none">
-    <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
-        <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
-        <a href="#" id="cancel_delete" class="edit_labels" style="margin: 200px !important;">
-            NO
-        </a>
-        <a href="/storyitem/delete/<%= story.id %>/<%= projectItem.id %>" class="edit_labels">
-            YES
-        </a>
-    </div>
-</div>
-
-<div id="removePublish" style="display: none">
-    <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
-        <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
-        <a href="#" id="cancelPublish" class="edit_labels" style="margin: 200px !important;">
-            NO
-        </a>
-        <a href="/publish/story/unpublish/<%= story.id %>/<%= projectItem.id %>" class="edit_labels">
-            YES
-        </a>
-    </div>
-</div>
-<div class="grid-container">
-    <!-- Logo -->
-    <div class="medium-12 large-12" id="logo">
-        <a href="/home">
-            <img src="/public/assets/images/G_logo.png"
-                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
-        </a>
-        <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
-
-    </div>
-
-    <!-- End of logo -->
-    <span class="medium-6 large-6 welcome_post"><b>Edit <i style="color: #a46580"><%= story.get("title") %></i> Story Details</b></span>
-
-    <div class="grid-x grid-margin-x story" id="opaqueDiv">
-        <div class="medium-3 large-3 cell">
-            <div class="login_card">
-                <div class="card_head_position">
-                    <div class="stats">Menu</div>
-                    <% include ../../partials/menu.ejs %>
-
-                    <div style="margin-top: 40px !important;"><a class="_stickers_packs"
-                                                                 href="/storyitem/<%= story.id %>/<%= projectItem.id %>">Add
-                            Story Item</a></div>
-                </div>
-            </div>
-            <div class="icons">
-                <div class="create_new">
-                    Publishing
-                    <% if (story.get("published") === false){ %>
-                    <i class="fa fa-circle" id="circle"
-                       style="color: #f8ab1c;float: right;font-size: 15px;margin-top: 10px;" aria-hidden="true"></i>
-                    <% } else if (story.get("published") === true){ %>
-                    <i class="fa fa-circle" id="circle"
-                       style="color: #7ed321;float: right;font-size: 15px;margin-top: 10px;" aria-hidden="true"></i>
-                    <% } %>
-                </div>
-
-                <!-- <%# if (status === 2){ %>-->
-                <% if (story.get("published") === false){ %>
-
-                <a href="#" id="showPermission">
-                    <button class="create_button">
-                        <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
-                                                                                       aria-hidden="true"></i>
-                            &nbsp;
-                            PUBLISH
-                        </p>
-                    </button>
-                </a>
-                <% } else if (story.get("published") === true){ %>
-                <a href="#" id="removePublished">
-                    <button class="create_button">
-                        <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
-                                                                                       aria-hidden="true"></i>
-                            &nbsp;
-                            UNPUBLISH
-                        </p>
-                    </button>
-                </a>
-
-                <% } %>
-
-                <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
-                    <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #f8ab1c"
-                                                           aria-hidden="true"></i> &nbsp; UNPUBLISHED
-                    </p>
-                </button>
-
-                <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
-                    <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #7ed321"
-                                                           aria-hidden="true"></i> &nbsp; PUBLISHED
-                    </p>
-                </button>
-
-                <% if (latest !== ""){ %>
-                <% if (latest.get("feedId") === story.id){ %>
-                <button class="create_button" onclick="storyInfo()"
-                        style="background-color: #f1f1f1 !important;">
-                    <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
-                                                           aria-hidden="true"></i> &nbsp; DELETE
-                    </p>
-                </button>
-                <% } else { %>
-                <button class="create_button" id="remove_story" style="background-color: #f1f1f1 !important;">
-                    <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
-                                                           aria-hidden="true"></i> &nbsp; DELETE
-                    </p>
-                </button>
-                <% } %>
-                <% } %>
-
-                <center style="margin-top: 25px;">
-                <span style="padding-right: 125px;">
-                    <% if (previous !== ""){ %>
-                    <a style="color: #a46580 !important; "
-                       href="/storyedit/<%= previous %>/<%= projectItem.id %>">
-                        <i style="font-size: 3rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
-                    <% } %>
-                </span>
-                    <span style="padding-left: 15px">
-                        <% if (next !== ""){ %>
-
-                        <a style="color: #a46580 !important;"
-                           href="/storyedit/<%= next %>/<%= projectItem.id %>">
-                        <i style="font-size: 3rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
-
-                        <% } %>
-                    </span>
-                </center>
-
-            </div>
+    <div id="hiddenChangeArtwork" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CHANGE ARTWORK ?</div>
+            </center>
+            <!--<form id="pack_form" action="/new_catalogue_image/<%#= story_id %>" method="post"-->
+            <br><br>
+            <a href="#" id="btnCloseChangeArtwork" class="edit_labels" style="margin: 200px !important;">
+                NO
+            </a>
+            <a href="/story/artwork/change/<%= story.id %>/<%= projectItem.id %>" id="submitChangeArt" class="edit_labels">
+                YES
+            </a>
 
         </div>
 
-        <div class="story_form">
-            <p class="story_icons">
-                <% if (latest !== ""){ %>
-                STORY OF THE WEEK
-                <% if (latest.get("feedId") === story.id){ %>
-                <i class="fa fa-circle" id="circle" style="color: #0f9d58;" aria-hidden="true"></i>
-                <% }else{ %>
-                <i class="fa fa-circle" id="circle" style="color: grey;" aria-hidden="true"></i>
-                <% } %>
-                <% } %>
-            </p>
+    </div>
 
-            <a target="_blank" href="/newsletter/story/<%= story.id %>" style="float: right">
-                <button class="create_button add_catalogue" style="background: transparent !important;">
-                    <p class="preview"> PREVIEW STORY</p>
-                </button>
-            </a>
-            <br><br>
-            <form id="story_form" action="/storyedit/<%= story.id %>" method="post">
+    <div id="addEpisodeForm" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW EPISODE</div>
+            </center>
+            <!--<form id="pack_form" action="/new_catalogue_image/<%#= story_id %>" method="post"-->
+            <br>
+            <form id="pack_form" action="/episode" method="post">
+                <center>
+                    <input type="text" class="_pack common_pack_detail validate" placeholder="Episode Title" name="episode"
+                        required="" aria-required="true"><br>
+                    <input type="number" class="_pack common_pack_detail validate" placeholder="Episode Order" name="order"
+                        required="" aria-required="true"><br>
+                    <input type="text" name="storyId" value="<%= story.id %>" hidden>
+                    <input type="text" name="projectId" value="<%= projectItem.id %>" hidden>
 
-                <input type="hidden" name="projectId" value="<%= projectItem.id %>">
-                <div class="medium-5 large-5 cell">
-
-                    <center>
-                        <% if (sticker !== ""){ %>
-                        <img width="200px" height="200px" src="<%= sticker.get("uri").url() %>">
-                        <% }else { %>
-
-                        <p class="none"><b>No Artwork</b></p>
-
-                        <% } %>
-                    </center>
-                    <label class="update_label">Story Title:</label> <input placeholder="Story Title"
-                                                                            style="width: 60% !important;" class="box_2"
-                                                                            name="title"
-                                                                            value="<%= story.get("title") %>">
-                    <label class="update_label">Keywords (separate with comma):</label> <input placeholder="Keywords "
-                                                                                               class="box_2"
-                                                                                               name="keyword"
-                                                                                               style="width: 60% !important;"
-                                                                                               value="<%= story.get("keywords") %>">
-                    <label class="update_label">Summary:</label>
-                    <textarea class="validate" placeholder="Summary" style="width: 60% !important;"
-                              name="summary" required="" aria-required="true"><%= story.get("summary") %></textarea><br>
-
-                    <label class="update_label">Author: <a href="/author/view/<%= authorId %>/<%= story.id %>"><i
-                                    style="color: #00aa9f;font-weight: 700"><%= author %></i></a></label>
-                    <div class="row" style="width: 450px !important;margin-left: 0 !important;">
-                        <select class="input-field validate" name="authorId">
-                            <option value="" disabled selected>&nbsp;Add/Change Author</option>
-                            <% if (authors.length === 0) { %>
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate soldBar" name="status" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Make Free or Paid</option>
+                            <option value="free">FREE</option>
+                            <option value="sold">SOLD</option>
+                        </select>
+                    </div>
+                    <div class="row" id="sold" style="width: 450px !important; display: none;">
+                        <select class="input-field validate" name="productId">
+                            <option value="" disabled selected>&nbsp;Add Product ID</option>
+                            <% if (products.length === 0) { %>
 
                             <% } else { %>
-                            <% authors.forEach(function(items) { %>
-                            <option value="<%= items.id %>"><%= items.get("name") %></option>
+                            <% products.forEach(function(items) { %>
+                            <option value="<%= items.id %>">
+                                <%= items.get("name") %>
+                            </option>
                             <% }) %>
                             <% } %>
                         </select>
                     </div>
-
-                    <label class="update_label" style="margin-bottom: 0">Projects Attached :
-                    </label>
-                    <div>
-                        <% if (projects.length === 0) { %>
-
-                        <% } else { %>
-                        <% projects.forEach(function(item) { %>
-                        <span style="color: #00aa9f;font-weight: 700"><%= item.get("name") %></span>
-                        <% if (projects.length > 1){ %>
-                        <a href="/project/remove/pack/<%= story.id %>/<%= projectItem.id %>/<%= item.id %>">
-                            <i class="fa fa-minus-square"
-                               style="color:<%= projectItem.get("setting").button %>; font-size: 15px;margin-left: 10px"
-                               aria-hidden="true"></i>
-                        </a>
-                        <% } %>
-                        <br>
-                        <% }) %>
-                        <% } %>
-                    </div>
-                    <a href="/project/new/add/story/<%= story.id %>/<%= projectItem.id %>">
-                        <i style="color: #a46580; font-size: 20px" class="fa fa-plus-square" aria-hidden="true"></i>
-                    </a>
-                    <label class="update_label" style="margin-top: 20px;">Edit Color Scheme:</label>
-                    <span style="color: <%= colors.topColor %>"><i class="fa fa-circle fa-5x"
-                                                                   aria-hidden="true"></i></span>
-                    <span style="color:<%= colors.bottomColor %>;margin-left: -30px;"><i class="fa fa-circle fa-5x"
-                                                                                         aria-hidden="true"></i></span>
                     <br>
-
-                    <a href="/storycolor/<%= story.id %>/<%= projectItem.id %>" class="preview">Edit Color</a><br>
-                    <br>
-
-                    <a href="#" id="submit_story" class="preview">Save Changes</a><br>
-                    <a href="#" id="change_image" class="preview">Change Artwork
-                        <i class="fa fa-picture-o" style="color: #590a5d; font-size: 1.5rem;"
-                           aria-hidden="true"></i></a>
-                    <br>
-
-                    <a href="/storyitem/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Story Items</a><br><br>
-                    <!--<a href="/storymain/<%#= story.id %>" class="preview">Edit Main Story</a><br><br>-->
-                    <a href="/stories/<%= projectItem.id %>" class="preview">Back</a><br>
-                    <!--<a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">-->
-                    <!--Delete<i class="fa fa-trash"-->
-                    <!--style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"-->
-                    <!--aria-hidden="true"></i>-->
-                    <!--</a>-->
-                    <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
-                </div>
+                </center>
+                <span>
+                    <button type="submit" class="create">CREATE</button>
+                </span>
+                <span>
+                    <button type="button" id="btnCloseEpisode" class="cancel">Cancel</button>
+                </span>
             </form>
-            <% if (latest !== ""){ %>
-            <% if (story.get("storyType") === type.STORY_TYPE.short_stories || story.get("storyType") === type.STORY_TYPE.story) { %>
-            <% if (latest.get("feedId") !== story.id && story.get("published") === true){ %>
-
-            <form id="latestStory" action="/feeds/story/story" method="post">
-                <input type="text" class="story_id" name="element_id" value="<%= story.id %>" hidden>
-                <input type="hidden" name="projectId" value="<%= projectItem.id %>">
-                <button style="background-color: transparent;font-size: 20px;" type="button"
-                        class="preview storyElement">Make Story of The Week
-                </button>
-            </form>
-            <% } %>
-            <% } %>
-            <% } %>
         </div>
 
-        <div id="story_message">THIS STORY IS BEING USED AS STORY OF THE WEEK. YOU CAN NOT DELETE IT.</div>
+    </div>
 
 
-        <%- include('../../partials/footer') %>
+    <div id="hiddenMakeStory" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">MAKE THIS STORY OF
+                    THE
+                    WEEK?
+                </div>
+            </center>
+            <!--<form id="pack_form" action="/new_catalogue_image/<%#= story_id %>" method="post"-->
+            <br><br>
+            <a href="#" id="btnCloseMakeStory" class="edit_labels" style="margin: 200px !important;">
+                NO
+            </a>
+            <a href="#" onclick="submitStory()" class="edit_labels">
+                YES
+            </a>
+
+        </div>
 
     </div>
-</div>
 
-<!-- Body -->
+    <div id="askPermission" style="display: none">
+        <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
+            <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
+            <a href="#" id="cancelPermission" class="edit_labels" style="margin: 200px !important;">
+                NO
+            </a>
+            <a href="/publish/story/publish/<%= story.id %>/<%= projectItem.id %>" class="edit_labels">
+                YES
+            </a>
+        </div>
+    </div>
 
-<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
-<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+    <div class="remove_story" style="display: none">
+        <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
+            <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
+            <a href="#" id="cancel_delete" class="edit_labels" style="margin: 200px !important;">
+                NO
+            </a>
+            <a href="/storyitem/delete/<%= story.id %>/<%= projectItem.id %>" class="edit_labels">
+                YES
+            </a>
+        </div>
+    </div>
+
+    <div id="removePublish" style="display: none">
+        <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
+            <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
+            <a href="#" id="cancelPublish" class="edit_labels" style="margin: 200px !important;">
+                NO
+            </a>
+            <a href="/publish/story/unpublish/<%= story.id %>/<%= projectItem.id %>" class="edit_labels">
+                YES
+            </a>
+        </div>
+    </div>
+    <div class="grid-container">
+        <!-- Logo -->
+        <div class="medium-12 large-12" id="logo">
+            <a href="/home">
+                <img src="/public/assets/images/G_logo.png" srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x"
+                    class="logo">
+            </a>
+            <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
+
+        </div>
+
+        <!-- End of logo -->
+        <span class="medium-6 large-6 welcome_post"><b>Edit <i style="color: #a46580">
+                    <%= story.get("title") %></i> Story Details</b></span>
+
+        <div class="grid-x grid-margin-x story" id="opaqueDiv">
+            <div class="medium-3 large-3 cell">
+                <div class="login_card">
+                    <div class="card_head_position">
+                        <div class="stats">Menu</div>
+                        <% include ../../partials/menu.ejs %>
+
+                        <% if (story.get("storyType") === type.STORY_TYPE.episodes) { %>
+                        <div style="margin-top: 40px !important;" id="episode">
+                            <a class="_stickers_packs" href="#">Add Episode</a>
+                        </div>
+                        <% } else { %>
+                        <div style="margin-top: 40px !important;">
+                            <a class="_stickers_packs" href="/storyitem/story/<%= story.id %>/<%= projectItem.id %>">Add
+                                Story
+                                Item</a>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="icons">
+                    <div class="create_new">
+                        Publishing
+                        <% if (story.get("published") === false){ %>
+                        <i class="fa fa-circle" id="circle" style="color: #f8ab1c;float: right;font-size: 15px;margin-top: 10px;"
+                            aria-hidden="true"></i>
+                        <% } else if (story.get("published") === true){ %>
+                        <i class="fa fa-circle" id="circle" style="color: #7ed321;float: right;font-size: 15px;margin-top: 10px;"
+                            aria-hidden="true"></i>
+                        <% } %>
+                    </div>
+
+                    <!-- <%# if (status === 2){ %>-->
+                    <% if (story.get("published") === false){ %>
+
+                    <a href="#" id="showPermission">
+                        <button class="create_button">
+                            <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
+                                    aria-hidden="true"></i>
+                                &nbsp;
+                                PUBLISH
+                            </p>
+                        </button>
+                    </a>
+                    <% } else if (story.get("published") === true){ %>
+                    <a href="#" id="removePublished">
+                        <button class="create_button">
+                            <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
+                                    aria-hidden="true"></i>
+                                &nbsp;
+                                UNPUBLISH
+                            </p>
+                        </button>
+                    </a>
+
+                    <% } %>
+
+                    <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                        <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #f8ab1c"
+                                aria-hidden="true"></i> &nbsp; UNPUBLISHED
+                        </p>
+                    </button>
+
+                    <button class="create_button" style="background-color: #f1f1f1 !important;" disabled>
+                        <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: #7ed321"
+                                aria-hidden="true"></i> &nbsp; PUBLISHED
+                        </p>
+                    </button>
+
+                    <% if (latest !== ""){ %>
+                    <% if (latest.get("feedId") === story.id){ %>
+                    <button class="create_button" onclick="storyInfo()" style="background-color: #f1f1f1 !important;">
+                        <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
+                                aria-hidden="true"></i> &nbsp; DELETE
+                        </p>
+                    </button>
+                    <% } else { %>
+                    <button class="create_button" id="remove_story" style="background-color: #f1f1f1 !important;">
+                        <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
+                                aria-hidden="true"></i> &nbsp; DELETE
+                        </p>
+                    </button>
+                    <% } %>
+                    <% } %>
+
+                    <center style="margin-top: 25px;">
+                        <span style="padding-right: 125px;">
+                            <% if (previous !== ""){ %>
+                            <a style="color: #a46580 !important; " href="/storyedit/<%= previous %>/<%= projectItem.id %>">
+                                <i style="font-size: 3rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                            <% } %>
+                        </span>
+                        <span style="padding-left: 15px">
+                            <% if (next !== ""){ %>
+
+                            <a style="color: #a46580 !important;" href="/storyedit/<%= next %>/<%= projectItem.id %>">
+                                <i style="font-size: 3rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
+
+                            <% } %>
+                        </span>
+                    </center>
+
+                </div>
+
+            </div>
+
+            <div class="story_form">
+                <% if (story.get("storyType") === type.STORY_TYPE.short_stories || story.get("storyType") === type.STORY_TYPE.story) { %>
+
+                <p class="story_icons">
+                    <% if (latest !== ""){ %>
+                    STORY OF THE WEEK
+                    <% if (latest.get("feedId") === story.id){ %>
+                    <i class="fa fa-circle" id="circle" style="color: #0f9d58;" aria-hidden="true"></i>
+                    <% }else{ %>
+                    <i class="fa fa-circle" id="circle" style="color: grey;" aria-hidden="true"></i>
+                    <% } %>
+                    <% } %>
+                </p>
+
+                <a target="_blank" href="/newsletter/story/<%= story.id %>" style="float: right">
+                    <button class="create_button add_catalogue" style="background: transparent !important;">
+                        <p class="preview"> PREVIEW STORY</p>
+                    </button>
+                </a>
+                <% } %>
+
+                <br><br>
+                <form id="story_form" action="/storyedit/<%= story.id %>" method="post">
+
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+                    <div class="medium-5 large-5 cell">
+
+                        <center>
+                            <% if (sticker !== ""){ %>
+                            <img width="200px" height="200px" src="<%= sticker.get(" uri").url() %>">
+                            <% }else { %>
+
+                            <p class="none"><b>No Artwork</b></p>
+
+                            <% } %>
+                        </center>
+                        <label class="update_label">Story Title:</label> <input placeholder="Story Title" style="width: 60% !important;"
+                            class="box_2" name="title" value="<%= story.get(" title") %>">
+                        <label class="update_label">Keywords (separate with comma):</label> <input placeholder="Keywords "
+                            class="box_2" name="keyword" style="width: 60% !important;" value="<%= story.get("
+                            keywords") %>">
+                        <label class="update_label">Summary:</label>
+                        <textarea class="validate" placeholder="Summary" style="width: 60% !important;" name="summary"
+                            required="" aria-required="true"><%= story.get("summary") %></textarea><br>
+
+                        <label class="update_label">Author: <a href="/author/view/<%= authorId %>/<%= story.id %>"><i
+                                    style="color: #00aa9f;font-weight: 700">
+                                    <%= author %></i></a></label>
+                        <div class="row" style="width: 450px !important;margin-left: 0 !important;">
+                            <select class="input-field validate" name="authorId">
+                                <option value="" disabled selected>&nbsp;Add/Change Author</option>
+                                <% if (authors.length === 0) { %>
+
+                                <% } else { %>
+                                <% authors.forEach(function(items) { %>
+                                <option value="<%= items.id %>">
+                                    <%= items.get("name") %>
+                                </option>
+                                <% }) %>
+                                <% } %>
+                            </select>
+                        </div>
+
+                        <label class="update_label" style="margin-bottom: 0">Projects Attached :
+                        </label>
+                        <div>
+                            <% if (projects.length === 0) { %>
+
+                            <% } else { %>
+                            <% projects.forEach(function(item) { %>
+                            <span style="color: #00aa9f;font-weight: 700">
+                                <%= item.get("name") %></span>
+                            <% if (projects.length > 1){ %>
+                            <a href="/project/remove/pack/<%= story.id %>/<%= projectItem.id %>/<%= item.id %>">
+                                <i class="fa fa-minus-square" style="color:<%= projectItem.get(" setting").button %>;
+                                    font-size: 15px;margin-left: 10px"
+                                    aria-hidden="true"></i>
+                            </a>
+                            <% } %>
+                            <br>
+                            <% }) %>
+                            <% } %>
+                        </div>
+                        <a href="/project/new/add/story/<%= story.id %>/<%= projectItem.id %>">
+                            <i style="color: #a46580; font-size: 20px" class="fa fa-plus-square" aria-hidden="true"></i>
+                        </a>
+                        <label class="update_label" style="margin-top: 20px;">Edit Color Scheme:</label>
+                        <span style="color: <%= colors.topColor %>"><i class="fa fa-circle fa-5x" aria-hidden="true"></i></span>
+                        <span style="color:<%= colors.bottomColor %>;margin-left: -30px;"><i class="fa fa-circle fa-5x"
+                                aria-hidden="true"></i></span>
+                        <br>
+
+                        <a href="/storycolor/edit/<%= story.id %>/<%= projectItem.id %>" class="preview">Edit Color</a><br>
+                        <a href="/storycolor/default/<%= story.id %>/<%= projectItem.id %>" class="preview">Default
+                            Colors</a>
+                        <br><br>
+
+                        <a href="#" id="submit_story" class="preview">Save Changes</a><br>
+                        <a href="#" id="change_image" class="preview">Change Artwork
+                            <i class="fa fa-picture-o" style="color: #590a5d; font-size: 1.5rem;" aria-hidden="true"></i></a>
+                        <br>
+
+                        <% if (story.get("storyType") === type.STORY_TYPE.episodes) { %>
+
+                        <a href="/episodes/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Episodes</a>
+                        <br><br>
+
+                        <% } else { %>
+
+                        <a href="/storyitem/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Story
+                            Items</a>
+                        <br><br>
+
+                        <% } %>
+                        <!--<a href="/storymain/<%#= story.id %>" class="preview">Edit Main Story</a><br><br>-->
+                        <a href="/stories/<%= projectItem.id %>" class="preview">Back</a><br>
+                        <!--<a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">-->
+                        <!--Delete<i class="fa fa-trash"-->
+                        <!--style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"-->
+                        <!--aria-hidden="true"></i>-->
+                        <!--</a>-->
+                        <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
+                    </div>
+                </form>
+                <% if (latest !== ""){ %>
+                <% if (story.get("storyType") === type.STORY_TYPE.short_stories || story.get("storyType") === type.STORY_TYPE.story) { %>
+                <% if (latest.get("feedId") !== story.id && story.get("published") === true){ %>
+
+                <form id="latestStory" action="/feeds/story/story" method="post">
+                    <input type="text" class="story_id" name="element_id" value="<%= story.id %>" hidden>
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+                    <button style="background-color: transparent;font-size: 20px;" type="button" class="preview storyElement">Make
+                        Story of The Week
+                    </button>
+                </form>
+                <% } %>
+                <% } %>
+                <% } %>
+            </div>
+
+            <div id="story_message">THIS STORY IS BEING USED AS STORY OF THE WEEK. YOU CAN NOT DELETE IT.</div>
+
+
+            <%- include('../../partials/footer') %>
+
+        </div>
+    </div>
+
+    <!-- Body -->
+
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+    <script type="text/javascript" src="/public/assets/js/validate.js"></script>
 </body>
+
 </html>

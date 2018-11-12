@@ -70,14 +70,17 @@ exports.STORY_TYPE = {
     quotes: 3,
     facts: 4,
     history: 5,
-    news: 6
+    news: 6,
+    episodes: 7
 };
 
 exports.FORMAT_TYPE = {
     default: 0,
     sideImage: 1,
     text: 2,
-    backgroundImage: 3
+    backgroundImage: 3,
+    regular: 4,
+    gradient: 5
 };
 
 exports.ITEM_TYPE = {
@@ -97,6 +100,37 @@ exports.DEFAULT = {
     }
 };
 
+exports.COLOR_TYPE = {
+    color1: {
+        "topColor":"#df5A34",
+        "bottomColor":"#814ea4"
+    },
+    color2: {
+        "topColor":"#d9dadf",
+        "bottomColor":"#16a433"
+    },
+    color3: {
+        "topColor":"#df4a73",
+        "bottomColor":"#a47b14"
+    },
+    color4: {
+        "topColor":"#d9dadf",
+        "bottomColor":"#a40a1d"
+    },
+    color5: {
+        "topColor":"#0bb4ab",
+        "bottomColor":"#a4390d"
+    },
+    color6: {
+        "topColor":"#b43b74",
+        "bottomColor":"#9ca49f"
+    },
+    color7: {
+        "topColor":"#96b422",
+        "bottomColor":"#9ca49f"
+    }
+
+};
 
 
 

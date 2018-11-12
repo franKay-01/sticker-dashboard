@@ -91,6 +91,7 @@ module.exports = function (app) {
             let _news;
             let _facts;
             let _history;
+            let _episodes;
             let _categoryLength = 0;
             let _packLength = 0;
             let _stickerLength = 0;
@@ -132,10 +133,13 @@ module.exports = function (app) {
                         .limit(otherLimit).find(),
                     new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.facts)
                         .limit(otherLimit).find(),
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.episodes)
+                        .limit(otherLimit).find()
                 );
 
             }).then(function (sticker, latestStory, collection, story, allPacks, categoryLength, packLength,
-                              stickerLength, storyLength, allAdverts, projects, projectLength, projectItem, jokes, quotes, history, news, facts) {
+                              stickerLength, storyLength, allAdverts, projects, projectLength, projectItem,
+                              jokes, quotes, history, news, facts, episodes) {
 
                 _collection = collection;
                 _story = story;
@@ -148,6 +152,7 @@ module.exports = function (app) {
                 _news = news;
                 _history = history;
                 _facts = facts;
+                _episodes = episodes;
                 _categoryLength = helper.leadingZero(categoryLength);
                 _packLength = helper.leadingZero(packLength);
                 _stickerLength = helper.leadingZero(stickerLength);
@@ -252,6 +257,7 @@ module.exports = function (app) {
                         facts: _facts,
                         news: _news,
                         quotes: _quotes,
+                        episodes: _episodes,
                         user_name: _user.get("name"),
                         verified: _user.get("emailVerified"),
                         error_message: "null",
@@ -325,8 +331,6 @@ module.exports = function (app) {
 
                 if (pack) {
 
-                    console.log("PACK " + JSON.stringify(pack));
-
                     let col = pack.relation(_class.Packs);
                     return col.query().limit(40).find();
 
@@ -337,8 +341,6 @@ module.exports = function (app) {
             }).then(function (stickers) {
 
                 if (stickers.length) {
-
-                    console.log("STICKERS " + JSON.stringify(stickers));
 
                     stickers = helper.shuffle(stickers);
                     stickers = stickers.slice(0, 3);

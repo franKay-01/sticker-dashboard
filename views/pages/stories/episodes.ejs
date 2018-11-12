@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stories - G-Stickers</title>
+
+    <% include ../../partials/fav.ejs %>
+
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css" />
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <style>
+        <% include ../../partials/modified_css.ejs %>
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('select').material_select();
+        });
+    </script>
+</head>
+
+<body class="primary-background-color">
+
+    <div class="grid-container">
+        <!-- Logo -->
+        <div class="medium-12 large-12">
+            <a href="/home">
+                <img src="/public/assets/images/G_logo.png" srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x"
+                    class="logo" id="logo">
+            </a>
+            <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
+
+        </div>
+        <!-- End of logo-->
+        <div id="pageMask"></div>
+        <div id="addEpisodeForm" class="hidden_forms" style="display: none">
+            <div class="medium-3 large-3 cell create_background">
+                <center>
+                    <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD NEW EPISODE</div>
+                </center>
+                <!--<form id="pack_form" action="/new_catalogue_image/<%#= story_id %>" method="post"-->
+                <br>
+                <form id="pack_form" action="/episode" method="post">
+                    <center>
+                        <input type="text" class="_pack common_pack_detail validate" placeholder="Episode Title" name="episode"
+                            required="" aria-required="true"><br>
+                        <input type="number" class="_pack common_pack_detail validate" placeholder="Episode Order" name="order"
+                            required="" aria-required="true"><br>
+                        <input type="text" name="storyId" value="<%= story.id %>" hidden>
+                        <input type="text" name="projectId" value="<%= projectItem.id %>" hidden>
+
+                        <div class="row" style="width: 450px !important;">
+                            <select class="input-field validate soldBar" name="status" required="" aria-required="true">
+                                <option value="" disabled selected>&nbsp;Make Free or Paid</option>
+                                <option value="free">FREE</option>
+                                <option value="sold">SOLD</option>
+                            </select>
+                        </div>
+                        <div class="row" id="sold" style="width: 450px !important; display: none;">
+                            <select class="input-field validate" name="productId">
+                                <option value="" disabled selected>&nbsp;Add Product ID</option>
+                                <% if (products.length === 0) { %>
+
+                                <% } else { %>
+                                <% products.forEach(function(items) { %>
+                                <option value="<%= items.id %>">
+                                    <%= items.get("name") %>
+                                </option>
+                                <% }) %>
+                                <% } %>
+                            </select>
+                        </div>
+                        <br>
+                    </center>
+                    <span>
+                        <button type="submit" class="create">CREATE</button>
+                    </span>
+                    <span>
+                        <button type="button" id="btnCloseEpisode" class="cancel">Cancel</button>
+                    </span>
+                </form>
+            </div>
+
+        </div>
+        <span class="medium-12 large-12 welcome_post" id="all_stories"><b>All Stories</b></span>
+
+        <div class="grid-x grid-margin-x" id="opaqueDiv">
+            <div class="medium-3 large-3 cell login_card">
+                <div class="card_head_position">
+                    <div class="stats">Menu</div>
+                    <% include ../../partials/menu.ejs %>
+
+                </div>
+            </div>
+
+            <div class="medium-3 large-3 cell icons">
+                <div class="create_new">Create New</div>
+
+                <button id="btnAddStory" id="episode">
+                    <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;Episode</p>
+                </button>
+            </div>
+
+            <% include ../../partials/story/episodes %>
+            <%- include('../../partials/footer') %>
+        </div>
+    </div>
+
+    <!-- Body -->
+
+    <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+    <script type="text/javascript" src="/public/assets/js/custom.js"></script>
+    <script type="text/javascript" src="/public/assets/js/validate.js"></script>
+
+</body>
+
+
+</html>

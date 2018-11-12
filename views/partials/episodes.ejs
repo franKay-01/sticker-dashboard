@@ -1,16 +1,14 @@
-<% if (locals.story) { %>
-<% if (story.length === 0) { %>
-<p class="none">None</p>
+<% if (locals.episodes) { %>
+<% if (episodes.length === 0) { %>
+<p class="none" style="margin: 0 !important;">None</p>
 <% } else { %>
-<% story.forEach(function(item) { %>
-<% if (item.get("storyType") === type.STORY_TYPE.story || item.get("storyType") === type.STORY_TYPE.short_stories){%>
+<% episodes.forEach(function(item) { %>
 <div class="truncate_title"><a class="home_pack_description" href="/storyedit/<%= item.id %>/<%= projectItem.id %>"><%= item.get("title") %></a></div>
-<%}%>
 <% }); %>
 <div><a class="view_all" href="/stories/<%= projectItem.id %>">View All</a></div>
 <% } %>
 <% } else { %>
-<p class="none">None</p>
+<p class="none" style="margin: 0 !important;">None</p>
 <% } %>
 
 

@@ -136,6 +136,7 @@
                             <option value="<%= type.STORY_TYPE.facts %>">FACTS</option>
                             <option value="<%= type.STORY_TYPE.history %>">HISTORY</option>
                             <option value="<%= type.STORY_TYPE.news %>">NEWS</option>
+                            <option value="<%= type.STORY_TYPE.episodes %>">EPISODES</option>
 
                         </select>
                     </div>
@@ -448,6 +449,9 @@
             <div class="card_head_position">
                 <div class="recent_labels">Recent Facts</div>
                 <%- include('../../partials/facts') %>
+
+                <div class="recent_labels" style="margin-top: 75px !important;">Recent Episodes</div>
+                <%- include('../../partials/episodes') %>
             </div>
         </div>
         <!-- End of card-->
@@ -528,6 +532,5 @@
 <script type="text/javascript" src="/public/assets/js/custom.js">
 </script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
-
 </body>
 </html>

@@ -148,6 +148,16 @@ $(document).ready(function () {
             $('#pack_id').fadeOut('fast');
         });
 
+        $('.bcolor_element').on('click', function () {
+            $('#hiddenBColorCatalouge').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#opaqueDiv').fadeOut('fast');
+            $('#logo').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#pack_id').fadeOut('fast');
+        });
+
         $('.sideNote_element').on('click', function () {
             $('#hiddenSideNoteCatalouge').fadeIn('fast');
             $('#pageMask').fadeIn('fast');
@@ -364,6 +374,22 @@ $(document).ready(function () {
             $("#image_id").remove();
         });
 
+        $('#story_color').on('click', function () {
+            $('#logo').fadeOut('fast');
+            $('.welcome_post').fadeOut('fast');
+            $('.story').fadeOut('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#askPermission').fadeIn('fast');
+        });
+
+        $('#cancelColor').on('click', function () {
+            $('#logo').fadeIn('fast');
+            $('.welcome_post').fadeIn('fast');
+            $('.story').fadeIn('fast');
+            $('#pageMask').fadeIn('fast');
+            $('#askPermission').fadeOut('fast');
+        });
+
         $('#removePublished').on('click', function () {
             $('#pageMask').fadeIn('fast');
             $('#removePublish').fadeIn('fast');
@@ -430,6 +456,26 @@ $(document).ready(function () {
             $('#Welcome').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
             $('#opaqueDiv').fadeOut('fast');
+        });
+
+        $('#episode').on('click', function () {
+            $('#pageMask').fadeIn('fast');
+            $('#addEpisodeForm').fadeIn('fast');
+            $('#logo').fadeOut('fast');
+            $('.welcome_post').fadeOut('fast');
+            $('#Welcome').fadeOut('fast');
+            $('#signoutLink').fadeOut('fast');
+            $('#opaqueDiv').fadeOut('fast');
+        });
+
+        $('#btnCloseEpisode').on('click', function () {
+            $('#pageMask').fadeOut('fast');
+            $('#addEpisodeForm').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('.welcome_post').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
         });
 
         $('#selectProductId').on('click', function () {
@@ -584,9 +630,19 @@ $(document).ready(function () {
             $('#pack_form')[0].reset();
         });
 
-
         $('#btnCloseLinkCatalogue').on('click', function () {
             $('#hiddenLinkCatalouge').fadeOut('fast');
+            $('#pageMask').fadeOut('fast');
+            $('#logo').fadeIn('fast');
+            $('#Welcome').fadeIn('fast');
+            $('#pack_id').fadeIn('fast');
+            $('#signoutLink').fadeIn('fast');
+            $('#opaqueDiv').fadeIn('fast');
+            $('#pack_form')[0].reset();
+        });
+
+        $('#btnCloseBColorCatalogue').on('click', function () {
+            $('#hiddenBColorCatalouge').fadeOut('fast');
             $('#pageMask').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
@@ -835,7 +891,6 @@ $(document).ready(function () {
     });
 
 
-
     const btnAddCategory = $('#btnAddCategory');
     //add button style
     btnAddCategory.on('mouseover', function () {
@@ -856,14 +911,14 @@ $(document).ready(function () {
         $('#opaqueDiv').fadeOut('fast');
     });
 
-    $('#btnCancelProject').on('click', function (){
-      $('#hiddenProjectForm').fadeOut('fast');
-      $('#pageMask').fadeOut('fast');
-      $('#logo').fadeIn('fast');
-      $('#Welcome').fadeIn('fast');
-      $('#signoutLink').fadeIn('fast');
-      $('#opaqueDiv').fadeIn('fast');
-      $('#pack_form')[0].reset();
+    $('#btnCancelProject').on('click', function () {
+        $('#hiddenProjectForm').fadeOut('fast');
+        $('#pageMask').fadeOut('fast');
+        $('#logo').fadeIn('fast');
+        $('#Welcome').fadeIn('fast');
+        $('#signoutLink').fadeIn('fast');
+        $('#opaqueDiv').fadeIn('fast');
+        $('#pack_form')[0].reset();
     });
 
     //remove form
@@ -954,6 +1009,7 @@ $(document).ready(function () {
         $('#opaqueDiv').fadeIn('fast');
         $('#pack_form')[0].reset();
     });
+
 
 
 });

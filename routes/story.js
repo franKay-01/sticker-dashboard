@@ -7,6 +7,9 @@ let fs = require('fs');
 
 const PARSE_LIMIT = 2000;
 
+let story = "story";
+let episode = "episode";
+
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
         console.log("Dest " + JSON.stringify(file));
@@ -108,20 +111,29 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/storyitem/:id/:projectId', function (req, res) {
+    app.get('/storyitem/:source/:id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
+        let source = req.params.source;
         let projectId = req.params.projectId;
 
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
 
-                return Parse.Promise.when(
-                    new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
-                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
-                )
+                if (source === story) {
+                    return Parse.Promise.when(
+                        new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
+                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                    )
+
+                } else if (source === episode) {
+                    return Parse.Promise.when(
+                        new Parse.Query(_class.Episodes).equalTo("objectId", id).first(),
+                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                    )
+                }
 
             }).then(function (story, project) {
 
@@ -130,13 +142,14 @@ module.exports = function (app) {
                     story_id: story.id,
                     name: story.get("title"),
                     projectItem: project,
-                    type: type
+                    type: type,
+                    source: source
 
                 });
 
             }, function (error) {
                 console.log("ERROR " + error.message);
-                res.redirect('/stories');
+                res.redirect('/stories/' + projectId);
             });
         } else {
             console.log("COMING HOME");
@@ -153,6 +166,7 @@ module.exports = function (app) {
         let projectId = req.body.projectId;
         let content = req.body.content;
         let color = req.body.color;
+        let source = req.body.source;
         let object = {};
 
 
@@ -192,7 +206,7 @@ module.exports = function (app) {
 
             }).then(function (item) {
 
-                res.redirect('/storyItem/html/old/' + item.id + '/' + projectId);
+                res.redirect('/storyItem/html/old/' + source + '/' + item.id + '/' + projectId);
 
             }, function (error) {
 
@@ -219,7 +233,7 @@ module.exports = function (app) {
                 return Parse.Promise.when(
                     new Parse.Query(_class.StoryItems).equalTo("objectId", id).first(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
-            )
+                )
 
             }).then(function (story_item, project) {
 
@@ -289,10 +303,11 @@ module.exports = function (app) {
 
     });
 
-    app.get('/storyItem/html/:state/:id/:projectId', function (req, res) {
+    app.get('/storyItem/html/:state/:source/:id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
+        let source = req.params.source;
         let projectId = req.params.projectId;
         let state = req.params.state;
         let _story;
@@ -323,18 +338,34 @@ module.exports = function (app) {
                 _story = storyItem;
 
                 if (state === "new") {
+                    if (source === story) {
+                        return Parse.Promise.when(
+                            new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
+                            new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        )
+                    } else if (source === episode) {
+                        return Parse.Promise.when(
+                            new Parse.Query(_class.Episodes).equalTo("objectId", id).first(),
+                            new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        )
+                    }
 
-                    return Parse.Promise.when(
-                        new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
-                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
-                    )
 
                 } else if (state === "old") {
+                    if (source === story) {
 
-                    return Parse.Promise.when(
-                        new Parse.Query(_class.Stories).equalTo("objectId", storyItem.get("storyId")).first(),
-                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
-                    )
+                        return Parse.Promise.when(
+                            new Parse.Query(_class.Stories).equalTo("objectId", storyItem.get("storyId")).first(),
+                            new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        )
+
+                    } else if (source === episode) {
+                        return Parse.Promise.when(
+                            new Parse.Query(_class.Episodes).equalTo("objectId", storyItem.get("storyId")).first(),
+                            new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        )
+
+                    }
                 }
 
             }).then(function (story, project) {
@@ -343,8 +374,10 @@ module.exports = function (app) {
                     name: story.get("title"),
                     storyItemId: _story.id,
                     storyId: story.id,
-                    projectItem: project
+                    projectItem: project,
+                    source: source
                 })
+
             }, function (error) {
 
                 console.log("ERROR " + error.message);
@@ -371,6 +404,8 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
+            console.log("STORYITEM ID " + id);
+
                 return Parse.Promise.when(
                     new Parse.Query(_class.StoryItems).equalTo("storyId", id).find(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
@@ -378,6 +413,7 @@ module.exports = function (app) {
 
             }).then(function (story_item, project) {
 
+                console.log("STORY ITEM " + JSON.stringify(story_item));
                 _storyItem = story_item;
                 _project = project;
 
@@ -395,15 +431,17 @@ module.exports = function (app) {
                     return new Parse.Query(_class.Stickers).containedIn("objectId", sticker_array).find();
 
                 } else {
-                    return true;
+                    return "";
                 }
 
             }).then(function (stickers) {
 
-                if (stickers) {
+                if (stickers !== "") {
 
                     _stickers = stickers;
 
+                }else{
+                    _stickers = "";
                 }
 
                 res.render("pages/stories/story_items", {
@@ -466,7 +504,7 @@ module.exports = function (app) {
                 console.log("ERROR " + error.message);
                 res.redirect('/storyItem/html/edit/' + id + '/' + story_id + '/' + projectId);
             })
-        }else {
+        } else {
             res.redirect('/');
         }
     });
@@ -518,7 +556,7 @@ module.exports = function (app) {
                 console.log("ERROR " + error.message);
                 res.redirect('/storyItem/html/edit/' + id + '/' + projectId);
             })
-        }else {
+        } else {
             res.redirect('/');
         }
     });
@@ -576,6 +614,7 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let id = req.params.id;
         let projectId = req.body.projectId;
+        let source = req.body.source;
 
         if (token) {
 
@@ -586,7 +625,15 @@ module.exports = function (app) {
 
                 _user = sessionToken.get("user");
 
-                return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+                if (source === story) {
+
+                    return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+                } else if (source === episode) {
+
+                    return new Parse.Query(_class.Episodes).equalTo("objectId", id).first();
+
+                }
 
             }).then(function (story) {
 
@@ -602,13 +649,14 @@ module.exports = function (app) {
                 res.render("pages/stories/catalogue_sticker", {
                     story: _story.id,
                     stickers: stickers,
-                    projectItem: project
+                    projectItem: project,
+                    source: source
                 });
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/storyitem/' + id + '/' + projectId);
+                res.redirect('/storyitem/' + source + '/' + id + '/' + projectId);
 
             });
         } else {
@@ -624,6 +672,7 @@ module.exports = function (app) {
         let sticker_id = req.body.sticker_id;
         let sticker_url = req.body.sticker_url;
         let projectId = req.body.projectId;
+        let source = req.body.source;
 
         if (token) {
 
@@ -639,7 +688,7 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect('/storyitem/' + story_id + '/' + projectId);
+                res.redirect('/storyitem/' + source + '/' + story_id + '/' + projectId);
 
             }, function (error) {
 
@@ -659,6 +708,7 @@ module.exports = function (app) {
         let files = req.files;
         let id = req.params.id;
         let projectId = req.body.projectId;
+        let source = req.body.source;
         let storyItem = "/storyitem/";
 
         if (token) {
@@ -705,7 +755,7 @@ module.exports = function (app) {
                     }
                 });
 
-                res.redirect(storyItem + id + '/' + projectId);
+                res.redirect(storyItem + '/' + source + '/' + id + '/' + projectId);
 
             }, function (error) {
 
@@ -723,11 +773,15 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let id = req.params.id;
         let content = req.body.content;
+        let source = req.body.source;
         let heading = req.body.heading;
         let author = req.body.author;
         let description = req.body.description;
         let link = req.body.link;
         let url = req.body.url;
+        let colorFormat = parseInt(req.body.colorFormat);
+        let topColor = req.body.topColor;
+        let bottomColor = req.body.bottomColor;
         let projectId = req.body.projectId;
         let _type = parseInt(req.body.style);
 
@@ -798,6 +852,21 @@ module.exports = function (app) {
                         story.set("type", type.STORY_ITEM.link);
                         story.set("contents", {"name": author, "url": url});
                         break;
+
+                    case type.STORY_ITEM.backgroundColor:
+                        if (colorFormat === type.FORMAT_TYPE.regular) {
+                            story.set("type", type.STORY_ITEM.backgroundColor);
+                            story.set("contents", {"type": colorFormat.toString(), "color": topColor});
+                            break;
+                        } else if (colorFormat === type.FORMAT_TYPE.gradient) {
+                            story.set("type", type.STORY_ITEM.backgroundColor);
+                            story.set("contents", {
+                                "type": colorFormat.toString(),
+                                "topColor": topColor,
+                                "bottomColor": bottomColor
+                            });
+                            break;
+                        }
                 }
 
                 story.set("storyId", id);
@@ -806,7 +875,7 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect("/storyitem/" + id + '/' + projectId);
+                res.redirect("/storyitem/" + source + '/' + id + '/' + projectId);
 
             }, function (error) {
 
@@ -930,6 +999,94 @@ module.exports = function (app) {
         }
     });
 
+
+    app.post('/episode', function (req, res) {
+
+        let token = req.cookies.token;
+        let story_id = req.body.storyId;
+        let title = req.body.episode;
+        let status = req.body.status;
+        let order = req.body.order;
+        let projectId = req.body.projectId;
+        let productId = req.body.productId;
+
+        if (token) {
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                let Episodes = new Parse.Object.extend(_class.Episodes);
+                let episode = new Episodes();
+
+                episode.set("title", title);
+                if (status === "free") {
+                    episode.set("sold", false);
+                } else if (status === "sold") {
+                    episode.set("sold", true);
+                }
+                episode.set("storyId", story_id);
+                episode.set("order", order);
+                episode.set("projectId", projectId);
+                if (status === "free") {
+                    episode.set("productId", "free")
+                } else if (status === "sold") {
+                    episode.set("productId", productId)
+                }
+
+                return episode.save();
+
+            }).then(function (episode) {
+
+                res.redirect('/storyitem/episode/' + episode.id + '/' + projectId);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/storyedit/' + story_id + '/' + projectId);
+
+            })
+
+        } else {
+            res.redirect('/')
+        }
+
+    });
+
+    app.get('/episodes/view/:storyId/:projectId', function (req, res) {
+
+        let token = req.cookies.token;
+        let story_id = req.params.storyId;
+        let projectId = req.params.projectId;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Episodes).equalTo("storyId", story_id).ascending("order").find(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                )
+            }).then(function (episodes, project) {
+
+                res.render("pages/story/episodes", {
+                    episodes: episodes,
+                    projectItem: project
+                })
+                
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/storyedit/' + story_id + '/' + projectId);
+            })
+
+        } else {
+            res.redirect('/');
+        }
+    });
+
     app.get('/storyedit/:storyId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
@@ -945,6 +1102,7 @@ module.exports = function (app) {
             let _story = {};
             let colors = [];
             let _authors = [];
+            let _products = [];
             let projectArray = [];
             let art;
             let authorName;
@@ -959,15 +1117,17 @@ module.exports = function (app) {
                 return Parse.Promise.when(
                     new Parse.Query(_class.Stories).equalTo("objectId", story_id).first(),
                     new Parse.Query(_class.ArtWork).equalTo("itemId", story_id).first(),
-                    new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
+                    new Parse.Query(_class.Latest).equalTo("projectId", projectId).equalTo("type", type.FEED_TYPE.story).first(),
                     new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find(),
-                    new Parse.Query(_class.Authors).find()
+                    new Parse.Query(_class.Authors).find(),
+                    new Parse.Query(_class.Product).find()
                 );
 
-            }).then(function (story, sticker, latest, stories, authors) {
+            }).then(function (story, sticker, latest, stories, authors, products) {
 
                 _story = story;
                 _authors = authors;
+                _products = products;
 
                 if (latest) {
                     _latest = latest;
@@ -1036,6 +1196,7 @@ module.exports = function (app) {
                     authorId: authorId,
                     projects: projects,
                     projectItem: project,
+                    products: _products,
                     type: type,
                     next: page.next,
                     previous: page.previous
@@ -1043,7 +1204,7 @@ module.exports = function (app) {
 
             }, function (error) {
                 console.log("ERROR " + error.message);
-                res.redirect('/stories');
+                res.redirect('/stories/' + projectId);
             })
 
         } else {
@@ -1164,13 +1325,16 @@ module.exports = function (app) {
 
     });
 
-    app.get('/storycolor/:storyId/:projectId', function (req, res) {
+    app.get('/storycolor/:status/:storyId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.storyId;
+        let status = req.params.status;
         let projectId = req.params.projectId;
         let color = [];
         let _story = [];
+        let edit = "edit";
+        let defaults = "default";
 
         if (token) {
 
@@ -1199,12 +1363,24 @@ module.exports = function (app) {
                 )
             }).then(function (sticker, project) {
 
-                res.render("pages/stories/choose_color", {
-                    story: _story,
-                    colors: colors,
-                    sticker: sticker,
-                    projectItem: project
-                });
+                if (status === edit) {
+                    res.render("pages/stories/choose_color", {
+                        story: _story,
+                        colors: colors,
+                        sticker: sticker,
+                        projectItem: project,
+                        type: type
+                    });
+                } else if (status === defaults) {
+                    res.render("pages/stories/default_color", {
+                        story: _story,
+                        colors: colors,
+                        sticker: sticker,
+                        projectItem: project,
+                        type: type
+                    });
+                }
+
 
             }, function (error) {
 
@@ -1226,8 +1402,6 @@ module.exports = function (app) {
         let color_2 = req.body.bottom;
         let projectId = req.body.projectId;
         let storyEdit = '/storyedit/';
-
-        console.log("COLOR FROM " + color_1 + " " + color_2);
 
         if (token) {
             let _user = {};

@@ -22,10 +22,11 @@ let upload = multer({storage: storage});
 
 module.exports = function (app) {
 
-    app.get('/uploads/computer/:id', function (req, res) {
+    app.get('/uploads/computer/:id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let pack_id = req.params.id;
+        let projectId = req.params.projectId;
 
         if (token) {
             util.getUser(token).then(function (sessionToken) {
@@ -34,7 +35,11 @@ module.exports = function (app) {
 
             }).then(function (pack) {
 
-                res.render("pages/stickers/add_sticker", {id: pack.id, pack_name: pack.get("name")});
+                res.render("pages/stickers/add_sticker", {
+                    id: pack.id,
+                    pack_name: pack.get("name"),
+                    projectId: projectId
+                });
 
             }, function (error) {
                 res.redirect("/");
@@ -49,6 +54,7 @@ module.exports = function (app) {
 
         let token = req.cookies.token;
         let pack_id = req.body.pack_id;
+        let projectId = req.body.projectId;
         let files = req.files;
         let fileDetails = [];
         let stickerDetails = [];
@@ -191,12 +197,12 @@ module.exports = function (app) {
 
                 }).then(function (stickers) {
 
-                    res.redirect(pack + pack_id);
+                    res.redirect(pack + pack_id + '/' + projectId);
 
                 }, function (error) {
 
                     console.log("BIG BIG ERROR" + error.message);
-                    res.redirect(pack + pack_id);
+                    res.redirect(pack + pack_id + '/' + projectId);
 
                 })
             }, function (error) {

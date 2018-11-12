@@ -2519,3 +2519,45 @@ input:disabled, input[readonly], textarea:disabled, textarea[readonly] {
     background-color: #fffefe !important;
     cursor: not-allowed !important;
 }
+
+.speech-bubble {
+    position: relative;
+    background: #00aabb;
+    border-radius: .4em;
+}
+
+.speech-bubble:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-right-color: #00aabb;
+    border-left: 0;
+    border-bottom: 0;
+    margin-top: -10px;
+    margin-left: -20px;
+}
+
+.speech-bubble-right {
+    position: relative;
+    background: #00aabb;
+    border-radius: .4em;
+}
+
+.speech-bubble-right:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-left-color: #00aabb;
+    border-right: 0;
+    border-bottom: 0;
+    margin-top: -10px;
+    margin-right: -20px;
+}
