@@ -1062,15 +1062,39 @@ module.exports = function (app) {
         let story_id = req.params.storyId;
         let projectId = req.body.projectId;
         let title = req.body.title;
+        let sold = req.body.sold;
 
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
 
+                return new Parse.Query(_class.Episodes).equalTo("objectId", story_id).first();
+
+            }).then(function (episode) {
+
+                episode.set("title", title);
+                if (sold === "1"){
+                    episode.set("sold", true);
+                }else if (sold === "0"){
+                    episode.set("sold", false);
+                }
+
+                return episode.save();
+
+            }).then(function () {
+
+                res.redirect('/episode/edit/' + story_id + '/' + projectId);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/storyitem/episode/' + story_id + '/' + projectId);
+
             })
+        }else {
+            res.redirect('/');
         }
     });
-
 
     app.get('/episode/edit/:storyId/:projectId', function (req, res) {
 
