@@ -1134,7 +1134,7 @@ module.exports = function (app) {
                 console.log("STORY " + JSON.stringify(story));
                 console.log("PROJECT " + JSON.stringify(project));
 
-                res.render("page/stories/episode_details", {
+                res.render("pages/stories/episode_details", {
                     episode: _episode,
                     projectItem: _project,
                     products: _products,
