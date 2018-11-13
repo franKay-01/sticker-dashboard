@@ -391,7 +391,7 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/storyItem/view/:id/:projectId', function (req, res) {
+    app.get('/storyitem/view/:id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
@@ -401,6 +401,7 @@ module.exports = function (app) {
         let _project;
         let _stickers = [];
 
+        console.log("HERE AT THE VIEW ROUTE");
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
