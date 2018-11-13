@@ -1056,6 +1056,29 @@ module.exports = function (app) {
 
     });
 
+    app.get('/episode/edit/:storyId/:projectId', function (req, res) {
+
+        let token = req.cookies.token;
+        let story_id = req.params.storyId;
+        let projectId = req.params.projectId;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query(_class.Episodes).equalTo("storyId", story_id).first()
+
+            }).then(function (episode) {
+
+                res.render()
+            })
+        } else {
+
+            res.redirect('/');
+
+        }
+    });
+
     app.get('/episodes/view/:storyId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
