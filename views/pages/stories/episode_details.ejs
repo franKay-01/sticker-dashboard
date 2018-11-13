@@ -50,13 +50,7 @@
 
                 }
             });
-        })
-
-        function submitStory() {
-
-            document.getElementById("latestStory").submit();
-
-        }
+        });
 
         $(document).ready(function () {
             document.getElementById("submit_story").onclick = function () {
@@ -71,24 +65,6 @@
 <body class="primary-background-color">
 <div id="pageMask"></div>
 
-<div id="hiddenChangeArtwork" class="hidden_forms" style="display: none">
-    <div class="medium-3 large-3 cell create_background">
-        <center>
-            <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">CHANGE ARTWORK ?</div>
-        </center>
-        <!--<form id="pack_form" action="/new_catalogue_image/<%#= story_id %>" method="post"-->
-        <br><br>
-        <a href="#" id="btnCloseChangeArtwork" class="edit_labels" style="margin: 200px !important;">
-            NO
-        </a>
-        <a href="/story/artwork/change/<%= story.id %>/<%= projectItem.id %>" id="submitChangeArt" class="edit_labels">
-            YES
-        </a>
-
-    </div>
-
-</div>
-
 <div id="addEpisodeForm" class="hidden_forms" style="display: none">
     <div class="medium-3 large-3 cell create_background">
         <center>
@@ -102,7 +78,7 @@
                        required="" aria-required="true"><br>
                 <input type="number" class="_pack common_pack_detail validate" placeholder="Episode Order" name="order"
                        required="" aria-required="true"><br>
-                <input type="text" name="storyId" value="<%= story.id %>" hidden>
+                <input type="text" name="storyId" value="<%= episode.id %>" hidden>
                 <input type="text" name="projectId" value="<%= projectItem.id %>" hidden>
 
                 <div class="row" style="width: 450px !important;">
@@ -139,35 +115,13 @@
 
 </div>
 
-
-<div id="hiddenMakeStory" class="hidden_forms" style="display: none">
-    <div class="medium-3 large-3 cell create_background">
-        <center>
-            <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">MAKE THIS STORY OF
-                THE
-                WEEK?
-            </div>
-        </center>
-        <!--<form id="pack_form" action="/new_catalogue_image/<%#= story_id %>" method="post"-->
-        <br><br>
-        <a href="#" id="btnCloseMakeStory" class="edit_labels" style="margin: 200px !important;">
-            NO
-        </a>
-        <a href="#" onclick="submitStory()" class="edit_labels">
-            YES
-        </a>
-
-    </div>
-
-</div>
-
 <div id="askPermission" style="display: none">
     <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
         <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
         <a href="#" id="cancelPermission" class="edit_labels" style="margin: 200px !important;">
             NO
         </a>
-        <a href="/publish/story/publish/<%= story.id %>/<%= projectItem.id %>" class="edit_labels">
+        <a href="/publish/story/publish/<%= episode.id %>/<%= projectItem.id %>" class="edit_labels">
             YES
         </a>
     </div>
@@ -179,7 +133,7 @@
         <a href="#" id="cancel_delete" class="edit_labels" style="margin: 200px !important;">
             NO
         </a>
-        <a href="/storyitem/delete/<%= story.id %>/<%= projectItem.id %>" class="edit_labels">
+        <a href="/storyitem/delete/<%= episode.id %>/<%= projectItem.id %>" class="edit_labels">
             YES
         </a>
     </div>
@@ -191,7 +145,7 @@
         <a href="#" id="cancelPublish" class="edit_labels" style="margin: 200px !important;">
             NO
         </a>
-        <a href="/publish/story/unpublish/<%= story.id %>/<%= projectItem.id %>" class="edit_labels">
+        <a href="/publish/story/unpublish/<%= episode.id %>/<%= projectItem.id %>" class="edit_labels">
             YES
         </a>
     </div>
@@ -209,7 +163,7 @@
 
     <!-- End of logo -->
     <span class="medium-6 large-6 welcome_post"><b>Edit <i style="color: #a46580">
-                    <%= story.get("title") %></i> Story Details</b></span>
+                    <%= episode.get("title") %></i> Story Details</b></span>
 
     <div class="grid-x grid-margin-x story" id="opaqueDiv">
         <div class="medium-3 large-3 cell">
@@ -217,34 +171,22 @@
                 <div class="card_head_position">
                     <div class="stats">Menu</div>
                     <% include ../../partials/menu.ejs %>
-
-                    <% if (story.get("storyType") === type.STORY_TYPE.episodes) { %>
-                    <div style="margin-top: 40px !important;" id="episode">
-                        <a class="_stickers_packs" href="#">Add Episode</a>
-                    </div>
-                    <% } else { %>
-                    <div style="margin-top: 40px !important;">
-                        <a class="_stickers_packs" href="/storyitem/story/<%= story.id %>/<%= projectItem.id %>">Add
-                            Story
-                            Item</a>
-                    </div>
-                    <% } %>
                 </div>
             </div>
             <div class="icons">
                 <div class="create_new">
                     Publishing
-                    <% if (story.get("published") === false){ %>
+                    <% if (episode.get("published") === false){ %>
                     <i class="fa fa-circle" id="circle" style="color: #f8ab1c;float: right;font-size: 15px;margin-top: 10px;"
                        aria-hidden="true"></i>
-                    <% } else if (story.get("published") === true){ %>
+                    <% } else if (episode.get("published") === true){ %>
                     <i class="fa fa-circle" id="circle" style="color: #7ed321;float: right;font-size: 15px;margin-top: 10px;"
                        aria-hidden="true"></i>
                     <% } %>
                 </div>
 
                 <!-- <%# if (status === 2){ %>-->
-                <% if (story.get("published") === false){ %>
+                <% if (episode.get("published") === false){ %>
 
                 <a href="#" id="showPermission">
                     <button class="create_button">
@@ -255,7 +197,7 @@
                         </p>
                     </button>
                 </a>
-                <% } else if (story.get("published") === true){ %>
+                <% } else if (episode.get("published") === true){ %>
                 <a href="#" id="removePublished">
                     <button class="create_button">
                         <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
@@ -280,38 +222,29 @@
                     </p>
                 </button>
 
-                <% if (latest !== ""){ %>
-                <% if (latest.get("feedId") === story.id){ %>
-                <button class="create_button" onclick="storyInfo()" style="background-color: #f1f1f1 !important;">
-                    <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
-                                                           aria-hidden="true"></i> &nbsp; DELETE
-                    </p>
-                </button>
-                <% } else { %>
                 <button class="create_button" id="remove_story" style="background-color: #f1f1f1 !important;">
                     <p class="title button_font">&nbsp; <i class="fa fa-circle size" style="color: darkred"
                                                            aria-hidden="true"></i> &nbsp; DELETE
                     </p>
                 </button>
-                <% } %>
-                <% } %>
 
-                <center style="margin-top: 25px;">
-                        <span style="padding-right: 125px;">
-                            <% if (previous !== ""){ %>
-                            <a style="color: #a46580 !important; " href="/storyedit/<%= previous %>/<%= projectItem.id %>">
-                                <i style="font-size: 3rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>
-                            <% } %>
-                        </span>
-                    <span style="padding-left: 15px">
-                        <% if (next !== ""){ %>
 
-                        <a style="color: #a46580 !important;" href="/storyedit/<%= next %>/<%= projectItem.id %>">
-                                <i style="font-size: 3rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                <!--<center style="margin-top: 25px;">-->
+                        <!--<span style="padding-right: 125px;">-->
+                            <!--<%# if (previous !== ""){ %>-->
+                            <!--<a style="color: #a46580 !important; " href="/storyedit/<%#= previous %>/<%#= projectItem.id %>">-->
+                                <!--<i style="font-size: 3rem;" class="fa fa-arrow-left" aria-hidden="true"></i></a>-->
+                            <!--<%# } %>-->
+                        <!--</span>-->
+                    <!--<span style="padding-left: 15px">-->
+                        <!--<%# if (next !== ""){ %>-->
 
-                        <% } %>
-                    </span>
-                </center>
+                        <!--<a style="color: #a46580 !important;" href="/storyedit/<%#= next %>/<%#= projectItem.id %>">-->
+                                <!--<i style="font-size: 3rem;" class="fa fa-arrow-right" aria-hidden="true"></i></a>-->
+
+                        <!--<%# } %>-->
+                    <!--</span>-->
+                <!--</center>-->
 
             </div>
 
@@ -319,27 +252,30 @@
 
         <div class="story_form">
 
-            <form id="story_form" action="/storyedit/<%= story.id %>" method="post">
+            <form id="story_form" action="/episode/<%= episode.id %>" method="post">
 
                 <input type="hidden" name="projectId" value="<%= projectItem.id %>">
                 <div class="medium-5 large-5 cell">
 
-                    <label class="update_label">Story Title:</label> <input placeholder="Story Title" style="width: 60% !important;"
-                                                                            class="box_2" name="title" value="<%= story.get("title") %>">
-                    <label class="update_label">Keywords (separate with comma):</label> <input placeholder="Keywords "
-                                                                                               class="box_2" name="keyword" style="width: 60% !important;" value="<%= story.get("keywords") %>">
-                    <label class="update_label">Summary:</label>
-                    <textarea class="validate" placeholder="Summary" style="width: 60% !important;" name="summary"
-                              required="" aria-required="true"><%= story.get("summary") %></textarea><br>
+                    <input type="hidden" value="<%= projectItem.id %>" name="projectId">
+                    <label class="update_label">Episode Title:</label>
+                    <input placeholder="Story Title" style="width: 60% !important;" class="box_2" name="title" value="<%= episode.get("title") %>">
+
+                    <label class="update_label">Main Story Title:</label>
+                    <input placeholder="Story Title" style="width: 60% !important;" class="box_2" name="title" value="<%= storyItem.get("title") %>">
+
+                    <label class="update_label">Project Title:</label>
+                    <input placeholder="Story Title" style="width: 60% !important;" class="box_2" name="title" value="<%= currentProject.get("title") %>">
+
                     <label class="update_label">Archive:</label>
                     <div style="margin-bottom: 30px">
-                        <% if (pack_details.get("sold") === true ){ %>
+                        <% if (episode.get("sold") === true ){ %>
                         <input name="archive" type="radio" id="archive1" checked value="1"/>
                         <label for="archive1" class="_label" style="color: #a46580 !important;">Yes</label>
 
                         <input name="archive" type="radio" id="archive2" value="0"/>
                         <label for="archive2" class="_label" style="color: #a46580 !important">No</label>
-                        <% } else if (pack_details.get("sold") === false){ %>
+                        <% } else if (episode.get("sold") === false){ %>
                         <input name="archive" type="radio" id="archive1" value="1"/>
                         <label for="archive1" class="_label" style="color: #a46580 !important;">Yes</label>
 
@@ -352,7 +288,7 @@
 
                     <a href="#" id="submit_story" class="preview">Save Changes</a><br>
 
-                    <a href="/stories/<%= projectItem.id %>" class="preview">Back</a><br>
+                    <a href="/storyitem/episode/<%= episode.id %>/<%= projectItem.id %>" class="preview">Back</a><br>
 
                 </div>
             </form>

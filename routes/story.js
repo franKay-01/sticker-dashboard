@@ -1056,21 +1056,65 @@ module.exports = function (app) {
 
     });
 
-    app.get('/episode/edit/:storyId/:projectId', function (req, res) {
+    app.post('/episode/edit/:storyId', function (req, res) {
 
         let token = req.cookies.token;
         let story_id = req.params.storyId;
-        let projectId = req.params.projectId;
+        let projectId = req.body.projectId;
+        let title = req.body.title;
 
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
 
-                return new Parse.Query(_class.Episodes).equalTo("storyId", story_id).first()
+            })
+        }
+    });
 
-            }).then(function (episode) {
 
-                res.render()
+    app.get('/episode/edit/:storyId/:projectId', function (req, res) {
+
+        let token = req.cookies.token;
+        let story_id = req.params.storyId;
+        let projectId = req.params.projectId;
+        let _episode;
+        let _project;
+        let _products;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Episodes).equalTo("storyId", story_id).first(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                    new Parse.Query(_class.Product).find()
+                )
+
+            }).then(function (episode, project, products) {
+
+                _episode = episode;
+                _products = products;
+                _project = project;
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stories).equalTo("objectId", episode.get("storyId")),
+                    new Parse.Query(_class.Projects).equalTo("objectId", episode.get("projectId"))
+                )
+
+            }).then(function (story, project) {
+                res.render("page/stories/episode_details", {
+                    episode: _episode,
+                    projectItem: _project,
+                    products: _products,
+                    storyItem: story,
+                    currentProject: project
+                })
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/storyitem/episode/' + story_id + '/' + projectId);
+
             })
         } else {
 
