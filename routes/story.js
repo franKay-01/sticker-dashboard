@@ -260,7 +260,7 @@ module.exports = function (app) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect("/storyitem/view/" + storyId + '/' + projectId);
+                res.redirect("/story/view/" + storyId + '/' + projectId);
             })
         } else {
             res.redirect('/');
@@ -295,7 +295,7 @@ module.exports = function (app) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/storyitem/view/' + storyId + '/' + projectId);
+                res.redirect('/story/view/' + storyId + '/' + projectId);
 
             })
         } else {
@@ -401,12 +401,9 @@ module.exports = function (app) {
         let _project;
         let _stickers = [];
 
-        console.log("HERE AT THE VIEW ROUTE");
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
-
-                console.log("STORYITEM ID " + id);
 
                 return Parse.Promise.when(
                     new Parse.Query(_class.StoryItems).equalTo("storyId", id).find(),
@@ -415,7 +412,6 @@ module.exports = function (app) {
 
             }).then(function (story_item, project) {
 
-                console.log("STORY ITEM " + JSON.stringify(story_item));
                 _storyItem = story_item;
                 _project = project;
 
@@ -552,7 +548,7 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect('/storyitem/view/' + story_id + '/' + projectId);
+                res.redirect('/story/view/' + story_id + '/' + projectId);
 
             }, function (error) {
                 console.log("ERROR " + error.message);
@@ -601,7 +597,7 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect('/storyitem/view/' + story_id + '/' + projectId);
+                res.redirect('/story/view/' + story_id + '/' + projectId);
 
             }, function (error) {
                 console.log("ERROR " + error.message);
@@ -1654,7 +1650,7 @@ module.exports = function (app) {
         let id = req.body.storyItem;
         let storyId = req.params.storyId;
         let projectId = req.body.projectId;
-        let storyItemView = "/storyitem/view/";
+        let storyItemView = "/story/view/";
         let assetId;
         let _storyItem;
 
@@ -1803,7 +1799,7 @@ module.exports = function (app) {
         let _storyItem = [];
         let storyContent;
         let _storyId;
-        let storyItemView = '/storyitem/view/';
+        let storyItemView = '/story/view/';
 
         console.log("TYPE " + storyItemType);
 
@@ -1924,7 +1920,7 @@ module.exports = function (app) {
         let sticker_url = req.body.sticker_url;
         let projectId = req.body.projectId;
         let storyId;
-        let storyItemView = '/storyitem/view/';
+        let storyItemView = '/story/view/';
 
         if (token) {
 
@@ -1996,7 +1992,7 @@ module.exports = function (app) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/storyitem/view/' + storyId + '/' + projectId);
+                res.redirect('/story/view/' + storyId + '/' + projectId);
             })
 
         } else {
