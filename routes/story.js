@@ -1056,7 +1056,7 @@ module.exports = function (app) {
 
     });
 
-    app.post('/episode/edit/:storyId', function (req, res) {
+    app.post('/episode/:storyId', function (req, res) {
 
         let token = req.cookies.token;
         let story_id = req.params.storyId;
