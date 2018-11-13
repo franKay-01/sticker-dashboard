@@ -252,7 +252,7 @@
 
         <div class="story_form">
 
-            <form id="story_form" action="/episode/<%= episode.id %>" method="post">
+            <form id="story_form" style="margin: 15px 50px auto !important; width: 50%" action="/episode/<%= episode.id %>" method="post">
 
                 <input type="hidden" name="projectId" value="<%= projectItem.id %>">
                 <div class="medium-5 large-5 cell">
@@ -262,12 +262,12 @@
                     <input placeholder="Story Title" style="width: 60% !important;" class="box_2" name="title" value="<%= episode.get("title") %>">
 
                     <label class="update_label">Main Story Title:</label>
-                    <input placeholder="Story Title" style="width: 60% !important;" class="box_2" name="title" value="<%= storyItem.get("title") %>">
+                    <input placeholder="Story Title" disabled style="width: 60% !important;" class="box_2" name="title" value="<%= storyItem.get("title") %>">
 
                     <label class="update_label">Project Title:</label>
-                    <input placeholder="Story Title" style="width: 60% !important;" class="box_2" name="title" value="<%= currentProject.get("title") %>">
+                    <input placeholder="Story Title" disabled style="width: 60% !important;" class="box_2" name="title" value="<%= currentProject.get("name") %>">
 
-                    <label class="update_label">Archive:</label>
+                    <label class="update_label">Sold:</label>
                     <div style="margin-bottom: 30px">
                         <% if (episode.get("sold") === true ){ %>
                         <input name="sold" type="radio" id="archive1" checked value="1"/>
