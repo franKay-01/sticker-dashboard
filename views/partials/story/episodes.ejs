@@ -3,8 +3,7 @@
 <p class="none" style="margin: 0 !important;">None</p>
 <%} else {%>
 <% episodes.forEach(function(item, index) { %>
-<div class="medium-3 large-3 cell card-zoom icons">
-    <a href="/storyedit/<%= item.id %>/<%= projectItem.id %>">
+    <a href="/storyitem/episode/<%= item.id %>/<%= projectItem.id %>" class="medium-3 large-3 cell card-zoom icons">
         <div style="margin: 150px 10px auto !important;" class="story_title truncate_story_title">
             <%= item.get("title") %>
         </div>
@@ -12,12 +11,5 @@
             <%= item.get("summary") %>
         </div>
     </a>
-
-    <a href="/storyitem/episode/<%= item.id %>/<%= projectItem.id %>">
-        <button class="create_button review_tab_bottom add_catalogue" style="background: transparent !important;">
-            <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Episode Item</p>
-        </button>
-    </a>
-</div>
 <% }); %>
 <%}%>
