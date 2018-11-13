@@ -1096,10 +1096,10 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/episode/edit/:storyId/:projectId', function (req, res) {
+    app.get('/episode/edit/:episodeId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
-        let story_id = req.params.storyId;
+        let episodeId = req.params.episodeId;
         let projectId = req.params.projectId;
         let _episode;
         let _project;
@@ -1107,12 +1107,10 @@ module.exports = function (app) {
 
         if (token) {
 
-            console.log("STORY ID " + story_id);
-
             util.getUser(token).then(function (sessionToken) {
 
                 return Parse.Promise.when(
-                    new Parse.Query(_class.Episodes).equalTo("storyId", story_id).first(),
+                    new Parse.Query(_class.Episodes).equalTo("objectId", episodeId).first(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
                     new Parse.Query(_class.Product).find()
                 )
@@ -1146,7 +1144,7 @@ module.exports = function (app) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/storyitem/episode/' + story_id + '/' + projectId);
+                res.redirect('/storyitem/episode/' + episodeId + '/' + projectId);
 
             })
         } else {
