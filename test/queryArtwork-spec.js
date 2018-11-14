@@ -20,7 +20,6 @@ test('check typeOf of Advert items', function (t) {
 
         t.equal(typeof uri, "object");
         t.equal(typeof name, "string");
-        t.equal(typeof links, "string");
         t.equal(typeof type, "number");
         t.equal(typeof advertId, "string");
 

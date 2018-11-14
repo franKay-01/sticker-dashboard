@@ -113,6 +113,7 @@ module.exports = function (app) {
                         sticker.set("parent", pack);
                         sticker.set("description", "");
                         sticker.set("meaning", "");
+                        sticker.set("categories", []);
                         sticker.set("flagged", false);
                         sticker.set("archived", false);
                         if (pack.get("productId") !== "") {
