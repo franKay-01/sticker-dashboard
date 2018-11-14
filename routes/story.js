@@ -117,7 +117,7 @@ module.exports = function (app) {
         let id = req.params.id;
         let source = req.params.source;
         let projectId = req.params.projectId;
-
+        let mainStoryId;
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
@@ -137,6 +137,11 @@ module.exports = function (app) {
 
             }).then(function (story, project) {
 
+                if (source === episode){
+                    mainStoryId = story.get("storyId");
+                }else {
+                    mainStoryId = "";
+                }
                 res.render("pages/stories/story_catalogue", {
 
                     story_id: story.id,
@@ -144,7 +149,8 @@ module.exports = function (app) {
                     storyType: story.get("storyType"),
                     projectItem: project,
                     type: type,
-                    source: source
+                    source: source,
+                    mainStoryId: mainStoryId
 
                 });
 
