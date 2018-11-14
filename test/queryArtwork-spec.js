@@ -6,7 +6,7 @@ Parse.initialize(process.env.APP_ID);
 Parse.serverURL = process.env.SERVER_URL;
 
 test('check typeOf of Advert items', function (t) {
-    t.plan(5);
+    t.plan(4);
 
     let query = new Parse.Query(_class.AdvertImages);
     query.limit(1);
