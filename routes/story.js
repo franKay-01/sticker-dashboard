@@ -117,7 +117,7 @@ module.exports = function (app) {
         let id = req.params.id;
         let source = req.params.source;
         let projectId = req.params.projectId;
-
+        let mainStoryId;
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
@@ -137,13 +137,20 @@ module.exports = function (app) {
 
             }).then(function (story, project) {
 
+                if (source === episode){
+                    mainStoryId = story.get("storyId");
+                }else {
+                    mainStoryId = "";
+                }
                 res.render("pages/stories/story_catalogue", {
 
                     story_id: story.id,
                     name: story.get("title"),
+                    storyType: story.get("storyType"),
                     projectItem: project,
                     type: type,
-                    source: source
+                    source: source,
+                    mainStoryId: mainStoryId
 
                 });
 
@@ -259,7 +266,7 @@ module.exports = function (app) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect("/storyitem/view/" + storyId + '/' + projectId);
+                res.redirect("/story/view/" + storyId + '/' + projectId);
             })
         } else {
             res.redirect('/');
@@ -294,7 +301,7 @@ module.exports = function (app) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/storyitem/view/' + storyId + '/' + projectId);
+                res.redirect('/story/view/' + storyId + '/' + projectId);
 
             })
         } else {
@@ -390,7 +397,7 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/storyitem/view/:id/:projectId', function (req, res) {
+    app.get('/story/view/:id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let id = req.params.id;
@@ -404,8 +411,6 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
-            console.log("STORYITEM ID " + id);
-
                 return Parse.Promise.when(
                     new Parse.Query(_class.StoryItems).equalTo("storyId", id).find(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
@@ -413,7 +418,6 @@ module.exports = function (app) {
 
             }).then(function (story_item, project) {
 
-                console.log("STORY ITEM " + JSON.stringify(story_item));
                 _storyItem = story_item;
                 _project = project;
 
@@ -440,7 +444,7 @@ module.exports = function (app) {
 
                     _stickers = stickers;
 
-                }else{
+                } else {
                     _stickers = "";
                 }
 
@@ -456,6 +460,7 @@ module.exports = function (app) {
 
                 console.log("ERROR " + error.message);
                 res.redirect('/storyedit/' + id + '/' + projectId);
+
             })
         } else {
             res.redirect('/');
@@ -550,7 +555,7 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect('/storyitem/view/' + story_id + '/' + projectId);
+                res.redirect('/story/view/' + story_id + '/' + projectId);
 
             }, function (error) {
                 console.log("ERROR " + error.message);
@@ -599,7 +604,7 @@ module.exports = function (app) {
 
             }).then(function () {
 
-                res.redirect('/storyitem/view/' + story_id + '/' + projectId);
+                res.redirect('/story/view/' + story_id + '/' + projectId);
 
             }, function (error) {
                 console.log("ERROR " + error.message);
@@ -1006,7 +1011,7 @@ module.exports = function (app) {
         let story_id = req.body.storyId;
         let title = req.body.episode;
         let status = req.body.status;
-        let order = req.body.order;
+        let order = parseInt(req.body.order);
         let projectId = req.body.projectId;
         let productId = req.body.productId;
 
@@ -1055,6 +1060,104 @@ module.exports = function (app) {
 
     });
 
+    app.post('/episode/:storyId', function (req, res) {
+
+        let token = req.cookies.token;
+        let story_id = req.params.storyId;
+        let projectId = req.body.projectId;
+        let title = req.body.title;
+        let sold = req.body.sold;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query(_class.Episodes).equalTo("objectId", story_id).first();
+
+            }).then(function (episode) {
+
+                episode.set("title", title);
+                if (sold === "1"){
+                    episode.set("sold", true);
+                }else if (sold === "0"){
+                    episode.set("sold", false);
+                }
+
+                return episode.save();
+
+            }).then(function () {
+
+                res.redirect('/episode/edit/' + story_id + '/' + projectId);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/storyitem/episode/' + story_id + '/' + projectId);
+
+            })
+        }else {
+            res.redirect('/');
+        }
+    });
+
+    app.get('/episode/edit/:episodeId/:projectId', function (req, res) {
+
+        let token = req.cookies.token;
+        let episodeId = req.params.episodeId;
+        let projectId = req.params.projectId;
+        let _episode;
+        let _project;
+        let _products;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Episodes).equalTo("objectId", episodeId).first(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                    new Parse.Query(_class.Product).find()
+                )
+
+            }).then(function (episode, project, products) {
+
+                console.log("EPISODE " + JSON.stringify(episode));
+                console.log("PROJECTS " + JSON.stringify(project));
+                console.log("PRODUCTS " + JSON.stringify(products));
+
+                _episode = episode;
+                _products = products;
+                _project = project;
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stories).equalTo("objectId", episode.get("storyId")).first(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", episode.get("projectId")).first()
+                )
+
+            }).then(function (story, project) {
+                console.log("STORY " + JSON.stringify(story));
+                console.log("PROJECT " + JSON.stringify(project));
+
+                res.render("pages/stories/episode_details", {
+                    episode: _episode,
+                    projectItem: _project,
+                    products: _products,
+                    storyItem: story,
+                    currentProject: project
+                })
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/storyitem/episode/' + episodeId + '/' + projectId);
+
+            })
+        } else {
+
+            res.redirect('/');
+
+        }
+    });
+
     app.get('/episodes/view/:storyId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
@@ -1067,15 +1170,20 @@ module.exports = function (app) {
 
                 return Parse.Promise.when(
                     new Parse.Query(_class.Episodes).equalTo("storyId", story_id).ascending("order").find(),
-                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                    new Parse.Query(_class.Product).find(),
+                    new Parse.Query(_class.Stories).equalTo("objectId", story_id).first()
                 )
-            }).then(function (episodes, project) {
+            }).then(function (episodes, project, products, story) {
 
-                res.render("pages/story/episodes", {
+                res.render("pages/stories/episodes", {
+                    storyId: story_id,
+                    storyName: story.get("title"),
                     episodes: episodes,
-                    projectItem: project
+                    projectItem: project,
+                    products: products
                 })
-                
+
             }, function (error) {
 
                 console.log("ERROR " + error.message);
@@ -1549,7 +1657,7 @@ module.exports = function (app) {
         let id = req.body.storyItem;
         let storyId = req.params.storyId;
         let projectId = req.body.projectId;
-        let storyItemView = "/storyitem/view/";
+        let storyItemView = "/story/view/";
         let assetId;
         let _storyItem;
 
@@ -1698,7 +1806,7 @@ module.exports = function (app) {
         let _storyItem = [];
         let storyContent;
         let _storyId;
-        let storyItemView = '/storyitem/view/';
+        let storyItemView = '/story/view/';
 
         console.log("TYPE " + storyItemType);
 
@@ -1819,7 +1927,7 @@ module.exports = function (app) {
         let sticker_url = req.body.sticker_url;
         let projectId = req.body.projectId;
         let storyId;
-        let storyItemView = '/storyitem/view/';
+        let storyItemView = '/story/view/';
 
         if (token) {
 
@@ -1891,7 +1999,7 @@ module.exports = function (app) {
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/storyitem/view/' + storyId + '/' + projectId);
+                res.redirect('/story/view/' + storyId + '/' + projectId);
             })
 
         } else {

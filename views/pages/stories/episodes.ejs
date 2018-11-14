@@ -59,7 +59,7 @@
                             required="" aria-required="true"><br>
                         <input type="number" class="_pack common_pack_detail validate" placeholder="Episode Order" name="order"
                             required="" aria-required="true"><br>
-                        <input type="text" name="storyId" value="<%= story.id %>" hidden>
+                        <input type="text" name="storyId" value="<%= storyId %>" hidden>
                         <input type="text" name="projectId" value="<%= projectItem.id %>" hidden>
 
                         <div class="row" style="width: 450px !important;">
@@ -95,7 +95,11 @@
             </div>
 
         </div>
-        <span class="medium-12 large-12 welcome_post" id="all_stories"><b>All Stories</b></span>
+        <span class="medium-12 large-12 welcome_post" id="all_stories">
+            <b>
+                All Episodes for <i style="color: #a46580"><%= storyName %></i>
+            </b>
+        </span>
 
         <div class="grid-x grid-margin-x" id="opaqueDiv">
             <div class="medium-3 large-3 cell login_card">
@@ -103,14 +107,15 @@
                     <div class="stats">Menu</div>
                     <% include ../../partials/menu.ejs %>
 
+                    <div style="margin-top: 23px;"><a class="_stickers_packs" href="/storyedit/<%= storyId %>/<%= projectItem.id %>">Back</a></div>
                 </div>
             </div>
 
             <div class="medium-3 large-3 cell icons">
                 <div class="create_new">Create New</div>
 
-                <button id="btnAddStory" id="episode">
-                    <p class="title">&nbsp; <i class="fa fa-circle" aria-hidden="true"></i> &nbsp;Episode</p>
+                <button class="create_button" id="episode">
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Episode</p>
                 </button>
             </div>
 

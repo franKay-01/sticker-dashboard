@@ -578,21 +578,39 @@
                 <div class="stats">Menu</div>
                 <% include ../../partials/menu.ejs %>
 
-                <div style="margin-top: 25px;"><a class="_stickers_packs"
-                                                  href="/storyedit/<%= story_id %>/<%= projectItem.id %>">Back</a></div>
+                <% if (source === "episode") {%>
 
+                <div style="margin-top: 25px;">
+                    <a class="_stickers_packs" href="/episodes/view/<%= mainStoryId %>/<%= projectItem.id %>">Back</a>
+                </div>
+
+                <%} else {%>
+
+                <div style="margin-top: 25px;">
+                    <a class="_stickers_packs" href="/storyedit/<%= story_id %>/<%= projectItem.id %>">Back</a>
+                </div>
+
+                <%}%>
             </div>
         </div>
 
         <div class="medium-3 large-3 cell icons">
-            <div class="create_new">Story Items</div>
-
-            <a href="/storyitem/view/<%= story_id %>/<%= projectItem.id %>">
+            <div class="create_new">Story Details</div>
+            <% if (source === "episode") {%>
+            <a href="/episode/edit/<%= story_id %>/<%= projectItem.id %>">
+                <button class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Edit Episode Details
+                    </p>
+                </button>
+            </a>
+            <%}%>
+            <a href="/story/view/<%= story_id %>/<%= projectItem.id %>">
                 <button class="create_button">
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Show All
                     </p>
                 </button>
             </a>
+
         </div>
 
         <div class="medium-3 large-3 cell icons">
