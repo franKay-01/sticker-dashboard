@@ -454,6 +454,7 @@ module.exports = function (app) {
 
                 console.log("ERROR " + error.message);
                 res.redirect('/storyedit/' + id + '/' + projectId);
+
             })
         } else {
             res.redirect('/');
