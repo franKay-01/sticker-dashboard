@@ -1011,7 +1011,7 @@ module.exports = function (app) {
         let story_id = req.body.storyId;
         let title = req.body.episode;
         let status = req.body.status;
-        let order = req.body.order;
+        let order = parseInt(req.body.order);
         let projectId = req.body.projectId;
         let productId = req.body.productId;
 
