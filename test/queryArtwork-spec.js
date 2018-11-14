@@ -14,7 +14,6 @@ test('check typeOf of Advert items', function (t) {
 
         uri = advertImages.get("uri");
         name = advertImages.get("name");
-        links = advertImages.get("links");
         type = advertImages.get("type");
         advertId = advertImages.get("advertId");
 
