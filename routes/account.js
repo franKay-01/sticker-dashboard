@@ -261,7 +261,8 @@ module.exports = function (app) {
                         user_name: _user.get("name"),
                         verified: _user.get("emailVerified"),
                         error_message: "null",
-                        type: type
+                        type: type,
+                        className: _class
 
                     });
 
