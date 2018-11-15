@@ -297,22 +297,23 @@
     </span>
     <span class="medium-12 large-12 welcome_post" id="Welcome">
         <form method="post" action="/search">
-            <div class="medium-3 large-3">
-                <input type="text" name="search" style="width: 220px;" class="box_2" placeholder="Search entry">
-            </div>
-            <div class="row medium-3 large-3" style="width: 200px !important;">
-                <select class="input-field validate" name="colorFormat" required="" aria-required="true">
-                    <option value="" disabled selected>&nbsp;Search Field</option>
-                    <option value="<%= className.Stickers %>">STICKERS</option>
-                </select>
-            </div>
-            <div class="medium-3 large-3">
-               <button type="submit">
-                    <i class="fa fa-search" style="color: <%= projectItem.get("setting").text %> !important;"
-                       aria-hidden="true"></i>
-               </button>
-            </div>
+            <div class="row">
+                <div class="col s1"><input type="text" name="search" style="width: 220px;" class="box_2"
+                                           placeholder="Search entry"></div>
+                <div class="col s1">
+                    <select class="input-field validate" name="field" required="" aria-required="true">
+                        <option value="" disabled selected>&nbsp;Search Field</option>
+                        <option value="<%= className.Stickers %>">STICKERS</option>
+                    </select>
+                </div>
 
+                <div class="col s1">
+                    <button type="submit" style="background: transparent !important;">
+                        <i class="fa fa-search" style="color: <%= projectItem.get("setting").text %> !important;"
+                       aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
         </form>
     </span>
     <div class="grid-x grid-margin-x" id="opaqueDiv">
