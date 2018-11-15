@@ -295,12 +295,12 @@
         <b>Welcome - <%= projectItem.get("name") %> - <a href="/account/user/profile"
                                                          style="font-size: 45px;color: #af627f;"> <%= user_name %> </a></b>
     </span>
-    <span class="medium-12 large-12 welcome_post" id="Welcome">
+    <span class="medium-12 large-12 welcome_post" id="Search">
         <form method="post" action="/search">
             <div class="row">
-                <div class="col s1"><input type="text" name="search" style="width: 220px;" class="box_2"
+                <div class="col s3"><input type="text" name="search" style="width: 220px;" class="box_2"
                                            placeholder="Search entry"></div>
-                <div class="col s1" style="width: 250px !important">
+                <div class="col s4 row">
                     <select class="input-field validate" name="field" required="" aria-required="true">
                         <option value="" disabled selected>&nbsp;Search Field</option>
                         <option value="<%= className.Stickers %>">STICKERS</option>

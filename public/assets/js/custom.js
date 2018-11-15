@@ -269,6 +269,7 @@ $(document).ready(function () {
             $('#opaqueDiv').fadeOut('fast');
             $('#logo').fadeOut('fast');
             $('#Welcome').fadeOut('fast');
+            $('#Search').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
             $('#login_card').fadeOut('fast');
             $('#review_form').fadeOut('fast');
@@ -334,6 +335,7 @@ $(document).ready(function () {
             $('#logo').fadeOut('fast');
             $('#searchCategory').fadeOut('fast');
             $('#Welcome').fadeOut('fast');
+            $('#Search').fadeOut('fast');
             $('#signoutLink').fadeOut('fast');
             $('#opaqueDiv').fadeOut('fast');
         });
@@ -538,6 +540,7 @@ $(document).ready(function () {
             $('#logo').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
+            $('#Search').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
             $('#pack_id').fadeIn('fast');
             $('#pack_form')[0].reset();
@@ -748,6 +751,7 @@ $(document).ready(function () {
             $('#Welcome').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
+            $('#Search').fadeIn('fast');
             $('#pack_form')[0].reset();
         });
 
@@ -757,6 +761,7 @@ $(document).ready(function () {
             $('#all_stories').fadeIn('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
+            $('#Search').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
             $('#pack_form')[0].reset();
@@ -768,6 +773,7 @@ $(document).ready(function () {
             $('#pageMask').fadeOut('fast');
             $('#logo').fadeIn('fast');
             $('#Welcome').fadeIn('fast');
+            $('#Search').fadeIn('fast');
             $('#signoutLink').fadeIn('fast');
             $('#opaqueDiv').fadeIn('fast');
             $('#pack_form')[0].reset();
@@ -845,6 +851,7 @@ $(document).ready(function () {
         $('#logo').fadeOut('fast');
         $('#searchCategory').fadeOut('fast');
         $('#Welcome').fadeOut('fast');
+        $('#Search').fadeOut('fast');
         $('#signoutLink').fadeOut('fast');
         $('#opaqueDiv').fadeOut('fast');
     });
@@ -907,6 +914,7 @@ $(document).ready(function () {
         $('#logo').fadeOut('fast');
         $('#searchCategory').fadeOut('fast');
         $('#Welcome').fadeOut('fast');
+        $('#Search').fadeOut('fast');
         $('#signoutLink').fadeOut('fast');
         $('#opaqueDiv').fadeOut('fast');
     });
@@ -916,6 +924,7 @@ $(document).ready(function () {
         $('#pageMask').fadeOut('fast');
         $('#logo').fadeIn('fast');
         $('#Welcome').fadeIn('fast');
+        $('#Search').fadeIn('fast');
         $('#signoutLink').fadeIn('fast');
         $('#opaqueDiv').fadeIn('fast');
         $('#pack_form')[0].reset();
