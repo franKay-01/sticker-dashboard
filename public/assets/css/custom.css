@@ -73,6 +73,10 @@ label {
     padding: 14px 16px !important;
 }
 
+.select-wrapper input.select-dropdown{
+    height: 2rem !important;
+}
+
 #not_approved{
     visibility: hidden;
     min-width: 250px;
