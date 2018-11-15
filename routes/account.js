@@ -123,17 +123,17 @@ module.exports = function (app) {
                     new Parse.Query(_class.Projects).limit(limit).find(),
                     new Parse.Query(_class.Projects).equalTo("userId", _user.id).count(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.jokes)
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType", type.STORY_TYPE.jokes)
                         .limit(otherLimit).find(),
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.quotes)
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType", type.STORY_TYPE.quotes)
                         .limit(otherLimit).find(),
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.history)
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType", type.STORY_TYPE.history)
                         .limit(otherLimit).find(),
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.news)
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType", type.STORY_TYPE.news)
                         .limit(otherLimit).find(),
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.facts)
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType", type.STORY_TYPE.facts)
                         .limit(otherLimit).find(),
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.episodes)
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType", type.STORY_TYPE.episodes)
                         .limit(otherLimit).find()
                 );
 
@@ -364,6 +364,78 @@ module.exports = function (app) {
 
         }
 
+    });
+
+    app.post('/search', function (req, res) {
+
+        let token = req.cookies.token;
+        let search = req.body.search;
+        let field = req.body.field;
+        let projectId = req.body.projectId;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                switch (field) {
+                    case _class.Episodes:
+                        return Parse.Promise.when(
+                            new Parse.Query(_class.Episodes).equalTo("title", search).first(),
+                            new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        );
+
+                    case _class.Stories:
+                        return Parse.Promise.when(
+                            new Parse.Query(_class.Stories).equalTo("title", search).first(),
+                            new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        );
+
+                    case _class.Adverts:
+                        return Parse.Promise.when(
+                            new Parse.Query(_class.Adverts).equalTo("title", search).first(),
+                            new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        );
+
+                    case _class.Packs:
+                        return Parse.Promise.when(
+                            new Parse.Query(_class.Packs).equalTo("name", search).first(),
+                            new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        );
+
+                    case _class.Categories:
+                        return Parse.Promise.when(
+                            new Parse.Query(_class.Packs).equalTo("name", search).first(),
+                            new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        );
+
+                    case _class.Stickers:
+                        return Parse.Promise.when(
+                            new Parse.Query(_class.Stickers).equalTo("name", search).first(),
+                            new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        );
+
+                }
+
+            }).then(function (elements, project) {
+
+                if (elements){
+                    res.send("SEARCH RESULTS " + JSON.stringify(elements));
+                    // res.render("pages/accounts/search_results", {
+                    //     searchResults: elements,
+                    //     projectItem: project
+                    // })
+                }
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/home/' + proejctId);
+            })
+
+        } else {
+
+            res.redirect('/')
+
+        }
     });
 
     app.post('/author', function (req, res) {
