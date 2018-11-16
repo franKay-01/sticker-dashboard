@@ -419,11 +419,14 @@ module.exports = function (app) {
             }).then(function (elements, project) {
 
                 if (elements){
-                    res.send("SEARCH RESULTS " + JSON.stringify(elements));
-                    // res.render("pages/accounts/search_results", {
-                    //     searchResults: elements,
-                    //     projectItem: project
-                    // })
+
+                    res.render("pages/accounts/search_results", {
+                        searchResults: elements,
+                        projectItem: project,
+                        field: field,
+                        className: _class
+                    });
+
                 }
             }, function (error) {
 
