@@ -1,12 +1,10 @@
 <!-- get values from initial array: should  en -->
 <% if (searchResults.length === 0) { %>
-<div class="medium-3 large-3 cell icons">
-    <center>
-        <p class="none"><b>No Artwork</b></p>
-    </center>
-    <div class="name_tag"><p class="sticker_name_text">No Result </p></div>
-
-</div>
+<a href="#" class="medium-3 large-3 cell icons">
+    <div style="margin: 150px 10px auto !important;" class="story_title truncate_story_title">
+       <b>No Results</b>
+    </div>
+</a>
 <% } else { %>
 <% searchResults.forEach(function(item, index) { %>
 <%if (field === className.Episodes){%>
