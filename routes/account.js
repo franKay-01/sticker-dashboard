@@ -380,13 +380,13 @@ module.exports = function (app) {
                 switch (field) {
                     case _class.Episodes:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Episodes).equalTo("title", search).find(),
+                            new Parse.Query(_class.Episodes).startsWith("title", search).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                     case _class.Stories:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Stories).equalTo("title", search).find(),
+                            new Parse.Query(_class.Stories).startsWith("title", search).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
@@ -404,7 +404,7 @@ module.exports = function (app) {
 
                     case _class.Stickers:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Stickers).equalTo("name", search).find(),
+                            new Parse.Query(_class.Stickers).startsWith("name", search).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
