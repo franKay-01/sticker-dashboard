@@ -380,37 +380,31 @@ module.exports = function (app) {
                 switch (field) {
                     case _class.Episodes:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Episodes).equalTo("title", search).first(),
+                            new Parse.Query(_class.Episodes).equalTo("title", search).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                     case _class.Stories:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Stories).equalTo("title", search).first(),
+                            new Parse.Query(_class.Stories).equalTo("title", search).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                     case _class.Adverts:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Adverts).equalTo("title", search).first(),
+                            new Parse.Query(_class.Adverts).equalTo("title", search).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                     case _class.Packs:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Packs).equalTo("name", search).first(),
-                            new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
-                        );
-
-                    case _class.Categories:
-                        return Parse.Promise.when(
-                            new Parse.Query(_class.Packs).equalTo("name", search).first(),
+                            new Parse.Query(_class.Packs).equalTo("name", search).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                     case _class.Stickers:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Stickers).equalTo("name", search).first(),
+                            new Parse.Query(_class.Stickers).equalTo("name", search).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 

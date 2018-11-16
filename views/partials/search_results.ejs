@@ -46,7 +46,7 @@
     </div>
 </a>
 <%} else if (field === className.Stickers){%>
-<a href="/advert/edit/<%= item.id %>/<%= projectItem.id %>" class="medium-3 large-3 cell card-zoom icons">
+<a href="/sticker/edit/<%= item.id %>/<%= item.get("parent").id %>/<%= projectItem.id %>" class="medium-3 large-3 cell card-zoom icons">
     <div style="margin: 150px 10px auto !important;" class="story_title truncate_story_title">
         <%= item.get("title") %>
     </div>
