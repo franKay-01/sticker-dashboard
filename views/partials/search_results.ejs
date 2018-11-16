@@ -30,10 +30,10 @@
 <%} else if (field === className.Packs){%>
 <a href="/pack/<%= item.id %>/<%= projectItem.id %>" class="medium-3 large-3 cell card-zoom icons">
     <div style="margin: 150px 10px auto !important;" class="story_title truncate_story_title">
-        <%= item.get("title") %>
+        <%= item.get("name") %>
     </div>
     <div class="story_summary truncate_summary">
-        <%= item.get("summary") %>
+        <%= item.get("description") %>
     </div>
 </a>
 <%} else if (field === className.Adverts){%>
@@ -42,16 +42,16 @@
         <%= item.get("title") %>
     </div>
     <div class="story_summary truncate_summary">
-        <%= item.get("summary") %>
+        <%= item.get("description") %>
     </div>
 </a>
 <%} else if (field === className.Stickers){%>
 <a href="/sticker/edit/<%= item.id %>/<%= item.get("parent").id %>/<%= projectItem.id %>" class="medium-3 large-3 cell card-zoom icons">
     <div style="margin: 150px 10px auto !important;" class="story_title truncate_story_title">
-        <%= item.get("title") %>
+        <%= item.get("name") %>
     </div>
     <div class="story_summary truncate_summary">
-        <%= item.get("summary") %>
+        <%= item.get("description") %>
     </div>
 </a>
 <%}%>
