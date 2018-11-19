@@ -525,7 +525,7 @@ module.exports = function (app) {
                         let parseFilePreview;
 
                         // _.map(_previews, preview => {
-                        let changedStickerName = stickerName.replace(SPECIAL_CHARACTERS, ' ').substring(0, stickerName.length - 4);
+                        let changedStickerName = stickerName.substring(0, stickerName.length - 4).replace(SPECIAL_CHARACTERS, " ");
                         if (changedStickerName === _previews[0].name) {
                             bitmapPreview = fs.readFileSync(_previews[0].path, {encoding: 'base64'});
                             parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, _previews[0].mimetype);
