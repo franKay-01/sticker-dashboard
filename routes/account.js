@@ -407,7 +407,7 @@ module.exports = function (app) {
 
                     case _class.Stickers:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Stickers).fullText('name', 'cassava').find(),
+                            new Parse.Query(_class.Stickers).fullText('name', 'crying').find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
