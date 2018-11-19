@@ -444,7 +444,7 @@ exports.thumbnail = (files, size) => {
     files.forEach(function (file, index) {
 
         let originalName = file.originalname;
-        let image_name = originalName.substring(0, originalName.length - 4).replace(SPECIAL_CHARACTERS, " ");
+        let image_name = originalName.substring(0, originalName.length - 4).replace(SPECIAL_CHARACTERS, "");
 
         gm(file.path)
             .resize(size, size)
