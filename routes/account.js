@@ -398,7 +398,7 @@ module.exports = function (app) {
 
                     case _class.Packs:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Packs).equalTo("name", search).find(),
+                            new Parse.Query(_class.Packs).startsWith("name", search).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
