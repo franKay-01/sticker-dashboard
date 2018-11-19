@@ -416,19 +416,20 @@ module.exports = function (app) {
             }).then(function (elements, project) {
 
                 _project = project;
+                console.log("ELEMENT " + JSON.stringify(elements));
 
                 if (elements.length > 0){
 
                     _.each(elements, function (element) {
                         if (field === _class.Episodes || field === _class.Stories || field === _class.Adverts){
                             let title = element.get("title");
-                                if (title.match('/'+ search +'/gi')){
+                                if (title.match('/'+ search +'/gi') === search){
                                     searchArray.push(element);
                                     console.log("SEARCH ARRAY " + searchArray.length);
                                 }
                         }else if (field === _class.Packs || field === _class.Packs){
                             let title = element.get("name");
-                            if (title.match('/'+ search +'/gi')){
+                            if (title.match('/'+ search +'/gi') === search){
                                 searchArray.push(element);
                                 console.log("SEARCH ARRAY " + searchArray.length);
                             }
