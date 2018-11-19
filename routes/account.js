@@ -424,11 +424,13 @@ module.exports = function (app) {
                             let title = element.get("title");
                                 if (title.match('/'+ search +'/gi')){
                                     searchArray.push(element);
+                                    console.log("SEARCH ARRAY " + searchArray.length);
                                 }
                         }else if (field === _class.Packs || field === _class.Packs){
                             let title = element.get("name");
                             if (title.match('/'+ search +'/gi')){
                                 searchArray.push(element);
+                                console.log("SEARCH ARRAY " + searchArray.length);
                             }
                         }
                     });
