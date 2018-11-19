@@ -22,6 +22,8 @@
                 <i class="fa fa-circle display_icons" id="circle" style="color: #b28bc0;" aria-hidden="true"></i>
             <% } else if (item.get("storyType") === type.STORY_TYPE.jokes){ %>
                 <i class="fa fa-circle display_icons" id="circle" style="color: #203f80;" aria-hidden="true"></i>
+            <% } else if (item.get("storyType") === type.STORY_TYPE.episodes){ %>
+                <i class="fa fa-circle display_icons" id="circle" style="color: #b6ff11;" aria-hidden="true"></i>
             <% } %>
             <a href="/storyedit/<%= item.id %>/<%= projectItem.id %>">
 
