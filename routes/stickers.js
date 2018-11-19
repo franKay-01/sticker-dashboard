@@ -89,7 +89,7 @@ module.exports = function (app) {
                         // fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
                         let originalName = file.originalname;
                         let _name = originalName.substring(0, originalName.length - 4);
-                        let stickerName = _name.replace(util.SPECIAL_CHARACTERS, " ");
+                        let stickerName = _name.replace(util.SPECIAL_CHARACTERS, "");
 
 
                         let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});

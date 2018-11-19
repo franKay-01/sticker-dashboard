@@ -44,7 +44,6 @@ const STORY_ERROR = 23;
 const FEED_ERROR_ONE = 24;
 const FEED_ERROR_TWO = 25;
 
-
 const SPECIAL_CHARACTERS = /[`~!@#$%^&*()_|+\-=÷¿?;:'",.123<>\{\}\[\]\\\/]/gi;
 
 /**
