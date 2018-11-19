@@ -372,6 +372,8 @@ module.exports = function (app) {
         let search = req.body.search;
         let field = req.body.field;
         let projectId = req.body.projectId;
+        let searchArray = [];
+        let _project;
 
         if (token) {
 
@@ -380,31 +382,31 @@ module.exports = function (app) {
                 switch (field) {
                     case _class.Episodes:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Episodes).startsWith("title", search).find(),
+                            new Parse.Query(_class.Episodes).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                     case _class.Stories:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Stories).startsWith("title", search).find(),
+                            new Parse.Query(_class.Stories).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                     case _class.Adverts:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Adverts).startsWith("title", search).find(),
+                            new Parse.Query(_class.Adverts).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                     case _class.Packs:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Packs).startsWith("name", search).find(),
+                            new Parse.Query(_class.Packs).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                     case _class.Stickers:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Stickers).startsWith("name", search).find(),
+                            new Parse.Query(_class.Stickers).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
@@ -412,16 +414,36 @@ module.exports = function (app) {
 
             }).then(function (elements, project) {
 
-                if (elements){
+                _project = project;
 
-                    res.render("pages/accounts/search_results", {
-                        searchResults: elements,
-                        projectItem: project,
-                        field: field,
-                        className: _class
+                if (elements.length > 0){
+
+                    _.each(elements, function (element) {
+                        if (field === _class.Episodes || field === _class.Stories || field === _class.Adverts){
+                            let title = element.get("title");
+                                if (title.match('/'+ search +'/gi')){
+                                    searchArray.push(element);
+                                }
+                        }else if (field === _class.Packs || field === _class.Packs){
+                            let title = element.get("name");
+                            if (title.match('/'+ search +'/gi')){
+                                searchArray.push(element);
+                            }
+                        }
                     });
 
+                    return searchArray;
+
                 }
+            }).then(function (results) {
+
+                res.render("pages/accounts/search_results", {
+                    searchResults: results,
+                    projectItem: _project,
+                    field: field,
+                    className: _class
+                });
+
             }, function (error) {
 
                 console.log("ERROR " + error.message);
