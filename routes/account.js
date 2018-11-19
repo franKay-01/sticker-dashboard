@@ -402,7 +402,7 @@ module.exports = function (app) {
 
                     case _class.Packs:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Packs).startsWith("name", search).fullText('name', search).containedIn("projectIds", projectArray).find(),
+                            new Parse.Query(_class.Packs).fullText('name', search).containedIn("projectIds", projectArray).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
