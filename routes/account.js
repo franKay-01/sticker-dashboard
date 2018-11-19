@@ -372,9 +372,11 @@ module.exports = function (app) {
         let search = req.body.search;
         let field = req.body.field;
         let projectId = req.body.projectId;
+        let searchArray = [];
 
         if (token) {
 
+            searchArray.push(search);
             util.getUser(token).then(function (sessionToken) {
 
                 switch (field) {
@@ -398,7 +400,7 @@ module.exports = function (app) {
 
                     case _class.Packs:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Packs).startsWith("name", search).find(),
+                            new Parse.Query(_class.Packs).containedIn("name", searchArray).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
