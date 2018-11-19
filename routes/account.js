@@ -373,8 +373,6 @@ module.exports = function (app) {
         let search = req.body.search;
         let field = req.body.field;
         let projectId = req.body.projectId;
-        let searchArray = [];
-        let _project;
 
         if (token) {
 
@@ -383,31 +381,31 @@ module.exports = function (app) {
                 switch (field) {
                     case _class.Episodes:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Episodes).find(),
+                            new Parse.Query(_class.Episodes).fullText('title', search).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                     case _class.Stories:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Stories).find(),
+                            new Parse.Query(_class.Stories).fullText('title', search).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                     case _class.Adverts:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Adverts).find(),
+                            new Parse.Query(_class.Adverts).fullText('title', search).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                     case _class.Packs:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Packs).find(),
+                            new Parse.Query(_class.Packs).fullText('name', search).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                     case _class.Stickers:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Stickers).fullText('name', 'crying').find(),
+                            new Parse.Query(_class.Stickers).fullText('name', search).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
@@ -415,40 +413,9 @@ module.exports = function (app) {
 
             }).then(function (elements, project) {
 
-                res.send(JSON.stringify(elements));
-
-                _project = project;
-                console.log("ELEMENT " + JSON.stringify(elements));
-
-                if (elements.length > 0){
-
-                    _.each(elements, function (element) {
-                        if (field === _class.Episodes || field === _class.Stories || field === _class.Adverts){
-                            let title = element.get("title");
-                            console.log("SEARCH RESULT " + title.match('/'+ search +'/gi'));
-                                if (title.match('/'+ search +'/gi') === search){
-                                    searchArray.push(element);
-                                    console.log("SEARCH ARRAY " + searchArray.length);
-                                }
-                        }else if (field === _class.Packs || field === _class.Packs){
-                            let title = element.get("name");
-                            console.log("SEARCH RESULT " + title.match('/'+ search +'/gi'));
-
-                            if (title.match('/'+ search +'/gi') === search){
-                                searchArray.push(element);
-                                console.log("SEARCH ARRAY " + searchArray.length);
-                            }
-                        }
-                    });
-
-                    return searchArray;
-
-                }
-            }).then(function (results) {
-
                 res.render("pages/accounts/search_results", {
-                    searchResults: results,
-                    projectItem: _project,
+                    searchResults: elements,
+                    projectItem: project,
                     field: field,
                     className: _class
                 });
