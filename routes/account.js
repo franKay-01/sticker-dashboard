@@ -373,33 +373,36 @@ module.exports = function (app) {
         let search = req.body.search;
         let field = req.body.field;
         let projectId = req.body.projectId;
+        let projectArray = [];
 
         if (token) {
+
+            projectArray.push(projectId);
 
             util.getUser(token).then(function (sessionToken) {
 
                 switch (field) {
                     case _class.Episodes:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Episodes).fullText('title', search).find(),
+                            new Parse.Query(_class.Episodes).fullText('title', search).containedIn("projectIds", projectArray).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                     case _class.Stories:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Stories).fullText('title', search).find(),
+                            new Parse.Query(_class.Stories).fullText('title', search).containedIn("projectIds", projectArray).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                     case _class.Adverts:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Adverts).fullText('title', search).find(),
+                            new Parse.Query(_class.Adverts).fullText('title', search).containedIn("projectIds", projectArray).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                     case _class.Packs:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Packs).fullText('name', search).find(),
+                            new Parse.Query(_class.Packs).fullText('name', search).containedIn("projectIds", projectArray).find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
