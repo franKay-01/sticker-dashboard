@@ -407,13 +407,15 @@ module.exports = function (app) {
 
                     case _class.Stickers:
                         return Parse.Promise.when(
-                            new Parse.Query(_class.Stickers).find(),
+                            new Parse.Query(_class.Stickers).fullText('name', 'cassavaemojip').find(),
                             new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                         );
 
                 }
 
             }).then(function (elements, project) {
+
+                res.send(JSON.stringify(elements));
 
                 _project = project;
                 console.log("ELEMENT " + JSON.stringify(elements));
