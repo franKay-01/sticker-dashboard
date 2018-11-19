@@ -423,12 +423,15 @@ module.exports = function (app) {
                     _.each(elements, function (element) {
                         if (field === _class.Episodes || field === _class.Stories || field === _class.Adverts){
                             let title = element.get("title");
+                            console.log("SEARCH RESULT " + title.match('/'+ search +'/gi'));
                                 if (title.match('/'+ search +'/gi') === search){
                                     searchArray.push(element);
                                     console.log("SEARCH ARRAY " + searchArray.length);
                                 }
                         }else if (field === _class.Packs || field === _class.Packs){
                             let title = element.get("name");
+                            console.log("SEARCH RESULT " + title.match('/'+ search +'/gi'));
+
                             if (title.match('/'+ search +'/gi') === search){
                                 searchArray.push(element);
                                 console.log("SEARCH ARRAY " + searchArray.length);
