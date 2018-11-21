@@ -421,12 +421,12 @@
                         <% if (story.get("storyType") === type.STORY_TYPE.episodes) { %>
 
                         <a href="/episodes/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Episodes</a>
-                        <br><br>
+                        <br>
 
                         <% } else {%>
 
                         <a href="/story/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Story Items</a>
-                        <br><br>
+                        <br>
 
                         <%}%>
 
@@ -434,7 +434,9 @@
                                 story.get("storyType") === type.STORY_TYPE.chat_group ||
                                 story.get("storyType") === type.STORY_TYPE.chat_single_episode ||
                                 story.get("storyType") === type.STORY_TYPE.chat_group_episode) { %>
+
                         <a href="/story/add/members/<%= story.id %>/<%= projectItem.id %>" class="preview"> Add Chat Members</a>
+                        <br><br>
 
                         <%}%>
                         <!--<a href="/storymain/<%#= story.id %>" class="preview">Edit Main Story</a><br><br>-->
