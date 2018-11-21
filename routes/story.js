@@ -1025,7 +1025,7 @@ module.exports = function (app) {
 
             }).then(function (project, members) {
 
-                res.render("pages/story/members", {
+                res.render("pages/stories/members", {
                     members: members,
                     projectItem: project
                 })
