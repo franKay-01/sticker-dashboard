@@ -423,12 +423,20 @@
                         <a href="/episodes/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Episodes</a>
                         <br><br>
 
-                        <% } else { %>
+                        <% } else {%>
 
                         <a href="/story/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Story Items</a>
                         <br><br>
 
-                        <% } %>
+                        <%}%>
+
+                        <% if ( story.get("storyType") === type.STORY_TYPE.chat_single ||
+                                story.get("storyType") === type.STORY_TYPE.chat_group ||
+                                story.get("storyType") === type.STORY_TYPE.chat_single_episode ||
+                                story.get("storyType") === type.STORY_TYPE.chat_group_episode) { %>
+                        <a href="/story/add/members/<%= story.id %>/<%= projectItem.id %>" class="preview"> Add Chat Members</a>
+
+                        <%}%>
                         <!--<a href="/storymain/<%#= story.id %>" class="preview">Edit Main Story</a><br><br>-->
                         <a href="/stories/<%= projectItem.id %>" class="preview">Back</a><br>
                         <!--<a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">-->
