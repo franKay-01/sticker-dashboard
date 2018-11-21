@@ -974,6 +974,8 @@ module.exports = function (app) {
                     member.set("profileImage", parseFile);
                 }
 
+                return member.save();
+
             }).then(function (member) {
 
                 if (files.length > 0) {
