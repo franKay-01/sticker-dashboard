@@ -948,6 +948,7 @@ module.exports = function (app) {
         let storyId = req.params.storyId;
         let projectId = req.params.projectId;
         let storyEdit = '/storyedit/';
+        let _story = [];
 
         if (token) {
 
@@ -956,10 +957,11 @@ module.exports = function (app) {
             util.getUser(token).then(function (sessionToken) {
 
                 _user = sessionToken.get("user");
+                _story.push(storyId);
 
                 return Parse.Promise.when(
                     new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
-                    new Parse.Query(_class.Members).equalTo("userId", _user.id).find(),
+                    new Parse.Query(_class.Members).equalTo("userId", _user.id).notContainedIn("chatIds", _story).find(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 )
             }).then(function (story, members, project) {
