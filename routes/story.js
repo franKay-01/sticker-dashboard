@@ -901,6 +901,7 @@ module.exports = function (app) {
         let memberIds = req.body.memberIds;
         let _members;
         let _story;
+        let chatMembers = [];
 
         if (token) {
 
@@ -917,11 +918,12 @@ module.exports = function (app) {
                 _story = story;
                 _.each(members, function (member) {
 
-                    member.chatIds.push(story.id);
+                    member.get("chatIds").push(story.id);
+                    chatMembers.push(member);
 
                 });
 
-                return Parse.Object.saveAll(members);
+                return Parse.Object.saveAll(chatMembers);
 
             }).then(function (members) {
 
