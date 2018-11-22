@@ -906,6 +906,8 @@ module.exports = function (app) {
 
             util.getUser(token).then(function (sessionToken) {
 
+                _user = sessionToken.get("user");
+
                 return Parse.Promise.when(
                     new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
                     new Parse.Query(_class.Members).equalTo("userId", _user.id).find(),
