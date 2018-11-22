@@ -893,6 +893,53 @@ module.exports = function (app) {
         }
     });
 
+    app.post('/story/add/members/:storyId', function (req, res) {
+
+        let token = req.cookies.token;
+        let storyId = req.params.storyId;
+        let projectId = req.body.projectId;
+        let memberIds = req.body.memberIds;
+        let _members;
+        let _story;
+
+        if (token) {
+
+            _members = memberIds.split(",");
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                    new Parse.Query(_class.Members).containedIn("objectId", _members).find()
+                )
+            }).then(function (story, project, members) {
+                _story = story;
+                _.each(members, function (member) {
+
+                    member.chatIds.push(story.id);
+
+                });
+
+                return Parse.Object.saveAll(members);
+
+            }).then(function (members) {
+
+                console.log("MEMBERS " + JSON.stringify(members));
+                res.redirect('/storyedit/' + _story.id + '/' + projectId);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/storyedit/' + _story.id + '/' + projectId);
+
+            })
+
+        }else {
+            res.redirect('/');
+        }
+    });
+
     app.get('/story/add/members/:storyId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
@@ -958,7 +1005,7 @@ module.exports = function (app) {
 
                 member.set("profile", {
                     "content": {
-                        "name" : memberName,
+                        "name": memberName,
                         "description": memberDescription,
                         "sex": memberSex
                     }
@@ -966,7 +1013,7 @@ module.exports = function (app) {
                 member.set("chatIds", []);
                 member.set("userId", _user.id);
 
-                if (files.length > 0){
+                if (files.length > 0) {
                     let fullName = files[0].originalname;
                     let fileName = fullName.substring(0, fullName.length - 4);
 
