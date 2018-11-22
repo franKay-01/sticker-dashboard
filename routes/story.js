@@ -913,9 +913,10 @@ module.exports = function (app) {
                 )
             }).then(function (story, members, project) {
 
+                console.log("MEMBERS " + JSON.stringify(members));
                 res.render("pages/stories/add_members", {
                     story: story,
-                    members: members,
+                    chatMembers: members,
                     projectItem: project
                 });
 
