@@ -805,8 +805,7 @@ module.exports = function (app) {
                 switch (_type) {
                     case type.STORY_ITEM.text:
                         story.set("type", type.STORY_ITEM.text);
-                        if ( story.get("storyType") === type.STORY_TYPE.chat_single || story.get("storyType") === type.STORY_TYPE.chat_single_episode
-                        || story.get("storyType") === type.STORY_TYPE.chat_group || story.get("storyType") === type.STORY_TYPE.chat_group_episode ){
+                        if (character !== "" || character === undefined){
                             story.set("contents", {
                                 "text": content,
                                 "character" : character
@@ -819,8 +818,7 @@ module.exports = function (app) {
 
                     case type.STORY_ITEM.quote:
                         story.set("type", type.STORY_ITEM.quote);
-                        if ( story.get("storyType") === type.STORY_TYPE.chat_single || story.get("storyType") === type.STORY_TYPE.chat_single_episode
-                            || story.get("storyType") === type.STORY_TYPE.chat_group || story.get("storyType") === type.STORY_TYPE.chat_group_episode ){
+                        if (character !== "" || character === undefined){
                             story.set("contents", {
                                 "text": content,
                                 "character" : character
@@ -838,8 +836,7 @@ module.exports = function (app) {
 
                     case type.STORY_ITEM.italic:
                         story.set("type", type.STORY_ITEM.italic);
-                        if ( story.get("storyType") === type.STORY_TYPE.chat_single || story.get("storyType") === type.STORY_TYPE.chat_single_episode
-                            || story.get("storyType") === type.STORY_TYPE.chat_group || story.get("storyType") === type.STORY_TYPE.chat_group_episode ){
+                        if (character !== "" || character === undefined){
                             story.set("contents", {
                                 "text": content,
                                 "character" : character
@@ -852,8 +849,7 @@ module.exports = function (app) {
 
                     case type.STORY_ITEM.bold:
                         story.set("type", type.STORY_ITEM.bold);
-                        if ( story.get("storyType") === type.STORY_TYPE.chat_single || story.get("storyType") === type.STORY_TYPE.chat_single_episode
-                            || story.get("storyType") === type.STORY_TYPE.chat_group || story.get("storyType") === type.STORY_TYPE.chat_group_episode ){
+                        if (character !== "" || character === undefined){
                             story.set("contents", {
                                 "text": content,
                                 "character" : character
@@ -866,8 +862,7 @@ module.exports = function (app) {
 
                     case type.STORY_ITEM.italicBold:
                         story.set("type", type.STORY_ITEM.italicBold);
-                        if ( story.get("storyType") === type.STORY_TYPE.chat_single || story.get("storyType") === type.STORY_TYPE.chat_single_episode
-                            || story.get("storyType") === type.STORY_TYPE.chat_group || story.get("storyType") === type.STORY_TYPE.chat_group_episode ){
+                        if (character !== "" || character === undefined){
                             story.set("contents", {
                                 "text": content,
                                 "character" : character
@@ -880,8 +875,7 @@ module.exports = function (app) {
 
                     case type.STORY_ITEM.list:
                         story.set("type", type.STORY_ITEM.list);
-                        if ( story.get("storyType") === type.STORY_TYPE.chat_single || story.get("storyType") === type.STORY_TYPE.chat_single_episode
-                            || story.get("storyType") === type.STORY_TYPE.chat_group || story.get("storyType") === type.STORY_TYPE.chat_group_episode ){
+                        if (character !== "" || character === undefined){
                             story.set("contents", {
                                 "text": content,
                                 "character" : character
