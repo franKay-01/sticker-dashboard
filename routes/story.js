@@ -1504,10 +1504,11 @@ module.exports = function (app) {
 
                 return Parse.Promise.when(
                     new Parse.Query(_class.Projects).containedIn("objectId", _story.get("projectIds")).limit(limit).find(),
-                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                    new Parse.Query(_class.Members).equalTo("chatIds", _story.id).find()
                 )
 
-            }).then(function (projects, project) {
+            }).then(function (projects, project, members) {
 
                 res.render("pages/stories/story_details", {
                     story: _story,
@@ -1519,6 +1520,7 @@ module.exports = function (app) {
                     authorId: authorId,
                     projects: projects,
                     projectItem: project,
+                    chatMembers: members,
                     products: _products,
                     type: type,
                     next: page.next,

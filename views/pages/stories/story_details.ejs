@@ -431,6 +431,13 @@
                         <%}%>
 
                         <% if ( story.get("storyType") === type.STORY_TYPE.chat_single ||
+                                story.get("storyType") === type.STORY_TYPE.chat_single_episode) {%>
+                        <a href="/story/add/members/<%= story.id %>/<%= projectItem.id %>" class="preview"> Select Order of Chat
+                            <i class="fa fa-sort" style="color: #590a5d; font-size: 1.5rem;" aria-hidden="true"></i>
+                        </a>
+                        <%}%>
+
+                        <% if ( story.get("storyType") === type.STORY_TYPE.chat_single ||
                                 story.get("storyType") === type.STORY_TYPE.chat_group ||
                                 story.get("storyType") === type.STORY_TYPE.chat_single_episode ||
                                 story.get("storyType") === type.STORY_TYPE.chat_group_episode) { %>
