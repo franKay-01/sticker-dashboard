@@ -161,6 +161,55 @@
 
     </div>
 
+    <div id="selectChatOrder" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">SELECT THE ORDER</div>
+            <br><br>
+            <form method="post" action="/story/member/order/<%= story.id %>">
+                <input type="hidden" value="<%= projectItem.id %>" name="projectId">
+                <div class="row" style="width: 450px !important;">
+                    <select class="input-field validate soldBar" name="status" required="" aria-required="true">
+                        <option value="" disabled selected>&nbsp;Select Incoming</option>
+                        <% if (chatMembers.length === 0) { %>
+
+                        <% } else { %>
+                        <% chatMembers.forEach(function(items) { %>
+                        <option value="<%= items.id %>">
+                            <%= items.get("profile").content.name %>
+                        </option>
+                        <% }) %>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="row" style="width: 450px !important;">
+                    <select class="input-field validate soldBar" name="status" required="" aria-required="true">
+                        <option value="" disabled selected>&nbsp;Select Outgoing</option>
+                        <% if (chatMembers.length === 0) { %>
+
+                        <% } else { %>
+                        <% chatMembers.forEach(function(items) { %>
+                        <option value="<%= items.id %>">
+                            <%= items.get("profile").content.name %>
+                        </option>
+                        <% }) %>
+                        <% } %>
+                    </select>
+                </div>
+            </form>
+            </center>
+
+            <span>
+                    <button type="submit" class="create">CREATE</button>
+                </span>
+            <span>
+                    <button type="button" id="btnCloseOrder" class="cancel">Cancel</button>
+                </span>
+
+        </div>
+
+    </div>
+
     <div id="askPermission" style="display: none">
         <div class="medium-3 large-3 cell create_background" style="height: 320px !important;">
             <div class="edit_labels medium-12 large-12">ARE YOU SURE?</div>
@@ -432,9 +481,10 @@
 
                         <% if ( story.get("storyType") === type.STORY_TYPE.chat_single ||
                                 story.get("storyType") === type.STORY_TYPE.chat_single_episode) {%>
-                        <a href="/story/add/members/<%= story.id %>/<%= projectItem.id %>" class="preview"> Select Order of Chat
+                        <a href="#" class="preview" id="showChatOrder"> Select Order of Chat
                             <i class="fa fa-sort" style="color: #590a5d; font-size: 1.5rem;" aria-hidden="true"></i>
                         </a>
+                        <br>
                         <%}%>
 
                         <% if ( story.get("storyType") === type.STORY_TYPE.chat_single ||
