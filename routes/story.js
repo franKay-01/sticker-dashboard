@@ -937,7 +937,7 @@ module.exports = function (app) {
 
             })
 
-        }else {
+        } else {
             res.redirect('/');
         }
     });
@@ -984,6 +984,49 @@ module.exports = function (app) {
             res.redirect('/');
         }
 
+    });
+
+    app.post('/story/member/order/:storyId', function (req, res) {
+
+        let token = req.cookies.token;
+        let storyId = req.params.storyId;
+        let projectId = req.body.projectId;
+        let incoming = req.body.incoming;
+        let outgoing = req.body.outgoing;
+        let _project;
+
+        if (token) {
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                )
+            }).then(function (story, project) {
+
+                _project = project;
+                story.get("info").incoming = incoming;
+                story.get("info").outgoing = outgoing;
+
+                return story.save();
+
+            }).then(function (story) {
+
+                res.redirect('/storyedit/' + story.id + '/' + _project.id );
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/storyedit/' + storyId + '/' + projectId );
+
+            })
+
+        }else {
+            res.redirect('/');
+        }
     });
 
     app.post('/member/:projectId', upload.array('im1'), function (req, res) {

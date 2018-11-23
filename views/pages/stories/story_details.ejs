@@ -169,7 +169,7 @@
             <form method="post" action="/story/member/order/<%= story.id %>">
                 <input type="hidden" value="<%= projectItem.id %>" name="projectId">
                 <div class="row" style="width: 450px !important;">
-                    <select class="input-field validate soldBar" name="status" required="" aria-required="true">
+                    <select class="input-field validate soldBar" name="incoming" required="" aria-required="true">
                         <option value="" disabled selected>&nbsp;Select Incoming</option>
                         <% if (chatMembers.length === 0) { %>
 
@@ -183,7 +183,7 @@
                     </select>
                 </div>
                 <div class="row" style="width: 450px !important;">
-                    <select class="input-field validate soldBar" name="status" required="" aria-required="true">
+                    <select class="input-field validate soldBar" name="outgoing" required="" aria-required="true">
                         <option value="" disabled selected>&nbsp;Select Outgoing</option>
                         <% if (chatMembers.length === 0) { %>
 
