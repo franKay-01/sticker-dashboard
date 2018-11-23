@@ -125,29 +125,33 @@ module.exports = function (app) {
                 if (source === story) {
                     return Parse.Promise.when(
                         new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
-                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                        new Parse.Query(_class.Members).equalTo("chatIds", id).find()
                     )
 
                 } else if (source === episode) {
                     return Parse.Promise.when(
                         new Parse.Query(_class.Episodes).equalTo("objectId", id).first(),
-                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                        new Parse.Query(_class.Members).equalTo("objectId", id).find()
                     )
                 }
 
-            }).then(function (story, project) {
+            }).then(function (story, project, members) {
 
                 if (source === episode) {
                     mainStoryId = story.get("storyId");
                 } else {
                     mainStoryId = "";
                 }
+
                 res.render("pages/stories/story_catalogue", {
 
                     story_id: story.id,
                     name: story.get("title"),
                     storyType: story.get("storyType"),
                     projectItem: project,
+                    chatMembers: members,
                     type: type,
                     source: source,
                     mainStoryId: mainStoryId
@@ -159,7 +163,7 @@ module.exports = function (app) {
                 res.redirect('/stories/' + projectId);
             });
         } else {
-            console.log("COMING HOME");
+
             res.redirect('/');
 
         }
