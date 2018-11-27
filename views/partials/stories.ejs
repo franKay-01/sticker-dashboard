@@ -43,7 +43,7 @@
                     || item.get("storyType") === type.STORY_TYPE.chat_single_episode) {%>
             <% episodes.forEach(function (episode, index) { %>
             <% if (episode.storyId === item.id) {%>
-            <a href="/storyitem/episode/<%= episodes.episodeId %>/<%= projectItem.id %>">
+            <a href="/storyitem/episode/<%= episode.episodeId %>/<%= projectItem.id %>">
                 <button class="create_button review_tab_bottom add_catalogue"
                         style="background: transparent !important;">
                     <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Story Item</p>

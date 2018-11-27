@@ -77,8 +77,6 @@ module.exports = function (app) {
                     });
                 });
 
-                console.log("ARRAY OF EPISODES " + JSON.stringify(_allEpisodes));
-
                 _.each(artworks, function (artwork) {
 
                     artWork.push(artwork.get("stickerId"));
