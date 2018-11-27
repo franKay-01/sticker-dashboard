@@ -72,12 +72,10 @@ module.exports = function (app) {
                 _.each(episodes, function (episode) {
                     _.each(story, function (storyDetails) {
                         if (episode.get("storyId") === storyDetails.id){
-                            _allEpisodes.push({"episodeId": episode.get("storyId"), "storyId":storyDetails.id});
+                            _allEpisodes.push({"episodeId": episode.id, "storyId":storyDetails.id});
                         }
                     });
                 });
-
-                console.log("EPISODES " + JSON.stringify(_allEpisodes));
 
                 _.each(artworks, function (artwork) {
 
