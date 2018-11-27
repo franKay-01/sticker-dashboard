@@ -72,6 +72,7 @@ module.exports = function (app) {
                 _.each(episodes, function (episode) {
                     _.each(story, function (storyDetails) {
 
+                        console.log("EPISODE " + episode.get("storyId") + " & STORY " + storyDetails.id);
                         if (episode.get("storyId") === storyDetails.id){
                             _allEpisodes.push({"episodeId": episode.get("storyId"), "storyId":storyDetails.id});
                         }
