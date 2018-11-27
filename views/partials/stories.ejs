@@ -41,12 +41,14 @@
             <%if (item.get("storyType") === type.STORY_TYPE.episodes
                     || item.get("storyType") === type.STORY_TYPE.chat_group_episode
                     || item.get("storyType") === type.STORY_TYPE.chat_single_episode) {%>
-            <a href="/storyitem/episode/<%= item.id %>/<%= projectItem.id %>">
+            <% if (episodes.storyId === item.id) {%>
+            <a href="/storyitem/episode/<%= episodes.episodeId %>/<%= projectItem.id %>">
                 <button class="create_button review_tab_bottom add_catalogue"
                         style="background: transparent !important;">
                     <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Story Item</p>
                 </button>
             </a>
+            <%}%>
             <%} else {%>
             <a href="/storyitem/story/<%= item.id %>/<%= projectItem.id %>">
                 <button class="create_button review_tab_bottom add_catalogue"

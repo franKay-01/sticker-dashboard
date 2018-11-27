@@ -38,6 +38,7 @@ module.exports = function (app) {
             let artWork = [];
             let _allArtwork = [];
             let _allProjects = [];
+            let _allEpisodes = [];
             let combined = [];
             let projectArray = [];
             let _latest = "";
@@ -52,11 +53,12 @@ module.exports = function (app) {
                     new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
                     new Parse.Query(_class.ArtWork).find(),
                     new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
-                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                    new Parse.Query(_class.Projects).containedIn("projectIds", projectArray).find()
                 );
 
 
-            }).then(function (story, allPack, artworks, latest, projects) {
+            }).then(function (story, allPack, artworks, latest, projects, episodes) {
 
                 _story = story;
                 _allPack = allPack;
@@ -66,6 +68,15 @@ module.exports = function (app) {
                 if (latest) {
                     _latest = latest;
                 }
+
+                _.each(episodes, function (episode) {
+                    _.each(story, function (storyDetails) {
+
+                        if (episode.get("storyId") === storyDetails.id){
+                            _allEpisodes.push({"episodeId": episode.get("storyId"), "storyId":storyDetails.id});
+                        }
+                    });
+                });
 
                 _.each(artworks, function (artwork) {
 
@@ -97,7 +108,8 @@ module.exports = function (app) {
                     projectItem: _allProjects,
                     arts: combined,
                     latest: _latest,
-                    type: type
+                    type: type,
+                    episodes: _allEpisodes
                 })
             }, function (error) {
 
