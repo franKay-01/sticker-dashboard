@@ -54,7 +54,7 @@ module.exports = function (app) {
                     new Parse.Query(_class.ArtWork).find(),
                     new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
-                    new Parse.Query(_class.Projects).containedIn("projectIds", projectArray).find()
+                    new Parse.Query(_class.Episodes).containedIn("projectIds", projectArray).find()
                 );
 
 
