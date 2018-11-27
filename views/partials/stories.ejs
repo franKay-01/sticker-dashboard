@@ -24,6 +24,10 @@
                 <i class="fa fa-circle display_icons" id="circle" style="color: #203f80;" aria-hidden="true"></i>
             <% } else if (item.get("storyType") === type.STORY_TYPE.episodes){ %>
                 <i class="fa fa-circle display_icons" id="circle" style="color: #b6ff11;" aria-hidden="true"></i>
+            <% } else if (item.get("storyType") === type.STORY_TYPE.chat_single || item.get("storyType") === type.STORY_TYPE.chat_group){ %>
+                <i class="fa fa-circle display_icons" id="circle" style="color: #7b0a61;" aria-hidden="true"></i>
+            <% } else if (item.get("storyType") === type.STORY_TYPE.chat_group_episode || item.get("storyType") === type.STORY_TYPE.chat_single_episode){ %>
+                <i class="fa fa-circle display_icons" id="circle" style="color: #81fdd1;" aria-hidden="true"></i>
             <% } %>
             <a href="/storyedit/<%= item.id %>/<%= projectItem.id %>">
 
