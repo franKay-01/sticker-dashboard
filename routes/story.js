@@ -118,6 +118,7 @@ module.exports = function (app) {
         let source = req.params.source;
         let projectId = req.params.projectId;
         let mainStoryId;
+
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
@@ -409,11 +410,22 @@ module.exports = function (app) {
         let sticker_array = [];
         let _storyItem;
         let _project;
+        let source = "";
         let _stickers = [];
 
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+            }).then(function (story) {
+
+                if (story){
+                    source = "story";
+                }else {
+                    source = "episode"
+                }
 
                 return Parse.Promise.when(
                     new Parse.Query(_class.StoryItems).equalTo("storyId", id).find(),
@@ -457,7 +469,8 @@ module.exports = function (app) {
                     story_item: _storyItem,
                     story_id: id,
                     stickers: _stickers,
-                    projectItem: _project
+                    projectItem: _project,
+                    source: source
 
                 });
             }, function (error) {
