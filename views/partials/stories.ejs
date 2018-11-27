@@ -41,7 +41,8 @@
             <%if (item.get("storyType") === type.STORY_TYPE.episodes
                     || item.get("storyType") === type.STORY_TYPE.chat_group_episode
                     || item.get("storyType") === type.STORY_TYPE.chat_single_episode) {%>
-            <% if (episodes.storyId === item.id) {%>
+            <% episodes.forEach(function (episode, index) { %>
+            <% if (episode.storyId === item.id) {%>
             <a href="/storyitem/episode/<%= episodes.episodeId %>/<%= projectItem.id %>">
                 <button class="create_button review_tab_bottom add_catalogue"
                         style="background: transparent !important;">
@@ -49,6 +50,7 @@
                 </button>
             </a>
             <%}%>
+            <%})%>
             <%} else {%>
             <a href="/storyitem/story/<%= item.id %>/<%= projectItem.id %>">
                 <button class="create_button review_tab_bottom add_catalogue"
