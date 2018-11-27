@@ -261,7 +261,8 @@
                         <div class="stats">Menu</div>
                         <% include ../../partials/menu.ejs %>
 
-                        <% if (story.get("storyType") === type.STORY_TYPE.episodes) { %>
+                        <% if (story.get("storyType") === type.STORY_TYPE.episodes || story.get("storyType") === type.STORY_TYPE.chat_single_episode
+                        || story.get("storyType") === type.STORY_TYPE.chat_group_episode) { %>
                         <div style="margin-top: 40px !important;" id="episode">
                             <a class="_stickers_packs" href="#">Add Episode</a>
                         </div>
