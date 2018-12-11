@@ -71,8 +71,8 @@ module.exports = function (app) {
 
                 _.each(episodes, function (episode) {
                     _.each(story, function (storyDetails) {
-                        if (episode.get("storyId") === storyDetails.id){
-                            _allEpisodes.push({"episodeId": episode.id, "storyId":storyDetails.id});
+                        if (episode.get("storyId") === storyDetails.id) {
+                            _allEpisodes.push({"episodeId": episode.id, "storyId": storyDetails.id});
                         }
                     });
                 });
@@ -119,6 +119,19 @@ module.exports = function (app) {
         } else {
             res.redirect('/');
 
+        }
+    });
+
+    app.get('/preview/chats/:storyId', function (req, res) {
+
+        let token = req.cookies.token;
+        let storyId = req.params.storyId;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+            })
         }
     });
 
@@ -432,9 +445,9 @@ module.exports = function (app) {
 
             }).then(function (story) {
 
-                if (story){
+                if (story) {
                     source = "story";
-                }else {
+                } else {
                     source = "episode"
                 }
 
@@ -829,26 +842,26 @@ module.exports = function (app) {
                 switch (_type) {
                     case type.STORY_ITEM.text:
                         story.set("type", type.STORY_ITEM.text);
-                        if (character !== "" || character === undefined){
+                        if (character !== "" || character === undefined) {
                             story.set("contents", {
                                 "text": content,
-                                "character" : character
+                                "character": character
                             });
 
-                        }else {
+                        } else {
                             story.set("contents", {"text": content});
                         }
                         break;
 
                     case type.STORY_ITEM.quote:
                         story.set("type", type.STORY_ITEM.quote);
-                        if (character !== "" || character === undefined){
+                        if (character !== "" || character === undefined) {
                             story.set("contents", {
                                 "text": content,
-                                "character" : character
+                                "character": character
                             });
 
-                        }else {
+                        } else {
                             story.set("contents", {"text": content});
                         }
                         break;
@@ -860,52 +873,52 @@ module.exports = function (app) {
 
                     case type.STORY_ITEM.italic:
                         story.set("type", type.STORY_ITEM.italic);
-                        if (character !== "" || character === undefined){
+                        if (character !== "" || character === undefined) {
                             story.set("contents", {
                                 "text": content,
-                                "character" : character
+                                "character": character
                             });
 
-                        }else {
+                        } else {
                             story.set("contents", {"text": content});
                         }
                         break;
 
                     case type.STORY_ITEM.bold:
                         story.set("type", type.STORY_ITEM.bold);
-                        if (character !== "" || character === undefined){
+                        if (character !== "" || character === undefined) {
                             story.set("contents", {
                                 "text": content,
-                                "character" : character
+                                "character": character
                             });
 
-                        }else {
+                        } else {
                             story.set("contents", {"text": content});
                         }
                         break;
 
                     case type.STORY_ITEM.italicBold:
                         story.set("type", type.STORY_ITEM.italicBold);
-                        if (character !== "" || character === undefined){
+                        if (character !== "" || character === undefined) {
                             story.set("contents", {
                                 "text": content,
-                                "character" : character
+                                "character": character
                             });
 
-                        }else {
+                        } else {
                             story.set("contents", {"text": content});
                         }
                         break;
 
                     case type.STORY_ITEM.list:
                         story.set("type", type.STORY_ITEM.list);
-                        if (character !== "" || character === undefined){
+                        if (character !== "" || character === undefined) {
                             story.set("contents", {
                                 "text": content,
-                                "character" : character
+                                "character": character
                             });
 
-                        }else {
+                        } else {
                             story.set("contents", {"text": content});
                         }
                         break;
@@ -1093,16 +1106,16 @@ module.exports = function (app) {
 
             }).then(function (story) {
 
-                res.redirect('/storyedit/' + story.id + '/' + _project.id );
+                res.redirect('/storyedit/' + story.id + '/' + _project.id);
 
             }, function (error) {
 
                 console.log("ERROR " + error.message);
-                res.redirect('/storyedit/' + storyId + '/' + projectId );
+                res.redirect('/storyedit/' + storyId + '/' + projectId);
 
             })
 
-        }else {
+        } else {
             res.redirect('/');
         }
     });
