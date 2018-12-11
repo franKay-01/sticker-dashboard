@@ -181,6 +181,22 @@
                     <i class="fa fa-link" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
                     <input class="_pack common_pack_detail validate" placeholder="Add Name" type="text" name="author">
                     <input class="_pack common_pack_detail validate" placeholder="Add Link" type="text" name="url">
+
+                    <% if (storyType === type.STORY_TYPE.chat_single || storyType === type.STORY_TYPE.chat_single_episode
+                            || storyType === type.STORY_TYPE.chat_group || storyType === type.STORY_TYPE.chat_group_episode) {%>
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate" name="character" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Select Character</option>
+                            <% if (chatMembers.length === 0) { %>
+
+                            <% } else { %>
+                            <% chatMembers.forEach(function(items) { %>
+                            <option value="<%= items.id %>"><%= items.get("profile").content.name %></option>
+                            <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
+                    <%}%>
                 </center>
                 <input name="style" value="<%= type.STORY_ITEM.link %>" hidden>
                 <span>
@@ -259,6 +275,21 @@
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
                     Words: <span class="wordCount">0</span><br/>
+                    <% if (storyType === type.STORY_TYPE.chat_single || storyType === type.STORY_TYPE.chat_single_episode
+                            || storyType === type.STORY_TYPE.chat_group || storyType === type.STORY_TYPE.chat_group_episode) {%>
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate" name="character" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Select Character</option>
+                            <% if (chatMembers.length === 0) { %>
+
+                            <% } else { %>
+                            <% chatMembers.forEach(function(items) { %>
+                            <option value="<%= items.id %>"><%= items.get("profile").content.name %></option>
+                            <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
+                    <%}%>
                 </center>
                 <input name="style" value="<%= type.STORY_ITEM.quote %>" hidden>
                 <span>
@@ -287,6 +318,21 @@
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
                     Words: <span class="wordCount">0</span><br/>
+                    <% if (storyType === type.STORY_TYPE.chat_single || storyType === type.STORY_TYPE.chat_single_episode
+                            || storyType === type.STORY_TYPE.chat_group || storyType === type.STORY_TYPE.chat_group_episode) {%>
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate" name="character" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Select Character</option>
+                            <% if (chatMembers.length === 0) { %>
+
+                            <% } else { %>
+                            <% chatMembers.forEach(function(items) { %>
+                            <option value="<%= items.id %>"><%= items.get("profile").content.name %></option>
+                            <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
+                    <%}%>
                 </center>
 
                 <input name="style" value="<%= type.STORY_ITEM.italic %>" hidden>
@@ -317,6 +363,21 @@
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
                     Words: <span class="wordCount">0</span><br/>
+                    <% if (storyType === type.STORY_TYPE.chat_single || storyType === type.STORY_TYPE.chat_single_episode
+                            || storyType === type.STORY_TYPE.chat_group || storyType === type.STORY_TYPE.chat_group_episode) {%>
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate" name="character" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Select Character</option>
+                            <% if (chatMembers.length === 0) { %>
+
+                            <% } else { %>
+                            <% chatMembers.forEach(function(items) { %>
+                            <option value="<%= items.id %>"><%= items.get("profile").content.name %></option>
+                            <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
+                    <%}%>
                 </center>
 
                 <input name="style" value="<%= type.STORY_ITEM.bold %>" hidden>
@@ -350,6 +411,21 @@
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
                     Words: <span class="wordCount">0</span><br/>
+                    <% if (storyType === type.STORY_TYPE.chat_single || storyType === type.STORY_TYPE.chat_single_episode
+                            || storyType === type.STORY_TYPE.chat_group || storyType === type.STORY_TYPE.chat_group_episode) {%>
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate" name="character" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Select Character</option>
+                            <% if (chatMembers.length === 0) { %>
+
+                            <% } else { %>
+                            <% chatMembers.forEach(function(items) { %>
+                            <option value="<%= items.id %>"><%= items.get("profile").content.name %></option>
+                            <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
+                    <%}%>
                 </center>
 
                 <input name="style" value="<%= type.STORY_ITEM.heading %>" hidden>
@@ -447,6 +523,21 @@
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
                     Words: <span class="wordCount">0</span><br/>
+                    <% if (storyType === type.STORY_TYPE.chat_single || storyType === type.STORY_TYPE.chat_single_episode
+                            || storyType === type.STORY_TYPE.chat_group || storyType === type.STORY_TYPE.chat_group_episode) {%>
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate" name="character" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Select Character</option>
+                            <% if (chatMembers.length === 0) { %>
+
+                            <% } else { %>
+                            <% chatMembers.forEach(function(items) { %>
+                            <option value="<%= items.id %>"><%= items.get("profile").content.name %></option>
+                            <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
+                    <%}%>
                 </center>
 
                 <input name="style" value="<%= type.STORY_ITEM.italicBold %>" hidden>
@@ -480,7 +571,22 @@
                                    id="list" required="" name="content[]">
                             <a href="#" id="addList"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                         </p>
+                    </div><br>
+                    <% if (storyType === type.STORY_TYPE.chat_single || storyType === type.STORY_TYPE.chat_single_episode
+                            || storyType === type.STORY_TYPE.chat_group || storyType === type.STORY_TYPE.chat_group_episode) {%>
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate" name="character" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Select Character</option>
+                            <% if (chatMembers.length === 0) { %>
+
+                            <% } else { %>
+                            <% chatMembers.forEach(function(items) { %>
+                            <option value="<%= items.id %>"><%= items.get("profile").content.name %></option>
+                            <% }) %>
+                            <% } %>
+                        </select>
                     </div>
+                    <%}%>
                 </center>
 
                 <input name="style" value="<%= type.STORY_ITEM.list %>" hidden>
@@ -544,6 +650,21 @@
                         </div>
                     </div>
                     <br>
+                    <% if (storyType === type.STORY_TYPE.chat_single || storyType === type.STORY_TYPE.chat_single_episode
+                            || storyType === type.STORY_TYPE.chat_group || storyType === type.STORY_TYPE.chat_group_episode) {%>
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate" name="character" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Select Character</option>
+                            <% if (chatMembers.length === 0) { %>
+
+                            <% } else { %>
+                            <% chatMembers.forEach(function(items) { %>
+                            <option value="<%= items.id %>"><%= items.get("profile").content.name %></option>
+                            <% }) %>
+                            <% } %>
+                        </select>
+                    </div>
+                    <%}%>
                 </center>
                 <span>
         <button type="submit" class="create">ADD</button>
