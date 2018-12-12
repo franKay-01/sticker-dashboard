@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chats - G-Stickers</title>
+
+    <% include ../../partials/fav.ejs %>
+
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>-->
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+
+    <style>
+        .toShow{
+            display: none
+        }
+
+        .hide {
+            display: none;
+        }
+
+    </style>
+</head>
+<body class="primary-background-color">
+
+<div class="grid-container">
+    <!-- Logo -->
+    <div class="medium-12 large-12" id="logo">
+        <img src="/public/assets/images/G_logo.png"
+             srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
+             id="logo">
+
+    </div>
+    <!-- End of logo -->
+
+    <span class="medium-12 large-12 welcome_post" id="pack_id"><b><%= story.get("title") %></b>
+    </span>
+    <center>
+        <div class="grid-x grid-margin-x" id="opaqueDiv" style="background-color: white; width: 900px;">
+
+            <% if (storyItems.length === 0){ %>
+
+            <% } else { %>
+
+            <% storyItems.forEach(function(item, index) { %>
+            <% if (item.get("contents").character === incoming[0].memberId){ %>
+            <div id="<%= index %>" style="width: 90%; display: block !important;" class="toShow">
+                    <span style="float: left;">
+                        <img style="width:170px;height:170px;margin-left:15px;" src="<%= incoming[0].profileImage %>">
+                    </span>
+                <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
+                      class="speech-bubble"><%= item.get("contents").text %>
+                    <% let id = index + 1 %>
+                    <span style="position: absolute;margin: 45px;" data-id="<%= id %>" data-current="<%= index %>">
+                        <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
+                    </span>
+                </span>
+
+            </div>
+            <% } else if (item.get("contents").character === outgoing.memberId){ %>
+            <div id="<%= index %>" style="width: 90%;display: block !important;" class="toShow">
+                    <span style="float: right;">
+                        <img style="width:170px;height:170px;margin-left:5px;" src="<%= outgoing[0].profileImage %>">
+                    </span>
+                <div style="float: right;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
+                     class="speech-bubble-right"><%= item.get("contents").text %></div>
+                <% let id = index + 1 %>
+                <span style="position: absolute;margin: 110px 180px" data-id="<%= id %>" data-current="<%= index %>">
+                    <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
+                </span>
+            </div>
+            <% }%>
+            <% }) %>
+            <% } %>
+            <%- include('../partials/footer') %>
+        </div>
+    </center>
+</div>
+<!-- Body -->
+
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
+<!-- Compiled and minified JavaScript -->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>-->
+<!--<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>-->
+<script type="text/javascript" src="/public/assets/js/custom.js"></script>
+<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+<script type="text/javascript">
+
+    $('.toShow').click(function(e){
+        e.stopPropagation();
+        let one = $(e.target);
+        one.next().show();
+    });
+</script>
+</body>
+</html>

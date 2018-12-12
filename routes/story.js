@@ -157,14 +157,13 @@ module.exports = function (app) {
                 incomingProfile.push({"memberId": incoming.id, "profileImage": incoming.get("profileImage").url()});
                 outgoingProfile.push({"memberId": outgoing.id, "profileImage": outgoing.get("profileImage").url()});
 
-                res.send(JSON.stringify(incomingProfile) + " LLLL " + JSON.stringify(outgoingProfile));
-                // res.render("pages/stories/chat_preview", {
-                //     incoming: incomingProfile,
-                //     outgoing: outgoingProfile,
-                //     storyItems: storyItems,
-                //     projectItem: _allProject,
-                //     story: _story
-                // })
+                res.render("pages/stories/chat_preview", {
+                    incoming: incomingProfile,
+                    outgoing: outgoingProfile,
+                    storyItems: storyItems,
+                    projectItem: _allProject,
+                    story: _story
+                })
 
             }, function (error) {
 
