@@ -381,7 +381,7 @@
                     </button>
                 </a>
                 <% } else if (story.get("storyType") === type.STORY_TYPE.chat_group || story.get("storyType") === type.STORY_TYPE.chat_single) {%>
-                <a target="_blank" href="/preview/chats/<%= story.id %>" style="float: right">
+                <a target="_blank" href="/preview/chats/<%= story.id %>/<%= projectItem.id %>" style="float: right">
                     <button class="create_button add_catalogue" style="background: transparent !important;">
                         <p class="preview"> PREVIEW CHATS</p>
                     </button>

@@ -122,16 +122,57 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/preview/chats/:storyId', function (req, res) {
+    app.get('/preview/chats/:storyId/:projectId', function (req, res) {
 
         let token = req.cookies.token;
         let storyId = req.params.storyId;
+        let projectId = req.params.projectId;
+        let incomingProfile = [];
+        let outgoingProfile = [];
+        let _story;
+        let _allProject;
 
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
 
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                )
+
+            }).then(function (story, project) {
+
+                _story = story;
+                _allProject = project;
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Members).equalTo("objectId", story.get("info").incoming).first(),
+                    new Parse.Query(_class.Members).equalTo("objectId", story.get("info").outgoing).first(),
+                    new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find()
+                )
+
+            }).then(function (incoming, outgoing, storyItems) {
+
+                incomingProfile.push({"memberId": incoming.id, "profileImage": incoming.get("profileImage").url()});
+                outgoingProfile.push({"memberId": outgoing.id, "profileImage": outgoing.get("profileImage").url()});
+
+                res.send(JSON.stringify(incomingProfile) + " LLLL " + JSON.stringify(outgoingProfile));
+                // res.render("pages/stories/chat_preview", {
+                //     incoming: incomingProfile,
+                //     outgoing: outgoingProfile,
+                //     storyItems: storyItems,
+                //     projectItem: _allProject,
+                //     story: _story
+                // })
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/storyedit/' + storyId + '/' + projectId);
             })
+        }else {
+            res.redirect('/');
         }
     });
 
