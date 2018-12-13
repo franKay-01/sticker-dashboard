@@ -293,7 +293,8 @@
             <div class="row">
                 <div class="col s3"><input type="text" name="search" class="box_2" placeholder="Search entry"></div>
                 <div class="col s4">
-                    <select class="input-field validate" style="height: 35px;" name="field" required="" aria-required="true">
+                    <select class="input-field validate" style="height: 35px;" name="field" required=""
+                            aria-required="true">
                         <option value="" disabled selected>&nbsp;Select Search Field</option>
                         <option value="<%= className.Stickers %>">Stickers</option>
                         <option value="<%= className.Packs %>">Packs</option>
@@ -305,8 +306,9 @@
 
                 <div class="col s1" style="margin-top: -5px;">
                     <button type="submit" style="background: transparent !important;">
-                        <i class="fa fa-search" style="color: <%= projectItem.get("setting").text %> !important;font-size: 30px;"
-                       aria-hidden="true"></i>
+                        <i class="fa fa-search"
+                           style="color: <%= projectItem.get("setting").text %> !important;font-size: 30px;"
+                           aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
@@ -436,38 +438,46 @@
         </div>
 
         <div class="medium-3 large-3 cell icons">
-            <div class="create_new">Others</div>
+            <div class="create_new">Jokes</div>
 
             <div class="card_head_position">
                 <div class="recent_labels">Recent Jokes</div>
                 <%- include('../../partials/jokes') %>
+            </div>
 
+            <div class="create_new">Jokes</div>
+            <div class="card_head_position">
                 <div class="recent_labels" style="margin-top: 75px !important;">Recent Quotes</div>
                 <%- include('../../partials/quotes') %>
-
             </div>
         </div>
 
         <div class="medium-3 large-3 cell icons">
-            <div class="create_new">Others</div>
+            <div class="create_new">News</div>
 
             <div class="card_head_position">
                 <div class="recent_labels">Recent News</div>
                 <%- include('../../partials/news') %>
+            </div>
 
+            <div class="create_new">History</div>
+
+            <div class="card_head_position">
                 <div class="recent_labels" style="margin-top: 75px !important;">Recent History</div>
                 <%- include('../../partials/history') %>
-
             </div>
         </div>
 
         <div class="medium-3 large-3 cell icons">
-            <div class="create_new">Others</div>
+            <div class="create_new">Facts</div>
 
             <div class="card_head_position">
                 <div class="recent_labels">Recent Facts</div>
                 <%- include('../../partials/facts') %>
+            </div>
 
+            <div class="create_new">Episodes</div>
+            <div class="card_head_position">
                 <div class="recent_labels" style="margin-top: 75px !important;">Recent Episodes</div>
                 <%- include('../../partials/episodes') %>
             </div>
