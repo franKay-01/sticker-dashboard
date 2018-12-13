@@ -1802,7 +1802,8 @@ module.exports = function (app) {
 
             }).then(function (story) {
 
-                res.redirect('/story/artwork/new/' + story.id + '/' + projectId);
+                // res.redirect('/story/artwork/new/' + story.id + '/' + projectId);
+                res.redirect('/storyedit/' + story.id + '/' + projectId);
 
             }, function (error) {
                 console.log("ERROR WHEN CREATING NEW STORY " + error.message);
