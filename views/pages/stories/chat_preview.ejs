@@ -56,8 +56,9 @@
             <% } else { %>
 
             <% storyItems.forEach(function(item, index) { %>
-            <% if (item.get("contents").character === incoming[0].memberId){ %>
             <div id="<%= index %>" style="width: 90%; display: block !important;" class="toShow">
+
+            <% if (item.get("contents").character === incoming[0].memberId){ %>
                     <span style="float: left;">
                         <img style="width:170px;height:170px;margin-left:15px;" src="<%= incoming[0].profileImage %>">
                     </span>
@@ -69,7 +70,6 @@
                     </span>
                 </span>
 
-            </div>
             <% } else if (item.get("contents").character === outgoing.memberId){ %>
             <div id="<%= index %>" style="width: 90%;display: block !important;" class="toShow">
                     <span style="float: right;">
@@ -83,6 +83,8 @@
                 </span>
             </div>
             <% }%>
+            </div>
+
             <% }) %>
             <% } %>
             <%- include('../../partials/footer') %>
