@@ -732,6 +732,14 @@
 
         <div class="medium-3 large-3 cell icons">
             <div class="create_new">Story Details</div>
+
+            <a href="/story/view/<%= story_id %>/<%= projectItem.id %>">
+                <button class="create_button">
+                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Show All
+                    </p>
+                </button>
+            </a>
+
             <% if (source === "episode") {%>
             <a href="/episode/edit/<%= story_id %>/<%= projectItem.id %>">
                 <button class="create_button">
@@ -739,13 +747,13 @@
                     </p>
                 </button>
             </a>
-            <%}%>
-            <a href="/story/view/<%= story_id %>/<%= projectItem.id %>">
-                <button class="create_button">
-                    <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Show All
-                    </p>
+
+            <a target="_blank" href="/newsletter/story/<%= story_id %>" style="float: right">
+                <button class="create_button add_catalogue" style="background: transparent !important;">
+                    <p class="preview"> PREVIEW EPISODE</p>
                 </button>
             </a>
+            <%}%>
 
         </div>
 
