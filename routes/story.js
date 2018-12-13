@@ -841,7 +841,7 @@ module.exports = function (app) {
                     }
                 });
 
-                res.redirect(storyItem + '/' + source + '/' + id + '/' + projectId);
+                res.redirect(storyItem + source + '/' + id + '/' + projectId);
 
             }, function (error) {
 
