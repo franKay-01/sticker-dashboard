@@ -465,12 +465,14 @@
 
                         <% if (sticker !== ""){ %>
 
-                        <a href="/story/artwork/new/<%= story.id %>/<%= projectItem.id %>" id="change_image" class="preview">New Artwork
+                        <a href="#" id="change_image" class="preview">Change Artwork
                             <i class="fa fa-picture-o" style="color: #590a5d; font-size: 1.5rem;" aria-hidden="true"></i></a>
 
                         <%} else {%>
-                        <a href="#" id="change_image" class="preview">Change Artwork
+
+                        <a href="/story/artwork/new/<%= story.id %>/<%= projectItem.id %>" id="change_image" class="preview">New Artwork
                             <i class="fa fa-picture-o" style="color: #590a5d; font-size: 1.5rem;" aria-hidden="true"></i></a>
+
                         <%}%>
                         <br>
 
