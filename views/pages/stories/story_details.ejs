@@ -252,7 +252,7 @@
 
         <!-- End of logo -->
         <span class="medium-6 large-6 welcome_post"><b>Edit <i style="color: #a46580">
-                    <%= story.get("title") %></i> Story Details</b></span>
+                    <%= story.get("title") %></i> <%= storyType %> Details</b></span>
 
         <div class="grid-x grid-margin-x story" id="opaqueDiv">
             <div class="medium-3 large-3 cell">
@@ -268,9 +268,7 @@
                         </div>
                         <% } else { %>
                         <div style="margin-top: 40px !important;">
-                            <a class="_stickers_packs" href="/storyitem/story/<%= story.id %>/<%= projectItem.id %>">Add
-                                Story
-                                Item</a>
+                            <a class="_stickers_packs" href="/storyitem/story/<%= story.id %>/<%= projectItem.id %>">Add <%= storyType %> Item</a>
                         </div>
                         <% } %>
                     </div>
@@ -293,19 +291,14 @@
                     <a href="#" id="showPermission">
                         <button class="create_button">
                             <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
-                                    aria-hidden="true"></i>
-                                &nbsp;
-                                PUBLISH
-                            </p>
+                                    aria-hidden="true"></i>&nbsp;PUBLISH</p>
                         </button>
                     </a>
                     <% } else if (story.get("published") === true){ %>
                     <a href="#" id="removePublished">
                         <button class="create_button">
                             <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
-                                    aria-hidden="true"></i>
-                                &nbsp;
-                                UNPUBLISH
+                                    aria-hidden="true"></i>&nbsp;UNPUBLISH
                             </p>
                         </button>
                     </a>

@@ -170,7 +170,7 @@ module.exports = function (app) {
                 console.log("ERROR " + error.message);
                 res.redirect('/storyedit/' + storyId + '/' + projectId);
             })
-        }else {
+        } else {
             res.redirect('/');
         }
     });
@@ -1592,6 +1592,8 @@ module.exports = function (app) {
         let _latest = "";
         let limit = 5;
         let page;
+        let storyType;
+
 
         if (token) {
 
@@ -1622,37 +1624,78 @@ module.exports = function (app) {
 
             }).then(function (story, sticker, latest, stories, authors, products) {
 
-                _story = story;
-                _authors = authors;
-                _products = products;
+                    switch (story.get("storyType")) {
+                        case type.STORY_TYPE.story:
+                            storyType = "Story";
+                            break;
 
-                if (latest) {
-                    _latest = latest;
-                }
+                        case type.STORY_TYPE.episodes:
+                            storyType = "Episode";
+                            break;
 
-                page = util.page(stories, story_id);
+                        case type.STORY_TYPE.chat_single || type.STORY_TYPE.chat_group_episode ||  type.STORY_TYPE.chat_single_episode ||  type.STORY_TYPE.chat_group:
+                            storyType = "Chats";
+                            break;
 
-                colors = story.get("color");
+                        case type.STORY_TYPE.facts:
+                            storyType = "Facts";
+                            break;
 
-                if (colors.topColor === "" || colors === {}) {
-                    //use system default
-                    colors = type.DEFAULT.colors;
+                        case type.STORY_TYPE.history:
+                            storyType = "History";
+                            break;
 
-                } else {
+                        case type.STORY_TYPE.jokes:
+                            storyType = "Jokes";
+                            break;
+
+                        case type.STORY_TYPE.news:
+                            storyType = "News";
+                            break;
+
+                        case type.STORY_TYPE.quotes:
+                            storyType = "Quotes";
+                            break;
+
+                        case type.STORY_TYPE.short_stories:
+                            storyType = "Short Stories";
+                            break;
+
+
+                    }
+
+                    _story = story;
+                    _authors = authors;
+                    _products = products;
+
+                    if (latest) {
+                        _latest = latest;
+                    }
+
+                    page = util.page(stories, story_id);
+
                     colors = story.get("color");
 
+                    if (colors.topColor === "" || colors === {}) {
+                        //use system default
+                        colors = type.DEFAULT.colors;
+
+                    } else {
+                        colors = story.get("color");
+
+                    }
+
+                    if (sticker) {
+
+                        return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first();
+
+                    } else {
+                        return "";
+                    }
+
+
                 }
-
-                if (sticker) {
-
-                    return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first();
-
-                } else {
-                    return "";
-                }
-
-
-            }).then(function (_sticker) {
+            ).then(function (_sticker) {
 
                 art = _sticker;
 
@@ -1696,6 +1739,7 @@ module.exports = function (app) {
                     projectItem: project,
                     chatMembers: members,
                     products: _products,
+                    storyType: storyType,
                     type: type,
                     next: page.next,
                     previous: page.previous
