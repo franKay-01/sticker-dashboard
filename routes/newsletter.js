@@ -14,6 +14,7 @@ module.exports = function (app) {
 
         let episodeId = req.params.episodeId;
         let _episode;
+        let _storyItems;
         let colors;
 
         Parse.Promise.when(
@@ -33,7 +34,7 @@ module.exports = function (app) {
         }).then(function (storyItems, story, sticker ) {
 
             colors = story.get("color");
-
+            _storyItems = storyItems;
             if (!colors) {
                 //use system default
                 colors = type.DEFAULT.colors;
@@ -47,7 +48,7 @@ module.exports = function (app) {
                 story: _episode,
                 sticker: sticker,
                 colors: colors,
-                storyItems: storyItems,
+                storyItems: _storyItems,
                 type: type
             });
 
