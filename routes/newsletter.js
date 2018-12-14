@@ -32,7 +32,7 @@ module.exports = function (app) {
 
         }).then(function (storyItems, story, sticker ) {
 
-            colors = episode.get("color");
+            colors = story.get("color");
 
             if (!colors) {
                 //use system default
