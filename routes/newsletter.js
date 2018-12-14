@@ -10,6 +10,54 @@ let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.
 
 module.exports = function (app) {
 
+    app.get('/newsletter/episode/:episodeId', function (req, res) {
+
+        let episodeId = req.params.episodeId;
+        let _episode;
+        let colors;
+
+        Parse.Promise.when(
+
+            new Parse.Query(_class.Episodes).equalTo("objectId", episodeId).first(),
+
+        ).then(function (episode) {
+
+            _episode = episode;
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.StoryItems).equalTo("storyId", _episode.id).find(),
+                new Parse.Query(_class.Stories).equalTo("objectId", _episode.get("storyId")).first(),
+                new Parse.Query(_class.ArtWork).equalTo("itemId", _episode.get("storyId")).first()
+            )
+
+        }).then(function (storyItems, story, sticker ) {
+
+            colors = episode.get("color");
+
+            if (!colors) {
+                //use system default
+                colors = type.DEFAULT.colors;
+            }
+
+            return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first()
+
+        }).then(function (sticker) {
+
+            res.render("pages/newsletter/newsletter", {
+                story: _episode,
+                sticker: sticker,
+                colors: colors,
+                storyItems: storyItems,
+                type: type
+            });
+
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/stories');
+        })
+
+    });
+
     app.get('/newsletter/story/:storyId', function (req, res) {
 
         let storyId = req.params.storyId;
