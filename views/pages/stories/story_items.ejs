@@ -385,11 +385,51 @@
                              aria-hidden="true"></i>
                 </a><br><br><br>
                 <% } %>
-                <% } %>
+                <% } else if (item.get("type") === 15){%>
+
+                <label class="update_label"><b>Name:</b></label>
+                <input class="box_2 validate" name="review_text" required="" aria-required="true" value="<%= item.get("contents").name %>" disabled>
+
+                <label class="update_label"><b>Url Link:</b></label>
+                <input class="box_2 validate" name="review_text" required="" aria-required="true" value="<%= item.get("contents").url %>" disabled>
+
+                <br>
+                <a href="/storyitem/html/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Link</a>&nbsp;&nbsp;
+                <a href="#" class="preview change" data-content="8" data-name=""
+                   data-id="<%= item.id %>">Change Type</a>
+                <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
+                   class="preview remove_items">
+                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
+                             aria-hidden="true"></i>
+                </a><br><br><br>
+
+                <%} else if (item.get("type") === 16){%>
+
+                <label class="update_label"><b>Name:</b></label>
+                <input class="box_2 validate" name="review_text" required="" aria-required="true" value="<%= item.get("contents").name %>" disabled>
+
+                <label class="update_label"><b>Description:</b></label>
+                <input class="box_2 validate" name="review_text" required="" aria-required="true" value="<%= item.get("contents").description %>" disabled>
+
+                <label class="update_label"><b>Link:</b></label>
+                <input class="box_2 validate" name="review_text" required="" aria-required="true" value="<%= item.get("contents").link %>" disabled>
+
+                <br>
+                <a href="/storyitem/html/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Source</a>&nbsp;&nbsp;
+                <a href="#" class="preview change" data-content="8" data-name=""
+                   data-id="<%= item.id %>">Change Type</a>
+                <a href="#" data-id="<%= item.id %>" style="color: #cc0000 !important;margin-left: 5px"
+                   class="preview remove_items">
+                    Delete<i class="fa fa-trash" style="color: #cc0000;font-size: 15px; margin-left: 5px !important;"
+                             aria-hidden="true"></i>
+                </a><br><br><br>
+                <%} else if (item.get("type") === 17){%>
+
+                <%}%>
                 <% }) %>
                 <% } %>
 
-                <a href="/storyitem/<%= source %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Back</a>&nbsp;&nbsp;
+                <a href="/storyitem/<%= source %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Back</a>
 
             </div>
         </div>
