@@ -671,6 +671,8 @@ module.exports = function (app) {
 
             }).then(function (story_item) {
 
+              console.log("STORY ITEM " + JSON.stringify(story_item));
+
                 if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
                     storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
                     storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sideNote ||
