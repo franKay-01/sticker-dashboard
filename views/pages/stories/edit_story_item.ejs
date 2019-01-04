@@ -87,14 +87,20 @@
                     <input name="id" value="<%= story_id %>" hidden>
                     <input name="type" value="<%= story_item.get("type") %>" hidden>
 
-                    <% } else if (story_item.get("type") === 16){ %>
-                    <div class="create_new">Source</div>
+                    <% } else if (story_item.get("type") === 10){ %>
+                    <div class="create_new">Lists</div>
 
                     <div style="margin: 20px 15px auto;">
+                        <% let arraySize = story_item.get("contents").text.length %>
+                        <% for (let i = 0; i < arraySize; i++){ %>
+                        <input class="validate" placeholder="Content" name="content[]" required=""
+                               value="<%= story_item.get("contents").text[i] %>" aria-required="true">
+                        <% } %>
 
                         <input name="id" value="<%= story_id %>" hidden>
                         <input name="type" value="<%= story_item.get("type") %>" hidden>
-                        <% } else if (story_item.get("type") === 15){ %>
+                        
+                        <% } else if (story_item.get("type") === 16){ %>
                           <input class="validate" placeholder="Content" name="title"
                                  value="<%= story_item.get("contents").name %>" required="" aria-required="true">
                           <input class="validate" placeholder="Content" name="link"
