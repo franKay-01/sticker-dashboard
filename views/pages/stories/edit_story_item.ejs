@@ -118,7 +118,21 @@
                           </div>
                           <input name="id" value="<%= story_id %>" hidden>
                           <input name="type" value="<%= story_item.get("type") %>" hidden>
-                          <%}%>
+                          <%} else if (story_item.get("type") === 15) {%>
+                            <div style="margin: 20px 15px auto;">
+                            <b style="color: black">Name:</b>
+                            <input class="validate" name="title"
+                                   value="<%= story_item.get("contents").name %>" required="" aria-required="true">
+
+                            <b style="color: black">Url Link:</b>
+
+                            <input class="validate" placeholder="Content" name="link"
+                                    value="<%= story_item.get("contents").link %>">
+
+                            </div>
+                            <input name="id" value="<%= story_id %>" hidden>
+                            <input name="type" value="<%= story_item.get("type") %>" hidden>
+                            <%}%>
                     </div>
                     <a href="#" id="submit_story" class="waves-effect pink darken-4 btn add-image-btn">SAVE</a>
 

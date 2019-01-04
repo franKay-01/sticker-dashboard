@@ -661,8 +661,6 @@ module.exports = function (app) {
         let storyItemType = parseInt(req.body.type);
         let object = {};
 
-        console.log("LISTING OF ITEMS " + JSON.stringify(link) + " "+ id + storyItemType + " " + JSON.stringify(title));
-
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
@@ -670,8 +668,6 @@ module.exports = function (app) {
                 return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
 
             }).then(function (story_item) {
-
-              console.log("STORY ITEM " + JSON.stringify(story_item));
 
                 if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
                     storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
@@ -685,13 +681,16 @@ module.exports = function (app) {
                     object = {"heading": heading, "text": content};
 
                 }
-                
+
                if (story_item.get("type") === type.STORY_ITEM.source) {
 
                     object = {"name": title, "description" : description, "link": link};
 
+                } else if (story_item.get("type") === type.STORY_ITEM.link) {
+
+                  object = {"name": title, "url" : link};
+
                 }
-                console.log("OBJECT " + JSON.stringify(object));
 
                 story_item.set("contents", object);
                 return story_item.save();
