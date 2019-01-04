@@ -661,6 +661,8 @@ module.exports = function (app) {
         let storyItemType = parseInt(req.body.type);
         let object = {};
 
+        console.log("LISTING OF ITEMS " + JSON.stringify(link) + " " + JSON.stringify(title));
+
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
