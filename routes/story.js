@@ -534,7 +534,8 @@ module.exports = function (app) {
                     story_id: id,
                     stickers: _stickers,
                     projectItem: _project,
-                    source: source
+                    source: source,
+                    type: type
 
                 });
             }, function (error) {
