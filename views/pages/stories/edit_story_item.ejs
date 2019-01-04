@@ -139,7 +139,7 @@
                                   <select class="input-field validate" name="productId" required="" aria-required="true">
                                       <option value="" disabled selected>&nbsp;CATEGORY</option>
                                       <option value="free"></option>
-                                      <% if (<%= story_item.get("contents").type === <%= type.FORMAT_TYPE.default %>) {%>
+                                      <% if (<%= story_item.get("contents").type %> === <%= type.FORMAT_TYPE.default %>) {%>
 
                                       <option value="<%= type.FORMAT_TYPE.default %>" selected>DEFAULT</option>
 
@@ -149,7 +149,7 @@
 
                                       <% } %>
 
-                                      <% if (<%= story_item.get("contents").type === <%= type.FORMAT_TYPE.sideImage %>) {%>
+                                      <% if (<%= story_item.get("contents").type %> === <%= type.FORMAT_TYPE.sideImage %>) {%>
 
                                         <option value="<%= type.FORMAT_TYPE.sideImage % selected>">SIDE IMAGE</option>
 
@@ -159,7 +159,7 @@
 
                                       <% } %>
 
-                                      <% if (<%= story_item.get("contents").type === <%= type.FORMAT_TYPE.text %>) {%>
+                                      <% if (<%= story_item.get("contents").type %> === <%= type.FORMAT_TYPE.text %>) {%>
 
                                         <option value="<%= type.FORMAT_TYPE.text % selected>">TEXT</option>
 
@@ -169,7 +169,7 @@
 
                                       <% } %>
 
-                                      <% if (<%= story_item.get("contents").type === <%= type.FORMAT_TYPE.backgroundImage %>) {%>
+                                      <% if (<%= story_item.get("contents").type %> === <%= type.FORMAT_TYPE.backgroundImage %>) {%>
 
                                         <option value="<%= type.FORMAT_TYPE.backgroundImage % selected>">BACKGROUND IMAGE</option>
 
@@ -179,7 +179,7 @@
 
                                       <% } %>
 
-                                      <% if (<%= story_item.get("contents").type === <%= type.FORMAT_TYPE.regular %>) {%>
+                                      <% if (<%= story_item.get("contents").type %> === <%= type.FORMAT_TYPE.regular %>) {%>
 
                                         <option value="<%= type.FORMAT_TYPE.regular % selected>">REGULAR</option>
 
@@ -189,7 +189,7 @@
 
                                       <% } %>
 
-                                      <% if (<%= story_item.get("contents").type === <%= type.FORMAT_TYPE.gradient %>) {%>
+                                      <% if (<%= story_item.get("contents").type %> === <%= type.FORMAT_TYPE.gradient %>) {%>
 
                                         <option value="<%= type.FORMAT_TYPE.gradient % selected>">GRADIENT</option>
 

@@ -425,36 +425,34 @@
                 </a><br><br><br>
                 <%} else if (item.get("type") === 17){%>
                   <label class="update_label"><b>Type:</b></label>
-                  <input class="box_2 validate" name="review_text" required="" aria-required="true" value="<%= item.get("contents").name %>" disabled>
+                      <% if (<%= item.get("contents").type %> === <%= type.FORMAT_TYPE.default %>) {%>
 
-                          <% if (<%= item.get("contents").type === <%= type.FORMAT_TYPE.default %>) {%>
+                          <input class="box_2 validate" name="review_text" required="" aria-required="true" value="DEFAULT" disabled>
 
-                            <input class="box_2 validate" name="review_text" required="" aria-required="true" value="DEFAULT" disabled>
-
-                          <% } else if (<%= item.get("contents").type === <%= type.FORMAT_TYPE.sideImage %>) {%>
+                        <% } else if (<%= item.get("contents").type %> === <%= type.FORMAT_TYPE.sideImage %>) {%>
 
                             <input class="box_2 validate" name="review_text" required="" aria-required="true" value="SIDE IMAGE" disabled>
 
-                          <% } else if (<%= item.get("contents").type === <%= type.FORMAT_TYPE.text %>) {%>
+                        <% } else if (<%= item.get("contents").type %> === <%= type.FORMAT_TYPE.text %>) {%>
 
                             <input class="box_2 validate" name="review_text" required="" aria-required="true" value="TEXT" disabled>
 
-                          <% } else if (<%= item.get("contents").type === <%= type.FORMAT_TYPE.backgroundImage %>) {%>
+                        <% } else if (<%= item.get("contents").type %> === <%= type.FORMAT_TYPE.backgroundImage %>) {%>
 
                             <input class="box_2 validate" name="review_text" required="" aria-required="true" value="BACKGROUND IMAGE" disabled>
 
-                          <% } else if (<%= item.get("contents").type === <%= type.FORMAT_TYPE.regular %>) {%>
+                        <% } else if (<%= item.get("contents").type %> === <%= type.FORMAT_TYPE.regular %>) {%>
 
                             <input class="box_2 validate" name="review_text" required="" aria-required="true" value="REGULAR" disabled>
 
-                          <% } else if (<%= item.get("contents").type === <%= type.FORMAT_TYPE.gradient %>) {%>
+                        <% } else if (<%= item.get("contents").type %> === <%= type.FORMAT_TYPE.gradient %>) {%>
 
                             <input class="box_2 validate" name="review_text" required="" aria-required="true" value="GRADIENT" disabled>
 
-                          <% } %>
+                        <% } %>
 
                  <label class="update_label"><b>Color:</b></label>
-                   <% if (<%= item.get("contents").type === <%= type.FORMAT_TYPE.gradient %>) {%>
+                   <% if (<%= item.get("contents").type %> === <%= type.FORMAT_TYPE.gradient %>) {%>
                      <label class="update_label"><b>Color #1:</b></label>
                      <input value="<%= item.get("contents").topColor %>"/>
                      <label class="update_label"><b>Color #2:</b></label>
