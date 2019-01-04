@@ -684,8 +684,12 @@ module.exports = function (app) {
 
                     object = {"heading": heading, "text": content};
 
-                } else if (storyItemType === type.STORY_ITEM.source) {
+                }
+                
+               if (story_item.get("type") === type.STORY_ITEM.source) {
+
                     object = {"name": title, "description" : description, "link": link};
+
                 }
                 console.log("OBJECT " + JSON.stringify(object));
 
