@@ -99,14 +99,23 @@
 
                         <input name="id" value="<%= story_id %>" hidden>
                         <input name="type" value="<%= story_item.get("type") %>" hidden>
-                        
+
                         <% } else if (story_item.get("type") === 16){ %>
-                          <input class="validate" placeholder="Content" name="title"
+                          <div style="margin: 20px 15px auto;">
+                          <b style="color: black">Title:</b>
+                          <input class="validate" name="title"
                                  value="<%= story_item.get("contents").name %>" required="" aria-required="true">
+
+                          <b style="color: black">Link:</b>
+
                           <input class="validate" placeholder="Content" name="link"
                                   value="<%= story_item.get("contents").link %>">
-                          <textarea class="validate" placeholder="Content"
+
+                          <b style="color: black">Description:</b>
+
+                          <textarea class="validate"
                                     name="description"><%= story_item.get("contents").description %></textarea><br>
+                          </div>
                           <%}%>
                     </div>
                     <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
