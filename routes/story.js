@@ -695,7 +695,7 @@ module.exports = function (app) {
 
             }, function (error) {
                 console.log("ERROR " + error.message);
-                res.redirect('/storyitem/edit/' + id + "/" + story_id + '/' + projectId);
+                res.redirect('/storyitem/edit/' + id + '/' + story_id + '/' + projectId);
             })
         } else {
             res.redirect('/');
