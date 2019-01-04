@@ -68,8 +68,8 @@
                 <textarea class="validate" placeholder="Content"
                           name="content" required=""
                           aria-required="true"><%= story_item.get("contents").text %></textarea><br>
-                        <input name="id" value="<%= story_id %>" hidden>
-                        <input name="type" value="<%= story_item.get("type") %>" hidden>
+                        /* <input name="id" value="<%= story_id %>" hidden>
+                        <input name="type" value="<%= story_item.get("type") %>" hidden> */
 
                     </div>
                     <% } else if (story_item.get("type") === 9){ %>
@@ -84,8 +84,8 @@
                                   name="content" required=""
                                   aria-required="true"><%= story_item.get("contents").text %></textarea><br>
                     </div>
-                    <input name="id" value="<%= story_id %>" hidden>
-                    <input name="type" value="<%= story_item.get("type") %>" hidden>
+                    /* <input name="id" value="<%= story_id %>" hidden>
+                    <input name="type" value="<%= story_item.get("type") %>" hidden> */
 
                     <% } else if (story_item.get("type") === 10){ %>
                     <div class="create_new">Lists</div>
@@ -97,8 +97,8 @@
                                value="<%= story_item.get("contents").text[i] %>" aria-required="true">
                         <% } %>
 
-                        <input name="id" value="<%= story_id %>" hidden>
-                        <input name="type" value="<%= story_item.get("type") %>" hidden>
+                        /* <input name="id" value="<%= story_id %>" hidden>
+                        <input name="type" value="<%= story_item.get("type") %>" hidden> */
 
                         <% } else if (story_item.get("type") === 16){ %>
                           <div style="margin: 20px 15px auto;">
@@ -116,12 +116,15 @@
                           <textarea class="validate"
                                     name="description"><%= story_item.get("contents").description %></textarea><br>
                           </div>
+
                           <%}%>
                     </div>
                     <!--<button type="submit" class="waves-effect pink darken-4 btn add-image-btn">SAVE</button>-->
                     <a href="#" id="submit_story" class="waves-effect pink darken-4 btn add-image-btn">SAVE</a>
 
                 </div>
+                <input name="id" value="<%= story_id %>" hidden>
+                <input name="type" value="<%= story_item.get("type") %>" hidden>
             </form>
             <div class="medium-3 large-3 cell login_card">
                 <div class="card_head_position">

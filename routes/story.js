@@ -653,12 +653,14 @@ module.exports = function (app) {
         let id = req.params.id;
         let content = req.body.content;
         let story_id = req.body.id;
+        let title = req.body.title;
+        let link = req.body.link;
+        let description = req.body.description;
         let projectId = req.body.projectId;
         let heading = req.body.heading;
         let storyItemType = parseInt(req.body.type);
         let object = {};
 
-        console.log("EDITING STORY ITEM HAS BEGUN" + story_id);
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
@@ -678,6 +680,8 @@ module.exports = function (app) {
 
                     object = {"heading": heading, "text": content};
 
+                } else if (storyItemType === type.STORY_ITEM.source) {
+                    object = {"name": title, "description" : description, "link": link};
                 }
 
                 story_item.set("contents", object);
