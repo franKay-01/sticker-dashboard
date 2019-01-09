@@ -452,13 +452,19 @@
                         <% } %>
 
                    <% if (item.get("contents").type === type.FORMAT_TYPE.gradient ) {%>
-                     <label class="update_label"><b>Color #1:</b></label>
-                     <input value="<%= item.get("contents").topColor %>"/>
-                     <label class="update_label"><b>Color #2:</b></label>
-                     <input value="<%= item.get("contents").bottomColor %>"/>
-                   <%} else {%>
-                     <label class="update_label"><b>Color #1:</b></label>
-                     <input value="<%= item.get("contents").color %>"/>
+                     <input class="box_2 validate" name="review_text" required="" aria-required="true" value="GRADIENT" disabled>
+
+                     <% if (item.get("contents").topColor && item.get("contents").bottomColor) {%>
+                       <label class="update_label"><b>Color #1:</b></label>
+                       <input value="<%= item.get("contents").topColor %>"/>
+                       <label class="update_label"><b>Color #2:</b></label>
+                       <input value="<%= item.get("contents").bottomColor %>"/>
+
+                    <%} else {%>
+                      <label class="update_label"><b>Color #1:</b></label>
+                      <input value="<%= item.get("contents").topColor %>"/>
+                    <%}%>
+
                    <% } %>
                    <a href="/storyitem/edit/<%= item.id %>/<%= story_id %>/<%= projectItem.id %>" class="preview">Edit Background Color</a>&nbsp;&nbsp;
                    <a href="#" class="preview change" data-content="8" data-name=""
