@@ -692,9 +692,13 @@ module.exports = function (app) {
                     object = {"type": formatCategory, "color": backgroundColor};
 
                   }else if (formatCategory === type.FORMAT_TYPE.gradient) {
+                    if (backgroundColorTwo === undefined){
+                      object = {"type": formatCategory, "topColor": backgroundColor, "bottomColor" : backgroundColor};
 
-                    object = {"type": formatCategory, "topColor": backgroundColor, "bottomColor" : backgroundColorTwo};
+                    }else {
+                      object = {"type": formatCategory, "topColor": backgroundColor, "bottomColor" : backgroundColorTwo};
 
+                    }
                   }
 
                 }
