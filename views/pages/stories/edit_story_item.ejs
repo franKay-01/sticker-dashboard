@@ -78,11 +78,11 @@
             <div style="margin: 20px 15px auto;">
 
               <b style="color: black">Heading:</b>
-              <input class="validate" placeholder="Content" name="heading" value="<%= story_item.get(" contents").heading %>" required="" aria-required="true">
+              <input class="validate" placeholder="Content" name="heading" value="<%= story_item.get("contents").heading %>" required="" aria-required="true">
               <textarea class="validate" placeholder="Content" name="content" required="" aria-required="true"><%= story_item.get("contents").text %></textarea><br>
             </div>
             <input name="id" value="<%= story_id %>" hidden>
-            <input name="type" value="<%= story_item.get(" type") %>" hidden>
+            <input name="type" value="<%= story_item.get("type") %>" hidden>
 
             <% } else if (story_item.get("type") === 10){ %>
             <div class="create_new">Lists</div>
@@ -90,20 +90,20 @@
             <div style="margin: 20px 15px auto;">
               <% let arraySize = story_item.get("contents").text.length %>
               <% for (let i = 0; i < arraySize; i++){ %>
-              <input class="validate" placeholder="Content" name="content[]" required="" value="<%= story_item.get(" contents").text[i] %>" aria-required="true">
+              <input class="validate" placeholder="Content" name="content[]" required="" value="<%= story_item.get("contents").text[i] %>" aria-required="true">
               <% } %>
 
               <input name="id" value="<%= story_id %>" hidden>
-              <input name="type" value="<%= story_item.get(" type") %>" hidden>
+              <input name="type" value="<%= story_item.get("type") %>" hidden>
 
               <% } else if (story_item.get("type") === 16){ %>
               <div style="margin: 20px 15px auto;">
                 <b style="color: black">Title:</b>
-                <input class="validate" name="title" value="<%= story_item.get(" contents").name %>" required="" aria-required="true">
+                <input class="validate" name="title" value="<%= story_item.get("contents").name %>" required="" aria-required="true">
 
                 <b style="color: black">Link:</b>
 
-                <input class="validate" placeholder="Content" name="link" value="<%= story_item.get(" contents").link %>">
+                <input class="validate" placeholder="Content" name="link" value="<%= story_item.get("contents").link %>">
 
                 <b style="color: black">Description:</b>
 
@@ -114,14 +114,14 @@
               <%} else if (story_item.get("type") === 15) {%>
               <div style="margin: 20px 15px auto;">
                 <b style="color: black">Name:</b>
-                <input class="validate" name="title" value="<%= story_item.get(" contents").name %>" required="" aria-required="true">
+                <input class="validate" name="title" value="<%= story_item.get("contents").name %>" required="" aria-required="true">
 
                 <b style="color: black">Url Link:</b>
 
-                <input class="validate" placeholder="Content" name="link" value="<%= story_item.get(" contents").url %>">
+                <input class="validate" placeholder="Content" name="link" value="<%= story_item.get("contents").url %>">
 
                 <input name="id" value="<%= story_id %>" hidden>
-                <input name="type" value="<%= story_item.get(" type") %>" hidden>
+                <input name="type" value="<%= story_item.get("type") %>" hidden>
               </div>
 
               <%} else if (story_item.get("type") === 17) {%>
@@ -153,14 +153,14 @@
                 <% if (parseInt(itemType) === type.FORMAT_TYPE.regular) {%>
 
                 <label class="update_label"><b>Color #1:</b></label>
-                <input value="<%= story_item.get(" contents").color %>"/>
+                <input value="<%= story_item.get("contents").color %>"/>
 
                 <% } else if (parseInt(itemType) === type.FORMAT_TYPE.gradient ) {%>
 
                 <label class="update_label"><b>Color #1:</b></label>
-                <input value="<%= story_item.get(" contents").topColor %>"/>
+                <input value="<%= story_item.get("contents").topColor %>"/>
                 <label class="update_label"><b>Color #2:</b></label>
-                <input value="<%= story_item.get(" contents").bottomColor %>"/>
+                <input value="<%= story_item.get("contents").bottomColor %>"/>
 
                 <% } %>
 
