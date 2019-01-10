@@ -2467,7 +2467,8 @@ module.exports = function (app) {
                 res.render("pages/stories/edit_story_item", {
                     story_item: story_item,
                     story_id: story_id,
-                    projectItem: project
+                    projectItem: project,
+                    type: type
                 })
 
             }, function (error) {
