@@ -656,10 +656,14 @@ module.exports = function (app) {
         let story_id = req.body.id;
         let title = req.body.title;
         let link = req.body.link;
+        let backgroundColor = req.body.backgrund_color;
+        let backgroundColorTwo = req.body.backgrund_color_two;
         let description = req.body.description;
         let projectId = req.body.projectId;
         let heading = req.body.heading;
         let storyItemType = parseInt(req.body.type);
+        let formatCategory = req.body.formatCategory;
+
         let object = {};
 
         if (token) {
@@ -680,6 +684,18 @@ module.exports = function (app) {
                 } else if (storyItemType === type.STORY_ITEM.heading) {
 
                     object = {"heading": heading, "text": content};
+
+                } else if (story_item.get("type") === type.STORY_ITEM.backgroundColor){
+
+                  if (formatCategory === type.FORMAT_TYPE.regular){
+
+                    object = {"type": formatCategory, "color": backgroundColor};
+
+                  }else if (formatCategory === type.FORMAT_TYPE.gradient) {
+
+                    object = {"type": formatCategory, "topColor": backgroundColor, "bottomColor" : backgroundColorTwo};
+
+                  }
 
                 }
 

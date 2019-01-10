@@ -35,8 +35,11 @@
   <script>
   $(function () {
       $("#color_value").colorpicker();
+
+      $("#color_value_2").colorpicker();
+
   });
-  
+
   $(document).ready(function () {
     document.getElementById("submit_story").onclick = function () {
         document.getElementById("story_form").submit();
@@ -159,17 +162,25 @@
 
                 <label class="update_label"><b>Color #1:</b></label>
                 <div style=" margin:0px 15px auto;">
-                    <input style="width:100px;" id="color_value" name="htmlColor" value=" <%= story_item.get("contents").color %>"/>
+                    <input style="width:100px;" id="color_value" name="backgrund_color" value=" <%= story_item.get("contents").color %>"/>
 
                     <div id="cpEvent1" class="demoPanel" style="width: 170px;"></div>
                 </div>
 
                 <% } else if (parseInt(itemType) === type.FORMAT_TYPE.gradient ) {%>
 
-                <label class="update_label" style="color: #880e4f !important;"><b>Color #1:</b></label>
-                <input value="<%= story_item.get("contents").topColor %>"/>
-                <label class="update_label"><b>Color #2:</b></label>
-                <input value="<%= story_item.get("contents").bottomColor %>"/>
+                  <label class="update_label"><b>Color #1:</b></label>
+                  <div style=" margin:0px 15px auto;">
+                      <input style="width:100px;" id="color_value" name="backgrund_color" value=" <%= story_item.get("contents").color %>"/>
+
+                      <div id="cpEvent1" class="demoPanel" style="width: 170px;"></div>
+                  </div>
+                  <label class="update_label"><b>Color #2:</b></label>
+                  <div style=" margin:0px 15px auto;">
+                      <input style="width:100px;" id="color_value_2" name="backgrund_color_two" value=" <%= story_item.get("contents").color %>"/>
+
+                      <div id="cpEvent1" class="demoPanel" style="width: 170px;"></div>
+                  </div>
 
                 <% } %>
 
