@@ -140,6 +140,7 @@
                                   <select class="input-field validate" name="productId" required="" aria-required="true">
                                       <option value="" disabled selected>&nbsp;CATEGORY</option>
                                       <% let storyContent = story_item.get("contents").type %>
+                                      <%= storyContent %>
                                       <% if (parseInt(storyContent) === type.FORMAT_TYPE.regular) {%>
 
                                         <option value="<%= type.FORMAT_TYPE.regular %>" selected>REGULAR</option>
