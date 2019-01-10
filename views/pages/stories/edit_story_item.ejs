@@ -126,7 +126,7 @@
 
               <%} else if (story_item.get("type") === 17) {%>
               <div style="margin: 20px 15px auto;">
-                <b style="color: black; font-size: 1.5rem">Type:</b>
+                <b style="color: black; font-size: 1.5rem">Type:</b><br>
                 <% let storyContent = story_item.get("contents").type %>
 
                 <% if (parseInt(storyContent) === type.FORMAT_TYPE.regular) {%>
@@ -155,7 +155,7 @@
 
                 <% } else if (parseInt(itemType) === type.FORMAT_TYPE.gradient ) {%>
 
-                <label class="update_label"><b>Color #1:</b></label>
+                <label class="update_label" style="color: #880e4f !important;"><b>Color #1:</b></label>
                 <input value="<%= story_item.get("contents").topColor %>"/>
                 <label class="update_label"><b>Color #2:</b></label>
                 <input value="<%= story_item.get("contents").bottomColor %>"/>
