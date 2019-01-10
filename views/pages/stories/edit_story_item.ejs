@@ -24,6 +24,7 @@
           type="text/css" media="screen" charset="utf-8">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script src="/public/assets/js/tag.js"></script>
     <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
     <style>
         <% include ../../partials/modified_css.ejs %>
@@ -136,8 +137,7 @@
                             <%} else if (story_item.get("type") === 17) {%>
                               <div style="margin: 20px 15px auto;">
                               <b style="color: black">Type:</b>
-                              <% let storyContent = story_item.get("contents").type %>
-                              <%= storyContent %>
+
                               <div class="row" style="width: 450px !important;">
                                   <select class="input-field validate" name="productId" required="" aria-required="true">
                                       <option value="" disabled selected>&nbsp;CATEGORY</option>
