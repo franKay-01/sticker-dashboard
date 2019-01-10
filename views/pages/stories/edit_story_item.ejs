@@ -144,8 +144,16 @@
                         <option value="" disabled selected>&nbsp;SELECT CATEGORY</option>
                         <option value="free">FREE</option>
 
-                        <option value="<%= type.FORMAT_TYPE.regular %>">REGULAR</option>
+                        <% if (parseInt(storyContent) === type.FORMAT_TYPE.regular) {%>
+
+                        <option value="<%= type.FORMAT_TYPE.regular %>" selected>REGULAR</option>
                         <option value="<%= type.FORMAT_TYPE.gradient %>">GRADIENT</option>
+
+                        <%} else if (parseInt(storyContent) === type.FORMAT_TYPE.gradient) {%>
+                          <option value="<%= type.FORMAT_TYPE.regular %>">REGULAR</option>
+                          <option value="<%= type.FORMAT_TYPE.gradient %>" selected>GRADIENT</option>
+
+                          <%}%>
 
                     </select>
                 </div>
