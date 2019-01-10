@@ -137,6 +137,17 @@
                 <b style="color: black; font-size: 1.5rem;">Type:</b><br><br>
                 <% let storyContent = story_item.get("contents").type %>
 
+                <div class="row" style="width: 450px !important;">
+                    <select class="input-field validate" name="productId" required="" aria-required="true">
+                        <option value="" disabled selected>&nbsp;SELECT CATEGORY</option>
+                        <option value="free">FREE</option>
+
+                        <option value="<%= type.FORMAT_TYPE.regular %>">REGULAR</option>
+                        <option value="<%= type.FORMAT_TYPE.gradient %>">GRADIENT</option>
+
+                    </select>
+                </div>
+
                 <% if (parseInt(storyContent) === type.FORMAT_TYPE.regular) {%>
 
                 <input name="formatCategory" id="formatCategory" type="radio" checked value="<%= type.FORMAT_TYPE.regular %> " />
