@@ -662,7 +662,7 @@ module.exports = function (app) {
         let projectId = req.body.projectId;
         let heading = req.body.heading;
         let storyItemType = parseInt(req.body.type);
-        let formatCategory = req.body.formatCategory;
+        let formatCategory = parseInt(req.body.formatCategory);
 
         let object = {};
 
@@ -685,18 +685,27 @@ module.exports = function (app) {
 
                     object = {"heading": heading, "text": content};
 
-                } else if (story_item.get("type") === type.STORY_ITEM.backgroundColor){
+                }
+
+              console.log("TYPE " + story_item.get("type") + " AND STORY ITEM " type.STORY_ITEM.backgroundColor);
+              console.log("FORMAT CAT " + formatCategory);
+              console.log("FORMAT COLOR " + backgroundColor);
+              console.log("FORMAT COLOR 2 " + backgroundColorTwo);
+
+              if (story_item.get("type") === type.STORY_ITEM.backgroundColor){
 
                   if (formatCategory === type.FORMAT_TYPE.regular){
 
                     object = {"type": formatCategory, "color": backgroundColor};
 
-                  }else if (formatCategory === type.FORMAT_TYPE.gradient) {
-                    if (backgroundColorTwo === undefined){
-                      object = {"type": formatCategory, "topColor": backgroundColor, "bottomColor" : backgroundColor};
+                }else if (formatCategory === type.FORMAT_TYPE.gradient) {
+                    if (backgroundColorTwo === undefined || backgroundColorTwo === "undefined" ){
+
+                      object = {"type": formatCategory.toString(), "topColor": backgroundColor, "bottomColor" : backgroundColor};
 
                     }else {
-                      object = {"type": formatCategory, "topColor": backgroundColor, "bottomColor" : backgroundColorTwo};
+
+                      object = {"type": formatCategory.toString(), "topColor": backgroundColor, "bottomColor" : backgroundColorTwo};
 
                     }
                   }
