@@ -143,25 +143,25 @@
                                   <select class="input-field validate" name="category" required="" aria-required="true">
                                       <option value="" disabled selected>&nbsp;CATEGORY</option>
 
-                                      <% if (parseInt(storyContent) === type.FORMAT_TYPE.regular) {%>
+                                      <%# if (parseInt(storyContent) === type.FORMAT_TYPE.regular) {%>
 
                                         <option value="<%= type.FORMAT_TYPE.regular %>" selected>REGULAR</option>
 
-                                      <% } else {%>
+                                      <%# } else {%>
 
                                         <option value="<%= type.FORMAT_TYPE.regular %>">REGULAR</option>
 
-                                      <% } %>
+                                      <%# } %>
 
-                                      <% if (parseInt(storyContent) === type.FORMAT_TYPE.gradient) {%>
+                                      <%# if (parseInt(storyContent) === type.FORMAT_TYPE.gradient) {%>
 
                                         <option value="<%= type.FORMAT_TYPE.gradient %>" selected>GRADIENT</option>
 
-                                      <% } else {%>
+                                      <%# } else {%>
 
                                         <option value="<%= type.FORMAT_TYPE.gradient %>">GRADIENT</option>
 
-                                      <% } %>
+                                      <%# } %>
 
                                   </select>
                               </div>
@@ -171,12 +171,10 @@
                               <% let itemType = story_item.get("contents").type %>
                               <% if (parseInt(itemType) === type.FORMAT_TYPE.regular) {%>
 
-                                      <input class="box_2 validate" name="review_text" value="REGULAR" disabled>
                                       <label class="update_label"><b>Color #1:</b></label>
                                       <input value="<%= story_item.get("contents").color %>"/>
 
                               <% } else if (parseInt(itemType) === type.FORMAT_TYPE.gradient ) {%>
-                                 <input class="box_2 validate" name="review_text" value="GRADIENT" disabled>
 
                                    <label class="update_label"><b>Color #1:</b></label>
                                    <input value="<%= story_item.get("contents").topColor %>"/>
