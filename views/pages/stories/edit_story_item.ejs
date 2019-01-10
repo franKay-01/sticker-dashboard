@@ -33,16 +33,15 @@
     <% include ../../partials/modified_css.ejs %>
     </style>
   <script>
-    window.onload = function () {
-            document.getElementById("submit_story").onclick = function () {
-                document.getElementById("story_form").submit();
-            }
+  $(document).ready(function () {
+    document.getElementById("submit_story").onclick = function () {
+        document.getElementById("story_form").submit();
+    }
 
-            $(function () {
-                $("#color_value").colorpicker();
-            })
-
-        }
+    $(function () {
+        $("#color_value").colorpicker();
+    })
+   });
     </script>
 </head>
 
