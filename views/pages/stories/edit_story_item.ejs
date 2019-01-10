@@ -129,9 +129,10 @@
                             <input class="validate" placeholder="Content" name="link"
                                     value="<%= story_item.get("contents").url %>">
 
+                                <input name="id" value="<%= story_id %>" hidden>
+                                <input name="type" value="<%= story_item.get("type") %>" hidden>
                             </div>
-                            <input name="id" value="<%= story_id %>" hidden>
-                            <input name="type" value="<%= story_item.get("type") %>" hidden>
+
                             <%} else if (story_item.get("type") === 17) {%>
                               <div style="margin: 20px 15px auto;">
                               <b style="color: black">Type:</b>
@@ -162,7 +163,7 @@
                                   </select>
                               </div>
 
-                              <b style="color: black">Url Link:</b>
+                              <b style="color: black">Color:</b>
 
                               <input class="validate" placeholder="Content" name="link"
                                       value="<%= story_item.get("contents").url %>">
