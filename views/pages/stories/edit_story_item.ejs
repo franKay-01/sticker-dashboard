@@ -138,48 +138,8 @@
                               <div class="row" style="width: 450px !important;">
                                   <select class="input-field validate" name="productId" required="" aria-required="true">
                                       <option value="" disabled selected>&nbsp;CATEGORY</option>
-                                      <option value="free"></option>
-                                      <% if (story_item.get("contents").type === type.FORMAT_TYPE.default) {%>
-
-                                      <option value="<%= type.FORMAT_TYPE.default %>" selected>DEFAULT</option>
-
-                                      <% } else {%>
-
-                                        <option value="<%= type.FORMAT_TYPE.default %>">DEFAULT</option>
-
-                                      <% } %>
-
-                                      <% if (story_item.get("contents").type === type.FORMAT_TYPE.sideImage) {%>
-
-                                        <option value="<%= type.FORMAT_TYPE.sideImage %>" selected>SIDE IMAGE</option>
-
-                                      <% } else {%>
-
-                                        <option value="<%= type.FORMAT_TYPE.sideImage %>">SIDE IMAGE</option>
-
-                                      <% } %>
-
-                                      <% if (story_item.get("contents").type === type.FORMAT_TYPE.text) {%>
-
-                                        <option value="<%= type.FORMAT_TYPE.text %>" selected>TEXT</option>
-
-                                      <% } else {%>
-
-                                        <option value="<%= type.FORMAT_TYPE.text %>">TEXT</option>
-
-                                      <% } %>
-
-                                      <% if (story_item.get("contents").type === type.FORMAT_TYPE.backgroundImage) {%>
-
-                                        <option value="<%= type.FORMAT_TYPE.backgroundImage %>" selected>BACKGROUND IMAGE</option>
-
-                                      <% } else {%>
-
-                                        <option value="<%= type.FORMAT_TYPE.backgroundImage %>">BACKGROUND IMAGE</option>
-
-                                      <% } %>
-
-                                      <% if (story_item.get("contents").type === type.FORMAT_TYPE.regular) {%>
+                                      <% let storyContent = story_item.get("contents").type %>
+                                      <% if (parseInt(storyContent) === type.FORMAT_TYPE.regular) {%>
 
                                         <option value="<%= type.FORMAT_TYPE.regular %>" selected>REGULAR</option>
 
@@ -189,7 +149,7 @@
 
                                       <% } %>
 
-                                      <% if (story_item.get("contents").type === type.FORMAT_TYPE.gradient) {%>
+                                      <% if (parseInt(storyContent) === type.FORMAT_TYPE.gradient) {%>
 
                                         <option value="<%= type.FORMAT_TYPE.gradient %>" selected>GRADIENT</option>
 
