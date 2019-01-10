@@ -141,32 +141,26 @@
                               <div style="margin: 20px 15px auto;">
                               <b style="color: black">Type:</b>
                               <% let storyContent = story_item.get("contents").type %>
-                              <div class="row" style="width: 450px !important;">
-                                  <select class="input-field validate" name="category" required="" aria-required="true">
-                                      <option value="" disabled selected>&nbsp;CATEGORY</option>
 
-                                      <%# if (parseInt(storyContent) === type.FORMAT_TYPE.regular) {%>
+                                      <label class="update_label" style="width: 450px;color: white !important;">Category of Pack:</label>
 
-                                        <option value="<%= type.FORMAT_TYPE.regular %>" selected>REGULAR</option>
+                                      <% if (parseInt(storyContent) === type.FORMAT_TYPE.regular) {%>
 
-                                      <%# } else {%>
+                                        <input name="formatCategory" id="formatCategory" type="radio" checked value="<%= type.FORMAT_TYPE.regular %> "/>
+                                        <label for="formatCategory" class="_label" style="color: white !important;">REGULAR</label>
 
-                                        <option value="<%= type.FORMAT_TYPE.regular %>">REGULAR</option>
+                                        <input name="formatCategory" id="formatCategory2" type="radio" value="type.FORMAT_TYPE.gradient"/>
+                                        <label for="formatCategory2" class="_label" style="color: white !important;font-weight: 700;">GRADIENT</label>
 
-                                      <%# } %>
+                                      <% } else if (parseInt(storyContent) === type.FORMAT_TYPE.gradient) {%>
 
-                                      <%# if (parseInt(storyContent) === type.FORMAT_TYPE.gradient) {%>
+                                        <input name="formatCategory" id="formatCategory" type="radio" value="<%= type.FORMAT_TYPE.regular %> "/>
+                                        <label for="formatCategory" class="_label" style="color: white !important;">REGULAR</label>
 
-                                        <option value="<%= type.FORMAT_TYPE.gradient %>" selected>GRADIENT</option>
+                                        <input name="formatCategory" id="formatCategory2" type="radio" checked value="type.FORMAT_TYPE.gradient"/>
+                                        <label for="formatCategory2" class="_label" style="color: white !important;font-weight: 700;">GRADIENT</label>
 
-                                      <%# } else {%>
-
-                                        <option value="<%= type.FORMAT_TYPE.gradient %>">GRADIENT</option>
-
-                                      <%# } %>
-
-                                  </select>
-                              </div>
+                                      <% } %>
 
                               <b style="color: black">Color:</b>
 
