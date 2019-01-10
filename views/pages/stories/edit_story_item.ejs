@@ -170,15 +170,15 @@
 
                                       <input class="box_2 validate" name="review_text" value="REGULAR" disabled>
                                       <label class="update_label"><b>Color #1:</b></label>
-                                      <input value="<%= item.get("contents").color %>"/>
+                                      <input value="<%= story_item.get("contents").color %>"/>
 
                               <% } else if (parseInt(itemType) === type.FORMAT_TYPE.gradient ) {%>
                                  <input class="box_2 validate" name="review_text" value="GRADIENT" disabled>
 
                                    <label class="update_label"><b>Color #1:</b></label>
-                                   <input value="<%= item.get("contents").topColor %>"/>
+                                   <input value="<%= story_item.get("contents").topColor %>"/>
                                    <label class="update_label"><b>Color #2:</b></label>
-                                   <input value="<%= item.get("contents").bottomColor %>"/>
+                                   <input value="<%= story_item.get("contents").bottomColor %>"/>
 
                                <% } %>
 
