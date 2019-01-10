@@ -425,14 +425,14 @@
                 </a><br><br><br>
                 <%} else if (item.get("type") === 17){%>
                   <label class="update_label"><b>Type:</b></label>
-                  <%= item.get("contents").type %><%= type.FORMAT_TYPE.regular %>
+                  <%= parseInt(item.get("contents").type) %><%= type.FORMAT_TYPE.regular %>
                       <% if (item.get("contents").type === type.FORMAT_TYPE.regular) {%>
 
                           <input class="box_2 validate" name="review_text" value="REGULAR" disabled>
                           <label class="update_label"><b>Color #1:</b></label>
                           <input value="<%= item.get("contents").color %>"/>
 
-                        <% } else if (item.get("contents").type === type.FORMAT_TYPE.gradient ) {%>
+                        <% } else if (parseInt(item.get("contents").type) === type.FORMAT_TYPE.gradient ) {%>
                      <input class="box_2 validate" name="review_text" value="GRADIENT" disabled>
 
                        <label class="update_label"><b>Color #1:</b></label>
