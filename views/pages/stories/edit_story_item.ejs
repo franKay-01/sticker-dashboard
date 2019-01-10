@@ -139,8 +139,8 @@
                 <b style="color: black; font-size: 1.5rem;">Type:</b><br><br>
                 <% let storyContent = story_item.get("contents").type %>
 
-                <div class="row" style="width: 450px !important;">
-                    <select class="input-field validate" name="productId" required="" aria-required="true">
+                <div style="width: 450px !important;">
+                    <select class="input-field validate" name="formatCategory" id="formatCategory" required="" aria-required="true">
                         <option value="" disabled selected>&nbsp;SELECT CATEGORY</option>
                         <option value="free">FREE</option>
 
@@ -157,26 +157,7 @@
 
                     </select>
                 </div>
-
-                <% if (parseInt(storyContent) === type.FORMAT_TYPE.regular) {%>
-
-                <input name="formatCategory" id="formatCategory" type="radio" checked value="<%= type.FORMAT_TYPE.regular %> " />
-                <label for="formatCategory" class="_label" style="color: #880e4f !important; font-weight: 700;">REGULAR</label>
-
-                <input name="formatCategory" id="formatCategory2" type="radio" value="<%= type.FORMAT_TYPE.gradient %>" />
-                <label for="formatCategory2" class="_label" style="color: #880e4f !important; font-weight: 700;">GRADIENT</label>
                 <br><br>
-
-                <% } else if (parseInt(storyContent) === type.FORMAT_TYPE.gradient) {%>
-
-                <input name="formatCategory" id="formatCategory" type="radio" value="<%= type.FORMAT_TYPE.regular %> " />
-                <label for="formatCategory" class="_label" style="color: #880e4f !important; font-weight: 700;">REGULAR</label>
-
-                <input name="formatCategory" id="formatCategory2" type="radio" checked value="<%= type.FORMAT_TYPE.gradient %>" />
-                <label for="formatCategory2" class="_label" style="color: #880e4f !important; font-weight: 700;">GRADIENT</label>
-                <br><br>
-
-                <% } %>
 
                 <% let itemType = story_item.get("contents").type %>
                 <% if (parseInt(itemType) === type.FORMAT_TYPE.regular) {%>
@@ -238,6 +219,13 @@
 <script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
 <script src="/public/assets/js/wyciwyg.js"></script>
+<script>
+$('select').on('change', function (e) {
+  var optionSelected = $("option:selected", this);
+  var valueSelected = this.value;
+  alert(valueSelected);
+})
+</script>
 </body>
 
 </html>
