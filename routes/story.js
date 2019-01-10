@@ -687,7 +687,7 @@ module.exports = function (app) {
 
                 }
 
-              console.log("TYPE " + story_item.get("type") + " AND STORY ITEM " type.STORY_ITEM.backgroundColor);
+              console.log("TYPE " + story_item.get("type") + " AND STORY ITEM " + type.STORY_ITEM.backgroundColor);
               console.log("FORMAT CAT " + formatCategory);
               console.log("FORMAT COLOR " + backgroundColor);
               console.log("FORMAT COLOR 2 " + backgroundColorTwo);
