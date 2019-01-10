@@ -126,26 +126,24 @@
 
               <%} else if (story_item.get("type") === 17) {%>
               <div style="margin: 20px 15px auto;">
-                <b style="color: black">Type:</b>
+                <b style="color: black; font-size: 1.5rem">Type:</b>
                 <% let storyContent = story_item.get("contents").type %>
-
-                <label class="update_label" style="width: 450px;color: white !important;">Category of Pack:</label>
 
                 <% if (parseInt(storyContent) === type.FORMAT_TYPE.regular) {%>
 
                 <input name="formatCategory" id="formatCategory" type="radio" checked value="<%= type.FORMAT_TYPE.regular %> " />
-                <label for="formatCategory" class="_label waves-effect pink darken-4" style="font-weight: 700;">REGULAR</label>
+                <label for="formatCategory" class="_label" style="color: #880e4f !important; font-weight: 700;">REGULAR</label>
 
                 <input name="formatCategory" id="formatCategory2" type="radio" value="<%= type.FORMAT_TYPE.gradient %>" />
-                <label for="formatCategory2" class="_label waves-effect pink darken-4" style="font-weight: 700;">GRADIENT</label>
+                <label for="formatCategory2" class="_label" style="color: #880e4f !important; font-weight: 700;">GRADIENT</label>
 
                 <% } else if (parseInt(storyContent) === type.FORMAT_TYPE.gradient) {%>
 
                 <input name="formatCategory" id="formatCategory" type="radio" value="<%= type.FORMAT_TYPE.regular %> " />
-                <label for="formatCategory" class="_label waves-effect pink darken-4" style="font-weight: 700;">REGULAR</label>
+                <label for="formatCategory" class="_label" style="color: #880e4f !important; font-weight: 700;">REGULAR</label>
 
                 <input name="formatCategory" id="formatCategory2" type="radio" checked value="<%= type.FORMAT_TYPE.gradient %>" />
-                <label for="formatCategory2" class="_label waves-effect pink darken-4" style="font-weight: 700;">GRADIENT</label>
+                <label for="formatCategory2" class="_label" style="color: #880e4f !important; font-weight: 700;">GRADIENT</label>
 
                 <% } %>
 
