@@ -1753,14 +1753,14 @@ module.exports = function (app) {
 
                     page = util.page(stories, story_id);
 
-                    colors = story.get("color");
+                    colors = story.get("info");
 
-                    if (colors.topColor === "" || colors === {}) {
+                    if (colors.topColor === "") {
                         //use system default
                         colors = type.DEFAULT.colors;
 
                     } else {
-                        colors = story.get("color");
+                        colors = story.get("info");
 
                     }
 
@@ -1919,7 +1919,7 @@ module.exports = function (app) {
                 story.set("status", 0);
                 story.set("storyType", storyType);
                 story.set("authorId", "");
-                story.set("color", {topColor: "", bottomColor: ""});
+                story.set("info", {"topColor": "","bottomColor": "","incoming": "","outgoing": ""});
 
                 return story.save();
 
