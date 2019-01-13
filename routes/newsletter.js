@@ -96,7 +96,7 @@ module.exports = function (app) {
             });
 
         }, function (error) {
-            console.log("ERROR " + error.message);
+            console.log("ERROR NEWSLETTER " + error.message);
             res.redirect('/stories/' + projectId);
         })
 
