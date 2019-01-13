@@ -1724,7 +1724,7 @@ module.exports = function (app) {
 
                       storyType = "Chats";
 
-                    }else if (story.get("storyType") === type.STORY_TYPE.chat_group)) {
+                    }else if (story.get("storyType") === type.STORY_TYPE.chat_group) {
 
                       storyType = "Chats";
 
