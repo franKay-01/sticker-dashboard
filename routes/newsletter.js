@@ -80,10 +80,18 @@ module.exports = function (app) {
                 colors = type.DEFAULT.colors;
             }
 
-            return Parse.Promise.when(
-                new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first(),
-                new Parse.Query(_class.StoryItems).equalTo("storyId", _story.id).find()
-            )
+            if (sticker){
+              return Parse.Promise.when(
+                  new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first(),
+                  new Parse.Query(_class.StoryItems).equalTo("storyId", _story.id).find()
+              )
+            }else {
+              return Parse.Promise.when(
+                  undefined,
+                  new Parse.Query(_class.StoryItems).equalTo("storyId", _story.id).find()
+              )
+            }
+
 
         }).then(function (sticker, storyItems) {
 
