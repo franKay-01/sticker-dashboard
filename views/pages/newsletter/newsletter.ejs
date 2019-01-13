@@ -379,8 +379,13 @@
                 <!-- Download-Text -->
                 <div id="download-text" class="small-12 padding-top">
                     <h5>
+                      <% if (sticker !== undefined){%>
                         Download GhanaTok to get the "<span class="purple-text"><%= sticker.get("name") %></span>"
                         Sticker now
+                      <%}else{%>
+                        Sticker Not Available
+                      <%}%>
+
                     </h5>
                 </div>
 
@@ -388,7 +393,12 @@
                 <div class="small-12 grid-x">
                     <div class="small-1 medium-2"></div>
                     <div id="download-img" class="small-10 medium-8">
+                      <% if (sticker !== undefined){%>
                         <img src="<%= sticker.get("uri").url() %>" alt="Banner">
+                      <%}else{%>
+                        Sticker Not Available
+                      <%}%>
+
                     </div>
                     <div class="small-1 medium-2"></div>
 
