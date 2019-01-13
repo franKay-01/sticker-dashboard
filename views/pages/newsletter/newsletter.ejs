@@ -41,7 +41,32 @@
         <% storyItems.forEach(function(item, index) { %>
         <!-- 0 is TEXT-->
         <% let content = item.get("contents") %>
-        <% if (item.get("type") === type.STORY_ITEM.text){ %>
+        <% if (item.get("type") === type.STORY_ITEM.backgroundColor){ %>
+        <!-- Content-Section-One -->
+        <div class="small-12 grid-x">
+            <div class="medium-1 hide-for-small"></div>
+            <div class="medium-10 small-12">
+                <div class="content-section padding-top gray-text">
+                  <h3>Background Color</h3>
+                  <% let contentType = content.type %>
+                  <% if (parseInt(contentType) === type.FORMAT_TYPE.regular) { %>
+                  <div style="height: 250px;background-color: <%= content.color %> ;width: 650px;text-align: center;margin: 110px;">
+                      <%= content.text %>
+                  </div>
+                <% } else if (parseInt(contentType) === type.FORMAT_TYPE.gradient) { %>
+                  <div style="height: 250px;background-image: linear-gradient(to bottom, <%= content.topColor %>, <%= content.bottomColor %>);;width: 650px;text-align: center;margin: 110px;">
+                      <%= content.text %>
+                  </div>
+                <%}%>
+
+                </div>
+            </div>
+            <div class="medium-1 hide-for-small"></div>
+        </div>
+        <!-- End of Content-Section-One -->
+
+          <!-- 0 is TEXT-->
+        <% } lse if (item.get("type") === type.STORY_ITEM.text){ %>
         <!-- Content-Section-One -->
         <div class="small-12 grid-x">
             <div class="medium-1 hide-for-small"></div>
