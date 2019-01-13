@@ -475,6 +475,7 @@ module.exports = function (app) {
         let _storyItem;
         let _project;
         let source = "";
+        let storyType = "";
         let _stickers = [];
 
         if (token) {
@@ -491,6 +492,44 @@ module.exports = function (app) {
                     source = "episode"
                 }
 
+                if (story.get("storyType") === type.STORY_TYPE.story) {
+
+                    storyType = "Story";
+
+                } else if (story.get("storyType") === type.STORY_TYPE.episodes) {
+
+                    storyType = "Episode";
+
+                } else if (story.get("storyType") === type.STORY_TYPE.chat_single || type.STORY_TYPE.chat_group_episode
+                    || type.STORY_TYPE.chat_single_episode || type.STORY_TYPE.chat_group) {
+
+                    storyType = "Chats";
+
+                } else if (story.get("storyType") === type.STORY_TYPE.facts) {
+
+                    storyType = "Facts";
+
+                } else if (story.get("storyType") === type.STORY_TYPE.history) {
+
+                    storyType = "History";
+
+                } else if (story.get("storyType") === type.STORY_TYPE.jokes) {
+
+                    storyType = "Jokes";
+
+                } else if (story.get("storyType") === type.STORY_TYPE.news) {
+
+                    storyType = "News";
+
+                } else if (story.get("storyType") === type.STORY_TYPE.quotes) {
+
+                    storyType = "Quotes";
+
+                } else if (story.get("storyType") === type.STORY_TYPE.short_stories) {
+
+                    storyType = "Short Stories";
+
+                }
                 return Parse.Promise.when(
                     new Parse.Query(_class.StoryItems).equalTo("storyId", id).find(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
@@ -535,7 +574,8 @@ module.exports = function (app) {
                     stickers: _stickers,
                     projectItem: _project,
                     source: source,
-                    type: type
+                    type: type,
+                    storyType: storyType
 
                 });
             }, function (error) {
