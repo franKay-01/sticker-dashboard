@@ -72,7 +72,7 @@ module.exports = function (app) {
 
             _story = story;
 
-            colors = story.get("color");
+            colors = story.get("info").topColor;
 
             if (!colors) {
                 //use system default

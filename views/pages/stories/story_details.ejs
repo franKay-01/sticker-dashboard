@@ -368,7 +368,7 @@
                     <% } %>
                 </p>
 
-                <a target="_blank" href="/newsletter/story/<%= story.id %>" style="float: right">
+                <a target="_blank" href="/newsletter/story/<%= story.id %>/<%= projectItem.id %>" style="float: right">
                     <button class="create_button add_catalogue" style="background: transparent !important;">
                         <p class="preview"> PREVIEW STORY</p>
                     </button>
@@ -380,7 +380,7 @@
                     </button>
                 </a>
                 <%} else {%>
-                  <a target="_blank" href="/newsletter/story/<%= story.id %>" style="float: right">
+                  <a target="_blank" href="/newsletter/story/<%= story.id %>/<%= projectItem.id %>" style="float: right">
                       <button class="create_button add_catalogue" style="background: transparent !important;">
                           <p class="preview"> PREVIEW STORY</p>
                       </button>
