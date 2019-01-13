@@ -59,9 +59,10 @@ module.exports = function (app) {
 
     });
 
-    app.get('/newsletter/story/:storyId', function (req, res) {
+    app.get('/newsletter/story/:storyId/:projectId', function (req, res) {
 
         let storyId = req.params.storyId;
+        let projectId = req.params.projectId;
         let _story;
         let colors;
 
@@ -96,7 +97,7 @@ module.exports = function (app) {
 
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/stories');
+            res.redirect('/stories/' + projectId);
         })
 
     });
