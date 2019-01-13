@@ -50,11 +50,11 @@
                   <h3>Background Color</h3>
                   <% let contentType = content.type %>
                   <% if (parseInt(contentType) === type.FORMAT_TYPE.regular) { %>
-                  <div style="height: 250px;background-color: <%= content.color %> ;width: 650px;text-align: center;margin: 110px;">
+                  <div style="height: 250px;background-color: <%= content.color %>;width: 650px;text-align: center;margin: 110px;">
                       <%= content.text %>
                   </div>
                 <% } else if (parseInt(contentType) === type.FORMAT_TYPE.gradient) { %>
-                  <div style="height: 250px;background-image: linear-gradient(to bottom, <%= content.topColor %>, <%= content.bottomColor %>);;width: 650px;text-align: center;margin: 110px;">
+                  <div style="height: 250px;background-image: linear-gradient(to bottom, <%= content.topColor %>, <%= content.bottomColor %>);width: 650px;text-align: center;margin: 110px;">
                       <%= content.text %>
                   </div>
                 <%}%>
