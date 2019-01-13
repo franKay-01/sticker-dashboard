@@ -488,7 +488,6 @@ module.exports = function (app) {
 
                 if (story) {
                     source = "story";
-
                     if (story.get("storyType") === type.STORY_TYPE.story) {
 
                         storyType = "Story";
@@ -497,10 +496,21 @@ module.exports = function (app) {
 
                         storyType = "Episode";
 
-                    } else if (story.get("storyType") === type.STORY_TYPE.chat_single || type.STORY_TYPE.chat_group_episode
-                        || type.STORY_TYPE.chat_single_episode || type.STORY_TYPE.chat_group) {
+                    } else if (story.get("storyType") === type.STORY_TYPE.chat_single) {
 
                         storyType = "Chats";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.chat_group_episode) {
+
+                      storyType = "Chats";
+
+                    }else if (story.get("storyType") === type.STORY_TYPE.chat_single_episode) {
+
+                      storyType = "Chats";
+
+                    }else if (story.get("storyType") === type.STORY_TYPE.chat_group) {
+
+                      storyType = "Chats";
 
                     } else if (story.get("storyType") === type.STORY_TYPE.facts) {
 
