@@ -28,9 +28,19 @@ Parse.Cloud.define("getFeed", function (req, res) {
     let _packs = [];
     let views = 0;
 
+    let projectId = req.params.projectId;
+
+    if (!projectId) {
+        projectId = DEFAULT_PROJECT
+    }
+
+
     Parse.Promise.when(
-        new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STICKER).first({useMasterKey: true}),
-        new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STORY).first({useMasterKey: true}),
+      new Parse.Query(_class.Latest).equalTo("projectId", projectId).equalTo("type", type.FEED_TYPE.sticker).first({useMasterKey: true}),
+      new Parse.Query(_class.Latest).equalTo("projectId", projectId).equalTo("type", type.FEED_TYPE.story).first({useMasterKey: true}),
+      
+        // new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STICKER).first({useMasterKey: true}),
+        // new Parse.Query(_class.Latest).equalTo("objectId", LATEST_STORY).first({useMasterKey: true}),
         new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).limit(4).descending("createdAt").find({useMasterKey: true}),
     ).then((sticker, story, packs) => {
 
