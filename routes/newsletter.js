@@ -10,12 +10,14 @@ let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.
 
 module.exports = function (app) {
 
-    app.get('/newsletter/episode/:episodeId', function (req, res) {
+    app.get('/newsletter/episode/:episodeId/:projectId', function (req, res) {
 
         let episodeId = req.params.episodeId;
+        let projectId = req.params.projectId;
         let _episode;
         let _storyItems;
         let colors;
+        let storyType = "";
 
         Parse.Promise.when(
 
@@ -33,7 +35,57 @@ module.exports = function (app) {
 
         }).then(function (storyItems, story, sticker ) {
 
-            colors = story.get("color");
+          if (story.get("storyType") === type.STORY_TYPE.story) {
+
+              storyType = "Story";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.episodes) {
+
+              storyType = "Episode";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.chat_single) {
+
+              storyType = "Chats";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.chat_group_episode) {
+
+            storyType = "Chats";
+
+          }else if (story.get("storyType") === type.STORY_TYPE.chat_single_episode) {
+
+            storyType = "Chats";
+
+          }else if (story.get("storyType") === type.STORY_TYPE.chat_group) {
+
+            storyType = "Chats";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.facts) {
+
+              storyType = "Facts";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.history) {
+
+              storyType = "History";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.jokes) {
+
+              storyType = "Jokes";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.news) {
+
+              storyType = "News";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.quotes) {
+
+              storyType = "Quotes";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.short_stories) {
+
+              storyType = "Short Stories";
+
+          }
+
+            colors = story.get("info");
             _storyItems = storyItems;
             if (!colors) {
                 //use system default
@@ -49,12 +101,13 @@ module.exports = function (app) {
                 sticker: sticker,
                 colors: colors,
                 storyItems: _storyItems,
-                type: type
+                type: type,
+                storyType: storyType
             });
 
         }, function (error) {
             console.log("ERROR " + error.message);
-            res.redirect('/stories');
+            res.redirect('/stories/' + projectId);
         })
 
     });
