@@ -32,13 +32,7 @@
             <a href="/storyedit/<%= item.id %>/<%= projectItem.id %>">
 
                 <center>
-                  <% if (art.image !== "") { %>
                     <img class="btn_pack_icon" src="<%= art.image %>" style="height: 200px;width: 250px;">
-                  <%} else {
-                    <center>
-                        <p class="none"><b>No Artwork</b></p>
-                    </center>
-                  }%>
                 </center>
                 <div class="story_title truncate_story_title"><%= item.get("title") %></div>
                 <div class="story_summary truncate_summary"> <%= item.get("summary") %></div>
@@ -58,16 +52,12 @@
             <%}%>
             <%})%>
             <%} else {%>
-              <% episodes.forEach(function (episode, index) { %>
-              <% if (episode.storyId === item.id) {%>
-              <a href="/storyitem/episode/<%= episode.episodeId %>/<%= projectItem.id %>">
-                  <button class="create_button review_tab_bottom add_catalogue"
-                          style="background: transparent !important;">
-                      <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Story Item</p>
-                  </button>
-              </a>
-              <%}%>
-              <%})%>
+            <a href="/storyitem/story/<%= item.id %>/<%= projectItem.id %>">
+                <button class="create_button review_tab_bottom add_catalogue"
+                        style="background: transparent !important;">
+                    <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Story Item</p>
+                </button>
+            </a>
             <%}%>
         </div>
         <% } %>
