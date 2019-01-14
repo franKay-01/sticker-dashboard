@@ -97,6 +97,11 @@ module.exports = function (app) {
                                 story: artworks.get("itemId"),
                                 image: sticker.get("uri").url()
                             });
+                        }else {
+                          combined.push({
+                              story: artworks.get("itemId"),
+                              image: ""
+                          });
                         }
                     })
                 });
@@ -1227,9 +1232,7 @@ module.exports = function (app) {
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 )
             }).then(function (story, project) {
-              console.log("INCOMING " + incoming);
-              console.log("OUTGOING " + outgoing);
-              
+
                 _project = project;
                 story.get("info").incoming = incoming;
                 story.get("info").outgoing = outgoing;
