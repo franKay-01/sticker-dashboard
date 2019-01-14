@@ -111,7 +111,6 @@ exports.Story = (story) => {
 
 
         let colors = story.get("info");
-        console.log("COLOR FROM DATABASE " + JSON.stringify(colors));
         if (colors.topColor === "" || colors.bottomColor === "") {
             _story.colors = type.DEFAULT.colors;
         } else {
