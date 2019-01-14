@@ -124,7 +124,7 @@ module.exports = function (app) {
             new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
             new Parse.Query(_class.ArtWork).equalTo("itemId", storyId).first()
         ).then(function (story, sticker) {
-          
+
           if (story.get("storyType") === type.STORY_TYPE.story) {
 
               storyType = "Story";
@@ -203,7 +203,8 @@ module.exports = function (app) {
                 sticker: sticker,
                 colors: colors,
                 storyItems: storyItems,
-                type: type
+                type: type,
+                storyType: storyType
             });
 
         }, function (error) {
