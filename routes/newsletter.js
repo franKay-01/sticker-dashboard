@@ -65,12 +65,61 @@ module.exports = function (app) {
         let projectId = req.params.projectId;
         let _story;
         let colors;
+        let storyType = "";
 
         Parse.Promise.when(
             new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
             new Parse.Query(_class.ArtWork).equalTo("itemId", storyId).first()
         ).then(function (story, sticker) {
+          if (story.get("storyType") === type.STORY_TYPE.story) {
 
+              storyType = "Story";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.episodes) {
+
+              storyType = "Episode";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.chat_single) {
+
+              storyType = "Chats";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.chat_group_episode) {
+
+            storyType = "Chats";
+
+          }else if (story.get("storyType") === type.STORY_TYPE.chat_single_episode) {
+
+            storyType = "Chats";
+
+          }else if (story.get("storyType") === type.STORY_TYPE.chat_group) {
+
+            storyType = "Chats";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.facts) {
+
+              storyType = "Facts";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.history) {
+
+              storyType = "History";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.jokes) {
+
+              storyType = "Jokes";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.news) {
+
+              storyType = "News";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.quotes) {
+
+              storyType = "Quotes";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.short_stories) {
+
+              storyType = "Short Stories";
+
+          }
             _story = story;
 
             colors = story.get("info").topColor;
