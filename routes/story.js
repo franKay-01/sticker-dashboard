@@ -105,13 +105,6 @@ module.exports = function (app) {
                     })
                 });
 
-                _.each(storyArray, function(storyItem){
-                  combined.push({
-                      story: storyItem.get("itemId"),
-                      image: ""
-                  });
-                })
-
                 res.render("pages/stories/stories", {
                     story: _story,
                     allPacks: _allPack,
@@ -119,7 +112,8 @@ module.exports = function (app) {
                     arts: combined,
                     latest: _latest,
                     type: type,
-                    episodes: _allEpisodes
+                    episodes: _allEpisodes,
+                    storyNoArt: storyArray
                 })
             }, function (error) {
 
