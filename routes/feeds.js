@@ -300,6 +300,7 @@ module.exports = function (app) {
 
                 switch (notificationType) {
                     case STORIES:
+                        console.log("STORY " + JSON.stringify(_story));
                         let story = create.Story(_story);
                         story = create.StoryArtwork(story, sticker);
 
