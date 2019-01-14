@@ -10,30 +10,191 @@ let mailgun = new Mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.
 
 module.exports = function (app) {
 
-    app.get('/newsletter/story/:storyId', function (req, res) {
+    app.get('/newsletter/episode/:episodeId/:projectId', function (req, res) {
+
+        let episodeId = req.params.episodeId;
+        let projectId = req.params.projectId;
+        let _episode;
+        let _storyItems;
+        let colors;
+        let storyType = "";
+
+        Parse.Promise.when(
+
+            new Parse.Query(_class.Episodes).equalTo("objectId", episodeId).first(),
+
+        ).then(function (episode) {
+
+            _episode = episode;
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.StoryItems).equalTo("storyId", _episode.id).find(),
+                new Parse.Query(_class.Stories).equalTo("objectId", _episode.get("storyId")).first(),
+                new Parse.Query(_class.ArtWork).equalTo("itemId", _episode.get("storyId")).first()
+            )
+
+        }).then(function (storyItems, story, sticker ) {
+
+          if (story.get("storyType") === type.STORY_TYPE.story) {
+
+              storyType = "Story";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.episodes) {
+
+              storyType = "Episode";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.chat_single) {
+
+              storyType = "Chats";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.chat_group_episode) {
+
+            storyType = "Chats";
+
+          }else if (story.get("storyType") === type.STORY_TYPE.chat_single_episode) {
+
+            storyType = "Chats";
+
+          }else if (story.get("storyType") === type.STORY_TYPE.chat_group) {
+
+            storyType = "Chats";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.facts) {
+
+              storyType = "Facts";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.history) {
+
+              storyType = "History";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.jokes) {
+
+              storyType = "Jokes";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.news) {
+
+              storyType = "News";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.quotes) {
+
+              storyType = "Quotes";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.short_stories) {
+
+              storyType = "Short Stories";
+
+          }
+
+            colors = story.get("info");
+            _storyItems = storyItems;
+            if (!colors) {
+                //use system default
+                colors = type.DEFAULT.colors;
+            }
+
+            return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first()
+
+        }).then(function (sticker) {
+
+            res.render("pages/newsletter/newsletter", {
+                story: _episode,
+                sticker: sticker,
+                colors: colors,
+                storyItems: _storyItems,
+                type: type,
+                storyType: storyType
+            });
+
+        }, function (error) {
+            console.log("ERROR " + error.message);
+            res.redirect('/stories/' + projectId);
+        })
+
+    });
+
+    app.get('/newsletter/story/:storyId/:projectId', function (req, res) {
 
         let storyId = req.params.storyId;
+        let projectId = req.params.projectId;
         let _story;
         let colors;
+        let storyType = "";
 
         Parse.Promise.when(
             new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
             new Parse.Query(_class.ArtWork).equalTo("itemId", storyId).first()
         ).then(function (story, sticker) {
 
+          if (story.get("storyType") === type.STORY_TYPE.story) {
+
+              storyType = "Story";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.episodes) {
+
+              storyType = "Episode";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.chat_single) {
+
+              storyType = "Chats";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.chat_group_episode) {
+
+            storyType = "Chats";
+
+          }else if (story.get("storyType") === type.STORY_TYPE.chat_single_episode) {
+
+            storyType = "Chats";
+
+          }else if (story.get("storyType") === type.STORY_TYPE.chat_group) {
+
+            storyType = "Chats";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.facts) {
+
+              storyType = "Facts";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.history) {
+
+              storyType = "History";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.jokes) {
+
+              storyType = "Jokes";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.news) {
+
+              storyType = "News";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.quotes) {
+
+              storyType = "Quotes";
+
+          } else if (story.get("storyType") === type.STORY_TYPE.short_stories) {
+
+              storyType = "Short Stories";
+
+          }
             _story = story;
 
-            colors = story.get("color");
+            colors = story.get("info").topColor;
 
             if (!colors) {
                 //use system default
                 colors = type.DEFAULT.colors;
             }
 
-            return Parse.Promise.when(
-                new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first(),
-                new Parse.Query(_class.StoryItems).equalTo("storyId", _story.id).find()
-            )
+            if (sticker){
+              return Parse.Promise.when(
+                  new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first(),
+                  new Parse.Query(_class.StoryItems).equalTo("storyId", _story.id).find()
+              )
+            }else {
+              return Parse.Promise.when(
+                  undefined,
+                  new Parse.Query(_class.StoryItems).equalTo("storyId", _story.id).find()
+              )
+            }
+
 
         }).then(function (sticker, storyItems) {
 
@@ -42,12 +203,13 @@ module.exports = function (app) {
                 sticker: sticker,
                 colors: colors,
                 storyItems: storyItems,
-                type: type
+                type: type,
+                storyType: storyType
             });
 
         }, function (error) {
-            console.log("ERROR " + error.message);
-            res.redirect('/stories');
+            console.log("ERROR NEWSLETTER " + error.message);
+            res.redirect('/stories/' + projectId);
         })
 
     });

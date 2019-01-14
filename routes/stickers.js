@@ -88,7 +88,7 @@ module.exports = function (app) {
 
                         // fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
                         let originalName = file.originalname;
-                        let stickerName = originalName.replace(util.SPECIAL_CHARACTERS, '').substring(0, originalName.length - 4);
+                        let stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
 
                         let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
@@ -113,6 +113,7 @@ module.exports = function (app) {
                         sticker.set("parent", pack);
                         sticker.set("description", "");
                         sticker.set("meaning", "");
+                        sticker.set("categories", []);
                         sticker.set("flagged", false);
                         sticker.set("archived", false);
                         if (pack.get("productId") !== "") {

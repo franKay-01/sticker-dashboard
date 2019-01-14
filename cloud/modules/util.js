@@ -44,7 +44,6 @@ const STORY_ERROR = 23;
 const FEED_ERROR_ONE = 24;
 const FEED_ERROR_TWO = 25;
 
-
 const SPECIAL_CHARACTERS = /[`~!@#$%^&*()_|+\-=÷¿?;:'",.123<>\{\}\[\]\\\/]/gi;
 
 /**
@@ -445,7 +444,7 @@ exports.thumbnail = (files, size) => {
     files.forEach(function (file, index) {
 
         let originalName = file.originalname;
-        let image_name = originalName.replace(SPECIAL_CHARACTERS, '').substring(0, originalName.length - 4);
+        let image_name = originalName.substring(0, originalName.length - 4).replace(SPECIAL_CHARACTERS, "");
 
         gm(file.path)
             .resize(size, size)

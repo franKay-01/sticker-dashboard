@@ -1,6 +1,8 @@
 <!--Display Collections from parse-->
 <% if (episodes.length === 0){ %>
-<p class="none" style="margin: 0 !important;">None</p>
+<div class="medium-3 large-3 cell card-zoom icons">
+    <p class="none">No Episodes</p>
+</div>
 <%} else {%>
 <% episodes.forEach(function(item, index) { %>
     <a href="/storyitem/episode/<%= item.id %>/<%= projectItem.id %>" class="medium-3 large-3 cell card-zoom icons">

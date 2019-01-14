@@ -119,9 +119,7 @@
 
                             <% } else { %>
                             <% products.forEach(function(items) { %>
-                            <option value="<%= items.id %>">
-                                <%= items.get("name") %>
-                            </option>
+                            <option value="<%= items.id %>"><%= items.get("name") %></option>
                             <% }) %>
                             <% } %>
                         </select>
@@ -156,6 +154,51 @@
             <a href="#" onclick="submitStory()" class="edit_labels">
                 YES
             </a>
+
+        </div>
+
+    </div>
+
+    <div id="selectChatOrder" class="hidden_forms" style="display: none">
+        <div class="medium-3 large-3 cell create_background">
+            <center>
+                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">SELECT THE ORDER</div>
+            </center>
+            <form method="post" action="/story/member/order/<%= story.id %>">
+                <input type="hidden" value="<%= projectItem.id %>" name="projectId">
+                <div class="row" style="width: 450px !important;">
+                    <select class="input-field validate" name="incoming" required="" aria-required="true">
+                        <option value="" disabled selected>&nbsp;Select Incoming</option>
+                        <% if (chatMembers.length === 0) { %>
+
+                        <% } else { %>
+                        <% chatMembers.forEach(function(items) { %>
+                        <option value="<%= items.id %>"><%= items.get("profile").content.name %></option>
+                        <% }) %>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="row" style="width: 450px !important;">
+                    <select class="input-field validate" name="outgoing" required="" aria-required="true">
+                        <option value="" disabled selected>&nbsp;Select Outgoing</option>
+                        <% if (chatMembers.length === 0) { %>
+
+                        <% } else { %>
+                        <% chatMembers.forEach(function(items) { %>
+                        <option value="<%= items.id %>"><%= items.get("profile").content.name %></option>
+                        <% }) %>
+                        <% } %>
+                    </select>
+                </div>
+                <span>
+                    <button type="submit" class="create">CONFIRM</button>
+                </span>
+                <span>
+                    <button type="button" id="btnCloseOrder" class="cancel">Cancel</button>
+                </span>
+            </form>
+
+
 
         </div>
 
@@ -209,7 +252,7 @@
 
         <!-- End of logo -->
         <span class="medium-6 large-6 welcome_post"><b>Edit <i style="color: #a46580">
-                    <%= story.get("title") %></i> Story Details</b></span>
+                    <%= story.get("title") %></i> <%= storyType %> Details</b></span>
 
         <div class="grid-x grid-margin-x story" id="opaqueDiv">
             <div class="medium-3 large-3 cell">
@@ -218,15 +261,14 @@
                         <div class="stats">Menu</div>
                         <% include ../../partials/menu.ejs %>
 
-                        <% if (story.get("storyType") === type.STORY_TYPE.episodes) { %>
+                        <% if (story.get("storyType") === type.STORY_TYPE.episodes || story.get("storyType") === type.STORY_TYPE.chat_single_episode
+                        || story.get("storyType") === type.STORY_TYPE.chat_group_episode) { %>
                         <div style="margin-top: 40px !important;" id="episode">
                             <a class="_stickers_packs" href="#">Add Episode</a>
                         </div>
                         <% } else { %>
                         <div style="margin-top: 40px !important;">
-                            <a class="_stickers_packs" href="/storyitem/story/<%= story.id %>/<%= projectItem.id %>">Add
-                                Story
-                                Item</a>
+                            <a class="_stickers_packs" href="/storyitem/story/<%= story.id %>/<%= projectItem.id %>">Add <%= storyType %> Item</a>
                         </div>
                         <% } %>
                     </div>
@@ -249,19 +291,14 @@
                     <a href="#" id="showPermission">
                         <button class="create_button">
                             <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
-                                    aria-hidden="true"></i>
-                                &nbsp;
-                                PUBLISH
-                            </p>
+                                    aria-hidden="true"></i>&nbsp;PUBLISH</p>
                         </button>
                     </a>
                     <% } else if (story.get("published") === true){ %>
                     <a href="#" id="removePublished">
                         <button class="create_button">
                             <p class="title" style="font-size: 15px !important;">&nbsp; <i class="fa fa-circle size"
-                                    aria-hidden="true"></i>
-                                &nbsp;
-                                UNPUBLISH
+                                    aria-hidden="true"></i>&nbsp;UNPUBLISH
                             </p>
                         </button>
                     </a>
@@ -331,12 +368,25 @@
                     <% } %>
                 </p>
 
-                <a target="_blank" href="/newsletter/story/<%= story.id %>" style="float: right">
+                <a target="_blank" href="/newsletter/story/<%= story.id %>/<%= projectItem.id %>" style="float: right">
                     <button class="create_button add_catalogue" style="background: transparent !important;">
                         <p class="preview"> PREVIEW STORY</p>
                     </button>
                 </a>
-                <% } %>
+                <% } else if (story.get("storyType") === type.STORY_TYPE.chat_group || story.get("storyType") === type.STORY_TYPE.chat_single
+                || story.get("storyType") === type.STORY_TYPE.chat_group_episode || story.get("storyType") === type.STORY_TYPE.chat_single_episode) {%>
+                <a target="_blank" href="/preview/chats/<%= story.id %>/<%= projectItem.id %>" style="float: right">
+                    <button class="create_button add_catalogue" style="background: transparent !important;">
+                        <p class="preview"> PREVIEW CHATS</p>
+                    </button>
+                </a>
+                <%} else if (story.get("storyType") !== type.STORY_TYPE.episodes) {%>
+                  <a target="_blank" href="/newsletter/story/<%= story.id %>/<%= projectItem.id %>" style="float: right">
+                      <button class="create_button add_catalogue" style="background: transparent !important;">
+                          <p class="preview"> PREVIEW STORY</p>
+                      </button>
+                  </a>
+                <%}%>
 
                 <br><br>
                 <form id="story_form" action="/storyedit/<%= story.id %>" method="post">
@@ -349,7 +399,7 @@
                             <img width="200px" height="200px" src="<%= sticker.get("uri").url() %>">
                             <% }else { %>
 
-                            <p class="none"><b>No Artwork</b></p>
+                            <p class="none" style="margin: 30px 100px !important;padding: 50px 0;"><b>No Artwork</b></p>
 
                             <% } %>
                         </center>
@@ -371,9 +421,7 @@
 
                                 <% } else { %>
                                 <% authors.forEach(function(items) { %>
-                                <option value="<%= items.id %>">
-                                    <%= items.get("name") %>
-                                </option>
+                                <option value="<%= items.id %>"><%= items.get("name") %></option>
                                 <% }) %>
                                 <% } %>
                             </select>
@@ -414,21 +462,52 @@
                         <br><br>
 
                         <a href="#" id="submit_story" class="preview">Save Changes</a><br>
+
+                        <% if (sticker !== ""){ %>
+
                         <a href="#" id="change_image" class="preview">Change Artwork
                             <i class="fa fa-picture-o" style="color: #590a5d; font-size: 1.5rem;" aria-hidden="true"></i></a>
+
+                        <%} else {%>
+
+                        <a href="/story/artwork/new/<%= story.id %>/<%= projectItem.id %>" class="preview">New Artwork
+                            <i class="fa fa-picture-o" style="color: #590a5d; font-size: 1.5rem;" aria-hidden="true"></i></a>
+
+                        <%}%>
                         <br>
 
-                        <% if (story.get("storyType") === type.STORY_TYPE.episodes) { %>
+                        <% if (story.get("storyType") === type.STORY_TYPE.episodes || story.get("storyType") === type.STORY_TYPE.chat_group_episode ||
+                                story.get("storyType") === type.STORY_TYPE.chat_single_episode) { %>
 
                         <a href="/episodes/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Episodes</a>
-                        <br><br>
+                        <br>
 
-                        <% } else { %>
+                        <% } else {%>
 
                         <a href="/story/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Story Items</a>
+                        <br>
+
+                        <%}%>
+
+                        <% if ( story.get("storyType") === type.STORY_TYPE.chat_single ||
+                                story.get("storyType") === type.STORY_TYPE.chat_single_episode) {%>
+                        <a href="#" class="preview" id="showChatOrder"> Select Order of Chat
+                            <i class="fa fa-sort" style="color: #590a5d; font-size: 1.5rem;" aria-hidden="true"></i>
+                        </a>
+                        <br>
+                        <%}%>
+
+                        <% if ( story.get("storyType") === type.STORY_TYPE.chat_single ||
+                                story.get("storyType") === type.STORY_TYPE.chat_group ||
+                                story.get("storyType") === type.STORY_TYPE.chat_single_episode ||
+                                story.get("storyType") === type.STORY_TYPE.chat_group_episode) { %>
+
+                        <a href="/story/add/members/<%= story.id %>/<%= projectItem.id %>" class="preview"> Add Chat Members
+                            <i class="fa fa-user-plus" style="color: #590a5d; font-size: 1.5rem;" aria-hidden="true"></i>
+                        </a>
                         <br><br>
 
-                        <% } %>
+                        <%}%>
                         <!--<a href="/storymain/<%#= story.id %>" class="preview">Edit Main Story</a><br><br>-->
                         <a href="/stories/<%= projectItem.id %>" class="preview">Back</a><br>
                         <!--<a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">-->

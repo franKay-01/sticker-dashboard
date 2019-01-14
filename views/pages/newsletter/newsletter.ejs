@@ -21,8 +21,13 @@
     <div id="bannerImg" style=" background-image: linear-gradient(to bottom, <%= colors[0] %>, <%= colors[1] %>);">
         <div id="bannerPattern">
             <div class="small-12">
+              <h1><%= story.get("title") %></h1>
+
+              <% if (sticker !== undefined){%>
                 <img src="<%= sticker.get("uri").url() %>" alt="Banner">
-                <h1><%= story.get("title") %></h1>
+              <%}else{%>
+                <p class="none" style="text-align: center !important"><b>No Artwork</b></p>
+              <%}%>
             </div>
         </div>
     </div>
@@ -36,7 +41,32 @@
         <% storyItems.forEach(function(item, index) { %>
         <!-- 0 is TEXT-->
         <% let content = item.get("contents") %>
-        <% if (item.get("type") === type.STORY_ITEM.text){ %>
+        <% if (item.get("type") === type.STORY_ITEM.backgroundColor){ %>
+        <!-- Content-Section-One -->
+        <div class="small-12 grid-x">
+            <div class="medium-1 hide-for-small"></div>
+            <div class="medium-10 small-12">
+                <div class="content-section padding-top gray-text">
+                  <h3>Background Color</h3>
+                  <% let contentType = content.type %>
+                  <% if (parseInt(contentType) === type.FORMAT_TYPE.regular) { %>
+                  <div style="height: 250px;background-color: <%= content.color %>;width: 650px;text-align: center;margin: 110px;">
+                      <%= content.text %>
+                  </div>
+                <% } else if (parseInt(contentType) === type.FORMAT_TYPE.gradient) { %>
+                  <div style="height: 250px;background-image: linear-gradient(to bottom, <%= content.topColor %>, <%= content.bottomColor %>);width: 650px;text-align: center;margin: 110px;">
+                      <%= content.text %>
+                  </div>
+                <%}%>
+
+                </div>
+            </div>
+            <div class="medium-1 hide-for-small"></div>
+        </div>
+        <!-- End of Content-Section-One -->
+
+          <!-- 0 is TEXT-->
+        <% } else if (item.get("type") === type.STORY_ITEM.text){ %>
         <!-- Content-Section-One -->
         <div class="small-12 grid-x">
             <div class="medium-1 hide-for-small"></div>
@@ -325,7 +355,7 @@
             <div class="medium-6 small-8 grid-x">
                 <!-- Share-Text -->
                 <div class="small-12 semi-bold purple-text text-center">
-                    <h3 id="share-story">Share Story</h3>
+                    <h3 id="share-story">Share <%= storyType %></h3>
                 </div>
 
                 <!-- Share-Icons -->
@@ -375,8 +405,13 @@
                 <!-- Download-Text -->
                 <div id="download-text" class="small-12 padding-top">
                     <h5>
+                      <% if (sticker !== undefined){%>
                         Download GhanaTok to get the "<span class="purple-text"><%= sticker.get("name") %></span>"
                         Sticker now
+                      <%}else{%>
+                        Sticker Not Available
+                      <%}%>
+
                     </h5>
                 </div>
 
@@ -384,7 +419,12 @@
                 <div class="small-12 grid-x">
                     <div class="small-1 medium-2"></div>
                     <div id="download-img" class="small-10 medium-8">
+                      <% if (sticker !== undefined){%>
                         <img src="<%= sticker.get("uri").url() %>" alt="Banner">
+                      <%}else{%>
+                        Sticker Not Available
+                      <%}%>
+
                     </div>
                     <div class="small-1 medium-2"></div>
 

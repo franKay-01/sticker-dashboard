@@ -1,0 +1,57 @@
+<!-- get values from initial array: should  en -->
+<% if (searchResults.length === 0) { %>
+<a href="#" class="medium-3 large-3 cell icons">
+    <div style="margin: 150px 10px auto !important;" class="story_title truncate_story_title">
+       <b>No Results</b>
+    </div>
+</a>
+<% } else { %>
+<% searchResults.forEach(function(item, index) { %>
+<%if (field === className.Episodes){%>
+<a href="/storyitem/episode/<%= item.id %>/<%= projectItem.id %>" class="medium-3 large-3 cell card-zoom icons">
+    <div style="margin: 150px 10px auto !important;" class="story_title truncate_story_title">
+        <%= item.get("title") %>
+    </div>
+    <div class="story_summary truncate_summary">
+        <%= item.get("summary") %>
+    </div>
+</a>
+<%} else if (field === className.Stories){%>
+<a href="/storyedit/<%= item.id %>/<%= projectItem.id %>" class="medium-3 large-3 cell card-zoom icons">
+    <div style="margin: 150px 10px auto !important;" class="story_title truncate_story_title">
+        <%= item.get("title") %>
+    </div>
+    <div class="story_summary truncate_summary">
+        <%= item.get("summary") %>
+    </div>
+</a>
+<%} else if (field === className.Packs){%>
+<a href="/pack/<%= item.id %>/<%= projectItem.id %>" class="medium-3 large-3 cell card-zoom icons">
+    <div style="margin: 150px 10px auto !important;" class="story_title truncate_story_title">
+        <%= item.get("name") %>
+    </div>
+    <div class="story_summary truncate_summary">
+        <%= item.get("description") %>
+    </div>
+</a>
+<%} else if (field === className.Adverts){%>
+<a href="/advert/edit/<%= item.id %>/<%= projectItem.id %>" class="medium-3 large-3 cell card-zoom icons">
+    <div style="margin: 150px 10px auto !important;" class="story_title truncate_story_title">
+        <%= item.get("title") %>
+    </div>
+    <div class="story_summary truncate_summary">
+        <%= item.get("description") %>
+    </div>
+</a>
+<%} else if (field === className.Stickers){%>
+<a href="/sticker/edit/<%= item.id %>/<%= item.get("parent").id %>/<%= projectItem.id %>" class="medium-3 large-3 cell card-zoom icons">
+    <div style="margin: 150px 10px auto !important;" class="story_title truncate_story_title">
+        <%= item.get("name") %>
+    </div>
+    <div class="story_summary truncate_summary">
+        <%= item.get("description") %>
+    </div>
+</a>
+<%}%>
+<% }) %>
+<% } %>

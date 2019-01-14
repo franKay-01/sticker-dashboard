@@ -38,6 +38,7 @@ module.exports = function (app) {
             let artWork = [];
             let _allArtwork = [];
             let _allProjects = [];
+            let _allEpisodes = [];
             let combined = [];
             let projectArray = [];
             let _latest = "";
@@ -52,11 +53,12 @@ module.exports = function (app) {
                     new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
                     new Parse.Query(_class.ArtWork).find(),
                     new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
-                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                    new Parse.Query(_class.Episodes).containedIn("projectId", projectArray).find()
                 );
 
 
-            }).then(function (story, allPack, artworks, latest, projects) {
+            }).then(function (story, allPack, artworks, latest, projects, episodes) {
 
                 _story = story;
                 _allPack = allPack;
@@ -66,6 +68,14 @@ module.exports = function (app) {
                 if (latest) {
                     _latest = latest;
                 }
+
+                _.each(episodes, function (episode) {
+                    _.each(story, function (storyDetails) {
+                        if (episode.get("storyId") === storyDetails.id) {
+                            _allEpisodes.push({"episodeId": episode.id, "storyId": storyDetails.id});
+                        }
+                    });
+                });
 
                 _.each(artworks, function (artwork) {
 
@@ -97,7 +107,8 @@ module.exports = function (app) {
                     projectItem: _allProjects,
                     arts: combined,
                     latest: _latest,
-                    type: type
+                    type: type,
+                    episodes: _allEpisodes
                 })
             }, function (error) {
 
@@ -111,6 +122,59 @@ module.exports = function (app) {
         }
     });
 
+    app.get('/preview/chats/:storyId/:projectId', function (req, res) {
+
+        let token = req.cookies.token;
+        let storyId = req.params.storyId;
+        let projectId = req.params.projectId;
+        let incomingProfile = [];
+        let outgoingProfile = [];
+        let _story;
+        let _allProject;
+
+        if (token) {
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                )
+
+            }).then(function (story, project) {
+
+                _story = story;
+                _allProject = project;
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Members).equalTo("objectId", story.get("info").incoming).first(),
+                    new Parse.Query(_class.Members).equalTo("objectId", story.get("info").outgoing).first(),
+                    new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find()
+                )
+
+            }).then(function (incoming, outgoing, storyItems) {
+
+                incomingProfile.push({"memberId": incoming.id, "profileImage": incoming.get("profileImage").url()});
+                outgoingProfile.push({"memberId": outgoing.id, "profileImage": outgoing.get("profileImage").url()});
+
+                res.render("pages/stories/chat_preview", {
+                    incoming: incomingProfile,
+                    outgoing: outgoingProfile,
+                    storyItems: storyItems,
+                    projectItem: _allProject,
+                    story: _story
+                })
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/storyedit/' + storyId + '/' + projectId);
+            })
+        } else {
+            res.redirect('/');
+        }
+    });
+
     app.get('/storyitem/:source/:id/:projectId', function (req, res) {
 
         let token = req.cookies.token;
@@ -118,6 +182,7 @@ module.exports = function (app) {
         let source = req.params.source;
         let projectId = req.params.projectId;
         let mainStoryId;
+
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
@@ -125,29 +190,33 @@ module.exports = function (app) {
                 if (source === story) {
                     return Parse.Promise.when(
                         new Parse.Query(_class.Stories).equalTo("objectId", id).first(),
-                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                        new Parse.Query(_class.Members).equalTo("chatIds", id).find()
                     )
 
                 } else if (source === episode) {
                     return Parse.Promise.when(
                         new Parse.Query(_class.Episodes).equalTo("objectId", id).first(),
-                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                        new Parse.Query(_class.Members).equalTo("objectId", id).find()
                     )
                 }
 
-            }).then(function (story, project) {
+            }).then(function (story, project, members) {
 
-                if (source === episode){
+                if (source === episode) {
                     mainStoryId = story.get("storyId");
-                }else {
+                } else {
                     mainStoryId = "";
                 }
+
                 res.render("pages/stories/story_catalogue", {
 
                     story_id: story.id,
                     name: story.get("title"),
                     storyType: story.get("storyType"),
                     projectItem: project,
+                    chatMembers: members,
                     type: type,
                     source: source,
                     mainStoryId: mainStoryId
@@ -159,7 +228,7 @@ module.exports = function (app) {
                 res.redirect('/stories/' + projectId);
             });
         } else {
-            console.log("COMING HOME");
+
             res.redirect('/');
 
         }
@@ -405,11 +474,74 @@ module.exports = function (app) {
         let sticker_array = [];
         let _storyItem;
         let _project;
+        let source = "";
+        let storyType = "";
         let _stickers = [];
 
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
+
+                return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
+
+            }).then(function (story) {
+
+                if (story) {
+                    source = "story";
+                    if (story.get("storyType") === type.STORY_TYPE.story) {
+
+                        storyType = "Story";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.episodes) {
+
+                        storyType = "Episode";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.chat_single) {
+
+                        storyType = "Chats";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.chat_group_episode) {
+
+                      storyType = "Chats";
+
+                    }else if (story.get("storyType") === type.STORY_TYPE.chat_single_episode) {
+
+                      storyType = "Chats";
+
+                    }else if (story.get("storyType") === type.STORY_TYPE.chat_group) {
+
+                      storyType = "Chats";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.facts) {
+
+                        storyType = "Facts";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.history) {
+
+                        storyType = "History";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.jokes) {
+
+                        storyType = "Jokes";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.news) {
+
+                        storyType = "News";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.quotes) {
+
+                        storyType = "Quotes";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.short_stories) {
+
+                        storyType = "Short Stories";
+
+                    }
+                } else {
+                    source = "episode";
+                    storyType = "Episodes";
+
+                }
 
                 return Parse.Promise.when(
                     new Parse.Query(_class.StoryItems).equalTo("storyId", id).find(),
@@ -453,7 +585,10 @@ module.exports = function (app) {
                     story_item: _storyItem,
                     story_id: id,
                     stickers: _stickers,
-                    projectItem: _project
+                    projectItem: _project,
+                    source: source,
+                    type: type,
+                    storyType: storyType
 
                 });
             }, function (error) {
@@ -572,12 +707,18 @@ module.exports = function (app) {
         let id = req.params.id;
         let content = req.body.content;
         let story_id = req.body.id;
+        let title = req.body.title;
+        let link = req.body.link;
+        let backgroundColor = req.body.backgrund_color;
+        let backgroundColorTwo = req.body.backgrund_color_two;
+        let description = req.body.description;
         let projectId = req.body.projectId;
         let heading = req.body.heading;
         let storyItemType = parseInt(req.body.type);
+        let formatCategory = parseInt(req.body.formatCategory);
+
         let object = {};
 
-        console.log("EDITING STORY ITEM HAS BEGUN" + story_id);
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
@@ -599,6 +740,36 @@ module.exports = function (app) {
 
                 }
 
+              if (story_item.get("type") === type.STORY_ITEM.backgroundColor){
+
+                  if (formatCategory === type.FORMAT_TYPE.regular){
+
+                    object = {"type": formatCategory, "color": backgroundColor};
+
+                }else if (formatCategory === type.FORMAT_TYPE.gradient) {
+                    if (backgroundColorTwo === undefined || backgroundColorTwo === "undefined" ){
+
+                      object = {"type": formatCategory.toString(), "topColor": backgroundColor, "bottomColor" : backgroundColor};
+
+                    }else {
+
+                      object = {"type": formatCategory.toString(), "topColor": backgroundColor, "bottomColor" : backgroundColorTwo};
+
+                    }
+                  }
+
+                }
+
+               if (story_item.get("type") === type.STORY_ITEM.source) {
+
+                    object = {"name": title, "description" : description, "link": link};
+
+                } else if (story_item.get("type") === type.STORY_ITEM.link) {
+
+                  object = {"name": title, "url" : link};
+
+                }
+
                 story_item.set("contents", object);
                 return story_item.save();
 
@@ -608,7 +779,7 @@ module.exports = function (app) {
 
             }, function (error) {
                 console.log("ERROR " + error.message);
-                res.redirect('/storyitem/edit/' + id + "/" + story_id + '/' + projectId);
+                res.redirect('/storyitem/edit/' + id + '/' + story_id + '/' + projectId);
             })
         } else {
             res.redirect('/');
@@ -760,7 +931,7 @@ module.exports = function (app) {
                     }
                 });
 
-                res.redirect(storyItem + '/' + source + '/' + id + '/' + projectId);
+                res.redirect(storyItem + source + '/' + id + '/' + projectId);
 
             }, function (error) {
 
@@ -781,6 +952,7 @@ module.exports = function (app) {
         let source = req.body.source;
         let heading = req.body.heading;
         let author = req.body.author;
+        let character = req.body.character;
         let description = req.body.description;
         let link = req.body.link;
         let url = req.body.url;
@@ -800,12 +972,28 @@ module.exports = function (app) {
                 switch (_type) {
                     case type.STORY_ITEM.text:
                         story.set("type", type.STORY_ITEM.text);
-                        story.set("contents", {"text": content});
+                        if (character !== "" || character === undefined) {
+                            story.set("contents", {
+                                "text": content,
+                                "character": character
+                            });
+
+                        } else {
+                            story.set("contents", {"text": content});
+                        }
                         break;
 
                     case type.STORY_ITEM.quote:
                         story.set("type", type.STORY_ITEM.quote);
-                        story.set("contents", {"text": content});
+                        if (character !== "" || character === undefined) {
+                            story.set("contents", {
+                                "text": content,
+                                "character": character
+                            });
+
+                        } else {
+                            story.set("contents", {"text": content});
+                        }
                         break;
 
                     case type.STORY_ITEM.divider:
@@ -815,22 +1003,54 @@ module.exports = function (app) {
 
                     case type.STORY_ITEM.italic:
                         story.set("type", type.STORY_ITEM.italic);
-                        story.set("contents", {"text": content});
+                        if (character !== "" || character === undefined) {
+                            story.set("contents", {
+                                "text": content,
+                                "character": character
+                            });
+
+                        } else {
+                            story.set("contents", {"text": content});
+                        }
                         break;
 
                     case type.STORY_ITEM.bold:
                         story.set("type", type.STORY_ITEM.bold);
-                        story.set("contents", {"text": content});
+                        if (character !== "" || character === undefined) {
+                            story.set("contents", {
+                                "text": content,
+                                "character": character
+                            });
+
+                        } else {
+                            story.set("contents", {"text": content});
+                        }
                         break;
 
                     case type.STORY_ITEM.italicBold:
                         story.set("type", type.STORY_ITEM.italicBold);
-                        story.set("contents", {"text": content});
+                        if (character !== "" || character === undefined) {
+                            story.set("contents", {
+                                "text": content,
+                                "character": character
+                            });
+
+                        } else {
+                            story.set("contents", {"text": content});
+                        }
                         break;
 
                     case type.STORY_ITEM.list:
                         story.set("type", type.STORY_ITEM.list);
-                        story.set("contents", {"text": content});
+                        if (character !== "" || character === undefined) {
+                            story.set("contents", {
+                                "text": content,
+                                "character": character
+                            });
+
+                        } else {
+                            story.set("contents", {"text": content});
+                        }
                         break;
 
                     case type.STORY_ITEM.sideNote:
@@ -888,6 +1108,257 @@ module.exports = function (app) {
                 res.redirect("/storyedit/" + id + '/' + projectId);
             })
         } else {
+
+            res.redirect('/');
+
+        }
+    });
+
+    app.post('/story/add/members/:storyId', function (req, res) {
+
+        let token = req.cookies.token;
+        let storyId = req.params.storyId;
+        let projectId = req.body.projectId;
+        let memberIds = req.body.memberIds;
+        let _members;
+        let _story;
+        let chatMembers = [];
+
+        if (token) {
+
+            _members = memberIds.split(",");
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                    new Parse.Query(_class.Members).containedIn("objectId", _members).find()
+                )
+            }).then(function (story, project, members) {
+                _story = story;
+                _.each(members, function (member) {
+
+                    member.get("chatIds").push(story.id);
+                    chatMembers.push(member);
+
+                });
+
+                return Parse.Object.saveAll(chatMembers);
+
+            }).then(function (members) {
+
+                console.log("MEMBERS " + JSON.stringify(members));
+                res.redirect('/storyedit/' + _story.id + '/' + projectId);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/storyedit/' + _story.id + '/' + projectId);
+
+            })
+
+        } else {
+            res.redirect('/');
+        }
+    });
+
+    app.get('/story/add/members/:storyId/:projectId', function (req, res) {
+
+        let token = req.cookies.token;
+        let storyId = req.params.storyId;
+        let projectId = req.params.projectId;
+        let storyEdit = '/storyedit/';
+        let _story = [];
+
+        if (token) {
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+                _story.push(storyId);
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
+                    new Parse.Query(_class.Members).equalTo("userId", _user.id).notContainedIn("chatIds", _story).find(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                )
+            }).then(function (story, members, project) {
+
+                console.log("MEMBERS " + JSON.stringify(members));
+                res.render("pages/stories/add_members", {
+                    story: story,
+                    chatMembers: members,
+                    projectItem: project
+                });
+
+            }, function (error) {
+
+                console.log("ERROR " + JSON.stringify(error));
+                res.redirect(storyEdit + storyId + '/' + projectId);
+
+            })
+
+        } else {
+            res.redirect('/');
+        }
+
+    });
+
+    app.post('/story/member/order/:storyId', function (req, res) {
+
+        let token = req.cookies.token;
+        let storyId = req.params.storyId;
+        let projectId = req.body.projectId;
+        let incoming = req.body.incoming;
+        let outgoing = req.body.outgoing;
+        let _project;
+
+        if (token) {
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                )
+            }).then(function (story, project) {
+              console.log("INCOMING " + incoming);
+              console.log("OUTGOING " + outgoing);
+              
+                _project = project;
+                story.get("info").incoming = incoming;
+                story.get("info").outgoing = outgoing;
+
+                return story.save();
+
+            }).then(function (story) {
+
+                res.redirect('/storyedit/' + story.id + '/' + _project.id);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/storyedit/' + storyId + '/' + projectId);
+
+            })
+
+        } else {
+            res.redirect('/');
+        }
+    });
+
+    app.post('/member/:projectId', upload.array('im1'), function (req, res) {
+
+        let token = req.cookies.token;
+        let projectId = req.params.projectId;
+        let files = req.files;
+        let memberName = req.body.memberName;
+        let memberDescription = req.body.memberDescription;
+        let memberSex = req.body.memberSex;
+
+
+        if (token) {
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                let Member = new Parse.Object.extend(_class.Members);
+                let member = new Member();
+
+                member.set("profile", {
+                    "content": {
+                        "name": memberName,
+                        "description": memberDescription,
+                        "sex": memberSex
+                    }
+                });
+                member.set("chatIds", []);
+                member.set("userId", _user.id);
+
+                if (files.length > 0) {
+                    let fullName = files[0].originalname;
+                    let fileName = fullName.substring(0, fullName.length - 4);
+
+                    let bitmap = fs.readFileSync(files[0].path, {encoding: 'base64'});
+
+                    let parseFile = new Parse.File(fileName, {base64: bitmap}, files[0].mimetype);
+
+                    member.set("profileImage", parseFile);
+                }
+
+                return member.save();
+
+            }).then(function (member) {
+
+                if (files.length > 0) {
+                    let tempFile = files[0].path;
+                    fs.unlink(tempFile, function (err) {
+                        if (err) {
+                            //TODO handle error code
+                            console.log("-------Could not del temp" + JSON.stringify(err));
+                        }
+                        else {
+                            console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+                        }
+                    });
+                }
+
+                res.redirect('/story/members/' + projectId);
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/story/members/' + projectId);
+
+            })
+        } else {
+
+            res.redirect('/');
+
+        }
+
+    });
+
+    app.get('/story/members/:projectId', function (req, res) {
+
+        let token = req.cookies.token;
+        let projectId = req.params.projectId;
+
+        if (token) {
+
+            let _user = {};
+
+            util.getUser(token).then(function (sessionToken) {
+
+                _user = sessionToken.get("user");
+
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                    new Parse.Query(_class.Members).equalTo("userId", _user.id).find(),
+                )
+
+            }).then(function (project, members) {
+
+                res.render("pages/stories/members", {
+                    members: members,
+                    projectItem: project
+                })
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/home/' + projectId);
+
+            })
+        } else {
+
             res.redirect('/');
 
         }
@@ -902,18 +1373,18 @@ module.exports = function (app) {
         let sticker_id = req.body.sticker_id;
         let projectId = req.body.projectId;
         let storyEdit = '/storyedit/';
+        let _story;
 
         if (token) {
 
             let _user = {};
-            let id;
 
             util.getUser(token).then(function (sessionToken) {
 
                 return new Parse.Query(_class.Stories).equalTo("objectId", story_id).first();
 
             }).then(function (story) {
-                id = story.id;
+                _story = story;
 
                 if (state === "change") {
 
@@ -924,7 +1395,7 @@ module.exports = function (app) {
                     let Artwork = new Parse.Object.extend(_class.ArtWork);
                     let artwork = new Artwork();
 
-                    artwork.set("itemId", id);
+                    artwork.set("itemId", story.id);
                     artwork.set("stickerId", sticker_id);
 
                     return artwork.save();
@@ -940,13 +1411,23 @@ module.exports = function (app) {
                     return artwork.save();
 
                 } else if (state === "new") {
-                    res.redirect(storyEdit + id + '/' + projectId);
+
+                    if (_story.get("storyType") === type.STORY_TYPE.chat_single || _story.get("storyType") === type.STORY_TYPE.chat_group
+                        || _story.get("storyType") === type.STORY_TYPE.chat_single_episode || _story.get("storyType") === type.STORY_TYPE.chat_group_episode) {
+
+                        res.redirect('/story/add/members/' + _story.id + '/' + projectId);
+
+                    } else {
+
+                        res.redirect(storyEdit + _story.id + '/' + projectId);
+
+                    }
 
                 }
 
             }).then(function () {
 
-                res.redirect(storyEdit + id + '/' + projectId);
+                res.redirect(storyEdit + _story.id + '/' + projectId);
 
             }, function (error) {
 
@@ -1077,9 +1558,9 @@ module.exports = function (app) {
             }).then(function (episode) {
 
                 episode.set("title", title);
-                if (sold === "1"){
+                if (sold === "1") {
                     episode.set("sold", true);
-                }else if (sold === "0"){
+                } else if (sold === "0") {
                     episode.set("sold", false);
                 }
 
@@ -1095,7 +1576,7 @@ module.exports = function (app) {
                 res.redirect('/storyitem/episode/' + story_id + '/' + projectId);
 
             })
-        }else {
+        } else {
             res.redirect('/');
         }
     });
@@ -1203,6 +1684,8 @@ module.exports = function (app) {
         let _latest = "";
         let limit = 5;
         let page;
+        let storyType;
+
 
         if (token) {
 
@@ -1233,37 +1716,88 @@ module.exports = function (app) {
 
             }).then(function (story, sticker, latest, stories, authors, products) {
 
-                _story = story;
-                _authors = authors;
-                _products = products;
+                    if (story.get("storyType") === type.STORY_TYPE.story) {
 
-                if (latest) {
-                    _latest = latest;
+                        storyType = "Story";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.episodes) {
+
+                        storyType = "Episode";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.chat_single) {
+
+                        storyType = "Chats";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.chat_group_episode) {
+
+                      storyType = "Chats";
+
+                    }else if (story.get("storyType") === type.STORY_TYPE.chat_single_episode) {
+
+                      storyType = "Chats";
+
+                    }else if (story.get("storyType") === type.STORY_TYPE.chat_group) {
+
+                      storyType = "Chats";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.facts) {
+
+                        storyType = "Facts";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.history) {
+
+                        storyType = "History";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.jokes) {
+
+                        storyType = "Jokes";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.news) {
+
+                        storyType = "News";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.quotes) {
+
+                        storyType = "Quotes";
+
+                    } else if (story.get("storyType") === type.STORY_TYPE.short_stories) {
+
+                        storyType = "Short Stories";
+
+                    }
+
+                    _story = story;
+                    _authors = authors;
+                    _products = products;
+
+                    if (latest) {
+                        _latest = latest;
+                    }
+
+                    page = util.page(stories, story_id);
+
+                    colors = story.get("info");
+
+                    if (colors.topColor === "") {
+                        //use system default
+                        colors = type.DEFAULT.colors;
+
+                    } else {
+                        colors = story.get("info");
+
+                    }
+
+                    if (sticker) {
+
+                        return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first();
+
+                    } else {
+                        return "";
+                    }
+
+
                 }
-
-                page = util.page(stories, story_id);
-
-                colors = story.get("color");
-
-                if (colors.topColor === "" || colors === {}) {
-                    //use system default
-                    colors = type.DEFAULT.colors;
-
-                } else {
-                    colors = story.get("color");
-
-                }
-
-                if (sticker) {
-
-                    return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first();
-
-                } else {
-                    return "";
-                }
-
-
-            }).then(function (_sticker) {
+            ).then(function (_sticker) {
 
                 art = _sticker;
 
@@ -1289,10 +1823,11 @@ module.exports = function (app) {
 
                 return Parse.Promise.when(
                     new Parse.Query(_class.Projects).containedIn("objectId", _story.get("projectIds")).limit(limit).find(),
-                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                    new Parse.Query(_class.Members).equalTo("chatIds", _story.id).find()
                 )
 
-            }).then(function (projects, project) {
+            }).then(function (projects, project, members) {
 
                 res.render("pages/stories/story_details", {
                     story: _story,
@@ -1304,7 +1839,9 @@ module.exports = function (app) {
                     authorId: authorId,
                     projects: projects,
                     projectItem: project,
+                    chatMembers: members,
                     products: _products,
+                    storyType: storyType,
                     type: type,
                     next: page.next,
                     previous: page.previous
@@ -1405,23 +1942,14 @@ module.exports = function (app) {
                 story.set("status", 0);
                 story.set("storyType", storyType);
                 story.set("authorId", "");
-                story.set("color", {topColor: "", bottomColor: ""});
+                story.set("info", {"topColor": "","bottomColor": "","incoming": "","outgoing": ""});
 
                 return story.save();
 
             }).then(function (story) {
-                //     let Main = new Parse.Object.extend(_class.StoryBody);
-                //     let main = new Main();
-                //
-                //     story_id = story.id;
-                //     main.set("storyId", story.id);
-                //     main.set("story", body);
-                //
-                //     return main.save();
-                //
-                // }).then(function (main) {
 
-                res.redirect('/story/artwork/new/' + story.id + '/' + projectId);
+                // res.redirect('/story/artwork/new/' + story.id + '/' + projectId);
+                res.redirect('/storyedit/' + story.id + '/' + projectId);
 
             }, function (error) {
                 console.log("ERROR WHEN CREATING NEW STORY " + error.message);
@@ -2029,7 +2557,8 @@ module.exports = function (app) {
                 res.render("pages/stories/edit_story_item", {
                     story_item: story_item,
                     story_id: story_id,
-                    projectItem: project
+                    projectItem: project,
+                    type: type
                 })
 
             }, function (error) {

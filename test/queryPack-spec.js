@@ -17,7 +17,7 @@ test('check typeOf of Pack items', function (t) {
         description = pack.get("description");
         archived = pack.get("archived");
         userId = pack.get("userId");
-        preview = pack.get("preview");
+        preview = pack.get("previews");
 
         t.equal(typeof name, "string");
         t.equal(typeof version, "number");

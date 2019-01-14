@@ -4,6 +4,7 @@ let _class = require('../cloud/modules/classNames');
 let util = require('../cloud/modules/util');
 let multer = require('multer');
 let fs = require('fs');
+let _ = require('underscore');
 
 const NORMAL_USER = 2;
 const SUPER_USER = 0;
@@ -123,17 +124,17 @@ module.exports = function (app) {
                     new Parse.Query(_class.Projects).limit(limit).find(),
                     new Parse.Query(_class.Projects).equalTo("userId", _user.id).count(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.jokes)
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType", type.STORY_TYPE.jokes)
                         .limit(otherLimit).find(),
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.quotes)
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType", type.STORY_TYPE.quotes)
                         .limit(otherLimit).find(),
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.history)
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType", type.STORY_TYPE.history)
                         .limit(otherLimit).find(),
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.news)
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType", type.STORY_TYPE.news)
                         .limit(otherLimit).find(),
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.facts)
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType", type.STORY_TYPE.facts)
                         .limit(otherLimit).find(),
-                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType",type.STORY_TYPE.episodes)
+                    new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).equalTo("storyType", type.STORY_TYPE.episodes)
                         .limit(otherLimit).find()
                 );
 
@@ -261,7 +262,8 @@ module.exports = function (app) {
                         user_name: _user.get("name"),
                         verified: _user.get("emailVerified"),
                         error_message: "null",
-                        type: type
+                        type: type,
+                        className: _class
 
                     });
 
@@ -363,6 +365,75 @@ module.exports = function (app) {
 
         }
 
+    });
+
+    app.post('/search', function (req, res) {
+
+        let token = req.cookies.token;
+        let search = req.body.search;
+        let field = req.body.field;
+        let projectId = req.body.projectId;
+        let projectArray = [];
+
+        if (token) {
+
+            projectArray.push(projectId);
+
+            util.getUser(token).then(function (sessionToken) {
+
+                switch (field) {
+                    case _class.Episodes:
+                        return Parse.Promise.when(
+                            new Parse.Query(_class.Episodes).fullText('title', search).containedIn("projectIds", projectArray).find(),
+                            new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        );
+
+                    case _class.Stories:
+                        return Parse.Promise.when(
+                            new Parse.Query(_class.Stories).fullText('title', search).containedIn("projectIds", projectArray).find(),
+                            new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        );
+
+                    case _class.Adverts:
+                        return Parse.Promise.when(
+                            new Parse.Query(_class.Adverts).fullText('title', search).containedIn("projectIds", projectArray).find(),
+                            new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        );
+
+                    case _class.Packs:
+                        return Parse.Promise.when(
+                            new Parse.Query(_class.Packs).fullText('name', search).containedIn("projectIds", projectArray).find(),
+                            new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        );
+
+                    case _class.Stickers:
+                        return Parse.Promise.when(
+                            new Parse.Query(_class.Stickers).fullText('name', search).find(),
+                            new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        );
+
+                }
+
+            }).then(function (elements, project) {
+
+                res.render("pages/accounts/search_results", {
+                    searchResults: elements,
+                    projectItem: project,
+                    field: field,
+                    className: _class
+                });
+
+            }, function (error) {
+
+                console.log("ERROR " + error.message);
+                res.redirect('/home/' + proejctId);
+            })
+
+        } else {
+
+            res.redirect('/')
+
+        }
     });
 
     app.post('/author', function (req, res) {

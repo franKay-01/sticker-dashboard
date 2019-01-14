@@ -71,7 +71,11 @@ exports.STORY_TYPE = {
     facts: 4,
     history: 5,
     news: 6,
-    episodes: 7
+    episodes: 7,
+    chat_single: 8,
+    chat_group: 9,
+    chat_single_episode: 10,
+    chat_group_episode: 11
 };
 
 exports.FORMAT_TYPE = {
@@ -131,23 +135,3 @@ exports.COLOR_TYPE = {
     }
 
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -95,9 +95,7 @@
 
                         <% } else { %>
                         <% products.forEach(function(items) { %>
-                        <option value="<%= items.id %>">
-                            <%= items.get("name") %>
-                        </option>
+                        <option value="<%= items.id %>"><%= items.get("name") %></option>
                         <% }) %>
                         <% } %>
                     </select>

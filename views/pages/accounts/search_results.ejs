@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Search Results - G-Stickers</title>
+
+    <% include ../../partials/fav.ejs %>
+
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css"/>
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/public/assets/js/custom.js"></script>
+    <script src="/public/assets/js/tag.js"></script>
+    <style>
+        <% include ../../partials/modified_css.ejs %>
+    </style>
+</head>
+
+<body class="primary-background-color">
+
+<div class="grid-container">
+    <!-- Logo -->
+    <div class="medium-12 large-12">
+        <a href="/home">
+            <img src="/public/assets/images/G_logo.png"
+                 srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo"
+                 id="logo">
+        </a>
+        <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
+
+    </div>
+    <span class="medium-12 large-12 welcome_post" id="pack_id"><b>Search Results</b></span>
+
+    <span class="medium-12 large-12 welcome_post" id="Search">
+        <form method="post" action="/search">
+            <input type="hidden" value="<%= projectItem.id %>" name="projectId">
+            <div class="row">
+                <div class="col s3"><input type="text" name="search" class="box_2" placeholder="Search entry"></div>
+                <div class="col s4">
+                    <select class="input-field validate" style="height: 35px;" name="field" required="" aria-required="true">
+                        <option value="" disabled selected>&nbsp;Select Search Field</option>
+                        <option value="<%= className.Stickers %>">Stickers</option>
+                        <option value="<%= className.Packs %>">Packs</option>
+                        <option value="<%= className.Episodes %>">Episodes</option>
+                        <option value="<%= className.Stories %>">Stories</option>
+                        <option value="<%= className.Adverts %>">Adverts</option>
+                    </select>
+                </div>
+
+                <div class="col s1" style="margin-top: -5px;">
+                    <button type="submit" style="background: transparent !important;">
+                        <i class="fa fa-search" style="color: <%= projectItem.get("setting").text %> !important;font-size: 30px;"
+                           aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </span>
+    <!-- End of logo-->
+    <div id="pageMask"></div>
+
+    <div class="grid-x grid-margin-x" id="opaqueDiv">
+        <div class="medium-3 large-3 cell login_card">
+            <div class="card_head_position">
+                <div class="stats">Menu</div>
+                <% include ../../partials/menu.ejs %>
+
+            </div>
+        </div>
+
+        <% include ../../partials/search_results.ejs %>
+        <%- include('../../partials/footer') %>
+    </div>
+</div>
+
+<!-- Body -->
+
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
+<!-- Compiled and minified JavaScript -->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>-->
+<script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+<script type="text/javascript" src="/public/assets/js/validate.js"></script>
+
+</body>
+
+
+</html>

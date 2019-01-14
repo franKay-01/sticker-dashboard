@@ -88,26 +88,16 @@
                     <!--<textarea class="_pack common_pack_detail validate" placeholder="Story"-->
                     <!--name="story" required="" aria-required="true"></textarea><br>-->
                     <input type="hidden" name="projectId" value="<%= projectItem.id %>">
-
-                    <label class="update_label" style="width: 450px;color: white !important;">Format Type of
-                        Story:</label>
-                    <input name="formatType" type="radio" id="formatType" checked
-                           value="<%= type.FORMAT_TYPE.default %>"/>
-                    <label for="formatType" class="_label"
-                           style="color: white !important;font-weight: 700">Defualt</label>
-
-                    <input name="formatType" type="radio" id="formatType2" value="<%= type.FORMAT_TYPE.sideImage %>"/>
-                    <label for="formatType2" class="_label" style="color: white !important;font-weight: 700;">S
-                        Image</label>
-
-                    <input name="formatType" type="radio" id="formatType3" value="<%= type.FORMAT_TYPE.text %>"/>
-                    <label for="formatType3" class="_label"
-                           style="color: white !important;font-weight: 700;">Text</label>
-
-                    <input name="formatType" type="radio" id="formatType4"
-                           value="<%= type.FORMAT_TYPE.backgroundImage %>"/>
-                    <label for="formatType4" class="_label" style="color: white !important;font-weight: 700;">B
-                        Image</label>
+                    <br>
+                    <div class="row" style="width: 450px !important;">
+                        <select class="input-field validate" name="formatType" required="" aria-required="true">
+                            <option value="" disabled selected>&nbsp;Select Story Format</option>
+                            <option value="<%= type.FORMAT_TYPE.default %>">Default</option>
+                            <option value="<%= type.FORMAT_TYPE.sideImage %>">Side Image</option>
+                            <option value="<%= type.FORMAT_TYPE.text %>">Text</option>
+                            <option value="<%= type.FORMAT_TYPE.backgroundImage %>">Background Image</option>
+                        </select>
+                    </div>
 
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="pack_id" required="" aria-required="true">
@@ -137,7 +127,10 @@
                             <option value="<%= type.STORY_TYPE.history %>">HISTORY</option>
                             <option value="<%= type.STORY_TYPE.news %>">NEWS</option>
                             <option value="<%= type.STORY_TYPE.episodes %>">EPISODES</option>
-
+                            <option value="<%= type.STORY_TYPE.chat_single %>">SINGLE CHATS</option>
+                            <option value="<%= type.STORY_TYPE.chat_single_episode %>">SINGLE EPISODE CHATS</option>
+                            <option value="<%= type.STORY_TYPE.chat_group %>">GROUP CHATS</option>
+                            <option value="<%= type.STORY_TYPE.chat_group_episode %>">GROUP EPISODE CHATS</option>
                         </select>
                     </div>
 
@@ -183,7 +176,6 @@
                             <option value="PURCHASE">PURCHASE</option>
                             <option value="PLAY">PLAY</option>
                             <option value="PLAY NOW">PLAY NOW</option>
-
                         </select>
                     </div>
                 </center>
@@ -291,9 +283,37 @@
         </div>
     </div>
     <% } %>
-    <span class="medium-12 large-12 welcome_post" id="Welcome"><b>Welcome - <%= projectItem.get("name") %> - <a
-                    href="/account/user/profile"
-                    style="font-size: 45px;color: #af627f;"> <%= user_name %> </a></b></span>
+    <span class="medium-12 large-12 welcome_post" id="Welcome">
+        <b>Welcome - <%= projectItem.get("name") %> - <a href="/account/user/profile"
+                                                         style="font-size: 45px;color: #af627f;"> <%= user_name %> </a></b>
+    </span>
+    <span class="medium-12 large-12 welcome_post" id="Search">
+        <form method="post" action="/search">
+            <input type="hidden" value="<%= projectItem.id %>" name="projectId">
+            <div class="row">
+                <div class="col s3"><input type="text" name="search" class="box_2" placeholder="Search entry"></div>
+                <div class="col s4">
+                    <select class="input-field validate" style="height: 35px;" name="field" required=""
+                            aria-required="true">
+                        <option value="" disabled selected>&nbsp;Select Search Field</option>
+                        <option value="<%= className.Stickers %>">Stickers</option>
+                        <option value="<%= className.Packs %>">Packs</option>
+                        <option value="<%= className.Episodes %>">Episodes</option>
+                        <option value="<%= className.Stories %>">Stories</option>
+                        <option value="<%= className.Adverts %>">Adverts</option>
+                    </select>
+                </div>
+
+                <div class="col s1" style="margin-top: -5px;">
+                    <button type="submit" style="background: transparent !important;">
+                        <i class="fa fa-search"
+                           style="color: <%= projectItem.get("setting").text %> !important;font-size: 30px;"
+                           aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </span>
     <div class="grid-x grid-margin-x" id="opaqueDiv">
         <!-- Card to display Stats of the database-->
         <div class="medium-3 large-3 cell login_card">
@@ -418,39 +438,47 @@
         </div>
 
         <div class="medium-3 large-3 cell icons">
-            <div class="create_new">Others</div>
+            <div class="create_new">Jokes</div>
 
-            <div class="card_head_position">
+            <div class="card_head_position" style="margin-top: 0 !important;">
                 <div class="recent_labels">Recent Jokes</div>
                 <%- include('../../partials/jokes') %>
+            </div>
 
-                <div class="recent_labels" style="margin-top: 75px !important;">Recent Quotes</div>
+            <div class="create_new" style="margin: 35px 15px auto !important;">Quotes</div>
+            <div class="card_head_position" style="margin-top: 0 !important;">
+                <div class="recent_labels">Recent Quotes</div>
                 <%- include('../../partials/quotes') %>
-
             </div>
         </div>
 
         <div class="medium-3 large-3 cell icons">
-            <div class="create_new">Others</div>
+            <div class="create_new">News</div>
 
-            <div class="card_head_position">
+            <div class="card_head_position" style="margin-top: 0 !important;">
                 <div class="recent_labels">Recent News</div>
                 <%- include('../../partials/news') %>
+            </div>
 
-                <div class="recent_labels" style="margin-top: 75px !important;">Recent History</div>
+            <div class="create_new" style="margin: 35px 15px auto !important;">History</div>
+
+            <div class="card_head_position" style="margin-top: 0 !important;">
+                <div class="recent_labels">Recent History</div>
                 <%- include('../../partials/history') %>
-
             </div>
         </div>
 
         <div class="medium-3 large-3 cell icons">
-            <div class="create_new">Others</div>
+            <div class="create_new">Facts</div>
 
-            <div class="card_head_position">
+            <div class="card_head_position" style="margin-top: 0 !important;">
                 <div class="recent_labels">Recent Facts</div>
                 <%- include('../../partials/facts') %>
+            </div>
 
-                <div class="recent_labels" style="margin-top: 75px !important;">Recent Episodes</div>
+            <div class="create_new" style="margin: 35px 15px auto !important;">Episodes</div>
+            <div class="card_head_position" style="margin-top: 0 !important;">
+                <div class="recent_labels">Recent Episodes</div>
                 <%- include('../../partials/episodes') %>
             </div>
         </div>
@@ -529,8 +557,7 @@
 <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>-->
 <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
-<script type="text/javascript" src="/public/assets/js/custom.js">
-</script>
+<script type="text/javascript" src="/public/assets/js/custom.js"></script>
 <script type="text/javascript" src="/public/assets/js/validate.js"></script>
 </body>
 </html>
