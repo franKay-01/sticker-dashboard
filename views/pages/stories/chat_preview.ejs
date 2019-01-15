@@ -82,7 +82,14 @@
                     <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
                 </span>
             </div>
-            <% }%>
+            <% } else if (item.get("contents").character === "admin"){%>
+              <div style="width: 90%;display: block !important;">
+                <center>
+                  <div style="min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
+                       class="speech-bubble-right"><%= item.get("contents").text %></div>
+                 </center>
+              </div>
+              <%}%>
             </div>
 
             <% }) %>
