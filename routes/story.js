@@ -1277,7 +1277,7 @@ module.exports = function (app) {
             _user = sessionToken.get("user");
 
             return Parse.Promise.when(
-                new Parse.Query(_class.Members).equalTo("objectId", memberId).first();
+                new Parse.Query(_class.Members).equalTo("objectId", memberId).first(),
                 new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
             )
 
