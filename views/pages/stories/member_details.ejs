@@ -85,16 +85,16 @@
                             class="box_2" name="description" style="width: 60% !important;" value="<%= member.get("profile").content.description %>">
                         <label class="update_label">Sex:</label>
                         <% if (member.get("profile").content.sex === "male"){ %>
-                        <input name="gender" type="radio" id="gender1" value="Male" checked/>
+                        <input name="gender" type="radio" id="gender1" value="male" checked/>
                         <label for="gender1" style="color: #8c5757 !important;" class="_label">Male</label>
 
-                        <input name="gender" type="radio" id="gender2" value="Male"/>
+                        <input name="gender" type="radio" id="gender2" value="female"/>
                         <label for="gender2" style="color: #8c5757 !important;" class="_label">Female</label>
                         <% } else if (member.get("profile").content.sex === "female"){ %>
-                          <input name="gender" type="radio" id="gender1" value="Male"/>
+                          <input name="gender" type="radio" id="gender1" value="male"/>
                           <label for="gender1" style="color: #8c5757 !important;" class="_label">Male</label>
 
-                          <input name="gender" type="radio" id="gender1" value="Male" checked/>
+                          <input name="gender" type="radio" id="gender1" value="female" checked/>
                           <label for="gender1" style="color: #8c5757 !important;" class="_label">Female</label>
                           <%}%>
 
