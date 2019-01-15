@@ -795,6 +795,7 @@ module.exports = function (app) {
         let token = req.cookies.token;
         let id = req.params.id;
         let projectId = req.body.projectId;
+        let memberId = req.body.character;
         let source = req.body.source;
 
         if (token) {
@@ -831,7 +832,8 @@ module.exports = function (app) {
                     story: _story.id,
                     stickers: stickers,
                     projectItem: project,
-                    source: source
+                    source: source,
+                    memberId: memberId
                 });
 
             }, function (error) {
@@ -853,6 +855,7 @@ module.exports = function (app) {
         let sticker_id = req.body.sticker_id;
         let sticker_url = req.body.sticker_url;
         let projectId = req.body.projectId;
+        let memberId = req.body.memberId;
         let source = req.body.source;
 
         if (token) {
@@ -861,7 +864,11 @@ module.exports = function (app) {
                 let Story = new Parse.Object.extend(_class.StoryItems);
                 let catalogue = new Story();
 
-                catalogue.set("contents", {"id": sticker_id, "uri": sticker_url});
+                if (memberId !== undefined){
+                  catalogue.set("contents", {"id": sticker_id, "uri": sticker_url, "character" : memberId});
+                }else {
+                  catalogue.set("contents", {"id": sticker_id, "uri": sticker_url});    
+                }
                 catalogue.set("storyId", story_id);
                 catalogue.set("type", type.STORY_ITEM.sticker);
 
