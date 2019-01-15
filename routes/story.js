@@ -1309,7 +1309,7 @@ module.exports = function (app) {
             return member.save();
 
           }).then(function(member){
-
+            console.log("UPDATED MEMBER " + JSON.stringify(member));
             res.redirect("/member/" + memberId + "/" + productId);
 
           }, function(error){
