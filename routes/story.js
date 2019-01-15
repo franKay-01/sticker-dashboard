@@ -1262,7 +1262,7 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/member/:projectId/:memberId', function(req, res){
+    app.get('/member/:memberId/:projectId', function(req, res){
 
       let token = req.cookies.token;
       let projectId = req.params.projectId;
@@ -1287,6 +1287,7 @@ module.exports = function (app) {
             member: member,
             projectItem: project
           })
+
         }, function(error){
           console.log("ERROR " + error.message);
           res.redirect('/story/members/' + projectId);
