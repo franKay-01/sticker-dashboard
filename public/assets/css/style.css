@@ -239,3 +239,8 @@ a:visited {
   content: "";
 }
 
+.administrator_bubble {
+	position: relative;
+	background: #70665c;
+	border-radius: .4em;
+}
