@@ -1262,6 +1262,65 @@ module.exports = function (app) {
         }
     });
 
+    app.post('/memberedit/:memberId',  upload.array('im1'), function(req, res){
+      let token = req.cookies.token;
+      let memberId = req.params.memberId;
+      let memberName = req.body.memberName;
+      let memberDescription = req.body.description;
+      let memberSex = req.body.gender;
+      let projectId = req.body.projectId;
+      let files = req.files;
+
+      let _project;
+
+      if (token){
+        let _user = {};
+
+        util.getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+            return Parse.Promise.when(
+              new Parse.Query(_class.Members).equalTo("objectId", memberId).equalTo("userId", _user.id).first(),
+              new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+            )
+          }).then(function(member, project){
+
+            _project = project;
+
+            member.set("profile", {
+                "content": {
+                    "name": memberName,
+                    "description": memberDescription,
+                    "sex": memberSex
+                }
+            });
+
+            if (files.length > 0) {
+                let fullName = files[0].originalname;
+                let fileName = fullName.substring(0, fullName.length - 4);
+
+                let bitmap = fs.readFileSync(files[0].path, {encoding: 'base64'});
+
+                let parseFile = new Parse.File(fileName, {base64: bitmap}, files[0].mimetype);
+
+                member.set("profileImage", parseFile);
+            }
+
+            return member.save();
+
+          }).then(function(member){
+
+            res.redirect("/member/" + memberId + "/" + productId);
+
+          }, function(error){
+            console.log("ERROR " + error.message);
+            res.redirect("/member/" + memberId + "/" + productId);
+          })
+      }else {
+        res.redirect('/');
+      }
+    });
+
     app.get('/member/:memberId/:projectId', function(req, res){
 
       let token = req.cookies.token;
