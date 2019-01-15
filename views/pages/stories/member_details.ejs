@@ -72,7 +72,7 @@
 
         <!-- End of logo -->
         <span class="medium-6 large-6 welcome_post"><b>Edit <i style="color: #a46580">
-                    <%= member.get("profile").content.name %>&nbsp;&nbsp;</i> Details</b></span>
+                    <%= member.get("profile").content.name %>&nbsp;</i> Details</b></span>
 
         <div class="grid-x grid-margin-x story" id="opaqueDiv">
             <div class="medium-3 large-3 cell">
@@ -102,19 +102,19 @@
                             class="box_2" name="title" value="<%= member.get("profile").content.name %>">
                         <label class="update_label">Member Details:</label> <input placeholder="Keywords "
                             class="box_2" name="keyword" style="width: 60% !important;" value="<%= member.get("profile").content.description %>">
-                        <label class="update_label">Sex:</label><br>
+                        <label class="update_label">Sex:</label>
                         <% if (member.get("profile").content.sex === "male"){ %>
                         <input name="gender" type="radio" id="gender1" value="Male" checked/>
-                        <label for="gender1" class="_label">Male</label>
+                        <label for="gender1" style="color: #8c5757 !important;" class="_label">Male</label>
 
                         <input name="gender" type="radio" id="gender2" value="Male"/>
-                        <label for="gender2" class="_label">Female</label>
+                        <label for="gender2" style="color: #8c5757 !important;" class="_label">Female</label>
                         <% } else if (member.get("profile").content.sex === "female"){ %>
                           <input name="gender" type="radio" id="gender1" value="Male"/>
-                          <label for="gender1" class="_label">Male</label>
+                          <label for="gender1" style="color: #8c5757 !important;" class="_label">Male</label>
 
                           <input name="gender" type="radio" id="gender1" value="Male" checked/>
-                          <label for="gender1" class="_label">Male</label>
+                          <label for="gender1" style="color: #8c5757 !important;" class="_label">Male</label>
                           <%}%>
 
                         <br>
