@@ -867,7 +867,7 @@ module.exports = function (app) {
                 if (memberId !== undefined){
                   catalogue.set("contents", {"id": sticker_id, "uri": sticker_url, "character" : memberId});
                 }else {
-                  catalogue.set("contents", {"id": sticker_id, "uri": sticker_url});    
+                  catalogue.set("contents", {"id": sticker_id, "uri": sticker_url});
                 }
                 catalogue.set("storyId", story_id);
                 catalogue.set("type", type.STORY_ITEM.sticker);
@@ -1261,6 +1261,40 @@ module.exports = function (app) {
             res.redirect('/');
         }
     });
+
+    app.get('/member/:projectId/:memberId', function(req, res){
+
+      let token = req.cookies.token;
+      let projectId = req.params.projectId;
+      let memberId = req.params.memberId;
+
+      if (token){
+
+        let _user = {};
+
+        util.getUser(token).then(function (sessionToken) {
+
+            _user = sessionToken.get("user");
+
+            return Parse.Promise.when(
+                new Parse.Query(_class.Members).equalTo("objectId", memberId).first();
+                new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+            )
+
+        }).then(function(member, project){
+
+          res.render("pages/stories/member_details", {
+            member: member,
+            projectItem: project
+          })
+        }, function(error){
+          console.log("ERROR " + error.message);
+          res.redirect('/story/members/' + projectId);
+        })
+      }else {
+        res.redirect('/');
+      }
+    })
 
     app.post('/member/:projectId', upload.array('im1'), function (req, res) {
 

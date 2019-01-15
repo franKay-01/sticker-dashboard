@@ -502,6 +502,7 @@
                                 story.get("storyType") === type.STORY_TYPE.chat_single_episode ||
                                 story.get("storyType") === type.STORY_TYPE.chat_group_episode) { %>
                         <% if (chatMembers.length === 2) { %>
+                          <br><br>
 
                         <%} else {%>
                           <a href="/story/add/members/<%= story.id %>/<%= projectItem.id %>" class="preview"> Add Chat Members
