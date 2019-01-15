@@ -40,25 +40,6 @@
 </head>
 
 <body class="primary-background-color">
-    <div id="pageMask"></div>
-
-    <div id="hiddenChangeArtwork" class="hidden_forms" style="display: none">
-        <div class="medium-3 large-3 cell create_background">
-            <center>
-                <div class="edit_labels medium-12 large-12" style="margin-bottom: 30px !important">ADD ARTWORK ?</div>
-            </center>
-            <br><br>
-            <a href="#" id="btnCloseChangeArtwork" class="edit_labels" style="margin: 200px !important;">
-                NO
-            </a>
-            <a href="/story/artwork/change/<%= member.id %>/<%= projectItem.id %>" id="submitChangeArt" class="edit_labels">
-                YES
-            </a>
-
-        </div>
-
-    </div>
-
     <div class="grid-container">
         <!-- Logo -->
         <div class="medium-12 large-12" id="logo">
@@ -114,10 +95,21 @@
                           <label for="gender1" style="color: #8c5757 !important;" class="_label">Male</label>
 
                           <input name="gender" type="radio" id="gender1" value="Male" checked/>
-                          <label for="gender1" style="color: #8c5757 !important;" class="_label">Male</label>
+                          <label for="gender1" style="color: #8c5757 !important;" class="_label">Female</label>
                           <%}%>
 
-                        <br>
+                        <br><br>
+                        <label class="update_label">Upload New Image:</label>
+                        <div class="file-field input-field">
+                            <div class="btn">
+                                <span><i class="fa fa-file-o"></i></span>
+                                <input type="file" name="im1">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+                        <br><br>
 
                         <a href="#" id="submit_story" class="preview">Save Changes</a><br>
 
