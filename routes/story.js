@@ -104,13 +104,11 @@ module.exports = function (app) {
                     })
                 });
 
-                console.log("COMBINED " + JSON.stringify(combined));
-                
                 let newArray = storyArray;
 
-              _.each(storyArray, function(storyItem, index){
                 _.each(combined, function(combine, combinedIndex){
-                  if ( storyItem.id === combine.story) {
+                  _.each(storyArray, function(storyItem, index){
+                   if ( storyItem.id === combine.story) {
                     newArray.splice(index, 1);
                     console.log("HERE");
                   }
