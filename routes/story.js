@@ -100,18 +100,16 @@ module.exports = function (app) {
                               story: artworks.get("itemId"),
                               image: sticker.get("uri").url()
                           });
-                            storyArray.push(artworks.get("itemId"));
-                            console.log("ADDED TO SPLICE " + artworks.get("itemId"));
-
                         }
                     })
                 });
 
-              _.each(_story, function(storyItem, index){
-                if ( storyArray[index] === storyItem.id) {
-                  console.log("SPLICE " + storyArray[index]);
-                  storyArray.splice(index, 1);
-                }
+              _.each(storyArray, function(storyItem, index){
+                _.each(combined, function(arrayItem, combinedIndex){
+                  if ( storyItem.id === arrayItem.story) {
+                    storyArray.splice(index, 1);
+                  }
+                })
               })
 
                 console.log("STORY BEFORE SPLICE " + JSON.stringify(_story));
