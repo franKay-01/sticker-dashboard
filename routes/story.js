@@ -104,6 +104,8 @@ module.exports = function (app) {
                     })
                 });
 
+                console.log("COMBINED " + JSON.stringify(combined));
+                
                 let newArray = storyArray;
 
               _.each(storyArray, function(storyItem, index){
