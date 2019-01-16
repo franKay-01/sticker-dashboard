@@ -118,14 +118,14 @@ module.exports = function (app) {
               console.log("STORY ARRAY " + JSON.stringify(_story));
 
                 res.render("pages/stories/stories", {
-                    story: copyOfMyArray,
+                    story: _story,
                     allPacks: _allPack,
                     projectItem: _allProjects,
                     arts: combined,
                     latest: _latest,
                     type: type,
                     episodes: _allEpisodes,
-                    storyNoArt: newArray
+                    storyNoArt: copyOfMyArray
                 })
             }, function (error) {
 
