@@ -109,13 +109,15 @@ module.exports = function (app) {
                 _.each(combined, function(combine, combinedIndex){
                   _.each(storyArray, function(storyItem, index){
                    if ( storyItem.id === combine.story) {
-                      copyOfMyArray.push(storyArray.splice(index, 1));
+                      copyOfMyArray = storyArray.splice(index, 1);
                     console.log("HERE");
                   }
                 });
               });
 
-              console.log("STORY ARRAY " + JSON.stringify(copyOfMyArray));
+              console.log("STORY COPY ARRAY " + JSON.stringify(copyOfMyArray));
+              console.log("STORY _S ARRAY " + JSON.stringify(_story));
+              console.log("STORY _SA ARRAY " + JSON.stringify(storyArray));
 
                 res.render("pages/stories/stories", {
                     story: _story,
