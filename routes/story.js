@@ -119,7 +119,7 @@ module.exports = function (app) {
                 console.log("STORY AFTER SPLICE " + JSON.stringify(newArray));
 
                 res.render("pages/stories/stories", {
-                    story: _story,
+                    story: storyArray,
                     allPacks: _allPack,
                     projectItem: _allProjects,
                     arts: combined,
