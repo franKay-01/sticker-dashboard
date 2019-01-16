@@ -105,12 +105,12 @@ module.exports = function (app) {
                     })
                 });
 
-              _.each(story, function(storyItem, index){
+              _.each(_story, function(storyItem, index){
                 if ( storyArray[i] === storyItem.id) {
                   storyArray.splice(i, 1);
                 }
               })
-              
+
                 console.log("STORY BEFORE SPLICE " + JSON.stringify(story));
                 console.log("STORY AFTER SPLICE " + JSON.stringify(storyArray));
 
