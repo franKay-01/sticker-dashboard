@@ -100,10 +100,19 @@ module.exports = function (app) {
                               story: artworks.get("itemId"),
                               image: sticker.get("uri").url()
                           });
-                            storyArray.splice(index, 1);
+                            storyArray.push(artwork.get("itemId"));
                         }
                     })
                 });
+
+              _.each(story, function(storyItem, index){
+                if ( storyArray[i] === storyItem.id) {
+                  storyArray.splice(i, 1);
+                }
+              })
+              
+                console.log("STORY BEFORE SPLICE " + JSON.stringify(story));
+                console.log("STORY AFTER SPLICE " + JSON.stringify(storyArray));
 
                 res.render("pages/stories/stories", {
                     story: _story,
