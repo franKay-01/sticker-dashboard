@@ -115,7 +115,7 @@ module.exports = function (app) {
                 });
               });
 
-              console.log("STORY ARRAY " + JSON.stringify(_story));
+              console.log("STORY ARRAY " + JSON.stringify(copyOfMyArray));
 
                 res.render("pages/stories/stories", {
                     story: _story,
