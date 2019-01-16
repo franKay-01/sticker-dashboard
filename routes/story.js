@@ -197,6 +197,9 @@ module.exports = function (app) {
         let source = req.params.source;
         let projectId = req.params.projectId;
         let mainStoryId;
+        let _story;
+        let _project;
+        let _members;
 
         if (token) {
 
@@ -219,25 +222,31 @@ module.exports = function (app) {
 
             }).then(function (story, project, members) {
 
+                _story = story;
+                _project = project;
+                _members = members;
+
                 if (source === episode) {
                     mainStoryId = story.get("storyId");
+                    return new Parse.Query(_class.STORIES).equalTo("objectId", story.get("storyId")).first();
                 } else {
                     mainStoryId = "";
                 }
 
-                res.render("pages/stories/story_catalogue", {
+            }).then(function(story){
 
-                    story_id: story.id,
-                    name: story.get("title"),
-                    storyType: story.get("storyType"),
-                    projectItem: project,
-                    chatMembers: members,
-                    type: type,
-                    source: source,
-                    mainStoryId: mainStoryId
+              res.render("pages/stories/story_catalogue", {
 
-                });
+                  story_id: _story.id,
+                  name: _story.get("title"),
+                  storyType: story.get("storyType"),
+                  projectItem: _project,
+                  chatMembers: _members,
+                  type: type,
+                  source: source,
+                  mainStoryId: mainStoryId
 
+              });
             }, function (error) {
                 console.log("ERROR " + error.message);
                 res.redirect('/stories/' + projectId);
