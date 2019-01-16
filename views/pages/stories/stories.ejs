@@ -64,31 +64,24 @@
 
                     <!--<textarea class="_pack common_pack_detail validate" placeholder="Story"-->
                     <!--name="story" required="" aria-required="true"></textarea><br>-->
-                    <div class="row" style="width: 450px !important;">
-                        <select class="input-field validate" name="formatType" required="" aria-required="true">
-                            <option value="" disabled selected>&nbsp;Select Story Format</option>
-                            <option value="<%= type.FORMAT_TYPE.default %>">Default</option>
-                            <option value="<%= type.FORMAT_TYPE.sideImage %>">Side Image</option>
-                            <option value="<%= type.FORMAT_TYPE.text %>">Text</option>
-                            <option value="<%= type.FORMAT_TYPE.backgroundImage %>">Background Image</option>
-                        </select>
-                    </div>
+
+                    <input name="formatType" value="<%= type.FORMAT_TYPE.default %>" type="hidden">
 
                     <input type="hidden" name="projectId" value="<%= projectItem.id %>">
-                    <div class="row" style="width: 450px !important;">
+                    /* <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="pack_id" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Add Pack</option>
-                            <% if (allPacks.length === 0) { %>
+                            <%# if (allPacks.length === 0) { %>
 
-                            <% } else { %>
-                            <% allPacks.forEach(function(items) { %>
-                            <% if (items.get("packType") === type.PACK_TYPE.grouped){ %>
-                            <option value="<%= items.id %>"><%= items.get("name") %></option>
-                            <% } %>
-                            <% }) %>
-                            <% } %>
+                            <%# } else { %>
+                            <%# allPacks.forEach(function(items) { %>
+                            <%# if (items.get("packType") === type.PACK_TYPE.grouped){ %>
+                            <option value="<%#= items.id %>"><%#= items.get("name") %></option>
+                            <%# } %>
+                            <%3 }) %>
+                            <%# } %>
                         </select>
-                    </div>
+                    </div> */
 
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="storyType" required="" aria-required="true">
