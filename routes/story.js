@@ -111,7 +111,7 @@ module.exports = function (app) {
                 }
               })
 
-                console.log("STORY BEFORE SPLICE " + JSON.stringify(story));
+                console.log("STORY BEFORE SPLICE " + JSON.stringify(_story));
                 console.log("STORY AFTER SPLICE " + JSON.stringify(storyArray));
 
                 res.render("pages/stories/stories", {
