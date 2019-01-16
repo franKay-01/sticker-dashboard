@@ -104,16 +104,18 @@ module.exports = function (app) {
                     })
                 });
 
+                let newArray = storyArray;
               _.each(storyArray, function(storyItem, index){
-                _.each(combined, function(arrayItem, combinedIndex){
-                  if ( storyItem.id === arrayItem.story) {
-                    storyArray.splice(index, 1);
+                _.each(combined, function(combine, combinedIndex){
+                  if ( storyItem.id === combine.story) {
+                    newArray.splice(index, 1);
+                    console.log("HERE");
                   }
                 })
               })
 
                 console.log("STORY BEFORE SPLICE " + JSON.stringify(_story));
-                console.log("STORY AFTER SPLICE " + JSON.stringify(storyArray));
+                console.log("STORY AFTER SPLICE " + JSON.stringify(newArray));
 
                 res.render("pages/stories/stories", {
                     story: _story,
