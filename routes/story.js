@@ -228,7 +228,7 @@ module.exports = function (app) {
 
                 if (source === episode) {
                     mainStoryId = story.get("storyId");
-                    return new Parse.Query(_class.STORIES).equalTo("objectId", story.get("storyId")).first();
+                    return new Parse.Query(_class.Stories).equalTo("objectId", story.get("storyId")).first();
                 } else {
                     mainStoryId = "";
                     res.render("pages/stories/story_catalogue", {
