@@ -104,12 +104,12 @@ module.exports = function (app) {
                     })
                 });
 
-                let newArray = storyArray;
+                let copyOfMyArray = [];
 
                 _.each(combined, function(combine, combinedIndex){
                   _.each(storyArray, function(storyItem, index){
                    if ( storyItem.id === combine.story) {
-                    newArray.splice(index, 1);
+                      copyOfMyArray.push(storyArray.splice(index, 1));
                     console.log("HERE");
                   }
                 });
@@ -118,7 +118,7 @@ module.exports = function (app) {
               console.log("STORY ARRAY " + JSON.stringify(_story));
 
                 res.render("pages/stories/stories", {
-                    story: storyArray,
+                    story: copyOfMyArray,
                     allPacks: _allPack,
                     projectItem: _allProjects,
                     arts: combined,
