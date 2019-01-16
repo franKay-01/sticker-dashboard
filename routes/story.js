@@ -115,10 +115,6 @@ module.exports = function (app) {
                 });
               });
 
-              console.log("STORY COPY ARRAY " + JSON.stringify(newArray));
-              console.log("STORY _S ARRAY " + JSON.stringify(_story));
-              console.log("STORY _SA ARRAY " + JSON.stringify(storyArray));
-
                 res.render("pages/stories/stories", {
                     story: _story,
                     allPacks: _allPack,
