@@ -106,8 +106,8 @@ module.exports = function (app) {
                 });
 
               _.each(_story, function(storyItem, index){
-                if ( storyArray[i] === storyItem.id) {
-                  storyArray.splice(i, 1);
+                if ( storyArray[index] === storyItem.id) {
+                  storyArray.splice(index, 1);
                 }
               })
 
