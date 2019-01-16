@@ -61,7 +61,7 @@ module.exports = function (app) {
 
             }).then(function (story, allPack, artworks, latest, projects, episodes) {
 
-                // _story = story;
+                _story = story;
                 storyArray = story;
                 _allPack = allPack;
                 _allArtwork = artworks;
@@ -115,8 +115,8 @@ module.exports = function (app) {
                 });
               });
 
-              console.log("STORY ARRAY " + JSON.stringify(storyArray));
-              
+              console.log("STORY ARRAY " + JSON.stringify(_story));
+
                 res.render("pages/stories/stories", {
                     story: storyArray,
                     allPacks: _allPack,
