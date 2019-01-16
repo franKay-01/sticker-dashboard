@@ -6,6 +6,67 @@
 
   </div>
 <%} else {%>
+  <% story.forEach(function(item, index) { %>
+
+      <% arts.forEach(function (art, index) { %>
+
+          <% if (art.story === item.id){ %>
+          <div class="medium-3 large-3 cell card-zoom icons">
+              <% if (item.get("storyType") === type.STORY_TYPE.short_stories){ %>
+                  <i class="fa fa-circle display_icons" id="circle" style="color: #ffb12f;" aria-hidden="true"></i>
+              <% } else if (item.get("storyType") === type.STORY_TYPE.story){ %>
+                  <i class="fa fa-circle display_icons" id="circle" style="color: #28ff7e;" aria-hidden="true"></i>
+              <% } else if (item.get("storyType") === type.STORY_TYPE.facts){ %>
+                  <i class="fa fa-circle display_icons" id="circle" style="color: #e83b71;" aria-hidden="true"></i>
+              <% } else if (item.get("storyType") === type.STORY_TYPE.quotes){ %>
+                  <i class="fa fa-circle display_icons" id="circle" style="color: #3f7fe6;" aria-hidden="true"></i>
+              <% } else if (item.get("storyType") === type.STORY_TYPE.news){ %>
+                  <i class="fa fa-circle display_icons" id="circle" style="color: #f50404;" aria-hidden="true"></i>
+              <% } else if (item.get("storyType") === type.STORY_TYPE.history){ %>
+                  <i class="fa fa-circle display_icons" id="circle" style="color: #b28bc0;" aria-hidden="true"></i>
+              <% } else if (item.get("storyType") === type.STORY_TYPE.jokes){ %>
+                  <i class="fa fa-circle display_icons" id="circle" style="color: #203f80;" aria-hidden="true"></i>
+              <% } else if (item.get("storyType") === type.STORY_TYPE.episodes){ %>
+                  <i class="fa fa-circle display_icons" id="circle" style="color: #b6ff11;" aria-hidden="true"></i>
+              <% } else if (item.get("storyType") === type.STORY_TYPE.chat_single || item.get("storyType") === type.STORY_TYPE.chat_group){ %>
+                  <i class="fa fa-circle display_icons" id="circle" style="color: #7b0a61;" aria-hidden="true"></i>
+              <% } else if (item.get("storyType") === type.STORY_TYPE.chat_group_episode || item.get("storyType") === type.STORY_TYPE.chat_single_episode){ %>
+                  <i class="fa fa-circle display_icons" id="circle" style="color: #81fdd1;" aria-hidden="true"></i>
+              <% } %>
+              <a href="/storyedit/<%= item.id %>/<%= projectItem.id %>">
+
+                  <center>
+                      <img class="btn_pack_icon" src="<%= art.image %>" style="height: 200px;width: 250px;">
+                  </center>
+                  <div class="story_title truncate_story_title"><%= item.get("title") %></div>
+                  <div class="story_summary truncate_summary"> <%= item.get("summary") %></div>
+              </a>
+
+              <%if (item.get("storyType") === type.STORY_TYPE.episodes
+                      || item.get("storyType") === type.STORY_TYPE.chat_group_episode
+                      || item.get("storyType") === type.STORY_TYPE.chat_single_episode) {%>
+              <% episodes.forEach(function (episode, index) { %>
+              <% if (episode.storyId === item.id) {%>
+              <a href="/storyitem/episode/<%= episode.episodeId %>/<%= projectItem.id %>">
+                  <button class="create_button review_tab_bottom add_catalogue"
+                          style="background: transparent !important;">
+                      <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Story Item</p>
+                  </button>
+              </a>
+              <%}%>
+              <%})%>
+              <%} else {%>
+              <a href="/storyitem/story/<%= item.id %>/<%= projectItem.id %>">
+                  <button class="create_button review_tab_bottom add_catalogue"
+                          style="background: transparent !important;">
+                      <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Story Item</p>
+                  </button>
+              </a>
+              <%}%>
+          </div>
+          <% } %>
+      <% }); %>
+  <% }); %>
 <% if (storyNoArt.length !== 0) {%>
 <% storyNoArt.forEach(function(item) { %>
   <div class="medium-3 large-3 cell card-zoom icons">
@@ -63,65 +124,4 @@
   </div>
 <%})%>
 <%}%>
-<% story.forEach(function(item, index) { %>
-
-    <% arts.forEach(function (art, index) { %>
-
-        <% if (art.story === item.id){ %>
-        <div class="medium-3 large-3 cell card-zoom icons">
-            <% if (item.get("storyType") === type.STORY_TYPE.short_stories){ %>
-                <i class="fa fa-circle display_icons" id="circle" style="color: #ffb12f;" aria-hidden="true"></i>
-            <% } else if (item.get("storyType") === type.STORY_TYPE.story){ %>
-                <i class="fa fa-circle display_icons" id="circle" style="color: #28ff7e;" aria-hidden="true"></i>
-            <% } else if (item.get("storyType") === type.STORY_TYPE.facts){ %>
-                <i class="fa fa-circle display_icons" id="circle" style="color: #e83b71;" aria-hidden="true"></i>
-            <% } else if (item.get("storyType") === type.STORY_TYPE.quotes){ %>
-                <i class="fa fa-circle display_icons" id="circle" style="color: #3f7fe6;" aria-hidden="true"></i>
-            <% } else if (item.get("storyType") === type.STORY_TYPE.news){ %>
-                <i class="fa fa-circle display_icons" id="circle" style="color: #f50404;" aria-hidden="true"></i>
-            <% } else if (item.get("storyType") === type.STORY_TYPE.history){ %>
-                <i class="fa fa-circle display_icons" id="circle" style="color: #b28bc0;" aria-hidden="true"></i>
-            <% } else if (item.get("storyType") === type.STORY_TYPE.jokes){ %>
-                <i class="fa fa-circle display_icons" id="circle" style="color: #203f80;" aria-hidden="true"></i>
-            <% } else if (item.get("storyType") === type.STORY_TYPE.episodes){ %>
-                <i class="fa fa-circle display_icons" id="circle" style="color: #b6ff11;" aria-hidden="true"></i>
-            <% } else if (item.get("storyType") === type.STORY_TYPE.chat_single || item.get("storyType") === type.STORY_TYPE.chat_group){ %>
-                <i class="fa fa-circle display_icons" id="circle" style="color: #7b0a61;" aria-hidden="true"></i>
-            <% } else if (item.get("storyType") === type.STORY_TYPE.chat_group_episode || item.get("storyType") === type.STORY_TYPE.chat_single_episode){ %>
-                <i class="fa fa-circle display_icons" id="circle" style="color: #81fdd1;" aria-hidden="true"></i>
-            <% } %>
-            <a href="/storyedit/<%= item.id %>/<%= projectItem.id %>">
-
-                <center>
-                    <img class="btn_pack_icon" src="<%= art.image %>" style="height: 200px;width: 250px;">
-                </center>
-                <div class="story_title truncate_story_title"><%= item.get("title") %></div>
-                <div class="story_summary truncate_summary"> <%= item.get("summary") %></div>
-            </a>
-
-            <%if (item.get("storyType") === type.STORY_TYPE.episodes
-                    || item.get("storyType") === type.STORY_TYPE.chat_group_episode
-                    || item.get("storyType") === type.STORY_TYPE.chat_single_episode) {%>
-            <% episodes.forEach(function (episode, index) { %>
-            <% if (episode.storyId === item.id) {%>
-            <a href="/storyitem/episode/<%= episode.episodeId %>/<%= projectItem.id %>">
-                <button class="create_button review_tab_bottom add_catalogue"
-                        style="background: transparent !important;">
-                    <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Story Item</p>
-                </button>
-            </a>
-            <%}%>
-            <%})%>
-            <%} else {%>
-            <a href="/storyitem/story/<%= item.id %>/<%= projectItem.id %>">
-                <button class="create_button review_tab_bottom add_catalogue"
-                        style="background: transparent !important;">
-                    <p class="title" style="color:#af627f !important;font-weight: 800 !important;"> Add Story Item</p>
-                </button>
-            </a>
-            <%}%>
-        </div>
-        <% } %>
-    <% }); %>
-<% }); %>
 <% } %>
