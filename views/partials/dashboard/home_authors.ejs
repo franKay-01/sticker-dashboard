@@ -1,0 +1,13 @@
+<!-- Cards -->
+<% if (locals.authors) { %>
+<% if (authors.length === 0) { %>
+<p class="none">None</p>
+<% } else { %>
+<% authors.forEach(function(item) { %>
+<div class="home_pack_description"><%= item.get("name") %></div>
+<% }); %>
+<div><a class="view_all" href="/authors">View All</a></div>
+<% } %>
+<% } else { %>
+<p class="none">None</p>
+<% } %>
