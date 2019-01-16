@@ -66,6 +66,7 @@ module.exports = function (app) {
                 _allPack = allPack;
                 _allArtwork = artworks;
                 _allProjects = projects;
+                console.log("STORY BEFORE SPLICE " + JSON.stringify(_story));
 
                 if (latest) {
                     _latest = latest;
@@ -115,7 +116,6 @@ module.exports = function (app) {
                 });
               });
 
-                console.log("STORY BEFORE SPLICE " + JSON.stringify(_story));
                 console.log("STORY AFTER SPLICE " + JSON.stringify(newArray));
 
                 res.render("pages/stories/stories", {
