@@ -1310,11 +1310,11 @@ module.exports = function (app) {
 
           }).then(function(member){
             console.log("UPDATED MEMBER " + JSON.stringify(member));
-            res.redirect("/member/" + memberId + "/" + productId);
+            res.redirect("/member/" + memberId + "/" + projectId);
 
           }, function(error){
             console.log("ERROR " + error.message);
-            res.redirect("/member/" + memberId + "/" + productId);
+            res.redirect("/member/" + memberId + "/" + projectId);
           })
       }else {
         res.redirect('/');
