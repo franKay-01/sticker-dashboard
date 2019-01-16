@@ -115,8 +115,8 @@ module.exports = function (app) {
                 });
               });
 
-                console.log("STORY AFTER SPLICE " + JSON.stringify(newArray));
-
+              console.log("STORY ARRAY " + JSON.stringify(storyArray));
+              
                 res.render("pages/stories/stories", {
                     story: storyArray,
                     allPacks: _allPack,
