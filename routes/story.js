@@ -104,12 +104,12 @@ module.exports = function (app) {
                     })
                 });
 
-                let copyOfMyArray = [];
+                let newArray = storyArray.slice(0);
 
                 _.each(combined, function(combine, combinedIndex){
-                  _.each(storyArray, function(storyItem, index){
+                  _.each(newArray, function(storyItem, index){
                    if ( storyItem.id === combine.story) {
-                      copyOfMyArray = storyArray.splice(index, 1);
+                      newArray.splice(index, 1);
                     console.log("HERE");
                   }
                 });
@@ -127,7 +127,7 @@ module.exports = function (app) {
                     latest: _latest,
                     type: type,
                     episodes: _allEpisodes,
-                    storyNoArt: copyOfMyArray
+                    storyNoArt: newArray
                 })
             }, function (error) {
 
