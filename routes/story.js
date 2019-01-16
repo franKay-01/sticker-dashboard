@@ -61,12 +61,11 @@ module.exports = function (app) {
 
             }).then(function (story, allPack, artworks, latest, projects, episodes) {
 
-                _story = story;
+                // _story = story;
                 storyArray = story;
                 _allPack = allPack;
                 _allArtwork = artworks;
                 _allProjects = projects;
-                console.log("STORY BEFORE SPLICE " + JSON.stringify(_story));
 
                 if (latest) {
                     _latest = latest;
