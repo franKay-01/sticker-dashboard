@@ -100,7 +100,7 @@ module.exports = function (app) {
                               story: artworks.get("itemId"),
                               image: sticker.get("uri").url()
                           });
-                            storyArray.push(artwork.get("itemId"));
+                            storyArray.push(artworks.get("itemId"));
                         }
                     })
                 });
