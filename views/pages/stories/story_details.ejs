@@ -380,11 +380,7 @@
                     </button>
                 </a>
                 <%} else if (story.get("storyType") !== type.STORY_TYPE.episodes || story.get("storyType") === type.STORY_TYPE.chat_group_episode || story.get("storyType") === type.STORY_TYPE.chat_single_episode) {%>
-                  <a target="_blank" href="/newsletter/story/<%= story.id %>/<%= projectItem.id %>" style="float: right">
-                      <button class="create_button add_catalogue" style="background: transparent !important;">
-                          <p class="preview"> PREVIEW STORY</p>
-                      </button>
-                  </a>
+                  <a href="/episodes/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Episodes</a>
                 <%}%>
 
                 <br><br>
