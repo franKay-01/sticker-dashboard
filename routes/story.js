@@ -231,6 +231,18 @@ module.exports = function (app) {
                     return new Parse.Query(_class.STORIES).equalTo("objectId", story.get("storyId")).first();
                 } else {
                     mainStoryId = "";
+                    res.render("pages/stories/story_catalogue", {
+
+                        story_id: story.id,
+                        name: story.get("title"),
+                        storyType: story.get("storyType"),
+                        projectItem: _project,
+                        chatMembers: _members,
+                        type: type,
+                        source: source,
+                        mainStoryId: mainStoryId
+
+                    });
                 }
 
             }).then(function(story){
