@@ -6,7 +6,7 @@
 
   </div>
 <%} else {%>
-
+<% if (storyNoArt.length !== 0) {%>
 <% storyNoArt.forEach(function(item) { %>
   <div class="medium-3 large-3 cell card-zoom icons">
       <% if (item.get("storyType") === type.STORY_TYPE.short_stories){ %>
@@ -62,7 +62,7 @@
       <%}%>
   </div>
 <%})%>
-
+<%}%>
 <% story.forEach(function(item, index) { %>
 
     <% arts.forEach(function (art, index) { %>
