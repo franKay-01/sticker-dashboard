@@ -109,7 +109,7 @@
                     <i class="fa fa-text-width" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
-                    Words: <span class="wordCount">0</span><br/>
+                    Words: <span class="wordCount"><%= storyType %></span><br/>
                 </center>
                 <% if (storyType === type.STORY_TYPE.chat_single || storyType === type.STORY_TYPE.chat_single_episode
                         || storyType === type.STORY_TYPE.chat_group || storyType === type.STORY_TYPE.chat_group_episode) {%>
