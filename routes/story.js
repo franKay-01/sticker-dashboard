@@ -105,14 +105,15 @@ module.exports = function (app) {
                 });
 
                 let newArray = storyArray;
+
               _.each(storyArray, function(storyItem, index){
                 _.each(combined, function(combine, combinedIndex){
                   if ( storyItem.id === combine.story) {
                     newArray.splice(index, 1);
                     console.log("HERE");
                   }
-                })
-              })
+                });
+              });
 
                 console.log("STORY BEFORE SPLICE " + JSON.stringify(_story));
                 console.log("STORY AFTER SPLICE " + JSON.stringify(newArray));
@@ -125,7 +126,7 @@ module.exports = function (app) {
                     latest: _latest,
                     type: type,
                     episodes: _allEpisodes,
-                    storyNoArt: storyArray
+                    storyNoArt: newArray
                 })
             }, function (error) {
 
