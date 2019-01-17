@@ -215,7 +215,8 @@ module.exports = function (app) {
                 } else if (source === episode) {
                     return Parse.Promise.when(
                         new Parse.Query(_class.Episodes).equalTo("objectId", id).first(),
-                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                        undefined
                     )
                 }
 
@@ -227,7 +228,7 @@ module.exports = function (app) {
 
                 if (source === episode) {
                     mainStoryId = story.get("storyId");
-                    return Parse.Query(
+                    return Parse.Promise.when(
                       new Parse.Query(_class.Stories).equalTo("objectId", story.get("storyId")).first(),
                       new Parse.Query(_class.Members).equalTo("chatIds", story.get("storyId")).find()
                     )
