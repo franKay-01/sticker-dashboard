@@ -33,7 +33,7 @@ module.exports = function (app) {
                 new Parse.Query(_class.ArtWork).equalTo("itemId", _episode.get("storyId")).first()
             )
 
-        }).then(function (storyItems, story, sticker ) {
+        }).then(function (storyItems, story, sticker) {
 
           if (story.get("storyType") === type.STORY_TYPE.story) {
 
@@ -92,7 +92,11 @@ module.exports = function (app) {
                 colors = type.DEFAULT.colors;
             }
 
-            return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first()
+            if (sticker){
+              return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first();
+            }else {
+              return undefined;
+            }
 
         }).then(function (sticker) {
 
