@@ -215,8 +215,7 @@ module.exports = function (app) {
                 } else if (source === episode) {
                     return Parse.Promise.when(
                         new Parse.Query(_class.Episodes).equalTo("objectId", id).first(),
-                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
-                        new Parse.Query(_class.Members).equalTo("objectId", id).find()
+                        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                     )
                 }
 
@@ -228,7 +227,11 @@ module.exports = function (app) {
 
                 if (source === episode) {
                     mainStoryId = story.get("storyId");
-                    return new Parse.Query(_class.Stories).equalTo("objectId", story.get("storyId")).first();
+                    return Parse.Query(
+                      new Parse.Query(_class.Stories).equalTo("objectId", story.get("storyId")).first(),
+                      new Parse.Query(_class.Members).equalTo("chatIds", story.get("storyId")).find()
+                    )
+
                 } else {
                     mainStoryId = "";
                     res.render("pages/stories/story_catalogue", {
@@ -245,7 +248,7 @@ module.exports = function (app) {
                     });
                 }
 
-            }).then(function(story){
+            }).then(function(story, members){
 
               res.render("pages/stories/story_catalogue", {
 
@@ -253,7 +256,7 @@ module.exports = function (app) {
                   name: _story.get("title"),
                   storyType: story.get("storyType"),
                   projectItem: _project,
-                  chatMembers: _members,
+                  chatMembers: members,
                   type: type,
                   source: source,
                   mainStoryId: mainStoryId
@@ -1797,7 +1800,8 @@ module.exports = function (app) {
                     storyName: story.get("title"),
                     episodes: episodes,
                     projectItem: project,
-                    products: products
+                    products: products,
+                    type: type
                 })
 
             }, function (error) {
