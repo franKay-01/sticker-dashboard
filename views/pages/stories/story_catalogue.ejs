@@ -772,12 +772,19 @@
                     </p>
                 </button>
             </a>
-
-            <a target="_blank" href="/newsletter/episode/<%= story_id %>/<%= projectItem.id %>">
+            <% if (storyType === type.STORY_TYPE.chat_single_episode || storyType === type.STORY_TYPE.chat_group_episode) {%>
+            <a target="_blank" href="/preview/chats/<%= story_id %>/<%= projectItem.id %>">
                 <button class="create_button">
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Preview Episode</p>
                 </button>
             </a>
+            <%} else {%>
+              <a target="_blank" href="/newsletter/episode/<%= story_id %>/<%= projectItem.id %>">
+                  <button class="create_button">
+                      <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Preview Episode</p>
+                  </button>
+              </a>
+              <%}%>
             <%}%>
 
         </div>
