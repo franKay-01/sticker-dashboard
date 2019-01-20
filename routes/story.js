@@ -147,6 +147,7 @@ module.exports = function (app) {
         let outgoingProfile = [];
         let _story;
         let _allProject;
+        let _storyItem;
 
         if (token) {
 
@@ -181,13 +182,9 @@ module.exports = function (app) {
             }).then(function (incoming, outgoing, storyItems) {
 
               if (_story.get("storyType") === type.STORY_TYPE.chat_group){
+                _storyItem = storyItems;
+                return Parse.Query(_class.Members).equalTo("chatIds", _story.id).find();
 
-                res.render("pages/stories/chat_group_preview", {
-                    storyItems: storyItems,
-                    projectItem: _allProject,
-                    story: _story
-                })
-                
               } else {
                 incomingProfile.push({"memberId": incoming.id, "profileImage": incoming.get("profileImage").url()});
                 outgoingProfile.push({"memberId": outgoing.id, "profileImage": outgoing.get("profileImage").url()});
@@ -202,6 +199,13 @@ module.exports = function (app) {
               }
 
 
+            }).then(function(members){
+              res.render("pages/stories/chat_group_preview", {
+                  members: members,
+                  storyItems: _storyItems,
+                  projectItem: _allProject,
+                  story: _story
+              })
             }, function (error) {
 
                 console.log("ERROR " + error.message);

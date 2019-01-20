@@ -56,11 +56,13 @@
             <% } else { %>
 
             <% storyItems.forEach(function(item, index) { %>
+              <% members.forEach(function(member, index) { %>
+
             <div id="<%= index %>" style="width: 90%; display: block !important;" class="toShow">
               <% if (item.get("type") === 0 || item.get("type") === 2 || item.get("type") === 5 || item.get("type") === 6 || item.get("type") === 8){ %>
-            <% if (item.get("contents").character !== "admin"){ %>
+            <% if (item.get("contents").character === member.id){ %>
                 <span style="float: left;">
-                        <img style="width:170px;height:170px;margin-left:15px;" src="<%= incoming[0].profileImage %>">
+                        <img style="width:170px;height:170px;margin-left:15px;" src="<%= member.profileImage %>">
                     </span>
                 <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                       class="speech-bubble"><%= item.get("contents").text %>
@@ -79,9 +81,9 @@
               </div>
               <%}%>
               <%} else if (item.get("type") === 3){%>
-                <% if (item.get("contents").character !== "admin"){ %>
+                <% if (item.get("contents").character === member.id ){ %>
                     <span style="float: left;">
-                            <img style="width:170px;height:170px;margin-left:15px;" src="<%= incoming[0].profileImage %>">
+                            <img style="width:170px;height:170px;margin-left:15px;" src="<%= member.profileImage %>">
                         </span>
                     <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                           class="speech-bubble">
@@ -101,9 +103,9 @@
                   </div>
                   <%}%>
                 <%} else if (item.get("type") === 1) {%>
-                  <% if (item.get("contents").character !== "admin"){ %>
+                  <% if (item.get("contents").character === member.id){ %>
                       <span style="float: left;">
-                              <img style="width:170px;height:170px;margin-left:15px;" src="<%= incoming[0].profileImage %>">
+                              <img style="width:170px;height:170px;margin-left:15px;" src="<%= member.profileImage %>">
                           </span>
                       <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                             class="speech-bubble">
@@ -125,6 +127,7 @@
                   <%}%>
             </div>
 
+            <% }) %>
             <% }) %>
             <% } %>
             <%- include('../../partials/footer') %>
