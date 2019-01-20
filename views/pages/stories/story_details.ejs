@@ -379,15 +379,15 @@
                         <p class="preview"> PREVIEW CHATS</p>
                     </button>
                 </a>
-                <%} else if (story.get("storyType") !== type.STORY_TYPE.episodes || story.get("storyType") === type.STORY_TYPE.chat_group_episode || story.get("storyType") === type.STORY_TYPE.chat_single_episode) {%>
-                  <a href="/episodes/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Episodes</a>
                 <%} else if (story.get("storyType") === type.STORY_TYPE.chat_group){%>
                   <a target="_blank" href="/preview/chats/<%= story.id %>/<%= projectItem.id %>/chat_group" style="float: right">
                       <button class="create_button add_catalogue" style="background: transparent !important;">
                           <p class="preview"> PREVIEW CHATS</p>
                       </button>
                   </a>
-                  <%}%>
+                  <%} else if (story.get("storyType") !== type.STORY_TYPE.episodes || story.get("storyType") === type.STORY_TYPE.chat_group_episode || story.get("storyType") === type.STORY_TYPE.chat_single_episode) {%>
+                  <a href="/episodes/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Episodes</a>
+                <%}%>
 
                 <br><br>
                 <form id="story_form" action="/storyedit/<%= story.id %>" method="post">
