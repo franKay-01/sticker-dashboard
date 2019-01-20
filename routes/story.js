@@ -971,7 +971,7 @@ module.exports = function (app) {
                 let catalogue = new Story();
 
                 catalogue.set("type", type.STORY_ITEM.image);
-                if (memberId !== undefined){
+                if (memberId === undefined){
                 catalogue.set("contents", {"uri": image.get("uri").url(), "id": image.id});
                 }else {
                 catalogue.set("contents", {"uri": image.get("uri").url(), "id": image.id, "character": memberId});
