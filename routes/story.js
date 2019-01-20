@@ -942,6 +942,7 @@ module.exports = function (app) {
         let files = req.files;
         let id = req.params.id;
         let projectId = req.body.projectId;
+        let memberId = req.body.character;
         let source = req.body.source;
         let storyItem = "/storyitem/";
 
@@ -970,7 +971,11 @@ module.exports = function (app) {
                 let catalogue = new Story();
 
                 catalogue.set("type", type.STORY_ITEM.image);
+                if (memberId !== undefined){
                 catalogue.set("contents", {"uri": image.get("uri").url(), "id": image.id});
+                }else {
+                catalogue.set("contents", {"uri": image.get("uri").url(), "id": image.id, "character": memberId});
+                }
                 catalogue.set("storyId", id);
 
                 return catalogue.save();
