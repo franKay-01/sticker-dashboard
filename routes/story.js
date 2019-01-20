@@ -186,7 +186,7 @@ module.exports = function (app) {
 
 
             }).then(function (incoming, outgoing, storyItems) {
-
+              console.log("STORY TYPE " + _story.get("storyType"));
               if (_story.get("storyType") === type.STORY_TYPE.chat_group){
                 _storyItem = storyItems;
                 return new Parse.Query(_class.Members).equalTo("chatIds", _story.id).find();
