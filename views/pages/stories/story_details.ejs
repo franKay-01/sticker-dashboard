@@ -504,15 +504,14 @@
 
                         <br><br>
                         <%}%>
-                        <% } else if (story.get("storyType") === type.STORY_TYPE.chat_group_episode || story.get("storyType") === type.STORY_TYPE.chat_group){%>
+                        <% } else if (story.get("storyType") === type.STORY_TYPE.chat_group_episode ||
+                        story.get("storyType") === type.STORY_TYPE.chat_group) {%>
                           <a href="/story/add/members/<%= story.id %>/<%= projectItem.id %>" class="preview"> Add Chat Members
                               <i class="fa fa-user-plus" style="color: #590a5d; font-size: 1.5rem;" aria-hidden="true"></i>
                           </a>
 
                           <br><br>
                           <%}%>
-                        <%}%>
-                        <%}%>
                         <!--<a href="/storymain/<%#= story.id %>" class="preview">Edit Main Story</a><br><br>-->
                         <a href="/stories/<%= projectItem.id %>" class="preview">Back</a><br>
                         <!--<a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">-->
