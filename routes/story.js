@@ -137,11 +137,12 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/preview/chats/:storyId/:projectId', function (req, res) {
+    app.get('/preview/chats/:storyId/:projectId/:episodeId', function (req, res) {
 
         let token = req.cookies.token;
         let storyId = req.params.storyId;
         let projectId = req.params.projectId;
+        let episodeId = req.params.episodeId;
         let incomingProfile = [];
         let outgoingProfile = [];
         let _story;
@@ -161,11 +162,21 @@ module.exports = function (app) {
                 _story = story;
                 _allProject = project;
 
-                return Parse.Promise.when(
-                    new Parse.Query(_class.Members).equalTo("objectId", story.get("info").incoming).first(),
-                    new Parse.Query(_class.Members).equalTo("objectId", story.get("info").outgoing).first(),
-                    new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find()
-                )
+                if (episodeId !== "empty"){
+                  return Parse.Promise.when(
+                      new Parse.Query(_class.Members).equalTo("objectId", story.get("info").incoming).first(),
+                      new Parse.Query(_class.Members).equalTo("objectId", story.get("info").outgoing).first(),
+                      new Parse.Query(_class.StoryItems).equalTo("storyId", episodeId).find()
+                  )
+                }else {
+                  return Parse.Promise.when(
+                      new Parse.Query(_class.Members).equalTo("objectId", story.get("info").incoming).first(),
+                      new Parse.Query(_class.Members).equalTo("objectId", story.get("info").outgoing).first(),
+                      new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find()
+                  )
+                }
+
+
 
             }).then(function (incoming, outgoing, storyItems) {
 
@@ -250,7 +261,7 @@ module.exports = function (app) {
                 }
 
             }).then(function(story, members){
-              
+
               res.render("pages/stories/story_catalogue", {
 
                   story_id: _story.id,
