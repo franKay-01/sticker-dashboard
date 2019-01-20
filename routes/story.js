@@ -169,6 +169,12 @@ module.exports = function (app) {
                       new Parse.Query(_class.Members).equalTo("objectId", story.get("info").outgoing).first(),
                       new Parse.Query(_class.StoryItems).equalTo("storyId", episodeId).find()
                   )
+                }else if (episodeId === "chat_group") {
+                  return Parse.Promise.when(
+                      undefined,
+                      undefined,
+                      new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find()
+                  )
                 }else {
                   return Parse.Promise.when(
                       new Parse.Query(_class.Members).equalTo("objectId", story.get("info").incoming).first(),
