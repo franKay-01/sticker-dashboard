@@ -183,7 +183,7 @@ module.exports = function (app) {
 
               if (_story.get("storyType") === type.STORY_TYPE.chat_group){
                 _storyItem = storyItems;
-                return Parse.Query(_class.Members).equalTo("chatIds", _story.id).find();
+                return new Parse.Query(_class.Members).equalTo("chatIds", _story.id).find();
 
               } else {
                 incomingProfile.push({"memberId": incoming.id, "profileImage": incoming.get("profileImage").url()});
