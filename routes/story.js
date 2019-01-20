@@ -163,14 +163,7 @@ module.exports = function (app) {
                 _story = story;
                 _allProject = project;
 
-                if (episodeId !== "empty" || episodeId !== "chat_group"){
-                  console.log("INSIDE NOT EMPTY");
-                  return Parse.Promise.when(
-                      new Parse.Query(_class.Members).equalTo("objectId", story.get("info").incoming).first(),
-                      new Parse.Query(_class.Members).equalTo("objectId", story.get("info").outgoing).first(),
-                      new Parse.Query(_class.StoryItems).equalTo("storyId", episodeId).find()
-                  )
-                }else if (episodeId === "chat_group") {
+               if (episodeId === "chat_group") {
                   console.log("INSIDE NOT CHAT GROUP");
 
                   return Parse.Promise.when(
@@ -185,6 +178,13 @@ module.exports = function (app) {
                       new Parse.Query(_class.Members).equalTo("objectId", story.get("info").incoming).first(),
                       new Parse.Query(_class.Members).equalTo("objectId", story.get("info").outgoing).first(),
                       new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find()
+                  )
+                } else {
+                  console.log("INSIDE NOT EMPTY");
+                  return Parse.Promise.when(
+                      new Parse.Query(_class.Members).equalTo("objectId", story.get("info").incoming).first(),
+                      new Parse.Query(_class.Members).equalTo("objectId", story.get("info").outgoing).first(),
+                      new Parse.Query(_class.StoryItems).equalTo("storyId", episodeId).find()
                   )
                 }
 
