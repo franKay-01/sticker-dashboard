@@ -57,9 +57,9 @@
 
             <% storyItems.forEach(function(item, index) { %>
             <div id="<%= index %>" style="width: 90%; display: block !important;" class="toShow">
-
+              <% if (item.get("type") === 0){ %>
             <% if (item.get("contents").character === incoming[0].memberId){ %>
-                    <span style="float: left;">
+                <span style="float: left;">
                         <img style="width:170px;height:170px;margin-left:15px;" src="<%= incoming[0].profileImage %>">
                     </span>
                 <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
@@ -90,6 +90,41 @@
                  </center>
               </div>
               <%}%>
+              <%} else if (item.get("type") === 3){%>
+                <% if (item.get("contents").character === incoming[0].memberId){ %>
+                    <span style="float: left;">
+                            <img style="width:170px;height:170px;margin-left:15px;" src="<%= incoming[0].profileImage %>">
+                        </span>
+                    <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
+                          class="speech-bubble">
+                          <img src="<%= item.get("contents").uri %>" class="card-image-size">
+                        <% let id = index + 1 %>
+                        <span style="position: absolute;margin: 45px;" data-id="<%= id %>" data-current="<%= index %>">
+                            <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
+                        </span>
+                    </span>
+
+                <% } else if (item.get("contents").character === outgoing[0].memberId){ %>
+                <div id="<%= index %>" style="width: 90%;display: block !important;" class="toShow">
+                        <span style="float: right;">
+                            <img style="width:170px;height:170px;margin-left:5px;" src="<%= outgoing[0].profileImage %>">
+                        </span>
+                    <div style="float: right;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
+                         class="speech-bubble-right"><img src="<%= item.get("contents").uri %>" class="card-image-size"></div>
+                    <% let id = index + 1 %>
+                    <span style="position: absolute;margin: 110px 180px" data-id="<%= id %>" data-current="<%= index %>">
+                        <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <% } else if (item.get("contents").character === "admin"){%>
+                  <div style="width: 90%;display: block !important;">
+                    <center>
+                      <div style="min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
+                           class="administrator_bubble"><img src="<%= item.get("contents").uri %>" class="card-image-size"></div>
+                     </center>
+                  </div>
+                  <%}%>
+                <%}%>
             </div>
 
             <% }) %>
