@@ -250,7 +250,7 @@ module.exports = function (app) {
                 }
 
             }).then(function(story, members){
-
+              console.log("EPISODE STORY ID " + mainStoryId + " MAIN STORY " + _story.id)
               res.render("pages/stories/story_catalogue", {
 
                   story_id: _story.id,
