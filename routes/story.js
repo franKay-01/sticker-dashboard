@@ -191,8 +191,9 @@ module.exports = function (app) {
 
 
             }).then(function (incoming, outgoing, storyItems) {
+              _storyItem = storyItems;
+
               if (_story.get("storyType") === type.STORY_TYPE.chat_group){
-                _storyItem = storyItems;
                 return new Parse.Query(_class.Members).equalTo("chatIds", _story.id).find();
 
               } else {
@@ -208,9 +209,7 @@ module.exports = function (app) {
                 })
               }
 
-
             }).then(function(members){
-              console.log("MEMBERS FOR NON CHAT " + JSON.stringify(members));
               res.render("pages/stories/chat_group_preview", {
                   members: members,
                   storyItems: _storyItems,
