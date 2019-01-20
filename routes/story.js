@@ -180,6 +180,15 @@ module.exports = function (app) {
 
             }).then(function (incoming, outgoing, storyItems) {
 
+              if (_story.get("storyType") === type.STORY_TYPE.chat_group){
+
+                res.render("pages/stories/chat_group_preview", {
+                    storyItems: storyItems,
+                    projectItem: _allProject,
+                    story: _story
+                })
+                
+              } else {
                 incomingProfile.push({"memberId": incoming.id, "profileImage": incoming.get("profileImage").url()});
                 outgoingProfile.push({"memberId": outgoing.id, "profileImage": outgoing.get("profileImage").url()});
 
@@ -190,6 +199,8 @@ module.exports = function (app) {
                     projectItem: _allProject,
                     story: _story
                 })
+              }
+
 
             }, function (error) {
 
