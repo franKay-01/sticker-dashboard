@@ -163,7 +163,7 @@ module.exports = function (app) {
                 _story = story;
                 _allProject = project;
 
-                if (episodeId !== "empty"){
+                if (episodeId !== "empty" || episodeId !== "chat_group"){
                   return Parse.Promise.when(
                       new Parse.Query(_class.Members).equalTo("objectId", story.get("info").incoming).first(),
                       new Parse.Query(_class.Members).equalTo("objectId", story.get("info").outgoing).first(),
@@ -175,7 +175,7 @@ module.exports = function (app) {
                       undefined,
                       new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find()
                   )
-                }else {
+                }else if (episodeId === "empty") {
                   return Parse.Promise.when(
                       new Parse.Query(_class.Members).equalTo("objectId", story.get("info").incoming).first(),
                       new Parse.Query(_class.Members).equalTo("objectId", story.get("info").outgoing).first(),
