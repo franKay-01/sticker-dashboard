@@ -167,8 +167,8 @@ module.exports = function (app) {
                   console.log("INSIDE NOT CHAT GROUP");
 
                   return Parse.Promise.when(
-                      undefined,
-                      undefined,
+                      "",
+                      "",
                       new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find()
                   )
                 }else if (episodeId === "empty") {
