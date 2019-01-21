@@ -211,7 +211,10 @@ module.exports = function (app) {
               }
 
             }).then(function(members){
-              console.log("MEMBERS " + JSON.stringify(members) + " STORY ITEM " + JSON.stringify(_storyItems) + " " + JSON.stringify(_allProject) + " " + JSON.stringify(_story));
+              console.log("MEMBERS " + JSON.stringify(members));
+              console.log("STORY ITEM " + JSON.stringify(_storyItems));
+              console.log("PROJECT ITEM " + JSON.stringify(_allProject));
+              console.log("STORY ITEM " + JSON.stringify(_story));
               res.render("pages/stories/chat_group_preview", {
                   members: members,
                   storyItems: _storyItems,
