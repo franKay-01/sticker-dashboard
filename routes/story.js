@@ -148,20 +148,40 @@ module.exports = function (app) {
         let _story;
         let _allProject;
         let _storyItem;
+        let _episode;
 
         if (token) {
 
             util.getUser(token).then(function (sessionToken) {
 
+              if (episodeId === "chat_episode_group"){
                 return Parse.Promise.when(
                     new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
-                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                    new Parse.Query(_class.Episodes).equalTo("storyId", storyId).first()
                 )
 
-            }).then(function (story, project) {
+              }else {
+                return Parse.Promise.when(
+                    new Parse.Query(_class.Stories).equalTo("objectId", storyId).first(),
+                    new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
+                    undefined
+                )
+
+              }
+
+            }).then(function (story, project, episode) {
 
                 _story = story;
                 _allProject = project;
+
+               if (episodeId === "chat_episode_group") {
+                 return Parse.Promise.when(
+                     "",
+                     "",
+                     new Parse.Query(_class.StoryItems).equalTo("storyId", episode.id).find()
+                 )
+                }
 
                if (episodeId === "chat_group") {
                   console.log("INSIDE NOT CHAT GROUP");
@@ -173,13 +193,6 @@ module.exports = function (app) {
                   )
                 }
 
-               if (episodeId === "chat_episode_group"){
-                 return Parse.Promise.when(
-                     new Parse.Query(_class.Members).equalTo("objectId", story.get("info").incoming).first(),
-                     new Parse.Query(_class.Members).equalTo("objectId", story.get("info").outgoing).first(),
-                     new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find()
-                 )
-               }
                if (episodeId === "empty") {
                   console.log("INSIDE EMPTY");
 
@@ -219,10 +232,7 @@ module.exports = function (app) {
               }
 
             }).then(function(members){
-              console.log("MEMBERS " + JSON.stringify(members));
-              console.log("STORY ITEM " + JSON.stringify(_storyItem));
-              console.log("PROJECT ITEM " + JSON.stringify(_allProject));
-              console.log("STORY ITEM " + JSON.stringify(_story));
+
               res.render("pages/stories/chat_group_preview", {
                   members: members,
                   storyItems: _storyItem,
