@@ -194,7 +194,6 @@ module.exports = function (app) {
 
             }).then(function (incoming, outgoing, storyItems) {
               _storyItem = storyItems;
-              console.log("INCOMING MEMBER " + incoming);
 
               if (incoming === ""){
                 console.log("INCOMING MEMBER 2 " + incoming);
