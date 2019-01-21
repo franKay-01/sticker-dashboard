@@ -217,7 +217,7 @@ module.exports = function (app) {
               console.log("STORY ITEM " + JSON.stringify(_story));
               res.render("pages/stories/chat_group_preview", {
                   members: members,
-                  storyItems: _storyItems,
+                  storyItems: _storyItem,
                   projectItem: _allProject,
                   story: _story
               })
