@@ -2,6 +2,7 @@
 require("./functions/getStickers");
 require("./functions/messages");
 require("./functions/api.v1");
+require("./functions/api.dashboard.v1");
 
 
 let StickerClass = "Stickers";
