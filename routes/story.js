@@ -195,7 +195,6 @@ module.exports = function (app) {
 
               if (incoming === ""){
                 return new Parse.Query(_class.Members).equalTo("chatIds", _story.id).find();
-
               } else {
                 incomingProfile.push({"memberId": incoming.id, "profileImage": incoming.get("profileImage").url()});
                 outgoingProfile.push({"memberId": outgoing.id, "profileImage": outgoing.get("profileImage").url()});
@@ -210,6 +209,7 @@ module.exports = function (app) {
               }
 
             }).then(function(members){
+              console.log("MEMBERS " + JSON.stringify(members) + " STORY ITEM " + JSON.stringify(_storyItems) + " " + JSON.stringify(_allProject) + " " + JSON.stringify(_story));
               res.render("pages/stories/chat_group_preview", {
                   members: members,
                   storyItems: _storyItems,
