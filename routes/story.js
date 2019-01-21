@@ -195,6 +195,7 @@ module.exports = function (app) {
               console.log("INCOMING MEMBER " + incoming);
 
               if (incoming === ""){
+                console.log("INCOMING MEMBER 2 " + incoming);
                 return new Parse.Query(_class.Members).equalTo("chatIds", _story.id).find();
               } else {
                 incomingProfile.push({"memberId": incoming.id, "profileImage": incoming.get("profileImage").url()});
