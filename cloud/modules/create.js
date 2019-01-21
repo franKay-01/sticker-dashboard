@@ -110,11 +110,11 @@ exports.Story = (story) => {
         _story.shareUrl = "http://share.cyfa.io/story/" + story.id;
 
 
-        let colors = story.get("color");
+        let colors = story.get("info");
         if (colors.topColor === "" || colors.bottomColor === "") {
             _story.colors = type.DEFAULT.colors;
         } else {
-            _story.colors = story.get("color");
+            _story.colors = story.get("info");
         }
 
     }

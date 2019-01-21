@@ -41,6 +41,7 @@ module.exports = function (app) {
             let _allEpisodes = [];
             let combined = [];
             let projectArray = [];
+            let storyArray = [];
             let _latest = "";
 
             util.getUser(token).then(function (sessionToken) {
@@ -61,6 +62,7 @@ module.exports = function (app) {
             }).then(function (story, allPack, artworks, latest, projects, episodes) {
 
                 _story = story;
+                storyArray = story;
                 _allPack = allPack;
                 _allArtwork = artworks;
                 _allProjects = projects;
@@ -87,21 +89,18 @@ module.exports = function (app) {
 
             }).then(function (stickers) {
 
-                _.each(_allArtwork, function (artworks) {
+
+                _.each(_allArtwork, function (artworks, index) {
 
                     _.each(stickers, function (sticker) {
 
                         if (artworks.get("stickerId") === sticker.id) {
 
-                            combined.push({
-                                story: artworks.get("itemId"),
-                                image: sticker.get("uri").url()
-                            });
-                        }else {
                           combined.push({
                               story: artworks.get("itemId"),
-                              image: ""
+                              image: sticker.get("uri").url()
                           });
+                            storyArray.splice(index, 1);
                         }
                     })
                 });
@@ -113,7 +112,8 @@ module.exports = function (app) {
                     arts: combined,
                     latest: _latest,
                     type: type,
-                    episodes: _allEpisodes
+                    episodes: _allEpisodes,
+                    storyNoArt: storyArray
                 })
             }, function (error) {
 
