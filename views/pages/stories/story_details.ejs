@@ -252,7 +252,7 @@
 
         <!-- End of logo -->
         <span class="medium-6 large-6 welcome_post"><b>Edit <i style="color: #a46580">
-                    <%= story.get("title") %>&nbsp;&nbsp;</i> <%= storyType %> Details</b></span>
+                    <%= story.get("title") %> </i> <%= storyType %> Details</b></span>
 
         <div class="grid-x grid-margin-x story" id="opaqueDiv">
             <div class="medium-3 large-3 cell">
@@ -373,19 +373,20 @@
                         <p class="preview"> PREVIEW STORY</p>
                     </button>
                 </a>
-                <% } else if (story.get("storyType") === type.STORY_TYPE.chat_group || story.get("storyType") === type.STORY_TYPE.chat_single
-                || story.get("storyType") === type.STORY_TYPE.chat_group_episode || story.get("storyType") === type.STORY_TYPE.chat_single_episode) {%>
-                <a target="_blank" href="/preview/chats/<%= story.id %>/<%= projectItem.id %>" style="float: right">
+                <% } else if (story.get("storyType") === type.STORY_TYPE.chat_single) {%>
+                <a target="_blank" href="/preview/chats/<%= story.id %>/<%= projectItem.id %>/empty" style="float: right">
                     <button class="create_button add_catalogue" style="background: transparent !important;">
                         <p class="preview"> PREVIEW CHATS</p>
                     </button>
                 </a>
-                <%} else if (story.get("storyType") !== type.STORY_TYPE.episodes) {%>
-                  <a target="_blank" href="/newsletter/story/<%= story.id %>/<%= projectItem.id %>" style="float: right">
+                <%} else if (story.get("storyType") === type.STORY_TYPE.chat_group){%>
+                  <a target="_blank" href="/preview/chats/<%= story.id %>/<%= projectItem.id %>/chat_group" style="float: right">
                       <button class="create_button add_catalogue" style="background: transparent !important;">
-                          <p class="preview"> PREVIEW STORY</p>
+                          <p class="preview"> PREVIEW CHATS</p>
                       </button>
                   </a>
+                  <%} else if (story.get("storyType") !== type.STORY_TYPE.episodes || story.get("storyType") === type.STORY_TYPE.chat_group_episode || story.get("storyType") === type.STORY_TYPE.chat_single_episode) {%>
+                  <a href="/episodes/view/<%= story.id %>/<%= projectItem.id %>" class="preview">View Episodes</a>
                 <%}%>
 
                 <br><br>
@@ -498,16 +499,25 @@
                         <%}%>
 
                         <% if ( story.get("storyType") === type.STORY_TYPE.chat_single ||
-                                story.get("storyType") === type.STORY_TYPE.chat_group ||
-                                story.get("storyType") === type.STORY_TYPE.chat_single_episode ||
-                                story.get("storyType") === type.STORY_TYPE.chat_group_episode) { %>
+                                story.get("storyType") === type.STORY_TYPE.chat_single_episode) { %>
+                        <% if (chatMembers.length === 2) { %>
+                          <br><br>
 
+                        <%} else {%>
                         <a href="/story/add/members/<%= story.id %>/<%= projectItem.id %>" class="preview"> Add Chat Members
                             <i class="fa fa-user-plus" style="color: #590a5d; font-size: 1.5rem;" aria-hidden="true"></i>
                         </a>
-                        <br><br>
 
+                        <br><br>
                         <%}%>
+                        <% } else if (story.get("storyType") === type.STORY_TYPE.chat_group_episode ||
+                        story.get("storyType") === type.STORY_TYPE.chat_group) {%>
+                          <a href="/story/add/members/<%= story.id %>/<%= projectItem.id %>" class="preview"> Add Chat Members
+                              <i class="fa fa-user-plus" style="color: #590a5d; font-size: 1.5rem;" aria-hidden="true"></i>
+                          </a>
+
+                          <br><br>
+                          <%}%>
                         <!--<a href="/storymain/<%#= story.id %>" class="preview">Edit Main Story</a><br><br>-->
                         <a href="/stories/<%= projectItem.id %>" class="preview">Back</a><br>
                         <!--<a href="#" id="remove_story" style="color: #cc0000 !important;" class="preview">-->

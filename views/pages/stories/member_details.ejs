@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Member Details - G-Stickers</title>
+
+    <% include ../../partials/fav.ejs %>
+
+    <link rel="stylesheet" href="/public/assets/css/foundation.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/assets/vendor/slick/slick.css" />
+    <link rel="stylesheet" href="/public/assets/css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <!--parse js-->
+    <script src="https://npmcdn.com/parse/dist/parse.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/public/assets/js/jscolor-2.0.5/jscolor.js"></script>
+    <script type="text/javascript" src="/public/assets/js/custom.js"></script>
+    <script src="/public/assets/js/tag.js"></script>
+    <style>
+        <% include ../../partials/modified_css.ejs %>
+    </style>
+    <script>
+
+        $(document).ready(function () {
+            document.getElementById("submit_story").onclick = function () {
+                document.getElementById("story_form").submit();
+            }
+        });
+
+    </script>
+
+</head>
+
+<body class="primary-background-color">
+    <div class="grid-container">
+        <!-- Logo -->
+        <div class="medium-12 large-12" id="logo">
+            <a href="/home">
+                <img src="/public/assets/images/G_logo.png" srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x"
+                    class="logo">
+            </a>
+            <a id="signoutLink" onclick="logoutUser()">LOGOUT</a>
+
+        </div>
+
+        <!-- End of logo -->
+        <span class="medium-6 large-6 welcome_post"><b>Edit <i style="color: #a46580">
+                    <%= member.get("profile").content.name %>&nbsp;</i> Details</b></span>
+
+        <div class="grid-x grid-margin-x story" id="opaqueDiv">
+            <div class="medium-3 large-3 cell">
+                <div class="login_card">
+                    <div class="card_head_position">
+                        <div class="stats">Menu</div>
+                        <% include ../../partials/menu.ejs %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story_form">
+                <form id="story_form" action="/memberedit/<%= member.id %>" method="post" enctype="multipart/form-data">
+
+                    <input type="hidden" name="projectId" value="<%= projectItem.id %>">
+                    <div class="medium-5 large-5 cell">
+                        <center>
+                            <% if (member.get("profileImage")){ %>
+                            <img width="200px" height="200px" src="<%= member.get("profileImage").url() %>">
+                            <% }else { %>
+
+                            <p class="none" style="margin: 30px 100px !important;padding: 50px 0;"><b>No Artwork</b></p>
+
+                            <% } %>
+                        </center>
+                        <label class="update_label">Memebr Name:</label> <input placeholder="Member Name" style="width: 60% !important;"
+                            class="box_2" name="memberName" value="<%= member.get("profile").content.name %>">
+                        <label class="update_label">Member Details:</label> <input placeholder="Keywords "
+                            class="box_2" name="description" style="width: 60% !important;" value="<%= member.get("profile").content.description %>">
+                        <label class="update_label">Sex:</label>
+                        <% if (member.get("profile").content.sex === "male"){ %>
+                        <input name="gender" type="radio" id="gender1" value="male" checked/>
+                        <label for="gender1" style="color: #8c5757 !important;" class="_label">Male</label>
+
+                        <input name="gender" type="radio" id="gender2" value="female"/>
+                        <label for="gender2" style="color: #8c5757 !important;" class="_label">Female</label>
+                        <% } else if (member.get("profile").content.sex === "female"){ %>
+                          <input name="gender" type="radio" id="gender1" value="male"/>
+                          <label for="gender1" style="color: #8c5757 !important;" class="_label">Male</label>
+
+                          <input name="gender" type="radio" id="gender1" value="female" checked/>
+                          <label for="gender1" style="color: #8c5757 !important;" class="_label">Female</label>
+                          <%}%>
+
+                        <br><br>
+                        <label class="update_label">Upload New Image:</label>
+                        <div class="file-field input-field">
+                            <div class="btn">
+                                <span><i class="fa fa-file-o"></i></span>
+                                <input type="file" name="im1">
+                            </div>
+                            <div style="width: 450px !important" class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+                        <br><br>
+
+                        <a href="#" id="submit_story" class="preview">Save Changes</a><br>
+
+                        <br>
+
+
+                        <a href="/story/members/<%= projectItem.id %>" class="preview">Back</a><br>
+
+                    </div>
+                </form>
+
+            </div>
+
+            <%- include('../../partials/footer') %>
+
+        </div>
+    </div>
+
+    <!-- Body -->
+
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="application/javascript"/>-->
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/public/assets/vendor/slick/slick.min.js"></script>
+    <script type="text/javascript" src="/public/assets/js/validate.js"></script>
+</body>
+
+</html>

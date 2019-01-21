@@ -56,11 +56,13 @@
             <% } else { %>
 
             <% storyItems.forEach(function(item, index) { %>
+              <% members.forEach(function(member, index) { %>
+
             <div id="<%= index %>" style="width: 90%; display: block !important;" class="toShow">
               <% if (item.get("type") === 0 || item.get("type") === 2 || item.get("type") === 5 || item.get("type") === 6 || item.get("type") === 8){ %>
-            <% if (item.get("contents").character === incoming[0].memberId){ %>
+            <% if (item.get("contents").character === member.id){ %>
                 <span style="float: left;">
-                        <img style="width:170px;height:170px;margin-left:15px;" src="<%= incoming[0].profileImage %>">
+                        <img style="width:170px;height:170px;margin-left:15px;" src="<%= member.get("profileImage").url() %>">
                     </span>
                 <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                       class="speech-bubble"><%= item.get("contents").text %>
@@ -70,18 +72,6 @@
                     </span>
                 </span>
 
-            <% } else if (item.get("contents").character === outgoing[0].memberId){ %>
-            <div id="<%= index %>" style="width: 90%;display: block !important;" class="toShow">
-                    <span style="float: right;">
-                        <img style="width:170px;height:170px;margin-left:5px;" src="<%= outgoing[0].profileImage %>">
-                    </span>
-                <div style="float: right;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
-                     class="speech-bubble-right"><%= item.get("contents").text %></div>
-                <% let id = index + 1 %>
-                <span style="position: absolute;margin: 110px 180px" data-id="<%= id %>" data-current="<%= index %>">
-                    <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
-                </span>
-            </div>
             <% } else if (item.get("contents").character === "admin"){%>
               <div style="width: 90%;display: block !important;">
                 <center>
@@ -91,9 +81,9 @@
               </div>
               <%}%>
               <%} else if (item.get("type") === 3){%>
-                <% if (item.get("contents").character === incoming[0].memberId){ %>
+                <% if (item.get("contents").character === member.id ){ %>
                     <span style="float: left;">
-                            <img style="width:170px;height:170px;margin-left:15px;" src="<%= incoming[0].profileImage %>">
+                            <img style="width:170px;height:170px;margin-left:15px;" src="<%= member.get("profileImage").url() %>">
                         </span>
                     <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                           class="speech-bubble">
@@ -104,18 +94,6 @@
                         </span>
                     </span>
 
-                <% } else if (item.get("contents").character === outgoing[0].memberId){ %>
-                <div id="<%= index %>" style="width: 90%;display: block !important;" class="toShow">
-                        <span style="float: right;">
-                            <img style="width:170px;height:170px;margin-left:5px;" src="<%= outgoing[0].profileImage %>">
-                        </span>
-                    <div style="float: right;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
-                         class="speech-bubble-right"><img src="<%= item.get("contents").uri %>" class="card-image-size"></div>
-                    <% let id = index + 1 %>
-                    <span style="position: absolute;margin: 110px 180px" data-id="<%= id %>" data-current="<%= index %>">
-                        <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
-                    </span>
-                </div>
                 <% } else if (item.get("contents").character === "admin"){%>
                   <div style="width: 90%;display: block !important;">
                     <center>
@@ -125,9 +103,9 @@
                   </div>
                   <%}%>
                 <%} else if (item.get("type") === 1) {%>
-                  <% if (item.get("contents").character === incoming[0].memberId){ %>
+                  <% if (item.get("contents").character === member.id){ %>
                       <span style="float: left;">
-                              <img style="width:170px;height:170px;margin-left:15px;" src="<%= incoming[0].profileImage %>">
+                              <img style="width:170px;height:170px;margin-left:15px;" src="<%= member.get("profileImage").url() %>">
                           </span>
                       <span style="float: left;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
                             class="speech-bubble">
@@ -138,18 +116,6 @@
                           </span>
                       </span>
 
-                  <% } else if (item.get("contents").character === outgoing[0].memberId){ %>
-                  <div id="<%= index %>" style="width: 90%;display: block !important;" class="toShow">
-                          <span style="float: right;">
-                              <img style="width:170px;height:170px;margin-left:5px;" src="<%= outgoing[0].profileImage %>">
-                          </span>
-                      <div style="float: right;min-width: 120px; min-height: 70px;text-align: center;margin: 65px 0;max-width: 250px;"
-                           class="speech-bubble-right"><img src="<%= item.get("contents").uri %>" class="card-image-size"></div>
-                      <% let id = index + 1 %>
-                      <span style="position: absolute;margin: 110px 180px" data-id="<%= id %>" data-current="<%= index %>">
-                          <i class="fa fa-caret-square-o-right" style="color: #0f9d58" aria-hidden="true"></i>
-                      </span>
-                  </div>
                   <% } else if (item.get("contents").character === "admin"){%>
                     <div style="width: 90%;display: block !important;">
                       <center>
@@ -161,6 +127,7 @@
                   <%}%>
             </div>
 
+            <% }) %>
             <% }) %>
             <% } %>
             <%- include('../../partials/footer') %>

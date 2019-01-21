@@ -109,13 +109,14 @@
                     <i class="fa fa-text-width" style="color: white; font-size: 3rem" aria-hidden="true"></i><br><br>
                     <textarea class="_pack common_pack_detail validate element" placeholder="Add Text"
                               name="content" required="" aria-required="true"></textarea><br>
-                    Words: <span class="wordCount">0</span><br/>
+                    Words: <span class="wordCount"><%= storyType %></span><br/>
                 </center>
                 <% if (storyType === type.STORY_TYPE.chat_single || storyType === type.STORY_TYPE.chat_single_episode
                         || storyType === type.STORY_TYPE.chat_group || storyType === type.STORY_TYPE.chat_group_episode) {%>
                 <div class="row" style="width: 450px !important;">
                     <select class="input-field validate" name="character" required="" aria-required="true">
                         <option value="" disabled selected>&nbsp;Select Character</option>
+                        <option value="admin">Administrator</option>
                         <% if (chatMembers.length === 0) { %>
 
                         <% } else { %>
@@ -187,6 +188,7 @@
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="character" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Select Character</option>
+                            <option value="admin">Administrator</option>
                             <% if (chatMembers.length === 0) { %>
 
                             <% } else { %>
@@ -280,6 +282,7 @@
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="character" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Select Character</option>
+                            <option value="admin">Administrator</option>
                             <% if (chatMembers.length === 0) { %>
 
                             <% } else { %>
@@ -323,6 +326,7 @@
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="character" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Select Character</option>
+                            <option value="admin">Administrator</option>
                             <% if (chatMembers.length === 0) { %>
 
                             <% } else { %>
@@ -368,6 +372,7 @@
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="character" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Select Character</option>
+                            <option value="admin">Administrator</option>
                             <% if (chatMembers.length === 0) { %>
 
                             <% } else { %>
@@ -416,6 +421,8 @@
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="character" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Select Character</option>
+                            <option value="admin">Administrator</option>
+
                             <% if (chatMembers.length === 0) { %>
 
                             <% } else { %>
@@ -528,6 +535,7 @@
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="character" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Select Character</option>
+                            <option value="admin">Administrator</option>
                             <% if (chatMembers.length === 0) { %>
 
                             <% } else { %>
@@ -577,6 +585,7 @@
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="character" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Select Character</option>
+                            <option value="admin">Administrator</option>
                             <% if (chatMembers.length === 0) { %>
 
                             <% } else { %>
@@ -655,6 +664,7 @@
                     <div class="row" style="width: 450px !important;">
                         <select class="input-field validate" name="character" required="" aria-required="true">
                             <option value="" disabled selected>&nbsp;Select Character</option>
+                            <option value="admin">Administrator</option>
                             <% if (chatMembers.length === 0) { %>
 
                             <% } else { %>
@@ -690,7 +700,22 @@
 
                     <i class="fa fa-picture-o" style="color: white; font-size: 7rem;margin-bottom: 20px"
                        aria-hidden="true"></i>
+                       <% if (storyType === type.STORY_TYPE.chat_single || storyType === type.STORY_TYPE.chat_single_episode
+                               || storyType === type.STORY_TYPE.chat_group || storyType === type.STORY_TYPE.chat_group_episode) {%>
+                       <div class="row" style="width: 450px !important;">
+                           <select class="input-field validate" name="character" required="" aria-required="true">
+                               <option value="" disabled selected>&nbsp;Select Character</option>
+                               <option value="admin">Administrator</option>
+                               <% if (chatMembers.length === 0) { %>
 
+                               <% } else { %>
+                               <% chatMembers.forEach(function(items) { %>
+                               <option value="<%= items.id %>"><%= items.get("profile").content.name %></option>
+                               <% }) %>
+                               <% } %>
+                           </select>
+                       </div>
+                       <%}%>
                 </center>
                 <input name="style" value="sticker" hidden>
                 <span>
@@ -747,12 +772,19 @@
                     </p>
                 </button>
             </a>
-
-            <a target="_blank" href="/newsletter/episode/<%= story_id %>/<%= projectItem.id %>">
+            <% if (storyType === type.STORY_TYPE.chat_single_episode || storyType === type.STORY_TYPE.chat_group_episode) {%>
+            <a target="_blank" href="/preview/chats/<%= mainStoryId %>/<%= projectItem.id %>/<%= story_id %>">
                 <button class="create_button">
                     <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Preview Episode</p>
                 </button>
             </a>
+            <%} else {%>
+              <a target="_blank" href="/newsletter/episode/<%= story_id %>/<%= projectItem.id %>">
+                  <button class="create_button">
+                      <p class="title">&nbsp; <i class="fa fa-circle size" aria-hidden="true"></i> &nbsp;Preview Episode</p>
+                  </button>
+              </a>
+              <%}%>
             <%}%>
 
         </div>

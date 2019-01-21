@@ -41,10 +41,11 @@ module.exports = function (app) {
                     new Parse.Query(_class.Projects).equalTo("userId", _user.id).find(),
                     new Parse.Query(_class.Product).limit(limit).find(),
                     new Parse.Query(_class.Categories).limit(limit).find(),
-                    new Parse.Query(_class.Message).limit(limit).find()
+                    new Parse.Query(_class.Message).limit(limit).find(),
+                    new Parse.Query(_class.Authors).limit(limit).find()
                 )
 
-            }).then(function (projects, products, categories, messages) {
+            }).then(function (projects, products, categories, messages, authors) {
 
                 res.render("pages/dashboard/landing", {
                     projects: projects,
@@ -53,6 +54,7 @@ module.exports = function (app) {
                     allProducts: products,
                     categories: categories,
                     messages: messages,
+                    authors: authors,
                     error_message: "null",
                     projectLength: helper.leadingZero(projects.length)
                 })
