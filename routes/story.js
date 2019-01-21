@@ -171,7 +171,9 @@ module.exports = function (app) {
                       "",
                       new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find()
                   )
-                }else if (episodeId === "empty") {
+                }
+
+               if (episodeId === "empty") {
                   console.log("INSIDE EMPTY");
 
                   return Parse.Promise.when(
