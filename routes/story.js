@@ -192,6 +192,7 @@ module.exports = function (app) {
 
             }).then(function (incoming, outgoing, storyItems) {
               _storyItem = storyItems;
+              console.log("INCOMING MEMBER " + incoming);
 
               if (incoming === ""){
                 return new Parse.Query(_class.Members).equalTo("chatIds", _story.id).find();
