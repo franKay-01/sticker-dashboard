@@ -173,6 +173,13 @@ module.exports = function (app) {
                   )
                 }
 
+               if (episodeId === "chat_episode_group"){
+                 return Parse.Promise.when(
+                     new Parse.Query(_class.Members).equalTo("objectId", story.get("info").incoming).first(),
+                     new Parse.Query(_class.Members).equalTo("objectId", story.get("info").outgoing).first(),
+                     new Parse.Query(_class.StoryItems).equalTo("storyId", story.id).find()
+                 )
+               }
                if (episodeId === "empty") {
                   console.log("INSIDE EMPTY");
 
