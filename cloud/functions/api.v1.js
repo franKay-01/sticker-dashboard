@@ -327,7 +327,7 @@ Parse.Cloud.define("getStories", function (req, res) {
     if(!limit){ limit = 1000 }
 
     return Parse.Promise.when(
-        new Parse.Query(_class.Stories).equalTo("published", true).containedIn("projectIds", [projectId]).limit(limit).equalTo("userId", ADMIN).descending("updatedAt").find({useMasterKey: true}),
+        new Parse.Query(_class.Stories).equalTo("published", true).containedIn("projectIds", ["RlRYzBQHVu"]).limit(limit).equalTo("userId", ADMIN).descending("updatedAt").find({useMasterKey: true}),
         new Parse.Query(_class.ArtWork).find()
     ).then((stories, artworks) => {
 
