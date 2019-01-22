@@ -493,8 +493,10 @@
                     <img src="<%= latestStory.get("uri").url() %>" width="200px" height="200px">
                 </center>
                 <div>
+                <% if (storyBody) {%>
                     <div class="story_title truncate_story_title"><%= storyBody.get("title") %></div>
                     <div class="story_summary truncate_summary"> <%= storyBody.get("summary") %></div>
+                <%}%>
                 </div>
             </a>
 

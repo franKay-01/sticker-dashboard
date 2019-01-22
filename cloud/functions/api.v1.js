@@ -44,6 +44,9 @@ Parse.Cloud.define("getFeed", function (req, res) {
         new Parse.Query(_class.Packs).equalTo("published", true).equalTo("userId", ADMIN).limit(4).descending("createdAt").find({useMasterKey: true}),
     ).then((sticker, story, packs) => {
 
+      console.log("FEED STICKER " + sticker);
+      console.log(" FEED STORY " + story);
+
         if (sticker && story && packs) {
 
             _packs = packs;
