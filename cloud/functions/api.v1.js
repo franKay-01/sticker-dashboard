@@ -33,10 +33,10 @@ Parse.Cloud.define("getFeed", function (req, res) {
     // if (!projectId) {
     //     projectId = DEFAULT_PROJECT
     // }
-    console.log("PROJECT ID " + projectId);
+    
     Parse.Promise.when(
-      new Parse.Query(_class.Feed).equalTo("projectId", "RlRYzBQHVu").equalTo("type", type.FEED_TYPE.sticker).first({useMasterKey: true}),
-      new Parse.Query(_class.Feed).equalTo("projectId", "RlRYzBQHVu").equalTo("type", type.FEED_TYPE.story).first({useMasterKey: true}),
+      new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("type", type.FEED_TYPE.sticker).first({useMasterKey: true}),
+      new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("type", type.FEED_TYPE.story).first({useMasterKey: true}),
 
         // new Parse.Query(_class.Feed).equalTo("objectId", LATEST_STICKER).first({useMasterKey: true}),
         // new Parse.Query(_class.Feed).equalTo("objectId", LATEST_STORY).first({useMasterKey: true}),
@@ -327,7 +327,7 @@ Parse.Cloud.define("getStories", function (req, res) {
     if(!limit){ limit = 1000 }
 
     return Parse.Promise.when(
-        new Parse.Query(_class.Stories).equalTo("published", true).containedIn("projectIds", ["RlRYzBQHVu"]).limit(limit).equalTo("userId", ADMIN).descending("updatedAt").find({useMasterKey: true}),
+        new Parse.Query(_class.Stories).equalTo("published", true).containedIn("projectIds", [projectId]).limit(limit).equalTo("userId", ADMIN).descending("updatedAt").find({useMasterKey: true}),
         new Parse.Query(_class.ArtWork).find()
     ).then((stories, artworks) => {
 
