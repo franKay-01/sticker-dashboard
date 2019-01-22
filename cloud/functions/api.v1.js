@@ -64,6 +64,10 @@ Parse.Cloud.define("getFeed", function (req, res) {
 
     }).then((sticker, story, storyArtwork,storyViews) => {
 
+        console.log("STICKER " + sticker);
+        console.log("STORY " + story);
+        console.log("STORY ARTWORK" + storyArtwork);
+
         if (sticker && story && storyArtwork) {
 
             _sticker = sticker;
