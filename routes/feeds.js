@@ -152,10 +152,10 @@ module.exports = function (app) {
 
                 switch (feedType) {
                     case STICKER:
-                        return new Parse.Query(_class.Latest).equalTo("projectId", projectId).equalTo("userId", _user.id).equalTo("type", type.FEED_TYPE.sticker).first();
+                        return new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", _user.id).equalTo("type", type.FEED_TYPE.sticker).first();
 
                     case STORIES:
-                        return new Parse.Query(_class.Latest).equalTo("projectId", projectId).equalTo("userId", _user.id).equalTo("type", type.FEED_TYPE.story).first();
+                        return new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", _user.id).equalTo("type", type.FEED_TYPE.story).first();
 
                 }
             }).then(function (latest) {
@@ -167,7 +167,7 @@ module.exports = function (app) {
 
                 } else {
 
-                    let Latest = new Parse.Object.extend(_class.Latest);
+                    let Latest = new Parse.Object.extend(_class.Feed);
                     let latest = new Latest();
 
                     latest.set("feedId", id);

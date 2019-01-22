@@ -113,8 +113,8 @@ module.exports = function (app) {
                 }
 
                 return Parse.Promise.when(
-                    new Parse.Query(_class.Latest).equalTo("projectId", projectId).equalTo("userId", _user.id).equalTo("type", type.FEED_TYPE.sticker).first(),
-                    new Parse.Query(_class.Latest).equalTo("projectId", projectId).equalTo("userId", _user.id).equalTo("type", type.FEED_TYPE.story).first(),
+                    new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", _user.id).equalTo("type", type.FEED_TYPE.sticker).first(),
+                    new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", _user.id).equalTo("type", type.FEED_TYPE.story).first(),
                     new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectIds", projectArray).descending("createdAt").limit(limit).find(),
                     new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).descending("createdAt").limit(limit).find(),
                     new Parse.Query(_class.Packs).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find(),

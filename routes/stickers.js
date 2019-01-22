@@ -332,7 +332,7 @@ module.exports = function (app) {
                     new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first(),
                     new Parse.Query(_class.Categories).ascending("name").find(),
                     new Parse.Query(_class.Packs).equalTo("objectId", packId).first(),
-                    new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STICKER).first(),
+                    new Parse.Query(_class.Feed).equalTo("objectId", process.env.LATEST_STICKER).first(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
                 );
 

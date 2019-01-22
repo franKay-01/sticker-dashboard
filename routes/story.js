@@ -53,7 +53,7 @@ module.exports = function (app) {
                     new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).descending("createdAt").find(),
                     new Parse.Query(_class.Packs).equalTo("userId", _user.id).find(),
                     new Parse.Query(_class.ArtWork).find(),
-                    new Parse.Query(_class.Latest).equalTo("objectId", process.env.LATEST_STORY).first(),
+                    new Parse.Query(_class.Feed).equalTo("objectId", process.env.LATEST_STORY).first(),
                     new Parse.Query(_class.Projects).equalTo("objectId", projectId).first(),
                     new Parse.Query(_class.Episodes).containedIn("projectId", projectArray).find()
                 );
@@ -1912,7 +1912,7 @@ module.exports = function (app) {
                 return Parse.Promise.when(
                     new Parse.Query(_class.Stories).equalTo("objectId", story_id).first(),
                     new Parse.Query(_class.ArtWork).equalTo("itemId", story_id).first(),
-                    new Parse.Query(_class.Latest).equalTo("projectId", projectId).equalTo("type", type.FEED_TYPE.story).first(),
+                    new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("type", type.FEED_TYPE.story).first(),
                     new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find(),
                     new Parse.Query(_class.Authors).find(),
                     new Parse.Query(_class.Product).find()
