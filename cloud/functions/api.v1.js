@@ -28,12 +28,12 @@ Parse.Cloud.define("getFeed", function (req, res) {
     let _packs = [];
     let views = 0;
 
-    // let projectId = req.params.projectId;
-    let projectId = DEFAULT_PROJECT;
-    // if (!projectId) {
-    //     projectId = DEFAULT_PROJECT
-    // }
-    
+    let projectId = req.params.projectId;
+
+    if (!projectId) {
+        projectId = DEFAULT_PROJECT
+    }
+
     Parse.Promise.when(
       new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("type", type.FEED_TYPE.sticker).first({useMasterKey: true}),
       new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("type", type.FEED_TYPE.story).first({useMasterKey: true}),
