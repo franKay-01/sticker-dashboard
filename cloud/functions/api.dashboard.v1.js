@@ -44,7 +44,7 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
   const otherLimit = 2;
   projectArray.push(projectId);
 
-  return Parse.Promise.when(
+  Parse.Promise.when(
       new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", ADMIN).equalTo("type", type.FEED_TYPE.sticker).first({useMasterKey: true}),
       new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", ADMIN).equalTo("type", type.FEED_TYPE.story).first({useMasterKey: true}),
       new Parse.Query(_class.Packs).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).descending("createdAt").limit(limit).find({useMasterKey: true}),
@@ -153,7 +153,7 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
           util.handleError(res, error);
 
         })
-}
+});
 
 Parse.Cloud.define("getHomeStickers", function (req, res) {
 
