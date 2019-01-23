@@ -3,7 +3,9 @@
 <p class="none">None</p>
 <% } else { %>
 <% story.forEach(function(item) { %>
-<% if (item.get("storyType") === type.STORY_TYPE.story || item.get("storyType") === type.STORY_TYPE.short_stories){%>
+<% if (item.get("storyType") === type.STORY_TYPE.story || item.get("storyType") === type.STORY_TYPE.short_stories
+|| item.get("storyType") === type.STORY_TYPE.chat_group || item.get("storyType") === type.STORY_TYPE.chat_single
+|| item.get("storyType") === type.STORY_TYPE.chat_group_episode || item.get("storyType") === type.STORY_TYPE.chat_single_episode){%>
 <div class="truncate_title"><a class="home_pack_description" href="/storyedit/<%= item.id %>/<%= projectItem.id %>"><%= item.get("title") %></a></div>
 <%}%>
 <% }); %>

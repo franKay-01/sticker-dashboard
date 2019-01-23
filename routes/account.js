@@ -43,7 +43,7 @@ module.exports = function (app) {
                     new Parse.Query(_class.Categories).limit(limit).find(),
                     new Parse.Query(_class.Message).limit(limit).find(),
                     new Parse.Query(_class.Authors).limit(limit).find()
-                )
+                  )
 
             }).then(function (projects, products, categories, messages, authors) {
 
