@@ -1,0 +1,13 @@
+<!-- Cards -->
+<% if (locals.members) { %>
+<% if (members.length === 0) { %>
+<p class="none">None</p>
+<% } else { %>
+<% members.forEach(function(item) { %>
+<div class="home_pack_description"><%= item.get("profile").content.name %></div>
+<% }); %>
+<div><a class="view_all" href="/story/members">View All</a></div>
+<% } %>
+<% } else { %>
+<p class="none">None</p>
+<% } %>
