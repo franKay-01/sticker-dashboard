@@ -28,6 +28,40 @@ Parse.Cloud.define('login', function(req, res){
 
 });
 
+Parse.Cloud.define('signup', function(req, res){
+    const NORMAL_USER = 0;
+
+    let user = new Parse.User();
+      user.set("name", req.params.name);
+      user.set("username", req.params.email);
+      user.set("password", req.params.password);
+      user.set("type", NORMAL_USER);
+      user.set("image_set", false);
+
+      let Profile = new Parse.Object.extend("Profile");
+      let profile = new Profile();
+
+      user.signUp(
+        { useMasterKey: true },
+        {
+          success: function(user) {
+            profile.set("userId", user.id);
+            profile.set("email", req.params.email);
+            profile.set("gender", req.params.gender);
+
+            profile.save().then(function() {
+              res.success(user);
+            });
+          },
+          error: function(user, error) {
+            // Show the error message somewhere and let the user try again.
+            res.error(error);
+
+          }
+        }
+      );
+})
+
 Parse.Cloud.define("stickerNumber", function (req, res) {
 
     console.log("USER________"+JSON.stringify(req.user));

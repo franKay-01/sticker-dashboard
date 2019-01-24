@@ -19,7 +19,7 @@ Parse.Cloud.define("landingPage", function(req, res){
       new Parse.Query(_class.Categories).limit(limit).find({useMasterKey: true}),
       new Parse.Query(_class.Authors).limit(limit).find({useMasterKey: true})
     ).then(function(projects, products, categories, authors){
-      console.log("PROJECTS " + projects);
+      console.log("PROJECTS " + JSON.stringify(projects);
       pageInfo.project = projects;
       pageInfo.products = products;
       pageInfo.categories = categories;
