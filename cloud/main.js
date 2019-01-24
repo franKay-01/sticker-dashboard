@@ -34,6 +34,7 @@ Parse.Cloud.define('signup', function(req, res){
     let user = new Parse.User();
       user.set("name", req.params.name);
       user.set("username", req.params.email);
+      user.set("email", req.params.email);
       user.set("password", req.params.password);
       user.set("type", NORMAL_USER);
       user.set("image_set", false);
