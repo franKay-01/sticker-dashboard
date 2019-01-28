@@ -7,8 +7,11 @@ exports.Projects = (projects) => {
 
   if (projects.length) {
       _.each(projects, project => {
+        if (project.get("uri")){
           _projects.push({id: project.id, name: project.get("name"), image: project.get("uri").url()});
-          console.log("PROJECT INSIDE CREATE " + project.get("name"));
+        }else {
+          _projects.push({id: project.id, name: project.get("name"), image: ""});
+        }
       });
   }
   return _projects;
