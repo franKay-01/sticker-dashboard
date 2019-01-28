@@ -13,6 +13,7 @@ Parse.Cloud.define("landingPage", function(req, res){
   const ID = req.params.admin;
   console.log("USER ID " + JSON.stringify(ID));
   let pageInfo = {};
+  let _project = [];
   const limit = 5;
   // console.log("PARAMS " + req.params);
  Parse.Promise.when(
@@ -22,7 +23,9 @@ Parse.Cloud.define("landingPage", function(req, res){
       // new Parse.Query(_class.Authors).limit(limit).find({useMasterKey: true})
     ).then(function(projects){
       // , products, categories, authors
-      pageInfo.project = dashboardHelper.Projects(projects);
+
+       _project.push(dashboardHelper.Projects(projects));
+       pageInfo.project = _project
       // pageInfo.products = products;
       // pageInfo.categories = categories;
       // pageInfo.authors = authors;
