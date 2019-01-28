@@ -10,7 +10,7 @@ exports.Projects = (projects) => {
           _projects.push({id: project.id, name: project.get("name"), image: project.get("uri").url()});
       });
   }
-}:
+};
 
 exports.Sticker = sticker => {
 
