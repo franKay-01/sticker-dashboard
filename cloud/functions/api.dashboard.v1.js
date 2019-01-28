@@ -3,27 +3,28 @@ let helper = require("../modules/helpers");
 let type = require("../modules/type");
 let _ = require('underscore');
 let create = require("../modules/create");
+let dashboardHelper = require("../modules/createDashboard");
 let _class = require("../modules/classNames");
 let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 
 Parse.Cloud.define("landingPage", function(req, res){
 
-  // const ADMIN = req.params.admin;
+  const ID = req.params.admin;
   let pageInfo = {};
   const limit = 5;
   // console.log("PARAMS " + req.params);
  Parse.Promise.when(
-      new Parse.Query(_class.Projects).equalTo("userId", "t9lyeTJVql").find({useMasterKey: true}),
-      new Parse.Query(_class.Product).limit(limit).find({useMasterKey: true}),
-      new Parse.Query(_class.Categories).limit(limit).find({useMasterKey: true}),
-      new Parse.Query(_class.Authors).limit(limit).find({useMasterKey: true})
-    ).then(function(projects, products, categories, authors){
-      console.log("PROJECTS " + JSON.stringify(projects));
-      pageInfo.project = projects;
-      pageInfo.products = products;
-      pageInfo.categories = categories;
-      pageInfo.authors = authors;
+      new Parse.Query(_class.Projects).equalTo("userId", ID).find({useMasterKey: true})
+      // new Parse.Query(_class.Product).limit(limit).find({useMasterKey: true}),
+      // new Parse.Query(_class.Categories).limit(limit).find({useMasterKey: true}),
+      // new Parse.Query(_class.Authors).limit(limit).find({useMasterKey: true})
+    ).then(function(projects){
+      // , products, categories, authors
+      pageInfo.project = dashboardHelper.Projects(projects);
+      // pageInfo.products = products;
+      // pageInfo.categories = categories;
+      // pageInfo.authors = authors;
 
       res.success(util.setResponseOk(pageInfo));
 
