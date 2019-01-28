@@ -23,8 +23,8 @@ Parse.Cloud.define("landingPage", function(req, res){
       // new Parse.Query(_class.Authors).limit(limit).find({useMasterKey: true})
     ).then(function(projects){
       // , products, categories, authors
-
-       _project.push(dashboardHelper.Projects(projects));
+      let results = dashboardHelper.Projects(projects);
+       _project.push(results);
        pageInfo.project = _project
       // pageInfo.products = products;
       // pageInfo.categories = categories;
