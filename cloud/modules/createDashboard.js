@@ -4,11 +4,12 @@ const helper = require('./helpers');
 
 exports.Projects = (projects) => {
   let _projects = [];
-  console.log("PROJECTS FROM API " + JSON.stringify(projects));
+
   if (projects.length) {
       _.each(projects, project => {
           _projects.push({id: project.id, name: project.get("name"), image: project.get("uri").url()});
-      });    
+          console.log("PROJECT INSIDE CREATE " + project.get("name"));
+      });
   }
   return _projects;
 };
