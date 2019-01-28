@@ -24,9 +24,7 @@ Parse.Cloud.define("landingPage", function(req, res){
     ).then(function(projects){
       // , products, categories, authors
       let results = dashboardHelper.Projects(projects);
-      console.log("RESULTS FROM DASHBOARD HELPER " + JSON.stringify(results));
-       _project.push(results);
-       pageInfo.project = _project
+       pageInfo.project = results
       // pageInfo.products = products;
       // pageInfo.categories = categories;
       // pageInfo.authors = authors;
