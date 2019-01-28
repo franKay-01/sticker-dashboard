@@ -11,6 +11,7 @@ let query = require("../modules/query");
 Parse.Cloud.define("landingPage", function(req, res){
 
   const ID = req.params.admin;
+  console.log("USER ID " + JSON.stringify(ID));
   let pageInfo = {};
   const limit = 5;
   // console.log("PARAMS " + req.params);
