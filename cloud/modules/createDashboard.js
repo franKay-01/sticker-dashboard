@@ -17,13 +17,13 @@ exports.Projects = (projects) => {
   return _projects;
 };
 
-exports.Products = (products) => {
+exports.CommonItems = (commonItems) => {
   let _products = [];
 
-  if (products.length) {
-      _.each(products, product => {
+  if (commonItems.length) {
+      _.each(commonItems, commonItem => {
 
-        _products.push({id: product.id, name: product.get("name")});
+        _products.push({id: commonItem.id, name: commonItem.get("name")});
 
       });
   }
