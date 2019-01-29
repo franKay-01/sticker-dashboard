@@ -17,6 +17,19 @@ exports.Projects = (projects) => {
   return _projects;
 };
 
+exports.Products = (products) => {
+  let _products = [];
+
+  if (products.length) {
+      _.each(products, product => {
+
+        _products.push({id: product.id, name: product.get("name")});
+
+      });
+  }
+  return _products;
+};
+
 exports.Sticker = sticker => {
 
     let _sticker = {};

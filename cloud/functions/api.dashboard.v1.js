@@ -17,14 +17,17 @@ Parse.Cloud.define("landingPage", function(req, res){
   const limit = 5;
   // console.log("PARAMS " + req.params);
  Parse.Promise.when(
-      new Parse.Query(_class.Projects).equalTo("userId", ID).find({useMasterKey: true})
-      // new Parse.Query(_class.Product).limit(limit).find({useMasterKey: true}),
+      new Parse.Query(_class.Projects).equalTo("userId", ID).find({useMasterKey: true}),
+      new Parse.Query(_class.Product).limit(limit).find({useMasterKey: true})
       // new Parse.Query(_class.Categories).limit(limit).find({useMasterKey: true}),
       // new Parse.Query(_class.Authors).limit(limit).find({useMasterKey: true})
-    ).then(function(projects){
+    ).then(function(projects, products){
       // , products, categories, authors
-      let results = dashboardHelper.Projects(projects);
-       pageInfo.project = results
+      let projects = dashboardHelper.Projects(projects);
+      let products = dashboardHelper.Products(products);
+
+      pageInfo.project = projects;
+      pageInfo.products = products;
       // pageInfo.products = products;
       // pageInfo.categories = categories;
       // pageInfo.authors = authors;
