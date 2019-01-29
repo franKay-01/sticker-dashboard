@@ -18,18 +18,17 @@ Parse.Cloud.define("landingPage", function(req, res){
  Parse.Promise.when(
       new Parse.Query(_class.Projects).equalTo("userId", ID).find({useMasterKey: true}),
       new Parse.Query(_class.Product).limit(limit).find({useMasterKey: true}),
-      // new Parse.Query(_class.Categories).limit(limit).find({useMasterKey: true})
+      new Parse.Query(_class.Categories).limit(limit).find({useMasterKey: true}),
       new Parse.Query(_class.Authors).limit(limit).find({useMasterKey: true})
-    ).then(function(projects, products, authors){
-      // , products, categories, authors
+    ).then(function(projects, products,categories, authors){
       let projectItems = dashboardHelper.Projects(projects);
       let productItems = dashboardHelper.CommonItems(products);
       let authorItems = dashboardHelper.CommonItems(authors);
+      let categoryItems = dashboardHelper.CommonItems(categories);
 
       pageInfo.project = projectItems;
       pageInfo.products = productItems;
-      // pageInfo.products = products;
-      // pageInfo.categories = categories;
+      pageInfo.categories = categoryItems;
       pageInfo.authors = authorItems;
 
       res.success(util.setResponseOk(pageInfo));
