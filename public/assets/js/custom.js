@@ -962,6 +962,16 @@ $(document).ready(function () {
         $('#pack_form')[0].reset();
     });
 
+    $('#btnAddCategory').on('click', function () {
+        $('#pageMask').fadeIn('fast');
+        $('#hiddenAddCatForm').fadeIn('fast');
+        $('#logo').fadeOut('fast');
+        $('#Welcome').fadeOut('fast');
+        $('#searchCategory').fadeOut('fast');
+        $('#signoutLink').fadeOut('fast');
+        $('#opaqueDiv').fadeOut('fast');
+    });
+
     $(".storyElement").click(function () {
         $('#pageMask').fadeIn('fast');
         $('#hiddenMakeStory').fadeIn('fast');
