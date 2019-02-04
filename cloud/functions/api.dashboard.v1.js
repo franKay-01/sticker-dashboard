@@ -8,6 +8,37 @@ let _class = require("../modules/classNames");
 let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 
+Parse.Cloud.define("createNewProject", function(req, res){
+
+  const ID = req.params.admin;
+  const projectName = req.params.projectName;
+  const _project = [];
+
+  let Project = new Parse.Object.extend(_class.Projects);
+  let project = new Project();
+
+  project.set("name", projectName);
+  project.set("userId", ID);
+  project.set("version", 1);
+  project.set("setting", {
+      "title": "#a46580",
+      "text": "#a46580",
+      "button": "#a46580",
+      "cardTopColor": "#df5A34",
+      "cardBottomColor": "#814ea4"
+  });
+
+  project.save().then(function(project){
+    _project.push(project.id);
+    res.success(util.setResponseOk(_project));
+
+  }, function(error){
+    util.handleError(res, error);
+  })
+
+});
+
+
 Parse.Cloud.define("landingPage", function(req, res){
 
   const ID = req.params.admin;
