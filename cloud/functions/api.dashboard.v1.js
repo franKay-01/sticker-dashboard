@@ -14,19 +14,19 @@ Parse.Cloud.define("createNewProduct", function(req, res){
   const productDescription = req.params.description;
   let productObject = {"android": "", "ios": ""};
 
-  let Project = new Parse.Object.extend(_class.Projects);
-  let project = new Project();
+  let Product = new Parse.Object.extend(_class.Product);
+  let product = new Product();
 
-  project.set("name", productName);
-  project.set("description", productDescription);
-  project.set("userId", ID);
-  project.set("published", false);
-  project.set("productId", productObject);
-  project.set("price", productObject);
+  product.set("name", productName);
+  product.set("description", productDescription);
+  product.set("userId", ID);
+  product.set("published", false);
+  product.set("productId", productObject);
+  product.set("price", productObject);
 
-  project.save().then(function(project){
+  product.save().then(function(product){
 
-    res.success(util.setResponseOk(project));
+    res.success(util.setResponseOk(product));
 
   }, function(error){
 
