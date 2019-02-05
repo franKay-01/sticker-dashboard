@@ -8,6 +8,32 @@ let _class = require("../modules/classNames");
 let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 
+Parse.Cloud.define("createNewProduct", function(req, res){
+  const ID = req.params.admin;
+  const productName = req.params.name;
+  const productDescription = req.params.description;
+  let productObject = {"android": "", "ios": ""};
+
+  let Project = new Parse.Object.extend(_class.Projects);
+  let project = new Project();
+
+  project.set("name", productName);
+  project.set("description", productDescription);
+  project.set("userId", ID);
+  project.set("published", false);
+  project.set("productId", productObject);
+  project.set("price", productObject);
+
+  project.save().then(function(project){
+
+    res.success(util.setResponseOk(project));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  });
+})
 
 Parse.Cloud.define("createNewAuthors", function(req, res){
   const ID = req.params.admin;
@@ -31,7 +57,7 @@ Parse.Cloud.define("createNewAuthors", function(req, res){
   }, function(error){
 
     util.handleError(res, error);
-    
+
   })
 });
 
