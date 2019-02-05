@@ -8,6 +8,19 @@ let _class = require("../modules/classNames");
 let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 
+Parse.Cloud.define("createNewCategories", function(req, res){
+
+  const ID = req.params.admin;
+  const categories = req.params.categories;
+  const _categories = [];
+
+  // let Category = new Parse.Object.extend(_class.Categories);
+  // let category = new Category();
+  //
+  console.log("CATEGORIES " + JSON.stringify(categories));
+
+});
+
 Parse.Cloud.define("createNewProject", function(req, res){
 
   const ID = req.params.admin;
