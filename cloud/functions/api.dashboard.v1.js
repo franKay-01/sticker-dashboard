@@ -8,6 +8,33 @@ let _class = require("../modules/classNames");
 let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 
+
+Parse.Cloud.define("createNewAuthors", function(req, res){
+  const ID = req.params.admin;
+  const authorName = req.params.name;
+  const authorEmail = req.params.email;
+  const authorNumber = req.params.number;
+  const authorSocial = req.params.social;
+
+  let Author = new Parse.Object.extend(_class.Authors);
+  let author = new Author();
+
+  author.set("name", authorName);
+  author.set("email", authorEmail);
+  author.set("phone", authorNumber);
+  author.set("socialHandles", authorSocial);
+
+  author.save().then(function(author){
+
+    res.success(util.setResponseOk(author));
+
+  }, function(error){
+
+    util.handleError(res, error);
+    
+  })
+});
+
 Parse.Cloud.define("createNewCategories", function(req, res){
 
   const ID = req.params.admin;
