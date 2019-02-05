@@ -12,13 +12,26 @@ Parse.Cloud.define("createNewCategories", function(req, res){
 
   const ID = req.params.admin;
   const categories = req.params.categories;
-  const _categories = [];
+  const categoryDetails = [];
 
-  // let Category = new Parse.Object.extend(_class.Categories);
-  // let category = new Category();
-  //
-  console.log("CATEGORIES " + JSON.stringify(categories));
+  categories.forEach(function (category) {
 
+      let Category = new Parse.Object.extend(_class.Categories);
+      let new_category = new Category();
+
+      new_category.set("name", category.toLowerCase());
+      categoryDetails.push(new_category);
+
+  });
+
+ Parse.Object.saveAll(categoryDetails).then(function(categories){
+   res.success(util.setResponseOk(categories));
+
+ }, function(error){
+
+   util.handleError(res, error);
+
+ });
 });
 
 Parse.Cloud.define("createNewProject", function(req, res){
