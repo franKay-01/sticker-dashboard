@@ -231,6 +231,7 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
                     new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first()
                 );
             } else if (latestStory && sticker === undefined) {
+              console.log("ENTERED FIRST LAP");
                 return Parse.Promise.when(
                     undefined,
                     new Parse.Query(_class.ArtWork).equalTo("itemId", latestStory.get("feedId")).first(),
@@ -250,6 +251,8 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
                 );
             }
         }).then(function(latestSticker, storyImage, storyBody){
+          console.log("ENTERED SECOND LAP");
+
           if (latestSticker !== undefined) {
               homeFeed.latestSticker = latestSticker.get("uri");
               homeFeed.latestStickerName = latestSticker.get("name");
@@ -278,6 +281,8 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
 
           }
         }).then(function(sticker){
+          console.log("ENTERED LAST LAP");
+
            homeFeed.latestStorySticker = sticker;
            console.log("FINISHED");
            res.success(util.setResponseOk(homeFeed));
