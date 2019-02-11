@@ -279,7 +279,7 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
           }
         }).then(function(sticker){
            homeFeed.latestStorySticker = sticker;
-
+           console.log("FINISHED");
            res.success(util.setResponseOk(homeFeed));
 
         }, function(error){
