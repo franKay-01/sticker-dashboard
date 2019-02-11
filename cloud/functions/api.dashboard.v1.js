@@ -204,7 +204,7 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
             let _facts = dashboardHelper.StoryTitles(facts);
             let _episodes = dashboardHelper.StoryTitles(episodes);
 
-            homeFeed.packs = _collections;
+            homeFeed.packInfo = _collections;
             homeFeed.story = _stories;
             homeFeed.adverts = _allAdverts;
             homeFeed.projects = _projects;
