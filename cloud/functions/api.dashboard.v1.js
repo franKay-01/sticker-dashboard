@@ -284,7 +284,7 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
           console.log("ENTERED LAST LAP");
 
            homeFeed.latestStorySticker = sticker;
-           console.log("FINISHED");
+           console.log("FINISHED LAST " + JSON.stringify(homeFeed));
            res.success(util.setResponseOk(homeFeed));
 
         }, function(error){
