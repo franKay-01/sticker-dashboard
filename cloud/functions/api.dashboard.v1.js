@@ -157,7 +157,7 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
   let projectId = req.params.projectId;
   console.log("PROJECT ID " + projectId);
   const ADMIN = req.params.admin;
-  let projectArray;
+  let projectArray = [];
   const limit = 5;
   const otherLimit = 2;
   projectArray.push(projectId);
