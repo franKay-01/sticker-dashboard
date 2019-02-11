@@ -2,6 +2,32 @@ const _ = require('underscore');
 const type = require('./type');
 const helper = require('./helpers');
 
+exports.ProjectItem = (project) => {
+  let _project = [];
+
+  if (project.length) {
+      _.each(project, item => {
+
+        _project.push({id: item.id, name: item.get("name")});
+
+      });
+  }
+  return _project;
+}
+
+exports.StoryTitles = (stories) => {
+  let _stories = [];
+
+  if (stories.length) {
+      _.each(stories, story => {
+
+        _stories.push({id: story.id, name: story.get("name")});
+
+      });
+  }
+  return _stories;
+};
+
 exports.Projects = (projects) => {
   let _projects = [];
 

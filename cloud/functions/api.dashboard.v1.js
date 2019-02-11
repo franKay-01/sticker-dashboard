@@ -8,6 +8,7 @@ let _class = require("../modules/classNames");
 let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 
+
 Parse.Cloud.define("createNewProduct", function(req, res){
   const ID = req.params.admin;
   const productName = req.params.name;
@@ -165,7 +166,6 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
       new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", ADMIN).equalTo("type", type.FEED_TYPE.story).first({useMasterKey: true}),
       new Parse.Query(_class.Packs).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).descending("createdAt").limit(limit).find({useMasterKey: true}),
       new Parse.Query(_class.Stories).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).descending("createdAt").limit(limit).find({useMasterKey: true}),
-      new Parse.Query(_class.Packs).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).find({useMasterKey: true}),
       new Parse.Query(_class.Categories).count({useMasterKey: true}),
       new Parse.Query(_class.Packs).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).count({useMasterKey: true}),
       new Parse.Query(_class.Stickers).equalTo("userId", ADMIN).count({useMasterKey: true}),
@@ -186,25 +186,39 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
           .limit(otherLimit).find({useMasterKey: true}),
       new Parse.Query(_class.Stories).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).equalTo("storyType", type.STORY_TYPE.episodes)
           .limit(otherLimit).find({useMasterKey: true})
-        ).then(function(sticker, latestStory, collection, story, allPacks, categoryLength, packLength,stickerLength, storyLength, allAdverts, projects, projectLength, projectItem,
-          jokes, quotes, history, news, facts, episodes){
-            homeFeed.collection = collection;
-            homeFeed.story = story;
-            homeFeed.allPacks = allPacks;
-            homeFeed.allAds = allAdverts;
-            homeFeed.allProjects = projects;
-            homeFeed.projectItem = projectItem;
-            homeFeed.jokes = jokes;
-            homeFeed.quotes = quotes;
-            homeFeed.news = news;
-            homeFeed.history = history;
-            homeFeed.facts = facts;
-            homeFeed.episodes = episodes;
+        ).then(function(sticker, latestStory, collection, story, categoryLength,
+          packLength,stickerLength,storyLength, allAdverts, projects, projectLength,
+          projectItem,jokes, quotes, history, news, facts, episodes){
+            let _collections = dashboardHelper.CommonItems(collection);
+            homeFeed.collection = _collections;
+            let _stories = dashboardHelper.StoryTitles(story);
+            homeFeed.story = _stories;
+            let _allAdverts = dashboardHelper.StoryTitles(allAdverts);
+            homeFeed.adverts = _allAdverts;
+            let _projects = dashboardHelper.CommonItems(projects);
+            homeFeed.projects = _projects;
+            let _projectItem = dashboardHelper.ProjectItem(projectItem);
+            homeFeed.projectItem = _projectItem;
+            let _jokes = dashboardHelper.StoryTitles(jokes);
+            homeFeed.jokes = _jokes;
+            let _quotes = dashboardHelper.StoryTitles(quotes);
+            homeFeed.quotes = _quotes;
+            let _news = dashboardHelper.StoryTitles(news);
+            homeFeed.news = _news;
+            let _history = dashboardHelper.StoryTitles(history);
+            homeFeed.history = _history;
+            let _facts = dashboardHelper.StoryTitles(facts);
+            homeFeed.facts = _facts;
+            let _episodes = dashboardHelper.StoryTitles(episodes);
+            homeFeed.episodes = _episodes;
+
             homeFeed.categoryLength = helper.leadingZero(categoryLength);
             homeFeed.packLength = helper.leadingZero(packLength);
             homeFeed.stickerLength = helper.leadingZero(stickerLength);
             homeFeed.storyLength = helper.leadingZero(storyLength);
             homeFeed.projectLength = helper.leadingZero(projectLength);
+
+            console.log("FEED ITEMS " + JSON.stringify(homeFeed));
 
             if (latestStory && sticker) {
                 return Parse.Promise.when(
