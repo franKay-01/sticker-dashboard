@@ -251,18 +251,18 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
             }
         }).then(function(latestSticker, storyImage, storyBody){
           if (latestSticker !== undefined) {
-              _latestSticker = latestSticker.get("uri");
+              homeFeed.latestSticker = latestSticker.get("uri");
               homeFeed.latestStickerName = latestSticker.get("name");
               homeFeed.latestStickerDescription = latestSticker.get("description");
           }
 
           if (storyBody !== undefined) {
 
-              homeFeed.storyBody = storyBody;
+              homeFeed.latestStoryBody = storyBody;
 
           } else {
 
-              homeFeed.storyBody = "";
+              homeFeed.latestStoryBody = "";
 
           }
 
@@ -278,7 +278,7 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
 
           }
         }).then(function(sticker){
-           homeFeed.sticker = sticker;
+           homeFeed.latestStorySticker = sticker;
 
            res.success(util.setResponseOk(homeFeed));
 
