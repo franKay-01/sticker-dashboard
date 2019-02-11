@@ -2,15 +2,13 @@ const _ = require('underscore');
 const type = require('./type');
 const helper = require('./helpers');
 
-exports.ProjectItem = (project) => {
+exports.ProjectItem = project => {
   let _project = [];
 
-  if (project.length) {
-      _.each(project, item => {
+  if (project) {
 
-        _project.push({id: item.id, name: item.get("name")});
+      _project.push({id: project.id, name: project.get("name")});
 
-      });
   }
   return _project;
 }

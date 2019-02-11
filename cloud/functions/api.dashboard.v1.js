@@ -190,27 +190,30 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
         ).then(function(sticker, latestStory, collection, story, categoryLength,
           packLength,stickerLength,storyLength, allAdverts, projects, projectLength,
           projectItem,jokes, quotes, history, news, facts, episodes){
+
+
             let _collections = dashboardHelper.CommonItems(collection);
-            homeFeed.collection = _collections;
             let _stories = dashboardHelper.StoryTitles(story);
-            homeFeed.story = _stories;
             let _allAdverts = dashboardHelper.StoryTitles(allAdverts);
-            homeFeed.adverts = _allAdverts;
             let _projects = dashboardHelper.CommonItems(projects);
-            homeFeed.projects = _projects;
             let _projectItem = dashboardHelper.ProjectItem(projectItem);
-            homeFeed.projectItem = _projectItem;
             let _jokes = dashboardHelper.StoryTitles(jokes);
-            homeFeed.jokes = _jokes;
             let _quotes = dashboardHelper.StoryTitles(quotes);
-            homeFeed.quotes = _quotes;
             let _news = dashboardHelper.StoryTitles(news);
-            homeFeed.news = _news;
             let _history = dashboardHelper.StoryTitles(history);
-            homeFeed.history = _history;
             let _facts = dashboardHelper.StoryTitles(facts);
-            homeFeed.facts = _facts;
             let _episodes = dashboardHelper.StoryTitles(episodes);
+
+            homeFeed.collection = _collections;
+            homeFeed.story = _stories;
+            homeFeed.adverts = _allAdverts;
+            homeFeed.projects = _projects;
+            homeFeed.projectItem = _projectItem;
+            homeFeed.jokes = _jokes;
+            homeFeed.quotes = _quotes;
+            homeFeed.news = _news;
+            homeFeed.history = _history;
+            homeFeed.facts = _facts;
             homeFeed.episodes = _episodes;
 
             homeFeed.categoryLength = helper.leadingZero(categoryLength);
