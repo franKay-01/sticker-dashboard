@@ -206,15 +206,15 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
 
             homeFeed.packInfo = _collections;
             homeFeed.storiesInfo = _stories;
-            homeFeed.adverts = _allAdverts;
-            homeFeed.projects = _projects;
+            homeFeed.advertInfo = _allAdverts;
+            homeFeed.projectInfo = _projects;
             homeFeed.projectItem = _projectItem;
-            homeFeed.jokes = _jokes;
-            homeFeed.quotes = _quotes;
-            homeFeed.news = _news;
-            homeFeed.history = _history;
-            homeFeed.facts = _facts;
-            homeFeed.episodes = _episodes;
+            homeFeed.jokeInfo = _jokes;
+            homeFeed.quoteInfo = _quotes;
+            homeFeed.newInfo = _news;
+            homeFeed.historyInfo = _history;
+            homeFeed.factInfo = _facts;
+            homeFeed.episodeInfo = _episodes;
 
             homeFeed.categoryLength = helper.leadingZero(categoryLength);
             homeFeed.packLength = helper.leadingZero(packLength);
