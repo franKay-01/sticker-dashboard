@@ -154,10 +154,9 @@ Parse.Cloud.define("landingPage", function(req, res){
 
 Parse.Cloud.define("getHomeFeed", function (req, res) {
   let homeFeed = {};
-  let projectId = req.params.projectId;
-  console.log("PROJECT ID " + projectId);
-  const ADMIN = req.params.admin;
   let projectArray = [];
+  let projectId = req.params.projectId;
+  const ADMIN = req.params.admin;
   const limit = 4;
   const otherLimit = 2;
   projectArray.push(projectId);
@@ -166,7 +165,7 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
       new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", ADMIN).equalTo("type", type.FEED_TYPE.sticker).first({useMasterKey: true}),
       new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", ADMIN).equalTo("type", type.FEED_TYPE.story).first({useMasterKey: true}),
       new Parse.Query(_class.Packs).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).descending("createdAt").limit(limit).find({useMasterKey: true}),
-      new Parse.Query(_class.Stories).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).descending("createdAt").limit(5).find({useMasterKey: true}),
+      new Parse.Query(_class.Stories).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).descending("createdAt").limit(limit).find({useMasterKey: true}),
       new Parse.Query(_class.Categories).count({useMasterKey: true}),
       new Parse.Query(_class.Packs).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).count({useMasterKey: true}),
       new Parse.Query(_class.Stickers).equalTo("userId", ADMIN).count({useMasterKey: true}),
