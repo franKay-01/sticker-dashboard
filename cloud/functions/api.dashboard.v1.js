@@ -210,7 +210,7 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
             homeFeed.projectItem = _projectItem;
             homeFeed.jokeInfo = _jokes;
             homeFeed.quoteInfo = _quotes;
-            homeFeed.newInfo = _news;
+            homeFeed.newsInfo = _news;
             homeFeed.historyInfo = _history;
             homeFeed.factInfo = _facts;
             homeFeed.episodeInfo = _episodes;
