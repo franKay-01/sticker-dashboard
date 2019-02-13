@@ -13,7 +13,7 @@ Parse.Cloud.define("createNewMember", function(req, res){
   let memberName = req.params.name;
   // let files = req.files;
   let memberDescription = req.params.description;
-  let memberSex = req.body.sex;
+  let memberSex = req.params.sex;
 
   let Member = new Parse.Object.extend(_class.Members);
   let member = new Member();
