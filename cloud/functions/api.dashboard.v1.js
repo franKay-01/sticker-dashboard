@@ -253,9 +253,13 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
           console.log("ENTERED SECOND LAP");
 
           if (latestSticker !== undefined) {
-              homeFeed.latestSticker = latestSticker.get("uri");
+              homeFeed.latestSticker = latestSticker.get("uri").url();
               homeFeed.latestStickerName = latestSticker.get("name");
               homeFeed.latestStickerDescription = latestSticker.get("description");
+          }else {
+            homeFeed.latestSticker = "";
+            homeFeed.latestStickerName = "";
+            homeFeed.latestStickerDescription = "";
           }
 
           if (storyBody !== undefined) {
@@ -280,9 +284,12 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
 
           }
         }).then(function(sticker){
-          console.log("ENTERED LAST LAP");
+          if (sticker !== ""){
+            homeFeed.latestStorySticker = sticker.get("uri").url();
+          }else {
+            homeFeed.latestStorySticker = sticker;
+          }
 
-           homeFeed.latestStorySticker = sticker;
            console.log("FINISHED LAST " + JSON.stringify(homeFeed));
            res.success(util.setResponseOk(homeFeed));
 
