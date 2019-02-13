@@ -8,6 +8,36 @@ let _class = require("../modules/classNames");
 let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 
+Parse.Cloud.define("createNewMember", function(req, res){
+  const ID = req.params.admin;
+  let memberName = req.params.name;
+  // let files = req.files;
+  let memberDescription = req.params.description;
+  let memberSex = req.body.sex;
+
+  let Member = new Parse.Object.extend(_class.Members);
+  let member = new Member();
+
+  member.set("profile", {
+      "content": {
+          "name": memberName,
+          "description": memberDescription,
+          "sex": memberSex
+      }
+  });
+  member.set("chatIds", []);
+  member.set("userId", ID);
+
+  member.save().then(function(member){
+    console.log("MEMBER " + JSON.stringify(member));
+    res.success(util.setResponseOk(member));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
 
 Parse.Cloud.define("createNewProduct", function(req, res){
   const ID = req.params.admin;
