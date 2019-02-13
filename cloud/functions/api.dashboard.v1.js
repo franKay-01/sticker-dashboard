@@ -264,11 +264,13 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
 
           if (storyBody !== undefined) {
 
-              homeFeed.latestStoryBody = storyBody;
+              homeFeed.latestStoryTitle = storyBody.get("title");
+              homeFeed.latestStorySummary = storyBody.get("summary");
 
           } else {
 
-              homeFeed.latestStoryBody = "";
+            homeFeed.latestStoryTitle = "";
+            homeFeed.latestStorySummary = "";
 
           }
 
