@@ -39,7 +39,7 @@ Parse.Cloud.define("createNewMember", function(req, res){
   })
 });
 
-Parse.Cloud.define("createNewProduct", function(req, res){
+Parse.Cloud.define("createNewPack", function(req, res){
   const ID = req.params.admin;
   let packDescription = req.params.description;
   let packName = req.params.name;
