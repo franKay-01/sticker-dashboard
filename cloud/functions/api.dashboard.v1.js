@@ -89,7 +89,7 @@ Parse.Cloud.define("createNewPack", function(req, res){
 
   pack.save().then(function(pack){
 
-    res.success(util.setResponseOk(product));
+    res.success(util.setResponseOk(pack));
 
   }, function(error){
 
