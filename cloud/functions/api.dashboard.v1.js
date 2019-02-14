@@ -63,7 +63,6 @@ Parse.Cloud.define("createNewProduct", function(req, res){
   pack.set("flagged", false);
   pack.set("published", false);
   pack.set("previews", []);
-  pack.set("packType", packType);
 
   if (packCategory === "") {
 
@@ -72,6 +71,19 @@ Parse.Cloud.define("createNewProduct", function(req, res){
   } else {
 
       pack.set("keywords", [packCategory]);
+
+  }
+  if (packType === type.PACK_TYPE.grouped) {
+
+      pack.set("packType", type.PACK_TYPE.grouped);
+
+  } else if (packType === type.PACK_TYPE.themed) {
+
+      pack.set("packType", type.PACK_TYPE.themed);
+
+  } else if (packType === type.PACK_TYPE.curated) {
+
+      pack.set("packType", type.PACK_TYPE.curated);
 
   }
 
