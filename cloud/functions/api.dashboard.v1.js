@@ -41,6 +41,53 @@ Parse.Cloud.define("createNewMember", function(req, res){
 
 Parse.Cloud.define("createNewProduct", function(req, res){
   const ID = req.params.admin;
+  let packDescription = req.params.description;
+  let packName = req.params.name;
+  let projectId = req.params.projectId;
+  let packCategory = req.params.category;
+  let packType = parseInt(req.params.type);
+  let version = parseInt(req.params.version);
+  let projectArray = [];
+  projectArray.push(projectId);
+
+  let PackCollection = new Parse.Object.extend(_class.Packs);
+  let pack = new PackCollection();
+  pack.set("name", packName);
+  pack.set("description", packDescription);
+  pack.set("userId", ID);
+  pack.set("status", type.PACK_STATUS.pending);
+  pack.set("version", version);
+  pack.set("projectIds", projectArray);
+  pack.set("productId", "");
+  pack.set("archived", false);
+  pack.set("flagged", false);
+  pack.set("published", false);
+  pack.set("previews", []);
+  pack.set("packType", packType);
+
+  if (packCategory === "") {
+
+      pack.set("keywords", [""]);
+
+  } else {
+
+      pack.set("keywords", [packCategory]);
+
+  }
+
+  pack.save().then(function(pack){
+
+    res.success(util.setResponseOk(product));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+})
+
+Parse.Cloud.define("createNewProduct", function(req, res){
+  const ID = req.params.admin;
   const productName = req.params.name;
   const productDescription = req.params.description;
   let productObject = {"android": "", "ios": ""};
