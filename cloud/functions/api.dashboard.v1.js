@@ -12,11 +12,39 @@ Parse.Cloud.define("createNewStory", function(req, res){
   const ID = req.params.admin;
   let storyTitle = req.params.title;
   let storySummary = req.params.summary;
-  let type = req.params.type;
-  let format = req.params.projectId;
+  let storyType = parseInt(req.params.type);
+  let storyFormat = req.params.format;
+  let projectId = req.params.projectId;
+  let projectArray = [];
 
-  console.log("STORY ITEMS FROM " + JSON.stringify(storyTitle) + " SUMMARY " +
-  JSON.stringify(storySummary) + " TYPE " + JSON.stringify(type) + " FORMAT " + JSON.stringify(format));
+  projectArray.push(projectId);
+
+  let Stories = new Parse.Object.extend(_class.Stories);
+  let story = new Stories();
+
+  story.set("title", storyTitle);
+  story.set("summary", storySummary);
+  story.set("packId", "");
+  story.set("keywords", []);
+  // story.set("is_latest_story", false);
+  story.set("published", false);
+  story.set("projectIds", projectArray);
+  story.set("userId", ID);
+  story.set("status", 0);
+  story.set("storyType", storyType);
+  story.set("format", storyFormat);
+  story.set("authorId", "");
+  story.set("info", {"topColor": "","bottomColor": "","incoming": "","outgoing": ""});
+
+  story.save().then(function(story){
+    
+      res.success(util.setResponseOk(story));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  });
 });
 
 Parse.Cloud.define("createNewMember", function(req, res){
