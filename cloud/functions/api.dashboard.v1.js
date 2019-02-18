@@ -17,7 +17,7 @@ Parse.Cloud.define("createNewStory", function(req, res){
   let projectId = req.params.projectId;
   let projectArray = [];
 
-  console.log("HERE " + StoryTitle + " " + storySummary + " " + storyType +" "+storyFormat);
+  console.log("HERE " + storyTitle + " " + storySummary + " " + storyType +" "+storyFormat);
   projectArray.push(projectId);
 
   let Stories = new Parse.Object.extend(_class.Stories);
