@@ -251,7 +251,7 @@ Parse.Cloud.define("createNewProject", function(req, res){
 Parse.Cloud.define("landingPage", function(req, res){
 
   const ID = req.params.admin;
-  let pageInfo = {};
+  let page = {};
 
   const limit = 5;
   // console.log("PARAMS " + req.params);
@@ -266,12 +266,13 @@ Parse.Cloud.define("landingPage", function(req, res){
       let authorItems = dashboardHelper.CommonItems(authors);
       let categoryItems = dashboardHelper.CommonItems(categories);
 
-      pageInfo.project = projectItems;
-      pageInfo.products = productItems;
-      pageInfo.categories = categoryItems;
-      pageInfo.authors = authorItems;
 
-      res.success(util.setResponseOk(pageInfo));
+      page.project = projectItems;
+      page.products = productItems;
+      page.categories = categoryItems;
+      page.authors = authorItems;
+
+      res.success(util.setResponseOk(page));
 
     },function (error) {
 
