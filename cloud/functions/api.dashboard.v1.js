@@ -17,6 +17,7 @@ Parse.Cloud.define("createNewStory", function(req, res){
   let projectId = req.params.projectId;
   let projectArray = [];
 
+  console.log("HERE " + StoryTitle + " " + storySummary + " " + storyType +" "+storyFormat);
   projectArray.push(projectId);
 
   let Stories = new Parse.Object.extend(_class.Stories);
@@ -37,7 +38,7 @@ Parse.Cloud.define("createNewStory", function(req, res){
   story.set("info", {"topColor": "","bottomColor": "","incoming": "","outgoing": ""});
 
   story.save().then(function(story){
-    
+
       res.success(util.setResponseOk(story));
 
   }, function(error){
