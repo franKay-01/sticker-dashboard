@@ -7,7 +7,7 @@ exports.PackItem = pack => {
   let _pack = [];
 
   if (pack) {
-    _pack.push({id: pack.id, name: pack.get("name"), status: pack.get("status"), art:pack.get("artwork").url()
+    _pack.push({id: pack.id, name: pack.get("name"), status: pack.get("status"), art:pack.get("artwork").url(),
     published: pack.get("published"), type: pack.get("packType"), product: pack.get("productId") });
   }
 
