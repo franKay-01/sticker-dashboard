@@ -19,7 +19,9 @@ Parse.Cloud.define("getPackFeed", function(req, res){
   .then(function(pack){
     console.log("INITIAL PACK " + JSON.stringify(pack));
     let _pack = dashboardHelper.PackItem(pack);
-    console.log("PACK " + JSON.stringify(_pack));
+    res.success(util.setResponseOk(_pack));
+  }, function(error){
+    util.handleError(res, error);
   })
 
 });
