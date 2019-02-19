@@ -4,18 +4,13 @@ const helper = require('./helpers');
 
 
 exports.PackItem = pack => {
-  let _pack = {};
+  let _pack = [];
 
   if (pack) {
-      _pack.id = pack.id;
-      _pack.status = pack.get("status");
-      _pack.art = pack.get("artwork").url();
-      _pack.is_published = pack.get("published");
-      _pack.name = pack.get("name");
-      _pack.type = pack.get("packType");
-      _pack.productId = pack.get("productId");
+    _pack.push({id: pack.id, name: pack.get("name"), status: pack.get("status"), art:pack.get("artwork").url()
+    published: pack.get("published"), type: pack.get("packType"), product: pack.get("productId") });
   }
-  
+
   return _pack;
 };
 
