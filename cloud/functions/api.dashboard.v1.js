@@ -8,6 +8,20 @@ let _class = require("../modules/classNames");
 let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 
+
+Parse.Cloud.define("createNewAdvert", function(req, res){
+  const ID = req.params.admin;
+  let advertTitle = req.params.title;
+  let advertDescription = req.params.description;
+  let actionButton = req.params.action;
+  let projectId = req.params.projectId;
+  let projectArray = [];
+
+  projectArray.push(projectId);
+
+  console.log("ENTRIES " + advertTitle + " " + advertDescription + " " + actionButton);
+  
+});
 Parse.Cloud.define("createNewStory", function(req, res){
   const ID = req.params.admin;
   let storyTitle = req.params.title;
