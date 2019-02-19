@@ -2,6 +2,23 @@ const _ = require('underscore');
 const type = require('./type');
 const helper = require('./helpers');
 
+
+exports.PackItem = pack => {
+  let _pack = {};
+
+  if (pack) {
+      _pack.id = pack.id;
+      _pack.status = pack.get("status");
+      _pack.art = pack.get("artwork").url();
+      _pack.is_published = pack.get("published");
+      _pack.name = pack.get("name");
+      _pack.type = pack.get("packType");
+      _pack.productId = pack.get("productId");
+  }
+  
+  return _pack;
+};
+
 exports.ProjectItem = project => {
   let _project = [];
 
@@ -11,7 +28,7 @@ exports.ProjectItem = project => {
 
   }
   return _project;
-}
+};
 
 exports.StoryTitles = (stories) => {
   let _stories = [];

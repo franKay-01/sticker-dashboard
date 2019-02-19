@@ -8,6 +8,19 @@ let _class = require("../modules/classNames");
 let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 
+Parse.Cloud.define("getPackFeed", function(req, res){
+  const ID = req.params.admin;
+  let packId = req.params.packId;
+  let projectId = req.params.projectId;
+  let projectArray = [];
+  projectArray.push(projectId);
+
+  new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}).then(function(pack){
+    let _pack = dashboardHelper.PackItem(pack);
+    console.log("PACK " + JSON.stringify(_pack));
+  })
+
+});
 
 Parse.Cloud.define("createNewAdvert", function(req, res){
   const ID = req.params.admin;
@@ -39,6 +52,7 @@ Parse.Cloud.define("createNewAdvert", function(req, res){
   });
 
 });
+
 Parse.Cloud.define("createNewStory", function(req, res){
   const ID = req.params.admin;
   let storyTitle = req.params.title;
