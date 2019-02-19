@@ -19,8 +19,25 @@ Parse.Cloud.define("createNewAdvert", function(req, res){
 
   projectArray.push(projectId);
 
-  console.log("ENTRIES " + advertTitle + " " + advertDescription + " " + actionButton);
-  
+  let Advert = new Parse.Object.extend(_class.Adverts);
+  let advert = new Advert();
+
+  advert.set("title", advertTitle);
+  advert.set("description", advertDescription);
+  advert.set("userId", _user.id);
+  advert.set("buttonAction", actionButton);
+  advert.set("projectIds", projectArray);
+
+  advert.save().then(function(advert){
+
+    res.success(util.setResponseOk(advert));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  });
+
 });
 Parse.Cloud.define("createNewStory", function(req, res){
   const ID = req.params.admin;
@@ -52,7 +69,6 @@ Parse.Cloud.define("createNewStory", function(req, res){
 
   story.save().then(function(story){
 
-    console.log("SAVED STORY " + JSON.stringify(story));
     res.success(util.setResponseOk(story));
 
   }, function(error){
