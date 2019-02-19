@@ -14,12 +14,14 @@ Parse.Cloud.define("getPackFeed", function(req, res){
   let projectId = req.params.projectId;
   let projectArray = [];
   projectArray.push(projectId);
+  let packfeed = {};
 
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
   .then(function(pack){
     console.log("INITIAL PACK " + JSON.stringify(pack));
     let _pack = dashboardHelper.PackItem(pack);
-    res.success(util.setResponseOk(_pack));
+    packfeed.pack = _pack;
+    res.success(util.setResponseOk(packfeed));
   }, function(error){
     util.handleError(res, error);
   })
