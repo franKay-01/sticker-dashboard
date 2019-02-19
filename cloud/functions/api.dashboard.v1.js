@@ -24,7 +24,7 @@ Parse.Cloud.define("createNewAdvert", function(req, res){
 
   advert.set("title", advertTitle);
   advert.set("description", advertDescription);
-  advert.set("userId", _user.id);
+  advert.set("userId", ID);
   advert.set("buttonAction", actionButton);
   advert.set("projectIds", projectArray);
 
