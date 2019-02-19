@@ -15,7 +15,7 @@ Parse.Cloud.define("getPackFeed", function(req, res){
   let projectArray = [];
   projectArray.push(projectId);
 
-  new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}).then(function(pack){
+  return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}).then(function(pack){
     let _pack = dashboardHelper.PackItem(pack);
     console.log("PACK " + JSON.stringify(_pack));
   })
