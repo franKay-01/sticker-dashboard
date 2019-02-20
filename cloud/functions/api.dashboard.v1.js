@@ -7,6 +7,7 @@ let dashboardHelper = require("../modules/createDashboard");
 let _class = require("../modules/classNames");
 let analytics = require("../modules/analytics");
 let query = require("../modules/query");
+const PARSE_LIMIT = 1000;
 
 Parse.Cloud.define("getPackFeed", function(req, res){
   const ID = req.params.admin;
@@ -15,15 +16,45 @@ Parse.Cloud.define("getPackFeed", function(req, res){
   let projectArray = [];
   projectArray.push(projectId);
   let packfeed = {};
+  let _stickers = [];
+  let stickerItem;
 
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
   .then(function(pack){
-    console.log("INITIAL PACK " + JSON.stringify(pack));
+
     let _pack = dashboardHelper.PackItem(pack);
+
     packfeed.pack = _pack;
+
+    let packRelation = pack.relation(_class.Packs);
+
+    return packRelation.query().limit(PARSE_LIMIT).ascending("name").find({useMasterKey: true});
+
+  }).then(function(stickers){
+
+    stickers.forEach(sticker => {
+
+      stickerItem = dashboardHelper.Sticker(stickers)
+      _stickers.push(stickerItem);
+
+    });
+    console.log("STICKERS " + JSON.stringify(_stickers));
+    packfeed.stickers = _stickers;
+
+    return Parse.Promise.when(
+        new Parse.Query(_class.Packs).equalTo("userId", ID).containedIn("projectIds", _pack.get("projectIds")).find(),
+        new Parse.Query(_class.Product).find(),
+        new Parse.Query(_class.Projects).containedIn("objectId", _pack.get("projectIds")).limit(limit).find(),
+        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+    );
+
+  }).then(function(packs, products, projects, project){
+
     res.success(util.setResponseOk(packfeed));
   }, function(error){
+
     util.handleError(res, error);
+
   })
 
 });
@@ -247,7 +278,7 @@ Parse.Cloud.define("createNewCategories", function(req, res){
   const categories = req.params.categories;
   const categoryDetails = [];
 
-  categories.forEach(function (category) {
+  categories.forEach(category => {
 
       let Category = new Parse.Object.extend(_class.Categories);
       let new_category = new Category();
