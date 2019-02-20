@@ -18,10 +18,12 @@ Parse.Cloud.define("getPackFeed", function(req, res){
   let packfeed = {};
   let _stickers = [];
   let stickerItem;
+  let packInfo;
+  let limit = 5;
 
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
   .then(function(pack){
-
+    packInfo = pack;
     let _pack = dashboardHelper.PackItem(pack);
 
     packfeed.pack = _pack;
@@ -42,15 +44,16 @@ Parse.Cloud.define("getPackFeed", function(req, res){
     packfeed.stickers = _stickers;
 
     return Parse.Promise.when(
-        new Parse.Query(_class.Packs).equalTo("userId", ID).containedIn("projectIds", _pack.get("projectIds")).find(),
+        new Parse.Query(_class.Packs).equalTo("userId", ID).containedIn("projectIds", packInfo.get("projectIds")).find(),
         new Parse.Query(_class.Product).find(),
-        new Parse.Query(_class.Projects).containedIn("objectId", _pack.get("projectIds")).limit(limit).find(),
+        new Parse.Query(_class.Projects).containedIn("objectId", packInfo.get("projectIds")).limit(limit).find(),
         new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
     );
 
   }).then(function(packs, products, projects, project){
 
     res.success(util.setResponseOk(packfeed));
+
   }, function(error){
 
     util.handleError(res, error);
