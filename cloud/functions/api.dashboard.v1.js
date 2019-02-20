@@ -30,10 +30,10 @@ Parse.Cloud.define("getPackFeed", function(req, res){
 
     let packRelation = pack.relation(_class.Packs);
 
-    return packRelation.query().limit(PARSE_LIMIT).ascending("name").find({useMasterKey: true});
+    return packRelation.query().limit(1000).ascending("name").find({useMasterKey: true});
 
   }).then(function(stickers){
-console.log("STICKERS 1 " + JSON.stringify(_stickers));
+    console.log("STICKERS 1 " + JSON.stringify(_stickers));
     stickers.forEach(sticker => {
 
       stickerItem = dashboardHelper.Sticker(stickers)
