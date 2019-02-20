@@ -46,12 +46,14 @@ Parse.Cloud.define("getPackFeed", function(req, res){
     return Parse.Promise.when(
         new Parse.Query(_class.Packs).equalTo("userId", ID).containedIn("projectIds", packInfo.get("projectIds")).find(),
         new Parse.Query(_class.Product).find(),
-        new Parse.Query(_class.Projects).containedIn("objectId", packInfo.get("projectIds")).limit(limit).find(),
-        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first()
+        new Parse.Query(_class.Projects).containedIn("objectId", packInfo.get("projectIds")).limit(limit).find()
     );
 
-  }).then(function(packs, products, projects, project){
-
+  }).then(function(packs, products, projects){
+    // let _packs = dashboardHelper.Packs(packs);
+    // let _products = dashboardHelper.Products(products);
+    let _currentProjects = dashboardHelper.CommonItems(projects);
+    packfeed.projects = _currentProjects;
     res.success(util.setResponseOk(packfeed));
 
   }, function(error){
