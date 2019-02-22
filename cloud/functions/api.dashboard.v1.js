@@ -30,7 +30,12 @@ Parse.Cloud.define("getPackFeed", function(req, res){
 
     let packRelation = pack.relation(_class.Packs);
 
-    return packRelation.query().limit(1000).ascending("name").find({useMasterKey: true});
+    let stickers = pack.relation(_class.Packs);
+
+    return Parse.Promise.when(
+        stickers.query().find({useMasterKey: true})
+    );
+    // return packRelation.query().limit(1000).ascending("name").find({useMasterKey: true});
 
   }).then(function(stickers){
     console.log("STICKERS 1 " + JSON.stringify(_stickers));
