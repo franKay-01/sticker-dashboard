@@ -24,11 +24,10 @@ Parse.Cloud.define("getPackFeed", function(req, res){
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
   .then(function(pack){
     packInfo = pack;
+    console.log("PACK DETAILS " + JSON.stringify(pack));
     let _pack = dashboardHelper.PackItem(pack);
 
     packfeed.pack = _pack;
-
-    let packRelation = pack.relation(_class.Packs);
 
     let stickers = pack.relation(_class.Packs);
     console.log("STICKERS 01 " + JSON.stringify(_stickers));
