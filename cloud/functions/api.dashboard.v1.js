@@ -37,10 +37,10 @@ Parse.Cloud.define("getPackFeed", function(req, res){
     // return packRelation.query().limit(1000).ascending("name").find({useMasterKey: true});
 
   }).then(function(stickers){
-    console.log("STICKERS 1 " + JSON.stringify(_stickers));
-    stickers.forEach(sticker => {
+    console.log("STICKERS 1 " + JSON.stringify(stickers));
+    _.each(stickers, sticker => {
 
-      stickerItem = dashboardHelper.Sticker(stickers)
+      stickerItem = dashboardHelper.Sticker(sticker)
       _stickers.push(stickerItem);
 
     });
