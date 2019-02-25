@@ -20,6 +20,7 @@ Parse.Cloud.define("getPackFeed", function(req, res){
   let stickerItem;
   let packInfo;
   let limit = 5;
+  let page;
 
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
   .then(function(pack){
@@ -30,21 +31,18 @@ Parse.Cloud.define("getPackFeed", function(req, res){
     packfeed.pack = _pack;
 
     let stickers = pack.relation(_class.Packs);
-    console.log("STICKERS 01 " + JSON.stringify(stickers));
     return Parse.Promise.when(
         stickers.query().find({useMasterKey: true})
     );
     // return packRelation.query().limit(1000).ascending("name").find({useMasterKey: true});
 
   }).then(function(stickers){
-    console.log("STICKERS 1 " + JSON.stringify(stickers));
     _.each(stickers, sticker => {
 
       stickerItem = dashboardHelper.Sticker(sticker)
       _stickers.push(stickerItem);
 
     });
-    console.log("STICKERS " + JSON.stringify(_stickers));
     packfeed.stickers = _stickers;
 
     return Parse.Promise.when(
@@ -54,7 +52,12 @@ Parse.Cloud.define("getPackFeed", function(req, res){
     );
 
   }).then(function(packs, products, projects){
-    // let _packs = dashboardHelper.Packs(packs);
+
+    page = util.page(packs, packId);
+    console.log("PAGES " + JSON.stringify(page));
+    packfeed.nextPack = page.next;
+    packfeed.previousPack = page.previous;
+
     // let _products = dashboardHelper.Products(products);
     let _currentProjects = dashboardHelper.CommonItems(projects);
     packfeed.projects = _currentProjects;
