@@ -32,6 +32,7 @@ Parse.Cloud.define("addStickers", function(req, res){
 
       files.forEach(function (file) {
 
+          console.log("FILES " + JSON.stringify(file));
           let Sticker = new Parse.Object.extend(_class.Stickers);
           let sticker = new Sticker();
 
