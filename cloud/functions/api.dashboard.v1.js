@@ -21,13 +21,12 @@ Parse.Cloud.define("addStickers", function(req, res){
   let stickerDetails = [];
   let stickerCollection = {};
   let _previews = [];
-
-  console.log("FILES " + JSON.stringify(files));
-
   // util.thumbnailReact(files).then(previews => {
   //
   //     _previews = previews;
 
+  console.log("DATA FILES " + imageUrls.length);
+  
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}).then(function(pack){
 
     stickerCollection = pack;
