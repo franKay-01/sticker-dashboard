@@ -26,17 +26,16 @@ Parse.Cloud.define("addStickers", function(req, res){
   //     _previews = previews;
 
   console.log("DATA FILES " + imageUrls.length);
-  
+
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}).then(function(pack){
 
+    console.log("PACK " + JSON.stringify(pack));
     stickerCollection = pack;
 
       files.forEach(function (file, index) {
 
-          console.log("FILES " + JSON.stringify(file));
           let Sticker = new Parse.Object.extend(_class.Stickers);
           let sticker = new Sticker();
-
 
           // fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
           let originalName = file.name;
