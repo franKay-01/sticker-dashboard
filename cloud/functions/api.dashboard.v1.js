@@ -29,6 +29,7 @@ Parse.Cloud.define("addStickers", function(req, res){
 
   }).then(function(pack){
     stickerCollection = pack;
+    console.log("FILES " + JSON.stringify(files));
 
       files.forEach(function (file) {
 
