@@ -16,6 +16,7 @@ Parse.Cloud.define("addStickers", function(req, res){
   let projectArray = [];
   projectArray.push(projectId);
   let files = req.params.pictures;
+  let fileUrls = req.params.imageUrls;
   let fileDetails = [];
   let stickerDetails = [];
   let stickerCollection = {};
@@ -32,7 +33,7 @@ Parse.Cloud.define("addStickers", function(req, res){
   }).then(function(pack){
     stickerCollection = pack;
 
-      files.forEach(function (file) {
+      files.forEach(function (file,index) {
 
           console.log("FILES " + JSON.stringify(file));
           let Sticker = new Parse.Object.extend(_class.Stickers);
@@ -43,7 +44,7 @@ Parse.Cloud.define("addStickers", function(req, res){
           let originalName = file.name;
           let stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
 
-          let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+          let bitmap = fs.readFileSync(fileUrls[index], {encoding: 'base64'});
 
           let bitmapPreview;
           let parseFilePreview = "";
@@ -55,7 +56,7 @@ Parse.Cloud.define("addStickers", function(req, res){
               }
           });
 
-          let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+          let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.type);
 
           sticker.set("name", stickerName);
           sticker.set("localName", stickerName);

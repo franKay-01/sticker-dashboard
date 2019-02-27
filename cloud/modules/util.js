@@ -454,7 +454,7 @@ exports.thumbnailReact = (files, size) => {
                         {
                             name: image_name,
                             path: 'public/uploads/' + image_name + getMimeType(file.type),
-                            mimetype: file.mimetype
+                            mimetype: file.type
 
                         });
                     if (index === files.length - 1) {
