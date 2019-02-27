@@ -21,14 +21,88 @@ Parse.Cloud.define("addStickers", function(req, res){
   let stickerCollection = {};
   let _previews = [];
 
-  console.log("STICEKRS " + files.length);
-  // util.thumbnail(files).then(previews => {
-  //
-  //     _previews = previews;
-  //
-  //     return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true});
-  //
-  // }).then()
+  util.thumbnail(files).then(previews => {
+
+      _previews = previews;
+
+      return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true});
+
+  }).then(function(pack){
+    stickerCollection = pack;
+
+      files.forEach(function (file) {
+
+          let Sticker = new Parse.Object.extend(_class.Stickers);
+          let sticker = new Sticker();
+
+
+          // fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
+          let originalName = file.originalname;
+          let stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
+
+          let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+          let bitmapPreview;
+          let parseFilePreview = "";
+
+          _.map(_previews, preview => {
+              if (stickerName === preview.name) {
+                  bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
+                  parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
+              }
+          });
+
+          let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+
+          sticker.set("name", stickerName);
+          sticker.set("localName", stickerName);
+          sticker.set("uri", parseFile);
+          sticker.set("preview", parseFilePreview);
+          sticker.set("userId", ID);
+          sticker.set("parent", pack);
+          sticker.set("description", "");
+          sticker.set("meaning", "");
+          sticker.set("categories", []);
+          sticker.set("flagged", false);
+          sticker.set("archived", false);
+          if (pack.get("productId") !== "") {
+              sticker.set("sold", true);
+              sticker.set("productId", pack.get("productId"));
+          } else {
+              sticker.set("sold", false);
+              sticker.set("productId", "free");
+          }
+          sticker.set("version", pack.get("version"));
+
+          stickerDetails.push(sticker);
+          fileDetails.push(file);
+
+    })
+
+    console.log("SAVE ALL OBJECTS AND FILE");
+    return Parse.Object.saveAll(stickerDetails);
+
+  }).then(function (stickers) {
+
+    _.each(stickers, function (sticker) {
+
+        let collection_relation = stickerCollection.relation(_class.Packs);
+        collection_relation.add(sticker);
+
+    });
+
+    return stickerCollection.save();
+
+  }).then(function(saved){
+
+    res.success(util.setResponseOk(saved));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+
 });
 
 Parse.Cloud.define("getPackFeed", function(req, res){
