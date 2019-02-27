@@ -23,7 +23,7 @@ Parse.Cloud.define("addStickers", function(req, res){
 
   console.log("FILES " + JSON.stringify(files));
 
-  util.thumbnail(files).then(previews => {
+  util.thumbnailReact(files).then(previews => {
 
       _previews = previews;
 
@@ -40,7 +40,7 @@ Parse.Cloud.define("addStickers", function(req, res){
 
 
           // fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
-          let originalName = file.originalname;
+          let originalName = file.name;
           let stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
 
           let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});

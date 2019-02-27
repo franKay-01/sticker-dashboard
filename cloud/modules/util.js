@@ -432,6 +432,46 @@ exports.thumbnailDropbox = (filePath, fileName, fileType, size) => {
     return promise;
 };
 
+exports.thumbnailReact = (files, size) => {
+
+    if (!size) {
+        size = 200
+    }
+
+    let promise = new Parse.Promise();
+    let filePreviews = [];
+
+    files.forEach(function (file, index) {
+
+        let originalName = file.name;
+        let image_name = originalName.substring(0, originalName.length - 4).replace(SPECIAL_CHARACTERS, "");
+
+        gm(file.path)
+            .resize(size, size)
+            .write('public/uploads/' + image_name + getMimeType(file.type), function (err) {
+                if (!err) {
+                    filePreviews.push(
+                        {
+                            name: image_name,
+                            path: 'public/uploads/' + image_name + getMimeType(file.type),
+                            mimetype: file.mimetype
+
+                        });
+                    if (index === files.length - 1) {
+                        promise.resolve(filePreviews);
+                    } else {
+                        if (index === files.length - 1) {
+                            promise.reject(err);
+                        }
+                    }
+                }
+
+            });
+    });
+
+    return promise;
+};
+
 exports.thumbnail = (files, size) => {
 
     if (!size) {
