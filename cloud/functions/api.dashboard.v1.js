@@ -16,7 +16,7 @@ Parse.Cloud.define("addStickers", function(req, res){
   let projectArray = [];
   projectArray.push(projectId);
   let files = req.params.pictures;
-  let fileUrls = req.params.imageUrls;
+  let imageUrls = req.params.imageUrls;
   let fileDetails = [];
   let stickerDetails = [];
   let stickerCollection = {};
@@ -24,16 +24,15 @@ Parse.Cloud.define("addStickers", function(req, res){
 
   console.log("FILES " + JSON.stringify(files));
 
-  util.thumbnailReact(files).then(previews => {
+  // util.thumbnailReact(files).then(previews => {
+  //
+  //     _previews = previews;
 
-      _previews = previews;
+  return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}).then(function(pack){
 
-      return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true});
-
-  }).then(function(pack){
     stickerCollection = pack;
 
-      files.forEach(function (file,index) {
+      files.forEach(function (file, index) {
 
           console.log("FILES " + JSON.stringify(file));
           let Sticker = new Parse.Object.extend(_class.Stickers);
@@ -44,24 +43,24 @@ Parse.Cloud.define("addStickers", function(req, res){
           let originalName = file.name;
           let stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
 
-          let bitmap = fs.readFileSync(fileUrls[index], {encoding: 'base64'});
+          // let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
           let bitmapPreview;
           let parseFilePreview = "";
 
-          _.map(_previews, preview => {
-              if (stickerName === preview.name) {
-                  bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
-                  parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
-              }
-          });
+          // _.map(_previews, preview => {
+          //     if (stickerName === preview.name) {
+          //         bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
+          //         parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
+          //     }
+          // });
 
-          let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.type);
+          let parseFile = new Parse.File(stickerName, imageUrls[index], file.type);
 
           sticker.set("name", stickerName);
           sticker.set("localName", stickerName);
           sticker.set("uri", parseFile);
-          sticker.set("preview", parseFilePreview);
+          // sticker.set("preview", parseFilePreview);
           sticker.set("userId", ID);
           sticker.set("parent", pack);
           sticker.set("description", "");
