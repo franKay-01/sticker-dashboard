@@ -21,7 +21,7 @@ Parse.Cloud.define("addStickers", function(req, res){
   let stickerCollection = {};
   let _previews = [];
 
-  console.log("STICEKRS " + JSON.stringify(files));
+  console.log("STICEKRS " + files.length);
   // util.thumbnail(files).then(previews => {
   //
   //     _previews = previews;
