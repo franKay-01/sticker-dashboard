@@ -9,6 +9,28 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("addStickers", function(req, res){
+  const ID = req.params.admin;
+  let packId = req.params.packId;
+  let projectId = req.params.projectId;
+  let projectArray = [];
+  projectArray.push(projectId);
+  let files = req.params.pictures;
+  let fileDetails = [];
+  let stickerDetails = [];
+  let stickerCollection = {};
+  let _previews = [];
+
+  console.log("STICEKRS " + JSON.stringify(files));
+  // util.thumbnail(files).then(previews => {
+  //
+  //     _previews = previews;
+  //
+  //     return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true});
+  //
+  // }).then()
+});
+
 Parse.Cloud.define("getPackFeed", function(req, res){
   const ID = req.params.admin;
   let packId = req.params.packId;
