@@ -15,7 +15,7 @@ Parse.Cloud.define("editPackDetails", function(req, res){
   const ID = req.params.admin;
   let packId = req.params.packId;
   let projectId = req.params.projectId;
-
+  let _pack;
   let productDetails;
   let packDetails = {};
 
@@ -25,9 +25,15 @@ Parse.Cloud.define("editPackDetails", function(req, res){
       new Parse.Query(_class.Product).equalTo("userId", ID).find({useMasterKey: true})
 
   ).then(function(pack, productId){
+    _pack = pack;
     console.log("PACK " + JSON.stringify(pack));
     packDetails.pack = dashboardHelper.PackItem(pack);
-    packDetails.productIds = dashboardHelper.CommonItems(productId);
+
+    if (productInfo !== undefined) {
+        packDetails.productIds = dashboardHelper.CommonItems(productId);
+    } else {
+      packDetails.productIds = "";
+    }
 
     return new Parse.Query(_class.Product).equalTo("objectId", pack.get("productId")).first({useMasterKey: true});
 
@@ -39,6 +45,11 @@ Parse.Cloud.define("editPackDetails", function(req, res){
     if (_pack.get("productId") === "free") {
 
         productDetails = "FREE";
+
+    }else {
+
+      productDetails = productInfo
+      
     }
 
     packDetails.productIds = productDetails;
