@@ -25,9 +25,6 @@ Parse.Cloud.define("addStickers", function(req, res){
   //
   //     _previews = previews;
 
-  console.log("DATA URL FILES " + JSON.stringify(files));
-  console.log("DATA URL FILES " + JSON.stringify(packId));
-
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}).then(function(pack){
 
     stickerCollection = pack;
@@ -42,6 +39,7 @@ Parse.Cloud.define("addStickers", function(req, res){
           // fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
           let originalName = file.name;
           let stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
+          console.log("FILE ORIGINAL NAME " + stickerName);
 
           // let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
