@@ -25,7 +25,8 @@ Parse.Cloud.define("addStickers", function(req, res){
   //
   //     _previews = previews;
 
-  console.log("DATA URL FILES " + JSON.stringify(files.url));
+  console.log("DATA URL FILES " + JSON.stringify(files));
+  console.log("DATA URL FILES " + JSON.stringify(packId));
 
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}).then(function(pack){
 
