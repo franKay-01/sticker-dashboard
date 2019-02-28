@@ -17,7 +17,6 @@ Parse.Cloud.define("addStickers", function(req, res){
   let projectArray = [];
   projectArray.push(projectId);
   let files = req.params.pictures;
-  let imageUrls = req.params.imageUrls;
   let fileDetails = [];
   let stickerDetails = [];
   let stickerCollection = {};
@@ -53,7 +52,7 @@ Parse.Cloud.define("addStickers", function(req, res){
           //     }
           // });
 
-          let parseFile = new Parse.File(stickerName, imageUrls[index], file.type);
+          let parseFile = new Parse.File(stickerName, {base64: file.url}, file.type);
 
           sticker.set("name", stickerName);
           sticker.set("localName", stickerName);
