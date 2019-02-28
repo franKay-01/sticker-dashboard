@@ -42,7 +42,7 @@ Parse.Cloud.define("editPackDetails", function(req, res){
     }
 
     packDetails.productIds = productDetails;
-
+    console.log("PACK DETAILS " + JSON.stringify(packDetails));
     res.success(util.setResponseOk(packDetails));
 
   }, function(error){
