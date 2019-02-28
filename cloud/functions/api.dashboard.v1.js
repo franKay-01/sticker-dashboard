@@ -10,6 +10,7 @@ let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
 Parse.Cloud.define("addStickers", function(req, res){
+
   const ID = req.params.admin;
   let packId = req.params.packId;
   let projectId = req.params.projectId;
@@ -25,11 +26,10 @@ Parse.Cloud.define("addStickers", function(req, res){
   //
   //     _previews = previews;
 
-  console.log("DATA FILES " + imageUrls.length);
+  console.log("DATA FILES " + JSON.stringify(files));
 
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}).then(function(pack){
 
-    console.log("PACK " + JSON.stringify(pack));
     stickerCollection = pack;
 
       files.forEach(function (file, index) {
