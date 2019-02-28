@@ -30,9 +30,9 @@ Parse.Cloud.define("addStickers", function(req, res){
     stickerCollection = pack;
 
       files.forEach(function (file, index) {
-
-          let fileType = file.type;
-          let fileUrl = file.url;
+          console.log("FILE NAME " + file.name);
+          console.log("FILE TYPE " + file.type);
+          console.log("FILE URL " + file.url);
           let Sticker = new Parse.Object.extend(_class.Stickers);
           let sticker = new Sticker();
 
@@ -52,7 +52,7 @@ Parse.Cloud.define("addStickers", function(req, res){
           //     }
           // });
 
-          let parseFile = new Parse.File(stickerName.toString(), {base64: file.url}, fileType.toString());
+          let parseFile = new Parse.File(stickerName, {base64: file.url}, file.type);
           console.log("PARSEFILE FOR SAVE " + JSON.stringify(parseFile));
 
           sticker.set("name", stickerName);
