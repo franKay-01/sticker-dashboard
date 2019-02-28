@@ -52,7 +52,8 @@ Parse.Cloud.define("addStickers", function(req, res){
           //     }
           // });
 
-          let parseFile = new Parse.File(stickerName, {base64: file.url});
+          let parseFile = new Parse.File(stickerName, file.url, file.type);
+          console.log("PARSEFILE FOR SAVE " + JSON.stringify(parseFile));
 
           sticker.set("name", stickerName);
           sticker.set("localName", stickerName);
@@ -73,7 +74,7 @@ Parse.Cloud.define("addStickers", function(req, res){
               sticker.set("productId", "free");
           }
           sticker.set("version", pack.get("version"));
-
+          console.log("STICKER FOR SAVE " + JSON.stringify(sticker));
           stickerDetails.push(sticker);
 
     })
