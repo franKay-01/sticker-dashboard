@@ -9,6 +9,48 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+
+Parse.Cloud.define("editPackDetails", function(req, res){
+
+  const ID = req.params.admin;
+  let packId = req.params.packId;
+  let projectId = req.params.projectId;
+
+  let productDetails;
+  let packDetails = {};
+
+ Parse.Promise.when(
+
+      new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}),
+      new Parse.Query(_class.Product).equalTo("userId", ID).find({useMasterKey: true})
+
+  ).then(function(pack, productId){
+
+    packDetails.pack = dashboardHelper.PackItem(pack);;
+    packDetails.productIds = dashboardHelper.CommonItems(productId);
+
+    return new Parse.Query(_class.Product).equalTo("objectId", pack.get("productId")).first({useMasterKey: true});
+
+  }).then(function(productInfo){
+    if (productInfo !== undefined) {
+        productDetails = productInfo.get("name");
+    }
+
+    if (_pack.get("productId") === "free") {
+
+        productDetails = "FREE";
+    }
+
+    packDetails.productIds = productDetails;
+
+    res.success(util.setResponseOk(packDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+})
 Parse.Cloud.define("addStickers", function(req, res){
 
   const ID = req.params.admin;
