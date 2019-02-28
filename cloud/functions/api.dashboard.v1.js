@@ -26,7 +26,7 @@ Parse.Cloud.define("editPackDetails", function(req, res){
 
   ).then(function(pack, productId){
     console.log("PACK " + JSON.stringify(pack));
-    packDetails.pack = dashboardHelper.PackItem(pack);;
+    packDetails.pack = dashboardHelper.PackItem(pack);
     packDetails.productIds = dashboardHelper.CommonItems(productId);
 
     return new Parse.Query(_class.Product).equalTo("objectId", pack.get("productId")).first({useMasterKey: true});
