@@ -15,7 +15,7 @@ exports.PackItem = pack => {
       }else {
         _pack.art = "";
       }
-
+      _pack.description = pack.get("description");
       _pack.is_published = pack.get("published");
       _pack.name = pack.get("name");
       _pack.type = pack.get("packType");
