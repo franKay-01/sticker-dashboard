@@ -29,7 +29,7 @@ Parse.Cloud.define("editPackDetails", function(req, res){
     console.log("PACK " + JSON.stringify(pack));
     packDetails.pack = dashboardHelper.PackItem(pack);
 
-    if (productInfo !== undefined) {
+    if (productId !== undefined) {
         packDetails.productIds = dashboardHelper.CommonItems(productId);
     } else {
       packDetails.productIds = "";
@@ -49,7 +49,7 @@ Parse.Cloud.define("editPackDetails", function(req, res){
     }else {
 
       productDetails = productInfo
-      
+
     }
 
     packDetails.productIds = productDetails;
