@@ -15,8 +15,8 @@ Parse.Cloud.define("createAddProductId", function(req, res){
   const selected = req.params.selected;
 
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first().then(function(pack){
-    if (productId !== "free") {
-        pack.set("productId", productId);
+    if (selected !== "free") {
+        pack.set("productId", selected);
     } else {
         pack.set("productId", "free");
     }
@@ -32,11 +32,11 @@ Parse.Cloud.define("createAddProductId", function(req, res){
     }).find();
 
   }).then(function(stickers){
-    
+
     _.each(stickers, function (sticker) {
 
-        sticker.set("productId", productId);
-        if (productId !== "free") {
+        sticker.set("productId", selected);
+        if (selected !== "free") {
             sticker.set("sold", true);
         } else {
             sticker.set("sold", false);
