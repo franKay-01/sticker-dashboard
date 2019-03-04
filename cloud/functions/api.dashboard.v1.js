@@ -15,37 +15,51 @@ Parse.Cloud.define("addProductId", function(req, res){
   const selected = req.params.selected;
   let _stickers = [];
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first().then(function(pack){
-    if (selected !== "free") {
-        pack.set("productId", selected);
-    } else {
-        pack.set("productId", "free");
+    if (pack.get("productId") === ""){
+      if (selected !== "free") {
+          pack.set("productId", selected);
+      } else {
+          pack.set("productId", "free");
+      }
+    }else {
+      return "";
     }
+
 
     return pack.save();
 
   }).then(function(pack){
 
-    return new Parse.Query(_class.Stickers).equalTo("parent", {
-        __type: 'Pointer',
-        className: _class.Packs,
-        objectId: packId
-    }).find();
+    if (pack !== ""){
+      return new Parse.Query(_class.Stickers).equalTo("parent", {
+          __type: 'Pointer',
+          className: _class.Packs,
+          objectId: packId
+      }).find();
+    }else {
+      return "";
+    }
+
 
   }).then(function(stickers){
 
-    _.each(stickers, function (sticker) {
+    if (stickers !== ""){
+      _.each(stickers, function (sticker) {
 
-        sticker.set("productId", selected);
-        if (selected !== "free") {
-            sticker.set("sold", true);
-        } else {
-            sticker.set("sold", false);
-        }
-        _stickers.push(sticker);
+          sticker.set("productId", selected);
+          if (selected !== "free") {
+              sticker.set("sold", true);
+          } else {
+              sticker.set("sold", false);
+          }
+          _stickers.push(sticker);
 
-    });
+      });
 
-    return Parse.Object.saveAll(_stickers);
+      return Parse.Object.saveAll(_stickers);
+    }else {
+      return ""
+    }
 
   }).then(function(stickers){
 
