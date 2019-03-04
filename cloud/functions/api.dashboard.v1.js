@@ -9,6 +9,54 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("createAddProductId", function(req, res){
+  const ID = req.params.admin;
+  const packId = req.params.packId;
+  const selected = req.params.selected;
+
+  return new Parse.Query(_class.Packs).equalTo("objectId", packId).first().then(function(pack){
+    if (productId !== "free") {
+        pack.set("productId", productId);
+    } else {
+        pack.set("productId", "free");
+    }
+
+    return pack.save();
+
+  }).then(function(pack){
+
+    return new Parse.Query(_class.Stickers).equalTo("parent", {
+        __type: 'Pointer',
+        className: _class.Packs,
+        objectId: packId
+    }).find();
+
+  }).then(function(stickers){
+    
+    _.each(stickers, function (sticker) {
+
+        sticker.set("productId", productId);
+        if (productId !== "free") {
+            sticker.set("sold", true);
+        } else {
+            sticker.set("sold", false);
+        }
+        _stickers.push(sticker);
+
+    });
+
+    return Parse.Object.saveAll(_stickers);
+
+  }).then(function(stickers){
+
+    res.success(util.setResponseOk(stickers));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
 
 Parse.Cloud.define("editPackDetails", function(req, res){
 
@@ -26,7 +74,7 @@ Parse.Cloud.define("editPackDetails", function(req, res){
 
   ).then(function(pack, productId){
     _pack = pack;
-    console.log("PACK " + JSON.stringify(pack));
+
     packDetails.pack = dashboardHelper.PackItem(pack);
 
     if (productId !== undefined) {
@@ -57,7 +105,7 @@ Parse.Cloud.define("editPackDetails", function(req, res){
     }
 
     packDetails.singleProduct = productDetails;
-    console.log("PACK DETAILS " + JSON.stringify(packDetails));
+
     res.success(util.setResponseOk(packDetails));
 
   }, function(error){
@@ -65,7 +113,8 @@ Parse.Cloud.define("editPackDetails", function(req, res){
     util.handleError(res, error);
 
   })
-})
+});
+
 Parse.Cloud.define("addStickers", function(req, res){
 
   const ID = req.params.admin;
