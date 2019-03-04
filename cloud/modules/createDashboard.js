@@ -19,6 +19,7 @@ exports.PackItem = pack => {
       _pack.is_published = pack.get("published");
       _pack.name = pack.get("name");
       _pack.type = pack.get("packType");
+      _pack.keywords = pack.get("keywords");
       _pack.productId = pack.get("productIds");
   }
 
