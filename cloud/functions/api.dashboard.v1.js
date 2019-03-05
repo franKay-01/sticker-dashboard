@@ -43,9 +43,9 @@ Parse.Cloud.define("editPackDetails", function(req, res){
     return pack.save();
 
   }).then(function(pack){
-
+    console.log("PACK EDITED " + JSON.stringify(pack));
     packDetails.pack = dashboardHelper.PackItem(pack);
-    res.success(util.setResponseOk(pack));
+    res.success(util.setResponseOk(packDetails));
 
   }, function(error){
 
