@@ -33,7 +33,8 @@ Parse.Cloud.define("editPackDetails", function(req, res){
       _archive = false;
   }
 
-  return new Parse.Query(_class.Packs).equalTo("objectId", packId).first().then(function(pack){
+  return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
+  .then(function(pack){
     pack.set("description", description);
     pack.set("keywords", _keywords);
     pack.set("archived", _archive);
@@ -60,7 +61,7 @@ Parse.Cloud.define("addProductId", function(req, res){
   const selected = req.params.selected;
   let _stickers = [];
 
-  return new Parse.Query(_class.Packs).equalTo("objectId", packId).first().then(function(pack){
+  return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}).then(function(pack){
     if (pack.get("productId") === ""){
       if (selected !== "free") {
           pack.set("productId", selected);
