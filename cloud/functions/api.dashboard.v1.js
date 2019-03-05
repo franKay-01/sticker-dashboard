@@ -9,11 +9,57 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("editPackDetails", function(req, res){
+  const ID = req.params.admin;
+  const packId = req.params.packId;
+  const version = req.params.version;
+  const name = req.params.name;
+  const description = req.params.description;
+  const keywords = req.params.keywords;
+  const archive = req.params.archive;
+  let _keywords;
+  let _archive;
+  let packDetails = {};
+
+  if (keywords !== "") {
+      _keywords = keywords.split(",");
+  }
+
+  if (archive === "") {
+      _archive = false;
+  } else if (archive === "true") {
+      _archive = true;
+  } else if (archive === "false") {
+      _archive = false;
+  }
+
+  return new Parse.Query(_class.Packs).equalTo("objectId", packId).first().then(function(pack){
+    pack.set("description", description);
+    pack.set("keywords", _keywords);
+    pack.set("archived", _archive);
+    pack.set("version", version);
+    pack.set("name", name);
+
+    return pack.save();
+
+  }).then(function(pack){
+
+    packDetails.pack = dashboardHelper.PackItem(pack);
+    res.success(util.setResponseOk(pack));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("addProductId", function(req, res){
   const ID = req.params.admin;
   const packId = req.params.packId;
   const selected = req.params.selected;
   let _stickers = [];
+
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first().then(function(pack){
     if (pack.get("productId") === ""){
       if (selected !== "free") {
