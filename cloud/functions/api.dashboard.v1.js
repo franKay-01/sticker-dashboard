@@ -21,6 +21,14 @@ Parse.Cloud.define("editPack", function(req, res){
   let _archive;
   let packDetails = {};
 
+  if (archive === "true"){
+    _archive = true;
+  } else if (archive === "false"){
+    _archive = false;
+  }else if (archive === "") {
+    _archive = false;
+  }
+
   console.log("PACK RE-EDIT " + packId + " " + version +" "+name+" "+description+" "+keywords+" "+archive);
 
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}).then(function(pack){
@@ -29,7 +37,7 @@ Parse.Cloud.define("editPack", function(req, res){
 
     pack.set("description", description);
     pack.set("keywords", keywords);
-    pack.set("archived", archive);
+    pack.set("archived", _archive);
     pack.set("version", version);
     pack.set("name", name);
 
