@@ -21,7 +21,7 @@ exports.PackItem = pack => {
       _pack.type = pack.get("packType");
       _pack.keywords = pack.get("keywords");
       _pack.productId = pack.get("productIds");
-      _pack.verison = pack.get("version");
+      _pack.version = pack.get("version");
       _pack.archive = pack.get("archived");
   }
 
