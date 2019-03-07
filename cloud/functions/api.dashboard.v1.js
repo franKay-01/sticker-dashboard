@@ -27,9 +27,9 @@ Parse.Cloud.define("editPackDetails", function(req, res){
 
   if (archive === "") {
       _archive = false;
-  } else if (archive === "true") {
+  } else if (archive === true) {
       _archive = true;
-  } else if (archive === "false") {
+  } else if (archive === false) {
       _archive = false;
   }
 
