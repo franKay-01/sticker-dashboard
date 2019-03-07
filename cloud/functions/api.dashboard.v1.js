@@ -21,7 +21,7 @@ Parse.Cloud.define("editPackDetails", function(req, res){
   let _archive;
   let packDetails = {};
 
-  console.log("PACK RE EDIT " + packId + " " + version +" "+name+" "+description+" "+keywords+" "+archive);
+  console.log("PACK RE-EDIT " + packId + " " + version +" "+name+" "+description+" "+keywords+" "+archive);
 
 
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
