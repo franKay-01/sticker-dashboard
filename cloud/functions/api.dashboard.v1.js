@@ -19,7 +19,12 @@ Parse.Cloud.define("editPack", function(req, res){
   const keywords = req.params.keywords;
   const archive = req.params.archive;
   let _archive;
+  let _keywords;
   let packDetails = {};
+
+  if (keywords !== undefined || keywords !== "undefined") {
+      _keywords = keywords.split(",");
+  }
 
   if (archive === "true"){
     _archive = true;
@@ -36,7 +41,7 @@ Parse.Cloud.define("editPack", function(req, res){
     console.log("PACK EDITED 1 " + JSON.stringify(pack));
 
     pack.set("description", description);
-    pack.set("keywords", keywords);
+    pack.set("keywords", _keywords);
     pack.set("archived", _archive);
     pack.set("version", version);
     pack.set("name", name);
