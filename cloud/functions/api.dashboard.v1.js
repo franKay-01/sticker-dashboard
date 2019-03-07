@@ -10,6 +10,7 @@ let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
 Parse.Cloud.define("editPackDetails", function(req, res){
+
   const ID = req.params.admin;
   const packId = req.params.packId;
   const version = req.params.version;
@@ -17,21 +18,8 @@ Parse.Cloud.define("editPackDetails", function(req, res){
   const description = req.params.description;
   const keywords = req.params.keywords;
   const archive = req.params.archive;
-  let _keywords;
   let _archive;
   let packDetails = {};
-
-  if (keywords !== []) {
-      _keywords = keywords.split(",");
-  }
-
-  if (archive === "") {
-      _archive = false;
-  } else if (archive === true) {
-      _archive = true;
-  } else if (archive === false) {
-      _archive = false;
-  }
 
   console.log("PACK RE EDIT " + packId + " " + version +" "+name+" "+description+" "+keywords+" "+archive);
 
@@ -42,8 +30,8 @@ Parse.Cloud.define("editPackDetails", function(req, res){
     console.log("PACK EDITED 1 " + JSON.stringify(pack));
 
     pack.set("description", description);
-    pack.set("keywords", _keywords);
-    pack.set("archived", _archive);
+    pack.set("keywords", keywords);
+    pack.set("archived", archive);
     pack.set("version", version);
     pack.set("name", name);
 
