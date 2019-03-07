@@ -119,7 +119,7 @@ Parse.Cloud.define("editPackDetails", function(req, res){
   let _pack;
   let productDetails = {};
   let packDetails = {};
-  console.log("ITEMS " + ID + "" +packId);
+  console.log("ITEMS " + ID + " " +packId + " " + projectId);
  Parse.Promise.when(
 
       new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}),
