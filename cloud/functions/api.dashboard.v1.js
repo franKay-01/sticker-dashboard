@@ -21,7 +21,7 @@ Parse.Cloud.define("editPackDetails", function(req, res){
   let _archive;
   let packDetails = {};
 
-  if (keywords !== "") {
+  if (keywords !== []) {
       _keywords = keywords.split(",");
   }
 
@@ -38,6 +38,7 @@ Parse.Cloud.define("editPackDetails", function(req, res){
 
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
   .then(function(pack){
+
     console.log("PACK EDITED 1 " + JSON.stringify(pack));
 
     pack.set("description", description);
