@@ -22,10 +22,14 @@ Parse.Cloud.define("editPack", function(req, res){
   let _keywords;
   let packDetails = {};
 
-  if (keywords !== "") {
-      _keywords = keywords.split(",");
+  if (Array.isArray(keywords) === true){
+    _keywords = keywords;
   }else {
-    _keywords = []
+    if (keywords !== "") {
+        _keywords = keywords.split(",");
+    }else {
+      _keywords = []
+    }
   }
 
   if (archive === "true"){
