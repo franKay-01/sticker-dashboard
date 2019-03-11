@@ -59,8 +59,8 @@ exports.SelectedCategories = (categories) => {
 
   if (categories.length){
     _.each(categories, category => {
-      console.log("HASH " + helper.randomHash());
-      _categories.push({id: helper.randomHash(), name: category.get("name")});
+
+      _categories.push({id: helper.randomHash(), name: category});
 
     });
   }
