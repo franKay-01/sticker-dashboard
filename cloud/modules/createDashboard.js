@@ -54,12 +54,25 @@ exports.ProjectItem = project => {
   return _project;
 };
 
+exports.SelectedCategories = (categories) => {
+  let _categories = [];
+
+  if (categories.length){
+    _.each(categories, category => {
+      
+      _categories.push({id: helper.randomHash(), name: category.get("name")});
+
+    });
+  }
+
+  return _categories;
+};
+
 exports.Categories = (categories) => {
   let _categories = [];
 
   if (categories.length){
     _.each(categories, category => {
-
       _categories.push({id: category.id, name: category.get("name")});
 
     });
