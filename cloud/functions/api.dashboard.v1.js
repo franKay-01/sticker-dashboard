@@ -34,8 +34,7 @@ Parse.Cloud.define("getStickerDetails", function(req, res){
       stickerDetails.selected = [];
 
     }
-
-
+    console.log("CATEGORIES SELECTED " + stickerDetails.selected);
     let col = pack.relation(_class.Packs);
     return col.query().find({useMasterKey: true});
 
