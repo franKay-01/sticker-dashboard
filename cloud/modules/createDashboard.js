@@ -59,7 +59,7 @@ exports.Categories = (categories) => {
 
   if (categories.length){
     _.each(categories, category => {
-      console.log("CATEGORY " + category.get("name");
+
       _categories.push({id: category.id, name: category.get("name")});
 
     });
