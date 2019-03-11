@@ -24,13 +24,13 @@ Parse.Cloud.define("getStickerDetails", function(req, res){
   ).then(function(sticker, categories, pack){
 
     stickerDetails.sticker = dashboardHelper.StickerItem(sticker);
-    stickerDetails.categories = dashboardHelper.Category(categories);
+    stickerDetails.categories = dashboardHelper.Categories(categories);
     if (sticker.get("categories") !== [] || sticker.get("categories") !== undefined){
 
-      stickerDetails.selected = dashboardHelper.Category(sticker.get("categories"));
+      stickerDetails.selected = dashboardHelper.Categories(sticker.get("categories"));
 
     }else {
-      
+
       stickerDetails.selected = [];
 
     }
