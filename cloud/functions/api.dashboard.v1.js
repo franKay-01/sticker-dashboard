@@ -22,6 +22,9 @@ Parse.Cloud.define("getStickerDetails", function(req, res){
       // new Parse.Query(_class.Feed).equalTo("objectId", process.env.LATEST_STICKER).first(),
       // new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey: true})
   ).then(function(sticker, categories, pack){
+    console.log("STICKER " + JSON.stringify(sticker));
+    console.log("CATEGORIES " + JSON.stringify(categories));
+    console.log("PACK " + JSON.stringify(pack));
 
     stickerDetails.sticker = dashboardHelper.StickerItem(sticker);
     stickerDetails.categories = categories;
@@ -30,6 +33,7 @@ Parse.Cloud.define("getStickerDetails", function(req, res){
     return col.query().find({sessionToken: token});
 
   }).then(function(stickers){
+    console.log("STICKERS " + JSON.stringify(stickers));
 
     _page = util.page(stickers, stickerId);
     stickerDetails.next = _page.next;
