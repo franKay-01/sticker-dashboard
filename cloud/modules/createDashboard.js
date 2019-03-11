@@ -2,6 +2,21 @@ const _ = require('underscore');
 const type = require('./type');
 const helper = require('./helpers');
 
+exports.StickerItem = sticker => {
+  let _sticker = {};
+
+  if (sticker) {
+    _sticker.name = sticker.get("name");
+    _sticker.art = sticker.get("uri").url();
+    _sticker.description = sticker.get("description");
+    _sticker.meaning = sticker.get("meaning");
+    _sticker.sold = sticker.get("sold");
+    _sticker.categories = sticker.get("categories");
+  }
+
+  return _pack;
+
+};
 
 exports.PackItem = pack => {
   let _pack = {};

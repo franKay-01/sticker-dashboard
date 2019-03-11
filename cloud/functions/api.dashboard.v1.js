@@ -9,6 +9,42 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("getStickerDetails", function(req, res){
+  const ID = req.params.admin;
+  const stickerId ;
+  const packId;
+  let stickerDetails = {};
+
+  return Parse.Promise.when(
+      new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first({useMasterKey: true}),
+      new Parse.Query(_class.Categories).ascending("name").find({useMasterKey: true}),
+      new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}),
+      // new Parse.Query(_class.Feed).equalTo("objectId", process.env.LATEST_STICKER).first(),
+      // new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey: true})
+  ).then(function(sticker, categories, pack){
+
+    stickerDetails.sticker = dashboardHelper.StickerItem(sticker);
+    stickerDetails.categories = categories;
+
+    let col = pack.relation(_class.Packs);
+    return col.query().find({sessionToken: token});
+
+  }).then(function(stickers){
+
+    _page = util.page(stickers, stickerId);
+    stickerDetails.next = _page.next;
+    stickerDetails.previous = _page.previous;
+
+    res.success(util.setResponseOk(stickerDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+
+});
+
 Parse.Cloud.define("editPack", function(req, res){
 
   const ID = req.params.admin;
