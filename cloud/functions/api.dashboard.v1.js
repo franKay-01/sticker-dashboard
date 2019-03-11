@@ -11,8 +11,8 @@ const PARSE_LIMIT = 1000;
 
 Parse.Cloud.define("getStickerDetails", function(req, res){
   const ID = req.params.admin;
-  const stickerId ;
-  const packId;
+  const stickerId = req.params.stickerId;
+  const packId = req.params.packId;
   let stickerDetails = {};
 
   return Parse.Promise.when(
