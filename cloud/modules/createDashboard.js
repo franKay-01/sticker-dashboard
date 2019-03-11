@@ -14,7 +14,7 @@ exports.StickerItem = sticker => {
     _sticker.categories = sticker.get("categories");
   }
 
-  return _pack;
+  return _sticker;
 
 };
 
