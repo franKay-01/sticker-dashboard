@@ -31,7 +31,7 @@ Parse.Cloud.define("getStickerDetails", function(req, res){
     stickerDetails.categories = categories;
 
     let col = pack.relation(_class.Packs);
-    return col.query().find({sessionToken: token});
+    return col.query().find({useMasterKey: true});
 
   }).then(function(stickers){
     console.log("STICKERS " + JSON.stringify(stickers));
