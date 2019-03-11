@@ -22,12 +22,19 @@ Parse.Cloud.define("getStickerDetails", function(req, res){
       // new Parse.Query(_class.Feed).equalTo("objectId", process.env.LATEST_STICKER).first(),
       // new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey: true})
   ).then(function(sticker, categories, pack){
-    console.log("STICKER " + JSON.stringify(sticker));
-    console.log("CATEGORIES " + JSON.stringify(categories));
-    console.log("PACK " + JSON.stringify(pack));
 
     stickerDetails.sticker = dashboardHelper.StickerItem(sticker);
     stickerDetails.categories = dashboardHelper.Category(categories);
+    if (sticker.get("categories") !== [] || sticker.get("categories") !== undefined){
+
+      stickerDetails.selected = dashboardHelper.Category(sticker.get("categories"));
+
+    }else {
+      
+      stickerDetails.selected = [];
+
+    }
+
 
     let col = pack.relation(_class.Packs);
     return col.query().find({useMasterKey: true});
