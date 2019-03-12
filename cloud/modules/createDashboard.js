@@ -73,7 +73,7 @@ exports.Categories = (categories) => {
 
   if (categories.length){
     _.each(categories, category => {
-      _categories.push({id: category.id, name: category.get("name")});
+      _categories.push({value: category.id, label: category.get("name")});
 
     });
   }
