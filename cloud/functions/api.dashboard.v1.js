@@ -27,7 +27,7 @@ Parse.Cloud.define("getStickerDetails", function(req, res){
     stickerDetails.categories = dashboardHelper.Categories(categories);
     if (sticker.get("categories") !== []){
 
-      stickerDetails.selected = dashboardHelper.SelectedCategories(sticker.get("categories"));
+      stickerDetails.selected = sticker.get("categories");
 
     }else {
 
