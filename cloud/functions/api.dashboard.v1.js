@@ -45,6 +45,7 @@ Parse.Cloud.define("editSticker", function(req, res){
   }).then(function(sticker){
 
     stickerDetails.sticker = dashboardHelper.StickerItem(sticker);
+    stickerDetails.selected = sticker.get("categories");
     res.success(util.setResponseOk(stickerDetails));
 
   }, function(error){
