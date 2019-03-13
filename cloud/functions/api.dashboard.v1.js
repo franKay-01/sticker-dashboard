@@ -9,6 +9,22 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("editSticker", function(req, res){
+  const ID = req.params.admin;
+  const packId = packId;
+  const stickerId = req.params.stickerId;
+  const name= req.params.name;
+  const art = req.params.art;
+  const description = req.params.description;
+  const meaning = req.params.meaning;
+  const status = req.params.sold;
+  const categories = req.params.categories;
+  const selected = req.params.selected;
+  const selectedOption = req.params.selectedOption;
+
+  console.log("ITEMS RELEASED " + stickerId+" "+name+" "+art+" "+description+" "+status+" "+selectedOption+" "+selected);
+});
+
 Parse.Cloud.define("getStickerDetails", function(req, res){
   const ID = req.params.admin;
   const stickerId = req.params.stickerId;
