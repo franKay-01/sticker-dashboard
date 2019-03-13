@@ -11,18 +11,48 @@ const PARSE_LIMIT = 1000;
 
 Parse.Cloud.define("editSticker", function(req, res){
   const ID = req.params.admin;
-  const packId = req.params.packId;
-  const stickerId = req.params.stickerId;
-  const name= req.params.name;
-  const art = req.params.art;
-  const description = req.params.description;
-  const meaning = req.params.meaning;
-  const status = req.params.sold;
-  const categories = req.params.categories;
-  const selected = req.params.selected;
-  const selectedOption = req.params.selectedOption;
+  let packId = req.params.packId;
+  let stickerId = req.params.stickerId;
+  let name = req.params.name;
+  let description = req.params.description;
+  let meaning = req.params.meaning;
+  let status = req.params.status;
+  let categories = req.params.categories;
+  let selected = req.params.selected;
+  let selectedOption = req.params.selectedOption;
+  let _newArray = [];
+  let merged = [];
+  let stickerDetails = {};
 
-  console.log("ITEMS RELEASED " + stickerId+" "+name+" "+art+" "+description+" "+status+" "+selectedOption+" "+selected);
+  if (selectedOption !== ""){
+    _newArray = selectedOption.split(",");
+     merged = _newArray.concat(selected);
+  }else {
+    merged = selected
+  }
+
+  return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first({useMasterKey: true})
+  .then(function(sticker){
+    sticker.set("name", name);
+    sticker.set("localName", name);
+    sticker.set("categories", merged);
+    sticker.set("meaning", meaning);
+    sticker.set("sold", status);
+    sticker.set("description", description);
+
+    return sticker.save();
+
+  }).then(function(sticker){
+
+    stickerDetails.sticker = dashboardHelper.StickerItem(sticker);
+    res.success(util.setResponseOk(stickerDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+
 });
 
 Parse.Cloud.define("getStickerDetails", function(req, res){
