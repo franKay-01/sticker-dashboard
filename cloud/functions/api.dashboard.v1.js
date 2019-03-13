@@ -11,7 +11,7 @@ const PARSE_LIMIT = 1000;
 
 Parse.Cloud.define("editSticker", function(req, res){
   const ID = req.params.admin;
-  const packId = packId;
+  const packId = req.params.packId;
   const stickerId = req.params.stickerId;
   const name= req.params.name;
   const art = req.params.art;
