@@ -17,11 +17,12 @@ Parse.Cloud.define("deleteSticker", function(req, res){
   .then(function(sticker){
     sticker.destroy({
         success: function (object) {
-
-          res.success(util.setResponseOk(object));
+          console.log("STICKER DELETED");
+          res.success(util.setResponseOk({status: "done"}));
 
         },
         error: function (error) {
+          console.log("STICKER NOT DELETED");
 
           util.handleError(res, error);
 
