@@ -9,6 +9,32 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("deleteSticker", function(req, res){
+  const ID = req.params.admin;
+  let stickerId = req.params.stickerId;
+
+  return new Parse.Query(_class.Stickers).equalTo("objectId", id).first({useMasterKey: true})
+  .then(function(sticker){
+    sticker.destroy({
+        success: function (object) {
+
+          res.success(util.setResponseOk(object));
+
+        },
+        error: function (error) {
+
+          util.handleError(res, error);
+
+        }
+    });
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+
+});
+
 Parse.Cloud.define("editSticker", function(req, res){
   const ID = req.params.admin;
   let packId = req.params.packId;
@@ -60,16 +86,21 @@ Parse.Cloud.define("getStickerDetails", function(req, res){
   const ID = req.params.admin;
   const stickerId = req.params.stickerId;
   const packId = req.params.packId;
+  const projectId = req.params.projectId;
+
   let stickerDetails = {};
 
   return Parse.Promise.when(
       new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first({useMasterKey: true}),
       new Parse.Query(_class.Categories).ascending("name").find({useMasterKey: true}),
       new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}),
+      new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", ID).equalTo("type", type.FEED_TYPE.sticker).first({useMasterKey: true})
+
       // new Parse.Query(_class.Feed).equalTo("objectId", process.env.LATEST_STICKER).first(),
       // new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey: true})
-  ).then(function(sticker, categories, pack){
+  ).then(function(sticker, categories, pack, feed){
 
+    console.log("FEED ITEM " + JSON.stringify(feed));
     stickerDetails.sticker = dashboardHelper.StickerItem(sticker);
     stickerDetails.categories = dashboardHelper.Categories(categories);
     if (sticker.get("categories") !== []){
@@ -231,7 +262,7 @@ Parse.Cloud.define("editPackDetails", function(req, res){
   let _pack;
   let productDetails = {};
   let packDetails = {};
-  console.log("ITEMS " + ID + " " +packId + " " + projectId);
+
  Parse.Promise.when(
 
       new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}),
@@ -292,9 +323,6 @@ Parse.Cloud.define("addStickers", function(req, res){
   let stickerDetails = [];
   let stickerCollection = {};
   let _previews = [];
-  // util.thumbnailReact(files).then(previews => {
-  //
-  //     _previews = previews;
 
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}).then(function(pack){
 
