@@ -9,6 +9,26 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("getProjectsList", function(req, res){
+  const ID = req.params.admin;
+  let projectDetails = {};
+
+  return new Parse.Query(_class.Projects).equalTo("userId", ID).find({useMasterKey: true})
+  .then(function(projects){
+
+    let projectItems = dashboardHelper.Projects(projects);
+    projectDetails.projects = projectItems;
+
+    res.success(util.setResponseOk(projectDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+
+})
+
 Parse.Cloud.define("deleteSticker", function(req, res){
   const ID = req.params.admin;
   let stickerId = req.params.stickerId;
@@ -17,7 +37,7 @@ Parse.Cloud.define("deleteSticker", function(req, res){
   .then(function(sticker){
     sticker.destroy({
         success: function (object) {
-          console.log("STICKER DELETED");
+
           res.success(util.setResponseOk({status: "done"}));
 
         },
