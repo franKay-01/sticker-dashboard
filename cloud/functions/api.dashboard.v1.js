@@ -100,7 +100,12 @@ Parse.Cloud.define("getStickerDetails", function(req, res){
       // new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey: true})
   ).then(function(sticker, categories, pack, feed){
 
-    console.log("FEED ITEM " + JSON.stringify(feed));
+    if (feed){
+      stickerDetails.feedId = feed.get("feedId");
+    }else {
+      stickerDetails.feedId = "";
+    }
+
     stickerDetails.sticker = dashboardHelper.StickerItem(sticker);
     stickerDetails.categories = dashboardHelper.Categories(categories);
     if (sticker.get("categories") !== []){
