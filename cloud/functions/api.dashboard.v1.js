@@ -13,7 +13,7 @@ Parse.Cloud.define("deleteSticker", function(req, res){
   const ID = req.params.admin;
   let stickerId = req.params.stickerId;
 
-  return new Parse.Query(_class.Stickers).equalTo("objectId", ID).first({useMasterKey: true})
+  return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first({useMasterKey: true})
   .then(function(sticker){
     sticker.destroy({
         success: function (object) {
