@@ -14,7 +14,7 @@ Parse.Cloud.define("getProjectsList", function(req, res){
   let currentProjects = req.params.currentProjects;
   let projectDetails = {};
 
-  return new Parse.Query(_class.Projects).equalTo("userId", ID).containedIn("objectId", currentProjects).find({useMasterKey: true})
+  return new Parse.Query(_class.Projects).equalTo("userId", ID).notContainedIn("objectId", currentProjects).find({useMasterKey: true})
   .then(function(projects){
 
     let projectItems = dashboardHelper.Projects(projects);
