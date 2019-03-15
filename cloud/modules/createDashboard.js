@@ -35,9 +35,10 @@ exports.PackItem = pack => {
       _pack.name = pack.get("name");
       _pack.type = pack.get("packType");
       _pack.keywords = pack.get("keywords");
-      _pack.productId = pack.get("productIds");
+      _pack.productId = pack.get("productId");
       _pack.version = pack.get("version");
       _pack.archive = pack.get("archived");
+      _pack.projects = pack.get("projectIds")
   }
 
   return _pack;
