@@ -11,9 +11,10 @@ const PARSE_LIMIT = 1000;
 
 Parse.Cloud.define("getProjectsList", function(req, res){
   const ID = req.params.admin;
+  let currentProject = req.params.currentProject;
   let projectDetails = {};
 
-  return new Parse.Query(_class.Projects).equalTo("userId", ID).find({useMasterKey: true})
+  return new Parse.Query(_class.Projects).equalTo("userId", ID).containedIn("objectId", currentProject)find({useMasterKey: true})
   .then(function(projects){
 
     let projectItems = dashboardHelper.Projects(projects);
