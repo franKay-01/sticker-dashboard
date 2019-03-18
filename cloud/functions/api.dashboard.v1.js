@@ -895,6 +895,9 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
             }
         }).then(function(latestSticker, storyImage, storyBody){
           console.log("ENTERED SECOND LAP");
+          console.log("LATEST STICKER " + JSON.stringify(latestSticker));
+          console.log("STORY IMAGE " + JSON.stringify(storyImage));
+          console.log("STORY BODY " + JSON.stringify(storyBody));
 
           if (latestSticker !== undefined) {
               homeFeed.latestSticker = latestSticker.get("uri").url();
