@@ -9,6 +9,50 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("removeProject", function(req, res){
+  let ID = req.params.admin;
+  let itemType = req.params.itemType;
+  let itemId = req.params.itemId;
+  let projectId = req.params.projectId;
+  let elementArray = [];
+  let PACK = "pack";
+  let STORY = "story";
+  let QUERY;
+
+  if (itemType === PACK) {
+      QUERY = _class.Packs;
+  } else if (itemType === STORY) {
+      QUERY = _class.Stories;
+  }
+
+  return new Parse.Query(QUERY).equalTo("userId", ID).equalTo("objectId", itemId).first({useMasterKey: true})
+  .then(function(item){
+
+    elementArray = item.get("projectIds");
+    _.each(elementArray, function (element, index) {
+
+        if (projectId === element){
+
+            elementArray.splice(index, 1);
+
+        }
+    });
+
+    item.set("projectIds", elementArray);
+    return item.save();
+
+  }).then(function(saved){
+
+    res.success(util.setResponseOk(saved));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+
+});
+
 Parse.Cloud.define("addNewProject", function(req, res){
   let ID = req.params.admin;
   let itemType = req.params.itemType;
