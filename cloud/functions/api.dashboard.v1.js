@@ -9,6 +9,29 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("addNewProject", function(req, res){
+  let ID = req.params.admin;
+  let itemType = req.params.itemType;
+  let itemId = req.params.itemId;
+  let itemIds = req.params.itemIds;
+  let itemArray = [];
+  let PACK = "pack";
+  let STORY = "story";
+
+  itemArray = itemIds.split(",");
+  console.log("ARRAY " + JSON.stringify(itemArray) +" TYPE "+itemType+" ITEM ID " + itemId);
+
+//   return Parse.Promise.when(
+//   if (itemType === PACK) {
+//       return new Parse.Query(_class.Packs).equalTo("userId", ID).equalTo("objectId", itemId).first({useMasterKey: true});
+//   } else if (itemType === STORY) {
+//       return new Parse.Query(_class.Stories).equalTo("userId", ID).equalTo("objectId", itemId).first({useMasterKey: true});
+//   }
+// ).then(function(item){
+//     storyItem.get("contents").html.push(object);
+//   })
+});
+
 Parse.Cloud.define("getProjectsList", function(req, res){
   const ID = req.params.admin;
   let currentProjects = req.params.currentProjects;
@@ -896,9 +919,6 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
             }
         }).then(function(latestSticker, storyImage, storyBody){
           console.log("ENTERED SECOND LAP");
-          console.log("LATEST STICKER " + JSON.stringify(latestSticker));
-          console.log("STORY IMAGE " + JSON.stringify(storyImage));
-          console.log("STORY BODY " + JSON.stringify(storyBody));
 
           if (latestSticker !== undefined) {
               homeFeed.latestSticker = latestSticker.get("uri").url();
