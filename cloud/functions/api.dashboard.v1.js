@@ -33,7 +33,7 @@ Parse.Cloud.define("addNewProject", function(req, res){
 
   }).then(function(saved){
 
-    res.success(util.setResponseOk(projectDetails));
+    res.success(util.setResponseOk(saved));
 
   }, function(error){
 
