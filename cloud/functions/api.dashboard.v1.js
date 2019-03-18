@@ -18,18 +18,26 @@ Parse.Cloud.define("addNewProject", function(req, res){
   let PACK = "pack";
   let STORY = "story";
 
-  itemArray = itemIds.split(",");
-  console.log("ARRAY " + JSON.stringify(itemArray) +" TYPE "+itemType+" ITEM ID " + itemId);
+  return Parse.Promise.when(
+    if (itemType === PACK) {
+        return new Parse.Query(_class.Packs).equalTo("userId", ID).equalTo("objectId", itemId).first({useMasterKey: true});
+    } else if (itemType === STORY) {
+        return new Parse.Query(_class.Stories).equalTo("userId", ID).equalTo("objectId", itemId).first({useMasterKey: true});
+    }
+ ).then(function(item){
 
-//   return Parse.Promise.when(
-//   if (itemType === PACK) {
-//       return new Parse.Query(_class.Packs).equalTo("userId", ID).equalTo("objectId", itemId).first({useMasterKey: true});
-//   } else if (itemType === STORY) {
-//       return new Parse.Query(_class.Stories).equalTo("userId", ID).equalTo("objectId", itemId).first({useMasterKey: true});
-//   }
-// ).then(function(item){
-//     storyItem.get("contents").html.push(object);
-//   })
+    item.get("projectIds").push(itemIds);
+    return item.save();
+
+  }).then(function(saved){
+
+    res.success(util.setResponseOk(projectDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
 });
 
 Parse.Cloud.define("getProjectsList", function(req, res){
