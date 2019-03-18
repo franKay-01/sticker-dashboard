@@ -24,10 +24,10 @@ Parse.Cloud.define("addNewProject", function(req, res){
   } else if (itemType === STORY) {
       QUERY = _class.Stories;
   }
-  
+
   return new Parse.Query(QUERY).equalTo("userId", ID).equalTo("objectId", itemId).first({useMasterKey: true})
   .then(function(item){
-
+    console.log("HERE");
     item.get("projectIds").push(itemIds);
     return item.save();
 
