@@ -17,14 +17,16 @@ Parse.Cloud.define("addNewProject", function(req, res){
   let itemArray = [];
   let PACK = "pack";
   let STORY = "story";
+  let QUERY;
 
-  return Parse.Promise.when(
-    if (itemType === PACK) {
-        return new Parse.Query(_class.Packs).equalTo("userId", ID).equalTo("objectId", itemId).first({useMasterKey: true});
-    } else if (itemType === STORY) {
-        return new Parse.Query(_class.Stories).equalTo("userId", ID).equalTo("objectId", itemId).first({useMasterKey: true});
-    }
- ).then(function(item){
+  if (itemType === PACK) {
+      QUERY = _class.Packs;
+  } else if (itemType === STORY) {
+      QUERY = _class.Stories;
+  }
+  
+  return new Parse.Query(QUERY).equalTo("userId", ID).equalTo("objectId", itemId).first({useMasterKey: true})
+  .then(function(item){
 
     item.get("projectIds").push(itemIds);
     return item.save();
