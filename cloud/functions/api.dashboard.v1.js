@@ -805,6 +805,7 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
   const ADMIN = req.params.admin;
   const limit = 5;
   const otherLimit = 2;
+  let stickerId = "";
   projectArray.push(projectId);
 
   Parse.Promise.when(
@@ -869,20 +870,20 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
 
             if (latestStory && sticker) {
                 return Parse.Promise.when(
-                    new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first(),
-                    new Parse.Query(_class.ArtWork).equalTo("itemId", latestStory.get("feedId")).first(),
-                    new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first()
+                    new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first({useMasterKey: true}),
+                    new Parse.Query(_class.ArtWork).equalTo("itemId", latestStory.get("feedId")).first({useMasterKey: true}),
+                    new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first({useMasterKey: true})
                 );
             } else if (sticker === undefined) {
               console.log("ENTERED FIRST LAP");
                 return Parse.Promise.when(
                     undefined,
-                    new Parse.Query(_class.ArtWork).equalTo("itemId", latestStory.get("feedId")).first(),
-                    new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first()
+                    new Parse.Query(_class.ArtWork).equalTo("itemId", latestStory.get("feedId")).first({useMasterKey: true}),
+                    new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first({useMasterKey: true})
                 );
             } else if (latestStory === undefined) {
                 return Parse.Promise.when(
-                    new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first(),
+                    new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first({useMasterKey: true}),
                     undefined,
                     undefined
                 );
@@ -924,7 +925,7 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
           if (storyImage !== undefined) {
               stickerId = storyImage.get("stickerId");
 
-              return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first();
+              return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first({useMasterKey: true});
 
           } else {
               stickerId = "";
@@ -938,7 +939,6 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
           }else {
             homeFeed.latestStorySticker = sticker;
           }
-
            console.log("FINISHED LAST " + JSON.stringify(homeFeed));
            res.success(util.setResponseOk(homeFeed));
 
@@ -951,12 +951,13 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
 
 Parse.Cloud.define("getHomeStickers", function (req, res) {
 
-    new Parse.Query(_class.Packs).equalTo("objectId", process.env.DEFAULT_PACK).first().then(function (pack) {
+    new Parse.Query(_class.Packs).equalTo("objectId", process.env.DEFAULT_PACK).first({useMasterKey: true})
+    .then(function (pack) {
 
         if (pack) {
 
             let col = pack.relation(_class.Packs);
-            return col.query().limit(40).find();
+            return col.query().limit(40).find({useMasterKey: true});
 
         } else {
             return []
@@ -974,7 +975,6 @@ Parse.Cloud.define("getHomeStickers", function (req, res) {
             });
 
             res.success(util.setResponseOk(_sticker));
-
 
         }
 
