@@ -27,7 +27,7 @@ Parse.Cloud.define("addNewProject", function(req, res){
 
   return new Parse.Query(QUERY).equalTo("userId", ID).equalTo("objectId", itemId).first({useMasterKey: true})
   .then(function(item){
-    console.log("HERE");
+    console.log("HERE " + JSON.stringify(item));
     item.get("projectIds").push(itemIds);
     return item.save();
 
