@@ -17,8 +17,10 @@ Parse.Cloud.define("getStories", function(req, res){
   projectArray.push(projectId);
   let storiesDetails = {};
   let _latest = "";
+  let _allArtwork = [];
   let artWork = [];
   let _allEpisodes = [];
+  let combined = [];
   let storyDetails = {};
 
   return Parse.Promise.when(
@@ -27,6 +29,8 @@ Parse.Cloud.define("getStories", function(req, res){
     // new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", ID).equalTo("type", type.FEED_TYPE.story).first({useMasterKey: true}),
     new Parse.Query(_class.Episodes).containedIn("projectId", projectArray).find({useMasterKey: true})
   ).then(function(stories, artworks, episodes){
+
+    _allArtwork = artworks;
 
     storyDetails.stories = dashboardHelper.Stories(stories);
 
@@ -39,19 +43,39 @@ Parse.Cloud.define("getStories", function(req, res){
     });
 
     storyDetails.episodes = _allEpisodes;
-    console.log("ALL EPISODE DETAILS " + JSON.stringify(_allEpisodes));
+
     _.each(artworks, function (artwork) {
 
         artWork.push(artwork.get("stickerId"));
 
     });
 
-    console.log("STORY DETAILS " + JSON.stringify(storyDetails));
-
     return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find({useMasterKey: true});
 
   }).then(function(stickers){
-    console.log("STORY STICKERS " + JSON.stringify(stickers))
+
+    _.each(_allArtwork, function (artwork, index) {
+
+        _.each(stickers, function (sticker) {
+
+            if (artwork.get("stickerId") === sticker.id) {
+
+              combined.push({
+                  story: artwork.get("itemId"),
+                  image: sticker.get("uri").url()
+              });
+            }
+        })
+    });
+
+    storyDetails.combined = combined;
+
+    res.success(util.setResponseOk(storyDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
   })
 });
 
