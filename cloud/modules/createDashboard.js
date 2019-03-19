@@ -4,16 +4,17 @@ const helper = require('./helpers');
 
 exports.Stories = (stories) => {
   let _stories = [];
-  console.log("STORY ITEM " + JSON.stringify(stories));
 
   if (stories.length) {
     _.each(stories, story => {
-      console.log("STORY ITEM # " + JSON.stringify(story));
 
       _stories.push({id: story.id, title: story.get("title"), summary: story.get("summary")})
 
   });
  }
+
+ console.log("STORY ITEM # " + JSON.stringify(_stories));
+
 
   return _stories;
 };
