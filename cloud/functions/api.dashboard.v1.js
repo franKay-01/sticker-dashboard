@@ -18,6 +18,7 @@ Parse.Cloud.define("getStories", function(req, res){
   let storiesDetails = {};
   let _latest = "";
   let artWork = [];
+  let _allEpisodes = [];
   let storyDetails = {};
 
   return Parse.Promise.when(
