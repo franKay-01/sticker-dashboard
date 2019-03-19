@@ -9,6 +9,51 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+
+Parse.Cloud.define("getStories", function(req, res){
+  let ID = req.params.admin;
+  let projectId = req.params.projectId;
+  let projectArray = [];
+  projectArray.push(projectId);
+  let storiesDetails = {};
+  let _latest = "";
+  let artWork = [];
+  let storyDetails = {};
+
+  return Parse.Promise.when(
+    new Parse.Query(_class.Stories).equalTo("userId", ID).containedIn("projectIds", projectArray).descending("createdAt").find({useMasterKey: true}),
+    new Parse.Query(_class.ArtWork).find({useMasterKey: true}),
+    // new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", ID).equalTo("type", type.FEED_TYPE.story).first({useMasterKey: true}),
+    new Parse.Query(_class.Episodes).containedIn("projectId", projectArray).find({useMasterKey: true})
+  ).then(function(stories, artworks, episodes){
+
+    storyDetails.stories = dashboardHelper.Stories(stories);
+
+    _.each(episodes, function (episode) {
+        _.each(story, function (storyDetails) {
+            if (episode.get("storyId") === storyDetails.id) {
+                _allEpisodes.push({"episodeId": episode.id, "storyId": storyDetails.id});
+            }
+        });
+    });
+
+    storyDetails.episodes = _allEpisodes;
+
+    _.each(artworks, function (artwork) {
+
+        artWork.push(artwork.get("stickerId"));
+
+    });
+
+    console.log("STORY DETAILS " + JSON.stringify(storyDetails));
+
+    return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find({useMasterKey: true});
+
+  }).then(function(stickers){
+    console.log("STICKERS " + JSON.stringify(stickers))
+  })
+});
+
 Parse.Cloud.define("getPacks", function(req, res){
   let ID = req.params.admin;
   let projectId = req.params.projectId;
@@ -27,7 +72,7 @@ Parse.Cloud.define("getPacks", function(req, res){
     res.success(util.setResponseOk(packDetails));
 
   }, function(error){
-    
+
     util.handleError(res, error);
 
   })

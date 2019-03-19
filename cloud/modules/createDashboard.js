@@ -2,6 +2,19 @@ const _ = require('underscore');
 const type = require('./type');
 const helper = require('./helpers');
 
+exports.Stories = (stories) => {
+  let _stories = [];
+
+  if (stories.length) {
+    _.each(stories, story => {
+
+      _stories.push({id: story.id, title: story.get("title"), summary: story.get("summary")});
+
+  }
+
+  return _stories;
+};
+
 exports.Packs = (packs) => {
   let _packs = [];
 
