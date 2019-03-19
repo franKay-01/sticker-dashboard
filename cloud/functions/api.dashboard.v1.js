@@ -19,7 +19,7 @@ Parse.Cloud.define("getStories", function(req, res){
   let _latest = "";
   let artWork = [];
   let storyDetails = {};
-
+  console.log("STORY PROJECT ID " + projectId);
   return Parse.Promise.when(
     new Parse.Query(_class.Stories).equalTo("userId", ID).containedIn("projectIds", projectArray).descending("createdAt").find({useMasterKey: true}),
     new Parse.Query(_class.ArtWork).find({useMasterKey: true}),
@@ -50,7 +50,7 @@ Parse.Cloud.define("getStories", function(req, res){
     return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find({useMasterKey: true});
 
   }).then(function(stickers){
-    console.log("STICKERS " + JSON.stringify(stickers))
+    console.log("STORY STICKERS " + JSON.stringify(stickers))
   })
 });
 
