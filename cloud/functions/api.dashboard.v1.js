@@ -30,9 +30,9 @@ Parse.Cloud.define("getStories", function(req, res){
     storyDetails.stories = dashboardHelper.Stories(stories);
 
     _.each(episodes, function (episode) {
-        _.each(stories, function (storyDetails) {
-            if (episode.get("storyId") === storyDetails.id) {
-                _allEpisodes.push({"episodeId": episode.id, "storyId": storyDetails.id});
+        _.each(stories, function (story) {
+            if (episode.get("storyId") === story.id) {
+                _allEpisodes.push({"episodeId": episode.id, "storyId": story.id});
             }
         });
     });
