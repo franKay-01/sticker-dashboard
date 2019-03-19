@@ -26,6 +26,8 @@ Parse.Cloud.define("getStories", function(req, res){
     // new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", ID).equalTo("type", type.FEED_TYPE.story).first({useMasterKey: true}),
     new Parse.Query(_class.Episodes).containedIn("projectId", projectArray).find({useMasterKey: true})
   ).then(function(stories, artworks, episodes){
+    console.log("STORIES DETAILS " + JSON.stringify(stories));
+    console.log("EPISODES DETAILS " + JSON.stringify(episodes));
 
     storyDetails.stories = dashboardHelper.Stories(stories);
 
