@@ -19,7 +19,7 @@ Parse.Cloud.define("getStories", function(req, res){
   let _latest = "";
   let artWork = [];
   let storyDetails = {};
-  console.log("STORY PROJECT ID " + projectId);
+
   return Parse.Promise.when(
     new Parse.Query(_class.Stories).equalTo("userId", ID).containedIn("projectIds", projectArray).descending("createdAt").find({useMasterKey: true}),
     new Parse.Query(_class.ArtWork).find({useMasterKey: true}),
@@ -28,7 +28,7 @@ Parse.Cloud.define("getStories", function(req, res){
   ).then(function(stories, artworks, episodes){
     console.log("STORIES DETAILS " + JSON.stringify(stories));
     console.log("EPISODES DETAILS " + JSON.stringify(episodes));
-
+    console.log("ARTWORK DETAILS " + JSON.stringify(artworks));
     storyDetails.stories = dashboardHelper.Stories(stories);
 
     _.each(episodes, function (episode) {
@@ -40,7 +40,7 @@ Parse.Cloud.define("getStories", function(req, res){
     });
 
     storyDetails.episodes = _allEpisodes;
-
+    console.log("ALL EPISODE DETAILS " + JSON.stringify(_allEpisodes));
     _.each(artworks, function (artwork) {
 
         artWork.push(artwork.get("stickerId"));
