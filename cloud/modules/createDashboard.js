@@ -11,6 +11,7 @@ exports.Stories = (stories) => {
       _stories.push({id: story.id, title: story.get("title"), summary: story.get("summary")});
 
   }
+ }
 
   return _stories;
 };
