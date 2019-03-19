@@ -26,13 +26,11 @@ Parse.Cloud.define("getStories", function(req, res){
     // new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", ID).equalTo("type", type.FEED_TYPE.story).first({useMasterKey: true}),
     new Parse.Query(_class.Episodes).containedIn("projectId", projectArray).find({useMasterKey: true})
   ).then(function(stories, artworks, episodes){
-    console.log("STORIES DETAILS " + JSON.stringify(stories));
-    console.log("EPISODES DETAILS " + JSON.stringify(episodes));
-    console.log("ARTWORK DETAILS " + JSON.stringify(artworks));
+
     storyDetails.stories = dashboardHelper.Stories(stories);
 
     _.each(episodes, function (episode) {
-        _.each(story, function (storyDetails) {
+        _.each(stories, function (storyDetails) {
             if (episode.get("storyId") === storyDetails.id) {
                 _allEpisodes.push({"episodeId": episode.id, "storyId": storyDetails.id});
             }

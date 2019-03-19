@@ -13,9 +13,6 @@ exports.Stories = (stories) => {
   });
  }
 
- console.log("STORY ITEM # " + JSON.stringify(_stories));
-
-
   return _stories;
 };
 
