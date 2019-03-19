@@ -2,6 +2,26 @@ const _ = require('underscore');
 const type = require('./type');
 const helper = require('./helpers');
 
+exports.Packs = (packs) => {
+  let _packs = [];
+
+  if (packs.length) {
+      _.each(packs, pack => {
+        if (pack.get("artwork")){
+
+          _packs.push({id: pack.id, name: pack.get("name"), type: pack.get("packType"), art: pack.get("artwork").url() });
+
+        }else {
+
+          _packs.push({id: pack.id, name: pack.get("name"), type: pack.get("packType"), art: ""});
+
+        }
+
+      });
+  }
+  return _packs;
+}
+
 exports.StickerItem = sticker => {
   let _sticker = {};
 
