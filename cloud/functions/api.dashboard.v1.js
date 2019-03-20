@@ -9,6 +9,98 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("getStoryDetails", function(req, res)}{
+  let ID = req.params.admin;
+  let projectId = req.params.projectId;
+  let storyId = req.params.storyId;
+  let projectArray = [];
+  projectArray.push(projectId);
+  let storyDetails = {};
+  let _story = {};
+  let colors = {};
+  let _authors = [];
+  let _products = [];
+
+  return Parse.Promise.when(
+      new Parse.Query(_class.Stories).equalTo("objectId", story_id).first({useMasterKey: true}),
+      new Parse.Query(_class.ArtWork).equalTo("itemId", story_id).first({useMasterKey: true}),
+      new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", ID).equalTo("type", type.FEED_TYPE.story).first({useMasterKey: true}),
+      new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find({useMasterKey: true}),
+      new Parse.Query(_class.Authors).find({useMasterKey: true}),
+      new Parse.Query(_class.Product).find({useMasterKey: true})
+  ).then(function(story, artwork, feed, stories, authors, products){
+    _story = story;
+    _authors = authors;
+    _products = products;
+
+    if (latest) {
+        _latest = latest;
+    }
+
+    page = util.page(stories, storyId);
+
+    colors = story.get("info");
+
+    if (colors.topColor === "") {
+        //use system default
+        colors = type.DEFAULT.colors;
+
+    } else {
+        colors = story.get("info");
+
+    }
+
+    storyDetails.story = dashboardHelper.StoryDetails(story);
+    storyDetails.next = page.next;
+    storyDetails.previous = page.previous;
+    storyDetails.colors = colors;
+
+    if (artwork) {
+
+        return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("stickerId")).first({useMasterKey: true});
+
+    } else {
+        return "";
+    }
+  }).then(function(sticker){
+
+    storyDetails.art = sticker;
+
+    if (_story.get("authorId") === "") {
+
+        return "";
+
+    } else {
+
+        return new Parse.Query(_class.Authors).equalTo("objectId", _story.get("authorId")).first({useMasterKey:true});
+
+    }
+  }).then(function(author){
+    if (author === "") {
+        storyDetails.authorName = "";
+        storyDetails.authorId = "";
+    } else {
+        storyDetails.authorName = author.get("name");
+        storyDetails.authorId = author.id;
+    }
+
+    return Parse.Promise.when(
+        new Parse.Query(_class.Projects).containedIn("objectId", _story.get("projectIds")).limit(limit).find({useMasterKey:true})
+        // new Parse.Query(_class.Members).equalTo("chatIds", _story.id).find({useMasterKey:true})
+    )
+  }).then(function(projects){
+
+    let _currentProjects = dashboardHelper.CommonItems(projects);
+    storyDetails.projects = _currentProjects;
+
+    res.success(util.setResponseOk(storyDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
 
 Parse.Cloud.define("getStories", function(req, res){
   let ID = req.params.admin;

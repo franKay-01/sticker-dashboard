@@ -2,6 +2,23 @@ const _ = require('underscore');
 const type = require('./type');
 const helper = require('./helpers');
 
+exports.StoryDetails = story => {
+  let _story = {};
+
+  if (sticker) {
+    _story.title = story.get("title");
+    _story.keywords = story.get("keywords");
+    _story.summary = story.get("summary");
+    _story.published = story.get("published");
+    _story.authorId = story.get("authorId");
+    _story.type = story.get("storyType");
+    _story.info = story.get("info");
+  }
+
+  return _story;
+
+};
+
 exports.Stories = (stories) => {
   let _stories = [];
 
