@@ -14,7 +14,7 @@ exports.StoryDetails = story => {
     _story.type = story.get("storyType");
     _story.info = story.get("info");
   }
-
+  console.log("STORY DETAILS " + JSON.stringify(_story));
   return _story;
 
 };
