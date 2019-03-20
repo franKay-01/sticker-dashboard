@@ -5,7 +5,7 @@ const helper = require('./helpers');
 exports.StoryDetails = story => {
   let _story = {};
 
-  if (sticker) {
+  if (story) {
     _story.title = story.get("title");
     _story.keywords = story.get("keywords");
     _story.summary = story.get("summary");
