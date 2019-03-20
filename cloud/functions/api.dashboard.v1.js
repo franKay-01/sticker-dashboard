@@ -81,6 +81,8 @@ Parse.Cloud.define("getStories", function(req, res){
 
     if (newArray.length > 0){
       storyDetails.noArtStories = dashboardHelper.Stories(newArray);
+    }else {
+      storyDetails.noArtStories = [];
     }
     storyDetails.combined = combined;
 
