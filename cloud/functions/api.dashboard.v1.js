@@ -79,7 +79,9 @@ Parse.Cloud.define("getStories", function(req, res){
       });
     });
 
-    console.log("SLICED NEW ARRAY " + JSON.stringify(newArray));
+    if (newArray.length > 0){
+      storyDetails.noArtStories = dashboardHelper.Stories(newArray);
+    }
     storyDetails.combined = combined;
 
     res.success(util.setResponseOk(storyDetails));
