@@ -55,6 +55,7 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
     storyDetails.previous = page.previous;
     storyDetails.colors = colors;
 
+    console.log("EXITING FIRST LAP");
     if (artwork) {
 
         return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("stickerId")).first({useMasterKey: true});
@@ -63,6 +64,7 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
         return "";
     }
   }).then(function(sticker){
+    console.log("ENTERED SECOND LAP");
 
     storyDetails.art = sticker;
 
@@ -76,6 +78,8 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
 
     }
   }).then(function(author){
+    console.log("ENTERED THIRD LAP");
+
     if (author === "") {
         storyDetails.authorName = "";
         storyDetails.authorId = "";
@@ -89,6 +93,7 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
         // new Parse.Query(_class.Members).equalTo("chatIds", _story.id).find({useMasterKey:true})
     )
   }).then(function(projects){
+    console.log("ENTERED LAST LAP");
 
     let _currentProjects = dashboardHelper.CommonItems(projects);
     storyDetails.projects = _currentProjects;
