@@ -32,7 +32,7 @@ Parse.Cloud.define("getStories", function(req, res){
   ).then(function(stories, artworks, episodes){
 
     _allArtwork = artworks;
-    storyArray = story;
+    storyArray = stories;
     storyDetails.stories = dashboardHelper.Stories(stories);
 
     _.each(episodes, function (episode) {
@@ -78,7 +78,7 @@ Parse.Cloud.define("getStories", function(req, res){
         }
       });
     });
-    
+
     console.log("SLICED NEW ARRAY " + JSON.stringify(newArray));
     storyDetails.combined = combined;
 
