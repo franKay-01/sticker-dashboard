@@ -92,7 +92,7 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
         // new Parse.Query(_class.Members).equalTo("chatIds", _story.id).find({useMasterKey:true})
 
   }).then(function(projects){
-    console.log("ENTERED LAST LAP");
+    console.log("ENTERED LAST LAP " + JSON.stringify(projects));
 
     let _currentProjects = dashboardHelper.CommonItems(projects);
     storyDetails.projects = _currentProjects;
