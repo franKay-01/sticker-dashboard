@@ -21,6 +21,7 @@ Parse.Cloud.define("getStories", function(req, res){
   let artWork = [];
   let _allEpisodes = [];
   let combined = [];
+  let storyArray = [];
   let storyDetails = {};
 
   return Parse.Promise.when(
@@ -31,7 +32,7 @@ Parse.Cloud.define("getStories", function(req, res){
   ).then(function(stories, artworks, episodes){
 
     _allArtwork = artworks;
-
+    storyArray = story;
     storyDetails.stories = dashboardHelper.Stories(stories);
 
     _.each(episodes, function (episode) {
@@ -68,6 +69,17 @@ Parse.Cloud.define("getStories", function(req, res){
         })
     });
 
+    let newArray = storyArray.slice(0);
+
+    _.each(combined, function(combine, combinedIndex){
+      _.each(newArray, function(storyItem, index){
+       if ( storyItem.id === combine.story) {
+            newArray.splice(index, 1);
+        }
+      });
+    });
+    
+    console.log("SLICED NEW ARRAY " + JSON.stringify(newArray));
     storyDetails.combined = combined;
 
     res.success(util.setResponseOk(storyDetails));
