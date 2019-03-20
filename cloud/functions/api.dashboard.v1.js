@@ -88,10 +88,9 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
         storyDetails.authorId = author.id;
     }
 
-    return Parse.Promise.when(
-        new Parse.Query(_class.Projects).containedIn("objectId", _story.get("projectIds")).find({useMasterKey:true})
+    return new Parse.Query(_class.Projects).containedIn("objectId", _story.get("projectIds")).find({useMasterKey:true});
         // new Parse.Query(_class.Members).equalTo("chatIds", _story.id).find({useMasterKey:true})
-    )
+
   }).then(function(projects){
     console.log("ENTERED LAST LAP");
 
