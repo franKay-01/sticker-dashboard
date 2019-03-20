@@ -64,7 +64,7 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
         return "";
     }
   }).then(function(sticker){
-    console.log("ENTERED SECOND LAP");
+    console.log("ENTERED SECOND LAP " + _story.get("authorId"));
 
     storyDetails.art = sticker;
 
