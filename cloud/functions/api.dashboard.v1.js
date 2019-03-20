@@ -22,8 +22,8 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
   let _products = [];
 
   return Parse.Promise.when(
-      new Parse.Query(_class.Stories).equalTo("objectId", story_id).first({useMasterKey: true}),
-      new Parse.Query(_class.ArtWork).equalTo("itemId", story_id).first({useMasterKey: true}),
+      new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey: true}),
+      new Parse.Query(_class.ArtWork).equalTo("itemId", storyId).first({useMasterKey: true}),
       new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", ID).equalTo("type", type.FEED_TYPE.story).first({useMasterKey: true}),
       new Parse.Query(_class.Stories).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find({useMasterKey: true}),
       new Parse.Query(_class.Authors).find({useMasterKey: true}),
@@ -85,7 +85,7 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
     }
 
     return Parse.Promise.when(
-        new Parse.Query(_class.Projects).containedIn("objectId", _story.get("projectIds")).limit(limit).find({useMasterKey:true})
+        new Parse.Query(_class.Projects).containedIn("objectId", _story.get("projectIds")).find({useMasterKey:true})
         // new Parse.Query(_class.Members).equalTo("chatIds", _story.id).find({useMasterKey:true})
     )
   }).then(function(projects){
