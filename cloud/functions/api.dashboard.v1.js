@@ -34,10 +34,6 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
     _authors = authors;
     _products = products;
 
-    if (latest) {
-        _latest = latest;
-    }
-
     page = util.page(stories, storyId);
     console.log("PAGES " + JSON.stringify(page));
 
