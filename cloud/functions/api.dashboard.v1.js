@@ -29,6 +29,14 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
       new Parse.Query(_class.Authors).find({useMasterKey: true}),
       new Parse.Query(_class.Product).find({useMasterKey: true})
   ).then(function(story, artwork, feed, stories, authors, products){
+
+    console.log("STORY " + JSON.stringify(story));
+    console.log("ARTWORK " + JSON.stringify(artwork));
+    console.log("FEED " + JSON.stringify(feed));
+    console.log("STORIES " + JSON.stringify(stories));
+    console.log("AUTHORS " + JSON.stringify(authors));
+    console.log("PRODUCTS " + JSON.stringify(products));
+    
     _story = story;
     _authors = authors;
     _products = products;
