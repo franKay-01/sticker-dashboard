@@ -67,21 +67,19 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
 
     storyDetails.art = sticker;
 
-    if (_story.get("authorId") === "") {
-        console.log("RETURNING EMPTY LAP");
-
-        return "";
+    if (_story.get("authorId") !== "") {
+      return new Parse.Query(_class.Authors).equalTo("objectId", _story.get("authorId")).first({useMasterKey:true});
 
     } else {
-
-        return new Parse.Query(_class.Authors).equalTo("objectId", _story.get("authorId")).first({useMasterKey:true});
+      console.log("RETURNING EMPTY LAP");
+      return "empty";
 
     }
   }).then(function(author){
     console.log("ENTERED THIRD LAP");
     console.log("AUTHOR DETAILS " + JSON.stringify(author));
-    
-    if (author === "") {
+
+    if (author === "empty") {
         storyDetails.authorName = "";
         storyDetails.authorId = "";
     } else {
