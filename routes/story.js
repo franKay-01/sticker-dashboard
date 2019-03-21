@@ -648,7 +648,7 @@ module.exports = function (app) {
                 )
 
             }).then(function (story_item, project) {
-
+                console.log("STORY ITEM DETAILS " + JSON.stringify(story_item));
                 _storyItem = story_item;
                 _project = project;
 
@@ -658,9 +658,9 @@ module.exports = function (app) {
                     }
                 });
 
-                return true;
+                return sticker_array;
 
-            }).then(function (image) {
+            }).then(function (sticker_array) {
 
                 if (sticker_array.length > 0) {
                     return new Parse.Query(_class.Stickers).containedIn("objectId", sticker_array).find();
