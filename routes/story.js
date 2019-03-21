@@ -578,7 +578,7 @@ module.exports = function (app) {
         let _stickers = [];
 
         if (token) {
-
+          console.log("STORY ID 2### " + id);
             util.getUser(token).then(function (sessionToken) {
 
                 return new Parse.Query(_class.Stories).equalTo("objectId", id).first();
@@ -2540,7 +2540,7 @@ module.exports = function (app) {
         let _storyId;
         let storyItemView = '/story/view/';
 
-        console.log("TYPE " + storyItemType);
+        console.log("TYPE ###" + storyItemType);
 
         if (token) {
 
@@ -2726,7 +2726,8 @@ module.exports = function (app) {
                 res.render("pages/stories/change_catalogue_sticker", {
                     storyItemId: storyItemId,
                     stickers: stickers,
-                    projectItem: project
+                    projectItem: project,
+                    type: type
                 });
 
             }, function (error) {
