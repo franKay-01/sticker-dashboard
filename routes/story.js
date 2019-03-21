@@ -661,7 +661,7 @@ module.exports = function (app) {
                 return sticker_array;
 
             }).then(function (sticker_array) {
-
+              console.log("STICKER ARRAY ##### " + JSON.stringify(sticker_array))
                 if (sticker_array.length > 0) {
                     return new Parse.Query(_class.Stickers).containedIn("objectId", sticker_array).find();
 
@@ -671,15 +671,9 @@ module.exports = function (app) {
 
             }).then(function (stickers) {
 
-                if (stickers !== "") {
+              _stickers = stickers;
 
-                    _stickers = stickers;
-
-                } else {
-                    _stickers = "";
-                }
-
-                res.render("pages/stories/story_items", {
+              res.render("pages/stories/story_items", {
 
                     story_item: _storyItem,
                     story_id: id,
