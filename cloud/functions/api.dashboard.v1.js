@@ -66,8 +66,8 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
     console.log("ENTERED SECOND LAP #" + _story.get("authorId"));
 
     storyDetails.art = sticker;
-
-    if (_story.get("authorId") !== " ") {
+    let author = _story.get("authorId");
+    if (author !== "") {
 
       return new Parse.Query(_class.Authors).equalTo("objectId", _story.get("authorId")).first({useMasterKey:true});
 
