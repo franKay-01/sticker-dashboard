@@ -2662,12 +2662,13 @@ module.exports = function (app) {
         let storyItemView = '/story/view/';
 
         if (token) {
-
+            console.log("STORY ITEM ID " + id);
             util.getUser(token).then(function (sessionToken) {
 
                 return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
 
             }).then(function (storyItem) {
+                console.log("STORY ITEM " + JSON.stringify(storyItem));
 
                 storyId = storyItem.get("storyId");
 
