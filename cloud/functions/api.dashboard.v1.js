@@ -79,7 +79,8 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
     }
   }).then(function(author){
     console.log("ENTERED THIRD LAP");
-
+    console.log("AUTHOR DETAILS " + JSON.stringify(author));
+    
     if (author === "") {
         storyDetails.authorName = "";
         storyDetails.authorId = "";
