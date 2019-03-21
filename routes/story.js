@@ -2671,7 +2671,7 @@ module.exports = function (app) {
                 console.log("STORY ITEM " + JSON.stringify(storyItem));
 
                 storyId = storyItem.get("storyId");
-
+                console.log("STORY ITEM " + storyId);
                 storyItem.set("type", type.STORY_ITEM.sticker);
                 storyItem.set("contents", {"id": stickerId, "uri": sticker_url});
 
