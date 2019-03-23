@@ -9,6 +9,21 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("editStory", function(req, res){
+  let ID = req.params.admin;
+  let storyId = req.params.storyId;
+  let keywords = req.params.keywords;
+  let summary = req.params.summary;
+  let title = req.params.title;
+  let _keywords = [];
+
+  if (keywords !== "") {
+      _keywords = keywords.split(",");
+  }
+
+  console.log("TITLE " + title +" SUMMARY "+summary +" KEYWORDS "+_keywords);
+});
+
 Parse.Cloud.define("getStoryDetails", function(req, res){
   let ID = req.params.admin;
   let projectId = req.params.projectId;
@@ -71,7 +86,7 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
     }else {
 
       storyDetails.art = "";
-      
+
     }
 
     let author = _story.get("authorId");
