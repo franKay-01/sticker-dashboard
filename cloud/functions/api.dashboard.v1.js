@@ -21,7 +21,7 @@ Parse.Cloud.define("editStory", function(req, res){
       _keywords = keywords.split(",");
   }
 
-  console.log("TITLE " + title +" SUMMARY "+summary +" KEYWORDS "+_keywords);
+  console.log(_keywords);
 });
 
 Parse.Cloud.define("getStoryDetails", function(req, res){
