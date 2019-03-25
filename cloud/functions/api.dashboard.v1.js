@@ -21,7 +21,25 @@ Parse.Cloud.define("editStory", function(req, res){
       _keywords = keywords.split(",");
   }
 
-  console.log(_keywords);
+  return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey: true})
+  .then(function(story){
+    story.set("title", title);
+    if (keywords !== []) {
+        story.set("keywords", _keyword);
+    }
+    story.set("summary", summary);
+
+    return story.save();
+    // story.set("authorId", authorId);
+  }).then(function(story){
+
+    res.success(util.setResponseOk(story));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
 });
 
 Parse.Cloud.define("getStoryDetails", function(req, res){
