@@ -9,6 +9,28 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("addAuthor", function(req, res){
+  let ID = req.params.admin;
+  let authorIds = req.params.itemIds;
+  let storyId = req.params.storyId;
+
+  return new Parse.Query(_class.Stories).equalTo("userId", ID).equalTo("objectId", storyId).first({useMasterKey: true})
+  .then(function(story){
+    
+    story.get("authorId").push(authorIds);
+    return story.save();
+
+  }).then(function(saved){
+
+    res.success(util.setResponseOk(saved));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("getAuthorsList", function(req, res){
   let ID = req.params.admin;
   let currentProject = req.params.currentProject;
@@ -18,7 +40,7 @@ Parse.Cloud.define("getAuthorsList", function(req, res){
 
   return new Parse.Query(_class.Authors).containedIn("projectIds", projectArray).find({useMasterKey: true})
   .then(function(authors){
-    
+
     authorDetails.authors = dashboardHelper.AuthorDetails(authors);
 
     res.success(util.setResponseOk(authorDetails));
