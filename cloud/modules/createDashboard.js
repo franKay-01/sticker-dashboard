@@ -13,6 +13,7 @@ exports.StoryDetails = story => {
     _story.authorId = story.get("authorId");
     _story.type = story.get("storyType");
     _story.info = story.get("info");
+    _story.projects = story.get("projectIds");
   }
   console.log("STORY DETAILS ###" + JSON.stringify(_story));
   return _story;

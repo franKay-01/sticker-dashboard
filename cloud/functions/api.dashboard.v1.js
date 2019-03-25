@@ -68,7 +68,6 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
     _products = products;
 
     page = util.page(stories, storyId);
-    console.log("PAGES " + JSON.stringify(page));
 
     colors = story.get("info");
 
