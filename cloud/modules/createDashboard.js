@@ -2,6 +2,18 @@ const _ = require('underscore');
 const type = require('./type');
 const helper = require('./helpers');
 
+exports.AuthorDetails = authors =>{
+  let _authors = [];
+
+  if (authors.length){
+    _.each(authors, author => {
+      _authors.push({id: author.id, name: author.get("name")})
+    })
+  }
+
+  return _authors;
+};
+
 exports.StoryDetails = story => {
   let _story = {};
 
