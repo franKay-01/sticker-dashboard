@@ -13,11 +13,11 @@ Parse.Cloud.define("addAuthor", function(req, res){
   let ID = req.params.admin;
   let authorIds = req.params.itemIds;
   let storyId = req.params.storyId;
-  console.log("STORY ID " + storyId + " AUTHORS " + authorIds);
+
   return new Parse.Query(_class.Stories).equalTo("userId", ID).equalTo("objectId", storyId).first({useMasterKey: true})
   .then(function(story){
 
-    story.get("authorId").push(authorIds);
+    story.set("authorId", authorIds);
     return story.save();
 
   }).then(function(saved){
