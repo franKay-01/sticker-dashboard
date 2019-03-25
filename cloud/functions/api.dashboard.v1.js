@@ -16,7 +16,8 @@ Parse.Cloud.define("editStory", function(req, res){
   let summary = req.params.summary;
   let title = req.params.title;
   let _keywords = [];
-
+  console.log("LOOK BELOW");
+  console.log(keywords);
   if (keywords !== []) {
       _keywords = keywords.split(",");
   }
