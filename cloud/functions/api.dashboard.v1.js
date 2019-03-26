@@ -18,13 +18,13 @@ Parse.Cloud.define("changeColorScheme", function(req, res){
   return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey: true})
   .then(function(story){
     story.get("info").topColor = topColor;
-    story.get("info").topColor = topColor;
+    story.get("info").bottomColor = bottomColor;
 
     return story.save();
 
   }).then(function(saved){
     let story = saved.get("info");
-    
+
     res.success(util.setResponseOk(story));
 
   }, function(error){
