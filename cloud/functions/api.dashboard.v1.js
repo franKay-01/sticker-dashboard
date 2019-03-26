@@ -23,8 +23,9 @@ Parse.Cloud.define("changeColorScheme", function(req, res){
     return story.save();
 
   }).then(function(saved){
-
-    res.success(util.setResponseOk(saved));
+    let story = saved.get("info");
+    
+    res.success(util.setResponseOk(story));
 
   }, function(error){
 
