@@ -46,7 +46,7 @@ Parse.Cloud.define("getMembers", function(req, res){
   let storyArray = [];
   storyArray.push(storyId);
 
-  return  new Parse.Query(_class.Members).equalTo("userId", _user.id)
+  return new Parse.Query(_class.Members).equalTo("userId", ID)
   .notContainedIn("chatIds", storyArray).find({useMasterKey:true})
   .then(function(membersDetails){
 
