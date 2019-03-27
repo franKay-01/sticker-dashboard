@@ -56,7 +56,7 @@ exports.Stories = (stories) => {
   if (stories.length) {
     _.each(stories, story => {
 
-      _stories.push({id: story.id, title: story.get("title"), summary: story.get("summary")})
+      _stories.push({id: story.id, title: story.get("title"), summary: story.get("summary"), type: story.get("storyType")})
 
   });
  }
