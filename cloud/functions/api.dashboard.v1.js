@@ -9,12 +9,45 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("addMember", function(req, res){
+  let memberId = req.params.memberId;
+  let memberArray = [];
+  let chatMembers = [];
+
+  memberArray.push(memberId);
+
+  return new Parse.Query(_class.Members).containedIn("objectId", memberArray).find({useMasterKey: true})
+  .then(function(members){
+
+    _.each(members, function (member) {
+
+        member.get("chatIds").push(storyId);
+        chatMembers.push(member);
+
+    });
+
+    return Parse.Object.saveAll(chatMembers);
+
+  }).then(function(saved){
+
+    res.success(util.setResponseOk(saved));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("getMembers", function(req, res){
   let ID = req.params.admin;
   let storyId = req.params.storyId;
   let memberDetails = {};
+  let storyArray = [];
+  storyArray.push(storyId);
 
-  return new Parse.Query(_class.Members).equalTo("chatIds", storyId).find({useMasterKey: true})
+  return  new Parse.Query(_class.Members).equalTo("userId", _user.id)
+  .notContainedIn("chatIds", storyArray).find({useMasterKey:true})
   .then(function(membersDetails){
 
     memberDetails.members = dashboardHelper.MemberDetails(membersDetails);
