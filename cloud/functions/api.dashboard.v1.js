@@ -16,7 +16,8 @@ Parse.Cloud.define("addMember", function(req, res){
 
   memberArray.push(memberId);
 
-  return new Parse.Query(_class.Members).containedIn("objectId", memberArray).find({useMasterKey: true})
+  return new Parse.Query(_class.Members).containedIn("objectId", memberArray)
+  .find({useMasterKey: true})
   .then(function(members){
 
     _.each(members, function (member) {
@@ -91,7 +92,8 @@ Parse.Cloud.define("addAuthor", function(req, res){
   let authorIds = req.params.itemIds;
   let storyId = req.params.storyId;
 
-  return new Parse.Query(_class.Stories).equalTo("userId", ID).equalTo("objectId", storyId).first({useMasterKey: true})
+  return new Parse.Query(_class.Stories).equalTo("userId", ID).equalTo("objectId", storyId)
+  .first({useMasterKey: true})
   .then(function(story){
 
     story.set("authorId", authorIds);
