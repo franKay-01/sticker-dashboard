@@ -2,7 +2,25 @@ const _ = require('underscore');
 const type = require('./type');
 const helper = require('./helpers');
 
-exports.AuthorDetails = authors =>{
+exports.MemberDetails = members => {
+  let _members = [];
+
+  if (members.length){
+    _.each(members, member => {
+      if (member.get("profileImage")){
+        _members.push({id: member.id, name: member.get("profile").content.name,
+        image:member.get("profileImage").url(), chatIds:member.get("chatIds")});
+      }else {
+        _members.push({id: member.id, name: member.get("profile").content.name,
+        image:"", chatIds:member.get("chatIds")});
+      }
+    })
+  }
+
+  return _members;
+};
+
+exports.AuthorDetails = authors => {
   let _authors = [];
 
   if (authors.length){

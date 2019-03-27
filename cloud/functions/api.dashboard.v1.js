@@ -9,6 +9,25 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("getMembers", function(req, res){
+  let ID = req.params.admin;
+  let storyId = req.params.storyId;
+  let memberDetails = {};
+
+  return new Parse.Query(_class.Members).equalTo("chatIds", storyId).find({useMasterKey: true})
+  .then(function(membersDetails){
+
+    memberDetails.members = dashboardHelper.MemberDetails(membersDetails);
+
+    res.success(util.setResponseOk(memberDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  });
+});
+
 Parse.Cloud.define("changeColorScheme", function(req, res){
   let ID = req.params.admin;
   let storyId = req.params.storyId;
