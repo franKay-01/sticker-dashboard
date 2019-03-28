@@ -199,8 +199,8 @@ Parse.Cloud.define("editStory", function(req, res){
       _keywords = keywords.split(",");
   }
 
-  return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey: true})
-  .then(function(story){
+return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey: true})
+.then(function(story){
     story.set("title", title);
     if (keywords.length > 0) {
         story.set("keywords", _keywords);
@@ -241,6 +241,8 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
       new Parse.Query(_class.Product).find({useMasterKey: true})
   ).then(function(story, artwork, feed, stories, authors, products){
 
+    console.log("FEED " + JSON.stringify(feed));
+
     _story = story;
     _authors = authors;
     _products = products;
@@ -264,7 +266,6 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
     storyDetails.previous = page.previous;
     storyDetails.colors = colors;
 
-    console.log("EXITING FIRST LAP");
     if (artwork) {
 
         return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("stickerId")).first({useMasterKey: true});
@@ -273,7 +274,6 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
         return "";
     }
   }).then(function(sticker){
-    console.log("ENTERED SECOND LAP #" + _story.get("authorId"));
     if (sticker !== ""){
 
       storyDetails.art = dashboardHelper.StickerItem(sticker);
@@ -290,13 +290,11 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
       return new Parse.Query(_class.Authors).equalTo("objectId", _story.get("authorId")).first({useMasterKey:true});
 
     } else {
-      console.log("RETURNING EMPTY LAP");
+
       return "empty";
 
     }
   }).then(function(author){
-    console.log("ENTERED THIRD LAP");
-    console.log("AUTHOR DETAILS " + JSON.stringify(author));
 
     if (author === "empty") {
         storyDetails.authorName = "";
@@ -310,7 +308,6 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
         // new Parse.Query(_class.Members).equalTo("chatIds", _story.id).find({useMasterKey:true})
 
   }).then(function(projects){
-    console.log("ENTERED LAST LAP " + JSON.stringify(projects));
 
     let _currentProjects = dashboardHelper.CommonItems(projects);
     storyDetails.projects = _currentProjects;
