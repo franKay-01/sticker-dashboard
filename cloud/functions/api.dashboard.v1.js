@@ -9,6 +9,37 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+
+Parse.Cloud.define("addSelectedMembers", function(req, res){
+  let ID = req.params.admin;
+  let incoming = req.params.incoming;
+  let outgoing = req.params.outgoing;
+  let selected = req.params.selected;
+  let storyId = req.params.storyId;
+
+  return new Parse.Query(_class.Stories).equalTo("objectId", storyId).equalTo("userId", ID)
+  .first({useMasterKey:true})
+  .then(function(story){
+    if (selected === incoming){
+      story.get("info").incoming = incoming;
+      story.get("info").outgoing = outgoing;
+    }else if (slected === outgoing){
+      story.get("info").incoming = outgoing;
+      story.get("info").outgoing = incoming;
+    }
+    return story.save();
+
+  }).then(function(saved){
+
+    res.success(util.setResponseOk(saved));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("getSelectedMembers", function(req, res){
   let ID = req.params.admin;
   let incoming = req.params.incoming;
