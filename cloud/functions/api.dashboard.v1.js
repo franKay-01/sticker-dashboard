@@ -16,14 +16,14 @@ Parse.Cloud.define("addSelectedMembers", function(req, res){
   let outgoing = req.params.outgoing;
   let selected = req.params.selected;
   let storyId = req.params.storyId;
-  console.log("SELECTED " + selected + " INCOMING " + incoming + " OUTGOING " + outgoing);
+
   return new Parse.Query(_class.Stories).equalTo("objectId", storyId).equalTo("userId", ID)
   .first({useMasterKey:true})
   .then(function(story){
     if (selected === incoming){
       story.get("info").incoming = incoming;
       story.get("info").outgoing = outgoing;
-    }else if (slected === outgoing){
+    }else if (selected === outgoing){
       story.get("info").incoming = outgoing;
       story.get("info").outgoing = incoming;
     }
