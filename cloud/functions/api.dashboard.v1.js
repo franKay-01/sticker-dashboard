@@ -1306,6 +1306,17 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
   const limit = 5;
   const otherLimit = 2;
   let stickerId = "";
+  let _collections = [];
+  let _stories = [];
+  let _allAdverts = [];
+  let _projects = [];
+  let _projectItem = [];
+  let _jokes = [];
+  let _quotes = [];
+  let _news = [];
+  let _history = [];
+  let _facts = [];
+  let _episodes = [];
   projectArray.push(projectId);
 
   Parse.Promise.when(
@@ -1337,18 +1348,39 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
           packLength,stickerLength,storyLength, allAdverts, projects, projectLength,
           projectItem,jokes, quotes, history, news, facts, episodes){
 
-
-            let _collections = dashboardHelper.CommonItems(collection);
-            let _stories = dashboardHelper.StoryTitles(story);
-            let _allAdverts = dashboardHelper.StoryTitles(allAdverts);
-            let _projects = dashboardHelper.CommonItems(projects);
-            let _projectItem = dashboardHelper.ProjectItem(projectItem);
-            let _jokes = dashboardHelper.StoryTitles(jokes);
-            let _quotes = dashboardHelper.StoryTitles(quotes);
-            let _news = dashboardHelper.StoryTitles(news);
-            let _history = dashboardHelper.StoryTitles(history);
-            let _facts = dashboardHelper.StoryTitles(facts);
-            let _episodes = dashboardHelper.StoryTitles(episodes);
+            if (collection){
+               _collections = dashboardHelper.CommonItems(collection);
+            }
+            if (story){
+              _stories = dashboardHelper.StoryTitles(story);
+            }
+            if (allAdverts){
+              _allAdverts = dashboardHelper.StoryTitles(allAdverts);
+            }
+            if (projects){
+              _projects = dashboardHelper.CommonItems(projects);
+            }
+            if (projectItem){
+              _projectItem = dashboardHelper.ProjectItem(projectItem);
+            }
+            if (jokes){
+               _jokes = dashboardHelper.StoryTitles(jokes);
+             }
+            if (quotes){
+              _quotes = dashboardHelper.StoryTitles(quotes);
+            }
+            if (news){
+              _news = dashboardHelper.StoryTitles(news);
+            }
+            if (history){
+              _history = dashboardHelper.StoryTitles(history);
+            }
+            if (facts){
+              _facts = dashboardHelper.StoryTitles(facts);
+            }
+            if (episodes){
+             _episodes = dashboardHelper.StoryTitles(episodes);
+            }
 
             homeFeed.packInfo = _collections;
             homeFeed.storiesInfo = _stories;
@@ -1395,7 +1427,6 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
                 );
             }
         }).then(function(latestSticker, storyImage, storyBody){
-          console.log("ENTERED SECOND LAP");
 
           if (latestSticker !== undefined) {
               homeFeed.latestSticker = latestSticker.get("uri").url();
@@ -1436,7 +1467,7 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
           }else {
             homeFeed.latestStorySticker = sticker;
           }
-           console.log("FINISHED LAST " + JSON.stringify(homeFeed));
+
            res.success(util.setResponseOk(homeFeed));
 
         }, function(error){
