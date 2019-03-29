@@ -1406,14 +1406,14 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
                     new Parse.Query(_class.ArtWork).equalTo("itemId", latestStory.get("feedId")).first({useMasterKey: true}),
                     new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first({useMasterKey: true})
                 );
-            } else if (sticker === undefined) {
+            } else if (sticker === undefined && latestStory !== undefined) {
               console.log("ENTERED FIRST LAP");
                 return Parse.Promise.when(
                     undefined,
                     new Parse.Query(_class.ArtWork).equalTo("itemId", latestStory.get("feedId")).first({useMasterKey: true}),
                     new Parse.Query(_class.Stories).equalTo("objectId", latestStory.get("feedId")).first({useMasterKey: true})
                 );
-            } else if (latestStory === undefined) {
+            } else if (latestStory === undefined && sticker !== undefined) {
                 return Parse.Promise.when(
                     new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("feedId")).first({useMasterKey: true}),
                     undefined,
