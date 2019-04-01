@@ -25,7 +25,7 @@ Parse.Cloud.define("getStoryEpisodes", function(req, res){
 
     console.log("EPISODES ##### " + JSON.stringify(episodes) + " PRODUCTS "+ JSON.stringify(products) + JSON.stringify(story));
 
-    episodeDetails.epiosdes = dashboardHelper.EpisodeDetails(episodes);
+    episodeDetails.episodes = dashboardHelper.EpisodeDetails(episodes);
     episodeDetails.story = dashboardHelper.StoryDetails(story);
     episodeDetails.products = dashboardHelper.CommonItems(products);
 
