@@ -9,6 +9,45 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("createNewEpisode", function(req, res){
+  let ID = req.params.admin;
+  let projectId = req.params.projectId;
+  let storyId = req.params.storyId;
+  let title = req.params.title,
+  let order = req.params.order,
+  let status = req.param.type;
+  let productId = req.params.productId;
+
+  let Episodes = new Parse.Object.extend(_class.Episodes);
+  let episode = new Episodes();
+
+  episode.set("title", title);
+  if (status === "free") {
+      episode.set("sold", false);
+  } else if (status === "sold") {
+      episode.set("sold", true);
+  }
+  episode.set("storyId", storyId);
+  episode.set("order", order);
+  episode.set("projectId", projectId);
+  if (status === "free") {
+      episode.set("productId", "free")
+  } else if (status === "sold") {
+      episode.set("productId", productId)
+  }
+
+  episode.save().then(function(saved){
+
+    res.success(util.setResponseOk(saved));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+
+});
+
 Parse.Cloud.define("getStoryEpisodes", function(req, res){
   let ID = req.params.admin;
   let projectId = req.params.projectId;
