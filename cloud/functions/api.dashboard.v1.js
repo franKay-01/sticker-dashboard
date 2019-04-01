@@ -23,6 +23,8 @@ Parse.Cloud.define("getStoryEpisodes", function(req, res){
       new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey: true})
   ).then(function(episodes,products,story){
 
+    console.log("EPISODES ##### "JSON.stringify(episodes) + " PRODUCTS "+ JSON.stringify(products) + JSON.stringify(story));
+
     episodeDetails.epiosdes = dashboardHelper.EpisodeDetails(episodes);
     episodeDetails.story = dashboardHelper.StoryDetails(story);
     epiosdeDetails.products = dashboardHelper.CommonItems(products);
