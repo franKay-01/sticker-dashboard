@@ -61,7 +61,6 @@ exports.StoryDetails = story => {
     _story.info = story.get("info");
     _story.projects = story.get("projectIds");
   }
-  console.log("STORY DETAILS ###" + JSON.stringify(_story));
   return _story;
 
 };

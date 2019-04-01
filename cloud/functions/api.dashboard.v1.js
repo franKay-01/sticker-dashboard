@@ -27,9 +27,9 @@ Parse.Cloud.define("getStoryEpisodes", function(req, res){
 
     episodeDetails.epiosdes = dashboardHelper.EpisodeDetails(episodes);
     episodeDetails.story = dashboardHelper.StoryDetails(story);
-    epiosdeDetails.products = dashboardHelper.CommonItems(products);
+    episodeDetails.products = dashboardHelper.CommonItems(products);
 
-    res.success(util.setResponseOk(epiosdeDetails));
+    res.success(util.setResponseOk(episodeDetails));
 
   }, function(error){
 
