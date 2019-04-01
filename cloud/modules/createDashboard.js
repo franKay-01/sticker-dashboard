@@ -2,6 +2,22 @@ const _ = require('underscore');
 const type = require('./type');
 const helper = require('./helpers');
 
+exports.EpisodeDetails = episodes =>{
+  let _episodes = [];
+
+  if (episodes.length){
+    _.each(episodes, episode => {
+
+        _episodes.push({id: episode.id, name: episode.get("title"),
+        sold: episode.get("sold"), order: episode.get("order"), storyId: episode.get("storyId")});
+
+      })
+    }
+
+
+  return _episodes;
+};
+
 exports.MemberDetails = members => {
   let _members = [];
 
@@ -193,16 +209,16 @@ exports.Projects = (projects) => {
 };
 
 exports.CommonItems = (commonItems) => {
-  let _products = [];
+  let _common = [];
 
   if (commonItems.length) {
       _.each(commonItems, commonItem => {
 
-        _products.push({id: commonItem.id, name: commonItem.get("name")});
+        _common.push({id: commonItem.id, name: commonItem.get("name")});
 
       });
   }
-  return _products;
+  return _common;
 };
 
 exports.Sticker = sticker => {
