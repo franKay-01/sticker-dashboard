@@ -15,6 +15,7 @@ Parse.Cloud.define("getStoryEpisodes", function(req, res){
   let storyId = req.params.storyId;
   let episodeDetails = {};
 
+  console.log("PROJECT ID ###### "+projectId+" STORY ID " + storyId);
   return Parse.Promise.when(
       new Parse.Query(_class.Episodes).equalTo("projectId", projectId).equalTo("storyId", storyId).ascending("order").find({useMasterKey: true}),
       // new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey: true}),
