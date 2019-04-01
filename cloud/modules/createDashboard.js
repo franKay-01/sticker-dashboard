@@ -52,6 +52,7 @@ exports.StoryDetails = story => {
   let _story = {};
 
   if (story) {
+    _story.id = story.id;
     _story.title = story.get("title");
     _story.keywords = story.get("keywords");
     _story.summary = story.get("summary");
