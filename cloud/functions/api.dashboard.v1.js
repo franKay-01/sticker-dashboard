@@ -17,19 +17,19 @@ Parse.Cloud.define("getStoryItem", function(req, res){
   let episode = "episode";
   let Query;
   if (source === story) {
-       Query = return Parse.Promise.when(
+       Query = Parse.Promise.when(
           new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey:true}),
           new Parse.Query(_class.Members).equalTo("chatIds", storyId).find({useMasterKey:true})
       );
 
   } else if (source === episode) {
-       Query = return Parse.Promise.when(
+       Query = Parse.Promise.when(
           new Parse.Query(_class.Episodes).equalTo("objectId", storyId).first({useMasterKey:true}),
           undefined
       );
   }
 
-   Query.then(function(story,member){
+   return Query.then(function(story,member){
     console.log("STORIES " + JSON.stringify(story));
   })
 });
