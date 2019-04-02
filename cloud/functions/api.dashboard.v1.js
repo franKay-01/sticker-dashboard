@@ -9,6 +9,29 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("getStoryItem", function(req, res){
+
+  let source = req.params.source;
+  let storyId = req.params.storyId;
+  let story = "story";
+  let episode = "episode";
+
+  if (source === story) {
+      return Parse.Promise.when(
+          new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey:true}),
+          new Parse.Query(_class.Members).equalTo("chatIds", storyId).find({useMasterKey:true})
+      )
+
+  } else if (source === episode) {
+      return Parse.Promise.when(
+          new Parse.Query(_class.Episodes).equalTo("objectId", storyId).first({useMasterKey:true}),
+          undefined
+      )
+  }.then(function(story,member){
+    console.log("STORIES " + JSON.stringify(story));
+  })
+});
+
 Parse.Cloud.define("createNewEpisode", function(req, res){
   let ID = req.params.admin;
   let projectId = req.params.projectId;
