@@ -16,6 +16,7 @@ Parse.Cloud.define("getStoryItem", function(req, res){
   let story = "story";
   let episode = "episode";
   let Query;
+  console.log("SOURCE " + source + " " + storyId);
   if (source === story) {
        Query = new Parse.Query(_class.Stories);
           // new Parse.Query(_class.Members).equalTo("chatIds", storyId).find({useMasterKey:true})
@@ -25,8 +26,8 @@ Parse.Cloud.define("getStoryItem", function(req, res){
        Query = new Parse.Query(_class.Episodes);
 
   }
-
-   return Query.equalTo("objectId", storyId).first({useMasterKey:true}).then(function(story,member){
+console.log("QUERY " + Query);
+   return Query.equalTo("objectId", storyId).first({useMasterKey:true}).then(function(story){
     console.log("STORIES " + JSON.stringify(story));
   })
 });
