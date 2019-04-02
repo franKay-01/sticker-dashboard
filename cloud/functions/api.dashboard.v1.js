@@ -17,16 +17,16 @@ Parse.Cloud.define("getStoryItem", function(req, res){
   let episode = "episode";
   let Query;
   if (source === story) {
-       Query = new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey:true});
+       Query = new Parse.Query(_class.Stories);
           // new Parse.Query(_class.Members).equalTo("chatIds", storyId).find({useMasterKey:true})
 
 
   } else if (source === episode) {
-       Query = new Parse.Query(_class.Episodes).equalTo("objectId", storyId).first({useMasterKey:true});
+       Query = new Parse.Query(_class.Episodes);
 
   }
 
-   return Query.then(function(story,member){
+   return Query.equalTo("objectId", storyId).first({useMasterKey:true}).then(function(story,member){
     console.log("STORIES " + JSON.stringify(story));
   })
 });
