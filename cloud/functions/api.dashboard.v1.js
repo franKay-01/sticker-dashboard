@@ -41,13 +41,13 @@ Parse.Cloud.define("getStoryItem", function(req, res){
    }
  }).then(function(members,story){
    memberDetails.members = dashboardHelper.MemberDetails(membersDetails);
-   if (story){
+   if (story !== undefined){
      storyDetails.episode = dashboardHelper.StoryDetails(story);
    }else {
      storyDetails.episode = "";
    }
 
-   res.success(util.setResponseOk(saved));
+   res.success(util.setResponseOk(storyDetails));
 
  }, function(error){
 
