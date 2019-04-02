@@ -14,7 +14,7 @@ Parse.Cloud.define("createNewEpisode", function(req, res){
   let projectId = req.params.projectId;
   let storyId = req.params.storyId;
   let title = req.params.title;
-  let order = req.params.order;
+  let order = parseInt(req.params.order);
   let status = req.params.type;
   let productId = req.params.productId;
 
