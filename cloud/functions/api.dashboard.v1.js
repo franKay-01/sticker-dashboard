@@ -15,7 +15,7 @@ Parse.Cloud.define("createNewEpisode", function(req, res){
   let storyId = req.params.storyId;
   let title = req.params.title;
   let order = req.params.order;
-  let status = req.param.type;
+  let status = req.params.type;
   let productId = req.params.productId;
 
   let Episodes = new Parse.Object.extend(_class.Episodes);
