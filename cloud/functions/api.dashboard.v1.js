@@ -15,19 +15,21 @@ Parse.Cloud.define("getStoryItem", function(req, res){
   let storyId = req.params.storyId;
   let story = "story";
   let episode = "episode";
-
+  let Query;
   if (source === story) {
-      return Parse.Promise.when(
+       Query = return Parse.Promise.when(
           new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey:true}),
           new Parse.Query(_class.Members).equalTo("chatIds", storyId).find({useMasterKey:true})
-      )
+      );
 
   } else if (source === episode) {
-      return Parse.Promise.when(
+       Query = return Parse.Promise.when(
           new Parse.Query(_class.Episodes).equalTo("objectId", storyId).first({useMasterKey:true}),
           undefined
-      )
-  }.then(function(story,member){
+      );
+  }
+
+   Query.then(function(story,member){
     console.log("STORIES " + JSON.stringify(story));
   })
 });
@@ -77,15 +79,12 @@ Parse.Cloud.define("getStoryEpisodes", function(req, res){
   let storyId = req.params.storyId;
   let episodeDetails = {};
 
-  console.log("PROJECT ID ###### "+projectId+" STORY ID " + storyId);
   return Parse.Promise.when(
       new Parse.Query(_class.Episodes).equalTo("projectId", projectId).equalTo("storyId", storyId).ascending("order").find({useMasterKey: true}),
       // new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey: true}),
       new Parse.Query(_class.Product).equalTo("userId", ID).find({useMasterKey: true}),
       new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey: true})
   ).then(function(episodes,products,story){
-
-    console.log("EPISODES ##### " + JSON.stringify(episodes) + " PRODUCTS "+ JSON.stringify(products) + JSON.stringify(story));
 
     episodeDetails.episodes = dashboardHelper.EpisodeDetails(episodes);
     episodeDetails.story = dashboardHelper.StoryDetails(story);
