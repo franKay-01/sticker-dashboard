@@ -43,7 +43,7 @@ Parse.Cloud.define("getStoryItem", function(req, res){
  }).then(function(members,story){
    console.log("INSIDE SECOND " + JSON.stringify(members));
 
-   memberDetails.members = dashboardHelper.MemberDetails(members);
+   storyDetails.members = dashboardHelper.MemberDetails(members);
    if (story !== undefined){
      console.log("INSIDE SECOND #### " + JSON.stringify(story));
 
