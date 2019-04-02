@@ -12,7 +12,7 @@ const PARSE_LIMIT = 1000;
 Parse.Cloud.define("addStoryItem", function(req, res){
    let ID = req.params.admin;
    let elementType = parseInt(req.params.elementType);
-   let text = req.params.text;
+   let content = req.params.text;
    let character = parseInt(req.params.selectedMember);
    let storyId = req.params.storyId;
 
