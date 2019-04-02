@@ -26,6 +26,7 @@ Parse.Cloud.define("getStoryItem", function(req, res){
 
    return Query.equalTo("objectId", storyId).first({useMasterKey:true})
    .then(function(story){
+     console.log("INSIDE FIRST " + JSON.stringify(story));
    if (source === _story){
        storyDetails.story = dashboardHelper.StoryDetails(story);
 
@@ -40,8 +41,12 @@ Parse.Cloud.define("getStoryItem", function(req, res){
      )
    }
  }).then(function(members,story){
+   console.log("INSIDE SECOND " + JSON.stringify(members));
+
    memberDetails.members = dashboardHelper.MemberDetails(membersDetails);
    if (story !== undefined){
+     console.log("INSIDE SECOND #### " + JSON.stringify(story));
+
      storyDetails.episode = dashboardHelper.StoryDetails(story);
    }else {
      storyDetails.episode = "";
