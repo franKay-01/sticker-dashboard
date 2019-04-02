@@ -9,6 +9,45 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("addStoryItem", function(req, res){
+   let ID = req.params.admin;
+   let elementType = parseInt(req.params.elementType);
+   let text = req.params.text;
+   let character = parseInt(req.params.selectedMember);
+   let storyId = req.params.storyId;
+
+   let Story = new Parse.Object.extend(_class.StoryItems);
+   let story = new Story();
+
+   switch (elementType) {
+       case type.STORY_ITEM.text:
+           story.set("type", type.STORY_ITEM.text);
+           if (character !== "" || character === undefined) {
+               story.set("contents", {
+                   "text": content,
+                   "character": character
+               });
+
+           } else {
+               story.set("contents", {"text": content});
+           }
+           break;
+  }
+
+  story.set("storyId", storyId);
+
+  return story.save().then(function(saved){
+
+    res.success(util.setResponseOk(saved));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+
+});
+
 Parse.Cloud.define("getStoryItem", function(req, res){
 
   let source = req.params.source;
@@ -26,7 +65,6 @@ Parse.Cloud.define("getStoryItem", function(req, res){
 
    return Query.equalTo("objectId", storyId).first({useMasterKey:true})
    .then(function(story){
-     console.log("INSIDE FIRST " + JSON.stringify(story));
    if (source === _story){
        storyDetails.story = dashboardHelper.StoryDetails(story);
 
@@ -41,12 +79,9 @@ Parse.Cloud.define("getStoryItem", function(req, res){
      )
    }
  }).then(function(members,story){
-   console.log("INSIDE SECOND " + JSON.stringify(members));
 
    storyDetails.members = dashboardHelper.MemberDetails(members);
    if (story !== undefined){
-     console.log("INSIDE SECOND #### " + JSON.stringify(story));
-
      storyDetails.episode = dashboardHelper.StoryDetails(story);
    }else {
      storyDetails.episode = "";
