@@ -191,9 +191,9 @@ Parse.Cloud.define("getStoryItem", function(req, res){
 
    storyDetails.members = dashboardHelper.MemberDetails(members);
    if (story !== undefined){
-     storyDetails.episode = dashboardHelper.StoryDetails(story);
+     storyDetails.story = dashboardHelper.StoryDetails(story);
    }else {
-     storyDetails.episode = "";
+     storyDetails.story = "";
    }
 
    res.success(util.setResponseOk(storyDetails));
