@@ -12,7 +12,7 @@ const PARSE_LIMIT = 1000;
 Parse.Cloud.define("addStoryItem", function(req, res){
    let ID = req.params.admin;
    let elementType = parseInt(req.params.elementType);
-   let content = req.params.text;
+   let content = req.params.content;
    let character = req.params.selectedMember;
    let storyId = req.params.storyId;
 
@@ -177,7 +177,7 @@ Parse.Cloud.define("getStoryItem", function(req, res){
    if (source === _story){
        storyDetails.story = dashboardHelper.StoryDetails(story);
 
-       return new Parse.Query(_class.Members).equalTo("chatIds", storyId).find({useMasterKey:true});   
+       return new Parse.Query(_class.Members).equalTo("chatIds", storyId).find({useMasterKey:true});
 
    }else if (source === _episode){
      return Parse.Promise.when(
