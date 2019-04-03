@@ -32,6 +32,115 @@ Parse.Cloud.define("addStoryItem", function(req, res){
                story.set("contents", {"text": content});
            }
            break;
+           case type.STORY_ITEM.quote:
+               story.set("type", type.STORY_ITEM.quote);
+               if (character !== "" || character === undefined) {
+                   story.set("contents", {
+                       "text": content,
+                       "character": character
+                   });
+
+               } else {
+                   story.set("contents", {"text": content});
+               }
+               break;
+
+           case type.STORY_ITEM.divider:
+               story.set("type", type.STORY_ITEM.divider);
+               story.set("contents", {"": ""});
+               break;
+
+           case type.STORY_ITEM.italic:
+               story.set("type", type.STORY_ITEM.italic);
+               if (character !== "" || character === undefined) {
+                   story.set("contents", {
+                       "text": content,
+                       "character": character
+                   });
+
+               } else {
+                   story.set("contents", {"text": content});
+               }
+               break;
+
+           case type.STORY_ITEM.bold:
+               story.set("type", type.STORY_ITEM.bold);
+               if (character !== "" || character === undefined) {
+                   story.set("contents", {
+                       "text": content,
+                       "character": character
+                   });
+
+               } else {
+                   story.set("contents", {"text": content});
+               }
+               break;
+
+           case type.STORY_ITEM.italicBold:
+               story.set("type", type.STORY_ITEM.italicBold);
+               if (character !== "" || character === undefined) {
+                   story.set("contents", {
+                       "text": content,
+                       "character": character
+                   });
+
+               } else {
+                   story.set("contents", {"text": content});
+               }
+               break;
+
+           case type.STORY_ITEM.list:
+               story.set("type", type.STORY_ITEM.list);
+               if (character !== "" || character === undefined) {
+                   story.set("contents", {
+                       "text": content,
+                       "character": character
+                   });
+
+               } else {
+                   story.set("contents", {"text": content});
+               }
+               break;
+
+           case type.STORY_ITEM.sideNote:
+               story.set("type", type.STORY_ITEM.sideNote);
+               story.set("contents", {"text": content});
+               break;
+
+           case type.STORY_ITEM.greyArea:
+               story.set("type", type.STORY_ITEM.greyArea);
+               story.set("contents", {"text": content});
+               break;
+
+           case type.STORY_ITEM.heading:
+               story.set("type", type.STORY_ITEM.heading);
+               story.set("contents", {"heading": heading, "text": content});
+               break;
+
+           case type.STORY_ITEM.source:
+               story.set("type", type.STORY_ITEM.source);
+               story.set("contents", {"name": author, "description": description, "link": link});
+               break;
+
+           case type.STORY_ITEM.link:
+               story.set("type", type.STORY_ITEM.link);
+               story.set("contents", {"name": author, "url": url});
+               break;
+
+           case type.STORY_ITEM.backgroundColor:
+               if (colorFormat === type.FORMAT_TYPE.regular) {
+                   story.set("type", type.STORY_ITEM.backgroundColor);
+                   story.set("contents", {"type": colorFormat.toString(), "color": topColor});
+                   break;
+               } else if (colorFormat === type.FORMAT_TYPE.gradient) {
+                   story.set("type", type.STORY_ITEM.backgroundColor);
+                   story.set("contents", {
+                       "type": colorFormat.toString(),
+                       "topColor": topColor,
+                       "bottomColor": bottomColor
+                   });
+                   break;
+               }
   }
 
   story.set("storyId", storyId);
