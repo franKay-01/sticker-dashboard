@@ -177,9 +177,7 @@ Parse.Cloud.define("getStoryItem", function(req, res){
    if (source === _story){
        storyDetails.story = dashboardHelper.StoryDetails(story);
 
-       return Parse.Promise.when(
-         new Parse.Query(_class.Members).equalTo("chatIds", storyId).find({useMasterKey:true})
-       )
+       return new Parse.Query(_class.Members).equalTo("chatIds", storyId).find({useMasterKey:true});   
 
    }else if (source === _episode){
      return Parse.Promise.when(
@@ -190,10 +188,9 @@ Parse.Cloud.define("getStoryItem", function(req, res){
  }).then(function(members,story){
 
    storyDetails.members = dashboardHelper.MemberDetails(members);
+
    if (story !== undefined){
      storyDetails.story = dashboardHelper.StoryDetails(story);
-   }else {
-     storyDetails.story = "";
    }
 
    res.success(util.setResponseOk(storyDetails));
