@@ -9,6 +9,92 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("storyItemView", function(req, res){
+  let ID = req.params.admin;
+  let storyId = req.params.storyId;
+  let projectId = req.params.projectId;
+  let source = "";
+  let storyType = "";
+  let storyItemDetails = {};
+
+  return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey: true})
+  .then(function(story){
+
+    if (story) {
+        source = "story";
+        if (story.get("storyType") === type.STORY_TYPE.story) {
+
+            storyType = "Story";
+
+        } else if (story.get("storyType") === type.STORY_TYPE.episodes) {
+
+            storyType = "Episode";
+
+        } else if (story.get("storyType") === type.STORY_TYPE.chat_single) {
+
+            storyType = "Chats";
+
+        } else if (story.get("storyType") === type.STORY_TYPE.chat_group_episode) {
+
+          storyType = "Chats";
+
+        }else if (story.get("storyType") === type.STORY_TYPE.chat_single_episode) {
+
+          storyType = "Chats";
+
+        }else if (story.get("storyType") === type.STORY_TYPE.chat_group) {
+
+          storyType = "Chats";
+
+        } else if (story.get("storyType") === type.STORY_TYPE.facts) {
+
+            storyType = "Facts";
+
+        } else if (story.get("storyType") === type.STORY_TYPE.history) {
+
+            storyType = "History";
+
+        } else if (story.get("storyType") === type.STORY_TYPE.jokes) {
+
+            storyType = "Jokes";
+
+        } else if (story.get("storyType") === type.STORY_TYPE.news) {
+
+            storyType = "News";
+
+        } else if (story.get("storyType") === type.STORY_TYPE.quotes) {
+
+            storyType = "Quotes";
+
+        } else if (story.get("storyType") === type.STORY_TYPE.short_stories) {
+
+            storyType = "Short Stories";
+
+        }
+    } else {
+        source = "episode";
+        storyType = "Episodes";
+
+    }
+    storyItemDetails.source = source;
+    storyItemDetails.storyType = storyType;
+
+    return Parse.Promise.when(
+        new Parse.Query(_class.StoryItems).equalTo("storyId", id).find({useMasterKey: true}),
+        new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey: true})
+    )
+  }).then(function(storyItem, project){
+    console.log("STORY ITEMS ###### " + JSON.stringify(storyItem));
+
+    res.success(util.setResponseOk(storyItemDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("addStoryItem", function(req, res){
    let ID = req.params.admin;
    let elementType = parseInt(req.params.elementType);
