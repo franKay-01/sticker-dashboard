@@ -15,6 +15,7 @@ Parse.Cloud.define("storyItemView", function(req, res){
   let projectId = req.params.projectId;
   let source = "";
   let storyType = "";
+  let sticker_array = [];
   let storyItemDetails = {};
 
   return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey: true})
@@ -84,10 +85,11 @@ Parse.Cloud.define("storyItemView", function(req, res){
         new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey: true})
     )
   }).then(function(storyItem, project){
-    console.log("STORY ITEMS ###### " + JSON.stringify(storyItem));
+    storyItemDetails.storyItems = storyItem;
+    storyItemDetails.project = project;
 
     res.success(util.setResponseOk(storyItemDetails));
-
+    
   }, function(error){
 
     util.handleError(res, error);
