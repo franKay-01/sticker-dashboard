@@ -102,6 +102,7 @@ Parse.Cloud.define("addStoryItem", function(req, res){
    let ID = req.params.admin;
    let elementType = parseInt(req.params.elementType);
    let content = req.params.content;
+   let heading = req.params.heading;
    let character = req.params.selectedMember;
    let storyId = req.params.storyId;
 
