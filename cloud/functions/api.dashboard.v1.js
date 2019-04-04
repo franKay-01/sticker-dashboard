@@ -106,6 +106,7 @@ Parse.Cloud.define("addStoryItem", function(req, res){
    let author = req.params.author;
    let description = req.params.description;
    let link = req.params.link;
+   let url = req.params.url;
    let character = req.params.selectedMember;
    let storyId = req.params.storyId;
 
