@@ -109,7 +109,7 @@ Parse.Cloud.define("addStoryItem", function(req, res){
    let url = req.params.url;
    let character = req.params.selectedMember;
    let storyId = req.params.storyId;
-   let colorFormat = parseInt(req.params.colorFormat);
+   let colorFormat = req.params.colorFormat;
    let topColor = req.params.topColor;
    let bottomColor = req.params.bottomColor;
 
