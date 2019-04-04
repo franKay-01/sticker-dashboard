@@ -113,6 +113,8 @@ Parse.Cloud.define("addStoryItem", function(req, res){
    let topColor = req.params.topColor;
    let bottomColor = req.params.bottomColor;
 
+   console.log("ELEMENT TYPE ##### " + elementType +" COLOR FORMAT "+colorFormat+" TOPCOLOR "+topColor+"BOTTOM "+bottomColor);
+
    let Story = new Parse.Object.extend(_class.StoryItems);
    let story = new Story();
 
