@@ -85,11 +85,12 @@ Parse.Cloud.define("storyItemView", function(req, res){
         new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey: true})
     )
   }).then(function(storyItem, project){
-    storyItemDetails.storyItems = storyItem;
+
+    storyItemDetails.storyItems = dashboardHelper.StoryItems(storyItem);
     storyItemDetails.project = project;
 
     res.success(util.setResponseOk(storyItemDetails));
-    
+
   }, function(error){
 
     util.handleError(res, error);
