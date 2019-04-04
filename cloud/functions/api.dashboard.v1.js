@@ -80,7 +80,7 @@ Parse.Cloud.define("storyItemView", function(req, res){
     storyItemDetails.storyType = storyType;
 
     return Parse.Promise.when(
-        new Parse.Query(_class.StoryItems).equalTo("storyId", id).find({useMasterKey: true}),
+        new Parse.Query(_class.StoryItems).equalTo("storyId", storyId).find({useMasterKey: true}),
         new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey: true})
     )
   }).then(function(storyItem, project){
