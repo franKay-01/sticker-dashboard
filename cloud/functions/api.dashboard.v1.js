@@ -10,7 +10,7 @@ let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
 Parse.Cloud.define("createHtml", function(req, res){
-  let storyId = req.params.admin;
+  let storyId = req.params.storyId;
   let storyItemDetails = {};
 
   let Story = new Parse.Object.extend(_class.StoryItems);
