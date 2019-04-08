@@ -11,7 +11,7 @@ const PARSE_LIMIT = 1000;
 
 Parse.Cloud.define("addHtmlItem", function(req, res){
   let storyId = req.params.storyId;
-  let storyType = req.params.elementType;
+  let storyType = parseInt(req.params.elementType);
   let content = req.params.content;
   let color = req.params.color;
   let object = {};
@@ -50,7 +50,7 @@ Parse.Cloud.define("addHtmlItem", function(req, res){
     res.success(util.setResponseOk(saved));
 
   }, function(error){
-    
+
     util.handleError(res, error);
 
   })
