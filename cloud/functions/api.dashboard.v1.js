@@ -9,6 +9,53 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("addHtmlItem", function(req, res){
+  let storyId = req.params.storyId;
+  let storyType = req.params.elementType;
+  let content = req.params.content;
+  let color = req.params.color;
+  let object = {};
+
+  if (storyType === type.STORY_ITEM.text) {
+
+      object = {"0": {"text": content}};
+
+  } else if (storyType === type.STORY_ITEM.bold) {
+
+      object = {"6": {"text": content}};
+
+  } else if (storyType === type.STORY_ITEM.italic) {
+
+      object = {"5": {"text": content}};
+
+  } else if (storyType === type.STORY_ITEM.italicBold) {
+
+      object = {"8": {"text": content}};
+
+  } else if (storyType === type.STORY_ITEM.color) {
+
+      //TODO String(type.)
+      object = {"14": {"text": content, "color": color}};
+
+  }
+
+  return new Parse.Query(_class.StoryItems).equalTo("objectId", storyId).first({useMasterKey: true})
+  .then(function(storyItem){
+
+    storyItem.get("contents").html.push(object);
+    return storyItem.save();
+
+  }).then(function(saved){
+
+    res.success(util.setResponseOk(saved));
+
+  }, function(error){
+    
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("createHtml", function(req, res){
   let storyId = req.params.storyId;
   let storyItemDetails = {};
@@ -278,6 +325,25 @@ Parse.Cloud.define("addStoryItem", function(req, res){
   })
 
 });
+
+
+// Parse.Cloud.define("getHtmlItem", function(req, res){
+//   let status = req.params.status;
+//   let source = req.params.source;
+//   let storyId = req.params.storyId;
+//   let Query;
+//
+//   if (status === "old") {
+//
+//       Query = new Parse.Query(_class.StoryItems);
+//
+//   }
+//
+//   return Query.equalTo("objectId", id).first({useMasterKey: true})
+//   .then(function(storyItem){
+//
+//   })
+// });
 
 Parse.Cloud.define("getStoryItem", function(req, res){
 
