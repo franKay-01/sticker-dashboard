@@ -9,6 +9,29 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("createHtml", function(req, res){
+  let storyId = req.params.admin;
+  let storyItemDetails = {};
+
+  let Story = new Parse.Object.extend(_class.StoryItems);
+  let storyItem = new Story();
+
+  storyItem.set("type", type.STORY_ITEM.html);
+  storyItem.set("contents", {"html": []});
+  storyItem.set("storyId", storyId);
+
+  storyItem.save().then(function(saved) {
+    storyItemDetails.storyId = saved.id;
+
+    res.success(util.setResponseOk(storyItemDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  });
+});
+
 Parse.Cloud.define("storyItemView", function(req, res){
   let ID = req.params.admin;
   let storyId = req.params.storyId;
