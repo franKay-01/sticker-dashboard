@@ -10,7 +10,7 @@ let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
 Parse.Cloud.define("addHtmlItem", function(req, res){
-  let storyId = req.params.storyId;
+  let storyId = req.params.storyItemId;
   let storyType = parseInt(req.params.elementType);
   let content = req.params.content;
   let color = req.params.color;
