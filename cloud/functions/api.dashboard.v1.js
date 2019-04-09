@@ -9,6 +9,69 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Query("editStoryItem", function(req, res){
+  let storyId = req.params.itemId;
+  let storyItemType = req.params.storyItemType;
+  let content = req.params.content;
+
+  return new Parse.Query(_class.StoryItems).equalTo("objectId", storyId).first({useMasterKey: true})
+  .then(function(storyItem){
+
+    if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
+        storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
+        storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sideNote ||
+        storyItemType === type.STORY_ITEM.greyArea || type.STORY_ITEM.list) {
+
+        object = {"text": content};
+
+    } else if (storyItemType === type.STORY_ITEM.heading) {
+
+        object = {"heading": heading, "text": content};
+
+    }
+    if (story_item.get("type") === type.STORY_ITEM.backgroundColor){
+
+        if (formatCategory === type.FORMAT_TYPE.regular){
+
+          object = {"type": formatCategory, "color": backgroundColor};
+
+      }else if (formatCategory === type.FORMAT_TYPE.gradient) {
+          if (backgroundColorTwo === undefined || backgroundColorTwo === "undefined" ){
+
+            object = {"type": formatCategory.toString(), "topColor": backgroundColor, "bottomColor" : backgroundColor};
+
+          }else {
+
+            object = {"type": formatCategory.toString(), "topColor": backgroundColor, "bottomColor" : backgroundColorTwo};
+
+          }
+        }
+
+      }
+
+     if (story_item.get("type") === type.STORY_ITEM.source) {
+
+          object = {"name": title, "description" : description, "link": link};
+
+      } else if (story_item.get("type") === type.STORY_ITEM.link) {
+
+        object = {"name": title, "url" : link};
+
+      }
+      storyItem.set("contents", object);
+      return storyItem.save();
+
+  }).then(function(saved){
+
+    res.success(util.setResponseOk(saved));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("addHtmlItem", function(req, res){
   let storyId = req.params.storyItemId;
   let storyType = parseInt(req.params.elementType);
