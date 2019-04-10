@@ -15,6 +15,7 @@ Parse.Cloud.define("editStoryItem", function(req, res){
   let content = req.params.content;
   let title = req.params.title;
   let link = req.params.link;
+  let heading = req.params.heading;
 
   console.log(storyId + storyItemType + content + title + link);
 
