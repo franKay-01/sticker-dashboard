@@ -57,7 +57,9 @@ Parse.Cloud.define("editStoryItem", function(req, res){
 
           object = {"name": title, "description" : description, "link": link};
 
-      } else if (storyItemType === type.STORY_ITEM.link) {
+      }
+
+     if (storyItemType === type.STORY_ITEM.link) {
 
         object = {"name": title, "url" : link};
 
