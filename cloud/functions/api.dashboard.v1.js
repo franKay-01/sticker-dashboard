@@ -22,7 +22,7 @@ Parse.Cloud.define("editStoryItem", function(req, res){
     if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
         storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
         storyItemType === type.STORY_ITEM.italicBold || storyItemType === type.STORY_ITEM.sideNote ||
-        storyItemType === type.STORY_ITEM.greyArea || type.STORY_ITEM.list) {
+        storyItemType === type.STORY_ITEM.greyArea || storyItemType === type.STORY_ITEM.list) {
 
         object = {"text": content};
 
