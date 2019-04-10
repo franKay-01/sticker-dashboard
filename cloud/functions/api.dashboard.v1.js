@@ -31,31 +31,31 @@ Parse.Cloud.define("editStoryItem", function(req, res){
         object = {"heading": heading, "text": content};
 
     }
-    if (story_item.get("type") === type.STORY_ITEM.backgroundColor){
+    // if (storyItemType === type.STORY_ITEM.backgroundColor){
+    //
+    //     if (formatCategory === type.FORMAT_TYPE.regular){
+    //
+    //       object = {"type": formatCategory, "color": backgroundColor};
+    //
+    //   }else if (formatCategory === type.FORMAT_TYPE.gradient) {
+    //       if (backgroundColorTwo === undefined || backgroundColorTwo === "undefined" ){
+    //
+    //         object = {"type": formatCategory.toString(), "topColor": backgroundColor, "bottomColor" : backgroundColor};
+    //
+    //       }else {
+    //
+    //         object = {"type": formatCategory.toString(), "topColor": backgroundColor, "bottomColor" : backgroundColorTwo};
+    //
+    //       }
+    //     }
+    //
+    //   }
 
-        if (formatCategory === type.FORMAT_TYPE.regular){
-
-          object = {"type": formatCategory, "color": backgroundColor};
-
-      }else if (formatCategory === type.FORMAT_TYPE.gradient) {
-          if (backgroundColorTwo === undefined || backgroundColorTwo === "undefined" ){
-
-            object = {"type": formatCategory.toString(), "topColor": backgroundColor, "bottomColor" : backgroundColor};
-
-          }else {
-
-            object = {"type": formatCategory.toString(), "topColor": backgroundColor, "bottomColor" : backgroundColorTwo};
-
-          }
-        }
-
-      }
-
-     if (story_item.get("type") === type.STORY_ITEM.source) {
+     if (storyItemType === type.STORY_ITEM.source) {
 
           object = {"name": title, "description" : description, "link": link};
 
-      } else if (story_item.get("type") === type.STORY_ITEM.link) {
+      } else if (storyItemType === type.STORY_ITEM.link) {
 
         object = {"name": title, "url" : link};
 
