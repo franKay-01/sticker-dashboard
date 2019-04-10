@@ -11,7 +11,7 @@ const PARSE_LIMIT = 1000;
 
 Parse.Cloud.define("editStoryItem", function(req, res){
   let storyId = req.params.itemId;
-  let storyItemType = req.params.storyItemType;
+  let storyItemType = req.params.storyType;
   let content = req.params.content;
 
   return new Parse.Query(_class.StoryItems).equalTo("objectId", storyId).first({useMasterKey: true})
