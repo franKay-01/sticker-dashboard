@@ -16,6 +16,10 @@ Parse.Cloud.define("editStoryItem", function(req, res){
   let title = req.params.title;
   let link = req.params.link;
   let heading = req.params.heading;
+  let formatCategory = req.params.formatCategory;
+  let oneColor = req.params.oneColor;
+  let topColor = req.params.topColor;
+  let bottomColor = req.params.bottomColor;
   let description = req.params.description;
 
   return new Parse.Query(_class.StoryItems).equalTo("objectId", storyId).first({useMasterKey: true})
@@ -33,25 +37,26 @@ Parse.Cloud.define("editStoryItem", function(req, res){
         object = {"heading": heading, "text": content};
 
     }
-    // if (storyItemType === type.STORY_ITEM.backgroundColor){
-    //
-    //     if (formatCategory === type.FORMAT_TYPE.regular){
-    //
-    //       object = {"type": formatCategory, "color": backgroundColor};
-    //
-    //   }else if (formatCategory === type.FORMAT_TYPE.gradient) {
-    //       if (backgroundColorTwo === undefined || backgroundColorTwo === "undefined" ){
-    //
-    //         object = {"type": formatCategory.toString(), "topColor": backgroundColor, "bottomColor" : backgroundColor};
-    //
-    //       }else {
-    //
-    //         object = {"type": formatCategory.toString(), "topColor": backgroundColor, "bottomColor" : backgroundColorTwo};
-    //
-    //       }
-    //     }
-    //
-    //   }
+
+    if (storyItemType === type.STORY_ITEM.backgroundColor){
+
+        if (formatCategory === type.FORMAT_TYPE.regular){
+
+          object = {"type": formatCategory, "color": oneColor};
+
+      }else if (formatCategory === type.FORMAT_TYPE.gradient) {
+          if (bottomColor === undefined){
+
+            object = {"type": formatCategory.toString(), "topColor": topColor, "bottomColor" : bottomColor};
+
+          }else {
+
+            object = {"type": formatCategory.toString(), "topColor": topColor, "bottomColor" : bottomColor};
+
+          }
+        }
+
+      }
 
      if (storyItemType === type.STORY_ITEM.source) {
 
@@ -64,7 +69,7 @@ Parse.Cloud.define("editStoryItem", function(req, res){
         object = {"name": title, "url" : link};
 
       }
-      
+
       storyItem.set("contents", object);
       return storyItem.save();
 
