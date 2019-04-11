@@ -15,7 +15,7 @@ Parse.Cloud.define("getHtmlItems", function(req, res){
 
   return new Parse.Query(_class.StoryItems).equalTo("objectId", storyItemId).first({useMasterKey: true})
   .then(function(storyItem){
-    console.log("StOrYITRM ++++ "+JSON.stringify(storyItem))
+
     storyItemDetails.storyItems = dashboardHelper.HtmlStoryItem(storyItem);
 
     res.success(util.setResponseOk(storyItemDetails));
