@@ -16,8 +16,7 @@ Parse.Cloud.define("editStoryItem", function(req, res){
   let title = req.params.title;
   let link = req.params.link;
   let heading = req.params.heading;
-
-  console.log(storyId + storyItemType + content + title + link);
+  let description = req.params.description;
 
   return new Parse.Query(_class.StoryItems).equalTo("objectId", storyId).first({useMasterKey: true})
   .then(function(storyItem){
@@ -65,6 +64,7 @@ Parse.Cloud.define("editStoryItem", function(req, res){
         object = {"name": title, "url" : link};
 
       }
+      
       storyItem.set("contents", object);
       return storyItem.save();
 
