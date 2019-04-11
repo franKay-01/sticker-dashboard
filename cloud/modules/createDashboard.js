@@ -363,6 +363,18 @@ exports.StoryArtwork = (story, sticker) => {
 
 };
 
+exports.HtmlStoryItem = storyItem => {
+  let _htmlItem = {};
+
+  if (storyItem){
+    _htmlItem.id = storyItem.id;
+    _htmlItem.content = storyItem.get("contents");
+    _htmlItem.type = storyItem.get("type");
+  }
+
+  return _htmlItem;
+};
+
 exports.StoryItems = (storyItems) => {
     let _storyItems = [];
 

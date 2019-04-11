@@ -9,6 +9,24 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("getHtmlItems", function(req, res){
+  let storyItemId = req.params.storyItemId;
+  let storyItemDetails = {};
+
+  return new Parse.Query(_class.StoryItems).equalTo("objectId", storyItemId).first({useMasterKey: true})
+  .then(function(storyItem){
+
+    storyItemDetails.storyItems = dashboardHelper.HtmlStoryItem(storyItem);
+
+    res.success(util.setResponseOk(storyItemDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("editStoryItem", function(req, res){
   let storyId = req.params.itemId;
   let storyItemType = parseInt(req.params.storyType);
