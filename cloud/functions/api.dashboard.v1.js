@@ -9,7 +9,7 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
-Parse.CLoud.define("changeStoryItem", function(req, res){
+Parse.Cloud.define("changeStoryItem", function(req, res){
   let storyItemId = req.body.storyItemId;
   let previousForm = parseInt(req.params.storyType);
   let storyItemType = parseInt(req.params.newStoryItemType);
