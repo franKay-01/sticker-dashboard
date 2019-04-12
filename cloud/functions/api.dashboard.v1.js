@@ -17,6 +17,7 @@ Parse.Cloud.define("updateHtmlItem", function(req, res){
 
   return new Parse.Query(_class.StoryItems).equalTo("objectId", storyItemId).first({useMasterKey:true})
   .then(function(storyItem){
+    console.log("STORYITEM ###### "+ JSON.stringify(storyItem));
     let contents = storyItem.get("contents");
 
     let _html = contents.html[itemIndex];
@@ -41,7 +42,7 @@ Parse.Cloud.define("updateHtmlItem", function(req, res){
     return storyItem.save();
   }).then(function(saved){
 
-    res.success(util.setResponseOk(storyItemDetails));
+    res.success(util.setResponseOk(saved));
 
   }, function(error){
 
