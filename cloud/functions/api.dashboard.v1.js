@@ -23,20 +23,20 @@ Parse.Cloud.define("updateHtmlItem", function(req, res){
     let _html = contents.html[itemIndex];
 
     let htmlType = Object.keys(_html)[0];
-  console.log("CONTENTS ## "+JSON.stringify(htmlType));
-    if (parseInt(htmlType) !== type.STORY_ITEM.color) {
+    if (parseInt(htmlType) === type.STORY_ITEM.color) {
 
-        let html = {};
-        html[htmlType.toString()] = {"text": content};
+      let html = {};
+      html[htmlType.toString()] = {"text": content, "color": color};
 
-        contents.html[index] = html;
+      contents.html[index] = html;
 
     } else {
 
-        let html = {};
-        html[htmlType.toString()] = {"text": content, "color": color};
+      let html = {};
+      html[htmlType.toString()] = {"text": content};
 
-        contents.html[index] = html;
+      contents.html[index] = html;
+
     }
 
     storyItem.set("contents", contents);
