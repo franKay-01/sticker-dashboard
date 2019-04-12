@@ -9,6 +9,48 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("updateHtmlItem", function(req, res){
+  let storyItemId = req.params.storyItemId;
+  let content = req.params.content;
+  let color = req.params.color;
+  let itemIndex = req.params.itemIndex;
+  let storyItemId = req.params.storyItemId;
+
+  return new Parse.Query(_class.StoryItems).equalTo("objectId", storyItemId).first({useMasterKey:true})
+  .then(function(storyItem){
+    let contents = storyItem.get("contents");
+
+    let _html = contents.html[itemIndex];
+    let htmlType = Object.keys(_html);
+
+    if (parseInt(htmlType) !== type.STORY_ITEM.color) {
+
+        let html = {};
+        html[htmlType.toString()] = {"text": content};
+
+        contents.html[index] = html;
+
+    } else {
+
+        let html = {};
+        html[htmlType.toString()] = {"text": content, "color": color};
+
+        contents.html[index] = html;
+    }
+
+    storyItem.set("contents", contents);
+    return storyItem.save();
+  }).then(function(saved){
+
+    res.success(util.setResponseOk(storyItemDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("getHtmlItems", function(req, res){
   let storyItemId = req.params.storyItemId;
   let storyItemDetails = {};
