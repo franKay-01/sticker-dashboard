@@ -21,9 +21,9 @@ Parse.Cloud.define("updateHtmlItem", function(req, res){
     let contents = storyItem.get("contents");
 
     let _html = contents.html[itemIndex];
-    console.log("CONTENTS ## "+JSON.stringify(_html));
-    let htmlType = Object.keys(_html)[0];
 
+    let htmlType = Object.keys(_html)[0];
+  console.log("CONTENTS ## "+JSON.stringify(htmlType));
     if (parseInt(htmlType) !== type.STORY_ITEM.color) {
 
         let html = {};
