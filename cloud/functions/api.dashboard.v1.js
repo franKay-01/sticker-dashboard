@@ -17,10 +17,9 @@ Parse.Cloud.define("updateHtmlItem", function(req, res){
 
   return new Parse.Query(_class.StoryItems).equalTo("objectId", storyItemId).first({useMasterKey:true})
   .then(function(storyItem){
-    console.log("itemIndex ## ");
-    console.log(itemIndex);
-    let contents = storyItem.get("contents");
 
+    let contents = storyItem.get("contents");
+    console.log("CONTENTS ## "+JSON.stringify(contents));
     let _html = contents.html[itemIndex];
     let htmlType = Object.keys(_html);
 
