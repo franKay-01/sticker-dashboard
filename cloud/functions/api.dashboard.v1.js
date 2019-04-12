@@ -9,6 +9,109 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.CLoud.define("changeStoryItem", function(req, res){
+  let storyItemId = req.body.storyItemId;
+  let previousForm = parseInt(req.params.storyType);
+  let storyItemType = parseInt(req.params.newStoryItemType);
+  let content = req.params.content;
+  let storyContent;
+
+  return new Parse.Query(_class.StoryItems).equalTo("objectId", storyItemId).first({useMasterKey:true})
+  .then(function(storyItem){
+
+    storyContent = storyItem.get("contents");
+
+    if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
+        storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
+        storyItemType === type.STORY_ITEM.italicBold) {
+
+        storyItem.set("type", storyItemType);
+        storyItem.set("contents", {"text": content});
+
+        return storyItem.save();
+
+    } else if (storyItemType === type.STORY_ITEM.divider) {
+
+        storyItem.set("type", storyItemType);
+        storyItem.set("contents", {"": ""});
+
+        return storyItem.save();
+    } else if (storyItemType === type.STORY_ITEM.image) {
+
+        if (files) {
+            let Asset = new Parse.Object.extend(_class.Assets);
+            let asset = new Asset();
+
+            let fullName = files[0].originalname;
+            let stickerName = fullName.substring(0, fullName.length - 4);
+
+            let bitmap = fs.readFileSync(files[0].path, {encoding: 'base64'});
+
+            let parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
+
+            asset.set("uri", parseFile);
+
+            return asset.save();
+        }
+    } else if (storyItemType === type.STORY_ITEM.sticker) {
+        // res.redirect('/storyitem/change/sticker/' + _storyId + '/' + id + '/' + projectId);
+    }
+  }).then(function(asset){
+    if (storyItemType === type.STORY_ITEM.image) {
+        _storyItem.set("type", storyItemType);
+        _storyItem.set("contents", {"uri": asset.get("uri").url(), "id": asset.id});
+
+        return _storyItem.save();
+
+    } else {
+
+        return true;
+
+    }
+  }).then(function(){
+    // if (files.length > 0) {
+    //     let tempFile = files[0].path;
+    //     fs.unlink(tempFile, function (err) {
+    //         if (err) {
+    //             //TODO handle error code
+    //             console.log("-------Could not del temp" + JSON.stringify(err));
+    //         }
+    //         else {
+    //             console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+    //         }
+    //     });
+    // }
+
+    if (previousForm === type.STORY_ITEM.image) {
+
+        return new Parse.Query(_class.Assets).equalTo("objectId", storyContent).first();
+
+    } else {
+
+      res.success(util.setResponseOk(true));
+
+    }
+
+  }).then(function(image){
+    image.destroy({
+        success: function (object) {
+
+          res.success(util.setResponseOk(object));
+
+        },
+        error: function (error) {
+
+          util.handleError(res, error);
+
+        }
+    })
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("updateHtmlItem", function(req, res){
   let storyItemId = req.params.storyItemId;
   let content = req.params.content;
