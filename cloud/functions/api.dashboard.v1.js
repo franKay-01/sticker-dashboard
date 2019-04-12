@@ -14,7 +14,6 @@ Parse.Cloud.define("updateHtmlItem", function(req, res){
   let content = req.params.content;
   let color = req.params.color;
   let itemIndex = req.params.itemIndex;
-  let storyItemId = req.params.storyItemId;
 
   return new Parse.Query(_class.StoryItems).equalTo("objectId", storyItemId).first({useMasterKey:true})
   .then(function(storyItem){
