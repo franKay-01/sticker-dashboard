@@ -10,7 +10,7 @@ let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
 Parse.Cloud.define("changeStoryItem", function(req, res){
-  let storyItemId = req.params.storyItemId;
+  let storyItemId = req.params.itemId;
   let previousForm = parseInt(req.params.storyType);
   let storyItemType = parseInt(req.params.newStoryItemType);
   let content = req.params.content;
@@ -18,7 +18,7 @@ Parse.Cloud.define("changeStoryItem", function(req, res){
 
   return new Parse.Query(_class.StoryItems).equalTo("objectId", storyItemId).first({useMasterKey:true})
   .then(function(storyItem){
-    
+
     console.log("STORY ITEM " + JSON.stringify(storyItem));
 
     _storyItem = storyItem;
