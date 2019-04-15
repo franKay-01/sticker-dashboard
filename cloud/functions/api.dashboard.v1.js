@@ -10,7 +10,7 @@ let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
 Parse.Cloud.define("deleteStoryItem", function(req, res){
-  let storyItemId = req.params.storyItem;
+  let storyItemId = req.params.itemId;
   let assetId;
   let _storyItem;
 
