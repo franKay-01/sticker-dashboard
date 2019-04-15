@@ -16,6 +16,7 @@ Parse.Cloud.define("changeHtmlItem", function(req, res){
   let itemIndex = parseInt(req.params.itemIndex);
   let previousForm = parseInt(req.params.storyType);
   let storyItemType = parseInt(req.params.newStoryItemType);
+console.log("STORY ELEMET #### "+ itemIndex);
 
   return new Parse.Query(_class.StoryItems).equalTo("objectId", storyItemId).first({useMasterKey: true})
   .then(function(storyItem){
