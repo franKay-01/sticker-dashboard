@@ -18,7 +18,10 @@ Parse.Cloud.define("changeStoryItem", function(req, res){
 
   return new Parse.Query(_class.StoryItems).equalTo("objectId", storyItemId).first({useMasterKey:true})
   .then(function(storyItem){
+    
+    console.log("STORY ITEM " + JSON.stringify(storyItem));
 
+    _storyItem = storyItem;
     storyContent = storyItem.get("contents");
 
     if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
