@@ -9,6 +9,58 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("deleteStoryItem", function(req, res){
+  let storyItemId = req.params.storyItem;
+  let assetId;
+  let _storyItem;
+
+  return new Parse.Query(_class.StoryItems).equalTo("objectId", storyItemId).first({useMasterKey: true})
+  .then(function(storyItem){
+
+    assetId = storyItem.get("contents");
+    _storyItem = storyItem;
+
+    storyItem.destroy({
+        success: function (object) {
+            console.log("removed" + JSON.stringify(object));
+            return true;
+        },
+        error: function (error) {
+            console.log("Could not remove" + error);
+            util.handleError(res, error);
+
+        }
+    })
+  }).then(function(){
+
+    if (_storyItem.get("type") === type.STORY_ITEM.image) {
+
+        return new Parse.Query(_class.Assets).equalTo("objectId", assetId.uri).first();
+
+    } else {
+
+      res.success(util.setResponseOk(true));
+
+    }
+  }).then(function(asset){
+    asset.destroy({
+        success: function (object) {
+            console.log("removed" + JSON.stringify(object));
+            res.success(util.setResponseOk(true));
+        },
+        error: function (error) {
+            console.log("Could not remove" + error);
+            util.handleError(res, error);
+
+        }
+    })
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+})
+
 Parse.Cloud.define("changeHtmlItem", function(req, res){
   let storyItemId = req.params.itemId;
   let content = req.params.content;
@@ -16,11 +68,9 @@ Parse.Cloud.define("changeHtmlItem", function(req, res){
   let itemIndex = parseInt(req.params.itemIndex);
   let previousForm = parseInt(req.params.storyType);
   let storyItemType = parseInt(req.params.newStoryItemType);
-console.log("STORY ELEMET #### "+ itemIndex);
 
   return new Parse.Query(_class.StoryItems).equalTo("objectId", storyItemId).first({useMasterKey: true})
   .then(function(storyItem){
-    console.log("STORY ITEM "+JSON.stringify(storyItem));
     let contents = storyItem.get("contents");
 
     let _html = contents.html[itemIndex];
