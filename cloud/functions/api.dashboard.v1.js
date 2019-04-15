@@ -9,6 +9,47 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("changeHtmlItem", function(req, res){
+  let storyItemId = req.params.itemId;
+  let content = req.params.content;
+  // let color = req.params.color;
+  let itemIndex = parseInt(req.params.itemIndex);
+  let previousForm = parseInt(req.params.storyType);
+  let storyItemType = parseInt(req.params.newStoryItemType);
+
+  return new Parse.Query(_class.StoryItems).equalTo("objectId", storyItemId).first{useMasterKey: true})
+  .then(function(storyItem){
+
+    let contents = storyItem.get("contents");
+
+    let _html = contents.html[itemIndex];
+    let htmlType = Object.keys(_html)[0];
+
+    // if (parseInt(htmlType) !== type.STORY_ITEM.color) {
+
+        let html = {};
+        // html[htmlType.toString()] = {"text": htmlContent};
+        html[storyItemType] = {"text": content};
+
+        contents.html[itemIndex] = html;
+
+    // }
+
+    storyItem.set("contents", contents);
+    return storyItem.save();
+
+  }).then(function(saved){
+
+    res.success(util.setResponseOk(true));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+
+});
+
 Parse.Cloud.define("changeStoryItem", function(req, res){
   let storyItemId = req.params.itemId;
   let previousForm = parseInt(req.params.storyType);
