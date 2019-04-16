@@ -10,7 +10,7 @@ let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
 Parse.Cloud.define("editEpisodeDetails", function(req, res){
-  let episodeId = req.params.storyId;
+  let episodeId = req.params.episodeId;
   let title = req.params.title;
   let status = req.params.status;
   let episodeDetails = {};
