@@ -71,7 +71,7 @@ Parse.Cloud.define("previewStory", function(req, res){
 
     }
     storyItemDetails.storyType = storyType;
-    storyItemDetails.story = story.get("name");
+    storyItemDetails.story = story.get("title");
 
     topColor = story.get("info").topColor;
 
