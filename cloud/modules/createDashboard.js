@@ -12,6 +12,7 @@ exports.SingleEpisode = episode => {
     _episode.order = episode.get("order");
     _episode.storyId = episode.get("storyId");
     _episode.projectId = episode.get("projectId");
+    _episode.published = episode.get("published");
   }
 
   return _episode;
