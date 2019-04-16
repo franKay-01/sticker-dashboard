@@ -1799,10 +1799,6 @@ module.exports = function (app) {
 
             }).then(function (episode, project, products) {
 
-                console.log("EPISODE " + JSON.stringify(episode));
-                console.log("PROJECTS " + JSON.stringify(project));
-                console.log("PRODUCTS " + JSON.stringify(products));
-
                 _episode = episode;
                 _products = products;
                 _project = project;
@@ -1813,8 +1809,6 @@ module.exports = function (app) {
                 )
 
             }).then(function (story, project) {
-                console.log("STORY " + JSON.stringify(story));
-                console.log("PROJECT " + JSON.stringify(project));
 
                 res.render("pages/stories/episode_details", {
                     episode: _episode,

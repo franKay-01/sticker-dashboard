@@ -2,7 +2,23 @@ const _ = require('underscore');
 const type = require('./type');
 const helper = require('./helpers');
 
-exports.EpisodeDetails = episodes =>{
+exports.SingleEpisode = episode => {
+  let _episode = {};
+
+  if (episode) {
+    _episode.id = episode.id;
+    _episode.title = episode.get("title");
+    _episode.status = episode.get("sold");
+    _episode.order = story.get("order");
+    _episode.storyId = story.get("storyId");
+    _episode.projectId = story.get("projectId");
+  }
+
+  return _episode;
+
+};
+
+exports.EpisodeDetails = episodes => {
   let _episodes = [];
 
   if (episodes.length){

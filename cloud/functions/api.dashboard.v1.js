@@ -9,6 +9,31 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("editEpisodeDetails", function(req, res){
+  let episodeId = req.params.storyId;
+  let episodeDetails = {};
+
+  return new Parse.Query(_class.Episodes).equalTo("objectId", episodeId).first({useMasterKey: true})
+  .then(function(episode){
+
+    episodeDetails.episode = dashboardHelper.SingleEpisode(episode);
+
+    return Parse.Promise.when(
+        new Parse.Query(_class.Stories).equalTo("objectId", episode.get("storyId")).first({useMasterKey: true}),
+        new Parse.Query(_class.Projects).equalTo("objectId", episode.get("projectId")).first({useMasterKey: true})
+    )
+  }).then(function(story, project){
+
+    episodeDetails.story = dashboardHelper.StoryDetails(story);
+    res.success(util.setResponseOk(episodeDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("deleteStoryItem", function(req, res){
   let storyItemId = req.params.itemId;
   let assetId;
