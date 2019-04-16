@@ -15,7 +15,7 @@ Parse.Cloud.define("editEpisodeDetails", function(req, res){
 
   return new Parse.Query(_class.Episodes).equalTo("objectId", episodeId).first({useMasterKey: true})
   .then(function(episode){
-
+    console.log("EPISODES " + JSON.stringify(episode));
     episodeDetails.episode = dashboardHelper.SingleEpisode(episode);
 
     return Parse.Promise.when(
