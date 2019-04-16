@@ -11,6 +11,36 @@ const PARSE_LIMIT = 1000;
 
 Parse.Cloud.define("editEpisodeDetails", function(req, res){
   let episodeId = req.params.storyId;
+  let title = req.params.title;
+  let status = req.params.status;
+  let episodeDetails = {};
+
+    return new Parse.Query(_class.Episodes).equalTo("objectId", episodeId).first({useMasterKey: true})
+    .then(function(episode){
+      episode.set("title", title);
+
+      if (status === "true") {
+          episode.set("sold", true);
+      } else if (status === "false") {
+          episode.set("sold", false);
+      }
+
+      return episode.save();
+
+    }).then(function(saved){
+
+      episodeDetails.episode = dashboardHelper.SingleEpisode(saved);
+      res.success(util.setResponseOk(episodeDetails));
+
+    }, function(error){
+
+      util.handleError(res, error);
+
+    })
+});
+
+Parse.Cloud.define("getEpisodeDetails", function(req, res){
+  let episodeId = req.params.storyId;
   let episodeDetails = {};
 
   return new Parse.Query(_class.Episodes).equalTo("objectId", episodeId).first({useMasterKey: true})
@@ -26,6 +56,7 @@ Parse.Cloud.define("editEpisodeDetails", function(req, res){
 
     episodeDetails.story = dashboardHelper.StoryDetails(story);
     episodeDetails.project = project.get("name");
+
     res.success(util.setResponseOk(episodeDetails));
 
   }, function(error){
