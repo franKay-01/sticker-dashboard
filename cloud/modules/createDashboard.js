@@ -9,9 +9,9 @@ exports.SingleEpisode = episode => {
     _episode.id = episode.id;
     _episode.title = episode.get("title");
     _episode.status = episode.get("sold");
-    _episode.order = story.get("order");
-    _episode.storyId = story.get("storyId");
-    _episode.projectId = story.get("projectId");
+    _episode.order = episode.get("order");
+    _episode.storyId = episode.get("storyId");
+    _episode.projectId = episode.get("projectId");
   }
 
   return _episode;
