@@ -25,6 +25,7 @@ Parse.Cloud.define("editEpisodeDetails", function(req, res){
   }).then(function(story, project){
 
     episodeDetails.story = dashboardHelper.StoryDetails(story);
+    episodeDetails.project = project.get("name");
     res.success(util.setResponseOk(episodeDetails));
 
   }, function(error){
