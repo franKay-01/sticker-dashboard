@@ -18,7 +18,6 @@ Parse.Cloud.define("previewEpisode", function(req, res){
 
   return new Parse.Query(_class.Episodes).equalTo("objectId", episodeId).first({useMasterKey: true})
   .then(function(episode){
-  console.log("EPISODES ###### " + JSON.stringify(episode));
   episodeDetails.episode = dashboardHelper.SingleEpisode(episode);
 
     return Parse.Promise.when(
@@ -27,6 +26,7 @@ Parse.Cloud.define("previewEpisode", function(req, res){
         new Parse.Query(_class.ArtWork).equalTo("itemId", episode.get("storyId")).first({useMasterKey: true})
     )
   }).then(function(storyItems, story, sticker){
+    console.log("STORY ITEMS ###### " + JSON.stringify(storyItems));
 
     storyItemDetails.storyItems = dashboardHelper.StoryItems(storyItems);
 
