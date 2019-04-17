@@ -29,6 +29,7 @@ Parse.Cloud.define("previewEpisode", function(req, res){
   }).then(function(storyItems, story, sticker){
 
     storyItemDetails.storyItems = dashboardHelper.StoryItems(storyItems);
+    console.log("STORY ITEMS DETAILS #### "+JSON.stringify(storyItemDetails.storyItems));
 
     if (story.get("storyType") === type.STORY_TYPE.story) {
 
