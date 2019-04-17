@@ -93,6 +93,7 @@ Parse.Cloud.define("previewEpisode", function(req, res){
       episodeDetails.bottomColor = story.get("info").bottomColor;
     }
 
+console.log("STICKER ##### " + JSON.stringify(sticker));
     if (sticker){
       return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first({useMasterKey: true});
     }else {
