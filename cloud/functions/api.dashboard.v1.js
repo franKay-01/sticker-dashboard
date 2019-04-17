@@ -14,10 +14,11 @@ Parse.Cloud.define("previewEpisode", function(req, res){
   let episodeId = req.params.storyId;
   let episodeDetails = {};
   let topColor;
-  let storyType;
+  let storyType = "";
 
   return new Parse.Query(_class.Episodes).equalTo("objectId", episodeId).first({useMasterKey: true})
   .then(function(episode){
+
   episodeDetails.episode = dashboardHelper.SingleEpisode(episode);
 
     return Parse.Promise.when(
@@ -77,8 +78,6 @@ Parse.Cloud.define("previewEpisode", function(req, res){
 
         storyType = "Short Stories";
     }
-    console.log("STICKER ITEMS ###### " + JSON.stringify(sticker));
-    console.log("STORY ITEMS ###### " + JSON.stringify(story));
 
     episodeDetails.storyType = storyType;
     episodeDetails.story = story.get("title");
