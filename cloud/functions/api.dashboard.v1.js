@@ -26,7 +26,7 @@ Parse.Cloud.define("previewEpisode", function(req, res){
         new Parse.Query(_class.ArtWork).equalTo("itemId", episode.get("storyId")).first({useMasterKey: true})
     )
   }).then(function(storyItems, story, sticker){
-    console.log("STORY ITEMS ###### " + JSON.stringify(storyItems));
+    console.log("STICKER ITEMS ###### " + JSON.stringify(sticker));
 
     storyItemDetails.storyItems = dashboardHelper.StoryItems(storyItems);
 
