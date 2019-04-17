@@ -15,10 +15,10 @@ Parse.Cloud.define("previewEpisode", function(req, res){
   let episodeDetails = {};
   let topColor;
   let storyType;
-  
+
   return new Parse.Query(_class.Episodes).equalTo("objectId", episodeId).first({useMasterKey: true})
   .then(function(episode){
-
+  console.log("EPISODES ###### " + JSON.stringify(episode));
   episodeDetails.episode = dashboardHelper.SingleEpisode(episode);
 
     return Parse.Promise.when(
