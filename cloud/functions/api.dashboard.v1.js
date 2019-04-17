@@ -14,7 +14,8 @@ Parse.Cloud.define("previewEpisode", function(req, res){
   let episodeId = req.params.storyId;
   let episodeDetails = {};
   let topColor;
-
+  let storyType;
+  
   return new Parse.Query(_class.Episodes).equalTo("objectId", episodeId).first({useMasterKey: true})
   .then(function(episode){
 
@@ -26,7 +27,7 @@ Parse.Cloud.define("previewEpisode", function(req, res){
         new Parse.Query(_class.ArtWork).equalTo("itemId", episode.get("storyId")).first({useMasterKey: true})
     )
   }).then(function(storyItems, story, sticker){
-    
+
     storyItemDetails.storyItems = dashboardHelper.StoryItems(storyItems);
 
     if (story.get("storyType") === type.STORY_TYPE.story) {
