@@ -9,6 +9,111 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("previewEpisode", function(req, res){
+
+  let episodeId = req.params.storyId;
+  let episodeDetails = {};
+  let topColor;
+
+  return new Parse.Query(_class.Episodes).equalTo("objectId", episodeId).first({useMasterKey: true})
+  .then(function(episode){
+
+  episodeDetails.episode = dashboardHelper.SingleEpisode(episode);
+
+    return Parse.Promise.when(
+        new Parse.Query(_class.StoryItems).equalTo("storyId", episode.id).find({useMasterKey: true}),
+        new Parse.Query(_class.Stories).equalTo("objectId", episode.get("storyId")).first({useMasterKey: true}),
+        new Parse.Query(_class.ArtWork).equalTo("itemId", episode.get("storyId")).first({useMasterKey: true})
+    )
+  }).then(function(storyItems, story, sticker){
+    
+    storyItemDetails.storyItems = dashboardHelper.StoryItems(storyItems);
+
+    if (story.get("storyType") === type.STORY_TYPE.story) {
+
+        storyType = "Story";
+
+    } else if (story.get("storyType") === type.STORY_TYPE.episodes) {
+
+        storyType = "Episode";
+
+    } else if (story.get("storyType") === type.STORY_TYPE.chat_single) {
+
+        storyType = "Chats";
+
+    } else if (story.get("storyType") === type.STORY_TYPE.chat_group_episode) {
+
+      storyType = "Chats";
+
+    }else if (story.get("storyType") === type.STORY_TYPE.chat_single_episode) {
+
+      storyType = "Chats";
+
+    }else if (story.get("storyType") === type.STORY_TYPE.chat_group) {
+
+      storyType = "Chats";
+
+    } else if (story.get("storyType") === type.STORY_TYPE.facts) {
+
+        storyType = "Facts";
+
+    } else if (story.get("storyType") === type.STORY_TYPE.history) {
+
+        storyType = "History";
+
+    } else if (story.get("storyType") === type.STORY_TYPE.jokes) {
+
+        storyType = "Jokes";
+
+    } else if (story.get("storyType") === type.STORY_TYPE.news) {
+
+        storyType = "News";
+
+    } else if (story.get("storyType") === type.STORY_TYPE.quotes) {
+
+        storyType = "Quotes";
+
+    } else if (story.get("storyType") === type.STORY_TYPE.short_stories) {
+
+        storyType = "Short Stories";
+    }
+
+    episodeDetails.storyType = storyType;
+    episodeDetails.story = story.get("title");
+
+    topColor = story.get("info").topColor;
+
+    if (!topColor) {
+        //use system default
+        episodeDetails.topColor = type.DEFAULT.colors.topColor;
+        episodeDetails.bottomColor = type.DEFAULT.colors.bottomColor;
+    }else {
+      episodeDetails.topColor = story.get("info").topColor;
+      episodeDetails.bottomColor = story.get("info").bottomColor;
+    }
+
+    if (sticker){
+      return new Parse.Query(_class.Stickers).equalTo("objectId", sticker.get("stickerId")).first({useMasterKey: true});
+    }else {
+      return undefined;
+    }
+  }).then(function(sticker){
+
+  if (sticker){
+      episodeDetails.sticker = sticker.get("uri").url();
+    }else {
+      episodeDetails.sticker = "";
+    }
+
+    res.success(util.setResponseOk(episodeDetails));
+
+  }, function(error){
+
+      util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("previewStory", function(req, res){
   let storyId = req.params.storyId;
   let _story;
