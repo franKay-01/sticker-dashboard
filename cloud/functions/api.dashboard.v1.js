@@ -1144,6 +1144,24 @@ Parse.Cloud.define("addMember", function(req, res){
   })
 });
 
+Parse.Cloud.define("getAllMembers", function(req, res){
+  let ID = req.params.admin;
+  let memberDetails = {};
+
+  return new Parse.Query(_class.Members).equalTo("userId", ID).find({useMasterKey:true})
+  .then(function(membersDetails){
+
+    memberDetails.members = dashboardHelper.MemberDetails(membersDetails);
+
+    res.success(util.setResponseOk(memberDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  });
+});
+
 Parse.Cloud.define("getMembers", function(req, res){
   let ID = req.params.admin;
   let storyId = req.params.storyId;
