@@ -1243,14 +1243,17 @@ Parse.Cloud.define("editStory", function(req, res){
   let title = req.params.title;
   let _keywords = [];
 
-  if (keywords.length > 0) {
-      _keywords = keywords.split(",");
+  if (Array.isArray(keywords) !== true){
+    if (keywords !== "") {
+        _keywords = keywords.split(",");
+    }
   }
+
 
 return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey: true})
 .then(function(story){
     story.set("title", title);
-    if (keywords.length > 0) {
+    if (Array.isArray(keywords) !== true){
         story.set("keywords", _keywords);
     }
     story.set("summary", summary);
