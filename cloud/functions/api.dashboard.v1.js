@@ -11,15 +11,17 @@ const PARSE_LIMIT = 1000;
 
 Parse.Cloud.define("allAdverts", function(req, res){
   let ID = req.params.admin;
+  let projectId = req.params.projectId;
   let _adverts = [];
   let projectArray = [];
   let advertDetails = {};
+  projectArray.push(projectId);
 
   return Parse.Promise.when(
-      new Parse.Query(_class.Adverts).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find({useMasterKey: true}),
-      new Parse.Query(_class.AdvertImages).find({useMasterKey: true})
-      // new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey: true})
-  ).then(function(adverts, ad_images){
+      new Parse.Query(_class.Adverts).equalTo("userId", ID).containedIn("projectIds", projectArray).find({useMasterKey: true}),
+      new Parse.Query(_class.AdvertImages).find({useMasterKey: true}),
+      new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey: true})
+  ).then(function(adverts, ad_images, project){
     _.each(adverts, function (advert) {
 
         _.each(ad_images, function (image) {
