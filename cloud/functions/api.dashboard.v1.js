@@ -9,6 +9,65 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("allAdverts", function(req, res){
+  let ID = req.params.admin;
+  let _adverts = [];
+  let projectArray = [];
+  let advertDetails = {};
+
+  return Parse.Promise.when(
+      new Parse.Query(_class.Adverts).equalTo("userId", _user.id).containedIn("projectIds", projectArray).find({useMasterKey: true}),
+      new Parse.Query(_class.AdvertImages).find({useMasterKey: true})
+      // new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey: true})
+  ).then(function(adverts, ad_images){
+    _.each(adverts, function (advert) {
+
+        _.each(ad_images, function (image) {
+
+            if (advert.id === image.get("advertId")) {
+
+                //TODO modify query to group types
+                //TODO use type constants from types JS e.g type.LINKS.android
+                // if (image.get("type") === 0) {
+                    _adverts.push({
+                        id: advert.id,
+                        name: advert.get("title"),
+                        image: image.get("uri").url()
+                    })
+                // }
+            }
+
+        });
+    });
+
+    let spliced = [];
+
+    for (let i = 0; i < adverts.length; i = i + 1) {
+        for (let j = 0; j < _adverts.length; j = j + 1) {
+
+            if (adverts[i].get("title") === _adverts[j].name) {
+                adverts.splice(i, 1);
+                spliced.push(i);
+            }
+        }
+    }
+
+    let adResults = dashboardHelper.AdertDetails(adverts);
+    console.log("ADVERTS ###### " + JSON.stringify(adResults));
+
+    let final = _adverts.concat(adResults)
+
+    advertDetails.ads = final;
+
+    res.success(util.setResponseOk(advertDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  });
+});
+
 Parse.Cloud.define("previewEpisode", function(req, res){
 
   let episodeId = req.params.storyId;

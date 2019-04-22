@@ -2,6 +2,20 @@ const _ = require('underscore');
 const type = require('./type');
 const helper = require('./helpers');
 
+exports.AdertDetails = ads => {
+  let _ads = [];
+
+  if (ads.length){
+    _.each(ads, ad => {
+
+        _ads.push({id: ad.id, name: ad.get("title"), image: ""});
+
+      })
+    }
+
+  return _ads;
+};
+
 exports.SingleEpisode = episode => {
   let _episode = {};
 

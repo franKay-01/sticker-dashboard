@@ -83,8 +83,6 @@ module.exports = function(app) {
 
                 advertMessage = "";
 
-                console.log("ADVERTS " + JSON.stringify(_adverts) + " AND " + JSON.stringify(adverts));
-
                 res.render("pages/adverts/advert_collection", {
                     adverts: _adverts,
                     adverts_no_image: adverts,
