@@ -8,7 +8,7 @@ exports.AdvertImages = images =>{
   if (images.length){
     _.each(images, image => {
 
-        _images.push({id: image.id, image: image.get("uri").url(), type: image.get("type", advertId:image.get("advertId"))});
+        _images.push({id: image.id, image: image.get("uri").url(), type: image.get("type"), advertId:image.get("advertId")});
 
       })
     }
