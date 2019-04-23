@@ -2003,7 +2003,7 @@ Parse.Cloud.define("addStickers", function(req, res){
   let projectId = req.params.projectId;
   let projectArray = [];
   projectArray.push(projectId);
-  let files = req.params.pictures.files;
+  let files = req.params.pictures;
   let base = req.params.pictures.base;
   let fileDetails = [];
   let stickerDetails = [];
