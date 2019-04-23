@@ -2003,7 +2003,8 @@ Parse.Cloud.define("addStickers", function(req, res){
   let projectId = req.params.projectId;
   let projectArray = [];
   projectArray.push(projectId);
-  let files = req.params.pictures;
+  let files = req.params.pictures.files;
+  let base = req.params.pictures.base;
   let fileDetails = [];
   let stickerDetails = [];
   let stickerCollection = {};
@@ -2016,8 +2017,8 @@ Parse.Cloud.define("addStickers", function(req, res){
       files.forEach(function (file, index) {
 
           console.log("FILE NAME " + JSON.stringify(file));
-          let fileUrl = file.url;
-          
+          let fileUrl = base[index];
+
           fileUrl = new Buffer(fileUrl, 'base64');
 
           let Sticker = new Parse.Object.extend(_class.Stickers);
