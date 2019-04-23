@@ -9,6 +9,34 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 const PARSE_LIMIT = 1000;
 
+Parse.Cloud.define("getAdvertDetails", function(req, res){
+
+  let advertId = req.params.advertId;
+  let projectId = req.params.projectId;
+  let advertDetails = {};
+
+  return Parse.Promise.when(
+      new Parse.Query(_class.Adverts).equalTo("objectId", advertId).first({useMasterKey:true}),
+      new Parse.Query(_class.AdvertImages).equalTo("advertId", advertId).find({useMasterKey:true}),
+      new Parse.Query(_class.Links).equalTo("itemId", advertId).first({useMasterKey:true}),
+      new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey:true})
+  ).then(function(advert, advertImages, link, projects){
+
+    advertDetails.ads = dashboardHelper.SingleAdvert(advert);
+    advertDetails.images = dashboardHelper.AdvertImages(advertImages);
+    if (link !== undefined){
+      advertDetails.link = true;
+    }
+
+    res.success(util.setResponseOk(advertDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+})
+
 Parse.Cloud.define("allAdverts", function(req, res){
   let ID = req.params.admin;
   let projectId = req.params.projectId;

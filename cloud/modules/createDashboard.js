@@ -2,6 +2,32 @@ const _ = require('underscore');
 const type = require('./type');
 const helper = require('./helpers');
 
+exports.AdvertImages = images =>{
+  let _images = [];
+
+  if (images.length){
+    _.each(images, image => {
+
+        _images.push({id: image.id, image: image.get("uri").url(), type: image.get("type", advertId:image.get("advertId"))});
+
+      })
+    }
+
+  return _images;
+};
+
+exports.SingleAdvert = advert => {
+  let advert = {};
+
+  if (advert){
+    advert.id = advert.id;
+    advert.title = advert.get("title");
+    advert.description = advert.get("description");
+    }
+
+  return advert;
+};
+
 exports.AdertDetails = ads => {
   let _ads = [];
 
