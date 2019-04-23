@@ -2018,7 +2018,6 @@ console.log("FILE NAME ##### " + JSON.stringify(files));
 
       files.forEach(function (file, index) {
 
-          console.log("FILE NAME " + JSON.stringify(file));
           let fileUrl = base[index];
 
           fileUrl = new Buffer(fileUrl, 'base64');
@@ -2028,6 +2027,7 @@ console.log("FILE NAME ##### " + JSON.stringify(files));
 
           // fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
           let originalName = file.name;
+          console.log("STICKER NAME ########## "+ originalName);
           let stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
 
           // let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
