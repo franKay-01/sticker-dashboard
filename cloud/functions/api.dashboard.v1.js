@@ -21,11 +21,13 @@ Parse.Cloud.define("getAdvertDetails", function(req, res){
       new Parse.Query(_class.Links).equalTo("itemId", advertId).first({useMasterKey:true}),
       new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey:true})
   ).then(function(advert, advertImages, link, projects){
-
+    console.log("LINK ####### " + JSON.stringify(link));
     advertDetails.ads = dashboardHelper.SingleAdvert(advert);
     advertDetails.images = dashboardHelper.AdvertImages(advertImages);
     if (link !== undefined){
       advertDetails.link = true;
+    }else {
+      advertDetails.link = false;
     }
 
     res.success(util.setResponseOk(advertDetails));
