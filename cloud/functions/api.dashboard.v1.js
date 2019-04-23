@@ -2014,10 +2014,10 @@ Parse.Cloud.define("addStickers", function(req, res){
     stickerCollection = pack;
 
       files.forEach(function (file, index) {
-          console.log("FILE NAME " + file.name);
-          console.log("FILE TYPE " + file.type);
+
+          console.log("FILE NAME " + JSON.stringify(file));
           let fileUrl = file.url;
-          fileUrl = fileUrl.split(';base64,').pop();
+          
           fileUrl = new Buffer(fileUrl, 'base64');
 
           let Sticker = new Parse.Object.extend(_class.Stickers);
