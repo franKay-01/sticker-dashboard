@@ -1954,7 +1954,6 @@ Parse.Cloud.define("editPackDetails", function(req, res){
       new Parse.Query(_class.Product).equalTo("userId", ID).find({useMasterKey: true})
 
   ).then(function(pack, productId){
-    _pack = pack;
 
     packDetails.pack = dashboardHelper.PackItem(pack);
 
@@ -1986,7 +1985,7 @@ Parse.Cloud.define("editPackDetails", function(req, res){
     }
 
     packDetails.singleProduct = productDetails;
-
+    console.log("PACK DETAILS ####### "+JSON.stringify(packDetails));
     res.success(util.setResponseOk(packDetails));
 
   }, function(error){
