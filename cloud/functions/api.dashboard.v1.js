@@ -2011,13 +2011,14 @@ Parse.Cloud.define("addStickers", function(req, res){
   let _previews = [];
 
 console.log("FILE NAME ##### " + JSON.stringify(files));
-  return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}).then(function(pack){
+  return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
+  .then(function(pack){
 
     stickerCollection = pack;
 
       files.forEach(function (file, index) {
 
-          let fileUrl = base[index];
+          let fileUrl = base64[index];
 
           fileUrl = new Buffer(fileUrl, 'base64');
 
