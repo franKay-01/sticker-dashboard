@@ -2010,6 +2010,7 @@ Parse.Cloud.define("addStickers", function(req, res){
   let stickerCollection = {};
   let _previews = [];
 
+console.log("FILE NAME ##### " + JSON.stringify(files));
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}).then(function(pack){
 
     stickerCollection = pack;
