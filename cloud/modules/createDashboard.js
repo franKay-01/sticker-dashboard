@@ -17,15 +17,15 @@ exports.AdvertImages = images =>{
 };
 
 exports.SingleAdvert = advert => {
-  let advert = {};
+  let ad = {};
 
   if (advert){
-    advert.id = advert.id;
-    advert.title = advert.get("title");
-    advert.description = advert.get("description");
+    ad.id = advert.id;
+    ad.title = advert.get("title");
+    ad.description = advert.get("description");
     }
 
-  return advert;
+  return ad;
 };
 
 exports.AdertDetails = ads => {
