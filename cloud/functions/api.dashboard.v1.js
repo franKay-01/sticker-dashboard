@@ -2021,10 +2021,8 @@ console.log("FILE TYPE ##### " + JSON.stringify(files[0].type));
       files.forEach(function (file, index) {
 
           let _base = base64[index];
-          let image = new Image();
-          image.src = _base;
           // _base = _base.split(",").pop();
-          console.log("IMAGE ########## "+ image);
+
           let Sticker = new Parse.Object.extend(_class.Stickers);
           let sticker = new Sticker();
 
@@ -2044,7 +2042,7 @@ console.log("FILE TYPE ##### " + JSON.stringify(files[0].type));
           //     }
           // });
 
-          let parseFile = new Parse.File(stickerName, {base64: _base}, file.type);
+          let parseFile = new Parse.File(stickerName, file, file.type);
           console.log("PARSEFILE FOR SAVE ##### " + JSON.stringify(parseFile));
 
           sticker.set("name", stickerName);
