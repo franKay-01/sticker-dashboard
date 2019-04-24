@@ -2040,7 +2040,7 @@ console.log("FILE NAME ##### " + JSON.stringify(files));
           //     }
           // });
 
-          let parseFile = new Parse.File(stickerName, _base, file.type);
+          let parseFile = new Parse.File(stickerName, {base64: _base});
           console.log("PARSEFILE FOR SAVE " + JSON.stringify(parseFile));
 
           sticker.set("name", stickerName);
