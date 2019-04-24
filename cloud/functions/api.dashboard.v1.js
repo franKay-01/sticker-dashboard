@@ -2030,7 +2030,6 @@ console.log("FILE NAME ##### " + JSON.stringify(files));
           let stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
 
           // let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-
           // let bitmapPreview;
           // let parseFilePreview = "";
 
