@@ -2026,9 +2026,9 @@ console.log("FILE NAME ##### " + JSON.stringify(files));
 
           // fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
           let originalName = file.name;
-          console.log("STICKER NAME ########## "+ originalName);
+          console.log("ORIGINAL NAME ########## "+ originalName);
           let stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
-
+          console.log("STICKER NAME ########## "+ stickerName);
           // let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
           // let bitmapPreview;
           // let parseFilePreview = "";
