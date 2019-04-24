@@ -102,8 +102,6 @@ module.exports = function (app) {
                             }
                         });
 
-                        console.log("BITMAP ###### "+ JSON.stringify(bitmap));
-
                         //create our parse file
                         let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                         sticker.set("name", stickerName);

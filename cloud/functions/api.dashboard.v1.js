@@ -2011,6 +2011,8 @@ Parse.Cloud.define("addStickers", function(req, res){
   let _previews = [];
 
 console.log("FILE NAME ##### " + JSON.stringify(files));
+console.log("FILE TYPE ##### " + JSON.stringify(files[0].type));
+
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
   .then(function(pack){
 
@@ -2019,7 +2021,7 @@ console.log("FILE NAME ##### " + JSON.stringify(files));
       files.forEach(function (file, index) {
 
           let _base = base64[index];
-          // _base = _base.split(",").pop();
+          _base = _base.split(",").pop();
           console.log("IMAGE BITMAP ########## "+ _base);
           let Sticker = new Parse.Object.extend(_class.Stickers);
           let sticker = new Sticker();
@@ -2040,8 +2042,8 @@ console.log("FILE NAME ##### " + JSON.stringify(files));
           //     }
           // });
 
-          let parseFile = new Parse.File(stickerName, {base64: _base});
-          console.log("PARSEFILE FOR SAVE " + JSON.stringify(parseFile));
+          let parseFile = new Parse.File(stickerName, {base64: _base}, file.type);
+          console.log("PARSEFILE FOR SAVE ##### " + JSON.stringify(parseFile));
 
           sticker.set("name", stickerName);
           sticker.set("localName", stickerName);
