@@ -2018,9 +2018,8 @@ console.log("FILE NAME ##### " + JSON.stringify(files));
 
       files.forEach(function (file, index) {
 
-          let fileUrl = base64[index];
-
-          fileUrl = new Buffer(fileUrl, 'base64');
+          let _base = base64[index];
+          _base = base.split(",").pop();
 
           let Sticker = new Parse.Object.extend(_class.Stickers);
           let sticker = new Sticker();
@@ -2032,8 +2031,8 @@ console.log("FILE NAME ##### " + JSON.stringify(files));
 
           // let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
-          let bitmapPreview;
-          let parseFilePreview = "";
+          // let bitmapPreview;
+          // let parseFilePreview = "";
 
           // _.map(_previews, preview => {
           //     if (stickerName === preview.name) {
@@ -2042,7 +2041,7 @@ console.log("FILE NAME ##### " + JSON.stringify(files));
           //     }
           // });
 
-          let parseFile = new Parse.File(stickerName, fileUrl, file.type);
+          let parseFile = new Parse.File(stickerName, _base, file.type);
           console.log("PARSEFILE FOR SAVE " + JSON.stringify(parseFile));
 
           sticker.set("name", stickerName);
