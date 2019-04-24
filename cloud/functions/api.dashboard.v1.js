@@ -2019,7 +2019,7 @@ console.log("FILE NAME ##### " + JSON.stringify(files));
       files.forEach(function (file, index) {
 
           let _base = base64[index];
-          _base = _base.split(",").pop();
+          // _base = _base.split(",").pop();
           console.log("IMAGE BITMAP ########## "+ _base);
           let Sticker = new Parse.Object.extend(_class.Stickers);
           let sticker = new Sticker();
