@@ -104,6 +104,8 @@ module.exports = function (app) {
 
                         //create our parse file
                         let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
+                        console.log("PARSE FILE " + JSON.stringify(parseFile));
+                        
                         sticker.set("name", stickerName);
                         sticker.set("localName", stickerName);
                         sticker.set("uri", parseFile);
