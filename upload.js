@@ -14,7 +14,7 @@ module.exports = function upload(req, res) {
 
   form.on('file', (field, file) => {
 
-    return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({sessionToken: token})
+    return new Parse.Query(_class.Packs).equalTo("objectId", packId).first()
     .then(function(pack){
       stickerCollection = pack;
 
