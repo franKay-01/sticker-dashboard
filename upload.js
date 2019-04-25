@@ -9,9 +9,15 @@ module.exports = function upload(req, res) {
 
   });
 
+  form.on('name', (field, name) => {
+
+    console.log("NAME OF FILE " + name);
+
+  })
+
   form.on('end', () => {
     res.json()
   });
-  
+
   form.parse(req)
 };
