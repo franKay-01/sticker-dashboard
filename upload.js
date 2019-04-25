@@ -6,7 +6,7 @@ module.exports = function upload(req, res) {
   form.on('file', (field, file, name) => {
 
     console.log("FILE PATH AS EXPECTED " + JSON.stringify(file));
-    console.log("FILE PATH AS EXPECTED " + JSON.stringify(name));
+    console.log("FILE NAME AS EXPECTED " + JSON.stringify(name));
 
   });
 
