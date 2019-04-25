@@ -2022,9 +2022,10 @@ Parse.Cloud.define("addStickers", function(req, res){
 
           let stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
           console.log("STICKER NAME ########## "+ stickerName);
-          console.log("BITMAP BEFORE ########## "+ file.path);
 
-          let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+          let realPath = "https://cryptic-waters-41617.herokuapp.com/".concat(file.path);
+
+          let bitmap = fs.readFileSync(realPath, {encoding: 'base64'});
           console.log("BITMAP ########## "+ bitmap);
           // let bitmapPreview;
           // let parseFilePreview = "";
