@@ -5,6 +5,7 @@ let ejs = require('ejs');
 let ParseServer = require('parse-server').ParseServer;
 let Parse = require("parse/node").Parse; // import the module
 let S3Adapter = require('@parse/s3-files-adapter');
+const imageUpload = require('./upload')
 
 //middleware for sessions and parsing forms
 let bodyParser = require('body-parser');
@@ -201,6 +202,7 @@ function setPermission(user, isPublicReadAccess) {
     return acl;
 }
 
+app.post('/upload', imageUpload);
 
 /*====================================== ACCOUNTS ============================*/
 accountRoute(app);
