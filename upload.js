@@ -8,12 +8,12 @@ module.exports = function upload(req, res) {
   let packId = "";
   let user = "";
   let fileDetails = [];
+  let newArray = [];
 
   form.on('field', (field, items) => {
-    // packId = items[0];
-    // user = items[1];
-    console.log("ITEMS BELOW ######");
-    console.log(items);
+    newArray = items.split(",");
+    packId = newArray[0];
+    user = newArray[1];
   });
 
   form.on('file', (field, file) => {
