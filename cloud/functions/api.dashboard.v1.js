@@ -1998,7 +1998,7 @@ Parse.Cloud.define("editPackDetails", function(req, res){
 
 Parse.Cloud.define("addStickers", function(req, res){
 
-  // const ID = req.params.admin;
+  const ID = req.params.admin;
   let packId = req.params.packId;
   // let projectId = req.params.projectId;
   let projectArray = [];
@@ -2042,7 +2042,7 @@ Parse.Cloud.define("addStickers", function(req, res){
           sticker.set("localName", stickerName);
           sticker.set("uri", parseFile);
           // sticker.set("preview", parseFilePreview);
-          // sticker.set("userId", ID);
+          sticker.set("userId", ID);
           sticker.set("parent", pack);
           sticker.set("description", "");
           sticker.set("meaning", "");

@@ -6,17 +6,19 @@ const IncomingForm = require('formidable').IncomingForm;
 module.exports = function upload(req, res) {
   let form = new IncomingForm()
   let packId = "";
+  let user = "";
   let fileDetails = [];
 
-  form.on('field', (field, id) => {
-    packId = id;
+  form.on('field', (field, items) => {
+    packId = items[0];
+    user = items[1];
   });
 
   form.on('file', (field, file) => {
-
     Parse.Cloud.run("addStickers",{
-          file: file,
-          packId: packId
+      admin: user,
+      file: file,
+      packId: packId
     }).then(function(sticker){
       console.log(JSON.stringify(sticker));
     }, function(error){
