@@ -10,7 +10,7 @@ module.exports = function upload(req, res) {
   });
 
   form.on('field', (field, name) => {
-    console.log("FILE NAME AS EXPECTED " + JSON.stringify(name));
+    console.log("FILE NAME AS EXPECTED " + JSON.stringify(field));
   });
 
   form.on('end', () => {
