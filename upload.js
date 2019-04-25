@@ -16,7 +16,7 @@ module.exports = function upload(req, res) {
 
     return new Parse.Query(_class.Packs).equalTo("objectId", packId).first()
     .then(function(pack){
-      stickerCollection = pack;
+      // stickerCollection = pack;
 
           let Sticker = new Parse.Object.extend(_class.Stickers);
           let sticker = new Sticker();
