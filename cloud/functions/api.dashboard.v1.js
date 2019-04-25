@@ -2024,7 +2024,7 @@ Parse.Cloud.define("addStickers", function(req, res){
           console.log("ORIGINAL NAME ########## "+ originalName);
           let stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
           console.log("STICKER NAME ########## "+ stickerName);
-          // let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+          let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
           // let bitmapPreview;
           // let parseFilePreview = "";
 
@@ -2035,7 +2035,7 @@ Parse.Cloud.define("addStickers", function(req, res){
           //     }
           // });
 
-          let parseFile = new Parse.File(stickerName, file, file.type);
+          let parseFile = new Parse.File(stickerName, bitmap, file.type);
           console.log("PARSEFILE FOR SAVE ##### " + JSON.stringify(parseFile));
 
           sticker.set("name", stickerName);

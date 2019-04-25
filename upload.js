@@ -24,7 +24,7 @@ module.exports = function upload(req, res) {
     }).then(function(sticker){
       console.log(JSON.stringify(sticker));
     }, function(error){
-      console.log("ERROR " + error.message);
+      console.log("ERROR " + JSON.stringify(error));
     })
   });
 
