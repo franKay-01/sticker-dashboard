@@ -2003,7 +2003,7 @@ Parse.Cloud.define("addStickers", function(req, res){
   // let projectId = req.params.projectId;
   let projectArray = [];
   // projectArray.push(projectId);
-  let files = req.params.file;
+  let file = req.params.file;
   let fileDetails = [];
   let stickerDetails = [];
   let stickerCollection = {};
@@ -2013,15 +2013,13 @@ Parse.Cloud.define("addStickers", function(req, res){
   .then(function(pack){
 
     stickerCollection = pack;
-
-      files.forEach(function (file, index) {
-
+    console.log("ORIGINAL PACK ########## "+ JSON.stringify(pack));
           let Sticker = new Parse.Object.extend(_class.Stickers);
           let sticker = new Sticker();
 
           // fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
           let originalName = file.name;
-          console.log("ORIGINAL NAME ########## "+ originalName);
+
           let stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
           console.log("STICKER NAME ########## "+ stickerName);
           let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
@@ -2057,22 +2055,31 @@ Parse.Cloud.define("addStickers", function(req, res){
               sticker.set("productId", "free");
           }
           sticker.set("version", pack.get("version"));
-          console.log("STICKER FOR SAVE " + JSON.stringify(sticker));
-          stickerDetails.push(sticker);
 
-    })
+          fileDetails.push(file.path);
 
-    console.log("SAVE ALL OBJECTS AND FILE");
-    return Parse.Object.saveAll(stickerDetails);
+    return sticker.save();
 
   }).then(function (stickers) {
 
-    _.each(stickers, function (sticker) {
-
-        let collection_relation = stickerCollection.relation(_class.Packs);
-        collection_relation.add(sticker);
-
+    _.each(fileDetails, function (file) {
+        //Delete tmp fil after upload
+        let tempFile = file;
+        fs.unlink(tempFile, function (err) {
+            if (err) {
+                //TODO handle error code
+                console.log("-------Could not del temp" + JSON.stringify(err));
+            }
+            else {
+                console.log("SUUCCCEESSSSS IN DELETING TEMP");
+            }
+        });
     });
+
+
+    let collection_relation = stickerCollection.relation(_class.Packs);
+    collection_relation.add(sticker);
+
 
     return stickerCollection.save();
 
