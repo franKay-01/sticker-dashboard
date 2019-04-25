@@ -2003,15 +2003,11 @@ Parse.Cloud.define("addStickers", function(req, res){
   let projectId = req.params.projectId;
   let projectArray = [];
   projectArray.push(projectId);
-  let base64 = req.params.base64;
-  let files = req.params.pictures;
+  let files = req.params.file;
   let fileDetails = [];
   let stickerDetails = [];
   let stickerCollection = {};
   let _previews = [];
-
-console.log("FILE NAME ##### " + JSON.stringify(files));
-console.log("FILE TYPE ##### " + JSON.stringify(files[0].type));
 
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
   .then(function(pack){
@@ -2019,9 +2015,6 @@ console.log("FILE TYPE ##### " + JSON.stringify(files[0].type));
     stickerCollection = pack;
 
       files.forEach(function (file, index) {
-
-          let _base = base64[index];
-          // _base = _base.split(",").pop();
 
           let Sticker = new Parse.Object.extend(_class.Stickers);
           let sticker = new Sticker();
@@ -2049,7 +2042,7 @@ console.log("FILE TYPE ##### " + JSON.stringify(files[0].type));
           sticker.set("localName", stickerName);
           sticker.set("uri", parseFile);
           // sticker.set("preview", parseFilePreview);
-          sticker.set("userId", ID);
+          // sticker.set("userId", ID);
           sticker.set("parent", pack);
           sticker.set("description", "");
           sticker.set("meaning", "");
