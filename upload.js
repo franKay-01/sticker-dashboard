@@ -3,17 +3,12 @@ const IncomingForm = require('formidable').IncomingForm;
 module.exports = function upload(req, res) {
   var form = new IncomingForm()
 
-  form.on('file', (field, file) => {
+  form.on('file', (field, file, name) => {
 
     console.log("FILE PATH AS EXPECTED " + JSON.stringify(file));
+    console.log("FILE NAME AS EXPECTED " + JSON.stringify(name));
 
   });
-
-  form.on('name', (field, name) => {
-
-    console.log("NAME OF FILE " + name);
-
-  })
 
   form.on('end', () => {
     res.json()
