@@ -1998,11 +1998,11 @@ Parse.Cloud.define("editPackDetails", function(req, res){
 
 Parse.Cloud.define("addStickers", function(req, res){
 
-  const ID = req.params.admin;
+  // const ID = req.params.admin;
   let packId = req.params.packId;
-  let projectId = req.params.projectId;
+  // let projectId = req.params.projectId;
   let projectArray = [];
-  projectArray.push(projectId);
+  // projectArray.push(projectId);
   let files = req.params.file;
   let fileDetails = [];
   let stickerDetails = [];
