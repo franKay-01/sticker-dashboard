@@ -13,10 +13,6 @@ module.exports = function upload(req, res) {
     console.log("FILE NAME AS EXPECTED " + JSON.stringify(name));
   });
 
-  form.on('field', (field, name) => {
-    console.log("FILE NAME AS EXPECTED 2 " + JSON.stringify(name));
-  });
-
   form.on('end', () => {
     res.json()
   });
