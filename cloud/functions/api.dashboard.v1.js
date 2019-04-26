@@ -2033,9 +2033,8 @@ Parse.Cloud.define("addStickers", function(req, res){
               console.log("BITMAP "+err);
               return false;
             }else {
-              bitmap = data;
-              console.log("BITMAP ### " + JSON.stringify(bitmap));
-              let parseFile = new Parse.File(stickerName, bitmap, file.type);
+              
+              let parseFile = new Parse.File(stickerName, data, file.type);
               console.log("PARSEFILE FOR SAVE ##### " + JSON.stringify(parseFile));
 
               sticker.set("name", stickerName);
@@ -2098,7 +2097,7 @@ Parse.Cloud.define("addStickers", function(req, res){
 
 
       return stickerCollection.save();
-      
+
   }else {
     return true;
   }
