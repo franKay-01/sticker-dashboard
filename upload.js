@@ -18,6 +18,7 @@ module.exports = function upload(req, res) {
   });
 
   form.on('file', (field, file) => {
+    console.log("LENGTH OF FILE FROM UPLOAD ### " + file.length);
     Parse.Cloud.run("addStickers",{
       admin: user,
       file: file,
