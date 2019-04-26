@@ -2009,32 +2009,28 @@ Parse.Cloud.define("addStickers", function(req, res){
   let stickerDetails = [];
   let stickerCollection = {};
   let _previews = [];
+  let bitmap = "";
+  let originalName = "";
+  let stickerName = "";
 
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
   .then(function(pack){
 
     stickerCollection = pack;
-    console.log("ORIGINAL PACK ########## "+ JSON.stringify(pack));
-          let Sticker = new Parse.Object.extend(_class.Stickers);
-          let sticker = new Sticker();
-          let bitmap = "";
-          // fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
-          let originalName = file.name;
 
-          let stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
-          console.log("STICKER NAME ########## "+ stickerName);
+          originalName = file.name;
 
-          // let realPath = "https://cryptic-waters-41617.herokuapp.com/".concat(file.path);
-          console.log("FILE PATH " + file.path);
-          // let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+          stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
 
           base64Img.base64(file.path, function(err, data) {
             if (err){
               console.log("BITMAP "+err);
               return false;
             }else {
+              let Sticker = new Parse.Object.extend(_class.Stickers);
+              let sticker = new Sticker();
 
-              let parseFile = new Parse.File(stickerName, { base64: data});
+              let parseFile = new Parse.File(stickerName, { base64: data });
               console.log("PARSEFILE FOR SAVE ##### " + JSON.stringify(parseFile));
 
               sticker.set("name", stickerName);
@@ -2059,7 +2055,7 @@ Parse.Cloud.define("addStickers", function(req, res){
 
               fileDetails.push(file.path);
 
-        return sticker.save();
+              return sticker.save();
             }
           });
 
@@ -2076,34 +2072,42 @@ Parse.Cloud.define("addStickers", function(req, res){
 
   }).then(function (stickers) {
 
-  if (stickers !== false){
-      _.each(fileDetails, function (file) {
-          //Delete tmp fil after upload
-          let tempFile = file;
-          fs.unlink(tempFile, function (err) {
-              if (err) {
-                  //TODO handle error code
-                  console.log("-------Could not del temp" + JSON.stringify(err));
-              }
-              else {
-                  console.log("SUUCCCEESSSSS IN DELETING TEMP");
-              }
-          });
-      });
+    return new Parse.Query(_class.Stickers).equalTo("parent", {
+        __type: 'Pointer',
+        className: _class.Packs,
+        objectId: packId
+    }).find();
 
+  }).then(function(sticker){
 
-      let collection_relation = stickerCollection.relation(_class.Packs);
-      collection_relation.add(sticker);
+    _.each(stickers, function (sticker) {
 
+        let collection_relation = stickerCollection.relation(_class.Packs);
+        collection_relation.add(sticker);
 
-      return stickerCollection.save();
+    });
 
-  }else {
-    return true;
-  }
+    return stickerCollection.save();
+
   }).then(function(saved){
 
-    res.success(util.setResponseOk(saved));
+    if (fileDetails.length > 0){
+        _.each(fileDetails, function (file) {
+            //Delete tmp fil after upload
+            let tempFile = file;
+            fs.unlink(tempFile, function (err) {
+                if (err) {
+                    //TODO handle error code
+                    console.log("-------Could not del temp" + JSON.stringify(err));
+                }
+                else {
+                    console.log("SUUCCCEESSSSS IN DELETING TEMP");
+                }
+            });
+        });
+    }
+
+    res.success(util.setResponseOk(true));
 
   }, function(error){
 
