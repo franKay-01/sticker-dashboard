@@ -2030,9 +2030,37 @@ Parse.Cloud.define("addStickers", function(req, res){
 
           base64Img.base64(file.path, function(err, data) {
             if (err){
-              console.log(err)
+              console.log("BITMAP "+err);
+              return false;
             }else {
               bitmap = data;
+              console.log("BITMAP ### " + JSON.stringify(bitmap));
+              let parseFile = new Parse.File(stickerName, bitmap, file.type);
+              console.log("PARSEFILE FOR SAVE ##### " + JSON.stringify(parseFile));
+
+              sticker.set("name", stickerName);
+              sticker.set("localName", stickerName);
+              sticker.set("uri", parseFile);
+              // sticker.set("preview", parseFilePreview);
+              sticker.set("userId", ID);
+              sticker.set("parent", pack);
+              sticker.set("description", "");
+              sticker.set("meaning", "");
+              sticker.set("categories", []);
+              sticker.set("flagged", false);
+              sticker.set("archived", false);
+              if (pack.get("productId") !== "") {
+                  sticker.set("sold", true);
+                  sticker.set("productId", pack.get("productId"));
+              } else {
+                  sticker.set("sold", false);
+                  sticker.set("productId", "free");
+              }
+              sticker.set("version", pack.get("version"));
+
+              fileDetails.push(file.path);
+
+        return sticker.save();
             }
           });
 
@@ -2045,57 +2073,35 @@ Parse.Cloud.define("addStickers", function(req, res){
           //         parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
           //     }
           // });
-          console.log("BITMAP ### " + JSON.stringify(bitmap));
-          let parseFile = new Parse.File(stickerName, bitmap, file.type);
-          console.log("PARSEFILE FOR SAVE ##### " + JSON.stringify(parseFile));
 
-          sticker.set("name", stickerName);
-          sticker.set("localName", stickerName);
-          sticker.set("uri", parseFile);
-          // sticker.set("preview", parseFilePreview);
-          sticker.set("userId", ID);
-          sticker.set("parent", pack);
-          sticker.set("description", "");
-          sticker.set("meaning", "");
-          sticker.set("categories", []);
-          sticker.set("flagged", false);
-          sticker.set("archived", false);
-          if (pack.get("productId") !== "") {
-              sticker.set("sold", true);
-              sticker.set("productId", pack.get("productId"));
-          } else {
-              sticker.set("sold", false);
-              sticker.set("productId", "free");
-          }
-          sticker.set("version", pack.get("version"));
-
-          fileDetails.push(file.path);
-
-    return sticker.save();
 
   }).then(function (stickers) {
 
-    _.each(fileDetails, function (file) {
-        //Delete tmp fil after upload
-        let tempFile = file;
-        fs.unlink(tempFile, function (err) {
-            if (err) {
-                //TODO handle error code
-                console.log("-------Could not del temp" + JSON.stringify(err));
-            }
-            else {
-                console.log("SUUCCCEESSSSS IN DELETING TEMP");
-            }
-        });
-    });
+  if (stickers !== false){
+      _.each(fileDetails, function (file) {
+          //Delete tmp fil after upload
+          let tempFile = file;
+          fs.unlink(tempFile, function (err) {
+              if (err) {
+                  //TODO handle error code
+                  console.log("-------Could not del temp" + JSON.stringify(err));
+              }
+              else {
+                  console.log("SUUCCCEESSSSS IN DELETING TEMP");
+              }
+          });
+      });
 
 
-    let collection_relation = stickerCollection.relation(_class.Packs);
-    collection_relation.add(sticker);
+      let collection_relation = stickerCollection.relation(_class.Packs);
+      collection_relation.add(sticker);
 
 
-    return stickerCollection.save();
-
+      return stickerCollection.save();
+      
+  }else {
+    return true;
+  }
   }).then(function(saved){
 
     res.success(util.setResponseOk(saved));
