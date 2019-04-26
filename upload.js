@@ -5,6 +5,7 @@ const IncomingForm = require('formidable').IncomingForm;
 
 module.exports = function upload(req, res) {
   let form = new IncomingForm()
+  form.uploadDir = "./public/uploads";
   let packId = "";
   let user = "";
   let fileDetails = [];
