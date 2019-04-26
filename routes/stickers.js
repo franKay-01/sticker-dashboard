@@ -89,7 +89,7 @@ module.exports = function (app) {
                         // fullName = fullName.replace(util.SPECIAL_CHARACTERS, '');
                         let originalName = file.originalname;
                         let stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
-
+                        console.log("FILE PATH ###" + file.path);
                         let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
 
                         let bitmapPreview;
@@ -105,7 +105,7 @@ module.exports = function (app) {
                         //create our parse file
                         let parseFile = new Parse.File(stickerName, {base64: bitmap}, file.mimetype);
                         console.log("PARSE FILE " + JSON.stringify(parseFile));
-                        
+
                         sticker.set("name", stickerName);
                         sticker.set("localName", stickerName);
                         sticker.set("uri", parseFile);
