@@ -2045,7 +2045,7 @@ Parse.Cloud.define("addStickers", function(req, res){
           //         parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
           //     }
           // });
-
+          console.log("BITMAP ### " + JSON.stringify(bitmap));
           let parseFile = new Parse.File(stickerName, bitmap, file.type);
           console.log("PARSEFILE FOR SAVE ##### " + JSON.stringify(parseFile));
 
