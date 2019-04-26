@@ -2023,10 +2023,10 @@ Parse.Cloud.define("addStickers", function(req, res){
 
           stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
 
-          return image2base64(file.path) // you can also to use url
+          return image2base64(file.path); // you can also to use url
 
   }).then(function (data) {
-
+    console.log("DATA FROM BASE 64 " + JSON.stringify(data));
     let Sticker = new Parse.Object.extend(_class.Stickers);
     let sticker = new Sticker();
 
