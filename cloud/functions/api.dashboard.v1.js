@@ -2033,8 +2033,8 @@ Parse.Cloud.define("addStickers", function(req, res){
               console.log("BITMAP "+err);
               return false;
             }else {
-              
-              let parseFile = new Parse.File(stickerName, data, file.type);
+
+              let parseFile = new Parse.File(stickerName, data);
               console.log("PARSEFILE FOR SAVE ##### " + JSON.stringify(parseFile));
 
               sticker.set("name", stickerName);
