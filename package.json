@@ -12,6 +12,7 @@
     "@parse/s3-files-adapter": "^1.2.1",
     "alloyeditor": "^1.5.1",
     "aws-sdk": "^2.289.0",
+    "base64-img": "^1.0.4",
     "base64-to-image": "^1.0.2",
     "body-parser": "^1.17.2",
     "busboy": "^0.2.14",
