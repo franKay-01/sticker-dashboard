@@ -2034,7 +2034,7 @@ Parse.Cloud.define("addStickers", function(req, res){
               return false;
             }else {
 
-              let parseFile = new Parse.File(stickerName, data);
+              let parseFile = new Parse.File(stickerName, { base64: data});
               console.log("PARSEFILE FOR SAVE ##### " + JSON.stringify(parseFile));
 
               sticker.set("name", stickerName);
