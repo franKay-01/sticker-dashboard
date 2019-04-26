@@ -2027,9 +2027,8 @@ Parse.Cloud.define("addStickers", function(req, res){
           // let realPath = "https://cryptic-waters-41617.herokuapp.com/".concat(file.path);
           console.log("FILE PATH " + file.path);
           // let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
-          let imagePath = file.path;
-          let _file = imagePath.concat(file.name);
-          base64Img.base64(_file, function(err, data) {
+          
+          base64Img.base64(file.path, function(err, data) {
             console.log("BASE64 FILE ## "+ JSON.stringify(data));
           });
 
