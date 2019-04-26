@@ -2078,7 +2078,7 @@ Parse.Cloud.define("addStickers", function(req, res){
         objectId: packId
     }).find();
 
-  }).then(function(sticker){
+  }).then(function(stickers){
 
     _.each(stickers, function (sticker) {
 
