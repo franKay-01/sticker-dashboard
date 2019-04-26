@@ -2031,8 +2031,9 @@ Parse.Cloud.define("addStickers", function(req, res){
               let Sticker = new Parse.Object.extend(_class.Stickers);
               let sticker = new Sticker();
 
+              console.log("COUNTER " + count++);
+
               let parseFile = new Parse.File(stickerName, { base64: data });
-              console.log("COUNTER" + count++);
 
               sticker.set("name", stickerName);
               sticker.set("localName", stickerName);
