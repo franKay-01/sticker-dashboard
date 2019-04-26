@@ -9,6 +9,7 @@ let analytics = require("../modules/analytics");
 let query = require("../modules/query");
 let base64Img = require('base64-img');
 const PARSE_LIMIT = 1000;
+let count = 0;
 
 Parse.Cloud.define("getAdvertDetails", function(req, res){
 
@@ -2031,7 +2032,7 @@ Parse.Cloud.define("addStickers", function(req, res){
               let sticker = new Sticker();
 
               let parseFile = new Parse.File(stickerName, { base64: data });
-              console.log("PARSEFILE FOR SAVE ##### " + JSON.stringify(parseFile));
+              console.log("COUNTER" + count++);
 
               sticker.set("name", stickerName);
               sticker.set("localName", stickerName);
