@@ -18,15 +18,10 @@ module.exports = function upload(req, res) {
   });
 
   form.on('file', (field, file) => {
-    console.log("LENGTH OF FILE FROM UPLOAD ### " + file.length);
     Parse.Cloud.run("addStickers",{
       admin: user,
       file: file,
       packId: packId
-    }).then(function(sticker){
-      console.log(JSON.stringify(sticker));
-    }, function(error){
-      console.log("ERROR " + JSON.stringify(error));
     })
   });
 
