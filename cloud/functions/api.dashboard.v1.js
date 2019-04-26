@@ -7,7 +7,7 @@ let dashboardHelper = require("../modules/createDashboard");
 let _class = require("../modules/classNames");
 let analytics = require("../modules/analytics");
 let query = require("../modules/query");
-let base64Img = require('base64-img');
+const image2base64 = require('image-to-base64');
 const PARSE_LIMIT = 1000;
 let count = 0;
 
@@ -2023,53 +2023,40 @@ Parse.Cloud.define("addStickers", function(req, res){
 
           stickerName = originalName.substring(0, originalName.length - 4).replace(util.SPECIAL_CHARACTERS, "");
 
-          base64Img.base64(file.path, function(err, data) {
-            if (err){
-              console.log("BITMAP "+err);
-              return false;
-            }else {
-              let Sticker = new Parse.Object.extend(_class.Stickers);
-              let sticker = new Sticker();
+          return image2base64(file.path) // you can also to use url
 
-              console.log("COUNTER " + count++);
+  }).then(function (data) {
 
-              let parseFile = new Parse.File(stickerName, { base64: data });
+    let Sticker = new Parse.Object.extend(_class.Stickers);
+    let sticker = new Sticker();
 
-              sticker.set("name", stickerName);
-              sticker.set("localName", stickerName);
-              sticker.set("uri", parseFile);
-              // sticker.set("preview", parseFilePreview);
-              sticker.set("userId", ID);
-              sticker.set("parent", pack);
-              sticker.set("description", "");
-              sticker.set("meaning", "");
-              sticker.set("categories", []);
-              sticker.set("flagged", false);
-              sticker.set("archived", false);
-              if (pack.get("productId") !== "") {
-                  sticker.set("sold", true);
-                  sticker.set("productId", pack.get("productId"));
-              } else {
-                  sticker.set("sold", false);
-                  sticker.set("productId", "free");
-              }
-              sticker.set("version", pack.get("version"));
+    console.log("COUNTER " + count++);
 
-              fileDetails.push(file.path);
+    let parseFile = new Parse.File(stickerName, { base64: data });
 
-              return sticker.save();
-            }
-          });
+    sticker.set("name", stickerName);
+    sticker.set("localName", stickerName);
+    sticker.set("uri", parseFile);
+    // sticker.set("preview", parseFilePreview);
+    sticker.set("userId", ID);
+    sticker.set("parent", pack);
+    sticker.set("description", "");
+    sticker.set("meaning", "");
+    sticker.set("categories", []);
+    sticker.set("flagged", false);
+    sticker.set("archived", false);
+    if (pack.get("productId") !== "") {
+        sticker.set("sold", true);
+        sticker.set("productId", pack.get("productId"));
+    } else {
+        sticker.set("sold", false);
+        sticker.set("productId", "free");
+    }
+    sticker.set("version", pack.get("version"));
 
-          // let bitmapPreview;
-          // let parseFilePreview = "";
+    fileDetails.push(file.path);
 
-          // _.map(_previews, preview => {
-          //     if (stickerName === preview.name) {
-          //         bitmapPreview = fs.readFileSync(preview.path, {encoding: 'base64'});
-          //         parseFilePreview = new Parse.File(stickerName, {base64: bitmapPreview}, preview.mimetype);
-          //     }
-          // });
+    return sticker.save();
 
 
   }).then(function (stickers) {
