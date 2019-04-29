@@ -289,10 +289,10 @@ app.get('/uploads/react/:id/:projectId', function (req, res) {
             pack_name: pack.get("name")
           });
         }, function (error) {
-            res.redirect("http://0.0.0.0:4040/");
+            res.redirect("http://localhost:3000/pack/"+pack_id+"/"+projectId);
         })
     } else {
-        res.redirect("http://0.0.0.0:4040/");
+        res.redirect("http://localhost:3000/pack/"+pack_id+"/"+projectId);
     }
 });
 
@@ -444,13 +444,13 @@ app.post('/uploads/react', upload.array('im1[]'), function (req, res) {
 
             }).then(function (stickers) {
 
-                res.redirect("http://0.0.0.0:4040/");
+                res.redirect("http://localhost:3000/pack/"+pack_id+"/"+projectId);
 
             }, function (error) {
 
                 console.log("BIG BIG ERROR" + error.message);
-                res.redirect("http://0.0.0.0:4040/");
-
+                res.redirect("http://localhost:3000/pack/"+pack_id+"/"+projectId);
+                
             });
         // }, function (error) {
         //     console.log("BIG BIG ERROR" + error.message);
