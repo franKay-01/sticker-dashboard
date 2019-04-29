@@ -26,7 +26,7 @@ module.exports = function upload(req, res) {
   });
 
   form.on('end', () => {
-    res.json("Happy")
+    res.json("Happy");
   });
 
   form.parse(req)
