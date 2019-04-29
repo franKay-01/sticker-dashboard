@@ -30,7 +30,8 @@ module.exports = function (app) {
       .then(function (pack) {
           res.render("pages/stickers/add_sticker", {
               id: pack.id,
-              pack_name: pack.get("name")
+              pack_name: pack.get("name"),
+              projectId: projectId
             });
           }, function (error) {
               res.redirect("http://localhost:3000/pack/"+pack_id+"/"+projectId);
