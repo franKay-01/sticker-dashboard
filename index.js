@@ -35,6 +35,17 @@ let messageRoutes = require('./routes/messages');
 let barcodeRoutes = require('./routes/barcodes');
 let projectRoutes = require('./routes/projects');
 
+let storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        console.log("Dest " + JSON.stringify(file));
+        cb(null, 'public/uploads')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+
+let upload = multer({storage: storage});
 
 //TODO investigate email template server url links
 const PARSE_SERVER_URL = process.env.SERVER_URL;
