@@ -20,6 +20,7 @@ Parse.Cloud.define("setFeedItem", function(req, res){
   let projectId = req.params.projectId;
   let ID = req.params.admin;
   let Query;
+  let _story = {};
 
 switch (source) {
   case STICKER:
@@ -78,112 +79,95 @@ switch (source) {
    return selected.save();
 
  }).then(function(){
-    Parse.Cloud.run("notification", {
-      admin: ID,
-      projectId: projectId,
-      source: source
-    })
+   switch (source) {
+       case STICKER:
+      return Parse.Promise.when(
+           new Parse.Query(_class.Stories).equalTo("objectId", ID).first({useMasterKey: true}),
+           new Parse.Query(_class.ArtWork).equalTo("itemId", ID).first({useMasterKey: true})
+       );
+
+       case STORIES:
+           return new Parse.Query(_class.Stickers).equalTo("objectId", ID).first({useMasterKey: true});
+   }
+
+ }).then(function(item, artwork){
+   switch (source) {
+       case STORIES:
+         _story = item;
+         return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("stickerId")).first({useMasterKey: true});
+
+       case STICKER:
+         return item;
+       }
+ }).then(function(sticker){
+   switch (source) {
+       case STORIES:
+           let story = create.Story(_story);
+           story = create.StoryArtwork(story, sticker);
+
+           notification.send({
+               title: story.title,
+               description: story.summary,
+               activity: "STORY_ACTIVITY",
+               data: {
+                   id: story.id,
+                   title: story.title,
+                   stickerUrl: story.stickerUrl,
+                   summary: story.summary,
+                   topColor: story.topColor,
+                   bottomColor: story.bottomColor,
+                   type: notificationType
+               },
+
+               //TODO retrieve first section from Server
+               topic: process.env.TOPIC_PREFIX + "feed.story"
+
+           }).then(function (success) {
+
+               console.log("STORY NOTIFICATION WAS SENT SUCCESSFULLY");
+
+           }, function (status) {
+
+               console.log("STORY NOTIFICATION WASN'T SENT " + status);
+
+           });
+
+           res.success(util.setResponseOk(true));
+           break;
+
+       case STICKER:
+
+           let _sticker = create.Sticker(sticker);
+           notification.send({
+               title: "Sticker Of the Day",
+               description: _sticker.description,
+               activity: "STICKER_ACTIVITY",
+               data: {
+                   id: _sticker.id,
+                   name: _sticker.name,
+                   url: _sticker.url,
+                   type: notificationType
+               },
+               //TODO retrieve first section from Server
+               topic: process.env.TOPIC_PREFIX + "feed.sticker"
+           }).then(function (success) {
+
+               console.log("STICKER NOTIFICATION WAS SENT SUCCESSFULLY");
+
+           }, function (status) {
+
+               console.log("STICKER NOTIFICATION WASN'T SENT " + status);
+
+           });
+
+           res.success(util.setResponseOk(true));
+
+   }
  }, function(error){
 
    util.handleError(res, error);
 
  })
-
-});
-
-Parse.Cloud.define("notification", function (req, res) {
-
-    let ID = req.params.admin;
-    let projectId = req.params.projectId;
-    let source = req.params.source;
-    let _story = {};
-    let Query;
-
-    if (source === STICKER) {
-         Query = Parse.Promise.when(
-             new Parse.Query(_class.Stories).equalTo("objectId", ID).first({useMasterKey: true}),
-             new Parse.Query(_class.ArtWork).equalTo("itemId", ID).first({useMasterKey: true})
-         );
-    } else if (source === STORIES) {
-         Query = new Parse.Query(_class.Stickers).equalTo("objectId", ID).first({useMasterKey: true});
-    }
-
-    return Query.then(function (item, artwork) {
-      switch (notificationType) {
-          case STORIES:
-            _story = item;
-            return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("stickerId")).first({useMasterKey: true});
-
-          case STICKER:
-            return item;
-          }
-        }).then(function (sticker) {
-
-            switch (notificationType) {
-                case STORIES:
-                    let story = create.Story(_story);
-                    story = create.StoryArtwork(story, sticker);
-
-                    notification.send({
-                        title: story.title,
-                        description: story.summary,
-                        activity: "STORY_ACTIVITY",
-                        data: {
-                            id: story.id,
-                            title: story.title,
-                            stickerUrl: story.stickerUrl,
-                            summary: story.summary,
-                            topColor: story.topColor,
-                            bottomColor: story.bottomColor,
-                            type: notificationType
-                        },
-
-                        //TODO retrieve first section from Server
-                        topic: process.env.TOPIC_PREFIX + "feed.story"
-
-                    }).then(function (success) {
-
-                        console.log("STORY NOTIFICATION WAS SENT SUCCESSFULLY");
-
-                    }, function (status) {
-
-                        console.log("STORY NOTIFICATION WASN'T SENT " + status);
-
-                    });
-
-                    res.success(util.setResponseOk(true));
-                    break;
-
-                case STICKER:
-
-                    let _sticker = create.Sticker(sticker);
-                    notification.send({
-                        title: "Sticker Of the Day",
-                        description: _sticker.description,
-                        activity: "STICKER_ACTIVITY",
-                        data: {
-                            id: _sticker.id,
-                            name: _sticker.name,
-                            url: _sticker.url,
-                            type: notificationType
-                        },
-                        //TODO retrieve first section from Server
-                        topic: process.env.TOPIC_PREFIX + "feed.sticker"
-                    }).then(function (success) {
-
-                        console.log("STICKER NOTIFICATION WAS SENT SUCCESSFULLY");
-
-                    }, function (status) {
-
-                        console.log("STICKER NOTIFICATION WASN'T SENT " + status);
-
-                    });
-
-                    res.success(util.setResponseOk(true));
-                    break;
-            }
-        })
-//TODO type by id
 
 });
 
