@@ -21,13 +21,15 @@ Parse.Cloud.define("setFeedItem", function(req, res){
   let ID = req.params.admin;
   let Query;
 
-  if (source === STICKER) {
-       Query = new Parse.Query(_class.Stickers);
-  } else if (source === STORIES) {
-       Query = new Parse.Query(_class.Stories);
-  }
+switch (source) {
+  case STICKER:
+      Query = new Parse.Query(_class.Feed).equalTo("type", type.FEED_TYPE.sticker);
 
- return Query.equalTo("objectId", itemId).first({useMasterKey:true})
+  case STORIES:
+      Query = new Parse.Query(_class.Feed).equalTo("type", type.FEED_TYPE.story);
+}
+
+ return Query.equalTo("projectId", projectId).equalTo("userId", ID).first({useMasterKey:true})
  .then(function(latest){
 
    if (latest) {
@@ -77,7 +79,6 @@ Parse.Cloud.define("setFeedItem", function(req, res){
 
  }).then(function(){
     Parse.Cloud.run("notification", {
-      type: source,
       admin: ID,
       projectId: projectId,
       source: source
@@ -92,7 +93,6 @@ Parse.Cloud.define("setFeedItem", function(req, res){
 
 Parse.Cloud.define("notification", function (req, res) {
 
-    let notificationType = req.params.source;
     let ID = req.params.admin;
     let projectId = req.params.projectId;
     let source = req.params.source;
