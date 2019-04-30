@@ -20,7 +20,8 @@ Parse.Cloud.define("getStoryOfTheDay", function(req, res){
   let storyDetails = {};
   let combined = [];
   let _stories = [];
-
+  let artWork = [];
+  
   console.log("PROJECT ID "+ projectId+" ID "+ID);
   projectArray.push(projectId);
 
