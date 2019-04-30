@@ -11,6 +11,178 @@ const image2base64 = require('image-to-base64');
 const PARSE_LIMIT = 1000;
 let count = 0;
 
+const STICKER = "sticker";
+const STORIES = "story";
+
+Parse.Cloud.define("setFeedItem", function(req, res){
+  let source = req.params.source;
+  let itemId = req.params.itemId;
+  let projectId = req.params.projectId;
+  let ID = req.params.admin;
+
+  if (source === STICKER) {
+       Query = new Parse.Query(_class.Stickers);
+  } else if (source === STORIES) {
+       Query = new Parse.Query(_class.Stories);
+  }
+
+ return Query.equalTo("objectId", itemId).first({useMasterKey:true})
+ .then(function(latest){
+
+   if (latest) {
+
+       latest.set("feedId", itemId);
+       return latest.save();
+
+   } else {
+
+       let Latest = new Parse.Object.extend(_class.Feed);
+       let latest = new Latest();
+
+       latest.set("feedId", itemId);
+       latest.set("userId", ID);
+       latest.set("projectId", projectId);
+       if (feedType === STORIES) {
+
+           latest.set("type", type.FEED_TYPE.story);
+
+       } else if (feedType === STICKER) {
+
+           latest.set("type", type.FEED_TYPE.sticker);
+
+       }
+
+       return latest.save();
+   }
+ }).then(function(){
+
+   let Selected = new Parse.Object.extend(_class.History);
+   let selected = new Selected();
+
+   switch (source) {
+       case STICKER:
+           selected.set("type", type.FEED_TYPE.sticker);
+           selected.set("itemId", itemId);
+           selected.set("projectId", projectId);
+           break;
+       case STORIES:
+           selected.set("type", type.FEED_TYPE.story);
+           selected.set("itemId", itemId);
+           selected.set("projectId", projectId);
+           break;
+   }
+
+   return selected.save();
+
+ }).then(function(){
+    Parse.Cloud.run("notification", {
+      type: source,
+      admin: ID,
+      projectId: projectId
+    })
+ }, function(error){
+
+   util.handleError(res, error);
+
+ })
+
+});
+
+Parse.Cloud.define("notification", function (req, res) {
+
+    let notificationType = req.params.source;
+    let ID = req.params.admin;
+    let projectId = req.params.projectId;
+    let _story = {};
+
+    if (source === STICKER) {
+         Query = Parse.Promise.when(
+             new Parse.Query(_class.Stories).equalTo("objectId", ID).first({useMasterKey: true}),
+             new Parse.Query(_class.ArtWork).equalTo("itemId", ID).first({useMasterKey: true})
+         );
+    } else if (source === STORIES) {
+         Query = new Parse.Query(_class.Stickers).equalTo("objectId", ID).first({useMasterKey: true});
+    }
+
+    return Query.then(function (item, artwork) {
+      switch (notificationType) {
+          case STORIES:
+            _story = item;
+            return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("stickerId")).first({useMasterKey: true});
+
+          case STICKER:
+            return item;
+          }
+        }).then(function (sticker) {
+
+            switch (notificationType) {
+                case STORIES:
+                    let story = create.Story(_story);
+                    story = create.StoryArtwork(story, sticker);
+
+                    notification.send({
+                        title: story.title,
+                        description: story.summary,
+                        activity: "STORY_ACTIVITY",
+                        data: {
+                            id: story.id,
+                            title: story.title,
+                            stickerUrl: story.stickerUrl,
+                            summary: story.summary,
+                            topColor: story.topColor,
+                            bottomColor: story.bottomColor,
+                            type: notificationType
+                        },
+
+                        //TODO retrieve first section from Server
+                        topic: process.env.TOPIC_PREFIX + "feed.story"
+
+                    }).then(function (success) {
+
+                        console.log("STORY NOTIFICATION WAS SENT SUCCESSFULLY");
+
+                    }, function (status) {
+
+                        console.log("STORY NOTIFICATION WASN'T SENT " + status);
+
+                    });
+
+                    res.success(util.setResponseOk(true));
+                    break;
+
+                case STICKER:
+
+                    let _sticker = create.Sticker(sticker);
+                    notification.send({
+                        title: "Sticker Of the Day",
+                        description: _sticker.description,
+                        activity: "STICKER_ACTIVITY",
+                        data: {
+                            id: _sticker.id,
+                            name: _sticker.name,
+                            url: _sticker.url,
+                            type: notificationType
+                        },
+                        //TODO retrieve first section from Server
+                        topic: process.env.TOPIC_PREFIX + "feed.sticker"
+                    }).then(function (success) {
+
+                        console.log("STICKER NOTIFICATION WAS SENT SUCCESSFULLY");
+
+                    }, function (status) {
+
+                        console.log("STICKER NOTIFICATION WASN'T SENT " + status);
+
+                    });
+
+                    res.success(util.setResponseOk(true));
+                    break;
+            }
+        })
+//TODO type by id
+
+});
+
 Parse.Cloud.define("getStoryOfTheDay", function(req, res){
 
   let ID = req.params.admin;
@@ -21,7 +193,7 @@ Parse.Cloud.define("getStoryOfTheDay", function(req, res){
   let combined = [];
   let _stories = [];
   let artWork = [];
-  
+
   console.log("PROJECT ID "+ projectId+" ID "+ID);
   projectArray.push(projectId);
 
