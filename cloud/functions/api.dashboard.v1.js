@@ -11,6 +11,79 @@ const image2base64 = require('image-to-base64');
 const PARSE_LIMIT = 1000;
 let count = 0;
 
+Parse.Cloud.define("getStoryOfTheDay", function(req, res){
+
+  let ID = req.params.admin;
+  let projectId = req.params.projectId;
+  let projectArray = [];
+  let _allArtwork = [];
+  let storyDetails = {};
+  let combined = [];
+
+  console.log("PROJECT ID "+ projectId+" ID "+ID);
+  projectArray.push(projectId);
+
+  return Parse.Promise.when(
+      new Parse.Query(_class.Stories).equalTo("userId", ID).containedIn("projectIds", projectArray).find({useMasterKey: true}),
+      new Parse.Query(_class.ArtWork).find({useMasterKey: true})
+  ).then(function(stories,artworks){
+      _allArtwork = artworks;
+
+      if (_stories) {
+
+          _.each(stories, function (story) {
+              if (story.get("published") === true) {
+
+                  _stories.push(story);
+
+              }
+          });
+
+          _.each(artworks, function (artwork) {
+
+              artWork.push(artwork.get("stickerId"));
+
+          });
+
+          storyDetails.stories = dashboardHelper.Stories(stories);
+
+          return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find({useMasterKey: true});
+
+    }else {
+
+        storyDetails.stories = "";
+        storyDetails.stickers = "";
+        res.success(util.setResponseOk(storyDetails));
+
+    }
+
+  }).then(function(stickers){
+
+    _.each(_allArtwork, function (artworks) {
+
+        _.each(stickers, function (sticker) {
+
+            if (artworks.get("stickerId") === sticker.id) {
+
+                combined.push({
+                    story: artworks.get("itemId"),
+                    image: sticker.get("uri").url()
+                });
+            }
+        })
+    });
+
+    storyDetails.stickers = combined;
+    res.success(util.setResponseOk(storyDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  });
+});
+
+
 Parse.Cloud.define("getAdvertDetails", function(req, res){
 
   let advertId = req.params.advertId;
