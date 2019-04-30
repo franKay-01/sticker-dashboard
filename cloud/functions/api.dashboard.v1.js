@@ -16,7 +16,7 @@ const STORIES = "story";
 
 Parse.Cloud.define("setFeedItem", function(req, res){
   let source = req.params.source;
-  let itemId = req.params.itemId;
+  let itemId = req.params.itemIds;
   let projectId = req.params.projectId;
   let ID = req.params.admin;
   let Query;
@@ -27,12 +27,12 @@ Parse.Cloud.define("setFeedItem", function(req, res){
        Query = new Parse.Query(_class.Stories);
   }
 
- return Query.equalTo("objectId", itemId).first({useMasterKey:true})
+ return Query.equalTo("objectId", itemId[0]).first({useMasterKey:true})
  .then(function(latest){
 
    if (latest) {
 
-       latest.set("feedId", itemId);
+       latest.set("feedId", itemId[0]);
        return latest.save();
 
    } else {
@@ -40,7 +40,7 @@ Parse.Cloud.define("setFeedItem", function(req, res){
        let Latest = new Parse.Object.extend(_class.Feed);
        let latest = new Latest();
 
-       latest.set("feedId", itemId);
+       latest.set("feedId", itemId[0]);
        latest.set("userId", ID);
        latest.set("projectId", projectId);
        if (feedType === STORIES) {
@@ -63,12 +63,12 @@ Parse.Cloud.define("setFeedItem", function(req, res){
    switch (source) {
        case STICKER:
            selected.set("type", type.FEED_TYPE.sticker);
-           selected.set("itemId", itemId);
+           selected.set("itemId", itemId[0]);
            selected.set("projectId", projectId);
            break;
        case STORIES:
            selected.set("type", type.FEED_TYPE.story);
-           selected.set("itemId", itemId);
+           selected.set("itemId", itemId[0]);
            selected.set("projectId", projectId);
            break;
    }
