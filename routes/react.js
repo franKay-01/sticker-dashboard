@@ -28,7 +28,7 @@ module.exports = function (app) {
 
       return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first()
       .then(function (pack) {
-          res.render("pages/stickers/add_sticker", {
+          res.render("pages/stickers/react_stickers", {
               id: pack.id,
               pack_name: pack.get("name"),
               projectId: projectId
