@@ -19,6 +19,7 @@ Parse.Cloud.define("getStoryOfTheDay", function(req, res){
   let _allArtwork = [];
   let storyDetails = {};
   let combined = [];
+  let _stories = [];
 
   console.log("PROJECT ID "+ projectId+" ID "+ID);
   projectArray.push(projectId);
@@ -45,7 +46,7 @@ Parse.Cloud.define("getStoryOfTheDay", function(req, res){
 
           });
 
-          storyDetails.stories = dashboardHelper.Stories(stories);
+          storyDetails.stories = dashboardHelper.Stories(_stories);
 
           return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find({useMasterKey: true});
 
