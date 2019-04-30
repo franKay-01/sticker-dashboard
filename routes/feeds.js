@@ -439,7 +439,7 @@ module.exports = function (app) {
 
                 _allArtwork = artworks;
 
-                if (_stories) {
+                if (stories) {
 
                     _.each(stories, function (story) {
                         if (story.get("published") === true) {

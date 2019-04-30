@@ -29,7 +29,7 @@ Parse.Cloud.define("getStoryOfTheDay", function(req, res){
   ).then(function(stories,artworks){
       _allArtwork = artworks;
 
-      if (_stories) {
+      if (stories) {
 
           _.each(stories, function (story) {
               if (story.get("published") === true) {
