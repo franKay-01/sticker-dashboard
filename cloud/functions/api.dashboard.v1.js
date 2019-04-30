@@ -79,7 +79,8 @@ Parse.Cloud.define("setFeedItem", function(req, res){
     Parse.Cloud.run("notification", {
       type: source,
       admin: ID,
-      projectId: projectId
+      projectId: projectId,
+      source: source
     })
  }, function(error){
 
@@ -94,6 +95,7 @@ Parse.Cloud.define("notification", function (req, res) {
     let notificationType = req.params.source;
     let ID = req.params.admin;
     let projectId = req.params.projectId;
+    let source = req.params.source;
     let _story = {};
     let Query;
 
