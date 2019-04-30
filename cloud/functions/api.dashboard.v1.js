@@ -19,6 +19,7 @@ Parse.Cloud.define("setFeedItem", function(req, res){
   let itemId = req.params.itemId;
   let projectId = req.params.projectId;
   let ID = req.params.admin;
+  let Query;
 
   if (source === STICKER) {
        Query = new Parse.Query(_class.Stickers);
@@ -94,6 +95,7 @@ Parse.Cloud.define("notification", function (req, res) {
     let ID = req.params.admin;
     let projectId = req.params.projectId;
     let _story = {};
+    let Query;
 
     if (source === STICKER) {
          Query = Parse.Promise.when(
