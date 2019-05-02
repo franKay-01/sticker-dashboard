@@ -82,11 +82,11 @@ switch (source) {
    console.log("TRYING SEND NOTIFICATION 1");
    if (source === STORIES){
       return Parse.Promise.when(
-           new Parse.Query(_class.Stories).equalTo("objectId", ID).first({useMasterKey: true}),
-           new Parse.Query(_class.ArtWork).equalTo("itemId", ID).first({useMasterKey: true})
+           new Parse.Query(_class.Stories).equalTo("objectId", itemId).first({useMasterKey: true}),
+           new Parse.Query(_class.ArtWork).equalTo("itemId", itemId).first({useMasterKey: true})
        )
    }else if (source === STICKER){
-      return new Parse.Query(_class.Stickers).equalTo("objectId", ID).first({useMasterKey: true});
+      return new Parse.Query(_class.Stickers).equalTo("objectId", itemId).first({useMasterKey: true});
    }
 
  }).then(function(item, artwork){
