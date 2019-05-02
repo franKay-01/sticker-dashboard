@@ -80,15 +80,13 @@ switch (source) {
 
  }).then(function(){
    console.log("TRYING SEND NOTIFICATION 1");
-   switch (source) {
-       case STORIES:
+   if (source === STORIES){
       return Parse.Promise.when(
            new Parse.Query(_class.Stories).equalTo("objectId", ID).first({useMasterKey: true}),
            new Parse.Query(_class.ArtWork).equalTo("itemId", ID).first({useMasterKey: true})
-       );
-
-       case STICKER:
-           return new Parse.Query(_class.Stickers).equalTo("objectId", ID).first({useMasterKey: true});
+       )
+   }else if (source === STICKER){
+      return new Parse.Query(_class.Stickers).equalTo("objectId", ID).first({useMasterKey: true});
    }
 
  }).then(function(item, artwork){
