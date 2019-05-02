@@ -101,7 +101,7 @@ switch (source) {
          return item;
        }
  }).then(function(sticker){
-   console.log("TRYING SEND NOTIFICATION 3");
+   console.log("TRYING SEND NOTIFICATION 3" + JSON.stringify(sticker));
    switch (source) {
        case STORIES:
            let story = create.Story(_story);
