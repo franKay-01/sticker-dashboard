@@ -16,7 +16,78 @@ let count = 0;
 const STICKER = "sticker";
 const STORIES = "story";
 
-Parse.Cloud.define("setFeedItem", function(req, res){
+Parse.Cloud.define("setStickerFeed", function(req, res){
+  let itemId = req.params.itemIds;
+  let projectId = req.params.projectId;
+  let ID = req.params.admin;
+
+  return new Parse.Query(_class.Feed).equalTo("projectId", projectId)
+  .equalTo("userId", ID).equalTo("type", type.FEED_TYPE.sticker).first({useMasterKey:true})
+  .then(function(latest){
+    if (latest) {
+
+        latest.set("feedId", itemId);
+        return latest.save();
+
+    } else {
+
+        let Latest = new Parse.Object.extend(_class.Feed);
+        let latest = new Latest();
+
+        latest.set("feedId", itemId);
+        latest.set("userId", ID);
+        latest.set("projectId", projectId);
+        latest.set("type", type.FEED_TYPE.sticker);
+
+        return latest.save();
+    }
+  }).then(function(){
+    let Selected = new Parse.Object.extend(_class.History);
+    let selected = new Selected();
+
+      selected.set("type", type.FEED_TYPE.sticker);
+      selected.set("itemId", itemId);
+      selected.set("projectId", projectId);
+
+    return selected.save();
+  }).then(function(){
+
+    return new Parse.Query(_class.Stickers).equalTo("objectId", itemId).first({useMasterKey: true});
+
+  }).then(function(sticker){
+
+      res.success(util.setResponseOk(true));
+    // let _sticker = create.Sticker(sticker);
+    //   notification.send({
+    //       title: "Sticker Of the Day",
+    //       description: _sticker.description,
+    //       activity: "STICKER_ACTIVITY",
+    //       data: {
+    //           id: _sticker.id,
+    //           name: _sticker.name,
+    //           url: _sticker.url,
+    //           type: notificationType
+    //       },
+    //       //TODO retrieve first section from Server
+    //       topic: process.env.TOPIC_PREFIX + "feed.sticker"
+    //   }).then(function (success) {
+    //
+    //       console.log("STICKER NOTIFICATION WAS SENT SUCCESSFULLY");
+    //       res.success(util.setResponseOk(true));
+    //
+    //   }, function (status) {
+    //
+    //       console.log("STICKER NOTIFICATION WASN'T SENT " + status);
+    //
+    //   });
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
+Parse.Cloud.define("setStoryFeed", function(req, res){
   let source = req.params.source;
   let itemId = req.params.itemIds;
   let projectId = req.params.projectId;
@@ -24,18 +95,9 @@ Parse.Cloud.define("setFeedItem", function(req, res){
   let Query;
   let _story = {};
 
-console.log("SOURCE FILE ## " + source);
-switch (source) {
-  case STICKER:
-      Query = new Parse.Query(_class.Feed).equalTo("type", type.FEED_TYPE.sticker);
-
-  case STORIES:
-      Query = new Parse.Query(_class.Feed).equalTo("type", type.FEED_TYPE.story);
-}
-
- return Query.equalTo("projectId", projectId).equalTo("userId", ID).first({useMasterKey:true})
- .then(function(latest){
-   console.log("LATEST #### "+JSON.stringify(latest));
+  return new Parse.Query(_class.Feed).equalTo("type", type.FEED_TYPE.story)
+  .equalTo("projectId", projectId).equalTo("userId", ID).first({useMasterKey:true})
+  .then(function(latest){
 
    if (latest) {
 
@@ -50,15 +112,7 @@ switch (source) {
        latest.set("feedId", itemId);
        latest.set("userId", ID);
        latest.set("projectId", projectId);
-       if (source === STORIES) {
-
-           latest.set("type", type.FEED_TYPE.story);
-
-       } else if (source === STICKER) {
-
-           latest.set("type", type.FEED_TYPE.sticker);
-
-       }
+       latest.set("type", type.FEED_TYPE.story);
 
        return latest.save();
    }
@@ -67,44 +121,28 @@ switch (source) {
    let Selected = new Parse.Object.extend(_class.History);
    let selected = new Selected();
 
-   switch (source) {
-       case STICKER:
-           selected.set("type", type.FEED_TYPE.sticker);
-           selected.set("itemId", itemId);
-           selected.set("projectId", projectId);
-           break;
-       case STORIES:
-           selected.set("type", type.FEED_TYPE.story);
-           selected.set("itemId", itemId);
-           selected.set("projectId", projectId);
-           break;
-   }
+     selected.set("type", type.FEED_TYPE.story);
+     selected.set("itemId", itemId);
+     selected.set("projectId", projectId);
+     break;
 
    return selected.save();
 
  }).then(function(){
    console.log("TRYING SEND NOTIFICATION 1");
-   if (source === STORIES){
-      return Parse.Promise.when(
-           new Parse.Query(_class.Stories).equalTo("objectId", itemId).first({useMasterKey: true}),
-           new Parse.Query(_class.ArtWork).equalTo("itemId", itemId).first({useMasterKey: true})
-       )
-   }else if (source === STICKER){
-      return new Parse.Query(_class.Stickers).equalTo("objectId", itemId).first({useMasterKey: true});
-   }
+
+    return Parse.Promise.when(
+         new Parse.Query(_class.Stories).equalTo("objectId", itemId).first({useMasterKey: true}),
+         new Parse.Query(_class.ArtWork).equalTo("itemId", itemId).first({useMasterKey: true})
+     );
 
  }).then(function(item, artwork){
-   switch (source) {
-       case STORIES:
-         _story = item;
-         return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("stickerId")).first({useMasterKey: true});
 
-       case STICKER:
-         return item;
-       }
+     _story = item;
+     return new Parse.Query(_class.Stickers).equalTo("objectId", artwork.get("stickerId")).first({useMasterKey: true});
+
  }).then(function(sticker){
-   // switch (source) {
-   //     case STORIES:
+
    //         let story = create.Story(_story);
    //         story = create.StoryArtwork(story, sticker);
    //
@@ -135,34 +173,7 @@ switch (source) {
    //             console.log("STORY NOTIFICATION WASN'T SENT " + status);
    //
    //         });
-   //         break;
-   //     case STICKER:
    //
-   //         let _sticker = create.Sticker(sticker);
-   //         notification.send({
-   //             title: "Sticker Of the Day",
-   //             description: _sticker.description,
-   //             activity: "STICKER_ACTIVITY",
-   //             data: {
-   //                 id: _sticker.id,
-   //                 name: _sticker.name,
-   //                 url: _sticker.url,
-   //                 type: notificationType
-   //             },
-   //             //TODO retrieve first section from Server
-   //             topic: process.env.TOPIC_PREFIX + "feed.sticker"
-   //         }).then(function (success) {
-   //
-   //             console.log("STICKER NOTIFICATION WAS SENT SUCCESSFULLY");
-   //             res.success(util.setResponseOk(true));
-   //
-   //         }, function (status) {
-   //
-   //             console.log("STICKER NOTIFICATION WASN'T SENT " + status);
-   //
-   //         });
-   //         break;
-   // }
    res.success(util.setResponseOk(true));
  }, function(error){
 
