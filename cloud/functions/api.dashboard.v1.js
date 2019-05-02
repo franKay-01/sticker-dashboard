@@ -101,7 +101,7 @@ switch (source) {
          return item;
        }
  }).then(function(sticker){
-   console.log("TRYING SEND NOTIFICATION 3" + JSON.stringify(sticker));
+   console.log("TRYING SEND NOTIFICATION 3 "+" STORY "+JSON.stringify(_story) +" ST "+ JSON.stringify(sticker));
    switch (source) {
        case STORIES:
            let story = create.Story(_story);
@@ -127,14 +127,14 @@ switch (source) {
            }).then(function (success) {
 
                console.log("STORY NOTIFICATION WAS SENT SUCCESSFULLY");
+               res.success(util.setResponseOk(true));
 
            }, function (status) {
 
                console.log("STORY NOTIFICATION WASN'T SENT " + status);
 
            });
-           res.success(util.setResponseOk(true));
-
+           break;
        case STICKER:
 
            let _sticker = create.Sticker(sticker);
@@ -153,14 +153,14 @@ switch (source) {
            }).then(function (success) {
 
                console.log("STICKER NOTIFICATION WAS SENT SUCCESSFULLY");
+               res.success(util.setResponseOk(true));
 
            }, function (status) {
 
                console.log("STICKER NOTIFICATION WASN'T SENT " + status);
 
            });
-           res.success(util.setResponseOk(true));
-
+           break;
    }
  }, function(error){
 
