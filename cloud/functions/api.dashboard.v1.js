@@ -7,6 +7,8 @@ let dashboardHelper = require("../modules/createDashboard");
 let _class = require("../modules/classNames");
 let analytics = require("../modules/analytics");
 let query = require("../modules/query");
+let notification = require('../cloud/modules/notifications');
+
 const image2base64 = require('image-to-base64');
 const PARSE_LIMIT = 1000;
 let count = 0;
@@ -90,7 +92,6 @@ switch (source) {
    }
 
  }).then(function(item, artwork){
-   console.log("TRYING SEND NOTIFICATION 2 "+JSON.stringify(item) + " STICKER "+JSON.stringify(artwork));
    switch (source) {
        case STORIES:
          _story = item;
