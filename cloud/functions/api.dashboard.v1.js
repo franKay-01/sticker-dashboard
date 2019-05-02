@@ -102,66 +102,67 @@ switch (source) {
        }
  }).then(function(sticker){
    console.log("TRYING SEND NOTIFICATION 3 "+" STORY "+JSON.stringify(_story) +" ST "+ JSON.stringify(sticker));
-   switch (source) {
-       case STORIES:
-           let story = create.Story(_story);
-           story = create.StoryArtwork(story, sticker);
-
-           notification.send({
-               title: story.title,
-               description: story.summary,
-               activity: "STORY_ACTIVITY",
-               data: {
-                   id: story.id,
-                   title: story.title,
-                   stickerUrl: story.stickerUrl,
-                   summary: story.summary,
-                   topColor: story.topColor,
-                   bottomColor: story.bottomColor,
-                   type: notificationType
-               },
-
-               //TODO retrieve first section from Server
-               topic: process.env.TOPIC_PREFIX + "feed.story"
-
-           }).then(function (success) {
-
-               console.log("STORY NOTIFICATION WAS SENT SUCCESSFULLY");
-               res.success(util.setResponseOk(true));
-
-           }, function (status) {
-
-               console.log("STORY NOTIFICATION WASN'T SENT " + status);
-
-           });
-           break;
-       case STICKER:
-
-           let _sticker = create.Sticker(sticker);
-           notification.send({
-               title: "Sticker Of the Day",
-               description: _sticker.description,
-               activity: "STICKER_ACTIVITY",
-               data: {
-                   id: _sticker.id,
-                   name: _sticker.name,
-                   url: _sticker.url,
-                   type: notificationType
-               },
-               //TODO retrieve first section from Server
-               topic: process.env.TOPIC_PREFIX + "feed.sticker"
-           }).then(function (success) {
-
-               console.log("STICKER NOTIFICATION WAS SENT SUCCESSFULLY");
-               res.success(util.setResponseOk(true));
-
-           }, function (status) {
-
-               console.log("STICKER NOTIFICATION WASN'T SENT " + status);
-
-           });
-           break;
-   }
+   // switch (source) {
+   //     case STORIES:
+   //         let story = create.Story(_story);
+   //         story = create.StoryArtwork(story, sticker);
+   //
+   //         notification.send({
+   //             title: story.title,
+   //             description: story.summary,
+   //             activity: "STORY_ACTIVITY",
+   //             data: {
+   //                 id: story.id,
+   //                 title: story.title,
+   //                 stickerUrl: story.stickerUrl,
+   //                 summary: story.summary,
+   //                 topColor: story.topColor,
+   //                 bottomColor: story.bottomColor,
+   //                 type: notificationType
+   //             },
+   //
+   //             //TODO retrieve first section from Server
+   //             topic: process.env.TOPIC_PREFIX + "feed.story"
+   //
+   //         }).then(function (success) {
+   //
+   //             console.log("STORY NOTIFICATION WAS SENT SUCCESSFULLY");
+   //             res.success(util.setResponseOk(true));
+   //
+   //         }, function (status) {
+   //
+   //             console.log("STORY NOTIFICATION WASN'T SENT " + status);
+   //
+   //         });
+   //         break;
+   //     case STICKER:
+   //
+   //         let _sticker = create.Sticker(sticker);
+   //         notification.send({
+   //             title: "Sticker Of the Day",
+   //             description: _sticker.description,
+   //             activity: "STICKER_ACTIVITY",
+   //             data: {
+   //                 id: _sticker.id,
+   //                 name: _sticker.name,
+   //                 url: _sticker.url,
+   //                 type: notificationType
+   //             },
+   //             //TODO retrieve first section from Server
+   //             topic: process.env.TOPIC_PREFIX + "feed.sticker"
+   //         }).then(function (success) {
+   //
+   //             console.log("STICKER NOTIFICATION WAS SENT SUCCESSFULLY");
+   //             res.success(util.setResponseOk(true));
+   //
+   //         }, function (status) {
+   //
+   //             console.log("STICKER NOTIFICATION WASN'T SENT " + status);
+   //
+   //         });
+   //         break;
+   // }
+   res.success(util.setResponseOk(true));
  }, function(error){
 
    util.handleError(res, error);
