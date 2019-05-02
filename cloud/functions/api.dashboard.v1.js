@@ -48,11 +48,11 @@ switch (source) {
        latest.set("feedId", itemId);
        latest.set("userId", ID);
        latest.set("projectId", projectId);
-       if (feedType === STORIES) {
+       if (source === STORIES) {
 
            latest.set("type", type.FEED_TYPE.story);
 
-       } else if (feedType === STICKER) {
+       } else if (source === STICKER) {
 
            latest.set("type", type.FEED_TYPE.sticker);
 
