@@ -24,6 +24,7 @@ Parse.Cloud.define("setFeedItem", function(req, res){
   let Query;
   let _story = {};
 
+console.log("SOURCE FILE ## " + source);
 switch (source) {
   case STICKER:
       Query = new Parse.Query(_class.Feed).equalTo("type", type.FEED_TYPE.sticker);
