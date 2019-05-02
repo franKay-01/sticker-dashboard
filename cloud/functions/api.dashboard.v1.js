@@ -35,6 +35,7 @@ switch (source) {
 
  return Query.equalTo("projectId", projectId).equalTo("userId", ID).first({useMasterKey:true})
  .then(function(latest){
+   console.log("LATEST #### "+JSON.stringify(latest));
 
    if (latest) {
 
@@ -102,7 +103,6 @@ switch (source) {
          return item;
        }
  }).then(function(sticker){
-   console.log("TRYING SEND NOTIFICATION 3 "+" STORY "+JSON.stringify(_story) +" ST "+ JSON.stringify(sticker));
    // switch (source) {
    //     case STORIES:
    //         let story = create.Story(_story);
