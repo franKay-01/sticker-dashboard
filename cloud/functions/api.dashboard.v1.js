@@ -7,7 +7,7 @@ let dashboardHelper = require("../modules/createDashboard");
 let _class = require("../modules/classNames");
 let analytics = require("../modules/analytics");
 let query = require("../modules/query");
-let notification = require('../cloud/modules/notifications');
+let notification = require('../modules/notifications');
 
 const image2base64 = require('image-to-base64');
 const PARSE_LIMIT = 1000;
