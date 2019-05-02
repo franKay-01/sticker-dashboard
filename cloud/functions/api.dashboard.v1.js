@@ -175,12 +175,10 @@ Parse.Cloud.define("getStickerOfTheWeek", function(req, res){
 
   let ID = req.params.admin;
   let stickerDetails = {};
-
-  let Query = new Parse.Query(_class.Stickers);
-  Query.equalTo("sold", false);
-  Query.equalTo("userId", ID);
-  return Query.find({useMasterKey: true})
+  console.log("HERE @ " + ID);
+  return new Parse.Query(_class.Stickers).equalTo("sold", false).equalTo("userId", ID).find({useMasterKey: true})
   .then(function(stickers){
+    console.log("HERE @ " + JSON.stringify(stickers));
     stickerDetails.stickers = dashboardHelper.FeedStickers(stickers);
 
     res.success(util.setResponseOk(stickerDetails));
