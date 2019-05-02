@@ -157,6 +157,20 @@ exports.Packs = (packs) => {
   return _packs;
 }
 
+exports.FeedStickers = (stickers) => {
+  let _stickers = [];
+
+  if (stickers.length){
+    _.each(stickers, stickers => {
+
+      _stickers.push({id: stickers.id, name: stickers.get("name"), image: sticker.get("uri").url()});
+
+    });
+  }
+
+  return _stickers;
+};
+
 exports.StickerItem = sticker => {
   let _sticker = {};
 

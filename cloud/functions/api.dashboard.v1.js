@@ -171,6 +171,25 @@ switch (source) {
 
 });
 
+Parse.Cloud.define("getStickerOfTheWeek", function(req, res){
+
+  let ID = req.params.admin;
+  let stickerDetails = {};
+
+  return new Parse.Query(_class.Stickers).equalTo("sold", false).equalTo("userId", ID).find({useMasterKey: true})
+  .then(function(stickers){
+    stickerDetails.stickers = dashboardHelper.FeedStickers(stickers);
+
+    res.success(util.setResponseOk(stickerDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+
+})
+
 Parse.Cloud.define("getStoryOfTheDay", function(req, res){
 
   let ID = req.params.admin;
@@ -182,7 +201,6 @@ Parse.Cloud.define("getStoryOfTheDay", function(req, res){
   let _stories = [];
   let artWork = [];
 
-  console.log("PROJECT ID "+ projectId+" ID "+ID);
   projectArray.push(projectId);
 
   return Parse.Promise.when(
