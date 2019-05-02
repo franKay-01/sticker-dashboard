@@ -16,6 +16,28 @@ let count = 0;
 const STICKER = "sticker";
 const STORIES = "story";
 
+Parse.Cloud.define("updateDescription", function(req, res){
+  let stickerId = req.params.stickerId;
+  let description = req.params.description;
+
+  return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first()
+  .then(function(sticker){
+
+    sticker.set("description", description);
+
+    return sticker.save();
+
+  }).then(function(){
+
+    res.success(util.setResponseOk(true));
+
+  }, function(error){
+
+    util.handleError(res, error);
+    
+  })
+})
+
 Parse.Cloud.define("setStickerFeed", function(req, res){
   let itemId = req.params.itemIds;
   let projectId = req.params.projectId;
