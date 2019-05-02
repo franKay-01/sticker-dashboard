@@ -92,7 +92,7 @@ switch (source) {
    }
 
  }).then(function(item, artwork){
-   console.log("TRYING SEND NOTIFICATION 2");
+   console.log("TRYING SEND NOTIFICATION 2 "+JSON.stringify(item) + " STICKER "+JSON.stringify(artwork));
    switch (source) {
        case STORIES:
          _story = item;
