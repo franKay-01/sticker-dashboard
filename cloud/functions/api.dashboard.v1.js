@@ -124,7 +124,6 @@ Parse.Cloud.define("setStoryFeed", function(req, res){
      selected.set("type", type.FEED_TYPE.story);
      selected.set("itemId", itemId);
      selected.set("projectId", projectId);
-     break;
 
    return selected.save();
 
