@@ -79,6 +79,7 @@ switch (source) {
    return selected.save();
 
  }).then(function(){
+   console.log("TRYING SEND NOTIFICATION 1");
    switch (source) {
        case STICKER:
       return Parse.Promise.when(
@@ -91,6 +92,7 @@ switch (source) {
    }
 
  }).then(function(item, artwork){
+   console.log("TRYING SEND NOTIFICATION 2");
    switch (source) {
        case STORIES:
          _story = item;
@@ -100,6 +102,7 @@ switch (source) {
          return item;
        }
  }).then(function(sticker){
+   console.log("TRYING SEND NOTIFICATION 3");
    switch (source) {
        case STORIES:
            let story = create.Story(_story);
@@ -131,9 +134,7 @@ switch (source) {
                console.log("STORY NOTIFICATION WASN'T SENT " + status);
 
            });
-
            res.success(util.setResponseOk(true));
-           break;
 
        case STICKER:
 
@@ -159,7 +160,6 @@ switch (source) {
                console.log("STICKER NOTIFICATION WASN'T SENT " + status);
 
            });
-
            res.success(util.setResponseOk(true));
 
    }
