@@ -34,7 +34,7 @@ Parse.Cloud.define("updateDescription", function(req, res){
   }, function(error){
 
     util.handleError(res, error);
-    
+
   })
 })
 
@@ -2564,7 +2564,10 @@ Parse.Cloud.define("createNewPack", function(req, res){
   let packType = parseInt(req.params.type);
   let version = parseInt(req.params.version);
   let projectArray = [];
-  projectArray.push(projectId);
+
+  if (projectId.length > 0){
+    projectArray.push(projectId);
+  }
 
   let PackCollection = new Parse.Object.extend(_class.Packs);
   let pack = new PackCollection();
@@ -2612,7 +2615,7 @@ Parse.Cloud.define("createNewPack", function(req, res){
     util.handleError(res, error);
 
   })
-})
+});
 
 Parse.Cloud.define("createNewProduct", function(req, res){
   const ID = req.params.admin;
@@ -2756,6 +2759,77 @@ Parse.Cloud.define("landingPage", function(req, res){
 
     })
 
+});
+
+Parse.Cloud.define("getNormalHomeFeed", function(req, res){
+  const ADMIN = req.params.admin;
+  let homeFeed = {};
+  let _stories;
+  let _packs;
+  let combined = [];
+  let _allArtwork = [];
+  let storyArray = [];
+
+  Parse.Promise.when(
+    new Parse.Query(_class.Packs).equalTo("userId", ADMIN).descending("createdAt").find({useMasterKey: true}),
+    new Parse.Query(_class.Stickers).equalTo("userId", ADMIN).count({useMasterKey: true}),
+    new Parse.Query(_class.Stories).equalTo("userId", ADMIN).descending("createdAt").find({useMasterKey: true}),
+    new Parse.Query(_class.ArtWork).find({useMasterKey: true})
+  ).then(function(packs, stickers, stories, artworks){
+
+    _allArtwork = artworks;
+    storyArray = stories;
+    _packs = dashboardHelper.CommonItems(packs);
+
+    homeFeed.packs = _packs;
+
+    _.each(artworks, function (artwork) {
+
+        artWork.push(artwork.get("stickerId"));
+
+    });
+
+    return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find({useMasterKey: true});
+
+  }).then(function(stickers){
+    _.each(_allArtwork, function (artwork, index) {
+
+        _.each(stickers, function (sticker) {
+
+            if (artwork.get("stickerId") === sticker.id) {
+
+              combined.push({
+                  story: artwork.get("itemId"),
+                  image: sticker.get("uri").url()
+              });
+            }
+        })
+    });
+
+    let newArray = storyArray.slice(0);
+
+    _.each(combined, function(combine, combinedIndex){
+      _.each(newArray, function(storyItem, index){
+       if ( storyItem.id === combine.story) {
+            newArray.splice(index, 1);
+        }
+      });
+    });
+
+    if (newArray.length > 0){
+      homeFeed.noArtStories = dashboardHelper.Stories(newArray);
+    }else {
+      homeFeed.noArtStories = [];
+    }
+    homeFeed.artStories = combined;
+
+    res.success(util.setResponseOk(homeFeed));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
 });
 
 Parse.Cloud.define("getHomeFeed", function (req, res) {
