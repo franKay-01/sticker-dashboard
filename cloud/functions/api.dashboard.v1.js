@@ -2769,6 +2769,7 @@ Parse.Cloud.define("getNormalHomeFeed", function(req, res){
   let combined = [];
   let _allArtwork = [];
   let storyArray = [];
+  let artWork = [];
 
   Parse.Promise.when(
     new Parse.Query(_class.Packs).equalTo("userId", ADMIN).descending("createdAt").find({useMasterKey: true}),
