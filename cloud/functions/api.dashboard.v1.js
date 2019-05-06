@@ -2780,7 +2780,7 @@ Parse.Cloud.define("getNormalHomeFeed", function(req, res){
 
     _allArtwork = artworks;
     storyArray = stories;
-    _packs = dashboardHelper.CommonItems(packs);
+    _packs = dashboardHelper.Packs(packs);
 
     homeFeed.packs = _packs;
 
