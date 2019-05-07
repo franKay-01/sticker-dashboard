@@ -2277,10 +2277,10 @@ Parse.Cloud.define("editPackDetails", function(req, res){
 
   }).then(function(productInfo){
 
-    if (productInfo !== undefined) {
-        productDetails.name = productInfo.get("name");
-        productDetails.id = productInfo.id
-    }
+    // if (productInfo !== undefined) {
+    //     productDetails.name = productInfo.get("name");
+    //     productDetails.id = productInfo.id
+    // }
 
     if (_pack.get("productId") === "free") {
 
@@ -2288,14 +2288,17 @@ Parse.Cloud.define("editPackDetails", function(req, res){
       productDetails.id = ""
 
     }else {
+      if (productInfo !== undefined) {
+          productDetails.name = productInfo.get("name");
+          productDetails.id = productInfo.id
+        }else {
+          productDetails.name = "FREE";
+          productDetails.id = ""
 
-      productDetails.name = productInfo.get("name");
-      productDetails.id = productInfo.id
-
+        }
     }
 
     packDetails.singleProduct = productDetails;
-    console.log("PACK DETAILS ####### "+JSON.stringify(packDetails));
     res.success(util.setResponseOk(packDetails));
 
   }, function(error){
@@ -2613,7 +2616,7 @@ Parse.Cloud.define("createNewPack", function(req, res){
   pack.set("status", type.PACK_STATUS.pending);
   pack.set("version", version);
   pack.set("projectIds", projectArray);
-  pack.set("productId", "");
+  pack.set("productId", "free");
   pack.set("archived", false);
   pack.set("flagged", false);
   pack.set("published", false);
