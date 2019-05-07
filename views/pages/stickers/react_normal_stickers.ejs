@@ -43,7 +43,7 @@
     <div class="grid-x grid-margin-x">
         <div class="medium-12 large-12 cell">
             <!-- Form to add stickers from computer-->
-            <form action="/uploads/react" enctype="multipart/form-data" method="post">
+            <form action="/uploads/normal/react" enctype="multipart/form-data" method="post">
                 <div class="wrapper">
                     <div class="drop">
                         <div class="cont">
@@ -62,7 +62,7 @@
                     </div>
                     <center style="margin-top: -50px !important;">
          <span>
-        <button type="button" class="clear" id="btnClearAddForm"><a href="http://localhost:3000/pack/<%= id %>/<%= projectId %>"
+        <button type="button" class="clear" id="btnClearAddForm"><a href="http://localhost:3000/normalPacks/<%= id %>"
                                                                     class="clear">Back</a></button>
       </span><span style="margin-left: -30px !important;">
         <button type="button" class="clear" id="clearBtn">Clear</button>
@@ -73,7 +73,6 @@
                     </center>
                 </div>
                 <input type="hidden" name="pack_id" style="display: none" value="<%= id %>"/>
-                <input type="hidden" name="projectId" style="display: none" value="<%= projectId %> %>"/>
             </form>
             <!-- End of form-->
             <%- include('../../partials/footer') %>

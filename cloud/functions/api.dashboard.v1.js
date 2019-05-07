@@ -2408,7 +2408,6 @@ Parse.Cloud.define("getPackFeed", function(req, res){
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
   .then(function(pack){
     packInfo = pack;
-    console.log("PACK DETAILS " + JSON.stringify(pack));
     let _pack = dashboardHelper.PackItem(pack);
 
     packfeed.pack = _pack;
@@ -2437,7 +2436,6 @@ Parse.Cloud.define("getPackFeed", function(req, res){
   }).then(function(packs, products, projects){
 
     page = util.page(packs, packId);
-    console.log("PAGES " + JSON.stringify(page));
     packfeed.nextPack = page.next;
     packfeed.previousPack = page.previous;
 
@@ -2494,7 +2492,9 @@ Parse.Cloud.define("createNewStory", function(req, res){
   let projectId = req.params.projectId;
   let projectArray = [];
 
-  projectArray.push(projectId);
+  if (projectId){
+    projectArray.push(projectId);
+  }
 
   let Stories = new Parse.Object.extend(_class.Stories);
   let story = new Stories();
@@ -2509,7 +2509,13 @@ Parse.Cloud.define("createNewStory", function(req, res){
   story.set("userId", ID);
   story.set("status", 0);
   story.set("storyType", storyType);
-  story.set("format", storyFormat);
+
+  if (storyFormat){
+    story.set("format", storyFormat);
+  }else {
+    story.set("format", "0");
+  }
+
   story.set("authorId", "");
   story.set("info", {"topColor": "","bottomColor": "","incoming": "","outgoing": ""});
 
@@ -2565,7 +2571,7 @@ Parse.Cloud.define("createNewPack", function(req, res){
   let version = parseInt(req.params.version);
   let projectArray = [];
 
-  if (projectId.length > 0){
+  if (projectId){
     projectArray.push(projectId);
   }
 
