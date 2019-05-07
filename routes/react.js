@@ -39,7 +39,7 @@ module.exports = function (app) {
 
   });
 
-  app.get('/uploads/react/:id', function (req, res) {
+  app.get('/uploads/normal/react/:id', function (req, res) {
 
       let pack_id = req.params.id;
       let projectId = req.params.projectId;
