@@ -2448,11 +2448,20 @@ Parse.Cloud.define("getPackFeed", function(req, res){
     });
     packfeed.stickers = _stickers;
 
-    return Parse.Promise.when(
-        new Parse.Query(_class.Packs).equalTo("userId", ID).containedIn("projectIds", packInfo.get("projectIds")).find(),
-        new Parse.Query(_class.Product).find(),
-        new Parse.Query(_class.Projects).containedIn("objectId", packInfo.get("projectIds")).limit(limit).find()
-    );
+    if (projectId){
+      return Parse.Promise.when(
+          new Parse.Query(_class.Packs).equalTo("userId", ID).containedIn("projectIds", packInfo.get("projectIds")).find({useMasterKey: true}),
+          new Parse.Query(_class.Product).find({useMasterKey: true}),
+          new Parse.Query(_class.Projects).containedIn("objectId", packInfo.get("projectIds")).limit(limit).find({useMasterKey: true})
+      );
+    }else {
+      return Parse.Promise.when(
+          new Parse.Query(_class.Packs).equalTo("userId", ID).find({useMasterKey: true}),
+          new Parse.Query(_class.Product).find({useMasterKey: true}),
+          new Parse.Query(_class.Projects).containedIn("objectId", packInfo.get("projectIds")).limit(limit).find({useMasterKey: true})
+      );
+    }
+
 
   }).then(function(packs, products, projects){
 
