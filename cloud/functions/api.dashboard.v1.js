@@ -2509,6 +2509,7 @@ Parse.Cloud.define("addStickers", function(req, res){
 Parse.Cloud.define("getPackReport", function(req, res){
   let packId = req.params.packId;
   let packfeed = {};
+  let _stickers = [];
 
   return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
   .then(function(pack){
