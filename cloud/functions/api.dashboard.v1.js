@@ -1945,6 +1945,27 @@ Parse.Cloud.define("getNormalPacks", function(req, res){
 
 });
 
+Parse.Cloud.define("getReviewPacks", function(req, res){
+  let packDetails = {};
+  let condition = 1;
+  let accountType = 2;
+
+  return new Parse.Query(_class.Packs).equalTo("status", condition).equalTo("accountType", accountType).ascending("createdAt")
+  .find({useMasterKey: true}).then(function(packs){
+
+    let packDetails = dashboardHelper.Packs(packs);
+
+    packDetails.packs = packDetails;
+
+    res.success(util.setResponseOk(packDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("getPacks", function(req, res){
   let ID = req.params.admin;
   let projectId = req.params.projectId;
@@ -2671,6 +2692,7 @@ Parse.Cloud.define("createNewPack", function(req, res){
   let packCategory = req.params.category;
   let packType = parseInt(req.params.type);
   let version = parseInt(req.params.version);
+  let account = req.params.account;
   let projectArray = [];
 
   if (projectId){
@@ -2690,6 +2712,7 @@ Parse.Cloud.define("createNewPack", function(req, res){
   pack.set("flagged", false);
   pack.set("published", false);
   pack.set("previews", []);
+  pack.set("accountType", account);
 
   if (packCategory === "") {
 
