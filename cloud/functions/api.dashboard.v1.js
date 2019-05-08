@@ -2506,6 +2506,41 @@ Parse.Cloud.define("addStickers", function(req, res){
 
 });
 
+Parse.Cloud.define("getPackReport", function(req, res){
+  let packId = req.params.packId;
+  let packfeed = {};
+
+  return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
+  .then(function(pack){
+
+    let _pack = dashboardHelper.PackItem(pack);
+
+    packfeed.pack = _pack;
+
+    let stickers = pack.relation(_class.Packs);
+    return Parse.Promise.when(
+        stickers.query().find({useMasterKey: true})
+    );
+
+  }).then(function(stickers){
+
+    _.each(stickers, sticker => {
+
+      stickerItem = dashboardHelper.Sticker(sticker)
+      _stickers.push(stickerItem);
+
+    });
+    packfeed.stickers = _stickers;
+
+    res.success(util.setResponseOk(packfeed));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("getPackFeed", function(req, res){
   const ID = req.params.admin;
   let packId = req.params.packId;
