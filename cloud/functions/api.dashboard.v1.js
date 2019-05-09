@@ -22,7 +22,7 @@ Parse.Cloud.define("addReports", function(req, res){
   let reportTitle = req.params.reportTitle;
   let currentType = req.params.currentType;
   let errorContent = [];
-
+  let condition = 1;
   if (selected.length > 1){
     _.each(selected, function (select) {
         if (select === type.REJECTIONS.artwork.id) {
@@ -64,6 +64,15 @@ Parse.Cloud.define("addReports", function(req, res){
   report.set("read", false);
 
   return report.save().then(function(){
+
+    return Query.equalTo("objectId", itemId).first({useMasterKey: true});
+
+  }).then(function(item){
+
+    item.set("status", condition);
+    return item.save();
+
+  }).then(function(){
 
     res.success(util.setResponseOk(true));
 
