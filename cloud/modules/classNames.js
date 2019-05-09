@@ -20,6 +20,7 @@ exports.Authors = "Authors";
 exports.Projects = "Projects";
 exports.Episodes = "Episodes";
 exports.Members = "Members";
+exports.Reports = "Reports";
 //TODO update to Subscriptions
 //TODO columns -> email:String, updates:Array of integers
 exports.NewsLetter = "NewsLetter";

@@ -16,6 +16,64 @@ let count = 0;
 const STICKER = "sticker";
 const STORIES = "story";
 
+Parse.Cloud.define("addReport", function(req, res){
+  let selected = req.params.selected;
+  let itemId = req.params.itemId;
+  let reportTitle = req.params.reportTitle;
+  let currentType = req.params.currentType;
+  let errorContent = [];
+
+  if (selected.length > 1){
+    _.each(selected, function (select) {
+        if (select === type.REJECTIONS.artwork.id) {
+
+            errorContent.push(type.REJECTIONS.artwork);
+
+        }else if (select === type.REJECTIONS.sticker.id) {
+
+            errorContent.push(type.REJECTIONS.sticker);
+
+        }else if (select === type.REJECTIONS.names.id) {
+
+            errorContent.push(type.REJECTIONS.names);
+
+        }
+    });
+  }else {
+    if (selected === type.REJECTIONS.artwork.id) {
+
+        errorContent.push(type.REJECTIONS.artwork);
+
+    }else if (selected === type.REJECTIONS.sticker.id) {
+
+        errorContent.push(type.REJECTIONS.sticker);
+
+    }else if (selected === type.REJECTIONS.names.id) {
+
+        errorContent.push(type.REJECTIONS.names);
+
+    }
+  }
+
+  let Report = new Parse.Object.extend(_class.Reports);
+  let report = new Report();
+
+  report.set("itemId", itemId);
+  report.set("title", reportTitle);
+  report.set("contents", errorContent);
+  report.set("read", false);
+
+  return report.save().then(function(){
+
+    res.success(util.setResponseOk(true));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("approveItem", function(req, res){
 
   let itemId = req.params.itemId;

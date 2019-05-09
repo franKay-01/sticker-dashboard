@@ -4,6 +4,24 @@ exports.MESSAGES = {
     brand: 2
 };
 
+exports.REJECTIONS = {
+  artwork: {
+      "id": 1,
+      "error": "Artwork Is not Approved.",
+      "content":"The artwork you provided doesn’t match our criteria. Please revise and re-upload. After resubmit for review. Thank you."
+  },
+  sticker: {
+    "id": 2,
+    "error": "Stickers are not Approved.",
+    "content":"The stickers you provided doesn’t match our criteria. Please make sure you remove all offensive and controversial STICKERS before resubmitting for review. If you are not aware of the sticker policy, please read about it before uploading new images. Thank you."
+  },
+  names: {
+    "id": 3,
+    "error": "Naming Conversion is not Approved",
+    "content":"The names you provided for your Pack/Stories are inapprpriate. Please revise and make the necessary changes. After resubmit for review. Thank you."
+  }
+}
+
 exports.PACK_STATUS = {
     pending: 0,
     review: 1,
