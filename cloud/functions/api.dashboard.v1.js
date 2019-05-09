@@ -16,13 +16,41 @@ let count = 0;
 const STICKER = "sticker";
 const STORIES = "story";
 
+Parse.Cloud.define("submitForReview", function(req, res){
+  let itemId = req.params.itemId;
+  let currentType = req.params.itemType;
+  let Query;
+
+  if (currentType === "Pack"){
+    Query = new Parse.Query(_class.Packs);
+  }else if (currentType === "Story") {
+    Query = new Parse.Query(_class.Stories);
+  };
+
+  return Query.equalTo("objectId", itemId).first({useMasterKey: true})
+  .then(function(item){
+
+    item.set("status", type.PACK_STATUS.review);
+    return item.save();
+
+  }).then(function() {
+
+    res.success(util.setResponseOk(true));
+
+    }, function(error){
+
+    util.handleError(res, error);
+
+  });  
+});
+
 Parse.Cloud.define("addReports", function(req, res){
   let selected = req.params.selected;
   let itemId = req.params.itemId;
   let reportTitle = req.params.reportTitle;
   let currentType = req.params.currentType;
   let errorContent = [];
-  let condition = 1;
+  let condition = type.PACK_STATUS.rejected;
   let selectArray = [];
   let Query;
   selectArray = selected.split(",");
@@ -98,7 +126,7 @@ Parse.Cloud.define("approveItem", function(req, res){
   let itemId = req.params.itemId;
   let currentType = req.params.currentType;
   let Query;
-  let condition = 2;
+  let condition = type.PACK_STATUS.approved;
 
   if (currentType === "Pack"){
     Query = new Parse.Query(_class.Packs);
