@@ -16,6 +16,35 @@ let count = 0;
 const STICKER = "sticker";
 const STORIES = "story";
 
+Parse.Cloud.define("approveItem", function(req, res){
+
+  let itemId = req.params.itemId;
+  let currentType = req.params.currentType;
+  let Query;
+  let condition = 2;
+
+  if (currentType === "Pack"){
+    Query = new Parse.Query(_class.Packs);
+  }else if (currentType === "Story") {
+    Query = new Parse.Query(_class.Stories);
+  };
+
+  return Query.equalTo("objectId", itemId).first({useMasterKey: true}).then(function(item){
+
+    item.set("status", condition);
+    return item.save();
+
+  }).then(function(){
+
+    res.success(util.setResponseOk(true));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("updateDescription", function(req, res){
   let stickerId = req.params.stickerId;
   let description = req.params.description;
