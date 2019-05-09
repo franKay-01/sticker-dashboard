@@ -16,7 +16,7 @@ let count = 0;
 const STICKER = "sticker";
 const STORIES = "story";
 
-Parse.Cloud.define("addReport", function(req, res){
+Parse.Cloud.define("addReports", function(req, res){
   let selected = req.params.selected;
   let itemId = req.params.itemId;
   let reportTitle = req.params.reportTitle;
