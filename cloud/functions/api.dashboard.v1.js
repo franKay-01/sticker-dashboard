@@ -25,6 +25,7 @@ Parse.Cloud.define("addReports", function(req, res){
   let condition = 1;
   let selectArray = [];
   selectArray = selected.split(",");
+  console.log(JSON.stringify(selectArray) + " TYPE "+type.REJECTIONS.artwork.id);
   if (selectArray.length > 1){
     _.each(selectArray, function (select) {
         if (select === type.REJECTIONS.artwork.id) {
