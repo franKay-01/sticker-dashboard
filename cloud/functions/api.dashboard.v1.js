@@ -24,8 +24,15 @@ Parse.Cloud.define("addReports", function(req, res){
   let errorContent = [];
   let condition = 1;
   let selectArray = [];
+  let Query;
   selectArray = selected.split(",");
-  console.log(JSON.stringify(selectArray) + " TYPE "+type.REJECTIONS.artwork.id);
+
+  if (currentType === "Pack"){
+    Query = new Parse.Query(_class.Packs);
+  }else if (currentType === "Story") {
+    Query = new Parse.Query(_class.Stories);
+  };
+
   if (selectArray.length > 1){
     _.each(selectArray, function (select) {
         if (parseInt(select) === type.REJECTIONS.artwork.id) {
