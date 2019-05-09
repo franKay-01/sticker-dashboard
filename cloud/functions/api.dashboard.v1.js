@@ -23,8 +23,9 @@ Parse.Cloud.define("addReports", function(req, res){
   let currentType = req.params.currentType;
   let errorContent = [];
   let condition = 1;
-  console.log("SELECTED "+JSON.stringify(selected));
-  if (selected.length > 1){
+  let selectArray = [];
+  selectArray = selected.split(",");
+  if (selectArray.length > 1){
     _.each(selected, function (select) {
         if (select === type.REJECTIONS.artwork.id) {
 
@@ -41,15 +42,15 @@ Parse.Cloud.define("addReports", function(req, res){
         }
     });
   }else {
-    if (selected === type.REJECTIONS.artwork.id) {
+    if (parseInt(selected) === type.REJECTIONS.artwork.id) {
 
         errorContent.push(type.REJECTIONS.artwork);
 
-    }else if (selected === type.REJECTIONS.sticker.id) {
+    }else if (parseInt(selected) === type.REJECTIONS.sticker.id) {
 
         errorContent.push(type.REJECTIONS.sticker);
 
-    }else if (selected === type.REJECTIONS.names.id) {
+    }else if (parseInt(selected) === type.REJECTIONS.names.id) {
 
         errorContent.push(type.REJECTIONS.names);
 
