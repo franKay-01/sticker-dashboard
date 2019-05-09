@@ -28,15 +28,15 @@ Parse.Cloud.define("addReports", function(req, res){
   console.log(JSON.stringify(selectArray) + " TYPE "+type.REJECTIONS.artwork.id);
   if (selectArray.length > 1){
     _.each(selectArray, function (select) {
-        if (select === type.REJECTIONS.artwork.id) {
+        if (parseInt(select) === type.REJECTIONS.artwork.id) {
 
             errorContent.push(type.REJECTIONS.artwork);
 
-        }else if (select === type.REJECTIONS.sticker.id) {
+        }else if (parseInt(select) === type.REJECTIONS.sticker.id) {
 
             errorContent.push(type.REJECTIONS.sticker);
 
-        }else if (select === type.REJECTIONS.names.id) {
+        }else if (parseInt(select) === type.REJECTIONS.names.id) {
 
             errorContent.push(type.REJECTIONS.names);
 
