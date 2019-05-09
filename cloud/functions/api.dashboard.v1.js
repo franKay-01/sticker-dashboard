@@ -41,7 +41,7 @@ Parse.Cloud.define("submitForReview", function(req, res){
 
     util.handleError(res, error);
 
-  });  
+  });
 });
 
 Parse.Cloud.define("addReports", function(req, res){
@@ -2689,8 +2689,17 @@ Parse.Cloud.define("getPackFeed", function(req, res){
   let limit = 5;
   let page;
 
-  return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
-  .then(function(pack){
+  Parse.Promise.when(
+       new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}),
+       new Parse.Query(_class.Reports).equalTo("itemId", packId).equalTo("read", false).find({useMasterKey: true})
+  ).then(function(pack, reports){
+
+    if (reports){
+      packfeed.reports = true;
+    }else {
+      packfeed.reports = false;
+    }
+
     packInfo = pack;
     let _pack = dashboardHelper.PackItem(pack);
 
