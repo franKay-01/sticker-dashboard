@@ -2693,8 +2693,7 @@ Parse.Cloud.define("getPackFeed", function(req, res){
        new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true}),
        new Parse.Query(_class.Reports).equalTo("itemId", packId).equalTo("read", false).find({useMasterKey: true})
   ).then(function(pack, reports){
-    console.log("REPORTS " + JSON.stringify(reports));
-    if (reports){
+    if (reports.length > 0){
       packfeed.reports = true;
     }else {
       packfeed.reports = false;
