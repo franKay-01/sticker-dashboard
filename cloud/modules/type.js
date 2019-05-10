@@ -19,6 +19,11 @@ exports.REJECTIONS = {
     "id": 3,
     "error": "Naming Conversion is not Approved",
     "content":"The names you provided for your Pack/Stories are inapprpriate. Please revise and make the necessary changes. After resubmit for review. Thank you."
+  },
+  storyContent: {
+    "id": 4,
+    "error": "Story Content is not Approved",
+    "content":"The content you provided for your Stories are inapprpriate. Please revise and make the necessary changes. After resubmit for review. Thank you."
   }
 }
 

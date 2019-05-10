@@ -75,6 +75,10 @@ Parse.Cloud.define("addReports", function(req, res){
 
             errorContent.push(type.REJECTIONS.names);
 
+        }else if (parseInt(select) === type.REJECTIONS.storyContent.id){
+
+          errorContent.push(type.REJECTIONS.storyContent);
+
         }
     });
   }else {
@@ -89,6 +93,10 @@ Parse.Cloud.define("addReports", function(req, res){
     }else if (parseInt(selected) === type.REJECTIONS.names.id) {
 
         errorContent.push(type.REJECTIONS.names);
+
+    }else if (parseInt(select) === type.REJECTIONS.storyContent.id){
+
+      errorContent.push(type.REJECTIONS.storyContent);
 
     }
   }
