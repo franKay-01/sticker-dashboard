@@ -118,6 +118,7 @@ exports.StoryDetails = story => {
     _story.type = story.get("storyType");
     _story.info = story.get("info");
     _story.projects = story.get("projectIds");
+    _story.status = story.get("status");
   }
   return _story;
 
