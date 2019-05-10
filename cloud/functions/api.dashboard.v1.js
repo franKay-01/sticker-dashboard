@@ -2079,6 +2079,75 @@ Parse.Cloud.define("getNormalPacks", function(req, res){
 
 });
 
+Parse.Cloud.define("getReviewStories", function(req, res){
+  let packDetails = {};
+  let condition = 1;
+  let accountType = 2;
+  let _allArtwork = [];
+  let storyArray = [];
+  let storyDetails = {};
+  let artWork = [];
+  let combined = [];
+
+  return Parse.Promise.when(
+     new Parse.Query(_class.Stories).equalTo("status", condition).equalTo("accountType", accountType).ascending("createdAt").find({useMasterKey: true}),
+     new Parse.Query(_class.ArtWork).find({useMasterKey: true})
+   ).then(function(stories, artworks){
+
+    _allArtwork = artworks;
+    storyArray = stories;
+
+    storyDetails.stories = dashboardHelper.Stories(stories);
+
+    _.each(artworks, function (artwork) {
+
+        artWork.push(artwork.get("stickerId"));
+
+    });
+
+    return new Parse.Query(_class.Stickers).containedIn("objectId", artWork).find({useMasterKey: true});
+
+  }).then(function(stickers){
+    _.each(_allArtwork, function (artwork, index) {
+
+        _.each(stickers, function (sticker) {
+
+            if (artwork.get("stickerId") === sticker.id) {
+
+              combined.push({
+                  story: artwork.get("itemId"),
+                  image: sticker.get("uri").url()
+              });
+            }
+        })
+    });
+
+    let newArray = storyArray.slice(0);
+
+    _.each(combined, function(combine, combinedIndex){
+      _.each(newArray, function(storyItem, index){
+       if ( storyItem.id === combine.story) {
+            newArray.splice(index, 1);
+        }
+      });
+    });
+
+    if (newArray.length > 0){
+      storyDetails.noArtStories = dashboardHelper.Stories(newArray);
+    }else {
+      storyDetails.noArtStories = [];
+    }
+    storyDetails.artStories = combined;
+
+    res.success(util.setResponseOk(storyDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("getReviewPacks", function(req, res){
   let packDetails = {};
   let condition = 1;
