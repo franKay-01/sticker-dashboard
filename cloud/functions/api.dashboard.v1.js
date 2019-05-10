@@ -1828,8 +1828,15 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
       new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", ID).equalTo("type", type.FEED_TYPE.story).first({useMasterKey: true}),
       new Parse.Query(_class.Stories).equalTo("userId", ID).containedIn("projectIds", projectArray).find({useMasterKey: true}),
       new Parse.Query(_class.Authors).find({useMasterKey: true}),
-      new Parse.Query(_class.Product).find({useMasterKey: true})
-  ).then(function(story, artwork, feed, stories, authors, products){
+      new Parse.Query(_class.Product).find({useMasterKey: true}),
+      new Parse.Query(_class.Reports).equalTo("itemId", storyId).equalTo("read", false).find({useMasterKey: true})
+  ).then(function(story, artwork, feed, stories, authors, products, reports){
+
+    if (reports.length > 0){
+      storyDetails.reports = true;
+    }else {
+      storyDetails.reports = false;
+    }
 
     if (feed){
       storyDetails.feedId = feed.get("feedId");
