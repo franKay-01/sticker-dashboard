@@ -2860,6 +2860,7 @@ Parse.Cloud.define("createNewStory", function(req, res){
   let storyType = parseInt(req.params.type);
   let storyFormat = req.params.format;
   let projectId = req.params.projectId;
+  let accountType = req.params.accountType;
   let projectArray = [];
 
   if (projectId){
@@ -2879,7 +2880,7 @@ Parse.Cloud.define("createNewStory", function(req, res){
   story.set("userId", ID);
   story.set("status", 0);
   story.set("storyType", storyType);
-
+  story.set("accountType", accountType);
   if (storyFormat){
     story.set("format", storyFormat);
   }else {
