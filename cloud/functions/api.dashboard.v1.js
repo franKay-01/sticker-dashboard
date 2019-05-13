@@ -16,6 +16,23 @@ let count = 0;
 const STICKER = "sticker";
 const STORIES = "story";
 
+Parse.Cloud.define("getReportsDetails", function(req, res){
+  let itemId = req.params.itemId;
+  let reportDetails = {};
+
+  return new Parse.Query(_class.Reports).equalTo("itemId", itemId).find({useMasterKey: true})
+  .then(function(reports){
+
+    reportDetails.reports = dashboardHelper.ReportItems(reports);
+    res.success(util.setResponseOk(reportDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+    
+  })
+});
+
 Parse.Cloud.define("submitForReview", function(req, res){
   let itemId = req.params.itemId;
   let currentType = req.params.itemType;
@@ -162,7 +179,7 @@ Parse.Cloud.define("updateDescription", function(req, res){
   let stickerId = req.params.stickerId;
   let description = req.params.description;
 
-  return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first()
+  return new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first({useMasterKey:true})
   .then(function(sticker){
 
     sticker.set("description", description);
@@ -1831,7 +1848,7 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
       new Parse.Query(_class.Product).find({useMasterKey: true}),
       new Parse.Query(_class.Reports).equalTo("itemId", storyId).equalTo("read", false).find({useMasterKey: true})
   ).then(function(story, artwork, feed, stories, authors, products, reports){
-    console.log(JSON.stringify(reports));
+    console.log("REPORTS FROM ADMIN "+JSON.stringify(reports));
     if (reports.length > 0){
       storyDetails.reports = true;
     }else {

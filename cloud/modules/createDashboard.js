@@ -2,6 +2,20 @@ const _ = require('underscore');
 const type = require('./type');
 const helper = require('./helpers');
 
+exports.ReportItems = reports =>{
+  let _reports = [];
+
+  if (reports.length){
+    _.each(reports, report => {
+
+        _reports.push({id: report.id, title: report.get("title"), contents: report.get("contents"), read: report.get("read")});
+
+      })
+    }
+
+  return _reports;
+};
+
 exports.AdvertImages = images =>{
   let _images = [];
 
