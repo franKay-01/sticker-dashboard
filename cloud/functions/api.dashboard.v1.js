@@ -16,6 +16,26 @@ let count = 0;
 const STICKER = "sticker";
 const STORIES = "story";
 
+Parse.Cloud.define("changeReadStatus", function(req, res){
+  let reportId = req.params.reportId;
+
+  return new Parse.Query(_class.Reports).equalTo("objectId", reportId).first({useMasterKey: true})
+  .then(function(report){
+
+    report.set("read", true);
+    return report.save();
+
+  }).then(function(saved){
+
+    res.success(util.setResponseOk(true));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("getReportsDetails", function(req, res){
   let itemId = req.params.itemId;
   let reportDetails = {};
@@ -29,7 +49,7 @@ Parse.Cloud.define("getReportsDetails", function(req, res){
   }, function(error){
 
     util.handleError(res, error);
-    
+
   })
 });
 
