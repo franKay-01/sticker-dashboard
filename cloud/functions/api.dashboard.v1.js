@@ -15,6 +15,43 @@ let count = 0;
 
 const STICKER = "sticker";
 const STORIES = "story";
+const EPISODES = "episode";
+
+Parse.Cloud.define("getStoryItemStickers", function(req, res){
+  let itemId = req.params.itemId;
+  let userId = req.params.admin;
+  let source = req.params.source;
+  let Query;
+  let StickerDetails = {};
+
+  if (source === STORIES) {
+
+      Query = new Parse.Query(_class.Stories);
+
+  } else if (source === EPISODES) {
+
+      Query = new Parse.Query(_class.Episodes);
+
+  }
+
+  return Query.equalTo("objectId", itemId).first({useMasterKey: true})
+  .then(function(story){
+
+    StickerDetails.storyId = story.id;
+
+    return new Parse.Query(_class.Stickers).equalTo("userId", userId).limit(PARSE_LIMIT).find({useMasterKey: true});
+
+  }).then(function(stickers){
+
+    StickerDetails.stickers = dashboardHelper.FeedStickers(stickers);
+    res.success(util.setResponseOk(StickerDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
 
 Parse.Cloud.define("changeReadStatus", function(req, res){
   let reportId = req.params.reportId;
