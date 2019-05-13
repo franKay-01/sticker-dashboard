@@ -1831,7 +1831,7 @@ Parse.Cloud.define("getStoryDetails", function(req, res){
       new Parse.Query(_class.Product).find({useMasterKey: true}),
       new Parse.Query(_class.Reports).equalTo("itemId", storyId).equalTo("read", false).find({useMasterKey: true})
   ).then(function(story, artwork, feed, stories, authors, products, reports){
-
+    console.log(JSON.stringify(reports));
     if (reports.length > 0){
       storyDetails.reports = true;
     }else {
