@@ -60,6 +60,7 @@ module.exports = function (app) {
   app.post('/uploads/normal/react', upload.array('im1[]'), function (req, res) {
 
       let pack_id = req.body.pack_id;
+      let userId = req.body.userId;
       let files = req.files;
       let fileDetails = [];
       let stickerDetails = [];
@@ -115,7 +116,7 @@ module.exports = function (app) {
                       sticker.set("localName", stickerName);
                       sticker.set("uri", parseFile);
                       sticker.set("preview", parseFilePreview);
-                      // sticker.set("userId", _user.id);
+                      sticker.set("userId", userId);
                       sticker.set("parent", pack);
                       sticker.set("description", "");
                       sticker.set("meaning", "");
@@ -207,6 +208,7 @@ module.exports = function (app) {
 
       let pack_id = req.body.pack_id;
       let projectId = req.body.projectId;
+      let userId = req.body.userId;
       let files = req.files;
       let fileDetails = [];
       let stickerDetails = [];
@@ -262,7 +264,7 @@ module.exports = function (app) {
                       sticker.set("localName", stickerName);
                       sticker.set("uri", parseFile);
                       sticker.set("preview", parseFilePreview);
-                      // sticker.set("userId", _user.id);
+                      sticker.set("userId", userId);
                       sticker.set("parent", pack);
                       sticker.set("description", "");
                       sticker.set("meaning", "");
