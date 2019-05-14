@@ -102,7 +102,7 @@ module.exports = function (app) {
     return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey:true})
     .then(function (story) {
         res.render("pages/stickers/react_story_image", {
-            id: story.id,
+            storyId: story.id,
             pack_name: story.get("title"),
             memberId: memberId
           });
