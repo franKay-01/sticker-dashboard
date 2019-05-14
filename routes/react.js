@@ -41,13 +41,84 @@ module.exports = function (app) {
 
   });
 
+  app.post('/upload/image/react', upload.array('im1'), function(req, res){
+    let storyId = req.body.storyId;
+    let memberId = req.body.memberId;
+    let files = req.files;
+
+    let Asset = new Parse.Object.extend(_class.Assets);
+    let asset = new Asset();
+
+    let fullName = files[0].originalname;
+    let stickerName = fullName.substring(0, fullName.length - 4);
+
+    let bitmap = fs.readFileSync(files[0].path, {encoding: 'base64'});
+
+    //create our parse file
+    let parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
+
+    asset.set("uri", parseFile);
+
+    return asset.save().then(function(image){
+
+      let Story = new Parse.Object.extend(_class.StoryItems);
+      let catalogue = new Story();
+
+      catalogue.set("type", type.STORY_ITEM.image);
+      if (memberId === "none"){
+      catalogue.set("contents", {"uri": image.get("uri").url(), "id": image.id});
+      }else {
+      catalogue.set("contents", {"uri": image.get("uri").url(), "id": image.id, "character": memberId});
+      }
+      catalogue.set("storyId", storyId);
+
+      return catalogue.save();
+
+    }).then(function(){
+
+      let tempFile = files[0].path;
+      fs.unlink(tempFile, function (err) {
+          if (err) {
+              //TODO handle error code
+              console.log("-------Could not del temp" + JSON.stringify(err));
+          }
+          else {
+              console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+          }
+      });
+    })
+    res.redirect("http://localhost:3000/storyitem/story/"+storyId+"/"+undefined);
+    
+  }, function(error){
+
+    res.redirect("http://localhost:3000/storyitem/story/"+storyId+"/"+undefined);
+
+  });
+
+  app.get('/upload/image/react/:id/:memberId', function (req, res) {
+    let storyId = req.params.storyId;
+    let memberId = req.params.memberId;
+
+    return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey:true})
+    .then(function (story) {
+        res.render("pages/stickers/react_story_image", {
+            id: story.id,
+            pack_name: story.get("title"),
+            memberId: memberId
+          });
+        }, function (error) {
+            res.redirect("http://localhost:3000/normalPacks/"+pack_id+"/"+user);
+        })
+  });
+
+
   app.get('/uploads/normal/react/:id/:userId', function (req, res) {
 
       let pack_id = req.params.id;
       let projectId = req.params.projectId;
       let user = req.params.userId;
 
-      return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first()
+      return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first({useMasterKey:true})
       .then(function (pack) {
           res.render("pages/stickers/react_normal_stickers", {
               id: pack.id,
