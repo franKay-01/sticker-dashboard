@@ -17,6 +17,34 @@ const STICKER = "sticker";
 const STORIES = "story";
 const EPISODES = "episode";
 
+Parse.Cloud.define("setStickerItem", function(req, res){
+  let storyId = req.params.storyId;
+  let stickerId = req.params.stickerId;
+  let stickerUrl = req.params.stickerUrl;
+  let memberId = req.params.memberId;
+
+  let Story = new Parse.Object.extend(_class.StoryItems);
+  let catalogue = new Story();
+
+  if (memberId !== []){
+    catalogue.set("contents", {"id": stickerId, "uri": stickerUrl, "character" : memberId});
+  }else {
+    catalogue.set("contents", {"id": stickerId, "uri": stickerUrl});
+  }
+  catalogue.set("storyId", storyId);
+  catalogue.set("type", type.STORY_ITEM.sticker);
+
+  return catalogue.save().then(function(saved){
+
+    res.success(util.setResponseOk(true));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("getStoryItemStickers", function(req, res){
   let itemId = req.params.itemId;
   let userId = req.params.admin;
