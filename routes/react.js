@@ -21,38 +21,42 @@ let storage = multer.diskStorage({
 let upload = multer({storage: storage});
 
 module.exports = function (app) {
-  app.get('/uploads/react/:id/:projectId', function (req, res) {
+  app.get('/uploads/react/:id/:projectId/:userId', function (req, res) {
 
       let pack_id = req.params.id;
       let projectId = req.params.projectId;
+      let user = req.params.userId;
 
       return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first()
       .then(function (pack) {
           res.render("pages/stickers/react_stickers", {
               id: pack.id,
               pack_name: pack.get("name"),
-              projectId: projectId
+              projectId: projectId,
+              userId: user
             });
           }, function (error) {
-              res.redirect("http://localhost:3000/pack/"+pack_id+"/"+projectId);
+              res.redirect("http://localhost:3000/pack/"+pack_id+"/"+projectId+"/"+user);
           })
 
   });
 
-  app.get('/uploads/normal/react/:id', function (req, res) {
+  app.get('/uploads/normal/react/:id/:userId', function (req, res) {
 
       let pack_id = req.params.id;
       let projectId = req.params.projectId;
+      let user = req.params.userId;
 
       return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first()
       .then(function (pack) {
           res.render("pages/stickers/react_normal_stickers", {
               id: pack.id,
               pack_name: pack.get("name"),
-              projectId: projectId
+              projectId: projectId,
+              userId: user
             });
           }, function (error) {
-              res.redirect("http://localhost:3000/normalPacks/"+pack_id);
+              res.redirect("http://localhost:3000/normalPacks/"+pack_id+"/"+user);
           })
 
   });
