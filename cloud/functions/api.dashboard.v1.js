@@ -42,7 +42,7 @@ Parse.Cloud.define("getStoryItemStickers", function(req, res){
     return new Parse.Query(_class.Stickers).equalTo("userId", userId).limit(PARSE_LIMIT).find({useMasterKey: true});
 
   }).then(function(stickers){
-
+    console.log("STICKERS " + JSON.stringify(stickers));
     StickerDetails.stickers = dashboardHelper.FeedStickers(stickers);
     res.success(util.setResponseOk(StickerDetails));
 
