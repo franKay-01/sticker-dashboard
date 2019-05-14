@@ -88,14 +88,14 @@ module.exports = function (app) {
       });
     })
     res.redirect("http://localhost:3000/storyitem/story/"+storyId+"/"+undefined);
-    
+
   }, function(error){
 
     res.redirect("http://localhost:3000/storyitem/story/"+storyId+"/"+undefined);
 
   });
 
-  app.get('/upload/image/react/:id/:memberId', function (req, res) {
+  app.get('/upload/image/react/:storyId/:memberId', function (req, res) {
     let storyId = req.params.storyId;
     let memberId = req.params.memberId;
 
