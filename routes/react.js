@@ -103,11 +103,11 @@ module.exports = function (app) {
     .then(function (story) {
         res.render("pages/stickers/react_story_image", {
             storyId: story.id,
-            pack_name: story.get("title"),
+            storyName: story.get("title"),
             memberId: memberId
           });
         }, function (error) {
-            res.redirect("http://localhost:3000/normalPacks/"+pack_id+"/"+user);
+            res.redirect("http://localhost:3000/storyitem/story/"+storyId+"/"+memberId);
         })
   });
 
