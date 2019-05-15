@@ -25,13 +25,14 @@ module.exports = function (app) {
   app.get('/change_image/react/:itemId/:url', function (req, res) {
     let itemId = req.params.itemId;
     let url = req.params.url;
-
+    let backUrl = atob(url);
     return new Parse.Query(_class.StoryItems).equalTo("objectId", itemId).first({useMasterKey: true})
     .then(function (storyItem) {
+      console.log("GETTING HERE");
         res.render("pages/stickers/change_react_image", {
             itemId: storyItem.id,
             itemTitle: "Changing Image Item",
-            back: atob(url),
+            back: backUrl,
             url: url
           });
         }, function (error) {
