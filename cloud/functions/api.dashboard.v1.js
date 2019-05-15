@@ -1005,8 +1005,11 @@ Parse.Cloud.define("changeStoryItem", function(req, res){
     console.log("STORY ITEM " + JSON.stringify(storyItem));
 
     _storyItem = storyItem;
-    storyContent = storyItem.get("contents");
-
+    if (previousForm === type.STORY_ITEM.image) {
+      storyContent = storyItem.get("contents").id;
+    }else {
+      storyContent = storyItem.get("contents");
+    }
     if (storyItemType === type.STORY_ITEM.text || storyItemType === type.STORY_ITEM.quote ||
         storyItemType === type.STORY_ITEM.bold || storyItemType === type.STORY_ITEM.italic ||
         storyItemType === type.STORY_ITEM.italicBold) {
@@ -1055,22 +1058,10 @@ Parse.Cloud.define("changeStoryItem", function(req, res){
 
     }
   }).then(function(){
-    // if (files.length > 0) {
-    //     let tempFile = files[0].path;
-    //     fs.unlink(tempFile, function (err) {
-    //         if (err) {
-    //             //TODO handle error code
-    //             console.log("-------Could not del temp" + JSON.stringify(err));
-    //         }
-    //         else {
-    //             console.log("SUUCCCEESSSSS IN DELTEING TEMP");
-    //         }
-    //     });
-    // }
 
     if (previousForm === type.STORY_ITEM.image) {
 
-        return new Parse.Query(_class.Assets).equalTo("objectId", storyContent).first();
+        return new Parse.Query(_class.Assets).equalTo("objectId", storyContent).first({useMasterKey: true});
 
     } else {
 
