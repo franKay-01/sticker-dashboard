@@ -26,7 +26,7 @@ module.exports = function (app) {
     let itemId = req.params.itemId;
     let url = req.params.url;
     let backUrl = Buffer.from(url, 'base64').toString();
-    console.log("BACK URL " + backUrl);
+
     return new Parse.Query(_class.StoryItems).equalTo("objectId", itemId).first({useMasterKey: true})
     .then(function (storyItem) {
       console.log("GETTING HERE");
@@ -42,6 +42,59 @@ module.exports = function (app) {
         })
   })
 
+  app.post("/change_image/react", upload.array('im1'), function(req, res){
+    let storyId = req.body.storyId;
+    let memberId = req.body.memberId;
+    let url = req.params.url;
+    let backUrl = Buffer.from(url, 'base64').toString();
+    let files = req.files;
+    let _storyItem;
+    return new Parse.Query(_class.StoryItems).equalTo("objectId", storyId).first({useMasterKey:true})
+    .then(function(storyItem){
+      _storyItem = storyItem;
+
+      let Asset = new Parse.Object.extend(_class.Assets);
+      let asset = new Asset();
+
+      let fullName = files[0].originalname;
+      let stickerName = fullName.substring(0, fullName.length - 4);
+
+      let bitmap = fs.readFileSync(files[0].path, {encoding: 'base64'});
+
+      let parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
+
+      asset.set("uri", parseFile);
+
+      return asset.save();
+    }).then(function(asset){
+
+      _storyItem.set("type", type.STORY_ITEM.image);
+      _storyItem.set("contents", {"uri": asset.get("uri").url(), "id": asset.id});
+
+      return _storyItem.save();
+
+    }).then(function(){
+      if (files.length > 0) {
+          let tempFile = files[0].path;
+          fs.unlink(tempFile, function (err) {
+              if (err) {
+                  //TODO handle error code
+                  console.log("-------Could not del temp" + JSON.stringify(err));
+              }
+              else {
+                  console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+              }
+          });
+      }
+
+      res.redirect(url.toString());
+
+    }, function(error){
+
+      res.redirect(url.toString());
+
+    });
+  });
   // This is to upload images for the admin Packs.
   app.get('/uploads/react/:id/:projectId/:userId', function (req, res) {
 
