@@ -87,11 +87,11 @@ module.exports = function (app) {
           }
       });
 
-    res.redirect("http://localhost:3000/storyitem/story/"+storyId);
+    res.redirect("http://localhost:3000/storyitem/story/"+storyId+"/undefined");
 
   }, function(error){
 
-    res.redirect("http://localhost:3000/storyitem/story/"+storyId);
+    res.redirect("http://localhost:3000/storyitem/story/"+storyId+"/undefined");
 
     });
   })
