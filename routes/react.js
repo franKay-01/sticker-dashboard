@@ -26,7 +26,7 @@ module.exports = function (app) {
     let itemId = req.params.itemId;
     let url = req.params.url;
 
-    return new Parse.Query(_class.StoryItems).equalTo("objectId", itemId).first({useMasterKey: true})
+    return new Parse.Query(_class.StoryItems).equalTo("storyId", itemId).first({useMasterKey: true})
     .then(function (storyItem) {
         res.render("pages/stickers/change_react_image", {
             itemId: storyItem.id,
