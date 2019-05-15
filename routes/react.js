@@ -21,13 +21,33 @@ let storage = multer.diskStorage({
 let upload = multer({storage: storage});
 
 module.exports = function (app) {
+  // This is to upload images for change of storyItems.
+  app.get('/change/image/react/:itemId/:url', function (req, res) {
+    let itemId = req.params.itemId;
+    let url = req.params.url;
+
+    return new Parse.Query(_class.StoryItems).equalTo("objectId", itemId).first({useMasterKey: true})
+    .then(function (storyItem) {
+        res.render("pages/stickers/change_react_image", {
+            itemId: storyItem.id,
+            itemTitle: "Changing Image Item",
+            back: atob(url),
+            url: url
+          });
+        }, function (error) {
+            url = atob(url);
+            res.redirect(url.toString());
+        })
+  })
+
+  // This is to upload images for the admin Packs.
   app.get('/uploads/react/:id/:projectId/:userId', function (req, res) {
 
       let pack_id = req.params.id;
       let projectId = req.params.projectId;
       let user = req.params.userId;
 
-      return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first()
+      return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first({useMasterKey:true})
       .then(function (pack) {
           res.render("pages/stickers/react_stickers", {
               id: pack.id,
@@ -96,6 +116,7 @@ module.exports = function (app) {
     });
   })
 
+  // This is to upload images for the storyItems
   app.get('/upload/image/react/:storyId/:memberId', function (req, res) {
     let storyId = req.params.storyId;
     let memberId = req.params.memberId;
@@ -112,7 +133,7 @@ module.exports = function (app) {
         })
   });
 
-
+  // This is to upload images for the normal Packs. That is for individuals who sign up as third parties
   app.get('/uploads/normal/react/:id/:userId', function (req, res) {
 
       let pack_id = req.params.id;
