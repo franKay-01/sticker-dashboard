@@ -25,7 +25,8 @@ module.exports = function (app) {
   app.get('/change_image/react/:itemId/:url', function (req, res) {
     let itemId = req.params.itemId;
     let url = req.params.url;
-    let backUrl = atob(url);
+    let backUrl = Buffer.from(url, 'base64').toString();
+    console.log("BACK URL " + backUrl);
     return new Parse.Query(_class.StoryItems).equalTo("objectId", itemId).first({useMasterKey: true})
     .then(function (storyItem) {
       console.log("GETTING HERE");
