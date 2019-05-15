@@ -87,11 +87,11 @@ module.exports = function (app) {
           });
       }
 
-      res.redirect(url.toString());
+      res.redirect(backUrl);
 
     }, function(error){
 
-      res.redirect(url.toString());
+      res.redirect(backUrl);
 
     });
   });
