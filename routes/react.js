@@ -22,7 +22,7 @@ let upload = multer({storage: storage});
 
 module.exports = function (app) {
   // This is to upload images for change of storyItems.
-  app.get('/change/image/react/:itemId/:url', function (req, res) {
+  app.get('/change_image/react/:itemId/:url', function (req, res) {
     let itemId = req.params.itemId;
     let url = req.params.url;
 
