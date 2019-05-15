@@ -29,7 +29,7 @@ module.exports = function (app) {
 
     return new Parse.Query(_class.StoryItems).equalTo("objectId", itemId).first({useMasterKey: true})
     .then(function (storyItem) {
-      console.log("GETTING HERE");
+      //TODO find out if the item being changed is an image. If yes remove the previous image
         res.render("pages/stickers/change_react_image", {
             itemId: storyItem.id,
             itemTitle: "Changing Image Item",
