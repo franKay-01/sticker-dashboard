@@ -45,7 +45,7 @@ module.exports = function (app) {
   app.post("/change_image/react", upload.array('im1'), function(req, res){
     let storyId = req.body.storyId;
     let memberId = req.body.memberId;
-    let url = req.params.url;
+    let url = req.body.url;
     let backUrl = Buffer.from(url, 'base64').toString();
     let files = req.files;
     let _storyItem;
