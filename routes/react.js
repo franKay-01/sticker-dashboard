@@ -86,14 +86,15 @@ module.exports = function (app) {
               console.log("SUUCCCEESSSSS IN DELTEING TEMP");
           }
       });
-    })
+
     res.redirect("http://localhost:3000/storyitem/story/"+storyId);
 
   }, function(error){
 
     res.redirect("http://localhost:3000/storyitem/story/"+storyId);
 
-  });
+    });
+  })
 
   app.get('/upload/image/react/:storyId/:memberId', function (req, res) {
     let storyId = req.params.storyId;
