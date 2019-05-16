@@ -102,11 +102,11 @@ Parse.Cloud.define("changeStickerItem", function(req, res){
   let stickerId = req.params.stickerId;
   let stickerUrl = req.params.stickerUrl;
 
-  return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first({useMasterKey: true})
+  return new Parse.Query(_class.StoryItems).equalTo("objectId", itemId).first({useMasterKey: true})
   .then(function(storyItem){
 
     storyItem.set("type", type.STORY_ITEM.sticker);
-    storyItem.set("contents", {"id": stickerId, "uri": sticker_url});
+    storyItem.set("contents", {"id": stickerId, "uri": stickerUrl});
 
     return storyItem.save();
 
