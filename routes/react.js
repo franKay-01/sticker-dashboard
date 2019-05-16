@@ -49,7 +49,7 @@ module.exports = function (app) {
     let backUrl = Buffer.from(url, 'base64').toString();
     let files = req.files;
     let _pack;
-    
+    console.log("HERE TO UPDATED");
     return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey:true})
     .then(function(pack){
 
