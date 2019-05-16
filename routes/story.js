@@ -2656,10 +2656,8 @@ module.exports = function (app) {
                 return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first();
 
             }).then(function (storyItem) {
-                console.log("STORY ITEM " + JSON.stringify(storyItem));
 
                 storyId = storyItem.get("storyId");
-                console.log("STORY ID ### " + storyId);
                 storyItem.set("type", type.STORY_ITEM.sticker);
                 storyItem.set("contents", {"id": stickerId, "uri": sticker_url});
 

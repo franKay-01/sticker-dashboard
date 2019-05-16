@@ -97,6 +97,30 @@ Parse.Cloud.define("setStickerItem", function(req, res){
   })
 });
 
+Parse.Cloud.define("changeStickerItem", function(req, res){
+  let itemId = req.params.storyId;
+  let stickerId = req.params.stickerId;
+  let stickerUrl = req.params.stickerUrl;
+
+  return new Parse.Query(_class.StoryItems).equalTo("objectId", id).first({useMasterKey: true})
+  .then(function(storyItem){
+
+    storyItem.set("type", type.STORY_ITEM.sticker);
+    storyItem.set("contents", {"id": stickerId, "uri": sticker_url});
+
+    return storyItem.save();
+
+  }).then(function(){
+
+    res.success(util.setResponseOk(true));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
 Parse.Cloud.define("getChangeStickers", function(req, res){
   let userId = req.params.admin;
   let StickerDetails = {};
