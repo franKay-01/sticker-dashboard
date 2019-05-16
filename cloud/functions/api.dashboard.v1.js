@@ -97,6 +97,51 @@ Parse.Cloud.define("setStickerItem", function(req, res){
   })
 });
 
+Parse.Cloud.define("setItemArtwork", function(req, res){
+  let storyId = req.params.storyId;
+  let stickerId = req.params.stickerId;
+  let state = req.params.status;
+
+  return new Parse.Query(_class.Stories).equalTo("objectId", storyId).first({useMasterKey:true})
+  .then(function(story){
+    if (state === "change") {
+
+        return new Parse.Query(_class.ArtWork).equalTo("itemId", story.id).first({useMasterKey:true});
+
+    } else if (state === "new") {
+
+        let Artwork = new Parse.Object.extend(_class.ArtWork);
+        let artwork = new Artwork();
+
+        artwork.set("itemId", story.id);
+        artwork.set("stickerId", stickerId);
+
+        return artwork.save();
+    }
+  }).then(function(artwork){
+    if (state === "change") {
+
+        artwork.set("stickerId", stickerId);
+
+        return artwork.save();
+
+      }else {
+
+        res.success(util.setResponseOk(true));
+
+      }
+
+  }).then(function(){
+
+    res.success(util.setResponseOk(true));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  });
+});
+
 Parse.Cloud.define("changeStickerItem", function(req, res){
   let itemId = req.params.storyId;
   let stickerId = req.params.stickerId;
