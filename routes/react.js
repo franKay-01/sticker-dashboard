@@ -62,7 +62,7 @@ module.exports = function (app) {
 
       pack.set("artwork", parseFile);
 
-      return asset.save();
+      return pack.save();
 
     }).then(function(){
       if (files.length > 0) {
