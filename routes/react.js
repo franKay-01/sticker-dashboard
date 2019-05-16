@@ -21,6 +21,72 @@ let storage = multer.diskStorage({
 let upload = multer({storage: storage});
 
 module.exports = function (app) {
+  //This is to upload images for PACKS
+  app.get("/pack_uploads/react/:itemId/:url", function(req, res){
+    let itemId = req.params.itemId;
+    let url = req.params.url;
+    let backUrl = Buffer.from(url, 'base64').toString();
+
+    return new Parse.Query(_class.Packs).equalTo("objectId", itemId).first({useMasterKey: true})
+    .then(function (pack) {
+      //TODO find out if the item being changed is an image. If yes remove the previous image
+        res.render("pages/stickers/set_reactpack_image", {
+            itemId: pack.id,
+            itemTitle: "Setting Pack Artwork",
+            back: backUrl,
+            url: url
+          });
+        }, function (error) {
+            url = atob(url);
+            res.redirect(url.toString());
+        });
+  });
+
+  app.post("/pack_uploads/react", upload.array('im1'), function(req, res){
+    let packId = req.body.packId;
+    let memberId = req.body.memberId;
+    let url = req.body.url;
+    let backUrl = Buffer.from(url, 'base64').toString();
+    let files = req.files;
+    let _pack;
+    
+    return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey:true})
+    .then(function(pack){
+
+      let fullName = files[0].originalname;
+      let stickerName = fullName.substring(0, fullName.length - 4);
+
+      let bitmap = fs.readFileSync(files[0].path, {encoding: 'base64'});
+
+      let parseFile = new Parse.File(stickerName, {base64: bitmap}, files[0].mimetype);
+
+      pack.set("artwork", parseFile);
+
+      return asset.save();
+
+    }).then(function(){
+      if (files.length > 0) {
+          let tempFile = files[0].path;
+          fs.unlink(tempFile, function (err) {
+              if (err) {
+                  //TODO handle error code
+                  console.log("-------Could not del temp" + JSON.stringify(err));
+              }
+              else {
+                  console.log("SUUCCCEESSSSS IN DELTEING TEMP");
+              }
+          });
+      }
+
+      res.redirect(backUrl);
+
+    }, function(error){
+
+      res.redirect(backUrl);
+
+    });
+  });
+
   // This is to upload images for change of storyItems.
   app.get('/change_image/react/:itemId/:url', function (req, res) {
     let itemId = req.params.itemId;
