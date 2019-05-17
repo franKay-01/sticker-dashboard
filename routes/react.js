@@ -21,6 +21,49 @@ let storage = multer.diskStorage({
 let upload = multer({storage: storage});
 
 module.exports = function (app) {
+
+  app.get("/createPackPreviews/:packId/:url", function (req, res) {
+      let packId = req.params.packId;
+      let url = req.params.url;
+      let backUrl = Buffer.from(url, 'base64').toString();
+      let STICKER_LIMIT = 6;
+      let _pack;
+      let stickerArray = [];
+
+    return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey:true})
+    .then(function (pack) {
+        _pack = pack;
+        if (pack.get("previews").length > 0) {
+
+            res.redirect(backUrl);
+
+        } else {
+            let packRelation = pack.relation(_class.Packs);
+            return packRelation.query().limit(STICKER_LIMIT).ascending("name").find({useMasterKey:true});
+        }
+
+    }).then(function (stickers) {
+
+        _.each(stickers, function (sticker) {
+
+            stickerArray.push(sticker.get("preview").url());
+
+        });
+
+        return _pack.save("previews", stickerArray);
+
+    }).then(function (pack) {
+
+        res.redirect(backUrl);
+
+    }, function (error) {
+
+        res.redirect(backUrl);
+
+    });
+  });
+
+
   //This is to upload images for PACKS
   app.get("/pack_uploads/react/:itemId/:url", function(req, res){
     let itemId = req.params.itemId;

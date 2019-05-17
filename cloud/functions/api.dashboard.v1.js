@@ -22,6 +22,7 @@ Parse.Cloud.define("publishItem", function(req, res){
   let itemId = req.params.itemId;
   let itemType = req.params.itemType;
   let condition = req.params.condition;
+  let url = req.params.url;
   let Query;
 
   switch (itemType) {
@@ -53,9 +54,7 @@ Parse.Cloud.define("publishItem", function(req, res){
     switch (itemType) {
         case PACKS:
             if (condition === "publish") {
-                Parse.Cloud.run("createPackPreviews",{
-                  packId: itemId
-                })
+                res.redirect("/createPackPreviews/"+itemId+"/"+url)
             } else if (status === "unpublish") {
                 res.success(util.setResponseOk(true));
             }
@@ -73,46 +72,6 @@ Parse.Cloud.define("publishItem", function(req, res){
 
   })
 });
-
-Parse.Cloud.define("createPackPreviews", function (req, res) {
-    let packId = req.params.packId;
-    let STICKER_LIMIT = 6;
-    let _pack;
-    let stickerArray = [];
-
-  return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey:true})
-  .then(function (pack) {
-      _pack = pack;
-      if (pack.get("previews").length > 0) {
-
-          res.success(util.setResponseOk(true));
-
-      } else {
-          let packRelation = pack.relation(_class.Packs);
-          return packRelation.query().limit(STICKER_LIMIT).ascending("name").find({useMasterKey:true});
-      }
-
-  }).then(function (stickers) {
-
-      _.each(stickers, function (sticker) {
-
-          stickerArray.push(sticker.get("preview").url());
-
-      });
-
-      return _pack.save("previews", stickerArray);
-
-  }).then(function (pack) {
-
-      res.success(util.setResponseOk(true));
-
-  }, function (error) {
-
-      util.handleError(res, error);
-
-  });
-});
-
 
 Parse.Cloud.define("deleteStoryItem", function(req, res){
   let itemId = req.params.itemId;
