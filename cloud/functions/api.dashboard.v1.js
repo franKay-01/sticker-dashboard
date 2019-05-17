@@ -13,9 +13,106 @@ const image2base64 = require('image-to-base64');
 const PARSE_LIMIT = 1000;
 let count = 0;
 
+const PACKS = "pack"
 const STICKER = "sticker";
 const STORIES = "story";
 const EPISODES = "episode";
+
+Parse.Cloud.define("publishItem", function(req, res){
+  let itemId = req.params.itemId;
+  let itemType = req.params.itemType;
+  let condition = req.params.condition;
+  let Query;
+
+  switch (itemType) {
+      case PACKS:
+          Query = new Parse.Query(_class.Packs);
+          return;
+
+      case STORIES:
+          Query = new Parse.Query(_class.Stories);
+          return;
+  }
+
+  Query.equalTo("objectId", itemId).first({useMasterKey}).then(function(object){
+
+    if (condition === "publish") {
+
+        object.set("published", true);
+
+    } else if (status === "unpublish") {
+
+        object.set("published", false);
+
+    }
+
+    return object.save();
+
+  }).then(function(){
+
+    switch (itemType) {
+        case PACKS:
+            if (condition === "publish") {
+                Parse.Cloud.run("createPackPreviews",{
+                  packId: itemId
+                })
+            } else if (status === "unpublish") {
+                res.success(util.setResponseOk(true));
+            }
+            return;
+
+        case STORIES:
+            res.success(util.setResponseOk(true));
+            return;
+
+    }
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+});
+
+Parse.Cloud.define("createPackPreviews", function (req, res) {
+    let packId = req.params.packId;
+    let STICKER_LIMIT = 6;
+    let _pack;
+    let stickerArray = [];
+
+  return new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey:true})
+  .then(function (pack) {
+      _pack = pack;
+      if (pack.get("previews").length > 0) {
+
+          res.success(util.setResponseOk(true));
+
+      } else {
+          let packRelation = pack.relation(_class.Packs);
+          return packRelation.query().limit(STICKER_LIMIT).ascending("name").find({useMasterKey:true});
+      }
+
+  }).then(function (stickers) {
+
+      _.each(stickers, function (sticker) {
+
+          stickerArray.push(sticker.get("preview").url());
+
+      });
+
+      return _pack.save("previews", stickerArray);
+
+  }).then(function (pack) {
+
+      res.success(util.setResponseOk(true));
+
+  }, function (error) {
+
+      util.handleError(res, error);
+
+  });
+});
+
 
 Parse.Cloud.define("deleteStoryItem", function(req, res){
   let itemId = req.params.itemId;
