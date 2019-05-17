@@ -25,14 +25,14 @@ Parse.Cloud.define("publishItem", function(req, res){
   let url = req.params.url;
   let Query;
 
-  switch (itemType) {
-      case PACKS:
-          Query = new Parse.Query(_class.Packs);
-          return;
+  if (itemType === "Publish"){
 
-      case STORIES:
-          Query = new Parse.Query(_class.Stories);
-          return;
+    Query = new Parse.Query(_class.Packs);
+
+  }else if (itemType === "Unpublish") {
+
+    Query = new Parse.Query(_class.Stories);
+
   }
 
   Query.equalTo("objectId", itemId).first({useMasterKey}).then(function(object){
@@ -51,18 +51,15 @@ Parse.Cloud.define("publishItem", function(req, res){
 
   }).then(function(){
 
-    switch (itemType) {
-        case PACKS:
-            if (condition === "Publish") {
-                res.redirect("/createPackPreviews/"+itemId+"/"+url)
-            } else if (condition === "Unpublish") {
-                res.success(util.setResponseOk(true));
-            }
-            return;
-
-        case STORIES:
+    if (itemType === "Publish"){
+        if (condition === "Publish") {
+            res.redirect("/createPackPreviews/"+itemId+"/"+url)
+        } else if (condition === "Unpublish") {
             res.success(util.setResponseOk(true));
-            return;
+        }
+    }else if (true) {
+
+        res.success(util.setResponseOk(true));
 
     }
 
