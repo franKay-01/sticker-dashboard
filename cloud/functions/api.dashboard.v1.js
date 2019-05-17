@@ -37,11 +37,11 @@ Parse.Cloud.define("publishItem", function(req, res){
 
   Query.equalTo("objectId", itemId).first({useMasterKey}).then(function(object){
 
-    if (condition === "publish") {
+    if (condition === "Publish") {
 
         object.set("published", true);
 
-    } else if (status === "unpublish") {
+    } else if (status === "Unpublish") {
 
         object.set("published", false);
 
@@ -53,7 +53,7 @@ Parse.Cloud.define("publishItem", function(req, res){
 
     switch (itemType) {
         case PACKS:
-            if (condition === "publish") {
+            if (condition === "Publish") {
                 res.redirect("/createPackPreviews/"+itemId+"/"+url)
             } else if (status === "unpublish") {
                 res.success(util.setResponseOk(true));
