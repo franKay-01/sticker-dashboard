@@ -36,7 +36,7 @@ Parse.Cloud.define("publishItem", function(req, res){
 
   }
 
-  Query.equalTo("objectId", itemId).first({useMasterKey}).then(function(object){
+  Query.equalTo("objectId", itemId).first({useMasterKey: true}).then(function(object){
 
     if (condition === "Publish") {
 
