@@ -41,7 +41,7 @@ Parse.Cloud.define("publishItem", function(req, res){
 
         object.set("published", true);
 
-    } else if (status === "Unpublish") {
+    } else if (condition === "Unpublish") {
 
         object.set("published", false);
 
@@ -55,7 +55,7 @@ Parse.Cloud.define("publishItem", function(req, res){
         case PACKS:
             if (condition === "Publish") {
                 res.redirect("/createPackPreviews/"+itemId+"/"+url)
-            } else if (status === "unpublish") {
+            } else if (condition === "Unpublish") {
                 res.success(util.setResponseOk(true));
             }
             return;
