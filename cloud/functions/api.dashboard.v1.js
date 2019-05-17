@@ -24,7 +24,8 @@ Parse.Cloud.define("publishItem", function(req, res){
   let condition = req.params.condition;
   let url = req.params.url;
   let Query;
-
+  console.log("ITEMTYPE " + itemType);
+  
   if (itemType === "Publish"){
 
     Query = new Parse.Query(_class.Packs);
