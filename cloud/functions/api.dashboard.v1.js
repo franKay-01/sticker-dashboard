@@ -640,7 +640,7 @@ Parse.Cloud.define("setStoryFeed", function(req, res){
 
 });
 
-Parse.Cloud.define("setCuraredStickers", function(req, res){
+Parse.Cloud.define("setCuratedStickers", function(req, res){
   let stickers = req.params.itemIds;
   let packId = req.params.packId;
   let _stickerIds = [];
