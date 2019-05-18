@@ -657,7 +657,7 @@ Parse.Cloud.define("getCuratedStickers", function(req, res){
     });
 
     return new Parse.Query(_class.Stickers).limit(PARSE_LIMIT)
-    .containedIn("parent", _stickers).find({useMasterKey: true});
+    .containedIn("parent", _packIds).find({useMasterKey: true});
 
   }).then(function(stickers){
 
