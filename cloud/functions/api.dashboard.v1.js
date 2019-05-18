@@ -640,6 +640,31 @@ Parse.Cloud.define("setStoryFeed", function(req, res){
 
 });
 
+Parse.Cloud.define("removeCuratedStickers", function(req, res){
+  let stickers = req.params.itemIds;
+  let packId = req.params.packId;
+
+  return Parse.Promise.when(
+      new Parse.Query(_class.Stickers).equalTo("objectId", stickerId).first({useMasterKey: true}),
+      new Parse.Query(_class.Packs).equalTo("objectId", packId).first({useMasterKey: true})
+  ).then(function(sticker, pack){
+
+    let collection_relation = pack.relation(_class.Packs);
+    collection_relation.remove(sticker);
+
+    return pack.save();
+
+  }).then(function(){
+
+    res.success(util.setResponseOk(true));
+
+  }, function(error){
+
+      util.handleError(res, error);
+
+  })
+})
+
 Parse.Cloud.define("setCuratedStickers", function(req, res){
   let stickers = req.params.itemIds;
   let packId = req.params.packId;
