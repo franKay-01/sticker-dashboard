@@ -640,14 +640,45 @@ Parse.Cloud.define("setStoryFeed", function(req, res){
 
 });
 
+Parse.Cloud.define("getCuratedStickers", function(req, res){
+  let ID = req.params.admin;
+  let stickerDetails = {};
+
+  return new Parse.Query(_class.Packs).equalTo("userId", ID)
+  .equalTo("packType", type.PACK_TYPE.grouped).find({useMasterKey: true})
+  .then(function(packs){
+
+    let _packIds = [];
+
+    _.each(packs, function (pack) {
+
+        _packIds.push(pack.id);
+
+    });
+
+    return new Parse.Query(_class.Stickers).limit(PARSE_LIMIT)
+    .containedIn("parent", _stickers).find({useMasterKey: true});
+
+  }).then(function(stickers){
+
+    stickerDetails.stickers = dashboardHelper.FeedStickers(stickers);
+    res.success(util.setResponseOk(stickerDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  });
+});
+
 Parse.Cloud.define("getStickerOfTheWeek", function(req, res){
 
   let ID = req.params.admin;
   let stickerDetails = {};
-  console.log("HERE @ " + ID);
+
   return new Parse.Query(_class.Stickers).equalTo("sold", false).equalTo("userId", ID).find({useMasterKey: true})
   .then(function(stickers){
-    console.log("HERE @ " + JSON.stringify(stickers));
+
     stickerDetails.stickers = dashboardHelper.FeedStickers(stickers);
 
     res.success(util.setResponseOk(stickerDetails));

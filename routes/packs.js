@@ -918,7 +918,7 @@ module.exports = function (app) {
                 _user = sessionToken.get("user");
 
                 // return new Parse.Query(_class.Packs).equalTo("objectId", id).first();
-                return new Parse.Query(_class.Packs).equalTo("packType", type.PACK_TYPE.grouped).find();
+                return new Parse.Query(_class.Packs).equalTo("userId", _user.id).equalTo("packType", type.PACK_TYPE.grouped).find();
 
             }).then(function (packs) {
 
