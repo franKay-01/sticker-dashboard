@@ -641,7 +641,7 @@ Parse.Cloud.define("setStoryFeed", function(req, res){
 });
 
 Parse.Cloud.define("removeCuratedStickers", function(req, res){
-  let stickers = req.params.itemIds;
+  let stickerId = req.params.stickerId;
   let packId = req.params.packId;
 
   return Parse.Promise.when(
