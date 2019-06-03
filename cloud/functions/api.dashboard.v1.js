@@ -3704,7 +3704,7 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
           }
 
           return Parse.Promise.when(
-            new Parse.Query(_class.Packs).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).descending("createdAt").limit(5).find({useMasterKey: true}),
+            new Parse.Query(_class.Packs).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).descending("createdAt").limit(3).find({useMasterKey: true}),
             new Parse.Query(_class.Stories).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).descending("createdAt").limit(5).find({useMasterKey: true}),
             new Parse.Query(_class.Adverts).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).limit(5).find({useMasterKey: true})
           );
