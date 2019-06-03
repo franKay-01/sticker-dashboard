@@ -3572,13 +3572,10 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
   Parse.Promise.when(
       new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", ADMIN).equalTo("type", type.FEED_TYPE.sticker).first({useMasterKey: true}),
       new Parse.Query(_class.Feed).equalTo("projectId", projectId).equalTo("userId", ADMIN).equalTo("type", type.FEED_TYPE.story).first({useMasterKey: true}),
-      new Parse.Query(_class.Packs).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).descending("createdAt").limit(limit).find({useMasterKey: true}),
-      new Parse.Query(_class.Stories).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).descending("createdAt").limit(limit).find({useMasterKey: true}),
       new Parse.Query(_class.Categories).count({useMasterKey: true}),
       new Parse.Query(_class.Packs).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).count({useMasterKey: true}),
       new Parse.Query(_class.Stickers).equalTo("userId", ADMIN).count({useMasterKey: true}),
       new Parse.Query(_class.Stories).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).count({useMasterKey: true}),
-      new Parse.Query(_class.Adverts).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).limit(limit).find({useMasterKey: true}),
       new Parse.Query(_class.Projects).limit(limit).find({useMasterKey: true}),
       new Parse.Query(_class.Projects).equalTo("userId", ADMIN).count({useMasterKey: true}),
       new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey: true}),
@@ -3594,19 +3591,10 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
           .limit(otherLimit).find({useMasterKey: true}),
       new Parse.Query(_class.Stories).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).equalTo("storyType", type.STORY_TYPE.episodes)
           .limit(otherLimit).find({useMasterKey: true})
-        ).then(function(sticker, latestStory, collection, story, categoryLength,
-          packLength,stickerLength,storyLength, allAdverts, projects, projectLength,
+        ).then(function(sticker, latestStory, categoryLength,
+          packLength,stickerLength,storyLength, projects, projectLength,
           projectItem,jokes, quotes, history, news, facts, episodes){
 
-            if (collection){
-               _collections = dashboardHelper.CommonItems(collection);
-            }
-            if (story){
-              _stories = dashboardHelper.StoryTitles(story);
-            }
-            if (allAdverts){
-              _allAdverts = dashboardHelper.StoryTitles(allAdverts);
-            }
             if (projects){
               _projects = dashboardHelper.CommonItems(projects);
             }
@@ -3632,9 +3620,6 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
              _episodes = dashboardHelper.StoryTitles(episodes);
             }
 
-            homeFeed.packInfo = _collections;
-            homeFeed.storiesInfo = _stories;
-            homeFeed.advertInfo = _allAdverts;
             homeFeed.projectInfo = _projects;
             homeFeed.projectItem = _projectItem;
             homeFeed.jokeInfo = _jokes;
@@ -3718,7 +3703,31 @@ Parse.Cloud.define("getHomeFeed", function (req, res) {
             homeFeed.latestStorySticker = sticker;
           }
 
-           res.success(util.setResponseOk(homeFeed));
+          return Parse.Promise.when(
+            new Parse.Query(_class.Packs).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).descending("createdAt").limit(limit).find({useMasterKey: true}),
+            new Parse.Query(_class.Stories).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).descending("createdAt").limit(limit).find({useMasterKey: true}),
+            new Parse.Query(_class.Adverts).equalTo("userId", ADMIN).containedIn("projectIds", projectArray).limit(limit).find({useMasterKey: true})
+          );
+
+        }).then(function(collection, story, allAdverts){
+
+          if (collection){
+             _collections = dashboardHelper.CommonItems(collection);
+          }
+
+          if (story){
+            _stories = dashboardHelper.StoryTitles(story);
+          }
+
+          if (allAdverts){
+            _allAdverts = dashboardHelper.StoryTitles(allAdverts);
+          }
+
+          homeFeed.packInfo = _collections;
+          homeFeed.storiesInfo = _stories;
+          homeFeed.advertInfo = _allAdverts;
+
+          res.success(util.setResponseOk(homeFeed));
 
         }, function(error){
 
