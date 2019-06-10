@@ -205,11 +205,14 @@ module.exports = function (app) {
     });
   });
   // This is to upload images for the admin Packs.
-  app.get('/uploads/react/:id/:projectId/:userId', function (req, res) {
+  app.get('/uploads/react/:id/:projectId/:userId/:url', function (req, res) {
 
       let pack_id = req.params.id;
       let projectId = req.params.projectId;
       let user = req.params.userId;
+      let url = req.params.url;
+      let backUrl = Buffer.from(url, 'base64').toString();
+
 
       return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first({useMasterKey:true})
       .then(function (pack) {
@@ -217,10 +220,11 @@ module.exports = function (app) {
               id: pack.id,
               pack_name: pack.get("name"),
               projectId: projectId,
-              userId: user
+              userId: user,
+              backUrl: backUrl
             });
           }, function (error) {
-              res.redirect("http://localhost:3000/pack/"+pack_id+"/"+projectId+"/"+user);
+              res.redirect(backUrl);
           })
 
   });
@@ -298,11 +302,13 @@ module.exports = function (app) {
   });
 
   // This is to upload images for the normal Packs. That is for individuals who sign up as third parties
-  app.get('/uploads/normal/react/:id/:userId', function (req, res) {
+  app.get('/uploads/normal/react/:id/:userId/:url', function (req, res) {
 
       let pack_id = req.params.id;
       let projectId = req.params.projectId;
       let user = req.params.userId;
+      let url = req.params.url;
+      let backUrl = Buffer.from(url, 'base64').toString();
 
       return new Parse.Query(_class.Packs).equalTo("objectId", pack_id).first({useMasterKey:true})
       .then(function (pack) {
@@ -310,10 +316,11 @@ module.exports = function (app) {
               id: pack.id,
               pack_name: pack.get("name"),
               projectId: projectId,
-              userId: user
+              userId: user,
+              backUrl: backUrl
             });
           }, function (error) {
-              res.redirect("http://localhost:3000/normalPacks/"+pack_id+"/"+user);
+              res.redirect(backUrl);
           })
 
   });
