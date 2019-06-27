@@ -64,6 +64,7 @@ module.exports = function (app) {
   });
 
 
+
   //This is to upload images for PACKS
   app.get("/pack_uploads/react/:itemId/:url", function(req, res){
     let itemId = req.params.itemId;
@@ -204,6 +205,35 @@ module.exports = function (app) {
 
     });
   });
+
+
+  // Upload Advert Images
+  app.get("/uploadImgReact/:advertId/:projectId/:userId/:url", function(req, res){
+
+    let advertId = req.params.advertId;
+    let projectId = req.params.projectId;
+    let userId = req.params.userId;
+    let backUrl = Buffer.from(url, 'base64').toString();
+
+    return new Parse.Query(_class.Adverts).equalTo("objectId", advertId).first({useMasterKey:true})
+    .then(function(advert){
+
+        res.render("pages/stickers/uploadImgReact", {
+          id: advert.id,
+          advert_name: advert.get("name"),
+          projectId: projectId,
+          userId: userId,
+          backUrl: backUrl
+        })
+    }, function(error){
+
+      res.redirect(backUrl);
+
+    });
+  });
+
+
+
   // This is to upload images for the admin Packs.
   app.get('/uploads/react/:id/:projectId/:userId/:url', function (req, res) {
 

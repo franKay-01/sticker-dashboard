@@ -20,21 +20,6 @@ let upload = multer({storage: storage});
 
 module.exports = function (app) {
 
-    app.post('/uploadImgReact', (req, res) => {
-      console.log(req);
-      let imageFile = req.files.file;
-      console.log("IMAGE FILES 1"+JSON.stringify(imageFile));
-      console.log("IMAGE FILES 2"+imageFile);
-      // imageFile.mv(`${__dirname}/public/${req.body.filename}.jpg`, function(err) {
-      //   if (err) {
-      //     return res.status(500).send(err);
-      //   }
-      //
-      //   res.json({file: `public/${req.body.filename}.jpg`});
-      // });
-
-    });
-
     app.get('/sendSMS', function (req, res) {
         let token = req.cookies.token;
 
