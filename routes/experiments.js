@@ -20,7 +20,7 @@ let upload = multer({storage: storage});
 
 module.exports = function (app) {
 
-    app.post('/upload', (req, res, next) => {
+    app.post('/uploadImgReact', (req, res, next) => {
       console.log(req);
       let imageFile = req.files.file;
       console.log("IMAGE FILES 1"+JSON.stringify(imageFile));
