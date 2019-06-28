@@ -224,7 +224,8 @@ module.exports = function (app) {
           projectId: projectId,
           userId: userId,
           backUrl: backUrl
-        })
+        });
+        
     }, function(error){
 
       res.redirect(backUrl);
