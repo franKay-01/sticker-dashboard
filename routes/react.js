@@ -235,6 +235,80 @@ module.exports = function (app) {
     });
   });
 
+  app.post('/uploadImgReact/upload', upload.array('advert'), function (req, res) {
+
+      let id = req.body.advert_id;
+      let type = parseInt(req.body.imageType);
+      let projectId = req.body.projectId;
+      let backUrl = req.body.backUrl;
+      let files = req.files;
+      let fileDetails = [];
+      let advertDetails = [];
+      let imageArray = [];
+
+
+      return new Parse.Query(_class.AdvertImages).equalTo("advertId", id).first()
+      .then(function (advert) {
+
+          if (files) {
+
+              files.forEach(function (file) {
+
+                  let fullName = file.originalname;
+                  let image_name = fullName.substring(0, fullName.length - 4);
+
+                  let bitmap = fs.readFileSync(file.path, {encoding: 'base64'});
+
+                  //create our parse file
+                  let parseFile = new Parse.File(image_name, {base64: bitmap}, file.mimetype);
+
+                  let Advert_Image = new Parse.Object.extend(_class.AdvertImages);
+                  let advert_image = new Advert_Image();
+
+                  advert_image.set("name", image_name);
+                  advert_image.set("advertId", id);
+                  advert_image.set("uri", parseFile);
+                  advert_image.set("type", type);
+
+                  advertDetails.push(advert_image);
+                  fileDetails.push(file);
+
+              });
+
+              return Parse.Object.saveAll(advertDetails);
+          }
+          // }
+      }).then(function () {
+
+          if (fileDetails.length) {
+              _.each(fileDetails, function (file) {
+                  //Delete tmp fil after upload
+                  let tempFile = file.path;
+                  fs.unlink(tempFile, function (error) {
+                      if (error) {
+                          //TODO handle error code
+                          //TODO add job to do deletion of tempFiles
+                          console.log("-------Could not del temp" + JSON.stringify(error));
+                      }
+                      else {
+                          console.log("-------Deleted All Files");
+
+                      }
+                  });
+              });
+          }
+
+          res.redirect(backUrl);
+
+      }, function (error) {
+
+          console.log("ERROR " + error.message);
+          res.redirect(backUrl);
+
+      });
+
+  });
+
 
 
   // This is to upload images for the admin Packs.

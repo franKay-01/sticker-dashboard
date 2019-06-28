@@ -29,7 +29,7 @@
 <div class="grid-container">
     <!-- Logo-->
     <div class="medium-12 large-12">
-        <a href="/home">
+        <a href="#">
             <img src="/public/assets/images/G_logo.png"
                  srcset="/public/assets/images/G_logo@2x.png 2x,/public/assets/images/G_logo@3x.png 3x" class="logo">
         </a>
@@ -43,7 +43,7 @@
     <div class="grid-x grid-margin-x">
         <div class="medium-12 large-12 cell">
             <!-- Form to add stickers from computer-->
-            <form action="/uploads/react" enctype="multipart/form-data" method="post">
+            <form action="/uploadImgReact/upload" enctype="multipart/form-data" method="post">
                 <div class="wrapper">
                     <div class="drop">
                         <div class="cont">
@@ -57,7 +57,7 @@
                         </div>
 
                         <output id="filesList"></output>
-                        <input id="files" multiple="true" name="im1[]" type="file"/>
+                        <input id="files" name="advert" type="file"/>
                         <input name="userId" value="<%= userId %>" type="hidden"/>
                     </div>
                     <center style="margin-top: -50px !important;">
@@ -74,6 +74,7 @@
                     </center>
                 </div>
                 <input type="hidden" name="advert_id" style="display: none" value="<%= id %>"/>
+                <input type="hidden" name="backUrl" style="display: none" value="<%= backUrl %>"/>
                 <input type="hidden" name="imageType" style="display: none" value="<%= action %>"/>
                 <input type="hidden" name="projectId" style="display: none" value="<%= projectId %> %>"/>
             </form>
