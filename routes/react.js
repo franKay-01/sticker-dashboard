@@ -213,7 +213,7 @@ module.exports = function (app) {
     let advertId = req.params.advertId;
     let projectId = req.params.projectId;
     let userId = req.params.userId;
-    let backUrl = Buffer.from(url, 'base64').toString();
+    let backUrl = Buffer.from(req.params.url, 'base64').toString();
 
     return new Parse.Query(_class.Adverts).equalTo("objectId", advertId).first({useMasterKey:true})
     .then(function(advert){
@@ -225,7 +225,7 @@ module.exports = function (app) {
           userId: userId,
           backUrl: backUrl
         });
-        
+
     }, function(error){
 
       res.redirect(backUrl);
