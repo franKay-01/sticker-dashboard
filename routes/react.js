@@ -208,11 +208,12 @@ module.exports = function (app) {
 
 
   // Upload Advert Images
-  app.get("/uploadImgReact/:advertId/:projectId/:userId/:url", function(req, res){
+  app.get("/uploadImgReact/:advertId/:projectId/:userId/:url/:action", function(req, res){
 
     let advertId = req.params.advertId;
     let projectId = req.params.projectId;
     let userId = req.params.userId;
+    let action = req.params.action;
     let backUrl = Buffer.from(req.params.url, 'base64').toString();
 
     return new Parse.Query(_class.Adverts).equalTo("objectId", advertId).first({useMasterKey:true})
@@ -223,7 +224,8 @@ module.exports = function (app) {
           advert_name: advert.get("title"),
           projectId: projectId,
           userId: userId,
-          backUrl: backUrl
+          backUrl: backUrl,
+          action: action
         });
 
     }, function(error){
