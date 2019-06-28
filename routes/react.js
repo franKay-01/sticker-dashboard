@@ -220,7 +220,7 @@ module.exports = function (app) {
 
         res.render("pages/stickers/uploadImgReact", {
           id: advert.id,
-          advert_name: advert.get("name"),
+          advert_name: advert.get("title"),
           projectId: projectId,
           userId: userId,
           backUrl: backUrl
