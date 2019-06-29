@@ -825,7 +825,7 @@ Parse.Cloud.define("createAdvertLink", function(req, res){
   let linkType = parseInt(req.params.linkType);
   let advertId = req.params.advertId;
 
-  return new Parse.Query(_class.Links).equalTo("itemId", id).first({useMasterKey: true})
+  return new Parse.Query(_class.Links).equalTo("itemId", advertId).first({useMasterKey: true})
   .then(function(link){
 
     if (link){
@@ -851,7 +851,7 @@ Parse.Cloud.define("createAdvertLink", function(req, res){
   }, function(error){
 
     util.handleError(res, error);
-    
+
   })
 });
 
