@@ -818,6 +818,34 @@ Parse.Cloud.define("getStoryOfTheDay", function(req, res){
   });
 });
 
+Parse.Cloud.define("updateAdvertDetails", function(req, res){
+
+  let advertId = req.params.advertId;
+  let title = req.params.title;
+  let description = req.params.description;
+  let advertDetails = {};
+
+  return new Parse.Query(_class.Adverts).equalTo("objectId", advertId).first({useMasterKey: true})
+  .then(function(advert){
+
+    advert.set("title", title);
+    advert.set("description", description);
+
+    return advert.save();
+
+  }).then(function(saved){
+
+    advertDetails.ads = dashboardHelper.SingleAdvert(saved);
+
+    res.success(util.setResponseOk(advertDetails));
+
+  }, function(error){
+
+    util.handleError(res, error);
+
+  })
+})
+
 Parse.Cloud.define("createAdvertLink", function(req, res){
 
   let ID = req.params.admin;
