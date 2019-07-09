@@ -57,7 +57,7 @@
                         </div>
 
                         <output id="filesList"></output>
-                        <input id="files" name="advert" id="advertFiles" type="file"/>
+                        <input id="files" name="advert" type="file"/>
                         <input name="userId" value="<%= userId %>" type="hidden"/>
                     </div>
                     <center style="margin-top: -50px !important;">
@@ -96,11 +96,20 @@
 <script>
 
 $(document).ready(function () {
-    $("#advertFiles").change(function(){
+    $("#files").change(function(){
         alert("ALERT WORKING");
         let response = checkFileDimensions();
         alert("RESPONSE " + response);
+        var imgObj = document.getElementById('files');
+        var newImg = new Image();
+        newImg.src = imgObj.attr('src');
+
+        var height = newImg.height;
+        var width = newImg.width;
+
+        console.log("HEIGHT " + height);
      });
+
 
      function checkFileDimensions(){
        var fileInput = $(this).find("input[type=file]")[0],

@@ -31,8 +31,6 @@ function handleFileSelect(evt) {
     // Loop through the FileList and render image files as thumbnails.
     for (var i = 0, f; f = files[i]; i++) {
 
-        console.log(JSON.stringify(f))
-        console.log("Width " + f.naturalWidth);
         // Only process image files.
         if (!f.type.match('image.*')) {
             continue;
@@ -55,7 +53,7 @@ function handleFileSelect(evt) {
 
                 document.getElementById('filesList').insertBefore(span, null);
 
-                console.log("success in upload" + JSON.stringify(theFile));
+                console.log("success in upload");
 
                 //create preview for image in category option
 
@@ -73,7 +71,6 @@ function handleFileSelect(evt) {
         // Read in the image file as a data URL.
         reader.readAsDataURL(f);
         console.log("F:::" +f.toString());
-        console.log("F:::" + JSON.stringify(f));
     }
 }
 
