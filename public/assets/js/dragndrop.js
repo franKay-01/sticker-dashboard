@@ -31,6 +31,7 @@ function handleFileSelect(evt) {
     // Loop through the FileList and render image files as thumbnails.
     for (var i = 0, f; f = files[i]; i++) {
 
+        console.log("Width " + f.width);
         // Only process image files.
         if (!f.type.match('image.*')) {
             continue;
@@ -54,7 +55,7 @@ function handleFileSelect(evt) {
                 document.getElementById('filesList').insertBefore(span, null);
 
                 console.log("success in upload");
-                console.log("Width " + theFile.width);
+
                 //create preview for image in category option
 
                 // var prev = document.getElementById('img-prev');
