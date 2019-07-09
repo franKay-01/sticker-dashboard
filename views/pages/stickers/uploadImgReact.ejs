@@ -98,14 +98,10 @@
 $(document).ready(function () {
     $("#files").change(function(){
         alert("ALERT WORKING");
-        var imgObj = document.getElementById('files');
-        var newImg = new Image();
-        newImg.src = imgObj.attr('src');
-
-        var height = newImg.height;
-        var width = newImg.width;
-
-        console.log("HEIGHT " + height);
+        var myImg = document.querySelector("#files");
+        var currWidth = myImg.clientWidth;
+        var currHeight = myImg.clientHeight;
+        alert("Current width=" + currWidth + ", " + "Original height=" + currHeight);
      });
 
 
