@@ -55,7 +55,7 @@ function handleFileSelect(evt) {
 
                 document.getElementById('filesList').insertBefore(span, null);
 
-                console.log("success in upload");
+                console.log("success in upload" + JSON.stringify(theFile));
 
                 //create preview for image in category option
 
