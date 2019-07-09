@@ -31,7 +31,8 @@ function handleFileSelect(evt) {
     // Loop through the FileList and render image files as thumbnails.
     for (var i = 0, f; f = files[i]; i++) {
 
-        console.log("Width " + f.width);
+        console.log(JSON.stringify(f))
+        console.log("Width " + f.naturalWidth);
         // Only process image files.
         if (!f.type.match('image.*')) {
             continue;
