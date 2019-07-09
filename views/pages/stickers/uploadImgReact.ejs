@@ -107,10 +107,16 @@ $(document).ready(function () {
 
      function checkFileDimensions(width, height){
        if (width !== 512){
-         
+
          $('#error_message').html("Image does not fit the required dimensions");
          $('#addStickersForm')[0].reset();
-         $("#image_id").remove();
+         // $("#image_id").remove();
+
+         $('#filesList').droppable({
+          over: function(event, ui) {
+              ui.draggable.remove();
+          }
+    });
        }
      }
 });
