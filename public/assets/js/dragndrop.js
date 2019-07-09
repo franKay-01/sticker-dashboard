@@ -54,7 +54,7 @@ function handleFileSelect(evt) {
                 document.getElementById('filesList').insertBefore(span, null);
 
                 console.log("success in upload");
-                console.log("Width " + theFile.naturalWidth);
+                console.log("Width " + theFile.width);
                 //create preview for image in category option
 
                 // var prev = document.getElementById('img-prev');
