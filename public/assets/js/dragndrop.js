@@ -44,7 +44,7 @@ function handleFileSelect(evt) {
         // Closure to capture the file information.
         reader.onload = (function(theFile) {
             return function(e) {
- 
+
                 //preview newsletter in drag n drop area
                 // let counter = Math.floor(Math.random() * Math.floor(1000));
                 let span = document.createElement('span');
@@ -70,7 +70,8 @@ function handleFileSelect(evt) {
 
         // Read in the image file as a data URL.
         reader.readAsDataURL(f);
-        console.log("F:::" +f.toString() );
+        console.log("F:::" +f.toString());
+        console.log("F:::" + JSON.stringify(f));
     }
 }
 
@@ -81,5 +82,3 @@ $('#btnClearAddForm').click(function(){
     $('#addStickersForm')[0].reset();
     $('.thumb').remove();
 });
-
-
