@@ -55,7 +55,9 @@ exports.LINKS = {
 exports.ADVERT_IMAGE_TYPE = {
     mobile: 0, //200 * 200 size
     web: 1, //450 * 450
-    banner: 2 //1024 * 1024
+    banner: 2, //1024 * 1024
+    sticker: 3,
+    interstitial: 4
 };
 
 exports.STORY_ITEM = {

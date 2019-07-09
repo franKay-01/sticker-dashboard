@@ -97,6 +97,10 @@
 <script>
 
 $(document).ready(function () {
+
+    let action = "<%= action %>";
+    action = parseInt(action);
+
     $("#files").change(function(){
         var myImg = document.querySelector("#files");
         var currWidth = myImg.clientWidth;
@@ -106,18 +110,34 @@ $(document).ready(function () {
 
 
      function checkFileDimensions(width, height){
-       if (width !== 512){
+       if (action === 3){
+         if (width !== 512 && height !== 512){
 
-         $('#error_message').html("Image does not fit the required dimensions");
-         $('#addStickersForm')[0].reset();
-         // $("#image_id").remove();
+           $('#error_message').html("Image for STICKER Ad does not fit the required dimensions");
+           $('#addStickersForm')[0].reset();
+           // $("#image_id").remove();
 
-         $('#filesList').droppable({
-          over: function(event, ui) {
-              ui.draggable.remove();
-          }
-    });
+            $('#filesList').droppable({
+              over: function(event, ui) {
+                  ui.draggable.remove();
+              }
+            });
+         }
+       }else if (action === 4) {
+         if (width !== 320 && height !== 480){
+
+           $('#error_message').html("Image for INTERSTITIAL Ad does not fit the required dimensions");
+           $('#addStickersForm')[0].reset();
+           // $("#image_id").remove();
+
+            $('#filesList').droppable({
+              over: function(event, ui) {
+                  ui.draggable.remove();
+              }
+            });
+         }
        }
+
      }
 });
 </script>

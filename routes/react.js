@@ -225,7 +225,8 @@ module.exports = function (app) {
           projectId: projectId,
           userId: userId,
           backUrl: backUrl,
-          action: action
+          action: action,
+          type: type
         });
 
     }, function(error){
