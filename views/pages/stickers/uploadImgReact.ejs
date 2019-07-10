@@ -70,7 +70,7 @@
         <button type="button" class="clear" id="clearBtn">Clear</button>
       </span> -->
                         <span>
-        <button type="submit" style="display: none" class="upload">Upload</button>
+        <button type="submit" style="display: none" id="uploads" class="upload">Upload</button>
         </span>
                     </center>
                 </div>
@@ -122,6 +122,9 @@ $(document).ready(function () {
                   ui.draggable.remove();
               }
             });
+
+         }else if (width === 512 && height === 512) {
+           $("#uploads").show();
          }
        }else if (action === 4) {
          if (width !== 320 && height !== 480){
@@ -135,6 +138,8 @@ $(document).ready(function () {
                   ui.draggable.remove();
               }
             });
+         }else if (width === 320 && height === 480) {
+           $("#uploads").show();
          }
        }
 
