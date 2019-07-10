@@ -882,6 +882,35 @@ Parse.Cloud.define("createAdvertLink", function(req, res){
   })
 });
 
+Parse.Cloud.define("testAdverts", function(req, res){
+
+  let adverts = {};
+  let projectId = req.params.projectId;
+  let projectArray = [];
+  let advertIds = [];
+  let advertInfo;
+  projectArray.push(projectId);
+
+
+  return new Parse.Query(_class.Adverts).containedIn("projectIds", projectArray).find({useMasterKey: true})
+  .then(function(adverts){
+    advertInfo = adverts;
+
+    _.each(adverts, function (advert) {
+        advertIds.push(advert.id);
+    })
+
+    return Parse.Promise.when(
+      new Parse.Query(_class.AdvertImages).containedIn("advertId", advertIds).find({useMasterKey:true}),
+      new Parse.Query(_class.Links).containedIn("itemId", advertIds).find({useMasterKey:true})
+    )
+  }).then(function(images, links){
+
+    let response = dashboardHelper.PublishedAdverts(advertInfo, images, links);
+    
+  })
+});
+
 Parse.Cloud.define("getAdvertDetails", function(req, res){
 
   let advertId = req.params.advertId;
@@ -894,7 +923,6 @@ Parse.Cloud.define("getAdvertDetails", function(req, res){
       new Parse.Query(_class.Links).equalTo("itemId", advertId).first({useMasterKey:true}),
       new Parse.Query(_class.Projects).equalTo("objectId", projectId).first({useMasterKey:true})
   ).then(function(advert, advertImages, link, projects){
-    console.log("LINK ####### " + JSON.stringify(link));
     advertDetails.ads = dashboardHelper.SingleAdvert(advert);
     advertDetails.images = dashboardHelper.AdvertImages(advertImages);
     if (link !== undefined){

@@ -2,6 +2,14 @@ const _ = require('underscore');
 const type = require('./type');
 const helper = require('./helpers');
 
+exports.PublishedAdverts = (adverts,images,links) =>{
+
+    let _adverts = [];
+
+    console.log("ADVERT INFO " + JSON.stringify(adverts) + " " + JSON.stringify(images) + " " + JSON.stringify(links));
+    
+};
+
 exports.ReportItems = reports =>{
   let _reports = [];
 

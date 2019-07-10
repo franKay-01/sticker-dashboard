@@ -20,6 +20,13 @@ const SHARE_URL = "";
 //TODO handle instances when ID's have not been provided
 //TODO retrieve API Version and Device Type from req
 
+// Parse.Cloud.define("getAdverts", function(req, res){
+//
+//   let adverts = {};
+//   let advertId = req.params.advertId;
+//
+// })
+
 Parse.Cloud.define("getFeed", function (req, res) {
 
     let feed = {};
