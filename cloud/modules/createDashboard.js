@@ -7,7 +7,7 @@ exports.PublishedAdverts = (adverts,images,links) =>{
     let _adverts = [];
 
     console.log("ADVERT INFO " + JSON.stringify(adverts) + " " + JSON.stringify(images) + " " + JSON.stringify(links));
-    
+
 };
 
 exports.ReportItems = reports =>{
@@ -45,6 +45,7 @@ exports.SingleAdvert = advert => {
     ad.id = advert.id;
     ad.title = advert.get("title");
     ad.description = advert.get("description");
+    ad.published = advert.get("publish");
     }
 
   return ad;

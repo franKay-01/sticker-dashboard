@@ -114,14 +114,7 @@ $(document).ready(function () {
          if (width !== 512 && height !== 512){
 
            $('#error_message').html("Image for STICKER Ad does not fit the required dimensions");
-           $('#addStickersForm')[0].reset();
-           // $("#image_id").remove();
-
-            $('#filesList').droppable({
-              over: function(event, ui) {
-                  ui.draggable.remove();
-              }
-            });
+           window.setTimeout(function(){location.reload()},3000)
 
          }else if (width === 512 && height === 512) {
            $("#uploads").show();
@@ -130,14 +123,8 @@ $(document).ready(function () {
          if (width !== 320 && height !== 480){
 
            $('#error_message').html("Image for INTERSTITIAL Ad does not fit the required dimensions");
-           $('#addStickersForm')[0].reset();
-           // $("#image_id").remove();
+           window.setTimeout(function(){location.reload()},3000)
 
-            $('#filesList').droppable({
-              over: function(event, ui) {
-                  ui.draggable.remove();
-              }
-            });
          }else if (width === 320 && height === 480) {
            $("#uploads").show();
          }
