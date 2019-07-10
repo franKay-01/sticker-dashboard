@@ -907,7 +907,7 @@ Parse.Cloud.define("testAdverts", function(req, res){
   }).then(function(images, links){
 
     let response = dashboardHelper.PublishedAdverts(advertInfo, images, links);
-    
+
   })
 });
 
@@ -3265,6 +3265,7 @@ Parse.Cloud.define("createNewAdvert", function(req, res){
   advert.set("userId", ID);
   advert.set("buttonAction", actionButton);
   advert.set("projectIds", projectArray);
+  advert.set("publish", false);
 
   advert.save().then(function(advert){
 
