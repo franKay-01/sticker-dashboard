@@ -221,6 +221,7 @@ app.get("/testSendEmail", (req, res) => {
 
   mailgun.messages().send(data, (error, body) => {
     console.log(body);
+    res.send(body);
   });
 });
 /*====================================== ACCOUNTS ============================*/
