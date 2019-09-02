@@ -213,8 +213,8 @@ app.post("/upload", imageUpload);
 
 app.get("/testSendEmail", (req, res) => {
   const data = {
-    from: "Domain <noreply@company.com>",
-    to: ["example@gmail.com", "example2@gmail.com"],
+    from: "Psyphertxt <noreply@psyphertxt.com>",
+    to: ["thekid0450@gmail.com", "franciskornu04@gmail.com"],
     subject: "Hello User",
     html: `<html>
     <head>
