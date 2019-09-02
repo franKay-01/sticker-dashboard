@@ -213,10 +213,18 @@ app.post("/upload", imageUpload);
 
 app.get("/testSendEmail", (req, res) => {
   const data = {
-    from: "Psyphertxt <noreply@psyphertxt.com>",
-    to: ["franciskornu@gmail.com", "fkay0450@gmail.com"],
+    from: "Domain <noreply@company.com>",
+    to: ["example@gmail.com", "example2@gmail.com"],
     subject: "Hello User",
-    text: "Testing some Mailgun awesomeness!"
+    html: `<html>
+    <head>
+        <title></title>
+        <link href="https://svc.webspellchecker.net/spellcheck31/lf/scayt3/ckscayt/css/wsc.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body aria-readonly="false">This is an email to tell you that you have subscribed to the Gains platform. You will be receiving emails from time to time to help you be updated with the world of crypto-currency.<br />
+    <br />
+    You can unsubscribe <a href="http://google.com">here</a></body>
+    </html>`
   };
 
   mailgun.messages().send(data, (error, body) => {
