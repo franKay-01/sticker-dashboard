@@ -218,13 +218,62 @@ app.get("/testSendEmail", (req, res) => {
     subject: "Hello User",
     html: `<html>
     <head>
-        <title></title>
+        <title>Kornuapps</title>
+        <link href="https://svc.webspellchecker.net/spellcheck31/lf/scayt3/ckscayt/css/wsc.css" rel="stylesheet" type="text/css" />
+        <link href="https://svc.webspellchecker.net/spellcheck31/lf/scayt3/ckscayt/css/wsc.css" rel="stylesheet" type="text/css" />
         <link href="https://svc.webspellchecker.net/spellcheck31/lf/scayt3/ckscayt/css/wsc.css" rel="stylesheet" type="text/css" />
     </head>
-    <body aria-readonly="false">This is an email to tell you that you have subscribed to the Gains platform. You will be receiving emails from time to time to help you be updated with the world of crypto-currency.<br />
+    <body aria-readonly="false">This is an email to tell you that you have subscribed to the Kornuapps platform.&nbsp;
+    <table style="width:598px">
+        <tbody>
+            <tr>
+                <td>
+                <div>Our resident genius, our Dr. Jekyll, explosively completed his transformation into Mr. Hyde.</div>
+    
+                <div><a href="https://medium.com/@peachpie?source=email-111e8392d892-1567491031868-digest.reader-------------------------f0b4c19e_7922_4791_b6f4_00d3efdb7533" target="_blank">Jonathan Sol&oacute;rzano-Hamilton</a>&nbsp;in&nbsp;<a href="https://medium.com/free-code-camp?source=email-111e8392d892-1567491031868-digest.reader-------------------------f0b4c19e_7922_4791_b6f4_00d3efdb7533" target="_blank">freeCodeCamp.org</a>8 min read</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table style="width:598px">
+        <tbody>
+            <tr>
+                <td style="width:100px">
+                <div>&nbsp;</div>
+                </td>
+                <td>
+                <div><a href="https://medium.com/@taitems/how-i-replicated-an-86-million-project-in-57-lines-of-code-277031330ee9?source=email-111e8392d892-1567491031868-digest.reader------1-59------------------f0b4c19e_7922_4791_b6f4_00d3efdb7533-1-----&amp;sectionName=top" target="_blank">How I replicated an $86 million project in 57 lines of code</a></div>
+    
+                <div>When an experiment with existing open source technology does a &ldquo;good enough&rdquo; job</div>
+    
+                <div><a href="https://medium.com/@taitems?source=email-111e8392d892-1567491031868-digest.reader-------------------------f0b4c19e_7922_4791_b6f4_00d3efdb7533" target="_blank">Tait Brown</a>&nbsp;in&nbsp;<a href="https://medium.com/a-cloud-guru?source=email-111e8392d892-1567491031868-digest.reader-------------------------f0b4c19e_7922_4791_b6f4_00d3efdb7533" target="_blank">A Cloud Guru</a>5 min read</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table style="width:598px">
+        <tbody>
+            <tr>
+                <td style="width:100px">
+                <div>&nbsp;</div>
+                </td>
+                <td>
+                <div><a href="https://medium.com/@JonathanSaring/11-javascript-charts-and-data-visualization-libraries-for-2018-f01a283a5727?source=email-111e8392d892-1567491031868-digest.reader------2-59------------------f0b4c19e_7922_4791_b6f4_00d3efdb7533-1-----&amp;sectionName=top" target="_blank">11 Javascript Data Visualization Libraries for 2019</a></div>
+    
+                <div>Useful libraries for beautiful data visualization in your JS apps</div>
+    
+                <div><a href="https://medium.com/@JonathanSaring?source=email-111e8392d892-1567491031868-digest.reader-------------------------f0b4c19e_7922_4791_b6f4_00d3efdb7533" target="_blank">Jonathan Saring</a>&nbsp;in&nbsp;<a href="https://medium.com/bitsrc?source=email-111e8392d892-1567491031868-digest.reader-------------------------f0b4c19e_7922_4791_b6f4_00d3efdb7533" target="_blank">Bits and Pieces</a>9 min read</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <br />
-    You can unsubscribe <a href="http://google.com">here</a></body>
-    </html>`
+    <span style="background-color:rgb(226, 239, 248); color:rgba(0, 0, 0, 0.68); font-family:roboto,robotodraft,helvetica,arial,sans-serif; font-size:12px">Sent by&nbsp;</span><a href="https://kornuapps.com" target="_blank">K</a><a href="http://kornuapps.com">ornuapps</a><span style="background-color:rgb(226, 239, 248); color:rgba(0, 0, 0, 0.68); font-family:roboto,robotodraft,helvetica,arial,sans-serif; font-size:12px">&nbsp;&middot; P.O. Box CT 3030, Accra - Ghana.</span><br />
+    You can unsubscribe <a href="http://google.com">here</a>.</body>
+    </html>
+    `
   };
 
   mailgun.messages().send(data, (error, body) => {
