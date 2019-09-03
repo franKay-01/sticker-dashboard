@@ -215,7 +215,7 @@ app.get("/testSendEmail", (req, res) => {
   const data = {
     from: "Psyphertxt <noreply@psyphertxt.com>",
     to: ["thekid0450@gmail.com", "franciskornu04@gmail.com"],
-    subject: "Hello User",
+    subject: "“You’re Missing Out on a Better Mac Terminal Experience”",
     html: `<html>
     <head>
         <title>Kornuapps</title>
