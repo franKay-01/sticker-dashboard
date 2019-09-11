@@ -216,15 +216,10 @@ app.get("/testSendEmail", (req, res) => {
     from: "Psyphertxt <noreply@psyphertxt.com>",
     to: "franciskornu04@gmail.com",
     bcc: [
-      "franciskornu@gmail.com",
-      "fkay0450@gmail.com",
-      "thekid0450@gmail.com"
+      "raffin.alex@gmail.com",
+      "lotfi.zouad@gmail.com",
+      "demontagny@gmail.com"
     ],
-    // bcc: [
-    //   "raffin.alex@gmail.com",
-    //   "lotfi.zouad@gmail.com",
-    //   "demontagny@gmail.com"
-    // ],
     subject: "“You’re Missing Out on a Better Mac Terminal Experience”",
     html: `<html>
     <head>
