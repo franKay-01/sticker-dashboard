@@ -214,6 +214,7 @@ app.post("/upload", imageUpload);
 app.get("/testSendEmail", (req, res) => {
   const data = {
     from: "Psyphertxt <noreply@psyphertxt.com>",
+    to: "franciskornu04@gmail.com",
     bcc: [
       "franciskornu@gmail.com",
       "fkay0450@gmail.com",
