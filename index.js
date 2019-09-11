@@ -211,62 +211,6 @@ function setPermission(user, isPublicReadAccess) {
 
 app.post("/upload", imageUpload);
 
-app.get("/testSendEmail", (req, res) => {
-  const data = {
-    from: "Psyphertxt <noreply@psyphertxt.com>",
-    to: "franciskornu04@gmail.com",
-    bcc: [
-      "raffin.alex@gmail.com",
-      "lotfi.zouad@gmail.com",
-      "demontagny@gmail.com"
-    ],
-    subject: "“You’re Missing Out on a Better Mac Terminal Experience”",
-    html: `<html>
-    <head>
-        <title>Gains</title>
-        <link href="https://svc.webspellchecker.net/spellcheck31/lf/scayt3/ckscayt/css/wsc.css" rel="stylesheet" type="text/css" />
-        <link href="https://svc.webspellchecker.net/spellcheck31/lf/scayt3/ckscayt/css/wsc.css" rel="stylesheet" type="text/css" />
-        <link href="https://svc.webspellchecker.net/spellcheck31/lf/scayt3/ckscayt/css/wsc.css" rel="stylesheet" type="text/css" />
-    </head>
-    <body aria-readonly="false">
-    Welcoming Ferrum —Telegram AMA 
-They're now listed on BitMax!
-
-Countdown: https://www.timeanddate.com/countdown/generic?iso=20190824T18&p0=195&msg=Start+of+Ferrum+AMA+with+GAINS&font=slab&csz=1
-Equivalent times: 9 am US West Coast, 12 noon US East Cost, 6 pm Europe West, midnight Beijing. 
-
-Logistics: 
-They will join us on Saturday August the 24th at 6 pm GMT+2 for an AMA. The AMA will kick off in this https://t.me/GainsChat
-
-Project tease:
--They're a High-Speed Interoperability Network on DAG Blockchain
--High-Speeds and Low Costs – peer-to-peer transactions that confirm in milliseconds for around 1 cent in network fees. They also work on Cross-Chain 
--Interoperability.
-
-In partnership with Kudi Exchange, they are bringing crypto adoption to Africa.  They'll be the first in Africa offering a fully-regulated US Dollar pegged stable coin and the ability to send fiat currency peer-to-peer. 
-
-Their UniFyre Wallet allows for risk-free OTC trading, instant market trades, and safety features to prevent accidental loss.
-
-They are pioneering social mining along with LTO and Elrond Network! An innovative way to make the community even more involved.
-
-Website: https://ferrum.network/
-Medium: https://medium.com/ferrumnetwork
-
-Best regards,
-Gains Associates
-
-    <span style="background-color:rgb(226, 239, 248); color:rgba(0, 0, 0, 0.68); font-family:roboto,robotodraft,helvetica,arial,sans-serif; font-size:12px">Sent by&nbsp;</span><a href="https://kornuapps.com" target="_blank">K</a><a href="http://kornuapps.com">ornuapps</a><span style="background-color:rgb(226, 239, 248); color:rgba(0, 0, 0, 0.68); font-family:roboto,robotodraft,helvetica,arial,sans-serif; font-size:12px">&nbsp;&middot; P.O. Box CT 30, Accra - Ghana.</span><br />
-    You can unsubscribe <a href="http://google.com">here</a>.
-    </body>
-    </html>
-    `
-  };
-
-  mailgun.messages().send(data, (error, body) => {
-    console.log(body);
-    res.send(body);
-  });
-});
 /*====================================== ACCOUNTS ============================*/
 reactRoutes(app);
 /*====================================== ACCOUNTS ============================*/
