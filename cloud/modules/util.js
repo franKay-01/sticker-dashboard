@@ -3,7 +3,6 @@
  */
 
 // Include the Twilio Cloud Module to send sms messages
-const twilio = require("twilio")("AC6bad1c4bf8d48125709add2b8b0a5ce0", "33028731ba2e2bfb477a0709582a49f8");
 const moment = require('moment');
 const _ = require('underscore');
 const multer = require('multer');
